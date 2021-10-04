@@ -12,6 +12,7 @@ import Web3 from "web3";
 const web3 = new Web3();
 
 var paginationConfigs = {
+        portalsLimit: 12,
         limit: 24,
         noLimit: 1000
     },
@@ -30,7 +31,8 @@ var paginationConfigs = {
 
 const useStyles = makeStyles((theme) => ({
     baazaar: {
-        padding: 24
+        padding: 24,
+        width: 'calc(100vw + 24px)'
     },
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
@@ -65,7 +67,7 @@ export default function Baazaar() {
         setResultsForType(selectedGoodsType);
 
         if (validParams) {
-            if (validParams.type === itemTypes.aavegotchi) {
+            if (validParams.type === itemTypes.aavegotchi || validParams.type === itemTypes.openedPortal) {
                 setPaginationToVisible(false);
 
                 paramsWithLimit = {
@@ -202,6 +204,22 @@ export default function Baazaar() {
                     claimedAt,
                     timesTraded,
                     historicalPrices
+                },
+                portal {
+                    id,
+                    gotchiId,
+                    options {
+                        id,
+                        owner {
+                            id
+                        },
+                        portal,
+                        randomNumber,
+                        numericTraits,
+                        collateralType,
+                        minimumStake,
+                        baseRarityScore
+                    }
                 }
             }
         }`
@@ -260,15 +278,42 @@ export default function Baazaar() {
             // combine response data
             response.forEach((item) => {
                 item.data.category.length && item.data.category.forEach((categoryItem) => {
-                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                        processedItems.push(categoryItem.tokenId);
-                        items.push(categoryItem);
+                    if (params.type === itemTypes.aavegotchi) {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            processedItems.push(categoryItem.tokenId);
+                            items.push(categoryItem);
+                        }
+                    } else {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            let gotchies = [];
+                            processedItems.push(categoryItem.tokenId);
+
+                            categoryItem.portal.options.forEach((option) => {
+                                gotchies.push({
+                                    ...option,
+                                    collateral: option.collateralType,
+                                    hauntId: categoryItem.hauntId,
+                                    id: option.id.split('-')[0],
+                                    kinship: '50',
+                                    modifiedNumericTraits: option.numericTraits,
+                                    withSetsNumericTraits: option.numericTraits,
+                                    level: '1',
+                                    equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                });
+                            });
+
+                            items.push({
+                                ...categoryItem,
+                                gotchi: gotchies
+                            });
+                        }
                     }
                 });
             });
 
             // process combined data
             localGoods = items;
+            console.log(items);
             filterLocalGoods();
             sortLocalGoods();
             getShownItems();
@@ -331,23 +376,43 @@ export default function Baazaar() {
     const filterLocalGoods = () => {
         const filtersMap = [NRG || null, AGG || null, SPK || null, BRN || null, EYS || null, EYC || null];
 
-        filteredLocalGoods = localGoods.filter((item) => {
-            const gotchiTraits = item.gotchi.numericTraits;
+        const filterSingleGotchi = (item) => {
+            const gotchiTraits = item.numericTraits;
             let hasDifference = false;
 
-            filtersMap.forEach((item, index) => {
-                if (item !== null && !hasDifference) {
-                    hasDifference = parseInt(item) !== gotchiTraits[index];
+            filtersMap.forEach((trait, index) => {
+                if (trait !== null && !hasDifference) {
+                    hasDifference = parseInt(trait) !== gotchiTraits[index];
                 }
             });
 
             return !hasDifference;
+        };
+
+        const filterGotchiArray = (item) => {
+            let atLeastOneGotchiMatch = false;
+
+            item.gotchi.forEach((gotchiItem) => {
+                const gotchiMatch = !atLeastOneGotchiMatch ? filterSingleGotchi(gotchiItem) : false;
+
+                gotchiMatch && (atLeastOneGotchiMatch = true);
+            });
+
+            return atLeastOneGotchiMatch;
+        };
+
+        filteredLocalGoods = localGoods.filter((item) => {
+            if (item.gotchi instanceof Array) {
+                return filterGotchiArray(item);
+            } else {
+                return filterSingleGotchi(item.gotchi);
+            }
         });
     };
 
     const getShownItems = (newPage) => {
-        const itemsStart = ((newPage || page) - 1) * paginationConfigs.limit;
-        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.limit);
+        const itemsStart = ((newPage || page) - 1) * paginationConfigs.portalsLimit;
+        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.portalsLimit);
         setSelectedLocalGoods(newSelectedGoods);
     };
 
@@ -372,7 +437,7 @@ export default function Baazaar() {
             setLastValidParams(params);
             getAllBaazaarItems(params);
         } else {
-            params['limit'] = paginationConfigs.limit;
+            params['limit'] = paginationConfigs.portalsLimit;
             setLastValidParams(params);
             getBaazaarItems(params);
         }
@@ -388,7 +453,7 @@ export default function Baazaar() {
                 setSelectedGoodsType={setSelectedGoodsType}
             />
             {
-                resultsForType !== itemTypes.aavegotchi ?
+                resultsForType !== itemTypes.aavegotchi && resultsForType !== itemTypes.openedPortal ?
                     <BaazaarBody
                         goods={goods}
                         page={page}
@@ -400,7 +465,7 @@ export default function Baazaar() {
                     : <BaazaarSortingBody
                         goods={selectedLocalGoods}
                         page={page}
-                        limit={paginationConfigs.limit}
+                        limit={paginationConfigs.portalsLimit}
                         paginationIsVisible={paginationIsVisible}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}

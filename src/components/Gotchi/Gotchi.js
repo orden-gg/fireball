@@ -12,8 +12,9 @@ import HighlightNumber from '../HighlightNumber';
 
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import GotchiSvg from './GotchiSvg';
+import GotchiSvgByStats from './GotchiSvgByStats';
 
-export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
+export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgByStats}) {
     const classes = useStyles();
 
     const calculateRarityType = (rarity) => {
@@ -80,10 +81,11 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
                 {title || commonUtils.cutAddress(gotchi.owner.id)}
             </p>
 
-            <GotchiSvg id={gotchi.id} size={120} />
-
+            {
+                renderSvgByStats ? <GotchiSvgByStats gotchi={gotchi} size={120} /> : <GotchiSvg id={gotchi.id} size={120} />
+            }
             <Link
-                className={classes.gotchiName}
+                className={renderSvgByStats ? classes.gotchiNameShort : classes.gotchiName}
                 style={{ backgroundColor: fade(gotchiColor, .5)}}
                 href={`https://aavegotchi.com/gotchi/${gotchi.id}`}
                 target="_blank"
