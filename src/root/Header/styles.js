@@ -1,4 +1,5 @@
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -7,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: '11px 14px 11px 24px',
         background: theme.palette.background.default,
         boxShadow: '0px 4px 16px rgba(29, 32, 37, 0.67)',
-        position: 'fixed',
+        position: 'fixed !important',
         top: 0,
         zIndex: theme.zIndex.appBar,
         [theme.breakpoints.up('md')]: {
@@ -94,7 +95,7 @@ export const useStyles = makeStyles((theme) => ({
         transition: '.3s',
         padding: '16px 0',
         '&.active': {
-            background: fade(theme.palette.primary.main, .03)
+            background: alpha(theme.palette.primary.main, .03)
         },
         '&.active, &:hover': {
             color: theme.palette.primary.main
@@ -125,7 +126,7 @@ export const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.appBar,
         marginLeft: 10,
         [theme.breakpoints.up('md')]: {
-            display: 'none'
+            display: 'none !important'
         }
     },
     socialLinkList: {

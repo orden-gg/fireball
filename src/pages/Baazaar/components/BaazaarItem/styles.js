@@ -1,4 +1,5 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     baazaarItem: {
@@ -106,9 +107,9 @@ export default makeStyles((theme) => ({
         fontSize: '.875rem',
         boxShadow: 'none',
         letterSpacing: '.8px',
-        background: fade(theme.palette.customColors.lightGray, .24),
+        background: alpha(theme.palette.customColors.lightGray, .24),
         '&:hover': {
-            background: fade(theme.palette.customColors.lightGray, .14),
+            background: alpha(theme.palette.customColors.lightGray, .14),
         }
     }
 }));

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 import classNames from 'classnames';
 
 import commonUtils from '../../utils/commonUtils';
@@ -15,22 +16,22 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         position: 'relative',
         '&.common': {
-            backgroundColor: fade(theme.palette.rarity.common, .1)
+            backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
         '&.uncommon': {
-            backgroundColor: fade(theme.palette.rarity.uncommon, .1)
+            backgroundColor: alpha(theme.palette.rarity.uncommon, .1)
         },
         '&.rare': {
-            backgroundColor: fade(theme.palette.rarity.rare, .1)
+            backgroundColor: alpha(theme.palette.rarity.rare, .1)
         },
         '&.legendary': {
-            backgroundColor: fade(theme.palette.rarity.legendary, .1)
+            backgroundColor: alpha(theme.palette.rarity.legendary, .1)
         },
         '&.mythical': {
-            backgroundColor: fade(theme.palette.rarity.mythical, .1)
+            backgroundColor: alpha(theme.palette.rarity.mythical, .1)
         },
         '&.godlike': {
-            backgroundColor: fade(theme.palette.rarity.godlike, .1)
+            backgroundColor: alpha(theme.palette.rarity.godlike, .1)
         },
     },
     textHighlight: {

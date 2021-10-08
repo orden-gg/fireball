@@ -1,5 +1,6 @@
 import React from 'react';
-import { Grid, Box, Typography, FormControl, Select, InputLabel, MenuItem, useTheme, makeStyles, Link } from '@material-ui/core';
+import { Grid, Box, Typography, FormControl, Select, InputLabel, MenuItem, useTheme, Link } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 // import thegraph from '../../../api/thegraph';
 // import graphUtils from '../../../utils/graphUtils';
 // import commonUtils from '../../../utils/commonUtils';
@@ -59,7 +60,7 @@ export default function ClientContent({addresses, gotchies, gotchiesFilter, inve
             return (
                 <Box marginBottom='16px'>
                     <Subtitle margin='12px 0 20px'>
-                        <Box bgcolor='primary.main' color='secondary.main' component='span' padding='1px 4px' marginRight='8px' borderRadius={4}>
+                        <Box bgcolor='primary.main' color='secondary.main' component='span' padding='1px 4px' marginRight='8px' borderRadius='4px'>
                             {gotchies.length}
                         </Box>
                         Gotchi{gotchies.length !== 1 ? `'s` : ''}
@@ -93,6 +94,7 @@ export default function ClientContent({addresses, gotchies, gotchiesFilter, inve
                     <Link
                         href='https://www.aavegotchi.com/baazaar/aavegotchis?sort=latest'
                         target='_blank'
+                        underline='none'
                         style={{ marginLeft: '10px', color: 'red' }}
                     >
                         Baazaar
@@ -109,7 +111,7 @@ export default function ClientContent({addresses, gotchies, gotchiesFilter, inve
             return (
                 <Box marginBottom='16px'>
                     <Subtitle margin='12px 0 20px'>
-                        <Box bgcolor='primary.main' color='secondary.main' component='span' padding='1px 4px' marginRight='8px' borderRadius={4}>
+                        <Box bgcolor='primary.main' color='secondary.main' component='span' padding='1px 4px' marginRight='8px' borderRadius='4px'>
                             {inventory.length}
                         </Box>
                         Item{inventory.length !== 1 ? `'s` : ''}

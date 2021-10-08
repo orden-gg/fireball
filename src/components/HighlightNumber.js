@@ -1,6 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, fade, useTheme } from '@material-ui/core';
+import { Box, useTheme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 const useStyles = makeStyles((theme) => ({
     section: {
@@ -35,8 +36,8 @@ export default function HighlightNumber({children, type}) {
         <Box
             className={classes.box}
             padding='2px'
-            bgcolor={getColor(type) === 'transparent' ? 'transparent' : fade(getColor(type), .15)}
-            borderRadius={3}
+            bgcolor={getColor(type) === 'transparent' ? 'transparent' : alpha(getColor(type), .15)}
+            borderRadius='3px'
             border={`1px solid ${getColor(type)}`}
         >
             {children}

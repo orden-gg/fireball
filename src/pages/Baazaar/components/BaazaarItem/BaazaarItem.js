@@ -1,6 +1,5 @@
 import React from 'react';
-import Grid from "@material-ui/core/Grid";
-import { Box, Button, Link, Typography } from "@material-ui/core";
+import { Grid, Box, Button, Link, Typography } from "@mui/material";
 import classNames from 'classnames';
 import ghstIcon from '../../../../assets/images/ghsttoken.png';
 import itemUtils from '../../../../utils/itemUtils';
@@ -53,6 +52,7 @@ export default function BaazaarItem({item}) {
                             className={classes.quantityAndSeller}
                             href={`https://aavegotchi.com/baazaar/owner/${item.seller}`}
                             target={'_blank'}
+                            underline='none'
                         >
                             { commonUtils.getSellerShortAddress(item) }
                         </Link>

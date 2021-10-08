@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { Container, Backdrop, CircularProgress, useTheme, } from '@material-ui/core';
+import { Container, Backdrop, CircularProgress, useTheme, } from '@mui/material';
 import {Helmet} from 'react-helmet';
 import thegraph from '../../api/thegraph';
 import web3 from '../../api/web3';

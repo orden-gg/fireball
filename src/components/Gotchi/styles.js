@@ -1,5 +1,6 @@
 
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     gotchi: {
@@ -79,7 +80,7 @@ export default makeStyles((theme) => ({
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
-        backgroundColor: fade(theme.palette.primary.main, .1),
+        backgroundColor: alpha(theme.palette.primary.main, .1),
         borderRadius: '50%',
         cursor: 'default',
         '&:hover .popover-core': {
@@ -126,7 +127,6 @@ export default makeStyles((theme) => ({
         padding: '2px 4px',
         margin: '8px 0',
         position: 'relative',
-        textDecoration: 'none',
         opacity: .9,
         '&:hover': {
             textDecoration: 'none',
@@ -228,8 +228,7 @@ export default makeStyles((theme) => ({
     },
     gotchiWLineLink: {
         display: 'block',
-        height: '100%',
-        textDecoration: 'none !important',
+        height: '100%'
     },
     callMadeIcon: {
         position: 'absolute',

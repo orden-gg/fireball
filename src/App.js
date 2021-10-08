@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import {useLocation} from 'react-router-dom';
+import { Grid } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     wrap: {
         backgroundPosition: '0px -30vh',
         backgroundRepeat: 'no-repeat',
-        flexDirection: 'column',
+        flexDirection: 'column !important',
         minHeight: '100%',
         paddingTop: 70,
         '&.explorer': {

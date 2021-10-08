@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles';
+import { Link } from '@mui/material';
+import { alpha } from '@mui/system';
 import classNames from 'classnames';
 import commonUtils from '../../utils/commonUtils';
 import useStyles from './styles';
@@ -10,7 +10,7 @@ import GotchiTraitsHighlight from './GotchiTraitsHighlight';
 import GotchiWearablesLine from './GotchiWearablesLine';
 import HighlightNumber from '../HighlightNumber';
 
-import CallMadeIcon from '@material-ui/icons/CallMade';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import GotchiSvg from './GotchiSvg';
 
 export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
@@ -73,8 +73,8 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
     
     return (
         <div
-            className={classNames(classes.gotchi)}
-            style={{ backgroundColor: fade(gotchiColor, .2) }}
+            className={classes.gotchi}
+            style={{ backgroundColor: alpha(gotchiColor, .2) }}
         >
             <p className={classes.gotchiCaption} style={{ backgroundColor: gotchiColor }}>
                 {title || commonUtils.cutAddress(gotchi.owner.id)}
@@ -84,9 +84,10 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
 
             <Link
                 className={classes.gotchiName}
-                style={{ backgroundColor: fade(gotchiColor, .5)}}
+                style={{ backgroundColor: alpha(gotchiColor, .5)}}
                 href={`https://aavegotchi.com/gotchi/${gotchi.id}`}
                 target="_blank"
+                underline='none'
             >
                 <p className={classes.gotchiName}>
                     {gotchi.name ? (

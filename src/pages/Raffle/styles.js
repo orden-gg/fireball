@@ -1,5 +1,5 @@
-
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -14,25 +14,25 @@ export const useStyles = makeStyles((theme) => ({
     },
     titleWrapper: {
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: '40px !important',
         display: 'flex',
         alignItems: 'center'
     },
     title: {
-        fontSize: 26,
-        marginBottom: 20,
+        fontSize: '26px !important',
+        marginBottom: '20px !important',
         [theme.breakpoints.up('md')]: {
-            fontSize: 30,
-            marginBottom: 0,
+            fontSize: '30px !important',
+            marginBottom: '0px !important',
             textAlign: 'left'
         }
     },
     subtitle: {
-        fontSize: 18,
+        fontSize: '18px !important',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: 400,
+        fontWeight: '400 !important',
         [theme.breakpoints.up('md')]: {
             justifyContent: 'flex-start'
         }
@@ -52,7 +52,7 @@ export const useStyles = makeStyles((theme) => ({
         },
         '& button': {
             position: 'relative',
-            boxShadow: `0 0 0 0 ${fade(theme.palette.primary.main, .5)}`,
+            boxShadow: `0 0 0 0 ${alpha(theme.palette.primary.main, .5)}`,
             animation: `$customPulse 1.5s infinite`,
             '&:hover': {
                 animation: 'none'
@@ -83,7 +83,7 @@ export const useStyles = makeStyles((theme) => ({
         textTransform: 'none !important'
     },
     row: {
-        marginBottom: 32
+        marginBottom: '32px !important'
     },
     input: {
         '& label:first-letter': {
@@ -239,7 +239,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     ticketBg: {
         position: 'relative',
-        marginBottom: 4,
+        marginBottom: '4px !important',
         minHeight: 40,
         padding: '6px !important',
         '& img': {
@@ -259,13 +259,13 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
     },
     chance: {
-        '&.common.highlighted': { backgroundColor: fade(theme.palette.rarity.common, .05) },
-        '&.uncommon.highlighted': { backgroundColor: fade(theme.palette.rarity.uncommon, .05) },
-        '&.rare.highlighted': { backgroundColor: fade(theme.palette.rarity.rare, .05) },
-        '&.legendary.highlighted': { backgroundColor: fade(theme.palette.rarity.legendary, .05) },
-        '&.mythical.highlighted': { backgroundColor: fade(theme.palette.rarity.mythical, .05) },
-        '&.godlike.highlighted': { backgroundColor: fade(theme.palette.rarity.godlike, .05) },
-        '&.drop.highlighted': { backgroundColor: fade(theme.palette.rarity.drop, .05) }
+        '&.common.highlighted': { backgroundColor: alpha(theme.palette.rarity.common, .05) },
+        '&.uncommon.highlighted': { backgroundColor: alpha(theme.palette.rarity.uncommon, .05) },
+        '&.rare.highlighted': { backgroundColor: alpha(theme.palette.rarity.rare, .05) },
+        '&.legendary.highlighted': { backgroundColor: alpha(theme.palette.rarity.legendary, .05) },
+        '&.mythical.highlighted': { backgroundColor: alpha(theme.palette.rarity.mythical, .05) },
+        '&.godlike.highlighted': { backgroundColor: alpha(theme.palette.rarity.godlike, .05) },
+        '&.drop.highlighted': { backgroundColor: alpha(theme.palette.rarity.drop, .05) }
     },
     textHighlight: {
         position: 'relative',
@@ -279,13 +279,13 @@ export const useStyles = makeStyles((theme) => ({
         '&.drop': {color: theme.palette.rarity.drop}
     },
     tableValue: {
-        fontSize: 16,
-        fontWeight: 400,
+        fontSize: '16px !important',
+        fontWeight: '400 !important',
         [theme.breakpoints.up('sm')]: {
-            fontSize: 17
+            fontSize: '17px !important'
         },
         [theme.breakpoints.up('md')]: {
-            fontSize: 18
+            fontSize: '18px !important'
         }
     },
     ticketVisual: {
@@ -297,10 +297,10 @@ export const useStyles = makeStyles((theme) => ({
     countEnteredCheckbox: {
         position: 'absolute',
         top: '100%',
-        marginTop: '-24px',
+        marginTop: '-24px !important',
         whiteSpace: 'nowrap',
         '& span': {
-            fontSize: 13,
+            fontSize: '13px !important',
             opacity: .7,
             transition: 'opacity .3s ease-in-out'
         },
@@ -308,7 +308,7 @@ export const useStyles = makeStyles((theme) => ({
             opacity: 1
         },
         [theme.breakpoints.up('md')]: {
-            marginTop: '-10px',
+            marginTop: '-10px !important',
         },
     },
     enteredValue: {
@@ -327,13 +327,13 @@ export const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         opacity: 0,
         visibility: 'hidden',
-        fontSize: 13,
+        fontSize: '13px !important',
         whiteSpace: 'nowrap',
         transition: 'opacity .2s ease-in-out'
     },
     wearablesTitle: {
-        marginBottom: 12,
-        fontSize: 19,
+        marginBottom: '12px !important',
+        fontSize: '19px !important',
         textAlign: 'center',
         '&:first-letter': {
           textTransform: 'uppercase'
@@ -348,46 +348,46 @@ export const useStyles = makeStyles((theme) => ({
         padding: '24px 12px 16px',
         textAlign: 'center',
         '&.common': {
-            backgroundColor: fade(theme.palette.rarity.common, .1),
+            backgroundColor: alpha(theme.palette.rarity.common, .1),
         },
         '&.uncommon': {
-            backgroundColor: fade(theme.palette.rarity.uncommon, .1),
+            backgroundColor: alpha(theme.palette.rarity.uncommon, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.uncommon, .15)
+                backgroundColor: alpha(theme.palette.rarity.uncommon, .15)
             }
         },
         '&.rare': {
-            backgroundColor: fade(theme.palette.rarity.rare, .1),
+            backgroundColor: alpha(theme.palette.rarity.rare, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.rare, .15)
+                backgroundColor: alpha(theme.palette.rarity.rare, .15)
             }
         },
         '&.legendary': {
-            backgroundColor: fade(theme.palette.rarity.legendary, .1),
+            backgroundColor: alpha(theme.palette.rarity.legendary, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.legendary, .15)
+                backgroundColor: alpha(theme.palette.rarity.legendary, .15)
             }
         },
         '&.mythical': {
-            backgroundColor: fade(theme.palette.rarity.mythical, .1),
+            backgroundColor: alpha(theme.palette.rarity.mythical, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.mythical, .15)
+                backgroundColor: alpha(theme.palette.rarity.mythical, .15)
             }
         },
         '&.godlike': {
-            backgroundColor: fade(theme.palette.rarity.godlike, .1),
+            backgroundColor: alpha(theme.palette.rarity.godlike, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.godlike, .15)
+                backgroundColor: alpha(theme.palette.rarity.godlike, .15)
             }
         },
         '&.drop': {
-            backgroundColor: fade(theme.palette.rarity.drop, .1),
+            backgroundColor: alpha(theme.palette.rarity.drop, .1),
             '&.mystery': {
-                backgroundColor: fade(theme.palette.rarity.drop, .15)
+                backgroundColor: alpha(theme.palette.rarity.drop, .15)
             }
         },
         '&.mystery': {
-            backgroundColor: `${fade(theme.palette.error.light, .2)} !important`,
+            backgroundColor: `${alpha(theme.palette.error.light, .2)} !important`,
         }
     },
     '@keyframes customPulse': {

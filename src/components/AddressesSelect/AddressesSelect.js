@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, FormControl, Select, MenuItem, IconButton, OutlinedInput, InputLabel } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Typography, FormControl, Select, MenuItem, Icon, IconButton, OutlinedInput } from '@mui/material';
 import { useStyles } from './styles';
 
 import commonUtils from '../../utils/commonUtils';
-
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { useMetamask } from 'use-metamask';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 import metamaskIcon from '../../assets/images/metamask-icon.png';
-import { Icon } from '@material-ui/core';
 
 const ITEM_HEIGHT = 48;
 const MenuProps = {

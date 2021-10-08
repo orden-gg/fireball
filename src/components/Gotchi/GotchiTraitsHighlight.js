@@ -11,7 +11,7 @@ export default function GotchiTraitsHighlight({traits, currentTraits}) {
     const formattedTraits = commonUtils.formatTraits(currentTraits, true);
 
     const calculateTraitType = (trait) => {
-        return trait >= 101 || trait <= -1 ? 'godlike' : trait >= 98 || trait <= 1 ? 'mythical' : trait >= 91 || trait <= 9 ? 'rare' : '';
+        return trait >= 100 || trait <= -1 ? 'godlike' : trait >= 98 || trait <= 1 ? 'mythical' : trait >= 91 || trait <= 9 ? 'rare' : '';
     }
 
     return (

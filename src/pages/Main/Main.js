@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import Portals from './components/Portals/Portals';
 import Team from './components/Team/Team';
 import Section from '../../components/Section';

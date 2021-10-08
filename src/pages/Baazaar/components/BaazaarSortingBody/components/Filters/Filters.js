@@ -1,6 +1,5 @@
 import React, {useContext} from "react";
-import Grid from "@material-ui/core/Grid";
-import {Button, TextField} from "@material-ui/core";
+import { Grid, Button, TextField } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
 

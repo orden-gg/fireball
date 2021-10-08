@@ -1,11 +1,12 @@
 // TODO: this component is created as a temporary solution for Raffle #5 calculator,
 // we should create more flexible component that can accept data from different raffles
-import React, { useState } from 'react';
-import {Box, Checkbox, CircularProgress, FormControlLabel, Grid, TextField, Tooltip, Typography} from '@material-ui/core';
+import React from 'react';
+import {Box, Checkbox, CircularProgress, FormControlLabel, Grid, TextField, Tooltip, Typography} from '@mui/material';
 import classNames from 'classnames';
 import {useStyles} from '../styles';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import commonUtils from '../../../utils/commonUtils';
+
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import ghst from '../../../assets/images/ghst-doubleside.gif';
 
@@ -31,7 +32,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
     
     return (
         <Grid item>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3}>
                     <Typography variant='h6' className={classes.subtitle}>Your Tickets</Typography>
                 </Grid>
@@ -56,7 +57,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     </Box>
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>Items in Raffle</Typography>
                 </Grid>
@@ -76,7 +77,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3} className={classes.toggleWrapper}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Tickets Entered
@@ -116,7 +117,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
 
                             return <Box maxWidth={300} minWidth={80} margin='auto' key={i} className={classes.ticketBg}>
                                 <img src={getTicketIconPath(ticket.type)} alt={'ticket-' + ticket.type} />
-                                <Box align='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
                                     {supplySpinner ? (
                                         <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
@@ -147,7 +148,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Tickets Entered in FRENs
@@ -169,7 +170,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     {
                         tickets.map((ticket, i) => {
                             return <Box maxWidth={300} margin='auto' key={i} className={classNames(classes.chance, ticket.type)}>
-                                <Box align='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
                                     {supplySpinner ? (
                                         <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
@@ -187,7 +188,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Your tickets price
@@ -209,7 +210,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     {
                         tickets.map((ticket, i) => {
                             return <Box maxWidth={300} margin='auto' key={i}>
-                                <Box align='center' className={classNames(classes.textHighlight, ticket.type)}>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type)}>
                                     {pricesSpinner ? (
                                         <CircularProgress color='inherit' size={20} />
                                     ) : (
@@ -228,7 +229,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Your reward
@@ -262,7 +263,7 @@ export default function RaffleDropTable({tickets, supplySpinner, pricesSpinner, 
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justify='space-between' spacing={2} className={classes.row}>
+            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Raffle profitability

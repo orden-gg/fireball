@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useCallback, useContext} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Backdrop, CircularProgress } from "@mui/material";
+import { makeStyles } from '@mui/styles';
 import thegraph from "../../api/thegraph";
-import Grid from "@material-ui/core/Grid";
 import BaazaarBody from "./components/BaazaarBody/BaazaarBody";
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
 import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
-import { Backdrop, CircularProgress, MenuItem } from "@material-ui/core";
 import { BaazaarContext } from "../../contexts/BaazaarContext";
 import Web3 from "web3";
 

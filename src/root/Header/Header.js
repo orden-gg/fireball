@@ -1,12 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Box, Button, Grid, Link, Toolbar, Typography, IconButton} from '@material-ui/core';
+import { Box, Button, Link, Toolbar, Typography, IconButton } from '@mui/material';
 import {NavLink, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 import {useStyles} from './styles';
 import MetamaskLoginButton from '../../components/MetamaskLoginButton.js/MetamaskLoginButton.js';
 
-import TwitterIcon from '@material-ui/icons/Twitter';
-import MenuIcon from '@material-ui/icons/Menu';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import logo from '../../assets/images/logo.png';
 import discord from '../../assets/images/discord.svg';
@@ -39,7 +39,7 @@ export default function Header() {
     };
 
     return (
-        <Toolbar className={classNames(classes.toolbar)}>
+        <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
                 <img className={classes.logo} src={logo} alt='logo' />
                 <Typography className={classes.logoText}>
@@ -48,7 +48,7 @@ export default function Header() {
                     <Box component='span'>gg</Box>
                 </Typography>
             </NavLink>
-            <Grid item className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
+            <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
                     <NavLink className={classes.navLink} to='/market'>
                         Market
@@ -66,14 +66,14 @@ export default function Header() {
                         Raffle Calculator
                     </NavLink>
                 </nav>
-                <Grid className={classes.socialLinkList} container>
-                    <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank'>
+                <Box className={classes.socialLinkList} container>
+                    <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                         <Button className={classes.iconButton} aria-label='add an alarm'>
                             <img src={ discord } alt='' />
                             <Box component='span' className={classes.iconButtonText}>325</Box>
                         </Button>
                     </Link>
-                    <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank'>
+                    <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
                         <Button className={classes.iconButton} aria-label='add an alarm'>
                             <TwitterIcon />
                             <Box component='span' className={classes.iconButtonText}>540</Box>
@@ -82,10 +82,10 @@ export default function Header() {
                     <Box className={classes.socialLinkJoin}>
                         <Typography variant={'caption'}>Join our community!</Typography>
                     </Box>
-                </Grid>
+                </Box>
                 
-            </Grid>
-            <Grid item className={classes.group}>
+            </Box>
+            <Box className={classes.group}>
                 <MetamaskLoginButton size='small' />
                 <IconButton
                     color='primary'
@@ -96,7 +96,7 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-            </Grid>
+            </Box>
         </Toolbar>
     )
 }

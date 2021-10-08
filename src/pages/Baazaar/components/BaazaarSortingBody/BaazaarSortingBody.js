@@ -1,9 +1,8 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, Typography, useTheme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import Gotchi from "../../../../components/Gotchi/Gotchi";
 import Pagination from '../Pagination/Pagination';
-import {Button, Typography, useTheme} from '@material-ui/core';
 import ghst from '../../../../assets/images/ghst-doubleside.gif';
 import Web3 from "web3";
 import Filters from "./components/Filters/Filters";

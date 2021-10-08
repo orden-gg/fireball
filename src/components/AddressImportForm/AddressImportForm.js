@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState} from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import React, { useContext, useState} from 'react';
+import { Grid, Button, Typography } from '@mui/material';
 import web3 from '../../api/web3';
 import { SnackbarContext } from '../../contexts/SnackbarContext';
 import { useStyles } from './styles';
