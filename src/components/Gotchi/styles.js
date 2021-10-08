@@ -121,11 +121,10 @@ export default makeStyles((theme) => ({
     gotchiName: {
         display: 'block',
         borderRadius: theme.shape.borderRadius,
-        color: theme.palette.common.white,
-        fontSize: 12,
+        color: `${theme.palette.common.white} !important`,
         fontWeight: 'bold',
         padding: '2px 4px',
-        margin: '8px 0',
+        margin: '8px 0 !important',
         position: 'relative',
         opacity: .9,
         '&:hover': {
@@ -136,7 +135,7 @@ export default makeStyles((theme) => ({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            fontSize: 15,
+            fontSize: '15px !important',
             margin: 0
         }
     },
@@ -234,7 +233,7 @@ export default makeStyles((theme) => ({
         position: 'absolute',
         right: 2,
         bottom: 2,
-        fontSize: 12
+        fontSize: '12px !important'
     },
     tokenValue: {
         display: 'inline-flex',

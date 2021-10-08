@@ -89,7 +89,7 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed}) {
                 target="_blank"
                 underline='none'
             >
-                <p className={classes.gotchiName}>
+                <p color='secondary'>
                     {gotchi.name ? (
                         gotchi.name
                     ) : (

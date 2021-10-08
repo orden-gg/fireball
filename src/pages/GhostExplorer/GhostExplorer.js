@@ -93,12 +93,12 @@ export default function GhostExplorer() {
     }, [gotchiesFromGraph]);
 
     useEffect(() => {
-        if(maxGotchiQuantity) renderGotchi(50);
+        if(maxGotchiQuantity) renderGotchi(100);
     }, [maxGotchiQuantity]);
 
     useEffect(() => {
         if(size) {
-            renderGotchi(25);
+            renderGotchi(50);
         }
     }, [size]);
 
