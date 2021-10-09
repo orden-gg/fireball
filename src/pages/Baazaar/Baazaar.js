@@ -145,7 +145,7 @@ export default function Baazaar() {
         }`
     };
 
-    const getAllItemsQueryString = (params, skip, order) => {
+    const getAllItemsQueryString = (params, skip, type, order) => {
         return `{category: ${params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]} (
             first: ${paginationConfigs.noLimit},
             skip: ${skip},
@@ -155,7 +155,7 @@ export default function Baazaar() {
                 cancelled: false,
                 ${params.from ? `priceInWei_gte: "${exponentToString(params.from * 1000000000000000000).split('.')[0]}",` : ""}
                 priceInWei_lt: ${params.to ? `"${exponentToString(params.to * 1000000000000000000).split('.')[0]}"` : `"10000000000000000000000000"`},
-                ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
+                ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
                         `sold: false,
@@ -256,40 +256,42 @@ export default function Baazaar() {
         });
     }, []);
 
-    const getAllBaazaarItems = (params) => {
-        showBackdrop(true);
-        thegraph.getJoinedData([
-            getAllItemsQueryString(params, 0, 'asc'),
-            getAllItemsQueryString(params, 1000, 'asc'),
-            getAllItemsQueryString(params, 2000, 'asc'),
-            getAllItemsQueryString(params, 3000, 'asc'),
-            getAllItemsQueryString(params, 4000, 'asc'),
-            getAllItemsQueryString(params, 5000, 'asc'),
-            getAllItemsQueryString(params, 0, 'desc'),
-            getAllItemsQueryString(params, 1000, 'desc'),
-            getAllItemsQueryString(params, 2000, 'desc'),
-            getAllItemsQueryString(params, 3000, 'desc'),
-            getAllItemsQueryString(params, 4000, 'desc'),
-            getAllItemsQueryString(params, 5000, 'desc')
-        ]).then((response) => {
-            let processedItems = [],
-                items = [];
+    const makeQueriesForCategory = (params, type) => {
+        return [
+            getAllItemsQueryString(params, 0, type, 'asc'),
+            getAllItemsQueryString(params, 1000, type, 'asc'),
+            getAllItemsQueryString(params, 2000, type, 'asc'),
+            getAllItemsQueryString(params, 3000, type, 'asc'),
+            getAllItemsQueryString(params, 4000, type, 'asc'),
+            getAllItemsQueryString(params, 5000, type, 'asc'),
+            getAllItemsQueryString(params, 0, type, 'desc'),
+            getAllItemsQueryString(params, 1000, type, 'desc'),
+            getAllItemsQueryString(params, 2000, type, 'desc'),
+            getAllItemsQueryString(params, 3000, type, 'desc'),
+            getAllItemsQueryString(params, 4000, type, 'desc'),
+            getAllItemsQueryString(params, 5000, type, 'desc')
+        ];
+    };
 
-            // combine response data
-            response.forEach((item) => {
-                item.data.category.length && item.data.category.forEach((categoryItem) => {
-                    if (params.type === itemTypes.aavegotchi) {
-                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                            processedItems.push(categoryItem.tokenId);
-                            items.push(categoryItem);
-                        }
-                    } else {
-                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                            let gotchies = [];
-                            processedItems.push(categoryItem.tokenId);
+    const processResponse = (params, response) => {
+        let processedItems = [],
+            items = [];
 
-                            categoryItem.portal.options.forEach((option) => {
-                                gotchies.push({
+        // combine response data
+        response.forEach((item) => {
+            item.data.category.length && item.data.category.forEach((categoryItem) => {
+                if (categoryItem.gotchi) {
+                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                        processedItems.push(categoryItem.tokenId);
+                        items.push(categoryItem);
+                    }
+                } else {
+                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                        processedItems.push(categoryItem.tokenId);
+                        categoryItem.portal.options.forEach((option) => {
+                            items.push({
+                                ...categoryItem,
+                                gotchi: {
                                     ...option,
                                     collateral: option.collateralType,
                                     hauntId: categoryItem.hauntId,
@@ -299,26 +301,33 @@ export default function Baazaar() {
                                     withSetsNumericTraits: option.numericTraits,
                                     level: '1',
                                     equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                });
+                                }
                             });
-
-                            items.push({
-                                ...categoryItem,
-                                gotchi: gotchies
-                            });
-                        }
+                        });
                     }
-                });
+                }
             });
+        });
 
-            // process combined data
-            localGoods = items;
-            console.log(items);
-            filterLocalGoods();
-            sortLocalGoods();
-            getShownItems();
+        // process combined data
+        localGoods = [...localGoods, ...items];
+    };
 
-            showBackdrop(false);
+    const getAllBaazaarItems = (params) => {
+        showBackdrop(true);
+        localGoods = [];
+        thegraph.getJoinedData(makeQueriesForCategory(params, itemTypes.aavegotchi)).then((response) => {
+            processResponse(params, response);
+            thegraph.getJoinedData(makeQueriesForCategory(params, itemTypes.openedPortal)).then((response) => {
+                processResponse(params, response);
+                // start
+                filterLocalGoods();
+                sortLocalGoods();
+                getShownItems();
+                showBackdrop(false);
+            }).catch(() => {
+                showBackdrop(false);
+            });
         }).catch(() => {
             showBackdrop(false);
         });
