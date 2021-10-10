@@ -24,19 +24,30 @@ var svgsClient = new ApolloClient({
 
 async function graphJoin(queries) {
     try {
-        const queriesCounter = queries.length,
-            responseArray = [];
+        return await new Promise((resolve, reject) => {
+            const queriesCounter = queries.length;
+            let requestCounter = 0;
+            let responseArray = [];
 
-        for (let i = 0; i < queriesCounter; i++) {
-            await responseArray.push(
-                await client
-                    .query({
-                        query: gql`${queries[i]}`
+            for (let i = 0; i < queriesCounter; i++) {
+                requestCounter++;
+                responseArray.push(
+                    client.query({
+                            query: gql`${queries[i]}`
+                        }).then((response) => {
+                        responseArray[i] = response;
+                        requestCounter--;
+                        checkRequestsResult();
                     })
-            )
-        }
+                )
+            }
 
-        return responseArray;
+            function checkRequestsResult() {
+                if (requestCounter === 0 && responseArray.length === queries.length) {
+                    resolve(responseArray);
+                }
+            }
+        });
     } catch (error) {
         return [];
     }

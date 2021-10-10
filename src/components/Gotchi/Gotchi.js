@@ -85,7 +85,7 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgB
                 renderSvgByStats ? <GotchiSvgByStats gotchi={gotchi} size={120} /> : <GotchiSvg id={gotchi.id} size={120} />
             }
             <Link
-                className={renderSvgByStats ? classes.gotchiNameShort : classes.gotchiName}
+                className={classes.gotchiName}
                 style={{ backgroundColor: fade(gotchiColor, .5)}}
                 href={`https://aavegotchi.com/gotchi/${gotchi.id}`}
                 target="_blank"

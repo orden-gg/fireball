@@ -140,29 +140,6 @@ export default makeStyles((theme) => ({
             margin: 0
         }
     },
-    gotchiNameShort: {
-        display: 'block',
-        borderRadius: theme.shape.borderRadius,
-        color: theme.palette.common.white,
-        fontSize: 12,
-        fontWeight: 'bold',
-        padding: '2px 4px',
-        margin: '8px 25px',
-        position: 'relative',
-        textDecoration: 'none',
-        opacity: .9,
-        '&:hover': {
-            textDecoration: 'none',
-            opacity: 1
-        },
-        '& p': {
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            fontSize: 15,
-            margin: 0
-        }
-    },
     gotchiTraits: {
         position: 'relative',
         display: 'flex',
