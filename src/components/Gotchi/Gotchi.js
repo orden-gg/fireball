@@ -10,7 +10,7 @@ import GotchiTraitsHighlight from './GotchiTraitsHighlight';
 import GotchiWearablesLine from './GotchiWearablesLine';
 import HighlightNumber from '../HighlightNumber';
 
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import CallMade from '@mui/icons-material/CallMade';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
 
@@ -98,7 +98,7 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgB
                         'Unnamed'
                     )}
                 </p>
-                <CallMadeIcon className={classes.callMadeIcon} />
+                <CallMade className={classes.callMadeIcon} />
             </Link>
 
             {renderNarrowed()}

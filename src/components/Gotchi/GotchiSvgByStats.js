@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import thegraph from '../../api/thegraph';
+import { makeStyles } from '@mui/styles';
 import classNames from 'classnames';
 import GotchiSvgRender from "./GotchiSvgRender";
 
 import gotchiLoading from '../../assets/images/gotchi-loading.gif';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     svgWrapper: {
         margin: 'auto',
         '& .gotchi-wearable': {
