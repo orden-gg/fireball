@@ -1,58 +1,67 @@
-import React from 'react';
-import useStyles from './styles';
-import { Avatar, Grid, Link, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material';
 import classNames from 'classnames';
-import hoax from '../../../../assets/images/avatars/hoax.svg';
-import dudendy from '../../../../assets/images/avatars/dudendy.svg';
-import bitchin from '../../../../assets/images/avatars/bitchin.svg';
+import useStyles from './styles';
+import { gotchiByIdQuery } from '../../../../api/common/queries';
+
 import hopeUp from '../../../../assets/images/avatars/hope_up.svg';
-import butch from '../../../../assets/images/avatars/butch.svg';
-import arwen from '../../../../assets/images/avatars/arwen.svg';
+import thegraph from '../../../../api/thegraph';
+import GotchiSvg from '../../../../components/Gotchi/GotchiSvg';
+
+const gotchiesId = [4271, 8005, 4282, 23470];
 
 export default function Team() {
     const classes = useStyles();
+    const [dataSpinner, setDataSpinner] = useState(true);
+    const [members, setMembers] = useState([]);
+
+    useEffect( () => {
+        thegraph.getJoinedData([
+            gotchiByIdQuery(gotchiesId[0]),
+            gotchiByIdQuery(gotchiesId[1]),
+            gotchiByIdQuery(gotchiesId[2]),
+            gotchiByIdQuery(gotchiesId[3])
+        ]).then((response) => {
+            let formattedArray = [];
+
+            response.forEach((gotchi) => {
+                formattedArray.push(gotchi.data.aavegotchi);
+            });
+
+            setMembers(formattedArray);
+            setDataSpinner(false);
+        }).catch((error) => console.log(error));
+    }, []);
 
     return (
-        <Grid container>
+        <Grid container justifyContent='center'>
             <Grid item xs={12}>
-                <Typography className={classes.mainTitle} variant={'h4'}>CITADEL MEMBERS</Typography>
+                <Typography className={classes.mainTitle} variant='h4'>orden DAO</Typography>
             </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://www.aavegotchi.com/gotchi/590' target='_blank' className={classes.teamMember}>
-                    <Typography className={classes.aavegotchiName} variant={'h3'}>Hoax</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hoax } />
-                </Link>
-            </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://www.aavegotchi.com/gotchi/8005' target='_blank' className={classes.teamMember}>
-                    <Typography className={classes.aavegotchiName} variant={'h3'}>Dudendy</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ dudendy } />
-                </Link>
-            </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://www.aavegotchi.com/gotchi/1083' target='_blank' className={classes.teamMember}>
-                    <Typography className={classes.aavegotchiName} variant={'h3'}>Butch</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ butch } />
-                </Link>
-            </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://aavegotchi.com/gotchi/2104' target='_blank' className={classes.teamMember}>
-                    <Typography className={classes.aavegotchiName} variant={'h3'}>Arwen</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ arwen } />
-                </Link>
-            </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://www.aavegotchi.com/gotchi/4282' target='_blank' className={classes.teamMember}>
-                    <Typography className={classes.aavegotchiName} variant={'h3'}>Bitchin'</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ bitchin } />
-                </Link>
-            </Grid>
-            <Grid item xs={6} sm={4} md={2}>
-                <Link href='https://discord.gg/NXEEETxSkC' target='_blank' className={classes.teamMember}>
-                    <Typography className={classNames(classes.aavegotchiName, classes.aavegotchiYouName)} variant={'h3'}>You!</Typography>
-                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
-                </Link>
-            </Grid>
+
+            {dataSpinner ? (
+                <CircularProgress component='span' color='primary' size={22}/>
+            ) : (
+                <>
+                    {
+                        members.map( (gotchi, index) => (
+                            <Grid item xs={6} sm={4} md={2} key={index}>
+                                <Link href={`https://www.aavegotchi.com/gotchi/${gotchi.id}`} target='_blank' className={classes.teamMember} underline='none'>
+                                    <Typography className={classes.aavegotchiName} variant='h3'>{gotchi.name}</Typography>
+                                    <GotchiSvg id={gotchi.id} size={107} hideWareables={false} />
+                                </Link>
+                            </Grid>
+                        ))
+                    }
+
+                    <Grid item xs={6} sm={4} md={2}>
+                        <Link href='https://discord.gg/NXEEETxSkC' target='_blank' className={classes.teamMember} underline='none'>
+                            <Typography className={classNames(classes.aavegotchiName, classes.aavegotchiYouName)} variant='h3'>You!</Typography>
+                            <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
+                        </Link>
+                    </Grid>
+                </>
+            )}
         </Grid>
     );
 }

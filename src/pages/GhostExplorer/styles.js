@@ -1,4 +1,5 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     root: {
@@ -26,7 +27,7 @@ export default makeStyles((theme) => ({
         },
         '&:hover': {
             textDecoration: 'none',
-            backgroundColor: fade(theme.palette.primary.main, .1)
+            backgroundColor: alpha(theme.palette.primary.main, .1)
         }
     },
     gotchiName: {

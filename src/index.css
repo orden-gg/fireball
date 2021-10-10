@@ -18,6 +18,93 @@ html, body {
   background: rgba(253, 154, 249, .1);
 }
 
+
+/* GOTCHI BASE STYLES */
 .gotchi-bg {
-  display: none;
+  display:none;
+}
+
+.gotchi-isAnim svg {
+  animation-name:down;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-timing-function: steps(1);
+}
+
+.gotchi-isAnim .gotchi-shadow {
+  animation: up 0.5s infinite linear steps(2);
+   animation-name:up;
+   animation-duration:0.5s;
+   animation-iteration-count: infinite;
+   animation-timing-function: linear;
+   animation-timing-function: steps(2);
+}
+
+.gotchi-isAnim .gotchi-wearable {
+  animation-name:down;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-timing-function: steps(1);
+}
+
+.gotchi-isAnim .gotchi-handsDownClosed,
+.gotchi-isAnim .gotchi-handsUp,
+.gotchi-isAnim .gotchi-handsDownOpen,
+.gotchi-isAnim .gotchi-handsDownClosed,
+.gotchi-isAnim .gotchi-body,
+.gotchi-isAnim .gotchi-eyeColor,
+.gotchi-isAnim .gotchi-collateral,
+.gotchi-isAnim .gotchi-cheek,
+.gotchi-isAnim .gotchi-primary-mouth,
+.gotchi-isAnim .gotchi-wearable,
+.gotchi-isAnim .gotchi-sleeves {
+   animation-name:down;
+   animation-duration:0.5s;
+   animation-iteration-count: infinite;
+   animation-timing-function: linear;
+   animation-timing-function: steps(2);
+}
+
+.gotchi-isAnim .wearable-hand {
+  animation-name:down !important;
+  animation-duration:0.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-timing-function: steps(2);
+}
+
+.wearable-bg {
+  animation-name:none !important;
+}
+
+
+@keyframes downHands {
+  from {
+    --hand_translateY: -4px;
+  }
+ to {
+    --hand_translateY: -3.5px;
+  }
+}
+
+
+@keyframes up {
+  from {
+    transform: translate(0px, 0);
+  }
+ to {
+    transform: translate(0px, -1px);
+  }
+}
+
+
+@keyframes down {
+ from {
+   transform: translate(0px, 0);
+    }
+ to {
+      transform: translate(0px, 1px);
+    }
 }

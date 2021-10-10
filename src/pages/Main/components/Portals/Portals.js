@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useStyles from './styles';
 import { Link } from 'react-router-dom';
-import {Box, CircularProgress, Grid} from '@material-ui/core';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import thegraph from '../../../../api/thegraph';
 import commonUtils from '../../../../utils/commonUtils';
 import { portalsQuery } from './queries';
@@ -48,10 +48,10 @@ export default function Portals() {
         <Grid
             container
             alignItems='center'
-            justify='center'
+            justifyContent='center'
         >
             <Grid className={classes.portalsColumn} item xs={12} md={4}>
-                <Box align='center' className={classes.portalsDescr}>
+                <Box textAlign='center' className={classes.portalsDescr}>
                     {dataSpinner ? (
                         <CircularProgress component='span' className={classes.highlight} color="inherit" size={22}/>
                     ) : (
@@ -64,7 +64,7 @@ export default function Portals() {
                     </Box>
                 </Box>
             </Grid>
-            <Grid className={classes.portalsColumn} container item justify='center' xs={12} md={2}>
+            <Grid className={classes.portalsColumn} container item justifyContent='center' xs={12} md={2}>
                 <img
                   src={eegg ? sealedPortal : openedPortal }
                   className={classes.portalsImage}
@@ -73,7 +73,7 @@ export default function Portals() {
                 />
             </Grid>
             <Grid item xs={12} md={4}>
-                <Box align='center' className={classes.portalsDescr}>
+                <Box textAlign='center' className={classes.portalsDescr}>
                     {dataSpinner ? (
                         <CircularProgress component='span' className={classes.highlight} color="inherit" size={22}/>
                     ) : (

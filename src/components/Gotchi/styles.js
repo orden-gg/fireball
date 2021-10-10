@@ -1,5 +1,6 @@
 
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     gotchi: {
@@ -79,7 +80,7 @@ export default makeStyles((theme) => ({
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
-        backgroundColor: fade(theme.palette.primary.main, .1),
+        backgroundColor: alpha(theme.palette.primary.main, .1),
         borderRadius: '50%',
         cursor: 'default',
         '&:hover .popover-core': {
@@ -120,13 +121,11 @@ export default makeStyles((theme) => ({
     gotchiName: {
         display: 'block',
         borderRadius: theme.shape.borderRadius,
-        color: theme.palette.common.white,
-        fontSize: 12,
+        color: `${theme.palette.common.white} !important`,
         fontWeight: 'bold',
         padding: '2px 4px',
-        margin: '8px 0',
+        margin: '8px 0 !important',
         position: 'relative',
-        textDecoration: 'none',
         opacity: .9,
         '&:hover': {
             textDecoration: 'none',
@@ -136,7 +135,7 @@ export default makeStyles((theme) => ({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            fontSize: 15,
+            fontSize: '15px !important',
             margin: 0
         }
     },
@@ -228,14 +227,13 @@ export default makeStyles((theme) => ({
     },
     gotchiWLineLink: {
         display: 'block',
-        height: '100%',
-        textDecoration: 'none !important',
+        height: '100%'
     },
     callMadeIcon: {
         position: 'absolute',
         right: 2,
         bottom: 2,
-        fontSize: 12
+        fontSize: '12px !important'
     },
     tokenValue: {
         display: 'inline-flex',

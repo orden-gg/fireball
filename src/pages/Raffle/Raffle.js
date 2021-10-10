@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Container, Link, Typography, Grid} from '@material-ui/core';
+import { Box, Button, Container, Link, Typography, Grid } from '@mui/material';
 import {Helmet} from 'react-helmet';
 import RaffleTable from './components/RaffleTable';
 import RaffleWearables from './components/RaffleWearables';
@@ -319,7 +319,7 @@ export default function Raffle() {
             </TabContext> */}
             
             <Box position='fixed' right={18} bottom={18} zIndex={10}>
-                <Link href={'https://www.aavegotchi.com/raffle/5'} className={classes.enterButton} target={'_blank'}>
+                <Link href={'https://www.aavegotchi.com/raffle/5'} className={classes.enterButton} target={'_blank'} underline='none'>
                     <Button variant='contained' color='primary'>
                         Enter Raffle
                     </Button>

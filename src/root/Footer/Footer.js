@@ -1,18 +1,17 @@
 import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import {Box, Grid, Toolbar, Typography} from "@material-ui/core";
+import { Box, Toolbar, Typography, Snackbar, Alert } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import { SnackbarContext } from "../../contexts/SnackbarContext";
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
 
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
+function FooterAlert(props) {
+    return <Alert elevation={6} variant="filled" {...props} />;
 }
 
 const useStyles = makeStyles((theme) => ({
     footerWrapper: {
         backgroundColor: theme.palette.secondary.dark,
         padding: '5px 24px',
+        width: '100%',
         [theme.breakpoints.up('md')]: {
             padding: '5px 32px'
         }
@@ -34,7 +33,7 @@ export default function Footer() {
         { isOpen, type, message, onSnackbarClose } = useContext(SnackbarContext);
 
     return (
-        <Grid item container className={classes.footerWrapper}>
+        <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <Typography>
                     <Box component='span' className={classes.highlight}>v3</Box>
@@ -42,10 +41,10 @@ export default function Footer() {
                 </Typography>
             </Toolbar>
             <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
-                <Alert onClose={() => onSnackbarClose()} severity={type}>
+                <FooterAlert onClose={() => onSnackbarClose()} severity={type}>
                     {message}
-                </Alert>
+                </FooterAlert>
             </Snackbar>
-        </Grid>
+        </Box>
     )
 }

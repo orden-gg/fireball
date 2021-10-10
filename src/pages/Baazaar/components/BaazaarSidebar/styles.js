@@ -1,4 +1,5 @@
-import {fade, makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     sidebar: {
@@ -27,9 +28,9 @@ export default makeStyles((theme) => ({
         fontSize: '1rem',
         boxShadow: 'none',
         letterSpacing: '1px',
-        background: fade(theme.palette.customColors.lightGray, .24),
+        background: alpha(theme.palette.customColors.lightGray, .24),
         '&:hover': {
-            background: fade(theme.palette.customColors.lightGray, .14),
+            background: alpha(theme.palette.customColors.lightGray, .14),
         }
     },
     common: {

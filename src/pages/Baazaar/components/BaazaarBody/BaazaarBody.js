@@ -1,9 +1,8 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import BaazaarItem from '../BaazaarItem/BaazaarItem';
 import Pagination from '../Pagination/Pagination';
-import {Typography} from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
     baazaarBody: {

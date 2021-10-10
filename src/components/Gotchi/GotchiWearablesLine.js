@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link, useTheme } from '@material-ui/core';
+import { Link, useTheme } from '@mui/material';
 import classNames from 'classnames';
+
 import itemUtils from '../../utils/itemUtils';
-import CallMadeIcon from '@material-ui/icons/CallMade';
 import useStyles from './styles';
+
+import CallMadeIcon from '@mui/icons-material/CallMade';
 
 export default function GotchiWearablesLine({wearables}) {
     const classes = useStyles();
@@ -17,6 +19,7 @@ export default function GotchiWearablesLine({wearables}) {
                     className={classes.gotchiWLineLink}
                     href={`https://wiki.aavegotchi.com/en/wearables#${type}`}
                     target={'_blank'}
+                    underline='none'
                 >
                     <div
                         className={classNames(classes.gotchiWLinePopover, 'popover-core')}

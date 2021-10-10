@@ -1,4 +1,4 @@
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles } from "@mui/styles";
 
 export default makeStyles((theme) => ({
     button: {

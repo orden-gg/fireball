@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography } from '@mui/material';
 import { useMetamask } from 'use-metamask';
 import commonUtils from '../../utils/commonUtils';
 import ModalWrapper from '../ModalWrapper/ModalWrapper';

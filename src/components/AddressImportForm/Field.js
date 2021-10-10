@@ -1,7 +1,7 @@
-import { TextField, IconButton } from '@material-ui/core';
+import { TextField, IconButton } from '@mui/material';
 import { useStyles } from './styles';
 
-import Close from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Field({type, value, handleInputChange}) {
     const classes = useStyles();
@@ -24,7 +24,7 @@ export default function Field({type, value, handleInputChange}) {
             }}
             InputProps={{
                 endAdornment: <IconButton size={'small'} onClick={resetValue}>
-                    <Close/>
+                    <CloseIcon/>
                 </IconButton>
             }}
         />

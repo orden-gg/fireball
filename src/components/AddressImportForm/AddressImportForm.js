@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState} from 'react';
-import { Grid, Button, Typography } from '@material-ui/core';
+import React, { useContext, useState} from 'react';
+import { Grid, Button, Typography } from '@mui/material';
 import web3 from '../../api/web3';
 import { SnackbarContext } from '../../contexts/SnackbarContext';
 import { useStyles } from './styles';
@@ -10,25 +10,19 @@ import AddressesSelect from '../AddressesSelect/AddressesSelect';
 export default function AddressImportForm({rebuildContent}) {
     const classes = useStyles();
     const [address, setAddress] = useState({ selected: true });
-    const [newAddresess, setNewAddresses] = useState([])
+    const [newAddress, setNewAddress] = useState({});
     const { showSnackbar } = useContext(SnackbarContext);
 
     const handleInputChange = (name, value) => {
-
         setAddress((result) => {
             return {...result, [name]: value}
         });
-
     };
 
     const addNewAddress = () => {
-
-        if(canSaveAddress(address)) {
-            setNewAddresses(
-                [ ...newAddresess, address ]
-            );
+        if (canSaveAddress(address)) {
+            setNewAddress(address);
             showSnackbar('success', 'Leeroy Jenkins!');
-
         } else {
             showSnackbar('error', 'Name or address are not correct or duplicated!');
         }
@@ -36,23 +30,18 @@ export default function AddressImportForm({rebuildContent}) {
     
 
     const canSaveAddress = (data) => {
-        let duplicate = 
-            newAddresess.map(item => item.name).includes(data.name) ||
-            newAddresess.map(item => item.address).includes(data.address?.toLowerCase());
+        let duplicate = newAddress.name === data.name ||
+            newAddress.address?.toLowerCase() === data.address?.toLowerCase();
         let addressValid = web3.isAddressValid(data.address);
 
         return !duplicate && addressValid && data.name.length;
     }
 
     const onUpdate = (result) => {
-        setNewAddresses(result);
+        if (rebuildContent) rebuildContent(
+            result.filter(item => item.selected).map(item => item.address)
+        )
     };
-
-    useEffect( () => {
-        if(rebuildContent) rebuildContent(
-            newAddresess.filter(item => item.selected).map(item => item.address)
-        );
-    }, [newAddresess]);
 
     return (
         <Grid container spacing={2} style={{marginBottom: 12}}>
@@ -63,7 +52,7 @@ export default function AddressImportForm({rebuildContent}) {
             <Grid item xs={12} sm={6} md={4} >
                 <AddressesSelect
                     {
-                        ...{ onUpdate, newAddresess }
+                        ...{ onUpdate, newAddress }
                     }
                     placeholder='Choose Addresses'
                 />

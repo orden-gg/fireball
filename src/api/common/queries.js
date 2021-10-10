@@ -27,6 +27,17 @@ export const gotchiesQuery = (skip, orderDir) => {
     }`
 };
 
+export const gotchiByIdQuery = (id) => {
+  return `{
+    aavegotchi(id: ${id}) {
+      id
+      name
+      numericTraits
+      equippedWearables
+    }
+  }`
+}
+
 export const userQuery = (id) => {
     return `{
         user(id: "${id}") {

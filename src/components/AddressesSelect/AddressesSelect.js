@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, FormControl, Select, MenuItem, IconButton, OutlinedInput, InputLabel } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Typography, FormControl, Select, MenuItem, Icon, IconButton, OutlinedInput } from '@mui/material';
 import { useStyles } from './styles';
 
 import commonUtils from '../../utils/commonUtils';
-
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { useMetamask } from 'use-metamask';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 import metamaskIcon from '../../assets/images/metamask-icon.png';
-import { Icon } from '@material-ui/core';
 
 const ITEM_HEIGHT = 48;
 const MenuProps = {
@@ -21,7 +20,7 @@ const MenuProps = {
   }
 };
 
-export default function AddressesSelect({ placeholder, onUpdate, newAddresess}) {
+export default function AddressesSelect({ placeholder, onUpdate, newAddress}) {
     const classes = useStyles();
     const [addresses, setAddresses] = useLocalStorage('ghst_addresses', JSON.parse(localStorage.getItem('ghst_addresses')) || []);
     const { metaState } = useMetamask();
@@ -50,30 +49,30 @@ export default function AddressesSelect({ placeholder, onUpdate, newAddresess}) 
 
         if (!address) return setAddresses(addresses.slice(1));
 
-        let addressesCeche = addresses.length ? addresses.filter((item) => {
+        let addressesCache = addresses.length ? addresses.filter((item) => {
             return item.address.toLowerCase() !== address || item.metamask
         }) : [];
 
         if (
-            addressesCeche[0]?.metamask &&
-            addressesCeche[0]?.address.toLowerCase() === address
+            addressesCache[0]?.metamask &&
+            addressesCache[0]?.address.toLowerCase() === address
         ) return; // if address already added
         
-        if (addressesCeche[0]?.metamask) { // if change metamask wallet
-            addressesCeche[0].address = address;
+        if (addressesCache[0]?.metamask) { // if change metamask wallet
+            addressesCache[0].address = address;
         } else { // if metamask wallet not added
-            addressesCeche = [
+            addressesCache = [
                 {
                     name: 'ghst_metamask_address',
                     metamask: true,
                     address: address,
                     selected: true
                 },
-                ...addressesCeche
+                ...addressesCache
             ]
         }
 
-        setAddresses(addressesCeche)
+        setAddresses(addressesCache)
     }
 
 
@@ -85,15 +84,15 @@ export default function AddressesSelect({ placeholder, onUpdate, newAddresess}) 
     }, [metaState]);
 
     useEffect( () => {
-        if (onUpdate) onUpdate(addresses);
         setNames(getNames(addresses));
+        if (onUpdate) onUpdate(addresses);
     }, [addresses]);
 
     useEffect( () => {
-        if (newAddresess.length > addresses.length) {
-            setAddresses(newAddresess);
+        if (newAddress.name && newAddress.address) {
+            setAddresses([...addresses, newAddress]);
         }
-    }, [newAddresess]);
+    }, [newAddress]);
 
     return (
         <FormControl size='small' color='primary' className={classes.select}>

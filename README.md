@@ -1,20 +1,20 @@
 # GHST
 - Code language: JavaScript
-- Framework: React 17.0.1
-- UI Library: Material-UI 4.11.3
-- Icons: Material-UI Icons 4.11.2
+- Framework: React 17.0.2
+- UI Library: Material-UI 5.0.3
+- Icons: Material-UI Icons 5.0.3
 
 ## Install
     Node >= 8.10 with npm >= 5.6
     Google Cloud SDK https://cloud.google.com/sdk/ (just download it)
 
 ## Run app locally
-    npm i
-    npm start
-    npm run start-prod  - 'for production version testing'
+    yarn
+    yarn start
+    yarn run start-prod  - 'for production version testing'
 
 ## Test
-    npm test
+    yarn test
 
 ## Production Deploy
     [frontend_deploy](https://ghst-gg.atlassian.net/wiki/spaces/GHSTGG/pages/66261/Frontend+Deploy)

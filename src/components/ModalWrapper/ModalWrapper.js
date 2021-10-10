@@ -1,7 +1,7 @@
 
 import React from 'react';
 import useStyles from './styles';
-import { Modal, Fade, Paper, Box } from '@material-ui/core';
+import { Box, Modal, Fade, Paper } from '@mui/material';
  
 export default function ModalWrapper({children, modalOpen, handleClose, width}) {
     const classes = useStyles();
