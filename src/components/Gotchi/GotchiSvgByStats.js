@@ -76,7 +76,7 @@ export default function GotchiSvgByStats({gotchi, size}) {
                 });
 
                 svgUniqueStyles = svgUniqueStyles[0].match(regexClass).map((styleBlock) => {
-                    return `${styleBlock}`;
+                    return `.gotchi-${gotchi.tempId}${styleBlock}`;
                 }).join('');
 
                 svgInner.innerHTML = svgString.replace(regex, `<style>${svgUniqueStyles}</style>`);
@@ -98,7 +98,7 @@ export default function GotchiSvgByStats({gotchi, size}) {
                 />
             ) : (
                 <div
-                    className={classNames(classes.svgImage, `gotchi-svg-${gotchi.id}`)}
+                    className={classNames(classes.svgImage, `gotchi-${gotchi.tempId}`, `gotchi-svg-${gotchi.id}`)}
                     ref={svgRef}
                 ></div>
             )}

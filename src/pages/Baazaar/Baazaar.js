@@ -293,6 +293,7 @@ export default function Baazaar() {
                                 ...categoryItem,
                                 gotchi: {
                                     ...option,
+                                    tempId: option.id,
                                     collateral: option.collateralType,
                                     hauntId: categoryItem.hauntId,
                                     id: option.id.split('-')[0],
