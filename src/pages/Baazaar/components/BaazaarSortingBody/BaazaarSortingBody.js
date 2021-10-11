@@ -15,12 +15,12 @@ const useStyles = makeStyles(() => ({
     },
     baazaarListItems: {
         display: "grid",
-        gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))',
+        gridTemplateColumns: 'repeat(auto-fill,minmax(192px,1fr))',
         gridGap: 12,
         width: '100%'
     },
     baazaarListItem: {
-        maxWidth: 220,
+        maxWidth: 192,
         margin: 'auto'
     },
     pagination: {
