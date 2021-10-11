@@ -51,7 +51,10 @@ export default function Header() {
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
                     <NavLink className={classes.navLink} to='/market'>
-                        Market
+                        <Box className={classes.navLinkBox}>
+                            Market
+                            <Typography variant={'caption'}>Filter</Typography>
+                        </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/explorer'>
                         Explorer

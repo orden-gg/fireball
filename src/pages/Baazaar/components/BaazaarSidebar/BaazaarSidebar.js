@@ -83,7 +83,6 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                                 onChange={onTypeChange}
                             >
                                 <MenuItem value={'erc721Listings-0'}>Closed portal</MenuItem>
-                                <MenuItem value={'erc721Listings-2'}>Open portal</MenuItem>
                                 <MenuItem value={'erc721Listings-3'}>Aavegotchi</MenuItem>
                                 <MenuItem value={'erc1155Listings-0'}>Wearable</MenuItem>
                                 <MenuItem value={'erc1155Listings-2'}>Consumable</MenuItem>

@@ -11,7 +11,6 @@ import Web3 from "web3";
 const web3 = new Web3();
 
 var paginationConfigs = {
-        portalsLimit: 12,
         limit: 24,
         noLimit: 1000
     },
@@ -309,7 +308,6 @@ export default function Baazaar() {
             });
         });
 
-        // process combined data
         localGoods = [...localGoods, ...items];
     };
 
@@ -320,7 +318,7 @@ export default function Baazaar() {
             processResponse(params, response);
             thegraph.getJoinedData(makeQueriesForCategory(params, itemTypes.openedPortal)).then((response) => {
                 processResponse(params, response);
-                // start
+                // start render
                 filterLocalGoods();
                 sortLocalGoods();
                 getShownItems();
@@ -420,8 +418,8 @@ export default function Baazaar() {
     };
 
     const getShownItems = (newPage) => {
-        const itemsStart = ((newPage || page) - 1) * paginationConfigs.portalsLimit;
-        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.portalsLimit);
+        const itemsStart = ((newPage || page) - 1) * paginationConfigs.limit;
+        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.limit);
         setSelectedLocalGoods(newSelectedGoods);
     };
 
@@ -446,7 +444,7 @@ export default function Baazaar() {
             setLastValidParams(params);
             getAllBaazaarItems(params);
         } else {
-            params['limit'] = paginationConfigs.portalsLimit;
+            params['limit'] = paginationConfigs.limit;
             setLastValidParams(params);
             getBaazaarItems(params);
         }
@@ -474,7 +472,7 @@ export default function Baazaar() {
                     : <BaazaarSortingBody
                         goods={selectedLocalGoods}
                         page={page}
-                        limit={paginationConfigs.portalsLimit}
+                        limit={paginationConfigs.limit}
                         paginationIsVisible={paginationIsVisible}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
