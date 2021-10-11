@@ -11,6 +11,7 @@ import Web3 from "web3";
 const web3 = new Web3();
 
 var paginationConfigs = {
+        gotchiLimit: 60,
         limit: 24,
         noLimit: 1000
     },
@@ -418,8 +419,8 @@ export default function Baazaar() {
     };
 
     const getShownItems = (newPage) => {
-        const itemsStart = ((newPage || page) - 1) * paginationConfigs.limit;
-        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.limit);
+        const itemsStart = ((newPage || page) - 1) * paginationConfigs.gotchiLimit;
+        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.gotchiLimit);
         setSelectedLocalGoods(newSelectedGoods);
     };
 
@@ -444,7 +445,7 @@ export default function Baazaar() {
             setLastValidParams(params);
             getAllBaazaarItems(params);
         } else {
-            params['limit'] = paginationConfigs.limit;
+            params['limit'] = paginationConfigs.gotchiLimit;
             setLastValidParams(params);
             getBaazaarItems(params);
         }
@@ -472,7 +473,7 @@ export default function Baazaar() {
                     : <BaazaarSortingBody
                         goods={selectedLocalGoods}
                         page={page}
-                        limit={paginationConfigs.limit}
+                        limit={paginationConfigs.gotchiLimit}
                         paginationIsVisible={paginationIsVisible}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}

@@ -126,18 +126,18 @@ export default function BaazaarSortingBody({goods, page, limit, onNextPageClick,
                         </div>
                     })
                 }
-                <div className={classes.pagination} item xs={12}>
-                    {
-                        goods.length ? <Pagination
-                                page={page}
-                                prevPageVisibility={page === 1}
-                                nextPageVisibility={goods.length < limit}
-                                onNextPageClick={onNextPageClick}
-                                onPrevPageClick={onPrevPageClick}
-                            /> :
-                            <Typography className={classes.noGoods} variant={'caption'}>Spooky Market has no such goods :(</Typography>
-                    }
-                </div>
+            </div>
+            <div className={classes.pagination}>
+                {
+                    goods.length ? <Pagination
+                            page={page}
+                            prevPageVisibility={page === 1}
+                            nextPageVisibility={goods.length < limit}
+                            onNextPageClick={onNextPageClick}
+                            onPrevPageClick={onPrevPageClick}
+                        /> :
+                        <Typography className={classes.noGoods} variant={'caption'}>Spooky Market has no such goods :(</Typography>
+                }
             </div>
         </Grid>
     );
