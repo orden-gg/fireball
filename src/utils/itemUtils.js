@@ -84,6 +84,8 @@ export default {
                 return 'mythical';
             case '5':
                 return 'godlike';
+            case '6':
+                return 'drop';
             default:
                 return null;
         }
