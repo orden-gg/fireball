@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
         padding: '4px 8px',
         color: theme.palette.primary.main,
         marginRight: 8
+    },
+    footerCopyright: {
+        '& a': {
+            textDecoration: "none",
+            color: theme.palette.primary.main
+        }
     }
 }));
 
@@ -36,8 +42,10 @@ export default function Footer() {
         <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <Typography>
-                    <Box component='span' className={classes.highlight}>v3</Box>
-                    <Box component='span'>the most entertaining outcome is the most likely</Box>
+                    <Box component='span' className={classes.highlight}>v4</Box>
+                    <Box component='span' className={classes.footerCopyright}>
+                        <a href='https://ghst.gg/'>ghst.gg</a> is aavegotchi.com client developed by orden DAO | <a href='https://simpleanalytics.com/ghst.gg' rel='nofollow' target='_blank'>stats</a>
+                    </Box>
                 </Typography>
             </Toolbar>
             <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
