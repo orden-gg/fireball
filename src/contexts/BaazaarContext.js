@@ -17,10 +17,6 @@ const BaazaarContextProvider = (props) => {
     const [EYS, setEYS] = useState(null);
     const [EYC, setEYC] = useState(null);
 
-    const handleSetSortingOrder = (val) => {
-        setSortingOrder(val);
-    };
-
     return (
         <BaazaarContext.Provider value={{
             NRG,

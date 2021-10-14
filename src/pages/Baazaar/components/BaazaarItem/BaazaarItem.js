@@ -5,6 +5,9 @@ import ghstIcon from '../../../../assets/images/ghsttoken.png';
 import itemUtils from '../../../../utils/itemUtils';
 import commonUtils from '../../../../utils/commonUtils';
 import useStyles from './styles';
+import Web3 from "web3";
+
+var web3 = new Web3();
 
 export default function BaazaarItem({item}) {
     const classes = useStyles();
@@ -69,7 +72,7 @@ export default function BaazaarItem({item}) {
                             <Box className={classes.priceImg}><img src={ghstIcon} alt='GHST' /></Box>
                             <Box className={classes.priceText}>
                                 {
-                                    commonUtils.formatNumberWithCommas(commonUtils.trimPriceToThreeDecimal(item.priceInWei/1e18))
+                                    commonUtils.formatNumberWithCommas(commonUtils.trimPriceToThreeDecimal(web3.utils.fromWei(item.priceInWei)))
                                 }
                             </Box>
                         </Typography>
