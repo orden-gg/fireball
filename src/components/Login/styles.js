@@ -28,11 +28,13 @@ export default makeStyles((theme) => ({
     },
     caption: {
         color: theme.palette.background.default,
-        padding: '0 6px',
+        padding: '6px 8px',
+        whiteSpace: 'nowrap',
+        textTransform: 'uppercase'
     },
     captionText: {
-        fontSize: 14,
-        fontWeight: 500,
+        fontSize: '15px !important',
+        fontWeight: '600 !important',
         margin: 0
     },
     address: {
@@ -55,5 +57,15 @@ export default makeStyles((theme) => ({
     dropdownDivider: {
         textAlign: 'center',
         margin: '8px 0 !important'
+    },
+    modal: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        background: theme.palette.background.paper,
+        padding: 18,
+        borderRadius: 4
     }
 }));

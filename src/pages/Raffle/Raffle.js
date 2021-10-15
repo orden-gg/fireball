@@ -209,7 +209,6 @@ export default function Raffle() {
     }
 
     const onEnd = (id) => {
-        console.log('END');
         setCurrentCountdown(currentCountdown+1);
     }
 
@@ -228,10 +227,6 @@ export default function Raffle() {
     useEffect(() => {
         onFieldChange();
     }, [commonQuantity, uncommonQuantity, rareQuantity, legendaryQuantity, mythicalQuantity, godlikeQuantity]);
-
-    useEffect( () => {
-        console.log(currentCountdown);
-    }, [currentCountdown])
 
     // useEffect(() => {
     //     onFieldChange();

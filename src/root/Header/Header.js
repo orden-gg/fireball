@@ -88,13 +88,13 @@ export default function Header() {
                     <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                         <Button className={classes.iconButton} aria-label='add an alarm'>
                             <img src={ discord } alt='' />
-                            <Box component='span' className={classes.iconButtonText}>325</Box>
+                            <Box component='span' className={classes.iconButtonText}>355</Box>
                         </Button>
                     </Link>
                     <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
                         <Button className={classes.iconButton} aria-label='add an alarm'>
                             <TwitterIcon />
-                            <Box component='span' className={classes.iconButtonText}>540</Box>
+                            <Box component='span' className={classes.iconButtonText}>660</Box>
                         </Button>
                     </Link>
                     <Box className={classes.socialLinkJoin}>
