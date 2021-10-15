@@ -10,6 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import logo from '../../assets/images/logo.png';
 import discord from '../../assets/images/discord.svg';
+import LoginButton from '../../components/LoginButton/LoginButton';
 
 export default function Header() {
     const classes = useStyles();
@@ -69,6 +70,20 @@ export default function Header() {
                         Raffle Calculator
                     </NavLink>
                 </nav>
+                
+            </Box>
+            <Box className={classes.group}>
+                <LoginButton />
+                {/* <MetamaskLoginButton size='small' /> */}
+                <IconButton
+                    color='primary'
+                    aria-label='menu'
+                    className={classes.navHamburger}
+                    onClick={() => setNavOpen(!navOpen)}
+                    ref={hamburgerRef}
+                >
+                    <MenuIcon />
+                </IconButton>
                 <Box className={classes.socialLinkList} container>
                     <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                         <Button className={classes.iconButton} aria-label='add an alarm'>
@@ -86,19 +101,6 @@ export default function Header() {
                         <Typography variant={'caption'}>Join our community!</Typography>
                     </Box>
                 </Box>
-                
-            </Box>
-            <Box className={classes.group}>
-                <MetamaskLoginButton size='small' />
-                <IconButton
-                    color='primary'
-                    aria-label='menu'
-                    className={classes.navHamburger}
-                    onClick={() => setNavOpen(!navOpen)}
-                    ref={hamburgerRef}
-                >
-                    <MenuIcon />
-                </IconButton>
             </Box>
         </Toolbar>
     )
