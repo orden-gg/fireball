@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import logo from '../../assets/images/logo.png';
 import discord from '../../assets/images/discord.svg';
-import LoginButton from '../../components/LoginButton/LoginButton';
+import LoginButton from '../../components/Login/LoginButton';
 
 export default function Header() {
     const classes = useStyles();
