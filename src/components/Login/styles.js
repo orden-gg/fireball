@@ -76,7 +76,7 @@ export default makeStyles((theme) => ({
         }
     },
     listItem: {
-        backgroundColor: alpha(theme.palette.background.default, .7),
+        backgroundColor: alpha(theme.palette.background.default, .4),
         padding: '0 16px',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
@@ -92,19 +92,19 @@ export default makeStyles((theme) => ({
     },
     listWrapper: {
         maxHeight: 275,
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        borderBottom: `2px solid ${theme.palette.primary.dark}`
     },
     listItemName: {
-        fontSize: '17px !important',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        overflow: 'hidden',
-        maxWidth: 220
+        fontSize: '16px !important',
+        // whiteSpace: 'nowrap',
+        // textOverflow: 'ellipsis',
+        // lineHeight: '1.4 !important',
+        // overflow: 'hidden',
+        // maxWidth: 220
     },
-    deleteButton: {
-        marginRight: '-16px !important',
-        borderRadius: '0 !important',
-        padding: '18px !important'
+    tooltip: {
+        background: 'red'
     },
     modal: {
         position: 'absolute',

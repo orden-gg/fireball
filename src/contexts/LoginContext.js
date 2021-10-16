@@ -18,7 +18,7 @@ const LoginContextProvider = (props) => {
         let filtered = storageAddresses.filter(item => item.address !== address);
         
         setStorageAddresses(filtered);
-        selectActiveAddress(filtered.length ? filtered.at(-1).address : '');
+        selectActiveAddress(filtered.length ? filtered[0].address : '');
 
         event.stopPropagation();
     };

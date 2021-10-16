@@ -12,7 +12,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 
 import PersonIcon from '@mui/icons-material/Person';
 
-import LoginList from './LoginList';
+import LoginAddress from './LoginAddress';
 
 export default function LoginButton() {
     const classes = useStyles();
@@ -59,9 +59,11 @@ export default function LoginButton() {
                 </div>
 
                 <div className={classes.buttonDropdown}>
-                    {storageAddresses ? (
+                    {storageAddresses.length ? (
                         <Box className={classes.listWrapper} margin='-18px -18px 18px -18px' >
-                            <LoginList />
+                            {storageAddresses.map((item, index) => {
+                                return <LoginAddress address={item} key={index} />
+                            })}
                         </Box>
                     ) : (
                         null
