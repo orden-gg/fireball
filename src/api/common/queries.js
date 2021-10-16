@@ -12,7 +12,6 @@ export const gotchiesQuery = (skip, orderDir) => {
           withSetsNumericTraits
           numericTraits
           baseRarityScore
-          modifiedRarityScore
           withSetsRarityScore
           kinship
           level
@@ -46,10 +45,8 @@ export const userQuery = (id) => {
             id
             name
             numericTraits
-            modifiedNumericTraits
             withSetsNumericTraits
             baseRarityScore
-            modifiedRarityScore
             withSetsRarityScore
             kinship
             equippedWearables

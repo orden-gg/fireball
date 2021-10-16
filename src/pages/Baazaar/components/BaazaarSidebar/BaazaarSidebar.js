@@ -1,6 +1,7 @@
-import React, {useContext, useRef, useState} from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Grid, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { BaazaarContext } from "../../../../contexts/BaazaarContext";
+import { listingTypes } from "../../../../data/types";
 import useStyles from './styles';
 
 export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defaultOrdering, setSelectedGoodsType}) {
@@ -82,11 +83,11 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                                 value={type}
                                 onChange={onTypeChange}
                             >
-                                <MenuItem value={'erc721Listings-0'}>Closed portal</MenuItem>
-                                <MenuItem value={'erc721Listings-3'}>Aavegotchi</MenuItem>
-                                <MenuItem value={'erc1155Listings-0'}>Wearable</MenuItem>
-                                <MenuItem value={'erc1155Listings-2'}>Consumable</MenuItem>
-                                <MenuItem value={'erc1155Listings-3'}>Tickets</MenuItem>
+                                <MenuItem value={listingTypes.closedPortal}>Closed portal</MenuItem>
+                                <MenuItem value={listingTypes.aavegotchi}>Aavegotchi</MenuItem>
+                                <MenuItem value={listingTypes.wearable}>Wearable</MenuItem>
+                                <MenuItem value={listingTypes.consumable}>Consumable</MenuItem>
+                                <MenuItem value={listingTypes.tickets}>Tickets</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>

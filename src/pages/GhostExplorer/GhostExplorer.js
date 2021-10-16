@@ -5,7 +5,6 @@ import thegraph from '../../api/thegraph';
 import useStyles from './styles';
 
 export default function GhostExplorer() {
-
     const classes = useStyles();
     const [gotchiesFromGraph, setGotchiesFromGraph] = useState(null);
     const [gotchiesShown, setGotchiesShown] = useState([]);
@@ -39,26 +38,24 @@ export default function GhostExplorer() {
         return scrollDown;
     }
 
-    const getGotchies = async () => {
-         await thegraph.getAllGotchies().then((response) => {
+    const getGotchies = () => {
+        thegraph.getAllGotchies().then((response) => {
             const gotchiesData = response.sort((a,b) => a.id - b.id);
             setGotchiesFromGraph(gotchiesData);
+            setMaxGotchiQuantity(gotchiesData.length);
         }).catch((e)=> {
             console.log(e);
         });
     };
 
     const renderGotchi = (quantity) => {
-        console.log(maxGotchiQuantity);
         const l = gotchiesShown.length;
-        if(l < maxGotchiQuantity) {
+
+        if (l < maxGotchiQuantity) {
             const gotchiQuantity = l;
+            let gotchiCache;
 
-            let gotchiCache,
-                lastGotchiCached = gotchiQuantity;
-
-            if (lastGotchiCached < maxGotchiQuantity) {
-                
+            if (gotchiQuantity < maxGotchiQuantity) {
                 gotchiCache = gotchiesFromGraph.slice(gotchiQuantity, gotchiQuantity+quantity);
 
                 gotchiCache = gotchiCache.map((item) => {
@@ -77,10 +74,8 @@ export default function GhostExplorer() {
                 const newGotchies = [...gotchiesShown, ...gotchiCache];
                 
                 setGotchiesShown(newGotchies);
-
                 setIsLoading(false);
             }
-            
         }
     };
 
@@ -89,17 +84,15 @@ export default function GhostExplorer() {
     }, []);
 
     useEffect(() => {
-        if(gotchiesFromGraph) setMaxGotchiQuantity(gotchiesFromGraph.length);
-    }, [gotchiesFromGraph]);
-
-    useEffect(() => {
-        if(maxGotchiQuantity) renderGotchi(100);
+        if (maxGotchiQuantity) renderGotchi(100);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [maxGotchiQuantity]);
 
     useEffect(() => {
-        if(size) {
+        if (size) {
             renderGotchi(50);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [size]);
 
     return (

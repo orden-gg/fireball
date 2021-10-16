@@ -1,11 +1,12 @@
-import React, {useState, useEffect, useCallback, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Backdrop, CircularProgress } from "@mui/material";
-import { makeStyles } from '@mui/styles';
+import useStyles from "./style";
 import thegraph from "../../api/thegraph";
 import BaazaarBody from "./components/BaazaarBody/BaazaarBody";
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
 import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
 import { BaazaarContext } from "../../contexts/BaazaarContext";
+import { listingTypes } from "../../data/types";
 import Web3 from "web3";
 
 const web3 = new Web3();
@@ -15,29 +16,10 @@ var paginationConfigs = {
         limit: 24,
         noLimit: 1000
     },
-    itemTypes = {
-        closedPortal: 'erc721Listings-0',
-        openedPortal: 'erc721Listings-2',
-        aavegotchi: 'erc721Listings-3',
-        wearable: 'erc1155Listings-0',
-        consumable: 'erc1155Listings-2',
-        tickets: 'erc1155Listings-3'
-    },
     defaults = {
-        defaultGoodsType: itemTypes.aavegotchi,
+        defaultGoodsType: listingTypes.aavegotchi,
         defaultOrdering: 'timeCreated-desc'
     };
-
-const useStyles = makeStyles((theme) => ({
-    baazaar: {
-        padding: 24,
-        width: 'calc(100vw + 24px)'
-    },
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff'
-    }
-}));
 
 let localGoods = [],
     filteredLocalGoods = [];
@@ -66,7 +48,7 @@ export default function Baazaar() {
         setResultsForType(selectedGoodsType);
 
         if (validParams) {
-            if (validParams.type === itemTypes.aavegotchi || validParams.type === itemTypes.openedPortal) {
+            if (validParams.type === listingTypes.aavegotchi || validParams.type === listingTypes.openedPortal) {
                 setPaginationToVisible(false);
 
                 paramsWithLimit = {
@@ -113,8 +95,8 @@ export default function Baazaar() {
             orderDirection: ${params.ordering ? params.ordering.split('-')[1] : defaults.defaultOrdering[1]},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${exponentToString(params.from * 1000000000000000000).split('.')[0]}",` : ""}
-                priceInWei_lt: ${params.to ? `"${exponentToString(params.to * 1000000000000000000).split('.')[0]}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${web3.utils.toWei(params.from)}",` : ""}
+                priceInWei_lt: ${params.to ? `"${web3.utils.toWei(params.to)}"` : `"10000000000000000000000000"`},
                 ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -152,8 +134,8 @@ export default function Baazaar() {
             orderDirection: ${order},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${exponentToString(params.from * 1000000000000000000).split('.')[0]}",` : ""}
-                priceInWei_lt: ${params.to ? `"${exponentToString(params.to * 1000000000000000000).split('.')[0]}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${web3.utils.toWei(params.from)}",` : ""}
+                priceInWei_lt: ${params.to ? `"${web3.utils.toWei(params.to)}"` : `"10000000000000000000000000"`},
                 ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -176,33 +158,16 @@ export default function Baazaar() {
                     },
                     hauntId,
                     name,
-                    randomNumber,
-                    status,
                     numericTraits,
-                    modifiedNumericTraits,
                     withSetsNumericTraits,
                     equippedWearables,
-                    equippedSetID,
-                    equippedSetName,
-                    possibleSets,
                     collateral,
-                    escrow,
-                    stakedAmount,
-                    minimumStake,
                     kinship,
-                    lastInteracted,
                     experience,
                     toNextLevel,
-                    usedSkillPoints,
                     level,
                     baseRarityScore,
-                    modifiedRarityScore,
-                    withSetsRarityScore,
-                    locked,
-                    createdAt,
-                    claimedAt,
-                    timesTraded,
-                    historicalPrices
+                    withSetsRarityScore
                 },
                 portal {
                     id,
@@ -213,10 +178,8 @@ export default function Baazaar() {
                             id
                         },
                         portal,
-                        randomNumber,
                         numericTraits,
                         collateralType,
-                        minimumStake,
                         baseRarityScore
                     }
                 }
@@ -224,28 +187,7 @@ export default function Baazaar() {
         }`
     };
 
-    const exponentToString = (exponent) => {
-        let data = String(exponent).split(/[eE]/);
-
-        if (data.length === 1) return data[0];
-
-        let  z = '', sign= exponent < 0 ? '-' : '',
-            str = data[0].replace('.', ''),
-            mag = Number(data[1]) + 1;
-
-        if (mag < 0) {
-            z = sign + '0.';
-            while(mag++) z += '0';
-            return z + str.replace(/^\-/,'');
-        }
-
-        mag -= str.length;
-        while(mag--) z += '0';
-
-        return str + z;
-    };
-
-    const getBaazaarItems = useCallback((params) => {
+    const getBaazaarItems = (params) => {
         showBackdrop(true);
         thegraph.getData(getGraphQueryString(params)).then((response) => {
             setGoods(response.data.category);
@@ -253,7 +195,7 @@ export default function Baazaar() {
         }).catch(() => {
             showBackdrop(false);
         });
-    }, []);
+    };
 
     const makeQueriesForCategory = (params, type) => {
         return [
@@ -297,7 +239,6 @@ export default function Baazaar() {
                                     hauntId: categoryItem.hauntId,
                                     id: option.id.split('-')[0],
                                     kinship: '50',
-                                    modifiedNumericTraits: option.numericTraits,
                                     withSetsNumericTraits: option.numericTraits,
                                     level: '1',
                                     equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -315,9 +256,9 @@ export default function Baazaar() {
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
-        thegraph.getJoinedData(makeQueriesForCategory(params, itemTypes.aavegotchi)).then((response) => {
+        thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
             processResponse(params, response);
-            thegraph.getJoinedData(makeQueriesForCategory(params, itemTypes.openedPortal)).then((response) => {
+            thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
                 processResponse(params, response);
                 // start render
                 filterLocalGoods();
@@ -440,7 +381,7 @@ export default function Baazaar() {
             ordering: defaults.defaultOrdering
         };
 
-        if (resultsForType === itemTypes.aavegotchi) {
+        if (resultsForType === listingTypes.aavegotchi) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllBaazaarItems(params);
@@ -449,8 +390,8 @@ export default function Baazaar() {
             setLastValidParams(params);
             getBaazaarItems(params);
         }
-    }, [getBaazaarItems]);
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Grid className={classes.baazaar} container spacing={3}>
@@ -461,7 +402,7 @@ export default function Baazaar() {
                 setSelectedGoodsType={setSelectedGoodsType}
             />
             {
-                resultsForType !== itemTypes.aavegotchi && resultsForType !== itemTypes.openedPortal ?
+                resultsForType !== listingTypes.aavegotchi && resultsForType !== listingTypes.openedPortal ?
                     <BaazaarBody
                         goods={goods}
                         page={page}

@@ -1,23 +1,34 @@
-# GHST
-- Code language: JavaScript
-- Framework: React 17.0.2
+# ghst.gg // aavegotchi client 
+
+
+## LINCENSE clarification
+
+Starting Octover 26 2021 00:00 GMT+2 this project is switching from private to MIT license
+
+Check open-source workflow to help us build it
+
+
+
+## open source workflow 
+
+-  languages: JavaScript/Python
+- frameworks React
 - UI Library: Material-UI 5.0.3
 - Icons: Material-UI Icons 5.0.3
 
-## Install
-    Node >= 8.10 with npm >= 5.6
-    Google Cloud SDK https://cloud.google.com/sdk/ (just download it)
 
-## Run app locally
-    yarn
-    yarn start
-    yarn run start-prod  - 'for production version testing'
 
-## Test
-    yarn test
+## local deploy (ubuntu & macos)
 
-## Production Deploy
-    [frontend_deploy](https://ghst-gg.atlassian.net/wiki/spaces/GHSTGG/pages/66261/Frontend+Deploy)
+* use yarn lock for versions
+* yarn
+* yarn start
+* yarn run start-prod  - 'for production version testing'
+* yarn test
+
 
 ## Links
-    https://morioh.com/p/656381bcb059
+
+* homepage: https://ghst.gg
+* twitter: https://twitter.com/orden_gg
+* discord 
