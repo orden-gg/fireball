@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Backdrop, Typography } from '@mui/material';
+import { Backdrop, Typography, Box } from '@mui/material';
 import { useMetamask } from 'use-metamask';
 
 import useStyles from './styles';
@@ -17,7 +17,7 @@ export default function LoginButton() {
     const { metaState } = useMetamask();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress, storageAddresses } = useContext(LoginContext);
     const metamaskAddress = metaState.account[0];
 
     useEffect(() => {
@@ -57,6 +57,14 @@ export default function LoginButton() {
                 </div>
 
                 <div className={classes.buttonDropdown}>
+                    {storageAddresses.map((item, index) => {
+                        return <Box display='flex' alignItems='center' key={index}>
+                            <Box>
+                                <Typography>{item.name}</Typography>
+                                <Typography>{commonUtils.cutAddress(item.address)}</Typography>
+                            </Box>
+                        </Box>    
+                    })}
                     <LoginNavigation setDropdownOpen={setDropdownOpen} />
                 </div>
 

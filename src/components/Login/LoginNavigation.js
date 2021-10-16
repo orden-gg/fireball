@@ -13,8 +13,6 @@ export default function LoginNavigation({setDropdownOpen}) {
     const classes = useStyles();
     const { connect, getAccounts, metaState } = useMetamask();
     const [modalOpened, setModalOpened] = useState(false);
-    const [loggedAddresses, setLoggedAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
-    const [activeAddress, setActiveAddress] = useLocalStorage('ACTIVE_ADDRESS', JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')));
 
     useEffect(() => {
         if (metaState.isAvailable) {
