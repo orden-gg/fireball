@@ -14,12 +14,22 @@ const LoginContextProvider = (props) => {
         setActiveAddress(address);
     };
 
+    const logoutAddress = (event, address) => {
+        let filtered = storageAddresses.filter(item => item.address !== address);
+        
+        setStorageAddresses(filtered);
+        selectActiveAddress(filtered.length ? filtered.at(-1).address : '');
+
+        event.stopPropagation();
+    };
+
     return (
         <LoginContext.Provider value={{
             storageAddresses,
             setStorageAddresses,
             activeAddress,
             selectActiveAddress,
+            logoutAddress
         }}>
             { props.children }
         </LoginContext.Provider>

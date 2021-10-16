@@ -12,6 +12,8 @@ import { LoginContext } from '../../contexts/LoginContext';
 
 import PersonIcon from '@mui/icons-material/Person';
 
+import LoginList from './LoginList';
+
 export default function LoginButton() {
     const classes = useStyles();
     const { metaState } = useMetamask();
@@ -57,14 +59,13 @@ export default function LoginButton() {
                 </div>
 
                 <div className={classes.buttonDropdown}>
-                    {storageAddresses.map((item, index) => {
-                        return <Box display='flex' alignItems='center' key={index}>
-                            <Box>
-                                <Typography>{item.name}</Typography>
-                                <Typography>{commonUtils.cutAddress(item.address)}</Typography>
-                            </Box>
-                        </Box>    
-                    })}
+                    {storageAddresses ? (
+                        <Box className={classes.listWrapper} margin='-18px -18px 18px -18px' >
+                            <LoginList />
+                        </Box>
+                    ) : (
+                        null
+                    )}
                     <LoginNavigation setDropdownOpen={setDropdownOpen} />
                 </div>
 

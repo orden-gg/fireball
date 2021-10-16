@@ -47,7 +47,7 @@ export default function LoginModal({modalOpened, onModalClose}) {
             setIsAddressValid(false);
             setAddressHelperText('Address already added!');
         } else if(isAddressValid) {
-            setStorageAddresses([...storageAddresses, {name: name, address: formattedAddress}]);
+            setStorageAddresses([{name: name, address: formattedAddress}, ...storageAddresses]);
             selectActiveAddress(formattedAddress)
             onModalClose();
         }

@@ -59,9 +59,9 @@ export default makeStyles((theme) => ({
         background: theme.palette.background.paper,
         borderRadius: '4px 0 4px 4px',
         padding: 18,
-        maxHeight: 300,
         width: 350,
         cursor: 'default',
+        overflow: 'hidden',
         display: 'none'
     },
     dropdownDivider: {
@@ -74,6 +74,37 @@ export default makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
         }
+    },
+    listItem: {
+        backgroundColor: alpha(theme.palette.background.default, .7),
+        padding: '0 16px',
+        cursor: 'pointer',
+        transition: 'all .2s ease-in-out',
+        '&:hover': {
+            backgroundColor: theme.palette.background.default,
+        },
+        '&.active': {
+            backgroundColor: alpha(theme.palette.primary.main, .05),
+        },
+        '& + $listItem': {
+            marginTop: 1
+        }
+    },
+    listWrapper: {
+        maxHeight: 275,
+        overflowY: 'scroll'
+    },
+    listItemName: {
+        fontSize: '17px !important',
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        maxWidth: 220
+    },
+    deleteButton: {
+        marginRight: '-16px !important',
+        borderRadius: '0 !important',
+        padding: '18px !important'
     },
     modal: {
         position: 'absolute',
