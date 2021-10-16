@@ -13,7 +13,8 @@ export default function LoginNavigation({setDropdownOpen}) {
     const classes = useStyles();
     const { connect, getAccounts, metaState } = useMetamask();
     const [modalOpened, setModalOpened] = useState(false);
-    const [loggedAddress, setLoggedAddress] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')));
+    const [loggedAddresses, setLoggedAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
+    const [activeAddress, setActiveAddress] = useLocalStorage('ACTIVE_ADDRESS', JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')));
 
     useEffect(() => {
         if (metaState.isAvailable) {
@@ -38,6 +39,11 @@ export default function LoginNavigation({setDropdownOpen}) {
         }
     };
 
+    const onButtonClick = () => {
+        connectWallet();
+        console.log(metaState.account[0])
+    };
+
     const onModalOpen = () => {
         setModalOpened(true);
         setDropdownOpen(false);
@@ -46,14 +52,14 @@ export default function LoginNavigation({setDropdownOpen}) {
     const onModalClose = () => setModalOpened(false);
 
     return (
-        <Box>
-            <Button variant='contained' color='primary' onClick={connectWallet} fullWidth>
-                Connect <img src={metamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} /> wallet
+        <Box display='flex' alignItems='center'>
+            <Button variant='contained' color='primary' onClick={onButtonClick} fullWidth>
+                Connect <img src={metamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
             </Button>
 
             <Typography className={classes.dropdownDivider}>or</Typography>
 
-            <Button color='primary' onClick={onModalOpen} fullWidth>Add custom address</Button>
+            <Button color='primary' onClick={onModalOpen} fullWidth className={classes.customButton}>Add custom</Button>
 
             {modalOpened ? <LoginModal modalOpened={modalOpened} onModalClose={onModalClose} /> : null}
         </Box>

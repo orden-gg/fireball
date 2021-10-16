@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export default makeStyles((theme) => ({
     button: {
@@ -14,6 +15,7 @@ export default makeStyles((theme) => ({
         }
     },
     buttonInner: {
+        height: 36,
         display: 'flex',
         alignItems: 'center',
         background: theme.palette.primary.main,
@@ -27,8 +29,12 @@ export default makeStyles((theme) => ({
         }
     },
     caption: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         color: theme.palette.background.default,
-        padding: '6px 8px',
+        padding: '0 6px',
+        minWidth: 36,
         whiteSpace: 'nowrap',
         textTransform: 'uppercase'
     },
@@ -38,8 +44,12 @@ export default makeStyles((theme) => ({
         margin: 0
     },
     address: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         background: theme.palette.background.default,
-        padding: '6px 8px',
+        padding: '0 8px',
+        height: '100%',
         borderRadius: 4,
     },
     buttonDropdown: {
@@ -50,13 +60,20 @@ export default makeStyles((theme) => ({
         borderRadius: '4px 0 4px 4px',
         padding: 18,
         maxHeight: 300,
-        width: 300,
+        width: 350,
         cursor: 'default',
         display: 'none'
     },
     dropdownDivider: {
         textAlign: 'center',
-        margin: '8px 0 !important'
+        margin: '0 8px !important'
+    },
+    customButton: {
+        backgroundColor: `${alpha(theme.palette.primary.main, .08)} !important`,
+        maxWidth: '50%',
+        '&:hover': {
+            backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
+        }
     },
     modal: {
         position: 'absolute',
@@ -67,5 +84,8 @@ export default makeStyles((theme) => ({
         background: theme.palette.background.paper,
         padding: 18,
         borderRadius: 4
+    },
+    modalTitle: {
+        marginBottom: '24px !important'
     }
 }));

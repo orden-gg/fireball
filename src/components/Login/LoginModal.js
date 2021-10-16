@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
@@ -7,6 +7,7 @@ import web3 from '../../api/web3';
 import useStyles from './styles';
 import metamaskIcon from '../../assets/images/metamask-icon.png';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { LoginContext } from '../../contexts/LoginContext';
 
 export default function LoginModal({modalOpened, onModalClose}) {
     const classes = useStyles();
@@ -17,7 +18,7 @@ export default function LoginModal({modalOpened, onModalClose}) {
     const [isAddressValid, setIsAddressValid] = useState(false);
     const [isFormTriggered, setIsFormTriggered] = useState(false);
 
-    const [loggedAddresses, setLoggedAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
+    const { storageAddresses, setStorageAddresses, selectActiveAddress } = useContext(LoginContext);
 
     useEffect(() => {
         return () => { //reset form on destroy
@@ -36,7 +37,8 @@ export default function LoginModal({modalOpened, onModalClose}) {
     };
 
     const onButtonClick = () => {
-        let duplicated = loggedAddresses.find((item) => item.address === address.toLowerCase());
+        let formattedAddress = address.toLowerCase();
+        let duplicated = storageAddresses.find((item) => item.address === formattedAddress);
 
         setIsFormTriggered(true);
         setAddressHelperText('Not a valid address!');
@@ -45,7 +47,8 @@ export default function LoginModal({modalOpened, onModalClose}) {
             setIsAddressValid(false);
             setAddressHelperText('Address already added!');
         } else if(isAddressValid) {
-            setLoggedAddresses([...loggedAddresses, {name: name, address: address.toLowerCase()}]);
+            setStorageAddresses([...storageAddresses, {name: name, address: formattedAddress}]);
+            selectActiveAddress(formattedAddress)
             onModalClose();
         }
     };
@@ -53,7 +56,7 @@ export default function LoginModal({modalOpened, onModalClose}) {
     return (
         <Modal open={modalOpened} onClose={onModalClose} BackdropProps={{sx: {backdropFilter: 'blur(3px)'}}}>
             <Box className={classes.modal}>
-                <Typography variant='h6' textAlign='center' paragraph>Add <Box component='span' color='primary.main'>custom</Box> address</Typography>
+                <Typography variant='h6' textAlign='center' className={classes.modalTitle}>Add <Box component='span' color='primary.main'>custom</Box> address</Typography>
 
                 <TextField
                     id='name'

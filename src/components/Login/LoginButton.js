@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Backdrop, Typography } from '@mui/material';
 import { useMetamask } from 'use-metamask';
 
@@ -8,18 +8,21 @@ import metamaskIcon from '../../assets/images/metamask-icon.png';
 import classNames from 'classnames';
 import LoginNavigation from './LoginNavigation';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { LoginContext } from '../../contexts/LoginContext';
+
+import PersonIcon from '@mui/icons-material/Person';
 
 export default function LoginButton() {
     const classes = useStyles();
     const { metaState } = useMetamask();
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [loggedAddress, setLoggedAddress] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')));
+
+    const { activeAddress } = useContext(LoginContext);
     const metamaskAddress = metaState.account[0];
 
     useEffect(() => {
-        console.log('loggedAddress');
-        console.log(loggedAddress);
-    }, [])
+        console.log(`active - ${activeAddress}`);
+    }, [activeAddress])
 
     const dropdownClose = () => {
         setDropdownOpen(false);
@@ -35,17 +38,17 @@ export default function LoginButton() {
 
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     <div className={classes.caption}>
-                        { metamaskAddress ? (
-                            <Typography className={classes.captionText}>Custom</Typography>
+                        { activeAddress ? (
+                            <PersonIcon />
                         ) : (
-                            <Typography className={classes.captionText}>Account</Typography>
+                            <Typography className={classes.captionText}>Connect account</Typography>
                         )}
                     </div>
 
-                    { metamaskAddress ? (
+                    { activeAddress ? (
                         <div className={classes.address}>
                             <Typography variant='subtitle2'>
-                                {commonUtils.cutAddress(metamaskAddress)}
+                                {commonUtils.cutAddress(activeAddress)}
                             </Typography>
                         </div> 
                     ) : (

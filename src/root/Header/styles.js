@@ -125,21 +125,31 @@ export const useStyles = makeStyles((theme) => ({
     navHamburger: {
         position: 'relative',
         zIndex: theme.zIndex.appBar,
-        marginLeft: 10,
+        marginLeft: '24px !important',
         [theme.breakpoints.up('md')]: {
             display: 'none !important'
         }
     },
     socialLinkList: {
+        display: 'flex',
         justifyContent: 'center',
         flexWrap: 'nowrap',
         fontSize: '1rem',
         position: 'relative',
         whiteSpace: 'nowrap',
+        '&.tablet': {
+            display: 'none'
+        },
         [theme.breakpoints.up('md')]: {
             paddingLeft: 12,
             width: 'unset',
-            margin: '5px 0'
+            margin: '5px 0',
+            '&.tablet': {
+                display: 'flex'
+            },
+            '&.mobile': {
+                display: 'none'
+            },
         }
     },
     socialLink: {
