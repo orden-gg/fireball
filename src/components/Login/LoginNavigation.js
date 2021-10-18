@@ -1,18 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, TextField, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
 import Web3 from 'web3';
 
 import useStyles from './styles';
 import metamaskIcon from '../../assets/images/metamask-icon.png';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import LoginModal from './LoginModal';
 
-export default function LoginNavigation({setDropdownOpen}) {
+export default function LoginNavigation({setDropdownOpen, setModalOpen}) {
     const classes = useStyles();
     const { connect, getAccounts, metaState } = useMetamask();
-    const [modalOpened, setModalOpened] = useState(false);
 
     useEffect(() => {
         if (metaState.isAvailable) {
@@ -37,29 +34,27 @@ export default function LoginNavigation({setDropdownOpen}) {
         }
     };
 
-    const onButtonClick = () => {
+    const onMetamaskClick = () => {
         connectWallet();
         console.log(metaState.account[0])
     };
 
-    const onModalOpen = () => {
-        setModalOpened(true);
+    const onCustomClick = () => {
+        setModalOpen(true);
         setDropdownOpen(false);
     };
 
-    const onModalClose = () => setModalOpened(false);
-
     return (
         <Box display='flex' alignItems='center'>
-            <Button variant='contained' color='primary' onClick={onButtonClick} fullWidth>
+            <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth>
                 Connect <img src={metamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
             </Button>
 
             <Typography className={classes.dropdownDivider}>or</Typography>
 
-            <Button color='primary' onClick={onModalOpen} fullWidth className={classes.customButton}>Add custom</Button>
-
-            {modalOpened ? <LoginModal modalOpened={modalOpened} onModalClose={onModalClose} /> : null}
+            <Button color='primary' onClick={onCustomClick} fullWidth className={classes.customButton}>
+                Add custom
+            </Button>
         </Box>
     );
 }

@@ -1,23 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
-import { useMetamask } from 'use-metamask';
-
 import useStyles from './styles';
-import commonUtils from '../../utils/commonUtils';
-import metamaskIcon from '../../assets/images/metamask-icon.png';
+
 import classNames from 'classnames';
-import LoginNavigation from './LoginNavigation';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import { useMetamask } from 'use-metamask';
+import commonUtils from '../../utils/commonUtils';
+
 import { LoginContext } from '../../contexts/LoginContext';
+import LoginNavigation from './LoginNavigation';
+import LoginAddress from './LoginAddress';
+import LoginModal from './LoginModal';
 
 import PersonIcon from '@mui/icons-material/Person';
-
-import LoginAddress from './LoginAddress';
 
 export default function LoginButton() {
     const classes = useStyles();
     const { metaState } = useMetamask();
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const { activeAddress, storageAddresses } = useContext(LoginContext);
     const metamaskAddress = metaState.account[0];
@@ -58,20 +58,26 @@ export default function LoginButton() {
                     )}
                 </div>
 
-                <div className={classes.buttonDropdown}>
-                    {storageAddresses.length ? (
-                        <Box className={classes.listWrapper} margin='-18px -18px 18px -18px' >
-                            {storageAddresses.map((item, index) => {
-                                return <LoginAddress address={item} key={index} />
-                            })}
-                        </Box>
-                    ) : (
-                        null
-                    )}
-                    <LoginNavigation setDropdownOpen={setDropdownOpen} />
-                </div>
+                {dropdownOpen ? (
+                    <div className={classes.buttonDropdown}>
+                        {storageAddresses.length ? (
+                            <Box className={classes.listWrapper} margin='-18px -18px 18px -18px' >
+                                {storageAddresses.map((item, index) => {
+                                    return <LoginAddress address={item} key={index} />
+                                })}
+                            </Box>
+                        ) : (
+                            null
+                        )}
+                        <LoginNavigation setDropdownOpen={setDropdownOpen} setModalOpen={setModalOpen} />
+                    </div>
+                ) : (
+                    null
+                )}
 
             </div>
+
+            {modalOpen ? <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> : null}
 
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)' }}

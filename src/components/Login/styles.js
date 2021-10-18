@@ -7,7 +7,8 @@ export default makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 2,
         '&.opened': {
             '& $buttonInner': {
-                background: theme.palette.primary.dark
+                background: theme.palette.primary.dark,
+                borderRadius: '4px 4px 0 0',
             },
             '& $buttonDropdown': {
                 display: 'block'
@@ -77,7 +78,8 @@ export default makeStyles((theme) => ({
     },
     listItem: {
         backgroundColor: alpha(theme.palette.background.default, .4),
-        padding: '0 16px',
+        border: '2px solid transparent',
+        padding: '0 12px',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
         '&:hover': {
@@ -85,23 +87,30 @@ export default makeStyles((theme) => ({
         },
         '&.active': {
             backgroundColor: alpha(theme.palette.primary.main, .05),
+            borderColor: alpha(theme.palette.primary.main, .3)
         },
         '& + $listItem': {
-            marginTop: 1
+            marginTop: 2
         }
     },
     listWrapper: {
         maxHeight: 275,
         overflowY: 'scroll',
-        borderBottom: `2px solid ${theme.palette.primary.dark}`
+        // borderBottom: `2px solid ${theme.palette.primary.dark}`,
     },
     listItemName: {
         fontSize: '16px !important',
-        // whiteSpace: 'nowrap',
-        // textOverflow: 'ellipsis',
-        // lineHeight: '1.4 !important',
-        // overflow: 'hidden',
-        // maxWidth: 220
+        fontWeight: '500 !important',
+        '&.Mui-disabled::before': {
+            borderColor: 'transparent !important'
+        },
+        '& input': {
+            color: `${theme.palette.common.white} !important`,
+            cursor: 'pointer !important',
+            textFillColor: `${theme.palette.common.white} !important`,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+        }
     },
     tooltip: {
         background: 'red'

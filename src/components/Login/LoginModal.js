@@ -1,15 +1,12 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useMetamask } from 'use-metamask';
 import web3 from '../../api/web3';
 
 import useStyles from './styles';
-import metamaskIcon from '../../assets/images/metamask-icon.png';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import { LoginContext } from '../../contexts/LoginContext';
 
-export default function LoginModal({modalOpened, onModalClose}) {
+export default function LoginModal({modalOpen, setModalOpen}) {
     const classes = useStyles();
 
     const [name, setName] = useState('');
@@ -49,12 +46,12 @@ export default function LoginModal({modalOpened, onModalClose}) {
         } else if(isAddressValid) {
             setStorageAddresses([{name: name, address: formattedAddress}, ...storageAddresses]);
             selectActiveAddress(formattedAddress)
-            onModalClose();
+            setModalOpen(false);
         }
     };
 
     return (
-        <Modal open={modalOpened} onClose={onModalClose} BackdropProps={{sx: {backdropFilter: 'blur(3px)'}}}>
+        <Modal open={modalOpen} onClose={() => setModalOpen(false)} BackdropProps={{sx: {backdropFilter: 'blur(3px)'}}}>
             <Box className={classes.modal}>
                 <Typography variant='h6' textAlign='center' className={classes.modalTitle}>Add <Box component='span' color='primary.main'>custom</Box> address</Typography>
 

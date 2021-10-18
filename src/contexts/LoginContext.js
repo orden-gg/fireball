@@ -23,13 +23,22 @@ const LoginContextProvider = (props) => {
         event.stopPropagation();
     };
 
+    const updateAddressName = (address, newName) => {
+        let storageAddressesCache = [...storageAddresses];
+        let itemForUpdate = storageAddressesCache.find((item) => item.address === address);
+
+        itemForUpdate.name = newName;
+        setStorageAddresses(storageAddressesCache);
+    };
+
     return (
         <LoginContext.Provider value={{
             storageAddresses,
             setStorageAddresses,
             activeAddress,
             selectActiveAddress,
-            logoutAddress
+            logoutAddress,
+            updateAddressName
         }}>
             { props.children }
         </LoginContext.Provider>

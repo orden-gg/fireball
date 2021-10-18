@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { FormControl, IconButton, Input, InputAdornment, TextField, Tooltip, Typography } from '@mui/material';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { FormControl, IconButton, Input, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import classNames from 'classnames';
 
@@ -16,32 +16,52 @@ import LogoutIcon from '@mui/icons-material/Logout';
 export default function LoginAddress({address}) {
     const classes = useStyles();
     const [editMode, setEditMode] = useState(false);
-    const { activeAddress, selectActiveAddress, logoutAddress } = useContext(LoginContext);
+    const [name, setName] = useState(address.name);
+    const [copyTooltipText, setCopyTooltipText] = useState('Copy address');
+    const nameRef = useRef();
+    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress } = useContext(LoginContext);
+
+    useEffect(() => { // focus input on edit button click
+        if (editMode) nameRef.current.focus();
+    }, [editMode]);
 
     const isActive = (current) => {
         return current.address === activeAddress;
     };
 
-    const editAddress = (event, address) => {
-        setEditMode(true);
-        // let index = storageAddresses.findIndex(item => item.address == address);
-        // storageAddresses[index].name = 
-        
-        // setStorageAddresses(filtered);
-        // selectActiveAddress(filtered.length ? filtered[0].address : '');
+    const onNameChange = (value) => {
+        setName(value);
+    };
+
+    const confirmNewAddress = (event) => {
+        if(name.length > 0) {
+            setEditMode(false);
+
+            if(name !== address.name) updateAddressName(address.address, name)
+        }
 
         event.stopPropagation();
     };
 
-    const confirmNewAddress = (event) => {
-        setEditMode(false);
-        // let index = storageAddresses.findIndex(item => item.address == address);
-        // storageAddresses[index].name = 
-        
-        // setStorageAddresses(filtered);
-        // selectActiveAddress(filtered.length ? filtered[0].address : '');
+    const editAddress = (event) => {
+        setEditMode(true);
+        nameRef.current.focus();
 
         event.stopPropagation();
+    };
+
+    const copyAddress = (event) => {
+        copyToClipboard();
+        event.stopPropagation();
+    };
+
+    const copyToClipboard = async () => {
+        try {
+            await navigator.clipboard.writeText(address.address);
+            setCopyTooltipText('Copied!');
+        } catch (err) {
+            setCopyTooltipText('Copy address');
+        }
     };
 
     return (
@@ -52,22 +72,25 @@ export default function LoginAddress({address}) {
             alignItems='center'
             justifyContent='space-between'
         >
-            <Box display='flex' alignItems='center' padding='8px 0'>
+            <Box display='flex' alignItems='center' padding='4px 0'>
                 <PersonIcon fontSize='small' />
 
                 <Box marginLeft='18px'>
-                    <Box display='flex' alignItems='center'>
+                    <Box component='form' display='flex' alignItems='center'>
                         <FormControl variant='standard' disabled={!editMode}>
                             <Input
                                 id='name'
                                 type='text'
-                                value={address.name}
+                                error={name.length === 0}
+                                inputRef={nameRef}
+                                value={name}
+                                onChange={(event) => onNameChange(event.target.value)}
                                 className={classes.listItemName}
                                 endAdornment={
                                     <InputAdornment position='end'>
                                         {editMode ? (
-                                            <IconButton onClick={(event) => confirmNewAddress(event)}>
-                                                <CheckIcon size='small' />
+                                            <IconButton type='submit' color='success' size='small' onClick={(event) => confirmNewAddress(event)} disabled={name.length === 0}>
+                                                <CheckIcon fontSize='8px' />
                                             </IconButton>
                                         ) : (
                                             null
@@ -91,8 +114,8 @@ export default function LoginAddress({address}) {
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip title='Copy address' placement='top' followCursor>
-                    <IconButton onClick={(event) => event.stopPropagation()}>
+                <Tooltip title={copyTooltipText} placement='top' followCursor>
+                    <IconButton onClick={(event) => copyAddress(event)} onMouseLeave={() => setCopyTooltipText('Copy address')}>
                         <ContentCopyIcon fontSize='small' />
                     </IconButton>
                 </Tooltip>
