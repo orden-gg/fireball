@@ -18,6 +18,19 @@ html, body {
   background: rgba(253, 154, 249, .1);
 }
 
+.custom-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.custom-scroll::-webkit-scrollbar {
+  background-color: transparent;
+  width: 4px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: rgba(253, 154, 249, .8);
+}
+
 
 /* GOTCHI BASE STYLES */
 .gotchi-bg {

@@ -71,11 +71,16 @@ export default makeStyles((theme) => ({
     },
     customButton: {
         backgroundColor: `${alpha(theme.palette.primary.main, .08)} !important`,
-        maxWidth: '50%',
         maxWidth: 140,
         '&:hover': {
             backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
         }
+    },
+    listWrapper: {
+        maxHeight: 230,
+        overflowY: 'scroll',
+        // borderTop: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
+        // borderBottom: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
     },
     listItem: {
         backgroundColor: alpha(theme.palette.background.default, .6),
@@ -95,10 +100,6 @@ export default makeStyles((theme) => ({
         '& + $listItem': {
             marginTop: 2
         }
-    },
-    listWrapper: {
-        maxHeight: 275,
-        overflowY: 'scroll'
     },
     listItemName: {
         fontSize: '16px !important',

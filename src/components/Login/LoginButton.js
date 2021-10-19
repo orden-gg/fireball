@@ -82,13 +82,16 @@ export default function LoginButton() {
                 </div>
 
                 {dropdownOpen ? (
-                    <div className={classes.buttonDropdown}>
-                        <Box className={classes.listWrapper} margin='-12px -12px 12px -12px'>
-                                    {metaState.account[0] ? (
-                                        <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} />
-                                    ) : (
-                                        null
-                                    )}
+                    <Box className={classes.buttonDropdown} paddingTop={metaState.account[0] ? '74px' : '12px'}>
+                        <Box className={classNames(classes.listWrapper, 'custom-scroll')} margin='-12px -12px 12px -12px'>
+                            {metaState.account[0] ? (
+                                <Box position='absolute' top={0} right={0} left={0}>
+                                    <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} />
+                                </Box>
+                            ) : (
+                                null
+                            )}
+
                             {storageAddresses.length ? (
 
                                     storageAddresses.map((item, index) => {
@@ -99,7 +102,7 @@ export default function LoginButton() {
                             )}
                         </Box>
                         <LoginNavigation setDropdownOpen={setDropdownOpen} setModalOpen={setModalOpen} />
-                    </div>
+                    </Box>
                 ) : (
                     null
                 )}
