@@ -80,12 +80,11 @@ export default makeStyles((theme) => ({
     listItem: {
         backgroundColor: alpha(theme.palette.background.default, .6),
         border: '2px solid transparent',
-        padding: '0 12px',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
         position: 'relative',
         overflow: 'hidden',
-        padding: '10px 6px',
+        padding: '14px 6px 13px',
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },

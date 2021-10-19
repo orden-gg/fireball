@@ -37,14 +37,11 @@ export default function LoginButton() {
 
     useEffect(() => { // handle metamask accounts
         if(metaState.account[0]) {
-            console.log(metaState.account[0])
-            console.log(isMetamaskActive)
-
-            if(metaState.account[0] === activeAddress || isMetamaskActive) {
-                selectActiveAddress(metaState.account[0]);
-            } else if(!activeAddress.length) {
+            if(metaState.account[0] === activeAddress || isMetamaskActive || !activeAddress.length) {
                 selectActiveAddress(metaState.account[0]);
             }
+        } else if (isMetamaskActive) { // on metamask logout
+            selectActiveAddress(storageAddresses.length ? storageAddresses[0].address : '');
         }
     }, [metaState]);
 
