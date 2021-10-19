@@ -1,42 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
-import Web3 from 'web3';
-
 import useStyles from './styles';
-import metamaskIcon from '../../assets/images/metamask-icon.png';
+
+import { LoginContext } from '../../contexts/LoginContext';
+
+import MetamaskIcon from '../../assets/images/metamask-icon.png';
 
 export default function LoginNavigation({setDropdownOpen, setModalOpen}) {
     const classes = useStyles();
-    const { connect, getAccounts, metaState } = useMetamask();
-
-    useEffect(() => {
-        if (metaState.isAvailable) {
-            (async () => {
-                try {
-                    let account = await getAccounts();
-                    if(account.length) connectWallet();
-                } catch (error) {
-                    console.log(error);
-                }
-            })();
-          }
-    }, []);
-
-    const connectWallet = async () => {
-        if (metaState.isAvailable && !metaState.isConnected) {
-            try {
-                await connect(Web3);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
+    const { metaState } = useMetamask();
+    const { connectMetamask, setIsMetamaskActive } = useContext(LoginContext);
 
     const onMetamaskClick = () => {
-        connectWallet();
-        console.log(metaState.account[0])
+        connectMetamask().then((connected) => {
+            if (connected) setIsMetamaskActive(true);
+        });
     };
 
     const onCustomClick = () => {
@@ -45,12 +25,18 @@ export default function LoginNavigation({setDropdownOpen, setModalOpen}) {
     };
 
     return (
-        <Box display='flex' alignItems='center'>
-            <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth>
-                Connect <img src={metamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
-            </Button>
+        <Box display='flex' alignItems='center' justifyContent='flex-end'>
+            {!metaState.account[0] ? (
+                <>
+                    <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth>
+                        Connect <img src={MetamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
+                    </Button>
 
-            <Typography className={classes.dropdownDivider}>or</Typography>
+                    <Typography className={classes.dropdownDivider}>or</Typography>
+                </>
+            ) : (
+                null
+            )}
 
             <Button color='primary' onClick={onCustomClick} fullWidth className={classes.customButton}>
                 Add custom

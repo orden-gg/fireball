@@ -12,19 +12,41 @@ import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
 import PersonIcon from '@mui/icons-material/Person';
+import MetamaskIcon from '../../assets/images/metamask-icon.png';
 
 export default function LoginButton() {
     const classes = useStyles();
-    const { metaState } = useMetamask();
+    const { getAccounts, metaState } = useMetamask();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
 
-    const { activeAddress, storageAddresses } = useContext(LoginContext);
-    const metamaskAddress = metaState.account[0];
+    const { activeAddress, selectActiveAddress, storageAddresses, connectMetamask, isMetamaskActive } = useContext(LoginContext);
 
-    useEffect(() => {
-        console.log(`active - ${activeAddress}`);
-    }, [activeAddress])
+    useEffect(() => { // connect metamask on load
+        if (metaState.isAvailable) {
+            (async () => {
+                try {
+                    let account = await getAccounts();
+                    if(account.length) connectMetamask();
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
+        }
+    }, []);
+
+    useEffect(() => { // handle metamask accounts
+        if(metaState.account[0]) {
+            console.log(metaState.account[0])
+            console.log(isMetamaskActive)
+
+            if(metaState.account[0] === activeAddress || isMetamaskActive) {
+                selectActiveAddress(metaState.account[0]);
+            } else if(!activeAddress.length) {
+                selectActiveAddress(metaState.account[0]);
+            }
+        }
+    }, [metaState]);
 
     const dropdownClose = () => {
         setDropdownOpen(false);
@@ -41,7 +63,11 @@ export default function LoginButton() {
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     <div className={classes.caption}>
                         { activeAddress ? (
-                            <PersonIcon />
+                            isMetamaskActive ? (
+                                <img src={MetamaskIcon} alt='Metamask icon' width={16} />
+                            ) : (
+                                <PersonIcon />
+                            )
                         ) : (
                             <Typography className={classes.captionText}>Connect account</Typography>
                         )}
@@ -60,15 +86,21 @@ export default function LoginButton() {
 
                 {dropdownOpen ? (
                     <div className={classes.buttonDropdown}>
-                        {storageAddresses.length ? (
-                            <Box className={classes.listWrapper} margin='-18px -18px 18px -18px' >
-                                {storageAddresses.map((item, index) => {
-                                    return <LoginAddress address={item} key={index} />
-                                })}
-                            </Box>
-                        ) : (
-                            null
-                        )}
+                        <Box className={classes.listWrapper} margin='-12px -12px 12px -12px'>
+                                    {metaState.account[0] ? (
+                                        <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} />
+                                    ) : (
+                                        null
+                                    )}
+                            {storageAddresses.length ? (
+
+                                    storageAddresses.map((item, index) => {
+                                        return <LoginAddress address={item} key={index} />
+                                    })
+                            ) : (
+                                null
+                            )}
+                        </Box>
                         <LoginNavigation setDropdownOpen={setDropdownOpen} setModalOpen={setModalOpen} />
                     </div>
                 ) : (

@@ -1,17 +1,23 @@
 import React, {createContext, useState} from 'react';
+import Web3 from 'web3';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { useMetamask } from 'use-metamask';
 
 export const LoginContext = createContext({});
 
 const LoginContextProvider = (props) => {
+    const { connect, metaState } = useMetamask();
     const [storageAddresses, setStorageAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
     const [storageActive, setStorageActive] = useLocalStorage('ACTIVE_ADDRESS', JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')) || '');
 
     const [activeAddress, setActiveAddress] = useState(storageActive);
+    const [isMetamaskActive, setIsMetamaskActive] = useState(false);
 
     const selectActiveAddress = (address) => {
         setStorageActive(address);
         setActiveAddress(address);
+
+        metaState.account[0] === address ? setIsMetamaskActive(true) : setIsMetamaskActive(false);
     };
 
     const logoutAddress = (event, address) => {
@@ -31,6 +37,18 @@ const LoginContextProvider = (props) => {
         setStorageAddresses(storageAddressesCache);
     };
 
+    const connectMetamask = async () => {
+        if (metaState.isAvailable && !metaState.isConnected) {
+            try {
+                await connect(Web3);
+                return true;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
+        }
+    };
+
     return (
         <LoginContext.Provider value={{
             storageAddresses,
@@ -38,7 +56,10 @@ const LoginContextProvider = (props) => {
             activeAddress,
             selectActiveAddress,
             logoutAddress,
-            updateAddressName
+            updateAddressName,
+            connectMetamask,
+            isMetamaskActive,
+            setIsMetamaskActive
         }}>
             { props.children }
         </LoginContext.Provider>

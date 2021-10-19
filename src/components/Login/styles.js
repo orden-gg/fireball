@@ -59,7 +59,7 @@ export default makeStyles((theme) => ({
         right: 0,
         background: theme.palette.background.paper,
         borderRadius: '4px 0 4px 4px',
-        padding: 18,
+        padding: 12,
         width: 350,
         cursor: 'default',
         overflow: 'hidden',
@@ -72,16 +72,20 @@ export default makeStyles((theme) => ({
     customButton: {
         backgroundColor: `${alpha(theme.palette.primary.main, .08)} !important`,
         maxWidth: '50%',
+        maxWidth: 140,
         '&:hover': {
             backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
         }
     },
     listItem: {
-        backgroundColor: alpha(theme.palette.background.default, .4),
+        backgroundColor: alpha(theme.palette.background.default, .6),
         border: '2px solid transparent',
         padding: '0 12px',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: '10px 6px',
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },
@@ -95,8 +99,7 @@ export default makeStyles((theme) => ({
     },
     listWrapper: {
         maxHeight: 275,
-        overflowY: 'scroll',
-        // borderBottom: `2px solid ${theme.palette.primary.dark}`,
+        overflowY: 'scroll'
     },
     listItemName: {
         fontSize: '16px !important',
@@ -110,6 +113,20 @@ export default makeStyles((theme) => ({
             textFillColor: `${theme.palette.common.white} !important`,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            padding: '0 0 2px'
+        }
+    },
+    listItemAddress: {
+        fontSize: '14px !important',
+        fontWeight: '700 !important',
+        marginLeft: '4px !important',
+        backgroundColor: theme.palette.background.paper,
+        padding: '4px 6px',
+        borderRadius: 4,
+        cursor: 'pointer',
+        transition: 'all .3s ease-in-out',
+        '&:hover': {
+            backgroundColor: alpha(theme.palette.background.paper, .4),
         }
     },
     tooltip: {

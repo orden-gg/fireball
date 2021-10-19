@@ -10,10 +10,10 @@ import { LoginContext } from '../../contexts/LoginContext';
 import PersonIcon from '@mui/icons-material/Person';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import LogoutIcon from '@mui/icons-material/Logout';
+import MetamaskIcon from '../../assets/images/metamask-icon.png';
 
-export default function LoginAddress({address}) {
+export default function LoginAddress({address, isMetamask}) {
     const classes = useStyles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
@@ -72,59 +72,74 @@ export default function LoginAddress({address}) {
             alignItems='center'
             justifyContent='space-between'
         >
-            <Box display='flex' alignItems='center' padding='4px 0'>
-                <PersonIcon fontSize='small' />
+            <Box display='flex' alignItems='center'>
 
-                <Box marginLeft='18px'>
-                    <Box component='form' display='flex' alignItems='center'>
-                        <FormControl variant='standard' disabled={!editMode}>
-                            <Input
-                                id='name'
-                                type='text'
-                                error={name.length === 0}
-                                inputRef={nameRef}
-                                value={name}
-                                onChange={(event) => onNameChange(event.target.value)}
-                                className={classes.listItemName}
-                                endAdornment={
-                                    <InputAdornment position='end'>
-                                        {editMode ? (
-                                            <IconButton type='submit' color='success' size='small' onClick={(event) => confirmNewAddress(event)} disabled={name.length === 0}>
-                                                <CheckIcon fontSize='8px' />
-                                            </IconButton>
-                                        ) : (
-                                            null
-                                        )}
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-                    </Box>
+                <Box component='form' display='flex' alignItems='center'>
+                    {!isMetamask ? (
+                        <Box padding='0 2px' marginRight='4px' height='20px'>
+                            <PersonIcon className={classes.listItemIcon} fontSize='small' />
+                        </Box>
+                    ) : (
+                        <Box padding='0 4px' marginRight='4px'>
+                            <img src={MetamaskIcon} alt='Metamask icon' width={16} />
+                        </Box>
+                    )}
 
-                    <Typography variant='subtitle2' color='primary.main'>
-                        {commonUtils.cutAddress(address.address)}
-                    </Typography>
+
+                    <FormControl variant='standard' disabled={!editMode}>
+                        <Input
+                            id='name'
+                            type='text'
+                            error={name.length === 0}
+                            inputRef={nameRef}
+                            value={name}
+                            onChange={(event) => onNameChange(event.target.value)}
+                            className={classes.listItemName}
+                            endAdornment={
+                                <InputAdornment position='end'>
+                                    {editMode ? (
+                                        <IconButton type='submit' color='success' size='small' onClick={(event) => confirmNewAddress(event)} disabled={name.length === 0}>
+                                            <CheckIcon fontSize='8px' />
+                                        </IconButton>
+                                    ) : (
+                                        null
+                                    )}
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
                 </Box>
-            </Box>
-
-            <Box display='flex' alignItems='center' marginRight='-8px' marginLeft='8px'>
-                <Tooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>
-                    <IconButton onClick={(event) => editAddress(event)}>
-                        <EditIcon fontSize='small' />
-                    </IconButton>
-                </Tooltip>
 
                 <Tooltip title={copyTooltipText} placement='top' followCursor>
-                    <IconButton onClick={(event) => copyAddress(event)} onMouseLeave={() => setCopyTooltipText('Copy address')}>
-                        <ContentCopyIcon fontSize='small' />
-                    </IconButton>
+                    <Typography
+                        className={classes.listItemAddress}
+                        color='primary.main'
+                        onClick={(event) => copyAddress(event)}
+                        onMouseLeave={() => setCopyTooltipText('Copy address')}
+                    >
+                        {commonUtils.cutAddress(address.address)}
+                    </Typography>
                 </Tooltip>
+            </Box>
 
-                <Tooltip title='Logout' placement='top' followCursor>
-                    <IconButton color='warning' onClick={(event) => logoutAddress(event, address.address)}>
-                        <LogoutIcon fontSize='small' />
-                    </IconButton>
-                </Tooltip>
+            <Box display='flex' alignItems='center' marginLeft='4px'>
+                {!isMetamask ? (
+                    <>
+                        <Tooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>
+                            <IconButton size='small' onClick={(event) => editAddress(event)}>
+                                <EditIcon fontSize='small' />
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title='Logout' placement='top' followCursor>
+                            <IconButton size='small' color='warning' onClick={(event) => logoutAddress(event, address.address)}>
+                                <LogoutIcon fontSize='small' />
+                            </IconButton>
+                        </Tooltip>
+                    </>
+                ) : (
+                    null
+                )}
             </Box>
         </Box>  
     );
