@@ -28,6 +28,20 @@ export default makeStyles((theme) => ({
             background: theme.palette.primary.dark
         }
     },
+    caption: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: theme.palette.background.default,
+        padding: '0 6px',
+        whiteSpace: 'nowrap',
+        textTransform: 'uppercase'
+    },
+    captionText: {
+        fontSize: '15px !important',
+        fontWeight: '600 !important',
+        margin: 0
+    },
     address: {
         display: 'flex',
         alignItems: 'center',

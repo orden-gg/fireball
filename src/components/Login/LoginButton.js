@@ -64,14 +64,14 @@ export default function LoginButton() {
                                 <img src={MetamaskIcon} alt='Metamask icon' width={18} />
                             </Box>
                         ) : (
-                            <>
-                                <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' padding='2px'>
-                                    <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
-                                </Box>
-                            </>
+                            <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' padding='2px'>
+                                <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
+                            </Box>
                         )
                     ) : (
-                        <Typography className={classes.captionText}>Connect account</Typography>
+                        <div className={classes.caption}>
+                            <Typography className={classes.captionText}>Connect account</Typography>
+                        </div>
                     )}
 
                     { activeAddress ? (
