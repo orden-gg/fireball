@@ -13,7 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
-export default function LoginAddress({address, isMetamask}) {
+export default function LoginAddress({address, isMetamask, setDropdownOpen}) {
     const classes = useStyles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
@@ -24,6 +24,11 @@ export default function LoginAddress({address, isMetamask}) {
     useEffect(() => { // focus input on edit button click
         if (editMode) nameRef.current.focus();
     }, [editMode]);
+
+    const onAddressClick = () => {
+        setDropdownOpen(false);
+        selectActiveAddress(address.address);
+    };
 
     const isActive = (current) => {
         return current.address === activeAddress;
@@ -66,7 +71,7 @@ export default function LoginAddress({address, isMetamask}) {
 
     return (
         <Box
-            onClick={() => selectActiveAddress(address.address)}
+            onClick={onAddressClick}
             className={classNames(classes.listItem, isActive(address) ? 'active' : '' )}
             display='flex'
             alignItems='center'
