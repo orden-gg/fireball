@@ -5,29 +5,25 @@ import thegraph from '../../api/thegraph';
 import web3 from '../../api/web3';
 import itemUtils from '../../utils/itemUtils';
 import commonUtils from '../../utils/commonUtils';
-
 import { useStyles } from './styles';
-
 import ClientContent from './components/ClientContent';
 import { LoginContext } from "../../contexts/LoginContext";
 
 export default function Client() {
     const classes = useStyles();
     const theme = useTheme();
-    const [signedInAddress, setSignedInAddress] = useState('');
     const [gotchies, setGotchies] = useState([]);
     const [gotchiesFilter, setGotchiesFilter] = useState('withSetsRarityScore');
     const [isGotchiesLoading, setIsGotchiesLoading] = useState(false);
-
     const [inventory, setInventory] = useState([]);
     const [inventoryFilter, setInventoryFilter] = useState('desc');
     const [isInventoryLoading, setIsInventoryLoading] = useState(false);
     const { activeAddress } = useContext(LoginContext);
 
-    const getGotchiesByAddress = (addresses) => {
+    const getGotchiesByAddress = (address) => {
         setIsGotchiesLoading(true);
-        thegraph.getGotchiesByAddress(addresses).then(async (response)=> {
-            setGotchies(commonUtils.basicSort(response.data.user.gotchisOwned, gotchiesFilter));
+        thegraph.getGotchiesByAddress(address).then(async (response)=> {
+            setGotchies(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchiesFilter));
             setIsGotchiesLoading(false);
         }).catch(()=> {
             setIsGotchiesLoading(false);
@@ -36,7 +32,7 @@ export default function Client() {
 
     const getInventoryByAddress = (address) => {
         setIsInventoryLoading(true);
-        web3.getInventoryByAddress(address).then((response)=>{
+        web3.getInventoryByAddress(address).then((response) => {
             let combinedArray = [];
 
             response.items.forEach((item) => {
@@ -70,14 +66,10 @@ export default function Client() {
     };
 
     const getData = () => {
-        if (signedInAddress) {
-            getGotchiesByAddress(signedInAddress);
-            getInventoryByAddress(signedInAddress);
+        if (activeAddress) {
+            getGotchiesByAddress(activeAddress.toLowerCase());
+            getInventoryByAddress(activeAddress.toLowerCase());
         }
-    }
-
-    const rebuildContent = (address) => {
-        if (address) setSignedInAddress(address.toLowerCase());
     };
 
     const onGotchiesSort = (event) => {
@@ -87,13 +79,11 @@ export default function Client() {
     };
 
     const onInventorySort = (event) => {
-        if (event.target.value === 'asc') {
-            setInventory(commonUtils.basicSort(inventory, 'rarityId', 'asc'));
-        } else if (event.target.value === 'desc') {
-            setInventory(commonUtils.basicSort(inventory, 'rarityId', 'desc'));
-        } else {
-            setInventory(commonUtils.basicSort(inventory, event.target.value, 'desc'));
-        }
+        setInventory(commonUtils.basicSort(
+            inventory,
+            event.target.value === 'balance' ? 'balance' : 'rarityId',
+            event.target.value === 'balance' ? 'desc' : event.target.value)
+        );
         setInventoryFilter(event.target.value);
     };
 
@@ -103,10 +93,6 @@ export default function Client() {
 
     useEffect( () => {
         getData();
-    }, [signedInAddress]);
-
-    useEffect(() => {
-        rebuildContent(activeAddress);
     }, [activeAddress]);
 
     return (
@@ -116,7 +102,7 @@ export default function Client() {
             </Helmet>
 
             <ClientContent
-                signedInAddress={signedInAddress}
+                signedInAddress={activeAddress}
                 gotchies={gotchies}
                 gotchiesFilter={gotchiesFilter}
                 onGotchiesSort={onGotchiesSort}
