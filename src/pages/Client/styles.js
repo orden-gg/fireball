@@ -10,5 +10,5 @@ export const useStyles = makeStyles((theme) => ({
     backdrop: {
         zIndex: theme.zIndex.appBar - 1,
         color: '#fff'
-    },
+    }
 }));

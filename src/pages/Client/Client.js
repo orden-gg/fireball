@@ -60,7 +60,7 @@ export default function Client() {
             setIsInventoryLoading(false);
             setInventoryFilter('desc');
             setInventory(commonUtils.basicSort(combinedArray, 'rarityId', 'desc'));
-        }).catch(()=>{
+        }).catch(() => {
             setIsInventoryLoading(false);
         });
     };

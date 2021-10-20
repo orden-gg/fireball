@@ -1,17 +1,9 @@
 import React from 'react';
 import { Grid, Box, Typography, FormControl, Select, InputLabel, MenuItem, useTheme, Link } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-// import thegraph from '../../../api/thegraph';
-// import graphUtils from '../../../utils/graphUtils';
-// import commonUtils from '../../../utils/commonUtils';
-// import classNames from 'classnames';
-// import ghst from '../../../assets/images/ghst-doubleside.gif';
-
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import Item from '../../../components/Item/Item';
 import Subtitle from '../../../components/Subtitle/Subtitle';
-
-// import { useMoralis } from "react-moralis";
 
 const useStyles = makeStyles((theme) => ({
     textHighlight: {
@@ -20,43 +12,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export default function ClientContent({signedInAddress, gotchies, gotchiesFilter, inventory, inventoryFilter,
                                        onGotchiesSort, onInventorySort, isDataLoading}) {
     const classes = useStyles();
     const theme = useTheme();
-
-    // const [totalReward, setTotalReward] = useState(0);
     const showPlaceholder = signedInAddress && !isDataLoading();
 
-    // const calculateReward = () => {
-    //     setIsRewardCalculating(true);
-    //     thegraph.getAllGotchies().then((allGotchies)=>{
-    //         let rscLeaders = commonUtils.basicSort(allGotchies, 'withSetsRarityScore');
-    //         let kinLeaders = commonUtils.basicSort(allGotchies, 'kinship');
-    //         let expLeaders = commonUtils.basicSort(allGotchies, 'experience');
-
-    //         gotchies.forEach((item, index)=>{
-    //             let resRew = graphUtils.calculateRewards(rscLeaders.findIndex(x => x.id === item.id), 'RSC');
-    //             let kinRew = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
-    //             let expRew = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
-
-    //             gotchies[index] = {
-    //                 ...item,
-    //                 rscRew: resRew,
-    //                 kinRew: kinRew,
-    //                 expRew: expRew,
-    //                 totalRew: resRew + kinRew + expRew
-    //             }
-    //         });
-
-    //         setTotalReward(gotchies.reduce((prev, next) => prev + next.totalRew, 0));
-    //         setIsRewardCalculating(false);
-    //     });
-    // };
-
     const renderGotchiesHead = () => {
-        if(gotchies.length !== 0) {
+        if (gotchies.length !== 0) {
             return (
                 <Box marginBottom='16px'>
                     <Subtitle margin='12px 0 20px'>
@@ -107,7 +70,7 @@ export default function ClientContent({signedInAddress, gotchies, gotchiesFilter
     }
 
     const renderInventoryHead = () => {
-        if(inventory.length !== 0) {
+        if (inventory.length !== 0) {
             return (
                 <Box marginBottom='16px'>
                     <Subtitle margin='12px 0 20px'>
@@ -148,69 +111,16 @@ export default function ClientContent({signedInAddress, gotchies, gotchiesFilter
         }
     }
 
-    // const renderRewardPaper = () => {
-    //     if(totalReward !== 0) {
-    //         return (
-    //             <Grid item xs={12} md={6}>
-    //                 <Paper variant='outlined' align='center' style={{padding: 12}}>
-    //                     <Typography align={'center'} variant={'h6'}>
-    //                         Total Reward >=>
-    //                         <Box className={classNames(classes.textHighlight, classes.tokenValue)} component={'span'}>
-    //                             {totalReward}
-    //                             <img src={ghst} width='26' alt='GHST Token Icon' />
-    //                         </Box>
-    //                     </Typography>
-    //                 </Paper>
-    //             </Grid>
-    //         )
-    //     } else {
-    //         return null;
-    //     }
-    // }
-
     if (!signedInAddress) {
         return null;
     }
 
-    const getAddressColor = (owner) => {
-        // let index = addresses.map((item)=>item.toLowerCase()).indexOf(owner) + 1;
+    const getAddressColor = () => {
         return theme.palette.accounts.color1;
     };
 
-    // const { Moralis , isInitialized} = useMoralis();
-    // const [svg, setSvg] = useState('');
-    // const [isLoaded, setIsLoaded] = useState(false);
-
-    // if(isInitialized) {
-    //     GotchiSvgRender.getSvg(gotchi.numericTraits, gotchi.equippedWearables, Moralis).then((result) => {
-    //         setSvg(result)
-    //     });
-    // }
-
     return (
         <Box>
-            {/* <Grid container alignItems={'center'} spacing={2} style={{marginBottom: 12, minHeight: 74}}>
-                <Grid item xs={12} md={6}>
-                    <Button
-                        variant={'contained'}
-                        size={'large'}
-                        onClick={calculateReward}
-                        style={{marginRight: 16}}
-                    >
-                        Calculate Reward
-                    </Button>
-                    <Button
-                        disabled={true}
-                        color={'primary'}
-                        variant={'contained'}
-                        size={'large'}
-                    >
-                        Get Support
-                    </Button>
-                </Grid>
-                {renderRewardPaper()}
-            </Grid> */}
-
             {renderGotchiesHead()}
 
             <Grid container spacing={2}>
