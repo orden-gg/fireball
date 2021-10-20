@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Container, Backdrop, CircularProgress, useTheme, } from '@mui/material';
 import {Helmet} from 'react-helmet';
 import thegraph from '../../api/thegraph';
@@ -8,13 +8,13 @@ import commonUtils from '../../utils/commonUtils';
 
 import { useStyles } from './styles';
 
-import AddressImportForm from '../../components/AddressImportForm/AddressImportForm';
 import ClientContent from './components/ClientContent';
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function Client() {
     const classes = useStyles();
     const theme = useTheme();
-    const [addresses, setAddresses] = useState([]);
+    const [signedInAddress, setSignedInAddress] = useState('');
     const [gotchies, setGotchies] = useState([]);
     const [gotchiesFilter, setGotchiesFilter] = useState('withSetsRarityScore');
     const [isGotchiesLoading, setIsGotchiesLoading] = useState(false);
@@ -22,55 +22,44 @@ export default function Client() {
     const [inventory, setInventory] = useState([]);
     const [inventoryFilter, setInventoryFilter] = useState('desc');
     const [isInventoryLoading, setIsInventoryLoading] = useState(false);
+    const { activeAddress } = useContext(LoginContext);
 
-    const getGotchiesByAddresses = (addresses) => {
+    const getGotchiesByAddress = (addresses) => {
         setIsGotchiesLoading(true);
-        thegraph.getGotchiesByAddresses(addresses).then(async (response)=> {
-            console.log(response);
-            let combinedGotchies = [];
-
-            response.forEach( (item)=> {
-                if(item.data.user) {
-                    combinedGotchies.push(...item.data.user.gotchisOwned);
-                }
-            });
-
-            setGotchies(commonUtils.basicSort(combinedGotchies, gotchiesFilter));
+        thegraph.getGotchiesByAddress(addresses).then(async (response)=> {
+            setGotchies(commonUtils.basicSort(response.data.user.gotchisOwned, gotchiesFilter));
             setIsGotchiesLoading(false);
-
         }).catch(()=> {
             setIsGotchiesLoading(false);
         });
     };
 
-    const getInventoryByAddresses = (addresses) => {
+    const getInventoryByAddress = (address) => {
         setIsInventoryLoading(true);
-        web3.getInventoryByAddresses(addresses).then((response)=>{
+        web3.getInventoryByAddress(address).then((response)=>{
             let combinedArray = [];
 
-            for (let i = 0; i < response.length; i++) {
-                response[i].items.forEach((item)=> {
-                    let index = combinedArray.findIndex(el => el.itemId === item.itemId);
-                    let owner = {
-                        id: response[i].owner,
-                        balance: +item.balance,
-                        color: theme.palette.accounts[`color${addresses.indexOf(response[i].owner) + 1}`]
-                    };
+            response.items.forEach((item) => {
+                let index = combinedArray.findIndex(el => el.itemId === item.itemId);
+                let owner = {
+                    id: response.owner,
+                    balance: +item.balance,
+                    color: theme.palette.accounts.color1
+                };
 
-                    if(index !== -1){
-                        combinedArray[index].balance = +combinedArray[index].balance + +item.balance;
-                        combinedArray[index].owners.push(owner);
-                    } else {
-                        combinedArray.push({
-                            itemId: item.itemId,
-                            rarity: itemUtils.getItemRarityById(item.itemId),
-                            rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
-                            balance: +item.balance,
-                            owners: [owner]
-                        });
-                    }
-                });
-            }
+                if (index !== -1) {
+                    combinedArray[index].balance = +combinedArray[index].balance + +item.balance;
+                    combinedArray[index].owners.push(owner);
+                } else {
+                    combinedArray.push({
+                        itemId: item.itemId,
+                        rarity: itemUtils.getItemRarityById(item.itemId),
+                        rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
+                        balance: +item.balance,
+                        owners: [owner]
+                    });
+                }
+            });
 
             setIsInventoryLoading(false);
             setInventoryFilter('desc');
@@ -81,14 +70,14 @@ export default function Client() {
     };
 
     const getData = () => {
-        if(addresses.length !== 0) {
-            getGotchiesByAddresses(addresses);
-            getInventoryByAddresses(addresses);
+        if (signedInAddress) {
+            getGotchiesByAddress(signedInAddress);
+            getInventoryByAddress(signedInAddress);
         }
     }
 
-    const rebuildContent = (addresses) => {
-        if(addresses) setAddresses([...new Set(addresses.map(item => item.toLowerCase()))]);
+    const rebuildContent = (address) => {
+        if (address) setSignedInAddress(address.toLowerCase());
     };
 
     const onGotchiesSort = (event) => {
@@ -98,9 +87,9 @@ export default function Client() {
     };
 
     const onInventorySort = (event) => {
-        if(event.target.value === 'asc') {
+        if (event.target.value === 'asc') {
             setInventory(commonUtils.basicSort(inventory, 'rarityId', 'asc'));
-        } else if(event.target.value === 'desc') {
+        } else if (event.target.value === 'desc') {
             setInventory(commonUtils.basicSort(inventory, 'rarityId', 'desc'));
         } else {
             setInventory(commonUtils.basicSort(inventory, event.target.value, 'desc'));
@@ -108,13 +97,17 @@ export default function Client() {
         setInventoryFilter(event.target.value);
     };
 
-    useEffect( () => {
-        getData();
-    }, [addresses]);
-
     const isDataLoading = () => {
         return isGotchiesLoading || isInventoryLoading;
     };
+
+    useEffect( () => {
+        getData();
+    }, [signedInAddress]);
+
+    useEffect(() => {
+        rebuildContent(activeAddress);
+    }, [activeAddress]);
 
     return (
         <Container maxWidth='lg' className={classes.container}>
@@ -122,10 +115,8 @@ export default function Client() {
                 <title>Client</title>
             </Helmet>
 
-            <AddressImportForm {...{rebuildContent}} />
-
             <ClientContent
-                addresses={addresses}
+                signedInAddress={signedInAddress}
                 gotchies={gotchies}
                 gotchiesFilter={gotchiesFilter}
                 onGotchiesSort={onGotchiesSort}

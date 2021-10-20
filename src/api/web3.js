@@ -6,18 +6,16 @@ const contract = new web3.eth.Contract(Constants.ABI, Constants.TOKEN_ADDRESS);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async getInventoryByAddresses(addressesArray) {
+    async getInventoryByAddress(address) {
         try {
-            let responseArray = [];
+            let contractResponse;
 
-            for (let i = 0; i < addressesArray.length; i++) {
-                await contract.methods.itemBalances(addressesArray[i]).call()
-                    .then((response) => {
-                        responseArray.push({items: response, owner: addressesArray[i]});
-                    });
-            }
+            await contract.methods.itemBalances(address).call()
+                .then((response) => {
+                    contractResponse = {items: response, owner: address};
+                });
 
-            return responseArray;
+            return contractResponse;
         } catch (error) {
             return [];
         }
