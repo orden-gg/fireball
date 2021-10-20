@@ -4,10 +4,8 @@ export default makeStyles((theme) => ({
     mainTitle: {
         textAlign: 'center',
         fontSize: '28px !important',
-        marginBottom: '30px !important',
         [theme.breakpoints.up('md')]: {
             fontSize: '34px !important',
-            marginBottom: '50px !important'
         }
     },
     teamMember: {

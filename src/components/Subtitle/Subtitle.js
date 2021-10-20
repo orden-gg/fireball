@@ -41,18 +41,21 @@ const useStyles = makeStyles((theme) => ({
     subtitleText: {
         display: 'inline-block',
         position: 'relative',
-        padding: '4px 16px',
-        background: theme.palette.secondary.main
+        padding: '4px 16px'
     }
 }));
 
-export default function Subtitle({children, margin}) {
+export default function Subtitle({children, margin, variant, innerBg}) {
     const classes = useStyles();
 
     return (
         <Box className={classes.subtitle} margin={margin ? margin : 0}>
             <Box className={classes.subtitleInner}>
-                <Typography className={classes.subtitleText} variant='h6'>
+                <Typography
+                    className={classes.subtitleText}
+                    bgcolor={innerBg ? innerBg : 'background.default'}
+                    variant={variant ? variant : 'h6'}
+                >
                     {children}
                 </Typography>
             </Box>

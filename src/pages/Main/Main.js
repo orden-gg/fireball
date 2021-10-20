@@ -10,7 +10,7 @@ export default function Main() {
             <Section backgroundColor='rgba(33, 36, 41, .2)'>
                 <Portals />
             </Section>
-            <Section backgroundColor='rgba(33, 36, 41, .4)'>
+            <Section backgroundColor='rgb(39, 42, 48)'>
                 <Team />
             </Section>
         </Grid>

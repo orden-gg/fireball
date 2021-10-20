@@ -44,7 +44,7 @@ export default function Footer() {
                 <Typography>
                     <Box component='span' className={classes.highlight}>v4</Box>
                     <Box component='span' className={classes.footerCopyright}>
-                        <a href='https://ghst.gg/'>ghst.gg</a> is aavegotchi.com client developed by orden DAO | <a href='https://simpleanalytics.com/ghst.gg' rel='nofollow' target='_blank'>stats</a>
+                        <a href='https://ghst.gg/'>ghst.gg</a> is aavegotchi.com client developed by orden DAO | <a href='https://simpleanalytics.com/ghst.gg' rel='noreferrer' target='_blank'>stats</a>
                     </Box>
                 </Typography>
             </Toolbar>
