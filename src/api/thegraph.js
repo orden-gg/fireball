@@ -105,14 +105,8 @@ export default {
         });
     },
 
-    async getGotchiesByAddresses(addressesArray) {
-        let queries = [];
-
-        addressesArray.forEach((address)=> {
-            queries.push(userQuery(address.toLowerCase()));
-        });
-
-        return await this.getJoinedData(queries);
+    async getGotchiesByAddress(address) {
+        return await this.getData(userQuery(address.toLowerCase()));
     },
 
     async getRaffleData(query) {

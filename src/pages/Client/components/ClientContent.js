@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ClientContent({addresses, gotchies, gotchiesFilter, inventory, inventoryFilter,
+export default function ClientContent({signedInAddress, gotchies, gotchiesFilter, inventory, inventoryFilter,
                                        onGotchiesSort, onInventorySort, isDataLoading}) {
     const classes = useStyles();
     const theme = useTheme();
 
     // const [totalReward, setTotalReward] = useState(0);
-    const showPlaceholder = addresses.length !== 0 && !isDataLoading();
+    const showPlaceholder = signedInAddress && !isDataLoading();
 
     // const calculateReward = () => {
     //     setIsRewardCalculating(true);
@@ -168,13 +168,13 @@ export default function ClientContent({addresses, gotchies, gotchiesFilter, inve
     //     }
     // }
 
-    if (addresses.length === 0) {
+    if (!signedInAddress) {
         return null;
     }
 
     const getAddressColor = (owner) => {
-        let index = addresses.map((item)=>item.toLowerCase()).indexOf(owner) + 1;
-        return index ? theme.palette.accounts[`color${index}`] : theme.palette.accounts.color1;
+        // let index = addresses.map((item)=>item.toLowerCase()).indexOf(owner) + 1;
+        return theme.palette.accounts.color1;
     };
 
     // const { Moralis , isInitialized} = useMoralis();
