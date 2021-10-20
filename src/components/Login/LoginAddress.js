@@ -7,11 +7,11 @@ import commonUtils from '../../utils/commonUtils';
 import useStyles from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
 
-import PersonIcon from '@mui/icons-material/Person';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginAddress({address, isMetamask}) {
     const classes = useStyles();
@@ -76,12 +76,12 @@ export default function LoginAddress({address, isMetamask}) {
 
                 <Box component='form' display='flex' alignItems='center'>
                     {!isMetamask ? (
-                        <Box padding='0 2px' marginRight='4px' height='20px'>
-                            <PersonIcon className={classes.listItemIcon} fontSize='small' />
+                        <Box padding='0' marginRight='4px' height='35px'>
+                            <GotchiSvg id={address.gotchiId ? address.gotchiId : 5402} size={35} hideWearables={true} hideBg={true}  />
                         </Box>
                     ) : (
-                        <Box padding='0 4px' marginRight='4px'>
-                            <img src={MetamaskIcon} alt='Metamask icon' width={16} />
+                        <Box padding='0 4px' marginRight='4px' height='35px' display='flex' alignItems='center'>
+                            <img src={MetamaskIcon} alt='Metamask icon' width={22} />
                         </Box>
                     )}
 

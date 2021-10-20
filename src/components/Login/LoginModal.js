@@ -5,6 +5,7 @@ import web3 from '../../api/web3';
 
 import useStyles from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
+import thegraph from '../../api/thegraph';
 
 export default function LoginModal({modalOpen, setModalOpen}) {
     const classes = useStyles();
@@ -15,9 +16,11 @@ export default function LoginModal({modalOpen, setModalOpen}) {
     const [isAddressValid, setIsAddressValid] = useState(false);
     const [isFormTriggered, setIsFormTriggered] = useState(false);
 
-    const { storageAddresses, setStorageAddresses, selectActiveAddress } = useContext(LoginContext);
+    const { storageAddresses, setStorageAddresses, selectActiveAddress, gotchiIds, setGotchiIds } = useContext(LoginContext);
 
     useEffect(() => {
+        if(!gotchiIds.length) getGotchisIdsFromGraph();
+
         return () => { //reset form on destroy
             setName('');
             setAddress('');
@@ -44,11 +47,30 @@ export default function LoginModal({modalOpen, setModalOpen}) {
             setIsAddressValid(false);
             setAddressHelperText('Address already added!');
         } else if(isAddressValid) {
-            setStorageAddresses([{name: name, address: formattedAddress}, ...storageAddresses]);
+            setStorageAddresses([{name: name, address: formattedAddress, gotchiId: generateRandomGotchiId()}, ...storageAddresses]);
             selectActiveAddress(formattedAddress)
             setModalOpen(false);
         }
     };
+
+    const generateRandomGotchiId = () => {
+        let randomNum = Math.floor(Math.random() * 1000);
+
+        return gotchiIds.length ? gotchiIds[randomNum] : 5402;
+    }
+
+    const getGotchisIdsFromGraph = async () => {
+        return await thegraph.getData(`{
+            aavegotchis(first: 1000, where:{ possibleSets: "1" }) {
+              id
+            }
+        }`)
+        .then((response) => {
+            let modified = response.data.aavegotchis.map((item) => item.id);
+            setGotchiIds(modified);
+        })
+        .catch((error) => console.log(error));
+    }
 
     return (
         <Modal open={modalOpen} onClose={() => setModalOpen(false)} BackdropProps={{sx: {backdropFilter: 'blur(3px)'}}}>

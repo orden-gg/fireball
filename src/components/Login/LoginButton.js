@@ -11,8 +11,8 @@ import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
-import PersonIcon from '@mui/icons-material/Person';
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginButton() {
     const classes = useStyles();
@@ -20,7 +20,7 @@ export default function LoginButton() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
 
-    const { activeAddress, selectActiveAddress, storageAddresses, connectMetamask, isMetamaskActive } = useContext(LoginContext);
+    const { activeAddress, selectActiveAddress, storageAddresses, connectMetamask, isMetamaskActive, getActiveAddressSvgId } = useContext(LoginContext);
 
     useEffect(() => { // connect metamask on load
         if (metaState.isAvailable) {
@@ -58,17 +58,21 @@ export default function LoginButton() {
             <div className={classNames(classes.button, dropdownOpen ? 'opened' : 'closed')}>
 
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
-                    <div className={classes.caption}>
-                        { activeAddress ? (
-                            isMetamaskActive ? (
-                                <img src={MetamaskIcon} alt='Metamask icon' width={16} />
-                            ) : (
-                                <PersonIcon />
-                            )
+                    { activeAddress ? (
+                        isMetamaskActive ? (
+                            <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' justifyContent='center' padding='2px'>
+                                <img src={MetamaskIcon} alt='Metamask icon' width={18} />
+                            </Box>
                         ) : (
-                            <Typography className={classes.captionText}>Connect account</Typography>
-                        )}
-                    </div>
+                            <>
+                                <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' padding='2px'>
+                                    <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
+                                </Box>
+                            </>
+                        )
+                    ) : (
+                        <Typography className={classes.captionText}>Connect account</Typography>
+                    )}
 
                     { activeAddress ? (
                         <div className={classes.address}>

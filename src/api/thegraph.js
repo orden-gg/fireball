@@ -4,7 +4,7 @@ import { gotchiesQuery, svgQuery, userQuery } from './common/queries';
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
-var gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-svg';
+var gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 
 var client = new ApolloClient({
     uri: baseUrl,

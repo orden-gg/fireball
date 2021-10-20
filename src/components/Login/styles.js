@@ -16,9 +16,8 @@ export default makeStyles((theme) => ({
         }
     },
     buttonInner: {
-        height: 36,
+        height: 38,
         display: 'flex',
-        alignItems: 'center',
         background: theme.palette.primary.main,
         padding: 2,
         borderRadius: 4,
@@ -29,29 +28,13 @@ export default makeStyles((theme) => ({
             background: theme.palette.primary.dark
         }
     },
-    caption: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: theme.palette.background.default,
-        padding: '0 6px',
-        minWidth: 36,
-        whiteSpace: 'nowrap',
-        textTransform: 'uppercase'
-    },
-    captionText: {
-        fontSize: '15px !important',
-        fontWeight: '600 !important',
-        margin: 0
-    },
     address: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         background: theme.palette.background.default,
         padding: '0 8px',
-        height: '100%',
-        borderRadius: 4,
+        borderRadius: '0 4px 4px 0',
     },
     buttonDropdown: {
         position: 'absolute',
@@ -79,8 +62,6 @@ export default makeStyles((theme) => ({
     listWrapper: {
         maxHeight: 230,
         overflowY: 'scroll',
-        // borderTop: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
-        // borderBottom: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
     },
     listItem: {
         backgroundColor: alpha(theme.palette.background.default, .6),
@@ -89,7 +70,7 @@ export default makeStyles((theme) => ({
         transition: 'all .2s ease-in-out',
         position: 'relative',
         overflow: 'hidden',
-        padding: '14px 6px 13px',
+        padding: '11px 6px 10px',
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },
