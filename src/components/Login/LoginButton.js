@@ -76,7 +76,7 @@ export default function LoginButton() {
 
                     { activeAddress ? (
                         <div className={classes.address}>
-                            <Typography variant='subtitle2'>
+                            <Typography className={classes.addressText} variant='subtitle2'>
                                 {commonUtils.cutAddress(activeAddress)}
                             </Typography>
                         </div> 

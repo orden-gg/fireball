@@ -9,6 +9,8 @@ export const ownedGotchiesQuery = (user) => {
                 kinship
                 experience
                 equippedWearables
+                hauntId
+                tokenId
             }
         }
     }`

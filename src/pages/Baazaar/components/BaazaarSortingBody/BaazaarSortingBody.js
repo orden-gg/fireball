@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Button, Typography, useTheme } from '@mui/material';
+import { Grid, Button, Typography } from '@mui/material';
 import useStyles from "./style";
 import Gotchi from "../../../../components/Gotchi/Gotchi";
 import Pagination from '../Pagination/Pagination';
@@ -11,11 +11,6 @@ const web3 = new Web3();
 
 export default function BaazaarSortingBody({goods, page, limit, onNextPageClick, onPrevPageClick, handleFindClick}) {
     const classes = useStyles();
-    const theme = useTheme();
-
-    const getGotchiColor = (haunt) => {
-        return theme.palette.haunt['h' + haunt];
-    };
 
     return (
         <Grid className={classes.baazaarBody} item xs={12} sm={12} md={9} lg={9} xl={10}>
@@ -29,20 +24,14 @@ export default function BaazaarSortingBody({goods, page, limit, onNextPageClick,
                                 <Grid item xs={12}>
                                     {
                                         item.gotchi.__typename === "Aavegotchi" ?
-                                                <Gotchi
+                                            <Gotchi
                                                 className={classes.gotchi}
                                                 gotchi={item.gotchi}
-                                                title={item.gotchi.tokenId}
-                                                gotchiColor={getGotchiColor(item.hauntId)}
-                                                narrowed={false}
                                             /> :
                                             <Gotchi
                                                 key={item.gotchi.id}
                                                 className={classes.gotchi}
                                                 gotchi={item.gotchi}
-                                                title={item.gotchi.tokenId}
-                                                gotchiColor={getGotchiColor(item.hauntId)}
-                                                narrowed={false}
                                                 renderSvgByStats={true}
                                             />
                                     }
@@ -70,13 +59,13 @@ export default function BaazaarSortingBody({goods, page, limit, onNextPageClick,
             <div className={classes.pagination}>
                 {
                     goods.length ? <Pagination
-                            page={page}
-                            prevPageVisibility={page === 1}
-                            nextPageVisibility={goods.length < limit}
-                            onNextPageClick={onNextPageClick}
-                            onPrevPageClick={onPrevPageClick}
-                        /> :
-                        <Typography className={classes.noGoods} variant={'caption'}>Spooky Market has no such goods :(</Typography>
+                        page={page}
+                        prevPageVisibility={page === 1}
+                        nextPageVisibility={goods.length < limit}
+                        onNextPageClick={onNextPageClick}
+                        onPrevPageClick={onPrevPageClick}
+                    /> :
+                    <Typography className={classes.noGoods} variant={'caption'}>Spooky Market has no such goods :(</Typography>
                 }
             </div>
         </Grid>

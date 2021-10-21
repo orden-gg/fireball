@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-import { Grid } from '@mui/material';
+import { Box } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -22,9 +22,8 @@ import LoginContextProvider from './contexts/LoginContext';
 
 const useStyles = makeStyles(() => ({
     wrap: {
-        backgroundPosition: '0px -30vh',
-        backgroundRepeat: 'no-repeat',
-        flexDirection: 'column !important',
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: '100%',
         paddingTop: 70,
         '&.explorer': {
@@ -50,12 +49,11 @@ export default function App() {
                     <Helmet>
                         <title>ghst_gg</title>
                     </Helmet>
-                    <Grid
-                        container
-                        className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}
-                    >
+
+                    <Box className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}>
                         <Header />
-                        <Grid item className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
+
+                        <Box className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
                             <Switch>
                                 <Route exact path={`/`} component={ Main } />
                                 <Route exact path={`/market`} component={ Baazaar } />
@@ -66,9 +64,11 @@ export default function App() {
                                 <Route exact path={`/404`} component={ NotFound } />
                                 <Redirect from='*' to='/404' />
                             </Switch>
-                        </Grid>
+                        </Box>
+
                         {location.pathname !== '/explorer' && <Footer />}
-                    </Grid>
+                    </Box>
+
                 </LoginContextProvider>
             </BaazaarContextProvider>
         </SnackbarContextProvider>

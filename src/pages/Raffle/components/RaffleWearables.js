@@ -2,7 +2,7 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 
-import Item from '../../../components/Item/Item';
+import Wearable from '../../../components/Wearable/Wearable';
 
 export default function RaffleWearables({tickets}) {
     return (
@@ -16,7 +16,7 @@ export default function RaffleWearables({tickets}) {
                         }
 
                         return <Grid item xs={6} sm={4} md={2} key={i}>
-                            <Item item={wearable} raffleStats={raffleStats}></Item>
+                            <Wearable wearable={wearable} raffleStats={raffleStats}></Wearable>
                         </Grid>
                     })
                     return null;

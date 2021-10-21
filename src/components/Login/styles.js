@@ -50,6 +50,9 @@ export default makeStyles((theme) => ({
         padding: '0 8px',
         borderRadius: '0 4px 4px 0',
     },
+    addressText: {
+        fontWeight: '700 !important'
+    },
     buttonDropdown: {
         position: 'absolute',
         top: '100%',

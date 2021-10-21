@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@mui/material';
 import { alpha } from '@mui/system';
+import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
 import commonUtils from '../../utils/commonUtils';
 import useStyles from './styles';
@@ -14,8 +15,9 @@ import CallMade from '@mui/icons-material/CallMade';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
 
-export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgByStats}) {
+export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     const classes = useStyles();
+    const theme = useTheme();
 
     const calculateRarityType = (rarity) => {
         return rarity >= 700 ? 'godlike' : rarity >= 600 ? 'mythical' : rarity >= 500 ? 'rare' : '';
@@ -70,23 +72,28 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgB
                 </>
             )
         } else return null;
-    }
+    };
+
+    const getGotchiColor = (haunt) => {
+        return theme.palette.haunts['h' + haunt];
+    };
     
     return (
         <div
             className={classes.gotchi}
-            style={{ backgroundColor: alpha(gotchiColor, .2) }}
+            style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .2) }}
         >
-            <p className={classes.gotchiCaption} style={{ backgroundColor: gotchiColor }}>
-                {title || commonUtils.cutAddress(gotchi.owner.id)}
+            <p className={classes.gotchiCaption} style={{ backgroundColor: getGotchiColor(gotchi.hauntId) }}>
+                {title || gotchi.id}
             </p>
 
             {
                 renderSvgByStats ? <GotchiSvgByStats gotchi={gotchi} size={120} /> : <GotchiSvg id={gotchi.id} size={120} />
             }
+
             <Link
                 className={classes.gotchiName}
-                style={{ backgroundColor: alpha(gotchiColor, .5)}}
+                style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .5)}}
                 href={`https://aavegotchi.com/gotchi/${gotchi.id}`}
                 target="_blank"
                 underline='none'

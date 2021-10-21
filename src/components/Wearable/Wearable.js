@@ -4,11 +4,10 @@ import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 import classNames from 'classnames';
 
-import commonUtils from '../../utils/commonUtils';
 import itemUtils from '../../utils/itemUtils';
 
 const useStyles = makeStyles((theme) => ({
-    item: {
+    wearable: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
         padding: '16px 12px',
@@ -61,45 +60,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Item({item, owners, raffleStats}) {
+export default function Wearable({wearable, raffleStats}) {
     const classes = useStyles();
-    const name = itemUtils.getItemNameById(item.itemId);
-    const rarity = itemUtils.getItemRarityById(item.itemId);
-    const stats = itemUtils.getEmojiStatsById(item.itemId);
+    const name = itemUtils.getItemNameById(wearable.itemId);
+    const rarity = itemUtils.getItemRarityById(wearable.itemId);
+    const stats = itemUtils.getEmojiStatsById(wearable.itemId);
 
-    const getItemImagePath = (id) => {
+    const getWearableImagePath = (id) => {
         try {
             return require(`../../assets/wearables/${id}.svg`).default;
         } catch (error) {
             return require(`../../assets/images/no-image2.svg`).default;
         }
     };
-
-    const renderOwners = () => {
-        if(owners) {
-            return (
-                <Box>
-                    <Typography variant={'body2'}>
-                        Owned by:
-                    </Typography>
-                    {
-                        item.owners.map((owner, i) => {
-                            return <Typography variant={'body2'} key={i} style={{marginTop: 4}}>
-                                <Box component={'span'} className={classNames(classes.owner)} style={{ backgroundColor: owner.color }}>
-                                    {commonUtils.cutAddress(owner.id)}
-                                </Box>
-                                <Box component={'span'} style={{marginLeft: 12}}>
-                                    - {owner.balance}
-                                </Box>
-                            </Typography>
-                        })
-                    }
-                </Box>
-            )
-        } else {
-            return null;
-        }
-    }
 
     const renderRaffleStats = () => {
         if(raffleStats) {
@@ -122,9 +95,9 @@ export default function Item({item, owners, raffleStats}) {
     }
 
     return (
-        <Box className={classNames(classes.item, rarity)}>
+        <Box className={classNames(classes.wearable, rarity)}>
             <img
-                src={getItemImagePath(item.itemId)}
+                src={getWearableImagePath(wearable.itemId)}
                 alt={name}
                 height={75}
                 width={75}
@@ -135,7 +108,6 @@ export default function Item({item, owners, raffleStats}) {
             <Typography variant='subtitle1'>
                 {stats}
             </Typography>
-            {renderOwners()}
             {renderRaffleStats()}
         </Box>
     )

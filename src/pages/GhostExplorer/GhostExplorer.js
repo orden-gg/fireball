@@ -63,7 +63,6 @@ export default function GhostExplorer() {
                         <div key={item.id} className={classes.item}>
                             <Gotchi
                                 gotchi={item}
-                                title={item.id}
                                 gotchiColor={theme.palette.customColors.gray}
                                 narrowed={true}
                             />

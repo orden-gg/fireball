@@ -1,29 +1,40 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Container, Backdrop, CircularProgress, useTheme, } from '@mui/material';
-import {Helmet} from 'react-helmet';
+import { Backdrop, CircularProgress, useTheme, Button } from '@mui/material';
+import { Box } from '@mui/system';
+import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
 import web3 from '../../api/web3';
 import itemUtils from '../../utils/itemUtils';
 import commonUtils from '../../utils/commonUtils';
 import { useStyles } from './styles';
-import ClientContent from './components/ClientContent';
-import { LoginContext } from "../../contexts/LoginContext";
+import { LoginContext } from '../../contexts/LoginContext';
+
+import ClientGotchis from './components/ClientGotchis';
+import ClientWarehouse from './components/ClientWarehouse';
+
+import gotchiPlaceholder from '../../assets/images/logo.png';
+import warehousePlaceholder from '../../assets/wearables/15.svg';
 
 export default function Client() {
     const classes = useStyles();
     const theme = useTheme();
-    const [gotchies, setGotchies] = useState([]);
-    const [gotchiesFilter, setGotchiesFilter] = useState('withSetsRarityScore');
+
+    const [activeTab, setActiveTab] = useState('gotchis');
+
+    const [gotchis, setGotchis] = useState([]);
+    const [gotchisFilter, setGotchisFilter] = useState('withSetsRarityScore');
     const [isGotchiesLoading, setIsGotchiesLoading] = useState(false);
-    const [inventory, setInventory] = useState([]);
-    const [inventoryFilter, setInventoryFilter] = useState('desc');
+
+    const [warehouse, setWarehouse] = useState([]);
+    const [warehouseFilter, setWarehouseFilter] = useState('desc');
     const [isInventoryLoading, setIsInventoryLoading] = useState(false);
+
     const { activeAddress } = useContext(LoginContext);
 
     const getGotchiesByAddress = (address) => {
         setIsGotchiesLoading(true);
         thegraph.getGotchiesByAddress(address).then(async (response)=> {
-            setGotchies(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchiesFilter));
+            setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
             setIsGotchiesLoading(false);
         }).catch(()=> {
             setIsGotchiesLoading(false);
@@ -34,6 +45,8 @@ export default function Client() {
         setIsInventoryLoading(true);
         web3.getInventoryByAddress(address).then((response) => {
             let combinedArray = [];
+
+            console.log(response.items)
 
             response.items.forEach((item) => {
                 let index = combinedArray.findIndex(el => el.itemId === item.itemId);
@@ -58,8 +71,8 @@ export default function Client() {
             });
 
             setIsInventoryLoading(false);
-            setInventoryFilter('desc');
-            setInventory(commonUtils.basicSort(combinedArray, 'rarityId', 'desc'));
+            setWarehouseFilter('desc');
+            setWarehouse(commonUtils.basicSort(combinedArray, 'rarityId', 'desc'));
         }).catch(() => {
             setIsInventoryLoading(false);
         });
@@ -72,21 +85,6 @@ export default function Client() {
         }
     };
 
-    const onGotchiesSort = (event) => {
-        // TODO: add filter by owner
-        setGotchies(commonUtils.basicSort(gotchies, event.target.value));
-        setGotchiesFilter(event.target.value);
-    };
-
-    const onInventorySort = (event) => {
-        setInventory(commonUtils.basicSort(
-            inventory,
-            event.target.value === 'balance' ? 'balance' : 'rarityId',
-            event.target.value === 'balance' ? 'desc' : event.target.value)
-        );
-        setInventoryFilter(event.target.value);
-    };
-
     const isDataLoading = () => {
         return isGotchiesLoading || isInventoryLoading;
     };
@@ -96,26 +94,65 @@ export default function Client() {
     }, [activeAddress]);
 
     return (
-        <Container maxWidth='lg' className={classes.container}>
+        <Box className={classes.container}>
             <Helmet>
                 <title>Client</title>
             </Helmet>
 
-            <ClientContent
-                signedInAddress={activeAddress}
-                gotchies={gotchies}
-                gotchiesFilter={gotchiesFilter}
-                onGotchiesSort={onGotchiesSort}
-                inventory={inventory}
-                inventoryFilter={inventoryFilter}
-                onInventorySort={onInventorySort}
-                isDataLoading={isDataLoading}
-            />
+            <Box marginBottom='40px'>Logged as {activeAddress}</Box>
+
+            <Box marginBottom='20px'>
+                <Button
+                    variant={activeTab === 'gotchis' ? 'contained' : 'outlined'}
+                    size='large'
+                    startIcon={
+                        <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
+                    }
+                    endIcon={`[${gotchis.length}]`}
+                    sx={{ marginRight: '12px' }}
+                    onClick={() => setActiveTab('gotchis')}
+                >
+                    Gotchis
+                </Button>
+                <Button
+                    variant={activeTab === 'warehouse' ? 'contained' : 'outlined'}
+                    size='large'
+                    startIcon={
+                        <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
+                    }
+                    endIcon={`[${warehouse.length}]`}
+                    onClick={() => setActiveTab('warehouse')}
+                >
+                    Warehouse
+                </Button>
+            </Box>
+
+            {activeTab === 'gotchis' ? (
+                <ClientGotchis
+                    gotchis={gotchis}
+                    gotchisFilter={gotchisFilter}
+                    setGotchisFilter={setGotchisFilter}
+                    setGotchis={setGotchis}
+                />
+            ) : (
+                null
+            )}
+
+            {activeTab === 'warehouse' ? (
+                <ClientWarehouse
+                    warehouse={warehouse}
+                    warehouseFilter={warehouseFilter}
+                    setWarehouseFilter={setWarehouseFilter}
+                    setWarehouse={setWarehouse}
+                />
+            ) : (
+                null
+            )}
 
             <Backdrop className={classes.backdrop} open={isDataLoading()}>
                 <CircularProgress color='primary' />
             </Backdrop>
 
-        </Container>
+        </Box>
     );
 }

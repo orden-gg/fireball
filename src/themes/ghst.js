@@ -46,7 +46,7 @@ export const theme = createTheme({
             grayBorder: '#C3C5CB',
             gray: '#94969a'
         },
-        haunt: {
+        haunts: {
             h1: 'rgb(193, 95, 255)',
             h2: 'rgb(0, 224, 199)'
         }
