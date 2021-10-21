@@ -69,22 +69,10 @@ export default {
     },
 
     async getAllGotchies() {
+        debugger
         // NOTE: to reduce loading speed current gotchies max amount is 7000
         // We should add new queries when there will be more than 7000 unique gotchies
-        return await graphJoin([
-            gotchiesQuery(0, 'asc'),
-            gotchiesQuery(1000, 'asc'),
-            gotchiesQuery(2000, 'asc'),
-            gotchiesQuery(3000, 'asc'),
-            gotchiesQuery(4000, 'asc'),
-            gotchiesQuery(5000, 'asc'),
-            gotchiesQuery(0, 'desc'),
-            gotchiesQuery(1000, 'desc'),
-            gotchiesQuery(2000, 'desc'),
-            gotchiesQuery(3000, 'desc'),
-            gotchiesQuery(4000, 'desc'),
-            gotchiesQuery(5000, 'desc')
-        ]).then((response)=> {
+        return await graphJoin(this.getGotchiQueries()).then((response)=> {
             let responseArray = [];
 
             for (let i = 0; i < response.length; i++) {
@@ -103,6 +91,20 @@ export default {
 
             return filteredArray;
         });
+    },
+
+    getGotchiQueries() {
+        const maxPossibleSkips = 5;
+        let queries = [];
+
+        for (let i = 0; i < maxPossibleSkips; i++) {
+            queries.push(gotchiesQuery(i*1000, 'asc', 1));
+            queries.push(gotchiesQuery(i*1000, 'desc', 1));
+            queries.push(gotchiesQuery(i*1000, 'asc', 2));
+            queries.push(gotchiesQuery(i*1000, 'desc', 2));
+        }
+
+        return queries;
     },
 
     async getGotchiesByAddress(address) {

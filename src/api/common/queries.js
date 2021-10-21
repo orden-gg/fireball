@@ -1,11 +1,11 @@
-export const gotchiesQuery = (skip, orderDir) => {
+export const gotchiesQuery = (skip, orderDir, hauntId) => {
     return `{
         aavegotchis(
           first: 1000,
           skip: ${skip},
           orderBy: id,
           orderDirection: ${orderDir},
-          where: {status: 3, owner_not: "0x0000000000000000000000000000000000000000"}
+          where: {status: 3, owner_not: "0x0000000000000000000000000000000000000000", hauntId: ${hauntId}}
         ) {
           id
           name
