@@ -8,10 +8,10 @@ import { LoginContext } from '../../contexts/LoginContext';
 
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
 
-export default function LoginNavigation({setDropdownOpen, setModalOpen}) {
+export default function LoginNavigation() {
     const classes = useStyles();
     const { metaState } = useMetamask();
-    const { connectMetamask, setIsMetamaskActive } = useContext(LoginContext);
+    const { connectMetamask, setIsMetamaskActive, setModalOpen, setDropdownOpen } = useContext(LoginContext);
 
     const onMetamaskClick = () => {
         connectMetamask().then((connected) => {
@@ -25,10 +25,10 @@ export default function LoginNavigation({setDropdownOpen, setModalOpen}) {
     };
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='flex-end'>
+        <Box display='flex' alignItems='center' justifyContent={!metaState.account[0] ? 'space-between' : 'flex-end'}>
             {!metaState.account[0] ? (
                 <>
-                    <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth>
+                    <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth className={classes.metamaskButton}>
                         Connect <img src={MetamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
                     </Button>
 

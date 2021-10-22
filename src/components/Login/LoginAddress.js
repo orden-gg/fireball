@@ -13,13 +13,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
-export default function LoginAddress({address, isMetamask, setDropdownOpen}) {
+export default function LoginAddress({address, isMetamask}) {
     const classes = useStyles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
     const [copyTooltipText, setCopyTooltipText] = useState('Copy address');
     const nameRef = useRef();
-    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress } = useContext(LoginContext);
+    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress, setDropdownOpen } = useContext(LoginContext);
 
     useEffect(() => { // focus input on edit button click
         if (editMode) nameRef.current.focus();

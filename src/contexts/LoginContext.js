@@ -14,6 +14,9 @@ const LoginContextProvider = (props) => {
     const [activeAddress, setActiveAddress] = useState(storageActive);
     const [isMetamaskActive, setIsMetamaskActive] = useState(false);
 
+    const [modalOpen, setModalOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const selectActiveAddress = (address) => {
         setStorageActive(address);
         setActiveAddress(address);
@@ -60,16 +63,27 @@ const LoginContextProvider = (props) => {
         <LoginContext.Provider value={{
             storageAddresses,
             setStorageAddresses,
+
             activeAddress,
             selectActiveAddress,
+
             logoutAddress,
             updateAddressName,
+
             connectMetamask,
             isMetamaskActive,
             setIsMetamaskActive,
+
             gotchiIds,
             setGotchiIds,
-            getActiveAddressSvgId
+
+            getActiveAddressSvgId,
+
+            modalOpen,
+            setModalOpen,
+
+            dropdownOpen,
+            setDropdownOpen,
         }}>
             { props.children }
         </LoginContext.Provider>

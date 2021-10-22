@@ -17,10 +17,10 @@ import GotchiSvg from '../Gotchi/GotchiSvg';
 export default function LoginButton() {
     const classes = useStyles();
     const { getAccounts, metaState } = useMetamask();
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [modalOpen, setModalOpen] = useState(false);
 
-    const { activeAddress, selectActiveAddress, storageAddresses, connectMetamask, isMetamaskActive, getActiveAddressSvgId } = useContext(LoginContext);
+    const { activeAddress, selectActiveAddress, storageAddresses,
+            connectMetamask, isMetamaskActive, getActiveAddressSvgId,
+            modalOpen, setModalOpen, dropdownOpen, setDropdownOpen } = useContext(LoginContext);
 
     useEffect(() => { // connect metamask on load
         if (metaState.isAvailable) {
@@ -105,7 +105,7 @@ export default function LoginButton() {
                                 null
                             )}
                         </Box>
-                        <LoginNavigation setDropdownOpen={setDropdownOpen} setModalOpen={setModalOpen} />
+                        <LoginNavigation />
                     </Box>
                 ) : (
                     null

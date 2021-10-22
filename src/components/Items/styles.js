@@ -1,13 +1,8 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
-import classNames from 'classnames';
 
-import itemUtils from '../../../utils/itemUtils';
-
-const useStyles = makeStyles((theme) => ({
-    ticket: {
+export default makeStyles((theme) => ({
+    item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
         padding: '16px 12px',
@@ -53,30 +48,4 @@ const useStyles = makeStyles((theme) => ({
             color: theme.palette.rarity.godlike
         },
     },
-    owner: {
-        borderRadius: theme.shape.borderRadius,
-        fontSize: 12,
-        padding: '2px 4px',
-    },
 }));
-
-export default function Ticket({ticket}) {
-    const classes = useStyles();
-
-    return (
-        <Box className={classNames(classes.ticket, ticket.rarity)}>
-            <img
-                src={itemUtils.getTicketImg(ticket.name)}
-                alt={ticket.name}
-                height={75}
-                width={75}
-            />
-            <Typography className={classNames(classes.textHighlight, ticket.rarity)}>
-                {ticket.name}
-            </Typography>
-            <Typography variant='subtitle2'>
-                {ticket.balance}
-            </Typography>
-        </Box>
-    )
-}

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Backdrop, CircularProgress, useTheme, Button } from '@mui/material';
+import { Backdrop, CircularProgress, useTheme, Button, Typography, Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
@@ -9,12 +9,10 @@ import commonUtils from '../../utils/commonUtils';
 import { useStyles } from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
 
+import LoginNavigation from '../../components/Login/LoginNavigation';
+import ClientTabs from './components/ClientTabs';
 import ClientGotchis from './components/ClientGotchis';
 import ClientWarehouse from './components/ClientWarehouse';
-
-import gotchiPlaceholder from '../../assets/images/logo.png';
-import warehousePlaceholder from '../../assets/wearables/15.svg';
-import ticketsPlaceholder from '../../assets/tickets/rare.svg';
 import ClientTickets from './components/ClientTickets';
 
 export default function Client() {
@@ -37,6 +35,7 @@ export default function Client() {
 
     const getGotchiesByAddress = (address) => {
         setIsGotchiesLoading(true);
+
         thegraph.getGotchiesByAddress(address).then(async (response)=> {
             setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
             setIsGotchiesLoading(false);
@@ -47,36 +46,22 @@ export default function Client() {
 
     const getInventoryByAddress = (address) => {
         setIsInventoryLoading(true);
-        web3.getInventoryByAddress(address).then((response) => {
-            let combinedArray = [];
 
-            console.log(response.items)
+        web3.getInventoryByAddress(address).then((response) => {
+            let modified = [];
 
             response.items.forEach((item) => {
-                let index = combinedArray.findIndex(el => el.itemId === item.itemId);
-                let owner = {
-                    id: response.owner,
+                modified.push({
+                    itemId: item.itemId,
+                    rarity: itemUtils.getItemRarityById(item.itemId),
+                    rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
-                    color: theme.palette.accounts.color1
-                };
-
-                if (index !== -1) {
-                    combinedArray[index].balance = +combinedArray[index].balance + +item.balance;
-                    combinedArray[index].owners.push(owner);
-                } else {
-                    combinedArray.push({
-                        itemId: item.itemId,
-                        rarity: itemUtils.getItemRarityById(item.itemId),
-                        rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
-                        balance: +item.balance,
-                        owners: [owner]
-                    });
-                }
+                });
             });
 
             setIsInventoryLoading(false);
             setWarehouseFilter('desc');
-            setWarehouse(commonUtils.basicSort(combinedArray, 'rarityId', 'desc'));
+            setWarehouse(commonUtils.basicSort(modified, 'rarityId', 'desc'));
         }).catch(() => {
             setIsInventoryLoading(false);
         });
@@ -84,7 +69,8 @@ export default function Client() {
 
     const getTickets = (address) => {
         web3.getTicketsByAddress(address).then((response) => {
-            setTickets(response);
+            let modified = response.filter((item) => item.balance > 0);
+            setTickets(modified);
         }).catch((error) => console.log(error));
     };
 
@@ -100,7 +86,7 @@ export default function Client() {
         return isGotchiesLoading || isInventoryLoading;
     };
 
-    useEffect( () => {
+    useEffect(() => {
         getData();
     }, [activeAddress]);
 
@@ -110,82 +96,62 @@ export default function Client() {
                 <title>Client</title>
             </Helmet>
 
-            <Box marginBottom='40px'>Logged as {activeAddress}</Box>
+            {!activeAddress.length ? (
+                <Box display='flex' alignItems='center' justifyContent='center' minHeight='calc(100vh - 192px)'>
+                    <Box bgcolor='secondary.dark' maxWidth={400} margin='auto' padding='24px' borderRadius='4px'>
+                        <Alert severity='info' sx={{ marginBottom: '24px' }}>
+                            <AlertTitle>Fren, provide the address!</AlertTitle>
+                            You cannot use the client without a valid ETH address.
+                        </Alert>
 
-            <Box display='flex' alignItems='flex-start' flexWrap='wrap' marginBottom='20px'>
-                <Button
-                    disabled={!gotchis.length}
-                    variant={activeTab === 'gotchis' ? 'contained' : 'outlined'}
-                    size='large'
-                    startIcon={
-                        <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
-                    }
-                    endIcon={`[${gotchis.length}]`}
-                    sx={{ marginRight: '12px', marginBottom: '12px' }}
-                    onClick={() => setActiveTab('gotchis')}
-                >
-                    Gotchis
-                </Button>
-
-                <Button
-                    disabled={!warehouse.length}
-                    variant={activeTab === 'warehouse' ? 'contained' : 'outlined'}
-                    size='large'
-                    startIcon={
-                        <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
-                    }
-                    endIcon={`[${warehouse.length}]`}
-                    sx={{ marginRight: '12px', marginBottom: '12px' }}
-                    onClick={() => setActiveTab('warehouse')}
-                >
-                    Warehouse
-                </Button>
-
-                <Button
-                    disabled={!tickets.length}
-                    variant={activeTab === 'tickets' ? 'contained' : 'outlined'}
-                    size='large'
-                    startIcon={
-                        <img src={ticketsPlaceholder} alt='gotchi' width={27} style={{ marginRight: '4px' }} />
-                    }
-                    endIcon={`[${tickets.length}]`}
-                    onClick={() => setActiveTab('tickets')}
-                >
-                    Tickets
-                </Button>
-            </Box>
-
-            {activeTab === 'gotchis' ? (
-                <ClientGotchis
-                    gotchis={gotchis}
-                    gotchisFilter={gotchisFilter}
-                    setGotchisFilter={setGotchisFilter}
-                    setGotchis={setGotchis}
-                />
+                        <LoginNavigation />
+                    </Box>
+                </Box>
             ) : (
-                null
-            )}
+                <>
+                    <Box marginBottom='20px'>Logged as {activeAddress}</Box>
 
-            {activeTab === 'warehouse' ? (
-                <ClientWarehouse
-                    warehouse={warehouse}
-                    warehouseFilter={warehouseFilter}
-                    setWarehouseFilter={setWarehouseFilter}
-                    setWarehouse={setWarehouse}
-                />
-            ) : (
-                null
-            )}
+                    <ClientTabs
+                        activeTab={activeTab}
+                        setActiveTab={setActiveTab}
+                        gotchisLength={gotchis.length}
+                        warehouseLength={warehouse.length}
+                        ticketsLength={tickets.length}
+                    />
 
-            {activeTab === 'tickets' ? (
-                <ClientTickets tickets={tickets} />
-            ) : (
-                null
-            )}
+                    {activeTab === 'gotchis' ? (
+                        <ClientGotchis
+                            gotchis={gotchis}
+                            gotchisFilter={gotchisFilter}
+                            setGotchisFilter={setGotchisFilter}
+                            setGotchis={setGotchis}
+                        />
+                    ) : (
+                        null
+                    )}
 
-            <Backdrop className={classes.backdrop} open={isDataLoading()}>
-                <CircularProgress color='primary' />
-            </Backdrop>
+                    {activeTab === 'warehouse' ? (
+                        <ClientWarehouse
+                            warehouse={warehouse}
+                            warehouseFilter={warehouseFilter}
+                            setWarehouseFilter={setWarehouseFilter}
+                            setWarehouse={setWarehouse}
+                        />
+                    ) : (
+                        null
+                    )}
+
+                    {activeTab === 'tickets' ? (
+                        <ClientTickets tickets={tickets} />
+                    ) : (
+                        null
+                    )}
+
+                    <Backdrop className={classes.backdrop} open={isDataLoading()}>
+                        <CircularProgress color='primary' />
+                    </Backdrop>
+                </>
+            )}
 
         </Box>
     );

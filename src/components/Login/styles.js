@@ -33,7 +33,7 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         color: theme.palette.background.default,
-        padding: '0 6px',
+        padding: '0 12px',
         whiteSpace: 'nowrap',
         textTransform: 'uppercase'
     },
@@ -69,16 +69,18 @@ export default makeStyles((theme) => ({
         textAlign: 'center',
         margin: '0 8px !important'
     },
+    metamaskButton: {
+        maxWidth: 160,
+    },
     customButton: {
         backgroundColor: `${alpha(theme.palette.primary.main, .08)} !important`,
-        maxWidth: 140,
+        maxWidth: 160,
         '&:hover': {
             backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
         }
     },
     listWrapper: {
-        maxHeight: 230,
-        overflowY: 'scroll',
+        maxHeight: 230
     },
     listItem: {
         backgroundColor: alpha(theme.palette.background.default, .6),
