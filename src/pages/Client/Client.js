@@ -14,6 +14,8 @@ import ClientWarehouse from './components/ClientWarehouse';
 
 import gotchiPlaceholder from '../../assets/images/logo.png';
 import warehousePlaceholder from '../../assets/wearables/15.svg';
+import ticketsPlaceholder from '../../assets/tickets/rare.svg';
+import ClientTickets from './components/ClientTickets';
 
 export default function Client() {
     const classes = useStyles();
@@ -28,6 +30,8 @@ export default function Client() {
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseFilter, setWarehouseFilter] = useState('desc');
     const [isInventoryLoading, setIsInventoryLoading] = useState(false);
+
+    const [tickets, setTickets] = useState([]);
 
     const { activeAddress } = useContext(LoginContext);
 
@@ -78,10 +82,17 @@ export default function Client() {
         });
     };
 
+    const getTickets = (address) => {
+        web3.getTicketsByAddress(address).then((response) => {
+            setTickets(response);
+        }).catch((error) => console.log(error));
+    };
+
     const getData = () => {
         if (activeAddress) {
             getGotchiesByAddress(activeAddress.toLowerCase());
             getInventoryByAddress(activeAddress.toLowerCase());
+            getTickets(activeAddress.toLowerCase());
         }
     };
 
@@ -101,29 +112,46 @@ export default function Client() {
 
             <Box marginBottom='40px'>Logged as {activeAddress}</Box>
 
-            <Box marginBottom='20px'>
+            <Box display='flex' alignItems='flex-start' flexWrap='wrap' marginBottom='20px'>
                 <Button
+                    disabled={!gotchis.length}
                     variant={activeTab === 'gotchis' ? 'contained' : 'outlined'}
                     size='large'
                     startIcon={
                         <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                     }
                     endIcon={`[${gotchis.length}]`}
-                    sx={{ marginRight: '12px' }}
+                    sx={{ marginRight: '12px', marginBottom: '12px' }}
                     onClick={() => setActiveTab('gotchis')}
                 >
                     Gotchis
                 </Button>
+
                 <Button
+                    disabled={!warehouse.length}
                     variant={activeTab === 'warehouse' ? 'contained' : 'outlined'}
                     size='large'
                     startIcon={
                         <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                     }
                     endIcon={`[${warehouse.length}]`}
+                    sx={{ marginRight: '12px', marginBottom: '12px' }}
                     onClick={() => setActiveTab('warehouse')}
                 >
                     Warehouse
+                </Button>
+
+                <Button
+                    disabled={!tickets.length}
+                    variant={activeTab === 'tickets' ? 'contained' : 'outlined'}
+                    size='large'
+                    startIcon={
+                        <img src={ticketsPlaceholder} alt='gotchi' width={27} style={{ marginRight: '4px' }} />
+                    }
+                    endIcon={`[${tickets.length}]`}
+                    onClick={() => setActiveTab('tickets')}
+                >
+                    Tickets
                 </Button>
             </Box>
 
@@ -145,6 +173,12 @@ export default function Client() {
                     setWarehouseFilter={setWarehouseFilter}
                     setWarehouse={setWarehouse}
                 />
+            ) : (
+                null
+            )}
+
+            {activeTab === 'tickets' ? (
+                <ClientTickets tickets={tickets} />
             ) : (
                 null
             )}

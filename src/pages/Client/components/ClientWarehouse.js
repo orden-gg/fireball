@@ -3,7 +3,7 @@ import { Box, FormControl, Select, InputLabel, MenuItem } from '@mui/material';
 import { useStyles } from '../styles';
 
 import commonUtils from '../../../utils/commonUtils';
-import Wearable from '../../../components/Wearable/Wearable';
+import Wearable from '../../../components/Warehouse/Wearable/Wearable';
 
 export default function ClientWarehouse({warehouse, warehouseFilter, setWarehouseFilter, setWarehouse}) {
     const classes = useStyles();

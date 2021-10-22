@@ -4,10 +4,10 @@ import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 import classNames from 'classnames';
 
-import itemUtils from '../../utils/itemUtils';
+import itemUtils from '../../../utils/itemUtils';
 
 const useStyles = makeStyles((theme) => ({
-    wearable: {
+    ticket: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
         padding: '16px 12px',
@@ -60,55 +60,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Wearable({wearable, raffleStats}) {
+export default function Ticket({ticket}) {
     const classes = useStyles();
-    const name = itemUtils.getItemNameById(wearable.itemId);
-    const rarity = itemUtils.getItemRarityById(wearable.itemId);
-    const stats = itemUtils.getEmojiStatsById(wearable.itemId);
-
-    const getWearableImagePath = (id) => {
-        try {
-            return require(`../../assets/wearables/${id}.svg`).default;
-        } catch (error) {
-            return require(`../../assets/images/no-image2.svg`).default;
-        }
-    };
-
-    const renderRaffleStats = () => {
-        if(raffleStats) {
-            return (
-                <Box>
-                    <Typography variant='body2'>Quantity:
-                        <Box component='span' marginLeft='8px' className={classNames(classes.textHighlight, rarity)}>{raffleStats.amount}</Box>
-                    </Typography>
-                    <Typography
-                        variant={'subtitle1'}
-                        className={classNames(classes.textHighlight, rarity)}
-                    >
-                        {raffleStats.chance}
-                    </Typography>
-                </Box>
-            )
-        } else {
-            return null;
-        }
-    }
 
     return (
-        <Box className={classNames(classes.wearable, rarity)}>
+        <Box className={classNames(classes.ticket, ticket.rarity)}>
             <img
-                src={getWearableImagePath(wearable.itemId)}
-                alt={name}
+                src={itemUtils.getTicketImg(ticket.name)}
+                alt={ticket.name}
                 height={75}
                 width={75}
             />
-            <Typography className={classNames(classes.textHighlight, rarity)}>
-                {name}
+            <Typography className={classNames(classes.textHighlight, ticket.rarity)}>
+                {ticket.name}
             </Typography>
-            <Typography variant='subtitle1'>
-                {stats}
+            <Typography variant='subtitle2'>
+                {ticket.balance}
             </Typography>
-            {renderRaffleStats()}
         </Box>
     )
 }

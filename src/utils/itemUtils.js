@@ -159,6 +159,14 @@ export default {
         }
     },
 
+    getTicketImg(name) {
+        try {
+            return require(`../assets/tickets/${name}.svg`).default;
+        } catch (error) {
+            return require(`../assets/images/no-image2.svg`).default;
+        }
+    },
+
     getItemUrl(item) {
         try {
             return `https://aavegotchi.com/baazaar/${item.__typename === "ERC1155Listing" ? 'erc1155' : 'erc721'}/${item.id}`;
