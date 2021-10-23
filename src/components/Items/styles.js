@@ -58,16 +58,11 @@ export default makeStyles((theme) => ({
         '&.info, &.warning': {
             backgroundColor: alpha(theme.palette.secondary.dark, .4),
             borderColor: 'transparent',
+            color: `${theme.palette.text.primary} !important`,
             '&:hover': {
                 backgroundColor: theme.palette.secondary.dark,
             }
         },
-        '&.info': {
-            color: `${theme.palette.text.primary} !important`
-        },
-        '&.warning': {
-            color: `${theme.palette.warning.light} !important`
-        }
     },
     labelBalance: {
         backgroundColor: alpha(theme.palette.secondary.dark, .8),

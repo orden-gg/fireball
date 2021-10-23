@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Typography, Tooltip } from '@mui/material';
+import { useTheme } from '@emotion/react';
+import { alpha } from '@mui/system';
+import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
 import useStyles from '../styles';
 
@@ -11,6 +14,7 @@ import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function Ticket({ticket}) {
     const classes = useStyles();
+    const theme = useTheme();
     const [lastPrice, setLastPrice] = useState(null);
     const [currentPrice, setCurrentPrice] = useState(null);
 
@@ -42,7 +46,16 @@ export default function Ticket({ticket}) {
                     </Tooltip>
 
                 ) : (
-                    <div>spinner</div>
+                    <ContentLoader
+                        speed={2}
+                        width={70}
+                        height={27}
+                        viewBox='0 0 70 27'
+                        backgroundColor={alpha(theme.palette.primary.dark, .5)}
+                        foregroundColor={alpha(theme.palette.primary.main, .5)}
+                    >
+                        <rect x='0' y='0' width='70' height='27' /> 
+                    </ContentLoader>
                 )}
 
                 <div className={classNames(classes.label, classes.labelBalance)}>
@@ -69,7 +82,12 @@ export default function Ticket({ticket}) {
             <div className={classes.prices}>
                 {lastPrice ? (
                     <Tooltip title='Last sale' placement='top' followCursor>
-                        <Link href={`https://www.aavegotchi.com/baazaar/erc1155/${lastPrice.listing}`} target='_blank' underline='none' className={classNames(classes.label, classes.labelTotal, 'info')}>
+                        <Link
+                            href={`https://www.aavegotchi.com/baazaar/erc1155/${lastPrice.listing}`}
+                            target='_blank'
+                            underline='none'
+                            className={classNames(classes.label, classes.labelTotal, 'info')}
+                        >
                             <Typography variant='subtitle2'>
                                 {commonUtils.formatPrice(lastPrice.price)}
                             </Typography>
@@ -77,20 +95,44 @@ export default function Ticket({ticket}) {
                         </Link>
                     </Tooltip>
                 ) : (
-                    <div>placeholder</div>
+                    <ContentLoader
+                        speed={2}
+                        width={70}
+                        height={27}
+                        viewBox='0 0 70 27'
+                        backgroundColor={alpha(theme.palette.secondary.dark, .5)}
+                        foregroundColor={alpha(theme.palette.secondary.main, .5)}
+                    >
+                        <rect x='0' y='0' width='70' height='27' /> 
+                    </ContentLoader>
                 )}
 
                 {currentPrice ? (
                     <Tooltip title='Current price' placement='top' followCursor>
-                        <Link href={`https://www.aavegotchi.com/baazaar/erc1155/${currentPrice.listing}`} target='_blank' underline='none' className={classNames(classes.label, classes.labelTotal, 'warning')}>
-                            <Typography variant='subtitle2'>
+                        <Link
+                            href={`https://www.aavegotchi.com/baazaar/erc1155/${currentPrice.listing}`}
+                            target='_blank'
+                            underline='none'
+                            className={classNames(classes.label, classes.labelTotal, 'warning')}
+                        >
+                            <Typography variant='subtitle2' sx={{ color: currentPrice.price < lastPrice?.price ? theme.palette.success.light : theme.palette.warning.main }}>
                                 {commonUtils.formatPrice(currentPrice.price)}
                             </Typography>
                             <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </Link>
                     </Tooltip>
                 ) : (
-                    <div>placeholder</div>
+                    <ContentLoader
+                        speed={2}
+                        width={70}
+                        height={27}
+                        viewBox='0 0 70 27'
+                        backgroundColor={alpha(theme.palette.secondary.dark, .5)}
+                        foregroundColor={alpha(theme.palette.secondary.main, .5)}
+                        style={{ marginLeft: 4 }}
+                    >
+                        <rect x='0' y='0' width='70' height='27' /> 
+                    </ContentLoader>
                 )}
             </div>
         </div>
