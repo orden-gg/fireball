@@ -27,7 +27,7 @@ export const theme = createTheme({
             legendary: 'rgb(255, 195, 107)',
             mythical: 'rgb(255, 150, 255)',
             godlike: 'rgb(81, 255, 168)',
-            drop: 'rgb(238, 232, 170)'
+            drop: 'rgb(0, 0, 0)'
         },
         accounts: {
             color1: '#E76F51',

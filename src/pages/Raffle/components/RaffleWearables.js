@@ -2,7 +2,7 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 
-import Wearable from '../../../components/Wearable/Wearable';
+import Wearable from '../../../components/Items/Wearable/Wearable';
 
 export default function RaffleWearables({tickets}) {
     return (

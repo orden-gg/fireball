@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
-        padding: '16px 12px',
+        padding: '25px 12px 32px',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
@@ -27,6 +27,84 @@ export default makeStyles((theme) => ({
         '&.godlike': {
             backgroundColor: alpha(theme.palette.rarity.godlike, .1)
         },
+        '&.drop': {
+            backgroundColor: alpha(theme.palette.rarity.drop, .1)
+        },
+    },
+    labels: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        display: 'flex',
+        '& div:last-child': {
+            borderTopRightRadius: 4
+        },
+    },
+    label: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 4px',
+        justifyContent: 'center',
+        border: '3px solid transparent',
+        '& h6': {
+            fontWeight: '600 !important'
+        }
+    },
+    labelTotal: {
+        backgroundColor: theme.palette.primary.main,
+        borderColor: alpha(theme.palette.secondary.dark, .5),
+        color: `${theme.palette.secondary.main} !important`,
+        paddingRight: 2,
+        '&.info, &.warning': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .4),
+            borderColor: 'transparent',
+            '&:hover': {
+                backgroundColor: theme.palette.secondary.dark,
+            }
+        },
+        '&.info': {
+            color: `${theme.palette.text.primary} !important`
+        },
+        '&.warning': {
+            color: `${theme.palette.warning.light} !important`
+        }
+    },
+    labelBalance: {
+        backgroundColor: alpha(theme.palette.secondary.dark, .8),
+        minWidth: 34,
+    },
+    prices: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        '& div:last-child': {
+            borderTopRightRadius: 4
+        },
+    },
+    iconWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100px',
+        marginBottom: 4
+    },
+    icon: {
+        width: '60%',
+        maxHeight: '80px'
+    },
+    nameWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 44
+    },
+    name: {
+        fontWeight: '500 !important',
+        lineHeight: '1.4 !important'
     },
     textHighlight: {
         '&.common': {

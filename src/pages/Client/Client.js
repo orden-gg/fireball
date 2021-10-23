@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Backdrop, CircularProgress, useTheme, Button, Typography, Alert, AlertTitle } from '@mui/material';
+import { Backdrop, CircularProgress, Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
@@ -17,7 +17,6 @@ import ClientTickets from './components/ClientTickets';
 
 export default function Client() {
     const classes = useStyles();
-    const theme = useTheme();
 
     const [activeTab, setActiveTab] = useState('gotchis');
 
@@ -30,6 +29,7 @@ export default function Client() {
     const [isInventoryLoading, setIsInventoryLoading] = useState(false);
 
     const [tickets, setTickets] = useState([]);
+    const [isTicketsLoading, setIsTicketsLoading] = useState(false);
 
     const { activeAddress } = useContext(LoginContext);
 
@@ -68,9 +68,12 @@ export default function Client() {
     };
 
     const getTickets = (address) => {
+        setIsTicketsLoading(true);
+
         web3.getTicketsByAddress(address).then((response) => {
             let modified = response.filter((item) => item.balance > 0);
             setTickets(modified);
+            setIsTicketsLoading(false);
         }).catch((error) => console.log(error));
     };
 
@@ -83,7 +86,7 @@ export default function Client() {
     };
 
     const isDataLoading = () => {
-        return isGotchiesLoading || isInventoryLoading;
+        return isGotchiesLoading || isInventoryLoading || isTicketsLoading;
     };
 
     useEffect(() => {

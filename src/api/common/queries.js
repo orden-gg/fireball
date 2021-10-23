@@ -71,3 +71,22 @@ export const svgQuery = (id) => {
         }
       }`
 };
+
+export const ticketListingQuery = (id, sold, orderBy, orderDireciton) => {
+  return `{ 
+      erc1155Listings (
+          first: 1, 
+          orderBy: ${orderBy},
+          orderDirection: ${orderDireciton},
+          where: {
+              cancelled: false,
+              sold: ${sold},
+              category: 3,
+              erc1155TypeId: ${id}
+          }
+      ){
+          id
+          priceInWei
+      }
+  }`
+};

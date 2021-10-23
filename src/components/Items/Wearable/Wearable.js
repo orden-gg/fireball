@@ -13,24 +13,29 @@ export default function Wearable({wearable, raffleStats}) {
 
     return (
         <Box className={classNames(classes.item, rarity)}>
-            {wearable.balance ? (
-                <Typography align='right' variant='subtitle2'>
-                    {wearable.balance}
+            <div className={classes.labels}>
+                {wearable.balance ? (
+                    <Typography className={classes.balance} variant='subtitle2'>
+                        {wearable.balance}
+                    </Typography>
+                ) : (
+                    null
+                )}
+            </div>
+
+            <div className={classes.iconWrapper}>
+                <img
+                    src={itemUtils.getWearableImg(wearable.itemId)}
+                    alt={name}
+                    className={classes.icon}
+                />
+            </div>
+
+            <div className={classes.nameWrapper}>
+                <Typography className={classNames(classes.name, classes.textHighlight, rarity)}>
+                    {name}
                 </Typography>
-            ) : (
-                null
-            )}
-
-            <img
-                src={itemUtils.getWearableImg(wearable.itemId)}
-                alt={name}
-                height={75}
-                width={75}
-            />
-
-            <Typography className={classNames(classes.textHighlight, rarity)}>
-                {name}
-            </Typography>
+            </div>
 
             <Typography variant='subtitle1'>
                 {stats}

@@ -4,6 +4,14 @@ export default {
         return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1'");
     },
 
+    formatPrice(number) {
+        return number % 1 === 0 ? this.formatNumberWithCommas(number) : number < 100 ? Number(number).toFixed(2) : this.formatNumberWithCommas(number.toFixed(0));
+    },
+
+    capitalize(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    },
+
     trimPriceToThreeDecimal(price) {
         if (price % 1 === 0) {
             return price;

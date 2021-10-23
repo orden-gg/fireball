@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '12px 14px',
+        padding: '10px 12px',
         '& span': {
             width: 18
         }
