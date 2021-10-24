@@ -4,6 +4,7 @@ import { useStyles } from '../styles';
 
 import commonUtils from '../../../utils/commonUtils';
 import Wearable from '../../../components/Items/Wearable/Wearable';
+import Consumable from '../../../components/Items/Consumable/Consumable';
 
 export default function ClientWarehouse({warehouse, warehouseFilter, setWarehouseFilter, setWarehouse}) {
     const classes = useStyles();
@@ -64,7 +65,11 @@ export default function ClientWarehouse({warehouse, warehouseFilter, setWarehous
                 {
                     warehouse.map((item, i)=>{
                         return <div className={classes.listItem} key={i}>
-                            <Wearable wearable={item} />
+                            {item.category === 2 ? (
+                                <Consumable consumable={item} />
+                            ) : (
+                                <Wearable wearable={item} />
+                            )}
                         </div>
                     })
                 }

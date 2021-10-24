@@ -49,13 +49,15 @@ export default function Client() {
 
         web3.getInventoryByAddress(address).then((response) => {
             let modified = [];
+            console.log(response);
 
             response.items.forEach((item) => {
                 modified.push({
-                    itemId: item.itemId,
+                    id: item.itemId,
                     rarity: itemUtils.getItemRarityById(item.itemId),
                     rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
+                    category: item.itemId >= 126 && item.itemId <= 129 ? 2 : 0 // TODO: temporary solution to determine if item is consumable or not
                 });
             });
 

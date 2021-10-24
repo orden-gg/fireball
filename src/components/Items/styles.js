@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
-        padding: '25px 12px 32px',
+        padding: '32px 12px 36px',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
@@ -48,14 +48,13 @@ export default makeStyles((theme) => ({
         border: '3px solid transparent',
         '& h6': {
             fontWeight: '600 !important'
-        }
+        },
     },
     labelTotal: {
         backgroundColor: theme.palette.primary.main,
         borderColor: alpha(theme.palette.secondary.dark, .5),
-        color: `${theme.palette.secondary.main} !important`,
-        paddingRight: 2,
-        '&.info, &.warning': {
+        padding: '0 2px',
+        '&.baazarPrice': {
             backgroundColor: alpha(theme.palette.secondary.dark, .4),
             borderColor: 'transparent',
             color: `${theme.palette.text.primary} !important`,
@@ -92,10 +91,12 @@ export default makeStyles((theme) => ({
         maxHeight: '80px'
     },
     nameWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 44
+        whiteSpace: 'nowrap',
+        
+        '& p': {
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+        }
     },
     name: {
         fontWeight: '500 !important',

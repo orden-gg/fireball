@@ -12,6 +12,8 @@ var web3 = new Web3();
 export default function BaazaarItem({item}) {
     const classes = useStyles();
 
+    console.log(item);
+
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.listing_id}>
             <Box className={classNames(classes.baazaarItem, itemUtils.getBaazaarItemRarityName(item))}>

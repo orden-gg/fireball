@@ -4,28 +4,21 @@ import classNames from 'classnames';
 import useStyles from '../styles';
 
 import itemUtils from '../../../utils/itemUtils';
+import ERC1155 from '../ERC1155/ERC1155';
 
 export default function Wearable({wearable, raffleStats}) {
     const classes = useStyles();
-    const name = itemUtils.getItemNameById(wearable.itemId);
-    const rarity = itemUtils.getItemRarityById(wearable.itemId);
-    const stats = itemUtils.getEmojiStatsById(wearable.itemId);
+
+    const name = itemUtils.getItemNameById(wearable.id);
+    const rarity = itemUtils.getItemRarityById(wearable.id);
+    const stats = itemUtils.getEmojiStatsById(wearable.id);
 
     return (
-        <Box className={classNames(classes.item, rarity)}>
-            <div className={classes.labels}>
-                {wearable.balance ? (
-                    <Typography className={classes.balance} variant='subtitle2'>
-                        {wearable.balance}
-                    </Typography>
-                ) : (
-                    null
-                )}
-            </div>
+        <ERC1155 item={{ id: wearable.id, rarity: rarity, category: 0, balance: wearable.balance }}>
 
             <div className={classes.iconWrapper}>
                 <img
-                    src={itemUtils.getWearableImg(wearable.itemId)}
+                    src={itemUtils.getWearableImg(wearable.id)}
                     alt={name}
                     className={classes.icon}
                 />
@@ -56,6 +49,6 @@ export default function Wearable({wearable, raffleStats}) {
             ) : (
                 null
             )}
-        </Box>
+        </ERC1155>
     )
 }

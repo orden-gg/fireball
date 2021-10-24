@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
-import { gotchiesQuery, svgQuery, ticketListingQuery, userQuery } from './common/queries';
+import { gotchiesQuery, svgQuery, erc1155Query, userQuery } from './common/queries';
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
@@ -111,13 +111,14 @@ export default {
         return await this.getData(userQuery(address.toLowerCase()));
     },
 
-    async getTicketPrice(id, sold, orderBy, orderDireciton) {
-        return await this.getData(ticketListingQuery(id, sold, orderBy, orderDireciton)).then((response) => {
-            let ticket = response.data.erc1155Listings[0];
+    async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
+        return await this.getData(erc1155Query(id, sold, category, orderBy, orderDireciton)).then((response) => {
+            let erc1155 = response.data.erc1155Listings;
 
             return {
-                listing: ticket.id,
-                price: ticket.priceInWei / 10**18
+                listing: erc1155[0]?.id || null,
+                price: erc1155[0]?.priceInWei / 10**18 || 0,
+                lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
     },
