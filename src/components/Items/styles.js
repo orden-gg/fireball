@@ -1,3 +1,4 @@
+import { tooltipClasses } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
@@ -57,7 +58,6 @@ export default makeStyles((theme) => ({
         '&.baazarPrice': {
             backgroundColor: alpha(theme.palette.secondary.dark, .4),
             borderColor: 'transparent',
-            color: `${theme.palette.text.primary} !important`,
             '&:hover': {
                 backgroundColor: theme.palette.secondary.dark,
             }
@@ -101,6 +101,10 @@ export default makeStyles((theme) => ({
     name: {
         fontWeight: '500 !important',
         lineHeight: '1.4 !important'
+    },
+    customTooltip: {
+        backgroundColor: `${theme.palette.secondary.main} !important`,
+        marginBottom: '8px !important'
     },
     textHighlight: {
         '&.common': {
