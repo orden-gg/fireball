@@ -89,7 +89,7 @@ export default function GotchiSvgByStats({gotchi, size}) {
     }, []);
 
     return (
-        <div className={classes.svgWrapper} style={{ width: size, height: size }}>
+        <div className={classes.svgWrapper} style={{ width: size }}>
             {loadingSvg ? (
                 <img
                     className={classes.svgPlaceholder}

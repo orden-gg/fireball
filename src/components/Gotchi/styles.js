@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
         display: 'block',
         borderRadius: theme.shape.borderRadius,
         color: '#fff',
-        padding: '24px 12px 16px',
+        padding: '12px 12px 16px',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
@@ -16,43 +16,7 @@ export default makeStyles((theme) => ({
         },
     },
     gotchiSvg: {
-        width: 120,
-        margin: 'auto',
-        '& .gotchi-wearable': {
-            transition: 'all .5s ease-in-out'
-        },
-        '& .gotchi-sleeves': {
-            transition: 'all .5s ease-in-out'
-        },
-        '&:hover': {
-            '& .gotchi-wearable:not(.wearable-bg)': {
-                opacity: 0,
-            },
-            '& .gotchi-sleeves': {
-                opacity: 0,
-            },
-            '& .wearable-head': {
-                transform: 'translateY(-5px) rotateZ(-45deg)'
-            },
-            '& .wearable-eyes': {
-                transform: 'translateX(10px) rotateZ(5deg)'
-            },
-            '& .wearable-face': {
-                transform: 'translateX(-10px) rotateZ(10deg)'
-            },
-            '& .wearable-body': {
-                transform: 'translateY(10px) rotateZ(-5deg)'
-            },
-            '& .wearable-hand-right': {
-                transform: 'translateX(5px) rotateZ(-5deg)'
-            },
-            '& .wearable-hand-left': {
-                transform: 'translateX(-5px) rotateZ(5deg)'
-            },
-            '& .wearable-pet': {
-                transform: 'translateY(5px)'
-            }
-        }
+        margin: '0 -12px'
     },
     gotchiInnerSection: {
         marginTop: 8
@@ -72,10 +36,10 @@ export default makeStyles((theme) => ({
         transform: 'translate(50%, -50%)',
         opacity: .8
     },
-    gotchiLvlWrapper: {
-        position: 'absolute',
-        top: 5,
-        right: 5,
+    badges: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between'
     },
     gotchiLvl: {
         display: 'inline-flex',

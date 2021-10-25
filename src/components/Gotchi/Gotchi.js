@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@mui/material';
+import { Link, Tooltip } from '@mui/material';
 import { alpha } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
@@ -14,10 +14,13 @@ import HighlightNumber from '../HighlightNumber';
 import CallMade from '@mui/icons-material/CallMade';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
+import graphUtils from '../../utils/graphUtils';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     const classes = useStyles();
     const theme = useTheme();
+
+    const collateral = graphUtils.getCollateralName(gotchi.collateral);
 
     const calculateRarityType = (rarity) => {
         return rarity >= 700 ? 'godlike' : rarity >= 600 ? 'mythical' : rarity >= 500 ? 'rare' : '';
@@ -31,15 +34,6 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
         if(!narrowed) {
             return (
                 <>
-                    <div className={classes.gotchiLvlWrapper}>
-                        <GotchiLevel
-                            level={gotchi.level}
-                            toNextLevel={gotchi.toNextLevel}
-                            experience={gotchi.experience}
-                            size={28}
-                        />
-                    </div>
-
                     <div className={classNames(classes.gotchiInnerSection, classes.gotchiTraits)}>
                         <div className={classes.gotchiTraitsInner}>
                             <HighlightNumber type={calculateRarityType(gotchi.withSetsRarityScore)}>
@@ -87,9 +81,31 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                 {title || gotchi.id}
             </p>
 
-            {
-                renderSvgByStats ? <GotchiSvgByStats gotchi={gotchi} size={120} /> : <GotchiSvg id={gotchi.id} size={120} />
-            }
+
+            <div className={classes.badges}>
+                <Tooltip title={collateral} placement='top' followCursor>
+                    <div className={classes.badge}>
+                        <img src={graphUtils.getCollateralImg(collateral)} width={28} />
+                    </div>
+                </Tooltip>
+
+                <GotchiLevel
+                    level={gotchi.level}
+                    toNextLevel={gotchi.toNextLevel}
+                    experience={gotchi.experience}
+                    size={28}
+                />
+            </div>
+
+            <div className={classes.gotchiSvg}>
+                {
+                    renderSvgByStats ? (
+                        <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
+                    ) : (
+                        <GotchiSvg id={gotchi.id} size={'100%'} />
+                    )
+                }
+            </div>
 
             <Link
                 className={classes.gotchiName}

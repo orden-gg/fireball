@@ -69,9 +69,6 @@ export default {
     },
 
     async getAllGotchies() {
-        debugger
-        // NOTE: to reduce loading speed current gotchies max amount is 7000
-        // We should add new queries when there will be more than 7000 unique gotchies
         return await graphJoin(this.getGotchiQueries()).then((response)=> {
             let responseArray = [];
 

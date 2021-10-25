@@ -37,7 +37,12 @@ export default function Client() {
         setIsGotchiesLoading(true);
 
         thegraph.getGotchiesByAddress(address).then(async (response)=> {
-            setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
+
+            console.log(response.data.user?.gotchisOwned);
+
+            setGotchis(response.data.user?.gotchisOwned);
+
+            // setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
             setIsGotchiesLoading(false);
         }).catch(()=> {
             setIsGotchiesLoading(false);

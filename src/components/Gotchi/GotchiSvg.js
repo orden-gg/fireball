@@ -97,7 +97,7 @@ export default function GotchiSvg({id, size, hideWearables, hideBg}) {
     }, [id]);
 
     return (
-        <div className={classNames(classes.svgWrapper, hideWearables && 'hide-wearables', hideBg && 'hide-bg' )} style={{ width: size, height: size }}>
+        <div className={classNames(classes.svgWrapper, hideWearables && 'hide-wearables', hideBg && 'hide-bg' )} style={{ width: size }}>
             {loadingSvg ? (
                 <img
                     className={classes.svgPlaceholder}

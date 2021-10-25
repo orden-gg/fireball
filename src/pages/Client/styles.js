@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'grid',
         alignItems: 'start',
         gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
         gridAutoRows: '1fr'
     },
     listItem: {
@@ -26,7 +26,6 @@ export const useStyles = makeStyles((theme) => ({
         padding: '0 !important',
         '&.Mui-selected': {
             backgroundColor: `${theme.palette.secondary.dark} !important`,
-            // color: `${theme.palette.background.default} !important`,
         }
     },
     filtersInner: {

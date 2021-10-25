@@ -93,7 +93,14 @@ export default function ERC1155({children, item}) {
                                     </Box>
                                 ) : (
                                     <Typography variant='caption'>
-                                        Sold for <span style={{ color: theme.palette.primary.main, fontWeight: 600 }}>{commonUtils.formatPrice(last.price)}</span> [{DateTime.fromISO(lastDate).toRelative()}]
+                                        Sold for <Link 
+                                            href={`https://www.aavegotchi.com/baazaar/erc1155/${last.listing}`}
+                                            target='_blank'
+                                            underline='none'
+                                            style={{ color: theme.palette.primary.main, fontWeight: 600 }}
+                                        >
+                                            {commonUtils.formatPrice(last.price)}
+                                        </Link> [{DateTime.fromISO(lastDate).toRelative()}]
                                     </Typography>
                                 )}
                             </React.Fragment>
