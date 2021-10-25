@@ -1,19 +1,23 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button } from '@mui/material';
+import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
 import web3 from '../../api/web3';
-import itemUtils from '../../utils/itemUtils';
-import commonUtils from '../../utils/commonUtils';
 import { useStyles } from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
+
+import itemUtils from '../../utils/itemUtils';
+import commonUtils from '../../utils/commonUtils';
+import graphUtils from '../../utils/graphUtils';
 
 import LoginNavigation from '../../components/Login/LoginNavigation';
 import ClientTabs from './components/ClientTabs';
 import ClientGotchis from './components/ClientGotchis';
 import ClientWarehouse from './components/ClientWarehouse';
 import ClientTickets from './components/ClientTickets';
+
+import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 
 export default function Client() {
     const classes = useStyles();
@@ -30,6 +34,10 @@ export default function Client() {
 
     const [tickets, setTickets] = useState([]);
     const [isTicketsLoading, setIsTicketsLoading] = useState(false);
+
+    const [reward, setReward] = useState(null);
+    const [rewardCalculating, setRewardCalculating] = useState(false);
+    const [rewardCalculated, setRewardCalculated] = useState(false);
 
     const { activeAddress } = useContext(LoginContext);
 
@@ -79,11 +87,48 @@ export default function Client() {
             getGotchiesByAddress(activeAddress.toLowerCase());
             getInventoryByAddress(activeAddress.toLowerCase());
             getTickets(activeAddress.toLowerCase());
+
+            // reset rewards
+            setReward(null);
+            setRewardCalculated(false);
+            setGotchisFilter('withSetsRarityScore');
         }
     };
 
     const isDataLoading = () => {
         return isGotchiesLoading || isInventoryLoading || isTicketsLoading;
+    };
+
+    const calculateRewards = () => {
+        setRewardCalculating(true);
+
+        thegraph.getAllGotchies().then((response) => {
+            let brsLeaders = commonUtils.basicSort(response, 'withSetsRarityScore');
+            let kinLeaders = commonUtils.basicSort(response, 'kinship');
+            let expLeaders = commonUtils.basicSort(response, 'experience');
+
+            let h2 = response.filter((gotchi) => gotchi.hauntId === '2');
+            let kinRookieLeaders = commonUtils.basicSort(h2, 'kinship');
+            let expRookieLeaders = commonUtils.basicSort(h2, 'experience');
+
+            gotchis.forEach((item, index)=>{
+                let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
+                let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
+                let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
+                let rookieKIN = graphUtils.calculateRewards(kinRookieLeaders.findIndex(x => x.id === item.id), 'RookieKIN');
+                let rookieEXP = graphUtils.calculateRewards(expRookieLeaders.findIndex(x => x.id === item.id), 'RookieEXP');
+
+                gotchis[index] = {
+                    ...item,
+                    reward: BRS.reward + KIN.reward + EXP.reward + rookieKIN.reward + rookieEXP.reward,
+                    rewardStats: [BRS, KIN, EXP, rookieKIN, rookieEXP]
+                }
+            });
+
+            setReward(gotchis.reduce((prev, next) => prev + next.reward, 0));
+            setRewardCalculating(false);
+            setRewardCalculated(true)
+        })
     };
 
     useEffect(() => {
@@ -109,8 +154,8 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <Box display='flex' alignItems='flex-start' justifyContent='space-between'>
-                        <Box>
+                    <Box display='flex' flexWrap='wrap' justifyContent='space-between' bgcolor='secondary.dark' padding='20px' marginBottom='16px' borderRadius='4px'>
+                        <Box display='flex' flexDirection='column' justifyContent='space-between'>
                             <Typography variant='h6' paragraph>
                                 Logged as <Box component='span' color='warning.main'>{activeAddress}</Box>
                             </Typography>
@@ -123,21 +168,50 @@ export default function Client() {
                                 ticketsLength={tickets.length}
                             />
                         </Box>
+
                         <Box textAlign='right'>
-                            <Typography variant='h6' color='info.main' paragraph>SZN 2 Rarity farming is LIVE!</Typography>
-                            <Button
-                                disabled={isDataLoading()}
-                                variant={'contained'}
-                                size='large'
-                                // startIcon={
-                                //     <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
-                                // }
-                                // endIcon={`[${warehouseLength}]`}
-                                // sx={{ marginRight: '12px', marginBottom: '12px' }}
-                                onClick={() => console.log('yo')}
-                            >
-                                Calculate Rewards
-                            </Button>
+                            <Typography variant='h6' color='info.main' paragraph>
+                                SZN 2 Rarity farming is LIVE!
+                            </Typography>
+
+                            <Box display='flex' alignItems='center' justifyContent='flex-end'>
+                                {reward ? (
+                                    <Typography className={classes.rewardText} variant='h6'>
+                                        <span className='lighter'>{reward}</span><img src={ghstIcon} width='24' alt='GHST Token Icon' />
+                                        <Box component='span' display='inline-flex' alignItems='center' fontSize='16px' marginLeft='4px'>
+                                            (<span className='lighter'>{reward / 4}</span><img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
+                                        </Box>
+                                    </Typography>
+                                    
+                                ) : (
+                                    null
+                                )}
+
+                                <Tooltip
+                                    title={
+                                        <Box margin='-8px'>
+                                            <Alert color='warning'>
+                                                <AlertTitle>Please note!</AlertTitle>
+                                                <Typography>For correct reward calculation you should re-equip all your wearables.</Typography>
+                                            </Alert>
+                                        </Box>
+                                    }
+                                    classes={{ tooltip: classes.customTooltip }}
+                                    enterTouchDelay={0}
+                                    placement='bottom'
+                                >
+                                    <Button
+                                        disabled={isDataLoading() || rewardCalculated}
+                                        variant={'contained'}
+                                        size='large'
+                                        className={classes.calculateButton}
+                                        onClick={calculateRewards}
+                                    >
+                                        Calculate Reward
+                                    </Button>
+                                </Tooltip>
+
+                            </Box>
                         </Box>
                     </Box>
 
@@ -147,6 +221,7 @@ export default function Client() {
                             gotchisFilter={gotchisFilter}
                             setGotchisFilter={setGotchisFilter}
                             setGotchis={setGotchis}
+                            rewardCalculated={rewardCalculated}
                         />
                     ) : (
                         null
@@ -169,7 +244,7 @@ export default function Client() {
                         null
                     )}
 
-                    <Backdrop className={classes.backdrop} open={isDataLoading()}>
+                    <Backdrop className={classes.backdrop} open={isDataLoading() || rewardCalculating}>
                         <CircularProgress color='primary' />
                     </Backdrop>
                 </>

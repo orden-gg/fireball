@@ -1,23 +1,47 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     calculateRewards(position, type) {
-        const RSCformula = {y: 0.97, k: 95338.67};
-        const KINformula = {y: 0.76, k: 9800.93};
-        const EXPformula = {y: 0.65, k: 2592.58};
+        const BRSformula = {y: 0.94, k: 102656.27};
+        const KINformula = {y: 0.76, k: 7000.66};
+        const EXPformula = {y: 0.65, k: 3703.69};
 
-        if(position > 5000) {
-            return 0;
+        if(position > 5000 || position === -1) {
+            return {reward: 0};
         }
 
         switch(type) {
-            case 'RSC':
-                return +((Math.pow(1 / (position + 1), RSCformula.y)) * RSCformula.k).toFixed(0);
+            case 'BRS':
+                return {
+                    name: type,
+                    position: position + 1,
+                    reward: +((Math.pow(1 / (position + 1), BRSformula.y)) * BRSformula.k).toFixed(0)
+                };
             case 'KIN':
-                return +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0);
+                return {
+                    name: type,
+                    position: position + 1,
+                    reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
+                };
             case 'EXP':
-                return +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0);
+                return {
+                    name: type,
+                    position: position + 1,
+                    reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
+                };
+            case 'RookieKIN':
+                return {
+                    name: type,
+                    position: position + 1,
+                    reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
+                };
+            case 'RookieEXP':
+                return {
+                    name: type,
+                    position: position + 1,
+                    reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
+                };
             default:
-                return 0;
+                return {reward: 0};
         }
     },
 

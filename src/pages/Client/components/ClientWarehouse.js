@@ -33,7 +33,7 @@ export default function ClientWarehouse({warehouse, warehouseFilter, setWarehous
 
     return (
         <>
-            <Box display='flex' alignItems='center' marginBottom='20px'>
+            <Box display='flex' alignItems='center' marginBottom='16px'>
                 <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
 
                 <ToggleButtonGroup

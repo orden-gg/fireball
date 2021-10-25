@@ -19,6 +19,7 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           equippedWearables
           collateral
           hauntId
+          createdAt
           owner {
             id
           }
@@ -55,6 +56,7 @@ export const userQuery = (id) => {
             toNextLevel
             collateral
             hauntId
+            createdAt
             owner {
               id
             }

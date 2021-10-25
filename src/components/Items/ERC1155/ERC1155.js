@@ -24,25 +24,29 @@ export default function ERC1155({children, item}) {
     const [current, setCurrent] = useState(null);
 
     useEffect(() => {
-        getPrices();
-    }, [item]);
+        let controller = new AbortController();
 
-    const getPrices = () => {
         // last sold
         thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
-            setLast(response);
+            if(!controller.signal.aborted) {
+                setLast(response);
 
-            if(response?.lastSale) {
-                let date = new Date(response?.lastSale * 1000).toJSON()
-                setLastDate(date);
+                if(response?.lastSale) {
+                    let date = new Date(response?.lastSale * 1000).toJSON()
+                    setLastDate(date);
+                }
             }
         });
 
         // current
         thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
-            setCurrent(response);
+            if(!controller.signal.aborted) {
+                setCurrent(response);
+            }
         });
-    }
+
+        return () => controller?.abort(); // cleanup on destroy
+    }, [item]);
 
     return (
         <div className={classNames(classes.item, item.rarity)}>

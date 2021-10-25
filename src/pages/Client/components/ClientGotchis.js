@@ -5,11 +5,13 @@ import { useStyles } from '../styles';
 import commonUtils from '../../../utils/commonUtils';
 import Gotchi from '../../../components/Gotchi/Gotchi';
 
-export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter, setGotchis}) {
+export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter, setGotchis, rewardCalculated}) {
     const classes = useStyles();
 
     const onSort = (event, newFilter) => {
-        setGotchis(commonUtils.basicSort(gotchis, newFilter));
+        let dir = newFilter === 'createdAt' ? 'asc' : 'desc';
+
+        setGotchis(commonUtils.basicSort(gotchis, newFilter, dir));
         setGotchisFilter(newFilter);
     };
 
@@ -28,7 +30,7 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
 
     return (
         <>
-            <Box display='flex' alignItems='center' marginBottom='20px'>
+            <Box display='flex' alignItems='center' marginBottom='16px'>
                 <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
 
                 <ToggleButtonGroup
@@ -58,11 +60,20 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
                             <Box className={classes.filtersInner} component='span'><span>🗡</span></Box>
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.filtersButton} value='age' aria-label='age' disabled>
+                    <ToggleButton className={classes.filtersButton} value='createdAt' aria-label='age'>
                         <Tooltip title='Age' placement='top' followCursor>
                             <Box className={classes.filtersInner} component='span'><span>📅</span></Box>
                         </Tooltip>
                     </ToggleButton>
+                    {rewardCalculated ? (
+                        <ToggleButton className={classes.filtersButton} value='reward' aria-label='reward'>
+                            <Tooltip title='Reward' placement='top' followCursor>
+                                <Box className={classes.filtersInner} component='span'><span>🎁</span></Box>
+                            </Tooltip>
+                        </ToggleButton>
+                    ) : (
+                        null
+                    )}
                 </ToggleButtonGroup>
             </Box>
 

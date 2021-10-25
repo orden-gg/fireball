@@ -1,16 +1,14 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { useStyles } from '../styles';
 
 import gotchiPlaceholder from '../../../assets/images/logo.png';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 
 export default function ClientTabs({activeTab, setActiveTab, gotchisLength, warehouseLength, ticketsLength}) {
-    const classes = useStyles();
 
     return (
-        <Box display='flex' alignItems='flex-start' flexWrap='wrap' marginBottom='8px'>
+        <Box display='flex' alignItems='flex-start' flexWrap='wrap'>
             <Button
                 disabled={!gotchisLength}
                 variant={activeTab === 'gotchis' ? 'contained' : 'outlined'}
@@ -19,7 +17,7 @@ export default function ClientTabs({activeTab, setActiveTab, gotchisLength, ware
                     <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${gotchisLength}]`}
-                sx={{ marginRight: '12px', marginBottom: '12px' }}
+                sx={{ marginRight: '12px' }}
                 onClick={() => setActiveTab('gotchis')}
             >
                 Gotchis
@@ -33,7 +31,7 @@ export default function ClientTabs({activeTab, setActiveTab, gotchisLength, ware
                     <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${warehouseLength}]`}
-                sx={{ marginRight: '12px', marginBottom: '12px' }}
+                sx={{ marginRight: '12px' }}
                 onClick={() => setActiveTab('warehouse')}
             >
                 Warehouse

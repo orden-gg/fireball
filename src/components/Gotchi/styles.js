@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
         display: 'block',
         borderRadius: theme.shape.borderRadius,
         color: '#fff',
-        padding: '0 8px 12px',
+        padding: '0 8px 8px',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
@@ -23,10 +23,12 @@ export default makeStyles((theme) => ({
         marginTop: 8
     },
     gotchiId: {
-        fontSize: 14,
+        backgroundColor: alpha(theme.palette.secondary.dark, .1),
+        border: `3px solid ${alpha(theme.palette.secondary.dark, .3)}`,
+        fontSize: 13,
         fontWeight: '700',
         minWidth: 70,
-        color: theme.palette.secondary.main,
+        opacity: .8,
         marginRight: 'auto',
     },
     gotchiBadges: {
@@ -38,7 +40,7 @@ export default makeStyles((theme) => ({
 
     },
     gotchiBadge: {
-        height: 30,
+        height: 25,
         display: 'block',
         marginLeft: 6,
         '& img': {
@@ -74,7 +76,7 @@ export default makeStyles((theme) => ({
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
         color: `${theme.palette.text.primary} !important`,
         fontWeight: 'bold',
-        padding: '8px 4px',
+        padding: '8px',
         margin: '0 -8px !important',
         position: 'relative',
         transition: 'all .2s ease-in-out',
@@ -104,8 +106,7 @@ export default makeStyles((theme) => ({
         margin: '2px 0'
     },
     gotchiMainTraits: {
-        margin: '8px 0',
-        // padding: '4px'
+        margin: '8px 0'
     },
     gotchiWLineWrapper: {
         height: 16,
@@ -204,13 +205,6 @@ export default makeStyles((theme) => ({
     defaultVal: {
         fontSize: 10,
         marginLeft: 2
-    },
-    highlight: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: `3px solid ${alpha(theme.palette.secondary.dark, .5)}`,
-        padding: '0 4px'
     },
     customTooltip: {
         backgroundColor: `${theme.palette.secondary.dark} !important`,

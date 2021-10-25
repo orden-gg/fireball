@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, Tooltip } from '@mui/material';
-import { alpha } from '@mui/system';
+import { Link, Tooltip, Typography } from '@mui/material';
+import { alpha, Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
 import useStyles from './styles';
@@ -14,6 +14,8 @@ import CallMade from '@mui/icons-material/CallMade';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
 import graphUtils from '../../utils/graphUtils';
+
+import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     const classes = useStyles();
@@ -76,14 +78,14 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
         >
             <div className={classes.gotchiBadges}>
                 <Tooltip title={`Haunt ${gotchi.hauntId}`} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
-                    <div className={classNames(classes.highlight, classes.gotchiId)} style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .8) }}>
+                    <div className={classes.gotchiId}>
                         {title || gotchi.id}
                     </div>
                 </Tooltip>
 
                 <Tooltip title={collateral} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
                     <div className={classes.gotchiBadge}>
-                        <img src={graphUtils.getCollateralImg(collateral)} width={28} />
+                        <img src={graphUtils.getCollateralImg(collateral)} width={25} />
                     </div>
                 </Tooltip>
 
@@ -92,7 +94,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                         level={gotchi.level}
                         toNextLevel={gotchi.toNextLevel}
                         experience={gotchi.experience}
-                        size={28}
+                        size={25}
                     />
                 </div>
             </div>
@@ -118,6 +120,52 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
             </Link>
 
             {renderNarrowed()}
+
+            {gotchi.reward || gotchi.reward === 0 ? (
+                <>
+                    {gotchi.reward > 0 ? (
+                        <Tooltip
+                            title={
+                                <Box>
+                                    {gotchi.rewardStats.map((item, index) => {
+                                        return item.reward != 0 ? (
+                                            <div key={index}>
+                                                <Typography variant='caption'>
+                                                    {item.name}[{item.position}] - <Box display='inline-flex' alignItems='center' color='primary.main'>
+                                                        {item.reward} <img src={ghstIcon} width='14' alt='GHST Token Icon' />
+                                                    </Box>
+                                                </Typography>
+                                            </div>
+                                        ) : (
+                                            null
+                                        )
+                                    })}
+                                </Box>
+                            }
+                            classes={{ tooltip: classes.customTooltip }}
+                            enterTouchDelay={0}
+                            placement='top'
+                            followCursor
+                        >
+                            <Box textAlign='right'>
+                                <Box display='inline-flex' alignItems='center' justifyContent='center' padding='3px 2px 3px 8px' position='relative' bottom='-8px' right='-8px' bgcolor={alpha(theme.palette.secondary.dark, .5)}>
+                                    <Typography style={{ fontSize: 14, fontWeight: 600 }}>{gotchi.reward}</Typography>
+                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                </Box>
+                            </Box>
+                        </Tooltip>
+                            
+                    ) : (
+                        <Box textAlign='right'>
+                            <Box display='inline-flex' alignItems='center' justifyContent='center' padding='3px 8px' position='relative' bottom='-8px' right='-8px' bgcolor={alpha(theme.palette.secondary.dark, .5)}>
+                                <Typography color='warning.main' style={{ fontSize: 14, fontWeight: 600 }}>Unkranked</Typography>
+                            </Box>
+                        </Box>
+                    )}
+                </>
+            ) : (
+                null
+            )}
         </div>
     );
 }
