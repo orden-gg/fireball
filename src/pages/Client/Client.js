@@ -37,16 +37,9 @@ export default function Client() {
         setIsGotchiesLoading(true);
 
         thegraph.getGotchiesByAddress(address).then(async (response)=> {
-
-            console.log(response.data.user?.gotchisOwned);
-
-            setGotchis(response.data.user?.gotchisOwned);
-
-            // setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
+            setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
             setIsGotchiesLoading(false);
-        }).catch(()=> {
-            setIsGotchiesLoading(false);
-        });
+        }).catch((error) => console.log(error));
     };
 
     const getInventoryByAddress = (address) => {
@@ -54,7 +47,6 @@ export default function Client() {
 
         web3.getInventoryByAddress(address).then((response) => {
             let modified = [];
-            console.log(response);
 
             response.items.forEach((item) => {
                 modified.push({
@@ -69,9 +61,7 @@ export default function Client() {
             setIsInventoryLoading(false);
             setWarehouseFilter('desc');
             setWarehouse(commonUtils.basicSort(modified, 'rarityId', 'desc'));
-        }).catch(() => {
-            setIsInventoryLoading(false);
-        });
+        }).catch((error) => console.log(error));
     };
 
     const getTickets = (address) => {

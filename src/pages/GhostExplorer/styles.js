@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
         display: 'grid',
         alignItems: 'start',
         gap: 4,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))'
     },
     item: {
         margin: 5

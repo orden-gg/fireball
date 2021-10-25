@@ -3,7 +3,6 @@ import { Link, Tooltip } from '@mui/material';
 import { alpha } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
-import commonUtils from '../../utils/commonUtils';
 import useStyles from './styles';
 
 import GotchiLevel from './GotchiLevel';
@@ -75,29 +74,32 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     return (
         <div
             className={classes.gotchi}
-            style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .2) }}
+            style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .15) }}
         >
-            <p className={classes.gotchiCaption} style={{ backgroundColor: getGotchiColor(gotchi.hauntId) }}>
-                {title || gotchi.id}
-            </p>
+            <div className={classes.gotchiBadges}>
+                <Tooltip title={`Haunt ${gotchi.hauntId}`} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
+                    <div className={classNames(classes.highlight, classes.gotchiId)} style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .8) }}>
+                        {title || gotchi.id}
+                    </div>
+                </Tooltip>
 
-
-            <div className={classes.badges}>
-                <Tooltip title={collateral} placement='top' followCursor>
-                    <div className={classes.badge}>
+                <Tooltip title={collateral} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
+                    <div className={classes.gotchiBadge}>
                         <img src={graphUtils.getCollateralImg(collateral)} width={28} />
                     </div>
                 </Tooltip>
 
-                <GotchiLevel
-                    level={gotchi.level}
-                    toNextLevel={gotchi.toNextLevel}
-                    experience={gotchi.experience}
-                    size={28}
-                />
+                <div className={classes.gotchiBadge}>
+                    <GotchiLevel
+                        level={gotchi.level}
+                        toNextLevel={gotchi.toNextLevel}
+                        experience={gotchi.experience}
+                        size={28}
+                    />
+                </div>
             </div>
 
-            <div className={classes.gotchiSvg}>
+            <div className={classes.gotchiSvg} style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .15)}}>
                 {
                     renderSvgByStats ? (
                         <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
@@ -109,18 +111,11 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
 
             <Link
                 className={classes.gotchiName}
-                style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .5)}}
                 href={`https://aavegotchi.com/gotchi/${gotchi.id}`}
                 target="_blank"
                 underline='none'
             >
-                <p color='secondary'>
-                    {gotchi.name ? (
-                        gotchi.name
-                    ) : (
-                        'Unnamed'
-                    )}
-                </p>
+                <p>{gotchi.name ? gotchi.name : 'Unnamed'}</p>
                 <CallMade className={classes.callMadeIcon} />
             </Link>
 

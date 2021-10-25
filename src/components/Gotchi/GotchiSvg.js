@@ -8,6 +8,9 @@ import gotchiLoading from '../../assets/images/gotchi-loading.gif';
 const useStyles = makeStyles((theme) => ({
     svgWrapper: {
         margin: 'auto',
+        '& svg, & img': {
+            display: 'block'
+        },
         '& .gotchi-wearable': {
             transition: 'all .5s ease-in-out'
         },

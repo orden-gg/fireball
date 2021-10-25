@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
 const useStyles = makeStyles((theme) => ({
-    section: {
-        padding: '50px 0',
+    box: {
+        padding: 2,
+        border: '3px solid transparent'
     }
 }));
 
@@ -33,14 +34,15 @@ export default function HighlightNumber({children, type}) {
     };
 
     return (
-        <Box
+        <div
             className={classes.box}
-            padding='2px'
-            bgcolor={getColor(type) === 'transparent' ? 'transparent' : alpha(getColor(type), .15)}
-            borderRadius='3px'
-            border={`1px solid ${getColor(type)}`}
+            style={{
+                backgroundColor: getColor(type) === 'transparent' ? 'transparent' : alpha(getColor(type), .8),
+                borderColor: getColor(type) === 'transparent' ? 'transparent' : alpha(theme.palette.secondary.dark, .5),
+                color: getColor(type) === 'transparent' ? theme.palette.text.primary : theme.palette.secondary.main
+            }}
         >
             {children}
-        </Box>
+        </div>
     );
 }

@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
         display: 'block',
         borderRadius: theme.shape.borderRadius,
         color: '#fff',
-        padding: '12px 12px 16px',
+        padding: '0 8px 12px',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
@@ -16,90 +16,78 @@ export default makeStyles((theme) => ({
         },
     },
     gotchiSvg: {
-        margin: '0 -12px'
+        margin: '0 -8px',
+        padding: 8
     },
     gotchiInnerSection: {
         marginTop: 8
     },
-    gotchiCaption: {
-        display: 'block',
-        borderRadius: theme.shape.borderRadius,
-        color: theme.palette.common.white,
-        fontSize: 12,
-        fontWeight: 'bold',
-        padding: '0 4px',
-        position: 'absolute',
-        top: 0,
-        right: '50%',
-        minWidth: 60,
-        margin: 0,
-        transform: 'translate(50%, -50%)',
-        opacity: .8
+    gotchiId: {
+        fontSize: 14,
+        fontWeight: '700',
+        minWidth: 70,
+        color: theme.palette.secondary.main,
+        marginRight: 'auto',
     },
-    badges: {
+    gotchiBadges: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-end',
+        margin: '0 -4px',
+        padding: '4px 0'
+
+    },
+    gotchiBadge: {
+        height: 30,
+        display: 'block',
+        marginLeft: 6,
+        '& img': {
+            display: 'block'
+        }
+    },
+    gotchiLvlTooltip: {
+        '& p': {
+            margin: 0
+        },
+        '& span': {
+            color: theme.palette.primary.main
+        }
     },
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
         backgroundColor: alpha(theme.palette.primary.main, .1),
         borderRadius: '50%',
-        cursor: 'default',
-        '&:hover .popover-core': {
-            opacity: 1
-        }
     },
-    gotchiLvlInner: {
+    gotchiLvlNumber: {
         position: 'absolute',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        inset: 0
-    },
-    gotchiLvlNumber: {
+        inset: 0,
+        fontSize: 14,
         color: theme.palette.primary.main,
-        fontWeight: 500,
-    },
-    gotchiLvlPopover: {
-        borderRadius: theme.shape.borderRadius,
-        position: 'absolute',
-        bottom: '100%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.common.white,
-        padding: '4px 8px',
-        pointerEvents: 'none',
-        whiteSpace: 'nowrap',
-        textAlign: 'left',
-        transition: 'opacity .3s ease-in-out',
-        opacity: 0,
-        '& p': {
-            fontWeight: 500,
-            color: theme.palette.secondary.main,
-            margin: 0
-        }
+        fontWeight: 700,
     },
     gotchiName: {
         display: 'block',
         borderRadius: theme.shape.borderRadius,
-        color: `${theme.palette.common.white} !important`,
+        backgroundColor: alpha(theme.palette.secondary.dark, .3),
+        color: `${theme.palette.text.primary} !important`,
         fontWeight: 'bold',
-        padding: '2px 4px',
-        margin: '8px 0 !important',
+        padding: '5px 4px',
+        marginTop: '8px !important',
         position: 'relative',
-        opacity: .9,
+        transition: 'all .2s ease-in-out',
         '&:hover': {
             textDecoration: 'none',
-            opacity: 1
+            backgroundColor: alpha(theme.palette.secondary.dark, .6),
         },
         '& p': {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            fontSize: '15px !important',
+            fontSize: '16px !important',
             margin: 0
         }
     },
@@ -213,5 +201,16 @@ export default makeStyles((theme) => ({
     defaultVal: {
         fontSize: 10,
         marginLeft: 2
-    }
+    },
+    highlight: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        border: `3px solid ${alpha(theme.palette.secondary.dark, .5)}`,
+        padding: '0 4px'
+    },
+    customTooltip: {
+        backgroundColor: `${theme.palette.secondary.dark} !important`,
+        marginBottom: '8px !important'
+    },
 }));

@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'grid',
         alignItems: 'start',
         gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(210px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
         gridAutoRows: '1fr'
     },
     listItem: {
