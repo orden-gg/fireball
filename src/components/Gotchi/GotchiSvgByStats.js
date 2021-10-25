@@ -48,9 +48,7 @@ const useStyles = makeStyles(() => ({
         }
     },
     svgPlaceholder: {
-        width: '140%',
-        transform: 'translate(-15%, -15%)',
-        pointerEvents: 'none'
+        width: '100%',
     }
 }));
 

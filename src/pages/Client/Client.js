@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Backdrop, CircularProgress, Alert, AlertTitle } from '@mui/material';
+import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
@@ -109,15 +109,37 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <Box marginBottom='20px'>Logged as {activeAddress}</Box>
+                    <Box display='flex' alignItems='flex-start' justifyContent='space-between'>
+                        <Box>
+                            <Typography variant='h6' paragraph>
+                                Logged as <Box component='span' color='warning.main'>{activeAddress}</Box>
+                            </Typography>
 
-                    <ClientTabs
-                        activeTab={activeTab}
-                        setActiveTab={setActiveTab}
-                        gotchisLength={gotchis.length}
-                        warehouseLength={warehouse.length}
-                        ticketsLength={tickets.length}
-                    />
+                            <ClientTabs
+                                activeTab={activeTab}
+                                setActiveTab={setActiveTab}
+                                gotchisLength={gotchis.length}
+                                warehouseLength={warehouse.length}
+                                ticketsLength={tickets.length}
+                            />
+                        </Box>
+                        <Box textAlign='right'>
+                            <Typography variant='h6' color='info.main' paragraph>SZN 2 Rarity farming is LIVE!</Typography>
+                            <Button
+                                disabled={isDataLoading()}
+                                variant={'contained'}
+                                size='large'
+                                // startIcon={
+                                //     <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
+                                // }
+                                // endIcon={`[${warehouseLength}]`}
+                                // sx={{ marginRight: '12px', marginBottom: '12px' }}
+                                onClick={() => console.log('yo')}
+                            >
+                                Calculate Rewards
+                            </Button>
+                        </Box>
+                    </Box>
 
                     {activeTab === 'gotchis' ? (
                         <ClientGotchis

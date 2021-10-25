@@ -18,8 +18,7 @@ export default function GotchiLevel({level, toNextLevel, experience, size}) {
             title={
                 <React.Fragment>
                     <div className={classes.gotchiLvlTooltip}>
-                        <p>Summary {'=>'} <span>{experience}</span> XP</p>
-                        <p>To level <span>{+level + 1}</span> {'=>'} <span>{toNextLevel}</span> XP</p>
+                        <p>[<span>{experience}</span> XP] lvl <span>{+level + 1}</span> in <span>{toNextLevel}</span> XP</p>
                     </div>
                 </React.Fragment>
             }

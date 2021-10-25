@@ -33,7 +33,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
         if(!narrowed) {
             return (
                 <>
-                    <div className={classNames(classes.gotchiInnerSection, classes.gotchiTraits)}>
+                    <div className={classNames(classes.gotchiMainTraits, classes.gotchiTraits)}>
                         <div className={classes.gotchiTraitsInner}>
                             <HighlightNumber type={calculateRarityType(gotchi.withSetsRarityScore)}>
                                 <p className={classes.mainVal}>
@@ -55,9 +55,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                         </div>
                     </div>
 
-                    <div className={classes.gotchiInnerSection}>
-                        <GotchiTraitsHighlight traits={gotchi.numericTraits} currentTraits={gotchi.withSetsNumericTraits} />
-                    </div>
+                    <GotchiTraitsHighlight traits={gotchi.numericTraits} currentTraits={gotchi.withSetsNumericTraits} />
 
                     <div className={classes.gotchiInnerSection}>
                         <GotchiWearablesLine wearables={gotchi.equippedWearables}/>

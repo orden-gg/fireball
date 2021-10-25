@@ -71,12 +71,11 @@ export default makeStyles((theme) => ({
     },
     gotchiName: {
         display: 'block',
-        borderRadius: theme.shape.borderRadius,
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
         color: `${theme.palette.text.primary} !important`,
         fontWeight: 'bold',
-        padding: '5px 4px',
-        marginTop: '8px !important',
+        padding: '8px 4px',
+        margin: '0 -8px !important',
         position: 'relative',
         transition: 'all .2s ease-in-out',
         '&:hover': {
@@ -103,6 +102,10 @@ export default makeStyles((theme) => ({
         textAlign: 'center',
         flexBasis: '49%',
         margin: '2px 0'
+    },
+    gotchiMainTraits: {
+        margin: '8px 0',
+        // padding: '4px'
     },
     gotchiWLineWrapper: {
         height: 16,
@@ -193,7 +196,7 @@ export default makeStyles((theme) => ({
     },
     mainVal: {
         fontSize: 13,
-        fontWeight: 500,
+        fontWeight: 600,
         margin: 0,
         padding: '1px 0',
         whiteSpace: 'nowrap'

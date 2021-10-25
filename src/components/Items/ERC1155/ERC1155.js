@@ -32,8 +32,8 @@ export default function ERC1155({children, item}) {
         thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
             setLast(response);
 
-            if(response.lastSale) {
-                let date = new Date(response.lastSale * 1000).toJSON()
+            if(response?.lastSale) {
+                let date = new Date(response?.lastSale * 1000).toJSON()
                 setLastDate(date);
             }
         });
