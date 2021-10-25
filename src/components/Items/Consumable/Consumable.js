@@ -10,7 +10,6 @@ export default function Consumable({consumable}) {
     const classes = useStyles();
 
     const name = itemUtils.getItemNameById(consumable.id);
-    const rarity = itemUtils.getItemRarityById(consumable.id);
     const stats = itemUtils.getEmojiStatsById(consumable.id);
 
     return (

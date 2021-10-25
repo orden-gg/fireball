@@ -14,7 +14,7 @@ export default function Wearable({wearable, raffleStats}) {
     const stats = itemUtils.getEmojiStatsById(wearable.id);
 
     return (
-        <ERC1155 item={{ id: wearable.id, rarity: rarity, category: 0, balance: wearable.balance }}>
+        <ERC1155 item={{ id: wearable.id, rarity: rarity, category: 0, balance: wearable.balance, holders: wearable.holders }}>
 
             <div className={classes.iconWrapper}>
                 <img

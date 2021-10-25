@@ -28,13 +28,13 @@ export default {
                     position: position + 1,
                     reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
                 };
-            case 'RookieKIN':
+            case 'H2_KIN':
                 return {
                     name: type,
                     position: position + 1,
                     reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
                 };
-            case 'RookieEXP':
+            case 'H2_EXP':
                 return {
                     name: type,
                     position: position + 1,

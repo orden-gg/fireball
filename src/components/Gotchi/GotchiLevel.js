@@ -1,7 +1,6 @@
 import React from 'react';
 import { CircularProgress, Tooltip } from '@mui/material';
 import useStyles from './styles';
-import { useTheme } from '@emotion/react';
 
 const expFormula = (lvl) => {
     return lvl * lvl / 0.02;
@@ -9,7 +8,6 @@ const expFormula = (lvl) => {
 
 export default function GotchiLevel({level, toNextLevel, experience, size}) {
     const classes = useStyles();
-    const theme = useTheme()
     const diff = expFormula(level) - expFormula(level-1);
     const percentageFormula = 100 - Math.floor(toNextLevel * 100 / diff);
 

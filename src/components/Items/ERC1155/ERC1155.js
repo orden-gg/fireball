@@ -52,7 +52,7 @@ export default function ERC1155({children, item}) {
         <div className={classNames(classes.item, item.rarity)}>
             <div className={classes.labels}>
                 {last && current ? (
-                    <Tooltip title='Total value' placement='top' followCursor>
+                    <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
                         <div
                             className={classNames(classes.label, classes.labelTotal)}
                             style={{ backgroundColor: theme.palette.rarity[item.rarity], color: item.rarity === 'drop' ? theme.palette.text.primary : theme.palette.secondary.main }}
@@ -79,7 +79,37 @@ export default function ERC1155({children, item}) {
 
                 <div className={classNames(classes.label, classes.labelBalance)}>
                     <Typography variant='subtitle2'>
-                        {item.balance}
+                        {item.holders?.length ? (
+                            <Tooltip
+                                title={
+                                    <div style={{ textAlign: 'right', maxWidth: 200 }}>
+                                        <p style={{ margin: '0 0 2px' }}>Equipped at:</p>
+                                        {
+                                            item.holders.map((holder, index) => {
+                                                return <>
+                                                    <Link 
+                                                        href={`https://aavegotchi.com/gotchi/${holder}`}
+                                                        target='_blank'
+                                                        underline='none'
+                                                        style={{ color: theme.palette.primary.main, fontWeight: 600 }}
+                                                        key={index}
+                                                    >
+                                                        {holder}
+                                                    </Link>
+                                                    {index === (item.holders.length - 1) ? '' : ', '}
+                                                </>
+                                            })
+                                        }
+                                    </div>
+                                }
+                                classes={{ tooltip: classes.customTooltip }}
+                                placement='top'
+                            >
+                                <span>{item.holders.length}<span style={{ margin: '0 2px' }}>/</span>{item.balance}</span>
+                            </Tooltip>
+                        ) : (
+                            item.balance
+                        )}
                     </Typography>
                 </div>
             </div>

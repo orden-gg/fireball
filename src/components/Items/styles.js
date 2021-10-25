@@ -1,4 +1,3 @@
-import { tooltipClasses } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
@@ -103,7 +102,7 @@ export default makeStyles((theme) => ({
         lineHeight: '1.4 !important'
     },
     customTooltip: {
-        backgroundColor: `${theme.palette.secondary.main} !important`,
+        backgroundColor: `${theme.palette.secondary.dark} !important`,
         marginBottom: '8px !important'
     },
     textHighlight: {

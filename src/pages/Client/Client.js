@@ -41,11 +41,51 @@ export default function Client() {
 
     const { activeAddress } = useContext(LoginContext);
 
-    const getGotchiesByAddress = (address) => {
+    const getGotchiesByAddress = async (address) => {
         setIsGotchiesLoading(true);
 
-        thegraph.getGotchiesByAddress(address).then(async (response)=> {
-            setGotchis(commonUtils.basicSort(response.data.user?.gotchisOwned, gotchisFilter));
+        thegraph.getGotchiesByAddress(address).then((response)=> {
+            let userGotchis = response.data.user.gotchisOwned;
+            let wearables = [];
+
+            // collect all equipped wearables
+            userGotchis.forEach((item) => {
+                let equipped = item.equippedWearables.filter((item) => item > 0);
+
+                for(let wearable of equipped) {
+                    let index = wearables.findIndex(item => item.id === wearable);
+
+                    if((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+
+                    if(wearables[index] === undefined) {
+                        wearables.push({
+                            id: wearable,
+                            balance: 1,
+                            rarity: itemUtils.getItemRarityById(wearable),
+                            rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
+                            holders: [item.id],
+                            category: 0
+                        })
+                    } else {
+                        wearables[index].balance += 1;
+                        wearables[index].holders.push(item.id)
+                    }
+                }
+            });
+
+            setWarehouse((existing) => commonUtils.basicSort(
+                [...existing, ...wearables].reduce((items, current) => {
+                    let duplicated = items.find(item => item.id === current.id);
+        
+                    if(duplicated) {
+                        duplicated.balance += current.balance;
+                        return items;
+                    }
+        
+                    return items.concat(current);
+                }, []), 'rarityId', 'desc'));
+
+            setGotchis(commonUtils.basicSort(userGotchis, 'withSetsRarityScore'));
             setIsGotchiesLoading(false);
         }).catch((error) => console.log(error));
     };
@@ -58,7 +98,7 @@ export default function Client() {
 
             response.items.forEach((item) => {
                 modified.push({
-                    id: item.itemId,
+                    id: +item.itemId,
                     rarity: itemUtils.getItemRarityById(item.itemId),
                     rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
@@ -66,9 +106,20 @@ export default function Client() {
                 });
             });
 
-            setIsInventoryLoading(false);
             setWarehouseFilter('desc');
-            setWarehouse(commonUtils.basicSort(modified, 'rarityId', 'desc'));
+            setWarehouse((existing) => commonUtils.basicSort(
+                [...existing, ...modified].reduce((items, current) => {
+                    let duplicated = items.find(item => item.id === current.id);
+        
+                    if(duplicated) {
+                        duplicated.balance += current.balance;
+                        return items;
+                    }
+        
+                    return items.concat(current);
+                }, []), 'rarityId', 'desc'));
+            setIsInventoryLoading(false);
+
         }).catch((error) => console.log(error));
     };
 
@@ -84,11 +135,13 @@ export default function Client() {
 
     const getData = () => {
         if (activeAddress) {
+            setWarehouse([]);
+
             getGotchiesByAddress(activeAddress.toLowerCase());
             getInventoryByAddress(activeAddress.toLowerCase());
             getTickets(activeAddress.toLowerCase());
 
-            // reset rewards
+            // reset
             setReward(null);
             setRewardCalculated(false);
             setGotchisFilter('withSetsRarityScore');
@@ -115,8 +168,8 @@ export default function Client() {
                 let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
                 let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
                 let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
-                let rookieKIN = graphUtils.calculateRewards(kinRookieLeaders.findIndex(x => x.id === item.id), 'RookieKIN');
-                let rookieEXP = graphUtils.calculateRewards(expRookieLeaders.findIndex(x => x.id === item.id), 'RookieEXP');
+                let rookieKIN = graphUtils.calculateRewards(kinRookieLeaders.findIndex(x => x.id === item.id), 'H2_KIN');
+                let rookieEXP = graphUtils.calculateRewards(expRookieLeaders.findIndex(x => x.id === item.id), 'H2_EXP');
 
                 gotchis[index] = {
                     ...item,
@@ -134,6 +187,7 @@ export default function Client() {
     useEffect(() => {
         getData();
     }, [activeAddress]);
+
 
     return (
         <Box className={classes.container}>
@@ -177,9 +231,9 @@ export default function Client() {
                             <Box display='flex' alignItems='center' justifyContent='flex-end'>
                                 {reward ? (
                                     <Typography className={classes.rewardText} variant='h6'>
-                                        <span className='lighter'>{reward}</span><img src={ghstIcon} width='24' alt='GHST Token Icon' />
+                                        <span className='lighter'>{commonUtils.formatPrice(reward)}</span><img src={ghstIcon} width='24' alt='GHST Token Icon' />
                                         <Box component='span' display='inline-flex' alignItems='center' fontSize='16px' marginLeft='4px'>
-                                            (<span className='lighter'>{reward / 4}</span><img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
+                                            (<span className='lighter'>{commonUtils.formatPrice(reward / 4)}</span><img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
                                         </Box>
                                     </Typography>
                                     
@@ -200,15 +254,17 @@ export default function Client() {
                                     enterTouchDelay={0}
                                     placement='bottom'
                                 >
-                                    <Button
-                                        disabled={isDataLoading() || rewardCalculated}
-                                        variant={'contained'}
-                                        size='large'
-                                        className={classes.calculateButton}
-                                        onClick={calculateRewards}
-                                    >
-                                        Calculate Reward
-                                    </Button>
+                                    <div>
+                                        <Button
+                                            disabled={isDataLoading() || rewardCalculated}
+                                            variant={'contained'}
+                                            size='large'
+                                            className={classes.calculateButton}
+                                            onClick={calculateRewards}
+                                        >
+                                            Calculate Reward
+                                        </Button>
+                                    </div>
                                 </Tooltip>
 
                             </Box>
