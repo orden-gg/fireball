@@ -9,9 +9,11 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
         ) {
           id
           name
-          withSetsNumericTraits
           numericTraits
+          modifiedNumericTraits
+          withSetsNumericTraits
           baseRarityScore
+          modifiedRarityScore
           withSetsRarityScore
           kinship
           level
@@ -20,6 +22,10 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           collateral
           hauntId
           createdAt
+          possibleSets
+          equippedSetID
+          equippedSetName
+          usedSkillPoints
           owner {
             id
           }
@@ -46,8 +52,10 @@ export const userQuery = (id) => {
             id
             name
             numericTraits
+            modifiedNumericTraits
             withSetsNumericTraits
             baseRarityScore
+            modifiedRarityScore
             withSetsRarityScore
             kinship
             equippedWearables
@@ -57,6 +65,10 @@ export const userQuery = (id) => {
             collateral
             hauntId
             createdAt
+            possibleSets
+            equippedSetID
+            equippedSetName
+            usedSkillPoints
             owner {
               id
             }

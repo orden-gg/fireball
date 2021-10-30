@@ -17,7 +17,15 @@ export default makeStyles((theme) => ({
     },
     gotchiSvg: {
         margin: '0 -8px',
-        padding: 8
+        padding: 8,
+        position: 'relative'
+    },
+    gotchiSetName: {
+        position: 'absolute',
+        bottom: 10,
+        right: 0,
+        left: 0,
+        pointerEvents: 'none'
     },
     gotchiInnerSection: {
         marginTop: 8
@@ -114,6 +122,7 @@ export default makeStyles((theme) => ({
         alignItems: 'center'
     },
     gotchiWLineItem: {
+        cursor: 'pointer',
         flexGrow: 1,
         flexBasis: 0,
         maxWidth: '100%',
@@ -131,37 +140,37 @@ export default makeStyles((theme) => ({
             borderBottomRightRadius: theme.shape.borderRadiusSmaller
         },
         '&:hover': {
-            borderTopLeftRadius: 0,
-            borderTopRightRadius: 0,
-            height: 16,
-            flexBasis: '25%',
-            '& .popover-core': {
-                opacity: 1,
-                pointerEvents: 'all'
-            },
+        //     borderTopLeftRadius: 0,
+        //     borderTopRightRadius: 0,
+        //     height: 16,
+        //     flexBasis: '25%',
+        //     '& .popover-core': {
+        //         opacity: 1,
+        //         pointerEvents: 'all'
+        //     },
             '& .name': {
                 opacity: '1 !important'
             }
         }
     },
-    gotchiWLinePopover: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#e3e3e3',
-        borderRadius: theme.shape.borderRadiusSmaller,
-        position: 'absolute',
-        bottom: '100%',
-        left: '50%',
-        opacity: 0,
-        padding: 4,
-        pointerEvents: 'none',
-        height: 65,
-        width: 65,
-        textDecoration: 'none',
-        transform: 'translateX(-50%)',
-        transition: 'opacity .2s ease-in-out'
-    },
+    // gotchiWLinePopover: {
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     backgroundColor: '#e3e3e3',
+    //     borderRadius: theme.shape.borderRadiusSmaller,
+    //     position: 'absolute',
+    //     bottom: '100%',
+    //     left: '50%',
+    //     opacity: 0,
+    //     padding: 4,
+    //     pointerEvents: 'none',
+    //     height: 65,
+    //     width: 65,
+    //     textDecoration: 'none',
+    //     transform: 'translateX(-50%)',
+    //     transition: 'opacity .2s ease-in-out'
+    // },
     gotchiWLinePopoverName: {
         position: 'absolute',
         right: 0,
@@ -176,11 +185,11 @@ export default makeStyles((theme) => ({
         margin: 0,
         transition: 'opacity .2s ease-in-out'
     },
-    gotchiWLinePopoverEmpty: {
-        fontWeight: 'bold',
-        color: theme.palette.secondary.main,
-        margin: 0
-    },
+    // gotchiWLinePopoverEmpty: {
+    //     fontWeight: 'bold',
+    //     color: theme.palette.secondary.main,
+    //     margin: 0
+    // },
     gotchiWLineLink: {
         display: 'block',
         height: '100%'

@@ -18,6 +18,10 @@ export default {
         return items[id]?.stats || '';
     },
 
+    getItemSlotById(id) {
+        return items[id]?.slot || '';
+    },
+
     getEmojiStatsById(id) {
         let stats = items[id].stats;
         let emojis = {'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁'};
@@ -174,5 +178,26 @@ export default {
             console.error(error);
             return 'https://aavegotchi.com/baazaar';
         }
-    }
+    },
+
+    getSlotCaption(name) {
+        switch (name) {
+            case 'body':
+                return 'b';
+            case 'face':
+                return 'f';
+            case 'eyes':
+                return 'e';
+            case 'head':
+                return 'hd';
+            case 'right hand':
+                return 'rh';
+            case 'hands':
+                return 'hs';
+            case 'pet':
+                return 'p';
+            default:
+                return name;
+        }
+    },
 }

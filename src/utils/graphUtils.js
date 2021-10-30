@@ -1,3 +1,5 @@
+import { sets } from '../data/sets';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     calculateRewards(position, type) {
@@ -88,11 +90,22 @@ export default {
     },
 
     getCollateralImg(name) {
-        
         try {
             return require(`../assets/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
         } catch (error) {
             return require(`../assets/images/no-image2.svg`).default;
         }
+    },
+
+    getSetName(id) {
+        return sets[id][0] || '';
+    },
+
+    getSetWearables(id) {
+        return sets[id][2] || '';
+    },
+
+    getSetModifiers(id) {
+        return sets[id][3] || '';
     }
 }

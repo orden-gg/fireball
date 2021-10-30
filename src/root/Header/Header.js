@@ -72,6 +72,12 @@ export default function Header() {
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
+                    <NavLink className={classes.navLink} to='/client'>
+                        <Box className={classes.navLinkBox}>
+                            Client
+                            <Typography variant={'caption'}>Beta</Typography>
+                        </Box>
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/market'>
                         <Box className={classes.navLinkBox}>
                             Market
@@ -80,12 +86,6 @@ export default function Header() {
                     </NavLink>
                     <NavLink className={classes.navLink} to='/explorer'>
                         Explorer
-                    </NavLink>
-                    <NavLink className={classes.navLink} to='/client'>
-                        <Box className={classes.navLinkBox}>
-                            Client
-                            <Typography variant={'caption'}>Beta</Typography>
-                        </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator

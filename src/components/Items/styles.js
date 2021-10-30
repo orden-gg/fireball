@@ -30,6 +30,29 @@ export default makeStyles((theme) => ({
         '&.drop': {
             backgroundColor: alpha(theme.palette.rarity.drop, .1)
         },
+        '&:hover $labelSlot': {
+            opacity: .7,
+        }
+    },
+    tooltip: {
+        padding: '16px 12px 12px',
+        backgroundColor: 'transparent !important',
+        '& $iconWrapper': {
+            minHeight: '60px'
+        },
+        '& $icon': {
+            maxHeight: '50px'
+        },
+        '& $labelSlot': {
+            top: 0,
+            opacity: .7
+        },
+        '& $name': {
+            fontSize: '14px !important'
+        },
+        '& $stats': {
+            fontSize: '13px !important'
+        }
     },
     labels: {
         position: 'absolute',
@@ -100,6 +123,25 @@ export default makeStyles((theme) => ({
     name: {
         fontWeight: '500 !important',
         lineHeight: '1.4 !important'
+    },
+    stats: {
+        fontWeight: '500 !important'
+    },
+    labelSlot: {
+        position: 'absolute',
+        top: 27,
+        right: 0,
+        minWidth: 34,
+        opacity: .2,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        transition: 'opacity .2s ease-in-out',
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
+                    ${theme.palette.secondary.main} -1px -1px 0px,
+                    ${theme.palette.secondary.main} 1px -1px 0px,
+                    ${theme.palette.secondary.main} -1px 1px 0px,
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
     },
     customTooltip: {
         backgroundColor: `${theme.palette.secondary.dark} !important`,

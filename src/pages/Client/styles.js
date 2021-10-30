@@ -1,5 +1,4 @@
 import { makeStyles } from "@mui/styles";
-import { alpha } from '@mui/system';
 
 export const useStyles = makeStyles((theme) => ({
     container: {
@@ -50,26 +49,5 @@ export const useStyles = makeStyles((theme) => ({
     },
     calculateButton: {
         marginLeft: '16px !important',
-        '&:not(.Mui-disabled)': {
-            position: 'relative',
-            boxShadow: `0 0 0 0 ${alpha(theme.palette.primary.main, .5)}`,
-            animation: `$customPulse 1.5s infinite`,
-            '&:hover': {
-                animation: 'none'
-            }
-        }
-    },
-    '@keyframes customPulse': {
-        '0%': {
-            transform: 'scale(.9)'
-        },
-        '70%': {
-            transform: 'scale(1)',
-            boxShadow: `0 0 0 20px transparent`
-        },
-        '100%': {
-            transform: 'scale(.9)',
-            boxShadow: `0 0 0 0 transparent`
-        }
     },
 }));

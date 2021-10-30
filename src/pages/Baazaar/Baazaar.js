@@ -159,6 +159,7 @@ export default function Baazaar() {
                     hauntId,
                     name,
                     numericTraits,
+                    modifiedNumericTraits
                     withSetsNumericTraits,
                     equippedWearables,
                     collateral,
@@ -167,7 +168,12 @@ export default function Baazaar() {
                     toNextLevel,
                     level,
                     baseRarityScore,
+                    modifiedRarityScore
                     withSetsRarityScore
+                    possibleSets
+                    equippedSetID
+                    equippedSetName
+                    usedSkillPoints
                 },
                 portal {
                     id,
@@ -239,7 +245,7 @@ export default function Baazaar() {
                                     hauntId: categoryItem.hauntId,
                                     id: option.id.split('-')[0],
                                     kinship: '50',
-                                    withSetsNumericTraits: option.numericTraits,
+                                    modifiedNumericTraits: option.numericTraits,
                                     level: '1',
                                     equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                                 }

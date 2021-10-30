@@ -1,10 +1,12 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
+import graphUtils from '../utils/graphUtils';
 import { gotchiesQuery, svgQuery, erc1155Query, userQuery } from './common/queries';
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
 var gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
+var realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
 var client = new ApolloClient({
     uri: baseUrl,
@@ -86,7 +88,22 @@ export default {
                 return unique;
             }, []);
 
-            return filteredArray;
+            let gotchis = JSON.parse(JSON.stringify(filteredArray));
+
+            gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
+                if(gotchi.equippedSetID) {
+                    let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
+                    let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
+
+                    gotchis[index].modifiedRarityScore = +gotchis[index].modifiedRarityScore + brsBoots;
+                    gotchis[index].modifiedNumericTraits[0] += modifiers[1];
+                    gotchis[index].modifiedNumericTraits[1] += modifiers[2];
+                    gotchis[index].modifiedNumericTraits[2] += modifiers[3];
+                    gotchis[index].modifiedNumericTraits[3] += modifiers[4];
+                };
+            });
+
+            return gotchis;
         });
     },
 
@@ -105,7 +122,24 @@ export default {
     },
 
     async getGotchiesByAddress(address) {
-        return await this.getData(userQuery(address.toLowerCase()));
+        return await this.getData(userQuery(address.toLowerCase())).then((response) => {
+            let gotchis = JSON.parse(JSON.stringify([...response.data.user.gotchisOwned]));
+
+            gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
+                if(gotchi.equippedSetID) {
+                    let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
+                    let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
+
+                    gotchis[index].modifiedRarityScore = +gotchis[index].modifiedRarityScore + brsBoots;
+                    gotchis[index].modifiedNumericTraits[0] += modifiers[1];
+                    gotchis[index].modifiedNumericTraits[1] += modifiers[2];
+                    gotchis[index].modifiedNumericTraits[2] += modifiers[3];
+                    gotchis[index].modifiedNumericTraits[3] += modifiers[4];
+                };
+            });
+
+            return gotchis;
+        });
     },
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {

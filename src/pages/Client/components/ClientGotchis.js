@@ -40,7 +40,7 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
                     color='primary'
                     aria-label='gotchis sort'
                 >
-                    <ToggleButton className={classes.filtersButton} value='withSetsRarityScore' aria-label='modified rarity score'>
+                    <ToggleButton className={classes.filtersButton} value='modifiedRarityScore' aria-label='modified rarity score'>
                         <Tooltip title='Rarity' placement='top' followCursor>
                             <Box className={classes.filtersInner} component='span'><span>🏆</span></Box>
                         </Tooltip>

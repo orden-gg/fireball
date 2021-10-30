@@ -18,6 +18,7 @@ import GotchiSvgByStats from './GotchiSvgByStats';
 import CallMade from '@mui/icons-material/CallMade';
 
 import ghstIcon from '../../assets/images/ghst-doubleside.gif';
+import ShineLabel from '../Labels/ShineLabel';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     const classes = useStyles();
@@ -39,9 +40,9 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                 <>
                     <div className={classNames(classes.gotchiMainTraits, classes.gotchiTraits)}>
                         <div className={classes.gotchiTraitsInner}>
-                            <HighlightNumber type={calculateRarityType(gotchi.withSetsRarityScore)}>
+                            <HighlightNumber type={calculateRarityType(gotchi.modifiedRarityScore)}>
                                 <p className={classes.mainVal}>
-                                    🏆{gotchi.withSetsRarityScore}
+                                    🏆{gotchi.modifiedRarityScore}
 
                                     <span className={classes.defaultVal}>
                                         ({gotchi.baseRarityScore})
@@ -59,7 +60,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                         </div>
                     </div>
 
-                    <GotchiTraitsHighlight traits={gotchi.numericTraits} currentTraits={gotchi.withSetsNumericTraits} />
+                    <GotchiTraitsHighlight traits={gotchi.numericTraits} currentTraits={gotchi.modifiedNumericTraits} />
 
                     <div className={classes.gotchiInnerSection}>
                         <GotchiWearablesLine wearables={gotchi.equippedWearables}/>
@@ -109,6 +110,14 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                         <GotchiSvg id={gotchi.id} size={'100%'} />
                     )
                 }
+
+                {gotchi.equippedSetName ? (
+                    <div className={classes.gotchiSetName}>
+                        <ShineLabel text={gotchi.equippedSetName} />
+                    </div>
+                ) : (
+                    null
+                )}
             </div>
 
             <Link

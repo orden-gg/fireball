@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button, Tooltip } from '@mui/material';
+import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import thegraph from '../../api/thegraph';
@@ -25,7 +25,7 @@ export default function Client() {
     const [activeTab, setActiveTab] = useState('gotchis');
 
     const [gotchis, setGotchis] = useState([]);
-    const [gotchisFilter, setGotchisFilter] = useState('withSetsRarityScore');
+    const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
     const [isGotchiesLoading, setIsGotchiesLoading] = useState(false);
 
     const [warehouse, setWarehouse] = useState([]);
@@ -45,11 +45,10 @@ export default function Client() {
         setIsGotchiesLoading(true);
 
         thegraph.getGotchiesByAddress(address).then((response)=> {
-            let userGotchis = response.data.user.gotchisOwned;
             let wearables = [];
 
             // collect all equipped wearables
-            userGotchis.forEach((item) => {
+            response.forEach((item) => {
                 let equipped = item.equippedWearables.filter((item) => item > 0);
 
                 for(let wearable of equipped) {
@@ -85,7 +84,7 @@ export default function Client() {
                     return items.concat(current);
                 }, []), 'rarityId', 'desc'));
 
-            setGotchis(commonUtils.basicSort(userGotchis, 'withSetsRarityScore'));
+            setGotchis(commonUtils.basicSort(response, 'modifiedRarityScore'));
             setIsGotchiesLoading(false);
         }).catch((error) => console.log(error));
     };
@@ -135,16 +134,15 @@ export default function Client() {
 
     const getData = () => {
         if (activeAddress) {
-            setWarehouse([]);
-
             getGotchiesByAddress(activeAddress.toLowerCase());
             getInventoryByAddress(activeAddress.toLowerCase());
             getTickets(activeAddress.toLowerCase());
-
+            
             // reset
+            setWarehouse([]);
             setReward(null);
             setRewardCalculated(false);
-            setGotchisFilter('withSetsRarityScore');
+            setGotchisFilter('modifiedRarityScore');
         }
     };
 
@@ -156,7 +154,7 @@ export default function Client() {
         setRewardCalculating(true);
 
         thegraph.getAllGotchies().then((response) => {
-            let brsLeaders = commonUtils.basicSort(response, 'withSetsRarityScore');
+            let brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
             let kinLeaders = commonUtils.basicSort(response, 'kinship');
             let expLeaders = commonUtils.basicSort(response, 'experience');
 
@@ -241,31 +239,15 @@ export default function Client() {
                                     null
                                 )}
 
-                                <Tooltip
-                                    title={
-                                        <Box margin='-8px'>
-                                            <Alert color='warning'>
-                                                <AlertTitle>Please note!</AlertTitle>
-                                                <Typography>For correct reward calculation you should re-equip all your wearables.</Typography>
-                                            </Alert>
-                                        </Box>
-                                    }
-                                    classes={{ tooltip: classes.customTooltip }}
-                                    enterTouchDelay={0}
-                                    placement='bottom'
+                                <Button
+                                    disabled={isDataLoading() || rewardCalculated}
+                                    variant={'contained'}
+                                    size='large'
+                                    className={classes.calculateButton}
+                                    onClick={calculateRewards}
                                 >
-                                    <div>
-                                        <Button
-                                            disabled={isDataLoading() || rewardCalculated}
-                                            variant={'contained'}
-                                            size='large'
-                                            className={classes.calculateButton}
-                                            onClick={calculateRewards}
-                                        >
-                                            Calculate Reward
-                                        </Button>
-                                    </div>
-                                </Tooltip>
+                                    Calculate Reward
+                                </Button>
 
                             </Box>
                         </Box>
