@@ -117,9 +117,12 @@ export default makeStyles((theme) => ({
         margin: '8px 0'
     },
     gotchiWLineWrapper: {
-        height: 16,
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '12px 0 4px',
+        '&:hover > div:not(:hover)': {
+            opacity: .25
+        }
     },
     gotchiWLineItem: {
         cursor: 'pointer',
@@ -130,7 +133,7 @@ export default makeStyles((theme) => ({
         height: 8,
         position: 'relative',
         margin: '0 0.5px',
-        transition: 'all .1s ease-in-out',
+        transition: 'all .2s ease-in-out',
         '&:first-child': {
             borderTopLeftRadius: theme.shape.borderRadiusSmaller,
             borderBottomLeftRadius: theme.shape.borderRadiusSmaller
@@ -139,60 +142,6 @@ export default makeStyles((theme) => ({
             borderTopRightRadius: theme.shape.borderRadiusSmaller,
             borderBottomRightRadius: theme.shape.borderRadiusSmaller
         },
-        '&:hover': {
-        //     borderTopLeftRadius: 0,
-        //     borderTopRightRadius: 0,
-        //     height: 16,
-        //     flexBasis: '25%',
-        //     '& .popover-core': {
-        //         opacity: 1,
-        //         pointerEvents: 'all'
-        //     },
-            '& .name': {
-                opacity: '1 !important'
-            }
-        }
-    },
-    // gotchiWLinePopover: {
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     backgroundColor: '#e3e3e3',
-    //     borderRadius: theme.shape.borderRadiusSmaller,
-    //     position: 'absolute',
-    //     bottom: '100%',
-    //     left: '50%',
-    //     opacity: 0,
-    //     padding: 4,
-    //     pointerEvents: 'none',
-    //     height: 65,
-    //     width: 65,
-    //     textDecoration: 'none',
-    //     transform: 'translateX(-50%)',
-    //     transition: 'opacity .2s ease-in-out'
-    // },
-    gotchiWLinePopoverName: {
-        position: 'absolute',
-        right: 0,
-        bottom: -1,
-        left: 0,
-        pointerEvents: 'none',
-        fontSize: 13,
-        fontWeight: 'bold',
-        color: theme.palette.secondary.main,
-        whiteSpace: 'nowrap',
-        opacity: 0,
-        margin: 0,
-        transition: 'opacity .2s ease-in-out'
-    },
-    // gotchiWLinePopoverEmpty: {
-    //     fontWeight: 'bold',
-    //     color: theme.palette.secondary.main,
-    //     margin: 0
-    // },
-    gotchiWLineLink: {
-        display: 'block',
-        height: '100%'
     },
     callMadeIcon: {
         position: 'absolute',

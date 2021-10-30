@@ -16,7 +16,6 @@ export default function GotchiWearablesLine({wearables}) {
             {
                 wearableSlots.map((name, index)=> {
                     let wearable = wearables[index];
-                    let type = itemUtils.getItemTypeById(wearable);
                     let rarityColor = itemUtils.getItemRarityById(wearable);
 
                     return (
@@ -27,12 +26,13 @@ export default function GotchiWearablesLine({wearables}) {
                                         <Wearable wearable={{ id: wearable }} tooltip={true} />
                                     </div>
                                 ) : (
-                                    <span>empty</span>
+                                    <span><span style={{ color: theme.palette.primary.main }}>{name}</span> Empty</span>
                                 )
                             }
                             classes={{ tooltip: classes.customTooltip }}
                             enterTouchDelay={0}
                             placement='top'
+                            key={index}
                         >
                             <div
                                 className={classes.gotchiWLineItem}
