@@ -86,7 +86,11 @@ export default function Client() {
 
             setGotchis(commonUtils.basicSort(response, 'modifiedRarityScore'));
             setIsGotchiesLoading(false);
-        }).catch((error) => console.log(error));
+        }).catch((error) => {
+            console.log(error);
+            setGotchis([]);
+            setIsGotchiesLoading(false);
+        });
     };
 
     const getInventoryByAddress = (address) => {
