@@ -44,11 +44,11 @@ export const gotchiByIdQuery = (id) => {
   }`
 }
 
-export const userQuery = (id) => {
+export const userQuery = (id, skip) => {
     return `{
         user(id: "${id}") {
           id
-          gotchisOwned(first: 1000, where: {status: 3}) {
+          gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
             id
             name
             numericTraits

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Alert, Link, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 import { useStyles } from '../styles';
 
@@ -8,6 +8,10 @@ import Consumable from '../../../components/Items/Consumable/Consumable';
 
 export default function ClientWarehouse({warehouse, warehouseFilter, setWarehouseFilter, setWarehouse}) {
     const classes = useStyles();
+
+    useEffect(() => {
+        console.log(warehouse);
+    }, [])
 
     const onSort = (event, newFilter) => {
         setWarehouse(commonUtils.basicSort(

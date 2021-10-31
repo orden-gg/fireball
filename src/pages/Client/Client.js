@@ -91,6 +91,8 @@ export default function Client() {
             response.forEach((item) => {
                 let equipped = item.equippedWearables.filter((item) => item > 0);
 
+                // console.log(equipped);
+
                 for(let wearable of equipped) {
                     let index = wearables.findIndex(item => item.id === wearable);
 
@@ -104,11 +106,13 @@ export default function Client() {
                             rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
                             holders: [item.id],
                             category: 0
-                        })
+                        });
                     } else {
                         wearables[index].balance += 1;
-                        wearables[index].holders.push(item.id)
+                        wearables[index].holders.push(item.id);
                     }
+
+                    if(wearables[index]?.id === 213) console.log(wearables[index]);
                 }
             });
 
@@ -118,6 +122,7 @@ export default function Client() {
         
                     if(duplicated) {
                         duplicated.balance += current.balance;
+                        duplicated.holders = current.holders;
                         return items;
                     }
         
@@ -156,6 +161,7 @@ export default function Client() {
         
                     if(duplicated) {
                         duplicated.balance += current.balance;
+                        duplicated.holders = current.holders;
                         return items;
                     }
         
