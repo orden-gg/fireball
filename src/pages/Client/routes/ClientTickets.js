@@ -9,7 +9,7 @@ export default function ClientTickets({tickets}) {
 
     if(!tickets.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No aavegotchis here... <Link
+            No ticket here... <Link
                 href='https://www.aavegotchi.com/baazaar/tickets?sort=latest'
                 target='_blank'
                 underline='hover'

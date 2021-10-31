@@ -58,7 +58,7 @@ export default function App() {
                                 <Route exact path={`/`} component={ Main } />
                                 <Route exact path={`/market`} component={ Baazaar } />
                                 <Route exact path={`/explorer`} component={ GhostExplorer } />
-                                <Route exact path={`/client`} component={ Client } />
+                                <Route path={`/client`} component={ Client } />
                                 <Route exact path={`/raffle-calculator`} component={ Raffle } />
                                 <Route exact path={`/countdown-test`} component={ CountdownTest } />
                                 <Route exact path={`/404`} component={ NotFound } />

@@ -1,51 +1,76 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
+import { useRouteMatch } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 import gotchiPlaceholder from '../../../assets/images/logo.png';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 
-export default function ClientTabs({activeTab, setActiveTab, gotchisLength, warehouseLength, ticketsLength}) {
+const useStyles = makeStyles((theme) => ({
+    button: {
+        '&.active, &.active:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.main,
+            '&.Mui-disabled': {
+                backgroundColor: alpha(theme.palette.primary.main, .1),
+            }
+        }
+    }
+}));
+
+export default function ClientTabs({clientActive, gotchisLength, warehouseLength, ticketsLength}) {
+    const match = useRouteMatch();
+    const classes = useStyles();
 
     return (
         <Box display='flex' alignItems='flex-start' flexWrap='wrap'>
+
             <Button
                 disabled={!gotchisLength}
-                variant={activeTab === 'gotchis' ? 'contained' : 'outlined'}
                 size='large'
                 startIcon={
                     <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${gotchisLength}]`}
                 sx={{ marginRight: '12px' }}
-                onClick={() => setActiveTab('gotchis')}
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/gotchis`, search: `?address=${clientActive}` }}
             >
                 Gotchis
             </Button>
 
             <Button
                 disabled={!warehouseLength}
-                variant={activeTab === 'warehouse' ? 'contained' : 'outlined'}
                 size='large'
                 startIcon={
                     <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${warehouseLength}]`}
                 sx={{ marginRight: '12px' }}
-                onClick={() => setActiveTab('warehouse')}
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/warehouse`, search: `?address=${clientActive}` }}
             >
                 Warehouse
             </Button>
 
             <Button
                 disabled={!ticketsLength}
-                variant={activeTab === 'tickets' ? 'contained' : 'outlined'}
                 size='large'
                 startIcon={
                     <img src={ticketsPlaceholder} alt='gotchi' width={27} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${ticketsLength}]`}
-                onClick={() => setActiveTab('tickets')}
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/tickets`, search: `?address=${clientActive}` }}
             >
                 Tickets
             </Button>

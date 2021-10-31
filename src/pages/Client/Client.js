@@ -2,6 +2,9 @@ import React, {useContext, useEffect, useState} from 'react';
 import { Backdrop, CircularProgress, Alert, AlertTitle, Typography, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
+import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string'
 import thegraph from '../../api/thegraph';
 import web3 from '../../api/web3';
 import { useStyles } from './styles';
@@ -13,16 +16,19 @@ import graphUtils from '../../utils/graphUtils';
 
 import LoginNavigation from '../../components/Login/LoginNavigation';
 import ClientTabs from './components/ClientTabs';
-import ClientGotchis from './components/ClientGotchis';
-import ClientWarehouse from './components/ClientWarehouse';
-import ClientTickets from './components/ClientTickets';
+import ClientGotchis from './routes/ClientGotchis';
+import ClientWarehouse from './routes/ClientWarehouse';
+import ClientTickets from './routes/ClientTickets';
 
 import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 
 export default function Client() {
     const classes = useStyles();
+    const match = useRouteMatch();
+    const location = useLocation();
+    const history = useHistory();
 
-    const [activeTab, setActiveTab] = useState('gotchis');
+    const params = queryString.parse(location.search)
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
@@ -40,6 +46,40 @@ export default function Client() {
     const [rewardCalculated, setRewardCalculated] = useState(false);
 
     const { activeAddress } = useContext(LoginContext);
+    const [clientActive, setClientActive] = useState(null);
+
+    useEffect(() => {
+        if(activeAddress) {
+            setClientActive(activeAddress);
+        }
+    }, [activeAddress]);
+
+    useEffect(() => {
+        if(params.address) {
+            setClientActive(params.address);
+        }
+    }, [params.address]);
+
+    useEffect(() => {
+        if(clientActive) {
+            getData();
+            history.push({ path: location.pathname, search: `?address=${clientActive}` });
+        } else {
+            history.push({ path: location.pathname });
+        }
+    }, [clientActive]);
+
+    const getData = () => {
+        getGotchiesByAddress(clientActive.toLowerCase());
+        getInventoryByAddress(clientActive.toLowerCase());
+        getTickets(clientActive.toLowerCase());
+        
+        // reset
+        setWarehouse([]);
+        setReward(null);
+        setRewardCalculated(false);
+        setGotchisFilter('modifiedRarityScore');
+    };
 
     const getGotchiesByAddress = async (address) => {
         setIsGotchiesLoading(true);
@@ -123,7 +163,11 @@ export default function Client() {
                 }, []), 'rarityId', 'desc'));
             setIsInventoryLoading(false);
 
-        }).catch((error) => console.log(error));
+        }).catch((error) => {
+            console.log(error);
+            setWarehouse([]);
+            setIsInventoryLoading(false);
+        });
     };
 
     const getTickets = (address) => {
@@ -133,25 +177,11 @@ export default function Client() {
             let modified = response.filter((item) => item.balance > 0);
             setTickets(modified);
             setIsTicketsLoading(false);
-        }).catch((error) => console.log(error));
-    };
-
-    const getData = () => {
-        if (activeAddress) {
-            getGotchiesByAddress(activeAddress.toLowerCase());
-            getInventoryByAddress(activeAddress.toLowerCase());
-            getTickets(activeAddress.toLowerCase());
-            
-            // reset
-            setWarehouse([]);
-            setReward(null);
-            setRewardCalculated(false);
-            setGotchisFilter('modifiedRarityScore');
-        }
-    };
-
-    const isDataLoading = () => {
-        return isGotchiesLoading || isInventoryLoading || isTicketsLoading;
+        }).catch((error) => {
+            console.log(error);
+            setTickets([]);
+            setIsTicketsLoading(false);
+        });
     };
 
     const calculateRewards = () => {
@@ -186,10 +216,9 @@ export default function Client() {
         })
     };
 
-    useEffect(() => {
-        getData();
-    }, [activeAddress]);
-
+    const isDataLoading = () => {
+        return isGotchiesLoading || isInventoryLoading || isTicketsLoading;
+    };
 
     return (
         <Box className={classes.container}>
@@ -197,7 +226,7 @@ export default function Client() {
                 <title>Client</title>
             </Helmet>
 
-            {!activeAddress.length ? (
+            {!clientActive?.length ? (
                 <Box display='flex' alignItems='center' justifyContent='center' minHeight='calc(100vh - 192px)'>
                     <Box bgcolor='secondary.dark' maxWidth={400} margin='auto' padding='24px' borderRadius='4px'>
                         <Alert severity='info' sx={{ marginBottom: '24px' }}>
@@ -213,12 +242,22 @@ export default function Client() {
                     <Box display='flex' flexWrap='wrap' justifyContent='space-between' bgcolor='secondary.dark' padding='20px' marginBottom='16px' borderRadius='4px'>
                         <Box display='flex' flexDirection='column' justifyContent='space-between'>
                             <Typography variant='h6' paragraph>
-                                Logged as <Box component='span' color='warning.main'>{activeAddress}</Box>
+                                Logged as <Box
+                                    component='span'
+                                    position='relative'
+                                    color={web3.isAddressValid(clientActive) ? 'success.main' : 'warning.main'}
+                                >
+                                    {clientActive}
+                                    {!web3.isAddressValid(clientActive) ? (
+                                        <Box component='span' position='absolute' right={0} bottom='-20px' whiteSpace='nowrap' fontSize='12px' color='error.main'>Not a valid address!</Box>
+                                    ) : (
+                                        null
+                                    )}
+                                </Box>
                             </Typography>
 
                             <ClientTabs
-                                activeTab={activeTab}
-                                setActiveTab={setActiveTab}
+                                clientActive={clientActive}
                                 gotchisLength={gotchis.length}
                                 warehouseLength={warehouse.length}
                                 ticketsLength={tickets.length}
@@ -244,7 +283,7 @@ export default function Client() {
                                 )}
 
                                 <Button
-                                    disabled={isDataLoading() || rewardCalculated}
+                                    disabled={isDataLoading() || !gotchis.length ||rewardCalculated}
                                     variant={'contained'}
                                     size='large'
                                     className={classes.calculateButton}
@@ -257,34 +296,29 @@ export default function Client() {
                         </Box>
                     </Box>
 
-                    {activeTab === 'gotchis' ? (
-                        <ClientGotchis
-                            gotchis={gotchis}
-                            gotchisFilter={gotchisFilter}
-                            setGotchisFilter={setGotchisFilter}
-                            setGotchis={setGotchis}
-                            rewardCalculated={rewardCalculated}
-                        />
-                    ) : (
-                        null
-                    )}
-
-                    {activeTab === 'warehouse' ? (
-                        <ClientWarehouse
-                            warehouse={warehouse}
-                            warehouseFilter={warehouseFilter}
-                            setWarehouseFilter={setWarehouseFilter}
-                            setWarehouse={setWarehouse}
-                        />
-                    ) : (
-                        null
-                    )}
-
-                    {activeTab === 'tickets' ? (
-                        <ClientTickets tickets={tickets} />
-                    ) : (
-                        null
-                    )}
+                    <Switch>
+                        <Route path={`${match.path}/gotchis`}>
+                            <ClientGotchis
+                                gotchis={gotchis}
+                                gotchisFilter={gotchisFilter}
+                                setGotchisFilter={setGotchisFilter}
+                                setGotchis={setGotchis}
+                                rewardCalculated={rewardCalculated}
+                            />
+                        </Route>
+                        <Route path={`${match.path}/warehouse`}>
+                            <ClientWarehouse
+                                warehouse={warehouse}
+                                warehouseFilter={warehouseFilter}
+                                setWarehouseFilter={setWarehouseFilter}
+                                setWarehouse={setWarehouse}
+                            />
+                        </Route>
+                        <Route path={`${match.path}/tickets`}>
+                            <ClientTickets tickets={tickets} />
+                        </Route>
+                        <Redirect from={match.path} to={`${match.path}/gotchis`} />
+                    </Switch>
 
                     <Backdrop className={classes.backdrop} open={isDataLoading() || rewardCalculating}>
                         <CircularProgress color='primary' />
