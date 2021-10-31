@@ -10,7 +10,7 @@ import GotchiSvg from '../../../../components/Gotchi/GotchiSvg';
 import Subtitle from '../../../../components/Subtitle/Subtitle';
 import { Box } from '@mui/system';
 
-const gotchiesId = [4271, 8005, 4282, 23470];
+const gotchiesId = [4271, 8005, 4282, 23470, 13998];
 
 export default function Team() {
     const classes = useStyles();
@@ -22,7 +22,8 @@ export default function Team() {
             gotchiByIdQuery(gotchiesId[0]),
             gotchiByIdQuery(gotchiesId[1]),
             gotchiByIdQuery(gotchiesId[2]),
-            gotchiByIdQuery(gotchiesId[3])
+            gotchiByIdQuery(gotchiesId[3]),
+            gotchiByIdQuery(gotchiesId[4])
         ]).then((response) => {
             let formattedArray = [];
 
