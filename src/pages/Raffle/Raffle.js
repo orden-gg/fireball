@@ -313,13 +313,13 @@ export default function Raffle() {
                 </TabPanel>
             </TabContext> */}
             
-            <Box position='fixed' right={18} bottom={18} zIndex={10}>
+            {/* <Box position='fixed' right={18} bottom={80} zIndex={10}>
                 <Link href={'https://www.aavegotchi.com/raffle/5'} className={classes.enterButton} target={'_blank'} underline='none'>
                     <Button variant='contained' color='primary'>
                         Enter Raffle
                     </Button>
                 </Link>
-            </Box>
+            </Box> */}
 
             <RaffleTable
                 tickets={tickets}

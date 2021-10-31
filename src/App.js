@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import SnackbarContextProvider from "./contexts/SnackbarContext";
 import Header from './root/Header/Header';
 import Footer from './root/Footer/Footer';
+import MusicButton from './components/MusicButton/MusicButton';
 
 import Main from './pages/Main/Main';
 import Baazaar from './pages/Baazaar/Baazaar';
@@ -50,6 +51,8 @@ export default function App() {
                         <title>ghst_gg</title>
                     </Helmet>
 
+                    <MusicButton />
+
                     <Box className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}>
                         <Header />
 
@@ -68,6 +71,7 @@ export default function App() {
 
                         {location.pathname !== '/explorer' && <Footer />}
                     </Box>
+
 
                 </LoginContextProvider>
             </BaazaarContextProvider>
