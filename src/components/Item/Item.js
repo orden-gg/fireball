@@ -76,7 +76,7 @@ export default function Item({item, owners, raffleStats}) {
     };
 
     const renderOwners = () => {
-        if(owners) {
+        if (owners) {
             return (
                 <Box>
                     <Typography variant={'body2'}>
@@ -102,7 +102,7 @@ export default function Item({item, owners, raffleStats}) {
     }
 
     const renderRaffleStats = () => {
-        if(raffleStats) {
+        if (raffleStats) {
             return (
                 <Box>
                     <Typography variant='body2'>Quantity:

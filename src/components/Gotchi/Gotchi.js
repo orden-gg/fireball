@@ -19,14 +19,14 @@ export default function Gotchi({gotchi, title, gotchiColor, narrowed, renderSvgB
 
     const calculateRarityType = (rarity) => {
         return rarity >= 700 ? 'godlike' : rarity >= 600 ? 'mythical' : rarity >= 500 ? 'rare' : '';
-    }
+    };
 
     const calculateKinshipType = (kin) => {
         return kin >= 500 ? 'godlike' : kin >= 250 ? 'mythical' : kin >= 100 ? 'rare' : '';
-    }
+    };
 
     const renderNarrowed = () => {
-        if(!narrowed) {
+        if (!narrowed) {
             return (
                 <>
                     <div className={classes.gotchiLvlWrapper}>

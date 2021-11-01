@@ -19,7 +19,7 @@ export default function LoginModal({modalOpen, setModalOpen}) {
     const { storageAddresses, setStorageAddresses, selectActiveAddress, gotchiIds, setGotchiIds } = useContext(LoginContext);
 
     useEffect(() => {
-        if(!gotchiIds.length) getGotchisIdsFromGraph();
+        if (!gotchiIds.length) getGotchisIdsFromGraph();
 
         return () => { //reset form on destroy
             setName('');
@@ -43,10 +43,10 @@ export default function LoginModal({modalOpen, setModalOpen}) {
         setIsFormTriggered(true);
         setAddressHelperText('Not a valid address!');
 
-        if(duplicated) {
+        if (duplicated) {
             setIsAddressValid(false);
             setAddressHelperText('Address already added!');
-        } else if(isAddressValid) {
+        } else if (isAddressValid) {
             setStorageAddresses([{name: name, address: formattedAddress, gotchiId: generateRandomGotchiId()}, ...storageAddresses]);
             selectActiveAddress(formattedAddress)
             setModalOpen(false);

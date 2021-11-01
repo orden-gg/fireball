@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -8,12 +7,6 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { theme } from './themes/ghst';
 import {BrowserRouter} from 'react-router-dom';
 import { MetamaskStateProvider } from 'use-metamask';
-
-
-const apiUrl = process.env.REACT_APP_BASE_URL;
-
-// set base API URL
-axios.defaults.baseURL = apiUrl;
 
 ReactDOM.render(
     <BrowserRouter>

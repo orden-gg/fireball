@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link, useTheme } from '@mui/material';
 import classNames from 'classnames';
-
 import itemUtils from '../../utils/itemUtils';
 import useStyles from './styles';
-
 import CallMadeIcon from '@mui/icons-material/CallMade';
 
 export default function GotchiWearablesLine({wearables}) {
@@ -13,7 +11,7 @@ export default function GotchiWearablesLine({wearables}) {
     const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
 
     const renderPopover = (id, type, color) => {
-        if(id !== 0) {
+        if (id !== 0) {
             return (
                 <Link 
                     className={classes.gotchiWLineLink}

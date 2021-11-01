@@ -79,7 +79,7 @@ export default {
                 responseArray = [...response[i].data.aavegotchis, ...responseArray];
             }
 
-            let filteredArray = responseArray.reduce((unique, item) => {
+            return responseArray.reduce((unique, item) => {
                 const index = unique.findIndex(el => el.id === item.id);
 
                 if (index === -1) {
@@ -88,8 +88,6 @@ export default {
 
                 return unique;
             }, []);
-
-            return filteredArray;
         });
     },
 
