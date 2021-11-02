@@ -200,4 +200,29 @@ export default {
                 return name;
         }
     },
+
+    getParcelSize(id) {
+        switch (id) {
+            case '0':
+                return 'humble';
+            case '1':
+                return 'reasonable';
+            case '2': // 32x64
+                return 'spacious';
+            case '3': // 64x32
+                return 'spacious';
+            case '4':
+                return 'partner';
+            default:
+                return '';
+        }
+    },
+
+    getAlchemicaImg(name) {
+        try {
+            return require(`../assets/images/icons/${name}.png`).default;
+        } catch (error) {
+            return require(`../assets/images/no-image2.svg`).default;
+        }
+    },
 }

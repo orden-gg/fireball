@@ -162,6 +162,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'none',
         bottom: -11,
         right: 5,
+        pointerEvents: 'none',
         '& > span': {
             fontSize: '0.55rem',
             letterSpacing: '1px'

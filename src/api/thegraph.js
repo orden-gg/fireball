@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery } from './common/queries';
+import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery } from './common/queries';
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
@@ -20,6 +20,11 @@ var raffleClient = new ApolloClient({
 
 var svgsClient = new ApolloClient({
     uri: gotchiSVGs,
+    cache: new InMemoryCache()
+});
+
+var realmClient = new ApolloClient({
+    uri: realm,
     cache: new InMemoryCache()
 });
 
@@ -178,5 +183,40 @@ export default {
             .query({
                 query: gql`${svgQuery(id)}`
             });
+    },
+
+    async getRealmData(query) {
+        return await realmClient
+            .query({
+                query: gql`${query}`
+            });
+    },
+
+    async getRealmByAddress(address) {
+        let data = [];
+
+        for(let i = 0; i < 6; i++) {
+            let queryData = await this.getRealmData(realmQuery(address.toLowerCase(), i * 1000)).then((response) => {
+                return [...response.data.parcels];
+            });
+    
+            data.push(...queryData);
+    
+            if(queryData.length < 1000) { // break loop if there is less than 1000 items comes from query
+                break;
+            }
+        }
+
+        return data;
+    },
+
+    async getRealmAuctionPrice(id) {
+        return await this.getRealmData(auctionQuery(id)).then((response) => {
+            let erc721 = response.data.auctions;
+
+            return {
+                price: erc721[0]?.highestBid / 10**18 || 0
+            };
+        });
     },
 }

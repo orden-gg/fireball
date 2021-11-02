@@ -19,6 +19,7 @@ import ClientTabs from './components/ClientTabs';
 import ClientGotchis from './routes/ClientGotchis';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
+import ClientRealm from './routes/ClientRealm';
 
 import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 
@@ -40,6 +41,9 @@ export default function Client() {
 
     const [tickets, setTickets] = useState([]);
     const [isTicketsLoading, setIsTicketsLoading] = useState(false);
+
+    const [realm, setRealm] = useState([]);
+    const [isRealmLoading, setIsRealmLoading] = useState(false);
 
     const [reward, setReward] = useState(null);
     const [rewardCalculating, setRewardCalculating] = useState(false);
@@ -73,6 +77,7 @@ export default function Client() {
         getGotchiesByAddress(clientActive.toLowerCase());
         getInventoryByAddress(clientActive.toLowerCase());
         getTickets(clientActive.toLowerCase());
+        getRealm(clientActive);
         
         // reset
         setWarehouse([]);
@@ -111,8 +116,6 @@ export default function Client() {
                         wearables[index].balance += 1;
                         wearables[index].holders.push(item.id);
                     }
-
-                    if(wearables[index]?.id === 213) console.log(wearables[index]);
                 }
             });
 
@@ -190,6 +193,19 @@ export default function Client() {
         });
     };
 
+    const getRealm = (address) => {
+        setIsRealmLoading(true);
+
+        thegraph.getRealmByAddress(address).then((response) => {
+            setRealm(commonUtils.basicSort(response, 'size'));
+            setIsRealmLoading(false);
+        }).catch((error) => {
+            console.log(error);
+            setRealm([]);
+            setIsRealmLoading(false);
+        });
+    };
+
     const calculateRewards = () => {
         setRewardCalculating(true);
 
@@ -223,7 +239,7 @@ export default function Client() {
     };
 
     const isDataLoading = () => {
-        return isGotchiesLoading || isInventoryLoading || isTicketsLoading;
+        return isGotchiesLoading || isInventoryLoading || isTicketsLoading || isRealmLoading;
     };
 
     return (
@@ -267,6 +283,7 @@ export default function Client() {
                                 gotchisLength={gotchis.length}
                                 warehouseLength={warehouse.length}
                                 ticketsLength={tickets.length}
+                                realmLength={realm.length}
                             />
                         </Box>
 
@@ -322,6 +339,9 @@ export default function Client() {
                         </Route>
                         <Route path={`${match.path}/tickets`}>
                             <ClientTickets tickets={tickets} />
+                        </Route>
+                        <Route path={`${match.path}/realm`}>
+                            <ClientRealm realm={realm} setRealm={setRealm} />
                         </Route>
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />
                     </Switch>

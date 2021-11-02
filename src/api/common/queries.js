@@ -105,3 +105,31 @@ export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
       }
   }`
 };
+
+export const realmQuery = (address, skip) => {
+    return `{
+      parcels(first: 1000, skip: ${skip} where: { owner: "${address}" }) {
+        parcelId
+        parcelHash
+        tokenId
+        coordinateX
+        coordinateY
+        district
+        fudBoost
+        fomoBoost
+        alphaBoost
+        kekBoost
+        size
+        auctionId
+      }
+    }`
+};
+
+export const auctionQuery = (id) => {
+    return `{
+      auctions(first: 1, where: { id: "${id}" }) {
+        id
+        highestBid
+      }
+    }`
+};

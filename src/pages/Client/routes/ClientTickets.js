@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Alert, Link } from '@mui/material';
+import { Box, Alert } from '@mui/material';
 import { useStyles } from '../styles';
 
 import Ticket from '../../../components/Items/Ticket/Ticket';
@@ -9,14 +9,7 @@ export default function ClientTickets({tickets}) {
 
     if(!tickets.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No ticket here... <Link
-                href='https://www.aavegotchi.com/baazaar/tickets?sort=latest'
-                target='_blank'
-                underline='hover'
-                style={{ color: 'red' }}
-            >
-                [Baazaar listings]
-            </Link>
+            No ticket here...
         </Alert>
     }
 

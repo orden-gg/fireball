@@ -30,6 +30,18 @@ export default makeStyles((theme) => ({
         '&.drop': {
             backgroundColor: alpha(theme.palette.rarity.drop, .1)
         },
+        '&.humble': {
+            backgroundColor: alpha(theme.palette.realm.humble, .15)
+        },
+        '&.reasonable': {
+            backgroundColor: alpha(theme.palette.realm.reasonable, .15)
+        },
+        '&.spacious': {
+            backgroundColor: alpha(theme.palette.realm.spacious, .15)
+        },
+        '&.partner': {
+            backgroundColor: alpha(theme.palette.realm.partner, .15)
+        },
         '&:hover $labelSlot': {
             opacity: .7,
         }
@@ -76,7 +88,7 @@ export default makeStyles((theme) => ({
     labelTotal: {
         backgroundColor: theme.palette.primary.main,
         borderColor: alpha(theme.palette.secondary.dark, .5),
-        padding: '0 2px',
+        padding: '0 0 0 4px',
         '&.baazarPrice': {
             backgroundColor: alpha(theme.palette.secondary.dark, .4),
             borderColor: 'transparent',
@@ -98,7 +110,7 @@ export default makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'space-between',
         '& div:last-child': {
-            borderTopRightRadius: 4
+            borderBottomRightRadius: 4
         },
     },
     iconWrapper: {
@@ -114,15 +126,43 @@ export default makeStyles((theme) => ({
     },
     nameWrapper: {
         whiteSpace: 'nowrap',
-        
+        position: 'relative',
         '& p': {
             textOverflow: 'ellipsis',
             overflow: 'hidden',
+        },
+        '&.two-lined': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .25),
+            margin: '20px 0 0',
+            padding: 4,
+            borderRadius: 2,
+            whiteSpace: 'inherit',
+            minHeight: 52,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all .2s ease-in-out',
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.secondary.dark, .5),
+            }
         }
     },
     name: {
         fontWeight: '500 !important',
-        lineHeight: '1.4 !important'
+        lineHeight: '1.4 !important',
+        textTransform: 'capitalize',
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
+                    ${theme.palette.secondary.main} -1px -1px 0px,
+                    ${theme.palette.secondary.main} 1px -1px 0px,
+                    ${theme.palette.secondary.main} -1px 1px 0px,
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
+    },
+    callMadeIcon: {
+        position: 'absolute',
+        right: 2,
+        bottom: 2,
+        fontSize: '14px !important',
+        color: '#fff'
     },
     stats: {
         fontWeight: '500 !important'
@@ -142,6 +182,29 @@ export default makeStyles((theme) => ({
                     ${theme.palette.secondary.main} 1px -1px 0px,
                     ${theme.palette.secondary.main} -1px 1px 0px,
                     ${theme.palette.secondary.main} 1px 1px 0px`,
+    },
+    boosts: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        '& div:last-child': {
+            borderBottomRightRadius: 4
+        },
+    },
+    boost: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 4px',
+        color: theme.palette.secondary.main,
+        fontSize: 14,
+        fontWeight: 600,
+        '& img': {
+            marginRight: 2
+        }
     },
     customTooltip: {
         backgroundColor: `${theme.palette.secondary.dark} !important`,
@@ -165,6 +228,18 @@ export default makeStyles((theme) => ({
         },
         '&.godlike': {
             color: theme.palette.rarity.godlike
+        },
+        '&.humble': {
+            color: theme.palette.realm.humble
+        },
+        '&.reasonable': {
+            color: theme.palette.realm.reasonable
+        },
+        '&.spacious': {
+            color: theme.palette.realm.spacious
+        },
+        '&.partner': {
+            color: theme.palette.realm.partner
         },
     },
 }));

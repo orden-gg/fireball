@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import gotchiPlaceholder from '../../../assets/images/logo.png';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
+import realmPlaceholder from '../../../assets/images/icons/kek.png';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ClientTabs({clientActive, gotchisLength, warehouseLength, ticketsLength}) {
+export default function ClientTabs({clientActive, gotchisLength, warehouseLength, ticketsLength, realmLength}) {
     const match = useRouteMatch();
     const classes = useStyles();
 
@@ -67,12 +68,28 @@ export default function ClientTabs({clientActive, gotchisLength, warehouseLength
                     <img src={ticketsPlaceholder} alt='gotchi' width={27} style={{ marginRight: '4px' }} />
                 }
                 endIcon={`[${ticketsLength}]`}
+                sx={{ marginRight: '12px' }}
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
                 to={{ pathname: `${match.url}/tickets`, search: `?address=${clientActive}` }}
             >
                 Tickets
+            </Button>
+
+            <Button
+                disabled={!realmLength}
+                size='large'
+                startIcon={
+                    <img src={realmPlaceholder} alt='gotchi' width={27} />
+                }
+                endIcon={`[${realmLength}]`}
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/realm`, search: `?address=${clientActive}` }}
+            >
+                Realm
             </Button>
         </Box>
     );

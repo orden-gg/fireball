@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Alert, Link, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
+import { Box, Alert, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { useStyles } from '../styles';
 
 import commonUtils from '../../../utils/commonUtils';
@@ -17,14 +17,7 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
 
     if(!gotchis.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No aavegotchis here... <Link
-                href='https://www.aavegotchi.com/baazaar/aavegotchis?sort=latest'
-                target='_blank'
-                underline='hover'
-                style={{ color: 'red' }}
-            >
-                [Baazaar listings]
-            </Link>!
+            No aavegotchis here...
         </Alert>
     }
 
