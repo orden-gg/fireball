@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Box, Alert, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 import { useStyles } from '../styles';
-import commonUtils from '../../../utils/commonUtils';
+import { ClientContext } from '../../../contexts/ClientContext';
 
 import Parcel from '../../../components/Items/Parcel/Parcel';
 
@@ -10,24 +10,9 @@ import fomo from '../../../assets/images/icons/fomo.png';
 import alpha from '../../../assets/images/icons/alpha.png';
 import kek from '../../../assets/images/icons/kek.png';
 
-export default function ClientRealm({realm, setRealm}) {
+export default function ClientRealm() {
     const classes = useStyles();
-    const [realmFilter, setRealmFilter] = useState('sizeDesc');
-
-    const onSort = (event, newFilter) => {
-        let asc = newFilter?.includes('Asce');
-        let desc = newFilter?.includes('Desc');
-        let filter = newFilter;
-        let dir = 'desc';
-
-        if(asc || desc) {
-            filter = newFilter.slice(0, -4);
-            asc ? dir = 'asc' : dir = 'desc';
-        }
-        
-        setRealm(commonUtils.basicSort(realm, filter, dir));
-        setRealmFilter(newFilter);
-    };
+    const { realm, realmFilter, sortData } = useContext(ClientContext);
 
     if(!realm.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
@@ -44,7 +29,7 @@ export default function ClientRealm({realm, setRealm}) {
                     <ToggleButtonGroup
                         value={realmFilter}
                         exclusive
-                        onChange={onSort}
+                        onChange={(event, value) => sortData(event, value, 'realm')}
                         color='primary'
                         aria-label='realm sort'
                     >
@@ -77,7 +62,7 @@ export default function ClientRealm({realm, setRealm}) {
                     <ToggleButtonGroup
                         value={realmFilter}
                         exclusive
-                        onChange={onSort}
+                        onChange={(event, value) => sortData(event, value, 'realm')}
                         color='primary'
                         aria-label='realm sort'
                     >

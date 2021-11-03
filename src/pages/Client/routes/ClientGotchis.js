@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Alert, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { useStyles } from '../styles';
+import { ClientContext } from '../../../contexts/ClientContext';
 
-import commonUtils from '../../../utils/commonUtils';
 import Gotchi from '../../../components/Gotchi/Gotchi';
 
-export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter, setGotchis, rewardCalculated}) {
+export default function ClientGotchis() {
     const classes = useStyles();
-
-    const onSort = (event, newFilter) => {
-        let dir = newFilter === 'createdAt' ? 'asc' : 'desc';
-
-        setGotchis(commonUtils.basicSort(gotchis, newFilter, dir));
-        setGotchisFilter(newFilter);
-    };
+    const { gotchis, gotchisFilter, sortData, rewardCalculated } = useContext(ClientContext);
 
     if(!gotchis.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
@@ -29,7 +23,7 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
                 <ToggleButtonGroup
                     value={gotchisFilter}
                     exclusive
-                    onChange={onSort}
+                    onChange={(event, value) => sortData(event, value, 'gotchis')}
                     color='primary'
                     aria-label='gotchis sort'
                 >
@@ -53,7 +47,7 @@ export default function ClientGotchis({gotchis, gotchisFilter, setGotchisFilter,
                             <Box className={classes.filtersInner} component='span'><span>🗡</span></Box>
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.filtersButton} value='createdAt' aria-label='age'>
+                    <ToggleButton className={classes.filtersButton} value='createdAtAsce' aria-label='age'>
                         <Tooltip title='Age' placement='top' followCursor>
                             <Box className={classes.filtersInner} component='span'><span>📅</span></Box>
                         </Tooltip>

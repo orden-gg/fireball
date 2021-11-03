@@ -126,7 +126,7 @@ export default {
         return queries;
     },
 
-    async getGotchiesByAddress(address) {
+    async getGotchisByAddress(address) {
         let data = [];
 
         for(let i = 0; i < 5; i++) {

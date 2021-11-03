@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Alert } from '@mui/material';
 import { useStyles } from '../styles';
+import { ClientContext } from '../../../contexts/ClientContext';
 
 import Ticket from '../../../components/Items/Ticket/Ticket';
 
-export default function ClientTickets({tickets}) {
+export default function ClientTickets() {
     const classes = useStyles();
+    const { tickets } = useContext(ClientContext);
 
     if(!tickets.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>

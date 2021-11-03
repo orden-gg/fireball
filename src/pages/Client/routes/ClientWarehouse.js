@@ -1,22 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Alert, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 import { useStyles } from '../styles';
+import { ClientContext } from '../../../contexts/ClientContext';
 
-import commonUtils from '../../../utils/commonUtils';
 import Wearable from '../../../components/Items/Wearable/Wearable';
 import Consumable from '../../../components/Items/Consumable/Consumable';
 
-export default function ClientWarehouse({warehouse, warehouseFilter, setWarehouseFilter, setWarehouse}) {
+export default function ClientWarehouse() {
     const classes = useStyles();
-
-    const onSort = (event, newFilter) => {
-        setWarehouse(commonUtils.basicSort(
-            warehouse,
-            newFilter === 'balance' ? 'balance' : 'rarityId',
-            newFilter === 'balance' ? 'desc' : newFilter)
-        );
-        setWarehouseFilter(newFilter);
-    };
+    const { warehouse, warehouseFilter, sortData } = useContext(ClientContext);
 
     if(!warehouse.length) {
         return <Alert severity='info' sx={{ display: 'inline-flex' }}>
@@ -32,16 +24,16 @@ export default function ClientWarehouse({warehouse, warehouseFilter, setWarehous
                 <ToggleButtonGroup
                     value={warehouseFilter}
                     exclusive
-                    onChange={onSort}
+                    onChange={(event, value) => sortData(event, value, 'warehouse')}
                     color='primary'
                     aria-label='gotchis sort'
                 >
-                    <ToggleButton className={classes.filtersButton} value='desc' aria-label='rarity ↓'>
+                    <ToggleButton className={classes.filtersButton} value='rarityIdDesc' aria-label='rarity ↓'>
                         <Tooltip title='Rarity ↓' placement='top' followCursor>
                             <Box className={classes.filtersInner} component='span'><span>🔽</span></Box>
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.filtersButton} value='asc' aria-label='rarity ↑'>
+                    <ToggleButton className={classes.filtersButton} value='rarityIdAsce' aria-label='rarity ↑'>
                         <Tooltip title='Rarity ↑' placement='top' followCursor>
                             <Box className={classes.filtersInner} component='span'><span>🔼</span></Box>
                         </Tooltip>

@@ -19,7 +19,7 @@ export default {
         try {
             let contractResponse;
 
-            await contract.methods.itemBalances(address).call()
+            await contract.methods.itemBalances(address.toLowerCase()).call()
                 .then((response) => {
                     contractResponse = {items: response, owner: address};
                 });
@@ -37,7 +37,7 @@ export default {
             let responseArray = [];
 
             for (let id of tickets) {
-                await ticketsContract.methods.balanceOf(address, id).call()
+                await ticketsContract.methods.balanceOf(address.toLowerCase(), id).call()
                     .then((response) => {
                         responseArray.push({
                             balance: +response,

@@ -20,6 +20,7 @@ import Raffle from './pages/Raffle/Raffle';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from "./contexts/BaazaarContext";
 import LoginContextProvider from './contexts/LoginContext';
+import ClientContextProvider from './contexts/ClientContext';
 
 const useStyles = makeStyles(() => ({
     wrap: {
@@ -47,32 +48,34 @@ export default function App() {
         <SnackbarContextProvider>
             <BaazaarContextProvider>
                 <LoginContextProvider>
-                    <Helmet>
-                        <title>ghst_gg</title>
-                    </Helmet>
+                    <ClientContextProvider>
 
-                    <MusicButton />
+                        <Helmet>
+                            <title>ghst_gg</title>
+                        </Helmet>
 
-                    <Box className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}>
-                        <Header />
+                        <MusicButton />
 
-                        <Box className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
-                            <Switch>
-                                <Route exact path={`/`} component={ Main } />
-                                <Route exact path={`/market`} component={ Baazaar } />
-                                <Route exact path={`/explorer`} component={ GhostExplorer } />
-                                <Route path={`/client`} component={ Client } />
-                                <Route exact path={`/raffle-calculator`} component={ Raffle } />
-                                <Route exact path={`/countdown-test`} component={ CountdownTest } />
-                                <Route exact path={`/404`} component={ NotFound } />
-                                <Redirect from='*' to='/404' />
-                            </Switch>
+                        <Box className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}>
+                            <Header />
+
+                            <Box className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
+                                <Switch>
+                                    <Route exact path={`/`} component={ Main } />
+                                    <Route exact path={`/market`} component={ Baazaar } />
+                                    <Route exact path={`/explorer`} component={ GhostExplorer } />
+                                    <Route path={`/client`} component={ Client } />
+                                    <Route exact path={`/raffle-calculator`} component={ Raffle } />
+                                    <Route exact path={`/countdown-test`} component={ CountdownTest } />
+                                    <Route exact path={`/404`} component={ NotFound } />
+                                    <Redirect from='*' to='/404' />
+                                </Switch>
+                            </Box>
+
+                            {location.pathname !== '/explorer' && <Footer />}
                         </Box>
 
-                        {location.pathname !== '/explorer' && <Footer />}
-                    </Box>
-
-
+                    </ClientContextProvider>
                 </LoginContextProvider>
             </BaazaarContextProvider>
         </SnackbarContextProvider>

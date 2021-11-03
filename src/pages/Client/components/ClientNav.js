@@ -1,42 +1,55 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 import { useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
+import { ClientContext } from '../../../contexts/ClientContext';
+
 import gotchiPlaceholder from '../../../assets/images/logo.png';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../assets/images/icons/kek.png';
 
+
 const useStyles = makeStyles((theme) => ({
     button: {
+        margin: '0 4px !important',
+        paddingRight: '12px !important',
+        paddingLeft: '12px !important',
+        backgroundColor: `${alpha(theme.palette.secondary.dark, .4)} !important`,
+        '&:hover': {
+            backgroundColor: `${theme.palette.secondary.dark} !important`,
+        },
+        '&.Mui-disabled': {
+            backgroundColor: `${alpha(theme.palette.secondary.dark, .2)} !important`,
+        },
         '&.active, &.active:hover': {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: `${theme.palette.primary.main} !important`,
             color: theme.palette.secondary.main,
             '&.Mui-disabled': {
-                backgroundColor: alpha(theme.palette.primary.main, .1),
+                backgroundColor: `${alpha(theme.palette.primary.main, .1)} !important`,
             }
         }
     }
 }));
 
-export default function ClientTabs({clientActive, gotchisLength, warehouseLength, ticketsLength, realmLength}) {
+export default function ClientNav() {
     const match = useRouteMatch();
     const classes = useStyles();
 
+    const { clientActive, gotchis, warehouse, tickets, realm } = useContext(ClientContext);
+
     return (
-        <Box display='flex' alignItems='flex-start' flexWrap='wrap'>
+        <Box display='flex' alignItems='center' justifyContent='center' flexWrap='wrap'>
 
             <Button
-                disabled={!gotchisLength}
-                size='large'
+                disabled={!gotchis.length}
                 startIcon={
-                    <img src={gotchiPlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
+                    <img src={gotchiPlaceholder} alt='gotchi' width={20} style={{ marginRight: '4px' }} />
                 }
-                endIcon={`[${gotchisLength}]`}
-                sx={{ marginRight: '12px' }}
+                endIcon={`[${gotchis.length}]`}
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
@@ -46,13 +59,11 @@ export default function ClientTabs({clientActive, gotchisLength, warehouseLength
             </Button>
 
             <Button
-                disabled={!warehouseLength}
-                size='large'
+                disabled={!warehouse.length}
                 startIcon={
                     <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
                 }
-                endIcon={`[${warehouseLength}]`}
-                sx={{ marginRight: '12px' }}
+                endIcon={`[${warehouse.length}]`}
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
@@ -62,13 +73,11 @@ export default function ClientTabs({clientActive, gotchisLength, warehouseLength
             </Button>
 
             <Button
-                disabled={!ticketsLength}
-                size='large'
+                disabled={!tickets.length}
                 startIcon={
-                    <img src={ticketsPlaceholder} alt='gotchi' width={27} style={{ marginRight: '4px' }} />
+                    <img src={ticketsPlaceholder} alt='gotchi' width={22} style={{ marginRight: '4px' }} />
                 }
-                endIcon={`[${ticketsLength}]`}
-                sx={{ marginRight: '12px' }}
+                endIcon={`[${tickets.length}]`}
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
@@ -78,12 +87,11 @@ export default function ClientTabs({clientActive, gotchisLength, warehouseLength
             </Button>
 
             <Button
-                disabled={!realmLength}
-                size='large'
+                disabled={!realm.length}
                 startIcon={
-                    <img src={realmPlaceholder} alt='gotchi' width={27} />
+                    <img src={realmPlaceholder} alt='gotchi' width={20} />
                 }
-                endIcon={`[${realmLength}]`}
+                endIcon={`[${realm.length}]`}
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
