@@ -356,7 +356,7 @@ export default function Baazaar() {
 
                         stats[traitName].forEach((traitsRange) => {
                             if (!thisTraitHasMatch) {
-                                thisTraitHasMatch = traitsRange[0] <= gotchiTraits[index] && traitsRange[0] >= gotchiTraits[index];
+                                thisTraitHasMatch = traitsRange[0] <= gotchiTraits[index] && traitsRange[1] >= gotchiTraits[index];
                             }
                         });
 
