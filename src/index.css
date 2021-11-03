@@ -25,6 +25,7 @@ html, body {
 .custom-scroll::-webkit-scrollbar {
   background-color: transparent;
   width: 4px;
+  height: 4px;
 }
 .custom-scroll::-webkit-scrollbar-thumb {
   border-radius: 8px;
