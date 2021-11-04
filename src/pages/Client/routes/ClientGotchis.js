@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
-import { Box, Alert, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
+import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { useStyles } from '../styles';
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Gotchi from '../../../components/Gotchi/Gotchi';
+import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientGotchis() {
     const classes = useStyles();
-    const { gotchis, gotchisFilter, sortData, rewardCalculated } = useContext(ClientContext);
+    const { gotchis, gotchisFilter, loadingGotchis, sortData, rewardCalculated } = useContext(ClientContext);
 
-    if(!gotchis.length) {
-        return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No aavegotchis here...
-        </Alert>
+
+    if(loadingGotchis || !gotchis.length) {
+        return <Box textAlign='center' paddingTop={'32px'}>
+            <GhostLoader
+                animate={loadingGotchis || !gotchis.length}
+                text={!loadingGotchis && !gotchis.length ? 'No gotchis here :(' : null}
+            />
+        </Box>
     }
 
     return (

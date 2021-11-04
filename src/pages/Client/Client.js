@@ -10,7 +10,6 @@ import { useStyles } from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
 import { ClientContext } from '../../contexts/ClientContext';
 
-
 import LoginNavigation from '../../components/Login/LoginNavigation';
 import ClientProfile from './components/ClientProfile';
 import ClientNav from './components/ClientNav';

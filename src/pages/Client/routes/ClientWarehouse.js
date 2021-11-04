@@ -1,19 +1,23 @@
 import React, { useContext } from 'react';
-import { Box, Alert, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
+import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 import { useStyles } from '../styles';
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Wearable from '../../../components/Items/Wearable/Wearable';
 import Consumable from '../../../components/Items/Consumable/Consumable';
+import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientWarehouse() {
     const classes = useStyles();
-    const { warehouse, warehouseFilter, sortData } = useContext(ClientContext);
+    const { warehouse, warehouseFilter, loadingWarehouse, sortData } = useContext(ClientContext);
 
-    if(!warehouse.length) {
-        return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No wearables here...
-        </Alert>
+    if(loadingWarehouse || !warehouse.length) {
+        return <Box textAlign='center' paddingTop={'32px'}>
+            <GhostLoader
+                animate={loadingWarehouse || !warehouse.length}
+                text={!loadingWarehouse && !warehouse.length ? 'No wearables here :(' : null}
+            />
+        </Box>
     }
 
     return (

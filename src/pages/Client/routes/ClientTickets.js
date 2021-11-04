@@ -1,18 +1,22 @@
 import React, { useContext } from 'react';
-import { Box, Alert } from '@mui/material';
+import { Box } from '@mui/material';
 import { useStyles } from '../styles';
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Ticket from '../../../components/Items/Ticket/Ticket';
+import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientTickets() {
     const classes = useStyles();
-    const { tickets } = useContext(ClientContext);
+    const { tickets, loadingTickets } = useContext(ClientContext);
 
-    if(!tickets.length) {
-        return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No ticket here...
-        </Alert>
+    if(loadingTickets || !tickets.length) {
+        return <Box textAlign='center' paddingTop={'32px'}>
+            <GhostLoader
+                animate={loadingTickets || !tickets.length}
+                text={!loadingTickets && !tickets.length ? 'No ticket here :(' : null}
+            />
+        </Box>
     }
 
     return (

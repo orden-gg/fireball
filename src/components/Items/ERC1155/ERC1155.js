@@ -84,7 +84,7 @@ export default function ERC1155({children, item}) {
                             {item.holders?.length ? (
                                 <Tooltip
                                     title={
-                                        <div style={{ textAlign: 'right', maxWidth: 200 }}>
+                                        <div style={{ maxWidth: 200 }}>
                                             <p style={{ margin: '0 0 2px' }}>Equipped at:</p>
                                             {
                                                 item.holders.map((holder, index) => {

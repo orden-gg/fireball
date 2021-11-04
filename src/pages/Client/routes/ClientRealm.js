@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Alert, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
+import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 import { useStyles } from '../styles';
 import { ClientContext } from '../../../contexts/ClientContext';
 
@@ -9,15 +9,19 @@ import fud from '../../../assets/images/icons/fud.png';
 import fomo from '../../../assets/images/icons/fomo.png';
 import alpha from '../../../assets/images/icons/alpha.png';
 import kek from '../../../assets/images/icons/kek.png';
+import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientRealm() {
     const classes = useStyles();
-    const { realm, realmFilter, sortData } = useContext(ClientContext);
+    const { realm, realmFilter, loadingRealm, sortData } = useContext(ClientContext);
 
-    if(!realm.length) {
-        return <Alert severity='info' sx={{ display: 'inline-flex' }}>
-            No realm here...
-        </Alert>
+    if(loadingRealm || !realm.length) {
+        return <Box textAlign='center' paddingTop={'32px'}>
+            <GhostLoader
+                animate={loadingRealm || !realm.length}
+                text={!loadingRealm && !realm.length ? 'No realm here :(' : null}
+            />
+        </Box>
     }
 
     return (
