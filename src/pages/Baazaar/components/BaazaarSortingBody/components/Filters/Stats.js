@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useState} from "react";
 import { Grid, Button, TextField, InputLabel, Select, MenuItem, FormControl, Slider } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
@@ -14,6 +14,7 @@ export default function Stats() {
         selectedTraits,
         setSelectedTraits
     } = useContext(BaazaarContext);
+    const [sliderIsValid, setSliderToValid] = useState(true);
 
     const onMinBRSChange = (event) => {
         setMinBRS(event.target.value);
@@ -29,6 +30,31 @@ export default function Stats() {
 
     const onSliderChange = (event) => {
         setSliderRange(event.target.value);
+    };
+
+    const onRangeChange = (event, indexInRange) => {
+        debugger
+        const oldValue = sliderRange[indexInRange];
+        const newValue = parseInt(event.target.value);
+        const cachedRange = [...sliderRange];
+        const indexOfSecondRangeValue = indexInRange === 0 ? 1 : 0;
+
+        if (indexInRange === 0 && cachedRange[1] < newValue) {
+
+        }
+
+        if (isNaN(newValue)) {
+            cachedRange[indexInRange] = 0
+        } else {
+            cachedRange[indexInRange] = newValue;
+        }
+
+        setSliderToValid(cachedRange[0] <= cachedRange[1] &&
+            cachedRange[0] >= 0 && cachedRange[1] >= 0 &&
+            cachedRange[0] <= 99 && cachedRange[1] <= 99
+        );
+
+        setSliderRange(cachedRange);
     };
 
     return (
@@ -68,20 +94,45 @@ export default function Stats() {
                         </FormControl>
                     </Grid>
                     <Grid item xs={6}>
-                        <Slider
-                            min={0}
-                            max={99}
-                            value={sliderRange}
-                            onChange={onSliderChange}
-                            valueLabelDisplay="auto"
-                            disableSwap
-                        />
+                        <Grid container spacing={2} className={classes.sliderContainer}>
+                            <Grid item xs={2}>
+                                <TextField
+                                    type='text'
+                                    variant={"standard"}
+                                    size={'small'}
+                                    fullWidth
+                                    value={sliderRange[0]}
+                                    onChange={(event) => onRangeChange(event, 0)}
+                                />
+                            </Grid>
+                            <Grid item xs={8}>
+                                <Slider
+                                    min={0}
+                                    max={99}
+                                    value={sliderRange}
+                                    onChange={onSliderChange}
+                                    valueLabelDisplay="auto"
+                                    disableSwap
+                                />
+                            </Grid>
+                            <Grid item xs={2}>
+                                <TextField
+                                    type='text'
+                                    variant={"standard"}
+                                    size={'small'}
+                                    fullWidth
+                                    value={sliderRange[1]}
+                                    onChange={(event) => onRangeChange(event, 1)}
+                                />
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={3}>
                         <Button
                             variant={'outlined'}
                             color={'primary'}
                             fullWidth
+                            disabled={!sliderIsValid}
                             onClick={onAddTraitClick}
                         >Add</Button>
                     </Grid>

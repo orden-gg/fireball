@@ -27,5 +27,8 @@ export default makeStyles((theme) => ({
         '& > *': {
             margin: '0 5px 2px 0 !important',
         }
+    },
+    sliderContainer: {
+        paddingTop: 4
     }
 }));
