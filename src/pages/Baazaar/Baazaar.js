@@ -8,6 +8,7 @@ import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
 import { BaazaarContext } from "../../contexts/BaazaarContext";
 import { listingTypes } from "../../data/types";
 import Web3 from "web3";
+import { baazaarFilteringTypes } from '../../data/types';
 
 const web3 = new Web3();
 
@@ -329,7 +330,7 @@ export default function Baazaar() {
             const gotchiTraits = item.numericTraits;
             let hasDifference = false;
 
-            if (filteringType === 'name') {
+            if (filteringType === baazaarFilteringTypes.name) {
                 if (!item.name) return false;
                 if (!name) return true;
 
@@ -338,7 +339,7 @@ export default function Baazaar() {
                 } else {
                     return item.name.toLowerCase().split(name.toLowerCase()).length > 1;
                 }
-            } else if (filteringType === 'id') {
+            } else if (filteringType === baazaarFilteringTypes.id) {
                 if (!id) return true;
 
                 if (exactMatch) {
@@ -346,7 +347,7 @@ export default function Baazaar() {
                 } else {
                     return item.id.split(id).length > 1;
                 }
-            } else if (filteringType === 'stats') {
+            } else if (filteringType === baazaarFilteringTypes.stats) {
                 if (parseInt(item.baseRarityScore) <= parseInt(minBRS)) {
                     return false;
                 }

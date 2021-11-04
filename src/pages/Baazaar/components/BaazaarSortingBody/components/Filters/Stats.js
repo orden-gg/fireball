@@ -1,23 +1,19 @@
-import React, {useContext, useEffect, useState} from "react";
-import {
-    Grid,
-    Button,
-    TextField,
-    Checkbox,
-    Typography,
-    InputLabel,
-    Select,
-    MenuItem,
-    FormControl,
-    Slide, Slider, Chip, Stack
-} from "@mui/material";
+import React, { useContext } from "react";
+import { Grid, Button, TextField, InputLabel, Select, MenuItem, FormControl, Slider } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
 
 export default function Stats() {
     const classes = useStyles();
-    const [chips, setChips] = useState([]);
-    const {minBRS, setMinBRS, sliderRange, setSliderRange, stats, addStat, selectedTraits, setSelectedTraits} = useContext(BaazaarContext);
+    const {
+        minBRS,
+        setMinBRS,
+        sliderRange,
+        setSliderRange,
+        addStat,
+        selectedTraits,
+        setSelectedTraits
+    } = useContext(BaazaarContext);
 
     const onMinBRSChange = (event) => {
         setMinBRS(event.target.value);
@@ -29,10 +25,6 @@ export default function Stats() {
 
     const onAddTraitClick = () => {
         addStat();
-    };
-
-    const valuetext = () => {
-        return `${sliderRange[0]}-${sliderRange[1]}`;
     };
 
     const onSliderChange = (event) => {
@@ -83,7 +75,6 @@ export default function Stats() {
                             onChange={onSliderChange}
                             valueLabelDisplay="auto"
                             disableSwap
-                            // getAriaValueText={valuetext}
                         />
                     </Grid>
                     <Grid item xs={3}>

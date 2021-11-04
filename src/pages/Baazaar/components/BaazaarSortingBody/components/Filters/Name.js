@@ -1,10 +1,8 @@
-import React, {useContext} from "react";
-import {Grid, Button, TextField, Checkbox, Typography} from "@mui/material";
+import React, { useContext } from "react";
+import { TextField } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import useStyles from "./styles";
 
 export default function Name() {
-    const classes = useStyles();
     const { name, setName } = useContext(BaazaarContext);
 
     const onNameChange = (event) => {

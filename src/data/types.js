@@ -6,3 +6,9 @@ export const listingTypes = {
     consumable: 'erc1155Listings-2',
     tickets: 'erc1155Listings-3'
 };
+
+export const baazaarFilteringTypes = {
+    name: 'name',
+    id: 'id',
+    stats: 'stats'
+};

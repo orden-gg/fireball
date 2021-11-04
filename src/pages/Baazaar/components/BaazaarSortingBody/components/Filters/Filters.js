@@ -1,28 +1,17 @@
 import React, {useContext, useEffect, useState} from "react";
-import {
-    Grid,
-    Button,
-    TextField,
-    Checkbox,
-    Typography,
-    InputLabel,
-    Select,
-    MenuItem,
-    FormControl,
-    Stack,
-    Chip
-} from "@mui/material";
+import { Grid, Button, Checkbox, InputLabel, Select, MenuItem, FormControl, Chip } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
 import Stats from "./Stats";
 import Name from "./Name";
 import Id from "./Id";
 import classNames from 'classnames';
+import { baazaarFilteringTypes } from '../../../../../../data/types'
 
 export default function Filters({handleFindClick}) {
     const classes = useStyles();
     const [chips, setChips] = useState([]);
-    const {filteringType, setFilteringType, exactMatch, setExactMatch, NRG, setNRG, AGG, setAGG, SPK, setSPK, BRN, setBRN, EYS, setEYS, EYC, setEYC, stats, removeStat} = useContext(BaazaarContext);
+    const {filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat} = useContext(BaazaarContext);
 
     const onFindClick = () => {
         handleFindClick();
@@ -74,24 +63,25 @@ export default function Filters({handleFindClick}) {
                                 defaultValue={filteringType}
                                 onChange={onFilteringTypeChange}
                             >
-                                <MenuItem value={'stats'}>Stats</MenuItem>
-                                <MenuItem value={'name'}>Name</MenuItem>
-                                <MenuItem value={'id'}>Id</MenuItem>
+                                <MenuItem value={baazaarFilteringTypes.stats}>Stats</MenuItem>
+                                <MenuItem value={baazaarFilteringTypes.name}>Name</MenuItem>
+                                <MenuItem value={baazaarFilteringTypes.id}>Id</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
                     <Grid item xs={12} md={8}>
                         {
-                            filteringType === 'stats' && <Stats />
+                            filteringType === baazaarFilteringTypes.stats && <Stats />
                         }
                         {
-                            (filteringType === 'name' || filteringType === 'id') && <Grid container spacing={2}>
+                            (filteringType === baazaarFilteringTypes.name || filteringType === baazaarFilteringTypes.id) &&
+                            <Grid container spacing={2}>
                                 <Grid item xs={8}>
                                     {
-                                        filteringType === 'name' && <Name />
+                                        filteringType === baazaarFilteringTypes.name && <Name />
                                     }
                                     {
-                                        filteringType === 'id' && <Id />
+                                        filteringType === baazaarFilteringTypes.id && <Id />
                                     }
                                 </Grid>
                                 <Grid item xs={4}>
@@ -116,7 +106,7 @@ export default function Filters({handleFindClick}) {
                 </Grid>
             </Grid>
             {
-                (!!chips.length && filteringType === 'stats') && <Grid item xs={12}>
+                (!!chips.length && filteringType === baazaarFilteringTypes.stats) && <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid
                             item xs={12}
