@@ -2,6 +2,9 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
 import graphUtils from '../utils/graphUtils';
 import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery } from './common/queries';
+import Web3 from 'web3';
+
+const web3 = new Web3();
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
@@ -165,7 +168,7 @@ export default {
 
             return {
                 listing: erc1155[0]?.id || null,
-                price: erc1155[0]?.priceInWei / 10**18 || 0,
+                price: erc1155[0]?.priceInWei ? +web3.utils.fromWei(erc1155[0].priceInWei) : 0,
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
