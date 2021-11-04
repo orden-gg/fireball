@@ -1,4 +1,3 @@
-// import Moralis from "moralis";
 import Web3 from 'web3';
 import { MAIN_CONTRACT, POLYGON_RPC } from "../../api/common/constants";
 import { SVG_ABI } from '../../data/abi/svg';
@@ -8,8 +7,6 @@ const contract = new web3.eth.Contract(SVG_ABI, MAIN_CONTRACT);
 
 export default { 
     async getSvg(gotchies) {
-        // let result = await Moralis.Cloud.run("getSVG",{gotchies});
-
         let svgs = [];
 
         for (let key in gotchies) {

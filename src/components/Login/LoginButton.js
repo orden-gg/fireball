@@ -20,14 +20,15 @@ export default function LoginButton() {
 
     const { activeAddress, selectActiveAddress, storageAddresses,
             connectMetamask, isMetamaskActive, getActiveAddressSvgId,
-            modalOpen, setModalOpen, dropdownOpen, setDropdownOpen } = useContext(LoginContext);
+            modalOpen, setModalOpen, dropdownOpen, setDropdownOpen
+    } = useContext(LoginContext);
 
     useEffect(() => { // connect metamask on load
         if (metaState.isAvailable) {
             (async () => {
                 try {
                     let account = await getAccounts();
-                    if(account.length) connectMetamask();
+                    if (account.length) connectMetamask();
                 } catch (error) {
                     console.log(error);
                 }
@@ -36,8 +37,8 @@ export default function LoginButton() {
     }, []);
 
     useEffect(() => { // handle metamask accounts
-        if(metaState.account[0]) {
-            if(metaState.account[0] === activeAddress || isMetamaskActive || !activeAddress.length) {
+        if (metaState.account[0]) {
+            if (metaState.account[0] === activeAddress || isMetamaskActive || !activeAddress.length) {
                 selectActiveAddress(metaState.account[0]);
             }
         } else if (isMetamaskActive) { // on metamask logout

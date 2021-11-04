@@ -8,6 +8,7 @@ import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
 import { BaazaarContext } from "../../contexts/BaazaarContext";
 import { listingTypes } from "../../data/types";
 import Web3 from "web3";
+import { baazaarFilteringTypes } from '../../data/types';
 
 const web3 = new Web3();
 
@@ -37,7 +38,7 @@ export default function Baazaar() {
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
     const [paginationIsVisible, setPaginationToVisible] = useState(true);
-    const {orderingTypes, sortingOrder, NRG, AGG, SPK, BRN, EYS, EYC} = useContext(BaazaarContext);
+    const {filteringType, exactMatch, id, name, orderingTypes, sortingOrder, minBRS, stats} = useContext(BaazaarContext);
 
     const onLoadBaazaarItemsClick = (params) => {
         const validParams = validateParams(params);
@@ -329,39 +330,57 @@ export default function Baazaar() {
     };
 
     const filterLocalGoods = () => {
-        const filtersMap = [NRG || null, AGG || null, SPK || null, BRN || null, EYS || null, EYC || null];
+        const filtersMap = ["NRG", "AGG", "SPK", "BRN", "EYS", "EYC"];
 
         const filterSingleGotchi = (item) => {
             const gotchiTraits = item.numericTraits;
             let hasDifference = false;
 
-            filtersMap.forEach((trait, index) => {
-                if (trait !== null && !hasDifference) {
-                    hasDifference = parseInt(trait) !== gotchiTraits[index];
+            if (filteringType === baazaarFilteringTypes.name) {
+                if (!item.name) return false;
+                if (!name) return true;
+
+                if (exactMatch) {
+                    return item.name.toLowerCase() === name.toLowerCase();
+                } else {
+                    return item.name.toLowerCase().split(name.toLowerCase()).length > 1;
                 }
-            });
+            } else if (filteringType === baazaarFilteringTypes.id) {
+                if (!id) return true;
+
+                if (exactMatch) {
+                    return item.id === id;
+                } else {
+                    return item.id.split(id).length > 1;
+                }
+            } else if (filteringType === baazaarFilteringTypes.stats) {
+                if (parseInt(item.baseRarityScore) <= parseInt(minBRS)) {
+                    return false;
+                }
+                filtersMap.forEach((traitName, index) => {
+                    if (!hasDifference) {
+                        let thisTraitHasMatch = false;
+
+                        stats[traitName].forEach((traitsRange) => {
+                            if (!thisTraitHasMatch) {
+                                thisTraitHasMatch = traitsRange[0] <= gotchiTraits[index] && traitsRange[1] >= gotchiTraits[index];
+                            }
+                        });
+
+                        if (!thisTraitHasMatch && stats[traitName].length) {
+                            hasDifference = true;
+                        }
+                    }
+                });
+            } else {
+                return true;
+            }
 
             return !hasDifference;
         };
 
-        const filterGotchiArray = (item) => {
-            let atLeastOneGotchiMatch = false;
-
-            item.gotchi.forEach((gotchiItem) => {
-                const gotchiMatch = !atLeastOneGotchiMatch ? filterSingleGotchi(gotchiItem) : false;
-
-                gotchiMatch && (atLeastOneGotchiMatch = true);
-            });
-
-            return atLeastOneGotchiMatch;
-        };
-
         filteredLocalGoods = localGoods.filter((item) => {
-            if (item.gotchi instanceof Array) {
-                return filterGotchiArray(item);
-            } else {
-                return filterSingleGotchi(item.gotchi);
-            }
+            return filterSingleGotchi(item.gotchi);
         });
     };
 

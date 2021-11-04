@@ -38,9 +38,9 @@ export default function Countdown({date, format, onEnd, id}) {
 
     
     useEffect( () => {
-        if(time.milliseconds <= 0) {
+        if (time.milliseconds <= 0) {
             onEnd(id);
-        };
+        }
     }, [time]);
 
     return (

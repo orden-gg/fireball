@@ -81,7 +81,7 @@ export default function Portals() {
                             {commonUtils.formatNumber(gotchiClaimed)}
                         </Box>
                     )}
-                    <Box component='span'> gotchis are sumonned </Box>
+                    <Box component='span'> gotchies are summoned </Box>
                     <Link className={classes.explorerLink} to='/explorer'>Aavegotchi Explorer</Link>
                 </Box>
             </Grid>
