@@ -97,10 +97,9 @@ export default function LoginButton() {
                             )}
 
                             {storageAddresses.length ? (
-
-                                    storageAddresses.map((item, index) => {
-                                        return <LoginAddress address={item} key={index} setDropdownOpen={setDropdownOpen} />
-                                    })
+                                storageAddresses.map((item, index) => {
+                                    return <LoginAddress address={item} key={index} setDropdownOpen={setDropdownOpen} />
+                                })
                             ) : (
                                 null
                             )}

@@ -9,13 +9,13 @@ import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientWarehouse() {
     const classes = useStyles();
-    const { warehouse, warehouseFilter, loadingWarehouse, sortData } = useContext(ClientContext);
+    const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
-    if(loadingWarehouse || !warehouse.length) {
+    if((loadingWarehouse && loadingGotchis) || !warehouse.length) {
         return <Box textAlign='center' paddingTop={'32px'}>
             <GhostLoader
-                animate={loadingWarehouse || !warehouse.length}
-                text={!loadingWarehouse && !warehouse.length ? 'No wearables here :(' : null}
+                animate={(loadingWarehouse && loadingGotchis) || !warehouse.length}
+                text={!loadingWarehouse && !loadingGotchis && !warehouse.length ? 'No wearables here :(' : null}
             />
         </Box>
     }

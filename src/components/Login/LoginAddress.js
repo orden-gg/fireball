@@ -25,6 +25,10 @@ export default function LoginAddress({address, isMetamask}) {
         if (editMode) nameRef.current.focus();
     }, [editMode]);
 
+    useEffect(() => {
+        if (address) setName(address.name);
+    }, [address]);
+
     const onAddressClick = () => {
         setDropdownOpen(false);
         selectActiveAddress(address.address);
