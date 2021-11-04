@@ -55,7 +55,7 @@ export default function Stats() {
                             <InputLabel>Trait</InputLabel>
                             <Select
                                 label='Trait'
-                                defaultValue={selectedTraits}
+                                value={selectedTraits}
                                 onChange={onTraitsChange}
                             >
                                 <MenuItem value={'NRG'}>NRG</MenuItem>
@@ -71,7 +71,7 @@ export default function Stats() {
                         <Slider
                             min={0}
                             max={99}
-                            defaultValue={sliderRange}
+                            value={sliderRange}
                             onChange={onSliderChange}
                             valueLabelDisplay="auto"
                             disableSwap

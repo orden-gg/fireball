@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Grid, Button, Checkbox, InputLabel, Select, MenuItem, FormControl, Chip } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
@@ -60,7 +60,7 @@ export default function Filters({handleFindClick}) {
                             <InputLabel>Filter by</InputLabel>
                             <Select
                                 label='Filter by'
-                                defaultValue={filteringType}
+                                value={filteringType}
                                 onChange={onFilteringTypeChange}
                             >
                                 <MenuItem value={baazaarFilteringTypes.stats}>Stats</MenuItem>
