@@ -26,7 +26,7 @@ export default function ClientRealm() {
 
     return (
         <>
-            <Box display='flex' alignItems='center' marginBottom='16px'>
+            <Box display='flex' alignItems='center' justifyContent='center' marginBottom='16px'>
                 <Box display='flex' alignItems='center' marginRight='24px'>
                     <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
 

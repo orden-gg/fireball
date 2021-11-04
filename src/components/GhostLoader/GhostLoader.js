@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
         padding: 40,
         pointerEvents: 'none',
-        animation: '$fly 2s linear infinite',
+        animation: '$fly 3s linear infinite',
         '&.no-anim': {
             animationIterationCount: '1',
         }
@@ -227,14 +227,14 @@ export default function GhostLoader({animate, text}) {
 
     useEffect(() => {
         if(text) {
-            setTimeout(() => setTitle(text), 1000);
+            setTimeout(() => setTitle(text), 2000);
         } else {
             setTitle(null);
         }
     }, [text]);
     
     const onAnimationEnd = () => {
-        if (!animate) setRender(false);
+        if(!animate) setRender(false);
     };
 
     return (

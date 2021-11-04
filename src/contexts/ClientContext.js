@@ -12,18 +12,18 @@ const ClientContextProvider = (props) => {
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
-    const [loadingGotchis, setLoadingGotchis] = useState(false);
+    const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [tickets, setTickets] = useState([]);
-    const [loadingTickets, setLoadingTickets] = useState(false);
+    const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
     const [realmFilter, setRealmFilter] = useState('sizeDesc');
-    const [loadingRealm, setLoadingRealm] = useState(false);
+    const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
     const [rewardCalculating, setRewardCalculating] = useState(false);
@@ -71,7 +71,7 @@ const ClientContextProvider = (props) => {
         }
     };
 
-    const getGotchis = async (address) => {
+    const getGotchis = (address) => {
         setLoadingGotchis(true);
 
         thegraph.getGotchisByAddress(address).then((response)=> {

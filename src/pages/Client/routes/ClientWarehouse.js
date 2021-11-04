@@ -11,10 +11,10 @@ export default function ClientWarehouse() {
     const classes = useStyles();
     const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
-    if((loadingWarehouse && loadingGotchis) || !warehouse.length) {
+    if(loadingWarehouse || loadingGotchis || !warehouse.length) {
         return <Box textAlign='center' paddingTop={'32px'}>
             <GhostLoader
-                animate={(loadingWarehouse && loadingGotchis) || !warehouse.length}
+                animate={loadingWarehouse || loadingGotchis || !warehouse.length}
                 text={!loadingWarehouse && !loadingGotchis && !warehouse.length ? 'No wearables here :(' : null}
             />
         </Box>
@@ -22,7 +22,7 @@ export default function ClientWarehouse() {
 
     return (
         <>
-            <Box display='flex' alignItems='center' marginBottom='16px'>
+            <Box display='flex' alignItems='center' justifyContent='center' marginBottom='16px'>
                 <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
 
                 <ToggleButtonGroup
