@@ -11,7 +11,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 import { ClientContext } from '../../contexts/ClientContext';
 
 import LoginNavigation from '../../components/Login/LoginNavigation';
-import ClientProfile from './components/ClientProfile';
+import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import ClientNav from './components/ClientNav';
 import ClientGotchis from './routes/ClientGotchis';
 import ClientWarehouse from './routes/ClientWarehouse';
@@ -70,7 +70,7 @@ export default function Client() {
             ) : (
                 <>
                     <Box marginBottom='12px'>
-                        <ClientProfile />
+                        <ProfilePane address={clientActive} />
                     </Box>
 
                     <Box marginBottom='12px'>

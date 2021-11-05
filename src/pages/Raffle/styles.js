@@ -6,11 +6,8 @@ export const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff'
     },
-    raffle: {
-        padding: '25px 16px',
-        [theme.breakpoints.up('sm')]: {
-            padding: '25px 24px',
-        }
+    container: {
+        padding: 24
     },
     titleWrapper: {
         textAlign: 'center',

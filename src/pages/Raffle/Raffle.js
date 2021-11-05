@@ -1,5 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Box, Button, Container, Link, Typography, Grid } from '@mui/material';
+import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import {Helmet} from 'react-helmet';
 import RaffleTable from './components/RaffleTable';
 import RaffleWearables from './components/RaffleWearables';
@@ -9,6 +11,13 @@ import thegraph from '../../api/thegraph';
 import {raffle6TotalEnteredQuery, raffleTicketPriceQuery} from './data/queries';
 import Countdown from '../../components/Countdown/Countdown';
 import { DateTime } from 'luxon';
+import queryString from 'query-string'
+
+import RaffleNav from './components/RaffleNav';
+import RaffleRealm1 from './routes/RaffleRealm1';
+import RaffleWearable5 from './routes/RaffleWearable5';
+import { LoginContext } from '../../contexts/LoginContext';
+import ProfilePane from '../../components/ProfilePane/ProfilePane';
 
 const raffleStartDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
 const raffleEndDate = DateTime.local(2021, 9, 27, 14, { zone: 'utc' });
@@ -41,12 +50,14 @@ export default function Raffle() {
     const [enteredCombined, setEnteredCombined] = useState(true);
     const [currentCountdown, setCurrentCountdown] = useState(0);
 
+    const match = useRouteMatch();
+    const location = useLocation();
+    const history = useHistory();
+    const params = queryString.parse(location.search)
 
-    // const [activeRaffle, setActiveRaffle] = React.useState('5');
+    const [raffleActive, setRaffleActive] = useState(null);
 
-    // const onTabsChange = (event, newValue) => {
-    //     setActiveRaffle(newValue);
-    // };
+    const { activeAddress } = useContext(LoginContext);
 
     const [commonQuantity, setCommonQuantity] = useState('');
     const [uncommonQuantity, setUncommonQuantity] = useState('');
@@ -55,6 +66,27 @@ export default function Raffle() {
     const [mythicalQuantity, setMythicalQuantity] = useState('');
     const [godlikeQuantity, setGodlikeQuantity] = useState('');
     // const [enteredSupplyType, setEnteredSupplyType] = useState(true);
+
+    useEffect(() => {
+        if(activeAddress) {
+            setRaffleActive(activeAddress);
+        }
+    }, [activeAddress]);
+
+    useEffect(() => {
+        if(params.address) {
+            setRaffleActive(params.address);
+        }
+    }, [params.address]);
+
+    useEffect(() => {
+        if(raffleActive) {
+            // getClientData();
+            history.push({ path: location.pathname, search: `?address=${raffleActive}` });
+        } else {
+            history.push({ path: location.pathname });
+        }
+    }, [raffleActive]);
 
     const getTicketQuantity = (type) => {
         const map = {
@@ -212,21 +244,21 @@ export default function Raffle() {
         setCurrentCountdown(currentCountdown+1);
     }
 
-    useEffect(() => {
-        loadTickets();
-    },[]);
+    // useEffect(() => {
+    //     loadTickets();
+    // },[]);
 
-    useEffect(() => {
-        countTicketsChance();
-    },[enteredCombined]);
+    // useEffect(() => {
+    //     countTicketsChance();
+    // },[enteredCombined]);
 
-    useEffect(() => {
-        getAveragePrices();
-    },[ticketsCache]);
+    // useEffect(() => {
+    //     getAveragePrices();
+    // },[ticketsCache]);
 
-    useEffect(() => {
-        onFieldChange();
-    }, [commonQuantity, uncommonQuantity, rareQuantity, legendaryQuantity, mythicalQuantity, godlikeQuantity]);
+    // useEffect(() => {
+    //     onFieldChange();
+    // }, [commonQuantity, uncommonQuantity, rareQuantity, legendaryQuantity, mythicalQuantity, godlikeQuantity]);
 
     // useEffect(() => {
     //     onFieldChange();
@@ -240,12 +272,12 @@ export default function Raffle() {
     // }, 180000);
 
     return (
-        <Container maxWidth='lg' className={classes.raffle}>
+        <Box className={classes.container}>
             <Helmet>
                 <title>Raffle Calculator</title>
             </Helmet>
 
-            <Grid container alignContent={'center'} className={classes.titleWrapper}>
+            {/* <Grid container alignContent={'center'} className={classes.titleWrapper}>
                 <Grid item xs={12} md={6}>
                     <Typography variant='h4' className={classes.title}>
                         <Box component='span' position='relative'>
@@ -266,7 +298,26 @@ export default function Raffle() {
                         </Box>
                     </Box>
                 </Grid>
-            </Grid>
+            </Grid> */}
+
+            <Box marginBottom='12px'>
+                <ProfilePane address={raffleActive} />
+            </Box>
+
+
+            <Box marginBottom='12px'>
+                <RaffleNav address={raffleActive} />
+            </Box>
+
+            <Switch>
+                <Route path={`${match.path}/wearable-5`}>
+                    <RaffleWearable5 />
+                </Route>
+                <Route path={`${match.path}/realm-1`}>
+                    <RaffleRealm1 />
+                </Route>
+                <Redirect from={match.path} to={`${match.path}/realm-1`} />
+            </Switch>
 
             {/* <Box display='flex' justifyContent='center' textAlign='center' marginBottom='60px'>
                 <Box margin='0 8px' flexBasis={180}>
@@ -321,7 +372,7 @@ export default function Raffle() {
                 </Link>
             </Box> */}
 
-            <RaffleTable
+            {/* <RaffleTable
                 tickets={tickets}
                 supplySpinner={supplySpinner}
                 pricesSpinner={pricesSpinner}
@@ -338,7 +389,7 @@ export default function Raffle() {
                 enteredCombined={enteredCombined}
                 setEnteredCombined={setEnteredCombined}
             />
-            <RaffleWearables tickets={tickets} />
-        </Container>
+            <RaffleWearables tickets={tickets} /> */}
+        </Box>
     );
 }

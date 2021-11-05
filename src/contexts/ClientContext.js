@@ -250,6 +250,7 @@ const ClientContextProvider = (props) => {
 
             reward,
             rewardCalculated,
+            rewardCalculating,
             calculateReward,
 
             getClientData,

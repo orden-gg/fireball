@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { useStyles } from '../styles';
 import { ClientContext } from '../../../contexts/ClientContext';
+import commonUtils from '../../../utils/commonUtils';
 
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
+import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function ClientGotchis() {
     const classes = useStyles();
-    const { gotchis, gotchisFilter, loadingGotchis, sortData, rewardCalculated } = useContext(ClientContext);
+    const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
 
 
     if(loadingGotchis || !gotchis.length) {
@@ -67,6 +70,36 @@ export default function ClientGotchis() {
                         null
                     )}
                 </ToggleButtonGroup>
+
+
+                <Box display='flex' alignItems='center' marginLeft='16px'>
+
+                    <LoadingButton
+                        disabled={rewardCalculated}
+                        onClick={calculateReward}
+                        loading={rewardCalculating}
+                        variant='contained'
+                        sx={{ marginRight: '16px' }}
+                    >
+                        {reward ? 'Reward:' : 'Calculate Reward'}
+                    </LoadingButton>
+
+                    {reward ? (
+                        <Typography variant='h6' style={{ display: 'inline-flex', alignItems: 'center' }}>
+                            <span className={classes.lightText}>{commonUtils.formatPrice(reward)}</span>
+                            <img src={ghstIcon} width='24' alt='GHST Token Icon' />
+
+                            <Box component='span' display='inline-flex' alignItems='center' fontSize='16px' marginLeft='4px'>
+                                (<span className={classes.lightText}>{commonUtils.formatPrice(reward / 4)}</span>
+                                <img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
+                            </Box>
+                        </Typography>
+                        
+                    ) : (
+                        null
+                    )}
+
+                </Box>
             </Box>
 
             <Box className={classes.list}>

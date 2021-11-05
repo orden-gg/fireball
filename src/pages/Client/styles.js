@@ -40,14 +40,7 @@ export const useStyles = makeStyles((theme) => ({
             width: 18
         }
     },
-    rewardText: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        '& span.lighter': {
-            color: theme.palette.primary.main
-        }
-    },
-    calculateButton: {
-        marginLeft: '16px !important',
+    lightText: {
+        color: theme.palette.primary.main
     },
 }));
