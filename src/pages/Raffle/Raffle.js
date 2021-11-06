@@ -6,8 +6,8 @@ import {useStyles} from './styles';
 import queryString from 'query-string'
 
 import RaffleNav from './components/RaffleNav';
-import RaffleRealm1 from './routes/RaffleRealm1';
-import RaffleWearable5 from './routes/RaffleWearable5';
+import RaffleRealm from './routes/RaffleRealm';
+import RaffleWearables5 from './routes/RaffleWearables5';
 import { LoginContext } from '../../contexts/LoginContext';
 import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import RaffleContextProvider from '../../contexts/RaffleContext';
@@ -110,13 +110,13 @@ export default function Raffle() {
 
             <RaffleContextProvider>
                 <Switch>
-                    <Route path={`${match.path}/wearable-5`}>
-                        <RaffleWearable5 raffleActive={raffleActive} />
+                    <Route path={`${match.path}/wearables-5`}>
+                        <RaffleWearables5 raffleActive={raffleActive} />
                     </Route>
-                    <Route path={`${match.path}/realm-1`}>
-                        <RaffleRealm1 raffleActive={raffleActive} />
+                    <Route path={`${match.path}/realm`}>
+                        <RaffleRealm raffleActive={raffleActive} />
                     </Route>
-                    <Redirect from={match.path} to={`${match.path}/realm-1`} />
+                    <Redirect from={match.path} to={`${match.path}/realm`} />
                 </Switch>
             </RaffleContextProvider>
 

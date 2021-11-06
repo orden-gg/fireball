@@ -99,7 +99,7 @@ export default function RaffleNav({address}) {
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
-                to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
+                to={{ pathname: `${match.url}/wearables-5`, search: `?address=${address}` }}
             >
                 Wearables #5
             </Button>
@@ -111,7 +111,7 @@ export default function RaffleNav({address}) {
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
-                to={{ pathname: `${match.url}/realm-1`, search: `?address=${address}` }}
+                to={{ pathname: `${match.url}/realm`, search: `?address=${address}` }}
             >
                 Realm
             </Button>
