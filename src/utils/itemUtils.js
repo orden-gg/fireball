@@ -180,6 +180,27 @@ export default {
         }
     },
 
+    getTicketFrensPrice(rarity) {
+        switch (rarity) {
+            case 'common':
+                return 50;
+            case 'uncommon':
+                return 250;
+            case 'rare':
+                return 500;
+            case 'legendary':
+                return 2500;
+            case 'mythical':
+                return 10000;
+            case 'godlike':
+                return 50000;
+            case 'drop':
+                return 10000;
+            default:
+                return 0;
+        }
+    },
+
     getSlotCaption(name) {
         switch (name) {
             case 'body':

@@ -45,7 +45,8 @@ export const theme = createTheme({
         customColors: {
             lightGray: '#9A9EAA',
             grayBorder: '#C3C5CB',
-            gray: '#94969a'
+            gray: '#94969a',
+            light: '#c1ad87'
         },
         haunts: {
             h1: 'rgb(193, 95, 255)',

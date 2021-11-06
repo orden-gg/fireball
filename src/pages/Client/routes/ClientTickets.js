@@ -23,7 +23,7 @@ export default function ClientTickets() {
         <Box className={classes.list}>
             {
                 tickets.map((ticket, i)=>{
-                    return <div className={classes.listItem}  key={i}>
+                    return <div className={classes.listItem} key={i}>
                         <Ticket ticket={ticket} />
                     </div>
                 })

@@ -7,21 +7,33 @@ export const useStyles = makeStyles((theme) => ({
         color: '#fff'
     },
     container: {
-        padding: 24
+        maxWidth: 1280,
+        padding: 24,
+        margin: '0 auto',
     },
     titleWrapper: {
-        textAlign: 'center',
-        marginBottom: '40px !important',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        marginBottom: 20,
+        backgroundColor: alpha(theme.palette.secondary.dark, .5),
+        borderRadius: 4,
+        padding: 12,
+        [theme.breakpoints.up('md')]: {
+            
+            justifyContent: 'space-between',
+        }
     },
     title: {
-        fontSize: '26px !important',
-        marginBottom: '20px !important',
+        fontSize: 20,
+        fontWeight: 500,
+        margin: '0 0 20px',
+        color: theme.palette.warning.main,
+        textAlign: 'center',
         [theme.breakpoints.up('md')]: {
-            fontSize: '30px !important',
-            marginBottom: '0px !important',
-            textAlign: 'left'
+            margin: 0,
+            textAlign: 'left',
         }
     },
     subtitle: {
@@ -92,6 +104,15 @@ export const useStyles = makeStyles((theme) => ({
         },
         '& input[type=number]': {
             'MozAppearance': 'textfield'
+        },
+        '& .MuiOutlinedInput-root.Mui-disabled': {
+            '& fieldset': {
+                borderColor: 'transparent !important',
+                backgroundColor: alpha(theme.palette.secondary.dark, .5)
+            },
+        },
+        '& .MuiInputLabel-root.Mui-disabled': {
+            color: `${alpha('#fff', .5)} !important`
         },
         '&.common': {
             '& input ': {
@@ -215,22 +236,22 @@ export const useStyles = makeStyles((theme) => ({
         },
         '&.drop': {
             '& input ': {
-                color: theme.palette.rarity.drop
+                color: theme.palette.customColors.light
             },
             '& label ': {
-                color: theme.palette.rarity.drop
+                color: theme.palette.customColors.light
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.drop,
+                borderColor: theme.palette.customColors.light,
             },
             '&:hover fieldset': {
-                borderColor: theme.palette.rarity.drop
+                borderColor: theme.palette.customColors.light
             },
             '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                borderColor: theme.palette.rarity.drop
+                borderColor: theme.palette.customColors.light
             },
             '& .MuiFormLabel-root.Mui-focused': {
-                color: theme.palette.rarity.drop
+                color: theme.palette.customColors.light
             }
         }
     },
@@ -256,6 +277,7 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: 'center'
     },
     chance: {
+        padding: '0 !important',
         '&.common.highlighted': { backgroundColor: alpha(theme.palette.rarity.common, .05) },
         '&.uncommon.highlighted': { backgroundColor: alpha(theme.palette.rarity.uncommon, .05) },
         '&.rare.highlighted': { backgroundColor: alpha(theme.palette.rarity.rare, .05) },
@@ -273,7 +295,7 @@ export const useStyles = makeStyles((theme) => ({
         '&.legendary': {color: theme.palette.rarity.legendary},
         '&.mythical': {color: theme.palette.rarity.mythical},
         '&.godlike': {color: theme.palette.rarity.godlike},
-        '&.drop': {color: theme.palette.rarity.drop}
+        '&.drop': {color: theme.palette.customColors.light}
     },
     tableValue: {
         fontSize: '16px !important',
@@ -378,9 +400,9 @@ export const useStyles = makeStyles((theme) => ({
             }
         },
         '&.drop': {
-            backgroundColor: alpha(theme.palette.rarity.drop, .1),
+            backgroundColor: alpha(theme.palette.customColors.light, .1),
             '&.mystery': {
-                backgroundColor: alpha(theme.palette.rarity.drop, .15)
+                backgroundColor: alpha(theme.palette.customColors.light, .15)
             }
         },
         '&.mystery': {

@@ -133,3 +133,27 @@ export const auctionQuery = (id) => {
       }
     }`
 };
+
+export const raffleQuery = (id) => {
+    return `{
+      raffleTicketPools(first: 10, where: { raffle: "${id}" }) {
+        id
+        prizes {
+          id
+          prizeQuantity
+        }
+      }
+    }`
+};
+
+export const raffleEnteredQuery = (address) => {
+    return `{
+      raffleTicketPoolEntrants(first: 1000, where: { address: "${address}" }) {
+        ticketId
+        tickets
+        pool{
+          id
+        }
+      } 
+    }`
+};

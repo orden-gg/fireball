@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
 import { makeStyles } from '@mui/styles';
@@ -16,8 +16,15 @@ import ContentLoader from 'react-content-loader';
 
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        padding: '12px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
     button: {
-        margin: '0 4px !important',
+        margin: '4px !important',
         paddingRight: '12px !important',
         paddingLeft: '12px !important',
         color: '#fff !important',
@@ -70,12 +77,11 @@ export default function ClientNav() {
      } = useContext(ClientContext);
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='center' flexWrap='wrap'>
-
+        <div className={classes.container}>
             <Button
                 disabled={!gotchis.length}
                 startIcon={
-                    <img src={gotchiPlaceholder} alt='gotchi' width={20} style={{ marginRight: '4px' }} />
+                    <img src={gotchiPlaceholder} alt='gotchi' width={20} />
                 }
                 endIcon={
                     loadingGotchis ? (
@@ -104,7 +110,7 @@ export default function ClientNav() {
             <Button
                 disabled={!warehouse.length}
                 startIcon={
-                    <img src={warehousePlaceholder} alt='gotchi' width={25} style={{ marginRight: '4px' }} />
+                    <img src={warehousePlaceholder} alt='gotchi' width={25} />
                 }
                 endIcon={
                     loadingGotchis || loadingWarehouse ? (
@@ -133,7 +139,7 @@ export default function ClientNav() {
             <Button
                 disabled={!tickets.length}
                 startIcon={
-                    <img src={ticketsPlaceholder} alt='gotchi' width={22} style={{ marginRight: '4px' }} />
+                    <img src={ticketsPlaceholder} alt='gotchi' width={22} />
                 }
                 endIcon={
                     loadingTickets ? (
@@ -187,6 +193,6 @@ export default function ClientNav() {
             >
                 Realm
             </Button>
-        </Box>
+        </div>
     );
 }

@@ -1,32 +1,49 @@
 
-import React from 'react';
-import { Box, Checkbox, CircularProgress, FormControlLabel, Grid, TextField, Tooltip, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 import {useStyles} from '../styles';
 import commonUtils from '../../../utils/commonUtils';
+import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import ghst from '../../../assets/images/ghst-doubleside.gif';
+import itemUtils from '../../../utils/itemUtils';
 
-export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setCommonQuantity, setUncommonQuantity,
-                                        setRareQuantity, setLegendaryQuantity, setMythicalQuantity, setGodlikeQuantity, enteredCombined, setEnteredCombined}) {
+export default function RaffleTablee({raffleEnded}) {
     const classes = useStyles();
+
+    const { tickets, setTickets, raffleSpinner, supplySpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
 
     const getTicketIconPath = (iconId) => {
         return require(`../../../assets/tickets/${iconId}.svg`).default;
     };
 
-    const handleTicketsEnter = (event) => {
-        setEnteredCombined(!event.target.checked);
+    const handleInputChange = (event, i) => {
+        let newValue = event.target.value > 0 ? event.target.value : '';
+
+        setTickets((ticketsCache) => {
+            let modified = [...ticketsCache];
+            modified[i].value = +newValue;
+            modified[i].chance = countChances(+newValue, modified[i].entered, modified[i].items);
+
+            return modified
+        });
+        
     };
     
     return (
-        <Grid item>
+        <Box>
             <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3} style={{ position: 'relative' }}>
-                    <Typography variant='h6' className={classes.subtitle}>Your Tickets</Typography>
-                    <Box className={classes.countEnteredCheckboxWrapper}>
+                    <Typography variant='h6' className={classes.subtitle}>Entered Tickets</Typography>
+                    {raffleEnded ? (
+                        <Typography variant='caption' color='error.main'>(all entrants data comming soon)</Typography>
+                    ) : (
+                        null
+                    )}
+                    {/* <Box className={classes.countEnteredCheckboxWrapper}>
                         <FormControlLabel
                             className={classes.countEnteredCheckbox}
                             control={
@@ -34,81 +51,27 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                             }
                             label='Count as entered'
                         />
-                    </Box>
+                    </Box> */}
                 </Grid>
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'common')}
-                            label={'Common'}
-                            onChange={(event) => {
-                                setCommonQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'uncommon')}
-                            label={'Uncommon'}
-                            onChange={(event) => {
-                                setUncommonQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'rare')}
-                            label={'Rare'}
-                            onChange={(event) => {
-                                setRareQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'legendary')}
-                            label={'Legendary'}
-                            onChange={(event) => {
-                                setLegendaryQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'mythical')}
-                            label={'Mythical'}
-                            onChange={(event) => {
-                                setMythicalQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
-                    <Grid item xs={4} sm={true}>
-                        <TextField
-                            type='number'
-                            variant='outlined'
-                            fullWidth
-                            className={classNames(classes.input, 'godlike')}
-                            label={'Godlike'}
-                            onChange={(event) => {
-                                setGodlikeQuantity(event.target.value > 0 ? event.target.value : 0);
-                            }}
-                        />
-                    </Grid>
+                    {
+                        tickets.map((ticket, i) => {
+                            return <Grid item xs={4} sm={true} key={i}>
+                                <Box maxWidth={200} margin='auto'>
+                                    <TextField
+                                        type='number'
+                                        variant='outlined'
+                                        value={ticket.value}
+                                        fullWidth
+                                        disabled={raffleEnded}
+                                        className={classNames(classes.input, ticket.rarity)}
+                                        label={commonUtils.capitalize(ticket.rarity)}
+                                        onChange={(event) => handleInputChange(event, i)}
+                                    />
+                                </Box>
+                            </Grid>
+                        })
+                    }
                 </Grid>
             </Grid>
             <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
@@ -119,13 +82,19 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                     {
                         tickets.map((ticket, i) => {
                             return <Grid item xs={4} sm={true} key={i}>
-                                <Typography
-                                    variant='body1'
-                                    align='center'
-                                    className={classNames(classes.textHighlight, ticket.type, classes.tableValue)}
-                                >
-                                    {commonUtils.formatNumber(ticket.items)}
-                                </Typography>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
+                                    {raffleSpinner ? (
+                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                    ) : (
+                                        <Typography
+                                        variant='body1'
+                                        align='center'
+                                        className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
+                                    >
+                                        {commonUtils.formatPrice(ticket.items)}
+                                    </Typography>
+                                    )}
+                                </Box>
                             </Grid>
                         })
                     }
@@ -148,28 +117,13 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                             <HelpOutlineIcon fontSize='small' className={classes.subtitleIcon} />
                         </Tooltip>
                     </Typography>
-                    {/* <ToggleButtonGroup
-                        value={enteredSupplyType}
-                        exclusive
-                        onChange={handleTicketsSupply}
-                        aria-label='tickets supply'
-                        size='small'
-                        className={classes.toggleButtonWrapper}
-                    >
-                        <ToggleButton className={classes.toggleButton} value={true} aria-label='entered supply'>
-                            Entered
-                        </ToggleButton>
-                        <ToggleButton className={classes.toggleButton} value={false} aria-label='all supply'>
-                            All
-                        </ToggleButton>
-                    </ToggleButtonGroup> */}
                 </Grid>
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
-                                <img src={getTicketIconPath(ticket.type)} alt={'ticket-' + ticket.type} />
-                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
+                                <img src={getTicketIconPath(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {supplySpinner ? (
                                         <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
@@ -178,20 +132,7 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatNumber(ticket.entered)}
-                                            {/* {enteredSupplyType ? (
-                                                <Box component={'span'} className={classes.enteredValue}>
-                                                    <Box component={'span'}>
-                                                        {commonUtils.formatNumber(ticket.entered)}
-                                                    </Box>
-                                                    <Box component={'span'} className={classNames(classes.enteredValuePerc, 'perc')}>
-                                                        {(ticket.entered * 100 / ticket.supply).toFixed(1)} %
-                                                    </Box>
-                                                </Box>
-
-                                            ) : (
-                                                commonUtils.formatNumber(ticket.supply)
-                                            )} */}
+                                            {commonUtils.formatPrice(ticket.entered)}
                                         </Typography>
                                     )}
                                 </Box>
@@ -221,8 +162,8 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
-                            return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.type)}>
-                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type, classes.ticketVisual)}>
+                            return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {supplySpinner ? (
                                         <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
@@ -231,7 +172,7 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatNumber(ticket.entered * ticket.priceInFrens)}
+                                            {commonUtils.formatPrice(ticket.entered * itemUtils.getTicketFrensPrice(ticket.rarity))}
                                         </Typography>
                                     )}
                                 </Box>
@@ -262,7 +203,7 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                     {
                         tickets.map((ticket, i) => {
                             return <Grid item xs={4} sm={true} key={i}>
-                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.type)}>
+                                <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity)}>
                                     {pricesSpinner ? (
                                         <CircularProgress color="inherit" size={20} />
                                     ) : (
@@ -271,7 +212,7 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {ticket.cost}
+                                            {commonUtils.formatPrice(ticket.value > 0 ? ticket.price * ticket.value : ticket.price)}
                                             <img src={ghst} width='26' alt='GHST Token Icon' />
                                         </Typography>
                                     )}
@@ -302,68 +243,25 @@ export default function RaffleTable({tickets, supplySpinner, pricesSpinner, setC
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
-                            return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.type, ticket.chance !== 0 ? 'highlighted' : '')}>
-                                <Typography
-                                    variant='body1'
-                                    align='center'
-                                    className={classNames(classes.textHighlight, ticket.type, classes.tableValue)}
-                                >
-                                    {ticket.chance}
-                                </Typography>
-                            </Grid>
-                        })
-                    }
-                </Grid>
-            </Grid>
-            {/* <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
-                <Grid item xs={12} md={4} lg={3}>
-                    <Typography variant='h6' className={classes.subtitle}>
-                        Raffle profitability
-                        <Tooltip
-                            placement='right'
-                            arrow
-                            enterTouchDelay={0}
-                            title={
-                                <React.Fragment>
-                                    <Typography>How profitable is the raffle based on the baazaar floor prices</Typography>
-                                </React.Fragment>
-                            }
-                        >
-                            <HelpOutlineIcon fontSize='small' className={classes.subtitleIcon} />
-                        </Tooltip>
-                    </Typography>
-                </Grid>
-                <Grid container item spacing={1} xs={12} md={8} lg={9}>
-                    {
-                        tickets.map((ticket, i) => {
-                            return <Grid item xs={4} sm={true} key={i} className={classNames(classes.textHighlight, ticket.type, ticket.chance !== 0 ? 'highlighted' : '')}>
-                                <Box textAlign='center'>
-                                    {pricesSpinner ? (
-                                        <CircularProgress color='inherit' size={20} />
-                                    ) : (
-                                        <Typography
-                                            variant='body1'
-                                            align='center'
-                                            className={classNames(classes.tableValue, classes.price)}
-                                        >
-                                            {countProfit() > 0 ?
-                                                <Box component='span' style={{ color: '#4caf50' }}>
-                                                    +{countProfit()}%
-                                                </Box>
-                                                : countProfit() < 0 ?
-                                                <Box component='span' style={{ color: '#f44336' }}>
-                                                    {countProfit()}%
-                                                </Box>
-                                                : 0
-                                            }
-                                        </Typography>
-                                    )}
+                            return <Grid item xs={4} sm={true} key={i} style={{ paddingLeft: 0 }}>
+                                <Box maxWidth={200} margin='auto' className={classNames(classes.chance, ticket.rarity, ticket.chance !== 0 ? 'highlighted' : '')}>
+                                    <Typography
+                                        variant='body1'
+                                        align='center'
+                                        className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
+                                    >
+                                        {ticket.chance ? formatChance(ticket.chance, ticket.items) : 0}
+                                    </Typography>
                                 </Box>
                             </Grid>
                         })
                     }
                 </Grid>
-            </Grid> */}
-        </Grid>
+            </Grid>
+
+            <Box textAlign='center' marginTop='40px'>
+                <Typography color='error.main'>Items display comming soon</Typography>
+            </Box>
+        </Box>
     );
 }

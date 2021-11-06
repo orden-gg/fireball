@@ -117,7 +117,7 @@ export default makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100px',
+        minHeight: '65%',
         marginBottom: 4
     },
     icon: {

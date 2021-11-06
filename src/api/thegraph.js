@@ -1,13 +1,14 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery } from './common/queries';
+import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery, raffleQuery, raffleEnteredQuery } from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
 
 var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
-var raffleUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
+var raffleOfficial = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
+var raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 var gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 var realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
@@ -16,8 +17,13 @@ var client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
+var raffleOfficialClient = new ApolloClient({
+    uri: raffleOfficial,
+    cache: new InMemoryCache()
+});
+
 var raffleClient = new ApolloClient({
-    uri: raffleUrl,
+    uri: raffle,
     cache: new InMemoryCache()
 });
 
@@ -174,11 +180,52 @@ export default {
         }).catch((error) => console.log(error));
     },
 
+    async getRaffleOffData(query) {
+        return await raffleOfficialClient
+            .query({
+                query: gql`${query}`
+            });
+    },
+
     async getRaffleData(query) {
         return await raffleClient
             .query({
                 query: gql`${query}`
             });
+    },
+
+    async getRaffle(id) {
+        return await this.getRaffleData(raffleQuery(id)).then((response) => {
+            let data = [];
+
+            response.data.raffleTicketPools.forEach((pool) => {
+                data.push({
+                    id: pool.id,
+                    items: pool.prizes.reduce((a, b) => a + +b.prizeQuantity, 0),
+                    prizes: pool.prizes
+                });
+            });
+
+            return data;
+        });
+    },
+
+    async getRaffleEntered(address, raffle) {
+        return await this.getRaffleData(raffleEnteredQuery(address.toLowerCase())).then((response) => {
+            let data = [];
+            let received = response.data.raffleTicketPoolEntrants;
+
+            let filtered = received.filter((item) => +item.pool.id.charAt(0) === raffle);
+
+            filtered.forEach((item) => {
+                data.push({
+                    ticketId: item.ticketId,
+                    quantity: item.tickets,
+                });
+            });
+
+            return data;
+        });
     },
 
     async getGotchiSvgById(id) {

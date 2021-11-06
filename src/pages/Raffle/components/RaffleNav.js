@@ -1,19 +1,26 @@
-import React, { useContext } from 'react';
-import { Box, Button } from '@mui/material';
+import React from 'react';
+import {  Button, Link } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 import { NavLink } from 'react-router-dom';
 
-import { ClientContext } from '../../../contexts/ClientContext';
-
-import wearable5Placeholder from '../../../assets/wearables/261.svg';
-import realmPlaceholder from '../../../assets/images/icons/kek.png';
+import wearables4icon from '../../../assets/wearables/156.svg';
+import h2icon from '../../../assets/images/h2_sealed.svg';
+import wearable5icon from '../../../assets/wearables/261.svg';
+import realm1icon from '../../../assets/images/icons/kek.png';
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        padding: '12px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
     button: {
-        margin: '0 4px !important',
+        margin: '4px !important',
         paddingRight: '12px !important',
         paddingLeft: '12px !important',
         color: '#fff !important',
@@ -58,30 +65,56 @@ export default function RaffleNav({address}) {
     const theme = useTheme();
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='center' flexWrap='wrap'>
+        <div className={classes.container}>
             <Button
                 startIcon={
-                    <img src={wearable5Placeholder} alt='wearable' height={20} style={{ marginRight: '4px' }} />
+                    <img src={wearables4icon} alt='wearable' height={18} />
+                }
+                component={Link}
+                className={classes.button}
+                disabled
+                // activeClassName='active'
+                // to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
+            >
+                Wearables #4
+            </Button>
+
+            <Button
+                startIcon={
+                    <img src={h2icon} alt='wearable' height={20} />
+                }
+                component={Link}
+                className={classes.button}
+                disabled
+                // activeClassName='active'
+                // to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
+            >
+                H2 portals
+            </Button>
+
+            <Button
+                startIcon={
+                    <img src={wearable5icon} alt='wearable' height={20} />
                 }
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
                 to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
             >
-                Wearable #5
+                Wearables #5
             </Button>
 
             <Button
                 startIcon={
-                    <img src={realmPlaceholder} alt='realm' width={20} style={{ marginRight: '4px' }} />
+                    <img src={realm1icon} alt='realm' width={20} />
                 }
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
                 to={{ pathname: `${match.url}/realm-1`, search: `?address=${address}` }}
             >
-                Realm #1
+                Realm
             </Button>
-        </Box>
+        </div>
     );
 }

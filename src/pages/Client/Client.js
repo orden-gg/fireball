@@ -69,13 +69,9 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <Box marginBottom='12px'>
-                        <ProfilePane address={clientActive} />
-                    </Box>
+                    <ProfilePane address={clientActive} />
 
-                    <Box marginBottom='12px'>
-                        <ClientNav />
-                    </Box>
+                    <ClientNav />
 
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
