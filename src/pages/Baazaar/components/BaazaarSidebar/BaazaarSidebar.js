@@ -1,26 +1,15 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 import { Grid, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { BaazaarContext } from "../../../../contexts/BaazaarContext";
 import { listingTypes } from "../../../../data/types";
 import useStyles from './styles';
 
-export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defaultOrdering, setSelectedGoodsType}) {
+export default function BaazaarSidebar({loadBaazaarGoods}) {
     const classes = useStyles();
-    const [type, setType] = useState(defaultGoodsType);
-    const [rarity, setRarity] = useState('');
-    const [ordering, setOrdering] = useState(defaultOrdering);
-    const fromRef = useRef();
-    const toRef = useRef();
-    const { setSortingOrder } = useContext(BaazaarContext);
+    const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder } = useContext(BaazaarContext);
 
     const onLoadClick = () => {
-        loadBaazaarGoods({
-            from: fromRef.current.value,
-            to: toRef.current.value,
-            type,
-            rarity,
-            ordering
-        });
+        loadBaazaarGoods();
     };
 
     const onRarityChange = (event) => {
@@ -28,13 +17,19 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
     };
 
     const onTypeChange = (event) => {
-        setType(event.target.value);
         setSelectedGoodsType(event.target.value);
     };
 
     const onSortByChange = (event) => {
-        setOrdering(event.target.value);
         setSortingOrder(event.target.value);
+    };
+
+    const onPriceFromChange = (event) => {
+        setPriceFrom(event.target.value);
+    };
+
+    const onPriceToChange = (event) => {
+        setPriceTo(event.target.value);
     };
 
     return (
@@ -49,7 +44,7 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                             <InputLabel>Sort by</InputLabel>
                             <Select
                                 label='Sort by'
-                                value={ordering}
+                                value={sortingOrder}
                                 onChange={onSortByChange}
                             >
                                 <MenuItem value={'priceInWei-asc'}>Price: lowest first</MenuItem>
@@ -65,10 +60,22 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                     <Grid className={classes.filterWrap} item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
-                                <TextField fullWidth inputRef={fromRef} label='From' variant='outlined' />
+                                <TextField
+                                    fullWidth
+                                    value={priceFrom}
+                                    label='From'
+                                    variant='outlined'
+                                    onChange={onPriceFromChange}
+                                />
                             </Grid>
                             <Grid item xs={6}>
-                                <TextField fullWidth inputRef={toRef} label='To' variant='outlined' />
+                                <TextField
+                                    fullWidth
+                                    value={priceTo}
+                                    label='To'
+                                    variant='outlined'
+                                    onChange={onPriceToChange}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -80,14 +87,15 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                             <InputLabel>Type</InputLabel>
                             <Select
                                 label='Type'
-                                value={type}
+                                value={selectedGoodsType}
                                 onChange={onTypeChange}
                             >
-                                <MenuItem value={listingTypes.closedPortal}>Closed portal</MenuItem>
                                 <MenuItem value={listingTypes.aavegotchi}>Aavegotchi</MenuItem>
+                                <MenuItem value={listingTypes.closedPortal}>Closed portal</MenuItem>
                                 <MenuItem value={listingTypes.wearable}>Wearable</MenuItem>
                                 <MenuItem value={listingTypes.consumable}>Consumable</MenuItem>
                                 <MenuItem value={listingTypes.tickets}>Tickets</MenuItem>
+                                <MenuItem value={listingTypes.realm}>Realm</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -120,7 +128,7 @@ export default function BaazaarSidebar({loadBaazaarGoods, defaultGoodsType, defa
                             fullWidth
                             onClick={() => onLoadClick()}
                         >
-                            Apply
+                            Load
                         </Button>
                     </Grid>
                 </Grid>

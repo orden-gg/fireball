@@ -134,6 +134,51 @@ export const auctionQuery = (id) => {
     }`
 };
 
+export const listedParcelsQuery = (skip, orderDir, size) => {
+    return `{
+        erc721Listings(
+            first: 1000,
+            skip: ${skip},
+            orderDirection: ${orderDir},
+            orderBy: timeCreated,
+            
+            where: {
+                category: "4",
+                size: ${size},
+                priceInWei_lt: "10000000000000000000000000",
+                timePurchased: 0,
+                cancelled: false
+            }
+        ) {
+            id
+            tokenId
+            category
+            priceInWei
+            seller
+            timePurchased
+            timeCreated
+            cancelled
+            erc721TokenAddress
+            blockCreated
+            parcel {
+                id
+                tokenId
+                parcelId
+                parcelHash
+                owner
+                district
+                fudBoost
+                fomoBoost
+                alphaBoost
+                kekBoost
+                size
+                timesTraded
+                historicalPrices
+            }
+        }
+    }`
+};
+
 export const raffleQuery = (id) => {
     return `{
       raffleTicketPools(first: 10, where: { raffle: "${id}" }) {

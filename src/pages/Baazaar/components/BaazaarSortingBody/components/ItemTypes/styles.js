@@ -30,10 +30,5 @@ export default makeStyles((theme) => ({
     },
     sliderContainer: {
         paddingTop: 4
-    },
-    field: {
-        '& img': {
-            width: 20
-        }
     }
 }));

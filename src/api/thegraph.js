@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery, raffleQuery, raffleEnteredQuery } from './common/queries';
+import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery, raffleQuery, raffleEnteredQuery, listedParcelsQuery } from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
@@ -105,7 +105,7 @@ export default {
             let gotchis = JSON.parse(JSON.stringify(filteredArray));
 
             gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
-                if(gotchi.equippedSetID) {
+                if (gotchi.equippedSetID) {
                     let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
                     let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
@@ -114,7 +114,7 @@ export default {
                     gotchis[index].modifiedNumericTraits[1] += modifiers[2];
                     gotchis[index].modifiedNumericTraits[2] += modifiers[3];
                     gotchis[index].modifiedNumericTraits[3] += modifiers[4];
-                };
+                }
             });
 
             return gotchis;
@@ -138,12 +138,12 @@ export default {
     async getGotchisByAddress(address) {
         let data = [];
 
-        for(let i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             let queryData = await this.getData(userQuery(address.toLowerCase(), i * 1000)).then((response) => {
                 let gotchis = JSON.parse(JSON.stringify([...response.data.user.gotchisOwned]));
     
                 gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
-                    if(gotchi.equippedSetID) {
+                    if (gotchi.equippedSetID) {
                         let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
                         let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
     
@@ -152,7 +152,7 @@ export default {
                         gotchis[index].modifiedNumericTraits[1] += modifiers[2];
                         gotchis[index].modifiedNumericTraits[2] += modifiers[3];
                         gotchis[index].modifiedNumericTraits[3] += modifiers[4];
-                    };
+                    }
                 });
     
                 return gotchis;
@@ -160,7 +160,7 @@ export default {
     
             data.push(...queryData);
     
-            if(queryData.length < 1000) { // break loop if there is less than 1000 items comes from query
+            if (queryData.length < 1000) { // break loop if there is less than 1000 items comes from query
                 break;
             }
         }
@@ -245,7 +245,7 @@ export default {
     async getRealmByAddress(address) {
         let data = [];
 
-        for(let i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             let queryData = await this.getRealmData(realmQuery(address.toLowerCase(), i * 1000)).then((response) => {
                 return [...response.data.parcels];
             });
@@ -269,4 +269,38 @@ export default {
             };
         });
     },
+
+    async getAllListedParcels() {
+        return await graphJoin(this.getListedParcelsQueries()).then((response)=> {
+            let responseArray = [];
+
+            for (let i = 0; i < response.length; i++) {
+                responseArray = [...response[i].data.erc721Listings, ...responseArray];
+            }
+
+            return responseArray.reduce((unique, item) => {
+                const index = unique.findIndex(el => el.id === item.id);
+
+                if (index === -1) {
+                    unique.push(item);
+                }
+
+                return unique;
+            }, []);
+        });
+    },
+
+    getListedParcelsQueries() {
+        const sizes = [0,1,2,3];
+        let queries = [];
+
+        sizes.forEach((size, ) => {
+            for (let i = 0; i < 5; i++) {
+                queries.push(listedParcelsQuery(i*1000, 'asc', size));
+                queries.push(listedParcelsQuery(i*1000, 'desc', size));
+            }
+        });
+
+        return queries;
+    }
 }

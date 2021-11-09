@@ -27,8 +27,6 @@ let localGoods = [],
 
 export default function Baazaar() {
     const classes = useStyles();
-    const [selectedGoodsType, setSelectedGoodsType] = useState(defaults.defaultGoodsType);
-    const [resultsForType, setResultsForType] = useState(defaults.defaultGoodsType);
     // server pagination
     const [goods, setGoods] = useState([]);
     // local pagination
@@ -38,54 +36,32 @@ export default function Baazaar() {
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
     const [paginationIsVisible, setPaginationToVisible] = useState(true);
-    const {filteringType, exactMatch, id, name, orderingTypes, sortingOrder, minBRS, stats} = useContext(BaazaarContext);
+    const {filteringType, exactMatch, id, name, orderingTypes, sortingOrder, minBRS, stats, selectedGoodsType, priceFrom, priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter, fomoFilter, fudFilter, rarity} = useContext(BaazaarContext);
 
-    const onLoadBaazaarItemsClick = (params) => {
-        const validParams = validateParams(params);
-        let paramsWithLimit;
+    const forceLoadItems = () => {
+        let params = {
+            skip: (page - 1) * paginationConfigs.limit,
+            limit: paginationConfigs.limit
+        };
 
-        setGoods([]);
-        setSelectedLocalGoods([]);
-        setResultsForType(selectedGoodsType);
-
-        if (validParams) {
-            if (validParams.type === listingTypes.aavegotchi || validParams.type === listingTypes.openedPortal) {
-                setPaginationToVisible(false);
-
-                paramsWithLimit = {
-                    ...validParams,
-                    skip: 0,
-                    limit: paginationConfigs.noLimit
-                };
-
-                getAllBaazaarItems(paramsWithLimit);
-            } else {
-                paramsWithLimit = {
-                    ...validParams,
-                    skip: 0,
-                    limit: paginationConfigs.limit
-                };
-
-                setPaginationToVisible(true);
-                setPage(1);
-                setLastValidParams(paramsWithLimit);
-                getBaazaarItems(paramsWithLimit);
-            }
+        if (selectedGoodsType === listingTypes.aavegotchi) {
+            params['limit'] = paginationConfigs.noLimit;
+            setLastValidParams(params);
+            getAllBaazaarItems(params);
+        }  else if (selectedGoodsType === listingTypes.realm) {
+            params['limit'] = paginationConfigs.noLimit;
+            setLastValidParams(params);
+            getAllRealmParcels(params);
+        } else {
+            params.from = priceFrom;
+            params.to = priceTo;
+            params.type = selectedGoodsType;
+            params.ordering = sortingOrder;
+            params.rarity = rarity;
+            params['limit'] = paginationConfigs.gotchiLimit;
+            setLastValidParams(params);
+            getBaazaarItems(params);
         }
-    };
-
-    const validateParams = (params) => {
-        let newParams = {};
-
-        for (let key in params) {
-            if (params.hasOwnProperty(key)) {
-                if (params[key] || params[key] === 0) {
-                    newParams[key] = params[key];
-                }
-            }
-        }
-
-        return newParams;
     };
 
     const getGraphQueryString = (params) => {
@@ -268,13 +244,27 @@ export default function Baazaar() {
             thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
                 processResponse(params, response);
                 // start render
-                filterLocalGoods();
-                sortLocalGoods();
+                filterLocalGotchis();
+                sortLocalGotchis();
                 getShownItems();
                 showBackdrop(false);
             }).catch(() => {
                 showBackdrop(false);
             });
+        }).catch(() => {
+            showBackdrop(false);
+        });
+    };
+
+    const getAllRealmParcels = (params) => {
+        showBackdrop(true);
+        localGoods = [];
+        thegraph.getAllListedParcels().then((response) => {
+            // start render
+            localGoods = [...localGoods, ...response];
+            filterLocalRealms();
+            getShownItems();
+            showBackdrop(false);
         }).catch(() => {
             showBackdrop(false);
         });
@@ -315,7 +305,7 @@ export default function Baazaar() {
         getShownItems(newPage);
     };
 
-    const sortLocalGoods = () => {
+    const sortLocalGotchis = () => {
         filteredLocalGoods.sort((a, b) => {
             if (sortingOrder === orderingTypes.priceASC) {
                 return web3.utils.fromWei(a.priceInWei) - web3.utils.fromWei(b.priceInWei);
@@ -329,32 +319,37 @@ export default function Baazaar() {
         });
     };
 
-    const filterLocalGoods = () => {
+    const filterLocalGotchis = () => {
         const filtersMap = ["NRG", "AGG", "SPK", "BRN", "EYS", "EYC"];
 
         const filterSingleGotchi = (item) => {
-            const gotchiTraits = item.numericTraits;
+            const gotchi = item.gotchi;
+            const gotchiTraits = gotchi.numericTraits;
             let hasDifference = false;
 
+            if ((!priceFrom ? false : web3.utils.fromWei(item.priceInWei) < priceFrom) || (!priceTo ? false : web3.utils.fromWei(item.priceInWei) > priceTo)) {
+                return false;
+            }
+
             if (filteringType === baazaarFilteringTypes.name) {
-                if (!item.name) return false;
+                if (!gotchi.name) return false;
                 if (!name) return true;
 
                 if (exactMatch) {
-                    return item.name.toLowerCase() === name.toLowerCase();
+                    return gotchi.name.toLowerCase() === name.toLowerCase();
                 } else {
-                    return item.name.toLowerCase().split(name.toLowerCase()).length > 1;
+                    return gotchi.name.toLowerCase().split(name.toLowerCase()).length > 1;
                 }
             } else if (filteringType === baazaarFilteringTypes.id) {
                 if (!id) return true;
 
                 if (exactMatch) {
-                    return item.id === id;
+                    return gotchi.id === id;
                 } else {
-                    return item.id.split(id).length > 1;
+                    return gotchi.id.split(id).length > 1;
                 }
             } else if (filteringType === baazaarFilteringTypes.stats) {
-                if (parseInt(item.baseRarityScore) <= parseInt(minBRS)) {
+                if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS)) {
                     return false;
                 }
                 filtersMap.forEach((traitName, index) => {
@@ -380,7 +375,28 @@ export default function Baazaar() {
         };
 
         filteredLocalGoods = localGoods.filter((item) => {
-            return filterSingleGotchi(item.gotchi);
+            return filterSingleGotchi(item);
+        });
+    };
+
+    const filterLocalRealms = () => {
+        const filterSingleRealm = (parcelItem) => {
+            const item = parcelItem.parcel;
+
+            if ((!priceFrom ? false : web3.utils.fromWei(parcelItem.priceInWei) < priceFrom) || (!priceTo ? false : web3.utils.fromWei(parcelItem.priceInWei) > priceTo)) {
+                return false;
+            }
+
+            return  (districtFilter === 0 ? true : (districtFilter + "" === item.district)) &&
+                (sizeFilter === '4' ? true : ((item.size === '3' || item.size === '2') && sizeFilter === '2' ? true : item.size === sizeFilter)) &&
+                ((parseInt(alphaFilter) === 0 || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
+                ((parseInt(fudFilter) === 0 || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&
+                ((parseInt(kekFilter) === 0 || kekFilter === null) ? true : parseInt(item.kekBoost) >= parseInt(kekFilter)) &&
+                ((parseInt(fomoFilter) === 0 || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter))
+        };
+
+        filteredLocalGoods = localGoods.filter((item) => {
+            return filterSingleRealm(item);
         });
     };
 
@@ -390,44 +406,34 @@ export default function Baazaar() {
         setSelectedLocalGoods(newSelectedGoods);
     };
 
-    const handleFindClick = () => {
+    const handleFindGotchiClick = () => {
         setSelectedLocalGoods([]);
-        filterLocalGoods();
-        sortLocalGoods();
+        filterLocalGotchis();
+        sortLocalGotchis();
+        setPage(1);
+        getShownItems();
+    };
+
+    const handleFindRealmClick = () => {
+        setSelectedLocalGoods([]);
+        filterLocalRealms();
+        sortLocalGotchis();
         setPage(1);
         getShownItems();
     };
 
     useEffect(() => {
-        let params = {
-            skip: (page - 1) * paginationConfigs.limit,
-            limit: paginationConfigs.limit,
-            type: defaults.defaultGoodsType,
-            ordering: defaults.defaultOrdering
-        };
-
-        if (resultsForType === listingTypes.aavegotchi) {
-            params['limit'] = paginationConfigs.noLimit;
-            setLastValidParams(params);
-            getAllBaazaarItems(params);
-        } else {
-            params['limit'] = paginationConfigs.gotchiLimit;
-            setLastValidParams(params);
-            getBaazaarItems(params);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        setSelectedLocalGoods([]);
+        forceLoadItems();
+    }, [selectedGoodsType]);
 
     return (
         <Grid className={classes.baazaar} container spacing={3}>
             <BaazaarSidebar
-                loadBaazaarGoods={onLoadBaazaarItemsClick}
-                defaultGoodsType={defaults.defaultGoodsType}
-                defaultOrdering={defaults.defaultOrdering}
-                setSelectedGoodsType={setSelectedGoodsType}
+                loadBaazaarGoods={forceLoadItems}
             />
             {
-                resultsForType !== listingTypes.aavegotchi && resultsForType !== listingTypes.openedPortal ?
+                selectedGoodsType !== listingTypes.aavegotchi && selectedGoodsType !== listingTypes.realm ?
                     <BaazaarBody
                         goods={goods}
                         page={page}
@@ -443,7 +449,8 @@ export default function Baazaar() {
                         paginationIsVisible={paginationIsVisible}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
-                        handleFindClick={handleFindClick}
+                        handleFindGotchiClick={handleFindGotchiClick}
+                        handleFindRealmClick={handleFindRealmClick}
                     />
             }
             <Backdrop className={classes.backdrop} open={backdropIsOpen}>

@@ -8,7 +8,7 @@ import Id from "./Id";
 import classNames from 'classnames';
 import { baazaarFilteringTypes } from '../../../../../../data/types'
 
-export default function Filters({handleFindClick}) {
+export default function GotchiFilters({handleFindClick}) {
     const classes = useStyles();
     const [chips, setChips] = useState([]);
     const {filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat} = useContext(BaazaarContext);
