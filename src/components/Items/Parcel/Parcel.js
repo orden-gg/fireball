@@ -50,7 +50,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
             <div className={classes.labels}>
 
                 {current ? (
-                    <Tooltip title='Auction price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
+                    <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
                         <div
                             className={classNames(classes.label, classes.labelTotal)}
                             style={{ backgroundColor: theme.palette.realm[size], color: theme.palette.secondary.main }}
