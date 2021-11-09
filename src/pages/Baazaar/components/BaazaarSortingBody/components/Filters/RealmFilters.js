@@ -85,7 +85,7 @@ export default function RealmFilters({handleFindClick}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span><img src={fud}/> min</span>}
+                                    label={<span className='booster'><img src={fud}/> min</span>}
                                     value={fudFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -103,7 +103,7 @@ export default function RealmFilters({handleFindClick}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span><img src={fomo}/> min</span>}
+                                    label={<span className='booster'><img src={fomo}/> min</span>}
                                     value={fomoFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -121,7 +121,7 @@ export default function RealmFilters({handleFindClick}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span><img src={alpha}/> min</span>}
+                                    label={<span className='booster'><img src={alpha}/> min</span>}
                                     value={alphaFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -139,7 +139,7 @@ export default function RealmFilters({handleFindClick}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span><img src={kek}/> min</span>}
+                                    label={<span className='booster'><img src={kek}/> min</span>}
                                     value={kekFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {

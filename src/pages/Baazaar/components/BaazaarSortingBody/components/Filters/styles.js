@@ -33,7 +33,13 @@ export default makeStyles((theme) => ({
     },
     field: {
         '& img': {
-            width: 20
+            width: 20,
+            marginRight: 5
+        },
+        '& .booster': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
         }
     }
 }));
