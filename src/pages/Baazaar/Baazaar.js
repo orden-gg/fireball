@@ -263,6 +263,7 @@ export default function Baazaar() {
             // start render
             localGoods = [...localGoods, ...response];
             filterLocalRealms();
+            sortLocalGotchis();
             getShownItems();
             showBackdrop(false);
         }).catch(() => {
@@ -327,7 +328,7 @@ export default function Baazaar() {
             const gotchiTraits = gotchi.numericTraits;
             let hasDifference = false;
 
-            if ((!priceFrom ? false : web3.utils.fromWei(item.priceInWei) < priceFrom) || (!priceTo ? false : web3.utils.fromWei(item.priceInWei) > priceTo)) {
+            if ((!priceFrom ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) < parseFloat(priceFrom)) || (!priceTo ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) > parseFloat(priceTo))) {
                 return false;
             }
 
@@ -383,16 +384,16 @@ export default function Baazaar() {
         const filterSingleRealm = (parcelItem) => {
             const item = parcelItem.parcel;
 
-            if ((!priceFrom ? false : web3.utils.fromWei(parcelItem.priceInWei) < priceFrom) || (!priceTo ? false : web3.utils.fromWei(parcelItem.priceInWei) > priceTo)) {
+            if ((!priceFrom ? false : parseFloat(web3.utils.fromWei(parcelItem.priceInWei)) < parseFloat(priceFrom)) || (!priceTo ? false : parseFloat(web3.utils.fromWei(parcelItem.priceInWei)) > parseFloat(priceTo))) {
                 return false;
             }
 
             return  (districtFilter === 0 ? true : (districtFilter + "" === item.district)) &&
                 (sizeFilter === '4' ? true : ((item.size === '3' || item.size === '2') && sizeFilter === '2' ? true : item.size === sizeFilter)) &&
-                ((parseInt(alphaFilter) === 0 || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
-                ((parseInt(fudFilter) === 0 || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&
-                ((parseInt(kekFilter) === 0 || kekFilter === null) ? true : parseInt(item.kekBoost) >= parseInt(kekFilter)) &&
-                ((parseInt(fomoFilter) === 0 || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter))
+                ((parseInt(alphaFilter) === 0 || alphaFilter === '' || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
+                ((parseInt(fudFilter) === 0 || fudFilter === '' || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&
+                ((parseInt(kekFilter) === 0 || kekFilter === '' || kekFilter === null) ? true : parseInt(item.kekBoost) >= parseInt(kekFilter)) &&
+                ((parseInt(fomoFilter) === 0 || fomoFilter === '' || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter))
         };
 
         filteredLocalGoods = localGoods.filter((item) => {

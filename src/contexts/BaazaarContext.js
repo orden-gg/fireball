@@ -12,10 +12,10 @@ const BaazaarContextProvider = (props) => {
     });
     const [districtFilter, setDistrictFilter] = useState(0)
     const [sizeFilter, setSizeFilter] = useState('4');
-    const [alphaFilter, setAlphaFilter] = useState(null);
-    const [kekFilter, setKekFilter] = useState(null);
-    const [fomoFilter, setFomoFilter] = useState(null);
-    const [fudFilter, setFudFilter] = useState(null);
+    const [alphaFilter, setAlphaFilter] = useState('');
+    const [kekFilter, setKekFilter] = useState('');
+    const [fomoFilter, setFomoFilter] = useState('');
+    const [fudFilter, setFudFilter] = useState('');
     const [sortingOrder, setSortingOrder] = useState(orderingTypes.timeDESC);
     const [selectedGoodsType, setSelectedGoodsType] = useState(listingTypes.aavegotchi)
     const [filteringType, setFilteringType] = useState('stats');
@@ -25,8 +25,8 @@ const BaazaarContextProvider = (props) => {
     const [minBRS, setMinBRS] = useState(null);
     const [selectedTraits, setSelectedTraits] = useState('NRG');
     const [sliderRange, setSliderRange] = useState([0, 99]);
-    const [priceFrom, setPriceFrom] = useState(null);
-    const [priceTo, setPriceTo] = useState(null);
+    const [priceFrom, setPriceFrom] = useState('');
+    const [priceTo, setPriceTo] = useState('');
     const [rarity, setRarity] = useState('');
     const [stats, setStats] = useState({
         "NRG": [],

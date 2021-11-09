@@ -13,6 +13,7 @@ import CallMade from '@mui/icons-material/CallMade';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 import commonUtils from '../../../utils/commonUtils';
 import Web3 from "web3";
+import ParcelImage from "../ParcelImage/ParcelImage";
 
 var web3 = new Web3();
 
@@ -92,6 +93,8 @@ export default function Parcel({parcel, isBaazaarCard}) {
                     </div>
                 </Tooltip>
             </div>
+
+            <ParcelImage key={parcel.parcelId} parcel={parcel} />
 
             <div className={classNames(classes.label, classes.labelSlot)}>
                 [{parcel.tokenId}]
