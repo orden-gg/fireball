@@ -242,4 +242,7 @@ export default makeStyles((theme) => ({
             color: theme.palette.realm.partner
         },
     },
+    parcelImage: {
+        marginTop: 20
+    }
 }));

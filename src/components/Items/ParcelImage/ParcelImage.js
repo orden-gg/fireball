@@ -1,7 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import axios from "axios";
+import useStyles from "../styles";
 
 export default function ParcelImage({parcel}) {
+    const classes = useStyles();
     const canvasRef = useRef(null);
 
     const processColorsMap = (map) => {
@@ -52,6 +54,6 @@ export default function ParcelImage({parcel}) {
     },[]);
 
     return (
-        <canvas ref={canvasRef} width="100" height="100"></canvas>
+        <canvas className={classes.parcelImage} ref={canvasRef} width="100" height="100"></canvas>
     );
 }
