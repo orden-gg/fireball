@@ -1,44 +1,48 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { gql } from '@apollo/client';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery, raffleQuery, raffleEnteredQuery, listedParcelsQuery } from './common/queries';
+import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery,
+    raffleQuery, raffleEnteredQuery, listedParcelsQuery } from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
 
-var baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
-var raffleOfficial = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
-var raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-var gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
-var realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
+const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
+const raffleOfficial = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-matic-raffle';
+const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
+const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
+const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
-var client = new ApolloClient({
-    uri: baseUrl,
-    cache: new InMemoryCache()
-});
+const clientFactory = (() => {
+    const createClient = (url) => {
+        return new ApolloClient({
+        uri: url,
+        cache: new InMemoryCache()
+    })};
 
-var raffleOfficialClient = new ApolloClient({
-    uri: raffleOfficial,
-    cache: new InMemoryCache()
-});
+    return {
+        client: createClient(baseUrl),
+        raffleOfficialClient: createClient(raffleOfficial),
+        raffleClient: createClient(raffle),
+        svgsClient: createClient(gotchiSVGs),
+        realmClient: createClient(realm)
+    }
+})();
 
-var raffleClient = new ApolloClient({
-    uri: raffle,
-    cache: new InMemoryCache()
-});
+// single query requests
+const getGraphData = async (client, query) => {
+    try {
+        return await client.query({
+            query: gql`${query}`
+        });
+    } catch (error) {
+        console.error(error);
+        return []
+    }
+};
 
-var svgsClient = new ApolloClient({
-    uri: gotchiSVGs,
-    cache: new InMemoryCache()
-});
-
-var realmClient = new ApolloClient({
-    uri: realm,
-    cache: new InMemoryCache()
-});
-
-
-async function graphJoin(queries) {
+// multi query requests
+const graphJoin = async (client, queries) => {
     try {
         return await new Promise((resolve, reject) => {
             const queriesCounter = queries.length;
@@ -65,59 +69,85 @@ async function graphJoin(queries) {
             }
         });
     } catch (error) {
+        console.error(error);
         return [];
     }
-}
+};
 
+// filtering of combined graph data from duplicates
+const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
+    let responseArray = [];
+
+    const getProperChild = (item, route) => {
+        let routeCache = [...route];
+
+        const getNestedChild = (item, routeCache) => {
+            const current = routeCache[0];
+
+            if (routeCache.length > 1) {
+                routeCache.splice(0,1)
+                return getNestedChild(item[current], routeCache);
+            } else {
+                return item[current];
+            }
+        }
+
+        return getNestedChild(item, routeCache);
+    };
+
+    for (let i = 0; i < response.length; i++) {
+        responseArray = [...getProperChild(response[i].data, datasetRoute), ...responseArray];
+    }
+
+    return responseArray.reduce((unique, item) => {
+        const index = unique.findIndex(el => el[uniqueIdentifier] === item[uniqueIdentifier]);
+
+        if (index === -1) {
+            unique.push(item);
+        }
+
+        return unique;
+    }, []);
+};
+
+// NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
+const modifyTraits = (gotchis) => {
+    let gotchisCache = [...gotchis];
+
+    return gotchisCache.map((gotchi) => {
+        let gotchiCache = {...gotchi};
+
+        if (gotchiCache.equippedSetID) {
+            let modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);
+            let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
+
+            gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
+            gotchiCache.modifiedNumericTraits.map((item, index) => {
+                return item + modifiers[index + 1];
+            })
+        }
+
+        return gotchiCache;
+    });
+}
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     async getData(query) {
-        return await client
-            .query({
-                query: gql`${query}`
-            });
+        return await getGraphData(clientFactory.client, query);
     },
 
     async getJoinedData(queries) {
-        return await graphJoin(queries);
+        return await graphJoin(clientFactory.client,queries);
     },
 
     async getAllGotchies() {
-        return await graphJoin(this.getGotchiQueries()).then((response)=> {
-            let responseArray = [];
+        return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response)=> {
+            let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
-            for (let i = 0; i < response.length; i++) {
-                responseArray = [...response[i].data.aavegotchis, ...responseArray];
-            }
-
-            let filteredArray = responseArray.reduce((unique, item) => {
-                const index = unique.findIndex(el => el.id === item.id);
-
-                if (index === -1) {
-                    unique.push(item);
-                }
-
-                return unique;
-            }, []);
-
-            let gotchis = JSON.parse(JSON.stringify(filteredArray));
-
-            gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
-                if (gotchi.equippedSetID) {
-                    let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
-                    let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
-
-                    gotchis[index].modifiedRarityScore = +gotchis[index].modifiedRarityScore + brsBoots;
-                    gotchis[index].modifiedNumericTraits[0] += modifiers[1];
-                    gotchis[index].modifiedNumericTraits[1] += modifiers[2];
-                    gotchis[index].modifiedNumericTraits[2] += modifiers[3];
-                    gotchis[index].modifiedNumericTraits[3] += modifiers[4];
-                }
-            });
-
-            return gotchis;
+            console.log(filteredArray);
+            return modifyTraits(filteredArray);
         });
     },
 
@@ -136,36 +166,21 @@ export default {
     },
 
     async getGotchisByAddress(address) {
-        let data = [];
+        function getQueries() {
+            let queries = [];
 
-        for (let i = 0; i < 5; i++) {
-            let queryData = await this.getData(userQuery(address.toLowerCase(), i * 1000)).then((response) => {
-                let gotchis = JSON.parse(JSON.stringify([...response.data.user.gotchisOwned]));
-    
-                gotchis.forEach((gotchi, index) => { // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
-                    if (gotchi.equippedSetID) {
-                        let modifiers = graphUtils.getSetModifiers(gotchi.equippedSetID);
-                        let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
-    
-                        gotchis[index].modifiedRarityScore = +gotchis[index].modifiedRarityScore + brsBoots;
-                        gotchis[index].modifiedNumericTraits[0] += modifiers[1];
-                        gotchis[index].modifiedNumericTraits[1] += modifiers[2];
-                        gotchis[index].modifiedNumericTraits[2] += modifiers[3];
-                        gotchis[index].modifiedNumericTraits[3] += modifiers[4];
-                    }
-                });
-    
-                return gotchis;
-            });
-    
-            data.push(...queryData);
-    
-            if (queryData.length < 1000) { // break loop if there is less than 1000 items comes from query
-                break;
+            for (let i = 0; i < 5; i++) {
+                queries.push(userQuery(address.toLowerCase(), i * 1000))
             }
+
+            return queries;
         }
 
-        return data;
+        return await graphJoin(clientFactory.client, getQueries()).then((response) => {
+            let filteredArray = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+
+            return modifyTraits(filteredArray);
+        });
     },
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
@@ -181,17 +196,11 @@ export default {
     },
 
     async getRaffleOffData(query) {
-        return await raffleOfficialClient
-            .query({
-                query: gql`${query}`
-            });
+        return await getGraphData(clientFactory.raffleOfficialClient, query);
     },
 
     async getRaffleData(query) {
-        return await raffleClient
-            .query({
-                query: gql`${query}`
-            });
+        return await getGraphData(clientFactory.raffleClient, query);
     },
 
     async getRaffle(id) {
@@ -229,35 +238,27 @@ export default {
     },
 
     async getGotchiSvgById(id) {
-        return await svgsClient
-            .query({
-                query: gql`${svgQuery(id)}`
-            });
+        return await getGraphData(clientFactory.svgsClient, svgQuery(id));
     },
 
     async getRealmData(query) {
-        return await realmClient
-            .query({
-                query: gql`${query}`
-            });
+        return await getGraphData(clientFactory.realmClient, query);
     },
 
     async getRealmByAddress(address) {
-        let data = [];
+        function getQueries() {
+            let queries = [];
 
-        for (let i = 0; i < 6; i++) {
-            let queryData = await this.getRealmData(realmQuery(address.toLowerCase(), i * 1000)).then((response) => {
-                return [...response.data.parcels];
-            });
-    
-            data.push(...queryData);
-    
-            if(queryData.length < 1000) { // break loop if there is less than 1000 items comes from query
-                break;
+            for (let i = 0; i < 5; i++) {
+                queries.push(realmQuery(address.toLowerCase(), i * 1000))
             }
+
+            return queries;
         }
 
-        return data;
+        return await graphJoin(clientFactory.realmClient, getQueries()).then((response) => {
+            return filterCombinedGraphData(response, ['parcels'], 'parcelId');
+        });
     },
 
     async getRealmAuctionPrice(id) {
@@ -271,22 +272,8 @@ export default {
     },
 
     async getAllListedParcels() {
-        return await graphJoin(this.getListedParcelsQueries()).then((response)=> {
-            let responseArray = [];
-
-            for (let i = 0; i < response.length; i++) {
-                responseArray = [...response[i].data.erc721Listings, ...responseArray];
-            }
-
-            return responseArray.reduce((unique, item) => {
-                const index = unique.findIndex(el => el.id === item.id);
-
-                if (index === -1) {
-                    unique.push(item);
-                }
-
-                return unique;
-            }, []);
+        return await graphJoin(clientFactory.client, this.getListedParcelsQueries()).then((response)=> {
+            return filterCombinedGraphData(response, ['erc721Listings'], 'id');
         });
     },
 
