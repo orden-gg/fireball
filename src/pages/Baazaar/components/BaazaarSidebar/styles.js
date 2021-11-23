@@ -12,7 +12,16 @@ export default makeStyles((theme) => ({
         background: theme.palette.background.paper
     },
     formControl: {
-        width: '100%'
+        width: '100%',
+        '& .MuiSelect-select': {
+            padding: '4px 14px !important'
+        },
+        '& label': {
+            top: -12,
+            '&.MuiFormLabel-filled': {
+                top: 0
+            }
+        }
     },
     filterTitle: {
         fontSize: '.75rem',
@@ -50,5 +59,25 @@ export default makeStyles((theme) => ({
     },
     godlike: {
         color: theme.palette.rarity.godlike
+    },
+    toggleItem: {
+        fontSize: '12px !important',
+        padding: '7px 0 !important',
+        '& img': {
+            maxWidth: 16,
+            maxHeight: 16
+        },
+        '& .MuiSvgIcon-root': {
+            maxWidth: 16,
+            maxHeight: 16
+        }
+    },
+    smallInput: {
+        '& input': {
+            padding: '4px 14px !important'
+        },
+        '& label': {
+            top: -5
+        }
     }
 }));

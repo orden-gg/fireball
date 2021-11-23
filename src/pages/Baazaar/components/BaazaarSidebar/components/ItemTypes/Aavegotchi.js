@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Web3 from "web3";
-import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import Gotchi from "../../../../../../components/Gotchi/Gotchi";
 import ghst from '../../../../../../assets/images/ghst-doubleside.gif';
-import useStyles from "../../style";
+import useStyles from "../../../BaazaarSortingBody/style";
 import { Grid, Button } from "@mui/material";
 
 const web3 = new Web3();

@@ -9,6 +9,7 @@ import { BaazaarContext } from "../../contexts/BaazaarContext";
 import { listingTypes } from "../../data/types";
 import Web3 from "web3";
 import { baazaarFilteringTypes } from '../../data/types';
+import useInterval from "../../hooks/useInterval";
 
 const web3 = new Web3();
 
@@ -37,6 +38,9 @@ export default function Baazaar() {
     const [lastValidParams, setLastValidParams] = useState({});
     const [paginationIsVisible, setPaginationToVisible] = useState(true);
     const {filteringType, exactMatch, id, name, orderingTypes, sortingOrder, minBRS, stats, selectedGoodsType, priceFrom, priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter, fomoFilter, fudFilter, rarity} = useContext(BaazaarContext);
+    // watch filters
+    const [filtersTimer, setFiltersTimer] = useState(0);
+    const [userIsTyping, setUserTypingStatus] = useState(false);
 
     const forceLoadItems = () => {
         let params = {
@@ -423,6 +427,44 @@ export default function Baazaar() {
         getShownItems();
     };
 
+    const instantSortingChange = () => {
+        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) !== -1) {
+            selectedGoodsType === listingTypes.aavegotchi ? handleFindGotchiClick() : handleFindRealmClick();
+        } else {
+            forceLoadItems();
+        }
+    };
+
+    const instantRarityChange = () => {
+        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) === -1) {
+            forceLoadItems();
+        }
+    };
+
+    const runFilterWatcher = () => {
+        setFiltersTimer(1000);
+        setUserTypingStatus(true);
+    };
+
+    useInterval(() => {
+        const cachedTimerValue = filtersTimer - 250;
+
+        if (userIsTyping && filtersTimer === 0) {
+            setUserTypingStatus(false);
+            instantSortingChange();
+        } else {
+            setFiltersTimer(cachedTimerValue <= 0 ? 0 : cachedTimerValue);
+        }
+    }, 250);
+
+    useEffect(() => {
+        instantSortingChange();
+    }, [sortingOrder]);
+
+    useEffect(() => {
+        instantRarityChange();
+    }, [rarity]);
+
     useEffect(() => {
         setSelectedLocalGoods([]);
         forceLoadItems();
@@ -431,7 +473,7 @@ export default function Baazaar() {
     return (
         <Grid className={classes.baazaar} container spacing={3}>
             <BaazaarSidebar
-                loadBaazaarGoods={forceLoadItems}
+                runFilterWatcher={runFilterWatcher}
             />
             {
                 selectedGoodsType !== listingTypes.aavegotchi && selectedGoodsType !== listingTypes.realm ?
@@ -450,8 +492,6 @@ export default function Baazaar() {
                         paginationIsVisible={paginationIsVisible}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
-                        handleFindGotchiClick={handleFindGotchiClick}
-                        handleFindRealmClick={handleFindRealmClick}
                     />
             }
             <Backdrop className={classes.backdrop} open={backdropIsOpen}>

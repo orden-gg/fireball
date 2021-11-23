@@ -3,10 +3,7 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     rootContainer: {
         paddingTop: 13,
-        marginBottom: 25,
-        [theme.breakpoints.down('md')]: {
-            marginBottom: 25
-        }
+        marginBottom: 25
     },
     container: {
         marginBottom: 20

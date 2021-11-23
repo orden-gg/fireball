@@ -2,25 +2,17 @@ import React, {useContext} from 'react';
 import { Grid, Typography } from '@mui/material';
 import useStyles from "./style";
 import Pagination from '../Pagination/Pagination';
-import GotchiFilters from "./components/Filters/GotchiFilters";
 import { BaazaarContext } from "../../../../contexts/BaazaarContext";
-import Aavegotchi from "./components/ItemTypes/Aavegotchi";
+import Aavegotchi from "../BaazaarSidebar/components/ItemTypes/Aavegotchi";
 import {listingTypes} from "../../../../data/types";
-import RealmParcel from "./components/ItemTypes/RealmParcel";
-import RealmFilters from "./components/Filters/RealmFilters";
+import RealmParcel from "../BaazaarSidebar/components/ItemTypes/RealmParcel";
 
-export default function BaazaarSortingBody({goods, page, limit, onNextPageClick, onPrevPageClick, handleFindGotchiClick, handleFindRealmClick}) {
+export default function BaazaarSortingBody({goods, page, limit, onNextPageClick, onPrevPageClick}) {
     const classes = useStyles();
     const {selectedGoodsType} = useContext(BaazaarContext);
 
     return (
         <Grid className={classes.baazaarBody} item xs={12} sm={12} md={9} lg={9} xl={10}>
-            {
-                selectedGoodsType === listingTypes.aavegotchi && <GotchiFilters handleFindClick={handleFindGotchiClick} />
-            }
-            {
-                selectedGoodsType === listingTypes.realm && <RealmFilters handleFindClick={handleFindRealmClick} />
-            }
             <div className={classes.baazaarListItems}>
                 {
                     // eslint-disable-next-line array-callback-return
