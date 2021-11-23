@@ -1,5 +1,16 @@
 import React, { useContext } from "react";
-import { Grid, InputLabel, Select, MenuItem, FormControl, TextField } from "@mui/material";
+import {
+    Grid,
+    InputLabel,
+    Select,
+    MenuItem,
+    FormControl,
+    TextField,
+    ToggleButton,
+    Tooltip,
+    Box,
+    ToggleButtonGroup
+} from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import useStyles from "./styles";
 import { fomo, fud, kek, alpha } from "../../../../../../data/icons";
@@ -31,7 +42,7 @@ export default function RealmFilters({runFilterWatcher}) {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                                 <FormControl variant='outlined' className={classes.formControl}>
                                     <InputLabel>District</InputLabel>
                                     <Select
@@ -53,25 +64,32 @@ export default function RealmFilters({runFilterWatcher}) {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={6}>
-                                <FormControl variant='outlined' className={classes.formControl}>
-                                    <InputLabel>Size</InputLabel>
-                                    <Select
-                                        label={'Size'}
-                                        value={sizeFilter}
-                                        fullWidth
-                                        size={"small"}
-                                        onChange={(event) => {
-                                            setSizeFilter(event.target.value);
-                                            runFilterWatcher();
-                                        }}
-                                    >
-                                        <MenuItem value={'4'}>All</MenuItem>
-                                        <MenuItem value={'0'}>8x8</MenuItem>
-                                        <MenuItem value={'1'}>16x16</MenuItem>
-                                        <MenuItem value={'2'}>64x32</MenuItem>
-                                    </Select>
-                                </FormControl>
+                            <Grid item xs={12}>
+                                <ToggleButtonGroup
+                                    value={sizeFilter}
+                                    exclusive
+                                    onChange={(event) => {
+                                        setSizeFilter(event.target.value);
+                                        runFilterWatcher();
+                                    }}
+                                    color='primary'
+                                    aria-label='gotchis sort'
+                                    fullWidth
+                                    size={'small'}
+                                >
+                                    <ToggleButton className={classes.toggleItem} value={'4'} aria-label='modified rarity score'>
+                                        All
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'0'} aria-label='modified rarity score'>
+                                        8x8
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'1'} aria-label='modified rarity score'>
+                                        16x16
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'2'} aria-label='modified rarity score'>
+                                        64x32
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                     </Grid>
