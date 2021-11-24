@@ -40,7 +40,7 @@ export default function TraitSlider({type, runFilterWatcher}) {
                             min={0}
                             max={99}
                             value={sliderRange}
-                            onChange={(event, value) => onSliderChange(value)}
+                            onChange={(event, value) => onSliderChange(null, value)}
                             valueLabelDisplay="auto"
                             disableSwap
                             size={'small'}
