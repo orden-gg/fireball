@@ -23,19 +23,21 @@ export default function ParcelImage({parcel}) {
 
         let canvas = canvasRef.current;
 
+        if (!canvas) return;
+
         let context = canvas.getContext('2d');
 
         context.globalAlpha = 1;
 
-        for (var x = 0; x < 100; x++) {
-            for (var y = 0; y < 100; y++) {
+        for (let x = 0; x < 100; x++) {
+            for (let y = 0; y < 100; y++) {
                 context.beginPath();
                 context.fillStyle = `rgba(${cache[x*100+y].join(',')})`;
                 context.fillRect(y,x, x+1,y+1);
             }
         }
 
-        const {size} = parcel
+        const {size} = parcel;
 
         context.strokeStyle = "white";
         size == 0 && context.rect(48, 48, 5, 5);
