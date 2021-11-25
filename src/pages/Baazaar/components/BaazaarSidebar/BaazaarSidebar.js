@@ -20,7 +20,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ghst from '../../../../assets/images/ghst-doubleside.gif';
 
 
-export default function BaazaarSidebar({runFilterWatcher}) {
+export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) {
     const classes = useStyles();
     const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder } = useContext(BaazaarContext);
 
@@ -197,14 +197,14 @@ export default function BaazaarSidebar({runFilterWatcher}) {
                         checkContainerVisibility([
                             listingTypes.aavegotchi
                         ]) && <Grid item xs={12}>
-                            <GotchiFilters runFilterWatcher={runFilterWatcher} />
+                            <GotchiFilters runFilterWatcher={runFilterWatcher} runInstantFiltering={runInstantFiltering} />
                         </Grid>
                     }
                     {
                         checkContainerVisibility([
                             listingTypes.realm
                         ]) && <Grid item xs={12}>
-                            <RealmFilters runFilterWatcher={runFilterWatcher} />
+                            <RealmFilters runFilterWatcher={runFilterWatcher} runInstantFiltering={runInstantFiltering} />
                         </Grid>
                     }
                 </Grid>

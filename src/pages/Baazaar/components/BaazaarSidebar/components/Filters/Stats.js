@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
     FormControl,
     Grid,
@@ -14,7 +14,7 @@ import AdvancedSearch from "./AdvancedSearch";
 import FastSearch from "./FastSearch";
 import useStyles from "./styles";
 
-export default function Stats({runFilterWatcher, fastSearch, setFastSearch}) {
+export default function Stats({runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering}) {
     const classes = useStyles();
     const {
         minBRS,
@@ -22,6 +22,7 @@ export default function Stats({runFilterWatcher, fastSearch, setFastSearch}) {
         sliderRange,
         setSliderRange,
         addStat,
+        stats,
         selectedTraits,
         setSelectedTraits,
         clearAllStats,
@@ -41,7 +42,6 @@ export default function Stats({runFilterWatcher, fastSearch, setFastSearch}) {
 
     const onAddTraitClick = () => {
         addStat();
-        runFilterWatcher();
     };
 
     const onSliderChange = (event) => {
@@ -72,6 +72,10 @@ export default function Stats({runFilterWatcher, fastSearch, setFastSearch}) {
         runFilterWatcher();
     };
 
+    useEffect(() => {
+        runInstantFiltering();
+    }, [collateral, stats]);
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -84,7 +88,6 @@ export default function Stats({runFilterWatcher, fastSearch, setFastSearch}) {
                         size={"small"}
                         onChange={(event) => {
                             setCollateral(event.target.value);
-                            runFilterWatcher();
                         }}
                     >
                         <MenuItem value='all'>All</MenuItem>

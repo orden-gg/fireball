@@ -14,7 +14,7 @@ import Id from "./Id";
 import classNames from 'classnames';
 import { baazaarFilteringTypes } from '../../../../../../data/types';
 
-export default function GotchiFilters({runFilterWatcher}) {
+export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
     const classes = useStyles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);
@@ -58,6 +58,10 @@ export default function GotchiFilters({runFilterWatcher}) {
         setChips(getChips())
     }, [stats]);
 
+    useEffect(() => {
+        runInstantFiltering();
+    }, [exactMatch]);
+
     return (
         <Grid container spacing={2} className={classes.rootContainer} direction={'column'}>
             <Grid item xs={12}>
@@ -85,7 +89,12 @@ export default function GotchiFilters({runFilterWatcher}) {
                     </Grid>
                     <Grid item xs={12}>
                         {
-                            filteringType === baazaarFilteringTypes.stats && <Stats fastSearch={fastSearch} setFastSearch={setFastSearch} runFilterWatcher={runFilterWatcher} />
+                            filteringType === baazaarFilteringTypes.stats && <Stats
+                                fastSearch={fastSearch}
+                                setFastSearch={setFastSearch}
+                                runFilterWatcher={runFilterWatcher}
+                                runInstantFiltering={runInstantFiltering}
+                            />
                         }
                         {
                             (filteringType === baazaarFilteringTypes.name || filteringType === baazaarFilteringTypes.id) &&

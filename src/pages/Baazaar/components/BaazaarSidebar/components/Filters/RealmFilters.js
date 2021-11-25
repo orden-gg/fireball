@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect} from "react";
 import {
     Grid,
     InputLabel,
@@ -18,7 +18,7 @@ import classNames from "classnames";
 
 const districts = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
 
-export default function RealmFilters({runFilterWatcher}) {
+export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
     const classes = useStyles();
 
     const {
@@ -36,6 +36,10 @@ export default function RealmFilters({runFilterWatcher}) {
         setFudFilter
     } = useContext(BaazaarContext);
 
+    useEffect(() => {
+        runInstantFiltering();
+    }, [districtFilter, sizeFilter])
+
     return (
         <Grid container spacing={2} className={classes.rootContainer}>
             <Grid item xs={12}>
@@ -52,7 +56,6 @@ export default function RealmFilters({runFilterWatcher}) {
                                         size={"small"}
                                         onChange={(event) => {
                                             setDistrictFilter(event.target.value);
-                                            runFilterWatcher();
                                         }}
                                     >
                                         <MenuItem value={0}>All</MenuItem>
@@ -70,7 +73,6 @@ export default function RealmFilters({runFilterWatcher}) {
                                     exclusive
                                     onChange={(event) => {
                                         setSizeFilter(event.target.value);
-                                        runFilterWatcher();
                                     }}
                                     color='primary'
                                     aria-label='gotchis sort'

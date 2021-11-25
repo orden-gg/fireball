@@ -434,7 +434,11 @@ export default function Baazaar() {
         getShownItems();
     };
 
-    const instantSortingChange = () => {
+    const runInstantFiltering = () => {
+        if (!properItemsForFiltering()) {
+            return false;
+        }
+
         if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) !== -1) {
             selectedGoodsType === listingTypes.aavegotchi ? handleFindGotchiClick() : handleFindRealmClick();
         } else {
@@ -453,19 +457,29 @@ export default function Baazaar() {
         setUserTypingStatus(true);
     };
 
+    const properItemsForFiltering = () => {
+        if (!localGoods.length) return false;
+
+        const firstItemFromLocalGoods = localGoods[0];
+        const localGoodsHasGotchiItem = firstItemFromLocalGoods.gotchi;
+
+        return (selectedGoodsType === listingTypes.aavegotchi && localGoodsHasGotchiItem) ||
+            (selectedGoodsType === listingTypes.realm && !localGoodsHasGotchiItem);
+    };
+
     useInterval(() => {
         const cachedTimerValue = filtersTimer - 250;
 
         if (userIsTyping && filtersTimer === 0) {
             setUserTypingStatus(false);
-            instantSortingChange();
+            runInstantFiltering();
         } else {
             setFiltersTimer(cachedTimerValue <= 0 ? 0 : cachedTimerValue);
         }
     }, 250);
 
     useEffect(() => {
-        instantSortingChange();
+        runInstantFiltering();
     }, [sortingOrder]);
 
     useEffect(() => {
@@ -481,6 +495,7 @@ export default function Baazaar() {
         <Grid className={classes.baazaar} container spacing={3}>
             <BaazaarSidebar
                 runFilterWatcher={runFilterWatcher}
+                runInstantFiltering={runInstantFiltering}
             />
             {
                 selectedGoodsType !== listingTypes.aavegotchi && selectedGoodsType !== listingTypes.realm ?
