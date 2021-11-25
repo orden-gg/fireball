@@ -38,6 +38,7 @@ const BaazaarContextProvider = (props) => {
     const [priceTo, setPriceTo] = useState('');
     const [rarity, setRarity] = useState('');
     const [stats, setStats] = useState(defaultTraits);
+    const [collateral, setCollateral] = useState('all');
 
     const addStat = (stat) => {
         setStats({
@@ -111,7 +112,9 @@ const BaazaarContextProvider = (props) => {
             fomoFilter,
             setFomoFilter,
             fudFilter,
-            setFudFilter
+            setFudFilter,
+            collateral,
+            setCollateral
         }}>
             { props.children }
         </BaazaarContext.Provider>

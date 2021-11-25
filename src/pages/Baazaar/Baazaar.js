@@ -37,7 +37,10 @@ export default function Baazaar() {
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
     const [paginationIsVisible, setPaginationToVisible] = useState(true);
-    const {filteringType, exactMatch, id, name, orderingTypes, sortingOrder, minBRS, stats, selectedGoodsType, priceFrom, priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter, fomoFilter, fudFilter, rarity} = useContext(BaazaarContext);
+    const {filteringType, exactMatch, id, name, orderingTypes,
+        sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
+        priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
+        fomoFilter, fudFilter, rarity, collateral} = useContext(BaazaarContext);
     // watch filters
     const [filtersTimer, setFiltersTimer] = useState(0);
     const [userIsTyping, setUserTypingStatus] = useState(false);
@@ -334,6 +337,10 @@ export default function Baazaar() {
 
             if ((!priceFrom ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) < parseFloat(priceFrom)) || (!priceTo ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) > parseFloat(priceTo))) {
                 return false;
+            }
+
+            if (collateral !== 'all') {
+                return item.gotchi.collateral.toLowerCase() === collateral.toLowerCase();
             }
 
             if (filteringType === baazaarFilteringTypes.name) {
