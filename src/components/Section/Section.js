@@ -1,18 +1,11 @@
 import React from 'react';
 import { Container, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
-    section: {
-        padding: '50px 0',
-        [theme.breakpoints.up('md')]: {
-            padding: '75px 0'
-        }
-    }
-}));
+import useClasses from '../../hooks/useClasses';
+import styles from './styles';
 
 export default function Section({children, backgroundColor}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
 
     return (
         <Grid container className={classes.section} style={{ backgroundColor: backgroundColor }}>

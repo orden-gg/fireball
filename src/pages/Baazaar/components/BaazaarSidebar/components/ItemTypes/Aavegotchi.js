@@ -2,13 +2,14 @@ import React from "react";
 import Web3 from "web3";
 import Gotchi from "../../../../../../components/Gotchi/Gotchi";
 import ghst from '../../../../../../assets/images/ghst-doubleside.gif';
-import useStyles from "../../../BaazaarSortingBody/style";
 import { Grid, Button } from "@mui/material";
+import useClasses from "../../../../../../hooks/useClasses";
+import { baazaarSortingBodyStyles } from "../../../../styles";
 
 const web3 = new Web3();
 
 export default function Aavegotchi({item}) {
-    const classes = useStyles();
+    const classes = useClasses(baazaarSortingBodyStyles);
 
     return (
         <div>

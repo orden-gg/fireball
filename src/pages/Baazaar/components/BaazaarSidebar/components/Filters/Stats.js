@@ -12,10 +12,12 @@ import {
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import AdvancedSearch from "./AdvancedSearch";
 import FastSearch from "./FastSearch";
-import useStyles from "./styles";
+
+import styles from "./styles";
+import useClasses from "../../../../../../hooks/useClasses";
 
 export default function Stats({runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const {
         minBRS,
         setMinBRS,

@@ -1,14 +1,14 @@
-import { makeStyles } from '@mui/styles';
+
 import { alpha } from '@mui/system';
 
-export const useStyles = makeStyles((theme) => ({
+export const styles = theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',
         padding: '11px 14px 11px 24px',
         background: theme.palette.background.default,
         boxShadow: '0px 4px 16px rgba(29, 32, 37, 0.67)',
-        position: 'fixed !important',
+        position: 'fixed',
         top: 0,
         zIndex: theme.zIndex.appBar,
         [theme.breakpoints.up('md')]: {
@@ -125,9 +125,9 @@ export const useStyles = makeStyles((theme) => ({
     navHamburger: {
         position: 'relative',
         zIndex: theme.zIndex.appBar,
-        marginLeft: '24px !important',
+        marginLeft: '24px',
         [theme.breakpoints.up('md')]: {
-            display: 'none !important'
+            display: 'none'
         }
     },
     socialLinkList: {
@@ -186,4 +186,6 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         marginLeft: 12
     }
-}));
+});
+
+export default styles

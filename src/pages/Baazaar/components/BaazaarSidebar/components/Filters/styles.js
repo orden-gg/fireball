@@ -1,6 +1,4 @@
-import { makeStyles } from "@mui/styles";
-
-export default makeStyles((theme) => ({
+const styles = theme => ({
     rootContainer: {
         paddingTop: 0
     },
@@ -13,7 +11,7 @@ export default makeStyles((theme) => ({
     formControl: {
         width: '100%',
         '& .MuiSelect-select': {
-            padding: '4px 14px !important'
+            padding: '4px 14px'
         },
         '& label': {
             top: -12,
@@ -26,22 +24,22 @@ export default makeStyles((theme) => ({
         padding: '10px 0'
     },
     stackOfChips: {
-        maxWidth: '100% !important',
+        maxWidth: '100%',
         overflowX: "auto",
         maxHeight: 53,
         '& > *': {
-            margin: '0 5px 2px 0 !important',
+            margin: '0 5px 2px 0',
         }
     },
     singleChip: {
-        height: 'auto !important',
-        fontSize: '12px !important',
+        height: 'auto',
+        fontSize: '12px',
         '& .MuiChip-label': {
             padding: '3px 7px 3px 5px'
         },
         '& svg': {
-            fontSize: '19px !important',
-            marginRight: '3px !important'
+            fontSize: '19px',
+            marginRight: '3px'
         }
     },
     field: {
@@ -56,38 +54,40 @@ export default makeStyles((theme) => ({
         }
     },
     checkRangeOuter: {
-        lineHeight: '.9 !important'
+        lineHeight: '.9'
     },
     checkRange: {
-        padding: '0 5px !important',
-        fontSize: '0.65rem !important',
-        lineHeight: '.9 !important',
+        padding: '0 5px',
+        fontSize: '0.65rem',
+        lineHeight: '.9',
         '&:hover': {
-            background: 'transparent !important'
+            background: 'transparent'
         },
         '&.rare': {
             color: theme.palette.rarity.rare
         }
     },
     traitsContainer: {
-        paddingTop: '0 !important'
+        paddingTop: '0'
     },
     slider: {
-        padding: '13px 0 0 !important'
+        padding: '13px 0 0'
     },
     toggleItem: {
-        fontSize: '12px !important',
-        padding: '4px !important'
+        fontSize: '12px',
+        padding: '4px'
     },
     smallInput: {
         '& input': {
-            padding: '4px 14px !important'
+            padding: '4px 14px'
         },
         '& label': {
             top: -5
         }
     },
     rangeSliderOuter: {
-        paddingTop: '0px !important'
+        paddingTop: '0px'
     }
-}));
+});
+
+export default styles;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Backdrop, CircularProgress } from "@mui/material";
-import useStyles from "./style";
+import styles from "./styles";
 import thegraph from "../../api/thegraph";
 import BaazaarBody from "./components/BaazaarBody/BaazaarBody";
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
@@ -10,6 +10,7 @@ import { listingTypes } from "../../data/types";
 import Web3 from "web3";
 import { baazaarFilteringTypes } from '../../data/types';
 import useInterval from "../../hooks/useInterval";
+import useClasses from '../../hooks/useClasses';
 
 const web3 = new Web3();
 
@@ -27,7 +28,7 @@ let localGoods = [],
     filteredLocalGoods = [];
 
 export default function Baazaar() {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     // server pagination
     const [goods, setGoods] = useState([]);
     // local pagination

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { DateTime, Duration } from "luxon";
 import useInterval from '../../hooks/useInterval';
-import useStyles from './styles';
+import styles from "./styles";
+import useClasses from '../../hooks/useClasses';
 
 const interval = 1000/24;
 
@@ -23,7 +24,7 @@ const getName = (names, number) => {
 
 export default function Countdown({date, format, onEnd, id}) {
     const [time, setTime] = useState({});
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const formatArray = format.split(':');
 
     useInterval(() => {

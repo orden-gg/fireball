@@ -12,14 +12,17 @@ import {
     ToggleButtonGroup
 } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import useStyles from "./styles";
+
 import { fomo, fud, kek, alpha } from "../../../../../../data/icons";
 import classNames from "classnames";
+
+import styles from "./styles";
+import useClasses from "../../../../../../hooks/useClasses";
 
 const districts = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
 
 export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
 
     const {
         districtFilter,

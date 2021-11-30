@@ -1,7 +1,38 @@
-import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-export default makeStyles((theme) => ({
+const styles = theme => ({
+    baazaar: {
+        padding: 24,
+        width: 'calc(100vw + 24px)'
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff'
+    }
+});
+
+const baazaarBodyStyles = theme => ({
+    baazaarBody: {
+        padding: 30
+    },
+    pagination: {
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        '& nav': {
+            marginTop: 15,
+            fontSize: '1.2rem'
+        }
+    },
+    warning: {
+        marginBottom: '15px'
+    },
+    noGoods: {
+        fontSize: "1rem"
+    }
+});
+
+const baazaarItemStyles = theme => ({
     baazaarItem: {
         background: theme.palette.background.paper,
         borderWidth: 2,
@@ -112,4 +143,84 @@ export default makeStyles((theme) => ({
             background: alpha(theme.palette.customColors.lightGray, .14),
         }
     }
-}));
+});
+
+const paginationStyles = theme => ({
+    wrap: {
+        display: 'flex',
+        marginTop: 20
+    },
+    button: {
+        height: 36
+    },
+    current: {
+        padding: '0 25px',
+        height: 36,
+        lineHeight: '36px',
+        textAlign: 'center'
+    }
+});
+
+const baazaarSortingBodyStyles = theme => ({
+    baazaarBody: {
+        padding: 30
+    },
+    baazaarListItems: {
+        display: "grid",
+        gridTemplateColumns: 'repeat(auto-fill,minmax(192px,1fr))',
+        gridGap: 12,
+        width: '100%'
+    },
+    pagination: {
+        display: 'flex',
+        alignContent: 'center',
+        justifyContent: 'center',
+        '& nav': {
+            marginTop: 15,
+            fontSize: '1.2rem'
+        }
+    },
+    warning: {
+        marginBottom: '15px'
+    },
+    noGoods: {
+        fontSize: "1rem"
+    },
+    ghstFooter: {
+        marginTop: 5,
+        marginBottom: 15
+    },
+    ghst: {
+        width: 20
+    },
+    price: {
+        display: 'flex',
+        fontSize: 16,
+        alignItems: 'center',
+        '& > div': {
+            marginTop: 3
+        }
+    },
+    carousel: {
+        '& .carousel:not(.carousel-slider)': {
+            display: 'none'
+        },
+        '& .control-dots': {
+            display: 'none'
+        },
+        '& .carousel .slider-wrapper': {
+            paddingTop: 10
+        },
+        '& .carousel-status': {
+            top: -17
+        }
+    }
+});
+
+export {
+    styles as default,
+    baazaarBodyStyles,
+    baazaarItemStyles,
+    paginationStyles,
+    baazaarSortingBodyStyles
+}

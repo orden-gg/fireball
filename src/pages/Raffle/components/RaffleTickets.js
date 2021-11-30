@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@mui/styles';
+
 import Ticket from '../../../components/Items/Ticket/Ticket';
 import web3 from '../../../api/web3';
-
-const useStyles = makeStyles((theme) => ({
+import useClasses from '../../../hooks/useClasses';
+const styles = theme => ({
     list: {
         display: 'grid',
         alignItems: 'start',
@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
     },
     listItem: {
         height: '100%'
-    },
-}));
+    }
+});
 
 export default function RaffleTickets({address}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);

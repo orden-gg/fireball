@@ -1,8 +1,12 @@
 import React, {useContext, useState} from "react";
 import {Button, Grid, Slider} from "@mui/material";
 import { BaazaarContext } from '../../../../../../contexts/BaazaarContext';
-import useStyles from "./styles";
+
 import classNames from "classnames";
+
+import styles from "./styles";
+import useClasses from "../../../../../../hooks/useClasses";
+
 let traitsEmojis = {
     NRG: '⚡️',
     AGG: '👹',
@@ -13,7 +17,7 @@ let traitsEmojis = {
 };
 
 export default function TraitSlider({type, runFilterWatcher}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const [sliderRange, setSliderRange] = useState([0,99]);
     const { changeSingleStat } = useContext(BaazaarContext);
 

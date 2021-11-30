@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import { TextField } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import useStyles from "./styles";
+
+import styles from "./styles";
+import useClasses from "../../../../../../hooks/useClasses";
 
 export default function Name({runFilterWatcher}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const { name, setName } = useContext(BaazaarContext);
 
     const onNameChange = (event) => {

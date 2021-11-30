@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box, IconButton } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 
 import song from '../../assets/music/halloween.mp3';
 
-const useStyles = makeStyles((theme) => ({
-    button: {
-        position: 'fixed',
-        right: 24,
-        bottom: 12,
-        zIndex: theme.zIndex.drawer + 3,
-    }
-}));
+import styles from './styles';
+import useClasses from '../../hooks/useClasses';
 
 export default function MusicButton() {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const [playing, setPlaying] = useState(false);
     const [audio] = useState(new Audio(song));
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import { useTheme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { alpha } from '@mui/system';
 
-const useStyles = makeStyles((theme) => ({
+import { alpha } from '@mui/system';
+import useClasses from '../hooks/useClasses';
+
+const styles = theme => ({
     box: {
         padding: 2,
         border: '3px solid transparent'
     }
-}));
+});
 
 export default function HighlightNumber({children, type}) {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const theme = useTheme();
 
     const getColor = (type) => {

@@ -2,7 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import { Box, Button, Link, Toolbar, Typography, IconButton } from '@mui/material';
 import {NavLink, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
-import {useStyles} from './styles';
+import styles from './styles';
+import useClasses from '../../hooks/useClasses';
 
 import LoginButton from '../../components/Login/LoginButton';
 
@@ -12,7 +13,7 @@ import logo from '../../assets/images/logo.png';
 import discord from '../../assets/images/discord.svg';
 
 export default function Header() {
-    const classes = useStyles();
+    const classes = useClasses(styles);
     const [navOpen, setNavOpen] = useState(false);
     const location = useLocation();
     const navRef = useRef(null);

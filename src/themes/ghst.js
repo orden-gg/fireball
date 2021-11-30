@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 
-export const theme = createTheme({
+const theme = createTheme({
     palette: {
         common: {
           white: '#fff'
@@ -67,5 +67,30 @@ export const theme = createTheme({
     },
     shape: {
         borderRadiusSmaller: 2
-    }
+    },
+    components: {
+        MuiLink: {
+            styleOverrides: {
+                root: {
+                    textDecoration: 'none',
+                    color: 'inherit',
+
+                    // '&:hover': {
+                    //     textDecoration: 'underline'
+                    // }
+                },
+            },
+        },
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    fontSize: '0.875rem',
+                    lineHeight: 1.43,
+                    letterSpacing: '0.01071em'
+                }
+            }
+        }
+    },
 });
+
+export default theme;
