@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 import commonUtils from '../../utils/commonUtils';
 import styles from "./styles";
-import useClasses from '../../hooks/useClasses';
 import { LoginContext } from '../../contexts/LoginContext';
 
 import CheckIcon from '@mui/icons-material/Check';
@@ -15,7 +14,7 @@ import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginAddress({address, isMetamask}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
     const [copyTooltipText, setCopyTooltipText] = useState('Copy address');

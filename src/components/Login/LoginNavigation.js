@@ -3,7 +3,6 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
 import styles from "./styles";
-import useClasses from '../../hooks/useClasses';
 
 import { LoginContext } from '../../contexts/LoginContext';
 
@@ -11,7 +10,7 @@ import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import classNames from 'classnames';
 
 export default function LoginNavigation() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const { metaState } = useMetamask();
     const { connectMetamask, setIsMetamaskActive, setModalOpen, setDropdownOpen } = useContext(LoginContext);
 

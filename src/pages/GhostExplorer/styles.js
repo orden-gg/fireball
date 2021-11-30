@@ -1,7 +1,9 @@
 
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     root: {
         overflowY: 'auto',
         padding: '15px 10px 10px',
@@ -54,6 +56,6 @@ const styles = theme => ({
         zIndex: theme.zIndex.appBar - 1,
         color: '#fff'
     }
-});
+}));
 
 export default styles

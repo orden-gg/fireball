@@ -1,6 +1,8 @@
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     loginNavigation: {
         display: 'flex',
         alignItems: 'center',
@@ -218,6 +220,6 @@ const styles = theme => ({
     modalTitle: {
         marginBottom: 24
     }
-});
+}));
 
 export default styles

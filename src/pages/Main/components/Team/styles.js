@@ -1,4 +1,6 @@
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     mainTitle: {
         textAlign: 'center',
         fontSize: 28,
@@ -49,6 +51,6 @@ const styles = theme => ({
             height: 100
         }
     }
-});
+}));
 
 export default styles

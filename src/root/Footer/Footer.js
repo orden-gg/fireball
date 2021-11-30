@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Box, Toolbar, Typography, Snackbar, Alert } from '@mui/material';
 
 import { SnackbarContext } from "../../contexts/SnackbarContext";
-import useClasses from '../../hooks/useClasses';
+
 import styles from './styles';
 
 function FooterAlert(props) {
@@ -10,7 +10,7 @@ function FooterAlert(props) {
 }
 
 export default function Footer() {
-    const classes = useClasses(styles),
+    const classes = styles(),
         { isOpen, type, message, onSnackbarClose } = useContext(SnackbarContext);
 
     return (

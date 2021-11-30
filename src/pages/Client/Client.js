@@ -6,7 +6,6 @@ import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string'
 import styles from './styles';
-import useClasses from '../../hooks/useClasses';
 
 import { LoginContext } from '../../contexts/LoginContext';
 import { ClientContext } from '../../contexts/ClientContext';
@@ -20,7 +19,7 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 
 export default function Client() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();

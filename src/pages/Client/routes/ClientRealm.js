@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
 import { routersStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 
@@ -15,7 +14,7 @@ import kek from '../../../assets/images/icons/kek.png';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientRealm() {
-    const classes = useClasses(routersStyles);
+    const classes = routersStyles();
     const { realm, realmFilter, loadingRealm, sortData } = useContext(ClientContext);
 
     if(loadingRealm || !realm.length) {

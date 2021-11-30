@@ -4,7 +4,6 @@ import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mu
 import classNames from 'classnames';
 
 import { ticketStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import commonUtils from '../../../utils/commonUtils';
 import { RaffleContext } from '../../../contexts/RaffleContext';
@@ -15,7 +14,7 @@ import ghst from '../../../assets/images/ghst-doubleside.gif';
 import itemUtils from '../../../utils/itemUtils';
 
 export default function RaffleTablee({raffleEnded}) {
-    const classes = useClasses(ticketStyles);
+    const classes = ticketStyles();
 
     const { tickets, setTickets, raffleSpinner, supplySpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
 

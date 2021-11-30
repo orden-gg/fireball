@@ -14,11 +14,10 @@ import realmPlaceholder from '../../../assets/images/icons/kek.png';
 import ContentLoader from 'react-content-loader';
 
 import { clientNavStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 export default function ClientNav() {
     const match = useRouteMatch();
-    const classes = useClasses(clientNavStyles);
+    const classes = clientNavStyles();
     const theme = useTheme();
 
     const { 

@@ -5,7 +5,6 @@ import { useTheme } from '@emotion/react';
 import { alpha } from '@mui/system';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import ContentLoader from 'react-content-loader';
 import thegraph from '../../../api/thegraph';
@@ -22,10 +21,10 @@ var web3 = new Web3();
 
 export default function Parcel({parcel, isBaazaarCard}) {
     const classes = {
-        ...useClasses(itemStyles),
-        ...useClasses(ERC1155InnerStyles),
-        ...useClasses(tooltipStyles),
-        ...useClasses(parselStyles)
+        ...itemStyles(),
+        ...ERC1155InnerStyles(),
+        ...tooltipStyles(),
+        ...parselStyles()
     }
 
     const theme = useTheme();

@@ -4,12 +4,11 @@ import { Typography } from '@mui/material';
 import web3 from '../../api/web3';
 
 import styles from './styles';
-import useClasses from '../../hooks/useClasses';
 import classNames from 'classnames';
 
 
 export default function ProfilePane({address}) {
-    const classes = useClasses(styles);
+    const classes = styles();
 
     return (
         <div className={classes.container}>

@@ -2,11 +2,8 @@ import React from 'react';
 
 import styles from './styles.js'
 
-import useClasses from '../../hooks/useClasses';
-
-
 export default function ShineLabel({text}) {
-    const classes = useClasses(styles);
+    const classes = styles();
 
     return (
         <div className={classes.labelWrapper}>

@@ -1,6 +1,8 @@
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     soldOutLink: {
         color: theme.palette.primary.main,
         fontWeight: 600
@@ -49,9 +51,9 @@ const styles = theme => ({
     itemBalanceDivider: {
         margin: '0 2px'
     }
-});
+}));
 
-const itemStyles = theme => ({
+const itemStyles = makeStyles( theme => ({
     item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
@@ -96,9 +98,9 @@ const itemStyles = theme => ({
             opacity: .7,
         }
     },
-});
+}));
 
-const tooltipStyles = theme => ({
+const tooltipStyles = makeStyles( theme => ({
 
     tooltip: {
         padding: '16px 12px 12px',
@@ -200,9 +202,9 @@ const tooltipStyles = theme => ({
         color: theme.palette.error.main,
         padding: '0 4px'
     }
-});
+}));
 
-const ERC1155InnerStyles = theme => ({
+const ERC1155InnerStyles = makeStyles( theme => ({
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -298,9 +300,9 @@ const ERC1155InnerStyles = theme => ({
             fontSize: 13
         }
     },
-});
+}));
 
-const parselStyles = theme => ({
+const parselStyles = makeStyles( theme => ({
     boosts: {
         position: 'absolute',
         bottom: 0,
@@ -364,7 +366,7 @@ const parselStyles = theme => ({
             backgroundColor: theme.palette.realm.specions
         }
     }
-});
+}));
 
 export {
     styles as default,

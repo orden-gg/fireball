@@ -1,7 +1,9 @@
 
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     gotchi: {
         display: 'block',
         borderRadius: theme.shape.borderRadius,
@@ -165,9 +167,9 @@ const styles = theme => ({
         margin: '2px 0'
     },
 
-});
+}));
 
-const GotchiLevelStyles = theme => ({
+const GotchiLevelStyles = makeStyles( theme => ({
     gotchiLvlTooltip: {
         '& p': {
             margin: 0
@@ -196,9 +198,9 @@ const GotchiLevelStyles = theme => ({
         color: theme.palette.primary.main,
         fontWeight: 700,
     },
-});
+}));
 
-const GotchiSvgStyles = theme => ({
+const GotchiSvgStyles = makeStyles( theme => ({
     svgWrapper: {
         margin: 'auto',
         '& svg, & img': {
@@ -249,9 +251,9 @@ const GotchiSvgStyles = theme => ({
     svgPlaceholder: {
         width: '100%'
     }
-});
+}));
 
-const GotchiWareableLineStyles = theme => ({
+const GotchiWareableLineStyles = makeStyles( theme => ({
 
     gotchiWLineWrapper: {
         display: 'flex',
@@ -304,9 +306,9 @@ const GotchiWareableLineStyles = theme => ({
         backgroundColor: alpha(theme.palette.primary.main, .1),
         borderRadius: '50%',
     }
-});
+}));
 
-const GotchiTraitsStyles = theme => ({
+const GotchiTraitsStyles = makeStyles( theme => ({
     gotchiTraits: {
         position: 'relative',
         display: 'flex',
@@ -331,7 +333,7 @@ const GotchiTraitsStyles = theme => ({
         fontSize: 10,
         marginLeft: 2
     },
-});
+}));
 
 export {
     styles as default,

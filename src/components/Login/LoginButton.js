@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
 import styles from "./styles";
-import useClasses from '../../hooks/useClasses';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
@@ -16,7 +15,7 @@ import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginButton() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const { getAccounts, metaState } = useMetamask();
 
     const { activeAddress, selectActiveAddress, storageAddresses,

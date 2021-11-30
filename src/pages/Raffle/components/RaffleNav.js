@@ -10,13 +10,11 @@ import wearables4icon from '../../../assets/wearables/156.svg';
 import h2icon from '../../../assets/images/h2_sealed.svg';
 import wearable5icon from '../../../assets/wearables/261.svg';
 import realm1icon from '../../../assets/images/icons/kek.png';
-import useClasses from '../../../hooks/useClasses';
 import { raffleNavStyles } from '../styles';
-
 
 export default function RaffleNav({address}) {
     const match = useRouteMatch();
-    const classes = useClasses(raffleNavStyles);
+    const classes = raffleNavStyles();
     const theme = useTheme();
 
     return (

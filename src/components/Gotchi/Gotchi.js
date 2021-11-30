@@ -4,7 +4,6 @@ import { alpha, Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
 import styles from "./styles";
-import useClasses from '../../hooks/useClasses';
 
 import graphUtils from '../../utils/graphUtils';
 import commonUtils from '../../utils/commonUtils';
@@ -22,7 +21,7 @@ import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 import ShineLabel from '../Labels/ShineLabel';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const theme = useTheme();
 
     const collateral = graphUtils.getCollateralName(gotchi.collateral);

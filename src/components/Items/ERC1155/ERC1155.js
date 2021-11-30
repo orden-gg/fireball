@@ -8,7 +8,6 @@ import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
-import useClasses from '../../../hooks/useClasses';
 
 import commonUtils from '../../../utils/commonUtils';
 import thegraph from '../../../api/thegraph';
@@ -20,9 +19,9 @@ import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function ERC1155({children, item}) {
     const classes = {
-        ...useClasses(itemStyles),
-        ...useClasses(styles),
-        ...useClasses(tooltipStyles)
+        ...itemStyles(),
+        ...styles(),
+        ...tooltipStyles()
     }
     
     const theme = useTheme();

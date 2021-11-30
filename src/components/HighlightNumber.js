@@ -12,7 +12,7 @@ const styles = theme => ({
 });
 
 export default function HighlightNumber({children, type}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const theme = useTheme();
 
     const getColor = (type) => {

@@ -3,13 +3,12 @@ import { Tooltip, useTheme } from '@mui/material';
 
 import itemUtils from '../../utils/itemUtils';
 import { GotchiWareableLineStyles } from "./styles";
-import useClasses from '../../hooks/useClasses';
 
 import Wearable from '../Items/Wearable/Wearable';
 import classNames from 'classnames';
 
 export default function GotchiWearablesLine({wearables}) {
-    const classes = useClasses(GotchiWareableLineStyles);
+    const classes = GotchiWareableLineStyles();
     const theme = useTheme();
     const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
 

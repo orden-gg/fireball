@@ -493,7 +493,7 @@ export default function Baazaar() {
     }, [selectedGoodsType]);
 
     return (
-        <Grid className={classes.baazaar} container spacing={3}>
+        <Grid classes={{root: classes.baazaar}} container spacing={3}>
             <BaazaarSidebar
                 runFilterWatcher={runFilterWatcher}
                 runInstantFiltering={runInstantFiltering}
@@ -517,7 +517,7 @@ export default function Baazaar() {
                         onPrevPageClick={onLocalPrevPageClick}
                     />
             }
-            <Backdrop className={classes.backdrop} open={backdropIsOpen}>
+            <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>
         </Grid>

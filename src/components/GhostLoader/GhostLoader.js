@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
-import useClasses from '../../hooks/useClasses';
 import styles from './styles';
 
 export default function GhostLoader({animate, text}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [render, setRender] = useState(animate);
     const [title, setTitle] = useState(null);
 

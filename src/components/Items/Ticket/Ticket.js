@@ -3,14 +3,13 @@ import { Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { ERC1155InnerStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import commonUtils from '../../../utils/commonUtils';
 import itemUtils from '../../../utils/itemUtils';
 import ERC1155 from '../ERC1155/ERC1155';
 
 export default function Ticket({ticket}) {
-    const classes = useClasses(ERC1155InnerStyles);
+    const classes = ERC1155InnerStyles();
 
     return (
         <ERC1155 item={{ id: ticket.id, rarity: ticket.name, category: 3, balance: ticket.balance }}>

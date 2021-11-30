@@ -1,6 +1,8 @@
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     container: {
         padding: 24
     },
@@ -20,9 +22,9 @@ const styles = theme => ({
     alert: {
         marginBottom: 24
     }
-})
+}));
 
-const routersStyles = theme => ({
+const routersStyles = makeStyles( theme => ({
     // backdrop: {
     //     zIndex: theme.zIndex.appBar - 1,
     //     color: '#fff'
@@ -80,9 +82,9 @@ const routersStyles = theme => ({
             width: 18
         }
     },
-});
+}));
 
-const clientNavStyles = theme => ({
+const clientNavStyles = makeStyles( theme => ({
     container: {
         padding: '12px 0',
         display: 'flex',
@@ -137,9 +139,9 @@ const clientNavStyles = theme => ({
         height: 14,
         marginLeft: 8
     },
-});
+}));
 
-const loadRewardsStyles = theme => ({
+const loadRewardsStyles = makeStyles( theme => ({
     
     loadWrapper: {
         display: 'flex',
@@ -159,7 +161,7 @@ const loadRewardsStyles = theme => ({
         fontSize: '16px',
         marginLeft: '4px'
     }
-});
+}));
 
 export {
     styles as default,

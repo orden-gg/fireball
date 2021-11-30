@@ -1,4 +1,6 @@
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     wrapper: {
         display: 'flex',
         textAlign: 'center'
@@ -32,6 +34,6 @@ const styles = theme => ({
         fontSize: 14,
         margin: '3px 0 0'
     }
-});
+}));
 
 export default styles

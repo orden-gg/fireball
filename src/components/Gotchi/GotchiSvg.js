@@ -5,13 +5,12 @@ import classNames from 'classnames';
 
 import gotchiLoading from '../../assets/images/gotchi-loading.gif';
 import { GotchiSvgStyles } from './styles';
-import useClasses from '../../hooks/useClasses';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
 export default function GotchiSvg({id, size, hideWearables, hideBg}) {
-    const classes = useClasses(GotchiSvgStyles);
+    const classes = GotchiSvgStyles();
     const svgRef = useRef(null);
     const [loadingSvg, setLoadingSvg] = useState(true);
     let svgInner = document.createElement('div');

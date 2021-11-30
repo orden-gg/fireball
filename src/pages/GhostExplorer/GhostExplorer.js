@@ -3,10 +3,9 @@ import { CircularProgress, Backdrop, useTheme } from '@mui/material';
 import Gotchi from '../../components/Gotchi/Gotchi'; 
 import thegraph from '../../api/thegraph';
 import styles from "./styles";
-import useClasses from '../../hooks/useClasses';
 
 export default function GhostExplorer() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [gotchiesFromGraph, setGotchiesFromGraph] = useState(null);
     const [gotchiesShown, setGotchiesShown] = useState([]);
     const [isLoading, setIsLoading] = useState(true);

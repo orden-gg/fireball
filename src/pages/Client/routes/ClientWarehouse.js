@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
 import { routersStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 
@@ -11,7 +10,7 @@ import Consumable from '../../../components/Items/Consumable/Consumable';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientWarehouse() {
-    const classes = useClasses(routersStyles);
+    const classes = routersStyles();
     const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
     if(loadingWarehouse || loadingGotchis || !warehouse.length) {

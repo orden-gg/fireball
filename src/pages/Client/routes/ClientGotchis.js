@@ -3,7 +3,6 @@ import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/
 import { LoadingButton } from '@mui/lab';
 
 import { loadRewardsStyles, routersStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 import commonUtils from '../../../utils/commonUtils';
@@ -14,8 +13,8 @@ import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function ClientGotchis() {
     const classes = {
-        ...useClasses(loadRewardsStyles),
-        ...useClasses(routersStyles)
+        ...loadRewardsStyles(),
+        ...routersStyles()
     };
     const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
 

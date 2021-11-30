@@ -1,5 +1,7 @@
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     subtitle: {
         textAlign: 'center',
         position: 'relative',
@@ -40,6 +42,6 @@ const styles = theme => ({
         position: 'relative',
         padding: '4px 16px'
     }
-});
+}));
 
 export default styles;

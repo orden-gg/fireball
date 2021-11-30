@@ -7,7 +7,7 @@ import { CssBaseline } from '@mui/material';
 
 import { MetamaskStateProvider } from 'use-metamask';
 
-import { ThemeProvider as MuiThemeProvider, StylesProvider } from '@mui/styles';
+import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import { ThemeProvider } from '@emotion/react';
 
 

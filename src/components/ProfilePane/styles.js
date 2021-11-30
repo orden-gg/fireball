@@ -1,6 +1,8 @@
 import { alpha } from "@mui/material";
 
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     container: {
         maxWidth: 1232,
         margin: '0 auto',
@@ -24,6 +26,6 @@ const styles = theme => ({
         fontSize: 12,
         color: theme.palette.error.main
     }
-});
+}));
 
 export default styles;

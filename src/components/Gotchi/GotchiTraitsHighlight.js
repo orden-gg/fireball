@@ -1,11 +1,11 @@
 import React from 'react';
 import commonUtils from '../../utils/commonUtils';
 import { GotchiTraitsStyles } from "./styles";
-import useClasses from '../../hooks/useClasses';
+
 import HighlightNumber from '../HighlightNumber';
 
 export default function GotchiTraitsHighlight({traits, currentTraits}) {
-    const classes = useClasses(GotchiTraitsStyles);
+    const classes = GotchiTraitsStyles();
     const defaultTraits = commonUtils.formatTraits(traits, true);
     const formattedTraits = commonUtils.formatTraits(currentTraits, true);
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import Ticket from '../../../components/Items/Ticket/Ticket';
 import web3 from '../../../api/web3';
-import useClasses from '../../../hooks/useClasses';
 const styles = theme => ({
     list: {
         display: 'grid',
@@ -19,7 +18,7 @@ const styles = theme => ({
 });
 
 export default function RaffleTickets({address}) {
-    const classes = useClasses(styles);
+    const classes = styles();
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);

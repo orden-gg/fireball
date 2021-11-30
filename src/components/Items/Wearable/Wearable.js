@@ -3,13 +3,12 @@ import { Box, Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { ERC1155InnerStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import itemUtils from '../../../utils/itemUtils';
 import ERC1155 from '../ERC1155/ERC1155';
 
 export default function Wearable({wearable, raffleStats, tooltip}) {
-    const classes = useClasses(ERC1155InnerStyles);
+    const classes = ERC1155InnerStyles();
 
     const name = itemUtils.getItemNameById(wearable.id);
     const rarity = itemUtils.getItemRarityById(wearable.id);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material';
 import classNames from 'classnames';
 import styles from "./styles";
-import useClasses from '../../../../hooks/useClasses';
 import { gotchiByIdQuery } from '../../../../api/common/queries';
 
 import hopeUp from '../../../../assets/images/avatars/hope_up.svg';
@@ -14,7 +13,7 @@ import { Box } from '@mui/system';
 const gotchiesId = [4271, 8005, 4282, 23470, 13998];
 
 export default function Team() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [dataSpinner, setDataSpinner] = useState(true);
     const [members, setMembers] = useState([]);
 

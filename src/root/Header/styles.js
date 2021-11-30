@@ -1,7 +1,9 @@
 
 import { alpha } from '@mui/system';
 
-export const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',
@@ -186,6 +188,6 @@ export const styles = theme => ({
         alignItems: 'center',
         marginLeft: 12
     }
-});
+}));
 
 export default styles

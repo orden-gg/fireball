@@ -1,30 +1,15 @@
-
-// import { keyframes } from '@emotion/css';
 import { alpha } from '@mui/system';
+import { makeStyles } from "@mui/styles";
 
-// const customPulse = keyframes({
-//     '0%': {
-//         transform: 'scale(.9)'
-//     },
-//     '70%': {
-//         transform: 'scale(1)',
-//         boxShadow: '0 0 0 20px transparent'
-//     },
-//     '100%': {
-//         transform: 'scale(.9)',
-//         boxShadow: '0 0 0 0 transparent'
-//     }
-// });
-
-const styles = theme => ({
+const styles = makeStyles( theme => ({
     container: {
         maxWidth: 1280,
         padding: 24,
         margin: '0 auto',
-    },
-});
+    }
+}));
 
-const titleStyles = theme => ({
+const titleStyles = makeStyles( theme => ({
     titleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -50,9 +35,9 @@ const titleStyles = theme => ({
             textAlign: 'left',
         }
     },
-});
+}));
 
-const ticketStyles = theme => ({
+const ticketStyles = makeStyles( theme => ({
     // backdrop: {
     //     zIndex: theme.zIndex.drawer + 1,
     //     color: '#fff'
@@ -440,17 +425,17 @@ const ticketStyles = theme => ({
         textAlign: 'center',
         marginTop: 40
     }
-});
+}));
 
-const raffleCountdownStyles = theme => ({
+const raffleCountdownStyles = makeStyles( theme => ({
     countdownWrapper: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end'
     }
-});
+}));
 
-const raffleNavStyles = theme => ({
+const raffleNavStyles = makeStyles( theme => ({
     container: {
         padding: '12px 0',
         display: 'flex',
@@ -472,13 +457,24 @@ const raffleNavStyles = theme => ({
             backgroundColor: alpha(theme.palette.secondary.dark, .2),
             borderColor: alpha(theme.palette.secondary.light, .2),
             color: alpha('#fff', .3),
+            '& $label': {
+                opacity: .4
+            }
         },
         '&.active, &.active:hover': {
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.secondary.main,
+
+            '& $label': {
+                color: theme.palette.secondary.main
+            },
             '&.Mui-disabled': {
                 backgroundColor: alpha(theme.palette.primary.main, .1),
                 color: alpha('#fff', .2),
+
+                '& $label': {
+                    color: theme.palette.primary.main
+                }
             },
         }
     },
@@ -486,20 +482,8 @@ const raffleNavStyles = theme => ({
         fontSize: 14,
         fontWeight: 600,
         color: theme.palette.primary.main,
-
-        '.Mui-disabled &': {
-            opacity: .4
-        },
-
-        '.active &, .active:hover &': {
-            color: theme.palette.secondary.main
-        },
-
-        '.active.Mui-disabled &, .active.Mui-disabled:hover &': {
-            color: theme.palette.primary.main
-        }
     }
-});
+}));
 
 export {
     styles as default,

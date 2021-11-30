@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./styles";
-import useClasses from '../../../../hooks/useClasses';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import thegraph from '../../../../api/thegraph';
@@ -11,7 +10,7 @@ import sealedPortal from '../../../../assets/images/portal-sealed.svg';
 import classNames from 'classnames';
 
 export default function Portals() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [dataSpinner, setDataSpinner] = useState(true);
     const [openedPortals, setOpenedPortals] = useState(0);
     const [gotchiClaimed, setGotchiClaimed] = useState(0);

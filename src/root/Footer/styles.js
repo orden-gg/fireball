@@ -1,4 +1,6 @@
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     footerWrapper: {
         backgroundColor: theme.palette.secondary.dark,
         padding: '5px 24px',
@@ -23,6 +25,6 @@ const styles = theme => ({
             color: theme.palette.primary.main
         }
     }
-});
+}));
 
 export default styles;

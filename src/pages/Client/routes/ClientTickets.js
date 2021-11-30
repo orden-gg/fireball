@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Box } from '@mui/material';
 
 import { routersStyles } from '../styles';
-import useClasses from '../../../hooks/useClasses';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 
@@ -10,7 +9,7 @@ import Ticket from '../../../components/Items/Ticket/Ticket';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientTickets() {
-    const classes = useClasses(routersStyles);
+    const classes = routersStyles();
     const { tickets, loadingTickets } = useContext(ClientContext);
 
     if(loadingTickets || !tickets.length) {

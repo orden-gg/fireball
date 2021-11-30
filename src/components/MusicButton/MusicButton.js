@@ -7,10 +7,9 @@ import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import song from '../../assets/music/halloween.mp3';
 
 import styles from './styles';
-import useClasses from '../../hooks/useClasses';
 
 export default function MusicButton() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [playing, setPlaying] = useState(false);
     const [audio] = useState(new Audio(song));
 

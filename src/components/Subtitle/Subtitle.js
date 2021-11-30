@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-import useClasses from '../../hooks/useClasses';
+
 import styles from './styles';
 
 export default function Subtitle({children, margin, variant, innerBg}) {
-    const classes = useClasses(styles);
+    const classes = styles();
 
     return (
         <Box className={classes.subtitle} margin={margin ? margin : 0}>

@@ -3,7 +3,6 @@ import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import {Helmet} from 'react-helmet';
 import styles from './styles';
-import useClasses from '../../hooks/useClasses';
 
 import queryString from 'query-string'
 
@@ -16,7 +15,7 @@ import RaffleContextProvider from '../../contexts/RaffleContext';
 
 
 export default function Raffle() {
-    const classes = useClasses(styles);
+    const classes = styles();
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();

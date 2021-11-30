@@ -23,10 +23,7 @@ import BaazaarContextProvider from "./contexts/BaazaarContext";
 import LoginContextProvider from './contexts/LoginContext';
 import ClientContextProvider from './contexts/ClientContext';
 
-import useClasses from './hooks/useClasses';
-
 import { styled } from '@mui/system';
-
 
 const classes = {
     wrapper: 'page-wrapper',
