@@ -339,8 +339,8 @@ export default function Baazaar() {
                 return false;
             }
 
-            if (collateral !== 'all') {
-                return item.gotchi.collateral.toLowerCase() === collateral.toLowerCase();
+            if (collateral !== 'all' && item.gotchi.collateral.toLowerCase() !== collateral.toLowerCase()) {
+                return false;
             }
 
             if (filteringType === baazaarFilteringTypes.name) {
@@ -439,15 +439,9 @@ export default function Baazaar() {
             return false;
         }
 
-        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) !== -1) {
+        if (isLocalFilteringFlow()) {
             selectedGoodsType === listingTypes.aavegotchi ? handleFindGotchiClick() : handleFindRealmClick();
         } else {
-            forceLoadItems();
-        }
-    };
-
-    const instantRarityChange = () => {
-        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) === -1) {
             forceLoadItems();
         }
     };
@@ -458,6 +452,7 @@ export default function Baazaar() {
     };
 
     const properItemsForFiltering = () => {
+        if (!isLocalFilteringFlow()) return true;
         if (!localGoods.length) return false;
 
         const firstItemFromLocalGoods = localGoods[0];
@@ -465,6 +460,12 @@ export default function Baazaar() {
 
         return (selectedGoodsType === listingTypes.aavegotchi && localGoodsHasGotchiItem) ||
             (selectedGoodsType === listingTypes.realm && !localGoodsHasGotchiItem);
+    };
+
+    const isLocalFilteringFlow = () => {
+        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) !== -1) {
+            return true;
+        }
     };
 
     useInterval(() => {
@@ -480,11 +481,7 @@ export default function Baazaar() {
 
     useEffect(() => {
         runInstantFiltering();
-    }, [sortingOrder]);
-
-    useEffect(() => {
-        instantRarityChange();
-    }, [rarity]);
+    }, [sortingOrder, rarity]);
 
     useEffect(() => {
         setSelectedLocalGoods([]);
