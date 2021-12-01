@@ -122,9 +122,9 @@ const modifyTraits = (gotchis) => {
             let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
             gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
-            gotchiCache.modifiedNumericTraits.map((item, index) => {
+            gotchiCache.modifiedNumericTraits = gotchiCache.modifiedNumericTraits.map((item, index) => {
                 return item + modifiers[index + 1];
-            })
+            });
         }
 
         return gotchiCache;
