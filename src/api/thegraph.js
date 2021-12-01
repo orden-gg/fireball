@@ -139,14 +139,13 @@ export default {
     },
 
     async getJoinedData(queries) {
-        return await graphJoin(clientFactory.client,queries);
+        return await graphJoin(clientFactory.client, queries);
     },
 
     async getAllGotchies() {
         return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response)=> {
             let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
-            console.log(filteredArray);
             return modifyTraits(filteredArray);
         });
     },
