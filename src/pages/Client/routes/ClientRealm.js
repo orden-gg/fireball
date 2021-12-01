@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
-import { useStyles } from '../styles';
+
+import { routersStyles } from '../styles';
+
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Parcel from '../../../components/Items/Parcel/Parcel';
@@ -12,11 +14,11 @@ import kek from '../../../assets/images/icons/kek.png';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientRealm() {
-    const classes = useStyles();
+    const classes = routersStyles();
     const { realm, realmFilter, loadingRealm, sortData } = useContext(ClientContext);
 
     if(loadingRealm || !realm.length) {
-        return <Box textAlign='center' paddingTop={'32px'}>
+        return <Box  className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingRealm || !realm.length}
                 text={!loadingRealm && !realm.length ? 'No realm here :(' : null}
@@ -26,8 +28,8 @@ export default function ClientRealm() {
 
     return (
         <>
-            <Box display='flex' alignItems='center' justifyContent='center' marginBottom='16px'>
-                <Box display='flex' alignItems='center' marginRight='24px'>
+            <Box className={classes.sortWrapper}>
+                <Box className={classes.sortInner}>
                     <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
 
                     <ToggleButtonGroup
@@ -60,8 +62,8 @@ export default function ClientRealm() {
                     </ToggleButtonGroup>
                 </Box>
 
-                <Box display='flex' alignItems='center'>
-                    <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Boosts: </Typography>
+                <Box className={classes.sortInner}>
+                    <Typography variant='subtitle1' className={classes.sortText}>Boosts: </Typography>
 
                     <ToggleButtonGroup
                         value={realmFilter}

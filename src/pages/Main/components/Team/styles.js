@@ -1,17 +1,17 @@
 import { makeStyles } from "@mui/styles";
 
-export default makeStyles((theme) => ({
+const styles = makeStyles( theme => ({
     mainTitle: {
         textAlign: 'center',
-        fontSize: '28px !important',
+        fontSize: 28,
         [theme.breakpoints.up('md')]: {
-            fontSize: '34px !important',
+            fontSize: 34
         }
     },
     teamMember: {
         width: '100%',
         height: '100%',
-        color: `${theme.palette.common.white} !important`,
+        color: theme.palette.common.white,
         borderWidth: 0,
         background: 'transparent',
         borderStyle: 'solid',
@@ -31,11 +31,11 @@ export default makeStyles((theme) => ({
         // }
     },
     aavegotchiName: {
-        fontSize: '18px !important',
+        fontSize: 18,
         textAlign: 'center',
         padding: '25px 0 0',
         [theme.breakpoints.up('md')]: {
-            fontSize: '25px !important',
+            fontSize: 25,
             padding: '25px 0 10px',
         }
     },
@@ -44,11 +44,13 @@ export default makeStyles((theme) => ({
         fontWeight: 500
     },
     aavegotchiAvatar: {
-        width: '150px !important',
-        height: '150px !important',
+        width: 150,
+        height: 150,
         '& > img': {
             width: 100,
             height: 100
         }
     }
 }));
+
+export default styles

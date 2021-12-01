@@ -1,14 +1,19 @@
 import { makeStyles } from "@mui/styles";
 
-export default makeStyles((theme) => ({
+const styles = makeStyles( theme => ({
     portalsColumn: {
         marginBottom: 30,
         [theme.breakpoints.up('md')]: {
             marginBottom: 0
+        },
+
+        '&.center': {
+            justifyContent: 'center'
         }
     },
     portalsDescr: {
-        fontSize: 24
+        fontSize: 24,
+        textAlign: 'center'
     },
     portalsImage: {
         cursor: 'pointer',
@@ -43,3 +48,5 @@ export default makeStyles((theme) => ({
         color: theme.palette.primary.main
     }
 }));
+
+export default styles

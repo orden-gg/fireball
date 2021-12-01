@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import commonUtils from '../../utils/commonUtils';
-import useStyles from './styles';
+import styles from "./styles";
 import { LoginContext } from '../../contexts/LoginContext';
 
 import CheckIcon from '@mui/icons-material/Check';
@@ -14,7 +14,7 @@ import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginAddress({address, isMetamask}) {
-    const classes = useStyles();
+    const classes = styles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
     const [copyTooltipText, setCopyTooltipText] = useState('Copy address');
@@ -76,20 +76,16 @@ export default function LoginAddress({address, isMetamask}) {
     return (
         <Box
             onClick={onAddressClick}
-            className={classNames(classes.listItem, isActive(address) ? 'active' : '' )}
-            display='flex'
-            alignItems='center'
-            justifyContent='space-between'
-        >
-            <Box display='flex' alignItems='center'>
+            className={classNames(classes.loginAddress, isActive(address) ? 'active' : '' )}>
+            <Box className={classes.loginAddressBody}>
 
-                <Box component='form' display='flex' alignItems='center'>
+                <Box component='form' className={classes.loginAddressForm}>
                     {!isMetamask ? (
-                        <Box padding='0' marginRight='4px' height='35px'>
+                        <Box className={classNames(classes.loginAddressFormIcon, 'gotchi')}>
                             <GotchiSvg id={address.gotchiId ? address.gotchiId : 5402} size={35} hideWearables={true} hideBg={true}  />
                         </Box>
                     ) : (
-                        <Box padding='0 4px' marginRight='4px' height='35px' display='flex' alignItems='center'>
+                        <Box className={classNames(classes.loginAddressFormIcon, 'metamask')}>
                             <img src={MetamaskIcon} alt='Metamask icon' width={22} />
                         </Box>
                     )}
@@ -103,7 +99,7 @@ export default function LoginAddress({address, isMetamask}) {
                             inputRef={nameRef}
                             value={name}
                             onChange={(event) => onNameChange(event.target.value)}
-                            className={classes.listItemName}
+                            className={classes.loginAddressName}
                             endAdornment={
                                 <InputAdornment position='end'>
                                     {editMode ? (
@@ -121,7 +117,7 @@ export default function LoginAddress({address, isMetamask}) {
 
                 <Tooltip title={copyTooltipText} placement='top' followCursor>
                     <Typography
-                        className={classes.listItemAddress}
+                        className={classes.loginAddressAddress}
                         color='primary.main'
                         onClick={(event) => copyAddress(event)}
                         onMouseLeave={() => setCopyTooltipText('Copy address')}
@@ -131,7 +127,7 @@ export default function LoginAddress({address, isMetamask}) {
                 </Tooltip>
             </Box>
 
-            <Box display='flex' alignItems='center' marginLeft='4px'>
+            <Box className={classes.loginAddressIcons}>
                 {!isMetamask ? (
                     <>
                         <Tooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>

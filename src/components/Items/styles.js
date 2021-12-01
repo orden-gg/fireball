@@ -1,7 +1,59 @@
-import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-export default makeStyles((theme) => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
+    soldOutLink: {
+        color: theme.palette.primary.main,
+        fontWeight: 600
+    },
+    lastPrice: {
+        color: theme.palette.text.primary,
+        paddingLeft: '4px'
+    },
+    lastPriceUp: {
+        color: theme.palette.success.light
+    },
+    lastPriceDown: {
+        color: theme.palette.warning.main
+    },
+    priceLoader: {
+        width: 70,
+        height: 27,
+        marginLeft: 4,
+    },
+    totalValueLoader: {
+        width: 70,
+        height: 27
+    },
+    prices: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        '& div:last-child': {
+            borderBottomRightRadius: 4
+        },
+    },
+    equippedTitle: {
+        maxWidth: 200
+    },
+    equippedTitleText: {
+        margin: '0 0 2px'
+    },
+    equippedTitleLink: {
+        color: theme.palette.primary.main,
+        fontWeight: 600 
+    },
+    itemBalanceDivider: {
+        margin: '0 2px'
+    }
+}));
+
+const itemStyles = makeStyles( theme => ({
     item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
@@ -42,30 +94,24 @@ export default makeStyles((theme) => ({
         '&.partner': {
             backgroundColor: alpha(theme.palette.realm.partner, .15)
         },
-        '&:hover $labelSlot': {
+        '&:hover .labelSlot': {
             opacity: .7,
         }
     },
+}));
+
+const tooltipStyles = makeStyles( theme => ({
+
     tooltip: {
         padding: '16px 12px 12px',
-        backgroundColor: 'transparent !important',
-        '& $iconWrapper': {
-            minHeight: '60px'
-        },
-        '& $icon': {
-            maxHeight: '50px'
-        },
-        '& $labelSlot': {
-            top: 0,
-            opacity: .7
-        },
-        '& $name': {
-            fontSize: '14px !important'
-        },
-        '& $stats': {
-            fontSize: '13px !important'
-        }
+        backgroundColor: 'transparent',
     },
+
+    customTooltip: {
+        backgroundColor: `${theme.palette.secondary.dark}`,
+        marginBottom: 8
+    },
+
     labels: {
         position: 'absolute',
         top: 0,
@@ -82,7 +128,28 @@ export default makeStyles((theme) => ({
         justifyContent: 'center',
         border: '3px solid transparent',
         '& h6': {
-            fontWeight: '600 !important'
+            fontWeight: '600'
+        },
+    },
+    labelSlot: {
+        position: 'absolute',
+        top: 27,
+        right: 0,
+        minWidth: 34,
+        opacity: .2,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        transition: 'opacity .2s ease-in-out',
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
+                    ${theme.palette.secondary.main} -1px -1px 0px',
+                    ${theme.palette.secondary.main} 1px -1px 0px',
+                    ${theme.palette.secondary.main} -1px 1px 0px',
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
+
+        '.tooltip-wearable &': { // labelSlot
+            top: 0,
+            opacity: .7
         },
     },
     labelTotal: {
@@ -97,32 +164,65 @@ export default makeStyles((theme) => ({
             }
         },
     },
+    labelRarityColored: {
+        '.common &': {
+            backgroundColor: theme.palette.rarity.common,
+            color: theme.palette.secondary.main
+        },
+        '.uncommon &': {
+            backgroundColor: theme.palette.rarity.uncommon,
+            color: theme.palette.secondary.main
+        },
+        '.rare &': {
+            backgroundColor: theme.palette.rarity.rare,
+            color: theme.palette.secondary.main
+        },
+        '.legendary &': {
+            backgroundColor: theme.palette.rarity.legendary,
+            color: theme.palette.secondary.main
+        },
+        '.mythical &': {
+            backgroundColor: theme.palette.rarity.mythical,
+            color: theme.palette.secondary.main
+        },
+        '.godlike &': {
+            backgroundColor: theme.palette.rarity.godlike,
+            color: theme.palette.secondary.main
+        },
+        '.godlike &': {
+            backgroundColor: theme.palette.rarity.godlike,
+            color: theme.palette.secondary.main
+        }
+    },
     labelBalance: {
         backgroundColor: alpha(theme.palette.secondary.dark, .8),
         minWidth: 34,
     },
-    prices: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        '& div:last-child': {
-            borderBottomRightRadius: 4
-        },
-    },
+    labelListing: {
+        color: theme.palette.error.main,
+        padding: '0 4px'
+    }
+}));
+
+const ERC1155InnerStyles = makeStyles( theme => ({
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '65%',
-        marginBottom: 4
+        marginBottom: 4,
+        
+        '.tooltip-wearable &': { // iconWrapper
+            minHeight: 60
+        }
     },
+
     icon: {
         width: '60%',
-        maxHeight: '80px'
+        maxHeight: 80,
+        '.tooltip-wearable &': { // icon
+            maxHeight: 50
+        }
     },
     nameWrapper: {
         whiteSpace: 'nowrap',
@@ -148,67 +248,18 @@ export default makeStyles((theme) => ({
         }
     },
     name: {
-        fontWeight: '500 !important',
-        lineHeight: '1.4 !important',
+        fontWeight: '500',
+        lineHeight: '1.4',
         textTransform: 'capitalize',
-        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
-                    ${theme.palette.secondary.main} -1px -1px 0px,
-                    ${theme.palette.secondary.main} 1px -1px 0px,
-                    ${theme.palette.secondary.main} -1px 1px 0px,
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
+                    ${theme.palette.secondary.main} -1px -1px 0px',
+                    ${theme.palette.secondary.main} 1px -1px 0px',
+                    ${theme.palette.secondary.main} -1px 1px 0px',
                     ${theme.palette.secondary.main} 1px 1px 0px`,
-    },
-    callMadeIcon: {
-        position: 'absolute',
-        right: 2,
-        bottom: 2,
-        fontSize: '14px !important',
-        color: '#fff'
-    },
-    stats: {
-        fontWeight: '500 !important'
-    },
-    labelSlot: {
-        position: 'absolute',
-        top: 27,
-        right: 0,
-        minWidth: 34,
-        opacity: .2,
-        fontSize: 12,
-        fontWeight: 600,
-        padding: 0,
-        transition: 'opacity .2s ease-in-out',
-        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
-                    ${theme.palette.secondary.main} -1px -1px 0px,
-                    ${theme.palette.secondary.main} 1px -1px 0px,
-                    ${theme.palette.secondary.main} -1px 1px 0px,
-                    ${theme.palette.secondary.main} 1px 1px 0px`,
-    },
-    boosts: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        '& div:last-child': {
-            borderBottomRightRadius: 4
+    
+        '.tooltip-wearable &': { // name
+            fontSize: 14
         },
-    },
-    boost: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 4px',
-        color: theme.palette.secondary.main,
-        fontSize: 14,
-        fontWeight: 600,
-        '& img': {
-            marginRight: 2
-        }
-    },
-    customTooltip: {
-        backgroundColor: `${theme.palette.secondary.dark} !important`,
-        marginBottom: '8px !important'
     },
     textHighlight: {
         '&.common': {
@@ -242,7 +293,85 @@ export default makeStyles((theme) => ({
             color: theme.palette.realm.partner
         },
     },
-    parcelImage: {
-        marginTop: 20
+    stats: {
+        fontWeight: '500',
+        
+        '.tooltip-wearable &': { // stats
+            fontSize: 13
+        }
+    },
+}));
+
+const parselStyles = makeStyles( theme => ({
+    boosts: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        '& div:last-child': {
+            borderBottomRightRadius: 4
+        },
+    },
+
+    boost: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 4px',
+        color: theme.palette.secondary.main,
+        fontSize: 14,
+        fontWeight: 600,
+        '& img': {
+            marginRight: 2
+        },
+
+        '&.fud': {
+            backgroundColor: theme.palette.alchemica.fud
+        },
+
+        '&.fomo': {
+            backgroundColor: theme.palette.alchemica.fomo
+        },
+
+        '&.alpha': {
+            backgroundColor: theme.palette.alchemica.alpha
+        },
+
+        '&.kek': {
+            backgroundColor: theme.palette.alchemica.kek
+        }
+    },
+
+    callMadeIcon: {
+        position: 'absolute',
+        right: 2,
+        bottom: 2,
+        fontSize: 14,
+        color: '#fff'
+    },
+    labelParselPrice: {
+        color: theme.palette.secondary.main,
+
+        '.humble &': {
+            backgroundColor: theme.palette.realm.humble
+        },
+
+        '.resonable &': {
+            backgroundColor: theme.palette.realm.resonable
+        },
+
+        '.specions &': {
+            backgroundColor: theme.palette.realm.specions
+        }
     }
 }));
+
+export {
+    styles as default,
+    itemStyles,
+    ERC1155InnerStyles,
+    tooltipStyles,
+    parselStyles
+}

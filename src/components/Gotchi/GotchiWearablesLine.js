@@ -2,12 +2,13 @@ import React from 'react';
 import { Tooltip, useTheme } from '@mui/material';
 
 import itemUtils from '../../utils/itemUtils';
-import useStyles from './styles';
+import { GotchiWareableLineStyles } from "./styles";
 
 import Wearable from '../Items/Wearable/Wearable';
+import classNames from 'classnames';
 
 export default function GotchiWearablesLine({wearables}) {
-    const classes = useStyles();
+    const classes = GotchiWareableLineStyles();
     const theme = useTheme();
     const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
 
@@ -22,11 +23,14 @@ export default function GotchiWearablesLine({wearables}) {
                         <Tooltip
                             title={
                                 wearable !== 0 ? (
-                                    <div style={{ width: 150, height: 150, margin: '-4px -8px' }}>
+                                    <div className={classNames(classes.gotchiWTooltipTitle, 'tooltip-wearable')}>
                                         <Wearable wearable={{ id: wearable }} tooltip={true} />
                                     </div>
                                 ) : (
-                                    <span><span style={{ color: theme.palette.primary.main }}>{name}</span> Empty</span>
+                                    <span>
+                                        <span className={classes.gotchiWTooltipName}>{name}</span>
+                                        Empty
+                                    </span>
                                 )
                             }
                             classes={{ tooltip: classes.customTooltip }}

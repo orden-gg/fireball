@@ -3,12 +3,12 @@ import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import web3 from '../../api/web3';
 
-import useStyles from './styles';
+import styles from "./styles";
 import { LoginContext } from '../../contexts/LoginContext';
 import thegraph from '../../api/thegraph';
 
 export default function LoginModal({modalOpen, setModalOpen}) {
-    const classes = useStyles();
+    const classes = styles();
 
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');

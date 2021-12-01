@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useStyles } from '../styles';
+
+import { loadRewardsStyles, routersStyles } from '../styles';
+
 import { ClientContext } from '../../../contexts/ClientContext';
 import commonUtils from '../../../utils/commonUtils';
 
@@ -10,12 +12,15 @@ import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function ClientGotchis() {
-    const classes = useStyles();
+    const classes = {
+        ...loadRewardsStyles(),
+        ...routersStyles()
+    };
     const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
 
 
     if(loadingGotchis || !gotchis.length) {
-        return <Box textAlign='center' paddingTop={'32px'}>
+        return <Box className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingGotchis || !gotchis.length}
                 text={!loadingGotchis && !gotchis.length ? 'No gotchis here :(' : null}
@@ -25,8 +30,8 @@ export default function ClientGotchis() {
 
     return (
         <>
-            <Box display='flex' alignItems='center' justifyContent='center' marginBottom='16px'>
-                <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
+            <Box className={classes.sortWrapper}>
+                <Typography className={classes.sortText} variant='subtitle1'>Sort: </Typography>
 
                 <ToggleButtonGroup
                     value={gotchisFilter}
@@ -72,24 +77,24 @@ export default function ClientGotchis() {
                 </ToggleButtonGroup>
 
 
-                <Box display='flex' alignItems='center' marginLeft='16px'>
+                <Box className={classes.loadWrapper}>
 
                     <LoadingButton
                         disabled={rewardCalculated}
                         onClick={calculateReward}
                         loading={rewardCalculating}
                         variant='contained'
-                        sx={{ marginRight: '16px' }}
+                        className={classes.loadButton}
                     >
                         {reward ? 'Reward:' : 'Calculate Reward'}
                     </LoadingButton>
 
                     {reward ? (
-                        <Typography variant='h6' style={{ display: 'inline-flex', alignItems: 'center' }}>
+                        <Typography variant='h6' className={classes.loadReward}>
                             <span className={classes.lightText}>{commonUtils.formatPrice(reward)}</span>
                             <img src={ghstIcon} width='24' alt='GHST Token Icon' />
 
-                            <Box component='span' display='inline-flex' alignItems='center' fontSize='16px' marginLeft='4px'>
+                            <Box component='span' className={classes.loadRoundReward}>
                                 (<span className={classes.lightText}>{commonUtils.formatPrice(reward / 4)}</span>
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
                             </Box>

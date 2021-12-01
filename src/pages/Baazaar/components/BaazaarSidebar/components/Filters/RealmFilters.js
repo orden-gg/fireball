@@ -1,13 +1,28 @@
-import React, { useContext } from "react";
-import {Grid, Button, InputLabel, Select, MenuItem, FormControl, TextField} from "@mui/material";
+import React, {useContext, useEffect} from "react";
+import {
+    Grid,
+    InputLabel,
+    Select,
+    MenuItem,
+    FormControl,
+    TextField,
+    ToggleButton,
+    Tooltip,
+    Box,
+    ToggleButtonGroup
+} from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import useStyles from "./styles";
-import {fomo, fud, kek, alpha} from "../../../../../../data/icons";
+
+import { fomo, fud, kek, alpha } from "../../../../../../data/icons";
+import classNames from "classnames";
+
+import styles from "./styles";
+
 
 const districts = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
 
-export default function RealmFilters({handleFindClick}) {
-    const classes = useStyles();
+export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
+    const classes = styles();
 
     const {
         districtFilter,
@@ -24,17 +39,17 @@ export default function RealmFilters({handleFindClick}) {
         setFudFilter
     } = useContext(BaazaarContext);
 
-    const onFindClick = () => {
-        handleFindClick();
-    };
+    useEffect(() => {
+        runInstantFiltering();
+    }, [districtFilter, sizeFilter])
 
     return (
         <Grid container spacing={2} className={classes.rootContainer}>
-            <Grid item xs={12} md={10}>
+            <Grid item xs={12}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                                 <FormControl variant='outlined' className={classes.formControl}>
                                     <InputLabel>District</InputLabel>
                                     <Select
@@ -55,32 +70,39 @@ export default function RealmFilters({handleFindClick}) {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={6}>
-                                <FormControl variant='outlined' className={classes.formControl}>
-                                    <InputLabel>Size</InputLabel>
-                                    <Select
-                                        label={'Size'}
-                                        value={sizeFilter}
-                                        fullWidth
-                                        size={"small"}
-                                        onChange={(event) => {
-                                            setSizeFilter(event.target.value);
-                                        }}
-                                    >
-                                        <MenuItem value={'4'}>All</MenuItem>
-                                        <MenuItem value={'0'}>8x8</MenuItem>
-                                        <MenuItem value={'1'}>16x16</MenuItem>
-                                        <MenuItem value={'2'}>64x32</MenuItem>
-                                    </Select>
-                                </FormControl>
+                            <Grid item xs={12}>
+                                <ToggleButtonGroup
+                                    value={sizeFilter}
+                                    exclusive
+                                    onChange={(event) => {
+                                        setSizeFilter(event.target.value);
+                                    }}
+                                    color='primary'
+                                    aria-label='gotchis sort'
+                                    fullWidth
+                                    size={'small'}
+                                >
+                                    <ToggleButton className={classes.toggleItem} value={'4'} aria-label='modified rarity score'>
+                                        All
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'0'} aria-label='modified rarity score'>
+                                        8x8
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'1'} aria-label='modified rarity score'>
+                                        16x16
+                                    </ToggleButton>
+                                    <ToggleButton className={classes.toggleItem} value={'2'} aria-label='modified rarity score'>
+                                        64x32
+                                    </ToggleButton>
+                                </ToggleButtonGroup>
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6}>
                                 <TextField
-                                    className={classes.field}
+                                    className={classNames(classes.field, classes.smallInput)}
                                     type='text'
                                     variant='outlined'
                                     fullWidth
@@ -91,14 +113,15 @@ export default function RealmFilters({handleFindClick}) {
                                         if (event.target.value && event.target.value >= 0) {
                                             setFudFilter(event.target.value);
                                         } else {
-                                            setFudFilter(null);
+                                            setFudFilter('');
                                         }
+                                        runFilterWatcher();
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6}>
                                 <TextField
-                                    className={classes.field}
+                                    className={classNames(classes.field, classes.smallInput)}
                                     type='text'
                                     variant='outlined'
                                     fullWidth
@@ -109,14 +132,15 @@ export default function RealmFilters({handleFindClick}) {
                                         if (event.target.value && event.target.value >= 0) {
                                             setFomoFilter(event.target.value);
                                         } else {
-                                            setFomoFilter(null);
+                                            setFomoFilter('');
                                         }
+                                        runFilterWatcher();
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6}>
                                 <TextField
-                                    className={classes.field}
+                                    className={classNames(classes.field, classes.smallInput)}
                                     type='text'
                                     variant='outlined'
                                     fullWidth
@@ -127,14 +151,15 @@ export default function RealmFilters({handleFindClick}) {
                                         if (event.target.value && event.target.value >= 0) {
                                             setAlphaFilter(event.target.value);
                                         } else {
-                                            setAlphaFilter(null);
+                                            setAlphaFilter('');
                                         }
+                                        runFilterWatcher();
                                     }}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6}>
                                 <TextField
-                                    className={classes.field}
+                                    className={classNames(classes.field, classes.smallInput)}
                                     type='text'
                                     variant='outlined'
                                     fullWidth
@@ -145,22 +170,15 @@ export default function RealmFilters({handleFindClick}) {
                                         if (event.target.value && event.target.value >= 0) {
                                             setKekFilter(event.target.value);
                                         } else {
-                                            setKekFilter(null);
+                                            setKekFilter('');
                                         }
+                                        runFilterWatcher();
                                     }}
                                 />
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-            <Grid item xs={12} md={2}>
-                <Button
-                    variant={"contained"}
-                    color={'primary'}
-                    fullWidth
-                    onClick={() => onFindClick()}
-                >Filter</Button>
             </Grid>
         </Grid>
     );

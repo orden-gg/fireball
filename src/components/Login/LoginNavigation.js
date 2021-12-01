@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
-import useStyles from './styles';
+import styles from "./styles";
 
 import { LoginContext } from '../../contexts/LoginContext';
 
 import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import classNames from 'classnames';
 
 export default function LoginNavigation() {
-    const classes = useStyles();
+    const classes = styles();
     const { metaState } = useMetamask();
     const { connectMetamask, setIsMetamaskActive, setModalOpen, setDropdownOpen } = useContext(LoginContext);
 
@@ -25,11 +26,11 @@ export default function LoginNavigation() {
     };
 
     return (
-        <Box display='flex' alignItems='center' justifyContent={!metaState.account[0] ? 'space-between' : 'flex-end'}>
+        <Box className={classNames(classes.loginNavigation, !metaState.account[0] && 'connect')}>
             {!metaState.account[0] ? (
                 <>
                     <Button variant='contained' color='primary' onClick={onMetamaskClick} fullWidth className={classes.metamaskButton}>
-                        Connect <img src={MetamaskIcon} alt='metamask icon' width={20} style={{ margin: '0 6px' }} />
+                        Connect <img src={MetamaskIcon} alt='metamask icon' className={classes.metamaskButtonIcon} />
                     </Button>
 
                     <Typography className={classes.dropdownDivider}>or</Typography>

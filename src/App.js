@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
+
 import { Box } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+
 import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
@@ -22,8 +23,16 @@ import BaazaarContextProvider from "./contexts/BaazaarContext";
 import LoginContextProvider from './contexts/LoginContext';
 import ClientContextProvider from './contexts/ClientContext';
 
-const useStyles = makeStyles(() => ({
-    wrap: {
+import { styled } from '@mui/system';
+
+const classes = {
+    wrapper: 'page-wrapper',
+    content: 'page-content'
+}
+
+const Wrapper = styled('div')(() => ({
+
+    [`&.${classes.wrapper}`]: {
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
@@ -32,16 +41,15 @@ const useStyles = makeStyles(() => ({
             height: '100%'
         }
     },
-    content: {
+    [`& .${classes.content}`]: {
         flexGrow: 1,
         '&.explorer': {
             height: '100%'
         }
-    }
+    },
 }));
 
 export default function App() {
-    const classes = useStyles();
     const location = useLocation();
 
     return (
@@ -54,9 +62,10 @@ export default function App() {
                             <title>ghst_gg</title>
                         </Helmet>
 
-                        <MusicButton />
 
-                        <Box className={classNames(classes.wrap, location.pathname === '/explorer' ? 'explorer' : '')}>
+                        <Wrapper className={classNames(classes.wrapper, location.pathname === '/explorer' ? 'explorer' : '')}>
+
+                            <MusicButton />
                             <Header />
 
                             <Box className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
@@ -73,7 +82,7 @@ export default function App() {
                             </Box>
 
                             {location.pathname !== '/explorer' && <Footer />}
-                        </Box>
+                        </Wrapper>
 
                     </ClientContextProvider>
                 </LoginContextProvider>

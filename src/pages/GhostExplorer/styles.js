@@ -1,7 +1,9 @@
-import { makeStyles } from '@mui/styles';
+
 import { alpha } from '@mui/system';
 
-export default makeStyles((theme) => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     root: {
         overflowY: 'auto',
         padding: '15px 10px 10px',
@@ -55,3 +57,5 @@ export default makeStyles((theme) => ({
         color: '#fff'
     }
 }));
+
+export default styles

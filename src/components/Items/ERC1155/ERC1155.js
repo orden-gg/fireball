@@ -6,7 +6,8 @@ import { alpha, Box } from '@mui/system';
 import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
-import useStyles from '../styles';
+import styles, { itemStyles, tooltipStyles } from '../styles';
+
 
 import commonUtils from '../../../utils/commonUtils';
 import thegraph from '../../../api/thegraph';
@@ -15,9 +16,19 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
+
 export default function ERC1155({children, item}) {
-    const classes = useStyles();
+    const classes = {
+        ...itemStyles(),
+        ...styles(),
+        ...tooltipStyles()
+    }
+    
     const theme = useTheme();
+
+    console.log(tooltipStyles);
+
+    console.log(classes);
 
     const [last, setLast] = useState(null);
     const [lastDate, setLastDate] = useState(null);
@@ -56,8 +67,13 @@ export default function ERC1155({children, item}) {
                     {last && current ? (
                         <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
                             <div
-                                className={classNames(classes.label, classes.labelTotal)}
-                                style={{ backgroundColor: theme.palette.rarity[item.rarity], color: item.rarity === 'drop' ? theme.palette.text.primary : theme.palette.secondary.main }}
+                                className={
+                                    classNames(
+                                        classes.label,
+                                        classes.labelTotal,
+                                        classes.labelRarityColored
+                                    )
+                                }
                             >
                                 <Typography variant='subtitle2'>
                                     {last.price === 0 ? '???' : commonUtils.formatPrice(last.price * item.balance)}
@@ -69,11 +85,11 @@ export default function ERC1155({children, item}) {
                     ) : (
                         <ContentLoader
                             speed={2}
-                            width={70}
-                            height={27}
                             viewBox='0 0 70 27'
                             backgroundColor={alpha(theme.palette.rarity[item.rarity], .6)}
                             foregroundColor={alpha(theme.palette.rarity[item.rarity], .2)}
+
+                            className={classes.totalValueLoader}
                         >
                             <rect x='0' y='0' width='70' height='27' />
                         </ContentLoader>
@@ -84,8 +100,8 @@ export default function ERC1155({children, item}) {
                             {item.holders?.length ? (
                                 <Tooltip
                                     title={
-                                        <div style={{ maxWidth: 200 }}>
-                                            <p style={{ margin: '0 0 2px' }}>Equipped at:</p>
+                                        <div className={classes.equippedTitle}>
+                                            <p className={classes.equippedTitleText}>Equipped at:</p>
                                             {
                                                 item.holders.map((holder, index) => {
                                                     return <span key={index}>
@@ -93,7 +109,7 @@ export default function ERC1155({children, item}) {
                                                             href={`https://aavegotchi.com/gotchi/${holder}`}
                                                             target='_blank'
                                                             underline='none'
-                                                            style={{ color: theme.palette.primary.main, fontWeight: 600 }}
+                                                            className={classes.equippedTitleLink}
                                                         >
                                                             {holder}
                                                         </Link>
@@ -106,7 +122,7 @@ export default function ERC1155({children, item}) {
                                     classes={{ tooltip: classes.customTooltip }}
                                     placement='top'
                                 >
-                                    <span>{item.holders.length}<span style={{ margin: '0 2px' }}>/</span>{item.balance}</span>
+                                    <span>{item.holders.length}<span className={classes.itemBalanceDivider}>/</span>{item.balance}</span>
                                 </Tooltip>
                             ) : (
                                 item.balance
@@ -143,7 +159,7 @@ export default function ERC1155({children, item}) {
                                             href={`https://www.aavegotchi.com/baazaar/erc1155/${last.listing}`}
                                             target='_blank'
                                             underline='none'
-                                            style={{ color: theme.palette.primary.main, fontWeight: 600 }}
+                                            className={classes.soldOutLink}
                                         >
                                             {commonUtils.formatPrice(last.price)}
                                         </Link> [{DateTime.fromISO(lastDate).toRelative()}]
@@ -156,7 +172,9 @@ export default function ERC1155({children, item}) {
                     >
                         <div>
                             {current.price === 0 ? (
-                                <Typography variant='subtitle2' className={classNames(classes.label, classes.labelTotal, 'baazarPrice')} style={{ color: theme.palette.error.main, padding: '0 4px' }}>
+                                <Typography 
+                                    variant='subtitle2'
+                                    className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
                                     No listings
                                 </Typography>
                             ) : (
@@ -167,20 +185,20 @@ export default function ERC1155({children, item}) {
                                     className={classNames(classes.label, classes.labelTotal, 'baazarPrice')}
                                 >
                                     {current.price === last.price ? (
-                                        <Typography variant='subtitle2' sx={{ color: theme.palette.text.primary, paddingLeft: '4px' }}>
+                                        <Typography className={classes.lastPrice} variant='subtitle2'>
                                             {commonUtils.formatPrice(current.price)}
                                         </Typography>
                                     ) : current.price > last.price ? (
                                         <>
                                             <KeyboardArrowUpIcon color='success' fontSize='inherit' />
-                                            <Typography variant='subtitle2' sx={{ color: theme.palette.success.light }}>
+                                            <Typography className={classes.lastPriceUp} variant='subtitle2'>
                                                 {commonUtils.formatPrice(current.price)}
                                             </Typography>
                                         </>
                                     ) : (
                                         <>
                                             <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
-                                            <Typography variant='subtitle2' sx={{ color: theme.palette.warning.main }}>
+                                            <Typography className={classes.lastPriceDown} variant='subtitle2'>
                                                 {commonUtils.formatPrice(current.price)}
                                             </Typography>
                                         </>
@@ -193,12 +211,10 @@ export default function ERC1155({children, item}) {
                 ) : (
                     <ContentLoader
                         speed={2}
-                        width={70}
-                        height={27}
                         viewBox='0 0 70 27'
                         backgroundColor={alpha(theme.palette.secondary.dark, .5)}
                         foregroundColor={alpha(theme.palette.secondary.main, .5)}
-                        style={{ marginLeft: 4 }}
+                        className={classes.priceLoader}
                     >
                         <rect x='0' y='0' width='70' height='27' /> 
                     </ContentLoader>

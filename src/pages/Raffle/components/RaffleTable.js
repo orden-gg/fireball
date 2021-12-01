@@ -2,7 +2,9 @@
 import React, { useContext } from 'react';
 import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
-import {useStyles} from '../styles';
+
+import { ticketStyles } from '../styles';
+
 import commonUtils from '../../../utils/commonUtils';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
@@ -12,7 +14,7 @@ import ghst from '../../../assets/images/ghst-doubleside.gif';
 import itemUtils from '../../../utils/itemUtils';
 
 export default function RaffleTablee({raffleEnded}) {
-    const classes = useStyles();
+    const classes = ticketStyles();
 
     const { tickets, setTickets, raffleSpinner, supplySpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
 
@@ -35,7 +37,7 @@ export default function RaffleTablee({raffleEnded}) {
     
     return (
         <Box>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3} style={{ position: 'relative' }}>
                     <Typography variant='h6' className={classes.subtitle}>Entered Tickets</Typography>
                     {raffleEnded ? (
@@ -74,7 +76,7 @@ export default function RaffleTablee({raffleEnded}) {
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>Items in Raffle</Typography>
                 </Grid>
@@ -100,7 +102,7 @@ export default function RaffleTablee({raffleEnded}) {
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3} className={classes.toggleWrapper}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Total tickets entered
@@ -141,7 +143,7 @@ export default function RaffleTablee({raffleEnded}) {
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Total tickets entered (in FRENs)
@@ -181,7 +183,7 @@ export default function RaffleTablee({raffleEnded}) {
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Your tickets price
@@ -222,7 +224,7 @@ export default function RaffleTablee({raffleEnded}) {
                     }
                 </Grid>
             </Grid>
-            <Grid container alignItems='center' justifyContent='space-between' spacing={2} className={classes.row}>
+            <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
                         Your reward
@@ -259,7 +261,7 @@ export default function RaffleTablee({raffleEnded}) {
                 </Grid>
             </Grid>
 
-            <Box textAlign='center' marginTop='40px'>
+            <Box className={classes.itemsWrapper}>
                 <Typography color='error.main'>Items display comming soon</Typography>
             </Box>
         </Box>

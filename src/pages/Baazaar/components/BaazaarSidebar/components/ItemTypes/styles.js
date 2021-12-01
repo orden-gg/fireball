@@ -3,10 +3,7 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles((theme) => ({
     rootContainer: {
         paddingTop: 13,
-        marginBottom: 25,
-        [theme.breakpoints.down('md')]: {
-            marginBottom: 25
-        }
+        marginBottom: 25
     },
     container: {
         marginBottom: 20
@@ -21,11 +18,11 @@ export default makeStyles((theme) => ({
         padding: '10px 0'
     },
     stackOfChips: {
-        maxWidth: '100% !important',
+        maxWidth: '100%',
         overflowX: "auto",
         height: 34,
         '& > *': {
-            margin: '0 5px 2px 0 !important',
+            margin: '0 5px 2px 0',
         }
     },
     sliderContainer: {

@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import Web3 from "web3";
-import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 import Gotchi from "../../../../../../components/Gotchi/Gotchi";
 import ghst from '../../../../../../assets/images/ghst-doubleside.gif';
-import useStyles from "../../style";
 import { Grid, Button } from "@mui/material";
+
+import { baazaarSortingBodyStyles } from "../../../../styles";
 
 const web3 = new Web3();
 
 export default function Aavegotchi({item}) {
-    const classes = useStyles();
+    const classes = baazaarSortingBodyStyles();
 
     return (
         <div>

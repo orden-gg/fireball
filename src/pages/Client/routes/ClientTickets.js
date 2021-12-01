@@ -1,17 +1,19 @@
 import React, { useContext } from 'react';
 import { Box } from '@mui/material';
-import { useStyles } from '../styles';
+
+import { routersStyles } from '../styles';
+
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Ticket from '../../../components/Items/Ticket/Ticket';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientTickets() {
-    const classes = useStyles();
+    const classes = routersStyles();
     const { tickets, loadingTickets } = useContext(ClientContext);
 
     if(loadingTickets || !tickets.length) {
-        return <Box textAlign='center' paddingTop={'32px'}>
+        return <Box className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingTickets || !tickets.length}
                 text={!loadingTickets && !tickets.length ? 'No ticket here :(' : null}

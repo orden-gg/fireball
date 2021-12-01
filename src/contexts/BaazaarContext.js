@@ -3,6 +3,15 @@ import { listingTypes } from "../data/types";
 
 export const BaazaarContext = createContext({});
 
+const defaultTraits = {
+    "NRG": [],
+    "AGG": [],
+    "SPK": [],
+    "BRN": [],
+    "EYS": [],
+    "EYC": []
+};
+
 const BaazaarContextProvider = (props) => {
     const [orderingTypes] = useState({
         priceASC: 'priceInWei-asc',
@@ -28,19 +37,20 @@ const BaazaarContextProvider = (props) => {
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
     const [rarity, setRarity] = useState('');
-    const [stats, setStats] = useState({
-        "NRG": [],
-        "AGG": [],
-        "SPK": [],
-        "BRN": [],
-        "EYS": [],
-        "EYC": []
-    });
+    const [stats, setStats] = useState(defaultTraits);
+    const [collateral, setCollateral] = useState('all');
 
     const addStat = (stat) => {
         setStats({
             ...stats,
             [selectedTraits]: [...stats[selectedTraits], sliderRange]
+        });
+    };
+
+    const changeSingleStat = (trait, newStats) => {
+        setStats({
+            ...stats,
+            [trait]: [newStats]
         });
     };
 
@@ -55,6 +65,10 @@ const BaazaarContextProvider = (props) => {
         });
     };
 
+    const clearAllStats = () => {
+        setStats(defaultTraits);
+    };
+
     return (
         <BaazaarContext.Provider value={{
             selectedTraits,
@@ -62,6 +76,8 @@ const BaazaarContextProvider = (props) => {
             stats,
             addStat,
             removeStat,
+            clearAllStats,
+            changeSingleStat,
             filteringType,
             setFilteringType,
             name,
@@ -96,7 +112,9 @@ const BaazaarContextProvider = (props) => {
             fomoFilter,
             setFomoFilter,
             fudFilter,
-            setFudFilter
+            setFudFilter,
+            collateral,
+            setCollateral
         }}>
             { props.children }
         </BaazaarContext.Provider>

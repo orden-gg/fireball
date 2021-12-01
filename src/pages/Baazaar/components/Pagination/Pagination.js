@@ -1,25 +1,10 @@
 import React from 'react';
 import { Box, Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { paginationStyles } from '../../styles';
 
-const useStyles = makeStyles(() => ({
-    wrap: {
-        display: 'flex',
-        marginTop: 20
-    },
-    button: {
-        height: 36
-    },
-    current: {
-        padding: '0 25px',
-        height: 36,
-        lineHeight: '36px',
-        textAlign: 'center'
-    }
-}));
 
 export default function Pagination({page, prevPageVisibility, nextPageVisibility, onNextPageClick, onPrevPageClick}) {
-    const classes = useStyles();
+    const classes = paginationStyles();
 
     return (
         <Box className={classes.wrap}>

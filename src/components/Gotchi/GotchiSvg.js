@@ -1,68 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { makeStyles } from '@mui/styles';
+
 import thegraph from '../../api/thegraph';
 import classNames from 'classnames';
 
 import gotchiLoading from '../../assets/images/gotchi-loading.gif';
-
-const useStyles = makeStyles((theme) => ({
-    svgWrapper: {
-        margin: 'auto',
-        '& svg, & img': {
-            display: 'block'
-        },
-        '& .gotchi-wearable': {
-            transition: 'all .5s ease-in-out'
-        },
-        '& .gotchi-sleeves': {
-            transition: 'all .5s ease-in-out'
-        },
-        '&.hide-wearables .gotchi-wearable:not(.wearable-bg), &.hide-wearables .gotchi-sleeves': {
-            display: 'none'
-        },
-        '&.hide-bg .gotchi-wearable.wearable-bg': {
-            display: 'none'
-        },
-        '&:hover': {
-            '& .gotchi-wearable:not(.wearable-bg)': {
-                opacity: 0,
-            },
-            '& .gotchi-sleeves': {
-                opacity: 0,
-            },
-            '& .wearable-head': {
-                transform: 'translateY(-5px) rotateZ(-45deg)'
-            },
-            '& .wearable-eyes': {
-                transform: 'translateX(10px) rotateZ(5deg)'
-            },
-            '& .wearable-face': {
-                transform: 'translateX(-10px) rotateZ(10deg)'
-            },
-            '& .wearable-body': {
-                transform: 'translateY(10px) rotateZ(-5deg)'
-            },
-            '& .wearable-hand-right': {
-                transform: 'translateX(5px) rotateZ(-5deg)'
-            },
-            '& .wearable-hand-left': {
-                transform: 'translateX(-5px) rotateZ(5deg)'
-            },
-            '& .wearable-pet': {
-                transform: 'translateY(5px)'
-            }
-        }
-    },
-    svgPlaceholder: {
-        width: '100%'
-    }
-}));
+import { GotchiSvgStyles } from './styles';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
 export default function GotchiSvg({id, size, hideWearables, hideBg}) {
-    const classes = useStyles();
+    const classes = GotchiSvgStyles();
     const svgRef = useRef(null);
     const [loadingSvg, setLoadingSvg] = useState(true);
     let svgInner = document.createElement('div');

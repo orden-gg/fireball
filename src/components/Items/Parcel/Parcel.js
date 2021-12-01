@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Tooltip, Typography } from '@mui/material';
+
 import { useTheme } from '@emotion/react';
 import { alpha } from '@mui/system';
 import classNames from 'classnames';
-import useStyles from '../styles';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+
 import ContentLoader from 'react-content-loader';
 import thegraph from '../../../api/thegraph';
 import itemUtils from '../../../utils/itemUtils';
@@ -18,7 +20,13 @@ import ParcelImage from "../ParcelImage/ParcelImage";
 var web3 = new Web3();
 
 export default function Parcel({parcel, isBaazaarCard}) {
-    const classes = useStyles();
+    const classes = {
+        ...itemStyles(),
+        ...ERC1155InnerStyles(),
+        ...tooltipStyles(),
+        ...parselStyles()
+    }
+
     const theme = useTheme();
     const [current, setCurrent] = useState(null);
 
@@ -51,10 +59,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
 
                 {current ? (
                     <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                        <div
-                            className={classNames(classes.label, classes.labelTotal)}
-                            style={{ backgroundColor: theme.palette.realm[size], color: theme.palette.secondary.main }}
-                        >
+                        <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
                             <Typography variant='subtitle2'>
                                 {
                                     isBaazaarCard ? commonUtils.formatPrice(
@@ -121,7 +126,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
                     let value = boost[1];
 
                     return value > 0 ? (
-                        <div className={classes.boost} style={{ backgroundColor: theme.palette.alchemica[key] }} key={i}>
+                        <div className={classNames(classes.boost, key)} key={i}>
                             <img src={itemUtils.getAlchemicaImg(key)} alt={key} width={13} />
                             {value}
                         </div>

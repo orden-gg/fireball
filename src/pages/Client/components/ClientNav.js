@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
-import { makeStyles } from '@mui/styles';
-import { alpha } from '@mui/system';
+
 import { NavLink } from 'react-router-dom';
 
 import { ClientContext } from '../../../contexts/ClientContext';
@@ -14,58 +13,11 @@ import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../assets/images/icons/kek.png';
 import ContentLoader from 'react-content-loader';
 
-
-const useStyles = makeStyles((theme) => ({
-    container: {
-        padding: '12px 0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap'
-    },
-    button: {
-        margin: '4px !important',
-        paddingRight: '12px !important',
-        paddingLeft: '12px !important',
-        color: '#fff !important',
-        border: `2px solid ${alpha(theme.palette.primary.main, .2)} !important`,
-        backgroundColor: `${alpha(theme.palette.secondary.dark, .4)} !important`,
-        '&:hover': {
-            backgroundColor: `${theme.palette.secondary.dark} !important`,
-        },
-        '&.Mui-disabled': {
-            backgroundColor: `${alpha(theme.palette.secondary.dark, .2)} !important`,
-            borderColor: `${alpha(theme.palette.secondary.light, .2)} !important`,
-            color: `${alpha('#fff', .3)} !important`,
-            '& $label': {
-                opacity: .4
-            }
-        },
-        '&.active, &.active:hover': {
-            backgroundColor: `${theme.palette.primary.main} !important`,
-            color: `${theme.palette.secondary.main} !important`,
-            '&.Mui-disabled': {
-                backgroundColor: `${alpha(theme.palette.primary.main, .1)} !important`,
-                color: `${alpha('#fff', .2)} !important`,
-                '& $label': {
-                    color: `${theme.palette.primary.main} !important`,
-                }
-            },
-            '& $label': {
-                color: theme.palette.secondary.main,
-            }
-        }
-    },
-    label: {
-        fontSize: '14px !important',
-        fontWeight: 600,
-        color: theme.palette.primary.main
-    }
-}));
+import { clientNavStyles } from '../styles';
 
 export default function ClientNav() {
     const match = useRouteMatch();
-    const classes = useStyles();
+    const classes = clientNavStyles();
     const theme = useTheme();
 
     const { 
@@ -83,15 +35,20 @@ export default function ClientNav() {
                 startIcon={
                     <img src={gotchiPlaceholder} alt='gotchi' width={20} />
                 }
-                endIcon={
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/gotchis`, search: `?address=${clientActive}` }}
+            >
+                Gotchis
+                {
                     loadingGotchis ? (
                         <ContentLoader
                             speed={2}
-                            width={28}
-                            height={12}
                             viewBox='0 0 28 14'
                             backgroundColor={theme.palette.secondary.main}
                             foregroundColor={theme.palette.primary.dark}
+                            className={classes.buttonLoader}
                         >
                             <rect x='0' y='0' width='28' height='14' />
                         </ContentLoader>
@@ -99,12 +56,6 @@ export default function ClientNav() {
                         <span className={classes.label}>[{gotchis.length}]</span>
                     )
                 }
-                component={NavLink}
-                className={classes.button}
-                activeClassName='active'
-                to={{ pathname: `${match.url}/gotchis`, search: `?address=${clientActive}` }}
-            >
-                Gotchis
             </Button>
 
             <Button
@@ -112,15 +63,20 @@ export default function ClientNav() {
                 startIcon={
                     <img src={warehousePlaceholder} alt='gotchi' width={25} />
                 }
-                endIcon={
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/warehouse`, search: `?address=${clientActive}` }}
+            >
+                Warehouse
+                {
                     loadingGotchis || loadingWarehouse ? (
                         <ContentLoader
                             speed={2}
-                            width={28}
-                            height={14}
                             viewBox='0 0 28 14'
                             backgroundColor={theme.palette.secondary.main}
                             foregroundColor={theme.palette.primary.dark}
+                            className={classes.buttonLoader}
                         >
                             <rect x='0' y='0' width='28' height='14' />
                         </ContentLoader>
@@ -128,12 +84,6 @@ export default function ClientNav() {
                         <span className={classes.label}>[{warehouse.length}]</span>
                     )
                 }
-                component={NavLink}
-                className={classes.button}
-                activeClassName='active'
-                to={{ pathname: `${match.url}/warehouse`, search: `?address=${clientActive}` }}
-            >
-                Warehouse
             </Button>
 
             <Button
@@ -141,15 +91,20 @@ export default function ClientNav() {
                 startIcon={
                     <img src={ticketsPlaceholder} alt='gotchi' width={22} />
                 }
-                endIcon={
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/tickets`, search: `?address=${clientActive}` }}
+            >
+                Tickets
+                {
                     loadingTickets ? (
                         <ContentLoader
                             speed={2}
-                            width={30}
-                            height={14}
                             viewBox='0 0 28 14'
                             backgroundColor={theme.palette.secondary.main}
                             foregroundColor={theme.palette.primary.dark}
+                            className={classes.buttonLoader}
                         >
                             <rect x='0' y='0' width='28' height='14' />
                         </ContentLoader>
@@ -157,12 +112,6 @@ export default function ClientNav() {
                         <span className={classes.label}>[{tickets.length}]</span>
                     )
                 }
-                component={NavLink}
-                className={classes.button}
-                activeClassName='active'
-                to={{ pathname: `${match.url}/tickets`, search: `?address=${clientActive}` }}
-            >
-                Tickets
             </Button>
 
             <Button
@@ -170,15 +119,20 @@ export default function ClientNav() {
                 startIcon={
                     <img src={realmPlaceholder} alt='gotchi' width={20} />
                 }
-                endIcon={
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/realm`, search: `?address=${clientActive}` }}
+            >
+                Realm
+                {
                     loadingRealm ? (
                         <ContentLoader
                             speed={2}
-                            width={28}
-                            height={14}
                             viewBox='0 0 28 14'
                             backgroundColor={theme.palette.secondary.main}
                             foregroundColor={theme.palette.primary.dark}
+                            className={classes.buttonLoader}
                         >
                             <rect x='0' y='0' width='28' height='14' />
                         </ContentLoader>
@@ -186,12 +140,6 @@ export default function ClientNav() {
                         <span className={classes.label}>[{realm.length}]</span>
                     )
                 }
-                component={NavLink}
-                className={classes.button}
-                activeClassName='active'
-                to={{ pathname: `${match.url}/realm`, search: `?address=${clientActive}` }}
-            >
-                Realm
             </Button>
         </div>
     );

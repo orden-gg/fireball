@@ -108,17 +108,17 @@ html, body {
   from {
     transform: translate(0px, 0);
   }
- to {
+  to {
     transform: translate(0px, -1px);
   }
 }
 
 
 @keyframes down {
- from {
-   transform: translate(0px, 0);
-    }
- to {
-      transform: translate(0px, 1px);
-    }
+  from {
+    transform: translate(0px, 0);
+  }
+  to {
+    transform: translate(0px, 1px);
+  }
 }

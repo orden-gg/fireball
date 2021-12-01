@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useStyles } from '../styles';
+
+import { titleStyles } from '../styles';
+
 import { raffleTicketPriceQuery } from '../data/queries';
 import { DateTime } from 'luxon';
 
@@ -13,7 +15,7 @@ const startDate = DateTime.local(2021, 11, 5, 14, { zone: 'utc' });
 const endDate = DateTime.local(2021, 11, 8, 14, { zone: 'utc' });
 
 export default function RaffleRealm({raffleActive}) {
-    const classes = useStyles();
+    const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 

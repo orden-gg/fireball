@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@mui/styles';
+
 import Ticket from '../../../components/Items/Ticket/Ticket';
 import web3 from '../../../api/web3';
-
-const useStyles = makeStyles((theme) => ({
-    list: {
-        display: 'grid',
-        alignItems: 'start',
-        gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-        gridAutoRows: '1fr',
-        marginTop: 16,
-        minHeight: 125
-    },
-    listItem: {
-        height: '100%'
-    },
-}));
+import { raffleTicketsStyles } from '../styles';
 
 export default function RaffleTickets({address}) {
-    const classes = useStyles();
+    const classes = raffleTicketsStyles();
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);

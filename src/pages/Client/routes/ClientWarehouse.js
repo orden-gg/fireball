@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
-import { useStyles } from '../styles';
+
+import { routersStyles } from '../styles';
+
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Wearable from '../../../components/Items/Wearable/Wearable';
@@ -8,7 +10,7 @@ import Consumable from '../../../components/Items/Consumable/Consumable';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientWarehouse() {
-    const classes = useStyles();
+    const classes = routersStyles();
     const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
     if(loadingWarehouse || loadingGotchis || !warehouse.length) {
@@ -22,8 +24,8 @@ export default function ClientWarehouse() {
 
     return (
         <>
-            <Box display='flex' alignItems='center' justifyContent='center' marginBottom='16px'>
-                <Typography variant='subtitle1' sx={{ marginRight: '12px' }}>Sort: </Typography>
+            <Box className={classes.sortWrapper}>
+                <Typography className={classes.sortText} variant='subtitle1'>Sort: </Typography>
 
                 <ToggleButtonGroup
                     value={warehouseFilter}

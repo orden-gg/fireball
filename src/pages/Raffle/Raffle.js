@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import {Helmet} from 'react-helmet';
-import {useStyles} from './styles';
+import styles from './styles';
+
 import queryString from 'query-string'
 
 import RaffleNav from './components/RaffleNav';
@@ -12,8 +13,9 @@ import { LoginContext } from '../../contexts/LoginContext';
 import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import RaffleContextProvider from '../../contexts/RaffleContext';
 
+
 export default function Raffle() {
-    const classes = useStyles();
+    const classes = styles();
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();

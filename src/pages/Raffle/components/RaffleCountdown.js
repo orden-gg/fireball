@@ -3,8 +3,11 @@ import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Countdown from '../../../components/Countdown/Countdown';
 
+import { raffleCountdownStyles } from '../styles';
+
 export default function RaffleCountdown({start, end}) {
     const [currentCountdown, setCurrentCountdown] = useState(0);
+    const classes = raffleCountdownStyles();
 
     const countdowns = [
         {
@@ -26,7 +29,7 @@ export default function RaffleCountdown({start, end}) {
     };
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='flex-end'>
+        <Box className={classes.countdownWrapper}>
             <Typography variant='h6' color='primary'>{countdowns[currentCountdown].text}</Typography>
             <div>
                 {countdowns[currentCountdown].date && <Countdown

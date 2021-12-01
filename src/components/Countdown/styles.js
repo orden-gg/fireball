@@ -1,7 +1,6 @@
-
 import { makeStyles } from "@mui/styles";
 
-export default makeStyles((theme) => ({
+const styles = makeStyles( theme => ({
     wrapper: {
         display: 'flex',
         textAlign: 'center'
@@ -36,3 +35,5 @@ export default makeStyles((theme) => ({
         margin: '3px 0 0'
     }
 }));
+
+export default styles

@@ -3,7 +3,7 @@ import { Link, Tooltip, Typography } from '@mui/material';
 import { alpha, Box } from '@mui/system';
 import { useTheme } from '@emotion/react';
 import classNames from 'classnames';
-import useStyles from './styles';
+import styles from "./styles";
 
 import graphUtils from '../../utils/graphUtils';
 import commonUtils from '../../utils/commonUtils';
@@ -21,7 +21,7 @@ import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 import ShineLabel from '../Labels/ShineLabel';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
-    const classes = useStyles();
+    const classes = styles();
     const theme = useTheme();
 
     const collateral = graphUtils.getCollateralName(gotchi.collateral);
@@ -75,10 +75,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     };
     
     return (
-        <div
-            className={classes.gotchi}
-            style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .2) }}
-        >
+        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`)}>
             <div className={classes.gotchiBadges}>
                 <Tooltip title={`Haunt ${gotchi.hauntId}`} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
                     <div className={classes.gotchiId}>
@@ -102,7 +99,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                 </div>
             </div>
 
-            <div className={classes.gotchiSvg} style={{ backgroundColor: alpha(getGotchiColor(gotchi.hauntId), .15)}}>
+            <div className={classes.gotchiSvg}>
                 {
                     renderSvgByStats ? (
                         <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
@@ -133,7 +130,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
             {renderNarrowed()}
 
             {gotchi.reward || gotchi.reward === 0 ? (
-                <Box display='flex' justifyContent='flex-end'>
+                <div className={classes.rankBox}>
                     {gotchi.reward > 0 ? (
                         <Tooltip
                             title={
@@ -142,7 +139,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                                         return item.reward !== 0 ? (
                                             <div key={index}>
                                                 <Typography variant='caption'>
-                                                    {item.name}[{item.position}] - <Box display='inline-flex' alignItems='center' color='primary.main'>
+                                                    {item.name}[{item.position}] - <Box className={classes.rankReward}>
                                                         {commonUtils.formatPrice(item.reward)} <img src={ghstIcon} width='14' alt='GHST Token Icon' />
                                                     </Box>
                                                 </Typography>
@@ -158,18 +155,18 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
                             placement='top'
                             followCursor
                         >
-                            <Box display='inline-flex' alignItems='center' justifyContent='center' padding='3px 2px 3px 8px' position='relative' bottom='-8px' right='-8px' bgcolor={alpha(theme.palette.secondary.dark, .5)}>
-                                <Typography style={{ fontSize: 14, fontWeight: 600 }}>{commonUtils.formatPrice(gotchi.reward)}</Typography>
+                            <Box className={classes.rankRewardAmount}>
+                                <Typography className={classes.rankRewardAmountNumber}>{commonUtils.formatPrice(gotchi.reward)}</Typography>
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                             </Box>
                         </Tooltip>
                             
                     ) : (
-                        <Box display='inline-flex' alignItems='center' justifyContent='center' padding='3px 8px' position='relative' bottom='-8px' right='-8px' bgcolor={alpha(theme.palette.secondary.dark, .5)}>
-                            <Typography color='warning.main' style={{ fontSize: 14, fontWeight: 600 }}>Unkranked</Typography>
-                        </Box>
+                        <div className={classes.rankStatus}>
+                            <Typography className={classes.rankStatusText}>Unkranked</Typography>
+                        </div>
                     )}
-                </Box>
+                </div>
             ) : (
                 null
             )}

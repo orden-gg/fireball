@@ -1,19 +1,20 @@
-import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-export default makeStyles((theme) => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
+    loginNavigation: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+
+        '&.connect': {
+            justifyContent: 'space-between'
+        }
+    },
     button: {
         position: 'relative',
         zIndex: theme.zIndex.drawer + 2,
-        '&.opened': {
-            '& $buttonInner': {
-                background: theme.palette.primary.dark,
-                borderRadius: '4px 4px 0 0',
-            },
-            '& $buttonDropdown': {
-                display: 'block'
-            }
-        }
     },
     buttonInner: {
         height: 38,
@@ -26,6 +27,27 @@ export default makeStyles((theme) => ({
         transition: 'background .2s ease-in-out',
         '&:hover': {
             background: theme.palette.primary.dark
+        },
+        '.opened &': {
+            background: theme.palette.primary.dark,
+            borderRadius: '4px 4px 0 0'
+        }
+    },
+    buttonIcon: {
+        backgroundColor: theme.palette.secondary.main,
+        width: 34,
+        borderRadius: '4px 0 0 4px',
+        marginRight: 2,
+        display: 'flex',
+        alignItems: 'center',
+        padding: 2,
+
+        '&.metamask': {
+            justifyContent: 'center',
+        },
+
+        '&.gotchi': {
+            
         }
     },
     caption: {
@@ -38,8 +60,8 @@ export default makeStyles((theme) => ({
         textTransform: 'uppercase'
     },
     captionText: {
-        fontSize: '15px !important',
-        fontWeight: '600 !important',
+        fontSize: 15,
+        fontWeight: '600',
         margin: 0
     },
     address: {
@@ -51,7 +73,7 @@ export default makeStyles((theme) => ({
         borderRadius: '0 4px 4px 0',
     },
     addressText: {
-        fontWeight: '700 !important'
+        fontWeight: '700'
     },
     buttonDropdown: {
         position: 'absolute',
@@ -63,26 +85,50 @@ export default makeStyles((theme) => ({
         width: 350,
         cursor: 'default',
         overflow: 'hidden',
-        display: 'none'
+        display: 'none',
+
+        '&.offset-top': {
+            paddingTop: 74
+        },
+        
+        '.opened &': {
+            display: 'block'
+        }
     },
     dropdownDivider: {
         textAlign: 'center',
-        margin: '0 8px !important'
+        margin: '0 8px'
     },
     metamaskButton: {
         maxWidth: 160,
     },
+    metamaskButtonIcon: {
+        width: 20,
+        margin: '0 6px'
+    },
     customButton: {
-        backgroundColor: `${alpha(theme.palette.primary.main, .08)} !important`,
+        backgroundColor: alpha(theme.palette.primary.main, .08),
         maxWidth: 160,
         '&:hover': {
-            backgroundColor: `${alpha(theme.palette.primary.main, .16)} !important`,
+            backgroundColor: alpha(theme.palette.primary.main, .16),
         }
     },
-    listWrapper: {
-        maxHeight: 230
+    loginBackdrop: {
+        color: '#fff',
+        zIndex: theme.zIndex.drawer + 1,
+        backdropFilter: 'blur(3px)'
     },
-    listItem: {
+    loginList: {
+        maxHeight: 230,
+        margin: '-12px -12px 12px -12px'
+    },
+    loginAddressBox: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0
+    },
+    loginAddress: {
         backgroundColor: alpha(theme.palette.background.default, .6),
         border: '2px solid transparent',
         cursor: 'pointer',
@@ -90,6 +136,12 @@ export default makeStyles((theme) => ({
         position: 'relative',
         overflow: 'hidden',
         padding: '11px 6px 10px',
+
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 2,
+
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },
@@ -97,29 +149,33 @@ export default makeStyles((theme) => ({
             backgroundColor: alpha(theme.palette.primary.main, .05),
             borderColor: alpha(theme.palette.primary.main, .3)
         },
-        '& + $listItem': {
-            marginTop: 2
+        '&:first-of-type': {
+            marginTop: 0
         }
     },
-    listItemName: {
-        fontSize: '16px !important',
-        fontWeight: '500 !important',
+    loginAddressBody: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    loginAddressName: {
+        fontSize: 16,
+        fontWeight: '500',
         '&.Mui-disabled::before': {
-            borderColor: 'transparent !important'
+            borderColor: 'transparent'
         },
         '& input': {
-            color: `${theme.palette.common.white} !important`,
-            cursor: 'pointer !important',
-            textFillColor: `${theme.palette.common.white} !important`,
+            color: `${theme.palette.common.white}`,
+            cursor: 'pointer',
+            textFillColor: `${theme.palette.common.white}`,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             padding: '0 0 2px'
         }
     },
-    listItemAddress: {
-        fontSize: '14px !important',
-        fontWeight: '700 !important',
-        marginLeft: '4px !important',
+    loginAddressAddress: {
+        fontSize: '14px',
+        fontWeight: '700',
+        marginLeft: '4px',
         backgroundColor: theme.palette.background.paper,
         padding: '4px 6px',
         borderRadius: 4,
@@ -129,8 +185,27 @@ export default makeStyles((theme) => ({
             backgroundColor: alpha(theme.palette.background.paper, .4),
         }
     },
-    tooltip: {
-        background: 'red'
+    loginAddressIcons: {
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: 4
+    },
+    loginAddressForm: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    loginAddressFormIcon: {
+        marginRight: 4,
+        height: 35,
+
+        '&.gotchi': {
+            padding: 0
+        },
+        '&.metamask': {
+            padding: '0 4px',
+            display: 'flex',
+            alignItems: 'center'
+        }
     },
     modal: {
         position: 'absolute',
@@ -143,6 +218,8 @@ export default makeStyles((theme) => ({
         borderRadius: 4
     },
     modalTitle: {
-        marginBottom: '24px !important'
+        marginBottom: 24
     }
 }));
+
+export default styles

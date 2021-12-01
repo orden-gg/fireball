@@ -1,16 +1,15 @@
-import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
+import { makeStyles } from "@mui/styles";
 
-export const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff'
-    },
+const styles = makeStyles( theme => ({
     container: {
         maxWidth: 1280,
         padding: 24,
         margin: '0 auto',
-    },
+    }
+}));
+
+const titleStyles = makeStyles( theme => ({
     titleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -36,12 +35,24 @@ export const useStyles = makeStyles((theme) => ({
             textAlign: 'left',
         }
     },
+}));
+
+const ticketStyles = makeStyles( theme => ({
+    // backdrop: {
+    //     zIndex: theme.zIndex.drawer + 1,
+    //     color: '#fff'
+    // },
+    row: {
+        marginBottom: 32,
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     subtitle: {
-        fontSize: '18px !important',
+        fontSize: 18,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: '400 !important',
+        fontWeight: 400,
         [theme.breakpoints.up('md')]: {
             justifyContent: 'flex-start'
         }
@@ -49,25 +60,25 @@ export const useStyles = makeStyles((theme) => ({
     subtitleIcon: {
         marginLeft: 8
     },
-    enterButtonWrapper: {
-        textAlign: 'center',
-        [theme.breakpoints.up('md')]: {
-            textAlign: 'right'
-        }
-    },
-    enterButton: {
-        '&:hover': {
-            textDecoration: 'none'
-        },
-        '& button': {
-            position: 'relative',
-            boxShadow: `0 0 0 0 ${alpha(theme.palette.primary.main, .5)}`,
-            animation: `$customPulse 1.5s infinite`,
-            '&:hover': {
-                animation: 'none'
-            }
-        }
-    },
+    // enterButtonWrapper: {
+    //     textAlign: 'center',
+    //     [theme.breakpoints.up('md')]: {
+    //         textAlign: 'right'
+    //     }
+    // },
+    // enterButton: {
+    //     '&:hover': {
+    //         textDecoration: 'none'
+    //     },
+    //     '& button': {
+    //         position: 'relative',
+    //         boxShadow: `0 0 0 0 ${alpha(theme.palette.primary.main, .5)}`,
+    //         animation: `customPulse 1.5s infinite`,
+    //         '&:hover': {
+    //             animation: 'none'
+    //         }
+    //     }
+    // },
     toggleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -89,10 +100,7 @@ export const useStyles = makeStyles((theme) => ({
         }
     },
     toggleButton: {
-        textTransform: 'none !important'
-    },
-    row: {
-        marginBottom: '32px !important'
+        textTransform: 'none'
     },
     input: {
         '& label:first-letter': {
@@ -107,12 +115,12 @@ export const useStyles = makeStyles((theme) => ({
         },
         '& .MuiOutlinedInput-root.Mui-disabled': {
             '& fieldset': {
-                borderColor: 'transparent !important',
+                borderColor: 'transparent',
                 backgroundColor: alpha(theme.palette.secondary.dark, .5)
             },
         },
         '& .MuiInputLabel-root.Mui-disabled': {
-            color: `${alpha('#fff', .5)} !important`
+            color: alpha('#fff', .5)
         },
         '&.common': {
             '& input ': {
@@ -257,9 +265,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     ticketBg: {
         position: 'relative',
-        marginBottom: '4px !important',
+        marginBottom: 4,
         minHeight: 40,
-        padding: '6px !important',
+        padding: 6,
         '& img': {
             height: '95%',
             width: '100%',
@@ -271,13 +279,17 @@ export const useStyles = makeStyles((theme) => ({
             pointerEvents: 'none'
         }
     },
+    priceWrapper: {
+        maxWidth: 300,
+        margin: 'auto'
+    },
     price: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     },
     chance: {
-        padding: '0 !important',
+        padding: 0,
         '&.common.highlighted': { backgroundColor: alpha(theme.palette.rarity.common, .05) },
         '&.uncommon.highlighted': { backgroundColor: alpha(theme.palette.rarity.uncommon, .05) },
         '&.rare.highlighted': { backgroundColor: alpha(theme.palette.rarity.rare, .05) },
@@ -298,13 +310,13 @@ export const useStyles = makeStyles((theme) => ({
         '&.drop': {color: theme.palette.customColors.light}
     },
     tableValue: {
-        fontSize: '16px !important',
-        fontWeight: '400 !important',
+        fontSize: 16,
+        fontWeight: 400,
         [theme.breakpoints.up('sm')]: {
-            fontSize: '17px !important'
+            fontSize: 17
         },
         [theme.breakpoints.up('md')]: {
-            fontSize: '18px !important'
+            fontSize: 18
         }
     },
     ticketVisual: {
@@ -316,10 +328,10 @@ export const useStyles = makeStyles((theme) => ({
     countEnteredCheckbox: {
         position: 'absolute',
         top: '100%',
-        marginTop: '-24px !important',
+        marginTop: -24,
         whiteSpace: 'nowrap',
         '& span': {
-            fontSize: '13px !important',
+            fontSize: 13,
             opacity: .7,
             transition: 'opacity .3s ease-in-out'
         },
@@ -327,18 +339,18 @@ export const useStyles = makeStyles((theme) => ({
             opacity: 1
         },
         [theme.breakpoints.up('md')]: {
-            marginTop: '-10px !important',
+            marginTop: -10,
         },
     },
     enteredValue: {
         position: 'relative',
         '&:hover .perc': {
-            opacity: '1',
+            opacity: 1,
             visibility: 'visible'
         }
     },
     enteredValuePerc: {
-        color: 'rgba(255, 255, 255, .7) !important',
+        color: 'rgba(255, 255, 255, .7)',
         position: 'absolute',
         bottom: -13,
         right: 0,
@@ -346,13 +358,13 @@ export const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         opacity: 0,
         visibility: 'hidden',
-        fontSize: '13px !important',
+        fontSize: 13,
         whiteSpace: 'nowrap',
         transition: 'opacity .2s ease-in-out'
     },
     wearablesTitle: {
-        marginBottom: '12px !important',
-        fontSize: '19px !important',
+        marginBottom: 12,
+        fontSize: 19,
         textAlign: 'center',
         '&:first-letter': {
           textTransform: 'uppercase'
@@ -406,20 +418,94 @@ export const useStyles = makeStyles((theme) => ({
             }
         },
         '&.mystery': {
-            backgroundColor: `${alpha(theme.palette.error.light, .2)} !important`,
+            backgroundColor: alpha(theme.palette.error.light, .2),
         }
     },
-    '@keyframes customPulse': {
-        '0%': {
-            transform: 'scale(.9)'
-        },
-        '70%': {
-            transform: 'scale(1)',
-            boxShadow: `0 0 0 20px transparent`
-        },
-        '100%': {
-            transform: 'scale(.9)',
-            boxShadow: `0 0 0 0 transparent`
-        }
-    },
+    itemsWrapper: {
+        textAlign: 'center',
+        marginTop: 40
+    }
 }));
+
+const raffleCountdownStyles = makeStyles( theme => ({
+    countdownWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    }
+}));
+
+const raffleNavStyles = makeStyles( theme => ({
+    container: {
+        padding: '12px 0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap'
+    },
+    button: {
+        margin: 4,
+        paddingRight: 12,
+        paddingLeft: 12,
+        color: '#fff',
+        border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
+        backgroundColor: alpha(theme.palette.secondary.dark, .4),
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.dark,
+        },
+        '&.Mui-disabled': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .2),
+            borderColor: alpha(theme.palette.secondary.light, .2),
+            color: alpha('#fff', .3),
+            '& $label': {
+                opacity: .4
+            }
+        },
+        '&.active, &.active:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.main,
+
+            '& $label': {
+                color: theme.palette.secondary.main
+            },
+            '&.Mui-disabled': {
+                backgroundColor: alpha(theme.palette.primary.main, .1),
+                color: alpha('#fff', .2),
+
+                '& $label': {
+                    color: theme.palette.primary.main
+                }
+            },
+        }
+    },
+    label: {
+        fontSize: 14,
+        fontWeight: 600,
+        color: theme.palette.primary.main,
+    }
+}));
+
+
+const raffleTicketsStyles = makeStyles( theme => ({
+    list: {
+        display: 'grid',
+        alignItems: 'start',
+        gap: 12,
+        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+        gridAutoRows: '1fr',
+        marginTop: 16,
+        minHeight: 125
+    },
+    listItem: {
+        height: '100%'
+    }
+}));
+
+export {
+    styles as default,
+    raffleCountdownStyles,
+    raffleNavStyles,
+    raffleTicketsStyles,
+    ticketStyles,
+    titleStyles
+}

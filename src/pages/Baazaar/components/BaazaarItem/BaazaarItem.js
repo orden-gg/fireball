@@ -4,15 +4,14 @@ import classNames from 'classnames';
 import ghstIcon from '../../../../assets/images/ghsttoken.png';
 import itemUtils from '../../../../utils/itemUtils';
 import commonUtils from '../../../../utils/commonUtils';
-import useStyles from './styles';
 import Web3 from "web3";
+import { baazaarItemStyles } from '../../styles';
+
 
 var web3 = new Web3();
 
 export default function BaazaarItem({item}) {
-    const classes = useStyles();
-
-    console.log(item);
+    const classes = baazaarItemStyles();
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.listing_id}>

@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-export default makeStyles((theme) => ({
+const styles = makeStyles( theme => ({
     sidebar: {
         alignContent: 'start',
         padding: 30
@@ -12,7 +12,16 @@ export default makeStyles((theme) => ({
         background: theme.palette.background.paper
     },
     formControl: {
-        width: '100%'
+        width: '100%',
+        '& .MuiSelect-select': {
+            padding: '4px 14px'
+        },
+        '& label': {
+            top: -12,
+            '&.MuiFormLabel-filled': {
+                top: 0
+            }
+        }
     },
     filterTitle: {
         fontSize: '.75rem',
@@ -50,5 +59,27 @@ export default makeStyles((theme) => ({
     },
     godlike: {
         color: theme.palette.rarity.godlike
+    },
+    toggleItem: {
+        fontSize: '12px',
+        padding: '7px 0',
+        '& img': {
+            maxWidth: 16,
+            maxHeight: 16
+        },
+        '& .MuiSvgIcon-root': {
+            maxWidth: 16,
+            maxHeight: 16
+        }
+    },
+    smallInput: {
+        '& input': {
+            padding: '4px 14px'
+        },
+        '& label': {
+            top: -5
+        }
     }
 }));
+
+export default styles;

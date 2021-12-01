@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
-import useStyles from './styles';
+import styles from "./styles";
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
@@ -15,7 +15,7 @@ import MetamaskIcon from '../../assets/images/metamask-icon.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginButton() {
-    const classes = useStyles();
+    const classes = styles();
     const { getAccounts, metaState } = useMetamask();
 
     const { activeAddress, selectActiveAddress, storageAddresses,
@@ -61,11 +61,11 @@ export default function LoginButton() {
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     { activeAddress ? (
                         isMetamaskActive ? (
-                            <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' justifyContent='center' padding='2px'>
+                            <Box className={classNames(classes.buttonIcon, 'metamask')}>
                                 <img src={MetamaskIcon} alt='Metamask icon' width={18} />
                             </Box>
                         ) : (
-                            <Box bgcolor='secondary.main' width='34px' borderRadius='4px 0 0 4px' marginRight='2px' display='flex' alignItems='center' padding='2px'>
+                            <Box className={classNames(classes.buttonIcon, 'gotchi')}>
                                 <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
                             </Box>
                         )
@@ -87,10 +87,10 @@ export default function LoginButton() {
                 </div>
 
                 {dropdownOpen ? (
-                    <Box className={classes.buttonDropdown} paddingTop={metaState.account[0] ? '74px' : '12px'}>
-                        <Box className={classNames(classes.listWrapper, 'custom-scroll')} margin='-12px -12px 12px -12px'>
+                    <Box className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
+                        <Box className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
-                                <Box position='absolute' top={0} right={0} left={0}>
+                                <Box className={classes.loginAddressBox}>
                                     <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} setDropdownOpen={setDropdownOpen} />
                                 </Box>
                             ) : (
@@ -114,11 +114,11 @@ export default function LoginButton() {
             </div>
 
             {modalOpen ? <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> : null}
-
             <Backdrop
-                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)' }}
+                sx={{ }}
                 open={dropdownOpen}
                 onClick={dropdownClose}
+                className={classes.loginBackdrop}
             ></Backdrop>
         </>
     );

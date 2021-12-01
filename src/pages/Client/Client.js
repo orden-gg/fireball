@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string'
-import { useStyles } from './styles';
+import styles from './styles';
 
 import { LoginContext } from '../../contexts/LoginContext';
 import { ClientContext } from '../../contexts/ClientContext';
@@ -19,7 +19,7 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 
 export default function Client() {
-    const classes = useStyles();
+    const classes = styles();
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();
@@ -57,9 +57,9 @@ export default function Client() {
             </Helmet>
 
             {!clientActive?.length ? (
-                <Box display='flex' alignItems='center' justifyContent='center' minHeight='calc(100vh - 192px)'>
-                    <Box bgcolor='secondary.dark' maxWidth={400} margin='auto' padding='24px' borderRadius='4px'>
-                        <Alert severity='info' sx={{ marginBottom: '24px' }}>
+                <Box className={classes.alertWrapper}>
+                    <Box className={classes.alertInner}>
+                        <Alert severity='info' className={classes.alert}>
                             <AlertTitle>Fren, provide the address!</AlertTitle>
                             You cannot use the client without a valid ETH address.
                         </Alert>
@@ -72,7 +72,6 @@ export default function Client() {
                     <ProfilePane address={clientActive} />
 
                     <ClientNav />
-
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
                         <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />

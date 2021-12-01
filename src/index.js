@@ -1,20 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme } from './themes/ghst';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
+
 import { MetamaskStateProvider } from 'use-metamask';
+
+import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
+import { ThemeProvider } from '@emotion/react';
+
+
+import theme from './themes/ghst';
+import './index.css';
 
 ReactDOM.render(
     <BrowserRouter>
         <MetamaskStateProvider>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <App/>
-            </ThemeProvider>
+            {/* <StylesProvider injectFirst> */}
+                <MuiThemeProvider theme={theme}>
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline /> 
+                        <App/>
+                    </ThemeProvider>
+                </MuiThemeProvider>
+            {/* </StylesProvider> */}
         </MetamaskStateProvider>
     </BrowserRouter>,
     document.getElementById('root')
