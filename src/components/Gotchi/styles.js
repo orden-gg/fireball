@@ -151,7 +151,10 @@ const styles = makeStyles( theme => ({
         padding: '1px 0',
         whiteSpace: 'nowrap'
     },
-    
+    defaultVal: {
+        fontSize: 10,
+        marginLeft: 2
+    },
     gotchiTraits: {
         position: 'relative',
         display: 'flex',
