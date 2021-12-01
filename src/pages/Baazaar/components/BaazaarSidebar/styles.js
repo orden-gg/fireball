@@ -29,9 +29,6 @@ const styles = makeStyles( theme => ({
         lineHeight: '1.375rem',
         letterSpacing: '1px'
     },
-    filterWrap: {
-        marginBottom: 16
-    },
     applyButton: {
         borderRadius: 4,
         fontSize: '1rem',
@@ -78,6 +75,15 @@ const styles = makeStyles( theme => ({
         },
         '& label': {
             top: -5
+        }
+    },
+    priceFilter: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        '& img': {
+            maxWidth: 25,
+            maxHeight: 25
         }
     }
 }));

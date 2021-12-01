@@ -107,7 +107,7 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) 
                             listingTypes.consumable,
                             listingTypes.tickets,
                             listingTypes.realm
-                        ]) && <Grid className={classes.filterWrap} item xs={12}>
+                        ]) && <Grid item xs={12}>
                             <ToggleButtonGroup
                                 value={sortingOrder}
                                 exclusive
@@ -144,9 +144,9 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) 
                             listingTypes.consumable,
                             listingTypes.tickets,
                             listingTypes.realm
-                        ]) && <Grid className={classes.filterWrap} item xs={12}>
+                        ]) && <Grid item xs={12}>
                             <Grid container spacing={2}>
-                                <Grid item xs={6}>
+                                <Grid item xs={5}>
                                     <TextField
                                         className={classes.smallInput}
                                         fullWidth
@@ -157,7 +157,10 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) 
                                         onChange={onPriceFromChange}
                                     />
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={2} className={classes.priceFilter}>
+                                    <img src={ghst} />
+                                </Grid>
+                                <Grid item xs={5}>
                                     <TextField
                                         className={classes.smallInput}
                                         fullWidth
@@ -176,7 +179,7 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) 
                             listingTypes.wearable,
                             listingTypes.consumable,
                             listingTypes.tickets
-                        ]) && <Grid className={classes.filterWrap} item xs={12}>
+                        ]) && <Grid item xs={12}>
                             <FormControl variant='outlined' className={classes.formControl}>
                                 <InputLabel>Rarity</InputLabel>
                                 <Select
