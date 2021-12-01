@@ -123,7 +123,7 @@ const modifyTraits = (gotchis) => {
 
             gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
             gotchiCache.modifiedNumericTraits = gotchiCache.modifiedNumericTraits.map((item, index) => {
-                return item + modifiers[index + 1];
+                return index > 3 ? item : item + modifiers[index + 1];
             });
         }
 
