@@ -485,10 +485,27 @@ const raffleNavStyles = makeStyles( theme => ({
     }
 }));
 
+
+const raffleTicketsStyles = makeStyles( theme => ({
+    list: {
+        display: 'grid',
+        alignItems: 'start',
+        gap: 12,
+        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+        gridAutoRows: '1fr',
+        marginTop: 16,
+        minHeight: 125
+    },
+    listItem: {
+        height: '100%'
+    }
+}));
+
 export {
     styles as default,
     raffleCountdownStyles,
     raffleNavStyles,
+    raffleTicketsStyles,
     ticketStyles,
     titleStyles
 }

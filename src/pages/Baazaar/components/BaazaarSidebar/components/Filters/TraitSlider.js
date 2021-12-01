@@ -5,7 +5,7 @@ import { BaazaarContext } from '../../../../../../contexts/BaazaarContext';
 import classNames from "classnames";
 
 import styles from "./styles";
-import useClasses from "../../../../../../hooks/useClasses";
+
 
 let traitsEmojis = {
     NRG: '⚡️',
@@ -17,7 +17,7 @@ let traitsEmojis = {
 };
 
 export default function TraitSlider({type, runFilterWatcher}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [sliderRange, setSliderRange] = useState([0,99]);
     const { changeSingleStat } = useContext(BaazaarContext);
 

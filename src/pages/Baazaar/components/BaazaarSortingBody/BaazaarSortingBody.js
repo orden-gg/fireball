@@ -6,11 +6,11 @@ import Aavegotchi from "../BaazaarSidebar/components/ItemTypes/Aavegotchi";
 import {listingTypes} from "../../../../data/types";
 import RealmParcel from "../BaazaarSidebar/components/ItemTypes/RealmParcel";
 
-import useClasses from '../../../../hooks/useClasses';
+
 import { baazaarSortingBodyStyles } from '../../styles';
 
 export default function BaazaarSortingBody({goods, page, limit, onNextPageClick, onPrevPageClick}) {
-    const classes = useClasses(baazaarSortingBodyStyles);
+    const classes = baazaarSortingBodyStyles();
     const {selectedGoodsType} = useContext(BaazaarContext);
 
     return (

@@ -6,12 +6,12 @@ import itemUtils from '../../../../utils/itemUtils';
 import commonUtils from '../../../../utils/commonUtils';
 import Web3 from "web3";
 import { baazaarItemStyles } from '../../styles';
-import useClasses from '../../../../hooks/useClasses';
+
 
 var web3 = new Web3();
 
 export default function BaazaarItem({item}) {
-    const classes = useClasses(baazaarItemStyles);
+    const classes = baazaarItemStyles();
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.listing_id}>

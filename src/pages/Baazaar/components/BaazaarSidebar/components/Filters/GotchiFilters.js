@@ -14,10 +14,10 @@ import classNames from 'classnames';
 import { baazaarFilteringTypes } from '../../../../../../data/types';
 
 import styles from "./styles";
-import useClasses from "../../../../../../hooks/useClasses";
+
 
 export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);
     const {filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats} = useContext(BaazaarContext);

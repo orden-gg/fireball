@@ -2,14 +2,16 @@ import React from 'react';
 import { useTheme } from '@mui/material';
 
 import { alpha } from '@mui/system';
-import useClasses from '../hooks/useClasses';
 
-const styles = theme => ({
+
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     box: {
         padding: 2,
         border: '3px solid transparent'
     }
-});
+}));
 
 export default function HighlightNumber({children, type}) {
     const classes = styles();

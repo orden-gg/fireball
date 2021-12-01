@@ -1,7 +1,7 @@
 import { makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-const styles = theme => ({
+const styles = makeStyles( theme => ({
     sidebar: {
         alignContent: 'start',
         padding: 30
@@ -80,6 +80,6 @@ const styles = theme => ({
             top: -5
         }
     }
-});
+}));
 
 export default styles;

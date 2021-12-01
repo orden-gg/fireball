@@ -19,12 +19,12 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ghst from '../../../../assets/images/ghst-doubleside.gif';
 
-import useClasses from '../../../../hooks/useClasses';
+
 import styles from './styles';
 
 
 export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder } = useContext(BaazaarContext);
 
     const onRarityChange = (event) => {

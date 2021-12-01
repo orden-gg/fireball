@@ -10,10 +10,10 @@ import {
 } from "@mui/material";
 
 import styles from "./styles";
-import useClasses from "../../../../../../hooks/useClasses";
+
 
 export default function AdvancedSearch({selectedTraits, onTraitsChange, sliderRange, onSliderChange, onRangeChange, sliderIsValid, onAddTraitClick}) {
-    const classes = useClasses(styles);
+    const classes = styles();
 
     return (
         <Grid container spacing={2}>

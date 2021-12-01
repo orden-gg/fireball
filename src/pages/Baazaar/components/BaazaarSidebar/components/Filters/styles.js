@@ -1,4 +1,6 @@
-const styles = theme => ({
+import { makeStyles } from "@mui/styles";
+
+const styles = makeStyles( theme => ({
     rootContainer: {
         paddingTop: 0
     },
@@ -88,6 +90,6 @@ const styles = theme => ({
     rangeSliderOuter: {
         paddingTop: '0px'
     }
-});
+}));
 
 export default styles;

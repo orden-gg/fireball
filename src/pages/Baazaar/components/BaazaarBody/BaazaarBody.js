@@ -4,10 +4,10 @@ import BaazaarItem from '../BaazaarItem/BaazaarItem';
 import Pagination from '../Pagination/Pagination';
 
 import { baazaarBodyStyles } from '../../styles';
-import useClasses from '../../../../hooks/useClasses';
+
 
 export default function BaazaarBody({goods, page, limit, onNextPageClick, onPrevPageClick}) {
-    const classes = useClasses(baazaarBodyStyles);
+    const classes = baazaarBodyStyles();
 
     return (
         <Grid className={classes.baazaarBody} item xs={12} sm={12} md={9} lg={9} xl={10}>

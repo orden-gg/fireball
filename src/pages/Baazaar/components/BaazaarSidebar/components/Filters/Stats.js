@@ -14,10 +14,10 @@ import AdvancedSearch from "./AdvancedSearch";
 import FastSearch from "./FastSearch";
 
 import styles from "./styles";
-import useClasses from "../../../../../../hooks/useClasses";
+
 
 export default function Stats({runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const {
         minBRS,
         setMinBRS,

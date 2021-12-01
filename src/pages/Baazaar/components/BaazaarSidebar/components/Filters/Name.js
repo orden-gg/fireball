@@ -3,10 +3,10 @@ import { TextField } from "@mui/material";
 import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
 
 import styles from "./styles";
-import useClasses from "../../../../../../hooks/useClasses";
+
 
 export default function Name({runFilterWatcher}) {
-    const classes = useClasses(styles);
+    const classes = styles();
     const { name, setName } = useContext(BaazaarContext);
 
     const onNameChange = (event) => {
