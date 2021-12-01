@@ -70,7 +70,7 @@ const styles = makeStyles( theme => ({
         }
     },
     traitsContainer: {
-        paddingTop: '0'
+        paddingTop: '0 !important'
     },
     slider: {
         padding: '13px 0 0'
