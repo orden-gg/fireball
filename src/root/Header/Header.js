@@ -64,11 +64,6 @@ export default function Header() {
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
                 <img className={classes.logo} src={logo} alt='logo' />
-                <Typography className={classes.logoText}>
-                    <Box component='span'>ghst</Box>
-                    <Box component='span' className={classes.highlight}>_</Box>
-                    <Box component='span'>gg</Box>
-                </Typography>
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>

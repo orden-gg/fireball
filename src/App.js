@@ -59,7 +59,7 @@ export default function App() {
                     <ClientContextProvider>
 
                         <Helmet>
-                            <title>ghst_gg</title>
+                            <title>ghst_gg gotchiverse client</title>
                         </Helmet>
 
 
