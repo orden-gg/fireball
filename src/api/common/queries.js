@@ -16,6 +16,7 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           modifiedRarityScore
           withSetsRarityScore
           kinship
+          toNextLevel
           level
           experience
           equippedWearables

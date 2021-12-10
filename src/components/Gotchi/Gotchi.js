@@ -75,7 +75,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats}) {
     };
     
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`)}>
+        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed' )}>
             <div className={classes.gotchiBadges}>
                 <Tooltip title={`Haunt ${gotchi.hauntId}`} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
                     <div className={classes.gotchiId}>

@@ -11,7 +11,11 @@ const styles = makeStyles( theme => ({
                     ${theme.palette.secondary.main} -1px -1px 0px,
                     ${theme.palette.secondary.main} 1px -1px 0px,
                     ${theme.palette.secondary.main} -1px 1px 0px,
-                    ${theme.palette.secondary.main} 1px 1px 0px`
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
+
+        '.simple &': {
+            fontSize: 11
+        }
     },
     label: {
         animation: '$shine 1s linear infinite alternate'
