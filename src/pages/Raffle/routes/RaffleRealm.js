@@ -26,20 +26,16 @@ export default function RaffleRealm({raffleActive}) {
             { id: 6, rarity: 'drop', value: '' }
         ]);
 
-        getRaffleData(6, [raffleTicketPriceQuery(6)], `{
-            total(id: 6) {
-                totalDrop
-            }
-        }`);
+        getRaffleData(6, [raffleTicketPriceQuery(6)]);
     },[]);
 
-    useEffect(() => {
-        tickets.forEach((item, i) => tickets[i].value = '');
+    // useEffect(() => {
+    //     tickets.forEach((item, i) => tickets[i].value = '');
 
-        if(web3.isAddressValid(raffleActive)) {
-            getAddressEntered(raffleActive, 6);
-        }
-    }, [raffleActive]);
+    //     if(web3.isAddressValid(raffleActive)) {
+    //         getAddressEntered(raffleActive, 6);
+    //     }
+    // }, [raffleActive]);
 
     return (
         <div className={classes.inner}>

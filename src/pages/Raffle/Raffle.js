@@ -121,8 +121,6 @@ export default function Raffle() {
                     <Redirect from={match.path} to={`${match.path}/realm`} />
                 </Switch>
             </RaffleContextProvider>
-
-            {/* <RaffleWearables tickets={tickets} /> */}
         </Box>
     );
 }

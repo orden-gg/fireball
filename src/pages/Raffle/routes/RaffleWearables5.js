@@ -9,6 +9,7 @@ import { RaffleContext } from '../../../contexts/RaffleContext';
 import web3 from '../../../api/web3';
 
 import RaffleTable from '../components/RaffleTable';
+import RaffleWearables from '../components/RaffleWearables';
 import RaffleCountdown from '../components/RaffleCountdown';
 
 const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
@@ -38,26 +39,16 @@ export default function RaffleWearables5({raffleActive}) {
             raffleTicketPriceQuery(3),
             raffleTicketPriceQuery(4),
             raffleTicketPriceQuery(5)
-        ], `{
-            total(id: 5) {
-                totalCommon
-                totalUncommon
-                totalRare
-                totalLegendary
-                totalMythical
-                totalLegendary
-                totalGodLike
-            }
-        }`);
+        ]);
     }, []);
 
-    useEffect(() => {
-        tickets.forEach((item, i) => tickets[i].value = '');
+    // useEffect(() => {
+    //     tickets.forEach((item, i) => tickets[i].value = '');
 
-        if(web3.isAddressValid(raffleActive)) {
-            getAddressEntered(raffleActive, 5);
-        };
-    }, [raffleActive]);
+    //     if(web3.isAddressValid(raffleActive)) {
+    //         getAddressEntered(raffleActive, 5);
+    //     };
+    // }, [raffleActive]);
 
     return (
         <div className={classes.inner}>
@@ -71,6 +62,8 @@ export default function RaffleWearables5({raffleActive}) {
             <RaffleTable
                 raffleEnded={raffleEnded}
             />
+
+            <RaffleWearables tickets={tickets} />
         </div>
     );
 }
