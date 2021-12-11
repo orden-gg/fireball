@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 const styles = makeStyles( theme => ({
     labelWrapper: {
         color: theme.palette.rarity.legendary,
-        fontSize: '15px',
+        fontSize: 15,
         fontStyle: 'italic',
         fontWeight: 600,
         textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
@@ -13,8 +13,8 @@ const styles = makeStyles( theme => ({
                     ${theme.palette.secondary.main} -1px 1px 0px,
                     ${theme.palette.secondary.main} 1px 1px 0px`,
 
-        '.simple &': {
-            fontSize: 11
+        '.narrowed &': {
+            fontSize: 12
         }
     },
     label: {

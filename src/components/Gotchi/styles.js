@@ -118,7 +118,7 @@ const styles = makeStyles( theme => ({
             margin: 0,
 
             '.narrowed &': {
-                fontSize: 12,
+                fontSize: 14,
         
                 '&:hover': {
                     textDecoration: 'underline',

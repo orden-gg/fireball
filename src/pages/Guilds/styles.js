@@ -214,7 +214,7 @@ const gotchisStyles = makeStyles( theme => ({
         maxWidth: 1920,
         margin: 'auto',
         gap: theme.spacing(2),
-        gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
         display: 'grid',
     },
     memberName: {

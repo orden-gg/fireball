@@ -20,8 +20,18 @@ export default function GuildsGotchis() {
                 <div key={item.id} className={classes.item}>
                     <Gotchi
                         gotchi={item}
-                        gotchiColor={theme.palette.customColors.gray}
                         narrowed={true}
+                        render={[
+                            {
+                                badges: [
+                                    'id',
+                                    'level',
+                                    'collateral'
+                                ]
+                            },
+                            'svg',
+                            'name',
+                        ]}
                     />
                 </div>
             )
