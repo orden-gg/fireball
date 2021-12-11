@@ -20,9 +20,3 @@ for testing:
 * homepage: https://ghst.gg
 * ordenGG twitter: https://twitter.com/orden_gg
 * ordenGG discord: https://discord.gg/NXEEETxSkC
-
-
-## 0.31 release node
-
-* client fixes and improvements
-* new market filter

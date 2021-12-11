@@ -17,9 +17,9 @@ export default function Footer() {
         <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <Box display='flex' alignItems='center' width='100%'>
-                    <span className={classes.highlight}>v0.3</span>
+                    <span className={classes.highlight}>v0.31</span>
                     <span className={classes.footerCopyright}>
-                        ghst_gg is the <a href='https://github.com/orden-gg/ghst-gg' rel='noreferrer' target='_blank'>open-source</a> <a href='https://www.aavegotchi.com/' rel='noreferrer' target='_blank'>gotchiverse</a> client focused on game {'&&'} market transparency. Developed by <a href='https://twitter.com/orden_gg' rel='noreferrer' target='_blank'>ordenGG</a> {'&'} contributors. 
+                        ghst_gg is the <a href='https://github.com/orden-gg/ghst-gg' rel='noreferrer' target='_blank'>open-source</a>, <a href='https://www.aavegotchi.com/' rel='noreferrer' target='_blank'>gotchiverse</a> client focused on game {'&&'} market transparency. Developed by <a href='https://twitter.com/orden_gg' rel='noreferrer' target='_blank'>ordenGG</a> {'&'} contributors. 
                     </span>
                     <span className={classes.stats}><a href='https://simpleanalytics.com/ghst.gg' rel='noreferrer' target='_blank'>[stats]</a></span>
                 </Box>
