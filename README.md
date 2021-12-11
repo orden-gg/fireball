@@ -5,14 +5,14 @@ ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused o
 
 ## local deployment (ubuntu & macos) 
 
-1. make sure you have Node version 17.x. You can use nvm to manage your node version ('nvm install stable' and 'nvm use stable')
-2. yarn
-3. yarn start
+1. make sure you have Node version `17.x`. You can use nvm[https://github.com/nvm-sh/nvm] to manage your node version (`nvm install 17` and `nvm use 17`)
+2. `yarn`
+3. `yarn start`
 
-for testing: 
+### testing
 
-* yarn run start-prod  - 'for production version testing'
-* yarn test
+* `yarn run start-prod`
+* `yarn test`
 
 
 ## Links
