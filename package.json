@@ -61,5 +61,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "immer": "9.0.6",
+    "glob-parent": "5.1.2"
   }
 }
