@@ -1,6 +1,6 @@
 const guilds = [
     {
-        name: 'orden DAO',
+        name: 'ordenGG',
         logo: require('../assets/guilds/orden-DAO.png').default,
         members: [
             '0xADA8aA2777825bc615C5F12126F8bf275E2245e5',
