@@ -13,6 +13,7 @@ ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused o
 
 * `yarn run start-prod`
 * `yarn test`
+* `yarn audit`
 
 
 ## Links
