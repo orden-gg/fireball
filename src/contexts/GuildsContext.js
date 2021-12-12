@@ -7,7 +7,6 @@ export const GuildsContext = createContext({});
 const GuildsContextProvider = (props) => {
     const [ guildsData, setGuildsData ] = useState(guilds);
     const [ guildData, setGuildData ] = useState([]);
-    const [ isLoading, setIsLoading ] = useState(true);
 
     const [ allGotchis, setAllGotchis ] = useState([]);
     const [ guildGotchis, setGuildGotchis ] = useState([]);
@@ -27,11 +26,6 @@ const GuildsContextProvider = (props) => {
 
     }, [guildData, allGotchis]);
 
-    useEffect( () => {
-        console.log('guildGotchis');
-        if(guildGotchis.length) setIsLoading(false);
-    }, [guildGotchis]);
-
     return (
         <GuildsContext.Provider value={{
 
@@ -48,9 +42,7 @@ const GuildsContextProvider = (props) => {
             setGuildData,
 
             // guildPath,
-            // setGuildPath,
-
-            isLoading
+            // setGuildPath
 
         }}>
             { props.children }

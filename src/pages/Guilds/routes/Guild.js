@@ -17,18 +17,20 @@ import classNames from 'classnames';
 import guildUtils from '../../../utils/guildUtils';
 
 export default function Guild({backToGuilds}) {
+    const [ isLoading, setIsLoading ] = useState(true);
     const params = useParams();
-    // const [ guild, setGuild ] = useState();
     const classes = guildStyles();
     const history = useHistory();
+    
     const { 
         guildsData,
         guildData,
         allGotchis, setAllGotchis,
         setGuildData,
-        isLoading,
+        guildGotchis,
         Placeholder
     } = useContext(GuildsContext);
+    
 
     const [ isOpen, setIsOpen ] = useState(true);
 
@@ -53,12 +55,6 @@ export default function Guild({backToGuilds}) {
     };
 
     useEffect( () => {
-        if(!isLoading) setTimeout( () => {
-            setIsOpen(false);
-        }, 500);
-    }, [isLoading])
-
-    useEffect( () => {
         let guild = guildsData.find( guild => (
             guildUtils.nameToPath(guild.name) === params.name
         ));
@@ -69,6 +65,17 @@ export default function Guild({backToGuilds}) {
 
         if(!allGotchis.length) getAllGotchis();
     }, []);
+
+    useEffect( () => {
+        if(!isLoading) setTimeout( () => {
+            setIsOpen(false);
+        }, 500);
+    }, [isLoading]);
+
+
+    useEffect( () => {
+        if(guildGotchis.length) setIsLoading(false);
+    }, [guildGotchis]);
 
     return (
         <>
