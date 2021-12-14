@@ -22,23 +22,25 @@ export default function GuildBanner() {
     return (
         <Box className={classNames(classes.guildBanner, guildData.banner.length && classes.guildBannerIs ) } style={{ backgroundImage: `url(${guildData.banner})` }}>
             <div className={classes.guildBannerInner}>
-                <Typography className={classNames(classes.guildMembers, classes.guildBannerText)}>
-                    Members
-                    <span>
-                        {guildData.members?.length ? `(${guildData.members.length})` : '...'}
-                    </span>
-                </Typography>
-                
-                <div className={classes.guildLogo}>{getImage(guildData)}</div>
+                <div className={classes.guildBannerTop}>
+                    <Typography className={classNames(classes.guildMembers, classes.guildBannerText)}>
+                        Members
+                        <span>
+                            {guildData.members?.length ? `(${guildData.members.length})` : '...'}
+                        </span>
+                    </Typography>
+                    
+                    <div className={classes.guildLogo}>{getImage(guildData)}</div>
 
-                <Typography className={classNames(classes.guildGotchis, classes.guildBannerText)}>
-                    <span>
-                        {guildGotchis?.length ? `(${guildGotchis.length})` : '...'}
-                    </span>
-                    Gotchis
-                </Typography>
+                    <Typography className={classNames(classes.guildGotchis, classes.guildBannerText)}>
+                        <span>
+                            {guildGotchis?.length ? `(${guildGotchis.length})` : '...'}
+                        </span>
+                        Gotchis
+                    </Typography>
+                </div>
+                <Typography component='h1' className={classes.guildName}>{guildData?.name}</Typography>
             </div>
-            <Typography component='h1' className={classes.guildName}>{guildData?.name}</Typography>
         </Box>
     );
 }

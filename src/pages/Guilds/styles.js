@@ -145,7 +145,6 @@ const guildStyles = makeStyles( theme => ({
 
 const guildBanner = makeStyles( theme => ({
     guildBanner: {
-        maxWidth: 1920,
         margin: 'auto',
         padding: `${theme.spacing(6)} 0`,
         minHeight: '35vh',
@@ -169,9 +168,14 @@ const guildBanner = makeStyles( theme => ({
         }
     },
     guildBannerInner: {
+        maxWidth: 1200,
+        margin: 'auto',
+        width: '100%'
+    },
+    guildBannerTop: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     guildBannerText: {
         fontSize: 28,
