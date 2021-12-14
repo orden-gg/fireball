@@ -17,19 +17,24 @@ export default function GuildBanner() {
         return <Placeholder className={classNames(classes.guildLogoImage, classes.guildLogoPlaceholder)} />
     }
 
+    console.log(guildData.banner.length, classes.guildBannerIs);
 
     return (
-        <Box className={classes.guildBanner}>
+        <Box className={classNames(classes.guildBanner, guildData.banner.length && classes.guildBannerIs ) } style={{ backgroundImage: `url(${guildData.banner})` }}>
             <div className={classes.guildBannerInner}>
                 <Typography className={classNames(classes.guildMembers, classes.guildBannerText)}>
                     Members
-                    <span>({guildData?.members?.length})</span>
+                    <span>
+                        {guildData.members?.length ? `(${guildData.members.length})` : '...'}
+                    </span>
                 </Typography>
                 
                 <div className={classes.guildLogo}>{getImage(guildData)}</div>
 
                 <Typography className={classNames(classes.guildGotchis, classes.guildBannerText)}>
-                    <span>({guildGotchis.length})</span>
+                    <span>
+                        {guildGotchis?.length ? `(${guildGotchis.length})` : '...'}
+                    </span>
                     Gotchis
                 </Typography>
             </div>

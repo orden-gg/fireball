@@ -1,11 +1,37 @@
-import React, { } from 'react';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { guildDetailsStyles } from '../../styles';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { GuildsContext } from '../../../../contexts/GuildsContext';
 
-export default function GuildsDetails({ guild, gotchis }) {
-    // const classes = styles();
+export default function GuildsDetails() {
+    const classes = guildDetailsStyles();
+    const { guildData } = useContext(GuildsContext);
 
     return (
-        <>
-            {/* Guild Details */}
-        </>
+        <Accordion className={classes.detailsWrapper}>
+            <AccordionSummary
+                className={classes.detailsHead}
+                expandIcon={
+                    <KeyboardArrowDownIcon className={classes.detailsArrow} />
+                }
+            >
+                More Details
+            </AccordionSummary>
+            <AccordionDetails className={classes.detailsBody}>
+                <ul className={classes.detailsList}>
+                    {
+                        guildData.description.map( (item, index) => (
+                            <li className={classes.detailsItem} key={index}>
+                                <p className={classes.detailTitle}>{item.title}</p>
+                                <div className={classes.detailBody}>
+                                    <Typography className={classes.detailText}>{item.text}</Typography>
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </AccordionDetails>
+        </Accordion>
     );
 }

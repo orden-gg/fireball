@@ -59,23 +59,28 @@ export default function Guild({backToGuilds}) {
             guildUtils.nameToPath(guild.name) === params.name
         ));
 
-        if( guild === undefined || !guild.members?.length ) return backToGuilds();
+        if( 
+            guild === undefined ||
+            !guild.members?.length && !guild.description?.length
+        ) return backToGuilds();
 
         setGuildData(guild);
-
+        
+        if(!guild.members?.length) return setIsLoading(false);
+        
         if(!allGotchis.length) getAllGotchis();
     }, []);
 
     useEffect( () => {
         if(!isLoading) setTimeout( () => {
             setIsOpen(false);
-        }, 500);
-    }, [isLoading]);
+        }, 600);
+    }, [ isLoading ]);
 
 
     useEffect( () => {
         if(guildGotchis.length) setIsLoading(false);
-    }, [guildGotchis]);
+    }, [ guildGotchis ]);
 
     return (
         <>
@@ -93,8 +98,8 @@ export default function Guild({backToGuilds}) {
                     
                         {/* <GuildsInfo {...{guild}} gotchis={guildGotchis} /> */}
                         <GuildBanner />
-                        <GuildsDetails />
-                        <GuildsGotchis />
+                        {!!guildData.description?.length &&  <GuildsDetails />}
+                        {!!guildGotchis.length && <GuildsGotchis />}
                     </Box>
                 )
             }
