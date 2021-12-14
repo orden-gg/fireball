@@ -24,7 +24,7 @@ export default function GuildsGotchis() {
                         render={[
                             {
                                 badges: [
-                                    'id',
+                                    'owner',
                                     'level',
                                     'collateral'
                                 ]

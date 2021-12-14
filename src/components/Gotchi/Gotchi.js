@@ -41,6 +41,17 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                 </Tooltip>
             )
         },
+        get owner() {
+            return (
+                <Link
+                    className={classes.owner}
+                    href={`/client/?address=${gotchi.owner.id}`}
+                    target="_blank"
+                >
+                    <p>{commonUtils.cutAddress(gotchi.owner.id)}</p>
+                </Link>
+            )
+        },
         get collateral() {
             return (
                 <Tooltip title={collateral} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>

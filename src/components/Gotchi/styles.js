@@ -126,6 +126,17 @@ const styles = makeStyles( theme => ({
             }
         }
     },
+    owner: {
+        '&:hover': {
+            textDecoration: 'underline'
+        },
+        '$gotchiBadges &': {
+            marginRight: 'auto'
+        },
+        '.narrowed &': {
+            fontSize: 12
+        }
+    },
     gotchiMainTraits: {
         margin: '8px 0'
     },
