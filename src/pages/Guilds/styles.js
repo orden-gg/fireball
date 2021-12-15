@@ -89,9 +89,10 @@ const styles = makeStyles( theme => ({
         // height: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
-    },
-    guildLogoPlaceholder: {
-        color: alpha(theme.palette.secondary.dark, .7)
+
+        '&.placeholder': {
+            color: alpha(theme.palette.secondary.dark, .7)
+        }
     }
 
 }));
@@ -188,10 +189,10 @@ const guildBanner = makeStyles( theme => ({
         animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
     },
     guildLogoImage: {
-        maxHeight: 200
-    },
-    guildLogoPlaceholder: {
-        color: theme.palette.secondary.dark
+        maxHeight: 200,
+        '&.placeholder': {
+            color: theme.palette.secondary.dark
+        }
     },
     guildMembers: {
         textAlign: 'right',
@@ -334,6 +335,7 @@ const gotchisStyles = makeStyles( theme => ({
         background: theme.palette.background.secondary,
         paddingTop: theme.spacing(2),
         marginTop: theme.spacing(3),
+        willChange: 'transform',
         transform: 'translateY(50px)',
         opacity: 0,
         animation: '2s ease-out 1s forwards $show, 2s ease-out 1s forwards $move',

@@ -13,45 +13,31 @@ import { guildStyles } from '../styles';
 
 import { Backdrop, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
-import classNames from 'classnames';
 import guildUtils from '../../../utils/guildUtils';
+import GuildLogo from '../components/GuildLogo';
 
 export default function Guild({backToGuilds}) {
     const [ isLoading, setIsLoading ] = useState(true);
+
     const params = useParams();
     const classes = guildStyles();
     const history = useHistory();
     
     const { 
         guildsData,
-        guildData,
-        allGotchis, setAllGotchis,
-        setGuildData,
-        guildGotchis,
-        Placeholder
+        currentGuild,
+        setCurrentGuild,
+        guildGotchis, setGuildGotchis
     } = useContext(GuildsContext);
-    
 
-    const [ isOpen, setIsOpen ] = useState(true);
+    const setGotchisByAddresses = async (addresses) => {
+        let gotchis = await thegraph.getGotchisByAddresses(addresses);
 
-    // const getGuildGotchis = (gotchisData) => {
-        
-    //     if(!allGotchis.length) getAllGotchis();
-    //     else filterGuildGotchis(allGotchis);
-    // };
+        gotchis.sort((a,b) => (
+            b.modifiedRarityScore - a.modifiedRarityScore
+        ));
 
-    const getImage = (guild) => {
-        if(guild.logo) return <img src={ guild.logo } className={classNames(classes.backdropImage, !isLoading && 'out')} />
-
-        return <Placeholder className={classNames(classes.backdropImage, classes.backdropImagePlaceholder, !isLoading && 'out')} />
-    }
-
-    const getAllGotchis = () => {
-        thegraph.getAllGotchies().then((response) => {
-            setAllGotchis(response);
-        }).catch((e)=> {
-            console.log(e);
-        });
+        setGuildGotchis(gotchis);
     };
 
     useEffect( () => {
@@ -64,41 +50,33 @@ export default function Guild({backToGuilds}) {
             !guild.members?.length && !guild.description?.length
         ) return backToGuilds();
 
-        setGuildData(guild);
-        
-        if(!guild.members?.length) return setIsLoading(false);
-        
-        if(!allGotchis.length) getAllGotchis();
+        setCurrentGuild(guild);
     }, []);
 
     useEffect( () => {
-        if(!isLoading) setTimeout( () => {
-            setIsOpen(false);
-        }, 600);
-    }, [ isLoading ]);
-
+        if(currentGuild.hasOwnProperty('name')) setGotchisByAddresses(currentGuild.members);
+    }, [currentGuild]);
 
     useEffect( () => {
-        if(guildGotchis.length) setIsLoading(false);
+        if(currentGuild.hasOwnProperty('name')) setIsLoading(false);
     }, [ guildGotchis ]);
 
     return (
         <>
-            <Backdrop className={classes.backdrop} open={isOpen}>
+            <Backdrop className={classes.backdrop} open={isLoading}>
                 <div className={classes.backdropBox}>
-                    {getImage(guildData)}
+                    <GuildLogo logo={currentGuild.logo} className={classes.backdropImage} />
                 </div>
             </Backdrop>
             {
-                !isOpen && (
+                !isLoading && (
                     <Box className={classes.guildWrapper}> 
                         <IconButton className={classes.backButton} onClick={ () => {history.goBack()}} >
                             <ArrowBackIcon />
                         </IconButton>
                     
-                        {/* <GuildsInfo {...{guild}} gotchis={guildGotchis} /> */}
                         <GuildBanner />
-                        {!!guildData.description?.length &&  <GuildsDetails />}
+                        {!!currentGuild.description?.length &&  <GuildsDetails />}
                         {!!guildGotchis.length && <GuildsGotchis />}
                     </Box>
                 )

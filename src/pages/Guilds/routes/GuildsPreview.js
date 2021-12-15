@@ -1,25 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import styles from '../styles';
 // import ScrollAnimation from 'react-animate-on-scroll';
 import { GuildsContext } from '../../../contexts/GuildsContext';
-import { Button, Link } from '@mui/material';
-import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
 import { Box } from '@mui/system';
 import guildUtils from '../../../utils/guildUtils';
+import GuildLogo from '../components/GuildLogo';
 
 export default function GuildsPreview() {
     const classes = styles();
-    const { guildsData, Placeholder } = useContext(GuildsContext);
+    const { guildsData, setCurrentGuild } = useContext(GuildsContext);
     const match = useRouteMatch();
     const history = useHistory();
-
-    const getImage = (guild) => {
-        if(guild.logo) return <img src={ guild.logo } className={classes.guildLogoImage} />
-
-        return <Placeholder className={classNames(classes.guildLogoImage, classes.guildLogoPlaceholder)} />
-    }
 
     const handleClick = (guild) => (event) => {
         history.push(`${match.url}/${guildUtils.nameToPath(guild.name)}`)
@@ -35,7 +27,9 @@ export default function GuildsPreview() {
                             disabled={!guild.members?.length && !guild.description?.length}
                             onClick={ handleClick(guild) }
                         >
-                            <div className={classes.guildLogo}>{getImage(guild)}</div>
+                            <div className={classes.guildLogo}>
+                                <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
+                            </div>
                             
                             <p className={classes.guildName}>{guild.name}</p>
                         </button>
@@ -44,6 +38,10 @@ export default function GuildsPreview() {
             })
         )
     }
+
+    useEffect( () => {
+        setCurrentGuild([]);
+    }, [] );
 
     return (
         <Box className={classes.guildsWrapper}>

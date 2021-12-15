@@ -6,7 +6,7 @@ import { GuildsContext } from '../../../../contexts/GuildsContext';
 
 export default function GuildsDetails() {
     const classes = guildDetailsStyles();
-    const { guildData } = useContext(GuildsContext);
+    const { currentGuild } = useContext(GuildsContext);
 
     return (
         <Accordion className={classes.detailsWrapper}>
@@ -21,7 +21,7 @@ export default function GuildsDetails() {
             <AccordionDetails className={classes.detailsBody}>
                 <ul className={classes.detailsList}>
                     {
-                        guildData.description.map( (item, index) => (
+                        currentGuild.description.map( (item, index) => (
                             <li className={classes.detailsItem} key={index}>
                                 <p className={classes.detailTitle}>{item.title}</p>
                                 <div className={classes.detailBody}>

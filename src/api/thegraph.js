@@ -182,6 +182,17 @@ export default {
         });
     },
 
+    async getGotchisByAddresses(addresses) {
+        let allGotchis = [];
+
+        for(let address of addresses) {
+            let gotchis = await this.getGotchisByAddress(address);
+
+            allGotchis = [...allGotchis, ...gotchis];
+        }
+        return allGotchis;
+    },
+
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
         return await this.getData(erc1155Query(id, sold, category, orderBy, orderDireciton)).then((response) => {
             let erc1155 = response.data.erc1155Listings;

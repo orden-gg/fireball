@@ -13,19 +13,16 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WebIcon from '@mui/icons-material/Web';
+import GuildLogo from '../GuildLogo';
 
 export default function GuildBanner() {
     const classes = guildBanner();
-    const { guildData, guildGotchis, Placeholder } = useContext(GuildsContext);
-
-    const getImage = (guild) => {
-        if(guild.logo) return <img src={ guild.logo } className={classes.guildLogoImage} />
-
-        return <Placeholder className={classNames(classes.guildLogoImage, classes.guildLogoPlaceholder)} />
-    }
+    const { 
+        currentGuild,
+        guildGotchis,
+    } = useContext(GuildsContext);
 
     const addSocial = (name) => {
-        console.log(name);
         switch (name) {
             case 'facebook':
                 return <FacebookIcon />
@@ -50,17 +47,17 @@ export default function GuildBanner() {
 
     const renderSocials = () => {
         return (
-            Object.keys(guildData.socials).map( (key) => (
+            Object.keys(currentGuild.socials).map( (key) => (
                 <Tooltip
-                    title={key} 
+                    title={key}
+                    key={key}
                     classes={{ tooltip: classes.customTooltip }} 
                     placement='top'
                     followCursor
                 >
                     <IconButton
-                        key={key}
                         component={Link}
-                        href={guildData.socials[key]}
+                        href={currentGuild.socials[key]}
                         target='_blank'
                         className={classes.guildSocialButton}
                     >
@@ -72,17 +69,19 @@ export default function GuildBanner() {
     }
 
     return (
-        <Box className={classNames(classes.guildBanner, guildData.banner.length && classes.guildBannerIs ) } style={{ backgroundImage: `url(${guildData.banner})` }}>
+        <Box className={classNames(classes.guildBanner, currentGuild.banner.length && classes.guildBannerIs ) } style={{ backgroundImage: `url(${currentGuild.banner})` }}>
             <div className={classes.guildBannerInner}>
                 <div className={classes.guildBannerTop}>
                     <Typography className={classNames(classes.guildMembers, classes.guildBannerText)}>
                         Members
                         <span>
-                            {guildData.members?.length ? `(${guildData.members.length})` : '...'}
+                            {currentGuild.members?.length ? `(${currentGuild.members.length})` : '...'}
                         </span>
                     </Typography>
                     
-                    <div className={classes.guildLogo}>{getImage(guildData)}</div>
+                    <div className={classes.guildLogo}>
+                        <GuildLogo logo={currentGuild.logo} className={classes.guildLogoImage} />
+                    </div>
 
                     <Typography className={classNames(classes.guildGotchis, classes.guildBannerText)}>
                         <span>
@@ -91,7 +90,7 @@ export default function GuildBanner() {
                         Gotchis
                     </Typography>
                 </div>
-                <Typography component='h1' className={classes.guildName}>{guildData?.name}</Typography>
+                <Typography component='h1' className={classes.guildName}>{currentGuild?.name}</Typography>
             </div>
 
             <div className={classes.guildSocials}>
