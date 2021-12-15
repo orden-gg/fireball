@@ -154,11 +154,6 @@ const styles = makeStyles( theme => ({
             },
         }
     },
-    socialLink: {
-        '&:hover': {
-            textDecoration: 'none'
-        }
-    },
     socialLinkJoin: {
         position: 'absolute',
         display: 'none',

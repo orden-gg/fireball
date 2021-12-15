@@ -12,7 +12,11 @@ const guilds = [
                 text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, quasi.'
             },
         ],
-        banner: require('../assets/guilds/ordenGG-banner.png').default
+        banner: require('../assets/guilds/ordenGG-banner.png').default,
+        socials: {
+            twitter: 'https://twitter.com/orden_gg/',
+            discord: 'https://discord.com/invite/NXEEETxSkC'
+        }
     },{
         name: 'Aeolian Haunts',
         logo: require('../assets/guilds/aeolian-haunts.jpeg').default,
@@ -31,7 +35,11 @@ const guilds = [
                 text: 'CryptoK9#1322'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            facebook: 'https://www.facebook.com/groups/456606075476389',
+            discord: 'https://discord.com/invite/w9SRJfFgnE'
+        }
     },{
         name: 'Aavegotchi Aavenue',
         logo: require('../assets/guilds/aavegotchi-aavenue.png').default,
@@ -50,7 +58,10 @@ const guilds = [
                 text: 'Cookiethief#3952'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            discord: 'https://discord.com/invite/Gvthkzks4C'
+        }
     },{
         name: 'BlackPool’s Aapegotchis',
         logo: require('../assets/guilds/blackpool-aapegotchis.png').default,
@@ -69,7 +80,10 @@ const guilds = [
                 text: 'Hazelstar#7954'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            discord: 'https://discord.com/invite/ddUyu4F4pp'
+        }
     },{
         name: 'Chigotchi Bulls',
         logo: require('../assets/guilds/chigotchi-bulls.png').default,
@@ -88,7 +102,11 @@ const guilds = [
                 text: 'legendarybagger#1201'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/chigotchibulls',
+            discord: 'https://discord.com/invite/P2MzYYrXUq'
+        }
     },{
         name: 'cRekto Club',
         logo: require('../assets/guilds/crekto-club.png').default,
@@ -107,7 +125,11 @@ const guilds = [
                 text: 'https://twitter.com/Mingkuan100'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            telegram: 'https://t.me/cRekto_club',
+            discord: 'https://discord.com/invite/w9SRJfFgnE'
+        }
     },{
         name: 'DeFi Alpha Gaming Guild',
         logo: require('../assets/guilds/defi-alpha-gaming-guild.png').default,
@@ -126,7 +148,12 @@ const guilds = [
                 text: 'buckley_gerry#9941 and Seb Monty#8764'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            website: 'https://defialpha.io/',
+            medium: 'https://defialpha.medium.com/',
+            discord: 'https://discord.com/invite/zQGs3Dua'
+        }
     },{
         name: 'F8 Guild',
         logo: require('../assets/guilds/f8-guild.png').default,
@@ -145,7 +172,11 @@ const guilds = [
                 text: 'calcryptochad.eth'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            website: 'https://f8guild.com/',
+            discord: 'https://discord.com/invite/xwvBxaBuQS'
+        }
     },{
         name: 'Frenzone',
         logo: require('../assets/guilds/frenzone.png').default,
@@ -164,7 +195,11 @@ const guilds = [
                 text: 'Remco#3748 3DSLAPS#0183'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/Frenzone_',
+            discord: 'https://discord.com/invite/rdBUZZpDfx'
+        }
     },{
         name: 'Ghost Squad',
         logo: require('../assets/guilds/ghost-squad.png').default,
@@ -183,7 +218,11 @@ const guilds = [
                 text: 'Gotchinomics#4936'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/gotchighstsquad',
+            discord: 'https://discord.com/invite/JQHx9u8mcV'
+        }
     },{
         name: 'Gotchi FArmy Gang',
         logo: require('../assets/guilds/gotchi-farmy-gang.png').default,
@@ -202,7 +241,11 @@ const guilds = [
                 text: 'PG#0811 Be The Coin 🧩#4204'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/TheGotchiFArmy',
+            discord: 'https://discord.com/invite/kMHQYn2dmG'
+        }
     },{
         name: 'Gotchi Gaang Maafia',
         logo: require('../assets/guilds/gotchi-gaang-maafia.jpeg').default,
@@ -221,7 +264,10 @@ const guilds = [
                 text: 'Goobz#9104'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            discord: 'https://discord.com/invite/GRnRRKJz'
+        }
     },{
         name: 'Gotchi Riders',
         logo: require('../assets/guilds/gotchi-riders.png').default,
@@ -240,7 +286,10 @@ const guilds = [
                 text: 'CryptoGotchi#9089'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            discord: 'https://discord.com/invite/uxFxBYJjF6'
+        }
     },{
         name: 'Keepers of the Realm',
         logo: require('../assets/guilds/keepers-of-the-realm.png').default,
@@ -259,7 +308,10 @@ const guilds = [
                 text: 'Cookiethief#3952'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            discord: 'https://discord.com/invite/w9SRJfFgnE'
+        }
     },{
         name: 'LevX DAO',
         logo: require('../assets/guilds/levx.png').default,
@@ -278,7 +330,11 @@ const guilds = [
                 text: 'bloob#7342'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/LevXDAOhGeez',
+            discord: 'https://discord.com/invite/oh-geez'
+        }
     },{
         name: 'Los Mustachos',
         logo: require('../assets/guilds/mustachos.png').default,
@@ -297,7 +353,11 @@ const guilds = [
                 text: 'Fantasma#1777'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/LosMustachos',
+            discord: 'https://discord.com/invite/bnAKfeczhu'
+        }
     },{
         name: 'Metaguild',
         logo: require('../assets/guilds/metaguild.png').default,
@@ -316,7 +376,12 @@ const guilds = [
                 text: 'Sandro#7777 egor#1111 kupilslona#0022'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            website: 'https://metaguild.com/',
+            twitter: 'https://twitter.com/metaguildcom',
+            discord: 'https://discord.com/invite/eXhmPHFCqD'
+        }
     },{
         name: 'MSG',
         logo: require('../assets/guilds/msg.jpeg').default,
@@ -335,7 +400,12 @@ const guilds = [
                 text: '🐙Musashi13#5579'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/msg13gaang',
+            twitch: 'https://www.twitch.tv/msg13gaang',
+            discord: 'https://discord.com/invite/XUASaaxu2Q'
+        }
     },{
         name: `Mug’N’Buns`,
         logo: require('../assets/guilds/mugnbuns.png').default,
@@ -354,7 +424,11 @@ const guilds = [
                 text: 'Cherry#0302'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/MugnBunsGuild',
+            discord: 'https://discord.com/invite/mugnbuns'
+        }
     },{
         name: 'TGC',
         logo: require('../assets/guilds/tgc.jpeg').default,
@@ -373,7 +447,11 @@ const guilds = [
                 text: 'Boyboy#6449'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/TGC_Guild',
+            discord: 'https://discord.com/invite/2p2vxQDj'
+        }
     },{
         name: 'The Order of Portal Mages',
         logo: require('../assets/guilds/the-order-of-portal-mages.jpeg').default,
@@ -392,7 +470,11 @@ const guilds = [
                 text: 'https://twitter.com/hillzcrypto'
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/PortalMages',
+            discord: 'https://discord.com/invite/yHr4H6uVFC'
+        }
     },{
         name: 'WAGMI Warriors',
         logo: require('../assets/guilds/WAGMI-warriors.png').default,
@@ -419,7 +501,11 @@ const guilds = [
                 text: ''
             }
         ],
-        banner: ''
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/WagmiWarriors',
+            discord: 'https://discord.com/invite/TNneBnhrM2'
+        }
     }
 ]
 

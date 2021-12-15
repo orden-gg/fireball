@@ -22,7 +22,6 @@ export default function GuildsPreview() {
     }
 
     const handleClick = (guild) => (event) => {
-        console.log(`${match.url}/${guildUtils.nameToPath(guild.name)}`);
         history.push(`${match.url}/${guildUtils.nameToPath(guild.name)}`)
     }
 

@@ -9,7 +9,7 @@ import LoginButton from '../../components/Login/LoginButton';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../../assets/images/logo.png';
-import discord from '../../assets/images/discord.svg';
+import { ReactComponent as DiscordIcon } from '../../assets/images/discord.svg';
 
 export default function Header() {
     const classes = styles();
@@ -43,7 +43,7 @@ export default function Header() {
             <Box className={classNames(classes.socialLinkList, view)} >
                 <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <img src={ discord } alt='' />
+                        <DiscordIcon />
                         <Box component='span' className={classes.iconButtonText}>420</Box>
                     </Button>
                 </Link>
