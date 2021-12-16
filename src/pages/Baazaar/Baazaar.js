@@ -537,6 +537,17 @@ export default function Baazaar() {
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
+        if ([
+            listingTypes.activity,
+            listingTypes.listing,
+            listingTypes.sold,
+            listingTypes.purchased
+        ].indexOf(selectedGoodsType) !== -1) {
+            paginationConfigs.gotchiLimit = 240;
+        } else {
+            paginationConfigs.gotchiLimit = 60;
+        }
+
         setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
