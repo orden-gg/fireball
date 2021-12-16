@@ -26,7 +26,8 @@ const BaazaarContextProvider = (props) => {
     const [fomoFilter, setFomoFilter] = useState('');
     const [fudFilter, setFudFilter] = useState('');
     const [sortingOrder, setSortingOrder] = useState(orderingTypes.timeDESC);
-    const [selectedGoodsType, setSelectedGoodsType] = useState(listingTypes.aavegotchi)
+    const [selectedGoodsType, setSelectedGoodsType] = useState(listingTypes.aavegotchi);
+    const [selectedListingType, setSelectedListingType] = useState(listingTypes.all);
     const [filteringType, setFilteringType] = useState('stats');
     const [name, setName] = useState(null);
     const [id, setId] = useState(null);
@@ -95,6 +96,8 @@ const BaazaarContextProvider = (props) => {
             setSortingOrder,
             selectedGoodsType,
             setSelectedGoodsType,
+            selectedListingType,
+            setSelectedListingType,
             priceFrom,
             setPriceFrom,
             priceTo,

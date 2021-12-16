@@ -10,6 +10,7 @@ import { listingTypes } from "../../data/types";
 import Web3 from "web3";
 import { baazaarFilteringTypes } from '../../data/types';
 import useInterval from "../../hooks/useInterval";
+import {getQueries, getQuery} from "./baazaarQueryBuilder";
 
 const web3 = new Web3();
 
@@ -40,7 +41,7 @@ export default function Baazaar() {
     const {filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
-        fomoFilter, fudFilter, rarity, collateral} = useContext(BaazaarContext);
+        fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
     // watch filters
     const [filtersTimer, setFiltersTimer] = useState(0);
     const [userIsTyping, setUserTypingStatus] = useState(false);
@@ -51,15 +52,20 @@ export default function Baazaar() {
             limit: paginationConfigs.limit
         };
 
-        if (selectedGoodsType === listingTypes.aavegotchi) {
+        if (checkContainerVisibility([listingTypes.aavegotchi])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllBaazaarItems(params);
-        }  else if (selectedGoodsType === listingTypes.realm) {
+        }  else if (checkContainerVisibility([listingTypes.realm])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllRealmParcels(params);
-        } else {
+        } else if (checkContainerVisibility([
+            listingTypes.closedPortal,
+            listingTypes.wearable,
+            listingTypes.consumable,
+            listingTypes.tickets
+        ])) {
             params.from = priceFrom;
             params.to = priceTo;
             params.type = selectedGoodsType;
@@ -68,7 +74,50 @@ export default function Baazaar() {
             params['limit'] = paginationConfigs.gotchiLimit;
             setLastValidParams(params);
             getBaazaarItems(params);
+        } else if (checkContainerVisibility([
+            listingTypes.activity,
+            listingTypes.listing,
+            listingTypes.sold,
+            listingTypes.purchased
+        ])) {
+            getSalesData(params);
         }
+    };
+
+    const getSalesData = (params) => {
+        showBackdrop(true);
+        thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
+            let cacheData = [];
+            response.forEach( item => {
+                cacheData = [...cacheData, ...(item.data.erc721Listings || item.data.erc1155Purchases || item.data.erc1155Listings)];
+            });
+            filteredLocalGoods = cacheData;
+            sortAllActivityItems();
+            getShownActivityItems();
+            showBackdrop(false);
+        }).catch(() => {
+            showBackdrop(false);
+        });
+    };
+
+    const getShownActivityItems = (newPage) => {
+        const itemsStart = ((newPage || page) - 1) * paginationConfigs.gotchiLimit;
+        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.gotchiLimit);
+        setSelectedLocalGoods(newSelectedGoods);
+    };
+
+    const sortAllActivityItems = () => {
+        filteredLocalGoods.sort((a, b) => {
+            if ([
+                listingTypes.activity,
+                listingTypes.sold,
+                listingTypes.purchased
+            ].indexOf(selectedGoodsType) !== -1) {
+                return parseInt(b.timePurchased || b.timeLastPurchased) - parseInt(a.timePurchased || a.timeLastPurchased);
+            } else {
+                return parseInt(b.timeCreated) - parseInt(a.timeCreated);
+            }
+        });
     };
 
     const getGraphQueryString = (params) => {
@@ -204,7 +253,7 @@ export default function Baazaar() {
         ];
     };
 
-    const processResponse = (params, response) => {
+    const processResponse = (response) => {
         let processedItems = [],
             items = [];
 
@@ -240,16 +289,16 @@ export default function Baazaar() {
             });
         });
 
-        localGoods = [...localGoods, ...items];
+        return items;
     };
 
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
         thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
-            processResponse(params, response);
+            localGoods = [...localGoods, ...processResponse(response)];
             thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
-                processResponse(params, response);
+                localGoods = [...localGoods, ...processResponse(response)];
                 // start render
                 filterLocalGotchis();
                 sortLocalGotchis();
@@ -468,6 +517,10 @@ export default function Baazaar() {
         }
     };
 
+    const checkContainerVisibility = (visibleContainers) => {
+        return visibleContainers.indexOf(selectedGoodsType) !== -1;
+    };
+
     useInterval(() => {
         const cachedTimerValue = filtersTimer - 250;
 
@@ -484,18 +537,26 @@ export default function Baazaar() {
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
+        setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
-    }, [selectedGoodsType]);
+    }, [selectedGoodsType, selectedListingType]);
 
     return (
         <Grid classes={{root: classes.baazaar}} container spacing={3}>
             <BaazaarSidebar
+                setPage={setPage}
                 runFilterWatcher={runFilterWatcher}
                 runInstantFiltering={runInstantFiltering}
+                setSelectedLocalGoods={setSelectedLocalGoods}
             />
             {
-                selectedGoodsType !== listingTypes.aavegotchi && selectedGoodsType !== listingTypes.realm ?
+                checkContainerVisibility([
+                    listingTypes.closedPortal,
+                    listingTypes.wearable,
+                    listingTypes.consumable,
+                    listingTypes.tickets
+                ]) ?
                     <BaazaarBody
                         goods={goods}
                         page={page}

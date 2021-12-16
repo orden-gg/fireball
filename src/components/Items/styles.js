@@ -98,6 +98,25 @@ const itemStyles = makeStyles( theme => ({
             opacity: .7,
         }
     },
+    portalCard: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        '& img': {
+            minHeight: '30%'
+        }
+    },
+    parcelCard: {
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        '& canvas': {
+            maxWidth: 100,
+            maxHeight: 100
+        }
+    }
 }));
 
 const tooltipStyles = makeStyles( theme => ({
@@ -183,10 +202,6 @@ const tooltipStyles = makeStyles( theme => ({
         },
         '.mythical &': {
             backgroundColor: theme.palette.rarity.mythical,
-            color: theme.palette.secondary.main
-        },
-        '.godlike &': {
-            backgroundColor: theme.palette.rarity.godlike,
             color: theme.palette.secondary.main
         },
         '.godlike &': {
@@ -368,10 +383,18 @@ const parselStyles = makeStyles( theme => ({
     }
 }));
 
+const portalStyles = makeStyles( theme => ({
+    portalImage: {
+        width: 100,
+        marginTop: 10
+    }
+}));
+
 export {
     styles as default,
     itemStyles,
     ERC1155InnerStyles,
     tooltipStyles,
-    parselStyles
+    parselStyles,
+    portalStyles
 }

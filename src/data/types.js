@@ -5,7 +5,12 @@ export const listingTypes = {
     wearable: 'erc1155Listings-0',
     consumable: 'erc1155Listings-2',
     tickets: 'erc1155Listings-3',
-    realm: 'erc721Listings-4'
+    realm: 'erc721Listings-4',
+    all: 'all',
+    activity: 'activity',
+    listing: 'listing',
+    sold: 'sold',
+    purchased: 'purchased'
 };
 
 export const baazaarFilteringTypes = {

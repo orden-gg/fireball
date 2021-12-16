@@ -85,6 +85,16 @@ const styles = makeStyles( theme => ({
             maxWidth: 25,
             maxHeight: 25
         }
+    },
+    verticalToggle: {
+        '& button': {
+            justifyContent: 'left',
+            padding: '7px 10px'
+        },
+        '& img': {
+            marginRight: 15,
+            width: 16
+        }
     }
 }));
 

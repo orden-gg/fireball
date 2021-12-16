@@ -48,9 +48,23 @@ export default {
                 },
                 '3': () => {
                     return 'aavegotchi';
+                },
+                '4': () => {
+                    return 'realm';
                 }
             },
             'ERC1155Listing': {
+                '0': () => {
+                    return 'wearable';
+                },
+                '2': () => {
+                    return 'consumable';
+                },
+                '3': () => {
+                    return 'ticket';
+                }
+            },
+            'ERC1155Purchase': {
                 '0': () => {
                     return 'wearable';
                 },
@@ -122,6 +136,9 @@ export default {
             },
             open_portal: () => {
                 return require(`../assets/images/portal-open.svg`).default;
+            },
+            realm: () => {
+                return require(`../assets/images/portal-sealed.svg`).default;
             },
             aavegotchi: () => returnAavegotchi(),
             consumable: () => returnWearable(),
