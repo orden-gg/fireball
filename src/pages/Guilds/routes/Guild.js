@@ -71,7 +71,7 @@ export default function Guild({backToGuilds}) {
             {
                 !isLoading && (
                     <Box className={classes.guildWrapper}> 
-                        <IconButton className={classes.backButton} onClick={ () => {history.goBack()}} >
+                        <IconButton className={classes.backButton} onClick={ () => {history.push('/guilds')}} >
                             <ArrowBackIcon />
                         </IconButton>
                     

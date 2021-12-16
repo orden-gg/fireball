@@ -25,22 +25,22 @@ export default function GuildBanner() {
     const addSocial = (name) => {
         switch (name) {
             case 'facebook':
-                return <FacebookIcon />
+                return <FacebookIcon className={classes.guildSocialIcon} />
                 break;
             case 'twitter':
-                return <TwitterIcon />
+                return <TwitterIcon className={classes.guildSocialIcon} />
                 break;
             case 'discord':
-                return <DiscordIcon />
+                return <DiscordIcon className={classes.guildSocialIcon} />
                 break;
             case 'telegram':
-                return <TelegramIcon />
+                return <TelegramIcon className={classes.guildSocialIcon} />
                 break;
             case 'twitch':
-                return <TwitchIcon />
+                return <TwitchIcon className={classes.guildSocialIcon} />
                 break;
             default:
-                return <WebIcon />
+                return <WebIcon className={classes.guildSocialIcon} />
                 break;
         }
     }
@@ -51,7 +51,6 @@ export default function GuildBanner() {
                 <Tooltip
                     title={key}
                     key={key}
-                    classes={{ tooltip: classes.customTooltip }} 
                     placement='top'
                     followCursor
                 >

@@ -28,19 +28,46 @@ const styles = makeStyles( theme => ({
         position: 'relative',
         maxWidth: 1920,
         padding: theme.spacing(2),
-        margin: 'auto'
+        margin: 'auto',
+
+        [theme.breakpoints.down('md')]: {
+            padding: theme.spacing(1.5)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(1)
+        }
     },
     guildsTitle: {
         textAlign: 'center',
         fontSize: 36,
-        marginTop: 50
+        marginTop: theme.spacing(6),
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 28,
+            marginTop: theme.spacing(3)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 24,
+        }
     },
     guildsList: {
         padding: 0,
         display: "grid",
-        gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))',
-        gridGap: '60px 20px',
-        marginTop: 60
+        gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
+        gridGap: theme.spacing(7, 3),
+        marginTop: theme.spacing(7),
+
+        [theme.breakpoints.down('md')]: {
+            gridTemplateColumns: 'repeat(auto-fill, minmax(180px,1fr))',
+            gridGap: theme.spacing(4, 2),
+            marginTop: theme.spacing(4),
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            gridTemplateColumns: 'repeat(auto-fill, minmax(164px,1fr))',
+        }
     },
     guildItem: {
         textAlign: 'center',
@@ -69,24 +96,34 @@ const styles = makeStyles( theme => ({
     guildName: {
         fontWeight: 700,
         transition: 'color .2s linear',
-        
         fontSize: 24,
-        margin: '15px 0 0'
+        margin: theme.spacing(2, 0, 0),
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 22,
+            marginTop: theme.spacing(1.5)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 18
+        }
     },
     guildLogo: {
         width: '80%',
         margin: 'auto',
         position: 'relative',
         paddingBottom: '50%',
-        transition: 'transform .2s ease-out'
+        transition: 'transform .2s ease-out',
+
+        [theme.breakpoints.down('sm')]: {
+            width: '90%'
+        }
     },
     guildLogoImage: {
         position: 'absolute',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
-        // width: '100%',
-        // height: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
 
@@ -107,10 +144,24 @@ const guildStyles = makeStyles( theme => ({
         left: theme.spacing(3),
         top: theme.spacing(2),
         zIndex: 1,
+
+        [theme.breakpoints.down('md')]: {
+            left: theme.spacing(2),
+            top: theme.spacing(1),
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            left: theme.spacing(1),
+            top: theme.spacing(.5),
+        },
         
         '& .MuiSvgIcon-root': {
             fontSize: 30,
-            transition: 'translate .2s ease'
+            transition: 'translate .2s ease',
+
+            [theme.breakpoints.down('sm')]: {
+                fontSize: 24
+            }
         },
 
         '&:hover': {
@@ -123,7 +174,11 @@ const guildStyles = makeStyles( theme => ({
     },
     backdropBox: {
         width: 200,
-        animation: '3s ease infinite $bounce'
+        animation: '3s ease infinite $bounce',
+
+        [theme.breakpoints.down('md')]: {
+            width: 120
+        }
     },
     backdropImage: {
         width: '100%',
@@ -142,11 +197,15 @@ const guildStyles = makeStyles( theme => ({
 const guildBanner = makeStyles( theme => ({
     guildBanner: {
         margin: 'auto',
-        padding: `${theme.spacing(6)} 0`,
+        padding: theme.spacing(6, 1, 5),
         minHeight: '35vh',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(3, 1, 2.5)
+        }
     },
     guildBannerIs: {
         position: 'relative',
@@ -176,20 +235,47 @@ const guildBanner = makeStyles( theme => ({
     guildBannerText: {
         fontSize: 28,
         flexGrow: 1,
-        width: '100%'
+        width: '100%',
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 20
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 14
+        }
     },
     guildLogo: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: '0 50px',
+        margin: theme.spacing(0, 6),
         minWidth: 300,
         transform: 'translateY(-10%)',
         opacity: 0,
         animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
+
+        [theme.breakpoints.down('md')]: {
+            minWidth: 200,
+            margin: theme.spacing(0, 3),
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            minWidth: 110,
+            margin: theme.spacing(0, 1)
+        }
     },
     guildLogoImage: {
         maxHeight: 200,
+
+        [theme.breakpoints.down('md')]: {
+            maxHeight: 150
+        },
+
+        [theme.breakpoints.down('md')]: {
+            maxHeight: 95
+        },
+        
         '&.placeholder': {
             color: theme.palette.secondary.dark
         }
@@ -202,7 +288,11 @@ const guildBanner = makeStyles( theme => ({
 
         '& span': {
             color: theme.palette.primary.main,
-            marginLeft: 15
+            marginLeft: theme.spacing(2),
+
+            [theme.breakpoints.down('md')]: {
+                marginLeft: theme.spacing(1)
+            }
         }
     },
     guildGotchis: {
@@ -212,7 +302,11 @@ const guildBanner = makeStyles( theme => ({
 
         '& span': {
             color: theme.palette.primary.main,
-            marginRight: 15
+            marginRight: theme.spacing(2),
+
+            [theme.breakpoints.down('md')]: {
+                marginRight: theme.spacing(1)
+            }
         }
     },
     guildName: {
@@ -221,19 +315,52 @@ const guildBanner = makeStyles( theme => ({
         fontSize: 50,
         opacity: 0,
         animation: '1s ease .5s forwards $show',
-        lineHeight: 1,
-        marginTop: theme.spacing(3)
+        lineHeight: 1.2,
+        marginTop: theme.spacing(3),
+        padding: theme.spacing(0, 2),
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 32,
+            marginTop: theme.spacing(1)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 24
+        },
     },
     guildSocials: {
         position: 'absolute',
         right: theme.spacing(4),
-        top: theme.spacing(2.5)
+        top: theme.spacing(2.5),
+
+        [theme.breakpoints.down('md')]: {
+            right: theme.spacing(2.5),
+            top: theme.spacing(1.5)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            right: theme.spacing(1.5),
+            top: theme.spacing(1)
+        }
     },
     guildSocialButton: {
         marginLeft: theme.spacing(1),
 
+        [theme.breakpoints.down('sm')]: {
+            width: 30,
+            height: 30,
+            padding: 5,
+            marginLeft: theme.spacing(1)
+        },
+
         '&:hover': {
             color: theme.palette.primary.main
+        }
+    },
+    guildSocialIcon: {
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 20
         }
     },
     '@keyframes show': keyframes.show,
@@ -251,17 +378,41 @@ const guildDetailsStyles = makeStyles( theme => ({
         display: 'flex',
         flexDirection: 'column',
 
+        [theme.breakpoints.down('md')]: {
+            margin: `${theme.spacing(2)} auto`,
+        },
+
         '&.Mui-expanded': {
             margin: `${theme.spacing(3)} auto`,
 
+            [theme.breakpoints.down('md')]: {
+                margin: `${theme.spacing(2)} auto`,
+            },
+
             '&:last-of-type': {
                 marginBottom: theme.spacing(3),
+
+                [theme.breakpoints.down('md')]: {
+                    marginBottom: theme.spacing(2)
+                },
 
             }
         },
 
         '&:before': {
             content: 'none'
+        },
+
+        '& .MuiCollapse-root': {
+            padding: theme.spacing(0, 2),
+
+            [theme.breakpoints.down('md')]: {
+                padding: theme.spacing(0, 1.5)
+            },
+    
+            [theme.breakpoints.down('sm')]: {
+                padding: theme.spacing(0, 1)
+            }
         }
     },
     detailsHead: {
@@ -270,6 +421,14 @@ const guildDetailsStyles = makeStyles( theme => ({
         display: 'inline-flex',
         margin: '0 auto',
         position: 'relative',
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 13
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12
+        },
 
         '&:after': {
             content: '""',
@@ -297,35 +456,81 @@ const guildDetailsStyles = makeStyles( theme => ({
     },
     detailsArrow: {
         fontSize: 24,
-        margin: '0 -6px'
+        margin: '0 -6px',
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 22,
+            margin: '0 -5px',
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 18,
+            margin: '0 -4px',
+        }
     },
     detailsBody: {
         backgroundColor: theme.palette.background.secondary,
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(3),
         borderRadius: theme.spacing(1.5),
-        padding: theme.spacing(2, 4)
+        padding: theme.spacing(4, 6),
+
+        [theme.breakpoints.down('md')]: {
+            marginTop: theme.spacing(2),
+            borderRadius: theme.spacing(1),
+            padding: theme.spacing(3)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            padding: theme.spacing(2)
+        }
     },
     detailsList: {
         listStyle: 'none',
-        padding: 0
+        padding: 0,
+        margin: 0
     },
     detailsItem: {
 
         '& + $detailsItem': {
-            marginTop: theme.spacing(4)
+            marginTop: theme.spacing(4),
+
+            [theme.breakpoints.down('md')]: {
+                marginTop: theme.spacing(3)
+            }
         }
     },
     detailTitle: {
         textAlign: 'center',
         fontSize: 26,
         margin: 0,
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 22
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 18
+        }
     },
     detailBody: {
-        marginTop: theme.spacing(1.5)
+        marginTop: theme.spacing(1.5),
+
+        [theme.breakpoints.down('md')]: {
+            marginTop: theme.spacing(1)
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            marginTop: theme.spacing(.5)
+        }
     },
     detailText: {
-        fontSize: 16
+        fontSize: 16,
+        textAlign: 'center',
+
+        [theme.breakpoints.down('md')]: {
+            fontSize: 14
+        }
     },
     '@keyframes show': keyframes.show
 }));
@@ -339,6 +544,10 @@ const gotchisStyles = makeStyles( theme => ({
         transform: 'translateY(50px)',
         opacity: 0,
         animation: '2s ease-out 1s forwards $show, 2s ease-out 1s forwards $move',
+
+        [theme.breakpoints.down('md')]: {
+            marginTop: theme.spacing(2),
+        }
     },
     guildGotchisInner: {
         // overflowY: 'auto',
