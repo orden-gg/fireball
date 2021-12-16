@@ -5,7 +5,7 @@ export const getQueries = (selectedGoodsType, listingType) => {
     const getQuery = (params, selectedGoodsType, listingType) => {
         return `{
             ${params.ercType}(
-                first: 500,
+                first: 1000,
                 where: {
                     category: ${params.category},
                     ${getWhereParams(selectedGoodsType, listingType).map((item) => {
