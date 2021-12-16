@@ -35,20 +35,6 @@ export default function RaffleTablee({raffleEnded}) {
             <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3} style={{ position: 'relative' }}>
                     <Typography variant='h6' className={classes.subtitle}>Entered Tickets</Typography>
-                    {raffleEnded ? (
-                        <Typography variant='caption' color='error.main'>(all entrants data comming soon)</Typography>
-                    ) : (
-                        null
-                    )}
-                    {/* <Box className={classes.countEnteredCheckboxWrapper}>
-                        <FormControlLabel
-                            className={classes.countEnteredCheckbox}
-                            control={
-                                <Checkbox checked={!enteredCombined} onChange={handleTicketsEnter} color='primary' name='enteredCombined' size='small' />
-                            }
-                            label='Count as entered'
-                        />
-                    </Box> */}
                 </Grid>
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>

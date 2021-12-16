@@ -202,14 +202,15 @@ export const raffleQuery = (id) => {
   }`
 };
 
-export const raffleEnteredQuery = (address) => {
+export const raffleEntrantsQuery = (address) => {
     return `{
-      raffleTicketPoolEntrants(first: 1000, where: { address: "${address}" }) {
+      raffleEntrants(where: { address: "${address}" }) {
+        id
         ticketId
-        tickets
-        pool{
+        quantity
+        raffle {
           id
         }
-      } 
+      }
     }`
 };

@@ -4,13 +4,14 @@ import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
 
 import { alpha } from '@mui/system';
+import { raffleNavStyles } from '../styles';
 import { NavLink } from 'react-router-dom';
 
 import wearables4icon from '../../../assets/wearables/156.svg';
 import h2icon from '../../../assets/images/h2_sealed.svg';
 import wearable5icon from '../../../assets/wearables/261.svg';
 import realm1icon from '../../../assets/images/icons/kek.png';
-import { raffleNavStyles } from '../styles';
+import realm2icon from '../../../assets/images/icons/fud.png';
 
 export default function RaffleNav({address}) {
     const match = useRouteMatch();
@@ -67,6 +68,18 @@ export default function RaffleNav({address}) {
                 to={{ pathname: `${match.url}/realm`, search: `?address=${address}` }}
             >
                 Realm
+            </Button>
+
+            <Button
+                startIcon={
+                    <img src={realm2icon} alt='realm' width={20} />
+                }
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/realm-2`, search: `?address=${address}` }}
+            >
+                Realm #2
             </Button>
         </div>
     );
