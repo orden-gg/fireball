@@ -84,6 +84,7 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering, s
                             aria-label='gotchis sort'
                             fullWidth
                             size={'small'}
+                            className={classes.mainToggleTop}
                         >
                             <ToggleButton className={classes.toggleItem} value={listingTypes.aavegotchi} aria-label='modified rarity score'>
                                 <Tooltip title='Aavegotchi' placement='top' followCursor>
@@ -115,6 +116,17 @@ export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering, s
                                     <img src={realmPlaceholder} />
                                 </Tooltip>
                             </ToggleButton>
+                        </ToggleButtonGroup>
+                        <ToggleButtonGroup
+                            value={selectedGoodsType}
+                            exclusive
+                            onChange={(event, value) => onTypeChange(event, value)}
+                            color='primary'
+                            aria-label='gotchis sort'
+                            fullWidth
+                            size={'small'}
+                            className={classes.mainToggleBottom}
+                        >
                             <ToggleButton className={classes.toggleItem} value={listingTypes.activity} aria-label='modified rarity score'>
                                 <Tooltip title='Activity' placement='top' followCursor>
                                     <img src={activity} />

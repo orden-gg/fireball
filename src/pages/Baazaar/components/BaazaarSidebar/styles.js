@@ -95,6 +95,25 @@ const styles = makeStyles( theme => ({
             marginRight: 15,
             width: 16
         }
+    },
+    mainToggleTop: {
+        '& button:first-child': {
+            borderBottomLeftRadius: 0
+        },
+        '& button:last-child': {
+            borderBottomRightRadius: 0
+        }
+    },
+    mainToggleBottom: {
+        '& button': {
+            borderTop: 0
+        },
+        '& button:first-child': {
+            borderTopLeftRadius: 0
+        },
+        '& button:last-child': {
+            borderTopRightRadius: 0
+        }
     }
 }));
 
