@@ -10,6 +10,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import MenuIcon from '@mui/icons-material/Menu';
 import logo from '../../assets/images/logo.svg';
 import discord from '../../assets/images/discord.svg';
+import github from '../../assets/images/github.png';
 
 export default function Header() {
     const classes = styles();
@@ -44,13 +45,19 @@ export default function Header() {
                 <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <img src={ discord } alt='' />
-                        <Box component='span' className={classes.iconButtonText}>420</Box>
+                        <Box component='span' className={classes.iconButtonText}>435</Box>
                     </Button>
                 </Link>
                 <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <TwitterIcon />
-                        <Box component='span' className={classes.iconButtonText}>870</Box>
+                        <Box component='span' className={classes.iconButtonText}>965</Box>
+                    </Button>
+                </Link>
+                <Link href='https://github.com/orden-gg/ghst-gg' className={classes.socialLink} target='_blank' underline='none'>
+                    <Button className={classes.iconButton} aria-label='add an alarm'>
+                        <img src={ github } alt='' />
+                        <Box component='span' className={classes.iconButtonText}>10</Box>
                     </Button>
                 </Link>
                 <Box className={classes.socialLinkJoin}>
