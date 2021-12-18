@@ -204,6 +204,11 @@ export default {
             let prizes = response.data.raffles[0].ticketPools;
 
             prizes.forEach((pool) => {
+                // let formatIds = przs.map((item) => {
+                //     item.id = (item.id).substring(2);
+                //     return item
+                // })
+
                 data.push({
                     id: pool.id,
                     items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),

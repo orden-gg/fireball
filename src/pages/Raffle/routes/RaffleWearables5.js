@@ -52,11 +52,11 @@ export default function RaffleWearables5({raffleActive}) {
                 raffleEnded={raffleEnded}
             />
 
-            {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
+            {/* {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
                 <RaffleWearables tickets={tickets} /> 
             ) : (
                 null
-            )}
+            )} */}
             
         </div>
     );

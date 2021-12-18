@@ -26,10 +26,6 @@ export default function ERC1155({children, item}) {
     
     const theme = useTheme();
 
-    console.log(tooltipStyles);
-
-    console.log(classes);
-
     const [last, setLast] = useState(null);
     const [lastDate, setLastDate] = useState(null);
     const [current, setCurrent] = useState(null);
