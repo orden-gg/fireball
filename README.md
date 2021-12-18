@@ -1,34 +1,23 @@
-# ghst.gg // aavegotchi client 
+# ghst_gg aavegotchi client 
+
+ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused on game && market transparency. To contribute check the first-time issues[https://github.com/orden-gg/ghst-gg/issues?q=is%3Aopen+is%3Aissue+label%3Afirst-time]. The best play to discuss features is our discord server[https://discord.gg/Y8C2n858] 
 
 
-## LINCENSE clarification
+## local deployment (ubuntu & macos) 
 
-Starting Octover 26 2021 00:00 GMT+2 this project is switching from private to MIT license
+1. make sure you have Node version `17.x`. You can use nvm[https://github.com/nvm-sh/nvm] to manage your node version (`nvm install 17` and `nvm use 17`)
+2. `yarn`
+3. `yarn start`
 
-Check open-source workflow to help us build it
+### testing
 
-
-
-## open source workflow 
-
--  languages: JavaScript/Python
-- frameworks React
-- UI Library: Material-UI 5.0.3
-- Icons: Material-UI Icons 5.0.3
-
-
-
-## local deploy (ubuntu & macos)
-
-* use yarn lock for versions
-* yarn
-* yarn start
-* yarn run start-prod  - 'for production version testing'
-* yarn test
+* `yarn run start-prod`
+* `yarn test`
+* `yarn audit`
 
 
 ## Links
 
 * homepage: https://ghst.gg
-* twitter: https://twitter.com/orden_gg
-* discord: https://discord.gg/NXEEETxSkC
+* ordenGG twitter: https://twitter.com/orden_gg
+* ordenGG discord: https://discord.gg/NXEEETxSkC
