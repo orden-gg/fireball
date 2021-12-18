@@ -121,7 +121,7 @@ export default function Raffle() {
                     <Route path={`${match.path}/realm-2`}>
                         <RaffleRealm2 raffleActive={raffleActive} />
                     </Route>
-                    <Redirect from={match.path} to={`${match.path}/realm`} />
+                    <Redirect from={match.path} to={`${match.path}/realm-2`} />
                 </Switch>
             </RaffleContextProvider>
         </Box>
