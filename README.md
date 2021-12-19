@@ -1,6 +1,9 @@
-# ghst_gg aavegotchi client 
+![gotchiverse client!](/src/assets/images/logo.svg "ghst_gg")
 
-ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused on game && market transparency. To contribute check the first-time issues[https://github.com/orden-gg/ghst-gg/issues?q=is%3Aopen+is%3Aissue+label%3Afirst-time]. The best play to discuss features is our discord server[https://discord.gg/Y8C2n858] 
+
+# ghst_gg : gotchiverse client 
+
+ghst_gg is the opensource, [gotchiverse](https://gotchiverse.io/) client focused on game and market transparency. To contribute check the [first-time issues](https://github.com/orden-gg/ghst-gg/issues?q=is%3Aopen+is%3Aissue+label%3Afirst-time). The best place to discuss features is https://discord.gg/orden or github. Maintained by ordenGG and contributors 
 
 
 ## local deployment (ubuntu & macos) 
@@ -11,7 +14,6 @@ ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused o
 
 ### testing
 
-* `yarn run start-prod`
 * `yarn test`
 * `yarn audit`
 
@@ -20,4 +22,4 @@ ghst_gg is the opensource, gotchiverse[https://gotchiverse.io/] client focused o
 
 * homepage: https://ghst.gg
 * ordenGG twitter: https://twitter.com/orden_gg
-* ordenGG discord: https://discord.gg/NXEEETxSkC
+* ordenGG discord: https://discord.gg/orden
