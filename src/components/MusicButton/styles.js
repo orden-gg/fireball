@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles( theme => ({
     button: {
-        fontSize: 12
+        marginLeft: 12
     }
 }));
 

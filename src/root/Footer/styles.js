@@ -10,7 +10,12 @@ const styles = makeStyles( theme => ({
         }
     },
     toolbar: {
-        padding: 0
+        padding: '12px 0',
+        flexWrap: 'wrap',
+        [theme.breakpoints.up('md')]: {
+            justifyContent: 'space-between',
+            flexWrap: 'nowrap'
+        }
     },
     highlight: {
         backgroundColor: 'rgba(0, 0, 0, .3)',
@@ -25,14 +30,11 @@ const styles = makeStyles( theme => ({
             color: theme.palette.primary.main
         }
     },
-    stats: {
-        fontSize: 12,
-        marginLeft: 'auto',
-        marginRight: 48,
+    buttons: {
         whiteSpace: 'nowrap',
-        '& a': {
-            textDecoration: 'none',
-            color: theme.palette.primary.main
+        margin: '12px auto 0',
+        [theme.breakpoints.up('md')]: {
+            margin: 0
         }
     }
 }));

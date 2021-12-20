@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, IconButton } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 import song from '../../assets/music/halloween.mp3';
 
@@ -19,10 +19,13 @@ export default function MusicButton() {
     }, [playing]);
 
     return (
-        <Box className={classes.button}>
-            <Button  color='primary' onClick={() => setPlaying(!playing)}>
-                {playing ? '[pause]' : '[play]'}
-            </Button>
-        </Box>
+        <Button
+            className={classes.button}
+            size='small'
+            variant='contained'
+            onClick={() => setPlaying(!playing)}
+        >
+            {playing ? '[pause]' : '[play]'}
+        </Button>
     );
 }
