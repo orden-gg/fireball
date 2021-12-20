@@ -90,9 +90,9 @@ export default function Header() {
                     <NavLink className={classes.navLink} to='/explorer'>
                         Explorer
                     </NavLink>
-                    <NavLink className={classes.navLink} to='/guilds'>
+                    {/* <NavLink className={classes.navLink} to='/guilds'>
                         Guilds
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator
                     </NavLink>
