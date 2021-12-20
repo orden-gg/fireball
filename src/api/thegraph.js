@@ -223,11 +223,22 @@ export default {
     async getRaffleEntered(address, raffle) {
         return await this.getRaffleData(raffleEntrantsQuery(address.toLowerCase())).then((response) => {
             let data = [];
-            let received = response.data.raffleEntrants;
+            let received = JSON.parse(JSON.stringify(response.data.raffleEntrants));
 
             let filtered = received.filter((item) => +item.raffle.id === raffle);
 
-            filtered.forEach((item) => {
+            let merged = filtered.reduce((items, current) => {
+                let duplicated = items.find(item => item.ticketId === current.ticketId);
+    
+                if(duplicated) {
+                    duplicated.quantity = +duplicated.quantity + +current.quantity;
+                    return items;
+                }
+    
+                return items.concat(current);
+            }, []);
+
+            merged.forEach((item) => {
                 data.push({
                     ticketId: item.ticketId,
                     quantity: item.quantity,
