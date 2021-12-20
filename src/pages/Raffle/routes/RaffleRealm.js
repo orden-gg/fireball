@@ -1,44 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { titleStyles } from '../styles';
-
-import { raffleTicketPriceQuery } from '../data/queries';
 import { DateTime } from 'luxon';
-
-import web3 from '../../../api/web3';
+import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
 import RaffleCountdown from '../components/RaffleCountdown';
-import { RaffleContext } from '../../../contexts/RaffleContext';
 
 const startDate = DateTime.local(2021, 11, 5, 14, { zone: 'utc' });
 const endDate = DateTime.local(2021, 11, 8, 14, { zone: 'utc' });
+
+const raffle = { // Raffle config
+    id: 6,
+    tickets: [
+        { id: 6, rarity: 'drop', value: '' }
+    ]
+};
 
 export default function RaffleRealm({raffleActive}) {
     const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { tickets, setTickets, getRaffleData, getAddressEntered } = useContext(RaffleContext);
+    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
-        setTickets([ // Raffle tickets config
-            { id: 6, rarity: 'drop', value: '' }
-        ]);
-
-        getRaffleData(6, [raffleTicketPriceQuery(6)], `{
-            total(id: 6) {
-                totalDrop
-            }
-        }`);
-    },[]);
+        setTickets(raffle.tickets);
+        getRaffleData(raffle.id, raffle.tickets);
+    }, []);
 
     useEffect(() => {
-        tickets.forEach((item, i) => tickets[i].value = '');
-
-        if(web3.isAddressValid(raffleActive)) {
-            getAddressEntered(raffleActive, 6);
-        }
+        onAddressChange(raffleActive, raffle.id);
     }, [raffleActive]);
 
     return (

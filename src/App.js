@@ -10,7 +10,6 @@ import classNames from 'classnames';
 import SnackbarContextProvider from "./contexts/SnackbarContext";
 import Header from './root/Header/Header';
 import Footer from './root/Footer/Footer';
-import MusicButton from './components/MusicButton/MusicButton';
 
 import Main from './pages/Main/Main';
 import Baazaar from './pages/Baazaar/Baazaar';
@@ -54,12 +53,10 @@ export default function App() {
                     <ClientContextProvider>
 
                         <Helmet>
-                            <title>ghst_gg</title>
+                            <title>ghst_gg gotchiverse client</title>
                         </Helmet>
 
                         <Wrapper className={classNames(classes.wrapper, location.pathname.split('/')[1])}>
-
-                            <MusicButton />
                             <Header />
 
                             <Box className={classNames(classes.content)}>

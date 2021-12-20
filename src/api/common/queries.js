@@ -181,25 +181,37 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
 };
 
 export const raffleQuery = (id) => {
-    return `{
-      raffleTicketPools(first: 10, where: { raffle: "${id}" }) {
+  return `{
+    raffles(where: {id: "${id}" }) {
+      ticketPools {
         id
-        prizes {
+        prizes{
           id
-          prizeQuantity
+          quantity
         }
       }
-    }`
+      stats {
+        totalCommon
+        totalUncommon
+        totalRare
+        totalLegendary
+        totalMythical
+        totalGodLike
+        totalDrop
+      }
+    }
+  }`
 };
 
-export const raffleEnteredQuery = (address) => {
+export const raffleEntrantsQuery = (address) => {
     return `{
-      raffleTicketPoolEntrants(first: 1000, where: { address: "${address}" }) {
+      raffleEntrants(where: { address: "${address}" }) {
+        id
         ticketId
-        tickets
-        pool{
+        quantity
+        raffle {
           id
         }
-      } 
+      }
     }`
 };

@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 
-import gotchiPlaceholder from '../../../assets/images/logo.png';
+import gotchiPlaceholder from '../../../assets/images/logo.svg';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../assets/images/icons/kek.png';

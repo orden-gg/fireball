@@ -5,25 +5,19 @@ import { DateTime } from 'luxon';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
-import RaffleWearables from '../components/RaffleWearables';
 import RaffleCountdown from '../components/RaffleCountdown';
 
-const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
-const endDate = DateTime.local(2021, 9, 27, 14, { zone: 'utc' });
+const startDate = DateTime.local(2021, 12, 15, 14, { zone: 'utc' });
+const endDate = DateTime.local(2021, 12, 18, 14, { zone: 'utc' });
 
 const raffle = { // Raffle config
-    id: 5,
+    id: 7,
     tickets: [
-        { id: 0, rarity: 'common', value: '' },
-        { id: 1, rarity: 'uncommon', value: '' },
-        { id: 2, rarity: 'rare', value: '' },
-        { id: 3, rarity: 'legendary', value: '' },
-        { id: 4, rarity: 'mythical', value: '' },
-        { id: 5, rarity: 'godlike', value: '' }
+        { id: 6, rarity: 'drop', value: '' }
     ]
 };
 
-export default function RaffleWearables5({raffleActive}) {
+export default function RaffleRealm2({raffleActive}) {
     const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
@@ -43,7 +37,7 @@ export default function RaffleWearables5({raffleActive}) {
         <div className={classes.inner}>
             <div className={classes.titleWrapper}>
                 <h5 className={classes.title}>
-                    Sep 24-27 [2021]
+                    Dec 15-18 [2021]
                 </h5>
                 <RaffleCountdown start={startDate} end={endDate} />
             </div>
@@ -51,13 +45,6 @@ export default function RaffleWearables5({raffleActive}) {
             <RaffleTable
                 raffleEnded={raffleEnded}
             />
-
-            {/* {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
-                <RaffleWearables tickets={tickets} /> 
-            ) : (
-                null
-            )} */}
-            
         </div>
     );
 }

@@ -5,14 +5,14 @@ import {Helmet} from 'react-helmet';
 import styles from './styles';
 
 import queryString from 'query-string'
-
-import RaffleNav from './components/RaffleNav';
-import RaffleRealm from './routes/RaffleRealm';
-import RaffleWearables5 from './routes/RaffleWearables5';
 import { LoginContext } from '../../contexts/LoginContext';
 import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import RaffleContextProvider from '../../contexts/RaffleContext';
 
+import RaffleNav from './components/RaffleNav';
+import RaffleRealm from './routes/RaffleRealm';
+import RaffleWearables5 from './routes/RaffleWearables5';
+import RaffleRealm2 from './routes/RaffleRealm2';
 
 export default function Raffle() {
     const classes = styles();
@@ -118,11 +118,12 @@ export default function Raffle() {
                     <Route path={`${match.path}/realm`}>
                         <RaffleRealm raffleActive={raffleActive} />
                     </Route>
-                    <Redirect from={match.path} to={`${match.path}/realm`} />
+                    <Route path={`${match.path}/realm-2`}>
+                        <RaffleRealm2 raffleActive={raffleActive} />
+                    </Route>
+                    <Redirect from={match.path} to={`${match.path}/realm-2`} />
                 </Switch>
             </RaffleContextProvider>
-
-            {/* <RaffleWearables tickets={tickets} /> */}
         </Box>
     );
 }

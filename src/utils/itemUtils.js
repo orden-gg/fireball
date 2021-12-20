@@ -23,8 +23,10 @@ export default {
     },
 
     getEmojiStatsById(id) {
-        let stats = items[id].stats;
+        let stats = items[id]?.stats;
         let emojis = {'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁'};
+
+        if(!stats) return null;
 
         Object.entries(emojis).forEach((item) => {
             let [key, value] = item;
