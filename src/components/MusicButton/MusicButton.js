@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, IconButton } from '@mui/material';
-
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+import { Box, Button, IconButton } from '@mui/material';
 
 import song from '../../assets/music/halloween.mp3';
 
@@ -23,9 +20,9 @@ export default function MusicButton() {
 
     return (
         <Box className={classes.button}>
-            <IconButton  color='primary' onClick={() => setPlaying(!playing)}>
-                {playing ? <PauseCircleIcon fontSize='large' /> : <PlayCircleIcon fontSize='large' />}
-            </IconButton>
+            <Button  color='primary' onClick={() => setPlaying(!playing)}>
+                {playing ? '[pause]' : '[play]'}
+            </Button>
         </Box>
     );
 }
