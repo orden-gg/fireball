@@ -21,9 +21,11 @@ const styles = makeStyles( theme => ({
         color: theme.palette.primary.main
     },
     logo: {
-        width: 45,
-        height: 45,
-        marginRight: 15
+        height: 80,
+        margin: -20,
+        marginRight: -10,
+        marginLeft: -10,
+
     },
     logoText: {
         whiteSpace: 'nowrap',
@@ -152,11 +154,6 @@ const styles = makeStyles( theme => ({
             '&.mobile': {
                 display: 'none'
             },
-        }
-    },
-    socialLink: {
-        '&:hover': {
-            textDecoration: 'none'
         }
     },
     socialLinkJoin: {

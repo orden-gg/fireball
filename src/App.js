@@ -10,11 +10,11 @@ import classNames from 'classnames';
 import SnackbarContextProvider from "./contexts/SnackbarContext";
 import Header from './root/Header/Header';
 import Footer from './root/Footer/Footer';
-import MusicButton from './components/MusicButton/MusicButton';
 
 import Main from './pages/Main/Main';
 import Baazaar from './pages/Baazaar/Baazaar';
 import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
+import Guilds from './pages/Guilds/Guilds';
 import CountdownTest from './pages/CountdownTest/CountdownTest';
 import Client from './pages/Client/Client';
 import Raffle from './pages/Raffle/Raffle';
@@ -37,15 +37,9 @@ const Wrapper = styled('div')(() => ({
         flexDirection: 'column',
         minHeight: '100%',
         paddingTop: 70,
-        '&.explorer': {
-            height: '100%'
-        }
     },
     [`& .${classes.content}`]: {
-        flexGrow: 1,
-        '&.explorer': {
-            height: '100%'
-        }
+        flexGrow: 1
     },
 }));
 
@@ -59,20 +53,18 @@ export default function App() {
                     <ClientContextProvider>
 
                         <Helmet>
-                            <title>ghst_gg</title>
+                            <title>ghst_gg gotchiverse client</title>
                         </Helmet>
 
-
-                        <Wrapper className={classNames(classes.wrapper, location.pathname === '/explorer' ? 'explorer' : '')}>
-
-                            <MusicButton />
+                        <Wrapper className={classNames(classes.wrapper, location.pathname.split('/')[1])}>
                             <Header />
 
-                            <Box className={classNames(classes.content, location.pathname === '/explorer' ? 'explorer' : '')}>
+                            <Box className={classNames(classes.content)}>
                                 <Switch>
                                     <Route exact path={`/`} component={ Main } />
                                     <Route exact path={`/market`} component={ Baazaar } />
                                     <Route exact path={`/explorer`} component={ GhostExplorer } />
+                                    <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
                                     <Route exact path={`/countdown-test`} component={ CountdownTest } />

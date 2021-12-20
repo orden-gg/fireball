@@ -8,8 +8,10 @@ import LoginButton from '../../components/Login/LoginButton';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MenuIcon from '@mui/icons-material/Menu';
-import logo from '../../assets/images/logo.png';
+
+import logo from '../../assets/images/logo.svg';
 import discord from '../../assets/images/discord.svg';
+import github from '../../assets/images/github.png';
 
 export default function Header() {
     const classes = styles();
@@ -44,13 +46,19 @@ export default function Header() {
                 <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <img src={ discord } alt='' />
-                        <Box component='span' className={classes.iconButtonText}>420</Box>
+                        <Box component='span' className={classes.iconButtonText}>435</Box>
                     </Button>
                 </Link>
                 <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <TwitterIcon />
-                        <Box component='span' className={classes.iconButtonText}>870</Box>
+                        <Box component='span' className={classes.iconButtonText}>965</Box>
+                    </Button>
+                </Link>
+                <Link href='https://github.com/orden-gg/ghst-gg' className={classes.socialLink} target='_blank' underline='none'>
+                    <Button className={classes.iconButton} aria-label='add an alarm'>
+                        <img src={ github } alt='' />
+                        <Box component='span' className={classes.iconButtonText}>10</Box>
                     </Button>
                 </Link>
                 <Box className={classes.socialLinkJoin}>
@@ -64,11 +72,6 @@ export default function Header() {
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
                 <img className={classes.logo} src={logo} alt='logo' />
-                <Typography className={classes.logoText}>
-                    <Box component='span'>ghst</Box>
-                    <Box component='span' className={classes.highlight}>_</Box>
-                    <Box component='span'>gg</Box>
-                </Typography>
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
@@ -87,6 +90,9 @@ export default function Header() {
                     <NavLink className={classes.navLink} to='/explorer'>
                         Explorer
                     </NavLink>
+                    {/* <NavLink className={classes.navLink} to='/guilds'>
+                        Guilds
+                    </NavLink> */}
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator
                     </NavLink>

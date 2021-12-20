@@ -8,7 +8,7 @@ import { listingTypes } from "../../../../data/types";
 
 import GotchiFilters from "./components/Filters/GotchiFilters";
 import RealmFilters from "./components/Filters/RealmFilters";
-import gotchiPlaceholder from '../../../../assets/images/logo.png';
+import gotchiPlaceholder from '../../../../assets/images/logo.svg';
 import warehousePlaceholder from '../../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../../assets/images/icons/kek.png';

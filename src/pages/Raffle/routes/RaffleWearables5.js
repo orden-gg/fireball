@@ -1,62 +1,42 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { titleStyles } from '../styles';
-
-import { raffleTicketPriceQuery } from '../data/queries';
 import { DateTime } from 'luxon';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
-import web3 from '../../../api/web3';
-
 import RaffleTable from '../components/RaffleTable';
+import RaffleWearables from '../components/RaffleWearables';
 import RaffleCountdown from '../components/RaffleCountdown';
 
 const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
 const endDate = DateTime.local(2021, 9, 27, 14, { zone: 'utc' });
+
+const raffle = { // Raffle config
+    id: 5,
+    tickets: [
+        { id: 0, rarity: 'common', value: '' },
+        { id: 1, rarity: 'uncommon', value: '' },
+        { id: 2, rarity: 'rare', value: '' },
+        { id: 3, rarity: 'legendary', value: '' },
+        { id: 4, rarity: 'mythical', value: '' },
+        { id: 5, rarity: 'godlike', value: '' }
+    ]
+};
 
 export default function RaffleWearables5({raffleActive}) {
     const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { tickets, setTickets, getRaffleData, getAddressEntered } = useContext(RaffleContext);
+    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
-        setTickets([ // Raffle tickets config
-            { id: 0, rarity: 'common', value: '' },
-            { id: 1, rarity: 'uncommon', value: '' },
-            { id: 2, rarity: 'rare', value: '' },
-            { id: 3, rarity: 'legendary', value: '' },
-            { id: 4, rarity: 'mythical', value: '' },
-            { id: 5, rarity: 'godlike', value: '' }
-        ]);
-
-        getRaffleData(5, [
-            raffleTicketPriceQuery(0),
-            raffleTicketPriceQuery(1),
-            raffleTicketPriceQuery(2),
-            raffleTicketPriceQuery(3),
-            raffleTicketPriceQuery(4),
-            raffleTicketPriceQuery(5)
-        ], `{
-            total(id: 5) {
-                totalCommon
-                totalUncommon
-                totalRare
-                totalLegendary
-                totalMythical
-                totalLegendary
-                totalGodLike
-            }
-        }`);
+        setTickets(raffle.tickets);
+        getRaffleData(raffle.id, raffle.tickets);
     }, []);
 
     useEffect(() => {
-        tickets.forEach((item, i) => tickets[i].value = '');
-
-        if(web3.isAddressValid(raffleActive)) {
-            getAddressEntered(raffleActive, 5);
-        };
+        onAddressChange(raffleActive, raffle.id);
     }, [raffleActive]);
 
     return (
@@ -71,6 +51,13 @@ export default function RaffleWearables5({raffleActive}) {
             <RaffleTable
                 raffleEnded={raffleEnded}
             />
+
+            {/* {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
+                <RaffleWearables tickets={tickets} /> 
+            ) : (
+                null
+            )} */}
+            
         </div>
     );
 }

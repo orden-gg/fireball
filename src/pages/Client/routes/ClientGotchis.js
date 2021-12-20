@@ -111,7 +111,24 @@ export default function ClientGotchis() {
                 {
                     gotchis.map((gotchi, i)=>{
                         return <div className={classes.listItem}  key={i}>
-                            <Gotchi gotchi={gotchi} />
+                            <Gotchi 
+                                gotchi={gotchi}
+                                render={[
+                                    {
+                                        badges: [
+                                            'id',
+                                            'level',
+                                            'collateral'
+                                        ]
+                                    },
+                                    'svg',
+                                    'name',
+                                    'mainTraits',
+                                    'numericTraits',
+                                    'wearablesLine',
+                                    'rewards'
+                                ]}
+                            />
                         </div>
                     })
                 }
