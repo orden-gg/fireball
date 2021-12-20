@@ -32,7 +32,7 @@ export default function BaazaarSortingBody({goods, page, limit, onNextPageClick,
                                 (selectedGoodsType === listingTypes.aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
                             }
                             {
-                                (item.__typename === 'ERC721Listing' && item.category === '3') && <Gotchi gotchi={item.gotchi} />
+                                (item.__typename === 'ERC721Listing' && item.category === '3') && <Gotchi gotchi={item.gotchi} render={[ { badges: [ 'id', 'level', 'collateral' ]}, 'svg', 'name' ]} />
                             }
                             {
                                 (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && <Portal portal={item} />
