@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import axios from "axios";
+import axios from 'axios';
 import styles from '../styles';
 
 export default function ParcelImage({parcel}) {
@@ -39,11 +39,11 @@ export default function ParcelImage({parcel}) {
 
         const {size} = parcel;
 
-        context.strokeStyle = "white";
-        size == 0 && context.rect(48, 48, 5, 5);
-        size == 1 && context.rect(45, 45, 10, 10);
-        size == 3 && context.rect(34, 41, 32, 17);
-        size == 2 && context.rect(41, 34, 17, 32);
+        context.strokeStyle = 'white';
+        size === 0 && context.rect(48, 48, 5, 5);
+        size === 1 && context.rect(45, 45, 10, 10);
+        size === 3 && context.rect(34, 41, 32, 17);
+        size === 2 && context.rect(41, 34, 17, 32);
         context.stroke();
     };
 
@@ -57,6 +57,6 @@ export default function ParcelImage({parcel}) {
     },[]);
 
     return (
-        <canvas className={classes.parcelImage} ref={canvasRef} width="100" height="100"></canvas>
+        <canvas className={classes.parcelImage} ref={canvasRef} width='100' height='100'></canvas>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
-import GotchiSvgRender from "./GotchiSvgRender";
+import renderSvg from './GotchiSvgRender';
 import { GotchiSvgStyles } from './styles';
 
 import gotchiLoading from '../../assets/images/gotchi-loading.gif';
@@ -18,9 +18,9 @@ export default function GotchiSvgByStats({gotchi, size}) {
     useEffect(() => {
         setLoadingSvg(true);
 
-        GotchiSvgRender.getSvg([gotchi]).then((response)=> {
+        renderSvg([gotchi]).then((response)=> {
             const svg = response[0];
-            const tmp = document.createElement("div");
+            const tmp = document.createElement('div');
 
             tmp.appendChild(svg);
 

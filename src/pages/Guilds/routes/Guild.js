@@ -47,7 +47,7 @@ export default function Guild({backToGuilds}) {
 
         if( 
             guild === undefined ||
-            !guild.members?.length && !guild.description?.length
+            (!guild.members?.length && !guild.description?.length)
         ) return backToGuilds();
 
         setCurrentGuild(guild);

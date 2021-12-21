@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
-import { Typography, useTheme } from '@mui/material';
+import React, { useEffect, useContext } from 'react';
 import { gotchisStyles } from '../styles';
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import { GuildsContext } from '../../../contexts/GuildsContext';
@@ -7,7 +6,6 @@ import { Box } from '@mui/system';
 
 export default function GuildsGotchis() {
     const classes = gotchisStyles();
-    const theme = useTheme();
     const { guildGotchis } = useContext(GuildsContext);
 
     const renderGotchis = (gotchis) => {
