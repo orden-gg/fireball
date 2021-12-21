@@ -105,7 +105,7 @@ export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span className='booster'><img src={fud}/> min</span>}
+                                    label={<span className='booster'><img src={fud} alt='fud' /> min</span>}
                                     value={fudFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -124,7 +124,7 @@ export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span className='booster'><img src={fomo}/> min</span>}
+                                    label={<span className='booster'><img src={fomo} alt='fomo' /> min</span>}
                                     value={fomoFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -143,7 +143,7 @@ export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span className='booster'><img src={alpha}/> min</span>}
+                                    label={<span className='booster'><img src={alpha} alt='alpha' /> min</span>}
                                     value={alphaFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
@@ -162,7 +162,7 @@ export default function RealmFilters({runFilterWatcher, runInstantFiltering}) {
                                     variant='outlined'
                                     fullWidth
                                     size={'small'}
-                                    label={<span className='booster'><img src={kek}/> min</span>}
+                                    label={<span className='booster'><img src={kek} alt='kek' /> min</span>}
                                     value={kekFilter}
                                     onChange={(event) => {
                                         if (event.target.value && event.target.value >= 0) {
