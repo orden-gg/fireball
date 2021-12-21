@@ -12,10 +12,14 @@ export default function MusicButton() {
 
     useEffect(() => {
         audio.addEventListener('ended', () => audio.play()); // autoplay on end
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         playing ? audio.play() : audio.pause();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playing]);
 
     return (

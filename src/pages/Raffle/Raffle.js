@@ -43,6 +43,8 @@ export default function Raffle() {
         } else {
             history.push({ path: location.pathname });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleActive]);
 
     // const countTicketsChance = () => {

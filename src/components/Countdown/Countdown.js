@@ -41,6 +41,7 @@ export default function Countdown({date, format, onEnd, id}) {
         if (time.milliseconds <= 0) {
             onEnd(id);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [time]);
 
     return (
