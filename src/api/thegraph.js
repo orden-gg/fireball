@@ -49,13 +49,13 @@ const graphJoin = async (client, queries) => {
             let responseArray = [];
 
             for (let i = 0; i < queriesCounter; i++) {
-                requestCounter++;
+                raiseCounter();
                 responseArray.push(
                     client.query({
                             query: gql`${queries[i]}`
                         }).then((response) => {
                         responseArray[i] = response;
-                        requestCounter--;
+                        lowerCounter();
                         checkRequestsResult();
                     })
                 )
@@ -65,6 +65,14 @@ const graphJoin = async (client, queries) => {
                 if (requestCounter === 0 && responseArray.length === queries.length) {
                     resolve(responseArray);
                 }
+            }
+
+            function raiseCounter() {
+                requestCounter++;
+            }
+
+            function lowerCounter() {
+                requestCounter--;
             }
         });
     } catch (error) {
