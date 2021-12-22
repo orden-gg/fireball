@@ -389,7 +389,7 @@ const guilds = [
         socials: {
             website: 'https://metaguild.com/',
             twitter: 'https://twitter.com/metaguildcom',
-            discord: 'https://discord.com/invite/eXhmPHFCqD'
+            discord: 'https://discord.com/invite/gFYBnb3ymm'
         }
     },{
         name: 'MSG',
