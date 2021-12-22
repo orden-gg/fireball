@@ -385,7 +385,7 @@ const guilds = [
                 text: 'Sandro#7777 egor#1111 kupilslona#0022'
             }
         ],
-        banner: '',
+        banner: require('../assets/guilds/metaguild-banner.png').default,
         socials: {
             website: 'https://metaguild.com/',
             twitter: 'https://twitter.com/metaguildcom',
