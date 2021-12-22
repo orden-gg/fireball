@@ -361,7 +361,16 @@ const guilds = [
     },{
         name: 'Metaguild',
         logo: require('../assets/guilds/metaguild.png').default,
-        members: [],
+        members: [
+            '0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6',
+            '0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc',
+            '0x17a3831B39cc557296d0C322f9C2D42C0b3A8F3f',
+            '0x3A631b481a1B225e32D20C28BB531587e9F32dA0',
+            '0xa1BbD8D39eD536DEa030A32F3F6C5916C845A800',
+            '0x956F1CE3ff2ea59A8b41DF83Ce9F85ED59D73F92',
+            '0x74BF5B9972Da24406C2c046494a5cCBE2fBa28Dc',
+            '0x43FF4C088df0A425d1a519D3030A1a3DFff05CfD'
+        ],
         description: [
             {
                 title: 'Description',
