@@ -33,12 +33,16 @@ export default function Client() {
         if(activeAddress) {
             setClientActive(activeAddress);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 
     useEffect(() => {
         if(params.address) {
             setClientActive(params.address);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.address]);
 
     useEffect(() => {
@@ -48,6 +52,8 @@ export default function Client() {
         } else {
             history.push({ path: location.pathname });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clientActive]);
 
     return (

@@ -65,6 +65,10 @@ export default function GhostExplorer() {
                                 gotchi={item}
                                 gotchiColor={theme.palette.customColors.gray}
                                 narrowed={true}
+                                render={[
+                                    'svg',
+                                    'name'
+                                ]}
                             />
                         </div>
                     )

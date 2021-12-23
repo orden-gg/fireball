@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
 import styles from "./styles";
 
@@ -34,6 +34,8 @@ export default function LoginButton() {
                 }
             })();
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => { // handle metamask accounts
@@ -44,6 +46,8 @@ export default function LoginButton() {
         } else if (isMetamaskActive) { // on metamask logout
             selectActiveAddress(storageAddresses.length ? storageAddresses[0].address : '');
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     const dropdownClose = () => {

@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Backdrop, CircularProgress } from "@mui/material";
-import styles from "./styles";
-import thegraph from "../../api/thegraph";
-import BaazaarBody from "./components/BaazaarBody/BaazaarBody";
+import { Grid, Backdrop, CircularProgress } from '@mui/material';
+import styles from './styles';
+import thegraph from '../../api/thegraph';
+import BaazaarBody from './components/BaazaarBody/BaazaarBody';
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
-import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
-import { BaazaarContext } from "../../contexts/BaazaarContext";
-import { listingTypes } from "../../data/types";
-import Web3 from "web3";
+import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
+import { BaazaarContext } from '../../contexts/BaazaarContext';
+import { listingTypes } from '../../data/types';
+import Web3 from 'web3';
 import { baazaarFilteringTypes } from '../../data/types';
-import useInterval from "../../hooks/useInterval";
+import useInterval from '../../hooks/useInterval';
+import {getQueries} from './baazaarQueryBuilder';
 
 const web3 = new Web3();
 
@@ -36,11 +37,10 @@ export default function Baazaar() {
     // pagination
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
-    const [paginationIsVisible, setPaginationToVisible] = useState(true);
     const {filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
-        fomoFilter, fudFilter, rarity, collateral} = useContext(BaazaarContext);
+        fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
     // watch filters
     const [filtersTimer, setFiltersTimer] = useState(0);
     const [userIsTyping, setUserTypingStatus] = useState(false);
@@ -51,15 +51,20 @@ export default function Baazaar() {
             limit: paginationConfigs.limit
         };
 
-        if (selectedGoodsType === listingTypes.aavegotchi) {
+        if (checkContainerVisibility([listingTypes.aavegotchi])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllBaazaarItems(params);
-        }  else if (selectedGoodsType === listingTypes.realm) {
+        }  else if (checkContainerVisibility([listingTypes.realm])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllRealmParcels(params);
-        } else {
+        } else if (checkContainerVisibility([
+            listingTypes.closedPortal,
+            listingTypes.wearable,
+            listingTypes.consumable,
+            listingTypes.tickets
+        ])) {
             params.from = priceFrom;
             params.to = priceTo;
             params.type = selectedGoodsType;
@@ -68,7 +73,50 @@ export default function Baazaar() {
             params['limit'] = paginationConfigs.gotchiLimit;
             setLastValidParams(params);
             getBaazaarItems(params);
+        } else if (checkContainerVisibility([
+            listingTypes.activity,
+            listingTypes.listing,
+            listingTypes.sold,
+            listingTypes.purchased
+        ])) {
+            getSalesData(params);
         }
+    };
+
+    const getSalesData = (params) => {
+        showBackdrop(true);
+        thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
+            let cacheData = [];
+            response.forEach( item => {
+                cacheData = [...cacheData, ...(item.data.erc721Listings || item.data.erc1155Purchases || item.data.erc1155Listings)];
+            });
+            filteredLocalGoods = cacheData;
+            sortAllActivityItems();
+            getShownActivityItems();
+            showBackdrop(false);
+        }).catch(() => {
+            showBackdrop(false);
+        });
+    };
+
+    const getShownActivityItems = (newPage) => {
+        const itemsStart = ((newPage || page) - 1) * paginationConfigs.gotchiLimit;
+        const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.gotchiLimit);
+        setSelectedLocalGoods(newSelectedGoods);
+    };
+
+    const sortAllActivityItems = () => {
+        filteredLocalGoods.sort((a, b) => {
+            if ([
+                listingTypes.activity,
+                listingTypes.sold,
+                listingTypes.purchased
+            ].indexOf(selectedGoodsType) !== -1) {
+                return parseInt(b.timePurchased || b.timeLastPurchased) - parseInt(a.timePurchased || a.timeLastPurchased);
+            } else {
+                return parseInt(b.timeCreated) - parseInt(a.timeCreated);
+            }
+        });
     };
 
     const getGraphQueryString = (params) => {
@@ -204,7 +252,7 @@ export default function Baazaar() {
         ];
     };
 
-    const processResponse = (params, response) => {
+    const processResponse = (response) => {
         let processedItems = [],
             items = [];
 
@@ -240,16 +288,16 @@ export default function Baazaar() {
             });
         });
 
-        localGoods = [...localGoods, ...items];
+        return items;
     };
 
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
         thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
-            processResponse(params, response);
+            localGoods = [...localGoods, ...processResponse(response)];
             thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
-                processResponse(params, response);
+                localGoods = [...localGoods, ...processResponse(response)];
                 // start render
                 filterLocalGotchis();
                 sortLocalGotchis();
@@ -328,7 +376,7 @@ export default function Baazaar() {
     };
 
     const filterLocalGotchis = () => {
-        const filtersMap = ["NRG", "AGG", "SPK", "BRN", "EYS", "EYC"];
+        const filtersMap = ['NRG', 'AGG', 'SPK', 'BRN', 'EYS', 'EYC'];
 
         const filterSingleGotchi = (item) => {
             const gotchi = item.gotchi;
@@ -468,6 +516,10 @@ export default function Baazaar() {
         }
     };
 
+    const checkContainerVisibility = (visibleContainers) => {
+        return visibleContainers.indexOf(selectedGoodsType) !== -1;
+    };
+
     useInterval(() => {
         const cachedTimerValue = filtersTimer - 250;
 
@@ -481,26 +533,49 @@ export default function Baazaar() {
 
     useEffect(() => {
         runInstantFiltering();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
+        if ([
+            listingTypes.activity,
+            listingTypes.listing,
+            listingTypes.sold,
+            listingTypes.purchased
+        ].indexOf(selectedGoodsType) !== -1) {
+            paginationConfigs.gotchiLimit = 240;
+        } else {
+            paginationConfigs.gotchiLimit = 60;
+        }
+
+        setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
-    }, [selectedGoodsType]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedGoodsType, selectedListingType]);
 
     return (
         <Grid classes={{root: classes.baazaar}} container spacing={3}>
             <BaazaarSidebar
+                setPage={setPage}
                 runFilterWatcher={runFilterWatcher}
                 runInstantFiltering={runInstantFiltering}
+                setSelectedLocalGoods={setSelectedLocalGoods}
             />
             {
-                selectedGoodsType !== listingTypes.aavegotchi && selectedGoodsType !== listingTypes.realm ?
+                checkContainerVisibility([
+                    listingTypes.closedPortal,
+                    listingTypes.wearable,
+                    listingTypes.consumable,
+                    listingTypes.tickets
+                ]) ?
                     <BaazaarBody
                         goods={goods}
                         page={page}
                         limit={paginationConfigs.limit}
-                        paginationIsVisible={paginationIsVisible}
+                        paginationIsVisible={true}
                         onNextPageClick={onNextPageClick}
                         onPrevPageClick={onPrevPageClick}
                     />
@@ -508,7 +583,7 @@ export default function Baazaar() {
                         goods={selectedLocalGoods}
                         page={page}
                         limit={paginationConfigs.gotchiLimit}
-                        paginationIsVisible={paginationIsVisible}
+                        paginationIsVisible={true}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
                     />

@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 
-import gotchiPlaceholder from '../../../assets/images/logo.png';
+import gotchiPlaceholder from '../../../assets/images/gotchi-placeholder.svg';
 import warehousePlaceholder from '../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../assets/images/icons/kek.png';
@@ -33,7 +33,7 @@ export default function ClientNav() {
             <Button
                 disabled={!gotchis.length}
                 startIcon={
-                    <img src={gotchiPlaceholder} alt='gotchi' width={20} />
+                    <img src={gotchiPlaceholder} alt='gotchi' width={24} height={24} />
                 }
                 component={NavLink}
                 className={classes.button}

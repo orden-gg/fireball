@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
-import RaffleWearables from '../components/RaffleWearables';
+// import RaffleWearables from '../components/RaffleWearables';
 import RaffleCountdown from '../components/RaffleCountdown';
 
 const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
@@ -28,15 +28,19 @@ export default function RaffleWearables5({raffleActive}) {
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
+    const { setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
         setTickets(raffle.tickets);
         getRaffleData(raffle.id, raffle.tickets);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         onAddressChange(raffleActive, raffle.id);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleActive]);
 
     return (

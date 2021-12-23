@@ -50,9 +50,23 @@ export default {
                 },
                 '3': () => {
                     return 'aavegotchi';
+                },
+                '4': () => {
+                    return 'realm';
                 }
             },
             'ERC1155Listing': {
+                '0': () => {
+                    return 'wearable';
+                },
+                '2': () => {
+                    return 'consumable';
+                },
+                '3': () => {
+                    return 'ticket';
+                }
+            },
+            'ERC1155Purchase': {
                 '0': () => {
                     return 'wearable';
                 },
@@ -125,7 +139,9 @@ export default {
             open_portal: () => {
                 return require(`../assets/images/portal-open.svg`).default;
             },
-            aavegotchi: () => returnAavegotchi(),
+            realm: () => {
+                return require(`../assets/images/portal-sealed.svg`).default;
+            },
             consumable: () => returnWearable(),
             ticket: () => returnTicket.call(this)
         };
@@ -133,14 +149,6 @@ export default {
         function returnWearable() {
             try {
                 return require(`../assets/wearables/${item.erc1155TypeId}.svg`).default;
-            } catch (error) {
-                return require(`../assets/images/no-image2.svg`).default;
-            }
-        }
-
-        function returnAavegotchi() {
-            try {
-                return require(`../assets/svgs/${item.tokenId}.svg`).default;
             } catch (error) {
                 return require(`../assets/images/no-image2.svg`).default;
             }

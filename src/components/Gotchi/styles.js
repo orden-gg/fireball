@@ -22,6 +22,10 @@ const styles = makeStyles( theme => ({
 
         '&.haunt2': {
             backgroundColor: alpha(theme.palette.haunts.h2, .2),
+        },
+
+        '&.narrowed': {
+            background: 'none'
         }
     },
     gotchiSvg: {
@@ -35,6 +39,11 @@ const styles = makeStyles( theme => ({
 
         '.haunt2 &': {
             backgroundColor: alpha(theme.palette.haunts.h2, .15)
+        },
+
+        '.narrowed &': {
+            padding: 0,
+            marginTop: 5
         }
     },
     gotchiSetName: {
@@ -55,13 +64,22 @@ const styles = makeStyles( theme => ({
         minWidth: 70,
         opacity: .8,
         marginRight: 'auto',
+
+        '.narrowed &': {
+            minWidth: 50,
+            backgroundColor: theme.palette.primary.main
+        }
     },
     gotchiBadges: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
         margin: '0 -4px',
-        padding: '4px 0'
+        padding: '4px 0',
+
+        '.narrowed &': {
+            padding: 0
+        }
 
     },
     gotchiBadge: {
@@ -81,16 +99,42 @@ const styles = makeStyles( theme => ({
         margin: '0 -8px',
         position: 'relative',
         transition: 'all .2s ease-in-out',
+
         '&:hover': {
             textDecoration: 'none',
             backgroundColor: alpha(theme.palette.secondary.dark, .6),
         },
+
+        '.narrowed &': {
+            background: 'none',
+            padding: '5px 10px 5px 5px',
+        },
+
         '& p': {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             fontSize: 16,
-            margin: 0
+            margin: 0,
+
+            '.narrowed &': {
+                fontSize: 14,
+        
+                '&:hover': {
+                    textDecoration: 'underline',
+                }
+            }
+        }
+    },
+    owner: {
+        '&:hover': {
+            textDecoration: 'underline'
+        },
+        '$gotchiBadges &': {
+            marginRight: 'auto'
+        },
+        '.narrowed &': {
+            fontSize: 12
         }
     },
     gotchiMainTraits: {
@@ -100,7 +144,11 @@ const styles = makeStyles( theme => ({
         position: 'absolute',
         right: 2,
         bottom: 2,
-        fontSize: 12
+        fontSize: 12,
+
+        '.narrowed &': {
+            bottom: 8
+        }
     },
     tokenValue: {
         display: 'inline-flex',

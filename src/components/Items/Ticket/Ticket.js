@@ -12,18 +12,25 @@ export default function Ticket({ticket}) {
     const classes = ERC1155InnerStyles();
 
     return (
-        <ERC1155 item={{ id: ticket.id, rarity: ticket.name, category: 3, balance: ticket.balance }}>
+        <ERC1155 item={{
+            id: ticket.id || parseInt(ticket.erc1155TypeId),
+            rarity: ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId),
+            category: 3,
+            balance: ticket.balance,
+            priceInWei: ticket.priceInWei,
+            quantity: ticket.quantity
+        }}>
             <div className={classes.iconWrapper}>
                 <img
-                    src={itemUtils.getTicketImg(ticket.name)}
-                    alt={ticket.name}
+                    src={itemUtils.getTicketImg(ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId))}
+                    alt={ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)}
                     className={classes.icon}
                 />
             </div>
 
             <div className={classes.nameWrapper}>
                 <Typography className={classNames(classes.name, classes.textHighlight, ticket.name)}>
-                    {commonUtils.capitalize(ticket.name)} ticket
+                    {commonUtils.capitalize(ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId))} ticket
                 </Typography>
             </div>
         </ERC1155>

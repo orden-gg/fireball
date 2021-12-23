@@ -85,6 +85,35 @@ const styles = makeStyles( theme => ({
             maxWidth: 25,
             maxHeight: 25
         }
+    },
+    verticalToggle: {
+        '& button': {
+            justifyContent: 'left',
+            padding: '7px 10px'
+        },
+        '& img': {
+            marginRight: 15,
+            width: 16
+        }
+    },
+    mainToggleTop: {
+        '& button:first-child': {
+            borderBottomLeftRadius: 0
+        },
+        '& button:last-child': {
+            borderBottomRightRadius: 0
+        }
+    },
+    mainToggleBottom: {
+        '& button': {
+            borderTop: 0
+        },
+        '& button:first-child': {
+            borderTopLeftRadius: 0
+        },
+        '& button:last-child': {
+            borderTopRightRadius: 0
+        }
     }
 }));
 

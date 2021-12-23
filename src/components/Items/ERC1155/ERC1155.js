@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Link, Typography, Tooltip } from '@mui/material';
 import { useTheme } from '@emotion/react';
@@ -15,14 +14,16 @@ import thegraph from '../../../api/thegraph';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
+import Web3 from "web3";
 
+const web3 = new Web3();
 
 export default function ERC1155({children, item}) {
     const classes = {
         ...itemStyles(),
         ...styles(),
         ...tooltipStyles()
-    }
+    };
     
     const theme = useTheme();
 
@@ -58,7 +59,7 @@ export default function ERC1155({children, item}) {
     return (
         <div className={classNames(classes.item, item.rarity, item.tooltip ? classes.tooltip : '')}>
 
-            {item.balance ? (
+            {(item.balance || item.priceInWei) ? (
                 <div className={classes.labels}>
                     {last && current ? (
                         <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
@@ -72,7 +73,10 @@ export default function ERC1155({children, item}) {
                                 }
                             >
                                 <Typography variant='subtitle2'>
-                                    {last.price === 0 ? '???' : commonUtils.formatPrice(last.price * item.balance)}
+                                    {
+                                        last.price === 0 && !item.priceInWei ? '???' :
+                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : parseFloat(web3.utils.fromWei(item.priceInWei)))
+                                    }
                                 </Typography>
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                             </div>
@@ -82,8 +86,8 @@ export default function ERC1155({children, item}) {
                         <ContentLoader
                             speed={2}
                             viewBox='0 0 70 27'
-                            backgroundColor={alpha(theme.palette.rarity[item.rarity], .6)}
-                            foregroundColor={alpha(theme.palette.rarity[item.rarity], .2)}
+                            backgroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .6)}
+                            foregroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .2)}
 
                             className={classes.totalValueLoader}
                         >
@@ -91,17 +95,18 @@ export default function ERC1155({children, item}) {
                         </ContentLoader>
                     )}
 
-                    <div className={classNames(classes.label, classes.labelBalance)}>
-                        <Typography variant='subtitle2'>
-                            {item.holders?.length ? (
-                                <Tooltip
-                                    title={
-                                        <div className={classes.equippedTitle}>
-                                            <p className={classes.equippedTitleText}>Equipped at:</p>
-                                            {
-                                                item.holders.map((holder, index) => {
-                                                    return <span key={index}>
-                                                        <Link 
+                    {
+                        (item.balance || item.quantity) && <div className={classNames(classes.label, classes.labelBalance)}>
+                            <Typography variant='subtitle2'>
+                                {item.holders?.length ? (
+                                    <Tooltip
+                                        title={
+                                            <div className={classes.equippedTitle}>
+                                                <p className={classes.equippedTitleText}>Equipped at:</p>
+                                                {
+                                                    item.holders.map((holder, index) => {
+                                                        return <span key={index}>
+                                                        <Link
                                                             href={`https://aavegotchi.com/gotchi/${holder}`}
                                                             target='_blank'
                                                             underline='none'
@@ -109,22 +114,23 @@ export default function ERC1155({children, item}) {
                                                         >
                                                             {holder}
                                                         </Link>
-                                                        {index === (item.holders.length - 1) ? '' : ', '}
+                                                            {index === (item.holders.length - 1) ? '' : ', '}
                                                     </span>
-                                                })
-                                            }
-                                        </div>
-                                    }
-                                    classes={{ tooltip: classes.customTooltip }}
-                                    placement='top'
-                                >
-                                    <span>{item.holders.length}<span className={classes.itemBalanceDivider}>/</span>{item.balance}</span>
-                                </Tooltip>
-                            ) : (
-                                item.balance
-                            )}
-                        </Typography>
-                    </div>
+                                                    })
+                                                }
+                                            </div>
+                                        }
+                                        classes={{ tooltip: classes.customTooltip }}
+                                        placement='top'
+                                    >
+                                        <span>{item.holders.length}<span className={classes.itemBalanceDivider}>/</span>{item.balance}</span>
+                                    </Tooltip>
+                                ) : (
+                                    item.balance || item.quantity
+                                )}
+                            </Typography>
+                        </div>
+                    }
                 </div>
             ) : (
                 null

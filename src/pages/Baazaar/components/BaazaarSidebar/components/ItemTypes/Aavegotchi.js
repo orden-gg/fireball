@@ -20,12 +20,40 @@ export default function Aavegotchi({item}) {
                             <Gotchi
                                 className={classes.gotchi}
                                 gotchi={item.gotchi}
+                                render={[
+                                    {
+                                        badges: [
+                                            'id',
+                                            'level',
+                                            'collateral'
+                                        ]
+                                    },
+                                    'svg',
+                                    'name',
+                                    'mainTraits',
+                                    'numericTraits',
+                                    'wearablesLine',
+                                ]}
                             /> :
                             <Gotchi
                                 key={item.gotchi.id}
                                 className={classes.gotchi}
                                 gotchi={item.gotchi}
                                 renderSvgByStats={true}
+                                render={[
+                                    {
+                                        badges: [
+                                            'id',
+                                            'level',
+                                            'collateral'
+                                        ]
+                                    },
+                                    'svg',
+                                    'name',
+                                    'mainTraits',
+                                    'numericTraits',
+                                    'wearablesLine',
+                                ]}
                             />
                     }
                 </Grid>

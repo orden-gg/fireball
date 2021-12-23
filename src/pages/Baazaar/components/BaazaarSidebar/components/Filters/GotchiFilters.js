@@ -58,10 +58,14 @@ export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
 
     useEffect(() => {
         setChips(getChips())
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [stats]);
 
     useEffect(() => {
         runInstantFiltering();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [exactMatch]);
 
     return (

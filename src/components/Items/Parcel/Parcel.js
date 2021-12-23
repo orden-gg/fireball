@@ -25,7 +25,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
         ...ERC1155InnerStyles(),
         ...tooltipStyles(),
         ...parselStyles()
-    }
+    };
 
     const theme = useTheme();
     const [current, setCurrent] = useState(null);
@@ -53,7 +53,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
     }, [parcel]);
 
     return (
-        <div className={classNames(classes.item, size)}>
+        <div className={classNames(classes.item, size, classes.parcelCard)}>
 
             <div className={classes.labels}>
 
@@ -84,7 +84,7 @@ export default function Parcel({parcel, isBaazaarCard}) {
                         <rect x='0' y='0' width='70' height='27' />
                     </ContentLoader>
                 )}
-                
+
                 <Tooltip
                     title='District'
                     classes={{ tooltip: classes.customTooltip }}
