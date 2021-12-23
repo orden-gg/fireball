@@ -56,7 +56,11 @@ export default {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
     },
 
-    checkArrayForDuplicates(array){
+    checkArrayForDuplicates(array) {
         return new Set(array).size !== array.length;
+    },
+
+    generateKey(pre) {
+        return `${ pre }_${ new Date().getTime() }`;
     }
 }
