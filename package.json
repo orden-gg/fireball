@@ -16,6 +16,7 @@
     "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
+    "cross-fetch": "^3.1.4",
     "ethers": "^5.4.6",
     "graphql": "^15.5.0",
     "luxon": "^2.0.2",
@@ -40,7 +41,7 @@
     "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
     "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3005 react-scripts start",
     "start-prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
-    "test": "react-scripts test",
+    "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules"
   },
@@ -67,6 +68,10 @@
     "glob-parent": "5.1.2"
   },
   "devDependencies": {
-    "regenerator-runtime": "^0.13.9"
+    "@babel/preset-env": "7.16.5",
+    "@babel/preset-react": "7.16.5",
+    "jest": "26.6.0",
+    "react-test-renderer": "17.0.2",
+    "regenerator-runtime": "0.13.9"
   }
 }
