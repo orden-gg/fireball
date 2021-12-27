@@ -1,19 +1,16 @@
 import React, {useContext} from 'react';
 import { Grid, Typography } from '@mui/material';
 import Pagination from '../Pagination/Pagination';
-import { BaazaarContext } from "../../../../contexts/BaazaarContext";
-import Aavegotchi from "../BaazaarSidebar/components/ItemTypes/Aavegotchi";
-import {listingTypes} from "../../../../data/types";
-import RealmParcel from "../BaazaarSidebar/components/ItemTypes/RealmParcel";
-
+import { BaazaarContext } from '../../../../contexts/BaazaarContext';
+import Aavegotchi from '../BaazaarSidebar/components/ItemTypes/Aavegotchi';
+import {listingTypes} from '../../../../data/types';
 
 import { baazaarSortingBodyStyles } from '../../styles';
-import BaazaarItem from "../BaazaarItem/BaazaarItem";
-import Wearable from "../../../../components/Items/Wearable/Wearable";
-import Gotchi from "../../../../components/Gotchi/Gotchi";
-import Portal from "../../../../components/Items/Portal/Portal";
-import Ticket from "../../../../components/Items/Ticket/Ticket";
-import Parcel from "../../../../components/Items/Parcel/Parcel";
+import Wearable from '../../../../components/Items/Wearable/Wearable';
+import Gotchi from '../../../../components/Gotchi/Gotchi';
+import Portal from '../../../../components/Items/Portal/Portal';
+import Ticket from '../../../../components/Items/Ticket/Ticket';
+import Parcel from '../../../../components/Items/Parcel/Parcel';
 
 export default function BaazaarSortingBody({goods, page, limit, onNextPageClick, onPrevPageClick}) {
     const classes = baazaarSortingBodyStyles();

@@ -1,9 +1,7 @@
 import React from 'react';
 import {  Button, Link } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
 
-import { alpha } from '@mui/system';
 import { raffleNavStyles } from '../styles';
 import { NavLink } from 'react-router-dom';
 
@@ -16,7 +14,6 @@ import realm2icon from '../../../assets/images/icons/fud.png';
 export default function RaffleNav({address}) {
     const match = useRouteMatch();
     const classes = raffleNavStyles();
-    const theme = useTheme();
 
     return (
         <div className={classes.container}>

@@ -47,18 +47,24 @@ export default function Guild({backToGuilds}) {
 
         if( 
             guild === undefined ||
-            !guild.members?.length && !guild.description?.length
+            (!guild.members?.length && !guild.description?.length)
         ) return backToGuilds();
 
         setCurrentGuild(guild);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect( () => {
         if(currentGuild.hasOwnProperty('name')) setGotchisByAddresses(currentGuild.members);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentGuild]);
 
     useEffect( () => {
         if(currentGuild.hasOwnProperty('name')) setIsLoading(false);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ guildGotchis ]);
 
     return (

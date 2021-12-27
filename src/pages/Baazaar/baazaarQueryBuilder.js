@@ -1,4 +1,4 @@
-import { listingTypes } from "../../data/types";
+import { listingTypes } from '../../data/types';
 
 export const getQueries = (selectedGoodsType, listingType) => {
 
@@ -34,7 +34,7 @@ export const getQueries = (selectedGoodsType, listingType) => {
             listingTypes.consumable,
             listingTypes.tickets,
             listingTypes.realm
-        ].map((item) => {
+        ].forEach((item) => {
             params = getParamsForSelectedType(selectedGoodsType, item);
             queries.push(getQuery(params, selectedGoodsType, item));
         });
@@ -64,7 +64,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
     const map = {
         [listingTypes.closedPortal]: {
             ercType: 'erc721Listings',
-            category: "0",
+            category: '0',
             params: `
                 id
                 tokenId
@@ -109,7 +109,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.openedPortal]: {
             ercType: 'erc721Listings',
-            category: "2",
+            category: '2',
             params: `
                 id
                 tokenId
@@ -154,7 +154,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.aavegotchi]: {
             ercType: 'erc721Listings',
-            category: "3",
+            category: '3',
             params: `
                 id
                 tokenId
@@ -199,7 +199,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.wearable]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
-            category: "0",
+            category: '0',
             params: getParamsForErc1155Listing(`
                 erc1155TypeId
                 category
@@ -222,7 +222,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.consumable]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
-            category: "2",
+            category: '2',
             params: getParamsForErc1155Listing(`
                 erc1155TypeId
                 category
@@ -245,7 +245,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.tickets]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
-            category: "3",
+            category: '3',
             params: getParamsForErc1155Listing(`
                 erc1155TypeId
                 category
@@ -268,7 +268,7 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
         },
         [listingTypes.realm]: {
             ercType: 'erc721Listings',
-            category: "4",
+            category: '4',
             params: `
                 id
                 tokenId

@@ -25,6 +25,8 @@ export default function LoginModal({modalOpen, setModalOpen}) {
             setName('');
             setAddress('');
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onNameChange = (value) => {

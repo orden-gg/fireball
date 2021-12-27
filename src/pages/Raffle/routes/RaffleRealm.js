@@ -22,15 +22,19 @@ export default function RaffleRealm({raffleActive}) {
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
+    const { setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
         setTickets(raffle.tickets);
         getRaffleData(raffle.id, raffle.tickets);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         onAddressChange(raffleActive, raffle.id);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleActive]);
 
     return (

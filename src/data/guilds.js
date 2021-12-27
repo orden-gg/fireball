@@ -361,7 +361,29 @@ const guilds = [
     },{
         name: 'Metaguild',
         logo: require('../assets/guilds/metaguild.png').default,
-        members: [],
+        members: [
+            '0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6',
+            '0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc',
+            '0x17a3831B39cc557296d0C322f9C2D42C0b3A8F3f',
+            '0x3A631b481a1B225e32D20C28BB531587e9F32dA0',
+            '0xa1BbD8D39eD536DEa030A32F3F6C5916C845A800',
+            '0x956F1CE3ff2ea59A8b41DF83Ce9F85ED59D73F92',
+            '0x74BF5B9972Da24406C2c046494a5cCBE2fBa28Dc',
+            '0x43FF4C088df0A425d1a519D3030A1a3DFff05CfD',
+            '0x17a3831B39cc557296d0C322f9C2D42C0b3A8F3f',
+            '0x85362d4700d2f8d55D1d779b31B837C863aE3C14',
+            '0x2d44770aBdCbB62e716C765d4DaC4496c8A69B4d',
+            '0x22CAb81E0FEe2bad5b015DbBEB6A374A1B8738de',
+            '0xaE256cD2d13353e549d09aEA8D4105c8d1cc09d8',
+            '0x59Ae16B92d9BA31867BBFcF8552e7145cd211318',
+            '0x00D672E53e8e9bcD4eE4Bb2F05032b3C25E3c04c',
+            '0xd757f002d43DcB8dB9A4E43A8350Aa8cCcdC4e4f',
+            '0x31382577B52bD5C71088089845D16CC044a464e2',
+            '0xcd950256f924a0Eadb6B705f7A43EDF1F67C92Fa',
+            '0x5c4eab549a528Bf15c47A01e174500010997235c',
+            '0xFab9718db7CeE30BAd26157bf0500894fEfbAAb8',
+            '0xbb73548A0e6F839fb58e9D59969Ba6AEdEcDF5f1'
+        ],
         description: [
             {
                 title: 'Description',
@@ -376,11 +398,11 @@ const guilds = [
                 text: 'Sandro#7777 egor#1111 kupilslona#0022'
             }
         ],
-        banner: '',
+        banner: require('../assets/guilds/metaguild-banner.png').default,
         socials: {
             website: 'https://metaguild.com/',
             twitter: 'https://twitter.com/metaguildcom',
-            discord: 'https://discord.com/invite/eXhmPHFCqD'
+            discord: 'https://discord.com/invite/gFYBnb3ymm'
         }
     },{
         name: 'MSG',

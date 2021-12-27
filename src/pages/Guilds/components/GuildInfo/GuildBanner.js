@@ -26,22 +26,16 @@ export default function GuildBanner() {
         switch (name) {
             case 'facebook':
                 return <FacebookIcon className={classes.guildSocialIcon} />
-                break;
             case 'twitter':
                 return <TwitterIcon className={classes.guildSocialIcon} />
-                break;
             case 'discord':
                 return <DiscordIcon className={classes.guildSocialIcon} />
-                break;
             case 'telegram':
                 return <TelegramIcon className={classes.guildSocialIcon} />
-                break;
             case 'twitch':
                 return <TwitchIcon className={classes.guildSocialIcon} />
-                break;
             default:
                 return <WebIcon className={classes.guildSocialIcon} />
-                break;
         }
     }
 

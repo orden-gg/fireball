@@ -41,6 +41,8 @@ export default function GuildsPreview() {
 
     useEffect( () => {
         setCurrentGuild([]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] );
 
     return (

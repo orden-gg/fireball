@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Backdrop, CircularProgress } from "@mui/material";
-import styles from "./styles";
-import thegraph from "../../api/thegraph";
-import BaazaarBody from "./components/BaazaarBody/BaazaarBody";
+import { Grid, Backdrop, CircularProgress } from '@mui/material';
+import styles from './styles';
+import thegraph from '../../api/thegraph';
+import BaazaarBody from './components/BaazaarBody/BaazaarBody';
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
-import BaazaarSidebar from "./components/BaazaarSidebar/BaazaarSidebar";
-import { BaazaarContext } from "../../contexts/BaazaarContext";
-import { listingTypes } from "../../data/types";
-import Web3 from "web3";
+import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
+import { BaazaarContext } from '../../contexts/BaazaarContext';
+import { listingTypes } from '../../data/types';
+import Web3 from 'web3';
 import { baazaarFilteringTypes } from '../../data/types';
-import useInterval from "../../hooks/useInterval";
-import {getQueries, getQuery} from "./baazaarQueryBuilder";
+import useInterval from '../../hooks/useInterval';
+import {getQueries} from './baazaarQueryBuilder';
 
 const web3 = new Web3();
 
@@ -37,7 +37,6 @@ export default function Baazaar() {
     // pagination
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
-    const [paginationIsVisible, setPaginationToVisible] = useState(true);
     const {filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
@@ -377,7 +376,7 @@ export default function Baazaar() {
     };
 
     const filterLocalGotchis = () => {
-        const filtersMap = ["NRG", "AGG", "SPK", "BRN", "EYS", "EYC"];
+        const filtersMap = ['NRG', 'AGG', 'SPK', 'BRN', 'EYS', 'EYC'];
 
         const filterSingleGotchi = (item) => {
             const gotchi = item.gotchi;
@@ -534,6 +533,8 @@ export default function Baazaar() {
 
     useEffect(() => {
         runInstantFiltering();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
@@ -551,6 +552,8 @@ export default function Baazaar() {
         setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedGoodsType, selectedListingType]);
 
     return (
@@ -572,7 +575,7 @@ export default function Baazaar() {
                         goods={goods}
                         page={page}
                         limit={paginationConfigs.limit}
-                        paginationIsVisible={paginationIsVisible}
+                        paginationIsVisible={true}
                         onNextPageClick={onNextPageClick}
                         onPrevPageClick={onPrevPageClick}
                     />
@@ -580,7 +583,7 @@ export default function Baazaar() {
                         goods={selectedLocalGoods}
                         page={page}
                         limit={paginationConfigs.gotchiLimit}
-                        paginationIsVisible={paginationIsVisible}
+                        paginationIsVisible={true}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
                     />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 
 import song from '../../assets/music/halloween.mp3';
 
@@ -12,10 +12,14 @@ export default function MusicButton() {
 
     useEffect(() => {
         audio.addEventListener('ended', () => audio.play()); // autoplay on end
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         playing ? audio.play() : audio.pause();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playing]);
 
     return (

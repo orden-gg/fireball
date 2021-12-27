@@ -1,6 +1,6 @@
 import { alpha } from '@mui/system';
 
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     baazaar: {
@@ -30,7 +30,7 @@ const baazaarBodyStyles = makeStyles( theme => ({
         marginBottom: '15px'
     },
     noGoods: {
-        fontSize: "1rem"
+        fontSize: '1rem'
     }
 }));
 
@@ -168,7 +168,7 @@ const baazaarSortingBodyStyles = makeStyles( theme => ({
         padding: 30
     },
     baazaarListItems: {
-        display: "grid",
+        display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill,minmax(192px,1fr))',
         gridGap: 12,
         width: '100%'
@@ -186,7 +186,7 @@ const baazaarSortingBodyStyles = makeStyles( theme => ({
         marginBottom: '15px'
     },
     noGoods: {
-        fontSize: "1rem"
+        fontSize: '1rem'
     },
     ghstFooter: {
         marginTop: 5,
