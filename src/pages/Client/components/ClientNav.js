@@ -141,6 +141,34 @@ export default function ClientNav() {
                     )
                 }
             </Button>
+
+            <Button
+                disabled={!realm.length}
+                startIcon={
+                    <img src={realmPlaceholder} alt='gotchi' width={20} />
+                }
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/citadel`, search: `?address=${clientActive}` }}
+            >
+                Map
+                {
+                    loadingRealm ? (
+                        <ContentLoader
+                            speed={2}
+                            viewBox='0 0 28 14'
+                            backgroundColor={theme.palette.secondary.main}
+                            foregroundColor={theme.palette.primary.dark}
+                            className={classes.buttonLoader}
+                        >
+                            <rect x='0' y='0' width='28' height='14' />
+                        </ContentLoader>
+                    ) : (
+                        <span className={classes.label}>[{realm.length}]</span>
+                    )
+                }
+            </Button>
         </div>
     );
 }

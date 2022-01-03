@@ -17,6 +17,7 @@ import ClientGotchis from './routes/ClientGotchis';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
+import ClientCitadelMap from './routes/ClientCitadelMap';
 
 export default function Client() {
     const classes = styles();
@@ -83,6 +84,7 @@ export default function Client() {
                         <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
                         <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                         <Route path={`${match.path}/realm`} component={ ClientRealm } />
+                        <Route path={`${match.path}/citadel`} component={ ClientCitadelMap } />
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />
                     </Switch>
                 </>

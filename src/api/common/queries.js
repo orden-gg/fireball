@@ -126,6 +126,16 @@ export const realmQuery = (address, skip) => {
     }`
 };
 
+export const parselQuery = (id) => {
+  return `{
+    parsels(tokenId: ${id}) {
+      owner {
+        id
+      }
+    }
+  }`
+};
+
 export const auctionQuery = (id) => {
     return `{
       auctions(first: 1, where: { id: "${id}" }) {
