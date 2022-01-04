@@ -22,9 +22,5 @@ export default function ClientCitadelMap() {
     //     </Box>
     // }
 
-    return (
-        <>
-            <Citadel initialize={initialize} setInitialize={setInitialize} />
-        </>
-    );
+    return ''
 }

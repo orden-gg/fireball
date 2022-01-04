@@ -142,7 +142,7 @@ export default function ClientNav() {
                 }
             </Button>
 
-            <Button
+            {/* <Button
                 disabled={!realm.length}
                 startIcon={
                     <img src={realmPlaceholder} alt='gotchi' width={20} />
@@ -168,7 +168,7 @@ export default function ClientNav() {
                         <span className={classes.label}>[{realm.length}]</span>
                     )
                 }
-            </Button>
+            </Button> */}
         </div>
     );
 }

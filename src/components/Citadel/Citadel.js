@@ -17,7 +17,7 @@ import thegraph from '../../api/thegraph';
 const CITAADEL_WIDTH = 9504;
 const CITAADEL_HEIGHT = 6336;
 
-export default function Citadel({ initialize, setInitialize}) {
+export default function Citadel({ initialize, setInitialize, highlight}) {
     const classes = styles();
     const [game, setGame] = useState(null);
 
@@ -25,14 +25,11 @@ export default function Citadel({ initialize, setInitialize}) {
     const [ currentOwner, setCurrentOwner] = useState(null);
 
     const gameRef = useRef(null);
+    console.log(highlight);
 
     const destroy = () => {
 		if (gameRef.current) gameRef.current.destroy();
 		setInitialize(false)
-    }
-
-    const getParselCenter = (parsel) => {
-        console.log(parsel);
     }
 
     // const handleParsel = (prevParsel, parsel, id) => {
@@ -44,15 +41,18 @@ export default function Citadel({ initialize, setInitialize}) {
         // parsel.setStrokeStyle(2, 0xffffff);
     // }
 
-    const calculateParselCenter = (parsel, offset) => {
-        console.log(parsel);
-        return {
-            x: CITAADEL_WIDTH/2-+parsel.coordinateX+offset.x-parsel.width/2,
-            y: CITAADEL_HEIGHT/2-+parsel.coordinateY+offset.y-parsel.height/2
-        }
+    const highlightParsels = (parsels) => {
+        
     }
 
     const createMap = function() {
+
+        const calculateParselCenter = (parsel) => {
+            return {
+                x: this.cameras.main.centerX-+parsel.coordinateX-parsel.width/2+CITAADEL_WIDTH/2,
+                y: this.cameras.main.centerY-+parsel.coordinateY-parsel.height/2+CITAADEL_HEIGHT/2
+            }
+        }
 
         let colors = {
             humble: 0x2500c2,
@@ -61,10 +61,9 @@ export default function Citadel({ initialize, setInitialize}) {
             selectedParsel: [0xffffff, 0xff7fff]
         }
 
-
         this.offset = {
-            x: CITAADEL_WIDTH*.05,
-            y: CITAADEL_HEIGHT*.05
+            x: 0,
+            y: 0
         }
 
         this.zoom = {
@@ -74,11 +73,17 @@ export default function Citadel({ initialize, setInitialize}) {
 
         this.selectedParsel = null;
 
+        this.ownerParsels = [];
+
         // this.parsels = [];
-        // this.graphics = this.add.graphics();
+        this.graphics = this.add.graphics();
 
         // this.graphics.anchor.x = 0;
-        this.container = this.add.container(this.offset.x, this.offset.y);
+        this.wrapper = this.add.container();
+        this.container = this.add.container();
+        this.walls = this.add.image(0, 0, 'walls');
+
+        this.container.add(this.walls);
 
         this.parsels = Object.keys(parselsData).map((id, index) => {
             let parselData = parselsData[id];
@@ -103,11 +108,14 @@ export default function Citadel({ initialize, setInitialize}) {
                 colors[parselData.sizeLabel]
             );
 
+
             parsel.setInteractive();
             parsel.name = 'parsel';
             parsel.id = id;
             parsel.coordinateX = parselData.coordinateX;
             parsel.coordinateY = parselData.coordinateY;
+
+            if(highlight.find(item => item.tokenId === parsel.id )) this.ownerParsels.push(parsel);
 
             // parsel.on('pointerup', (pointer) => {
             //     if(this.selectedParsel !== null) this.selectedParsel.setStrokeStyle(0, 0xffffff);
@@ -124,9 +132,16 @@ export default function Citadel({ initialize, setInitialize}) {
             // })
 
             parsel.setOrigin(0, 0);
+            this.container.add(parsel);
 
             return parsel
         });
+
+        this.container.add(this.parsels);
+
+        for(let ownerParsel of this.ownerParsels) {
+            ownerParsel.setFillStyle(0xfc9af9);
+        }
 
         // for (let key in parselsData) {
         // 	let parselData = parselsData[key];
@@ -137,14 +152,12 @@ export default function Citadel({ initialize, setInitialize}) {
         //     // parsel.emit('pointerdown');
         // }
 
-        this.walls = this.add.image(0, 0, 'walls');
-
-        this.container.add(this.walls);
-        this.container.add(this.parsels);
-
         this.container.setSize(CITAADEL_WIDTH, CITAADEL_HEIGHT);
+        this.container.setPosition(this.cameras.main.centerX, this.cameras.main.centerY);
+        // this.wrapper.setSize(CITAADEL_WIDTH, CITAADEL_HEIGHT);
 
         this.container.setInteractive();
+
 
         this.input.enableDebug(this.container);
 
@@ -192,6 +205,7 @@ export default function Citadel({ initialize, setInitialize}) {
             let {x, y} = calculateParselCenter(parsel, this.offset)
 
             setTimeout(() => {
+                // this.cameras.main.centerOn(parsel.coordinateX-CITAADEL_WIDTH/2, parsel.coordinateY-CITAADEL_HEIGHT/2)
                 this.add.tween({
                     targets: this.container,
                     x: x,
@@ -207,7 +221,7 @@ export default function Citadel({ initialize, setInitialize}) {
                     duration: 500,
                     ease: 'Power2'
                 });
-            }, 25);
+            }, 50);
 
             // console.log(this.game.add);
         });
@@ -224,8 +238,7 @@ export default function Citadel({ initialize, setInitialize}) {
 
         this.cameras.main.zoom = .15;
 
-        // console.log(this.cameras.main.setOrigin(.56, .55));
-
+        // this.cameras.main.setOrigin(.5, .5);
 
         this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
             let pointerPos = pointer.position;
@@ -233,7 +246,7 @@ export default function Citadel({ initialize, setInitialize}) {
             // soil.tilePositionX += deltaX * 0.5;
             // soil.tilePositionY += deltaY * 0.5;
 
-            let nextZoom = this.cameras.main.zoom+deltaY*0.001;
+            let nextZoom = this.cameras.main.zoom+-(deltaY)*0.001;
 
             if(nextZoom <= this.zoom.min) nextZoom = this.zoom.min;
             else if(nextZoom >= this.zoom.max) nextZoom = this.zoom.max;
