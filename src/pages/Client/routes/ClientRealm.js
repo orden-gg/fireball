@@ -117,9 +117,8 @@ export default function ClientRealm() {
         //     </Box>
         // </>
 
-
         <>
-            <Citadel initialize={initialize} setInitialize={setInitialize} highlight={realm} />
+            <Citadel initialize={initialize} setInitialize={setInitialize} ownerParcels={realm} />
         </>
     );
 }

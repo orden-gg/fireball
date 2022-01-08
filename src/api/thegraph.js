@@ -282,7 +282,10 @@ export default {
     },
 
     async getRealmById(id) {
-        return await getGraphData(clientFactory.realmClient, parselQuery(id)).then(response => response);
+        return await this.getRealmData(parselQuery(id)).then((response) => {
+            return response.data.parcel
+        })
+        // return await getGraphData(clientFactory.realmClient, parselQuery(id)).then(response => response);
     },
 
     async getRealmAuctionPrice(id) {

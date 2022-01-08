@@ -128,14 +128,24 @@ export const realmQuery = (address, skip) => {
 
 export const parselQuery = (id) => {
   return `{
-    parsels(tokenId: ${id}) {
+    parcel( id: ${id}) {
+      tokenId
+      parcelId
       owner {
         id
       }
+      coordinateX
+      coordinateY
+      size
+      district
+      parcelHash
+      fudBoost
+      fomoBoost
+      alphaBoost
+      kekBoost
     }
   }`
 };
-
 export const auctionQuery = (id) => {
     return `{
       auctions(first: 1, where: { id: "${id}" }) {

@@ -38,7 +38,7 @@ const routersStyles = makeStyles( theme => ({
         alignItems: 'start',
         gap: 12,
         gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
-        gridAutoRows: '1fr'
+        gridAutoRows: '1fr',
     },
     listItem: {
         height: '100%'
@@ -90,7 +90,9 @@ const clientNavStyles = makeStyles( theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        position: 'relative',
+        zIndex: 1
     },
     button: {
         margin: 4,
