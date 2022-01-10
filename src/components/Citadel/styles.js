@@ -4,7 +4,7 @@ const styles = makeStyles( theme => ({
     citadel: {
         position: 'fixed',
         left: 0,
-        top: 70,
+        top: 30,
         right: 0,
         bottom: 70,
 
@@ -16,7 +16,33 @@ const styles = makeStyles( theme => ({
     citadelInterface: {
         position: 'absolute',
         right: theme.spacing(1),
-        top: theme.spacing(1)
+        top: theme.spacing(15),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        width: 1
+    },
+
+    citadelInterfaceButton: {
+        margin: theme.spacing(.2, 0),
+
+        '&:hover': {
+            color: theme.palette.primary.main
+        }
+    },
+
+    citadelSearch: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+
+    citadelSearchField: {
+        width: 150,
+
+        '& .MuiInput-input': {
+            textAlign: 'right',
+            fontSize: 14
+        }
     },
 
     parcel: {
@@ -36,7 +62,7 @@ const styles = makeStyles( theme => ({
         marginLeft: theme.spacing(.5),
         width: 30,
         height: 30
-    }
+    },
 
 }));
 

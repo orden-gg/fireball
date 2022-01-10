@@ -6,15 +6,14 @@ import CitadelScene from './components/Scene';
 
 import styles from './styles';
 import CloseIcon from '@mui/icons-material/Close';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, TextField, Tooltip } from '@mui/material';
 
 import thegraph from '../../api/thegraph';
 import Parcel from '../Items/Parcel/Parcel';
 import classNames from 'classnames';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
-// import parcelsData from '../../data/parcels.json';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Citadel({ initialize, setInitialize, ownerParcels}) {
     const classes = styles();
@@ -24,6 +23,8 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
     const [ selectedParcel, setSelectedParcel ] = useState(null);
     const [ scene, setScene ] = useState(null);
     const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
+
+    const [ searchId, setSearchId ] = useState(null);
 
     const gameRef = useRef(null);
 
@@ -75,19 +76,6 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
     }, [scene])
 
     useEffect( () => {
-
-        // let obj = {};
-        // let keyse = Object.keys(parcelsData);
-        
-        // for(let key of keyse) {
-        //     obj[key] = {
-        //         tokenId: key,
-        //         size: parcelsData[key].size,
-        //         coordinateX: parcelsData[key].coordinateX,
-        //         coordinateY: parcelsData[key].coordinateY
-        //     }
-        // }
-        // console.log(JSON.stringify(obj));
         initCitadel();
     }, []);
 
@@ -96,16 +84,22 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
             
             <div className={classes.citadelInterface}>
 
-            <Tooltip 
-                title='Select Owner parcels'
-                // classes={{ tooltip: classes.customTooltip }} 
-                enterTouchDelay={0}
-                placement='left'
-            >
-                <IconButton onClick={toggleOwnerParcels}>
-                    { showOwnerParcels ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                </IconButton>
-            </Tooltip>
+                <div className={classes.citadelSearch}>
+                    <TextField className={classes.citadelSearchField} placeholder="Search by id" variant="standard" onChange={ (event) => setSearchId(event.target.value) }/>
+                    <IconButton onClick={ () => {scene.addSelectedParcel(+searchId)}} className={classes.citadelInterfaceButton}>
+                        <SearchIcon />
+                    </IconButton>
+                </div>
+
+                <Tooltip 
+                    title='Select Owner parcels'
+                    enterTouchDelay={0}
+                    placement='left'
+                >
+                    <IconButton onClick={toggleOwnerParcels} className={classes.citadelInterfaceButton}>
+                        { showOwnerParcels ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                </Tooltip>
             </div>
             { 
                 game && 

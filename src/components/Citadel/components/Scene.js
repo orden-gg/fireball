@@ -104,8 +104,6 @@ export default function CitadelScene({ setScene, setSelectedId }) {
             });
     
             this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
-                let pointerPos = pointer.position;
-
                 let nextZoom = this.cameras.main.zoom+-(deltaY)*0.001;
     
                 if(nextZoom <= this.settings.zoom.min) {
@@ -164,6 +162,7 @@ export default function CitadelScene({ setScene, setSelectedId }) {
         }
 
         addSelectedParcel(tokenId) {
+            if(!parcelsData[tokenId]) return;
             if(typeof tokenId !== 'number') {
                 this.highlight.setVisible(false);
                 this.selectedParcel = null;
@@ -218,8 +217,6 @@ export default function CitadelScene({ setScene, setSelectedId }) {
         addOwnerParcels(ownerParcels) {
 
             this.createOwnerParcels(ownerParcels);
-
-            console.log(this.ownerParcels);
 
             this.container.add(this.ownerParcels);
 

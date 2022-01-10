@@ -10,7 +10,8 @@ const styles = makeStyles( theme => ({
         backgroundColor: alpha(theme.palette.secondary.dark, .5),
         borderRadius: 4,
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        width: '100%'
     },
     profileLogged: {
         position: 'relative',

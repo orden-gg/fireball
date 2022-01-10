@@ -4,7 +4,9 @@ import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles( theme => ({
     container: {
-        padding: 24
+        padding: theme.spacing(3),
+        display: 'flex',
+        flexDirection: 'column'
     },
     alertWrapper: {
         display: 'flex',
@@ -92,7 +94,8 @@ const clientNavStyles = makeStyles( theme => ({
         justifyContent: 'center',
         flexWrap: 'wrap',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        alignSelf: 'center'
     },
     button: {
         margin: 4,
