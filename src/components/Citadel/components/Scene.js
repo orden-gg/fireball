@@ -1,12 +1,9 @@
 import Phaser from 'phaser';
+
 import parcelsData from '../../../data/parcels.json';
 
 import walls from '../../../assets/images/citadel/walls.svg';
-
-import thegraph from '../../../api/thegraph';
-import Parcel from './Parcel';
-import Circle from './Circle';
-import classNames from 'classnames';
+import Highlight from './Highlight';
 
 const CITAADEL_WIDTH = 9504;
 const CITAADEL_HEIGHT = 6336;
@@ -59,16 +56,10 @@ export default function CitadelScene({ setScene, setSelectedId }) {
                 selectedParcel: [0xffffff, 0xff7fff],
             }
 
-            this.parcelCircles = [];
-
-            this.selectedParcel = null
+            this.selectedParcel = null;
         }
         preload() {
             this.load.svg('walls', walls);
-        }
-
-        init() {
-            // this.cameras.main.setBackgroundColor('#24252A');
         }
 
         create() {
@@ -77,41 +68,23 @@ export default function CitadelScene({ setScene, setSelectedId }) {
 
             this.walls = this.add.image(0, 0, 'walls');
     
-            this.parcels = this.createParcels();
+            this.citadel = this.createParcels();
 
-            this.container.add(this.walls);
-            this.container.add(this.parcels);
+            this.highlight = new Highlight(this).setStrokeStyle(2, 0xffffff).setOrigin(0, 0);
+            this.highlight.setVisible(false);
+
+            this.container.add([this.walls, this.citadel, this.highlight]);
 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
+
+            setScene(this);
 
             this.input.on('pointerup', (pointer) => {
                 if(this.settings.isDragging) return;
                 let parcel = this.getSelectedParcel({x: pointer.worldX, y: pointer.worldY});
 
-                if(parcel === undefined) return;
-                
-                if(this.selectedParcel !== null) this.selectedParcel.setStrokeStyle(0);
-                this.selectedParcel = parcel;
-                setSelectedId(parcel.tokenId);
-                parcel.setStrokeStyle(2, 0xffffff);
-                this.selectedParcel = parcel;
-    
-                setTimeout(() => {
-                    this.moveToCenter(parcel, 500);
-
-        
-                    setTimeout( () => {
-                        this.add.tween({
-                            targets: this.cameras.main,
-                            zoom: 1,
-                            duration: 500,
-                            ease: 'Power2'
-                        });
-                    }, 0);
-                }, 50);
+                if(parcel != undefined) this.addSelectedParcel(+parcel.tokenId);
             });
-
-            setScene(this);
     
             this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
                 gameObject.x = dragX;
@@ -158,67 +131,71 @@ export default function CitadelScene({ setScene, setSelectedId }) {
         }
 
         createParcels() {
-            this.parcelsGroup = this.add.group();
+            let graphics = this.add.graphics();
 
             for(let id in parcelsData) {
                 let parcelData = parcelsData[id];
 
-                let [w, h] = this.getParcelSize(id);
-                let [x, y] = this.getParcelCoordinate(id);
-    
-                let parcel = new Parcel(
-                    this,
-                    x-CITAADEL_WIDTH/2,
-                    y-CITAADEL_HEIGHT/2,
-                    w,
-                    h,
-                    this.getParcelColor(id)
-                );
+                let [w, h] = this.getParcelSize(parcelData);
+                let [x, y] = this.getParcelPosition(parcelData);
 
-                parcel.tokenId = id;
-                parcel.coordinateX = x;
-                parcel.coordinateY = y;
-    
-                parcel.setOrigin(0, 0);
-
-                this.parcelsGroup.add(parcel);
+                graphics.fillStyle(this.getParcelColor(parcelData), 1);
+                graphics.fillRect(x,y,w,h,);
             }
+            return graphics;
+        }
 
-            // Object.keys(parcelsData).map((id, index) => {
-            //     let parcelData = parcelsData[id];
+        createOwnerParcels(parcels) {
+            this.ownerParcels = this.add.graphics();
 
-            //     let [w, h] = this.getParcelSize(id);
-            //     let [x, y] = this.getParcelCoordinate(id);
-    
-            //     let parcel = new Parcel(
-            //         this,
-            //         x-CITAADEL_WIDTH/2,
-            //         y-CITAADEL_HEIGHT/2,
-            //         w,
-            //         h,
-            //         this.getParcelColor(id)
-            //     );
+            for(let parcel of parcels) {
+                let [ x, y ] = this.getParcelPosition(parcel);
+                let [ w, h ] = this.getParcelSize(parcel);
 
-            //     parcel.tokenId = id;
-            //     parcel.coordinateX = x;
-            //     parcel.coordinateY = y;
-    
-            //     parcel.setOrigin(0, 0);
+                this.ownerParcels.fillStyle(this.getParcelColor(parcel), 1);
+                this.ownerParcels.fillRect(x, y, w, h);
 
-            //     this.group.add(parcel);
-    
-            //     return parcel
-            // });
-
-            return this.parcelsGroup.children.entries;
+                this.ownerParcels.lineStyle(3, 0xde2be8);
+                this.ownerParcels.beginPath();
+                this.ownerParcels.arc(x+w/2, y+h/2, this.getCircleRadius(parcel), Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false, 0.01);
+                this.ownerParcels.strokePath();
+                this.ownerParcels.closePath();
+            }
         }
 
         addSelectedParcel(tokenId) {
             if(typeof tokenId !== 'number') {
-                this.selectedParcel.setStrokeStyle(0);
+                this.highlight.setVisible(false);
                 this.selectedParcel = null;
                 setSelectedId(null);
+            } else {
+                this.selectedParcel = parcelsData[tokenId];
+                setSelectedId(this.selectedParcel.tokenId);
+
+                this.addHighlight(this.selectedParcel);
+    
+                setTimeout(() => {
+                    this.moveToCenter(this.selectedParcel, 500);
+
+                    setTimeout( () => {
+                        this.add.tween({
+                            targets: this.cameras.main,
+                            zoom: 1,
+                            duration: 500,
+                            ease: 'Power2'
+                        });
+                    }, 0);
+                }, 50);
             }
+        }
+
+        addHighlight(parcel) {
+            let [ x, y ] = this.getParcelPosition(parcel);
+            let [ w, h ] = this.getParcelSize(parcel);
+
+            this.highlight.setVisible(true);
+            this.highlight.setPosition(x, y);
+            this.highlight.setSize(w, h);
         }
 
         moveToCenter(item, duration) {
@@ -240,102 +217,78 @@ export default function CitadelScene({ setScene, setSelectedId }) {
 
         addOwnerParcels(ownerParcels) {
 
-            this.ownerParcels = [];
-            
-            if(this.parcelCircles.length) {
-                for(let circle of this.parcelCircles) circle.destroy();
-                this.parcelCircles = [];
-            }
+            this.createOwnerParcels(ownerParcels);
 
-            for(let parcel of this.parcels) {
-                if(ownerParcels.find(ownerParcel => ownerParcel.tokenId === parcel.tokenId )) {
-                    this.ownerParcels.push(parcel);
-                    this.parcelCircles.push(
-                        new Circle(
-                            this,
-                            parcel.x+parcel.width/2,
-                            parcel.y+parcel.height/2,
-                            this.getCircleRadius(parcel)
-    
-                        ).setStrokeStyle(3, 0xde2be8)
-                    );
-                }
-            }
+            console.log(this.ownerParcels);
 
-            this.container.add(this.parcelCircles);
+            this.container.add(this.ownerParcels);
 
             this.showOwnerParcels(true);
 
         }
+        
 
         showOwnerParcels(b) {
             if(b) {
-                this.parcelsGroup.setAlpha(0.5);
+                this.citadel.setAlpha(0.5);
                 this.walls.setAlpha(0.5);
-                this.showCircles(true);
-                for(let ownerParcel of this.ownerParcels) ownerParcel.setAlpha(1);
+                this.ownerParcels.setVisible(true);
             } else {
-                this.parcelsGroup.setAlpha(1);
+                this.citadel.setAlpha(1);
                 this.walls.setAlpha(1);
-                this.showCircles(false);
+                this.ownerParcels.setVisible(false);
             }
         }
 
-        showCircles(b) {
-            for(let circle of this.parcelCircles) circle.visible = b;
-        }
-
         calculateCenter(item) {
+            let isParcel = !item.x;
+            let [ x, y ] = isParcel ? this.getParcelPosition(item) : [ item.x, item.y ];
+            let [ w, h ] = isParcel ? this.getParcelSize(item) : [ item.width, item.height ];
             return {
-                x: this.cameras.main.centerX-item.x-item.width/2,
-                y: this.cameras.main.centerY-item.y-item.height/2
+                x: this.cameras.main.centerX-x-w/2,
+                y: this.cameras.main.centerY-y-h/2
             }
         }
 
         getCircleRadius(parcel) {
-            // switch (key) {
-            //     case value:
-                    
-            //         break;
-            
-            //     default:
-            //         break;
-            // }
-            // if(parcelsData[parcel.tokenId].size !== 3) return parcel.width/2+10;
-            // else return parcel.height/2+10;
-            return Math.sqrt(Math.pow(parcel.width, 2)+Math.pow(parcel.height, 2))/2+4;
+            let [ w, h ] = this.getParcelSize(parcel);
+            return Math.sqrt(Math.pow(w, 2)+Math.pow(h, 2))/2+4;
         }
-
-        // getSizeId(id) {
-        //     return 
-        // }
 
         getType(id) {
             return this.settings.parcels[parcelsData[id].size]
         }
 
-        getParcelColor(id) {
-            return this.settings.parcels[parcelsData[id].size].colors.default
+        getParcelColor(parcel) {
+            return this.settings.parcels[parcel.size].colors.default
         }
 
-        getParcelCoordinate(id) {
-            return [ +parcelsData[id].coordinateX, +parcelsData[id].coordinateY ]; 
-        }
-
-        getParcelSize(id) {
-            return [ this.settings.parcels[parcelsData[id].size].width, this.settings.parcels[parcelsData[id].size].height ]
+        getParcelSize(parcel) {
+            return [ this.settings.parcels[parcel.size].width, this.settings.parcels[parcel.size].height ]
         }
 
         getSelectedParcel({x, y}) {
             let [cursorX, cursorY] = [x-this.container.x, y-this.container.y ]
             let parcel;
-            this.parcels.some( item => {
-                let xRange = cursorX < +item.x+item.width && cursorX > +item.x;
-                let yRange = cursorY < +item.y+item.height && cursorY > +item.y;
-                if (xRange && yRange) parcel = item;
-            });
+            for(let id in parcelsData) {
+
+                let [ x, y ] = this.getParcelPosition(parcelsData[id]);
+                let [ w, h ] = this.getParcelSize(parcelsData[id]);
+
+                let xRange = cursorX < x+w && cursorX > +x;
+                let yRange = cursorY < y+h && cursorY > +y;
+
+                if (xRange && yRange) {
+                    parcel = parcelsData[id]
+                    break
+                };
+            }
             return parcel;
-        };
+        }
+
+        getParcelPosition(parcel) {
+            return [parcel.coordinateX-CITAADEL_WIDTH/2, parcel.coordinateY-CITAADEL_HEIGHT/2];
+        }
 
         getZoomPercent() {
             return ((this.cameras.main.zoom - this.settings.zoom.min) * 100) / (this.settings.zoom.max - this.settings.zoom.min)

@@ -14,6 +14,8 @@ import classNames from 'classnames';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
+// import parcelsData from '../../data/parcels.json';
+
 export default function Citadel({ initialize, setInitialize, ownerParcels}) {
     const classes = styles();
     const [game, setGame] = useState(null);
@@ -47,17 +49,6 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
         if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
             setSelectedParcel(parcel);
         });
-
-        // let obj = {};
-        // let keyse = Object.keys(parcelsData);
-        
-        // for(let key of keyse) {
-        //     obj[key] = {
-        //         size: parcelsData[key].size,
-        //         coordinateX: parcelsData[key].coordinateX,
-        //         coordinateY: parcelsData[key].coordinateY
-        //     }
-        // }
     }, [selectedId]);
 
     const initCitadel = useCallback( () => {
@@ -80,26 +71,23 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
     }, [game, setScene] );
 
     useEffect( () => {
-        console.log(ownerParcels);
-        if(scene !== null && ownerParcels.length) scene.addOwnerParcels([...ownerParcels, 
-            {
-                alphaBoost: "0",
-                auctionId: null,
-                coordinateX: "1136",
-                coordinateY: "4700",
-                district: "16",
-                fomoBoost: "2",
-                fudBoost: "0",
-                kekBoost: "0",
-                parcelHash: "journey-passively-smart",
-                parcelId: "C-1480-4880-H",
-                size: "3",
-                tokenId: "35912"
-            } 
-        ])
+        if(scene !== null && ownerParcels.length) scene.addOwnerParcels(ownerParcels);
     }, [scene])
 
     useEffect( () => {
+
+        // let obj = {};
+        // let keyse = Object.keys(parcelsData);
+        
+        // for(let key of keyse) {
+        //     obj[key] = {
+        //         tokenId: key,
+        //         size: parcelsData[key].size,
+        //         coordinateX: parcelsData[key].coordinateX,
+        //         coordinateY: parcelsData[key].coordinateY
+        //     }
+        // }
+        // console.log(JSON.stringify(obj));
         initCitadel();
     }, []);
 
