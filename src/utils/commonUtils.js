@@ -42,8 +42,9 @@ export default {
         return traits.reduce((item, val, i) => ({...item,[useEmojis ? traitsEmojis[i] : traitsKeys[i]]:val}),{});
     },
 
-    cutAddress(address) {
-        return address.slice(0, 4) + '~~' + address.slice(38);
+    cutAddress(address, symbol) {
+        let splitter = symbol ? symbol : '~~'
+        return address.slice(0, 4) + splitter + address.slice(38);
     },
 
     getSellerShortAddress(item) {
