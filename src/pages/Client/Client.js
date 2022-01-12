@@ -6,6 +6,7 @@ import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string'
 import styles from './styles';
+import commonUtils from '../../utils/commonUtils';
 
 import { LoginContext } from '../../contexts/LoginContext';
 import { ClientContext } from '../../contexts/ClientContext';
@@ -59,7 +60,11 @@ export default function Client() {
     return (
         <Box className={classes.container}>
             <Helmet>
-                <title>Client</title>
+                <title>
+                    {clientActive ?
+                        `${commonUtils.cutAddress(activeAddress, '...')} || ${location.pathname.split('/')[2]}`
+                        : 'Client'}
+                </title>
             </Helmet>
 
             {!clientActive?.length ? (

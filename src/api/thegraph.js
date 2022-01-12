@@ -1,5 +1,6 @@
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { gql } from '@apollo/client';
+import fetch from 'cross-fetch';
 import graphUtils from '../utils/graphUtils';
 import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery,
     raffleQuery, raffleEntrantsQuery, listedParcelsQuery, parselQuery } from './common/queries';
@@ -16,9 +17,10 @@ const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-rea
 const clientFactory = (() => {
     const createClient = (url) => {
         return new ApolloClient({
-        uri: url,
-        cache: new InMemoryCache()
-    })};
+            link: new HttpLink({ uri: url, fetch }),
+            cache: new InMemoryCache()
+        })
+    };
 
     return {
         client: createClient(baseUrl),

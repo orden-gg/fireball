@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+
 import regeneratorRuntime from 'regenerator-runtime';
+
+import { render } from './test/test-utils';
 
 import App from './App';
 
