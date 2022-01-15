@@ -1,7 +1,7 @@
 const guilds = [
     {
         name: 'ordenGG',
-        logo: require('../assets/guilds/ordenGG.png').default,
+        logo: require('../assets/guilds/ordenGG.svg').default,
         members: [
             '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
             '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
