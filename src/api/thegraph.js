@@ -282,6 +282,18 @@ export default {
             return filterCombinedGraphData(response, ['parcels'], 'parcelId');
         });
     },
+    
+    async getRealmByAddresses(addresses) {
+
+        let allRealm = [];
+
+        for(let address of addresses) {
+            let realm = await this.getRealmByAddress(address);
+
+            allRealm = [...allRealm, ...realm];
+        }
+        return allRealm;
+    },
 
     async getRealmById(id) {
         return await this.getRealmData(parselQuery(id)).then((response) => {

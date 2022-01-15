@@ -18,13 +18,14 @@ export default function GuildsPreview() {
     }
 
     const renderList = () => {
+        
         return (
-            guildsData.map( (guild, index) => {
+            guildsData.sort( guild => guild.members.length ? -1 : 1).map( (guild, index) => {
                 return (
                     <div className={classes.guildItem} key={index}>
                         <button
                             className={classes.guildButton}
-                            disabled={!guild.members?.length && !guild.description?.length}
+                            disabled={!guild.members?.length}
                             onClick={ handleClick(guild) }
                         >
                             <div className={classes.guildLogo}>

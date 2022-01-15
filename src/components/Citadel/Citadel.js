@@ -15,7 +15,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SearchIcon from '@mui/icons-material/Search';
 
-export default function Citadel({ initialize, setInitialize, ownerParcels}) {
+export default function Citadel({ initialize, ownerParcels, className}) {
     const classes = styles();
     const [game, setGame] = useState(null);
 
@@ -28,11 +28,6 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
 
     const gameRef = useRef(null);
 
-    const destroy = () => {
-		if (gameRef.current) gameRef.current.destroy();
-		setInitialize(false)
-    }
-
     const removeSelected = () => {
         scene.addSelectedParcel(false);
         setSelectedParcel(null);
@@ -42,17 +37,7 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
         setShowOwnerParcels(!showOwnerParcels);
     }
 
-    useEffect( () => {
-        if(scene) scene.showOwnerParcels(showOwnerParcels);
-    }, [showOwnerParcels])
-
-    useEffect( () => {
-        if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
-            setSelectedParcel(parcel);
-        });
-    }, [selectedId]);
-
-    const initCitadel = useCallback( () => {
+    const initCitadel = () => {
         setGame({
             width: window.innerWidth * window.devicePixelRatio,
             height: window.innerHeight * window.devicePixelRatio,
@@ -65,22 +50,33 @@ export default function Citadel({ initialize, setInitialize, ownerParcels}) {
             },
             scene: CitadelScene({
                 setScene,
-                setSelectedId
+                setSelectedId,
+                ownerParcels
             })
         });
         
-    }, [game, setScene] );
+    };
 
     useEffect( () => {
-        if(scene !== null && ownerParcels.length) scene.addOwnerParcels(ownerParcels);
-    }, [scene])
+        if(scene) scene.showOwnerParcels(showOwnerParcels);
+    }, [showOwnerParcels])
 
     useEffect( () => {
-        initCitadel();
-    }, []);
+        if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
+            setSelectedParcel(parcel);
+        });
+    }, [selectedId]);
+
+    useEffect( () => {
+        // let controller = new AbortController();
+        setTimeout( () => {
+            if( initialize ) initCitadel();
+        }, 100);
+        // return () => controller?.abort(); // cleanup on destroy
+    }, [ initialize ]);
 
     return (
-        <div className={classNames(classes.citadel, 'citadel-wrapper')}>
+        <div className={classNames(className, 'citadel-wrapper')}>
             
             <div className={classes.citadelInterface}>
 

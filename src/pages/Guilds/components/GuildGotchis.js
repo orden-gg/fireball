@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
-import { gotchisStyles } from '../styles';
+import { guildContentStyles } from '../styles';
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import { GuildsContext } from '../../../contexts/GuildsContext';
 import { Box } from '@mui/system';
 
 export default function GuildsGotchis() {
-    const classes = gotchisStyles();
+    const classes = guildContentStyles();
     const { guildGotchis } = useContext(GuildsContext);
 
     const renderGotchis = (gotchis) => {
@@ -37,10 +37,8 @@ export default function GuildsGotchis() {
     }, [guildGotchis]);
 
     return (
-        <Box className={classes.guildGotchis}>
-            <div className={classes.guildGotchisInner}>
-                {renderGotchis(guildGotchis)}
-            </div>
-        </Box>
+        <div className={classes.guildGotchis}>
+            {!!guildGotchis.length && renderGotchis(guildGotchis)}
+        </div>
     );
 }

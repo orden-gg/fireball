@@ -2,23 +2,23 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { ClientContext } from '../../../contexts/ClientContext';
 import Citadel from '../../../components/Citadel/Citadel';
-export default function ClientRealm() {
+import styles from '../styles';
+
+export default function ClientRealmMap() {
 
     const { realm, setRealmView } = useContext(ClientContext);
     const [initialize, setInitialize] = useState(false);
+    const classes = styles();
 
 	useEffect( () => {
-		
-        setTimeout(() => {
-            if(realm.length) setInitialize(true);
-        }, 100)
-	}, [realm.length]);
+        if(realm.length) setInitialize(true);
+	}, [realm]);
 
     useEffect( () => {
         setRealmView('map');
     }, []);
 
     return (
-        <Citadel initialize={initialize} setInitialize={setInitialize} ownerParcels={realm} />
+        <Citadel className={classes.clientCitadel} initialize={initialize} setInitialize={setInitialize} ownerParcels={realm} />
     );
 }

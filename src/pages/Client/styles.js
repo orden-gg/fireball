@@ -26,6 +26,13 @@ const styles = makeStyles( theme => ({
     },
     alert: {
         marginBottom: 24
+    },
+    clientCitadel: {
+        position: 'fixed',
+        left: 0,
+        top: 30,
+        right: 0,
+        bottom: 70
     }
 }));
 

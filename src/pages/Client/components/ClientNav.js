@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Switch, Tooltip } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import { NavLink } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ import ContentLoader from 'react-content-loader';
 import { clientNavStyles } from '../styles';
 
 export default function ClientNav() {
-    const location = useLocation();
     const match = useRouteMatch();
     const history = useHistory();
     const classes = clientNavStyles();
@@ -28,7 +27,7 @@ export default function ClientNav() {
         warehouse, loadingWarehouse,
         tickets, loadingTickets,
         realm, loadingRealm,
-        realmView, setRealmView
+        realmView
      } = useContext(ClientContext);
 
     const updateRealmView = () => {

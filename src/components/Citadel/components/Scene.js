@@ -4,17 +4,21 @@ import parcelsData from '../../../data/parcels.json';
 
 import walls from '../../../assets/images/citadel/walls.svg';
 import Highlight from './Highlight';
+import ActiveCitcles from './activeCircles';
+import ActiveParcels from './ActiveParcels';
 
 const CITAADEL_WIDTH = 9504;
 const CITAADEL_HEIGHT = 6336;
 
-export default function CitadelScene({ setScene, setSelectedId }) {
+export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) {
 
     return class Citadel_scene extends Phaser.Scene {
         constructor() {
             super({ key: 'Citadel_scene' });
 
             this.wrapper = document.querySelector('.citadel-wrapper');
+
+            if(this.wrapper === null) return;
 
             this.settings = {
                 highlight: true,
@@ -57,6 +61,7 @@ export default function CitadelScene({ setScene, setSelectedId }) {
             }
 
             this.selectedParcel = null;
+            this.ownerParcelsData = ownerParcels;
         }
         preload() {
             this.load.svg('walls', walls);
@@ -74,6 +79,7 @@ export default function CitadelScene({ setScene, setSelectedId }) {
             this.highlight.setVisible(false);
 
             this.container.add([this.walls, this.citadel, this.highlight]);
+            this.addOwnerParcels();
 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
 
@@ -83,7 +89,7 @@ export default function CitadelScene({ setScene, setSelectedId }) {
                 if(this.settings.isDragging) return;
                 let parcel = this.getSelectedParcel({wx: pointer.worldX, wy: pointer.worldY});
 
-                if(parcel != undefined) this.addSelectedParcel(+parcel.tokenId);
+                if(parcel !== undefined) this.addSelectedParcel(+parcel.tokenId);
             });
     
             this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
@@ -147,62 +153,22 @@ export default function CitadelScene({ setScene, setSelectedId }) {
             return graphics;
         }
 
-        addOwner(parcels) {
-            this.ownerParcelsData = parcels;
-            this.ownerParcelsRect = this.add.graphics();
-            this.ownerParcelsCircles = this.add.graphics();
+        createOwnerParcels() {
+            this.activeParcels = new ActiveParcels(this);
+            this.activeCircles = new ActiveCitcles(this);
             
 
-            for(let parcel of parcels) {
+            for(let parcel of this.ownerParcelsData) {
+                let { x, y } = this.getParcelPosition(parcel);
+                let { w, h } = this.getParcelSize(parcel);
+                let color = this.getParcelColor(parcel);
+                let radius = this.getCircleRadius(parcel);
 
-                this.createOwnerParcel(parcel);
-                this.createOwnerCircle(parcel, 0xffffff);
+                this.activeParcels.create(x, y, w, h, color);
+                this.activeCircles.create(x, y, w, h, radius, 0xffffff, true);
             }
 
-            this.animateCircles();
-        }
-
-        createOwnerParcel(parcel) {
-            let { x, y } = this.getParcelPosition(parcel);
-            let { w, h } = this.getParcelSize(parcel);
-
-            this.ownerParcelsRect.fillStyle(this.getParcelColor(parcel), 1);
-            this.ownerParcelsRect.fillRect(x, y, w, h);
-        }
-
-        createOwnerCircle(parcel, color) {
-            let { x, y } = this.getParcelPosition(parcel);
-            let { w, h } = this.getParcelSize(parcel);
-
-            this.ownerParcelsCircles.lineStyle(3, color);
-            this.ownerParcelsCircles.beginPath();
-            this.ownerParcelsCircles.arc(x+w/2, y+h/2, this.getCircleRadius(parcel), Phaser.Math.DegToRad(0), Phaser.Math.DegToRad(360), false, 0.01);
-            this.ownerParcelsCircles.strokePath();
-            this.ownerParcelsCircles.closePath();
-        }
-
-        animateCircles() {
-            let [fromColor, toColor] = [ Phaser.Display.Color.ValueToColor(0xffffff), Phaser.Display.Color.ValueToColor(0xfff000) ]
-
-            this.circleTween = this.tweens.addCounter({
-                from: 0,
-                to: 100,
-                repeat: -1,
-                yoyo: true,
-                duration: 1000,
-                onUpdate: tween => {
-                    const value = tween.getValue();
-                    const color = Phaser.Display.Color.Interpolate.ColorWithColor(fromColor, toColor, 100, value);
-
-                    this.ownerParcelsCircles.clear();
-                    for(let parcel of this.ownerParcelsData) {
-                        this.createOwnerCircle(
-                            parcel,
-                            Phaser.Display.Color.GetColor(color.r, color.g, color.b)
-                        );
-                    }
-                }
-            });
+            this.activeCircles.animateCircles(0xffffff, 0xfff000, 1000);
         }
 
         addSelectedParcel(tokenId) {
@@ -223,7 +189,7 @@ export default function CitadelScene({ setScene, setSelectedId }) {
                     setTimeout( () => {
                         this.add.tween({
                             targets: this.cameras.main,
-                            zoom: 1,
+                            zoom: 1.1,
                             duration: 500,
                             ease: 'Power2'
                         });
@@ -258,12 +224,12 @@ export default function CitadelScene({ setScene, setSelectedId }) {
             this.container.y = y
         }
 
-        addOwnerParcels(ownerParcels) {
+        addOwnerParcels() {
+            // if(ownerParcels !== undefined) this.ownerParcelsData = ownerParcels;
+            this.createOwnerParcels();
 
-            this.addOwner(ownerParcels);
-
-            this.container.add(this.ownerParcelsRect);
-            this.container.add(this.ownerParcelsCircles);
+            this.container.add(this.activeParcels);
+            this.container.add(this.activeCircles);
 
             this.showOwnerParcels(true);
 
@@ -271,15 +237,18 @@ export default function CitadelScene({ setScene, setSelectedId }) {
         
 
         showOwnerParcels(b) {
+
+            this.activeParcels.setVisible(b);
+            this.activeCircles.setVisible(b);
+
             if(b) {
                 this.citadel.setAlpha(0.5);
                 this.walls.setAlpha(0.5);
-                this.ownerParcelsRect.setVisible(true);
-                this.ownerParcelsRect.setVisible(true);
+                this.activeCircles.animateCircles(0xffffff, 0xfff000, 1000);
             } else {
                 this.citadel.setAlpha(1);
                 this.walls.setAlpha(1);
-                this.ownerParcelsRect.setVisible(false);
+                this.activeCircles.animateCircles(b);
             }
         }
 

@@ -11,7 +11,7 @@ html, body {
   padding: 0;
   height: 100%;
   min-width: 360px;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 ::selection {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
 import thegraph from '../../../api/thegraph';
 import '../styles.css';
 // import GuildsInfo from '../components/GuildInfo/GuildInfo';
@@ -15,6 +15,8 @@ import { Backdrop, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import guildUtils from '../../../utils/guildUtils';
 import GuildLogo from '../components/GuildLogo';
+import GuildNav from '../components/GuildNav';
+import GuildsRealm from '../components/GuildsRealm';
 
 export default function Guild({backToGuilds}) {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -22,22 +24,39 @@ export default function Guild({backToGuilds}) {
     const params = useParams();
     const classes = guildStyles();
     const history = useHistory();
+    const match = useRouteMatch();
     
     const { 
         guildsData,
         currentGuild,
         setCurrentGuild,
-        guildGotchis, setGuildGotchis
+        guildGotchis, setGuildGotchis,
+        setGuildRealm
     } = useContext(GuildsContext);
 
-    const setGotchisByAddresses = async (addresses) => {
+    const loadData = (b) => {
+        loadGotchisByAddresses(currentGuild.members, b);
+        loadRealmByAddresses(currentGuild.members, b);
+    }
+
+    const loadGotchisByAddresses = async (addresses, b) => {
         let gotchis = await thegraph.getGotchisByAddresses(addresses);
+        
+        if(!b) return;
 
         gotchis.sort((a,b) => (
             b.modifiedRarityScore - a.modifiedRarityScore
         ));
 
         setGuildGotchis(gotchis);
+    };
+
+    const loadRealmByAddresses = async (addresses, b) => {
+        let realm = await thegraph.getRealmByAddresses(addresses);
+        
+        if(!b) return;
+
+        setGuildRealm(realm);
     };
 
     useEffect( () => {
@@ -56,8 +75,12 @@ export default function Guild({backToGuilds}) {
     }, []);
 
     useEffect( () => {
-        if(currentGuild.hasOwnProperty('name')) setGotchisByAddresses(currentGuild.members);
+        let controller = new AbortController();
+        console.log(controller.signal.aborted);
 
+        if(currentGuild.hasOwnProperty('name')) loadData(!controller.signal.aborted);
+
+        return () => controller?.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentGuild]);
 
@@ -82,8 +105,20 @@ export default function Guild({backToGuilds}) {
                         </IconButton>
                     
                         <GuildBanner />
+
                         {!!currentGuild.description?.length &&  <GuildsDetails />}
-                        {!!guildGotchis.length && <GuildsGotchis />}
+
+                        <GuildNav />
+
+                        <Box className={classes.guildContent}>
+                            <Switch>
+                                <Route path={`${match.path}/gotchis`} component={ GuildsGotchis } />
+                                {/* <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } /> */}
+                                {/* <Route path={`${match.path}/tickets`} component={ ClientTickets } /> */}
+                                <Route path={`${match.path}/realm`} component={ GuildsRealm } />
+                                <Redirect from={match.path} to={`${match.path}/gotchis`} />
+                            </Switch>
+                        </Box>
                     </Box>
                 )
             }

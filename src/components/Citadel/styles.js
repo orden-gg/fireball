@@ -2,11 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles( theme => ({
     citadel: {
-        position: 'fixed',
-        left: 0,
-        top: 30,
-        right: 0,
-        bottom: 70,
+        position: 'relative',
 
         '& canvas': {
             display: 'block'

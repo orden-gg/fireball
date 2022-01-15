@@ -1,13 +1,14 @@
 import React, {createContext, useState} from 'react';
-import guilds from '../data/guilds';
+import guildsData from '../data/guilds';
 
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
-    const [ guildsData, setGuildsData ] = useState(guilds);
     const [ currentGuild, setCurrentGuild ] = useState([]);
 
     const [ guildGotchis, setGuildGotchis ] = useState([]);
+    const [ guildRealm, setGuildRealm ] = useState([]);
+    const [ realmView, setRealmView ] = useState('map');
 
     return (
         <GuildsContext.Provider value={{
@@ -15,10 +16,14 @@ const GuildsContextProvider = (props) => {
             guildGotchis,
             setGuildGotchis,
 
+            guildRealm,
+            setGuildRealm,
+
             guildsData,
             
             currentGuild,
-            setCurrentGuild
+            setCurrentGuild,
+            realmView, setRealmView
 
         }}>
             { props.children }

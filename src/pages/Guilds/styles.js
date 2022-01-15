@@ -2,6 +2,9 @@
 import { alpha } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
+import mapSvg from '../../assets/images/svgs/map.svg';
+import listSvg from '../../assets/images/svgs/list.svg';
+
 const keyframes = {
 
     move: {
@@ -191,6 +194,21 @@ const guildStyles = makeStyles( theme => ({
             transform: 'scale(2)'
         },
     },
+    guildContent: {
+        background: theme.palette.background.secondary,
+        paddingTop: theme.spacing(2),
+        marginTop: theme.spacing(3),
+        willChange: 'transform',
+        transform: 'translateY(50px)',
+        opacity: 0,
+        animation: '2s ease-out 1s forwards $show, 2s ease-out 1s forwards $move',
+
+        [theme.breakpoints.down('md')]: {
+            marginTop: theme.spacing(2),
+        }
+    },
+    '@keyframes show': keyframes.show,
+    '@keyframes move': keyframes.move,
     '@keyframes bounce': keyframes.bounce
 }));
 
@@ -535,31 +553,25 @@ const guildDetailsStyles = makeStyles( theme => ({
     '@keyframes show': keyframes.show
 }));
 
-const gotchisStyles = makeStyles( theme => ({
+const guildContentStyles = makeStyles( theme => ({
     guildGotchis: {
-        background: theme.palette.background.secondary,
-        paddingTop: theme.spacing(2),
-        marginTop: theme.spacing(3),
-        willChange: 'transform',
-        transform: 'translateY(50px)',
-        opacity: 0,
-        animation: '2s ease-out 1s forwards $show, 2s ease-out 1s forwards $move',
-
-        [theme.breakpoints.down('md')]: {
-            marginTop: theme.spacing(2),
-        }
-    },
-    guildGotchisInner: {
-        // overflowY: 'auto',
         padding: theme.spacing(2),
-        // maxHeight: '100%',
-        // width: '100%',
-        // alignItems: 'start',
         maxWidth: 1920,
         margin: 'auto',
         gap: theme.spacing(2),
         gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
         display: 'grid',
+    },
+    guildRealm: {
+        display: 'grid',
+        alignItems: 'start',
+        gap: theme.spacing(2),
+        padding: theme.spacing(2),
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
+        gridAutoRows: '1fr',
+    },
+    guildRealmItem: {
+        height: '100%'
     },
     memberName: {
         textAlign: 'center'
@@ -595,8 +607,129 @@ const gotchisStyles = makeStyles( theme => ({
         textOverflow: 'ellipsis',
         paddingBottom: theme.spacing(2)
     },
-    '@keyframes show': keyframes.show,
-    '@keyframes move': keyframes.move
+    guildCitadel: {
+        height: 600,
+        margin: 20,
+        position: 'relative'
+    }
+}));
+
+const guildNavStyles = makeStyles( theme => ({
+    container: {
+        margin: theme.spacing(1, 0),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        position: 'relative',
+        zIndex: 1,
+        alignSelf: 'center'
+    },
+    navItem: {
+        margin: 4,
+        position: 'relative'
+    },
+    button: {
+        paddingRight: 12,
+        paddingLeft: 12,
+        color: '#fff',
+        border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
+        backgroundColor: alpha(theme.palette.secondary.dark, .4),
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.dark,
+        },
+        '&.Mui-disabled': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .2),
+            borderColor: alpha(theme.palette.secondary.light, .2),
+            color: alpha('#fff', .3)
+        },
+        '&.active, &.active:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.main,
+            '&.Mui-disabled': {
+                backgroundColor: alpha(theme.palette.primary.main, .1),
+                color: alpha('#fff', .2),
+            },
+        }
+    },
+    label: {
+        fontSize: 14,
+        fontWeight: 600,
+        color: theme.palette.primary.main,
+        marginLeft: 8,
+
+        '.Mui-disabled &': {
+            opacity: .4
+        },
+
+        '.active &, .active:hover &': {
+            color: theme.palette.secondary.main
+        },
+
+        'Mui-disabled.active &, Mui-disabled.active:hover &': {
+            color: theme.palette.primary.main
+        }
+    },
+    buttonLoader: {
+        width: 28,
+        height: 14,
+        marginLeft: 8
+    },
+    
+    realmViewSwitch: {
+        position: 'absolute',
+        left: '100%',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        visibility: 'hidden',
+        opacity: 0,
+        transition: '.5s ease-in-out',
+        width: 62,
+        height: 34,
+        padding: 7,
+        willChange: 'opacity, transform',
+
+        '& .MuiSwitch-switchBase': {
+            margin: 1,
+            padding: 0,
+            transform: 'translateX(6px)',
+            '&.Mui-checked': {
+                color: '#fff',
+                transform: 'translateX(22px)',
+                '& .MuiSwitch-thumb:before': {
+                    backgroundImage: `url(${mapSvg})`,
+                }
+            },
+        },
+        '& .MuiSwitch-thumb': {
+            width: 32,
+            height: 32,
+            '&:before': {
+                content: "''",
+                position: 'absolute',
+                width: '80%',
+                height: '80%',
+                left: '10%',
+                top: '10%',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundImage: `url(${listSvg})`,
+            },
+        },
+        '& .MuiSwitch-track': {
+            borderRadius: 20 / 2
+        },
+        '& .Mui-checked+.MuiSwitch-track': {
+            // opacity: 1,
+            backgroundColor: '#fff'
+        },
+
+        '.active + &': {
+            marginLeft: theme.spacing(2),
+            opacity: 1,
+            visibility: 'visible'
+        }
+    }
 }));
 
 export {
@@ -604,5 +737,6 @@ export {
     guildStyles,
     guildBanner,
     guildDetailsStyles,
-    gotchisStyles
+    guildContentStyles,
+    guildNavStyles
 }
