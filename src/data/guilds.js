@@ -3,9 +3,13 @@ const guilds = [
         name: 'ordenGG',
         logo: require('../assets/guilds/ordenGG.png').default,
         members: [
+            '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
+            '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
             '0xADA8aA2777825bc615C5F12126F8bf275E2245e5',
             '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667',
-            '0xc46d3c9d93febdd5027c9b696fe576dc654c66de'
+            '0x0BcDc503f78BFf5Dc7B867C6740226d9621117b1',
+            '0xA2BB90753CF0Ffa4BA056096b0218A2B2d92B784',
+            '0x65E43244d19C3e17058Dfb6F5e5E921402EbD964'
         ],
         description: [
             {
