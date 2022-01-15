@@ -8,6 +8,7 @@ import queryString from 'query-string'
 import { LoginContext } from '../../contexts/LoginContext';
 import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import RaffleContextProvider from '../../contexts/RaffleContext';
+import commonUtils from '../../utils/commonUtils';
 
 import RaffleNav from './components/RaffleNav';
 import RaffleRealm from './routes/RaffleRealm';
@@ -95,7 +96,11 @@ export default function Raffle() {
     return (
         <Box className={classes.container}>
             <Helmet>
-                <title>Raffle Calculator</title>
+                <title>
+                    {
+                        `raffle calculator || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(activeAddress, '...') : ''}`
+                    }
+                </title>
             </Helmet>
 
             {raffleActive !== 'null' && raffleActive?.length ? (
