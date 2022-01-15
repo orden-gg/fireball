@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 
 import Wearable from '../../../components/Items/Wearable/Wearable';
 
-export default function RaffleWearables({tickets}) {
+export default function RaffleItems({tickets}) {
 
     return (
         <Grid container spacing={2}>

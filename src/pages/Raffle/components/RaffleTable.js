@@ -218,7 +218,7 @@ export default function RaffleTablee({raffleEnded}) {
             <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
-                        Your reward
+                        Your chance
                         <Tooltip
                             placement='right'
                             arrow
