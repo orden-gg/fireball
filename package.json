@@ -39,8 +39,9 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
+    "build:prod": "gcloud builds submit --tag gcr.io/ghst-gg-client/client",
     "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3005 react-scripts start",
-    "start-prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
+    "start:prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules"

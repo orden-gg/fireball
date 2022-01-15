@@ -203,7 +203,10 @@ const guilds = [
     },{
         name: 'Ghost Squad',
         logo: require('../assets/guilds/ghost-squad.png').default,
-        members: [],
+        members: [
+            '0xE88632728Ed377f556cB964e6F670f6017d497e4',
+            '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a'
+        ],
         description: [
             {
                 title: 'Description',
@@ -218,10 +221,11 @@ const guilds = [
                 text: 'Gotchinomics#4936'
             }
         ],
-        banner: '',
+        banner: require('../assets/guilds/ghost-squad-banner.png').default,
         socials: {
             twitter: 'https://twitter.com/gotchighstsquad',
-            discord: 'https://discord.com/invite/JQHx9u8mcV'
+            discord: 'https://discord.com/invite/JQHx9u8mcV',
+            youtube: 'https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg'
         }
     },{
         name: 'Gotchi FArmy Gang',
