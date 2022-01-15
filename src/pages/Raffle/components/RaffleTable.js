@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
-import { ticketStyles } from '../styles';
+import { tableStyles } from '../styles';
 
 import itemUtils from '../../../utils/itemUtils';
 import commonUtils from '../../../utils/commonUtils';
@@ -14,7 +14,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ghst from '../../../assets/images/ghst-doubleside.gif';
 
 export default function RaffleTablee({raffleEnded}) {
-    const classes = ticketStyles();
+    const classes = tableStyles();
 
     const { tickets, setTickets, raffleSpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
 
@@ -70,7 +70,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                         variant='body1'
@@ -113,7 +113,7 @@ export default function RaffleTablee({raffleEnded}) {
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                             variant='body1'
@@ -155,7 +155,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                             variant='body1'
@@ -197,7 +197,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity)}>
                                     {pricesSpinner ? (
-                                        <CircularProgress color="inherit" size={20} />
+                                        <CircularProgress color='inherit' size={20} />
                                     ) : (
                                         <Typography
                                             variant='body1'

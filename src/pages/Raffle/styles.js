@@ -37,13 +37,14 @@ const titleStyles = makeStyles( theme => ({
     },
 }));
 
-const ticketStyles = makeStyles( theme => ({
+const tableStyles = makeStyles( theme => ({
     // backdrop: {
     //     zIndex: theme.zIndex.drawer + 1,
     //     color: '#fff'
     // },
     row: {
         marginBottom: 32,
+        minHeight: 55,
         alignItems: 'center',
         justifyContent: 'space-between'
     },
@@ -486,18 +487,32 @@ const raffleNavStyles = makeStyles( theme => ({
 }));
 
 
-const raffleTicketsStyles = makeStyles( theme => ({
-    list: {
-        display: 'grid',
-        alignItems: 'start',
-        gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-        gridAutoRows: '1fr',
-        marginTop: 16,
-        minHeight: 125
+const ticketStyles = makeStyles( theme => ({
+    ticket: {
+        textAlign: 'center',
+        position: 'relative'
     },
-    listItem: {
-        height: '100%'
+    ticketImg: {
+        opacity: .2,
+        display: 'block',
+        margin: 'auto',
+        width: 90
+    },
+    ticketTitle: {
+        position: 'absolute',
+        top: '50%',
+        right: 0,
+        left: 0,
+        transform: 'translateY(-50%)',
+        margin: 0,
+        fontSize: 16,
+        fontWeight: 400,
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 17
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: 18
+        }
     }
 }));
 
@@ -505,7 +520,7 @@ export {
     styles as default,
     raffleCountdownStyles,
     raffleNavStyles,
-    raffleTicketsStyles,
     ticketStyles,
+    tableStyles,
     titleStyles
 }

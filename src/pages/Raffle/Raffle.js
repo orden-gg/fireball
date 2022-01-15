@@ -9,10 +9,12 @@ import { LoginContext } from '../../contexts/LoginContext';
 import ProfilePane from '../../components/ProfilePane/ProfilePane';
 import RaffleContextProvider from '../../contexts/RaffleContext';
 import commonUtils from '../../utils/commonUtils';
+import web3 from '../../api/web3';
 
 import RaffleNav from './components/RaffleNav';
-import RaffleRealm from './routes/RaffleRealm';
+import RaffleTickets from './components/RaffleTickets';
 import RaffleWearables5 from './routes/RaffleWearables5';
+import RaffleRealm from './routes/RaffleRealm';
 import RaffleRealm2 from './routes/RaffleRealm2';
 
 export default function Raffle() {
@@ -109,13 +111,13 @@ export default function Raffle() {
                 null
             )}
 
-            {/* {web3.isAddressValid(raffleActive) ? (
+            <RaffleNav address={raffleActive} />
+
+            {web3.isAddressValid(raffleActive) ? (
                 <RaffleTickets address={raffleActive} />
             ) : (
                 null
-            )} */}
-
-            <RaffleNav address={raffleActive} />
+            )}
 
             <RaffleContextProvider>
                 <Switch>

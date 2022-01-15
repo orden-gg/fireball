@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 
-import Ticket from '../../../components/Items/Ticket/Ticket';
 import web3 from '../../../api/web3';
-import { raffleTicketsStyles } from '../styles';
+import RaffleTicket from './RaffleTicket';
+import { tableStyles } from '../styles';
 
 export default function RaffleTickets({address}) {
-    const classes = raffleTicketsStyles();
+    const classes = tableStyles();
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
@@ -16,15 +17,16 @@ export default function RaffleTickets({address}) {
         getTickets(controller);
 
         return () => controller?.abort(); // cleanup on destroy
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[address]);
 
     const getTickets = (controller) => {
         setLoadingTickets(true);
 
         web3.getTicketsByAddress(address).then((response) => {
-            let modified = response.filter((item) => item.balance > 0);
             if(!controller.signal.aborted) {
-                setTickets(modified);
+                setTickets(response);
                 setLoadingTickets(false);
             }
         }).catch((error) => {
@@ -33,24 +35,25 @@ export default function RaffleTickets({address}) {
     };
 
     return (
-        <div>
-            {loadingTickets ? (
-                <div className={classes.list}>
-                    <span>Loading...</span>
-                </div>
-            ) : (
-                tickets.length ? (
-                    <div className={classes.list}>
-                        {tickets.map((ticket, i)=>{
-                            return <div className={classes.listItem}  key={i}>
-                                <Ticket ticket={ticket} />
-                            </div>
-                        })}
-                    </div>
+        <Grid container spacing={2} className={classes.row}>
+            <Grid item xs={12} md={3} style={{ position: 'relative' }}>
+                <Typography variant='h6' className={classes.subtitle}>Your Tickets</Typography>
+            </Grid>
+
+            <Grid container item spacing={1} xs={12} md={8} lg={9}>
+
+                {loadingTickets ? (
+                    <Grid item sm={true} style={{ textAlign: 'center' }}>
+                        <CircularProgress color='inherit' size={20} />
+                    </Grid>
                 ) : (
-                    null
-                )
-            )}
-        </div>
+                    tickets.map((ticket, i)=>{
+                        return <Grid item xs={4} sm={true} key={i} style={{ filter: `grayscale(${ticket.balance > 0 ? 0 : 1})` }}>
+                            <RaffleTicket ticket={ticket} />
+                        </Grid>
+                    })
+                )}
+            </Grid>
+        </Grid>
     );
 }

@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
-// import RaffleWearables from '../components/RaffleWearables';
+// import RaffleItems from '../components/RaffleItems';
 import RaffleCountdown from '../components/RaffleCountdown';
 
 const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
@@ -28,7 +28,7 @@ export default function RaffleWearables5({raffleActive}) {
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
+    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
         setTickets(raffle.tickets);
@@ -45,19 +45,19 @@ export default function RaffleWearables5({raffleActive}) {
 
     return (
         <div className={classes.inner}>
-            <div className={classes.titleWrapper}>
+            {/* <div className={classes.titleWrapper}>
                 <h5 className={classes.title}>
                     Sep 24-27 [2021]
                 </h5>
                 <RaffleCountdown start={startDate} end={endDate} />
-            </div>
+            </div> */}
 
             <RaffleTable
                 raffleEnded={raffleEnded}
             />
 
             {/* {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
-                <RaffleWearables tickets={tickets} /> 
+                <RaffleItems tickets={tickets} /> 
             ) : (
                 null
             )} */}

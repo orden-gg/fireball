@@ -17,7 +17,14 @@ export default function RaffleItems({tickets}) {
                         // }
 
                         return <Grid item xs={6} sm={4} md={2} key={i}>
-                            <Wearable wearable={{id: wearable.id, balance: wearable.quantity}}></Wearable>
+                            <Wearable
+                                wearable={{
+                                    id: (wearable.id).substring(2),
+                                    balance: wearable.quantity,
+                                    category: 0
+                                }}
+                            >
+                            </Wearable>
                         </Grid>
                     })
                     return null;

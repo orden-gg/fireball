@@ -39,12 +39,12 @@ export default function RaffleRealm2({raffleActive}) {
 
     return (
         <div className={classes.inner}>
-            <div className={classes.titleWrapper}>
+            {/* <div className={classes.titleWrapper}>
                 <h5 className={classes.title}>
                     Dec 15-18 [2021]
                 </h5>
                 <RaffleCountdown start={startDate} end={endDate} />
-            </div>
+            </div> */}
 
             <RaffleTable
                 raffleEnded={raffleEnded}
