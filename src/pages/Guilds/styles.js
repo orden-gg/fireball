@@ -198,10 +198,6 @@ const guildStyles = makeStyles( theme => ({
         background: theme.palette.background.secondary,
         paddingTop: theme.spacing(2),
         marginTop: theme.spacing(3),
-        willChange: 'transform',
-        transform: 'translateY(50px)',
-        opacity: 0,
-        animation: '2s ease-out 1s forwards $show, 2s ease-out 1s forwards $move',
 
         [theme.breakpoints.down('md')]: {
             marginTop: theme.spacing(2),
@@ -581,9 +577,6 @@ const guildContentStyles = makeStyles( theme => ({
         gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
         display: 'grid',
     },
-    item: {
-        // margin: 5
-    },
     gotchi: {
         borderRadius: 4,
         width: 150,
@@ -610,7 +603,24 @@ const guildContentStyles = makeStyles( theme => ({
     guildCitadel: {
         height: 600,
         margin: 20,
-        position: 'relative'
+        position: 'relative',
+
+        '& .citadel-interface': {
+            top: 30
+        },
+
+        [theme.breakpoints.down('md')]: {
+            height: 400
+        },
+
+        [theme.breakpoints.down('sm')]: {
+            height: 300,
+
+            '& .citadel-interface': {
+                top: 10,
+                right: 5
+            }
+        }
     }
 }));
 

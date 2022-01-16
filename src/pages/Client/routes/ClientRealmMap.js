@@ -16,9 +16,11 @@ export default function ClientRealmMap() {
 
     useEffect( () => {
         setRealmView('map');
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <Citadel className={classes.clientCitadel} initialize={initialize} setInitialize={setInitialize} ownerParcels={realm} />
+        <Citadel className={classes.clientCitadel} initialize={initialize} ownerParcels={realm} />
     );
 }

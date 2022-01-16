@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
 import thegraph from '../../../api/thegraph';
-import '../styles.css';
-// import GuildsInfo from '../components/GuildInfo/GuildInfo';
-import GuildsGotchis from '../components/GuildGotchis';
+import GuildGotchis from '../components/GuildGotchis';
 import GuildBanner from '../components/GuildInfo/GuildBanner';
 import GuildsDetails from '../components/GuildInfo/GuildDetails';
 import { GuildsContext } from '../../../contexts/GuildsContext';
@@ -42,7 +40,7 @@ export default function Guild({backToGuilds}) {
     const loadGotchisByAddresses = async (addresses, b) => {
         let gotchis = await thegraph.getGotchisByAddresses(addresses);
         
-        if(!b) return;
+        if(b) return;
 
         gotchis.sort((a,b) => (
             b.modifiedRarityScore - a.modifiedRarityScore
@@ -53,8 +51,8 @@ export default function Guild({backToGuilds}) {
 
     const loadRealmByAddresses = async (addresses, b) => {
         let realm = await thegraph.getRealmByAddresses(addresses);
-        
-        if(!b) return;
+
+        if(b) return;
 
         setGuildRealm(realm);
     };
@@ -76,9 +74,8 @@ export default function Guild({backToGuilds}) {
 
     useEffect( () => {
         let controller = new AbortController();
-        console.log(controller.signal.aborted);
 
-        if(currentGuild.hasOwnProperty('name')) loadData(!controller.signal.aborted);
+        if(currentGuild.hasOwnProperty('name')) loadData(controller.signal.aborted);
 
         return () => controller?.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,9 +109,7 @@ export default function Guild({backToGuilds}) {
 
                         <Box className={classes.guildContent}>
                             <Switch>
-                                <Route path={`${match.path}/gotchis`} component={ GuildsGotchis } />
-                                {/* <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } /> */}
-                                {/* <Route path={`${match.path}/tickets`} component={ ClientTickets } /> */}
+                                <Route path={`${match.path}/gotchis`} component={ GuildGotchis } />
                                 <Route path={`${match.path}/realm`} component={ GuildsRealm } />
                                 <Redirect from={match.path} to={`${match.path}/gotchis`} />
                             </Switch>

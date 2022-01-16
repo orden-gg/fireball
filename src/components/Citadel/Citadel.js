@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Phaser from 'phaser';
 import { IonPhaser } from '@ion-phaser/react';
@@ -59,26 +59,30 @@ export default function Citadel({ initialize, ownerParcels, className}) {
 
     useEffect( () => {
         if(scene) scene.showOwnerParcels(showOwnerParcels);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showOwnerParcels])
 
     useEffect( () => {
         if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
             setSelectedParcel(parcel);
         });
+        
     }, [selectedId]);
 
     useEffect( () => {
-        // let controller = new AbortController();
+
         setTimeout( () => {
             if( initialize ) initCitadel();
         }, 100);
-        // return () => controller?.abort(); // cleanup on destroy
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ initialize ]);
 
     return (
         <div className={classNames(className, 'citadel-wrapper')}>
             
-            <div className={classes.citadelInterface}>
+            <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
 
                 <div className={classes.citadelSearch}>
                     <TextField className={classes.citadelSearchField} placeholder="Search by id" variant="standard" onChange={ (event) => setSearchId(event.target.value) }/>
@@ -97,10 +101,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
                     </IconButton>
                 </Tooltip>
             </div>
-            { 
-                game && 
-                <IonPhaser ref={gameRef} game={game} initialize={initialize} />
-            }
+            <IonPhaser ref={gameRef} game={game} initialize={initialize} />
             {
                 selectedParcel &&
                 <div className={classes.parcel}>

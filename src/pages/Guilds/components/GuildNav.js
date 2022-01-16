@@ -1,22 +1,19 @@
 import React, { useContext } from 'react';
 import { Button, Tooltip, Switch } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import { NavLink } from 'react-router-dom';
 
 import { GuildsContext } from '../../../contexts/GuildsContext';
 
 import gotchiPlaceholder from '../../../assets/images/gotchi-placeholder.svg';
-import warehousePlaceholder from '../../../assets/wearables/15.svg';
-import ticketsPlaceholder from '../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../assets/images/icons/kek.png';
 import ContentLoader from 'react-content-loader';
 
 import { guildNavStyles } from '../styles';
 
 export default function GuildNav() {
-    const location = useLocation();
     const match = useRouteMatch();
     const history = useHistory();
     const classes = guildNavStyles();

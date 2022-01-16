@@ -20,10 +20,12 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
 
             if(this.wrapper === null) return;
 
+            let [ w, h ] = [this.wrapper.clientWidth, this.wrapper.clientHeight]
+
             this.settings = {
                 highlight: true,
                 zoom: {
-                    min: this.wrapper.clientHeight/CITAADEL_HEIGHT,
+                    min: w/h > CITAADEL_WIDTH/CITAADEL_HEIGHT ? h/CITAADEL_HEIGHT : w/CITAADEL_WIDTH,
                     max: 10
                 },
                 parcels: [
@@ -105,7 +107,9 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             });
 
             this.scale.on('resize', () => {
-                this.settings.zoom.min = this.wrapper.clientHeight/CITAADEL_HEIGHT;
+                let [ w, h ] = [ this.wrapper.clientWidth, this.wrapper.clientHeight];
+
+                this.settings.zoom.min = w/h > CITAADEL_WIDTH/CITAADEL_HEIGHT ? h/CITAADEL_HEIGHT : w/CITAADEL_WIDTH;
                 if(this.selectedParcel) this.moveToCenter(this.selectedParcel);
             });
     
@@ -225,7 +229,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
         }
 
         addOwnerParcels() {
-            // if(ownerParcels !== undefined) this.ownerParcelsData = ownerParcels;
             this.createOwnerParcels();
 
             this.container.add(this.activeParcels);

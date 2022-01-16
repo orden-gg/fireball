@@ -8,13 +8,8 @@ export default function ClientRealm() {
 
     const { guildRealm, setRealmView } = useContext(GuildsContext);
     const [ initialize, setInitialize ] = useState(false);
-    // const [de ]
     const classes = guildContentStyles();
 
-    // const destroy = () => {
-	// 	if (gameRef.current) gameRef.current.destroy();
-	// 	setInitialize(false)
-    // }
 
 	useEffect( () => {
         if(guildRealm.length) setInitialize(true);
@@ -22,9 +17,11 @@ export default function ClientRealm() {
 
     useEffect( () => {
         setRealmView('map');
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <Citadel className={classes.guildCitadel} initialize={initialize} setInitialize={setInitialize} ownerParcels={guildRealm} />
+        <Citadel className={classes.guildCitadel} initialize={initialize} ownerParcels={guildRealm} />
     );
 }
