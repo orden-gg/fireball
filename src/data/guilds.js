@@ -14,7 +14,7 @@ const guilds = [
         description: [
             {
                 title: 'Description',
-                text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab, quasi.'
+                text: 'e-sport & gamedev DAO always playing a good game ☀️'
             },
         ],
         banner: require('../assets/guilds/ordenGG-banner.png').default,
