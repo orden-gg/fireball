@@ -84,7 +84,7 @@ const styles = makeStyles( theme => ({
         padding: 0,
 
         '&:disabled': {
-            opacity: .5,
+            opacity: .3,
             cursor: 'default'
         },
 

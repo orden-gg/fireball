@@ -87,12 +87,12 @@ export default function Header() {
                             <Typography variant={'caption'}>Filter</Typography>
                         </Box>
                     </NavLink>
-                    <NavLink className={classes.navLink} to='/explorer'>
+                    {/* <NavLink className={classes.navLink} to='/explorer'>
                         Explorer
-                    </NavLink>
-                    {/* <NavLink className={classes.navLink} to='/guilds'>
-                        Guilds
                     </NavLink> */}
+                    <NavLink className={classes.navLink} to='/guilds'>
+                        Guilds
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator
                     </NavLink>
