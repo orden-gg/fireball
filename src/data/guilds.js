@@ -205,7 +205,9 @@ const guilds = [
         logo: require('../assets/guilds/ghost-squad.png').default,
         members: [
             '0xE88632728Ed377f556cB964e6F670f6017d497e4',
-            '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a'
+            '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a',
+            '0x3d93622B63F86e74f631AB77b867Fd52083a12Ef',
+            '0x6648e94A5BDd783Bf6649d54FC2891F97C6Ca22d'
         ],
         description: [
             {
