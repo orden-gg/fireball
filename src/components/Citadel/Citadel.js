@@ -76,6 +76,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
         setTimeout( () => {
             initCitadel();
         }, 100);
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

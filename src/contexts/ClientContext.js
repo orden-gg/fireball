@@ -183,9 +183,6 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address).then((response) => {
-            // let [filter, dir] = getFilter(realmFilter);
-
-            // setRealm(commonUtils.basicSort(response, filter, dir));
             setRealm(response);
             setLoadingRealm(false);
         }).catch((error) => {
