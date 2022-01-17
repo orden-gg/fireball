@@ -11,9 +11,14 @@ import { IconButton, TextField, Tooltip } from '@mui/material';
 import thegraph from '../../api/thegraph';
 import Parcel from '../Items/Parcel/Parcel';
 import classNames from 'classnames';
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SearchIcon from '@mui/icons-material/Search';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+
+import useFullscreenStatus from '../../hooks/useFullscreenStatus';
 
 import CitadelLoading from '../../assets/gotchiverse-icon.gif';
 
@@ -24,12 +29,14 @@ export default function Citadel({ initialize, ownerParcels, className}) {
     const [ selectedId, setSelectedId ] = useState(null);
     const [ selectedParcel, setSelectedParcel ] = useState(null);
     const [ scene, setScene ] = useState(null);
-    const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
     const [ mapCreated, setMapCreated ] = useState(false);
 
+    const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
     const [ searchId, setSearchId ] = useState(null);
 
     const gameRef = useRef(null);
+    const wrapperRef = useRef(null);
+    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const removeSelected = () => {
         scene.addSelectedParcel(false);
@@ -39,6 +46,11 @@ export default function Citadel({ initialize, ownerParcels, className}) {
     const toggleOwnerParcels = () => {
         setShowOwnerParcels(!showOwnerParcels);
     }
+
+    const toggleFullscreen = () => {
+        isFullscreen ? document.exitFullscreen() : setIsFullscreen();
+    }
+    
 
     const initCitadel = () => {
         setGame({
@@ -53,7 +65,8 @@ export default function Citadel({ initialize, ownerParcels, className}) {
             },
             scene: CitadelScene({
                 setScene,
-                setSelectedId
+                setSelectedId,
+                wrapperRef
             })
         });
         
@@ -87,7 +100,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
     }, [ ownerParcels, scene ]);
 
     return (
-        <div className={classNames(className, 'citadel-wrapper')}>
+        <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
             
             <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
 
@@ -105,6 +118,16 @@ export default function Citadel({ initialize, ownerParcels, className}) {
                 >
                     <IconButton onClick={toggleOwnerParcels} className={classes.citadelInterfaceButton}>
                         { showOwnerParcels ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip 
+                    title={ isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+                    enterTouchDelay={0}
+                    placement='left'
+                >
+                    <IconButton onClick={toggleFullscreen} className={classes.citadelInterfaceButton}>
+                        { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
                     </IconButton>
                 </Tooltip>
             </div>
@@ -129,7 +152,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
                 <span className={classes.citadelLoadingLine}></span>
                 <span className={classes.citadelLoadingLine}></span>
                 <div className={classes.citadelLoadingInner}>
-                    <img src={CitadelLoading} className={classes.citadelLoadingIcon} />
+                    <img src={CitadelLoading} alt='Citadel loader' className={classes.citadelLoadingIcon} />
                 </div>
             </div>
         </div>

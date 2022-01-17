@@ -10,13 +10,12 @@ import ActiveParcels from './ActiveParcels';
 const CITAADEL_WIDTH = 9504;
 const CITAADEL_HEIGHT = 6336;
 
-export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) {
+export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wrapperRef }) {
 
     return class Citadel_scene extends Phaser.Scene {
         constructor() {
             super({ key: 'Citadel_scene' });
-
-            this.wrapper = document.querySelector('.citadel-wrapper');
+            this.wrapper = wrapperRef.current;
 
             if(this.wrapper === null) return;
 
@@ -85,7 +84,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
 
             this.scale.resize(this.wrapper.clientWidth, this.wrapper.clientHeight);
-            
+
             setScene(this);
 
             this.input.on('pointerup', (pointer) => {
@@ -240,7 +239,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             this.showOwnerParcels(true);
 
         }
-        
 
         showOwnerParcels(b) {
 
