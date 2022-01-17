@@ -366,6 +366,7 @@ const guilds = [
         name: 'Metaguild',
         logo: require('../assets/guilds/metaguild.png').default,
         members: [
+            '0xC68C8452be34032ab999787796AE0fAaf071e054',
             '0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6',
             '0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc',
             '0x17a3831B39cc557296d0C322f9C2D42C0b3A8F3f',
@@ -386,7 +387,15 @@ const guilds = [
             '0xcd950256f924a0Eadb6B705f7A43EDF1F67C92Fa',
             '0x5c4eab549a528Bf15c47A01e174500010997235c',
             '0xFab9718db7CeE30BAd26157bf0500894fEfbAAb8',
-            '0xbb73548A0e6F839fb58e9D59969Ba6AEdEcDF5f1'
+            '0xbb73548A0e6F839fb58e9D59969Ba6AEdEcDF5f1',
+            '0x3B02692AB73431e2E263421B1B6ECf89cDB6714c',
+            '0xE7394f05F97257958361329a3fD4f879773c0469',
+            '0xd01dbCde939fD3262C6c9Ee336260f0C6d3E68D3',
+            '0xc194765f438294595EB4A620Ca6D403f7c7E64c7',
+            '0x6004ec8712b6d60c02D5812a46FFD7e17e7Ee41c',
+            '0x8DF6a2DadfaC1009442430CA40F8479d206f7673',
+            '0x7909759B82EB27aB3Cc886C5f3fCE3A72a565b39',
+            '0xC727Bff1962590C71A6CB56C6D11F37beE740A5D'
         ],
         description: [
             {
