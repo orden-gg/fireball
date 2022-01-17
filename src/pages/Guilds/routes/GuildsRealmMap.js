@@ -11,12 +11,9 @@ export default function ClientRealm() {
     const classes = guildContentStyles();
 
 
-	useEffect( () => {
-        if(guildRealm.length) setInitialize(true);
-	}, [guildRealm]);
-
     useEffect( () => {
         setRealmView('map');
+        setInitialize(true);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

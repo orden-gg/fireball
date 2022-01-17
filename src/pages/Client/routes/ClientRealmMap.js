@@ -10,12 +10,9 @@ export default function ClientRealmMap() {
     const [initialize, setInitialize] = useState(false);
     const classes = styles();
 
-	useEffect( () => {
-        if(realm.length) setInitialize(true);
-	}, [realm]);
-
     useEffect( () => {
         setRealmView('map');
+        setInitialize(true);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

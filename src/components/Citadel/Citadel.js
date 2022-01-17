@@ -15,6 +15,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SearchIcon from '@mui/icons-material/Search';
 
+import CitadelLoading from '../../assets/gotchiverse-icon.gif';
+
 export default function Citadel({ initialize, ownerParcels, className}) {
     const classes = styles();
     const [game, setGame] = useState(null);
@@ -23,6 +25,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
     const [ selectedParcel, setSelectedParcel ] = useState(null);
     const [ scene, setScene ] = useState(null);
     const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
+    const [ mapCreated, setMapCreated ] = useState(false);
 
     const [ searchId, setSearchId ] = useState(null);
 
@@ -50,12 +53,18 @@ export default function Citadel({ initialize, ownerParcels, className}) {
             },
             scene: CitadelScene({
                 setScene,
-                setSelectedId,
-                ownerParcels
+                setSelectedId
             })
         });
         
     };
+
+    useEffect( () => {
+        setTimeout( () => {
+            initCitadel();
+        }, 100);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect( () => {
         if(scene) scene.showOwnerParcels(showOwnerParcels);
@@ -71,13 +80,11 @@ export default function Citadel({ initialize, ownerParcels, className}) {
     }, [selectedId]);
 
     useEffect( () => {
-
-        setTimeout( () => {
-            if( initialize ) initCitadel();
-        }, 100);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ initialize ]);
+        if( ownerParcels.length && scene) {
+            scene.addOwnerParcels(ownerParcels);
+            setMapCreated(true);
+        }
+    }, [ ownerParcels, scene ]);
 
     return (
         <div className={classNames(className, 'citadel-wrapper')}>
@@ -101,17 +108,30 @@ export default function Citadel({ initialize, ownerParcels, className}) {
                     </IconButton>
                 </Tooltip>
             </div>
-            <IonPhaser ref={gameRef} game={game} initialize={initialize} />
-            {
-                selectedParcel &&
-                <div className={classes.parcel}>
-                    <Parcel parcel={selectedParcel} />
 
-                    <IconButton className={classes.closeParcel} onClick={ removeSelected }>
-                        <CloseIcon />
-                    </IconButton>
-                </div>
+            <IonPhaser ref={gameRef} game={game} initialize={initialize} />
+
+            {
+                selectedParcel && (
+                    <div className={classes.parcel}>
+                        <Parcel parcel={selectedParcel} />
+
+                        <IconButton className={classes.closeParcel} onClick={ removeSelected }>
+                            <CloseIcon />
+                        </IconButton>
+                    </div>
+                )
+                
             }
+
+            <div className={classNames(classes.citadelLoading, mapCreated && 'is-loaded')}>
+                <span className={classes.citadelLoadingLine}></span>
+                <span className={classes.citadelLoadingLine}></span>
+                <span className={classes.citadelLoadingLine}></span>
+                <div className={classes.citadelLoadingInner}>
+                    <img src={CitadelLoading} className={classes.citadelLoadingIcon} />
+                </div>
+            </div>
         </div>
     );
 }

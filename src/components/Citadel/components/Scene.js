@@ -81,10 +81,11 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             this.highlight.setVisible(false);
 
             this.container.add([this.walls, this.citadel, this.highlight]);
-            this.addOwnerParcels();
 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
 
+            this.scale.resize(this.wrapper.clientWidth, this.wrapper.clientHeight);
+            
             setScene(this);
 
             this.input.on('pointerup', (pointer) => {
@@ -127,6 +128,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             this.input.on('pointermove', (pointer) => {
                 // console.log(pointer);
             });
+            
         }
 
         addContainer() {
@@ -228,7 +230,8 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels }) 
             this.container.y = y
         }
 
-        addOwnerParcels() {
+        addOwnerParcels(ownerParcels) {
+            this.ownerParcelsData = ownerParcels;
             this.createOwnerParcels();
 
             this.container.add(this.activeParcels);

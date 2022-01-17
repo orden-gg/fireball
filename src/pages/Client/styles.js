@@ -30,7 +30,7 @@ const styles = makeStyles( theme => ({
     clientCitadel: {
         position: 'fixed',
         left: 0,
-        top: 30,
+        top: 70,
         right: 0,
         bottom: 70
     }
