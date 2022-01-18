@@ -238,8 +238,8 @@ const guilds = [
         name: 'Gotchi FArmy Gang',
         logo: require('../assets/guilds/gotchi-farmy-gang.png').default,
         members: [
-            'nizo.eth',
-            'financebully.eth',
+            '0x639BB215b1B243561A9F19c13A1dB3DB0919Fd60',
+            '0x9de5Fb2e82681CbF0f9885b2E17c7aADAF7c6a32',
             '0x43FF4C088df0A425d1a519D3030A1a3DFff05CfD',
             '0xEf61cE576B7b42d16727244F8da1734e9bC8127A',
             '0x69A77B9Ca4D106690751866360F7bB5952B2666d',
