@@ -8,7 +8,6 @@ const GuildsContextProvider = (props) => {
 
     const [ guildGotchis, setGuildGotchis ] = useState([]);
     const [ guildRealm, setGuildRealm ] = useState([]);
-    const [ realmView, setRealmView ] = useState('map');
 
     return (
         <GuildsContext.Provider value={{
@@ -22,8 +21,7 @@ const GuildsContextProvider = (props) => {
             guildsData,
             
             currentGuild,
-            setCurrentGuild,
-            realmView, setRealmView
+            setCurrentGuild
 
         }}>
             { props.children }

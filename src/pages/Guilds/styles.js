@@ -211,8 +211,8 @@ const guildStyles = makeStyles( theme => ({
 const guildBanner = makeStyles( theme => ({
     guildBanner: {
         margin: 'auto',
-        padding: theme.spacing(6, 1, 5),
-        minHeight: '35vh',
+        padding: theme.spacing(5, 1, 5),
+        minHeight: '25vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -247,7 +247,7 @@ const guildBanner = makeStyles( theme => ({
         alignItems: 'center',
     },
     guildBannerText: {
-        fontSize: 28,
+        fontSize: 24,
         flexGrow: 1,
         width: '100%',
 
@@ -264,30 +264,30 @@ const guildBanner = makeStyles( theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         margin: theme.spacing(0, 6),
-        minWidth: 300,
+        minWidth: 260,
         transform: 'translateY(-10%)',
         opacity: 0,
         animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
 
         [theme.breakpoints.down('md')]: {
-            minWidth: 200,
+            minWidth: 170,
             margin: theme.spacing(0, 3),
         },
 
         [theme.breakpoints.down('sm')]: {
-            minWidth: 110,
+            minWidth: 100,
             margin: theme.spacing(0, 1)
         }
     },
     guildLogoImage: {
-        maxHeight: 200,
+        maxHeight: 160,
 
         [theme.breakpoints.down('md')]: {
-            maxHeight: 150
+            maxHeight: 130
         },
 
         [theme.breakpoints.down('md')]: {
-            maxHeight: 95
+            maxHeight: 85
         },
         
         '&.placeholder': {
@@ -326,7 +326,7 @@ const guildBanner = makeStyles( theme => ({
     guildName: {
         textAlign: 'center',
         color: theme.palette.primary.main,
-        fontSize: 50,
+        fontSize: 46,
         opacity: 0,
         animation: '1s ease .5s forwards $show',
         lineHeight: 1.2,
@@ -343,19 +343,11 @@ const guildBanner = makeStyles( theme => ({
         },
     },
     guildSocials: {
-        position: 'absolute',
-        right: theme.spacing(4),
-        top: theme.spacing(2.5),
-
-        [theme.breakpoints.down('md')]: {
-            right: theme.spacing(2.5),
-            top: theme.spacing(1.5)
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            right: theme.spacing(1.5),
-            top: theme.spacing(1)
-        }
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: theme.spacing(1),
+        opacity: 0,
+        animation: '1s ease .8s forwards $show',
     },
     guildSocialButton: {
         marginLeft: theme.spacing(1),
@@ -602,19 +594,27 @@ const guildContentStyles = makeStyles( theme => ({
     },
     guildCitadel: {
         height: 600,
-        margin: 20,
+        margin: theme.spacing(2, 5),
         position: 'relative',
 
         '& .citadel-interface': {
             top: 30
         },
 
+        [theme.breakpoints.up('hd')]: {
+            height: 900,
+            maxWidth: 1900,
+            margin: theme.spacing(2, 'auto')
+        },
+
         [theme.breakpoints.down('md')]: {
-            height: 400
+            height: 400,
+            margin: theme.spacing(1, 3)
         },
 
         [theme.breakpoints.down('sm')]: {
             height: 300,
+            margin: theme.spacing(.5, 2),
 
             '& .citadel-interface': {
                 top: 10,

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Button, Tooltip, Switch } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTheme } from '@emotion/react';
-import { useHistory, useRouteMatch } from 'react-router';
+import { useRouteMatch } from 'react-router';
 
 import { NavLink } from 'react-router-dom';
 
@@ -15,23 +15,13 @@ import { guildNavStyles } from '../styles';
 
 export default function GuildNav() {
     const match = useRouteMatch();
-    const history = useHistory();
     const classes = guildNavStyles();
     const theme = useTheme();
 
     const { 
         guildGotchis,
-        guildRealm,
-        realmView
+        guildRealm
      } = useContext(GuildsContext);
-
-    const updateRealmView = () => {
-        let view = realmView === 'list' ? 'map' : 'list';
-        let url = `${match.url}/realm/${view}`;
-
-        history.push({ pathname: url });
-    }
-
     return (
         <div className={classes.container}>
             <div className={classes.navItem}>
@@ -72,7 +62,7 @@ export default function GuildNav() {
                     component={NavLink}
                     className={classes.button}
                     activeClassName='active'
-                    to={{ pathname: `${match.url}/realm/${realmView}` }}
+                    to={{ pathname: `${match.url}/realm` }}
                 >
                     Realm
                     {
@@ -91,17 +81,6 @@ export default function GuildNav() {
                         )
                     }
                 </Button>
-                <Tooltip
-                    title={`Switch to ${realmView === 'map' ? 'list' : 'map'}`}
-                    enterTouchDelay={0}
-                >
-
-                    <Switch 
-                        className={classes.realmViewSwitch}
-                        checked={realmView === 'map'}
-                        onChange={updateRealmView}
-                    />
-                </Tooltip>
             </div>
         </div>
     );

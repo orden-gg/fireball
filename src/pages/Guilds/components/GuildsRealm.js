@@ -1,25 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { GuildsContext } from '../../../contexts/GuildsContext';
-
-import { Redirect, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
-import { useRouteMatch } from 'react-router';
-import GuildsRealmMap from '../routes/GuildsRealmMap';
-import GuildsRealmList from '../routes/GuildsRealmList';
+import Citadel from '../../../components/Citadel/Citadel';
+import { guildContentStyles } from '../styles';
 
 export default function ClientRealm() {
-    const match = useRouteMatch();
-    const { realmView } = useContext(GuildsContext);
-    
+
+    const { guildRealm } = useContext(GuildsContext);
+    const [ initialize, setInitialize ] = useState(false);
+    const classes = guildContentStyles();
+
+
+    useEffect( () => {
+        setInitialize(true);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
-        <Switch>
-            <Route path={`${match.path}/list`} >
-                <GuildsRealmList name='list' />
-            </Route>
-            <Route path={`${match.path}/map`}>
-                <GuildsRealmMap name='map' />
-            </Route>
-            <Redirect from={match.path} to={`${match.path}/${realmView}`} />
-        </Switch>
+        <Citadel className={classes.guildCitadel} initialize={initialize} ownerParcels={guildRealm} />
     );
 }

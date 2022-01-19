@@ -84,10 +84,10 @@ export default function GuildBanner() {
                     </Typography>
                 </div>
                 <Typography component='h1' className={classes.guildName}>{currentGuild?.name}</Typography>
-            </div>
 
-            <div className={classes.guildSocials}>
-                {renderSocials()}
+                <div className={classes.guildSocials}>
+                    {renderSocials()}
+                </div>
             </div>
         </Box>
     );
