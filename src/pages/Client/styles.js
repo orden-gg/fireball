@@ -2,9 +2,14 @@ import { alpha } from '@mui/system';
 
 import { makeStyles } from "@mui/styles";
 
+import mapSvg from '../../assets/images/svgs/map.svg';
+import listSvg from '../../assets/images/svgs/list.svg';
+
 const styles = makeStyles( theme => ({
     container: {
-        padding: 24
+        padding: theme.spacing(3),
+        display: 'flex',
+        flexDirection: 'column'
     },
     alertWrapper: {
         display: 'flex',
@@ -21,6 +26,13 @@ const styles = makeStyles( theme => ({
     },
     alert: {
         marginBottom: 24
+    },
+    clientCitadel: {
+        position: 'fixed',
+        left: 0,
+        top: 70,
+        right: 0,
+        bottom: 70
     }
 }));
 
@@ -30,7 +42,7 @@ const routersStyles = makeStyles( theme => ({
         alignItems: 'start',
         gap: 12,
         gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
-        gridAutoRows: '1fr'
+        gridAutoRows: '1fr',
     },
     listItem: {
         height: '100%'
@@ -78,14 +90,20 @@ const routersStyles = makeStyles( theme => ({
 
 const clientNavStyles = makeStyles( theme => ({
     container: {
-        padding: '12px 0',
+        margin: theme.spacing(1, 0),
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        position: 'relative',
+        zIndex: 1,
+        alignSelf: 'center'
+    },
+    navItem: {
+        margin: 4,
+        position: 'relative'
     },
     button: {
-        margin: 4,
         paddingRight: 12,
         paddingLeft: 12,
         color: '#fff',
@@ -131,6 +149,61 @@ const clientNavStyles = makeStyles( theme => ({
         height: 14,
         marginLeft: 8
     },
+    
+    realmViewSwitch: {
+        position: 'absolute',
+        left: '100%',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        visibility: 'hidden',
+        opacity: 0,
+        transition: '.5s ease-in-out',
+        width: 62,
+        height: 34,
+        padding: 7,
+        willChange: 'opacity, transform',
+
+        '& .MuiSwitch-switchBase': {
+            margin: 1,
+            padding: 0,
+            transform: 'translateX(6px)',
+            '&.Mui-checked': {
+                color: '#fff',
+                transform: 'translateX(22px)',
+                '& .MuiSwitch-thumb:before': {
+                    backgroundImage: `url(${mapSvg})`,
+                }
+            },
+        },
+        '& .MuiSwitch-thumb': {
+            width: 32,
+            height: 32,
+            '&:before': {
+                content: "''",
+                position: 'absolute',
+                width: '80%',
+                height: '80%',
+                left: '10%',
+                top: '10%',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundImage: `url(${listSvg})`,
+            },
+        },
+        '& .MuiSwitch-track': {
+            borderRadius: 20 / 2
+        },
+        '& .Mui-checked+.MuiSwitch-track': {
+            // opacity: 1,
+            backgroundColor: '#fff'
+        },
+
+        '.active + &': {
+            marginLeft: theme.spacing(2),
+            opacity: 1,
+            visibility: 'visible'
+        }
+    }
 }));
 
 const loadRewardsStyles = makeStyles( theme => ({

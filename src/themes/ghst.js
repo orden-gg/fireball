@@ -63,7 +63,8 @@ const theme = createTheme({
             sm: 600,
             md: 960,
             lg: 1280,
-            xl: 1640
+            xl: 1640,
+            hd: 1920
         }
     },
     shape: {

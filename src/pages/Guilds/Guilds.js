@@ -16,7 +16,7 @@ export default function Guilds() {
         <GuildsContextProvider>
             <Switch>
                 <Route exact path={`${match.path}/`} component={GuildsPreview} />
-                <Route exact path={`${match.path}/:name`}>
+                <Route path={`${match.path}/:name`}>
                     <Guild {...{backToGuilds}} />
                 </Route>
                 <Redirect from={match.path} to={match.path} />

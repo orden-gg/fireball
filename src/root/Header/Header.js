@@ -46,19 +46,19 @@ export default function Header() {
                 <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <img src={ discord } alt='' />
-                        <Box component='span' className={classes.iconButtonText}>435</Box>
+                        <Box component='span' className={classes.iconButtonText}>465</Box>
                     </Button>
                 </Link>
                 <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <TwitterIcon />
-                        <Box component='span' className={classes.iconButtonText}>965</Box>
+                        <Box component='span' className={classes.iconButtonText}>1040</Box>
                     </Button>
                 </Link>
                 <Link href='https://github.com/orden-gg/ghst-gg' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
                         <img src={ github } alt='' />
-                        <Box component='span' className={classes.iconButtonText}>10</Box>
+                        <Box component='span' className={classes.iconButtonText}>13</Box>
                     </Button>
                 </Link>
                 <Box className={classes.socialLinkJoin}>
@@ -87,12 +87,12 @@ export default function Header() {
                             <Typography variant={'caption'}>Filter</Typography>
                         </Box>
                     </NavLink>
-                    <NavLink className={classes.navLink} to='/explorer'>
+                    {/* <NavLink className={classes.navLink} to='/explorer'>
                         Explorer
-                    </NavLink>
-                    {/* <NavLink className={classes.navLink} to='/guilds'>
-                        Guilds
                     </NavLink> */}
+                    <NavLink className={classes.navLink} to='/guilds'>
+                        Guilds
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator
                     </NavLink>

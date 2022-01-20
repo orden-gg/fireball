@@ -9,6 +9,9 @@ const styles = makeStyles( theme => ({
         padding: 12,
         backgroundColor: alpha(theme.palette.secondary.dark, .5),
         borderRadius: 4,
+        position: 'relative',
+        zIndex: 1,
+        width: '100%'
     },
     profileLogged: {
         position: 'relative',

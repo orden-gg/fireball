@@ -22,12 +22,13 @@ const ClientContextProvider = (props) => {
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
-    const [realmFilter, setRealmFilter] = useState('sizeDesc');
+    const [realmFilter, setRealmFilter] = useState(null);
     const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
     const [rewardCalculating, setRewardCalculating] = useState(false);
     const [rewardCalculated, setRewardCalculated] = useState(false);
+    const [ realmView, setRealmView ] = useState('map');
 
     const getClientData = () => {
         getGotchis(clientActive);
@@ -182,9 +183,7 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address).then((response) => {
-            let [filter, dir] = getFilter(realmFilter);
-
-            setRealm(commonUtils.basicSort(response, filter, dir));
+            setRealm(response);
             setLoadingRealm(false);
         }).catch((error) => {
             console.log(error);
@@ -247,6 +246,8 @@ const ClientContextProvider = (props) => {
             realmFilter,
             loadingRealm,
             setRealm,
+            realmView,
+            setRealmView,
 
             reward,
             rewardCalculated,

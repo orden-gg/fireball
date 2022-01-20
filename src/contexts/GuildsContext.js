@@ -1,19 +1,22 @@
 import React, {createContext, useState} from 'react';
-import guilds from '../data/guilds';
+import guildsData from '../data/guilds';
 
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
-    const [ guildsData, setGuildsData ] = useState(guilds);
     const [ currentGuild, setCurrentGuild ] = useState([]);
 
     const [ guildGotchis, setGuildGotchis ] = useState([]);
+    const [ guildRealm, setGuildRealm ] = useState([]);
 
     return (
         <GuildsContext.Provider value={{
 
             guildGotchis,
             setGuildGotchis,
+
+            guildRealm,
+            setGuildRealm,
 
             guildsData,
             

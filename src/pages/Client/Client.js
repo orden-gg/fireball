@@ -62,7 +62,7 @@ export default function Client() {
             <Helmet>
                 <title>
                     {clientActive ?
-                        `${commonUtils.cutAddress(activeAddress, '...')} || ${location.pathname.split('/')[2]}`
+                        `${commonUtils.cutAddress(clientActive, '...')} || ${location.pathname.split('/')[2]}`
                         : 'Client'}
                 </title>
             </Helmet>
