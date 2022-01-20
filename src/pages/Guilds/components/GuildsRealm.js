@@ -1,23 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { GuildsContext } from '../../../contexts/GuildsContext';
 import Citadel from '../../../components/Citadel/Citadel';
 import { guildContentStyles } from '../styles';
 
-export default function ClientRealm() {
+export default function GuildRealm() {
 
     const { guildRealm } = useContext(GuildsContext);
-    const [ initialize, setInitialize ] = useState(false);
     const classes = guildContentStyles();
 
-
-    useEffect( () => {
-        setInitialize(true);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
-        <Citadel className={classes.guildCitadel} initialize={initialize} ownerParcels={guildRealm} />
+        <Citadel className={classes.guildCitadel} ownerParcels={guildRealm} />
     );
 }

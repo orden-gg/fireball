@@ -83,7 +83,7 @@ const styles = makeStyles( theme => ({
     citadelInterface: {
         position: 'absolute',
         right: theme.spacing(1),
-        top: theme.spacing(15),
+        top: theme.spacing(11),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',

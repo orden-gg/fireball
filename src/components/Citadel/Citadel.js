@@ -22,7 +22,7 @@ import useFullscreenStatus from '../../hooks/useFullscreenStatus';
 
 import CitadelLoading from '../../assets/gotchiverse-icon.gif';
 
-export default function Citadel({ initialize, ownerParcels, className}) {
+export default function Citadel({ ownerParcels, className}) {
     const classes = styles();
     const [game, setGame] = useState(null);
 
@@ -133,7 +133,7 @@ export default function Citadel({ initialize, ownerParcels, className}) {
                 </Tooltip>
             </div>
 
-            <IonPhaser ref={gameRef} game={game} initialize={initialize} />
+            <IonPhaser ref={gameRef} game={game} initialize={true} />
 
             {
                 selectedParcel && (

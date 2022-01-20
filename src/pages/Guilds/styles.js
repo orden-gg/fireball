@@ -196,7 +196,7 @@ const guildStyles = makeStyles( theme => ({
     },
     guildContent: {
         background: theme.palette.background.secondary,
-        paddingTop: theme.spacing(2),
+        padding: theme.spacing(2, 0),
         marginTop: theme.spacing(3),
 
         [theme.breakpoints.down('md')]: {
