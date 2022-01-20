@@ -3,14 +3,13 @@ import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 import graphUtils from '../utils/graphUtils';
 import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery,
-    raffleQuery, raffleEntrantsQuery, listedParcelsQuery } from './common/queries';
+    raffleQuery, raffleEntrantsQuery, raffleWinsQuery, listedParcelsQuery } from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-// const raffle = 'https://api.thegraph.com/subgraphs/id/QmRJz2xXcozeYpBq8qyuxedE6LT7Dcu1f9KJ8wZiYaW5sk/graphql';
 const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
@@ -225,15 +224,13 @@ export default {
             let prizes = response.data.raffles[0].ticketPools;
 
             prizes.forEach((pool) => {
-                // let formatIds = przs.map((item) => {
-                //     item.id = (item.id).substring(2);
-                //     return item
-                // })
-
                 data.push({
                     id: pool.id,
                     items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),
-                    prizes: pool.prizes
+                    prizes: pool.prizes.map((item) => ({
+                        id: (item.id).substring(2),
+                        quantity: item.quantity
+                    }))
                 });
             });
 
@@ -262,6 +259,25 @@ export default {
             merged.forEach((item) => {
                 data.push({
                     ticketId: item.ticketId,
+                    quantity: item.quantity,
+                });
+            });
+
+            return data;
+        });
+    },
+
+    async getRaffleWins(address, raffle) {
+        return await this.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response) => {
+            let data = [];
+
+            let received = JSON.parse(JSON.stringify(response.data.raffleWinners));
+            
+            let filtered = received.filter((item) => +item.raffle.id === raffle);
+
+            filtered.forEach((item) => {
+                data.push({
+                    itemId: (item.item.id).substring(2),
                     quantity: item.quantity,
                 });
             });

@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
+import RaffleItems from '../components/RaffleItems';
 import RaffleCountdown from '../components/RaffleCountdown';
 
 const startDate = DateTime.local(2021, 12, 15, 14, { zone: 'utc' });
@@ -22,7 +23,7 @@ export default function RaffleRealm2({raffleActive}) {
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
 
-    const { setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
+    const { tickets, setTickets, getRaffleData, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
         setTickets(raffle.tickets);
@@ -49,6 +50,13 @@ export default function RaffleRealm2({raffleActive}) {
             <RaffleTable
                 raffleEnded={raffleEnded}
             />
+
+            <div style={{ maxWidth: '825px', margin: 'auto' }}>
+                <RaffleItems
+                    tickets={tickets}
+                    type='realm'
+                />
+            </div>
         </div>
     );
 }

@@ -257,6 +257,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all .2s ease-in-out',
+            minWidth: '100%',
             '&:hover': {
                 backgroundColor: alpha(theme.palette.secondary.dark, .5),
             }
@@ -380,6 +381,13 @@ const parselStyles = makeStyles( theme => ({
         '.specions &': {
             backgroundColor: theme.palette.realm.specions
         }
+    },
+    size: {
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+        fontSize: 10,
+        opacity: .8
     }
 }));
 

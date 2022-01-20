@@ -12,7 +12,7 @@ const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
 const endDate = DateTime.local(2021, 9, 27, 14, { zone: 'utc' });
 
 const raffle = { // Raffle config
-    id: 5,
+    id: 3,
     tickets: [
         { id: 0, rarity: 'common', value: '' },
         { id: 1, rarity: 'uncommon', value: '' },
@@ -23,7 +23,7 @@ const raffle = { // Raffle config
     ]
 };
 
-export default function RaffleWearables5({raffleActive}) {
+export default function RaffleRpgWearables({raffleActive}) {
     const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
@@ -57,6 +57,10 @@ export default function RaffleWearables5({raffleActive}) {
             />
 
             <RaffleItems tickets={tickets} />
+            {/* {tickets.length === 6 ? ( // TODO: wtf is this? - temporary solution for route switch data rendering
+            ) : (
+                null
+            )} */}
             
         </div>
     );

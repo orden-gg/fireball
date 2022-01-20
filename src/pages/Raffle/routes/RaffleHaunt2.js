@@ -8,22 +8,17 @@ import RaffleTable from '../components/RaffleTable';
 import RaffleItems from '../components/RaffleItems';
 import RaffleCountdown from '../components/RaffleCountdown';
 
-const startDate = DateTime.local(2021, 9, 24, 14, { zone: 'utc' });
-const endDate = DateTime.local(2021, 9, 27, 14, { zone: 'utc' });
+const startDate = DateTime.local(2021, 11, 5, 14, { zone: 'utc' });
+const endDate = DateTime.local(2021, 11, 8, 14, { zone: 'utc' });
 
 const raffle = { // Raffle config
-    id: 5,
+    id: 4,
     tickets: [
-        { id: 0, rarity: 'common', value: '' },
-        { id: 1, rarity: 'uncommon', value: '' },
-        { id: 2, rarity: 'rare', value: '' },
-        { id: 3, rarity: 'legendary', value: '' },
-        { id: 4, rarity: 'mythical', value: '' },
-        { id: 5, rarity: 'godlike', value: '' }
+        { id: 6, rarity: 'drop', value: '' }
     ]
 };
 
-export default function RaffleWearables5({raffleActive}) {
+export default function RaffleHaunt2({raffleActive}) {
     const classes = titleStyles();
 
     const [raffleEnded] = useState(endDate - DateTime.local() < 0 ? true : false);
@@ -47,7 +42,7 @@ export default function RaffleWearables5({raffleActive}) {
         <div className={classes.inner}>
             {/* <div className={classes.titleWrapper}>
                 <h5 className={classes.title}>
-                    Sep 24-27 [2021]
+                    Nov 5-8 [2021]
                 </h5>
                 <RaffleCountdown start={startDate} end={endDate} />
             </div> */}
@@ -56,8 +51,12 @@ export default function RaffleWearables5({raffleActive}) {
                 raffleEnded={raffleEnded}
             />
 
-            <RaffleItems tickets={tickets} />
-            
+            <div style={{ maxWidth: '195px', margin: 'auto' }}>
+                <RaffleItems
+                    tickets={tickets}
+                    type='portal'
+                />
+            </div>
         </div>
     );
 }

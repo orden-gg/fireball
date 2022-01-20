@@ -1,5 +1,5 @@
 import React from 'react';
-import {  Button, Link } from '@mui/material';
+import {  Button } from '@mui/material';
 import { useRouteMatch } from 'react-router';
 
 import { raffleNavStyles } from '../styles';
@@ -10,6 +10,7 @@ import h2icon from '../../../assets/images/h2_sealed.svg';
 import wearable5icon from '../../../assets/wearables/261.svg';
 import realm1icon from '../../../assets/images/icons/kek.png';
 import realm2icon from '../../../assets/images/icons/fud.png';
+import wearableRPG from '../../../assets/wearables/286.svg';
 
 export default function RaffleNav({address}) {
     const match = useRouteMatch();
@@ -21,11 +22,10 @@ export default function RaffleNav({address}) {
                 startIcon={
                     <img src={wearables4icon} alt='wearable' height={18} />
                 }
-                component={Link}
+                component={NavLink}
                 className={classes.button}
-                disabled
-                // activeClassName='active'
-                // to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/wearables-4`, search: `?address=${address}` }}
             >
                 Wearables #4
             </Button>
@@ -34,11 +34,10 @@ export default function RaffleNav({address}) {
                 startIcon={
                     <img src={h2icon} alt='wearable' height={20} />
                 }
-                component={Link}
+                component={NavLink}
                 className={classes.button}
-                disabled
-                // activeClassName='active'
-                // to={{ pathname: `${match.url}/wearable-5`, search: `?address=${address}` }}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/haunt-2`, search: `?address=${address}` }}
             >
                 H2 portals
             </Button>
@@ -77,6 +76,18 @@ export default function RaffleNav({address}) {
                 to={{ pathname: `${match.url}/realm-2`, search: `?address=${address}` }}
             >
                 Realm #2
+            </Button>
+
+            <Button
+                startIcon={
+                    <img src={wearableRPG} alt='realm' width={20} />
+                }
+                component={NavLink}
+                className={classes.button}
+                activeClassName='active'
+                to={{ pathname: `${match.url}/wearables-rpg`, search: `?address=${address}` }}
+            >
+                Defi RPG Wearables
             </Button>
         </div>
     );

@@ -10,8 +10,6 @@ export default function RaffleTicket({ticket}) {
     const classes = ticketStyles();
     const theme = useTheme();
 
-    console.log(ticket);
-
     return (
         <div className={classes.ticket}>
             <img

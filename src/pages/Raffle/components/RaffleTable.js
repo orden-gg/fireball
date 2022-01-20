@@ -16,7 +16,7 @@ import ghst from '../../../assets/images/ghst-doubleside.gif';
 export default function RaffleTablee({raffleEnded}) {
     const classes = tableStyles();
 
-    const { tickets, setTickets, raffleSpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
+    const { tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances, formatChance } = useContext(RaffleContext);
 
     const handleInputChange = (event, i) => {
         let newValue = event.target.value > 0 ? event.target.value : '';
@@ -25,6 +25,7 @@ export default function RaffleTablee({raffleEnded}) {
             let modified = [...ticketsCache];
             modified[i].value = +newValue;
             modified[i].chance = countChances(+newValue, modified[i].entered, modified[i].items);
+            modified[i].prizes = countWearablesChances(modified[i]);
 
             return modified
         });
@@ -34,7 +35,7 @@ export default function RaffleTablee({raffleEnded}) {
         <>
             <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3} style={{ position: 'relative' }}>
-                    <Typography variant='h6' className={classes.subtitle}>Entered Tickets</Typography>
+                    <Typography variant='h6' className={classes.subtitle}>Your Entered Tickets</Typography>
                 </Grid>
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>

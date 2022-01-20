@@ -215,3 +215,18 @@ export const raffleEntrantsQuery = (address) => {
       }
     }`
 };
+
+export const raffleWinsQuery = (address) => {
+    return `{
+      raffleWinners(where: { address: "${address}" }) {
+        id
+        item{
+          id
+        }
+        raffle {
+          id
+        }
+        quantity
+      }
+    }`
+};

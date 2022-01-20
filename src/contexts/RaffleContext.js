@@ -19,12 +19,17 @@ const RaffleContextProvider = (props) => {
         if(!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
-                    ticket.chance = countChances(ticket.value, ticket.entered, ticket.items);
+                    ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
+                    ticket.prizes = countWearablesChances(ticket);
                     return ticket;
                 });
             });
         }
     }, [raffleSpinner, loadingEntered])
+
+    // useEffect(() => {
+    //     console.log('tickets', tickets);
+    // }, [tickets]);
 
     const getRaffleData = (raffle, raffleTickets) => {
         getRaffle(raffle);
@@ -77,14 +82,27 @@ const RaffleContextProvider = (props) => {
     const getAddressData = (address, raffle) => {
         setLoadingEntered(true);
 
-        thegraph.getRaffleEntered(address, raffle).then((response) => {
+        Promise.all([
+            thegraph.getRaffleEntered(address, raffle),
+            thegraph.getRaffleWins(address, raffle)
+        ]).then(([entered, won]) => {
+
             setTickets((ticketsCache) => {
                 let modified = [...ticketsCache];
-                response.forEach((item, i) => {
+
+                entered.forEach((item, i) => {
                     let elem = modified.length > 1 ? item.ticketId : 0;
 
                     modified[elem].value = item.quantity;
+                    modified[elem].prizes = modified[elem].prizes.map((item) => {
+                        let index = won.findIndex(prize => prize.itemId === item.id);
+                        return ({ 
+                            ...item,
+                            won: index !== -1 ? won[index].quantity : 0
+                        })
+                    })
                 });
+
                 return modified;
             });
             setLoadingEntered(false);
@@ -101,6 +119,21 @@ const RaffleContextProvider = (props) => {
 
     const countChances = (value, entered, items) => {
         return value / entered * items;
+    }
+
+    const countWearablesChances = (ticket) => {
+        let wearables = ticket.prizes;
+        
+        if(wearables) {
+            wearables.forEach((wearable) => {
+                let perc = wearable.quantity * 100 / ticket.items;
+                let chance = perc * ticket.chance / 100;
+
+                wearable.chance = chance;
+            })
+        }
+
+        return wearables;
     }
 
     const formatChance = (chance, items) => {
@@ -121,6 +154,7 @@ const RaffleContextProvider = (props) => {
 
             onAddressChange,
             countChances,
+            countWearablesChances,
             formatChance,
 
             raffleSpinner,

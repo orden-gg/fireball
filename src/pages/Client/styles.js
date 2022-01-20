@@ -25,14 +25,6 @@ const styles = makeStyles( theme => ({
 }));
 
 const routersStyles = makeStyles( theme => ({
-    // backdrop: {
-    //     zIndex: theme.zIndex.appBar - 1,
-    //     color: '#fff'
-    // },
-    // textHighlight: {
-    //     color: theme.palette.primary.main,
-    //     marginLeft: 10
-    // },
     list: {
         display: 'grid',
         alignItems: 'start',

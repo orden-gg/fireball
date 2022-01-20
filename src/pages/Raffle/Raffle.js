@@ -11,11 +11,17 @@ import RaffleContextProvider from '../../contexts/RaffleContext';
 import commonUtils from '../../utils/commonUtils';
 import web3 from '../../api/web3';
 
+// components
 import RaffleNav from './components/RaffleNav';
 import RaffleTickets from './components/RaffleTickets';
+
+// routes
+import RaffleWearables4 from './routes/RaffleWearables4';
+import RaffleHaunt2 from './routes/RaffleHaunt2';
 import RaffleWearables5 from './routes/RaffleWearables5';
 import RaffleRealm from './routes/RaffleRealm';
 import RaffleRealm2 from './routes/RaffleRealm2';
+import RaffleRpgWearables from './routes/RaffleRpgWearables';
 
 export default function Raffle() {
     const classes = styles();
@@ -100,7 +106,7 @@ export default function Raffle() {
             <Helmet>
                 <title>
                     {
-                        `raffle calculator || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(activeAddress, '...') : ''}`
+                        `raffle calculator || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(raffleActive, '...') : ''}`
                     }
                 </title>
             </Helmet>
@@ -121,6 +127,12 @@ export default function Raffle() {
 
             <RaffleContextProvider>
                 <Switch>
+                    <Route path={`${match.path}/wearables-4`}>
+                        <RaffleWearables4 raffleActive={raffleActive} />
+                    </Route>
+                    <Route path={`${match.path}/haunt-2`}>
+                        <RaffleHaunt2 raffleActive={raffleActive} />
+                    </Route>
                     <Route path={`${match.path}/wearables-5`}>
                         <RaffleWearables5 raffleActive={raffleActive} />
                     </Route>
@@ -129,6 +141,9 @@ export default function Raffle() {
                     </Route>
                     <Route path={`${match.path}/realm-2`}>
                         <RaffleRealm2 raffleActive={raffleActive} />
+                    </Route>
+                    <Route path={`${match.path}/wearables-rpg`}>
+                        <RaffleRpgWearables raffleActive={raffleActive} />
                     </Route>
                     <Redirect from={match.path} to={`${match.path}/realm-2`} />
                 </Switch>
