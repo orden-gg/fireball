@@ -17,6 +17,8 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SearchIcon from '@mui/icons-material/Search';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import GridOffIcon from '@mui/icons-material/GridOff';
 
 import useFullscreenStatus from '../../hooks/useFullscreenStatus';
 
@@ -33,6 +35,7 @@ export default function Citadel({ ownerParcels, className}) {
 
     const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
     const [ searchId, setSearchId ] = useState(null);
+    const [ showGrid, setShowGrid ] = useState(false);
 
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
@@ -45,10 +48,16 @@ export default function Citadel({ ownerParcels, className}) {
     
     const toggleOwnerParcels = () => {
         setShowOwnerParcels(!showOwnerParcels);
+        scene.showOwnerParcels(!showOwnerParcels);
     }
 
     const toggleFullscreen = () => {
         isFullscreen ? document.exitFullscreen() : setIsFullscreen();
+    }
+
+    const toggleGrid = () => {
+        setShowGrid(!showGrid);
+        scene.showGrid(!showGrid);
     }
     
 
@@ -79,12 +88,6 @@ export default function Citadel({ ownerParcels, className}) {
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect( () => {
-        if(scene) scene.showOwnerParcels(showOwnerParcels);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showOwnerParcels])
 
     useEffect( () => {
         if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
@@ -129,6 +132,16 @@ export default function Citadel({ ownerParcels, className}) {
                 >
                     <IconButton onClick={toggleFullscreen} className={classes.citadelInterfaceButton}>
                         { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip 
+                    title={ showGrid ? 'Hide Grid' : 'Show Grid' }
+                    enterTouchDelay={0}
+                    placement='left'
+                >
+                    <IconButton onClick={toggleGrid} className={classes.citadelInterfaceButton}>
+                        { showGrid ? <GridOnIcon /> : <GridOffIcon /> }
                     </IconButton>
                 </Tooltip>
             </div>
