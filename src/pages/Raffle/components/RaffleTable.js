@@ -12,11 +12,12 @@ import { RaffleContext } from '../../../contexts/RaffleContext';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import ghst from '../../../assets/images/ghst-doubleside.gif';
+import { DateTime } from 'luxon';
 
 export default function RaffleTablee({raffleEnded}) {
     const classes = tableStyles();
 
-    const { tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances, formatChance } = useContext(RaffleContext);
+    const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
 
     const handleInputChange = (event, i) => {
         let newValue = event.target.value > 0 ? event.target.value : '';
@@ -48,7 +49,7 @@ export default function RaffleTablee({raffleEnded}) {
                                         variant='outlined'
                                         value={ticket.value}
                                         fullWidth
-                                        disabled={raffleEnded}
+                                        disabled={raffle.endDate - DateTime.local() < 0}
                                         className={classNames(classes.input, ticket.rarity)}
                                         label={commonUtils.capitalize(ticket.rarity)}
                                         onChange={(event) => handleInputChange(event, i)}
@@ -245,7 +246,7 @@ export default function RaffleTablee({raffleEnded}) {
                                         align='center'
                                         className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
                                     >
-                                        {ticket.chance ? formatChance(ticket.chance, ticket.items) : 0}
+                                        {ticket.chance ? commonUtils.formatChance(ticket.chance, ticket.items) : 0}
                                     </Typography>
                                 </Box>
                             </Grid>

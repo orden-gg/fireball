@@ -4,6 +4,7 @@ import commonUtils from '../utils/commonUtils';
 import web3 from '../api/web3';
 
 import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries.data';
+import itemUtils from '../utils/itemUtils';
 
 export const RaffleContext = createContext({});
 
@@ -15,6 +16,10 @@ const RaffleContextProvider = (props) => {
 
     const [raffleSpinner, setRaffleSpinner] = useState(true);
     const [pricesSpinner, setPricesSpinner] = useState(true);
+
+    useEffect(() => {
+        console.log(tickets);
+    }, [tickets])
 
     useEffect(() => {
         if(!raffleSpinner && !loadingEntered) {
@@ -83,7 +88,6 @@ const RaffleContextProvider = (props) => {
             thegraph.getRaffleEntered(address, raffle),
             thegraph.getRaffleWins(address, raffle)
         ]).then(([entered, won]) => {
-
             setTickets((ticketsCache) => {
                 let modified = [...ticketsCache];
 
@@ -97,7 +101,8 @@ const RaffleContextProvider = (props) => {
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0
                         })
-                    })
+                    });
+                    
                 });
 
                 return modified;
@@ -107,7 +112,7 @@ const RaffleContextProvider = (props) => {
     };
 
     const onAddressChange = (address, raffle) => {
-        // tickets.forEach((item, i) => tickets[i].value = '');
+        tickets.forEach((item, i) => tickets[i].value = '');
 
         if(web3.isAddressValid(address)) {
             getAddressData(address, raffle);
@@ -133,12 +138,12 @@ const RaffleContextProvider = (props) => {
         return wearables;
     }
 
-    const formatChance = (chance, items) => {
-        let percentage = (chance * 100).toFixed(1);
-
-        return chance > items ? `x${items.toFixed(2)}` :
-            chance > 1 ? `x${chance.toFixed(2)}` :
-            chance > 0 ? `${percentage}% for 1` : 0;
+    const getTicketsPreset = (tickets) => {
+        return tickets.map((ticket) => ({
+            id: ticket,
+            rarity: itemUtils.getItemRarityName(ticket.toString()),
+            value: ''
+        }));
     }
 
     return (
@@ -151,11 +156,11 @@ const RaffleContextProvider = (props) => {
 
             getRaffleData,
             getAddressData,
+            getTicketsPreset,
 
             onAddressChange,
             countChances,
             countWearablesChances,
-            formatChance,
 
             raffleSpinner,
             pricesSpinner

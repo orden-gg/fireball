@@ -4,10 +4,9 @@ import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-import itemUtils from '../../../utils/itemUtils';
 import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
 
-export default function ParcelGeneric({parcel, raffleChances}) {
+export default function RealmGeneric({realm, raffleChances}) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -15,10 +14,8 @@ export default function ParcelGeneric({parcel, raffleChances}) {
         ...parselStyles()
     };
 
-    const size = itemUtils.getParcelSize(parcel.size);
-
     return (
-        <div className={classNames(classes.item, size, classes.parcelCard)}>
+        <div className={classNames(classes.item, 'realm-generic', classes.parcelCard)}>
 
             <div className={classes.labels}>
 
@@ -30,20 +27,16 @@ export default function ParcelGeneric({parcel, raffleChances}) {
                 >
                     <div className={classNames(classes.label, classes.labelBalance)}>
                         <Typography variant='subtitle2'>
-                            {parcel.balance}
+                            {realm.balance}
                         </Typography>
                     </div>
                 </Tooltip>
             </div>
 
             <div className={classNames(classes.nameWrapper, 'two-lined')} >
-                <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                    {size}
+                <Typography className={classNames(classes.name, classes.textHighlight, 'realm-generic')}>
+                    Realm
                 </Typography>
-            </div>
-
-            <div className={classes.size}>
-                {itemUtils.getParcelDimmentions(parcel.size)}
             </div>
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}

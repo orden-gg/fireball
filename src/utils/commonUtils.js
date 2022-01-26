@@ -42,6 +42,15 @@ export default {
         return traits.reduce((item, val, i) => ({...item,[useEmojis ? traitsEmojis[i] : traitsKeys[i]]:val}),{});
     },
 
+
+    formatChance(chance, items) {
+        let percentage = (chance * 100).toFixed(1);
+
+        return chance > items ? `x${items.toFixed(2)}` :
+            chance > 1 ? `x${chance.toFixed(2)}` :
+            chance > 0 ? `${percentage}% for 1` : 0;
+    },
+
     cutAddress(address, symbol) {
         let splitter = symbol ? symbol : '~~'
         return address.slice(0, 4) + splitter + address.slice(38);

@@ -70,7 +70,7 @@ export default function Raffle() {
                 null
             )}
 
-            <RaffleNav address={raffleActive} />
+            <RaffleNav user={raffleActive} />
 
             {web3.isAddressValid(raffleActive) ? (
                 <RaffleTickets address={raffleActive} />

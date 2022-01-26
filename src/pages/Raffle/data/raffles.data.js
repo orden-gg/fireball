@@ -1,54 +1,60 @@
+import { DateTime } from 'luxon';
+
 const raffles = [
     {
         id: 3,
         name: 'wearables-4',
         type: 'wearables',
-        tickets: [
-            { id: 0, rarity: 'common', value: '' },
-            { id: 1, rarity: 'uncommon', value: '' },
-            { id: 2, rarity: 'rare', value: '' },
-            { id: 3, rarity: 'legendary', value: '' },
-            { id: 4, rarity: 'mythical', value: '' },
-            { id: 5, rarity: 'godlike', value: '' }
-        ]
+        startDate: DateTime.local(2021, 3, 29, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2021, 4, 1, 14, { zone: 'utc' }),
+        tickets: [0, 1, 2, 3, 4, 5],
+        icon: require('../../../assets/wearables/156.svg').default,
     },
     {
         id: 4,
         name: 'haunt-2',
         type: 'portals',
-        tickets: [
-            { id: 6, rarity: 'drop', value: '' }
-        ]
+        startDate: DateTime.local(2021, 9, 5, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2021, 9, 8, 14, { zone: 'utc' }),
+        tickets: [6],
+        icon: require('../../../assets/images/h2_sealed.svg').default
     },
     {
         id: 5,
         name: 'wearables-5',
         type: 'wearables',
-        tickets: [
-            { id: 0, rarity: 'common', value: '' },
-            { id: 1, rarity: 'uncommon', value: '' },
-            { id: 2, rarity: 'rare', value: '' },
-            { id: 3, rarity: 'legendary', value: '' },
-            { id: 4, rarity: 'mythical', value: '' },
-            { id: 5, rarity: 'godlike', value: '' }
-        ]
+        startDate: DateTime.local(2021, 9, 24, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2021, 9, 27, 14, { zone: 'utc' }),
+        tickets: [0, 1, 2, 3, 4, 5],
+        icon: require('../../../assets/wearables/261.svg').default
     },
     {
         id: 6,
         name: 'realm',
-        type: 'realm',
-        tickets: [
-            { id: 6, rarity: 'drop', value: '' }
-        ]
+        type: 'realm-generic',
+        tickets: [6],
+        startDate: DateTime.local(2021, 11, 5, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2021, 11, 8, 14, { zone: 'utc' }),
+        icon: require('../../../assets/images/icons/kek.png').default
     },
     {
         id: 7,
         name: 'realm-2',
         type: 'realm',
-        tickets: [
-            { id: 6, rarity: 'drop', value: '' }
-        ]
-    }
+        tickets: [6],
+        startDate: DateTime.local(2021, 12, 15, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2021, 12, 18, 14, { zone: 'utc' }),
+        icon: require('../../../assets/images/icons/fud.png').default
+    },
+    {
+        id: 8,
+        name: 'defi-rpg-wearables',
+        type: 'wearables',
+        tickets: [0, 1, 2, 3, 4, 5],
+        startDate: DateTime.local(2022, 1, 26, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2022, 1, 29, 14, { zone: 'utc' }),
+        icon: require('../../../assets/wearables/313.svg').default
+    },
 ];
 
 export default raffles;

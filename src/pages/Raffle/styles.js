@@ -440,9 +440,12 @@ const raffleNavStyles = makeStyles( theme => ({
     container: {
         padding: '12px 0',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         flexWrap: 'wrap'
+    },
+    buttonContainer: {
+        textAlign: 'center'
     },
     button: {
         margin: 4,
@@ -482,7 +485,31 @@ const raffleNavStyles = makeStyles( theme => ({
     label: {
         fontSize: 14,
         fontWeight: 600,
-        color: theme.palette.primary.main,
+        textAlign: 'center'
+    }
+}));
+
+const raffleDataStyles = makeStyles( theme => ({
+    title: {
+        textAlign: 'center',
+        fontSize: 10,
+        '&.live': {
+            color: '#ff0c0c',
+            fontSize: 12
+        },
+        '&.upcoming': {
+            color: '#1fd71f',
+            fontSize: 12
+        },
+        '&.ended': {
+            color: '#979797'
+        }
+    }
+}));
+
+const raffleChanceStyles = makeStyles( theme => ({
+    container: {
+        marginTop: '8px'
     }
 }));
 
@@ -523,8 +550,16 @@ const itemsStyles = makeStyles( theme => ({
         gridAutoRows: '1fr'
     },
     listItem: {
-        height: '100%',
-        position: 'relative'
+        position: 'relative',
+        '&:not(.highlight)': {
+            opacity: '.4',
+            filter: 'grayscale(1)'
+        },
+        '&.clean, &:hover': {
+            opacity: '1 !important',
+            filter: 'grayscale(0) !important',
+            transition: 'all .2s ease-in-out'
+        }
     },
 }));
 
@@ -532,6 +567,8 @@ export {
     styles as default,
     raffleCountdownStyles,
     raffleNavStyles,
+    raffleDataStyles,
+    raffleChanceStyles,
     ticketStyles,
     tableStyles,
     itemsStyles,

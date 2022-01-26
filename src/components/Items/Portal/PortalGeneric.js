@@ -1,24 +1,21 @@
 import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
-
 import classNames from 'classnames';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-
-import itemUtils from '../../../utils/itemUtils';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
+import h2SealedPortal from '../../../assets/images/h2_sealed.svg';
 import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
 
-export default function ParcelGeneric({parcel, raffleChances}) {
+export default function PortalGeneric({portal, raffleChances}) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
         ...tooltipStyles(),
-        ...parselStyles()
+        ...parselStyles(),
+        ...portalStyles()
     };
 
-    const size = itemUtils.getParcelSize(parcel.size);
-
     return (
-        <div className={classNames(classes.item, size, classes.parcelCard)}>
+        <div className={classNames(classes.item, classes.portalCard)}>
 
             <div className={classes.labels}>
 
@@ -30,20 +27,18 @@ export default function ParcelGeneric({parcel, raffleChances}) {
                 >
                     <div className={classNames(classes.label, classes.labelBalance)}>
                         <Typography variant='subtitle2'>
-                            {parcel.balance}
+                            {portal.balance}
                         </Typography>
                     </div>
                 </Tooltip>
             </div>
 
-            <div className={classNames(classes.nameWrapper, 'two-lined')} >
-                <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                    {size}
-                </Typography>
-            </div>
+            <img className={classes.portalImage} src={h2SealedPortal} alt="Portal" />
 
-            <div className={classes.size}>
-                {itemUtils.getParcelDimmentions(parcel.size)}
+            <div style={{ marginTop: '16px' }}>
+                <Typography className={classNames(classes.name, classes.textHighlight)}>
+                    H2 Portal
+                </Typography>
             </div>
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
