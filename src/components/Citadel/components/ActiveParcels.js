@@ -10,9 +10,14 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
     animateParcels(color1, color2, duration) {
         let [fromColor, toColor] = [ Phaser.Display.Color.ValueToColor(color1), Phaser.Display.Color.ValueToColor(color2) ]
         
-        if(!color1) return this.scene.parcelsTween.stop();
+        if(!color1) {
+            console.log(!color1);
+            this.parcelsTween.stop();
+            this.clear();
+            return;
+        }
 
-        this.scene.parcelsTween = this.scene.tweens.addCounter({
+        this.parcelsTween = this.scene.tweens.addCounter({
             from: 0,
             to: 100,
             repeat: -1,
@@ -23,8 +28,8 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
                 const color = Phaser.Display.Color.Interpolate.ColorWithColor(fromColor, toColor, 100, value);
 
                 this.clear();
-                for(let circle of this.parcels) {
-                    let {x, y, w, h} = circle;
+                for(let parcel of this.parcels) {
+                    let {x, y, w, h} = parcel;
 
                     this.create(x, y, w, h, Phaser.Display.Color.GetColor(color.r, color.g, color.b), false);
                 }
