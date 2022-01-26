@@ -20,9 +20,9 @@ export default function RaffleItems({tickets, type}) {
                     balance: item.quantity
                 }}
             ></ParcelGeneric>
-        } else if(type === 'portal') {
+        } else if(type === 'portals') {
             return <div style={{ background: '#000', padding: 8, borderRadius: 8 }}>Haunt 2 portal <br/> Quantity: {item.quantity}</div> // TODO: Generic portal component
-        } else {
+        } else if(type === 'wearables') {
             return <Wearable
                 wearable={{
                     id: item.id,
@@ -30,6 +30,8 @@ export default function RaffleItems({tickets, type}) {
                     category: 0
                 }}
             ></Wearable>
+        } else {
+            return null;
         }
     };
     

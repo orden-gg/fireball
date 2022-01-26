@@ -25,7 +25,7 @@ export default function RaffleNav({address}) {
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
-                to={{ pathname: `${match.url}/wearables-4`, search: `?address=${address}` }}
+                to={{ pathname: `${match.url}/wearables-4` }}
             >
                 Wearables #4
             </Button>
@@ -37,7 +37,7 @@ export default function RaffleNav({address}) {
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
-                to={{ pathname: `${match.url}/haunt-2`, search: `?address=${address}` }}
+                to={{ pathname: `${match.url}/haunt-2` }}
             >
                 H2 portals
             </Button>
@@ -85,6 +85,7 @@ export default function RaffleNav({address}) {
                 component={NavLink}
                 className={classes.button}
                 activeClassName='active'
+                disabled
                 to={{ pathname: `${match.url}/wearables-rpg`, search: `?address=${address}` }}
             >
                 Defi RPG Wearables

@@ -3,11 +3,12 @@ import thegraph from '../api/thegraph';
 import commonUtils from '../utils/commonUtils';
 import web3 from '../api/web3';
 
-import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries';
+import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries.data';
 
 export const RaffleContext = createContext({});
 
 const RaffleContextProvider = (props) => {
+    const [raffle, setRaffle] = useState(null);
     const [tickets, setTickets] = useState([]);
 
     const [loadingEntered, setLoadingEntered] = useState(true);
@@ -26,10 +27,6 @@ const RaffleContextProvider = (props) => {
             });
         }
     }, [raffleSpinner, loadingEntered])
-
-    // useEffect(() => {
-    //     console.log('tickets', tickets);
-    // }, [tickets]);
 
     const getRaffleData = (raffle, raffleTickets) => {
         getRaffle(raffle);
@@ -110,7 +107,7 @@ const RaffleContextProvider = (props) => {
     };
 
     const onAddressChange = (address, raffle) => {
-        tickets.forEach((item, i) => tickets[i].value = '');
+        // tickets.forEach((item, i) => tickets[i].value = '');
 
         if(web3.isAddressValid(address)) {
             getAddressData(address, raffle);
@@ -146,6 +143,9 @@ const RaffleContextProvider = (props) => {
 
     return (
         <RaffleContext.Provider value={{
+            raffle,
+            setRaffle,
+
             tickets,
             setTickets,
 
