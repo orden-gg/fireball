@@ -17,10 +17,6 @@ export default function RaffleContent({user}) {
     const { raffle, setRaffle, tickets, setTickets, getRaffleData, getTicketsPreset, raffleSpinner, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
-        console.log(tickets);
-    }, [tickets]);
-
-    useEffect(() => {
         let raffleName = raffles.some(item => item['name'] === name);
 
         if(!raffleName) { // redirect to last raffle if path do not exist

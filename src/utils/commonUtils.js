@@ -46,7 +46,7 @@ export default {
     formatChance(chance, items) {
         let percentage = (chance * 100).toFixed(1);
 
-        return chance > items ? `x${items.toFixed(2)}` :
+        return chance > items ? `x${items}` :
             chance > 1 ? `x${chance.toFixed(2)}` :
             chance > 0 ? `${percentage}% for 1` : 0;
     },

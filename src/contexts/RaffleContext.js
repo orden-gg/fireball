@@ -5,6 +5,7 @@ import web3 from '../api/web3';
 
 import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries.data';
 import itemUtils from '../utils/itemUtils';
+import { DateTime } from 'luxon';
 
 export const RaffleContext = createContext({});
 
@@ -16,10 +17,6 @@ const RaffleContextProvider = (props) => {
 
     const [raffleSpinner, setRaffleSpinner] = useState(true);
     const [pricesSpinner, setPricesSpinner] = useState(true);
-
-    useEffect(() => {
-        console.log(tickets);
-    }, [tickets])
 
     useEffect(() => {
         if(!raffleSpinner && !loadingEntered) {
@@ -120,7 +117,9 @@ const RaffleContextProvider = (props) => {
     };
 
     const countChances = (value, entered, items) => {
-        return value / entered * items;
+        let supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
+
+        return value / supply * items;
     }
 
     const countWearablesChances = (ticket) => {

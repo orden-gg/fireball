@@ -14,7 +14,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ghst from '../../../assets/images/ghst-doubleside.gif';
 import { DateTime } from 'luxon';
 
-export default function RaffleTablee({raffleEnded}) {
+export default function RaffleTablee() {
     const classes = tableStyles();
 
     const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
@@ -111,6 +111,8 @@ export default function RaffleTablee({raffleEnded}) {
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
+                            let totalEntered = raffle.endDate - DateTime.local() < 0 ? ticket.entered : +ticket.entered + +ticket.value
+
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
@@ -122,7 +124,7 @@ export default function RaffleTablee({raffleEnded}) {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatPrice(ticket.entered)}
+                                            {commonUtils.formatPrice(totalEntered)}
                                         </Typography>
                                     )}
                                 </Box>
