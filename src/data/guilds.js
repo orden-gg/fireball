@@ -686,6 +686,45 @@ const guilds = [
             twitter: 'https://twitter.com/WagmiWarriors',
             discord: 'https://discord.com/invite/TNneBnhrM2'
         }
+    },{
+        name: 'Aavegotchi Francophonie',
+        logo: require('../assets/guilds/aavegotchi-francophonie.png').default,
+        members: [
+            '0xbe0c04ec30d93fec3384f070ddb0252dde38b4fe',
+            '0x6649DaD69e7994f329bB5f0a829C82b838815a56',
+            '0x7F4e21B39D6506e333b9b470B3Fdedd4fCBbC6e8',
+            '0xC43c932Afd7046d2b608405B6edc0F4E03F990Ba',
+            '0x9B8CB1326B8AdF7C8354a42a0ed3c680Ecf31699',
+            '0xdc25324B8186DE47A976191a54ea0366428Af632',
+            '0x43FfF63169348f9e608c56F1DD18d660DD198E09',
+            '0xD5161c76579A49Ac41Db3fd4ddDF24eCCaeB750c',
+            '0xBd7FBaF67Cf30b5b95F646823dd0bc096e646b08',
+            '0x7Ceb9F8cEb7f6ffBa4897a72883C4a9C0a241EB5',
+            '0x3290e11729DBEAEBd920cEfe6853096fAF30f605',
+            '0x4809c085B45338ee38CF7C9304b5917623a70531',
+            '0x60A179E57A67c36dfF0a03B283CD287149Ed0F51',
+            '0x82792EA06e354d1105F028d6e8ec1148D2f9f294',
+            '0x2718E86f5793Ac08bd3C4A301382E8c1DA2a1e30'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Baguette speakers that want to conquer the Gotchiverse, but first we want to make FRENs, a lot of them and specially in Disctric 8 where we are placed. So If you love "baguette" & "fromage" stuff join us to participate to the very first french Aavegotchi guild. We aim to have a lot of fun and we will accept you either you prefer "pain aux chocolats" or "chocolatine".''
+            },
+            {
+                title: 'Requirement',
+                text: 'Speak Baguette’s language and have a REALM in Distric 8 (optional)'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'Blackyugin#0500'
+            }
+        ],
+        banner: '',
+        socials: {
+            telegram: 'https://t.me/aavegotchi_francophonie',
+            medium: 'https://aavegotchi-francophonie.medium.com/'
+        }
     }
 ]
 
