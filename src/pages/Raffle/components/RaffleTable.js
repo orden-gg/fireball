@@ -20,12 +20,12 @@ export default function RaffleTablee() {
     const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
 
     const handleInputChange = (event, i) => {
-        let newValue = event.target.value > 0 ? event.target.value : '';
+        let newValue = event.target.value > 0 ? +event.target.value : '';
 
         setTickets((ticketsCache) => {
             let modified = [...ticketsCache];
-            modified[i].value = +newValue;
-            modified[i].chance = countChances(+newValue, modified[i].entered, modified[i].items);
+            modified[i].value = newValue;
+            modified[i].chance = countChances(newValue, modified[i].entered, modified[i].items);
             modified[i].prizes = countWearablesChances(modified[i]);
 
             return modified
@@ -45,7 +45,7 @@ export default function RaffleTablee() {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box maxWidth={200} margin='auto'>
                                     <TextField
-                                        type='number'
+                                        type='text'
                                         variant='outlined'
                                         value={ticket.value}
                                         fullWidth
