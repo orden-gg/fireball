@@ -13,57 +13,58 @@ export default function RaffleItems({tickets, type}) {
     const classes = itemsStyles();
 
     const renderItem = (item) => {
-        if(type === 'realm-generic') {
-            return <RealmGeneric
-                realm={{
-                    size: item.id,
-                    balance: item.quantity
-                }}
-                raffleChances={{
-                    chance: item.chance,
-                    won: item.won,
-                    quantity:item.quantity
-                }}
-            ></RealmGeneric>
-        } else if(type === 'realm') {
-            return <ParcelGeneric
-                parcel={{
-                    size: item.id,
-                    balance: item.quantity
-                }}
-                raffleChances={{
-                    chance: item.chance,
-                    won: item.won,
-                    quantity:item.quantity
-                }}
-            ></ParcelGeneric>
-        } else if(type === 'portals') {
-            return <PortalGeneric
-                portal={{
-                    id: item.id,
-                    balance: item.quantity
-                }}
-                raffleChances={{
-                    chance: item.chance,
-                    won: item.won,
-                    quantity:item.quantity
-                }}
-            ></PortalGeneric>
-        } else if(type === 'wearables') {
-            return <Wearable
-                wearable={{
-                    id: item.id,
-                    balance: item.quantity,
-                    category: 0
-                }}
-                raffleChances={{
-                    chance: item.chance,
-                    won: item.won,
-                    quantity:item.quantity
-                }}
-            ></Wearable>
-        } else {
-            return null;
+        switch(type) {
+            case 'realm-generic':
+                return <RealmGeneric
+                    realm={{
+                        size: item.id,
+                        balance: item.quantity
+                    }}
+                    raffleChances={{
+                        chance: item.chance,
+                        won: item.won,
+                        quantity:item.quantity
+                    }}
+                ></RealmGeneric>
+            case 'realm':
+                return <ParcelGeneric
+                    parcel={{
+                        size: item.id,
+                        balance: item.quantity
+                    }}
+                    raffleChances={{
+                        chance: item.chance,
+                        won: item.won,
+                        quantity:item.quantity
+                    }}
+                ></ParcelGeneric>
+            case 'portals':
+                return <PortalGeneric
+                    portal={{
+                        id: item.id,
+                        balance: item.quantity
+                    }}
+                    raffleChances={{
+                        chance: item.chance,
+                        won: item.won,
+                        quantity:item.quantity
+                    }}
+                ></PortalGeneric>
+            case 'wearables':
+                return <Wearable
+                    wearable={{
+                        id: item.id,
+                        balance: item.quantity,
+                        category: 0
+                    }}
+                    raffleChances={{
+                        chance: item.chance,
+                        won: item.won,
+                        quantity:item.quantity
+                    }}
+                ></Wearable>
+            default:
+                return null;
         }
     };
     

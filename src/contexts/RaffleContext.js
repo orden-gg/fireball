@@ -28,6 +28,8 @@ const RaffleContextProvider = (props) => {
                 });
             });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleSpinner, loadingEntered])
 
     const getRaffleData = (raffle, raffleTickets) => {
@@ -117,13 +119,13 @@ const RaffleContextProvider = (props) => {
     };
 
     const countChances = (value, entered, items) => {
-        let supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
+        const supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
 
         return value / supply * items;
     }
 
     const countWearablesChances = (ticket) => {
-        let wearables = ticket.prizes;
+        const wearables = ticket.prizes;
         
         if(wearables) {
             wearables.forEach((wearable) => {

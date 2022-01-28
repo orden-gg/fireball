@@ -21,8 +21,8 @@ export default function RaffleDate({start, end}) {
     }, 1000);
 
     const renderTitle = () => {
-        let local = DateTime.local();
-        let diff = end - local;
+        const local = DateTime.local();
+        const diff = end - local;
 
         if(local > start && local < end) {
             setType('live');
@@ -39,10 +39,7 @@ export default function RaffleDate({start, end}) {
     if(!title) return null;
 
     return (
-        <div
-            className={classNames(classes.title, type)}
-            // style={{ color: type === 'live' ? '#ff0c0c' : type === 'upcoming' ? '#1fd71f' : '#979797' }}
-        >
+        <div className={classNames(classes.title, type)}>
             {title}
         </div>
     );

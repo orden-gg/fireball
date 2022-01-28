@@ -111,7 +111,7 @@ export default function RaffleTablee() {
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
-                            let totalEntered = raffle.endDate - DateTime.local() < 0 ? ticket.entered : +ticket.entered + +ticket.value
+                            const totalEntered = raffle.endDate - DateTime.local() < 0 ? ticket.entered : +ticket.entered + +ticket.value
 
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />

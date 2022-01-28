@@ -272,10 +272,9 @@ export default {
 
     async getRaffleWins(address, raffle) {
         return await this.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response) => {
-            let data = [];
+            const data = [];
 
             let received = JSON.parse(JSON.stringify(response.data.raffleWinners));
-            
             let filtered = received.filter((item) => +item.raffle.id === raffle);
 
             filtered.forEach((item) => {
