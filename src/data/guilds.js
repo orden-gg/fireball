@@ -699,15 +699,15 @@ const guilds = [
     },{
         name: 'WAGMI Warriors',
         logo: require('../assets/guilds/WAGMI-warriors.png').default,
-        members: [],
+        members: ['0x26cf02F892B04aF4Cf350539CE2C77FCF79Ec172'],
         description: [
             {
                 title: 'Description',
-                text: 'We are a wearable based guild for the Gotchiverse'
+                text: 'WAGMI Warriors are a wearable based guild in the Gotchiverse. We have bases set up in Districts 18, 19 and 10. Join our guild for NFT drops and help us build awesome NPCs as Dapps for the Gotchiverse. Have a say in how the guild is run via our Snapshot at https://snapshot.org/#/wagmiwarriors.eth'
             },
             {
                 title: 'Requirement',
-                text: 'You must have an Aavegotchi equipped with any of the wagie wearables; a wagie cap, headphones, or WGMI shirt'
+                text: 'You must have an Aavegotchi equipped with any of the following wearables; a wagie cap, headphones, WGMI shirt, Big GHST Token, or a Gotchi Mug.'
             },
             {
                 title: 'Point of Contact',
@@ -715,17 +715,17 @@ const guilds = [
             },
             {
                 title: 'Social Media',
-                text: ''
+                text: 'https://twitter.com/WagmiWarriors'
             },
             {
                 title: 'Discord',
-                text: ''
+                text: 'https://discord.gg/TNneBnhrM2'
             }
         ],
         banner: '',
         socials: {
             twitter: 'https://twitter.com/WagmiWarriors',
-            discord: 'https://discord.com/invite/TNneBnhrM2'
+            discord: 'https://discord.gg/TNneBnhrM2'
         }
     },
 ]
