@@ -2,8 +2,21 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery,
-    raffleQuery, raffleEntrantsQuery, raffleWinsQuery, listedParcelsQuery, parselQuery } from './common/queries';
+import {
+    gotchiesQuery,
+    svgQuery,
+    erc1155Query,
+    userQuery,
+    realmQuery,
+    auctionQuery,
+    raffleQuery,
+    raffleEntrantsQuery,
+    raffleWinsQuery,
+    listedParcelsQuery,
+    parselQuery,
+    clientParselQuery,
+    listedParcelQuery, getParcelHistoricalPricesQuery
+} from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
@@ -296,6 +309,10 @@ export default {
         return await getGraphData(clientFactory.realmClient, query);
     },
 
+    async getRealmDataFromClient(query) {
+        return await getGraphData(clientFactory.client, query);
+    },
+
     async getRealmByAddress(address) {
         function getQueries() {
             let queries = [];
@@ -327,6 +344,24 @@ export default {
     async getRealmById(id) {
         return await this.getRealmData(parselQuery(id)).then((response) => {
             return response.data.parcel
+        })
+    },
+
+    async getRealmFromClientById(id) {
+        return await this.getRealmDataFromClient(clientParselQuery(id)).then((response) => {
+            return response.data.parcel
+        })
+    },
+
+    async getListedParcel(id) {
+        return await this.getRealmDataFromClient(listedParcelQuery(id)).then((response) => {
+            return response.data.erc721Listings
+        })
+    },
+
+    async getParcelHistoricalPrices(id) {
+        return await this.getRealmDataFromClient(getParcelHistoricalPricesQuery(id)).then((response) => {
+            return response.data.erc721Listings
         })
     },
 

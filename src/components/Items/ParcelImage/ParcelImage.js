@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import axios from 'axios';
 import styles from '../styles';
 
-export default function ParcelImage({parcel}) {
+export default function ParcelImage({parcel, parcelSize}) {
     const classes = styles();
     const canvasRef = useRef(null);
 
@@ -27,12 +27,19 @@ export default function ParcelImage({parcel}) {
 
         let context = canvas.getContext('2d');
 
+        const drawRect = (width, height) => {
+            const parcelX = (parcelSize - width < parcel.coordinateX ? parcelSize - width : parcel.coordinateX) / 2;
+            const parcelY = (parcelSize - height < parcel.coordinateY ? parcelSize - height : parcel.coordinateY) / 2;
+
+            context.rect(parcelX, parcelY, width, height);
+        };
+
         context.globalAlpha = 1;
 
-        for (let x = 0; x < 100; x++) {
-            for (let y = 0; y < 100; y++) {
+        for (let x = 0; x < parcelSize; x++) {
+            for (let y = 0; y < parcelSize; y++) {
                 context.beginPath();
-                context.fillStyle = `rgba(${cache[x*100+y].join(',')})`;
+                context.fillStyle = `rgba(${cache[x*parcelSize+y].join(',')})`;
                 context.fillRect(y,x, x+1,y+1);
             }
         }
@@ -40,16 +47,16 @@ export default function ParcelImage({parcel}) {
         const {size} = parcel;
 
         context.strokeStyle = 'white';
-        +size === 0 && context.rect(48, 48, 5, 5);
-        +size === 1 && context.rect(45, 45, 10, 10);
-        +size === 3 && context.rect(34, 41, 32, 17);
-        +size === 2 && context.rect(41, 34, 17, 32);
+        +size === 0 && drawRect(5, 5);
+        +size === 1 && drawRect(9, 9);
+        +size === 3 && drawRect(32, 16);
+        +size === 2 && drawRect(16, 32);
         context.stroke();
     };
 
 
     useEffect(() => {
-        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},100`).then((response) => {
+        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${parcelSize}`).then((response) => {
             processColorsMap(response.data);
         });
 
@@ -57,6 +64,6 @@ export default function ParcelImage({parcel}) {
     },[]);
 
     return (
-        <canvas className={classes.parcelImage} ref={canvasRef} width='100' height='100'></canvas>
+        <canvas className={classes.parcelImage} ref={canvasRef} width={parcelSize} height={parcelSize}/>
     );
 }
