@@ -125,7 +125,7 @@ const modifyTraits = (gotchis) => {
     return gotchisCache.map((gotchi) => {
         let gotchiCache = {...gotchi};
 
-        if (gotchiCache.equippedSetID) {
+        if (gotchiCache.equippedSetID && graphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
             let modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);
             let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
