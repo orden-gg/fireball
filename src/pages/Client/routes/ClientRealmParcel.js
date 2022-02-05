@@ -11,6 +11,7 @@ import ParcelBaazaarLink from "../../../components/Items/Parcel/common/ParcelBaa
 import Web3 from "web3";
 import classNames from "classnames";
 import itemUtils from "../../../utils/itemUtils";
+import {validateUseBuiltInsOption} from "@babel/preset-env/lib/normalize-options";
 
 const web3 = new Web3();
 
@@ -30,6 +31,12 @@ export default function ClientRealmParcel() {
 
     const getName = (parcel) => {
         return parcel.parcelHash.replace(/-/g, ' ');
+    };
+
+    const getFormattedDate = (datestamp) => {
+        const date = new Date(parseInt(datestamp + '000'));
+
+        return `${date.toLocaleString()}`;
     };
 
     useEffect(() => {
@@ -122,10 +129,10 @@ export default function ClientRealmParcel() {
                                         <Grid item xs={12} sm={6} md={3}>
                                             Buyer:
                                         </Grid>
-                                        <Grid item xs={12} sm={6} md={3}>
+                                        <Grid item xs={12} sm={6} md={4}>
                                             Date:
                                         </Grid>
-                                        <Grid item xs={12} sm={6} md={3}>
+                                        <Grid item xs={12} sm={6} md={2}>
                                             Price:
                                         </Grid>
                                     </Grid>
@@ -160,11 +167,11 @@ export default function ClientRealmParcel() {
                                                     </Link>
 
                                                 </Grid>
-                                                <Grid item xs={12} sm={6} md={3}>
+                                                <Grid item xs={12} sm={6} md={4}>
                                                     <Typography className={classes.reserveTitle}>Time: </Typography>
-                                                    {item.timePurchased}
+                                                    {getFormattedDate(item.timePurchased)}
                                                 </Grid>
-                                                <Grid item xs={12} sm={6} md={3}>
+                                                <Grid item xs={12} sm={6} md={2}>
                                                     <Typography className={classes.reserveTitle}>Price: </Typography>
                                                     <img src={ghstIcon} className={classes.priceIcon} />
                                                     {web3.utils.fromWei(item.priceInWei)}
