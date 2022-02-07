@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../../../styles';
 
 import CallMade from '@mui/icons-material/CallMade';
-import itemUtils from "../../../../../utils/itemUtils";
+import itemUtils from '../../../../../utils/itemUtils';
 
 
 export default function ParcelBaazaarLink({parcel, isBaazaarCard, link, text}) {

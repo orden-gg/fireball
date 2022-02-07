@@ -9,9 +9,9 @@ import thegraph from '../../../api/thegraph';
 import itemUtils from '../../../utils/itemUtils';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 import commonUtils from '../../../utils/commonUtils';
-import Web3 from "web3";
-import ParcelImage from "../ParcelImage/ParcelImage";
-import ParcelBaazaarLink from "./common/ParcelBaazaarLink/ParcelBaazaarLink";
+import Web3 from 'web3';
+import ParcelImage from '../ParcelImage/ParcelImage';
+import ParcelBaazaarLink from './common/ParcelBaazaarLink/ParcelBaazaarLink';
 
 var web3 = new Web3();
 

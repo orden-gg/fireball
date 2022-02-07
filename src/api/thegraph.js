@@ -15,7 +15,8 @@ import {
     listedParcelsQuery,
     parselQuery,
     clientParselQuery,
-    listedParcelQuery, getParcelHistoricalPricesQuery
+    listedParcelQuery,
+    getParcelHistoricalPricesQuery
 } from './common/queries';
 import Web3 from 'web3';
 

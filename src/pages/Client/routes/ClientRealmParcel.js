@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Typography, Grid, Link, List, ListItem, Button} from '@mui/material';
-import {useHistory} from "react-router";
-import {useLocation} from "react-router-dom";
+import {Box, Button, Grid, Link, List, ListItem, Typography} from '@mui/material';
+import {useHistory} from 'react-router';
+import {useLocation} from 'react-router-dom';
 import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
-import thegraph from "../../../api/thegraph";
-import commonUtils from "../../../utils/commonUtils";
-import ParcelImage from "../../../components/Items/ParcelImage/ParcelImage";
-import {routersStyles, parcelSinglePage} from '../styles'
-import ParcelBaazaarLink from "../../../components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink";
-import Web3 from "web3";
-import classNames from "classnames";
-import itemUtils from "../../../utils/itemUtils";
-import {validateUseBuiltInsOption} from "@babel/preset-env/lib/normalize-options";
+import thegraph from '../../../api/thegraph';
+import commonUtils from '../../../utils/commonUtils';
+import ParcelImage from '../../../components/Items/ParcelImage/ParcelImage';
+import {parcelSinglePage, routersStyles} from '../styles'
+import ParcelBaazaarLink from '../../../components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
+import Web3 from 'web3';
+import classNames from 'classnames';
+import itemUtils from '../../../utils/itemUtils';
 
 const web3 = new Web3();
 
@@ -58,7 +57,7 @@ export default function ClientRealmParcel() {
         }
     }, [isNumericId]);
 
-    useEffect( () => {
+    useEffect(() => {
         const pathParts = location.pathname.split('/');
         const parcelId = +pathParts[pathParts.length - 1];
 
@@ -80,20 +79,22 @@ export default function ClientRealmParcel() {
                                 <Typography className={classes.name} variant={"h5"}>{getName(parcel)}</Typography>
 
                                 <Grid container>
-                                        {
-                                            alchemica.map((item, index) => {
-                                                return <Grid item xs={3} key={index}>
-                                                    <Box className={classes.alchemicaContainer}>
-                                                        <img className={classes.alchemicaImg} src={itemUtils.getAlchemicaImg(item)} /> {parcel[`${item}Boost`]}
-                                                    </Box>
-                                                </Grid>
-                                            }).filter((item, i) => +parcel[`${alchemica[i]}Boost`])
-                                        }
+                                    {
+                                        alchemica.map((item, index) => {
+                                            return <Grid item xs={3} key={index}>
+                                                <Box className={classes.alchemicaContainer}>
+                                                    <img className={classes.alchemicaImg}
+                                                         src={itemUtils.getAlchemicaImg(item)}/> {parcel[`${item}Boost`]}
+                                                </Box>
+                                            </Grid>
+                                        }).filter((item, i) => +parcel[`${alchemica[i]}Boost`])
+                                    }
                                 </Grid>
 
                                 {
                                     baazaarId ? <Box>
-                                        <ParcelBaazaarLink parcel={parcel} isBaazaarCard={true} link={baazaarId} text={'Watch in Baazaar'} />
+                                        <ParcelBaazaarLink parcel={parcel} isBaazaarCard={true} link={baazaarId}
+                                                           text={'Watch in Baazaar'}/>
                                     </Box> : <Box className={classes.notListedInBaazaar}>
                                         Not listed in Baazaar
                                     </Box>
@@ -119,71 +120,77 @@ export default function ClientRealmParcel() {
                                 </Button>
                             </Box>
                         </Grid>
-                        {historicalPrices && historicalPrices.length && <Grid item className={classes.parcelTransactions} xs={12}>
-                            <List className={classes.parcelTransactionsWrapper}>
-                                <ListItem className={classNames(classes.parcelTransactionsItem, classes.parcelTransactionsItemHead)}>
-                                    <Grid container spacing={2} className={classes.parcelTransactionsItemInner}>
-                                        <Grid item xs={12} sm={6} md={3}>
-                                            Seller:
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} md={3}>
-                                            Buyer:
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} md={4}>
-                                            Date:
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} md={2}>
-                                            Price:
-                                        </Grid>
-                                    </Grid>
-                                </ListItem>
-                                {
-                                    historicalPrices?.map((item, index) => {
-                                        return <ListItem className={classes.parcelTransactionsItem} key={index}>
-                                            <Grid container spacing={2} className={classes.parcelTransactionsItemInner}>
-                                                <Grid item xs={12} sm={6} md={3}>
-                                                    <Typography className={classes.reserveTitle}>Seller: </Typography>
-                                                    <Link
-
-                                                        href={
-                                                            `${window.location.origin}/client/gotchis?address=${item.seller}`
-                                                        }
-                                                        underline='none'
-                                                        className={classes.address}
-                                                    >
-                                                        {commonUtils.cutAddress(item.seller)}
-                                                    </Link>
-                                                </Grid>
-                                                <Grid item xs={12} sm={6} md={3}>
-                                                    <Typography className={classes.reserveTitle}>Buyer: </Typography>
-                                                    <Link
-                                                        href={
-                                                            `${window.location.origin}/client/gotchis?address=${item.buyer}`
-                                                        }
-                                                        underline='none'
-                                                        className={classes.address}
-                                                    >
-                                                        {commonUtils.cutAddress(item.buyer)}
-                                                    </Link>
-
-                                                </Grid>
-                                                <Grid item xs={12} sm={6} md={4}>
-                                                    <Typography className={classes.reserveTitle}>Time: </Typography>
-                                                    {getFormattedDate(item.timePurchased)}
-                                                </Grid>
-                                                <Grid item xs={12} sm={6} md={2}>
-                                                    <Typography className={classes.reserveTitle}>Price: </Typography>
-                                                    <img src={ghstIcon} className={classes.priceIcon} />
-                                                    {web3.utils.fromWei(item.priceInWei)}
-                                                </Grid>
+                        {historicalPrices && historicalPrices.length &&
+                            <Grid item className={classes.parcelTransactions} xs={12}>
+                                <List className={classes.parcelTransactionsWrapper}>
+                                    <ListItem
+                                        className={classNames(classes.parcelTransactionsItem, classes.parcelTransactionsItemHead)}>
+                                        <Grid container spacing={2} className={classes.parcelTransactionsItemInner}>
+                                            <Grid item xs={12} sm={6} md={3}>
+                                                Seller:
                                             </Grid>
-                                        </ListItem>
-                                    })
-                                }
-                            </List>
-                        </Grid>}
+                                            <Grid item xs={12} sm={6} md={3}>
+                                                Buyer:
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={4}>
+                                                Date:
+                                            </Grid>
+                                            <Grid item xs={12} sm={6} md={2}>
+                                                Price:
+                                            </Grid>
+                                        </Grid>
+                                    </ListItem>
+                                    {
+                                        historicalPrices?.map((item, index) => {
+                                            return <ListItem className={classes.parcelTransactionsItem} key={index}>
+                                                <Grid container spacing={2}
+                                                      className={classes.parcelTransactionsItemInner}>
+                                                    <Grid item xs={12} sm={6} md={3}>
+                                                        <Typography
+                                                            className={classes.reserveTitle}>Seller: </Typography>
+                                                        <Link
+
+                                                            href={
+                                                                `${window.location.origin}/client/gotchis?address=${item.seller}`
+                                                            }
+                                                            underline='none'
+                                                            className={classes.address}
+                                                        >
+                                                            {commonUtils.cutAddress(item.seller)}
+                                                        </Link>
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} md={3}>
+                                                        <Typography
+                                                            className={classes.reserveTitle}>Buyer: </Typography>
+                                                        <Link
+                                                            href={
+                                                                `${window.location.origin}/client/gotchis?address=${item.buyer}`
+                                                            }
+                                                            underline='none'
+                                                            className={classes.address}
+                                                        >
+                                                            {commonUtils.cutAddress(item.buyer)}
+                                                        </Link>
+
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} md={4}>
+                                                        <Typography className={classes.reserveTitle}>Time: </Typography>
+                                                        {getFormattedDate(item.timePurchased)}
+                                                    </Grid>
+                                                    <Grid item xs={12} sm={6} md={2}>
+                                                        <Typography
+                                                            className={classes.reserveTitle}>Price: </Typography>
+                                                        <img src={ghstIcon} className={classes.priceIcon}/>
+                                                        {web3.utils.fromWei(item.priceInWei)}
+                                                    </Grid>
+                                                </Grid>
+                                            </ListItem>
+                                        })
+                                    }
+                                </List>
+                            </Grid>}
                     </Grid>
-                </Box>: <Box className={classes.noContent}>
+                </Box> : <Box className={classes.noContent}>
                     There is no such parcel as {id} :(
                 </Box>
             }

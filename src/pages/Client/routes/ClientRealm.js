@@ -4,7 +4,7 @@ import { ClientContext } from '../../../contexts/ClientContext';
 import { Redirect, Route, Switch } from 'react-router-dom/cjs/react-router-dom.min';
 import ClientRealmMap from './ClientRealmMap';
 import ClientRealmList from './ClientRealmList';
-import ClientRealmParcel from "./ClientRealmParcel";
+import ClientRealmParcel from './ClientRealmParcel';
 
 export default function ClientRealm() {
     const match = useRouteMatch();
