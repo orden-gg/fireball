@@ -44,7 +44,6 @@ export default function ClientRealmParcel() {
         if (isNumericId) {
             thegraph.getRealmFromClientById(id).then((response) => {
                 setParcel(response);
-                console.log(response)
             });
             thegraph.getListedParcel(id).then((response) => {
                 setBaazaarId(response[0]?.id);
@@ -55,6 +54,7 @@ export default function ClientRealmParcel() {
         } else {
             history.push(`/client/`)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isNumericId]);
 
     useEffect(() => {
@@ -84,6 +84,7 @@ export default function ClientRealmParcel() {
                                             return <Grid item xs={3} key={index}>
                                                 <Box className={classes.alchemicaContainer}>
                                                     <img className={classes.alchemicaImg}
+                                                         alt={item}
                                                          src={itemUtils.getAlchemicaImg(item)}/> {parcel[`${item}Boost`]}
                                                 </Box>
                                             </Grid>
@@ -180,7 +181,7 @@ export default function ClientRealmParcel() {
                                                     <Grid item xs={12} sm={6} md={2}>
                                                         <Typography
                                                             className={classes.reserveTitle}>Price: </Typography>
-                                                        <img src={ghstIcon} className={classes.priceIcon}/>
+                                                        <img src={ghstIcon} alt={'GHST'} className={classes.priceIcon}/>
                                                         {web3.utils.fromWei(item.priceInWei)}
                                                     </Grid>
                                                 </Grid>

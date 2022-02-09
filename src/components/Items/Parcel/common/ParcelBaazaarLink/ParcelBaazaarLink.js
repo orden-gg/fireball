@@ -21,6 +21,7 @@ export default function ParcelBaazaarLink({parcel, isBaazaarCard, link, text}) {
     useEffect(() => {
         setName(parcel.parcelHash.replace(/-/g, ' '));
         setSize(itemUtils.getParcelSize(parcel.size));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
