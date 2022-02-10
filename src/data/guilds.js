@@ -727,7 +727,31 @@ const guilds = [
             twitter: 'https://twitter.com/WagmiWarriors',
             discord: 'https://discord.gg/TNneBnhrM2'
         }
-    },
+    },{
+        name: '8bit Gamers Guild',
+        logo: require('../assets/guilds/8gg.jpeg').default,
+        members: []
+    }, {
+        name: 'Aavemaa',
+        logo: require('../assets/guilds/aavemaa.png').default,
+        members: []
+    }, {
+        name: 'Cryptoticker.io GHST Guild',
+        logo: require('../assets/guilds/cryptoticker.png').default,
+        members: []
+    }, {
+        name: 'Geistreich',
+        logo: require('../assets/guilds/geistreich.png').default,
+        members: []
+    }, {
+        name: 'gmDAO',
+        logo: require('../assets/guilds/gmdao.png').default,
+        members: []
+    }, {
+        name: 'SynthGuild',
+        logo: require('../assets/guilds/synthguild.png').default,
+        members: []
+    }
 ]
 
 export default guilds;
