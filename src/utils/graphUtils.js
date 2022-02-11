@@ -107,5 +107,9 @@ export default {
 
     getSetModifiers(id) {
         return sets[id][3] || '';
+    },
+
+    isExistingSetId(id) {
+        return id <= sets.length;
     }
 }
