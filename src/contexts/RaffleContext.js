@@ -3,11 +3,14 @@ import thegraph from '../api/thegraph';
 import commonUtils from '../utils/commonUtils';
 import web3 from '../api/web3';
 
-import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries';
+import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries.data';
+import itemUtils from '../utils/itemUtils';
+import { DateTime } from 'luxon';
 
 export const RaffleContext = createContext({});
 
 const RaffleContextProvider = (props) => {
+    const [raffle, setRaffle] = useState(null);
     const [tickets, setTickets] = useState([]);
 
     const [loadingEntered, setLoadingEntered] = useState(true);
@@ -19,11 +22,14 @@ const RaffleContextProvider = (props) => {
         if(!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
-                    ticket.chance = countChances(ticket.value, ticket.entered, ticket.items);
+                    ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
+                    ticket.prizes = countWearablesChances(ticket);
                     return ticket;
                 });
             });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleSpinner, loadingEntered])
 
     const getRaffleData = (raffle, raffleTickets) => {
@@ -77,14 +83,27 @@ const RaffleContextProvider = (props) => {
     const getAddressData = (address, raffle) => {
         setLoadingEntered(true);
 
-        thegraph.getRaffleEntered(address, raffle).then((response) => {
+        Promise.all([
+            thegraph.getRaffleEntered(address, raffle),
+            thegraph.getRaffleWins(address, raffle)
+        ]).then(([entered, won]) => {
             setTickets((ticketsCache) => {
                 let modified = [...ticketsCache];
-                response.forEach((item, i) => {
+
+                entered.forEach((item, i) => {
                     let elem = modified.length > 1 ? item.ticketId : 0;
 
                     modified[elem].value = item.quantity;
+                    modified[elem].prizes = modified[elem].prizes.map((item) => {
+                        let index = won.findIndex(prize => prize.itemId === item.id);
+                        return ({ 
+                            ...item,
+                            won: index !== -1 ? won[index].quantity : 0
+                        })
+                    });
+                    
                 });
+
                 return modified;
             });
             setLoadingEntered(false);
@@ -100,28 +119,49 @@ const RaffleContextProvider = (props) => {
     };
 
     const countChances = (value, entered, items) => {
-        return value / entered * items;
+        const supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
+
+        return value / supply * items;
     }
 
-    const formatChance = (chance, items) => {
-        let percentage = (chance * 100).toFixed(1);
+    const countWearablesChances = (ticket) => {
+        const wearables = ticket.prizes;
+        
+        if(wearables) {
+            wearables.forEach((wearable) => {
+                let perc = wearable.quantity * 100 / ticket.items;
+                let chance = perc * ticket.chance / 100;
 
-        return chance > items ? `x${items.toFixed(2)}` :
-            chance > 1 ? `x${chance.toFixed(2)}` :
-            chance > 0 ? `${percentage}% for 1` : 0;
+                wearable.chance = chance;
+            })
+        }
+
+        return wearables;
+    }
+
+    const getTicketsPreset = (tickets) => {
+        return tickets.map((ticket) => ({
+            id: ticket,
+            rarity: itemUtils.getItemRarityName(ticket.toString()),
+            value: ''
+        }));
     }
 
     return (
         <RaffleContext.Provider value={{
+            raffle,
+            setRaffle,
+
             tickets,
             setTickets,
 
             getRaffleData,
             getAddressData,
+            getTicketsPreset,
 
             onAddressChange,
             countChances,
-            formatChance,
+            countWearablesChances,
 
             raffleSpinner,
             pricesSpinner

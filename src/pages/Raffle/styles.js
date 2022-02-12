@@ -37,13 +37,14 @@ const titleStyles = makeStyles( theme => ({
     },
 }));
 
-const ticketStyles = makeStyles( theme => ({
+const tableStyles = makeStyles( theme => ({
     // backdrop: {
     //     zIndex: theme.zIndex.drawer + 1,
     //     color: '#fff'
     // },
     row: {
         marginBottom: 32,
+        minHeight: 55,
         alignItems: 'center',
         justifyContent: 'space-between'
     },
@@ -439,9 +440,12 @@ const raffleNavStyles = makeStyles( theme => ({
     container: {
         padding: '12px 0',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center',
         flexWrap: 'wrap'
+    },
+    buttonContainer: {
+        textAlign: 'center'
     },
     button: {
         margin: 4,
@@ -481,31 +485,92 @@ const raffleNavStyles = makeStyles( theme => ({
     label: {
         fontSize: 14,
         fontWeight: 600,
-        color: theme.palette.primary.main,
+        textAlign: 'center'
     }
 }));
 
+const raffleDataStyles = makeStyles( theme => ({
+    title: {
+        textAlign: 'center',
+        fontSize: 10,
+        '&.live': {
+            color: '#ff0c0c',
+            fontSize: 12
+        },
+        '&.upcoming': {
+            color: '#1fd71f',
+            fontSize: 12
+        },
+        '&.ended': {
+            color: '#979797'
+        }
+    }
+}));
 
-const raffleTicketsStyles = makeStyles( theme => ({
+const raffleChanceStyles = makeStyles( theme => ({
+    container: {
+        marginTop: '8px'
+    }
+}));
+
+const ticketStyles = makeStyles( theme => ({
+    ticket: {
+        textAlign: 'center',
+        position: 'relative'
+    },
+    ticketImg: {
+        opacity: .2,
+        display: 'block',
+        margin: 'auto',
+        width: 90
+    },
+    ticketTitle: {
+        position: 'absolute',
+        top: '50%',
+        right: 0,
+        left: 0,
+        transform: 'translateY(-50%)',
+        margin: 0,
+        fontSize: 16,
+        fontWeight: 400,
+        [theme.breakpoints.up('sm')]: {
+            fontSize: 17
+        },
+        [theme.breakpoints.up('md')]: {
+            fontSize: 18
+        }
+    }
+}));
+
+const itemsStyles = makeStyles( theme => ({
     list: {
         display: 'grid',
-        alignItems: 'start',
         gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
-        gridAutoRows: '1fr',
-        marginTop: 16,
-        minHeight: 125
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
+        gridAutoRows: '1fr'
     },
     listItem: {
-        height: '100%'
-    }
+        position: 'relative',
+        '&:not(.highlight)': {
+            opacity: '.4',
+            filter: 'grayscale(1)'
+        },
+        '&.clean, &:hover': {
+            opacity: '1 !important',
+            filter: 'grayscale(0) !important',
+            transition: 'all .2s ease-in-out'
+        }
+    },
 }));
 
 export {
     styles as default,
     raffleCountdownStyles,
     raffleNavStyles,
-    raffleTicketsStyles,
+    raffleDataStyles,
+    raffleChanceStyles,
     ticketStyles,
+    tableStyles,
+    itemsStyles,
     titleStyles
 }

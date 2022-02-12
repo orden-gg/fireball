@@ -1573,5 +1573,173 @@ export const items = {
         'stats': 'AGG -2, BRN +3',
         'type': 'partnerships-set',
         'slot': 'face'
+    },
+    292: {
+        'name': 'Brunette Ponytail',
+        'rarity': 'common',
+        'stats': 'AGG -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    293: {
+        'name': 'Leather Tunic',
+        'rarity': 'common',
+        'stats': 'NRG -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    294: {
+        'name': 'Bow and Arrow',
+        'rarity': 'common',
+        'stats': 'AGG -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    295: {
+        'name': 'Forked Beard',
+        'rarity': 'common',
+        'stats': 'AGG +1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'face'
+    },
+    296: {
+        'name': 'Double-sided Axe',
+        'rarity': 'uncommon',
+        'stats': 'AGG +1, BRN -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    297: {
+        'name': 'Animal Skins',
+        'rarity': 'uncommon',
+        'stats': 'AGG +2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    298: {
+        'name': 'Horned Helmet',
+        'rarity': 'common',
+        'stats': 'BRN -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    299: {
+        'name': 'Longbow',
+        'rarity': 'uncommon',
+        'stats': 'AGG -1, BRN +1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    300: {
+        'name': 'Feathered Cap',
+        'rarity': 'uncommon',
+        'stats': 'NRG -1, SPK -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    301: {
+        'name': 'Alluring Eyes',
+        'rarity': 'rare',
+        'stats': 'AGG -2, BRN +1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'eyes'
+    },
+    302: {
+        'name': 'Geisha Headpiece',
+        'rarity': 'rare',
+        'stats': 'NRG -2, AGG -1',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    303: {
+        'name': 'Kimono',
+        'rarity': 'rare',
+        'stats': 'NRG -1, AGG -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    304: {
+        'name': 'Paper Fan',
+        'rarity': 'rare',
+        'stats': 'AGG -3',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    305: {
+        'name': 'Sus Butterfly',
+        'rarity': 'legendary',
+        'stats': 'AGG +4',
+        'type': 'defi-rpg-wearables',
+        'slot': 'pet'
+    },
+    306: {
+        'name': 'Flower Studs',
+        'rarity': 'legendary',
+        'stats': 'NRG -2, SPK -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'face'
+    },
+    307: {
+        'name': 'Fairy Wings',
+        'rarity': 'legendary',
+        'stats': 'NRG -2, SPK -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    308: {
+        'name': 'Red Hair',
+        'rarity': 'legendary',
+        'stats': 'NRG -2, SPK -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    309: {
+        'name': 'Citaadel Helm',
+        'rarity': 'mythical',
+        'stats': 'NRG +3, AGG -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    310: {
+        'name': 'Plate Armor',
+        'rarity': 'mythical',
+        'stats': 'NRG +3, AGG -2',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    311: {
+        'name': 'Spirit Sword',
+        'rarity': 'mythical',
+        'stats': 'NRG +2, AGG -3',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    312: {
+        'name': 'Plate Shield',
+        'rarity': 'mythical',
+        'stats': 'AGG -5',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
+    },
+    313: {
+        'name': 'Kabuto Helmet',
+        'rarity': 'godlike',
+        'stats': 'AGG +3, SPK +3',
+        'type': 'defi-rpg-wearables',
+        'slot': 'head'
+    },
+    314: {
+        'name': 'Yoroi Armor',
+        'rarity': 'godlike',
+        'stats': 'AGG +3, SPK +3',
+        'type': 'defi-rpg-wearables',
+        'slot': 'body'
+    },
+    315: {
+        'name': 'Haanzo Katana',
+        'rarity': 'godlike',
+        'stats': 'AGG +2, SPK +4',
+        'type': 'defi-rpg-wearables',
+        'slot': 'hands'
     }
 };

@@ -146,6 +146,65 @@ export const parselQuery = (id) => {
     }
   }`
 };
+
+export const clientParselQuery = (id) => {
+    return `{
+    parcel( id: ${id}) {
+      historicalPrices
+      timesTraded
+      auctionId
+      tokenId
+      parcelId
+      owner {
+        id
+      }
+      coordinateX
+      coordinateY
+      size
+      district
+      parcelHash
+      fudBoost
+      fomoBoost
+      alphaBoost
+      kekBoost
+    }
+  }`
+};
+
+export const listedParcelQuery = (id) => {
+    return `{
+        erc721Listings(
+                where: {
+                    category: "4"
+                    parcel: "${id}"
+                    cancelled: false
+                    timePurchased: 0
+                }
+            ) {
+                id
+            }
+        }`
+};
+
+export const getParcelHistoricalPricesQuery = (id) => {
+    return `{
+        erc721Listings(
+            where:{
+                tokenId_in: ["${id}"]
+                category: "4"
+                timePurchased_not: 0
+            },
+            orderBy: timePurchased,
+            orderDirection:desc,
+        ) {
+            buyer
+            seller
+            timePurchased
+            priceInWei
+        }
+    }`
+}
+
 export const auctionQuery = (id) => {
     return `{
       auctions(first: 1, where: { id: "${id}" }) {
@@ -232,6 +291,21 @@ export const raffleEntrantsQuery = (address) => {
         raffle {
           id
         }
+      }
+    }`
+};
+
+export const raffleWinsQuery = (address) => {
+    return `{
+      raffleWinners(where: { address: "${address}" }) {
+        id
+        item{
+          id
+        }
+        raffle {
+          id
+        }
+        quantity
       }
     }`
 };

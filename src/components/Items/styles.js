@@ -59,7 +59,7 @@ const itemStyles = makeStyles( theme => ({
         backgroundColor: theme.palette.secondary.dark,
         padding: '32px 12px 36px',
         textAlign: 'center',
-        height: '100%',
+        minHeight: '100%',
         position: 'relative',
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
@@ -93,6 +93,9 @@ const itemStyles = makeStyles( theme => ({
         },
         '&.partner': {
             backgroundColor: alpha(theme.palette.realm.partner, .15)
+        },
+        '&.realm-generic': {
+            backgroundColor: alpha('#c1a415', 0.15)
         },
         '&:hover .labelSlot': {
             opacity: .7,
@@ -224,7 +227,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '65%',
+        minHeight: '100px',
         marginBottom: 4,
         
         '.tooltip-wearable &': { // iconWrapper
@@ -257,6 +260,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all .2s ease-in-out',
+            minWidth: '100%',
             '&:hover': {
                 backgroundColor: alpha(theme.palette.secondary.dark, .5),
             }
@@ -306,6 +310,9 @@ const ERC1155InnerStyles = makeStyles( theme => ({
         },
         '&.partner': {
             color: theme.palette.realm.partner
+        },
+        '&.realm-generic': {
+            color: '#c1a415'
         },
     },
     stats: {
@@ -380,6 +387,13 @@ const parselStyles = makeStyles( theme => ({
         '.specions &': {
             backgroundColor: theme.palette.realm.specions
         }
+    },
+    size: {
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+        fontSize: 10,
+        opacity: .8
     }
 }));
 

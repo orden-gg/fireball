@@ -2,15 +2,28 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 import graphUtils from '../utils/graphUtils';
-import { gotchiesQuery, svgQuery, erc1155Query, userQuery, realmQuery, auctionQuery,
-    raffleQuery, raffleEntrantsQuery, listedParcelsQuery, parselQuery } from './common/queries';
+import {
+    gotchiesQuery,
+    svgQuery,
+    erc1155Query,
+    userQuery,
+    realmQuery,
+    auctionQuery,
+    raffleQuery,
+    raffleEntrantsQuery,
+    raffleWinsQuery,
+    listedParcelsQuery,
+    parselQuery,
+    clientParselQuery,
+    listedParcelQuery,
+    getParcelHistoricalPricesQuery
+} from './common/queries';
 import Web3 from 'web3';
 
 const web3 = new Web3();
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-// const raffle = 'https://api.thegraph.com/subgraphs/id/QmRJz2xXcozeYpBq8qyuxedE6LT7Dcu1f9KJ8wZiYaW5sk/graphql';
 const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
@@ -126,7 +139,7 @@ const modifyTraits = (gotchis) => {
     return gotchisCache.map((gotchi) => {
         let gotchiCache = {...gotchi};
 
-        if (gotchiCache.equippedSetID) {
+        if (gotchiCache.equippedSetID && graphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
             let modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);
             let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
@@ -228,15 +241,13 @@ export default {
             let prizes = response.data.raffles[0].ticketPools;
 
             prizes.forEach((pool) => {
-                // let formatIds = przs.map((item) => {
-                //     item.id = (item.id).substring(2);
-                //     return item
-                // })
-
                 data.push({
                     id: pool.id,
                     items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),
-                    prizes: pool.prizes
+                    prizes: pool.prizes.map((item) => ({
+                        id: (item.id).substring(2),
+                        quantity: item.quantity
+                    }))
                 });
             });
 
@@ -247,13 +258,42 @@ export default {
     async getRaffleEntered(address, raffle) {
         return await this.getRaffleData(raffleEntrantsQuery(address.toLowerCase())).then((response) => {
             let data = [];
-            let received = response.data.raffleEntrants;
+            let received = JSON.parse(JSON.stringify(response.data.raffleEntrants));
 
+            let filtered = received.filter((item) => +item.raffle.id === raffle);
+
+            let merged = filtered.reduce((items, current) => {
+                let duplicated = items.find(item => item.ticketId === current.ticketId);
+    
+                if(duplicated) {
+                    duplicated.quantity = +duplicated.quantity + +current.quantity;
+                    return items;
+                }
+    
+                return items.concat(current);
+            }, []);
+
+            merged.forEach((item) => {
+                data.push({
+                    ticketId: item.ticketId,
+                    quantity: item.quantity,
+                });
+            });
+
+            return data;
+        });
+    },
+
+    async getRaffleWins(address, raffle) {
+        return await this.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response) => {
+            const data = [];
+
+            let received = JSON.parse(JSON.stringify(response.data.raffleWinners));
             let filtered = received.filter((item) => +item.raffle.id === raffle);
 
             filtered.forEach((item) => {
                 data.push({
-                    ticketId: item.ticketId,
+                    itemId: (item.item.id).substring(2),
                     quantity: item.quantity,
                 });
             });
@@ -268,6 +308,10 @@ export default {
 
     async getRealmData(query) {
         return await getGraphData(clientFactory.realmClient, query);
+    },
+
+    async getRealmDataFromClient(query) {
+        return await getGraphData(clientFactory.client, query);
     },
 
     async getRealmByAddress(address) {
@@ -301,6 +345,24 @@ export default {
     async getRealmById(id) {
         return await this.getRealmData(parselQuery(id)).then((response) => {
             return response.data.parcel
+        })
+    },
+
+    async getRealmFromClientById(id) {
+        return await this.getRealmDataFromClient(clientParselQuery(id)).then((response) => {
+            return response.data.parcel
+        })
+    },
+
+    async getListedParcel(id) {
+        return await this.getRealmDataFromClient(listedParcelQuery(id)).then((response) => {
+            return response.data.erc721Listings
+        })
+    },
+
+    async getParcelHistoricalPrices(id) {
+        return await this.getRealmDataFromClient(getParcelHistoricalPricesQuery(id)).then((response) => {
+            return response.data.erc721Listings
         })
     },
 

@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
-import { ticketStyles } from '../styles';
+import { tableStyles } from '../styles';
 
 import itemUtils from '../../../utils/itemUtils';
 import commonUtils from '../../../utils/commonUtils';
@@ -12,19 +12,21 @@ import { RaffleContext } from '../../../contexts/RaffleContext';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 import ghst from '../../../assets/images/ghst-doubleside.gif';
+import { DateTime } from 'luxon';
 
-export default function RaffleTablee({raffleEnded}) {
-    const classes = ticketStyles();
+export default function RaffleTablee() {
+    const classes = tableStyles();
 
-    const { tickets, setTickets, raffleSpinner, pricesSpinner, countChances, formatChance } = useContext(RaffleContext);
+    const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
 
     const handleInputChange = (event, i) => {
-        let newValue = event.target.value > 0 ? event.target.value : '';
+        let newValue = event.target.value > 0 ? +event.target.value : '';
 
         setTickets((ticketsCache) => {
             let modified = [...ticketsCache];
-            modified[i].value = +newValue;
-            modified[i].chance = countChances(+newValue, modified[i].entered, modified[i].items);
+            modified[i].value = newValue;
+            modified[i].chance = countChances(newValue, modified[i].entered, modified[i].items);
+            modified[i].prizes = countWearablesChances(modified[i]);
 
             return modified
         });
@@ -34,7 +36,7 @@ export default function RaffleTablee({raffleEnded}) {
         <>
             <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={3} style={{ position: 'relative' }}>
-                    <Typography variant='h6' className={classes.subtitle}>Entered Tickets</Typography>
+                    <Typography variant='h6' className={classes.subtitle}>Your Entered Tickets</Typography>
                 </Grid>
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
@@ -43,11 +45,11 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box maxWidth={200} margin='auto'>
                                     <TextField
-                                        type='number'
+                                        type='text'
                                         variant='outlined'
                                         value={ticket.value}
                                         fullWidth
-                                        disabled={raffleEnded}
+                                        disabled={raffle.endDate - DateTime.local() < 0}
                                         className={classNames(classes.input, ticket.rarity)}
                                         label={commonUtils.capitalize(ticket.rarity)}
                                         onChange={(event) => handleInputChange(event, i)}
@@ -70,7 +72,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                         variant='body1'
@@ -109,18 +111,20 @@ export default function RaffleTablee({raffleEnded}) {
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
                         tickets.map((ticket, i) => {
+                            const totalEntered = raffle.endDate - DateTime.local() < 0 ? ticket.entered : +ticket.entered + +ticket.value
+
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                             variant='body1'
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatPrice(ticket.entered)}
+                                            {commonUtils.formatPrice(totalEntered)}
                                         </Typography>
                                     )}
                                 </Box>
@@ -155,7 +159,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color="inherit" size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
                                     ) : (
                                         <Typography
                                             variant='body1'
@@ -197,7 +201,7 @@ export default function RaffleTablee({raffleEnded}) {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity)}>
                                     {pricesSpinner ? (
-                                        <CircularProgress color="inherit" size={20} />
+                                        <CircularProgress color='inherit' size={20} />
                                     ) : (
                                         <Typography
                                             variant='body1'
@@ -218,7 +222,7 @@ export default function RaffleTablee({raffleEnded}) {
             <Grid container spacing={2} className={classes.row}>
                 <Grid item xs={12} md={4} lg={3}>
                     <Typography variant='h6' className={classes.subtitle}>
-                        Your reward
+                        Your chance
                         <Tooltip
                             placement='right'
                             arrow
@@ -244,7 +248,7 @@ export default function RaffleTablee({raffleEnded}) {
                                         align='center'
                                         className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
                                     >
-                                        {ticket.chance ? formatChance(ticket.chance, ticket.items) : 0}
+                                        {ticket.chance ? commonUtils.formatChance(ticket.chance, ticket.items) : 0}
                                     </Typography>
                                 </Box>
                             </Grid>

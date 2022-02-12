@@ -5,8 +5,6 @@ import styles from "./styles";
 
 const interval = 1000/24;
 
-DateTime.local().setZone("America/Bogus");
-
 const names = {
     S: ['millisecond', 'milliseconds'],
     ss: ['second', 'seconds'],

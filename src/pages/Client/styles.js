@@ -37,14 +37,6 @@ const styles = makeStyles( theme => ({
 }));
 
 const routersStyles = makeStyles( theme => ({
-    // backdrop: {
-    //     zIndex: theme.zIndex.appBar - 1,
-    //     color: '#fff'
-    // },
-    // textHighlight: {
-    //     color: theme.palette.primary.main,
-    //     marginLeft: 10
-    // },
     list: {
         display: 'grid',
         alignItems: 'start',
@@ -236,10 +228,123 @@ const loadRewardsStyles = makeStyles( theme => ({
     }
 }));
 
+const parcelSinglePage = makeStyles(theme => ({
+    name: {
+        fontWeight: '500',
+        lineHeight: '1.4',
+        textTransform: 'capitalize',
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
+                    ${theme.palette.secondary.main} -1px -1px 0px',
+                    ${theme.palette.secondary.main} 1px -1px 0px',
+                    ${theme.palette.secondary.main} -1px 1px 0px',
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
+
+        '.tooltip-wearable &': { // name
+            fontSize: 14
+        },
+    },
+    parcelInfoContainer: {
+        maxWidth: 300
+    },
+    parcelInfoWrap: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            justifyContent: 'center'
+        }
+    },
+    parcelImageContainer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        '& > canvas': {
+            maxWidth: '100%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            justifyContent: 'center'
+        }
+    },
+    parcelWrapContainer: {
+        paddingTop: 30
+    },
+    notListedInBaazaar: {
+        margin: '15px 0',
+        padding: 20,
+        border: `1px solid ${alpha(theme.palette.primary.main, .3)}`,
+    },
+    ownerLink: {
+        margin: '15px 0',
+        '& > a': {
+            color: theme.palette.primary.main
+        },
+        '& > a:hover': {
+            textDecoration: 'underline'
+        }
+    },
+    parcelTransactions: {
+        display: 'flex',
+        justifyContent: 'center',
+        '& > ul': {
+            maxWidth: 650,
+            width: '100%'
+        },
+        [theme.breakpoints.up('xs')]: {
+            padding: '20px 0 0 48px',
+        }
+    },
+    parcelTransactionsWrapper: {
+        height: 'max-content'
+    },
+    parcelTransactionsItem: {
+        height: '100%',
+        width: '100%',
+        border: `1px solid ${alpha(theme.palette.primary.main, .3)}`
+    },
+    reserveTitle: {
+        display: 'none',
+        [theme.breakpoints.down('sm')]: {
+            display: 'inline'
+        }
+    },
+    parcelTransactionsItemHead: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
+    },
+    parcelTransactionsItemInner: {
+        margin: 'auto',
+        padding: 10
+    },
+    priceIcon: {
+        width: 15
+    },
+    address: {
+        color: theme.palette.primary.main,
+        '&:hover': {
+            textDecoration: 'underline'
+        }
+    },
+    noContent: {
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'center',
+        paddingTop: 50
+    },
+    alchemicaImg: {
+        width: 20
+    },
+    alchemicaContainer:{
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: 10,
+        '& img': {
+            marginRight: 10
+        }
+    }
+}));
+
 export {
     styles as default,
     clientNavStyles,
     routersStyles,
-
-    loadRewardsStyles
+    loadRewardsStyles,
+    parcelSinglePage
 };

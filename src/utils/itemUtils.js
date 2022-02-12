@@ -249,6 +249,23 @@ export default {
         }
     },
 
+    getParcelDimmentions(id) {
+        switch (id) {
+            case '0':
+                return '8x8';
+            case '1':
+                return '16x16';
+            case '2':
+                return '32x64';
+            case '3':
+                return '64x32';
+            case '4':
+                return '64x64';
+            default:
+                return '';
+        }
+    },
+
     getAlchemicaImg(name) {
         try {
             return require(`../assets/images/icons/${name}.png`).default;
