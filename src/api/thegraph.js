@@ -16,7 +16,8 @@ import {
     parselQuery,
     clientParselQuery,
     listedParcelQuery,
-    getParcelHistoricalPricesQuery
+    getParcelHistoricalPricesQuery,
+    wearableSetsQuery
 } from './common/queries';
 import Web3 from 'web3';
 
@@ -394,5 +395,14 @@ export default {
         });
 
         return queries;
+    },
+
+    async getAllWearableSets() {
+        const { 
+            data: {
+                wearableSets
+            } 
+        } = await this.getData(wearableSetsQuery())
+        return wearableSets
     }
 }

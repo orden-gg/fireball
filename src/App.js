@@ -10,6 +10,7 @@ import Footer from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
 import Baazaar from './pages/Baazaar/Baazaar';
+import WearableSets from './pages/WearableSets/WearableSets';
 import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
@@ -57,6 +58,7 @@ export default function App() {
                                 <Switch>
                                     <Route exact path={`/`} component={ Main } />
                                     <Route exact path={`/market`} component={ Baazaar } />
+                                    <Route exact path={`/market/set`} component={ WearableSets } />
                                     <Route exact path={`/explorer`} component={ GhostExplorer } />
                                     <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />

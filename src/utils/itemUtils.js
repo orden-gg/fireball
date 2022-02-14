@@ -2,6 +2,10 @@ import { items } from '../data/items';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+    getIds() {
+        return Object.keys(items)
+    },
+
     getItemNameById(id) {
         return items[id]?.name || '';
     },
@@ -36,6 +40,26 @@ export default {
             }
         });
 
+        return stats;
+    },
+
+    // traitBonuses = [3, -1, 0, 2, 0] <- [BRS, NRG, AGG, SPK, BRN]
+    getEmojiStats(traitBonuses) {
+        if(!Array.isArray(traitBonuses)) return '';
+
+        let emojis = ['BRS', '⚡️', '👹', '👻', '🧠']
+        let stats = ""
+        traitBonuses.forEach((trait, index) => {
+            if (trait !== 0 && stats !== "") {
+                stats += ', '
+            }
+
+            if (trait > 0) {
+                stats += `${emojis[index]}+${trait}`
+            } else if (trait < 0) {
+                stats += `${emojis[index]}${trait}`
+            }
+        })
         return stats;
     },
 
