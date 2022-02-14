@@ -31,13 +31,10 @@ export default function WearableSets() {
 
         const sets = wearableSets.map(set => {
             const wearables = set.wearableIds.map((id) => wearablesMap[id])
-            if (!wearables.reduce((acc, { priceInWei }) => acc + priceInWei, 0)) {
-                console.log(wearables)
-            }
             return ({
                 ...set,
                 wearables,
-                totalCost: wearables.reduce((acc, { priceInWei }) => acc + priceInWei, 0)
+                totalCost: Math.round(wearables.reduce((acc, { priceInWei }) => acc + priceInWei, 0) * 10) / 10
             })
         })
         if (sorting === 'priceInWei-asc') {
