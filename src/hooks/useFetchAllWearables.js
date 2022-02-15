@@ -23,11 +23,11 @@ export default function useFetchAllWearableSets() {
 
 			const data = await Promise.all(items
 				.map(async item => { 
-						const { price: priceInWei } = await thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc')
+						const { price: priceInGhst } = await thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc')
 						return {
 							[item.id]: {
 								...item,
-								priceInWei: priceInWei === 0 ? Infinity : priceInWei
+								priceInGhst: priceInGhst === 0 ? Infinity : priceInGhst
 							}
 						}
 				}))

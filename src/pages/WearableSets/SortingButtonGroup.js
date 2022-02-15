@@ -20,11 +20,11 @@ export default function SortingButtonGroup({ value, onChange }) {
 			// fullWidth
 			size={'small'}
 		>
-			<ToggleButton className={classes.toggleItem} value={'priceInWei-asc'} aria-label='modified rarity score'>
+			<ToggleButton className={classes.toggleItem} value={'priceInGhst-asc'} aria-label='modified rarity score'>
 				<img src={ghst} alt='ghst' />
 				<ArrowDownwardIcon />
 			</ToggleButton>
-			<ToggleButton className={classes.toggleItem} value={'priceInWei-desc'} aria-label='modified rarity score'>
+			<ToggleButton className={classes.toggleItem} value={'priceInGhst-desc'} aria-label='modified rarity score'>
 				<img src={ghst} alt='ghst' />
 				<ArrowUpwardIcon />
 			</ToggleButton>

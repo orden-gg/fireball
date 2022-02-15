@@ -34,19 +34,18 @@ export default function WearableSets() {
             return ({
                 ...set,
                 wearables,
-                totalCost: Math.round(wearables.reduce((acc, { priceInWei }) => acc + priceInWei, 0) * 10) / 10
+                totalCost: Math.round(wearables.reduce((acc, { priceInGhst }) => acc + priceInGhst, 0) * 10) / 10
             })
         })
-        if (sorting === 'priceInWei-asc') {
+        if (sorting === 'priceInGhst-asc') {
             return sets.sort((a, b) => a.totalCost - b.totalCost)
         }
 
-        if (sorting === 'priceInWei-desc') {
+        if (sorting === 'priceInGhst-desc') {
             return sets.sort((a, b) => b.totalCost - a.totalCost)
         }
 
         return sets
-        // return wearableSets
     }, [isLoading, sorting, wearableSets, wearablesMap])
 
     if(isLoading) {

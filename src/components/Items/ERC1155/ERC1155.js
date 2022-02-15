@@ -33,7 +33,7 @@ export default function ERC1155({children, item}) {
 
     useEffect(() => {
         let controller = new AbortController();
-        if (!item.priceInWei && item.priceInWei !== 0) {
+        if (!item.priceInGhst) {
             // last sold
             thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
                 if(!controller.signal.aborted) {
@@ -62,7 +62,7 @@ export default function ERC1155({children, item}) {
 
             {(item.balance || item.priceInWei) ? (
                 <div className={classes.labels}>
-                    {(item.priceInWei || (last && current)) ? (
+                    {(item.priceInGhst || (last && current)) ? (
                         <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
                             <div
                                 className={
@@ -75,11 +75,13 @@ export default function ERC1155({children, item}) {
                             >
                                 <Typography variant='subtitle2'>
                                     {
-                                        (item.priceInWei && (item.priceInWei === Infinity ? '???' : item.priceInWei)) || 
-                                        (last?.price === 0 && !item.priceInWei 
-                                            ? '???'
-                                            : commonUtils.formatPrice((last?.price && item.balance)
-                                                ? (last?.price * item.balance)
+                                        (item.priceInGhst && item.priceInGhst === Infinity 
+                                            ? '???' 
+                                            : item.priceInGhst) || 
+                                        (last.price === 0 && !item.priceInWei 
+                                            ? '???' 
+                                            : commonUtils.formatPrice((last.price && item.balance) 
+                                                ? (last.price * item.balance) 
                                                 : parseFloat(web3.utils.fromWei(item.priceInWei))))
                                     }
                                 </Typography>
@@ -151,7 +153,7 @@ export default function ERC1155({children, item}) {
 
             {children}
 
-            {!item.priceInWei && (
+            {!item.priceInGhst && ( // Hide below for wearable sets
                 <div className={classes.prices}>
                     {current && last ? (
                         <Tooltip
