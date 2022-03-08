@@ -3,11 +3,11 @@ import { sets } from '../data/sets';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     calculateRewards(position, type) {
-        const BRSformula = {y: 0.94, k: 102656.27};
-        const KINformula = {y: 0.76, k: 7000.66};
-        const EXPformula = {y: 0.65, k: 3703.69};
+        const BRSformula = {y: 0.94, k: 84857.04};
+        const KINformula = {y: 0.76, k: 9416.93};
+        const EXPformula = {y: 0.65, k: 2396.69};
 
-        if(position > 5000 || position === -1) {
+        if(position > 7500 || position === -1) {
             return {reward: 0};
         }
 
@@ -25,18 +25,6 @@ export default {
                     reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
                 };
             case 'EXP':
-                return {
-                    name: type,
-                    position: position + 1,
-                    reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
-                };
-            case 'H2_KIN':
-                return {
-                    name: type,
-                    position: position + 1,
-                    reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
-                };
-            case 'H2_EXP':
                 return {
                     name: type,
                     position: position + 1,

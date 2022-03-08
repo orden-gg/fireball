@@ -87,6 +87,8 @@ export default function ClientGotchis() {
                         className={classes.loadButton}
                     >
                         {reward ? 'Reward:' : 'Calculate Reward'}
+
+                        <p className={classes.loadLabel}>SZN 3</p>
                     </LoadingButton>
 
                     {reward ? (

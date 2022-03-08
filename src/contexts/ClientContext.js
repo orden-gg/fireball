@@ -200,21 +200,15 @@ const ClientContextProvider = (props) => {
             let kinLeaders = commonUtils.basicSort(response, 'kinship');
             let expLeaders = commonUtils.basicSort(response, 'experience');
 
-            let h2 = response.filter((gotchi) => gotchi.hauntId === '2');
-            let kinRookieLeaders = commonUtils.basicSort(h2, 'kinship');
-            let expRookieLeaders = commonUtils.basicSort(h2, 'experience');
-
             gotchis.forEach((item, index)=>{
                 let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
                 let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
                 let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
-                let rookieKIN = graphUtils.calculateRewards(kinRookieLeaders.findIndex(x => x.id === item.id), 'H2_KIN');
-                let rookieEXP = graphUtils.calculateRewards(expRookieLeaders.findIndex(x => x.id === item.id), 'H2_EXP');
 
                 gotchis[index] = {
                     ...item,
-                    reward: BRS.reward + KIN.reward + EXP.reward + rookieKIN.reward + rookieEXP.reward,
-                    rewardStats: [BRS, KIN, EXP, rookieKIN, rookieEXP]
+                    reward: BRS.reward + KIN.reward + EXP.reward,
+                    rewardStats: [BRS, KIN, EXP]
                 }
             });
 

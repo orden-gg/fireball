@@ -207,14 +207,16 @@ const clientNavStyles = makeStyles( theme => ({
 }));
 
 const loadRewardsStyles = makeStyles( theme => ({
-    
     loadWrapper: {
         display: 'flex',
         alignItems: 'center',
         marginLeft: 16
     },
     loadButton: {
-        marginRight: '16px'
+        marginRight: '16px',
+        paddingRight: '24px !important',
+        position: 'relative',
+        overflow: 'hidden'
     },
     loadReward: {
         display: 'inline-flex',
@@ -225,6 +227,22 @@ const loadRewardsStyles = makeStyles( theme => ({
         alignItems: 'center',
         fontSize: '16px',
         marginLeft: '4px'
+    },
+    loadLabel: {
+        position: 'absolute',
+        top: 0,
+        right: 15,
+        transform: 'rotate(-90deg)',
+        transformOrigin: 'top right',
+        fontSize: 10,
+        fontWeight: 700,
+        background: theme.palette.error.main,
+        pointerEvents: 'none',
+        borderRadius: '0 0 2px 2px',
+        margin: 0,
+        lineHeight: 1,
+        padding: '3px 4px 2px',
+        color: '#000'
     }
 }));
 
