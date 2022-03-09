@@ -125,15 +125,18 @@ export default function Citadel({ ownerParcels, className}) {
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip 
-                    title={ isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
-                    enterTouchDelay={0}
-                    placement='left'
-                >
-                    <IconButton onClick={toggleFullscreen} className={classes.citadelInterfaceButton}>
-                        { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
-                    </IconButton>
-                </Tooltip>
+               {
+                    isFullscreen !== null &&
+                    <Tooltip
+                        title={ isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
+                        enterTouchDelay={0}
+                        placement='left'
+                    >
+                        <IconButton onClick={toggleFullscreen} className={classes.citadelInterfaceButton}>
+                            { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
+                        </IconButton>
+                    </Tooltip>
+                }
 
                 <Tooltip 
                     title={ showGrid ? 'Hide Grid' : 'Show Grid' }
