@@ -39,12 +39,9 @@ export default function GotchiSkillPoints({id, usedPoints}) {
                 <Tooltip 
                     title={
                         <React.Fragment>
-                            <div className={classes.tooltip}>
-                                <p>available<span>/</span>used <span>skillpoints</span></p>
-                            </div>
+                            <p>available<span>/</span>used <span>skillpoints</span></p>
                         </React.Fragment>
                     }
-                    // title={`available / used [skillpoints]`}
                     classes={{ tooltip: classes.customTooltip }}
                     enterTouchDelay={0}
                     placement='top'

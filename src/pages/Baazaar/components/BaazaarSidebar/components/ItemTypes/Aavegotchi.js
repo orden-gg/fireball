@@ -1,12 +1,8 @@
 import React from "react";
-import Web3 from "web3";
 import Gotchi from "../../../../../../components/Gotchi/Gotchi";
-import ghst from '../../../../../../assets/images/ghst-doubleside.gif';
-import { Grid, Button } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import { baazaarSortingBodyStyles } from "../../../../styles";
-
-const web3 = new Web3();
 
 export default function Aavegotchi({item}) {
     const classes = baazaarSortingBodyStyles();
@@ -34,12 +30,13 @@ export default function Aavegotchi({item}) {
                                     'mainTraits',
                                     'numericTraits',
                                     'wearablesLine',
+                                    'listing',
                                 ]}
                             /> :
                             <Gotchi
                                 key={item.gotchi.id}
                                 className={classes.gotchi}
-                                gotchi={item.gotchi}
+                                gotchi={{...item.gotchi, listings: [{id: item.id, priceInWei: item.priceInWei}], historicalPrices: []}}
                                 renderSvgByStats={true}
                                 render={[
                                     {
@@ -54,26 +51,12 @@ export default function Aavegotchi({item}) {
                                     'mainTraits',
                                     'numericTraits',
                                     'wearablesLine',
+                                    'listing',
                                 ]}
                             />
                     }
                 </Grid>
             </div>
-            <Grid container className={classes.ghstFooter}>
-                <Grid item className={classes.price} xs={7}>
-                    <img className={classes.ghst} src={ghst} alt="ghst"/>
-                    <div>{web3.utils.fromWei(item.priceInWei)}</div>
-                </Grid>
-                <Grid item xs={5}>
-                    <Button
-                        target={'_blank'}
-                        href={'https://app.aavegotchi.com/baazaar/erc721/' + item.id}
-                        variant={'outlined'}
-                        color={'primary'}
-                        fullWidth
-                    >Buy</Button>
-                </Grid>
-            </Grid>
         </div>
     );
 }

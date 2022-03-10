@@ -10,6 +10,7 @@ import GotchiLevel from './GotchiLevel';
 import GotchiSkillPoints from './GotchiSkillPoints';
 import GotchiTraitsHighlight from './GotchiTraitsHighlight';
 import GotchiWearablesLine from './GotchiWearablesLine';
+import GotchiListing from './GotchiListing';
 import HighlightNumber from '../HighlightNumber';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
@@ -156,6 +157,16 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                 </div>
             )
         },
+        get listing() {
+            return (
+                <GotchiListing
+                    id={gotchi.id}
+                    listing={gotchi.listings}
+                    history={gotchi.historicalPrices}
+                    key={`${gotchi.id}-listings`}
+                />
+            )
+        },
         get rewards() {
             return (
                 gotchi.reward || gotchi.reward === 0 ? (
@@ -163,21 +174,21 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                         {gotchi.reward > 0 ? (
                             <Tooltip
                                 title={
-                                    <Box>
+                                    <>
                                         {gotchi.rewardStats.map((item, index) => {
                                             return item.reward !== 0 ? (
-                                                <div key={index}>
-                                                   <Typography variant='caption'>
-                                                        {item.name}[{item.position}] - <Box className={classes.rankReward}>
-                                                            {commonUtils.formatPrice(item.reward)} <img src={ghstIcon} width='14' alt='GHST Token Icon' />
-                                                        </Box>
-                                                    </Typography>
-                                                </div>
+                                                <p key={index}>
+                                                    {item.name}[<span>{item.position}</span>] - 
+                                                    <span className={classes.rankReward}>
+                                                        {commonUtils.formatPrice(item.reward)}
+                                                        <img src={ghstIcon} width='14' alt='GHST Token Icon' />
+                                                    </span>
+                                                </p>
                                             ) : (
                                                 null
                                             )
                                         })}
-                                    </Box>
+                                    </>
                                 }
                                 classes={{ tooltip: classes.customTooltip }}
                                 enterTouchDelay={0}
@@ -185,8 +196,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                                 followCursor
                             >
                                 <Box className={classes.rankRewardAmount}>
-                                    <Typography className={classes.rankRewardAmountNumber}>{commonUtils.formatPrice(gotchi.reward)}</Typography>
-                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                    🏆<Typography className={classes.rankRewardAmountNumber}>{commonUtils.formatPrice(gotchi.reward)}</Typography>🏆
                                 </Box>
                             </Tooltip>
                                 

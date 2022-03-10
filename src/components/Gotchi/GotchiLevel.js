@@ -18,9 +18,7 @@ export default function GotchiLevel({level, toNextLevel, experience, size}) {
         <Tooltip
             title={
                 <React.Fragment>
-                    <div className={classes.gotchiLvlTooltip}>
-                        <p>[<span>{experience}</span> XP] lvl <span>{+level + 1}</span> in <span>{toNextLevel}</span> XP</p>
-                    </div>
+                    <p>[<span>{experience}</span> XP] lvl <span>{+level + 1}</span> in <span>{toNextLevel}</span> XP</p>
                 </React.Fragment>
             }
             classes={{ tooltip: classes.customTooltip }}

@@ -206,6 +206,11 @@ export default function Baazaar() {
                     equippedSetID
                     equippedSetName
                     usedSkillPoints
+                    listings(where:{cancelled: false, timePurchased: 0}) {
+                        id
+                        priceInWei
+                    }
+                    historicalPrices
                 },
                 portal {
                     id,

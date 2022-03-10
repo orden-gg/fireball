@@ -155,23 +155,22 @@ const styles = makeStyles( theme => ({
         alignItems: 'center'
     },
     rankBox: {
-        display: 'flex',
-        justifyContent: 'flex-end'
+        position: 'absolute',
+        bottom: 0,
+        left: 0
     },
     rankStatus: {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '3px 8px',
+        padding: '2px 8px',
         position: 'relative',
-        bottom: -8,
-        right: -8,
         bgcolor: alpha(theme.palette.secondary.dark, .5)
     },
     rankReward: {
         display: 'inline-flex',
         alignItems: 'center',
-        color: 'primary.main'
+        marginLeft: 6
     },
     rankStatusText: {
         color: theme.palette.warning.main,
@@ -182,15 +181,17 @@ const styles = makeStyles( theme => ({
         display:'inline-flex',
         alignItems:'center',
         justifyContent:'center',
-        padding:'3px 2px 3px 8px',
+        padding:'2px 2px 2px 8px',
         position:'relative',
-        bottom:-8,
-        right:-8,
-        backgroundColor: alpha(theme.palette.secondary.dark, .5)
+        backgroundColor: alpha(theme.palette.primary.main, .2),
+        fontSize: 12,
+        textShadow: `1px 1px 0 ${alpha(theme.palette.secondary.main, .8)}`
     },
     rankRewardAmountNumber: {
         fontSize: 14,
-        fontWeight: 600
+        fontWeight: 600,
+        lineHeight: 1.43,
+        margin: '0 2px'
     },
     mainVal: {
         fontSize: 13,
@@ -221,14 +222,6 @@ const styles = makeStyles( theme => ({
 }));
 
 const GotchiLevelStyles = makeStyles( theme => ({
-    gotchiLvlTooltip: {
-        '& p': {
-            margin: 0
-        },
-        '& span': {
-            color: theme.palette.primary.main
-        }
-    },
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
@@ -378,14 +371,6 @@ const GotchiTraitsStyles = makeStyles( theme => ({
 }));
 
 const GotchiSkillpointsStyles = makeStyles( theme => ({
-    tooltip: {
-        '& p': {
-            margin: 0
-        },
-        '& span': {
-            color: theme.palette.primary.main
-        }
-    },
     skillpoints: {
         fontSize: 12,
         fontWeight: 700,
@@ -397,10 +382,74 @@ const GotchiSkillpointsStyles = makeStyles( theme => ({
     }
 }));
 
+const GotchiListingStyles = makeStyles( theme => ({
+    container: {
+        display: 'flex',
+        justifyContent: 'flex-end'
+    },
+    listing: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2px',
+        position: 'relative',
+        bottom: -8,
+        right: -8,
+        backgroundColor: alpha(theme.palette.secondary.dark, .5),
+        fontSize: 14,
+        fontWeight: 600,
+
+        '& p': {
+            margin: 0
+        },
+
+        '&:hover': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .7),
+        }
+    },
+    listingShadow: {
+        display: 'flex',
+        alignItems: 'center',
+        filter: 'grayscale(1)',
+        color: alpha(theme.palette.common.white, .5),
+    },
+    listingLink: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    tooltipInner: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    tooltipItem: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    tooltipDivider: {
+        marginRight: 4,
+        marginLeft: 2
+    },
+    lastPrice: {
+        paddingLeft: 6
+    },
+    lastPriceUp: {
+        color: theme.palette.success.light
+    },
+    lastPriceDown: {
+        color: theme.palette.warning.main
+    },
+}));
+
 const CustomTooltipStyles = makeStyles( theme => ({
     customTooltip: {
         backgroundColor: theme.palette.secondary.dark,
-        marginBottom: 8
+        marginBottom: 8,
+        '& p': {
+            margin: 0
+        },
+        '& span': {
+            color: theme.palette.primary.main
+        }
     },
 }));
 
@@ -411,5 +460,6 @@ export {
     GotchiWareableLineStyles,
     GotchiTraitsStyles,
     GotchiSkillpointsStyles,
+    GotchiListingStyles,
     CustomTooltipStyles
  }

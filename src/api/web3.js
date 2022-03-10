@@ -15,6 +15,10 @@ export default {
         return Web3.utils.isAddress(address);
     },
 
+    fromWei(number) {
+        return Web3.utils.fromWei(number);
+    },
+
     async getInventoryByAddress(address) {
         try {
             let contractResponse;
