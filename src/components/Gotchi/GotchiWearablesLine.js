@@ -27,7 +27,7 @@ export default function GotchiWearablesLine({wearables}) {
                             title={
                                 wearable !== 0 ? (
                                     <div className={classNames(classes.gotchiWTooltipTitle, 'tooltip-wearable')}>
-                                        <Wearable wearable={{ id: wearable }} tooltip={true} />
+                                        <Wearable wearable={{ id: wearable, category: 0 }} tooltip={true} />
                                     </div>
                                 ) : (
                                     <span>
