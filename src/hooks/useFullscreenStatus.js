@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function useFullscreenStatus(elRef) {
   const [isFullscreen, setIsFullscreen] = useState(false);
