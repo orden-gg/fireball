@@ -229,10 +229,6 @@ const GotchiLevelStyles = makeStyles( theme => ({
             color: theme.palette.primary.main
         }
     },
-    customTooltip: {
-        backgroundColor: theme.palette.secondary.dark,
-        marginBottom: 8
-    },
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
@@ -346,11 +342,6 @@ const GotchiWareableLineStyles = makeStyles( theme => ({
         marginRight: 4
     },
 
-    customTooltip: {
-        backgroundColor: theme.palette.secondary.dark,
-        marginBottom: 8
-    },
-
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
@@ -386,10 +377,39 @@ const GotchiTraitsStyles = makeStyles( theme => ({
     },
 }));
 
+const GotchiSkillpointsStyles = makeStyles( theme => ({
+    tooltip: {
+        '& p': {
+            margin: 0
+        },
+        '& span': {
+            color: theme.palette.primary.main
+        }
+    },
+    skillpoints: {
+        fontSize: 12,
+        fontWeight: 700,
+        padding: '3px 6px',
+        marginRight: 6,
+        borderRadius: 4,
+        background: alpha(theme.palette.secondary.main, .2),
+        color: alpha(theme.palette.common.white, .8)
+    }
+}));
+
+const CustomTooltipStyles = makeStyles( theme => ({
+    customTooltip: {
+        backgroundColor: theme.palette.secondary.dark,
+        marginBottom: 8
+    },
+}));
+
 export {
     styles as default,
     GotchiLevelStyles,
     GotchiSvgStyles,
     GotchiWareableLineStyles,
-    GotchiTraitsStyles
+    GotchiTraitsStyles,
+    GotchiSkillpointsStyles,
+    CustomTooltipStyles
  }

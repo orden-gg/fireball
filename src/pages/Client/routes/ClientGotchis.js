@@ -119,6 +119,7 @@ export default function ClientGotchis() {
                                     {
                                         badges: [
                                             'id',
+                                            'skillpoints',
                                             'level',
                                             'collateral'
                                         ]

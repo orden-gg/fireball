@@ -2,11 +2,12 @@ import React from 'react';
 import { Link, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import classNames from 'classnames';
-import styles from './styles';
+import styles, { CustomTooltipStyles } from './styles';
 
 import graphUtils from '../../utils/graphUtils';
 
 import GotchiLevel from './GotchiLevel';
+import GotchiSkillPoints from './GotchiSkillPoints';
 import GotchiTraitsHighlight from './GotchiTraitsHighlight';
 import GotchiWearablesLine from './GotchiWearablesLine';
 import HighlightNumber from '../HighlightNumber';
@@ -20,7 +21,10 @@ import ShineLabel from '../Labels/ShineLabel';
 import commonUtils from '../../utils/commonUtils';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, render}) {
-    const classes = styles();
+    const classes = {
+        ...styles(),
+        ...CustomTooltipStyles()
+    };
 
     const collateral = graphUtils.getCollateralName(gotchi.collateral);
 
@@ -70,6 +74,15 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                     experience={gotchi.experience}
                     size={25}
                     key={`${gotchi.id}-level`} 
+                />
+            )
+        },
+        get skillpoints() {
+            return (
+                <GotchiSkillPoints
+                    id={gotchi.id}
+                    usedPoints={gotchi.usedSkillPoints}
+                    key={`${gotchi.id}-skillpoints`} 
                 />
             )
         },

@@ -24,6 +24,7 @@ export default function Aavegotchi({item}) {
                                     {
                                         badges: [
                                             'id',
+                                            'skillpoints',
                                             'level',
                                             'collateral'
                                         ]

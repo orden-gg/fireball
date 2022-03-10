@@ -53,4 +53,14 @@ export default {
             return [];
         }
     },
+
+    async getAvailableSkillPoints(tokenId) {
+        try {
+            return await contract.methods.availableSkillPoints(tokenId).call()
+                .then((response) => response);
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
+    },
 }
