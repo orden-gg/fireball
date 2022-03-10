@@ -8,12 +8,12 @@ import { listingTypes } from '../../../../data/types';
 
 import GotchiFilters from './components/Filters/GotchiFilters';
 import RealmFilters from './components/Filters/RealmFilters';
-import gotchiPlaceholder from '../../../../assets/images/logo.svg';
+import gotchiPlaceholder from '../../../../assets/images/gotchi-placeholder.svg';
 import warehousePlaceholder from '../../../../assets/wearables/15.svg';
 import ticketsPlaceholder from '../../../../assets/tickets/rare.svg';
 import realmPlaceholder from '../../../../assets/images/icons/kek.png';
 import closedPortals from '../../../../assets/images/portal-sealed.svg';
-import openedPortals from '../../../../assets/images/portal-open.svg';
+import openedPortals from '../../../../assets/images/h1-open.svg';
 import consumables from '../../../../assets/wearables/127.svg';
 import activity from '../../../../assets/images/activity.svg';
 import listing from '../../../../assets/images/listing.svg';

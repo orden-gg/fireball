@@ -7,9 +7,9 @@ import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 import commonUtils from '../../../utils/commonUtils';
 import Web3 from "web3";
 import sealedPortal from '../../../assets/images/portal-sealed.svg';
-import openPortal from '../../../assets/images/portal-open.svg';
-import h2SealedPortal from '../../../assets/images/h2_sealed.svg';
-import h2OpenPortal from '../../../assets/images/h2_open.svg';
+import openPortal from '../../../assets/images/h1-open.svg';
+import h2SealedPortal from '../../../assets/images/h2-sealed.svg';
+import h2OpenPortal from '../../../assets/images/h2-open.svg';
 
 var web3 = new Web3();
 

@@ -46,6 +46,17 @@ const styles = makeStyles( theme => ({
             marginTop: 5
         }
     },
+    gotchiSvgPortal: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        opacity: .5
+    },
+    gotchiSvgInner: {
+        position: 'relative',
+        zIndex: 1
+    },
     gotchiSetName: {
         position: 'absolute',
         bottom: 10,

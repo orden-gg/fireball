@@ -17,7 +17,7 @@ const raffles = [
         startDate: DateTime.local(2021, 9, 5, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 9, 8, 14, { zone: 'utc' }),
         tickets: [6],
-        icon: require('../../../assets/images/h2_sealed.svg').default
+        icon: require('../../../assets/images/h2-sealed.svg').default
     },
     {
         id: 5,

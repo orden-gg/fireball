@@ -137,7 +137,7 @@ export default {
                 return require(`../assets/images/portal-sealed.svg`).default;
             },
             open_portal: () => {
-                return require(`../assets/images/portal-open.svg`).default;
+                return require(`../assets/images/h1-open.svg`).default;
             },
             realm: () => {
                 return require(`../assets/images/portal-sealed.svg`).default;
@@ -163,6 +163,14 @@ export default {
         }
 
         return typeMap[this.getItemType(item)]();
+    },
+
+    getPortalImg(hauntId) {
+        try {
+            return require(`../assets/images/h${hauntId}-open.svg`).default;
+        } catch (error) {
+            return require(`../assets/images/no-image2.svg`).default;
+        }
     },
 
     getWearableImg(id) {

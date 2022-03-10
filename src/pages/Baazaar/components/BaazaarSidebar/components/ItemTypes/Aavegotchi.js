@@ -36,8 +36,13 @@ export default function Aavegotchi({item}) {
                             <Gotchi
                                 key={item.gotchi.id}
                                 className={classes.gotchi}
-                                gotchi={{...item.gotchi, listings: [{id: item.id, priceInWei: item.priceInWei}], historicalPrices: []}}
+                                gotchi={{
+                                    ...item.gotchi,
+                                    listings: [{id: item.id, priceInWei: item.priceInWei}],
+                                    historicalPrices: []
+                                }}
                                 renderSvgByStats={true}
+                                portal={true}
                                 render={[
                                     {
                                         badges: [

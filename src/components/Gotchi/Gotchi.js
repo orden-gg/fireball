@@ -20,8 +20,9 @@ import CallMade from '@mui/icons-material/CallMade';
 import ghstIcon from '../../assets/images/ghst-doubleside.gif';
 import ShineLabel from '../Labels/ShineLabel';
 import commonUtils from '../../utils/commonUtils';
+import itemUtils from '../../utils/itemUtils';
 
-export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, render}) {
+export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, render, portal}) {
     const classes = {
         ...styles(),
         ...CustomTooltipStyles()
@@ -139,21 +140,33 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
         get svg() {
             return (
                 <div className={classes.gotchiSvg} key={`${gotchi.id}-svg`}>
-                    {
-                        renderSvgByStats ? (
-                            <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
-                        ) : (
-                            <GotchiSvg id={gotchi.id} size={'100%'} />
-                        )
-                    }
-
-                    {gotchi.equippedSetName ? (
-                        <div className={classes.gotchiSetName}>
-                            <ShineLabel text={gotchi.equippedSetName} />
-                        </div>
+                    {portal ? (
+                        <img
+                            className={classes.gotchiSvgPortal}
+                            src={itemUtils.getPortalImg(gotchi.hauntId)}
+                            alt={`haunt-${gotchi.hauntId}-portal`}
+                            width={'100%'} />
                     ) : (
                         null
                     )}
+
+                    <div className={classes.gotchiSvgInner}>
+                        {
+                            renderSvgByStats ? (
+                                <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
+                            ) : (
+                                <GotchiSvg id={gotchi.id} size={'100%'} />
+                            )
+                        }
+
+                        {gotchi.equippedSetName ? (
+                            <div className={classes.gotchiSetName}>
+                                <ShineLabel text={gotchi.equippedSetName} />
+                            </div>
+                        ) : (
+                            null
+                        )}
+                    </div>
                 </div>
             )
         },

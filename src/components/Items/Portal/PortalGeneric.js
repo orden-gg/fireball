@@ -2,7 +2,7 @@ import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
-import h2SealedPortal from '../../../assets/images/h2_sealed.svg';
+import h2SealedPortal from '../../../assets/images/h2-sealed.svg';
 import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
 
 export default function PortalGeneric({portal, raffleChances}) {
