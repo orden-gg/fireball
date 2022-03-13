@@ -1,14 +1,10 @@
 import React, { useContext } from 'react';
-import { Box, Toolbar, Snackbar, Alert, Button, Link } from '@mui/material';
+import { Box, Toolbar, Button, Link, Snackbar, Alert } from '@mui/material';
 
 import { SnackbarContext } from '../../contexts/SnackbarContext';
 import MusicButton from '../../components/MusicButton/MusicButton';
 
 import styles from './styles';
-
-function FooterAlert(props) {
-    return <Alert elevation={6} variant='filled' {...props} />;
-}
 
 export default function Footer() {
     const classes = styles(),
@@ -28,10 +24,19 @@ export default function Footer() {
                     <MusicButton />
                 </div>
             </Toolbar>
-            <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
-                <FooterAlert onClose={() => onSnackbarClose()} severity={type}>
+
+            <Snackbar
+                open={isOpen}
+                autoHideDuration={3000}
+                onClose={() => onSnackbarClose()}
+            >
+                <Alert 
+                    elevation={6}
+                    variant='filled'
+                    severity={type}
+                >
                     {message}
-                </FooterAlert>
+                </Alert>
             </Snackbar>
         </Box>
     )

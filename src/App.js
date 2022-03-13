@@ -13,6 +13,7 @@ import Baazaar from './pages/Baazaar/Baazaar';
 import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
+import Autopet from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from "./contexts/BaazaarContext";
@@ -58,6 +59,7 @@ export default function App() {
                                     <Route exact path={`/`} component={ Main } />
                                     <Route exact path={`/market`} component={ Baazaar } />
                                     <Route exact path={`/explorer`} component={ GhostExplorer } />
+                                    <Route path={`/autopet`} component={ Autopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
