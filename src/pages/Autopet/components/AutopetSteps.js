@@ -13,6 +13,7 @@ import { AutopetContext } from '../AutopetContextProvider';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 import { ReactComponent as Gotchi } from '../../../assets/images/gotchi-placeholder.svg'
+import ConnectPanel from './ConnectPanel';
 
 export default function AutopetSteps() {
     const classes = tabStyles();
@@ -38,8 +39,9 @@ export default function AutopetSteps() {
     };
 
     useEffect( () => {
-        for(const [index, tab] of tabs.entries()) {
-            if(!tab.done) {
+        Object.keys(tabs).entries()
+        for(const [index, key] of Object.keys(tabs).entries()) {
+            if(!tabs[key].done) {
                 setCurrentTab(index);
                 break;
             } 
@@ -58,7 +60,7 @@ export default function AutopetSteps() {
                     variant="fullWidth"
                 >   
                 {
-                    tabs.map( (tab, index) => (
+                    Object.keys(tabs).map( (key, index) => (
                         <Tab 
                             key={index}
                             className={ classes.tab }
@@ -69,8 +71,16 @@ export default function AutopetSteps() {
                             iconPosition="end"
                             label={
                                 <>
-                                    {`${tab.text} `}
-                                    {tab.done && <>(<span className={classes.tabDoneText}>done</span> <Gotchi className={classes.tabGotchi} />)</>}
+                                    {`${tabs[key].text} `}
+                                    {
+                                        tabs[key].done &&
+                                        <>
+                                            (
+                                                <span className={classes.tabDoneText}>done</span>
+                                                <Gotchi className={classes.tabGotchi} />
+                                            )
+                                        </>
+                                    }
                                 </>
                             }
                             {...a11yProps(index)}
@@ -90,11 +100,12 @@ export default function AutopetSteps() {
                 index={currentTab}
                 onChangeIndex={handleChangeIndex}
             >
-                <PetPanel index={0} dir='x' />
-                <GhstPanel index={1} dir='x' />
-                <StakePanel index={2} dir='x' />
+                <ConnectPanel index={0} dir='x' />
+                <PetPanel index={1} dir='x' />
+                <GhstPanel index={2} dir='x' />
+                <StakePanel index={3} dir='x' />
             </SwipeableViews>
 
         </Box>
-    );
+    )
 }

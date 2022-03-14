@@ -6,7 +6,6 @@ import { AUTOPET_ABI } from '../data/abi/autopet.abi';
 
 const contract = ethersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 const autopetContract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon')
-console.log(contract);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -15,9 +14,12 @@ export default {
         const operator = await autopetContract.operator();
         const transaction = await writeContract.setPetOperatorForAll(operator, approval);
 
-        const status = await this.getTransactionStatus(transaction.hash);
-        
-        return status;
+        try {
+            const status = !!await this.getTransactionStatus(transaction.hash);
+            return status;
+        } catch {
+            return false;
+        }
     },
 
     async isPetApproved(address) {

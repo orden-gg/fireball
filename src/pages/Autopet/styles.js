@@ -95,7 +95,11 @@ const tabStyles = makeStyles( theme => ({
 
     },
     tabPanel: {
-        padding: theme.spacing(5)
+        padding: theme.spacing(5),
+        minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     panelText: {
         textAlign: 'center',
@@ -109,7 +113,8 @@ const tabStyles = makeStyles( theme => ({
         display: 'flex',
         maxWidth: 1000,
         margin: theme.spacing(4, 'auto', 0),
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '100%'
     },
     panelButton: {
         maxWidth: 325,

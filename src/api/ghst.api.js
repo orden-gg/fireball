@@ -16,9 +16,12 @@ export default {
             ethers.utils.parseUnits(approval ? '999999999999' : '0')
         );
 
-        const status = await this.getTransactionStatus(transaction.hash);
-        
-        return status;
+        try {
+            const status = !!await this.getTransactionStatus(transaction.hash);
+            return status;
+        } catch {
+            return false;
+        }
     },
 
     async isGhstApproved(address) {

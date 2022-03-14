@@ -1,7 +1,6 @@
 import React from 'react';
 import AutopetContextProvider from './AutopetContextProvider';
 import AutopetHeader from './components/AutopetHeader';
-import AutopetFooter from './components/AutopetHeader';
 import AutopetSteps from './components/AutopetSteps';
 import styles from './styles';
 
@@ -15,7 +14,6 @@ export default function Autopet() {
                 <AutopetHeader />
 
                 <AutopetSteps />
-                {/* <AutopetFooter /> */}
             </div>
 
         </AutopetContextProvider>

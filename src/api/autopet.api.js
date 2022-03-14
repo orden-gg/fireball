@@ -14,9 +14,12 @@ export default {
             await writeContract.subscribe() :
             await writeContract.unsubscribe();
 
-        const status = await this.getTransactionStatus(transaction.hash);
-        
-        return status;
+        try {
+            const status = !!await this.getTransactionStatus(transaction.hash);
+            return status;
+        } catch {
+            return false;
+        }
 
     },
 

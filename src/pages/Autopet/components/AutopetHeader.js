@@ -10,12 +10,12 @@ export default function AutopetHeader() {
     const [ progress, setProgress ] = useState(0);
 
     useEffect( () => {
-        const completeCount = tabs.reduce((sum, tab) => { return tab.done ? 1 + sum : sum }, 0);
-        // Math.round(completeCount/tabs.length*100)
-        setProgress(
-            
-            completeCount
-        )
+        const completeCount = Object.keys(tabs).reduce(
+            (sum, key) => tabs[key].done ? 1 + sum : sum, 0
+        );
+
+        setProgress(completeCount)
+
     }, [tabs]);
 
     return (
@@ -25,7 +25,7 @@ export default function AutopetHeader() {
             <Typography className={classes.autopetComplete}>
                 Complete: 
                 <span className={classes.autopetCount}>
-                    <span className={classes.autopetCountText}>{`${progress}/${tabs.length}`}</span>
+                    <span className={classes.autopetCountText}>{`${progress}/${Object.keys(tabs).length}`}</span>
                     <CircularProgress 
                         variant='determinate'
                         size={55}
@@ -36,7 +36,7 @@ export default function AutopetHeader() {
                         variant='determinate'
                         size={55}
                         className={classNames(classes.autopetProggress, classes.autopetProggressOver)}
-                        value={Math.round(progress/tabs.length*100)}
+                        value={Math.round(progress/Object.keys(tabs).length*100)}
                     />
                 </span>
             </Typography>
