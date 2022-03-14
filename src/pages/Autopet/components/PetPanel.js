@@ -9,6 +9,7 @@ export default function PetPanel({ index, dir }) {
     const { 
         petState, isPetApproved , approvePet,
         isStaked,
+        isUserConnected,
         renderButtonNode
      } = useContext(AutopetContext);
 
@@ -28,7 +29,7 @@ export default function PetPanel({ index, dir }) {
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={petState !== 'approve' || isStaked}
+                    disabled={petState !== 'approve' || isStaked || !isUserConnected}
                     variant="contained"
                     fullWidth
                     size='large'
@@ -42,6 +43,7 @@ export default function PetPanel({ index, dir }) {
                 </Button>
             </div>
             <PanelErrorText isShown={isStaked} children='Please unstake ghst before disapprove' />
+            <PanelErrorText isShown={!isUserConnected} children='Please connect wallet first' />
         </div>
     )
 }

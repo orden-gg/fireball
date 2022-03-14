@@ -10,7 +10,8 @@ export default function GhstPanel({ index, dir }) {
         ghstState, approveGhst,
         renderButtonNode,
         isGhstApproved,
-        isStaked
+        isStaked,
+        isUserConnected
      } = useContext(AutopetContext);
 
     return (
@@ -29,7 +30,7 @@ export default function GhstPanel({ index, dir }) {
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={ghstState !== 'approve' || isStaked}
+                    disabled={ghstState !== 'approve' || isStaked || !isUserConnected}
                     variant="contained"
                     fullWidth
                     size='large'
@@ -43,6 +44,7 @@ export default function GhstPanel({ index, dir }) {
                 </Button>
             </div>
             <PanelErrorText isShown={isStaked} children='Please unstake ghst before disapprove' />
+            <PanelErrorText isShown={!isUserConnected} children='Please connect wallet first' />
         </div>
     )
 }
