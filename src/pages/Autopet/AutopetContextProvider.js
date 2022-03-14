@@ -10,6 +10,7 @@ import autopetApi from '../../api/autopet.api';
 import { CircularProgress } from '@mui/material';
 import { tabStyles } from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
+import thegraph from '../../api/thegraph';
 
 export const AutopetContext = createContext({});
 
@@ -22,6 +23,9 @@ const AutopetContextProvider = (props) => {
     const [ isStaked, setIsStaked ] = useState(false);
     const [ isGhstApproved, setIsGhstApproved ] = useState(false);
     const [ isUserConnected, setIsUserConnected ] = useState(false);
+
+    const [ totalGotchis, setTotalGotchis ] = useState(null);
+    const [ totalUsers, setTotalUsers ] = useState(null);
     
     const classes = tabStyles();
 
@@ -180,6 +184,11 @@ const AutopetContextProvider = (props) => {
                 ++ready;
                 updateTabs();
             });
+
+            const users = await autopetApi.getUsers();
+            const gotchis = await thegraph.getGotchisByAddresses(users);
+             setTotalGotchis(gotchis.length);
+             setTotalUsers(users.length);
         })();
 
     }, []);
@@ -195,16 +204,19 @@ const AutopetContextProvider = (props) => {
             isPetApproved,
             isGhstApproved,
             isUserConnected,
+            isStaked,
 
             tabs,
             currentTab, setCurrentTab,
+
+            totalGotchis,
+            totalUsers,
 
             // functions
             approveGhst,
             approvePet,
             approveStake,
             approveConnect,
-            isStaked,
             renderButtonNode
         }}>
             { props.children }

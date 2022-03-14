@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { tabStyles } from '../styles';
+import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+
+import { AutopetContext } from '../../AutopetContextProvider';
+
+import { tabStyles } from '../../styles';
+import classNames from 'classnames';
+
 import PetPanel from './PetPanel';
 import GhstPanel from './GhstPanel';
 import StakePanel from './StakePanel';
-import { AutopetContext } from '../AutopetContextProvider';
-import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-
-import { ReactComponent as Gotchi } from '../../../assets/images/gotchi-placeholder.svg'
 import ConnectPanel from './ConnectPanel';
+
+import { ReactComponent as Gotchi } from '../../../../assets/images/gotchi-placeholder.svg'
 
 export default function AutopetSteps() {
     const classes = tabStyles();
@@ -63,7 +66,7 @@ export default function AutopetSteps() {
                     Object.keys(tabs).map( (key, index) => (
                         <Tab 
                             key={index}
-                            className={ classes.tab }
+                            className={ classNames(classes.tab, tabs[key].done && classes.tabDone) }
                             icon={
                                 index === 0 ? null : 
                                 <DoubleArrowIcon className={classes.tabIcon} />

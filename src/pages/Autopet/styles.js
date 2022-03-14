@@ -4,7 +4,9 @@ import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles( theme => ({
     autopetWrapper: {
-        padding: theme.spacing(3)
+        padding: theme.spacing(3),
+        maxWidth: 1400,
+        margin: 'auto'
     }
 }));
 
@@ -18,6 +20,7 @@ const headerStyles = makeStyles( theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        fontWeight: 500
     },
     autopetCount: {
         width: 55,
@@ -59,8 +62,9 @@ const tabStyles = makeStyles( theme => ({
 
     tabsWrapper: {
         backgroundColor: theme.palette.background.paper,
-        maxWidth: 1300,
-        margin: theme.spacing(5, 'auto', 0)
+        marginTop: theme.spacing(5),
+        boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
+        borderRadius: '0 0 5px 5px'
     },
     tabs: {
         background: '#343740',
@@ -77,6 +81,10 @@ const tabStyles = makeStyles( theme => ({
         '&:hover': {
             backgroundColor: alpha(theme.palette.background.paper, .3)
         }
+    },
+    tabDone: {
+        opacity: .8,
+        backgroundColor: 'rgba(52, 55, 64, 1)'
     },
     tabDoneText: {
         color: theme.palette.success.light
@@ -130,8 +138,41 @@ const tabStyles = makeStyles( theme => ({
 
 }));
 
+const infoStyles = makeStyles( theme => ({
+    autopetInfo: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    autopetInfoCard: {
+        backgroundColor: theme.palette.background.paper,
+        height: 150,
+        borderRadius: 5,
+        boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 24,
+        textTransform: 'uppercase',
+        fontWeight: 700,
+        boxSizing: 'border-box',
+        maxWidth: 360,
+        margin: theme.spacing(5, 2),
+        minWidth: 360,
+        textAlign: 'center',
+        padding: theme.spacing(2)
+    },
+    autopetCardName: {
+        margin: '0 auto'
+    },
+    autopetCardCount: {
+        fontSize: 65,
+        minWidth: '50%',
+    }
+}));
+
 export {
     styles as default,
     headerStyles,
-    tabStyles
+    tabStyles,
+    infoStyles
 }

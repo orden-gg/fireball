@@ -1,8 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { useContext } from "react";
-import { AutopetContext } from "../AutopetContextProvider";
-import { tabStyles } from "../styles";
-import PanelErrorText from "./PanelErrorText";
+import { AutopetContext } from "../../AutopetContextProvider";
+import { tabStyles } from "../../styles";
 
 export default function ConnectPanel({ index, dir }) {
     const classes = tabStyles();

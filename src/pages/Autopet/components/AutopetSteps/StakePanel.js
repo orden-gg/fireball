@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { AutopetContext } from "../AutopetContextProvider";
-import { tabStyles } from "../styles";
+import { AutopetContext } from "../../AutopetContextProvider";
+import { tabStyles } from "../../styles";
 import PanelErrorText from "./PanelErrorText";
 
 export default function StakePanel({ index, dir }) {
