@@ -29,8 +29,6 @@ const AutopetContextProvider = (props) => {
     
     const classes = tabStyles();
 
-    const [ currentTab, setCurrentTab ] = useState(0);
-
     const [ tabs, setTabs ] = useState({
         connect: {
             text: 'Connet wallet',
@@ -147,6 +145,13 @@ const AutopetContextProvider = (props) => {
 
         (async function getUserAccount() {
 
+            autopetApi.getUsers().then( users => {
+                thegraph.getGotchisByAddresses(users).then( gotchis => {
+                    setTotalGotchis(gotchis.length);
+                    setTotalUsers(users.length);
+                });
+            });
+
             const tabsDuplicated = {...tabs};
             let ready = 0;
 
@@ -184,11 +189,6 @@ const AutopetContextProvider = (props) => {
                 ++ready;
                 updateTabs();
             });
-
-            const users = await autopetApi.getUsers();
-            const gotchis = await thegraph.getGotchisByAddresses(users);
-             setTotalGotchis(gotchis.length);
-             setTotalUsers(users.length);
         })();
 
     }, []);
@@ -207,7 +207,6 @@ const AutopetContextProvider = (props) => {
             isStaked,
 
             tabs,
-            currentTab, setCurrentTab,
 
             totalGotchis,
             totalUsers,

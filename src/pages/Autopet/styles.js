@@ -142,6 +142,7 @@ const infoStyles = makeStyles( theme => ({
     autopetInfo: {
         display: 'flex',
         justifyContent: 'center',
+        margin: theme.spacing(5, 0)
     },
     autopetInfoCard: {
         backgroundColor: theme.palette.background.paper,
@@ -156,10 +157,17 @@ const infoStyles = makeStyles( theme => ({
         fontWeight: 700,
         boxSizing: 'border-box',
         maxWidth: 360,
-        margin: theme.spacing(5, 2),
+        margin: theme.spacing(0, 2),
         minWidth: 360,
         textAlign: 'center',
         padding: theme.spacing(2)
+    },
+    autopetInfoLink: {
+        position: 'relative',
+
+        '&:hover': {
+            textDecoration: 'underline'
+        }
     },
     autopetCardName: {
         margin: '0 auto'
@@ -167,6 +175,11 @@ const infoStyles = makeStyles( theme => ({
     autopetCardCount: {
         fontSize: 65,
         minWidth: '50%',
+    },
+    autopetInfoIcon: {
+        position: 'absolute',
+        right: theme.spacing(.5),
+        bottom: theme.spacing(.5)
     }
 }));
 

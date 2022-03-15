@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -21,10 +21,8 @@ import { ReactComponent as Gotchi } from '../../../../assets/images/gotchi-place
 export default function AutopetSteps() {
     const classes = tabStyles();
 
-    const { 
-        tabs,
-        currentTab, setCurrentTab
-    } = useContext(AutopetContext);
+    const { tabs } = useContext(AutopetContext);
+    const [ currentTab, setCurrentTab ] = useState(0);
     
     const a11yProps = (index) => {
       return {
@@ -42,7 +40,6 @@ export default function AutopetSteps() {
     };
 
     useEffect( () => {
-        Object.keys(tabs).entries()
         for(const [index, key] of Object.keys(tabs).entries()) {
             if(!tabs[key].done) {
                 setCurrentTab(index);
