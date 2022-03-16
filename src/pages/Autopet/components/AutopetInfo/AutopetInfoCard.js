@@ -6,8 +6,8 @@ export default function AutopetInfoCard({name, count}) {
 
     return (
         <div className={classes.autopetInfoCard}>
-            <span className={classes.autopetCardName}>{name}</span>
-            
+            <span className={classes.autopetCardName}>{name}:</span>
+
             <span className={classes.autopetCardCount}>
                 {count ? count : <CircularProgress color='inherit' />}
             </span>
