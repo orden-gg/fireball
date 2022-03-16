@@ -28,10 +28,10 @@ export default function StakePanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Please Stake 100 ghst for autopet your gotchi(s)
+                Stake 100 GHST and autopeting will start within next 15 mins! 
             </Typography>
             <Typography className={classes.panelText}>
-                You can unstake ghst right after approval
+                You can unstake GHST anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
 

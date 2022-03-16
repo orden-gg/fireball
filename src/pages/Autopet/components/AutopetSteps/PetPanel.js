@@ -22,10 +22,13 @@ export default function PetPanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Please approve gotchi contract for pet your gotchi(s)
+                Approve contract to pet your gotchi(s)
+            <Typography className={classes.panelText}>
+                This is trustless, contract can only pet your gotchi, nothing else
+            </Typography>
             </Typography>
             <Typography className={classes.panelText}>
-                You can disapprove pet right after approval
+                You can take back pet right anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button

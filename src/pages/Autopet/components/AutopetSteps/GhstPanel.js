@@ -23,10 +23,10 @@ export default function GhstPanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Please approve ghst contract for spend your ghst
+                This will allow pet contract to stake 100 GHST from your balance 
             </Typography>
             <Typography className={classes.panelText}>
-                You can disapprove ghst right after approval
+                You can disapprove GHST allowance anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
@@ -39,7 +39,7 @@ export default function GhstPanel({ index, dir }) {
                 >
                     {renderButtonNode(
                         ghstState,
-                        isGhstApproved ? 'Disapprove ghst' : 'Approve ghst'
+                        isGhstApproved ? 'disapprove GHST' : 'approve GHST'
                     )}
                 </Button>
             </div>
