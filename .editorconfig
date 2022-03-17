@@ -1,11 +1,11 @@
 # https://EditorConfig.org
 
-root = true
+root = true # config location
 
 [*]
-end_of_line = lf
+end_of_line = lf # unix-style newlines
 charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+trim_trailing_whitespace = true # removes any file whitespaces on save
+insert_final_newline = true # a newline ending every file
 indent_style = spaces
 indent_size = 4
