@@ -1,6 +1,5 @@
-import Phaser from "phaser";
+import Phaser from 'phaser';
 export default class ActiveParcels extends Phaser.GameObjects.Graphics {
-
     constructor(scene) {
         super(scene);
         scene.add.existing(this);
@@ -8,10 +7,9 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
     }
 
     animateParcels(color1, color2, duration) {
-        let [fromColor, toColor] = [ Phaser.Display.Color.ValueToColor(color1), Phaser.Display.Color.ValueToColor(color2) ]
-        
+        let [fromColor, toColor] = [Phaser.Display.Color.ValueToColor(color1), Phaser.Display.Color.ValueToColor(color2)];
+
         if(!color1) {
-            console.log(!color1);
             this.parcelsTween.stop();
             this.clear();
             return;
@@ -47,5 +45,5 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
         this.fillStyle(color, 1);
         this.fillRect(x, y, w, h);
     }
-    
+
 }

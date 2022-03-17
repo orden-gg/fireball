@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import commonUtils from '../../utils/commonUtils';
-import styles from "./styles";
+import styles from './styles';
 import { LoginContext } from '../../contexts/LoginContext';
 
 import CheckIcon from '@mui/icons-material/Check';
@@ -146,6 +146,6 @@ export default function LoginAddress({address, isMetamask}) {
                     null
                 )}
             </Box>
-        </Box>  
+        </Box>
     );
 }

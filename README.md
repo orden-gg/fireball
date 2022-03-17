@@ -8,7 +8,7 @@ fireball.gg is the opensource, [gotchiverse](https://gotchiverse.io/) client foc
 1. make sure you have Node version `17.x`. TIP: use [nvm](https://github.com/nvm-sh/nvm) for node versions managing
     1. `nvm install 17` - node `17.x` installation
     2. `nvm use 17` - set `17.x` as current node version
-2. make sure your IDE support [editorconfig](https://editorconfig.org/#pre-installed) or install [plugin](https://editorconfig.org/#download) for your specific IDE
+2. make sure your IDE support [editorconfig](https://editorconfig.org/#pre-installed) or install [plugin](https://editorconfig.org/#download) for it
 3. `yarn` - packages installation
 4. `yarn start` - will start dev server at **http://localhost:3005/**
 

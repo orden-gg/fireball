@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
-import styles from "./styles";
+import styles from './styles';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
@@ -84,7 +84,7 @@ export default function LoginButton() {
                             <Typography className={classes.addressText} variant='subtitle2'>
                                 {commonUtils.cutAddress(activeAddress)}
                             </Typography>
-                        </div> 
+                        </div>
                     ) : (
                         null
                     )}
@@ -114,10 +114,14 @@ export default function LoginButton() {
                 ) : (
                     null
                 )}
-
             </div>
 
-            {modalOpen ? <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> : null}
+            {modalOpen ? (
+                <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+            ) : (
+                null
+            )}
+
             <Backdrop
                 sx={{ }}
                 open={dropdownOpen}

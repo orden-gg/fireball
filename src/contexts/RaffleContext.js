@@ -96,12 +96,12 @@ const RaffleContextProvider = (props) => {
                     modified[elem].value = item.quantity;
                     modified[elem].prizes = modified[elem].prizes.map((item) => {
                         let index = won.findIndex(prize => prize.itemId === item.id);
-                        return ({ 
+                        return ({
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0
                         })
                     });
-                    
+
                 });
 
                 return modified;
@@ -126,7 +126,7 @@ const RaffleContextProvider = (props) => {
 
     const countWearablesChances = (ticket) => {
         const wearables = ticket.prizes;
-        
+
         if(wearables) {
             wearables.forEach((wearable) => {
                 let perc = wearable.quantity * 100 / ticket.items;

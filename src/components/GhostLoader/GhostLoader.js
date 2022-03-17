@@ -19,7 +19,7 @@ export default function GhostLoader({animate, text}) {
             setTitle(null);
         }
     }, [text]);
-    
+
     const onAnimationEnd = () => {
         if(!animate) setRender(false);
     };

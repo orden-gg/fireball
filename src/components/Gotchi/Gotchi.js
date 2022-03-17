@@ -75,7 +75,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                     toNextLevel={gotchi.toNextLevel}
                     experience={gotchi.experience}
                     size={25}
-                    key={`${gotchi.id}-level`} 
+                    key={`${gotchi.id}-level`}
                 />
             )
         },
@@ -84,7 +84,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                 <GotchiSkillPoints
                     id={gotchi.id}
                     usedPoints={gotchi.usedSkillPoints}
-                    key={`${gotchi.id}-skillpoints`} 
+                    key={`${gotchi.id}-skillpoints`}
                 />
             )
         },
@@ -99,7 +99,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                                 <span className={classes.defaultVal}>
                                     ({gotchi.baseRarityScore})
                                 </span>
-                            </p>        
+                            </p>
                         </HighlightNumber>
                     </div>
 
@@ -107,7 +107,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                         <HighlightNumber type={calculateKinshipType(gotchi.kinship)}>
                             <p className={classes.mainVal}>
                                 🧡{gotchi.kinship}
-                            </p>        
+                            </p>
                         </HighlightNumber>
                     </div>
                 </div>
@@ -191,7 +191,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                                         {gotchi.rewardStats.map((item, index) => {
                                             return item.reward !== 0 ? (
                                                 <p key={index}>
-                                                    {item.name}[<span>{item.position}</span>] - 
+                                                    {item.name}[<span>{item.position}</span>] -
                                                     <span className={classes.rankReward}>
                                                         {commonUtils.formatPrice(item.reward)}
                                                         <img src={ghstIcon} width='14' alt='GHST Token Icon' />
@@ -212,7 +212,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
                                     🏆<Typography className={classes.rankRewardAmountNumber}>{commonUtils.formatPrice(gotchi.reward)}</Typography>🏆
                                 </Box>
                             </Tooltip>
-                                
+
                         ) : (
                             <div className={classes.rankStatus} key={`${gotchi.id}-rewards`}>
                                 <Typography className={classes.rankStatusText}>Unkranked</Typography>
@@ -246,7 +246,7 @@ export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, rende
             ))
         )
     }
-    
+
     return (
         <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed' )}>
             {render.map( (name) => {

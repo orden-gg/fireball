@@ -173,7 +173,7 @@ export default {
     },
 
     getGotchiQueries() {
-        const maxPossibleSkips = 6;
+        const maxPossibleSkips = 6; // TODO: 12000 limitation per haunt
         let queries = [];
 
         for (let i = 0; i < maxPossibleSkips; i++) {
@@ -264,12 +264,12 @@ export default {
 
             let merged = filtered.reduce((items, current) => {
                 let duplicated = items.find(item => item.ticketId === current.ticketId);
-    
+
                 if(duplicated) {
                     duplicated.quantity = +duplicated.quantity + +current.quantity;
                     return items;
                 }
-    
+
                 return items.concat(current);
             }, []);
 
@@ -329,7 +329,7 @@ export default {
             return filterCombinedGraphData(response, ['parcels'], 'parcelId');
         });
     },
-    
+
     async getRealmByAddresses(addresses) {
 
         let allRealm = [];

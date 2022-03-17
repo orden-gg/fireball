@@ -1,6 +1,5 @@
-import Phaser from "phaser";
+import Phaser from 'phaser';
 export default class Highlight extends Phaser.GameObjects.Rectangle {
-
     constructor(scene, x, y, w, h) {
         super(scene);
         scene.add.existing(this);

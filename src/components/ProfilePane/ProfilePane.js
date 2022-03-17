@@ -6,7 +6,6 @@ import web3 from '../../api/web3';
 import styles from './styles';
 import classNames from 'classnames';
 
-
 export default function ProfilePane({address}) {
     const classes = styles();
 

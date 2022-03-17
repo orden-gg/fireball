@@ -28,24 +28,25 @@ export default function Citadel({ ownerParcels, className}) {
     const classes = styles();
     const [game, setGame] = useState(null);
 
-    const [ selectedId, setSelectedId ] = useState(null);
-    const [ selectedParcel, setSelectedParcel ] = useState(null);
-    const [ scene, setScene ] = useState(null);
-    const [ mapCreated, setMapCreated ] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+    const [selectedParcel, setSelectedParcel] = useState(null);
+    const [scene, setScene] = useState(null);
+    const [mapCreated, setMapCreated] = useState(false);
 
-    const [ showOwnerParcels, setShowOwnerParcels ] = useState(true);
-    const [ searchId, setSearchId ] = useState(null);
-    const [ showGrid, setShowGrid ] = useState(false);
+    const [showOwnerParcels, setShowOwnerParcels] = useState(true);
+    const [searchId, setSearchId] = useState(null);
+    const [showGrid, setShowGrid] = useState(false);
+
+    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
-    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const removeSelected = () => {
         scene.addSelectedParcel(false);
         setSelectedParcel(null);
     }
-    
+
     const toggleOwnerParcels = () => {
         setShowOwnerParcels(!showOwnerParcels);
         scene.showOwnerParcels(!showOwnerParcels);
@@ -59,7 +60,6 @@ export default function Citadel({ ownerParcels, className}) {
         setShowGrid(!showGrid);
         scene.showGrid(!showGrid);
     }
-    
 
     const initCitadel = () => {
         setGame({
@@ -78,34 +78,32 @@ export default function Citadel({ ownerParcels, className}) {
                 wrapperRef
             })
         });
-        
     };
 
-    useEffect( () => {
+    useEffect(() => {
         setTimeout( () => {
             initCitadel();
         }, 100);
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect( () => {
+    useEffect(() => {
         if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
             setSelectedParcel(parcel);
         });
-        
+
     }, [selectedId]);
 
-    useEffect( () => {
-        if( ownerParcels.length && scene) {
+    useEffect(() => {
+        if(ownerParcels.length && scene) {
             scene.addOwnerParcels(ownerParcels);
             setMapCreated(true);
         }
-    }, [ ownerParcels, scene ]);
+    }, [ownerParcels, scene]);
 
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
-            
             <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
 
                 <div className={classes.citadelSearch}>
@@ -115,7 +113,7 @@ export default function Citadel({ ownerParcels, className}) {
                     </IconButton>
                 </div>
 
-                <Tooltip 
+                <Tooltip
                     title='Select Owner parcels'
                     enterTouchDelay={0}
                     placement='left'
@@ -138,7 +136,7 @@ export default function Citadel({ ownerParcels, className}) {
                     </Tooltip>
                 }
 
-                <Tooltip 
+                <Tooltip
                     title={ showGrid ? 'Hide Grid' : 'Show Grid' }
                     enterTouchDelay={0}
                     placement='left'
@@ -161,7 +159,7 @@ export default function Citadel({ ownerParcels, className}) {
                         </IconButton>
                     </div>
                 )
-                
+
             }
 
             <div className={classNames(classes.citadelLoading, mapCreated && 'is-loaded')}>

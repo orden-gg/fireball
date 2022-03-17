@@ -1,15 +1,15 @@
 import React, {createContext, useState} from 'react';
-import { listingTypes } from "../data/types";
+import { listingTypes } from '../data/types';
 
 export const BaazaarContext = createContext({});
 
 const defaultTraits = {
-    "NRG": [],
-    "AGG": [],
-    "SPK": [],
-    "BRN": [],
-    "EYS": [],
-    "EYC": []
+    'NRG': [],
+    'AGG': [],
+    'SPK': [],
+    'BRN': [],
+    'EYS': [],
+    'EYC': []
 };
 
 const BaazaarContextProvider = (props) => {

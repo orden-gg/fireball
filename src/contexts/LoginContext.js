@@ -26,7 +26,7 @@ const LoginContextProvider = (props) => {
 
     const logoutAddress = (event, address) => {
         let filtered = storageAddresses.filter(item => item.address !== address);
-        
+
         setStorageAddresses(filtered);
         selectActiveAddress(filtered.length ? filtered[0].address : '');
 
