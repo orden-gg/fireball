@@ -108,13 +108,13 @@ const ClientContextProvider = (props) => {
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...wearables].reduce((items, current) => {
                     let duplicated = items.find(item => item.id === current.id);
-        
+
                     if(duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
                         return items;
                     }
-        
+
                     return items.concat(current);
                 }, []), wFilter, wDir));
 
@@ -147,13 +147,13 @@ const ClientContextProvider = (props) => {
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
                     let duplicated = items.find(item => item.id === current.id);
-        
+
                     if(duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
                         return items;
                     }
-        
+
                     return items.concat(current);
                 }, []), wFilter, wDir));
             setLoadingWarehouse(false);
