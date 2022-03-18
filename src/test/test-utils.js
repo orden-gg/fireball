@@ -3,8 +3,8 @@ import { render } from '@testing-library/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import theme from '../../src/themes/ghst';
 
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 const AllTheProviders = ({children}) => {
   const history = createMemoryHistory()

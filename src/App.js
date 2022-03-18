@@ -27,7 +27,6 @@ const classes = {
 }
 
 const Wrapper = styled('div')(() => ({
-
     [`&.${classes.wrapper}`]: {
         display: 'flex',
         flexDirection: 'column',

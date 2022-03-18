@@ -10,21 +10,18 @@ import { MetamaskStateProvider } from 'use-metamask';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import { ThemeProvider } from '@emotion/react';
 
-
 import theme from './themes/ghst';
 import './index.css';
 
 ReactDOM.render(
     <BrowserRouter>
         <MetamaskStateProvider>
-            {/* <StylesProvider injectFirst> */}
-                <MuiThemeProvider theme={theme}>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline /> 
-                        <App/>
-                    </ThemeProvider>
-                </MuiThemeProvider>
-            {/* </StylesProvider> */}
+            <MuiThemeProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <App/>
+                </ThemeProvider>
+            </MuiThemeProvider>
         </MetamaskStateProvider>
     </BrowserRouter>,
     document.getElementById('root')

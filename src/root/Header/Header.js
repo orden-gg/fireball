@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { Box, Button, Link, Toolbar, Typography, IconButton } from '@mui/material';
-import {NavLink, useLocation} from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './styles';
 
