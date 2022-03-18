@@ -768,7 +768,56 @@ const guilds = [
     }, {
         name: 'gmDAO',
         logo: require('../assets/guilds/gmdao.png').default,
-        members: []
+        members: [
+            '0x2c2f799ef62709ef3ac770fa452955844328ff91',
+            '0xde6b1d60b5c5c0c8a41c8c3241c56e8754d5ca65',
+            '0x31a6d0ea27db941257024189a3718472d40ef663',
+            '0x6c32ae11056885ee17a57eea1ca0a1d1387585b1',
+            '0x813dfd379a0ab39ef734aa7b883e41e01aa16f02',
+            '0xa6ab5ca03954e8b2bb54e9006efb8e68824271fa',
+            '0xfb91a0d6dff39f19d0ea9c988ad8dfb93244c40b',
+            '0x08ea587c88bbaa9ec7e73f9b36828ec9ba6f021f',
+            '0x297e3e1b23cdf212d93885cdea78fad626b31cb7',
+            '0x35f87cf2c34137314d133e6b95a8cbd31de82301',
+            '0x39c60bae189d4ebacb6616bb20d8c3a0abd7ea85',
+            '0x3f3f1501df473080ef8e8c28272d22daab1551a4',
+            '0x50aa5ab2c9331bd6b55fe60a17c8720b86f49c64',
+            '0x5a6c0ff57d4416bd1158d68ce01973a66a35dd1a',
+            '0x73da56cb889afb72adb2879d08233f8baca2c362',
+            '0x759dc40a301c76ce49a98ae291cb145d8769f18e',
+            '0x7f8334a7b1d429a617be2863e281f0230da8f238',
+            '0x8088f578198bd15775e9d534f82fa82422471dd3',
+            '0x8c9ec6a671c6819e84fb325604f73e321af0b5e3',
+            '0x9080196182f77b89bb5b0eee3ddb48cfa716c4c3',
+            '0x9875094945893d40979e2858b6caf788dcce3368',
+            '0x99b29366c13b0cae8bf023d5e09aa5ded6b56c2e',
+            '0x9b5c8aabf848a89b1378a930d42fb094a7d94c74',
+            '0xbdc7a955505e20410061744f556f6dec761bfb8f',
+            '0xde3fa0765da943ef535182b86b9e5e0af2fed02b',
+            '0xfabd243f41cfaf4fe442e0f7740801151b747e44',
+            '0xfbb073e09d84970d1efe099abbe9e626f8ff7024',
+            '0xff3b5ec89aa8d54e0b4950ebeca56b039b07971a',
+],
+        description: [
+            {
+                title: 'Description',
+                text: 'gmDAO is a quantitative hedgefund investing in the metaverse. HQ in the gotchiverse.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Adhere to the discord rules of gmDAO.'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'nationalbank#6969'
+            }
+        ],
+        banner: require('../assets/guilds/gmdao-banner.png').default,
+        socials: {
+            website: 'https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C',
+            twitter: 'https://twitter.com/gmdaogm',
+            discord: 'https://discord.gg/vcbZBYSbvq'
+        }
     }, {
         name: 'SynthGuild',
         logo: require('../assets/guilds/synthguild.png').default,
