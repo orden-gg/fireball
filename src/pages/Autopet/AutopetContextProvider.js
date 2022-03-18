@@ -1,16 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
+
+import { useMetamask } from 'use-metamask';
 
 import { SnackbarContext } from '../../contexts/SnackbarContext';
-import { useMetamask } from 'use-metamask';
+import { LoginContext } from '../../contexts/LoginContext';
 
 import ghstApi from '../../api/ghst.api';
 import mainApi from '../../api/main.api';
 import autopetApi from '../../api/autopet.api';
-
-import { CircularProgress } from '@mui/material';
 import { tabStyles } from './styles';
-import { LoginContext } from '../../contexts/LoginContext';
-import thegraph from '../../api/thegraph';
 
 export const AutopetContext = createContext({});
 
@@ -23,9 +22,6 @@ const AutopetContextProvider = (props) => {
     const [ isStaked, setIsStaked ] = useState(false);
     const [ isGhstApproved, setIsGhstApproved ] = useState(false);
     const [ isUserConnected, setIsUserConnected ] = useState(false);
-
-    const [ totalGotchis, setTotalGotchis ] = useState(null);
-    const [ totalUsers, setTotalUsers ] = useState(null);
     
     const classes = tabStyles();
 
@@ -105,7 +101,7 @@ const AutopetContextProvider = (props) => {
 
         setStakeState('approving');
         
-        const isApproved = !!await autopetApi.subscribe(approval);
+        const isApproved = Boolean(await autopetApi.subscribe(approval));
 
         if(isApproved) {
             setIsStaked(approval);
@@ -143,14 +139,7 @@ const AutopetContextProvider = (props) => {
 
     useEffect( () => {
 
-        (async function getUserAccount() {
-
-            autopetApi.getUsers().then( users => {
-                thegraph.getGotchisByAddresses(users).then( gotchis => {
-                    setTotalGotchis(gotchis.length);
-                    setTotalUsers(users.length);
-                });
-            });
+        (async function updateData() {
 
             const tabsDuplicated = {...tabs};
             let ready = 0;
@@ -207,9 +196,6 @@ const AutopetContextProvider = (props) => {
             isStaked,
 
             tabs,
-
-            totalGotchis,
-            totalUsers,
 
             // functions
             approveGhst,

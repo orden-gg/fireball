@@ -9,27 +9,28 @@ const contract = ethersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async approveGhst(approval) {
+    async approveGhst(isApproved) {
         const writeContract = await ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
+        const maxSpend = isApproved ? '999999999999' : '0';
+
         const transaction = await writeContract.approve(
             AUTOPET_CONTRACT,
-            ethers.utils.parseUnits(approval ? '999999999999' : '0')
+            ethers.utils.parseUnits(maxSpend)
         );
 
         try {
-            const status = !!await this.getTransactionStatus(transaction.hash);
-            return status;
+            const status = await ethersApi.waitForTransaction(transaction.hash, 'polygon').status;
+
+            return Boolean(status);
         } catch {
+
             return false;
         }
     },
 
     async isGhstApproved(address) {
         const allowance = await contract.allowance(address, AUTOPET_CONTRACT);
-        return ethers.utils.formatUnits(allowance._hex) >= 100;
-    },
 
-    async getTransactionStatus(hash) {
-        return await ethersApi.waitForTransaction(hash, 'polygon');
+        return ethers.utils.formatUnits(allowance._hex) >= 100;
     }
 }

@@ -16,53 +16,57 @@ const headerStyles = makeStyles( theme => ({
         fontSize: 40,
         marginBottom: 0
     },
-    autopetComplete: {
+    autopetTerms: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 500
+        justifyContent: 'space-between',
+        marginTop: theme.spacing(3)
+
     },
-    autopetCount: {
-        width: 55,
-        height: 55,
+    autopetTermsBox: {
+        borderRadius: 5,
+        boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
+        backgroundColor: theme.palette.background.paper,
+        flexBasis: `calc(50% - ${theme.spacing(1)})`,
+        padding: theme.spacing(3)
+    },
+    autopetTermsTitle: {
+        margin: theme.spacing(0, 0, 2),
+        textAlign: 'center',
+        fontSize: 20
+    },
+    autopetTermsText: {
+        margin: theme.spacing(1, 0),
         position: 'relative',
-        // fontSize: 10,
-        display: 'inline-block',
-        marginLeft: theme.spacing(1)
-    },
-    autopetCountText: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
+        paddingLeft: theme.spacing(2),
 
-    },
-    autopetProggress: {
-        position: 'absolute',
-        left: 0,
-        top: 0
-    },
-    autopetProggressUnder: {
-
-        '& .MuiCircularProgress-circle': {
-            color: theme.palette.background.secondary
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            left: 0,
+            top: theme.spacing(1.2),
+            width: 7,
+            height: 7,
+            borderRadius: 7,
+            backgroundColor: theme.palette.common.white
         }
     },
-    autopetProggressOver: {
-
-        '& .MuiCircularProgress-circle': {
-            // color: alpha(theme.palette.common.white, .1)
-            color: theme.palette.background.paper
-        }
+    autopetHeaderWarning: {
+        marginTop: theme.spacing(2)
+    },
+    autopetTermsTextHighlight: {
+        color: theme.palette.success.light
     }
 }));
 
 const tabStyles = makeStyles( theme => ({
+    autopetComplete: {
+        fontWeight: 500,
+        margin: theme.spacing(5, 0, 1),
+        textAlign: 'right'
+    },
 
     tabsWrapper: {
         backgroundColor: theme.palette.background.paper,
-        marginTop: theme.spacing(5),
         boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
         borderRadius: '0 0 5px 5px'
     },
@@ -142,13 +146,14 @@ const infoStyles = makeStyles( theme => ({
     autopetInfo: {
         display: 'flex',
         justifyContent: 'center',
-        margin: theme.spacing(5, 0)
+        flexWrap: 'wrap',
+        margin: theme.spacing(3, 0)
     },
     autopetInfoCard: {
-        backgroundColor: theme.palette.background.paper,
         height: 150,
         borderRadius: 5,
         boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
+        backgroundColor: theme.palette.background.paper,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -156,11 +161,18 @@ const infoStyles = makeStyles( theme => ({
         textTransform: 'uppercase',
         fontWeight: 700,
         boxSizing: 'border-box',
-        maxWidth: 360,
-        margin: theme.spacing(0, 2),
+        margin: theme.spacing(2),
         minWidth: 360,
         textAlign: 'center',
         padding: theme.spacing(2)
+    },
+    autopetInfoCardLow: {
+        fontSize: 18,
+        height: 100,
+
+        '& $autopetCardCount': {
+            fontSize: 42
+        }
     },
     autopetInfoLink: {
         position: 'relative',
@@ -175,6 +187,9 @@ const infoStyles = makeStyles( theme => ({
     autopetCardCount: {
         fontSize: 65,
         minWidth: '50%',
+        display: 'inline-flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     autopetInfoIcon: {
         position: 'absolute',

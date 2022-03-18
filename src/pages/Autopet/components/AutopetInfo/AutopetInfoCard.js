@@ -1,11 +1,13 @@
 import { CircularProgress } from "@mui/material";
+import classNames from 'classnames';
+
 import { infoStyles } from "../../styles";
 
-export default function AutopetInfoCard({name, count}) {
+export default function AutopetInfoCard({name, count, className}) {
     const classes = infoStyles();
 
     return (
-        <div className={classes.autopetInfoCard}>
+        <div className={classNames(classes.autopetInfoCard, className || null)}>
             <span className={classes.autopetCardName}>{name}:</span>
 
             <span className={classes.autopetCardCount}>

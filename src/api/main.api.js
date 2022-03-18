@@ -9,15 +9,17 @@ const autopetContract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'p
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async approvePet(approval) {
+    async approvePet(isApproved) {
         const writeContract = await ethersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
         const operator = await autopetContract.operator();
-        const transaction = await writeContract.setPetOperatorForAll(operator, approval);
+        const transaction = await writeContract.setPetOperatorForAll(operator, isApproved);
 
         try {
-            const status = !!await this.getTransactionStatus(transaction.hash);
-            return status;
+            const status = await ethersApi.waitForTransaction(transaction.hash, 'polygon').status;
+
+            return Boolean(status);
         } catch {
+
             return false;
         }
     },
@@ -25,9 +27,5 @@ export default {
     async isPetApproved(address) {
         const operator = await autopetContract.operator();
         return await contract.isPetOperatorForAll(address, operator);
-    },
-
-    async getTransactionStatus(hash) {
-        return await ethersApi.waitForTransaction(hash, 'polygon');
     }
 }

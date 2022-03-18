@@ -1,4 +1,5 @@
 import { Typography } from "@mui/material";
+
 import { tabStyles } from "../../styles";
 
 export default function PanelErrorText({ children, isShown }) {

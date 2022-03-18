@@ -2,21 +2,25 @@ import ethersApi from './common/ethersApi';
 
 import { AUTOPET_CONTRACT } from './common/constants';
 import { AUTOPET_ABI } from '../data/abi/autopet.abi';
+import { ethers } from 'ethers';
+
 const contract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async subscribe(approval) {
+    async subscribe(isApproved) {
         const writeContract = await ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
-        const transaction = approval ? 
+        const transaction = isApproved ? 
             await writeContract.subscribe() :
             await writeContract.unsubscribe();
 
         try {
-            const status = !!await this.getTransactionStatus(transaction.hash);
-            return status;
+            const status = await ethersApi.waitForTransaction(transaction.hash, 'polygon').status;
+
+            return Boolean(status);
         } catch {
+
             return false;
         }
 
@@ -26,8 +30,6 @@ export default {
         const writeContract = await ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
         const transaction = await writeContract.unsubscribe();
-
-        console.log(transaction);
 
         const status = await this.getTransactionStatus(transaction.hash);
         
@@ -48,7 +50,15 @@ export default {
         return await contract.allUsers();
     },
 
-    async getTransactionStatus(hash) {
-        return await ethersApi.waitForTransaction(hash, 'polygon');
+    async getFee() {
+        const fee = await contract.fee();
+
+        return parseInt(ethers.utils.formatUnits(fee._hex));
+    },
+
+    async getFrens() {
+        const frens = await contract.frens();
+
+        return parseInt(ethers.utils.formatUnits(frens._hex));
     }
 }
