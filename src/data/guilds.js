@@ -812,7 +812,6 @@ const guilds = [
                 text: 'nationalbank#6969'
             }
         ],
-        banner: require('../assets/guilds/gmdao-banner.png').default,
         socials: {
             website: 'https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C',
             twitter: 'https://twitter.com/gmdaogm',
