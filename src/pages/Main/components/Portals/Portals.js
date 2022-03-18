@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from "./styles";
+import styles from './styles';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import thegraph from '../../../../api/thegraph';
@@ -32,11 +32,10 @@ export default function Portals() {
             });
     };
 
-    
     const getSealedPortals = () => {
         return commonUtils.formatNumber(portalsAmount - openedPortals);
     };
-    
+
     const getOpenedPortalsPercentage = () => {
         return (openedPortals / portalsAmount * 100).toFixed(2);
     };

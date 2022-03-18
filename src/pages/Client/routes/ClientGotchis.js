@@ -101,7 +101,7 @@ export default function ClientGotchis() {
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
                             </Box>
                         </Typography>
-                        
+
                     ) : (
                         null
                     )}
@@ -113,7 +113,7 @@ export default function ClientGotchis() {
                 {
                     gotchis.map((gotchi, i)=>{
                         return <div className={classes.listItem}  key={i}>
-                            <Gotchi 
+                            <Gotchi
                                 gotchi={gotchi}
                                 render={[
                                     {

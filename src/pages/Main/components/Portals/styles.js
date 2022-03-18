@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     portalsColumn: {
@@ -6,7 +6,6 @@ const styles = makeStyles( theme => ({
         [theme.breakpoints.up('md')]: {
             marginBottom: 0
         },
-
         '&.center': {
             justifyContent: 'center'
         }

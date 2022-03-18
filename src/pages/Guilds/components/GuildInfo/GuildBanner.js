@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { guildBanner } from '../../styles';
-// import ScrollAnimation from 'react-animate-on-scroll';
-// import guildUtils from '../../../../../utils/guildUtils';
 import { IconButton, Link, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import classNames from 'classnames';
@@ -17,7 +15,7 @@ import GuildLogo from '../GuildLogo';
 
 export default function GuildBanner() {
     const classes = guildBanner();
-    const { 
+    const {
         currentGuild,
         guildGotchis,
     } = useContext(GuildsContext);
@@ -71,7 +69,7 @@ export default function GuildBanner() {
                             {currentGuild.members?.length ? `(${currentGuild.members.length})` : '...'}
                         </span>
                     </Typography>
-                    
+
                     <div className={classes.guildLogo}>
                         <GuildLogo logo={currentGuild.logo} className={classes.guildLogoImage} />
                     </div>

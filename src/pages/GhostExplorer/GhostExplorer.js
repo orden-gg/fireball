@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { CircularProgress, Backdrop, useTheme } from '@mui/material';
-import Gotchi from '../../components/Gotchi/Gotchi'; 
+import Gotchi from '../../components/Gotchi/Gotchi';
 import thegraph from '../../api/thegraph';
-import styles from "./styles";
+import styles from './styles';
 
 export default function GhostExplorer() {
     const classes = styles();
@@ -29,7 +29,7 @@ export default function GhostExplorer() {
                     if (!actualBottomScroll) setScrollDown(true);
                     else setScrollDown(false);
             }
-            
+
             scrollingContainerRef?.current?.addEventListener("scroll", handleScroll);
             handleScroll();
             return () =>  scrollingContainerRef?.current?.removeEventListener("scroll", handleScroll);
@@ -75,7 +75,7 @@ export default function GhostExplorer() {
                 });
 
                 const newGotchies = [...gotchiesShown, ...gotchiCache];
-                
+
                 setGotchiesShown(newGotchies);
                 setIsLoading(false);
             }

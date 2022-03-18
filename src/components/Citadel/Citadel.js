@@ -37,10 +37,10 @@ export default function Citadel({ ownerParcels, className}) {
     const [searchId, setSearchId] = useState(null);
     const [showGrid, setShowGrid] = useState(false);
 
-    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
-
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
+
+    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const removeSelected = () => {
         scene.addSelectedParcel(false);

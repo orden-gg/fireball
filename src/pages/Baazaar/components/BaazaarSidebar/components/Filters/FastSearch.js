@@ -1,6 +1,6 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import TraitSlider from "./TraitSlider";
+import React from 'react';
+import { Grid } from '@mui/material';
+import TraitSlider from './TraitSlider';
 
 export default function AdvancedSearch({runFilterWatcher}) {
     return (

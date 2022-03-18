@@ -31,7 +31,7 @@ export default function RaffleTablee() {
             return modified
         });
     };
-    
+
     return (
         <>
             <Grid container spacing={2} className={classes.row}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { guildContentStyles } from '../styles';
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import { GuildsContext } from '../../../contexts/GuildsContext';
@@ -30,10 +30,6 @@ export default function GuildGotchis() {
             )
         })
     }
-
-    useEffect( () => {
-        
-    }, [guildGotchis]);
 
     return (
         <div className={classes.guildGotchis}>

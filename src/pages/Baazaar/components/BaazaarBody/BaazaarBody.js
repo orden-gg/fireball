@@ -5,7 +5,6 @@ import Pagination from '../Pagination/Pagination';
 
 import { baazaarBodyStyles } from '../../styles';
 
-
 export default function BaazaarBody({goods, page, limit, onNextPageClick, onPrevPageClick}) {
     const classes = baazaarBodyStyles();
 

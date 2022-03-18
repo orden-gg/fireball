@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
 import { routersStyles } from '../styles';
-
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import Parcel from '../../../components/Items/Parcel/Parcel';
@@ -19,7 +18,7 @@ export default function ClientRealmList() {
 
     useEffect( () => {
         setRealmView('list');
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

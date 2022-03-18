@@ -25,9 +25,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ghst from '../../../../assets/images/ghst-doubleside.gif';
 
-
 import styles from './styles';
-
 
 export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage}) {
     const classes = styles();

@@ -1,5 +1,4 @@
 import { alpha } from '@mui/system';
-
 import { makeStyles } from "@mui/styles";
 
 import mapSvg from '../../assets/images/svgs/map.svg';
@@ -131,15 +130,12 @@ const clientNavStyles = makeStyles( theme => ({
         fontWeight: 600,
         color: theme.palette.primary.main,
         marginLeft: 8,
-
         '.Mui-disabled &': {
             opacity: .4
         },
-
         '.active &, .active:hover &': {
             color: theme.palette.secondary.main
         },
-
         'Mui-disabled.active &, Mui-disabled.active:hover &': {
             color: theme.palette.primary.main
         }
@@ -149,7 +145,6 @@ const clientNavStyles = makeStyles( theme => ({
         height: 14,
         marginLeft: 8
     },
-    
     realmViewSwitch: {
         position: 'absolute',
         left: '100%',

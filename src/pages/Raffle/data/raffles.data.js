@@ -31,7 +31,7 @@ const raffles = [
     {
         id: 6,
         name: 'realm',
-        type: 'realm-generic',
+        type: 'realm-generic', // realm type without spicifications (hamble, spacious, reasonable)
         tickets: [6],
         startDate: DateTime.local(2021, 11, 5, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 11, 8, 14, { zone: 'utc' }),

@@ -4,7 +4,6 @@ import { useTheme } from '@emotion/react';
 import { useHistory, useRouteMatch } from 'react-router';
 
 import { NavLink } from 'react-router-dom';
-
 import { ClientContext } from '../../../contexts/ClientContext';
 
 import gotchiPlaceholder from '../../../assets/images/gotchi-placeholder.svg';
@@ -21,7 +20,7 @@ export default function ClientNav() {
     const classes = clientNavStyles();
     const theme = useTheme();
 
-    const { 
+    const {
         clientActive,
         gotchis, loadingGotchis,
         warehouse, loadingWarehouse,
@@ -163,7 +162,7 @@ export default function ClientNav() {
                     enterTouchDelay={0}
                 >
 
-                    <Switch 
+                    <Switch
                         className={classes.realmViewSwitch}
                         checked={realmView === 'map'}
                         onChange={updateRealmView}

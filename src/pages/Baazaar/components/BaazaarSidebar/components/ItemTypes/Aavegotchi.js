@@ -1,8 +1,8 @@
-import React from "react";
-import Gotchi from "../../../../../../components/Gotchi/Gotchi";
-import { Grid } from "@mui/material";
+import React from 'react';
+import Gotchi from '../../../../../../components/Gotchi/Gotchi';
+import { Grid } from '@mui/material';
 
-import { baazaarSortingBodyStyles } from "../../../../styles";
+import { baazaarSortingBodyStyles } from '../../../../styles';
 
 export default function Aavegotchi({item}) {
     const classes = baazaarSortingBodyStyles();
@@ -12,7 +12,7 @@ export default function Aavegotchi({item}) {
             <div className={classes.baazaarListItem}>
                 <Grid item xs={12}>
                     {
-                        item.gotchi.__typename === "Aavegotchi" ?
+                        item.gotchi.__typename === 'Aavegotchi' ?
                             <Gotchi
                                 className={classes.gotchi}
                                 gotchi={item.gotchi}

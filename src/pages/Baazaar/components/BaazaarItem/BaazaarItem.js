@@ -7,7 +7,6 @@ import commonUtils from '../../../../utils/commonUtils';
 import Web3 from "web3";
 import { baazaarItemStyles } from '../../styles';
 
-
 var web3 = new Web3();
 
 export default function BaazaarItem({item}) {

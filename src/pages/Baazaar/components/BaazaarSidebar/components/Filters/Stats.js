@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from 'react';
 import {
     FormControl,
     Grid,
@@ -8,13 +8,12 @@ import {
     TextField,
     ToggleButton,
     ToggleButtonGroup
-} from "@mui/material";
-import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import AdvancedSearch from "./AdvancedSearch";
-import FastSearch from "./FastSearch";
+} from '@mui/material';
+import { BaazaarContext } from '../../../../../../contexts/BaazaarContext';
+import AdvancedSearch from './AdvancedSearch';
+import FastSearch from './FastSearch';
 
-import styles from "./styles";
-
+import styles from './styles';
 
 export default function Stats({runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering}) {
     const classes = styles();
@@ -86,10 +85,10 @@ export default function Stats({runFilterWatcher, fastSearch, setFastSearch, runI
                 <FormControl variant='outlined' className={classes.formControl}>
                     <InputLabel>Collateral</InputLabel>
                     <Select
-                        label={'Collateral'}
+                        label='Collateral'
                         value={collateral}
                         fullWidth
-                        size={"small"}
+                        size='small'
                         onChange={(event) => {
                             setCollateral(event.target.value);
                         }}

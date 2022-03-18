@@ -67,7 +67,7 @@ export default function RaffleItems({tickets, type}) {
                 return null;
         }
     };
-    
+
     return (
         <div className={classes.list}>
             {

@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import styles from '../styles';
-// import ScrollAnimation from 'react-animate-on-scroll';
 import { GuildsContext } from '../../../contexts/GuildsContext';
 import { Box } from '@mui/system';
 import guildUtils from '../../../utils/guildUtils';
@@ -18,7 +17,6 @@ export default function GuildsPreview() {
     }
 
     const renderList = () => {
-        
         return (
             guildsData.sort( guild => guild.members.length ? -1 : 1).map( (guild, index) => {
                 return (
@@ -31,7 +29,7 @@ export default function GuildsPreview() {
                             <div className={classes.guildLogo}>
                                 <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
                             </div>
-                            
+
                             <p className={classes.guildName}>{guild.name}</p>
                         </button>
                     </div>

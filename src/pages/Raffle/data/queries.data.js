@@ -1,7 +1,7 @@
 export const raffleTicketPriceQuery = (id) => {
-    return `{ 
+    return `{
         erc1155Listings (
-            first: 5, 
+            first: 5,
             orderBy: timeLastPurchased,
             orderDirection: desc,
             where: {
@@ -59,7 +59,7 @@ export const raffle5TotalEnteredQuery = () => {
     }`
 };
 
-export const raffle6TotalEnteredQuery = () => { 
+export const raffle6TotalEnteredQuery = () => {
     return `{
         total(id: 5) {
             totalCommon

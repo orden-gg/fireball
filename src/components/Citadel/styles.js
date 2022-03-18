@@ -54,7 +54,6 @@ const styles = makeStyles( theme => ({
                 animationDelay: '2.5s'
             }
         },
-
         '&:nth-of-type(3)': {
             '&:after': {
                 animationDelay: '2s'

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
     Box,
     Button,
@@ -7,10 +7,9 @@ import {
     TextField,
     ToggleButton,
     ToggleButtonGroup, Tooltip
-} from "@mui/material";
+} from '@mui/material';
 
-import styles from "./styles";
-
+import styles from './styles';
 
 export default function AdvancedSearch({selectedTraits, onTraitsChange, sliderRange, onSliderChange, onRangeChange, sliderIsValid, onAddTraitClick}) {
     const classes = styles();

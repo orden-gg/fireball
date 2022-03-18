@@ -1,7 +1,6 @@
 
 import { alpha } from '@mui/system';
-
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     root: {
@@ -43,7 +42,7 @@ const styles = makeStyles( theme => ({
     goBack: {
         borderTopLeftRadius: 0,
         borderBottomLeftRadius: 0,
-        position: "fixed",
+        position: 'fixed',
         bottom: 20,
         left: 0
     },

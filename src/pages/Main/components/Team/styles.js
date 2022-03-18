@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     mainTitle: {
@@ -21,14 +21,6 @@ const styles = makeStyles( theme => ({
         alignItems: 'center',
         borderRadius: 5,
         boxShadow: 'none',
-        // '& .gotchi-body': {
-        //     filter: 'drop-shadow( 0px 0px 10px rgba(255,255,209,.5))',
-
-        //     '&:hover': {
-        //         textDecoration: 'none',
-        //         filter: 'drop-shadow( 0px 0px 5px rgba(255,255,209,.2))'
-        //     }
-        // }
     },
     aavegotchiName: {
         fontSize: 18,

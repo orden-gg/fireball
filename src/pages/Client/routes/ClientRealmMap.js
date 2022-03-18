@@ -5,7 +5,6 @@ import Citadel from '../../../components/Citadel/Citadel';
 import styles from '../styles';
 
 export default function ClientRealmMap() {
-
     const { realm, setRealmView } = useContext(ClientContext);
     const classes = styles();
 

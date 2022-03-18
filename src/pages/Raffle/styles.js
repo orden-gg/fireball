@@ -1,5 +1,5 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     container: {
@@ -20,7 +20,7 @@ const titleStyles = makeStyles( theme => ({
         borderRadius: 4,
         padding: 12,
         [theme.breakpoints.up('md')]: {
-            
+
             justifyContent: 'space-between',
         }
     },
@@ -38,10 +38,6 @@ const titleStyles = makeStyles( theme => ({
 }));
 
 const tableStyles = makeStyles( theme => ({
-    // backdrop: {
-    //     zIndex: theme.zIndex.drawer + 1,
-    //     color: '#fff'
-    // },
     row: {
         marginBottom: 32,
         minHeight: 55,
@@ -61,25 +57,6 @@ const tableStyles = makeStyles( theme => ({
     subtitleIcon: {
         marginLeft: 8
     },
-    // enterButtonWrapper: {
-    //     textAlign: 'center',
-    //     [theme.breakpoints.up('md')]: {
-    //         textAlign: 'right'
-    //     }
-    // },
-    // enterButton: {
-    //     '&:hover': {
-    //         textDecoration: 'none'
-    //     },
-    //     '& button': {
-    //         position: 'relative',
-    //         boxShadow: `0 0 0 0 ${alpha(theme.palette.primary.main, .5)}`,
-    //         animation: `customPulse 1.5s infinite`,
-    //         '&:hover': {
-    //             animation: 'none'
-    //         }
-    //     }
-    // },
     toggleWrapper: {
         display: 'flex',
         alignItems: 'center',

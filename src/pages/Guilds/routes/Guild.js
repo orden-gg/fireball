@@ -17,14 +17,14 @@ import GuildNav from '../components/GuildNav';
 import GuildsRealm from '../components/GuildsRealm';
 
 export default function Guild({backToGuilds}) {
-    const [ isLoading, setIsLoading ] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
     const params = useParams();
     const classes = guildStyles();
     const history = useHistory();
     const match = useRouteMatch();
-    
-    const { 
+
+    const {
         guildsData,
         currentGuild,
         setCurrentGuild,
@@ -39,7 +39,7 @@ export default function Guild({backToGuilds}) {
 
     const loadGotchisByAddresses = async (addresses, b) => {
         let gotchis = await thegraph.getGotchisByAddresses(addresses);
-        
+
         if(b) return;
 
         gotchis.sort((a,b) => (
@@ -62,7 +62,7 @@ export default function Guild({backToGuilds}) {
             guildUtils.nameToPath(guild.name) === params.name
         ));
 
-        if( 
+        if(
             guild === undefined ||
             (!guild.members?.length && !guild.description?.length)
         ) return backToGuilds();
@@ -96,11 +96,11 @@ export default function Guild({backToGuilds}) {
             </Backdrop>
             {
                 !isLoading && (
-                    <Box className={classes.guildWrapper}> 
+                    <Box className={classes.guildWrapper}>
                         <IconButton className={classes.backButton} onClick={ () => {history.push('/guilds')}} >
                             <ArrowBackIcon />
                         </IconButton>
-                    
+
                         <GuildBanner />
 
                         {!!currentGuild.description?.length &&  <GuildsDetails />}

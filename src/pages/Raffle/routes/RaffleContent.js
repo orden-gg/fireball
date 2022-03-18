@@ -13,7 +13,6 @@ export default function RaffleContent({user}) {
     const history = useHistory();
 
     const { name } = useParams();
-
     const { raffle, setRaffle, tickets, setTickets, getRaffleData, getTicketsPreset, raffleSpinner, onAddressChange } = useContext(RaffleContext);
 
     useEffect(() => {
