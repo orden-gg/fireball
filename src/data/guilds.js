@@ -756,7 +756,30 @@ const guilds = [
     }, {
         name: 'Aavemaa',
         logo: require('../assets/guilds/aavemaa.png').default,
-        members: []
+        members: [
+            '0xA62F79725e08DA9B8684fdaC2bfED855d41186E4',
+            '0x09D43aDa2A315C88f627BB9350847f9C80F225e9',
+            '0xb0C4Cc1AA998DF91D2c27cE06641261707A8c9C3'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Aavemaa is a low intensity guild on aavegotchi consisting of mainly finnish irl frens.'
+            },
+            {
+                title: 'Requirement',
+                text: 'None really.'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'mikkop#3569'
+            }
+        ],
+        banner: '',
+        socials: {
+            website: 'https://peakd.com/aavegotchi/@rova/opastus-aavegotchiin',
+            discord: 'https://discord.gg/RrvzVegn'
+        }
     }, {
         name: 'Cryptoticker.io GHST Guild',
         logo: require('../assets/guilds/cryptoticker.png').default,
