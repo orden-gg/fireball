@@ -10,7 +10,7 @@ const contract = ethersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     async approveGhst(isApproved) {
-        const writeContract = await ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
+        const writeContract = ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
         const maxSpend = isApproved ? '999999999999' : '0';
 
         const transaction = await writeContract.approve(

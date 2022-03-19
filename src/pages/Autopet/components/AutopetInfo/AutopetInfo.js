@@ -64,7 +64,7 @@ export default function AutopetInfo() {
                 <CallMadeIcon className={classes.autopetInfoIcon} />
             </Link>
             <AutopetInfoCard
-                name='Fee'
+                name='Fee staked'
                 count={
                     totalStaked > 0 ? 
                     <>

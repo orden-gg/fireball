@@ -66,18 +66,18 @@ const AutopetContextProvider = (props) => {
         setIsUserConnected(isConnected);
     }
 
-    const approvePet = async (isApproved) => {
-        const succesMessage = isApproved ? 'Pet approved!' : 'Pet disapproved!';
-        const errorMessage = isApproved ? 'Pet approval failed!' : 'Pet disapproval failed!';
+    const approvePet = async (approval) => {
+        const succesMessage = approval ? 'Pet approved!' : 'Pet disapproved!';
+        const errorMessage = approval ? 'Pet approval failed!' : 'Pet disapproval failed!';
 
         setPetState('approving');
 
         try {
-            const isApproved = await mainApi.approvePet(isApproved);
+            const isApproved = await mainApi.approvePet(approval);
 
             if (isApproved) {
-                setIsPetApproved(isApproved);
-                updateProgress('pet', isApproved);
+                setIsPetApproved(approval);
+                updateProgress('pet', approval);
                 showSnackbar('success', succesMessage);
             } else {
                 showSnackbar('error', errorMessage);
@@ -89,18 +89,18 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const approveGhst = async (isApproved) => {
-        const succesMessage = isApproved ? 'GHST approved!' : 'GHST disapproved!';
-        const errorMessage = isApproved ? 'GHST approval failed!' : 'GHST disapproval failed!';
+    const approveGhst = async (approval) => {
+        const succesMessage = approval ? 'GHST approved!' : 'GHST disapproved!';
+        const errorMessage = approval ? 'GHST approval failed!' : 'GHST disapproval failed!';
 
         setGhstState('approving');
         
         try {
-            const isApproved = await ghstApi.approveGhst(isApproved);
+            const isApproved = await ghstApi.approveGhst(approval);
 
             if (isApproved) {
-                setIsGhstApproved(isApproved);
-                updateProgress('ghst', isApproved);
+                setIsGhstApproved(approval);
+                updateProgress('ghst', approval);
                 showSnackbar('success', succesMessage);
             } else {
                 showSnackbar('error', errorMessage);
@@ -112,18 +112,18 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const approveStake = async (isApproved) => {
-        const succesMessage = isApproved ? 'Stake approved!' : 'Unstake approved!';
-        const errorMessage = isApproved ? 'Staking failed!' : 'Unstaking failed!';
+    const approveStake = async (approval) => {
+        const succesMessage = approval ? 'Stake approved!' : 'Unstake approved!';
+        const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
 
         setStakeState('approving');
         
         try {
-            const isApproved = Boolean(await autopetApi.subscribe(isApproved));
+            const isApproved = Boolean(await autopetApi.subscribe(approval));
 
             if (isApproved) {
-                setIsStaked(isApproved);
-                updateProgress('stake', isApproved);
+                setIsStaked(approval);
+                updateProgress('stake', approval);
                 showSnackbar('success', succesMessage);
             } else {
                 showSnackbar('error', errorMessage);

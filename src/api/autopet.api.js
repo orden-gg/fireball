@@ -9,7 +9,7 @@ const contract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon'
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     async subscribe(isApproved) {
-        const writeContract = await ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
+        const writeContract = ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
         const transaction = isApproved ? 
             await writeContract.subscribe() :
@@ -22,7 +22,7 @@ export default {
     },
 
     async unsubscribe() {
-        const writeContract = await ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
+        const writeContract = ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
         const transaction = await writeContract.unsubscribe();
 
