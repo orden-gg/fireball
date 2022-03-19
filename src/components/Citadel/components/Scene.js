@@ -183,7 +183,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
 
             for(let id in parcelsData) {
                 let parcelData = parcelsData[id];
-                let {w, h} = this.getParcelSize(parcelData);
+                let { w, h } = this.getParcelSize(parcelData);
 
                 graphics.fillStyle(this.getParcelColor(parcelData), 1);
                 graphics.fillRect(+parcelData.coordinateX,+parcelData.coordinateY,w,h);
@@ -346,7 +346,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         getCircleRadius(parcel) {
-            let {w, h} = this.getParcelSize(parcel);
+            let { w, h } = this.getParcelSize(parcel);
             return Math.sqrt(Math.pow(w, 2)+Math.pow(h, 2))/2+4;
         }
 

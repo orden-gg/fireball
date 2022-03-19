@@ -1,6 +1,6 @@
 # https://EditorConfig.org
 
-root = true # config location
+root = true
 
 [*]
 end_of_line = lf # unix-style newlines
