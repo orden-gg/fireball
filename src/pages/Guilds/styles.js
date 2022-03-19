@@ -29,6 +29,7 @@ const styles = makeStyles( theme => ({
         maxWidth: 1920,
         padding: theme.spacing(2),
         margin: 'auto',
+        textAlign: 'right',
 
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(1.5)
@@ -39,30 +40,33 @@ const styles = makeStyles( theme => ({
         }
     },
     guildsTitle: {
+        display: 'inline-flex',
+        alignItems: 'center',
         textAlign: 'center',
-        fontSize: 36,
-        marginTop: theme.spacing(6),
+        fontSize: 18,
+        color: theme.palette.primary.main,
+        marginTop: 20,
+        paddingRight: 20,
+        textDecoration: 'none',
 
-        [theme.breakpoints.down('md')]: {
-            fontSize: 28,
-            marginTop: theme.spacing(3)
+        '& span': {
+            marginRight: 4,
         },
 
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 24,
-        }
+        '&:hover': {
+            color: theme.palette.primary.dark,
+        },
     },
     guildsList: {
         padding: 0,
         display: "grid",
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
         gridGap: theme.spacing(7, 3),
-        marginTop: theme.spacing(7),
+        marginTop: 40,
 
         [theme.breakpoints.down('md')]: {
             gridTemplateColumns: 'repeat(auto-fill, minmax(180px,1fr))',
             gridGap: theme.spacing(4, 2),
-            marginTop: theme.spacing(4),
         },
 
         [theme.breakpoints.down('sm')]: {

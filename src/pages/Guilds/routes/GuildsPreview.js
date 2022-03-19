@@ -5,6 +5,7 @@ import { GuildsContext } from '../../../contexts/GuildsContext';
 import { Box } from '@mui/system';
 import guildUtils from '../../../utils/guildUtils';
 import GuildLogo from '../components/GuildLogo';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 export default function GuildsPreview() {
     const classes = styles();
@@ -46,7 +47,15 @@ export default function GuildsPreview() {
 
     return (
         <Box className={classes.guildsWrapper}>
-            <h1 className={classes.guildsTitle}>Aavegotchi Guilds</h1>
+            <a
+                className={classes.guildsTitle}
+                href='https://fireball-gg.notion.site/how-to-add-guild-to-fireball-gg-cd78871152b04110b385f42ac94ea452'
+                target='_blank'
+                rel='noreferrer'
+            >
+                <span>how to add your guild</span>
+                <ArrowForwardIcon fontSize='small' />
+            </a>
             <ul className={classes.guildsList}>
                 { renderList() }
             </ul>
