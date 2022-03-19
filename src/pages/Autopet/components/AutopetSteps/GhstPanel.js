@@ -1,9 +1,10 @@
-import { Button, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { AutopetContext } from "../../AutopetContextProvider";
-import { tabStyles } from "../../styles";
-import PanelErrorText from "./PanelErrorText";
+import { Button, Typography } from '@mui/material';
+
+import { AutopetContext } from '../../AutopetContextProvider';
+import { tabStyles } from '../../styles';
+import PanelErrorText from './PanelErrorText';
 
 export default function GhstPanel({ index, dir }) {
     const classes = tabStyles();
@@ -17,7 +18,7 @@ export default function GhstPanel({ index, dir }) {
 
     return (
         <div
-            role="tabpanel"
+            role='tabpanel'
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             dir={dir}
@@ -32,7 +33,7 @@ export default function GhstPanel({ index, dir }) {
             <div className={classes.panelButtonGroup}>
                 <Button
                     disabled={ghstState !== 'approve' || isStaked || !isUserConnected}
-                    variant="contained"
+                    variant='contained'
                     fullWidth
                     size='large'
                     className={classes.panelButton}

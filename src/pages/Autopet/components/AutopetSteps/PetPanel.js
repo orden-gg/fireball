@@ -1,14 +1,17 @@
-import { Button, Typography } from "@mui/material";
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { AutopetContext } from "../../AutopetContextProvider";
-import { tabStyles } from "../../styles";
-import PanelErrorText from "./PanelErrorText";
+import { Button, Typography } from '@mui/material';
+
+import { AutopetContext } from '../../AutopetContextProvider';
+import { tabStyles } from '../../styles';
+import PanelErrorText from './PanelErrorText';
 
 export default function PetPanel({ index, dir }) {
     const classes = tabStyles();
     const { 
-        petState, isPetApproved , approvePet,
+        petState,
+        isPetApproved,
+        approvePet,
         isStaked,
         isUserConnected,
         renderButtonNode
@@ -16,7 +19,7 @@ export default function PetPanel({ index, dir }) {
 
     return (
         <div
-            role="tabpanel"
+            role='tabpanel'
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             dir={dir}
@@ -24,17 +27,17 @@ export default function PetPanel({ index, dir }) {
         >
             <Typography className={classes.panelText}>
                 Approve contract to pet your gotchi(s)
+            </Typography>
             <Typography className={classes.panelText}>
                 This is trustless, contract can only pet your gotchi, nothing else
             </Typography>
-            </Typography>
             <Typography className={classes.panelText}>
-                You can take back pet right anytime
+                You can take back pet rights anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
                     disabled={petState !== 'approve' || isStaked || !isUserConnected}
-                    variant="contained"
+                    variant='contained'
                     fullWidth
                     size='large'
                     className={classes.panelButton}

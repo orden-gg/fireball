@@ -1,20 +1,23 @@
-import { Button, Typography } from "@mui/material";
-import { useContext } from "react";
 
-import { AutopetContext } from "../../AutopetContextProvider";
-import { tabStyles } from "../../styles";
+import { useContext } from 'react';
+
+import { Button, Typography } from '@mui/material';
+
+import { AutopetContext } from '../../AutopetContextProvider';
+import { tabStyles } from '../../styles';
 
 export default function ConnectPanel({ index, dir }) {
     const classes = tabStyles();
     const { 
-        connectState, approveConnect,
+        connectState,
+        approveConnect,
         renderButtonNode,
         isUserConnected,
      } = useContext(AutopetContext);
 
      return (
         <div
-            role="tabpanel"
+            role='tabpanel'
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             dir={dir}
@@ -26,7 +29,7 @@ export default function ConnectPanel({ index, dir }) {
             <div className={classes.panelButtonGroup}>
                 <Button
                     disabled={connectState !== 'approve' || isUserConnected}
-                    variant="contained"
+                    variant='contained'
                     fullWidth
                     size='large'
                     className={classes.panelButton}

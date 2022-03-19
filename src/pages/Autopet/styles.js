@@ -1,6 +1,6 @@
 
-import { alpha } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { alpha } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     autopetWrapper: {
@@ -61,7 +61,7 @@ const headerStyles = makeStyles( theme => ({
 const tabStyles = makeStyles( theme => ({
     autopetComplete: {
         fontWeight: 500,
-        margin: theme.spacing(5, 0, 1),
+        margin: theme.spacing(3, 0, 1),
         textAlign: 'right'
     },
 
@@ -79,7 +79,7 @@ const tabStyles = makeStyles( theme => ({
         position: 'relative',
         overflow: 'visible',
         opacity: 1,
-        '&[aria-selected="true"]': {
+        '&[aria-selected=true]': {
             backgroundColor: 'rgba(52, 55, 64, 0.3)'
         },
         '&:hover': {

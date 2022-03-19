@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
 import { useMetamask } from 'use-metamask';
@@ -9,6 +9,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 import ghstApi from '../../api/ghst.api';
 import mainApi from '../../api/main.api';
 import autopetApi from '../../api/autopet.api';
+
 import { tabStyles } from './styles';
 
 export const AutopetContext = createContext({});
@@ -18,6 +19,7 @@ const AutopetContextProvider = (props) => {
     const [ petState, setPetState ] = useState('approve');
     const [ stakeState, setStakeState ] = useState('approve');
     const [ connectState, setConnectState ] = useState('approve');
+
     const [ isPetApproved, setIsPetApproved ] = useState(false);
     const [ isStaked, setIsStaked ] = useState(false);
     const [ isGhstApproved, setIsGhstApproved ] = useState(false);
@@ -31,95 +33,115 @@ const AutopetContextProvider = (props) => {
             done: false
         },
         pet: {
-            text: 'Pet',
+            text: 'Allow Pet',
             done: false
         },
         ghst: {
-            text: 'GHST',
+            text: 'Allow GHST',
             done: false
         },
         stake: {
-            text: 'Stake',
+            text: 'Stake & Start!',
             done: false
         }
     });
 
     const { showSnackbar } = useContext(SnackbarContext);
-    const { getAccounts } = useMetamask();
     const { connectMetamask } = useContext(LoginContext);
+
+    const { getAccounts } = useMetamask();
 
     const approveConnect = async () => {
         setConnectState('approving');
 
         const isConnected = await connectMetamask();
+
         setConnectState('approve');
-        if(!isConnected) return;
+
+        if (!isConnected) {
+            return;
+        }
+
         updateProgress('connect', isConnected);
         setIsUserConnected(isConnected);
     }
 
-    const approvePet = async (approval) => {
-        const succesMessage = approval ? 'Pet approved!' : 'Pet disapproved!';
-        const errorMessage = approval ? 'Pet approval failed!' : 'Pet disapproval failed!';
+    const approvePet = async (isApproved) => {
+        const succesMessage = isApproved ? 'Pet approved!' : 'Pet disapproved!';
+        const errorMessage = isApproved ? 'Pet approval failed!' : 'Pet disapproval failed!';
 
         setPetState('approving');
 
-        const isApproved = await mainApi.approvePet(approval);
+        try {
+            const isApproved = await mainApi.approvePet(isApproved);
 
-        if(isApproved) {
-            setIsPetApproved(approval);
-            updateProgress('pet', approval);
-            showSnackbar('success', succesMessage);
-        } else {
-            showSnackbar('error', errorMessage);
+            if (isApproved) {
+                setIsPetApproved(isApproved);
+                updateProgress('pet', isApproved);
+                showSnackbar('success', succesMessage);
+            } else {
+                showSnackbar('error', errorMessage);
+            }
+
+            setPetState('approve');
+        } catch {
+            setPetState('approve');
         }
-
-        setPetState('approve');
     };
 
-    const approveGhst = async (approval) => {
-        const succesMessage = approval ? 'GHST approved!' : 'GHST disapproved!';
-        const errorMessage = approval ? 'GHST approval failed!' : 'GHST disapproval failed!';
+    const approveGhst = async (isApproved) => {
+        const succesMessage = isApproved ? 'GHST approved!' : 'GHST disapproved!';
+        const errorMessage = isApproved ? 'GHST approval failed!' : 'GHST disapproval failed!';
 
         setGhstState('approving');
         
-        const isApproved = await ghstApi.approveGhst(approval);
-        if(isApproved) {
-            setIsGhstApproved(approval);
-            updateProgress('ghst', approval);
-            showSnackbar('success', succesMessage);
-        } else {
-            showSnackbar('error', errorMessage);
-        }
+        try {
+            const isApproved = await ghstApi.approveGhst(isApproved);
 
-        setGhstState('approve');
+            if (isApproved) {
+                setIsGhstApproved(isApproved);
+                updateProgress('ghst', isApproved);
+                showSnackbar('success', succesMessage);
+            } else {
+                showSnackbar('error', errorMessage);
+            }
+            
+            setGhstState('approve');
+        } catch {
+            setGhstState('approve');
+        }
     };
 
-    const approveStake = async (approval) => {
-        const succesMessage = approval ? 'Stake approved!' : 'Unstake approved!';
-        const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
+    const approveStake = async (isApproved) => {
+        const succesMessage = isApproved ? 'Stake approved!' : 'Unstake approved!';
+        const errorMessage = isApproved ? 'Staking failed!' : 'Unstaking failed!';
 
         setStakeState('approving');
         
-        const isApproved = Boolean(await autopetApi.subscribe(approval));
+        try {
+            const isApproved = Boolean(await autopetApi.subscribe(isApproved));
 
-        if(isApproved) {
-            setIsStaked(approval);
-            updateProgress('stake', approval);
-            showSnackbar('success', succesMessage);
-        } else {
-            showSnackbar('error', errorMessage);
+            if (isApproved) {
+                setIsStaked(isApproved);
+                updateProgress('stake', isApproved);
+                showSnackbar('success', succesMessage);
+            } else {
+                showSnackbar('error', errorMessage);
+            }
+
+            setStakeState('approve');
+        } catch {
+            setStakeState('approve');
         }
-
-        setStakeState('approve');
     };
 
     const updateProgress = (name, isApproved) => {
-        setTabs(  (data) => {
+        setTabs(data => {
             const duplicated = {...data};
             duplicated[name].done = isApproved;
+
             return duplicated;
-        } );
+        });
     };
 
     const renderButtonNode = (state, defaultNode, approvedNode) => {
@@ -137,49 +159,54 @@ const AutopetContextProvider = (props) => {
         }
     }
 
-    useEffect( () => {
-
+    useEffect(() => {
         (async function updateData() {
-
             const tabsDuplicated = {...tabs};
             let ready = 0;
 
             const updateTabs = () => {
-                if(ready === Object.keys(tabs).length) setTabs(tabsDuplicated);
+                if (ready === Object.keys(tabs).length) {
+                    setTabs(tabsDuplicated);
+                }
             }
 
-            const account = await getAccounts();
-            const walletConnected  = account.length > 0;
+            const accounts = await getAccounts();
+            const walletConnected  = accounts.length > 0;
 
             setIsUserConnected(walletConnected);
 
-            if(!walletConnected) return;
+            if (!walletConnected) {
+                return;
+            }
+
             tabsDuplicated.connect.done = walletConnected;
             ++ready;
             updateTabs();
 
-            mainApi.isPetApproved(account[0]).then( (isApproved) => {
+            mainApi.isPetApproved(accounts[0]).then(isApproved => {
                 setIsPetApproved(isApproved);
                 tabsDuplicated.pet.done = isApproved;
                 ++ready;
                 updateTabs();
             });
             
-            ghstApi.isGhstApproved(account[0]).then(isApproved => {
+            ghstApi.isGhstApproved(accounts[0]).then(isApproved => {
                 setIsGhstApproved(isApproved);
                 tabsDuplicated.ghst.done = isApproved;
                 ++ready;
                 updateTabs();
             });
             
-            autopetApi.isStaked(account[0]).then(isApproved => {
-                setIsStaked(isApproved);
-                tabsDuplicated.stake.done = isApproved;
+            autopetApi.getUsers().then(users => {
+                const isStaked = users.some(address => (
+                    accounts[0].toLowerCase() === address.toLowerCase()
+                ));
+                setIsStaked(isStaked);
+                tabsDuplicated.stake.done = isStaked;
                 ++ready;
                 updateTabs();
             });
         })();
-
     }, []);
 
     return (

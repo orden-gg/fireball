@@ -1,6 +1,6 @@
-import { Alert, AlertTitle, Typography } from "@mui/material";
+import { Alert, AlertTitle, Typography } from '@mui/material';
 
-import { headerStyles } from "../styles";
+import { headerStyles } from '../styles';
 
 export default function AutopetHeader() {
     const classes = headerStyles();
@@ -32,7 +32,7 @@ export default function AutopetHeader() {
                 </div>
             </div>
 
-            <Alert severity="warning" className={classes.autopetHeaderWarning}> 
+            <Alert severity='warning' className={classes.autopetHeaderWarning}> 
                 <AlertTitle>ASSETS SECURITY WARNING!</AlertTitle>
                 make sure to verify URL and contract address before interacting with any similar interface
             </Alert>

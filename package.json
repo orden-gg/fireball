@@ -18,7 +18,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "cross-fetch": "^3.1.4",
-    "ethers": "^5.4.0",
+    "ethers": "^5.4.6",
     "graphql": "^15.5.0",
     "luxon": "^2.0.2",
     "phaser": "^3.55.2",

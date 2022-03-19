@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-import ethersApi from './common/ethersApi';
+import ethersApi from './ethers.api';
 
 import { AUTOPET_CONTRACT, GHST_CONTRACT } from './common/constants';
 import { GHST_ABI } from '../data/abi/ghst.abi';
@@ -18,19 +18,14 @@ export default {
             ethers.utils.parseUnits(maxSpend)
         );
 
-        try {
-            const status = await ethersApi.waitForTransaction(transaction.hash, 'polygon').status;
-
-            return Boolean(status);
-        } catch {
-
-            return false;
-        }
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
     },
 
-    async isGhstApproved(address) {
-        const allowance = await contract.allowance(address, AUTOPET_CONTRACT);
-
-        return ethers.utils.formatUnits(allowance._hex) >= 100;
+    isGhstApproved(address) {
+        return contract.allowance(address, AUTOPET_CONTRACT).then(allowance => (
+            ethers.utils.formatUnits(allowance._hex) >= 100
+        ));
     }
 }

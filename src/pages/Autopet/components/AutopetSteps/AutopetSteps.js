@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -41,9 +42,9 @@ export default function AutopetSteps() {
         setCurrentTab(index);
     };
 
-    useEffect( () => {
-        for(const [index, key] of Object.keys(tabs).entries()) {
-            if(!tabs[key].done) {
+    useEffect(() => {
+        for (const [index, key] of Object.keys(tabs).entries()) {
+            if (!tabs[key].done) {
                 setCurrentTab(index);
                 break;
             } 
@@ -63,16 +64,16 @@ export default function AutopetSteps() {
             </Typography>
             <Box className={classes.tabsWrapper}>
 
-                <AppBar position="static">
+                <AppBar position='static'>
                     <Tabs
                         value={currentTab}
                         onChange={handleChange}
-                        indicatorColor="primary"
-                        textColor="inherit"
-                        variant="fullWidth"
+                        indicatorColor='primary'
+                        textColor='inherit'
+                        variant='fullWidth'
                     >   
                     {
-                        Object.keys(tabs).map( (key, index) => (
+                        Object.keys(tabs).map((key, index) => (
                             <Tab 
                                 key={index}
                                 className={ classNames(classes.tab, tabs[key].done && classes.tabDone) }
@@ -80,7 +81,7 @@ export default function AutopetSteps() {
                                     index === 0 ? null : 
                                     <DoubleArrowIcon className={classes.tabIcon} />
                                 } 
-                                iconPosition="end"
+                                iconPosition='end'
                                 label={
                                     <>
                                         {`${tabs[key].text} `}

@@ -1,28 +1,30 @@
-import { Button, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 
-import { AutopetContext } from "../../AutopetContextProvider";
-import { tabStyles } from "../../styles";
-import PanelErrorText from "./PanelErrorText";
+import { Button, Typography } from '@mui/material';
+
+import { AutopetContext } from '../../AutopetContextProvider';
+import PanelErrorText from './PanelErrorText';
+import { tabStyles } from '../../styles';
 
 export default function StakePanel({ index, dir }) {
     const classes = tabStyles();
+    const [ availableStake, setAvailableStake ] = useState(false);
     const { 
-        stakeState, approveStake,
+        stakeState,
+        approveStake,
         isStaked,
         renderButtonNode,
-        isGhstApproved, isPetApproved
+        isGhstApproved,
+        isPetApproved
     } = useContext(AutopetContext);
-    const [ availableStake, setAvailableStake ] = useState(false);
 
-
-    useEffect( () => {
+    useEffect(() => {
         setAvailableStake(isGhstApproved && isPetApproved);
     }, [isGhstApproved, isPetApproved]);
 
     return (
         <div
-            role="tabpanel"
+            role='tabpanel'
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             dir={dir}
@@ -38,7 +40,7 @@ export default function StakePanel({ index, dir }) {
 
                 <Button
                     disabled={stakeState === 'approving' || !availableStake}
-                    variant="contained"
+                    variant='contained'
                     fullWidth
                     size='large'
                     className={classes.panelButton}

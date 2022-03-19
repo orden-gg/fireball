@@ -1,4 +1,4 @@
-import ethersApi from './common/ethersApi';
+import ethersApi from './ethers.api';
 
 import { AUTOPET_CONTRACT } from './common/constants';
 import { AUTOPET_ABI } from '../data/abi/autopet.abi';
@@ -15,14 +15,9 @@ export default {
             await writeContract.subscribe() :
             await writeContract.unsubscribe();
 
-        try {
-            const status = await ethersApi.waitForTransaction(transaction.hash, 'polygon').status;
-
-            return Boolean(status);
-        } catch {
-
-            return false;
-        }
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
 
     },
 
@@ -31,34 +26,24 @@ export default {
 
         const transaction = await writeContract.unsubscribe();
 
-        const status = await this.getTransactionStatus(transaction.hash);
-        
-        return status;
+        const response = await this.getTransactionStatus(transaction.hash);
+    
+        return response.status;
     },
 
-    async isStaked(userAddress) {
-        const users = await this.getUsers();
+    getUsers() {
+        return contract.allUsers();
+    },
 
-        const isStaked = users.some( address => (
-            userAddress.toLowerCase() === address.toLowerCase()
+    getFee() {
+        return contract.fee().then(fee => (
+            parseInt(ethers.utils.formatUnits(fee._hex))
         ));
-        
-        return isStaked;
     },
 
-    async getUsers() {
-        return await contract.allUsers();
-    },
-
-    async getFee() {
-        const fee = await contract.fee();
-
-        return parseInt(ethers.utils.formatUnits(fee._hex));
-    },
-
-    async getFrens() {
-        const frens = await contract.frens();
-
-        return parseInt(ethers.utils.formatUnits(frens._hex));
+    getFrens() {
+        return contract.frens().then(frens => (
+            parseInt(ethers.utils.formatUnits(frens._hex))
+        ));
     }
 }

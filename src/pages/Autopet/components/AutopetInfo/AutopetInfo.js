@@ -1,12 +1,16 @@
-import { Link } from "@mui/material";
-import { useEffect, useState } from "react";
-import CallMadeIcon from '@mui/icons-material/CallMade';
-import classNames from "classnames";
+import { useEffect, useState } from 'react';
 
-import { infoStyles } from "../../styles";
-import AutopetInfoCard from "./AutopetInfoCard";
+import { Link } from '@mui/material';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+
+import classNames from 'classnames';
+
+import { infoStyles } from '../../styles';
+import AutopetInfoCard from './AutopetInfoCard';
 import autopetApi from '../../../../api/autopet.api';
 import thegraph from '../../../../api/thegraph';
+
+const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
 
 export default function AutopetInfo() {
     const classes = infoStyles();
@@ -16,15 +20,12 @@ export default function AutopetInfo() {
     const [ totalGotchis, setTotalGotchis ] = useState(null);
     const [ totalUsers, setTotalUsers ] = useState(null);
 
-    useEffect( () => {
-
+    useEffect(() => {
         autopetApi.getUsers().then( users => {
-
             thegraph.getGotchisByAddresses(users).then( gotchis => {
                 setTotalGotchis(gotchis.length);
                 setTotalUsers(users.length);
             });
-
         });
 
         autopetApi.getFee().then( fee => {
@@ -34,10 +35,9 @@ export default function AutopetInfo() {
         autopetApi.getFrens().then( frens => {
             setFrens(frens);
         });
-
     }, []);
 
-    useEffect( () => {
+    useEffect(() => {
         setStaked(totalUsers*fee);
     }, [totalUsers, fee]);
 
@@ -54,7 +54,7 @@ export default function AutopetInfo() {
                 count={totalUsers}
             />
             <Link
-                href='https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93#code'
+                href={contractUrl}
                 target='_blank'
                 className={classNames(classes.autopetInfoCard, classes.autopetInfoLink)}
             >
