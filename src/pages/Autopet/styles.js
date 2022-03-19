@@ -90,9 +90,6 @@ const tabStyles = makeStyles( theme => ({
         opacity: .8,
         backgroundColor: 'rgba(52, 55, 64, 1)'
     },
-    tabDoneText: {
-        color: theme.palette.success.light
-    },
     tabIcon: {
         position: 'absolute',
         left: -18,
@@ -100,6 +97,9 @@ const tabStyles = makeStyles( theme => ({
         marginTop: -12,
         color: theme.palette.common.white,
         zIndex: 1
+    },
+    tabArrow: {
+        color: theme.palette.success.light,
     },
     tabGotchi: {
         display: 'inline-block',

@@ -6,6 +6,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import DoneIcon from '@mui/icons-material/Done';
+import { Typography } from '@mui/material';
 
 import { AutopetContext } from '../../AutopetContextProvider';
 
@@ -18,7 +20,7 @@ import StakePanel from './StakePanel';
 import ConnectPanel from './ConnectPanel';
 
 import { ReactComponent as Gotchi } from '../../../../assets/images/gotchi-placeholder.svg'
-import { Typography } from '@mui/material';
+
 
 export default function AutopetSteps() {
     const classes = tabStyles();
@@ -88,10 +90,8 @@ export default function AutopetSteps() {
                                         {
                                             tabs[key].done &&
                                             <>
-                                                (
-                                                    <span className={classes.tabDoneText}>done</span>
-                                                    <Gotchi className={classes.tabGotchi} />
-                                                )
+                                                <Gotchi className={classes.tabGotchi} />
+                                                <DoneIcon className={classes.tabArrow} />
                                             </>
                                         }
                                     </>
