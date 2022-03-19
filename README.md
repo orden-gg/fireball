@@ -1,8 +1,8 @@
 
-<div style="display: flex; align-items: center; font-weight: bold;">
-  <img src="/src/assets/images/fireball.gif" alt="fireball" style="width:100px;"/>
+<p align="center">
+  <img src="/src/assets/images/fireball.gif" alt="fireball" style="width:40px;"/>
   <span>.GG</span>
-</div>
+</p>
 
 <br/>
 
