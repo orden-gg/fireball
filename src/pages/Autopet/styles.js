@@ -61,7 +61,7 @@ const headerStyles = makeStyles( theme => ({
 const tabStyles = makeStyles( theme => ({
     autopetComplete: {
         fontWeight: 500,
-        margin: theme.spacing(3, 0, 1),
+        margin: theme.spacing(1, 0),
         textAlign: 'right'
     },
 
@@ -147,32 +147,24 @@ const infoStyles = makeStyles( theme => ({
         display: 'flex',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        margin: theme.spacing(3, 0)
+        margin: theme.spacing(1, 0)
     },
     autopetInfoCard: {
-        height: 150,
+        height: 100,
         borderRadius: 5,
         boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
         backgroundColor: theme.palette.background.paper,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 24,
+        fontSize: 18,
         textTransform: 'uppercase',
         fontWeight: 700,
         boxSizing: 'border-box',
-        margin: theme.spacing(2),
+        margin: theme.spacing(1),
         minWidth: 360,
         textAlign: 'center',
-        padding: theme.spacing(2)
-    },
-    autopetInfoCardLow: {
-        fontSize: 18,
-        height: 100,
-
-        '& $autopetCardCount': {
-            fontSize: 42
-        }
+        padding: theme.spacing(2),
     },
     autopetInfoLink: {
         position: 'relative',
@@ -185,7 +177,7 @@ const infoStyles = makeStyles( theme => ({
         margin: '0 auto'
     },
     autopetCardCount: {
-        fontSize: 65,
+        fontSize: 42,
         minWidth: '50%',
         display: 'inline-flex',
         justifyContent: 'center',
@@ -195,6 +187,10 @@ const infoStyles = makeStyles( theme => ({
         position: 'absolute',
         right: theme.spacing(.5),
         bottom: theme.spacing(.5)
+    },
+    autopetInfoGhst: {
+        width: 48,
+        height: 48
     }
 }));
 

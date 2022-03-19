@@ -10,6 +10,8 @@ import AutopetInfoCard from './AutopetInfoCard';
 import autopetApi from '../../../../api/autopet.api';
 import thegraph from '../../../../api/thegraph';
 
+import ghstIcon from '../../../../assets/images/ghst-doubleside.gif'
+
 const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
 
 export default function AutopetInfo() {
@@ -62,19 +64,28 @@ export default function AutopetInfo() {
                 <CallMadeIcon className={classes.autopetInfoIcon} />
             </Link>
             <AutopetInfoCard
-                className={classes.autopetInfoCardLow}
                 name='Fee'
-                count={fee}
+                count={
+                    totalStaked > 0 ? 
+                    <>
+                        {fee}
+                        <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                    </> : null
+                }
             />
             <AutopetInfoCard
-                className={classes.autopetInfoCardLow}
                 name='Frens'
                 count={frens}
             />
             <AutopetInfoCard
-                className={classes.autopetInfoCardLow}
                 name='Staked'
-                count={totalStaked}
+                count={
+                    totalStaked > 0 ? 
+                        <>
+                            {totalStaked}
+                            <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                        </> : null
+                }
             />
         </div>
     )

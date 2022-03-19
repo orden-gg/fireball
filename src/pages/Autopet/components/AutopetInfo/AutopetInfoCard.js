@@ -4,11 +4,11 @@ import classNames from 'classnames';
 
 import { infoStyles } from '../../styles';
 
-export default function AutopetInfoCard({name, count, className}) {
+export default function AutopetInfoCard({name, count}) {
     const classes = infoStyles();
 
     return (
-        <div className={classNames(classes.autopetInfoCard, className || null)}>
+        <div className={classNames(classes.autopetInfoCard)}>
             <span className={classes.autopetCardName}>{name}:</span>
 
             <span className={classes.autopetCardCount}>
