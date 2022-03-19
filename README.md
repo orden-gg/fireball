@@ -14,6 +14,8 @@
 [![](https://img.shields.io/badge/🔥.gg-production-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball.gg/)
 [![](https://img.shields.io/badge/🔥.gg-staging-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball-staging-ilsbc366ba-ew.a.run.app/)
 
+[fireball.gg](http://fireball.gg) is a public good client for [gotchiverse](https://gotchiverse.io/), completely open & free to use! 
+
 ### local deployment (ubuntu & macos)
 
 1. make sure you have Node version `17.x`. TIP: use [nvm](https://github.com/nvm-sh/nvm) for node versions managing
