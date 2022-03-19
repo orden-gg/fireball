@@ -13,7 +13,11 @@ fireball.gg is the opensource, [gotchiverse](https://gotchiverse.io/) client foc
 * `yarn test`
 * `yarn audit`
 
-## links
+### review forked PR's
+* `git fetch origin pull/<PULL_ID>/head:<YOUR_BRANCH_NAME>`
+
+
+## Links
 
 * client homepage: https://fireball.gg
 * ordenGG twitter: https://twitter.com/orden_gg
