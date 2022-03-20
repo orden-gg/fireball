@@ -47,7 +47,6 @@ export default function Team() {
                 </Grid>
             </Grid>
 
-
             <Grid container justifyContent='center'>
                 {dataSpinner ? (
                     <CircularProgress component='span' color='primary' size={22}/>

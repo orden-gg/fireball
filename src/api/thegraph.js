@@ -265,7 +265,7 @@ export default {
             let merged = filtered.reduce((items, current) => {
                 let duplicated = items.find(item => item.ticketId === current.ticketId);
 
-                if(duplicated) {
+                if (duplicated) {
                     duplicated.quantity = +duplicated.quantity + +current.quantity;
                     return items;
                 }

@@ -9,7 +9,7 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
     animateParcels(color1, color2, duration) {
         let [fromColor, toColor] = [Phaser.Display.Color.ValueToColor(color1), Phaser.Display.Color.ValueToColor(color2)];
 
-        if(!color1) {
+        if (!color1) {
             this.parcelsTween.stop();
             this.clear();
             return;
@@ -36,7 +36,7 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
     }
 
     create(x, y, w, h, color, firstCreate) {
-        if(firstCreate) this.parcels.push({
+        if (firstCreate) this.parcels.push({
             x: x,
             y: y,
             w: w,

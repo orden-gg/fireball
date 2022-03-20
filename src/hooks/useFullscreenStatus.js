@@ -5,7 +5,7 @@ export default function useFullscreenStatus(elRef) {
 
   const setFullscreen = () => {
     if (elRef.current == null) return;
-    if(getBrowserFullscreenElementProp() === null) return setIsFullscreen(null);
+    if (getBrowserFullscreenElementProp() === null) return setIsFullscreen(null);
     elRef.current
       .requestFullscreen()
       .then(() => {
@@ -17,7 +17,7 @@ export default function useFullscreenStatus(elRef) {
       });
   };
 
-  useEffect( () => {
+  useEffect(() => {
     const fullscreenProp = getBrowserFullscreenElementProp();
 
     setIsFullscreen(

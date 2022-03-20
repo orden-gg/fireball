@@ -9,11 +9,11 @@ export default function GhostLoader({animate, text}) {
     const [title, setTitle] = useState(null);
 
     useEffect(() => {
-        if(animate) setRender(true);
+        if (animate) setRender(true);
     }, [animate]);
 
     useEffect(() => {
-        if(text) {
+        if (text) {
             setTimeout(() => setTitle(text), 2000);
         } else {
             setTitle(null);
@@ -21,7 +21,7 @@ export default function GhostLoader({animate, text}) {
     }, [text]);
 
     const onAnimationEnd = () => {
-        if(!animate) setRender(false);
+        if (!animate) setRender(false);
     };
 
     return (

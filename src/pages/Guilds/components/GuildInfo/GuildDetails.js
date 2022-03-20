@@ -23,7 +23,7 @@ export default function GuildsDetails() {
             <AccordionDetails className={classes.detailsBody}>
                 <ul className={classes.detailsList}>
                     {
-                        currentGuild.description.map( (item, index) => (
+                        currentGuild.description.map((item, index) => (
                             <li className={classes.detailsItem} key={index}>
                                 <p className={classes.detailTitle}>{item.title}</p>
                                 <div className={classes.detailBody}>

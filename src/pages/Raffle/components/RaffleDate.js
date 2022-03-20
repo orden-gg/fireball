@@ -26,7 +26,7 @@ export default function RaffleDate({ start, end }) {
         const local = DateTime.local();
         const diff = end - local;
 
-        if(local > start && local < end) {
+        if (local > start && local < end) {
             setType('live');
             setTitle(`live for ${Duration.fromObject({milliseconds: diff}).toFormat('hh:mm:ss')}`);
         } else if (local < start) {
@@ -38,7 +38,7 @@ export default function RaffleDate({ start, end }) {
         }
     };
 
-    if(!title) return null;
+    if (!title) return null;
 
     return (
         <div className={classNames(classes.title, type)}>

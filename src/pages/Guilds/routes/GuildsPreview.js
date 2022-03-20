@@ -21,7 +21,7 @@ export default function GuildsPreview() {
 
     const renderList = () => {
         return (
-            guildsData.sort( guild => guild.members.length ? -1 : 1).map( (guild, index) => {
+            guildsData.sort( guild => guild.members.length ? -1 : 1).map((guild, index) => {
                 return (
                     <div className={classes.guildItem} key={index}>
                         <button
@@ -41,7 +41,7 @@ export default function GuildsPreview() {
         )
     }
 
-    useEffect( () => {
+    useEffect(() => {
         setCurrentGuild([]);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

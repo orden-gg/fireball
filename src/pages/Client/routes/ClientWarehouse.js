@@ -12,7 +12,7 @@ export default function ClientWarehouse() {
     const classes = routersStyles();
     const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
-    if(loadingWarehouse || loadingGotchis || !warehouse.length) {
+    if (loadingWarehouse || loadingGotchis || !warehouse.length) {
         return <Box textAlign='center' paddingTop={'32px'}>
             <GhostLoader
                 animate={loadingWarehouse || loadingGotchis || !warehouse.length}

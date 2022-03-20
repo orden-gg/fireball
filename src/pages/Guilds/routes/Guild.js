@@ -40,7 +40,7 @@ export default function Guild({backToGuilds}) {
     const loadGotchisByAddresses = async (addresses, b) => {
         let gotchis = await thegraph.getGotchisByAddresses(addresses);
 
-        if(b) return;
+        if (b) return;
 
         gotchis.sort((a,b) => (
             b.modifiedRarityScore - a.modifiedRarityScore
@@ -52,17 +52,17 @@ export default function Guild({backToGuilds}) {
     const loadRealmByAddresses = async (addresses, b) => {
         let realm = await thegraph.getRealmByAddresses(addresses);
 
-        if(b) return;
+        if (b) return;
 
         setGuildRealm(realm);
     };
 
-    useEffect( () => {
+    useEffect(() => {
         let guild = guildsData.find( guild => (
             guildUtils.nameToPath(guild.name) === params.name
         ));
 
-        if(
+        if (
             guild === undefined ||
             (!guild.members?.length && !guild.description?.length)
         ) return backToGuilds();
@@ -72,17 +72,17 @@ export default function Guild({backToGuilds}) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect( () => {
+    useEffect(() => {
         let controller = new AbortController();
 
-        if(currentGuild.hasOwnProperty('name')) loadData(controller.signal.aborted);
+        if (currentGuild.hasOwnProperty('name')) loadData(controller.signal.aborted);
 
         return () => controller?.abort();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentGuild]);
 
-    useEffect( () => {
-        if(currentGuild.hasOwnProperty('name')) setIsLoading(false);
+    useEffect(() => {
+        if (currentGuild.hasOwnProperty('name')) setIsLoading(false);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ guildGotchis ]);

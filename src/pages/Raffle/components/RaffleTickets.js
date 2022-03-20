@@ -26,7 +26,7 @@ export default function RaffleTickets({ address }) {
         setLoadingTickets(true);
 
         web3.getTicketsByAddress(address).then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setTickets(response);
                 setLoadingTickets(false);
             }

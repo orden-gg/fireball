@@ -32,7 +32,7 @@ export default function ClientNav() {
         let view = realmView === 'list' ? 'map' : 'list';
         let url = `${match.url}/realm/${view}`;
 
-        if(clientActive) {
+        if (clientActive) {
             history.push({ pathname: url, search: `?address=${clientActive}` });
         } else {
             history.push({ pathname: url });

@@ -78,7 +78,7 @@ export default function Citadel({ ownerParcels, className}) {
     };
 
     useEffect(() => {
-        setTimeout( () => {
+        setTimeout(() => {
             initCitadel();
         }, 100);
 
@@ -86,14 +86,14 @@ export default function Citadel({ ownerParcels, className}) {
     }, []);
 
     useEffect(() => {
-        if(selectedId) thegraph.getRealmById(selectedId).then( (parcel) => {
+        if (selectedId) thegraph.getRealmById(selectedId).then((parcel) => {
             setSelectedParcel(parcel);
         });
 
     }, [selectedId]);
 
     useEffect(() => {
-        if(ownerParcels.length && scene) {
+        if (ownerParcels.length && scene) {
             scene.addOwnerParcels(ownerParcels);
             setMapCreated(true);
         }

@@ -19,7 +19,7 @@ export default function RaffleContent({ user }) {
         const raffleName = raffles.some(item => item['name'] === name);
         const lastRaffle = raffles[raffles.length - 1];
 
-        if(!raffleName) { // redirect to last raffle if path do not exist
+        if (!raffleName) { // redirect to last raffle if path do not exist
             setRaffle(lastRaffle);
             setTickets([]);
 
@@ -38,12 +38,12 @@ export default function RaffleContent({ user }) {
     }, [name]);
 
     useEffect(() => {
-        if(!raffleSpinner) onAddressChange(user, raffle.id);
+        if (!raffleSpinner) onAddressChange(user, raffle.id);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, raffleSpinner]);
 
-    if(!raffle) return null;
+    if (!raffle) return null;
 
     return (
         <div className={classes.inner}>

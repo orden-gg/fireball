@@ -17,7 +17,7 @@ export default function ClientGotchis() {
     };
     const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
 
-    if(loadingGotchis || !gotchis.length) {
+    if (loadingGotchis || !gotchis.length) {
         return <Box className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingGotchis || !gotchis.length}

@@ -19,7 +19,7 @@ const RaffleContextProvider = (props) => {
     const [pricesSpinner, setPricesSpinner] = useState(true);
 
     useEffect(() => {
-        if(!raffleSpinner && !loadingEntered) {
+        if (!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
                     ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
@@ -113,7 +113,7 @@ const RaffleContextProvider = (props) => {
     const onAddressChange = (address, raffle) => {
         tickets.forEach((item, i) => tickets[i].value = '');
 
-        if(web3.isAddressValid(address)) {
+        if (web3.isAddressValid(address)) {
             getAddressData(address, raffle);
         }
     };
@@ -127,7 +127,7 @@ const RaffleContextProvider = (props) => {
     const countWearablesChances = (ticket) => {
         const wearables = ticket.prizes;
 
-        if(wearables) {
+        if (wearables) {
             wearables.forEach((wearable) => {
                 let perc = wearable.quantity * 100 / ticket.items;
                 let chance = perc * ticket.chance / 100;

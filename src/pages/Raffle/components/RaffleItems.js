@@ -73,7 +73,7 @@ export default function RaffleItems({ tickets, type }) {
             {
                 tickets.slice(0).reverse().map((ticket) => {
 
-                    if(ticket.prizes) return ticket.prizes.map((item, i) => {
+                    if (ticket.prizes) return ticket.prizes.map((item, i) => {
                         let clean = tickets.some(t => t['value'] !== '');
 
                         return <div

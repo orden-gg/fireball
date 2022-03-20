@@ -32,7 +32,7 @@ export default function Client() {
     const { clientActive, setClientActive, getClientData } = useContext(ClientContext);
 
     useEffect(() => {
-        if(activeAddress) {
+        if (activeAddress) {
             setClientActive(activeAddress);
         }
 
@@ -40,7 +40,7 @@ export default function Client() {
     }, [activeAddress]);
 
     useEffect(() => {
-        if(params.address) {
+        if (params.address) {
             setClientActive(params.address);
         }
 
@@ -48,7 +48,7 @@ export default function Client() {
     }, [params.address]);
 
     useEffect(() => {
-        if(clientActive) {
+        if (clientActive) {
             getClientData();
             history.push({ path: location.pathname, search: `?address=${clientActive}` });
         } else {

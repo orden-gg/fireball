@@ -21,7 +21,7 @@ export default function ClientRealmList() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if(loadingRealm || !realm.length) {
+    if (loadingRealm || !realm.length) {
         return <Box  className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingRealm || !realm.length}

@@ -7,7 +7,7 @@ export default {
         const KINformula = {y: 0.76, k: 9416.93};
         const EXPformula = {y: 0.65, k: 2396.69};
 
-        if(position > 7500 || position === -1) {
+        if (position > 7500 || position === -1) {
             return {reward: 0};
         }
 

@@ -22,7 +22,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
 
         web3.getAvailableSkillPoints(id)
             .then((response)=> {
-                if(!controller.signal.aborted) {
+                if (!controller.signal.aborted) {
                     setAvailablePoints(response);
                 }
             }).catch((error) => {

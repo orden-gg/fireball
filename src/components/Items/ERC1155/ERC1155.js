@@ -36,10 +36,10 @@ export default function ERC1155({ children, item }) {
 
         // last sold
         thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setLast(response);
 
-                if(response?.lastSale) {
+                if (response?.lastSale) {
                     let date = new Date(response?.lastSale * 1000).toJSON()
                     setLastDate(date);
                 }
@@ -48,7 +48,7 @@ export default function ERC1155({ children, item }) {
 
         // current
         thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setCurrent(response);
             }
         });

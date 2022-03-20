@@ -43,7 +43,7 @@ export default function Parcel({ parcel, isBaazaarCard }) {
 
         // current
         thegraph.getRealmAuctionPrice(parcel.auctionId).then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setCurrent(response);
             }
         });

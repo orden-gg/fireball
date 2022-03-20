@@ -11,7 +11,7 @@ export default function ClientTickets() {
     const classes = routersStyles();
     const { tickets, loadingTickets } = useContext(ClientContext);
 
-    if(loadingTickets || !tickets.length) {
+    if (loadingTickets || !tickets.length) {
         return <Box className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingTickets || !tickets.length}

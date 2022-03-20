@@ -18,7 +18,7 @@ export default function GotchiListing({ listing, history }) {
     const currentPrice = listing?.length && parseFloat(web3.fromWei(listing[0].priceInWei));
     const lastPrice = history?.length && parseFloat(web3.fromWei(history[history.length - 1]));
 
-    if(!listing?.length && !history?.length) return null;
+    if (!listing?.length && !history?.length) return null;
 
     return (
         <div className={classes.container}>

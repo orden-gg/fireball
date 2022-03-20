@@ -29,19 +29,19 @@ export default function Raffle() {
     const { activeAddress } = useContext(LoginContext);
 
     useEffect(() => {
-        if(activeAddress) {
+        if (activeAddress) {
             setRaffleActive(activeAddress);
         }
     }, [activeAddress]);
 
     useEffect(() => {
-        if(params.address) {
+        if (params.address) {
             setRaffleActive(params.address);
         }
     }, [params.address]);
 
     useEffect(() => {
-        if(raffleActive) {
+        if (raffleActive) {
             history.push({ path: location.pathname, search: `?address=${raffleActive}` });
         } else {
             history.push({ path: location.pathname });
