@@ -29,15 +29,15 @@ const AutopetContextProvider = (props) => {
 
     const [ tabs, setTabs ] = useState({
         connect: {
-            text: 'Connet wallet',
+            text: 'Connect wallet',
             done: false
         },
         pet: {
-            text: 'Allow Pet',
+            text: 'Approve Petting',
             done: false
         },
         ghst: {
-            text: 'Allow GHST',
+            text: 'Approve GHST',
             done: false
         },
         stake: {
@@ -67,8 +67,8 @@ const AutopetContextProvider = (props) => {
     }
 
     const approvePet = async (approval) => {
-        const succesMessage = approval ? 'Pet approved!' : 'Pet disapproved!';
-        const errorMessage = approval ? 'Pet approval failed!' : 'Pet disapproval failed!';
+        const succesMessage = approval ? 'Petting approved!' : 'Petting approval revoked!';
+        const errorMessage = approval ? 'Petting approval failed!' : 'Revoking petting approval failed!';
 
         setPetState('approving');
 
@@ -90,8 +90,8 @@ const AutopetContextProvider = (props) => {
     };
 
     const approveGhst = async (approval) => {
-        const succesMessage = approval ? 'GHST approved!' : 'GHST disapproved!';
-        const errorMessage = approval ? 'GHST approval failed!' : 'GHST disapproval failed!';
+        const succesMessage = approval ? 'GHST approved!' : 'GHST approval revoked!';
+        const errorMessage = approval ? 'GHST approval failed!' : 'Revoking GHST approval failed!';
 
         setGhstState('approving');
         
@@ -113,7 +113,7 @@ const AutopetContextProvider = (props) => {
     };
 
     const approveStake = async (approval) => {
-        const succesMessage = approval ? 'Stake approved!' : 'Unstake approved!';
+        const succesMessage = approval ? 'Staking approved!' : 'Unstaking approved!';
         const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
 
         setStakeState('approving');
