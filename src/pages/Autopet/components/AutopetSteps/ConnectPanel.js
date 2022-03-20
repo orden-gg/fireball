@@ -1,6 +1,5 @@
 
 import { useContext } from 'react';
-
 import { Button, Typography } from '@mui/material';
 
 import { AutopetContext } from '../../AutopetContextProvider';
@@ -33,7 +32,7 @@ export default function ConnectPanel({ index, dir }) {
                     fullWidth
                     size='large'
                     className={classes.panelButton}
-                    onClick={ () => { approveConnect() } }
+                    onClick={() => { approveConnect() }}
                 >
                     {renderButtonNode(connectState, 'Connect wallet')}
                 </Button>

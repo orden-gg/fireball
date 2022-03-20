@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+
+import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
-import styles from './styles';
 
 import { LoginContext } from 'contexts/LoginContext';
-
 import MetamaskIcon from 'assets/images/icons/metamask.png';
-import classNames from 'classnames';
+
+import styles from './styles';
 
 export default function LoginNavigation() {
     const classes = styles();

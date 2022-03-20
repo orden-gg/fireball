@@ -1,20 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
-import thegraph from '../../../api/thegraph';
+import { Backdrop, IconButton } from '@mui/material';
+import { Box } from '@mui/system';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import thegraph from 'api/thegraph';
+import { GuildsContext } from 'contexts/GuildsContext';
+import guildUtils from 'utils/guildUtils';
+
 import GuildGotchis from '../components/GuildGotchis';
 import GuildBanner from '../components/GuildInfo/GuildBanner';
 import GuildsDetails from '../components/GuildInfo/GuildDetails';
-import { GuildsContext } from '../../../contexts/GuildsContext';
-
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { guildStyles } from '../styles';
-
-import { Backdrop, IconButton } from '@mui/material';
-import { Box } from '@mui/system';
-import guildUtils from '../../../utils/guildUtils';
 import GuildLogo from '../components/GuildLogo';
 import GuildNav from '../components/GuildNav';
 import GuildsRealm from '../components/GuildsRealm';
+import { guildStyles } from '../styles';
 
 export default function Guild({backToGuilds}) {
     const [isLoading, setIsLoading] = useState(true);

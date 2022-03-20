@@ -1,18 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
-import styles from './styles';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
-import commonUtils from 'utils/commonUtils';
 
+import GotchiSvg from 'components/Gotchi/GotchiSvg';
 import { LoginContext } from 'contexts/LoginContext';
+import commonUtils from 'utils/commonUtils';
+import MetamaskIcon from 'assets/images/icons/metamask.png';
+
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
-import MetamaskIcon from 'assets/images/icons/metamask.png';
-import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import styles from './styles';
 
 export default function LoginButton() {
     const classes = styles();

@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { useRouteMatch } from 'react-router';
-import { ClientContext } from 'contexts/ClientContext';
 import { Redirect, Route, Switch } from 'react-router';
+import { useRouteMatch } from 'react-router';
+
+import { ClientContext } from 'contexts/ClientContext';
+
 import ClientRealmMap from './ClientRealmMap';
 import ClientRealmList from './ClientRealmList';
 import ClientRealmParcel from './ClientRealmParcel';

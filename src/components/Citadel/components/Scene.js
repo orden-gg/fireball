@@ -1,13 +1,12 @@
 import Phaser from 'phaser';
 
 import parcelsData from 'data/parcels.json';
-
 import walls from 'assets/images/citadel/walls.svg';
+
 import Highlight from './Highlight';
 import ActiveParcels from './ActiveParcels';
 import DistrictsGrid from './DistrictsGrid';
 import DistrictNumber from './DistrictNumber';
-
 
 export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wrapperRef }) {
     return class Citadel_scene extends Phaser.Scene {

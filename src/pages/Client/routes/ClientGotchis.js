@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
-import { loadRewardsStyles, routersStyles } from '../styles';
-
-import { ClientContext } from 'contexts/ClientContext';
-import commonUtils from 'utils/commonUtils';
-
 import Gotchi from 'components/Gotchi/Gotchi';
 import GhostLoader from 'components/GhostLoader/GhostLoader';
+import { ClientContext } from 'contexts/ClientContext';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import commonUtils from 'utils/commonUtils';
+
+import { loadRewardsStyles, routersStyles } from '../styles';
 
 export default function ClientGotchis() {
     const classes = {
@@ -17,7 +16,6 @@ export default function ClientGotchis() {
         ...routersStyles()
     };
     const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
-
 
     if(loadingGotchis || !gotchis.length) {
         return <Box className={classes.loaderBox}>

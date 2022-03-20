@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
-import { routersStyles } from '../styles';
-import { ClientContext } from 'contexts/ClientContext';
-
 import Wearable from 'components/Items/Wearable/Wearable';
 import Consumable from 'components/Items/Consumable/Consumable';
 import GhostLoader from 'components/GhostLoader/GhostLoader';
+import { ClientContext } from 'contexts/ClientContext';
+
+import { routersStyles } from '../styles';
 
 export default function ClientWarehouse() {
     const classes = routersStyles();

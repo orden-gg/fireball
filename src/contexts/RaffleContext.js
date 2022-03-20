@@ -1,11 +1,11 @@
-import React, {createContext, useEffect, useState} from 'react';
-import thegraph from 'api/thegraph';
-import commonUtils from 'utils/commonUtils';
-import web3 from 'api/web3';
+import React, { createContext, useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
+import thegraph from 'api/thegraph';
+import web3 from 'api/web3';
+import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
-import { DateTime } from 'luxon';
 
 export const RaffleContext = createContext({});
 

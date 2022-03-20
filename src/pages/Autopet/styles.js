@@ -2,7 +2,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     autopetWrapper: {
         padding: theme.spacing(3),
         maxWidth: 1400,
@@ -10,7 +10,7 @@ const styles = makeStyles( theme => ({
     }
 }));
 
-const headerStyles = makeStyles( theme => ({
+const headerStyles = makeStyles(theme => ({
     autopetTitle: {
         textAlign: 'center',
         fontSize: 40,
@@ -58,7 +58,7 @@ const headerStyles = makeStyles( theme => ({
     }
 }));
 
-const tabStyles = makeStyles( theme => ({
+const tabStyles = makeStyles(theme => ({
     autopetComplete: {
         fontWeight: 500,
         margin: theme.spacing(1, 0),
@@ -130,7 +130,7 @@ const tabStyles = makeStyles( theme => ({
     },
     panelButton: {
         maxWidth: 325,
-        
+
         '& + &': {
             marginLeft: theme.spacing(1.5)
         }
@@ -142,7 +142,7 @@ const tabStyles = makeStyles( theme => ({
 
 }));
 
-const infoStyles = makeStyles( theme => ({
+const infoStyles = makeStyles(theme => ({
     autopetInfo: {
         display: 'flex',
         justifyContent: 'center',

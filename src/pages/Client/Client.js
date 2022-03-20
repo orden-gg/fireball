@@ -1,23 +1,24 @@
 import React, { useContext, useEffect } from 'react';
 import { Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
-import { Helmet } from 'react-helmet';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import queryString from 'query-string'
-import styles from './styles';
-import commonUtils from 'utils/commonUtils';
 
 import { LoginContext } from 'contexts/LoginContext';
 import { ClientContext } from 'contexts/ClientContext';
+import commonUtils from 'utils/commonUtils';
 
-import LoginNavigation from 'components/Login/LoginNavigation';
-import ProfilePane from 'components/ProfilePane/ProfilePane';
-import ClientNav from './components/ClientNav';
 import ClientGotchis from './routes/ClientGotchis';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
+import LoginNavigation from 'components/Login/LoginNavigation';
+import ProfilePane from 'components/ProfilePane/ProfilePane';
+import ClientNav from './components/ClientNav';
+
+import styles from './styles';
 
 export default function Client() {
     const classes = styles();

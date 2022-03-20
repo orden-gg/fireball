@@ -3,31 +3,30 @@ import { CircularProgress } from '@mui/material';
 
 import { useMetamask } from 'use-metamask';
 
-import { SnackbarContext } from 'contexts/SnackbarContext';
-import { LoginContext } from 'contexts/LoginContext';
-
+import autopetApi from 'api/autopet.api';
 import ghstApi from 'api/ghst.api';
 import mainApi from 'api/main.api';
-import autopetApi from 'api/autopet.api';
+import { SnackbarContext } from 'contexts/SnackbarContext';
+import { LoginContext } from 'contexts/LoginContext';
 
 import { tabStyles } from './styles';
 
 export const AutopetContext = createContext({});
 
 const AutopetContextProvider = (props) => {
-    const [ ghstState, setGhstState ] = useState('approve');
-    const [ petState, setPetState ] = useState('approve');
-    const [ stakeState, setStakeState ] = useState('approve');
-    const [ connectState, setConnectState ] = useState('approve');
+    const [ghstState, setGhstState] = useState('approve');
+    const [petState, setPetState] = useState('approve');
+    const [stakeState, setStakeState] = useState('approve');
+    const [connectState, setConnectState] = useState('approve');
 
-    const [ isPetApproved, setIsPetApproved ] = useState(false);
-    const [ isStaked, setIsStaked ] = useState(false);
-    const [ isGhstApproved, setIsGhstApproved ] = useState(false);
-    const [ isUserConnected, setIsUserConnected ] = useState(false);
+    const [isPetApproved, setIsPetApproved] = useState(false);
+    const [isStaked, setIsStaked] = useState(false);
+    const [isGhstApproved, setIsGhstApproved] = useState(false);
+    const [isUserConnected, setIsUserConnected] = useState(false);
 
     const classes = tabStyles();
 
-    const [ tabs, setTabs ] = useState({
+    const [tabs, setTabs] = useState({
         connect: {
             text: 'Connet wallet',
             done: false

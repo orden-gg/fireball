@@ -1,21 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-    Grid,
-    Checkbox,
-    Chip,
-    ToggleButton,
-    ToggleButtonGroup
-} from '@mui/material';
-import { BaazaarContext } from '../../../../../../contexts/BaazaarContext';
+import { Grid, Checkbox, Chip, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import classNames from 'classnames';
+
+import { BaazaarContext } from 'contexts/BaazaarContext';
+import { baazaarFilteringTypes } from 'data/types';
+
 import Stats from './Stats';
 import Name from './Name';
 import Id from './Id';
-import classNames from 'classnames';
-import { baazaarFilteringTypes } from '../../../../../../data/types';
-
 import styles from './styles';
 
-export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
+export default function GotchiFilters({ runFilterWatcher, runInstantFiltering }) {
     const classes = styles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);

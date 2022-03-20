@@ -1,14 +1,13 @@
 import { useContext } from 'react';
-
 import { Button, Typography } from '@mui/material';
 
+import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
-import PanelErrorText from './PanelErrorText';
 
 export default function GhstPanel({ index, dir }) {
     const classes = tabStyles();
-    const { 
+    const {
         ghstState, approveGhst,
         renderButtonNode,
         isGhstApproved,
@@ -25,7 +24,7 @@ export default function GhstPanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                This will allow pet contract to stake 100 GHST from your balance 
+                This will allow pet contract to stake 100 GHST from your balance
             </Typography>
             <Typography className={classes.panelText}>
                 You can disapprove GHST allowance anytime
@@ -37,7 +36,7 @@ export default function GhstPanel({ index, dir }) {
                     fullWidth
                     size='large'
                     className={classes.panelButton}
-                    onClick={ () => { approveGhst(!isGhstApproved) } }
+                    onClick={() => { approveGhst(!isGhstApproved) }}
                 >
                     {renderButtonNode(
                         ghstState,

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
-
 import classNames from 'classnames';
+
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import itemUtils from 'utils/itemUtils';
+
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-import itemUtils from 'utils/itemUtils';
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
-
-export default function ParcelGeneric({parcel, raffleChances}) {
+export default function ParcelGeneric({ parcel, raffleChances }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

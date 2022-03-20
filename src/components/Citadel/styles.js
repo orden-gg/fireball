@@ -6,7 +6,7 @@ const keyframes = {
             top: '100%'
         }
     }
-}
+};
 
 const styles = makeStyles( theme => ({
     citadel: {

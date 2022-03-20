@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import thegraph from 'api/thegraph';
 import classNames from 'classnames';
 
+import thegraph from 'api/thegraph';
 import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
+
 import { GotchiSvgStyles } from './styles';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
-export default function GotchiSvg({id, size, hideWearables, hideBg}) {
+export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
     const classes = GotchiSvgStyles();
     const svgRef = useRef(null);
     const [loadingSvg, setLoadingSvg] = useState(true);

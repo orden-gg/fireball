@@ -1,6 +1,5 @@
 import { alpha } from '@mui/system';
-
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     soldOutLink: {
@@ -46,7 +45,7 @@ const styles = makeStyles( theme => ({
     },
     equippedTitleLink: {
         color: theme.palette.primary.main,
-        fontWeight: 600 
+        fontWeight: 600
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -229,7 +228,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
         justifyContent: 'center',
         minHeight: '100px',
         marginBottom: 4,
-        
+
         '.tooltip-wearable &': { // iconWrapper
             minHeight: 60
         }
@@ -275,7 +274,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
                     ${theme.palette.secondary.main} 1px -1px 0px',
                     ${theme.palette.secondary.main} -1px 1px 0px',
                     ${theme.palette.secondary.main} 1px 1px 0px`,
-    
+
         '.tooltip-wearable &': { // name
             fontSize: 14
         },
@@ -317,7 +316,7 @@ const ERC1155InnerStyles = makeStyles( theme => ({
     },
     stats: {
         fontWeight: '500',
-        
+
         '.tooltip-wearable &': { // stats
             fontSize: 13
         }

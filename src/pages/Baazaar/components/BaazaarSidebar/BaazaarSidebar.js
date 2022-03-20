@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
-import {
-    Grid, Box, FormControl, InputLabel, MenuItem, Select,
-    TextField, ToggleButton, Tooltip, ToggleButtonGroup, Typography
-} from '@mui/material';
+import { Grid, Box, FormControl, InputLabel, MenuItem, Select, TextField, ToggleButton, Tooltip, ToggleButtonGroup, Typography } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
-
-import GotchiFilters from './components/Filters/GotchiFilters';
-import RealmFilters from './components/Filters/RealmFilters';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 import warehousePlaceholder from 'assets/images/wearables/15.svg';
 import ticketsPlaceholder from 'assets/images/tickets/rare.svg';
@@ -20,14 +18,13 @@ import listing from 'assets/images/icons/listing.svg';
 import sold from 'assets/images/icons/sold.svg';
 import purchased from 'assets/images/icons/purchase.svg';
 import baazaar from 'assets/images/baazaar.png';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ghst from 'assets/images/animated/ghst-token.gif';
 
+import GotchiFilters from './components/Filters/GotchiFilters';
+import RealmFilters from './components/Filters/RealmFilters';
 import styles from './styles';
 
-export default function BaazaarSidebar({runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage}) {
+export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage }) {
     const classes = styles();
     const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder, selectedListingType, setSelectedListingType } = useContext(BaazaarContext);
 

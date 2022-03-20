@@ -1,17 +1,19 @@
 import React, { useContext } from 'react';
-import { guildBanner } from '../../styles';
 import { IconButton, Link, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import classNames from 'classnames';
-import { GuildsContext } from 'contexts/GuildsContext';
-
-import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
-import { ReactComponent as TwitchIcon } from 'assets/images/icons/twitch.svg';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WebIcon from '@mui/icons-material/Web';
+
+import classNames from 'classnames';
+
+import { GuildsContext } from 'contexts/GuildsContext';
+import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
+import { ReactComponent as TwitchIcon } from 'assets/images/icons/twitch.svg';
+
 import GuildLogo from '../GuildLogo';
+import { guildBanner } from '../../styles';
 
 export default function GuildBanner() {
     const classes = guildBanner();
@@ -39,7 +41,7 @@ export default function GuildBanner() {
 
     const renderSocials = () => {
         return (
-            Object.keys(currentGuild.socials).map( (key) => (
+            Object.keys(currentGuild.socials).map((key) => (
                 <Tooltip
                     title={key}
                     key={key}

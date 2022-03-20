@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import classNames from 'classnames';
+
 import styles from './styles';
 
 export default function GhostLoader({animate, text}) {

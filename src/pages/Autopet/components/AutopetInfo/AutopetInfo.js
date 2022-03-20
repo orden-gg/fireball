@@ -1,40 +1,39 @@
 import { useEffect, useState } from 'react';
-
 import { Link } from '@mui/material';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 
 import classNames from 'classnames';
 
-import { infoStyles } from '../../styles';
-import AutopetInfoCard from './AutopetInfoCard';
 import autopetApi from 'api/autopet.api';
 import thegraph from 'api/thegraph';
-
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
+import AutopetInfoCard from './AutopetInfoCard';
+import { infoStyles } from '../../styles';
 
 const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
 
 export default function AutopetInfo() {
     const classes = infoStyles();
-    const [ fee, setFee ] = useState(null);
-    const [ frens, setFrens ] = useState(null);
-    const [ totalStaked, setStaked ] = useState(null);
-    const [ totalGotchis, setTotalGotchis ] = useState(null);
-    const [ totalUsers, setTotalUsers ] = useState(null);
+    const [fee, setFee] = useState(null);
+    const [frens, setFrens] = useState(null);
+    const [totalStaked, setStaked] = useState(null);
+    const [totalGotchis, setTotalGotchis] = useState(null);
+    const [totalUsers, setTotalUsers] = useState(null);
 
     useEffect(() => {
-        autopetApi.getUsers().then( users => {
+        autopetApi.getUsers().then(users => {
             thegraph.getGotchisByAddresses(users).then( gotchis => {
                 setTotalGotchis(gotchis.length);
                 setTotalUsers(users.length);
             });
         });
 
-        autopetApi.getFee().then( fee => {
+        autopetApi.getFee().then(fee => {
             setFee(fee);
         });
 
-        autopetApi.getFrens().then( frens => {
+        autopetApi.getFrens().then(frens => {
             setFrens(frens);
         });
     }, []);

@@ -1,6 +1,6 @@
 
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 
 import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
 import RealmGeneric from 'components/Items/Parcel/RealmGeneric';
@@ -9,7 +9,7 @@ import Wearable from 'components/Items/Wearable/Wearable';
 
 import { itemsStyles } from '../styles';
 
-export default function RaffleItems({tickets, type}) {
+export default function RaffleItems({ tickets, type }) {
     const classes = itemsStyles();
 
     const renderItem = (item) => {

@@ -1,8 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import axios from 'axios';
+
 import styles from '../styles';
 
-export default function ParcelImage({parcel, parcelSize}) {
+export default function ParcelImage({ parcel, parcelSize }) {
     const classes = styles();
     const canvasRef = useRef(null);
 

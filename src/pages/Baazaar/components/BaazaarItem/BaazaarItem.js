@@ -1,15 +1,18 @@
 import React from 'react';
 import { Grid, Box, Button, Link, Typography } from '@mui/material';
+
 import classNames from 'classnames';
-import ghstIcon from 'assets/images/icons/ghst-token.png';
+import Web3 from 'web3';
+
 import itemUtils from 'utils/itemUtils';
 import commonUtils from 'utils/commonUtils';
-import Web3 from 'web3';
+import ghstIcon from 'assets/images/icons/ghst-token.png';
+
 import { baazaarItemStyles } from '../../styles';
 
 var web3 = new Web3();
 
-export default function BaazaarItem({item}) {
+export default function BaazaarItem({ item }) {
     const classes = baazaarItemStyles();
 
     return (

@@ -1,10 +1,11 @@
 import React from 'react';
-import Gotchi from '../../../../../../components/Gotchi/Gotchi';
 import { Grid } from '@mui/material';
+
+import Gotchi from 'components/Gotchi/Gotchi';
 
 import { baazaarSortingBodyStyles } from '../../../../styles';
 
-export default function Aavegotchi({item}) {
+export default function Aavegotchi({ item }) {
     const classes = baazaarSortingBodyStyles();
 
     return (

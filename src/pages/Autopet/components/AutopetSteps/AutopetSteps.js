@@ -1,6 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-
-import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -9,17 +7,17 @@ import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import DoneIcon from '@mui/icons-material/Done';
 import { Typography } from '@mui/material';
 
-import { AutopetContext } from '../../AutopetContextProvider';
-
-import { tabStyles } from '../../styles';
+import SwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
+
+import { ReactComponent as Gotchi } from 'assets/images/gotchi-placeholder.svg'
 
 import PetPanel from './PetPanel';
 import GhstPanel from './GhstPanel';
 import StakePanel from './StakePanel';
 import ConnectPanel from './ConnectPanel';
-
-import { ReactComponent as Gotchi } from 'assets/images/gotchi-placeholder.svg'
+import { AutopetContext } from '../../AutopetContextProvider';
+import { tabStyles } from '../../styles';
 
 export default function AutopetSteps() {
     const classes = tabStyles();

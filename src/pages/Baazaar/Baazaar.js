@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Backdrop, CircularProgress } from '@mui/material';
-import styles from './styles';
+import Web3 from 'web3';
+
 import thegraph from 'api/thegraph';
+import { BaazaarContext } from 'contexts/BaazaarContext';
+import useInterval from 'hooks/useInterval';
+import { listingTypes } from 'data/types';
+import { baazaarFilteringTypes } from 'data/types';
+
 import BaazaarBody from './components/BaazaarBody/BaazaarBody';
 import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
 import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
-import { BaazaarContext } from 'contexts/BaazaarContext';
-import { listingTypes } from 'data/types';
-import Web3 from 'web3';
-import { baazaarFilteringTypes } from 'data/types';
-import useInterval from 'hooks/useInterval';
-import {getQueries} from './baazaarQueryBuilder';
+import { getQueries } from './baazaarQueryBuilder';
+import styles from './styles';
 
 const web3 = new Web3();
 

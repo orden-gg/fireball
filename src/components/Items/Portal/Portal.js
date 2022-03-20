@@ -1,19 +1,22 @@
 import React from 'react';
 import { Link, Tooltip, Typography } from '@mui/material';
-import classNames from 'classnames';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 import CallMade from '@mui/icons-material/CallMade';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
-import commonUtils from 'utils/commonUtils';
+
+import classNames from 'classnames';
 import Web3 from 'web3';
+
+import commonUtils from 'utils/commonUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import sealedPortal from 'assets/images/portals/h1-sealed.svg';
 import openPortal from 'assets/images/portals/h1-open.svg';
 import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
 import h2OpenPortal from 'assets/images/portals/h2-open.svg';
 
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
+
 var web3 = new Web3();
 
-export default function Portal({portal}) {
+export default function Portal({ portal }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

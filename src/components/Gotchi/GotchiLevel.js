@@ -1,12 +1,13 @@
 import React from 'react';
 import { CircularProgress, Tooltip } from '@mui/material';
-import { GotchiLevelStyles, CustomTooltipStyles } from "./styles";
+
+import { GotchiLevelStyles, CustomTooltipStyles } from './styles';
 
 const expFormula = (lvl) => {
     return lvl * lvl / 0.02;
 };  // Based on https://wiki.aavegotchi.com/en/xp
 
-export default function GotchiLevel({level, toNextLevel, experience, size}) {
+export default function GotchiLevel({ level, toNextLevel, experience, size }) {
     const classes = {
         ...GotchiLevelStyles(),
         ...CustomTooltipStyles()

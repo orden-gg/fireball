@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+
 import { MAIN_CONTRACT, POLYGON_RPC } from 'api/common/constants';
 import { SVG_ABI } from 'data/abi/svg';
 

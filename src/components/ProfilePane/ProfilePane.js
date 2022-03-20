@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography } from '@mui/material';
+import classNames from 'classnames';
 
 import web3 from 'api/web3';
 
 import styles from './styles';
-import classNames from 'classnames';
 
-export default function ProfilePane({address}) {
+export default function ProfilePane({ address }) {
     const classes = styles();
 
     return (

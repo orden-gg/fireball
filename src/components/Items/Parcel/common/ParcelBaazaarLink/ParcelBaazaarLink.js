@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import { Link, Typography } from '@mui/material';
-import classNames from 'classnames';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../../../styles';
-
 import CallMade from '@mui/icons-material/CallMade';
+import classNames from 'classnames';
+
 import itemUtils from 'utils/itemUtils';
 
-export default function ParcelBaazaarLink({parcel, isBaazaarCard, link, text}) {
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../../../styles';
+
+export default function ParcelBaazaarLink({ parcel, isBaazaarCard, link, text }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

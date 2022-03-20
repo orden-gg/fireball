@@ -1,17 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import Phaser from 'phaser';
-import { IonPhaser } from '@ion-phaser/react';
-import CitadelScene from './components/Scene';
-
-import styles from './styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, TextField, Tooltip } from '@mui/material';
-
-import thegraph from 'api/thegraph';
-import Parcel from 'components/Items/Parcel/Parcel';
-import classNames from 'classnames';
-
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import SearchIcon from '@mui/icons-material/Search';
@@ -20,9 +9,17 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
 
-import useFullscreenStatus from '../../hooks/useFullscreenStatus';
+import Phaser from 'phaser';
+import classNames from 'classnames';
+import { IonPhaser } from '@ion-phaser/react';
 
-import CitadelLoading from '../../assets/images/animated/gotchiverse.gif';
+import Parcel from 'components/Items/Parcel/Parcel';
+import thegraph from 'api/thegraph';
+import useFullscreenStatus from 'hooks/useFullscreenStatus';
+import CitadelLoading from 'assets/images/animated/gotchiverse.gif';
+
+import CitadelScene from './components/Scene';
+import styles from './styles';
 
 export default function Citadel({ ownerParcels, className}) {
     const classes = styles();

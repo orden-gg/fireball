@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link, Tooltip } from '@mui/material';
-
-import web3 from 'api/web3';
-import commonUtils from 'utils/commonUtils';
-import { GotchiListingStyles, CustomTooltipStyles } from './styles';
-
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-export default function GotchiListing({id, listing, history}) {
+import web3 from 'api/web3';
+import commonUtils from 'utils/commonUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
+import { GotchiListingStyles, CustomTooltipStyles } from './styles';
+
+export default function GotchiListing({ listing, history }) {
     const classes = {
         ...GotchiListingStyles(),
         ...CustomTooltipStyles()

@@ -1,7 +1,9 @@
-import React, {createContext, useState} from 'react';
-import Web3 from 'web3';
-import useLocalStorage from 'hooks/useLocalStorage';
+import React, { createContext, useState } from 'react';
+
 import { useMetamask } from 'use-metamask';
+import Web3 from 'web3';
+
+import useLocalStorage from 'hooks/useLocalStorage';
 
 export const LoginContext = createContext({});
 

@@ -10,7 +10,7 @@ const styles = makeStyles( theme => ({
     }
 }));
 
-export default function HighlightNumber({children, type}) {
+export default function HighlightNumber({ children, type }) {
     const classes = styles();
     const theme = useTheme();
 

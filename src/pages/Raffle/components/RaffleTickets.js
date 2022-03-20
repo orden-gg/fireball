@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import web3 from 'api/web3';
+
 import RaffleTicket from './RaffleTicket';
 import { tableStyles } from '../styles';
 
-export default function RaffleTickets({address}) {
+export default function RaffleTickets({ address }) {
     const classes = tableStyles();
 
     const [tickets, setTickets] = useState([]);

@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { Button, Typography } from '@mui/material';
 
-import { AutopetContext } from '../../AutopetContextProvider';
 import PanelErrorText from './PanelErrorText';
+import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
 export default function StakePanel({ index, dir }) {
     const classes = tabStyles();
-    const [ availableStake, setAvailableStake ] = useState(false);
-    const { 
+    const [availableStake, setAvailableStake] = useState(false);
+    const {
         stakeState,
         approveStake,
         isStaked,
@@ -31,20 +30,20 @@ export default function StakePanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Stake 100 GHST and autopeting will start within next 15 mins! 
+                Stake 100 GHST and autopeting will start within next 15 mins!
             </Typography>
             <Typography className={classes.panelText}>
                 You can unstake GHST anytime
             </Typography>
-            <div className={classes.panelButtonGroup}>
 
+            <div className={classes.panelButtonGroup}>
                 <Button
                     disabled={stakeState === 'approving' || !availableStake}
                     variant='contained'
                     fullWidth
                     size='large'
                     className={classes.panelButton}
-                    onClick={ () => { approveStake(!isStaked) }}
+                    onClick={() => { approveStake(!isStaked) }}
                 >
                     {renderButtonNode(stakeState, isStaked ? 'Unstake GHST' : 'Stake GHST')}
                 </Button>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 
-import itemUtils from 'utils/itemUtils';
 import commonUtils from 'utils/commonUtils';
+import itemUtils from 'utils/itemUtils';
 
 import { ticketStyles } from '../styles';
 

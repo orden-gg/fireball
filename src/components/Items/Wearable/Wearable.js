@@ -2,13 +2,13 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import classNames from 'classnames';
 
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import ERC1155 from 'components/Items/ERC1155/ERC1155';
+import itemUtils from 'utils/itemUtils';
+
 import { ERC1155InnerStyles } from '../styles';
 
-import itemUtils from 'utils/itemUtils';
-import ERC1155 from 'components/Items/ERC1155/ERC1155';
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
-
-export default function Wearable({wearable, raffleChances, tooltip}) {
+export default function Wearable({ wearable, raffleChances, tooltip }) {
     const classes = ERC1155InnerStyles();
 
     const name = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
-import styles from '../styles';
-import { GuildsContext } from '../../../contexts/GuildsContext';
 import { Box } from '@mui/system';
-import guildUtils from '../../../utils/guildUtils';
-import GuildLogo from '../components/GuildLogo';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import { GuildsContext } from 'contexts/GuildsContext';
+import guildUtils from 'utils/guildUtils';
+
+import GuildLogo from '../components/GuildLogo';
+import styles from '../styles';
 
 export default function GuildsPreview() {
     const classes = styles();

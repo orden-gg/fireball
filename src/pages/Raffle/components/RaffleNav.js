@@ -1,14 +1,13 @@
 import React from 'react';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useLocation, useRouteMatch } from 'react-router';
-
-import { raffleNavStyles } from '../styles';
 import { NavLink } from 'react-router-dom';
 
-import raffles from '../data/raffles.data';
 import RaffleDate from './RaffleDate';
+import raffles from '../data/raffles.data';
+import { raffleNavStyles } from '../styles';
 
-export default function RaffleNav({user}) {
+export default function RaffleNav({ user }) {
     const match = useRouteMatch();
     const classes = raffleNavStyles();
     const location = useLocation();

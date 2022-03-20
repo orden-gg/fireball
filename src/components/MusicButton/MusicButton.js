@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
 import song from 'assets/music/halloween.mp3';
+
 import styles from './styles';
 
 export default function MusicButton() {

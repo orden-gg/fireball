@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Tooltip, Typography } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { alpha } from '@mui/system';
+import { useTheme } from '@emotion/react';
+
 import classNames from 'classnames';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 import ContentLoader from 'react-content-loader';
+import Web3 from 'web3';
+
 import thegraph from 'api/thegraph';
+import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
+import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
-import commonUtils from 'utils/commonUtils';
-import Web3 from 'web3';
-import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
+
 import ParcelBaazaarLink from './common/ParcelBaazaarLink/ParcelBaazaarLink';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 var web3 = new Web3();
 
-export default function Parcel({parcel, isBaazaarCard}) {
+export default function Parcel({ parcel, isBaazaarCard }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

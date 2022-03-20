@@ -1,14 +1,13 @@
 import { useContext } from 'react';
-
 import { Button, Typography } from '@mui/material';
 
+import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
-import PanelErrorText from './PanelErrorText';
 
 export default function PetPanel({ index, dir }) {
     const classes = tabStyles();
-    const { 
+    const {
         petState,
         isPetApproved,
         approvePet,
@@ -41,7 +40,7 @@ export default function PetPanel({ index, dir }) {
                     fullWidth
                     size='large'
                     className={classes.panelButton}
-                    onClick={ () => { approvePet(!isPetApproved) }}
+                    onClick={() => { approvePet(!isPetApproved) }}
                 >
                     {renderButtonNode(
                         petState,

@@ -1,11 +1,12 @@
-import { useTheme } from '@emotion/react';
-import { Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Tooltip } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 import web3 from 'api/web3';
+
 import { GotchiSkillpointsStyles, CustomTooltipStyles } from './styles';
 
-export default function GotchiSkillPoints({id, usedPoints}) {
+export default function GotchiSkillPoints({ id, usedPoints }) {
     const classes = {
         ...GotchiSkillpointsStyles(),
         ...CustomTooltipStyles()

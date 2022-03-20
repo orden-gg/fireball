@@ -1,4 +1,5 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
+
 import guildsData from 'data/guilds';
 
 export const GuildsContext = createContext({});

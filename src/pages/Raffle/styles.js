@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     container: {
         maxWidth: 1280,
         padding: 24,
@@ -9,7 +9,7 @@ const styles = makeStyles( theme => ({
     }
 }));
 
-const titleStyles = makeStyles( theme => ({
+const titleStyles = makeStyles(theme => ({
     titleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -37,7 +37,7 @@ const titleStyles = makeStyles( theme => ({
     },
 }));
 
-const tableStyles = makeStyles( theme => ({
+const tableStyles = makeStyles(theme => ({
     row: {
         marginBottom: 32,
         minHeight: 55,
@@ -405,7 +405,7 @@ const tableStyles = makeStyles( theme => ({
     }
 }));
 
-const raffleCountdownStyles = makeStyles( theme => ({
+const raffleCountdownStyles = makeStyles(theme => ({
     countdownWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -413,7 +413,7 @@ const raffleCountdownStyles = makeStyles( theme => ({
     }
 }));
 
-const raffleNavStyles = makeStyles( theme => ({
+const raffleNavStyles = makeStyles(theme => ({
     container: {
         padding: '12px 0',
         display: 'flex',
@@ -466,7 +466,7 @@ const raffleNavStyles = makeStyles( theme => ({
     }
 }));
 
-const raffleDataStyles = makeStyles( theme => ({
+const raffleDataStyles = makeStyles(theme => ({
     title: {
         textAlign: 'center',
         fontSize: 10,
@@ -484,13 +484,13 @@ const raffleDataStyles = makeStyles( theme => ({
     }
 }));
 
-const raffleChanceStyles = makeStyles( theme => ({
+const raffleChanceStyles = makeStyles(theme => ({
     container: {
         marginTop: '8px'
     }
 }));
 
-const ticketStyles = makeStyles( theme => ({
+const ticketStyles = makeStyles(theme => ({
     ticket: {
         textAlign: 'center',
         position: 'relative'
@@ -519,7 +519,7 @@ const ticketStyles = makeStyles( theme => ({
     }
 }));
 
-const itemsStyles = makeStyles( theme => ({
+const itemsStyles = makeStyles(theme => ({
     list: {
         display: 'grid',
         gap: 12,

@@ -1,4 +1,5 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
+
 import { listingTypes } from 'data/types';
 
 export const BaazaarContext = createContext({});

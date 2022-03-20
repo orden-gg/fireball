@@ -1,14 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 
-import { titleStyles } from '../styles';
 import { RaffleContext } from 'contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
 import RaffleItems from '../components/RaffleItems';
 import raffles from '../data/raffles.data';
+import { titleStyles } from '../styles';
 
-export default function RaffleContent({user}) {
+export default function RaffleContent({ user }) {
     const classes = titleStyles();
     const history = useHistory();
 

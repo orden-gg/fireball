@@ -1,4 +1,5 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
+
 import thegraph from 'api/thegraph';
 import web3 from 'api/web3';
 import commonUtils from 'utils/commonUtils';

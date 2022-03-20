@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Typography, Tooltip } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { alpha, Box } from '@mui/system';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useTheme } from '@emotion/react';
+
 import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
-import styles, { itemStyles, tooltipStyles } from '../styles';
-
-
-import commonUtils from 'utils/commonUtils';
-import thegraph from 'api/thegraph';
-
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import Web3 from 'web3';
+
+import thegraph from 'api/thegraph';
+import commonUtils from 'utils/commonUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
+import styles, { itemStyles, tooltipStyles } from '../styles';
 
 const web3 = new Web3();
 
-export default function ERC1155({children, item}) {
+export default function ERC1155({ children, item }) {
     const classes = {
         ...itemStyles(),
         ...styles(),
