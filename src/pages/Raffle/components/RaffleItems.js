@@ -2,10 +2,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import ParcelGeneric from '../../../components/Items/Parcel/ParcelGeneric';
-import RealmGeneric from '../../../components/Items/Parcel/RealmGeneric';
-import PortalGeneric from '../../../components/Items/Portal/PortalGeneric';
-import Wearable from '../../../components/Items/Wearable/Wearable';
+import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
+import RealmGeneric from 'components/Items/Parcel/RealmGeneric';
+import PortalGeneric from 'components/Items/Portal/PortalGeneric';
+import Wearable from 'components/Items/Wearable/Wearable';
 
 import { itemsStyles } from '../styles';
 

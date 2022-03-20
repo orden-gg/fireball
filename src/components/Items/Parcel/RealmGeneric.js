@@ -4,7 +4,7 @@ import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 
 export default function RealmGeneric({realm, raffleChances}) {
     const classes = {

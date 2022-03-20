@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DateTime, Duration } from 'luxon';
-import useInterval from '../../hooks/useInterval';
+import useInterval from 'hooks/useInterval';
 import styles from './styles';
 
 const interval = 1000/24;

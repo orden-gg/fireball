@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import renderSvg from './GotchiSvgRender';
 import { GotchiSvgStyles } from './styles';
 
-import gotchiLoading from '../../assets/images/animated/gotchi-loading.gif';
+import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;

@@ -1,4 +1,4 @@
-import { listingTypes } from '../../data/types';
+import { listingTypes } from 'data/types';
 
 export const getQueries = (selectedGoodsType, listingType) => {
 

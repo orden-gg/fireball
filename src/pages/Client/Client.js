@@ -6,13 +6,13 @@ import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string'
 import styles from './styles';
-import commonUtils from '../../utils/commonUtils';
+import commonUtils from 'utils/commonUtils';
 
-import { LoginContext } from '../../contexts/LoginContext';
-import { ClientContext } from '../../contexts/ClientContext';
+import { LoginContext } from 'contexts/LoginContext';
+import { ClientContext } from 'contexts/ClientContext';
 
-import LoginNavigation from '../../components/Login/LoginNavigation';
-import ProfilePane from '../../components/ProfilePane/ProfilePane';
+import LoginNavigation from 'components/Login/LoginNavigation';
+import ProfilePane from 'components/ProfilePane/ProfilePane';
 import ClientNav from './components/ClientNav';
 import ClientGotchis from './routes/ClientGotchis';
 import ClientWarehouse from './routes/ClientWarehouse';

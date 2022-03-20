@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
-import thegraph from '../../../../api/thegraph';
-import commonUtils from '../../../../utils/commonUtils';
+import thegraph from 'api/thegraph';
+import commonUtils from 'utils/commonUtils';
 import { portalsQuery } from './queries';
-import openedPortal from '../../../../assets/images/animated/h1-open.gif';
-import sealedPortal from '../../../../assets/images/portals/h1-sealed.svg';
+import openedPortal from 'assets/images/animated/h1-open.gif';
+import sealedPortal from 'assets/images/portals/h1-sealed.svg';
 import classNames from 'classnames';
 
 export default function Portals() {

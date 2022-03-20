@@ -4,23 +4,23 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 import styles, { CustomTooltipStyles } from './styles';
 
-import graphUtils from '../../utils/graphUtils';
+import graphUtils from 'utils/graphUtils';
 
 import GotchiLevel from './GotchiLevel';
 import GotchiSkillPoints from './GotchiSkillPoints';
 import GotchiTraitsHighlight from './GotchiTraitsHighlight';
 import GotchiWearablesLine from './GotchiWearablesLine';
 import GotchiListing from './GotchiListing';
-import HighlightNumber from '../HighlightNumber';
+import HighlightNumber from 'components/HighlightNumber';
 import GotchiSvg from './GotchiSvg';
 import GotchiSvgByStats from './GotchiSvgByStats';
 
 import CallMade from '@mui/icons-material/CallMade';
 
-import ghstIcon from '../../assets/images/animated/ghst-token.gif';
-import ShineLabel from '../Labels/ShineLabel';
-import commonUtils from '../../utils/commonUtils';
-import itemUtils from '../../utils/itemUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import ShineLabel from 'components/Labels/ShineLabel';
+import commonUtils from 'utils/commonUtils';
+import itemUtils from 'utils/itemUtils';
 
 export default function Gotchi({gotchi, title, narrowed, renderSvgByStats, render, portal}) {
     const classes = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DateTime, Duration } from 'luxon';
-import useInterval from '../../../hooks/useInterval';
+import useInterval from 'hooks/useInterval';
 
 import { raffleDataStyles } from '../styles';
 import classNames from 'classnames';

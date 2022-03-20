@@ -1,7 +1,6 @@
 
 import { alpha } from '@mui/system';
-
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles( theme => ({
     gotchi: {
@@ -130,7 +129,7 @@ const styles = makeStyles( theme => ({
 
             '.narrowed &': {
                 fontSize: 14,
-        
+
                 '&:hover': {
                     textDecoration: 'underline',
                 }

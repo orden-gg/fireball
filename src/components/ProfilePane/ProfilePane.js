@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-import web3 from '../../api/web3';
+import web3 from 'api/web3';
 
 import styles from './styles';
 import classNames from 'classnames';

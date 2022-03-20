@@ -3,27 +3,27 @@ import {
     Grid, Box, FormControl, InputLabel, MenuItem, Select,
     TextField, ToggleButton, Tooltip, ToggleButtonGroup, Typography
 } from '@mui/material';
-import { BaazaarContext } from '../../../../contexts/BaazaarContext';
-import { listingTypes } from '../../../../data/types';
+import { BaazaarContext } from 'contexts/BaazaarContext';
+import { listingTypes } from 'data/types';
 
 import GotchiFilters from './components/Filters/GotchiFilters';
 import RealmFilters from './components/Filters/RealmFilters';
-import gotchiPlaceholder from '../../../../assets/images/gotchi-placeholder.svg';
-import warehousePlaceholder from '../../../../assets/images/wearables/15.svg';
-import ticketsPlaceholder from '../../../../assets/images/tickets/rare.svg';
-import realmPlaceholder from '../../../../assets/images/icons/kek.png';
-import closedPortals from '../../../../assets/images/portals/h1-sealed.svg';
-import openedPortals from '../../../../assets/images/portals/h1-open.svg';
-import consumables from '../../../../assets/images/wearables/127.svg';
-import activity from '../../../../assets/images/icons/activity.svg';
-import listing from '../../../../assets/images/icons/listing.svg';
-import sold from '../../../../assets/images/icons/sold.svg';
-import purchased from '../../../../assets/images/icons/purchase.svg';
-import baazaar from '../../../../assets/images/baazaar.png';
+import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
+import warehousePlaceholder from 'assets/images/wearables/15.svg';
+import ticketsPlaceholder from 'assets/images/tickets/rare.svg';
+import realmPlaceholder from 'assets/images/icons/kek.png';
+import closedPortals from 'assets/images/portals/h1-sealed.svg';
+import openedPortals from 'assets/images/portals/h1-open.svg';
+import consumables from 'assets/images/wearables/127.svg';
+import activity from 'assets/images/icons/activity.svg';
+import listing from 'assets/images/icons/listing.svg';
+import sold from 'assets/images/icons/sold.svg';
+import purchased from 'assets/images/icons/purchase.svg';
+import baazaar from 'assets/images/baazaar.png';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ghst from '../../../../assets/images/animated/ghst-token.gif';
+import ghst from 'assets/images/animated/ghst-token.gif';
 
 import styles from './styles';
 

@@ -5,13 +5,13 @@ import classNames from 'classnames';
 
 import { tableStyles } from '../styles';
 
-import itemUtils from '../../../utils/itemUtils';
-import commonUtils from '../../../utils/commonUtils';
-import { RaffleContext } from '../../../contexts/RaffleContext';
+import itemUtils from 'utils/itemUtils';
+import commonUtils from 'utils/commonUtils';
+import { RaffleContext } from 'contexts/RaffleContext';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-import ghst from '../../../assets/images/animated/ghst-token.gif';
+import ghst from 'assets/images/animated/ghst-token.gif';
 import { DateTime } from 'luxon';
 
 export default function RaffleTablee() {

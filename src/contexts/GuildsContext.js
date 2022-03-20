@@ -1,5 +1,5 @@
 import React, {createContext, useState} from 'react';
-import guildsData from '../data/guilds';
+import guildsData from 'data/guilds';
 
 export const GuildsContext = createContext({});
 

@@ -7,10 +7,10 @@ import classNames from 'classnames';
 
 import { infoStyles } from '../../styles';
 import AutopetInfoCard from './AutopetInfoCard';
-import autopetApi from '../../../../api/autopet.api';
-import thegraph from '../../../../api/thegraph';
+import autopetApi from 'api/autopet.api';
+import thegraph from 'api/thegraph';
 
-import ghstIcon from '../../../../assets/images/animated/ghst-token.gif';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
 

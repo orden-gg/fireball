@@ -1,7 +1,7 @@
 import ethersApi from './ethers.api';
 
 import { AUTOPET_CONTRACT } from './common/constants';
-import { AUTOPET_ABI } from '../data/abi/autopet.abi';
+import { AUTOPET_ABI } from 'data/abi/autopet.abi';
 import { ethers } from 'ethers';
 
 const contract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
@@ -11,7 +11,7 @@ export default {
     async subscribe(isApproved) {
         const writeContract = ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
-        const transaction = isApproved ? 
+        const transaction = isApproved ?
             await writeContract.subscribe() :
             await writeContract.unsubscribe();
 
@@ -27,7 +27,7 @@ export default {
         const transaction = await writeContract.unsubscribe();
 
         const response = await this.getTransactionStatus(transaction.hash);
-    
+
         return response.status;
     },
 

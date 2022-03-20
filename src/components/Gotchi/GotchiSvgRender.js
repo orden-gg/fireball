@@ -1,6 +1,6 @@
 import Web3 from 'web3';
-import { MAIN_CONTRACT, POLYGON_RPC } from "../../api/common/constants";
-import { SVG_ABI } from '../../data/abi/svg';
+import { MAIN_CONTRACT, POLYGON_RPC } from 'api/common/constants';
+import { SVG_ABI } from 'data/abi/svg';
 
 const web3 = new Web3(POLYGON_RPC);
 const contract = new web3.eth.Contract(SVG_ABI, MAIN_CONTRACT);
@@ -15,7 +15,7 @@ const renderSvg = async (gotchies) => {
                 gotchies[key].numericTraits,
                 gotchies[key].equippedWearables
             ).call();
-    
+
         svgs.push(cache);
     }
 

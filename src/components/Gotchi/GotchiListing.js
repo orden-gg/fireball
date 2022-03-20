@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, Tooltip } from '@mui/material';
 
-import web3 from '../../api/web3';
-import commonUtils from '../../utils/commonUtils';
+import web3 from 'api/web3';
+import commonUtils from 'utils/commonUtils';
 import { GotchiListingStyles, CustomTooltipStyles } from './styles';
 
-import ghstIcon from '../../assets/images/animated/ghst-token.gif';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 

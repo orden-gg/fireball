@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { GuildsContext } from '../../../contexts/GuildsContext';
-import Citadel from '../../../components/Citadel/Citadel';
+import { GuildsContext } from 'contexts/GuildsContext';
+import Citadel from 'components/Citadel/Citadel';
 import { guildContentStyles } from '../styles';
 
 export default function GuildRealm() {

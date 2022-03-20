@@ -4,14 +4,14 @@ import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './styles';
 
-import LoginButton from '../../components/Login/LoginButton';
+import LoginButton from 'components/Login/LoginButton';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import fireball from '../../assets/images/animated/fireball.gif';
-import discord from '../../assets/images/icons/discord.svg';
+import fireball from 'assets/images/animated/fireball.gif';
+import discord from 'assets/images/icons/discord.svg';
 
 export default function Header() {
     const classes = styles();

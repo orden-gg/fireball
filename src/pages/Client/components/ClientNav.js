@@ -4,12 +4,12 @@ import { useTheme } from '@emotion/react';
 import { useHistory, useRouteMatch } from 'react-router';
 
 import { NavLink } from 'react-router-dom';
-import { ClientContext } from '../../../contexts/ClientContext';
+import { ClientContext } from 'contexts/ClientContext';
 
-import gotchiPlaceholder from '../../../assets/images/gotchi-placeholder.svg';
-import warehousePlaceholder from '../../../assets/images/wearables/15.svg';
-import ticketsPlaceholder from '../../../assets/images/tickets/rare.svg';
-import realmPlaceholder from '../../../assets/images/icons/kek.png';
+import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
+import warehousePlaceholder from 'assets/images/wearables/15.svg';
+import ticketsPlaceholder from 'assets/images/tickets/rare.svg';
+import realmPlaceholder from 'assets/images/icons/kek.png';
 import ContentLoader from 'react-content-loader';
 
 import { clientNavStyles } from '../styles';

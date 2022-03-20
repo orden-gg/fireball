@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Box, Toolbar, Button, Link, Snackbar, Alert } from '@mui/material';
 
-import { SnackbarContext } from '../../contexts/SnackbarContext';
-import MusicButton from '../../components/MusicButton/MusicButton';
+import { SnackbarContext } from 'contexts/SnackbarContext';
+import MusicButton from 'components/MusicButton/MusicButton';
 
 import styles from './styles';
 
@@ -30,7 +30,7 @@ export default function Footer() {
                 autoHideDuration={3000}
                 onClose={() => onSnackbarClose()}
             >
-                <Alert 
+                <Alert
                     elevation={6}
                     variant='filled'
                     severity={type}

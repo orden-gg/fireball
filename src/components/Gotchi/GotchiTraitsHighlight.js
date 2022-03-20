@@ -1,8 +1,8 @@
 import React from 'react';
-import commonUtils from '../../utils/commonUtils';
+import commonUtils from 'utils/commonUtils';
 import { GotchiTraitsStyles } from "./styles";
 
-import HighlightNumber from '../HighlightNumber';
+import HighlightNumber from 'components/HighlightNumber';
 
 export default function GotchiTraitsHighlight({traits, currentTraits}) {
     const classes = GotchiTraitsStyles();
@@ -24,7 +24,7 @@ export default function GotchiTraitsHighlight({traits, currentTraits}) {
                         <HighlightNumber type={calculateTraitType(traitVal)}>
                             <p className={classes.mainVal}>
                                 {traitKey}{traitVal}
-        
+
                                 <span className={classes.defaultVal}>
                                     ({defaultTraits[traitKey]})
                                 </span>

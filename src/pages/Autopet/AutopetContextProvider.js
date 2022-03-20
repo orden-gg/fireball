@@ -3,12 +3,12 @@ import { CircularProgress } from '@mui/material';
 
 import { useMetamask } from 'use-metamask';
 
-import { SnackbarContext } from '../../contexts/SnackbarContext';
-import { LoginContext } from '../../contexts/LoginContext';
+import { SnackbarContext } from 'contexts/SnackbarContext';
+import { LoginContext } from 'contexts/LoginContext';
 
-import ghstApi from '../../api/ghst.api';
-import mainApi from '../../api/main.api';
-import autopetApi from '../../api/autopet.api';
+import ghstApi from 'api/ghst.api';
+import mainApi from 'api/main.api';
+import autopetApi from 'api/autopet.api';
 
 import { tabStyles } from './styles';
 
@@ -24,7 +24,7 @@ const AutopetContextProvider = (props) => {
     const [ isStaked, setIsStaked ] = useState(false);
     const [ isGhstApproved, setIsGhstApproved ] = useState(false);
     const [ isUserConnected, setIsUserConnected ] = useState(false);
-    
+
     const classes = tabStyles();
 
     const [ tabs, setTabs ] = useState({
@@ -94,7 +94,7 @@ const AutopetContextProvider = (props) => {
         const errorMessage = approval ? 'GHST approval failed!' : 'GHST disapproval failed!';
 
         setGhstState('approving');
-        
+
         try {
             const isApproved = await ghstApi.approveGhst(approval);
 
@@ -105,7 +105,7 @@ const AutopetContextProvider = (props) => {
             } else {
                 showSnackbar('error', errorMessage);
             }
-            
+
             setGhstState('approve');
         } catch {
             setGhstState('approve');
@@ -117,7 +117,7 @@ const AutopetContextProvider = (props) => {
         const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
 
         setStakeState('approving');
-        
+
         try {
             const isApproved = Boolean(await autopetApi.subscribe(approval));
 
@@ -146,9 +146,9 @@ const AutopetContextProvider = (props) => {
 
     const renderButtonNode = (state, defaultNode, approvedNode) => {
         switch (state) {
-            case 'approved' : 
+            case 'approved' :
                 return approvedNode
-            case 'approving': 
+            case 'approving':
                 return (
                     <>
                         Approving <CircularProgress size={20} className={classes.panelButtonCitcular} />
@@ -189,14 +189,14 @@ const AutopetContextProvider = (props) => {
                 ++ready;
                 updateTabs();
             });
-            
+
             ghstApi.isGhstApproved(accounts[0]).then(isApproved => {
                 setIsGhstApproved(isApproved);
                 tabsDuplicated.ghst.done = isApproved;
                 ++ready;
                 updateTabs();
             });
-            
+
             autopetApi.getUsers().then(users => {
                 const isStaked = users.some(address => (
                     accounts[0].toLowerCase() === address.toLowerCase()

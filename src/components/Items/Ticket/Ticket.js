@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import { ERC1155InnerStyles } from '../styles';
 
-import commonUtils from '../../../utils/commonUtils';
-import itemUtils from '../../../utils/itemUtils';
-import ERC1155 from '../ERC1155/ERC1155';
+import commonUtils from 'utils/commonUtils';
+import itemUtils from 'utils/itemUtils';
+import ERC1155 from 'components/Items/ERC1155/ERC1155';
 
 export default function Ticket({ticket}) {
     const classes = ERC1155InnerStyles();

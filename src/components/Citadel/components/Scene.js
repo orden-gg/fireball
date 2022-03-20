@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 
-import parcelsData from '../../../data/parcels.json';
+import parcelsData from 'data/parcels.json';
 
-import walls from '../../../assets/images/citadel/walls.svg';
+import walls from 'assets/images/citadel/walls.svg';
 import Highlight from './Highlight';
 import ActiveParcels from './ActiveParcels';
 import DistrictsGrid from './DistrictsGrid';

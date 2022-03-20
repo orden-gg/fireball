@@ -3,8 +3,8 @@ import { Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ERC1155InnerStyles } from '../styles';
 
-import itemUtils from '../../../utils/itemUtils';
-import ERC1155 from '../ERC1155/ERC1155';
+import itemUtils from 'utils/itemUtils';
+import ERC1155 from 'components/Items/ERC1155/ERC1155';
 
 export default function Consumable({consumable}) {
     const classes = ERC1155InnerStyles();

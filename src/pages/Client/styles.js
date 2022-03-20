@@ -1,8 +1,8 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from "@mui/styles";
 
-import mapSvg from '../../assets/images/icons/map.svg';
-import listSvg from '../../assets/images/icons/list.svg';
+import mapSvg from 'assets/images/icons/map.svg';
+import listSvg from 'assets/images/icons/list.svg';
 
 const styles = makeStyles( theme => ({
     container: {

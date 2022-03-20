@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 import { Box, Button, Grid, Link, List, ListItem, Typography } from '@mui/material';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
-import thegraph from '../../../api/thegraph';
-import commonUtils from '../../../utils/commonUtils';
-import ParcelImage from '../../../components/Items/ParcelImage/ParcelImage';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import thegraph from 'api/thegraph';
+import commonUtils from 'utils/commonUtils';
+import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import { parcelSinglePage, routersStyles } from '../styles'
-import ParcelBaazaarLink from '../../../components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
+import ParcelBaazaarLink from 'components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
 import Web3 from 'web3';
 import classNames from 'classnames';
-import itemUtils from '../../../utils/itemUtils';
+import itemUtils from 'utils/itemUtils';
 
 const web3 = new Web3();
 

@@ -4,15 +4,15 @@ import styles from './styles';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
-import commonUtils from '../../utils/commonUtils';
+import commonUtils from 'utils/commonUtils';
 
-import { LoginContext } from '../../contexts/LoginContext';
+import { LoginContext } from 'contexts/LoginContext';
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
-import MetamaskIcon from '../../assets/images/icons/metamask.png';
-import GotchiSvg from '../Gotchi/GotchiSvg';
+import MetamaskIcon from 'assets/images/icons/metamask.png';
+import GotchiSvg from 'components/Gotchi/GotchiSvg';
 
 export default function LoginButton() {
     const classes = styles();

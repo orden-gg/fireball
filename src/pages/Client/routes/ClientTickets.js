@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { Box } from '@mui/material';
 
 import { routersStyles } from '../styles';
-import { ClientContext } from '../../../contexts/ClientContext';
+import { ClientContext } from 'contexts/ClientContext';
 
-import Ticket from '../../../components/Items/Ticket/Ticket';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
+import Ticket from 'components/Items/Ticket/Ticket';
+import GhostLoader from 'components/GhostLoader/GhostLoader';
 
 export default function ClientTickets() {
     const classes = routersStyles();

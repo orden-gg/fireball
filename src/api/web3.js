@@ -1,9 +1,9 @@
 import Web3 from 'web3';
-import itemUtils from '../utils/itemUtils';
+import itemUtils from 'utils/itemUtils';
 
 import { MAIN_CONTRACT, POLYGON_RPC, TICKETS_CONTRACT } from './common/constants';
-import { MAIN_ABI } from '../data/abi/main';
-import { TICKETS_ABI } from '../data/abi/tickets';
+import { MAIN_ABI } from 'data/abi/main';
+import { TICKETS_ABI } from 'data/abi/tickets';
 
 const web3 = new Web3(POLYGON_RPC);
 const contract = new web3.eth.Contract(MAIN_ABI, MAIN_CONTRACT);

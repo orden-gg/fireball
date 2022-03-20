@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import web3 from '../../api/web3';
+import web3 from 'api/web3';
 
 import styles from './styles';
-import { LoginContext } from '../../contexts/LoginContext';
-import thegraph from '../../api/thegraph';
+import { LoginContext } from 'contexts/LoginContext';
+import thegraph from 'api/thegraph';
 
 export default function LoginModal({modalOpen, setModalOpen}) {
     const classes = styles();

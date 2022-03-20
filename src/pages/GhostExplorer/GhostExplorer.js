@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { CircularProgress, Backdrop, useTheme } from '@mui/material';
-import Gotchi from '../../components/Gotchi/Gotchi';
-import thegraph from '../../api/thegraph';
+import Gotchi from 'components/Gotchi/Gotchi';
+import thegraph from 'api/thegraph';
 import styles from './styles';
 
 export default function GhostExplorer() {

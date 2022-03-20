@@ -2,15 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
 import { routersStyles } from '../styles';
-import { ClientContext } from '../../../contexts/ClientContext';
+import { ClientContext } from 'contexts/ClientContext';
 
-import Parcel from '../../../components/Items/Parcel/Parcel';
+import Parcel from 'components/Items/Parcel/Parcel';
 
-import fud from '../../../assets/images/icons/fud.png';
-import fomo from '../../../assets/images/icons/fomo.png';
-import alpha from '../../../assets/images/icons/alpha.png';
-import kek from '../../../assets/images/icons/kek.png';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
+import fud from 'assets/images/icons/fud.png';
+import fomo from 'assets/images/icons/fomo.png';
+import alpha from 'assets/images/icons/alpha.png';
+import kek from 'assets/images/icons/kek.png';
+import GhostLoader from 'components/GhostLoader/GhostLoader';
 
 export default function ClientRealmList() {
     const classes = routersStyles();

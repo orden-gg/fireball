@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { guildContentStyles } from '../styles';
-import Gotchi from '../../../components/Gotchi/Gotchi';
-import { GuildsContext } from '../../../contexts/GuildsContext';
+import Gotchi from 'components/Gotchi/Gotchi';
+import { GuildsContext } from 'contexts/GuildsContext';
 
 export default function GuildGotchis() {
     const classes = guildContentStyles();

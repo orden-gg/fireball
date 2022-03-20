@@ -8,13 +8,13 @@ import classNames from 'classnames';
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
 
-import commonUtils from '../../../utils/commonUtils';
-import thegraph from '../../../api/thegraph';
+import commonUtils from 'utils/commonUtils';
+import thegraph from 'api/thegraph';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
-import Web3 from "web3";
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import Web3 from 'web3';
 
 const web3 = new Web3();
 

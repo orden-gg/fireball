@@ -1,6 +1,6 @@
 import React, {createContext, useState} from 'react';
 import Web3 from 'web3';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from 'hooks/useLocalStorage';
 import { useMetamask } from 'use-metamask';
 
 export const LoginContext = createContext({});

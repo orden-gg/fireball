@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
-import graphUtils from '../utils/graphUtils';
+import graphUtils from 'utils/graphUtils';
 import {
     gotchiesQuery,
     svgQuery,

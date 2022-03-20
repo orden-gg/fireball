@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 
-import { ClientContext } from '../../../contexts/ClientContext';
-import Citadel from '../../../components/Citadel/Citadel';
+import { ClientContext } from 'contexts/ClientContext';
+import Citadel from 'components/Citadel/Citadel';
 import styles from '../styles';
 
 export default function ClientRealmMap() {

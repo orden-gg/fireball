@@ -3,12 +3,12 @@ import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import classNames from 'classnames';
 import styles from './styles';
-import { gotchiByIdQuery } from '../../../../api/common/queries';
+import { gotchiByIdQuery } from 'api/common/queries';
 
-import hopeUp from '../../../../assets/images/gotchi-placeholder-up.svg';
-import thegraph from '../../../../api/thegraph';
-import GotchiSvg from '../../../../components/Gotchi/GotchiSvg';
-import Subtitle from '../../../../components/Subtitle/Subtitle';
+import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
+import thegraph from 'api/thegraph';
+import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import Subtitle from 'components/Subtitle/Subtitle';
 
 const gotchiesId = [4271, 8005, 4282, 23470, 13998];
 
@@ -41,7 +41,7 @@ export default function Team() {
             <Grid container justifyContent='center'>
                 <Grid item xs={12} md={10}>
                     <Subtitle variant='h4' innerBg='rgb(39, 42, 48)' margin='0 0 40px'>
-                        orden DAO
+                        ordenGG DAO
                     </Subtitle>
                 </Grid>
             </Grid>

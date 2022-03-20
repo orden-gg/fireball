@@ -2,7 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import React, { useContext } from 'react';
 import { guildDetailsStyles } from '../../styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { GuildsContext } from '../../../../contexts/GuildsContext';
+import { GuildsContext } from 'contexts/GuildsContext';
 
 export default function GuildsDetails() {
     const classes = guildDetailsStyles();

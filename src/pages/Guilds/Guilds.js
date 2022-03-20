@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route, Switch, useHistory, useRouteMatch } from 'react-router';
 import Guild from './routes/Guild';
 import GuildsPreview from './routes/GuildsPreview';
-import GuildsContextProvider from '../../contexts/GuildsContext';
+import GuildsContextProvider from 'contexts/GuildsContext';
 
 export default function Guilds() {
     const match = useRouteMatch();

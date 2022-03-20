@@ -1,10 +1,10 @@
 import React from 'react';
 import { Tooltip, useTheme } from '@mui/material';
 
-import itemUtils from '../../utils/itemUtils';
+import itemUtils from 'utils/itemUtils';
 import { GotchiWareableLineStyles, CustomTooltipStyles } from "./styles";
 
-import Wearable from '../Items/Wearable/Wearable';
+import Wearable from 'components/Items/Wearable/Wearable';
 import classNames from 'classnames';
 
 export default function GotchiWearablesLine({wearables}) {

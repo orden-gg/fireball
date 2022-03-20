@@ -8,7 +8,7 @@ import { tabStyles } from '../../styles';
 
 export default function ConnectPanel({ index, dir }) {
     const classes = tabStyles();
-    const { 
+    const {
         connectState,
         approveConnect,
         renderButtonNode,

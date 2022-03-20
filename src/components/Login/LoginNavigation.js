@@ -4,9 +4,9 @@ import { Box } from '@mui/system';
 import { useMetamask } from 'use-metamask';
 import styles from './styles';
 
-import { LoginContext } from '../../contexts/LoginContext';
+import { LoginContext } from 'contexts/LoginContext';
 
-import MetamaskIcon from '../../assets/images/icons/metamask.png';
+import MetamaskIcon from 'assets/images/icons/metamask.png';
 import classNames from 'classnames';
 
 export default function LoginNavigation() {

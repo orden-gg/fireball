@@ -1,9 +1,9 @@
 import React, {createContext, useState} from 'react';
-import thegraph from '../api/thegraph';
-import web3 from '../api/web3';
-import commonUtils from '../utils/commonUtils';
-import graphUtils from '../utils/graphUtils';
-import itemUtils from '../utils/itemUtils';
+import thegraph from 'api/thegraph';
+import web3 from 'api/web3';
+import commonUtils from 'utils/commonUtils';
+import graphUtils from 'utils/graphUtils';
+import itemUtils from 'utils/itemUtils';
 
 export const ClientContext = createContext({});
 

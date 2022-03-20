@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { titleStyles } from '../styles';
-import { RaffleContext } from '../../../contexts/RaffleContext';
+import { RaffleContext } from 'contexts/RaffleContext';
 
 import RaffleTable from '../components/RaffleTable';
 import RaffleItems from '../components/RaffleItems';

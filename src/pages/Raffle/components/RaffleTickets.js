@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
-import web3 from '../../../api/web3';
+import web3 from 'api/web3';
 import RaffleTicket from './RaffleTicket';
 import { tableStyles } from '../styles';
 

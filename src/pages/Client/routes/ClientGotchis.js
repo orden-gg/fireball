@@ -4,12 +4,12 @@ import { LoadingButton } from '@mui/lab';
 
 import { loadRewardsStyles, routersStyles } from '../styles';
 
-import { ClientContext } from '../../../contexts/ClientContext';
-import commonUtils from '../../../utils/commonUtils';
+import { ClientContext } from 'contexts/ClientContext';
+import commonUtils from 'utils/commonUtils';
 
-import Gotchi from '../../../components/Gotchi/Gotchi';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
-import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
+import Gotchi from 'components/Gotchi/Gotchi';
+import GhostLoader from 'components/GhostLoader/GhostLoader';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 export default function ClientGotchis() {
     const classes = {

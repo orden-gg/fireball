@@ -8,8 +8,8 @@ import styles from './styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, TextField, Tooltip } from '@mui/material';
 
-import thegraph from '../../api/thegraph';
-import Parcel from '../Items/Parcel/Parcel';
+import thegraph from 'api/thegraph';
+import Parcel from 'components/Items/Parcel/Parcel';
 import classNames from 'classnames';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';

@@ -5,12 +5,12 @@ import { alpha } from '@mui/system';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 import ContentLoader from 'react-content-loader';
-import thegraph from '../../../api/thegraph';
-import itemUtils from '../../../utils/itemUtils';
-import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
-import commonUtils from '../../../utils/commonUtils';
+import thegraph from 'api/thegraph';
+import itemUtils from 'utils/itemUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import commonUtils from 'utils/commonUtils';
 import Web3 from 'web3';
-import ParcelImage from '../ParcelImage/ParcelImage';
+import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import ParcelBaazaarLink from './common/ParcelBaazaarLink/ParcelBaazaarLink';
 
 var web3 = new Web3();

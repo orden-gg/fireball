@@ -5,11 +5,11 @@ import {Helmet} from 'react-helmet';
 import styles from './styles';
 
 import queryString from 'query-string'
-import { LoginContext } from '../../contexts/LoginContext';
-import ProfilePane from '../../components/ProfilePane/ProfilePane';
-import RaffleContextProvider from '../../contexts/RaffleContext';
-import commonUtils from '../../utils/commonUtils';
-import web3 from '../../api/web3';
+import { LoginContext } from 'contexts/LoginContext';
+import ProfilePane from 'components/ProfilePane/ProfilePane';
+import RaffleContextProvider from 'contexts/RaffleContext';
+import commonUtils from 'utils/commonUtils';
+import web3 from 'api/web3';
 
 // data
 import raffles from './data/raffles.data';
