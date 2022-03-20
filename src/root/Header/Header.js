@@ -81,6 +81,9 @@ export default function Header() {
                             <Typography variant={'caption'}>Beta</Typography>
                         </Box>
                     </NavLink>
+                    <NavLink className={classes.navLink} to='/autopet'>
+                        Autopet
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/market'>
                         <Box className={classes.navLinkBox}>
                             Market

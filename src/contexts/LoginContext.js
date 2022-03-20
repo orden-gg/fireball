@@ -47,7 +47,6 @@ const LoginContextProvider = (props) => {
                 await connect(Web3);
                 return true;
             } catch (error) {
-                console.log(error);
                 return false;
             }
         }

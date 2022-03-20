@@ -1,4 +1,3 @@
-
 <p align="center">
   <img src="/src/assets/images/fireball.gif" alt="fireball" style="width:120px;"/>
   <span>.GG</span>
@@ -14,7 +13,7 @@
 [![](https://img.shields.io/badge/🔥.gg-production-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball.gg/)
 [![](https://img.shields.io/badge/🔥.gg-staging-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball-staging-ilsbc366ba-ew.a.run.app/)
 
-[fireball.gg](http://fireball.gg) is a public good client for [gotchiverse](https://gotchiverse.io/), completely open & free to use! 
+[fireball.gg](http://fireball.gg) is a public good client for [gotchiverse](https://gotchiverse.io/), completely open & free to use!
 
 ### local deployment (ubuntu & macos)
 
@@ -39,7 +38,6 @@
 
 ### review forked PR's
 * `git fetch origin pull/<PULL_ID>/head:<YOUR_BRANCH_NAME>`
-
 
 ### Links
 
