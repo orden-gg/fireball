@@ -31,10 +31,10 @@ export default function StakePanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Stake 100 GHST and autopeting will start within next 15 mins! 
+                Stake 100 GHST and autopetting will start within the next 15 mins! 
             </Typography>
             <Typography className={classes.panelText}>
-                You can unstake GHST anytime
+                You can unstake your GHST anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
 
@@ -49,7 +49,7 @@ export default function StakePanel({ index, dir }) {
                     {renderButtonNode(stakeState, isStaked ? 'Unstake GHST' : 'Stake GHST')}
                 </Button>
             </div>
-            <PanelErrorText isShown={!availableStake} children='Please approve pet & ghst before stake' />
+            <PanelErrorText isShown={!availableStake} children='Please approve petting & GHST before staking' />
         </div>
     )
 }
