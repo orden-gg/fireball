@@ -12,35 +12,38 @@ import thegraph from '../../../../api/thegraph';
 
 import ghstIcon from '../../../../assets/images/ghst-doubleside.gif'
 
-const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
+import { AUTOPET_CONTRACT } from '../../../../api/common/constants';
+import commonUtils from '../../../../utils/commonUtils';
 
 export default function AutopetInfo() {
     const classes = infoStyles();
     const [ fee, setFee ] = useState(null);
     const [ frens, setFrens ] = useState(null);
-    const [ totalStaked, setStaked ] = useState(null);
+    const [ totalStaked, setTotalStaked ] = useState(null);
     const [ totalGotchis, setTotalGotchis ] = useState(null);
     const [ totalUsers, setTotalUsers ] = useState(null);
 
     useEffect(() => {
-        autopetApi.getUsers().then( users => {
+        autopetApi.getUsers().then(users => {
             thegraph.getGotchisByAddresses(users).then( gotchis => {
-                setTotalGotchis(gotchis.length);
-                setTotalUsers(users.length);
+                setTotalGotchis(commonUtils.formatPrice(gotchis.length));
+                setTotalUsers(commonUtils.formatPrice(users.length));
             });
         });
 
-        autopetApi.getFee().then( fee => {
-            setFee(fee);
+        autopetApi.getFee().then(fee => {
+            setFee(commonUtils.formatPrice(fee));
         });
 
-        autopetApi.getFrens().then( frens => {
-            setFrens(frens);
+        autopetApi.getFrens().then(frens => {
+            setFrens(commonUtils.formatPrice(frens));
         });
     }, []);
 
     useEffect(() => {
-        setStaked(totalUsers*fee);
+        if (totalUsers !== null & fee !== null) {
+            setTotalStaked(commonUtils.formatPrice(totalUsers*fee));
+        }
     }, [totalUsers, fee]);
 
     return (
@@ -56,7 +59,7 @@ export default function AutopetInfo() {
                 count={totalUsers}
             />
             <Link
-                href={contractUrl}
+                href={`https://polygonscan.com/address/${AUTOPET_CONTRACT}`}
                 target='_blank'
                 className={classNames(classes.autopetInfoCard, classes.autopetInfoLink)}
             >
@@ -66,12 +69,12 @@ export default function AutopetInfo() {
             <AutopetInfoCard
                 name='Fee'
                 count={
-                    totalStaked > 0 ? 
+                    fee === null ? null :
                     <>
                         {fee} 
                         <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
-                        staked
-                    </> : null
+                        <span className={classes.autopetCardCountLabel}>staked</span>
+                    </>
                 }
             />
             <AutopetInfoCard
@@ -81,11 +84,11 @@ export default function AutopetInfo() {
             <AutopetInfoCard
                 name='Staked'
                 count={
-                    totalStaked > 0 ? 
-                        <>
-                            {totalStaked}
-                            <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
-                        </> : null
+                    totalStaked === null ? null :
+                    <>
+                        {totalStaked}
+                        <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                    </> 
                 }
             />
         </div>
