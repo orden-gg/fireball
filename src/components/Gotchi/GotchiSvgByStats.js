@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import renderSvg from './GotchiSvgRender';
 import { GotchiSvgStyles } from './styles';
 
-import gotchiLoading from '../../assets/images/gotchi-loading.gif';
+import gotchiLoading from '../../assets/images/animated/gotchi-loading.gif';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
@@ -42,7 +42,7 @@ export default function GotchiSvgByStats({gotchi, size}) {
         }).catch((error) => {
             console.log(error);
         });
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

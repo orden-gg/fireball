@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/src/assets/images/fireball.gif" alt="fireball" style="width:120px;"/>
+  <img src="/src/assets/images/animated/fireball.gif" alt="fireball" style="width:120px;"/>
   <span>.GG</span>
 </p>
 

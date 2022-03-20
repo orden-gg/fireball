@@ -79,9 +79,9 @@ export default {
 
     getCollateralImg(name) {
         try {
-            return require(`../assets/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
+            return require(`../assets/images/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/no-image2.svg`).default;
+            return require(`../assets/images/image-placeholder.svg`).default;
         }
     },
 

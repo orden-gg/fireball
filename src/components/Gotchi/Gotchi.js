@@ -17,7 +17,7 @@ import GotchiSvgByStats from './GotchiSvgByStats';
 
 import CallMade from '@mui/icons-material/CallMade';
 
-import ghstIcon from '../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../assets/images/animated/ghst-token.gif';
 import ShineLabel from '../Labels/ShineLabel';
 import commonUtils from '../../utils/commonUtils';
 import itemUtils from '../../utils/itemUtils';

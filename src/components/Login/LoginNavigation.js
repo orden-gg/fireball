@@ -6,7 +6,7 @@ import styles from './styles';
 
 import { LoginContext } from '../../contexts/LoginContext';
 
-import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import MetamaskIcon from '../../assets/images/icons/metamask.png';
 import classNames from 'classnames';
 
 export default function LoginNavigation() {

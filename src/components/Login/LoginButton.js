@@ -11,7 +11,7 @@ import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
-import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import MetamaskIcon from '../../assets/images/icons/metamask.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginButton() {

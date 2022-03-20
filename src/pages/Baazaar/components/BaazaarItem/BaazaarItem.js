@@ -1,10 +1,10 @@
 import React from 'react';
-import { Grid, Box, Button, Link, Typography } from "@mui/material";
+import { Grid, Box, Button, Link, Typography } from '@mui/material';
 import classNames from 'classnames';
-import ghstIcon from '../../../../assets/images/ghsttoken.png';
+import ghstIcon from '../../../../assets/images/icons/ghst-token.png';
 import itemUtils from '../../../../utils/itemUtils';
 import commonUtils from '../../../../utils/commonUtils';
-import Web3 from "web3";
+import Web3 from 'web3';
 import { baazaarItemStyles } from '../../styles';
 
 var web3 = new Web3();

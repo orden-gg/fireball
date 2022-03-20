@@ -5,8 +5,8 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 import thegraph from '../../../../api/thegraph';
 import commonUtils from '../../../../utils/commonUtils';
 import { portalsQuery } from './queries';
-import openedPortal from '../../../../assets/images/portal-opened.gif';
-import sealedPortal from '../../../../assets/images/portal-sealed.svg';
+import openedPortal from '../../../../assets/images/animated/h1-open.gif';
+import sealedPortal from '../../../../assets/images/portals/h1-sealed.svg';
 import classNames from 'classnames';
 
 export default function Portals() {

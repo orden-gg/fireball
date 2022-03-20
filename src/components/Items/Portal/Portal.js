@@ -3,13 +3,13 @@ import { Link, Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 import CallMade from '@mui/icons-material/CallMade';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
 import commonUtils from '../../../utils/commonUtils';
 import Web3 from "web3";
-import sealedPortal from '../../../assets/images/portal-sealed.svg';
-import openPortal from '../../../assets/images/h1-open.svg';
-import h2SealedPortal from '../../../assets/images/h2-sealed.svg';
-import h2OpenPortal from '../../../assets/images/h2-open.svg';
+import sealedPortal from '../../../assets/images/portals/h1-sealed.svg';
+import openPortal from '../../../assets/images/portals/h1-open.svg';
+import h2SealedPortal from '../../../assets/images/portals/h2-sealed.svg';
+import h2OpenPortal from '../../../assets/images/portals/h2-open.svg';
 
 var web3 = new Web3();
 

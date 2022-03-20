@@ -1,7 +1,7 @@
 const guilds = [
     {
         name: 'ordenGG',
-        logo: require('../assets/guilds/ordenGG.svg').default,
+        logo: require('../assets/images/guilds/ordenGG.svg').default,
         members: [
             '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
             '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
@@ -18,7 +18,7 @@ const guilds = [
                 text: 'e-sport & gamedev DAO always playing a good game ☀️'
             },
         ],
-        banner: require('../assets/guilds/ordenGG-banner.png').default,
+        banner: require('../assets/images/guilds/ordenGG-banner.png').default,
         socials: {
             twitter: 'https://twitter.com/orden_gg/',
             discord: 'https://discord.com/invite/NXEEETxSkC'
@@ -26,7 +26,7 @@ const guilds = [
     },
     {
         name: 'Aavegotchi Francophonie',
-        logo: require('../assets/guilds/aavegotchi-francophonie.jpg').default,
+        logo: require('../assets/images/guilds/aavegotchi-francophonie.jpg').default,
         members: [
             '0xbe0c04ec30d93fec3384f070ddb0252dde38b4fe',
             '0x6649DaD69e7994f329bB5f0a829C82b838815a56',
@@ -66,7 +66,7 @@ const guilds = [
     },
     {
         name: 'Aeolian Haunts',
-        logo: require('../assets/guilds/aeolian-haunts.jpeg').default,
+        logo: require('../assets/images/guilds/aeolian-haunts.jpeg').default,
         members: [],
         description: [
             {
@@ -89,7 +89,7 @@ const guilds = [
         }
     },{
         name: 'Aavegotchi Aavenue',
-        logo: require('../assets/guilds/aavegotchi-aavenue.png').default,
+        logo: require('../assets/images/guilds/aavegotchi-aavenue.png').default,
         members: [],
         description: [
             {
@@ -111,7 +111,7 @@ const guilds = [
         }
     },{
         name: 'BlackPool’s Aapegotchis',
-        logo: require('../assets/guilds/blackpool-aapegotchis.png').default,
+        logo: require('../assets/images/guilds/blackpool-aapegotchis.png').default,
         members: [
             '0x93468adecdccd18131ce1fd8caeed68fb3de43e7',
             '0xc31372db84e456193e72a162928539c8f5999ff6',
@@ -167,7 +167,7 @@ const guilds = [
         }
     },{
         name: 'Chigotchi Bulls',
-        logo: require('../assets/guilds/chigotchi-bulls.png').default,
+        logo: require('../assets/images/guilds/chigotchi-bulls.png').default,
         members: [],
         description: [
             {
@@ -190,7 +190,7 @@ const guilds = [
         }
     },{
         name: 'cRekto Club',
-        logo: require('../assets/guilds/crekto-club.png').default,
+        logo: require('../assets/images/guilds/crekto-club.png').default,
         members: [],
         description: [
             {
@@ -213,7 +213,7 @@ const guilds = [
         }
     },{
         name: 'DeFi Alpha Gaming Guild',
-        logo: require('../assets/guilds/defi-alpha-gaming-guild.png').default,
+        logo: require('../assets/images/guilds/defi-alpha-gaming-guild.png').default,
         members: [],
         description: [
             {
@@ -237,7 +237,7 @@ const guilds = [
         }
     },{
         name: 'F8 Guild',
-        logo: require('../assets/guilds/f8-guild.png').default,
+        logo: require('../assets/images/guilds/f8-guild.png').default,
         members: [],
         description: [
             {
@@ -260,7 +260,7 @@ const guilds = [
         }
     },{
         name: 'Frenzone',
-        logo: require('../assets/guilds/frenzone.png').default,
+        logo: require('../assets/images/guilds/frenzone.png').default,
         members: [],
         description: [
             {
@@ -283,7 +283,7 @@ const guilds = [
         }
     },{
         name: 'Ghost Squad',
-        logo: require('../assets/guilds/ghost-squad.png').default,
+        logo: require('../assets/images/guilds/ghost-squad.png').default,
         members: [
             '0xE88632728Ed377f556cB964e6F670f6017d497e4',
             '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a',
@@ -306,7 +306,7 @@ const guilds = [
                 text: 'Gotchinomics#4936'
             }
         ],
-        banner: require('../assets/guilds/ghost-squad-banner.png').default,
+        banner: require('../assets/images/guilds/ghost-squad-banner.png').default,
         socials: {
             twitter: 'https://twitter.com/gotchighstsquad',
             discord: 'https://discord.com/invite/JQHx9u8mcV',
@@ -314,7 +314,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi FArmy Gang',
-        logo: require('../assets/guilds/gotchi-farmy-gang.png').default,
+        logo: require('../assets/images/guilds/gotchi-farmy-gang.png').default,
         members: [
             '0x064D58647A6F780c822fa1D9EE5295c1a0D5c692',
             '0x0c404F55595ab844D519a084fF1B8cB36AAAD1d1',
@@ -461,7 +461,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi Gaang Maafia',
-        logo: require('../assets/guilds/gotchi-gaang-maafia.jpeg').default,
+        logo: require('../assets/images/guilds/gotchi-gaang-maafia.jpeg').default,
         members: [],
         description: [
             {
@@ -483,7 +483,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi Riders',
-        logo: require('../assets/guilds/gotchi-riders.png').default,
+        logo: require('../assets/images/guilds/gotchi-riders.png').default,
         members: [],
         description: [
             {
@@ -505,7 +505,7 @@ const guilds = [
         }
     },{
         name: 'Keepers of the Realm',
-        logo: require('../assets/guilds/keepers-of-the-realm.png').default,
+        logo: require('../assets/images/guilds/keepers-of-the-realm.png').default,
         members: [],
         description: [
             {
@@ -527,7 +527,7 @@ const guilds = [
         }
     },{
         name: 'LevX DAO',
-        logo: require('../assets/guilds/levx.png').default,
+        logo: require('../assets/images/guilds/levx.png').default,
         members: [],
         description: [
             {
@@ -550,7 +550,7 @@ const guilds = [
         }
     },{
         name: 'Los Mustachos',
-        logo: require('../assets/guilds/mustachos.png').default,
+        logo: require('../assets/images/guilds/mustachos.png').default,
         members: [],
         description: [
             {
@@ -573,7 +573,7 @@ const guilds = [
         }
     },{
         name: 'Metaguild',
-        logo: require('../assets/guilds/metaguild.png').default,
+        logo: require('../assets/images/guilds/metaguild.png').default,
         members: [
             '0xC68C8452be34032ab999787796AE0fAaf071e054',
             '0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6',
@@ -619,7 +619,7 @@ const guilds = [
                 text: 'Sandro#7777 egor#1111 kupilslona#0022'
             }
         ],
-        banner: require('../assets/guilds/metaguild-banner.png').default,
+        banner: require('../assets/images/guilds/metaguild-banner.png').default,
         socials: {
             website: 'https://metaguild.com/',
             twitter: 'https://twitter.com/metaguildcom',
@@ -627,7 +627,7 @@ const guilds = [
         }
     },{
         name: 'MSG',
-        logo: require('../assets/guilds/msg.jpeg').default,
+        logo: require('../assets/images/guilds/msg.jpeg').default,
         members: [],
         description: [
             {
@@ -651,7 +651,7 @@ const guilds = [
         }
     },{
         name: `Mug’N’Buns`,
-        logo: require('../assets/guilds/mugnbuns.png').default,
+        logo: require('../assets/images/guilds/mugnbuns.png').default,
         members: [],
         description: [
             {
@@ -674,7 +674,7 @@ const guilds = [
         }
     },{
         name: 'TGC',
-        logo: require('../assets/guilds/tgc.jpeg').default,
+        logo: require('../assets/images/guilds/tgc.jpeg').default,
         members: [],
         description: [
             {
@@ -697,7 +697,7 @@ const guilds = [
         }
     },{
         name: 'The Order of Portal Mages',
-        logo: require('../assets/guilds/the-order-of-portal-mages.jpeg').default,
+        logo: require('../assets/images/guilds/the-order-of-portal-mages.jpeg').default,
         members: [],
         description: [
             {
@@ -720,7 +720,7 @@ const guilds = [
         }
     },{
         name: 'WAGMI Warriors',
-        logo: require('../assets/guilds/WAGMI-warriors.png').default,
+        logo: require('../assets/images/guilds/WAGMI-warriors.png').default,
         members: ['0x26cf02F892B04aF4Cf350539CE2C77FCF79Ec172'],
         description: [
             {
@@ -751,11 +751,11 @@ const guilds = [
         }
     },{
         name: '8bit Gamers Guild',
-        logo: require('../assets/guilds/8gg.jpeg').default,
+        logo: require('../assets/images/guilds/8gg.jpeg').default,
         members: []
     }, {
         name: 'Aavemaa',
-        logo: require('../assets/guilds/aavemaa.png').default,
+        logo: require('../assets/images/guilds/aavemaa.png').default,
         members: [
             '0xA62F79725e08DA9B8684fdaC2bfED855d41186E4',
             '0x09D43aDa2A315C88f627BB9350847f9C80F225e9',
@@ -782,15 +782,15 @@ const guilds = [
         }
     }, {
         name: 'Cryptoticker.io GHST Guild',
-        logo: require('../assets/guilds/cryptoticker.png').default,
+        logo: require('../assets/images/guilds/cryptoticker.png').default,
         members: []
     }, {
         name: 'Geistreich',
-        logo: require('../assets/guilds/geistreich.png').default,
+        logo: require('../assets/images/guilds/geistreich.png').default,
         members: []
     }, {
         name: 'gmDAO',
-        logo: require('../assets/guilds/gmdao.png').default,
+        logo: require('../assets/images/guilds/gmdao.png').default,
         members: [
             '0x2c2f799ef62709ef3ac770fa452955844328ff91',
             '0xde6b1d60b5c5c0c8a41c8c3241c56e8754d5ca65',
@@ -844,7 +844,7 @@ const guilds = [
         }
     }, {
         name: 'SynthGuild',
-        logo: require('../assets/guilds/synthguild.png').default,
+        logo: require('../assets/images/guilds/synthguild.png').default,
         members: []
     }
 ]

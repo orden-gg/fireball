@@ -9,7 +9,7 @@ import commonUtils from '../../../utils/commonUtils';
 
 import Gotchi from '../../../components/Gotchi/Gotchi';
 import GhostLoader from '../../../components/GhostLoader/GhostLoader';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
 
 export default function ClientGotchis() {
     const classes = {

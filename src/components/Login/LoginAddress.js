@@ -10,7 +10,7 @@ import { LoginContext } from '../../contexts/LoginContext';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MetamaskIcon from '../../assets/images/metamask-icon.png';
+import MetamaskIcon from '../../assets/images/icons/metamask.png';
 import GotchiSvg from '../Gotchi/GotchiSvg';
 
 export default function LoginAddress({address, isMetamask}) {

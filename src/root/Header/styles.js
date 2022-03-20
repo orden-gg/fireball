@@ -155,7 +155,7 @@ const styles = makeStyles( theme => ({
     socialLinkJoin: {
         position: 'absolute',
         display: 'none',
-        bottom: -11,
+        bottom: -12,
         right: 5,
         pointerEvents: 'none',
         '& > span': {

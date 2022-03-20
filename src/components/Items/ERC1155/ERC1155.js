@@ -13,7 +13,7 @@ import thegraph from '../../../api/thegraph';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
 import Web3 from "web3";
 
 const web3 = new Web3();
@@ -24,7 +24,7 @@ export default function ERC1155({children, item}) {
         ...styles(),
         ...tooltipStyles()
     };
-    
+
     const theme = useTheme();
 
     const [last, setLast] = useState(null);
@@ -157,7 +157,7 @@ export default function ERC1155({children, item}) {
                                     </Box>
                                 ) : (
                                     <Typography variant='caption'>
-                                        Sold for <Link 
+                                        Sold for <Link
                                             href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
                                             target='_blank'
                                             underline='none'
@@ -174,7 +174,7 @@ export default function ERC1155({children, item}) {
                     >
                         <div>
                             {current.price === 0 ? (
-                                <Typography 
+                                <Typography
                                     variant='subtitle2'
                                     className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
                                     No listings
@@ -218,7 +218,7 @@ export default function ERC1155({children, item}) {
                         foregroundColor={alpha(theme.palette.secondary.main, .5)}
                         className={classes.priceLoader}
                     >
-                        <rect x='0' y='0' width='70' height='27' /> 
+                        <rect x='0' y='0' width='70' height='27' />
                     </ContentLoader>
                 )}
             </div>

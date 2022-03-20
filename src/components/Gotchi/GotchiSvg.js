@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import thegraph from '../../api/thegraph';
 import classNames from 'classnames';
 
-import gotchiLoading from '../../assets/images/gotchi-loading.gif';
+import gotchiLoading from '../../assets/images/animated/gotchi-loading.gif';
 import { GotchiSvgStyles } from './styles';
 
 let regex = /<style>(.*?)<\/style>/g;

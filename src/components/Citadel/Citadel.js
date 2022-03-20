@@ -22,7 +22,7 @@ import GridOffIcon from '@mui/icons-material/GridOff';
 
 import useFullscreenStatus from '../../hooks/useFullscreenStatus';
 
-import CitadelLoading from '../../assets/gotchiverse-icon.gif';
+import CitadelLoading from '../../assets/images/animated/gotchiverse.gif';
 
 export default function Citadel({ ownerParcels, className}) {
     const classes = styles();

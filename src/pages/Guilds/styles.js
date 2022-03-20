@@ -2,8 +2,8 @@
 import { alpha } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
-import mapSvg from '../../assets/images/svgs/map.svg';
-import listSvg from '../../assets/images/svgs/list.svg';
+import mapSvg from '../../assets/images/icons/map.svg';
+import listSvg from '../../assets/images/icons/list.svg';
 
 const keyframes = {
     move: {

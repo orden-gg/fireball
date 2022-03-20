@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { ReactComponent as Placeholder } from '../../../assets/images/svgs/ghst.svg';
+import { ReactComponent as Placeholder } from '../../../assets/images/icons/ghst.svg';
 
 export default function GuildLogo({logo, className}) {
     return logo ?

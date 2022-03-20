@@ -5,8 +5,8 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 import { GuildsContext } from '../../../../contexts/GuildsContext';
 
-import { ReactComponent as DiscordIcon } from '../../../../assets/images/discord.svg';
-import { ReactComponent as TwitchIcon } from '../../../../assets/images/svgs/twitch.svg';
+import { ReactComponent as DiscordIcon } from '../../../../assets/images/icons/discord.svg';
+import { ReactComponent as TwitchIcon } from '../../../../assets/images/icons/twitch.svg';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TelegramIcon from '@mui/icons-material/Telegram';

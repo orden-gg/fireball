@@ -7,11 +7,11 @@ import styles from './styles';
 import LoginButton from '../../components/Login/LoginButton';
 
 import TwitterIcon from '@mui/icons-material/Twitter';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import fireball from '../../assets/images/fireball.gif';
-import discord from '../../assets/images/discord.svg';
-import github from '../../assets/images/github.png';
+import fireball from '../../assets/images/animated/fireball.gif';
+import discord from '../../assets/images/icons/discord.svg';
 
 export default function Header() {
     const classes = styles();
@@ -57,7 +57,7 @@ export default function Header() {
                 </Link>
                 <Link href='https://github.com/orden-gg/fireball' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <img src={ github } alt='' />
+                        <GitHubIcon />
                         <Box component='span' className={classes.iconButtonText}>16</Box>
                     </Button>
                 </Link>

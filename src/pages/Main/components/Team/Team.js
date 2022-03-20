@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import classNames from 'classnames';
-import styles from "./styles";
+import styles from './styles';
 import { gotchiByIdQuery } from '../../../../api/common/queries';
 
-import hopeUp from '../../../../assets/images/avatars/hope_up.svg';
+import hopeUp from '../../../../assets/images/gotchi-placeholder-up.svg';
 import thegraph from '../../../../api/thegraph';
 import GotchiSvg from '../../../../components/Gotchi/GotchiSvg';
 import Subtitle from '../../../../components/Subtitle/Subtitle';

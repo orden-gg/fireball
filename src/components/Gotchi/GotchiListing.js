@@ -5,7 +5,7 @@ import web3 from '../../api/web3';
 import commonUtils from '../../utils/commonUtils';
 import { GotchiListingStyles, CustomTooltipStyles } from './styles';
 
-import ghstIcon from '../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../assets/images/animated/ghst-token.gif';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -69,12 +69,12 @@ export default function GotchiListing({id, listing, history}) {
                                     <p className={classes.lastPriceDown}>{commonUtils.formatPrice(currentPrice)}</p>
                                 </>
                             )}
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />  
+                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
                             <p className={classes.lastPrice}>{commonUtils.formatPrice(lastPrice)}</p>
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />  
+                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </div>
                     )}
                 </div>

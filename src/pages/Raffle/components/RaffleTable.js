@@ -11,7 +11,7 @@ import { RaffleContext } from '../../../contexts/RaffleContext';
 
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
-import ghst from '../../../assets/images/ghst-doubleside.gif';
+import ghst from '../../../assets/images/animated/ghst-token.gif';
 import { DateTime } from 'luxon';
 
 export default function RaffleTablee() {

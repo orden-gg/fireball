@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Box, Button, Grid, Link, List, ListItem, Typography } from '@mui/material';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
+import ghstIcon from '../../../assets/images/animated/ghst-token.gif';
 import thegraph from '../../../api/thegraph';
 import commonUtils from '../../../utils/commonUtils';
 import ParcelImage from '../../../components/Items/ParcelImage/ParcelImage';
