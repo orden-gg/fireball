@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
-import web3 from 'api/web3';
+import mainApi from 'api/main.api';
 
 import { GotchiSkillpointsStyles, CustomTooltipStyles } from './styles';
 
@@ -20,7 +20,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
 
         setLoadingPoints(true);
 
-        web3.getAvailableSkillPoints(id)
+        mainApi.getAvailableSkillPoints(id)
             .then((response)=> {
                 if (!controller.signal.aborted) {
                     setAvailablePoints(response);

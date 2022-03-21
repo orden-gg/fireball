@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
-import web3 from 'api/web3';
+import ticketsApi from 'api/tickets.api';
 
 import RaffleTicket from './RaffleTicket';
 import { tableStyles } from '../styles';
@@ -25,7 +25,7 @@ export default function RaffleTickets({ address }) {
     const getTickets = (controller) => {
         setLoadingTickets(true);
 
-        web3.getTicketsByAddress(address).then((response) => {
+        ticketsApi.getTicketsByAddress(address).then((response) => {
             if (!controller.signal.aborted) {
                 setTickets(response);
                 setLoadingTickets(false);

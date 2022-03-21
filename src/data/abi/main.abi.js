@@ -2343,4 +2343,38 @@ export const MAIN_ABI = [
         stateMutability: "view",
         type: "function",
     },
+    {
+        inputs: [
+          {
+            internalType: "uint256",
+            name: "_hauntId",
+            type: "uint256"
+          },
+          {
+            internalType: "address",
+            name: "_collateralType",
+            type: "address"
+          },
+          {
+            internalType: "int16[6]",
+            name: "_numericTraits",
+            type: "int16[6]"
+          },
+          {
+            internalType: "uint16[16]",
+            name: "equippedWearables",
+            type: "uint16[16]"
+          }
+        ],
+        name: "previewAavegotchi",
+        outputs: [
+          {
+            internalType: "string",
+            name: "ag_",
+            type: "string"
+          }
+        ],
+        stateMutability: "view",
+        type: "function"
+      },
 ];

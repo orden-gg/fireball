@@ -8,15 +8,13 @@ import { useTheme } from '@emotion/react';
 import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
-import Web3 from 'web3';
 
+import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import styles, { itemStyles, tooltipStyles } from '../styles';
-
-const web3 = new Web3();
 
 export default function ERC1155({ children, item }) {
     const classes = {
@@ -75,7 +73,7 @@ export default function ERC1155({ children, item }) {
                                 <Typography variant='subtitle2'>
                                     {
                                         last.price === 0 && !item.priceInWei ? '???' :
-                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : parseFloat(web3.utils.fromWei(item.priceInWei)))
+                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
                                     }
                                 </Typography>
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />

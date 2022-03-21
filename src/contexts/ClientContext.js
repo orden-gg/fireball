@@ -1,7 +1,8 @@
 import React, { createContext, useState } from 'react';
 
 import thegraph from 'api/thegraph.api';
-import web3 from 'api/web3';
+import mainApi from 'api/main.api';
+import ticketsApi from 'api/tickets.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
@@ -131,7 +132,7 @@ const ClientContextProvider = (props) => {
     const getInventory = (address) => {
         setLoadingWarehouse(true);
 
-        web3.getInventoryByAddress(address).then((response) => {
+        mainApi.getInventoryByAddress(address).then((response) => {
             let modified = [];
             let [wFilter, wDir] = getFilter(warehouseFilter);
 
@@ -169,14 +170,12 @@ const ClientContextProvider = (props) => {
     const getTickets = (address) => {
         setLoadingTickets(true);
 
-        web3.getTicketsByAddress(address).then((response) => {
+        ticketsApi.getTicketsByAddress(address).then((response) => {
             let modified = response.filter((item) => item.balance > 0);
             setTickets(modified);
             setLoadingTickets(false);
         }).catch((error) => {
             console.log(error);
-            setTickets([]);
-            setLoadingTickets(false);
         });
     };
 

@@ -3,6 +3,23 @@ import { POLYGON_RPC, RINKEBY_RPC } from './common/constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+    isEthAddress(address) {
+        return ethers.utils.isAddress(address);
+    },
+
+    fromWei(value) {
+        return parseFloat(ethers.utils.formatUnits(value));
+    },
+
+    toWei(value) {
+        // return ethers.utils.parseUnits(value, 'wei') // TODO: figure out how to use ethers method for this
+        return value * 10**18;
+    },
+
+    formatBigNumber(value) {
+        return ethers.utils.formatUnits(value, 0);
+    },
+
     waitForTransaction(hash, network) {
         const provider = this.getProvider(network);
 
@@ -21,7 +38,7 @@ export default {
 
         return new ethers.Contract(contract, abi, signer);
     },
-    
+
     getProvider(network) {
         switch (network) {
             case 'test':

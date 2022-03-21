@@ -3,7 +3,7 @@ import { Link, Tooltip } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import web3 from 'api/web3';
+import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
@@ -15,8 +15,8 @@ export default function GotchiListing({ listing, history }) {
         ...CustomTooltipStyles()
     };
 
-    const currentPrice = listing?.length && parseFloat(web3.fromWei(listing[0].priceInWei));
-    const lastPrice = history?.length && parseFloat(web3.fromWei(history[history.length - 1]));
+    const currentPrice = listing?.length && ethersApi.fromWei(listing[0].priceInWei);
+    const lastPrice = history?.length && ethersApi.fromWei(history[history.length - 1]);
 
     if (!listing?.length && !history?.length) return null;
 
@@ -31,7 +31,7 @@ export default function GotchiListing({ listing, history }) {
                                 <div class={classes.tooltipInner}>
                                     {history.map((price, index) => {
                                         return <p class={classes.tooltipItem} key={index}>
-                                            {commonUtils.formatPrice(parseFloat(web3.fromWei(price)))}
+                                            {commonUtils.formatPrice(ethersApi.fromWei(price))}
                                             <img src={ghstIcon} width='14' alt='GHST Token Icon' />
                                             {index !== history.length - 1 && <span class={classes.tooltipDivider}>{'->'}</span>}
                                         </p>

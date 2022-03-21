@@ -39,8 +39,7 @@
     "redux": "^4.0.5",
     "serve": "^12.0.1",
     "use-metamask": "^1.3.2",
-    "web-vitals": "^1.1.0",
-    "web3": "^1.3.4"
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",

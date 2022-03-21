@@ -2,8 +2,8 @@ import React, { createContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
+import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
-import web3 from 'api/web3';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 
@@ -113,7 +113,7 @@ const RaffleContextProvider = (props) => {
     const onAddressChange = (address, raffle) => {
         tickets.forEach((item, i) => tickets[i].value = '');
 
-        if (web3.isAddressValid(address)) {
+        if (ethersApi.isEthAddress(address)) {
             getAddressData(address, raffle);
         }
     };

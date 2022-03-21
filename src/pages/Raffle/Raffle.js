@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import queryString from 'query-string'
 
 import ProfilePane from 'components/ProfilePane/ProfilePane';
-import web3 from 'api/web3';
+import ethersApi from 'api/ethers.api';
 import { LoginContext } from 'contexts/LoginContext';
 import RaffleContextProvider from 'contexts/RaffleContext';
 import commonUtils from 'utils/commonUtils';
@@ -68,7 +68,7 @@ export default function Raffle() {
 
             <RaffleNav user={raffleActive} />
 
-            {web3.isAddressValid(raffleActive) ? (
+            {ethersApi.isEthAddress(raffleActive) ? (
                 <RaffleTickets address={raffleActive} />
             ) : (
                 null

@@ -5,8 +5,8 @@ import { useTheme } from '@emotion/react';
 
 import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
-import Web3 from 'web3';
 
+import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import commonUtils from 'utils/commonUtils';
@@ -15,8 +15,6 @@ import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import ParcelBaazaarLink from './common/ParcelBaazaarLink/ParcelBaazaarLink';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-
-var web3 = new Web3();
 
 export default function Parcel({ parcel, isBaazaarCard }) {
     const classes = {
@@ -62,7 +60,7 @@ export default function Parcel({ parcel, isBaazaarCard }) {
                             <Typography variant='subtitle2'>
                                 {
                                     isBaazaarCard ? commonUtils.formatPrice(
-                                            parseFloat(web3.utils.fromWei(parcel.priceInWei))
+                                            ethersApi.fromWei(parcel.priceInWei)
                                         ) :
                                         commonUtils.formatPrice(current.price)
                                 }

@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
-import Web3 from 'web3';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
@@ -46,7 +46,7 @@ const LoginContextProvider = (props) => {
     const connectMetamask = async () => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
-                await connect(Web3);
+                await connect(ethers.providers.Web3Provider, 'any');
                 return true;
             } catch (error) {
                 return false;
