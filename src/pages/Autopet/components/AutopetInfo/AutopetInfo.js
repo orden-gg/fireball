@@ -18,7 +18,7 @@ export default function AutopetInfo() {
     const classes = infoStyles();
     const [fee, setFee] = useState(null);
     const [frens, setFrens] = useState(null);
-    const [totalStaked, setStaked] = useState(null);
+    const [totalStaked, setTotalStaked] = useState(null);
     const [totalGotchis, setTotalGotchis] = useState(null);
     const [totalUsers, setTotalUsers] = useState(null);
 
