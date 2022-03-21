@@ -24,10 +24,10 @@ export default function GhstPanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                This will allow pet contract to stake 100 GHST from your balance
+                This will allow the petting contract to stake 100 GHST from your balance
             </Typography>
             <Typography className={classes.panelText}>
-                You can disapprove GHST allowance anytime
+                You can revoke your GHST approval anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
@@ -40,12 +40,12 @@ export default function GhstPanel({ index, dir }) {
                 >
                     {renderButtonNode(
                         ghstState,
-                        isGhstApproved ? 'disapprove GHST' : 'approve GHST'
+                        isGhstApproved ? 'revoke GHST approval' : 'approve GHST'
                     )}
                 </Button>
             </div>
-            <PanelErrorText isShown={isStaked} children='Please unstake ghst before disapprove' />
-            <PanelErrorText isShown={!isUserConnected} children='Please connect wallet first' />
+            <PanelErrorText isShown={isStaked} children='Please unstake GHST before revoking approval' />
+            <PanelErrorText isShown={!isUserConnected} children='Please connect your wallet first' />
         </div>
     )
 }

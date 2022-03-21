@@ -11,7 +11,8 @@ import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import AutopetInfoCard from './AutopetInfoCard';
 import { infoStyles } from '../../styles';
 
-const contractUrl = 'https://polygonscan.com/address/0x715FB0175ebCa2802855D8AdCc93fd913EF60E93'
+import { AUTOPET_CONTRACT } from '../../../../api/common/constants';
+import commonUtils from '../../../../utils/commonUtils';
 
 export default function AutopetInfo() {
     const classes = infoStyles();
@@ -24,22 +25,24 @@ export default function AutopetInfo() {
     useEffect(() => {
         autopetApi.getUsers().then(users => {
             thegraph.getGotchisByAddresses(users).then( gotchis => {
-                setTotalGotchis(gotchis.length);
-                setTotalUsers(users.length);
+                setTotalGotchis(commonUtils.formatPrice(gotchis.length));
+                setTotalUsers(commonUtils.formatPrice(users.length));
             });
         });
 
         autopetApi.getFee().then(fee => {
-            setFee(fee);
+            setFee(commonUtils.formatPrice(fee));
         });
 
         autopetApi.getFrens().then(frens => {
-            setFrens(frens);
+            setFrens(commonUtils.formatPrice(frens));
         });
     }, []);
 
     useEffect(() => {
-        setStaked(totalUsers*fee);
+        if (totalUsers !== null & fee !== null) {
+            setTotalStaked(commonUtils.formatPrice(totalUsers*fee));
+        }
     }, [totalUsers, fee]);
 
     return (
@@ -55,7 +58,7 @@ export default function AutopetInfo() {
                 count={totalUsers}
             />
             <Link
-                href={contractUrl}
+                href={`https://polygonscan.com/address/${AUTOPET_CONTRACT}`}
                 target='_blank'
                 className={classNames(classes.autopetInfoCard, classes.autopetInfoLink)}
             >
@@ -63,13 +66,17 @@ export default function AutopetInfo() {
                 <CallMadeIcon className={classes.autopetInfoIcon} />
             </Link>
             <AutopetInfoCard
-                name='Fee staked'
+                name='Fee'
                 count={
-                    totalStaked > 0 ?
-                    <>
-                        {fee}
-                        <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
-                    </> : null
+                    fee === null ? (
+                        <>
+                            {fee}
+                            <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                            <span className={classes.autopetCardCountLabel}>staked</span>
+                        </>
+                    ) : (
+                        null
+                    )
                 }
             />
             <AutopetInfoCard
@@ -79,11 +86,14 @@ export default function AutopetInfo() {
             <AutopetInfoCard
                 name='Staked'
                 count={
-                    totalStaked > 0 ?
+                    totalStaked !== null ? (
                         <>
                             {totalStaked}
                             <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
-                        </> : null
+                        </>
+                    ) : (
+                        null
+                    )
                 }
             />
         </div>

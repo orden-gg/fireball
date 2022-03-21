@@ -100,6 +100,7 @@ const tabStyles = makeStyles(theme => ({
     },
     tabArrow: {
         color: theme.palette.success.light,
+        width: 22
     },
     tabGotchi: {
         display: 'inline-block',
@@ -162,7 +163,7 @@ const infoStyles = makeStyles(theme => ({
         fontWeight: 700,
         boxSizing: 'border-box',
         margin: theme.spacing(1),
-        minWidth: 360,
+        minWidth: 380,
         textAlign: 'center',
         padding: theme.spacing(2),
     },
@@ -182,6 +183,9 @@ const infoStyles = makeStyles(theme => ({
         display: 'inline-flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    autopetCardCountLabel: {
+        fontSize: 18
     },
     autopetInfoIcon: {
         position: 'absolute',

@@ -25,13 +25,13 @@ export default function PetPanel({ index, dir }) {
             className={classes.tabPanel}
         >
             <Typography className={classes.panelText}>
-                Approve contract to pet your gotchi(s)
+                Approve the contract to pet your Gotchi(s)
             </Typography>
             <Typography className={classes.panelText}>
-                This is trustless, contract can only pet your gotchi, nothing else
+                This is comepletely trustless, the contract can only pet your Gotchi(s) and nothing else
             </Typography>
             <Typography className={classes.panelText}>
-                You can take back pet rights anytime
+                You can revoke the petting rights anytime
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
@@ -44,12 +44,12 @@ export default function PetPanel({ index, dir }) {
                 >
                     {renderButtonNode(
                         petState,
-                        isPetApproved ? 'Disapprove pet' : 'Approve pet'
+                        isPetApproved ? 'Revoke petting approval' : 'Approve petting'
                     )}
                 </Button>
             </div>
-            <PanelErrorText isShown={isStaked} children='Please unstake ghst before disapprove' />
-            <PanelErrorText isShown={!isUserConnected} children='Please connect wallet first' />
+            <PanelErrorText isShown={isStaked} children='Please unstake GHST before revoking approval' />
+            <PanelErrorText isShown={!isUserConnected} children='Please connect your wallet first' />
         </div>
     )
 }
