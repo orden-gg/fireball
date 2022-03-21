@@ -4,7 +4,7 @@ import { Backdrop, IconButton } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import { GuildsContext } from 'contexts/GuildsContext';
 import guildUtils from 'utils/guildUtils';
 

@@ -3,7 +3,7 @@ import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import web3 from 'api/web3';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import { LoginContext } from 'contexts/LoginContext';
 
 import styles from './styles';

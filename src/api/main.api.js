@@ -1,7 +1,7 @@
 import ethersApi from './ethers.api';
 
 import { AUTOPET_CONTRACT, MAIN_CONTRACT } from './common/constants';
-import { MAIN_ABI } from 'data/abi/main';
+import { MAIN_ABI } from 'data/abi/main.abi';
 import { AUTOPET_ABI } from 'data/abi/autopet.abi';
 
 const contract = ethersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');

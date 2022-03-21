@@ -10,7 +10,7 @@ import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
 import Web3 from 'web3';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 

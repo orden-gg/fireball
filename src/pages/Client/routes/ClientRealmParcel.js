@@ -8,7 +8,7 @@ import Web3 from 'web3';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import ParcelBaazaarLink from 'components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';

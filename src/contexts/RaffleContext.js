@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import web3 from 'api/web3';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';

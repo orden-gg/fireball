@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 import Web3 from 'web3';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';

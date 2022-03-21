@@ -5,7 +5,7 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 import classNames from 'classnames';
 
 import autopetApi from 'api/autopet.api';
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import AutopetInfoCard from './AutopetInfoCard';

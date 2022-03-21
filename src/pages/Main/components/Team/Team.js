@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import GotchiSvg from 'components/Gotchi/GotchiSvg';
 import Subtitle from 'components/Subtitle/Subtitle';
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import { gotchiByIdQuery } from 'api/common/queries';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 

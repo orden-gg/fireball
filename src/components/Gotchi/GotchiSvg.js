@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
 
 import { GotchiSvgStyles } from './styles';

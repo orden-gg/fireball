@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 
 import Parcel from 'components/Items/Parcel/Parcel';
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import useFullscreenStatus from 'hooks/useFullscreenStatus';
 import CitadelLoading from 'assets/images/animated/gotchiverse.gif';
 

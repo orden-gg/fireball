@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Backdrop, CircularProgress } from '@mui/material';
 import Web3 from 'web3';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import useInterval from 'hooks/useInterval';
 import { listingTypes } from 'data/types';

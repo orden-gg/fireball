@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import classNames from 'classnames';
 
-import thegraph from 'api/thegraph';
+import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import openedPortal from 'assets/images/animated/h1-open.gif';
 import sealedPortal from 'assets/images/portals/h1-sealed.svg';
