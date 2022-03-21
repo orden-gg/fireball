@@ -68,7 +68,7 @@ export default function AutopetInfo() {
             <AutopetInfoCard
                 name='Fee'
                 count={
-                    fee === null ? (
+                    fee !== null ? (
                         <>
                             {fee}
                             <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
