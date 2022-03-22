@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import Wearable from 'components/Items/Wearable/Wearable';
 import Gotchi from 'components/Gotchi/Gotchi';

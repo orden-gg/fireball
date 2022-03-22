@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Backdrop, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 import thegraph from 'api/thegraph.api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
