@@ -38,7 +38,7 @@ export default function Baazaar() {
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
     const {filteringType, exactMatch, id, name, orderingTypes,
-        sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
+        sortingOrder, minBRS, minKIN, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
         fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
     // watch filters
@@ -415,7 +415,7 @@ export default function Baazaar() {
                     return gotchi.id.split(id).length > 1;
                 }
             } else if (filteringType === baazaarFilteringTypes.stats) {
-                if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS)) {
+                if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS) || parseInt(gotchi.kinship) <= parseInt(minKIN)) {
                     return false;
                 }
                 filtersMap.forEach((traitName, index) => {
@@ -563,7 +563,7 @@ export default function Baazaar() {
     }, [selectedGoodsType, selectedListingType]);
 
     return (
-        <Grid classes={{root: classes.baazaar}} container spacing={3}>
+        <div className={classes.baazaar}>
             <BaazaarSidebar
                 setPage={setPage}
                 runFilterWatcher={runFilterWatcher}
@@ -597,6 +597,6 @@ export default function Baazaar() {
             <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>
-        </Grid>
+        </div>
     );
 }

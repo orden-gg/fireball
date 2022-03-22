@@ -34,8 +34,9 @@ const BaazaarContextProvider = (props) => {
     const [id, setId] = useState(null);
     const [exactMatch, setExactMatch] = useState(true);
     const [minBRS, setMinBRS] = useState(null);
+    const [minKIN, setMinKIN] = useState(null);
     const [selectedTraits, setSelectedTraits] = useState('NRG');
-    const [sliderRange, setSliderRange] = useState([0, 99]);
+    const [sliderRange, setSliderRange] = useState([-20, 120]);
     const [priceFrom, setPriceFrom] = useState('');
     const [priceTo, setPriceTo] = useState('');
     const [rarity, setRarity] = useState('');
@@ -90,6 +91,8 @@ const BaazaarContextProvider = (props) => {
             setExactMatch,
             minBRS,
             setMinBRS,
+            minKIN,
+            setMinKIN,
             sliderRange,
             setSliderRange,
             orderingTypes,

@@ -9,7 +9,7 @@ export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPre
     const classes = baazaarBodyStyles();
 
     return (
-        <Grid className={classes.baazaarBody} item xs={12} sm={12} md={9} lg={9} xl={10}>
+        <div className={classes.baazaarBody}>
             <Grid container spacing={3}>
                 {
                     // eslint-disable-next-line array-callback-return
@@ -30,6 +30,6 @@ export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPre
                     }
                 </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 }

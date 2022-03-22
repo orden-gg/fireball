@@ -69,8 +69,11 @@ const styles = makeStyles( theme => ({
             color: theme.palette.rarity.rare
         }
     },
+    traitsWrapper: {
+        paddingRight: 6
+    },
     traitsContainer: {
-        paddingTop: '0 !important'
+        paddingTop: '0 !important',
     },
     slider: {
         padding: '13px 0 0'

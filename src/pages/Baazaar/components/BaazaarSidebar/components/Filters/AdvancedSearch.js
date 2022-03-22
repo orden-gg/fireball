@@ -52,8 +52,8 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
             </Grid>
             <Grid item xs={12}>
                 <Slider
-                    min={0}
-                    max={99}
+                    min={-20}
+                    max={120}
                     value={sliderRange}
                     onChange={onSliderChange}
                     valueLabelDisplay="auto"
