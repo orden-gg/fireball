@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
+import classNames from 'classnames';
 import { Typography } from '@mui/material';
 
 import GotchiHorizontal from 'components/Gotchi/GotchiHorizontal';
