@@ -10,6 +10,7 @@ const styles = makeStyles(theme => ({
         [theme.breakpoints.up('sm')]: {
             maxWidth: 300,
             width: 300,
+            flexShrink: 0,
             marginRight: 24
         }
     },
