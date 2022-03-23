@@ -3,13 +3,19 @@ import { alpha } from '@mui/system';
 
 const styles = makeStyles(theme => ({
     sidebar: {
-        alignContent: 'start',
-        padding: 30
-    },
-    sidebarInner: {
         padding: 24,
         borderRadius: 8,
-        background: theme.palette.background.paper
+        background: theme.palette.background.paper,
+        maxWidth: 500,
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: 300,
+            marginRight: 24
+        }
+    },
+    sidebarSection: {
+        '& + div': {
+            marginTop: 12
+        }
     },
     formControl: {
         width: '100%',

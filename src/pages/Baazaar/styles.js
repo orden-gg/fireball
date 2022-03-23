@@ -4,7 +4,10 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles(theme => ({
     baazaar: {
         padding: 24,
-        width: 'calc(100vw + 24px)'
+        [theme.breakpoints.up('sm')]: {
+            display: 'flex',
+            alignItems: 'flex-start'
+        }
     },
     backdrop: {
         zIndex: theme.zIndex.appBar - 1,
@@ -14,7 +17,7 @@ const styles = makeStyles(theme => ({
 
 const baazaarBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        padding: 30
+        flexGrow: 1
     },
     pagination: {
         display: 'flex',
@@ -164,7 +167,7 @@ const paginationStyles = makeStyles(theme => ({
 
 const baazaarSortingBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        padding: 30
+        flexGrow: 1
     },
     baazaarListItems: {
         display: 'grid',
