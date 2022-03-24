@@ -660,6 +660,7 @@ const guilds = [
         ],
         banner: '',
         socials: {
+            website: 'https://msggaang.wtf/',
             twitter: 'https://twitter.com/msggaang',
             discord: 'https://discord.com/invite/XUASaaxu2Q'
         }
