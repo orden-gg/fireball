@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import styles from './styles';
+import styles from '../styles';
 
 export default function GotchiRewards({ gotchi }) {
     const classes = styles();

@@ -1,43 +1,69 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import WearableImage from './common/WearableImage/WearableImage';
+import WearableImage from './WearableImage';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
 import HorizontalLink from '../common/HorizontalLink/HorizontalLink';
 import CardName from '../common/CardName/CardName';
 import CardStats from '../common/CardStats/CardStats';
 import styles from './../styles';
+import itemUtils from 'utils/itemUtils';
 
 export default function WearableHorizontal({ wearable, render }) {
     const classes = styles();
-    const additionalClass = 'horizontal';
 
     const gotchiSections = {
         // image
-        get image() {
-            return <WearableImage wearable={wearable} key={`${wearable.id}-wearable-image`} />
+        imageCell(children) {
+            return (
+                <div className={classes.wearableImageCell}>
+                    {children}
+                </div>
+            )
         },
 
         // body
-        get body() {
-            return <div style={{'width': '70%'}} key={`${wearable.id}-wearable-body`}>
-                <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-around', 'paddingTop': '30px'}}>
-                    <div>
-                        <CardName item={wearable} />
-                    </div>
-                    <div>
-                        <CardStats item={wearable} />
-                    </div>
+        statsCell(children) {
+            return (
+                <div className={classes.wearableStatsCell} key={`${wearable.id}-statsCell`}>
+                    {children}
                 </div>
-                <div>
-                    <HorizontalLink item={wearable} url={'https://aavegotchi.com/baazaar/erc1155/'} additionalClass={additionalClass} />
+            )
+        },
+
+        priceCell(children) {
+
+            return (
+                <div key={`${wearable.id}-priceCell`} className={classes.wearablePriceCell}>
+                    {children}
                 </div>
-            </div>
+            )
+        },
+
+        get image() {
+            return (
+                <WearableImage wearable={wearable} key={`${wearable.id}-image`} />
+            )
+        },
+
+        get name() {
+            return (
+                <HorizontalLink item={wearable} url={'https://aavegotchi.com/baazaar/erc1155/'} />
+            )
+        },
+
+        get cardStats() {
+            return <CardStats item={wearable} />
+        },
+
+        // price
+        get cardName() {
+            return <CardName item={wearable} />
         },
 
         // price
         get price() {
-            return <HorizontalPrice item={wearable} key={`${wearable.id}-wearable-price`} />
+            return <HorizontalPrice label='Sold for ' item={wearable} key={`${wearable.id}-price`} />
         }
     }
 
@@ -54,7 +80,8 @@ export default function WearableHorizontal({ wearable, render }) {
     }
 
     return (
-        <div className={classNames(classes.horizontalCard, wearable.rarity || 'common')}>
+        <div className={classNames(classes.horizontalCard, itemUtils.getItemRarityById(wearable.erc1155TypeId))}>
+            {wearable.rarity}
             {render.map( (name) => {
                 return renderSection(name)
             })}

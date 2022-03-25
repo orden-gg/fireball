@@ -3,7 +3,7 @@ import { Tooltip } from '@mui/material';
 
 import graphUtils from 'utils/graphUtils';
 
-import styles from './styles';
+import styles from '../styles';
 
 export default function GotchiCollateral({ gotchi }) {
     const classes = styles();

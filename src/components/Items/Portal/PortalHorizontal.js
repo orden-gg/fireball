@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import PortalImage from './common/PortalImage';
+import PortalImage from './PortalImage';
 import CardName from '../common/CardName/CardName';
 import CardStats from '../common/CardStats/CardStats';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
@@ -10,34 +10,62 @@ import styles from './../styles';
 
 export default function PortalHorizontal({ portal, render }) {
     const classes = styles();
-    const additionalClass = 'horizontal';
 
     const gotchiSections = {
+
+        imageCell(children) {
+
+            return (
+                <div className={classes.portalImageCell}>
+                    {children}
+                </div>
+            )
+        },
+
+        infoCell(children) {
+
+            return (
+                <div className={classes.portalInfoCell} key={`${portal.id}-portal-infoCell`}>
+                    {children}
+                </div>
+            )
+        },
+
+        priceCell(children) {
+
+            return (
+                <div key={`${portal.id}-priceCell`} className={classes.portalPriceCell}>
+                    {children}
+                </div>
+            )
+        },
+
+        get name() {
+            return (
+                <HorizontalLink item={portal} url={`https://aavegotchi.com/portal/`} />
+            )
+        },
+
+        get cardStats() {
+            return (
+                <CardStats itemStats={`Haunt ${portal.portal.hauntId}`} />
+            )
+        },
+
+        get cardName() {
+            return (
+                <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal}  />
+            )
+        },
+
         // image
         get image() {
             return <PortalImage portal={portal} key={`${portal.id}-portal-image`} />
         },
 
-        // body
-        get body() {
-            return <div style={{'width': '70%'}} key={`${portal.id}-portal-body`}>
-                <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-around', 'paddingTop': '30px'}}>
-                    <div>
-                        <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
-                    </div>
-                    <div>
-                        <CardStats itemStats={`Haunt ${portal.portal.hauntId}`} />
-                    </div>
-                </div>
-                <div>
-                    <HorizontalLink item={portal} url={`https://aavegotchi.com/portal/`} additionalClass={additionalClass} />
-                </div>
-            </div>
-        },
-
         // price
         get price() {
-            return <HorizontalPrice item={portal} key={`${portal.id}-portal-price`} />
+            return <HorizontalPrice label='Sold for ' item={portal} key={`${portal.id}-portal-price`} />
         }
     }
 
@@ -54,7 +82,7 @@ export default function PortalHorizontal({ portal, render }) {
     }
 
     return (
-        <div className={classNames(classes.horizontalCard, portal.rarity || 'common')}>
+        <div className={classNames(classes.horizontalCard, `haunt${portal.portal.hauntId}`)}>
             {render.map( (name) => {
                 return renderSection(name)
             })}

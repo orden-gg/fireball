@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import TicketImage from './common/TicketImage';
+import TicketImage from './TicketImage';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
 import HorizontalLink from '../common/HorizontalLink/HorizontalLink';
 import CardName from '../common/CardName/CardName';
@@ -13,35 +13,62 @@ import styles from './../styles';
 
 export default function TicketHorizontal({ ticket, render }) {
     const classes = styles();
-    const additionalClass = 'horizontal';
 
     const gotchiSections = {
         // image
-        get image() {
-            return <TicketImage ticket={ticket} key={`${ticket.id}-ticket-image`}/>
+        imageCell(children) {
+            return (
+                <div className={classes.ticketImageCell}>
+                    {children}
+                </div>
+            )
         },
 
-        // body
-        get body() {
-            return <div style={{'width': '70%'}} key={`${ticket.id}-ticket-body`}>
-                <div style={{'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-around', 'paddingTop': '30px'}}>
-                    <div>
-                        <CardName itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
+        infoCell(children) {
+
+            return (
+                <div className={classes.ticketInfoCell} key={`${ticket.id}-infoCell`}>
+                    {children}
+                </div>
+            )
+        },
+
+        priceCell(children) {
+
+            return (
+                <div key={`${ticket.id}-priceCell`} className={classes.ticketPriceCell}>
+                    {children}
+                </div>
+            )
+        },
+
+        get cardStats() {
+            return (
+                <CardStats itemStats={`Quantity: ${ticket.quantity}`} />
+            )
+        },
+
+        get cardName() {
+            return (
+                <CardName itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
                                   itemRarity={itemUtils.getItemRarityName(ticket.erc1155TypeId)} item={ticket} />
-                    </div>
-                    <div>
-                        <CardStats itemStats={`Quantity: ${ticket.quantity}`} />
-                    </div>
-                </div>
-                <div>
-                    <HorizontalLink item={ticket} url={'https://aavegotchi.com/baazaar/erc1155/'} additionalClass={additionalClass} />
-                </div>
-            </div>
+            )
+        },
+
+        // image
+        get image() {
+            return <TicketImage ticket={ticket} key={`${ticket.id}-image`}/>
+        },
+
+        get name() {
+            return (
+                <HorizontalLink item={ticket} url={'https://aavegotchi.com/baazaar/erc1155/'} />
+            )
         },
 
         // price
         get price() {
-            return <HorizontalPrice item={ticket} key={`${ticket.id}-ticket-price`} />
+            return <HorizontalPrice label='Sold for ' item={ticket} key={`${ticket.id}-ticket-price`} />
         }
     }
 
@@ -58,7 +85,7 @@ export default function TicketHorizontal({ ticket, render }) {
     }
 
     return (
-        <div className={classNames(classes.horizontalCard, ticket.rarity || 'common')}>
+        <div className={classNames(classes.horizontalCard, ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
             {render.map( (name) => {
                 return renderSection(name)
             })}

@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import GotchiId from './common/GotchiId/GotchiId';
-import GotchiCollateral from './common/GotchiCollateral/GotchiCollateral';
-import GotchiOwner from './common/GotchiOwner/GotchiOwner';
-import GotchiMainTraits from './common/GotchiMainTraits/GotchiMainTraits';
-import GotchiName from './common/GotchiName/GotchiName';
-import GotchiSVG from './common/GotchiSVG/GotchiSVG';
-import GotchiRewards from './common/GotchiRewards/GotchiRewards';
+import GotchiId from './common/GotchiId';
+import GotchiCollateral from './common/GotchiCollateral';
+import GotchiOwner from './common/GotchiOwner';
+import GotchiMainTraits from './common/GotchiMainTraits';
+import GotchiName from './common/GotchiName';
+import GotchiSVG from './common/GotchiSVG';
+import GotchiRewards from './common/GotchiRewards';
 import GotchiLevel from './GotchiLevel';
 import GotchiSkillPoints from './GotchiSkillPoints';
 import GotchiListing from './GotchiListing';
@@ -155,15 +155,17 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
 
         return (
             Object.keys(value).map((key) => (
-                gotchiSections[key](value[key].map( item => (
-                    renderSection(item)
-                )))
+                gotchiSections[key](
+                    value[key].map( item => (
+                        renderSection(item)
+                    ))
+                )
             ))
         )
     }
 
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed' )}>
+        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'vertical' )}>
             {render.map((name) => {
                 return renderSection(name)
             })}

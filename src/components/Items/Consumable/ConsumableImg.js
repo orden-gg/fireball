@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import { ERC1155InnerStyles } from '../../styles';
+import { ERC1155InnerStyles } from '../styles';
 
 export default function ConsumableImg({ consumable, additionalClass }) {
     const classes = ERC1155InnerStyles();

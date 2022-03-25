@@ -6,7 +6,9 @@ const styles = makeStyles(theme => ({
         padding: 24,
         borderRadius: 8,
         background: theme.palette.background.paper,
-        maxWidth: 500,
+        width: 300,
+        // position: 'sticky',
+        // top: 94,
         [theme.breakpoints.up('sm')]: {
             maxWidth: 300,
             marginRight: 24

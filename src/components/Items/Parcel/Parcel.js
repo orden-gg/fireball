@@ -13,7 +13,7 @@ import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import ParcelBaazaarLink from './common/ParcelBaazaarLink/ParcelBaazaarLink';
+import ParcelBaazaarLink from './ParcelBaazaarLink';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 export default function Parcel({ parcel, isBaazaarCard }) {

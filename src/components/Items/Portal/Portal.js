@@ -8,7 +8,7 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import PortalImage from './common/PortalImage';
+import PortalImage from './PortalImage';
 import CardName from '../common/CardName/CardName';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';

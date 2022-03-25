@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../../../styles';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 export default function ParcelBaazaarLink({ parcel, isBaazaarCard, link, text }) {
     const classes = {

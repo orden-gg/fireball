@@ -6,7 +6,7 @@ import itemUtils from 'utils/itemUtils';
 
 import CardName from '../common/CardName/CardName';
 import CardStats from '../common/CardStats/CardStats';
-import WearableImage from './common/WearableImage/WearableImage';
+import WearableImage from './WearableImage';
 
 export default function Wearable({ wearable, raffleChances, tooltip }) {
     const rarity = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);

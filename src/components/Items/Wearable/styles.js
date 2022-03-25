@@ -6,9 +6,14 @@ export default makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100px',
+        width: '100%',
         marginBottom: 4,
         '.tooltip-wearable &': {
             minHeight: 60
+        },
+
+        '.horizontal &': {
+            margin: 'auto 0'
         }
     },
     icon: {

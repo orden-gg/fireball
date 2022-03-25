@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './styles';
+import styles from '../styles';
 
 export default function GotchiBadges({ children, gotchi }) {
     const classes = styles();

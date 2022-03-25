@@ -1,18 +1,17 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import ShineLabel from 'components/Labels/ShineLabel';
 import itemUtils from 'utils/itemUtils';
 
-import GotchiSvgByStats from '../../GotchiSvgByStats';
-import GotchiSvg from '../../GotchiSvg';
-import styles from './styles';
+import GotchiSvgByStats from '../GotchiSvgByStats';
+import GotchiSvg from '../GotchiSvg';
+import styles from '../styles';
 
-export default function GotchiSVG({ gotchi, renderSvgByStats, additionalClass, inPortal }) {
+export default function GotchiSVG({ gotchi, renderSvgByStats, inPortal }) {
     const classes = styles();
 
     return (
-        <div className={classNames(classes.gotchiSvg, additionalClass)}>
+        <div className={classes.gotchiSvg}>
             {inPortal ? (
                 <img
                     className={classes.gotchiSvgPortal}

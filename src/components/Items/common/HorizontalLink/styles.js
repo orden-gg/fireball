@@ -13,6 +13,10 @@ export default makeStyles(theme => ({
         transition: 'all .2s ease-in-out',
         textAlign: 'center',
 
+        '.horizontal &': {
+            margin: 0
+        },
+
         '&:hover': {
             textDecoration: 'none',
             backgroundColor: alpha(theme.palette.secondary.dark, .6),

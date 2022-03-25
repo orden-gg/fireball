@@ -50,9 +50,12 @@ const styles = makeStyles(theme => ({
     itemBalancxeDivider: {
         margin: '0 2px'
     },
+
+    // horizontal
     horizontalCard: {
         display: 'flex',
-        marginBottom: 5,
+        minHeight: 200,
+        padding: theme.spacing(0, 1),
 
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
@@ -87,9 +90,135 @@ const styles = makeStyles(theme => ({
         '&.partner': {
             backgroundColor: alpha(theme.palette.realm.partner, .15)
         },
+        '&.haunt1': {
+            backgroundColor: alpha(theme.palette.haunts.h1, .15),
+        },
+
+        '&.haunt2': {
+            backgroundColor: alpha(theme.palette.haunts.h2, .15),
+        },
         '&:hover .labelSlot': {
             opacity: .7,
         }
+    },
+    wearableImageCell: {
+        margin: theme.spacing(0, 1),
+        maxWidth: 250,
+        minWidth: 250,
+        display: 'flex',
+        flexDirection: 'column',
+
+        '.common &': {
+            backgroundColor: alpha(theme.palette.rarity.common, .15)
+        },
+
+        '.uncommon &': {
+            backgroundColor: alpha(theme.palette.rarity.uncommon, .15)
+        },
+
+        '.rare &': {
+            backgroundColor: alpha(theme.palette.rarity.rare, .15)
+        },
+
+        '.legendary &': {
+            backgroundColor: alpha(theme.palette.rarity.legendary, .15)
+        },
+
+        '.mythical &': {
+            backgroundColor: alpha(theme.palette.rarity.mythical, .15)
+        }
+    },
+    wearableStatsCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        // alignItems: 'center',
+        margin: theme.spacing(2, 1),
+        width: 320
+    },
+    wearablePriceCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: theme.spacing(3, 1),
+        flex: '1 1 auto'
+    },
+    portalImageCell: {
+        margin: theme.spacing(0, 1),
+        maxWidth: 250,
+        minWidth: 250,
+        display: 'flex',
+        flexDirection: 'column',
+
+        '.haunt1 &': {
+            backgroundColor: alpha(theme.palette.haunts.h1, .15),
+        },
+
+        '.haunt2 &': {
+            backgroundColor: alpha(theme.palette.haunts.h2, .15),
+        },
+    },
+    portalInfoCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        // alignItems: 'center',
+        margin: theme.spacing(2, 1),
+        width: 320
+    },
+    portalPriceCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: theme.spacing(3, 1),
+        flex: '1 1 auto'
+    },
+    ticketImageCell: {
+        margin: theme.spacing(0, 1),
+        maxWidth: 250,
+        minWidth: 250,
+        display: 'flex',
+        flexDirection: 'column',
+
+        '.common &': {
+            backgroundColor: alpha(theme.palette.rarity.common, .15)
+        },
+
+        '.uncommon &': {
+            backgroundColor: alpha(theme.palette.rarity.uncommon, .15)
+        },
+
+        '.rare &': {
+            backgroundColor: alpha(theme.palette.rarity.rare, .15)
+        },
+
+        '.legendary &': {
+            backgroundColor: alpha(theme.palette.rarity.legendary, .15)
+        },
+
+        '.mythical &': {
+            backgroundColor: alpha(theme.palette.rarity.mythical, .15)
+        },
+
+        '.godlike &': {
+            backgroundColor: alpha(theme.palette.rarity.godlike, .15)
+        },
+
+        '.drop &': {
+            backgroundColor: alpha(theme.palette.rarity.drop, .05)
+        }
+    },
+    ticketInfoCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        // alignItems: 'center',
+        margin: theme.spacing(2, 1),
+        width: 320
+    },
+    ticketPriceCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        margin: theme.spacing(3, 1),
+        flex: '1 1 auto'
     }
 }));
 
@@ -277,9 +406,10 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         '.tooltip-wearable &': { // iconWrapper
             minHeight: 60
         },
-        '&.horizontal': {
+        '.horizontal &': {
             width: 150,
-            height: 150
+            height: 150,
+            margin: 'auto'
         }
     },
     icon: {
@@ -447,8 +577,12 @@ const parselStyles = makeStyles(theme => ({
 const portalStyles = makeStyles(theme => ({
     portalImage: {
         width: 100,
-        marginTop: 10
-    }
+        marginTop: 10,
+
+        '.horizontal &': {
+            margin: 'auto'
+        }
+    },
 }));
 
 export {

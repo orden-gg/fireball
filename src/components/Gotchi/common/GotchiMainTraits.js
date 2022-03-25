@@ -3,10 +3,10 @@ import classNames from 'classnames';
 
 import HighlightNumber from 'components/HighlightNumber';
 
-import styles from './styles';
+import { GotchiTraitsStyles } from '../styles';
 
 export default function GotchiMainTraits({ gotchi }) {
-    const classes = styles();
+    const classes = GotchiTraitsStyles();
 
     const calculateRarityType = (rarity) => {
         return rarity >= 700 ? 'godlike' : rarity >= 600 ? 'mythical' : rarity >= 500 ? 'rare' : '';

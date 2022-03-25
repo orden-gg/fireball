@@ -6,18 +6,14 @@ const styles = makeStyles(theme => ({
         padding: 24,
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
-            alignItems: 'flex-start'
+            alignItems: 'stretch'
         }
-    },
-    backdrop: {
-        zIndex: theme.zIndex.appBar - 1,
-        color: '#fff'
     }
 }));
 
 const baazaarBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     pagination: {
         display: 'flex',
@@ -167,7 +163,8 @@ const paginationStyles = makeStyles(theme => ({
 
 const baazaarSortingBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        flexGrow: 1
+        flexGrow: 1,
+        position: 'relative'
     },
     baazaarListItems: {
         display: 'grid',
@@ -178,8 +175,12 @@ const baazaarSortingBodyStyles = makeStyles(theme => ({
         '&.horizontal': {
             display: 'flex',
             flexDirection: 'column',
-            gridTemplateColumns: 'none',
-            gridGap: 0
+            gridTemplateColumns: 'none'
+        }
+    },
+    baazaarListItem: {
+        '.horizontal &': {
+            maxWidth: 850
         }
     },
     pagination: {
@@ -225,6 +226,11 @@ const baazaarSortingBodyStyles = makeStyles(theme => ({
         '& .carousel-status': {
             top: -17
         }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.appBar - 1,
+        color: '#fff',
+        position: 'absolute'
     }
 }));
 

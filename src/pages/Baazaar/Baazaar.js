@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Backdrop, CircularProgress } from '@mui/material';
-
 import thegraph from 'api/thegraph.api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import useInterval from 'hooks/useInterval';
 import { listingTypes } from 'data/types';
 import { baazaarFilteringTypes } from 'data/types';
 
-import BaazaarBody from './components/BaazaarBody/BaazaarBody';
-import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
+import BaazaarBody from './components/BaazaarBody';
+import BaazaarSortingBody from './components/BaazaarSortingBody';
 import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
 import { getQueries } from './baazaarQueryBuilder';
 import styles from './styles';
@@ -592,11 +590,9 @@ export default function Baazaar() {
                         paginationIsVisible={true}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
+                        backdropIsOpen={backdropIsOpen}
                     />
             }
-            <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
-                <CircularProgress color='primary' />
-            </Backdrop>
         </div>
     );
 }
