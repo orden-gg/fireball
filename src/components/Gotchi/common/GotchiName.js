@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
-import classNames from 'classnames';
 
 import styles from '../styles';
 
