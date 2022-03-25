@@ -673,7 +673,22 @@ const guilds = [
     },{
         name: 'MSG',
         logo: require('../assets/images/guilds/msg.jpeg').default,
-        members: [],
+        members: [
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x86aecfc1E3973108Ce14b9b741a99d3466127170',
+            '0x244291D3F74380D7CD10b861622aFF1216Fc2697',
+            '0x6d49DEC27E02eFccEF9a5136dDe10A06333cc9f7',
+            '0x54021E58aF1756dc70CE7034d7636De2D2f1fA74',
+            '0x3285bf2A8c9248a135e9D13d8DDbC7679aaC0AA1',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+            '0x00000000005dbcB0d0513FcDa746382Fe8a53468',
+            '0x00064e885741Ed13A122C5A115999e05c71B8FCa',
+            '0x244FE02FBCf4dB4Ad96063B161F00e444FC54011',
+            '0x8e4Bdd156e4dD802dd919F4FD2645681CE99a538',
+            '0xfaCEf700458D4Fc9746F7f3e0d37B462711fF09e',
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+        ],
         description: [
             {
                 title: 'Description',
@@ -690,8 +705,8 @@ const guilds = [
         ],
         banner: '',
         socials: {
-            twitter: 'https://twitter.com/msg13gaang',
-            twitch: 'https://www.twitch.tv/msg13gaang',
+            website: 'https://msggaang.wtf/',
+            twitter: 'https://twitter.com/msggaang',
             discord: 'https://discord.com/invite/XUASaaxu2Q'
         }
     },{
@@ -712,7 +727,7 @@ const guilds = [
                 text: 'Cherry#0302'
             }
         ],
-        banner: '',
+        banner: require('../assets/images/guilds/msg-gang-banner.jpg').default,
         socials: {
             twitter: 'https://twitter.com/MugnBunsGuild',
             discord: 'https://discord.com/invite/mugnbuns'
