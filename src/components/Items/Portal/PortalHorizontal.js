@@ -14,36 +14,33 @@ export default function PortalHorizontal({ portal, render }) {
     const gotchiSections = {
 
         imageCell(children) {
-
             return (
                 <div className={classes.portalImageCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         infoCell(children) {
-
             return (
                 <div className={classes.portalInfoCell} key={`${portal.id}-portal-infoCell`}>
                     {children}
                 </div>
-            )
+            );
         },
 
         priceCell(children) {
-
             return (
                 <div key={`${portal.id}-priceCell`} className={classes.portalPriceCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         get name() {
             return (
                 <HorizontalLink item={portal} url={`https://aavegotchi.com/portal/`} />
-            )
+            );
         },
 
         get cardStats() {
@@ -55,7 +52,7 @@ export default function PortalHorizontal({ portal, render }) {
         get cardName() {
             return (
                 <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal}  />
-            )
+            );
         },
 
         // image

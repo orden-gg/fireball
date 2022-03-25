@@ -10,11 +10,9 @@ export default makeStyles(theme => ({
         alignItems: 'center',
         fontSize: 16,
         fontWeight: 800,
-
         '.vertical &': {
             width: '20%'
         },
-
         '.horizontal &': {
             margin: 'auto'
         }

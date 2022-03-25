@@ -21,38 +21,36 @@ export default function TicketHorizontal({ ticket, render }) {
                 <div className={classes.ticketImageCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         infoCell(children) {
-
             return (
                 <div className={classes.ticketInfoCell} key={`${ticket.id}-infoCell`}>
                     {children}
                 </div>
-            )
+            );
         },
 
         priceCell(children) {
-
             return (
                 <div key={`${ticket.id}-priceCell`} className={classes.ticketPriceCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         get cardStats() {
             return (
                 <CardStats itemStats={`Quantity: ${ticket.quantity}`} />
-            )
+            );
         },
 
         get cardName() {
             return (
                 <CardName itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
                                   itemRarity={itemUtils.getItemRarityName(ticket.erc1155TypeId)} item={ticket} />
-            )
+            );
         },
 
         // image
@@ -63,7 +61,7 @@ export default function TicketHorizontal({ ticket, render }) {
         get name() {
             return (
                 <HorizontalLink item={ticket} url={'https://aavegotchi.com/baazaar/erc1155/'} />
-            )
+            );
         },
 
         // price

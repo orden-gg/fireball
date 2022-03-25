@@ -15,8 +15,7 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
     const classes = styles();
 
     const gotchiSections = {
-        badges: (children) => {
-
+        badges(children) {
             return (
                 <div className={classes.gotchiBadges} key={`${gotchi.id}-badges`}>
                     {children}
@@ -25,7 +24,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         imageCell(children) {
-
             return (
                 <div className={classes.gotchiImageCell} key={`${gotchi.id}-imageCell`}>
                     {children}
@@ -33,9 +31,7 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
             );
         },
 
-        // body
         traitsCell(children) {
-
             return (
                 <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
                     {children}
@@ -44,16 +40,14 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         priceCell(children) {
-
             return (
                 <div key={`${gotchi.id}-priceCell`} className={classes.gotchiPriceCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         get id() {
-
             return (
                 <GotchiId
                     gotchi={gotchi}
@@ -64,7 +58,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get collateral() {
-
             return (
                 <GotchiCollateral
                     gotchi={gotchi}
@@ -74,7 +67,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get level() {
-
             return (
                 <GotchiLevel
                     level={gotchi.level}
@@ -87,7 +79,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get mainTraits() {
-
             return (
                 <GotchiMainTraits
                     gotchi={gotchi}
@@ -97,7 +88,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get numericTraits() {
-
             return (
                 <GotchiTraitsHighlight
                     traits={gotchi.numericTraits}
@@ -108,7 +98,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get name() {
-
             return (
                 <GotchiName
                     gotchi={gotchi}
@@ -118,7 +107,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
         },
 
         get svg() {
-
             return (
                 <GotchiSVG
                     gotchi={gotchi}
@@ -130,7 +118,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
 
         // price
         get price() {
-
             return (
                 <HorizontalPrice item={item} key={`${gotchi.id}-gotchi-price`} label='Sold for' />
             )

@@ -19,7 +19,7 @@ export default function WearableHorizontal({ wearable, render }) {
                 <div className={classes.wearableImageCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         // body
@@ -28,28 +28,27 @@ export default function WearableHorizontal({ wearable, render }) {
                 <div className={classes.wearableStatsCell} key={`${wearable.id}-statsCell`}>
                     {children}
                 </div>
-            )
+            );
         },
 
         priceCell(children) {
-
             return (
                 <div key={`${wearable.id}-priceCell`} className={classes.wearablePriceCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         get image() {
             return (
                 <WearableImage wearable={wearable} key={`${wearable.id}-image`} />
-            )
+            );
         },
 
         get name() {
             return (
                 <HorizontalLink item={wearable} url={'https://aavegotchi.com/baazaar/erc1155/'} />
-            )
+            );
         },
 
         get cardStats() {

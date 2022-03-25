@@ -11,7 +11,6 @@ export default makeStyles(theme => ({
         '.tooltip-wearable &': {
             minHeight: 60
         },
-
         '.horizontal &': {
             margin: 'auto 0'
         }

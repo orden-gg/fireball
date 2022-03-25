@@ -12,23 +12,18 @@ const styles = makeStyles(theme => ({
         '&:hover': {
             textDecoration: 'none'
         },
-
         '&.haunt1': {
             backgroundColor: alpha(theme.palette.haunts.h1, .2),
         },
-
         '&.haunt2': {
             backgroundColor: alpha(theme.palette.haunts.h2, .2),
         },
-
         '&.narrowed': {
             background: 'none'
         },
-
         '&.vertical': {
             padding: '0 8px 8px'
         },
-
         '&.horizontal': {
             display: 'flex',
             padding: theme.spacing(0, 1)
@@ -37,24 +32,19 @@ const styles = makeStyles(theme => ({
     gotchiSvg: {
         position: 'relative',
         minWidth: 150,
-
         '.vertical &': {
             margin: '0 -8px',
             padding: 8
         },
-
         '.horizontal &': {
             padding: '0 18%'
         },
-
         '.haunt1 &': {
             backgroundColor: alpha(theme.palette.haunts.h1, .15)
         },
-
         '.haunt2 &': {
             backgroundColor: alpha(theme.palette.haunts.h2, .15)
         },
-
         '.narrowed &': {
             padding: 0,
             marginTop: 5
@@ -88,15 +78,12 @@ const styles = makeStyles(theme => ({
         fontWeight: '700',
         minWidth: 70,
         opacity: .8,
-
         '.vertical &': {
             marginRight: 'auto'
         },
-
         '.horizontal &': {
             margin: theme.spacing(0, 1)
         },
-
         '.narrowed &': {
             minWidth: 50,
             backgroundColor: theme.palette.primary.main
@@ -105,21 +92,17 @@ const styles = makeStyles(theme => ({
     gotchiBadges: {
         display: 'flex',
         alignItems: 'center',
-
         '.vertical &': {
             margin: '0 -4px',
             padding: '4px 0',
             justifyContent: 'flex-end'
         },
-
         '.horizontal &': {
             justifyContent: 'center'
         },
-
         '.narrowed &': {
             padding: 0
         }
-
     },
     gotchiBadge: {
         height: 25,
@@ -137,31 +120,25 @@ const styles = makeStyles(theme => ({
         position: 'relative',
         transition: 'all .2s ease-in-out',
         padding: 8,
-
         '.vertical &': {
             margin: '0 -8px'
         },
-
         '&:hover': {
             textDecoration: 'none',
             backgroundColor: alpha(theme.palette.secondary.dark, .6),
         },
-
         '.narrowed &': {
             background: 'none',
             padding: '5px 10px 5px 5px',
         },
-
         '& p': {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             fontSize: 16,
             margin: 0,
-
             '.narrowed &': {
                 fontSize: 14,
-
                 '&:hover': {
                     textDecoration: 'underline',
                 }
@@ -184,7 +161,6 @@ const styles = makeStyles(theme => ({
         right: 2,
         bottom: 2,
         fontSize: 12,
-
         '.narrowed &': {
             bottom: 8
         }
@@ -243,7 +219,6 @@ const styles = makeStyles(theme => ({
         fontSize: 10,
         marginLeft: 2
     },
-
     // Horizontal
     gotchiImageCell: {
         minWidth: 250,
@@ -395,17 +370,14 @@ const GotchiTraitsStyles = makeStyles(theme => ({
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         minHeight: 26,
-
         '.horizontal &': {
             marginTop: theme.spacing(1)
         }
     },
     gotchiMainTraits: {
-
         '.vertical &': {
             margin: '8px 0'
         },
-
         '.horizontal &': {
             marginTop: 0
         }
@@ -456,11 +428,9 @@ const GotchiListingStyles = makeStyles(theme => ({
         backgroundColor: alpha(theme.palette.secondary.dark, .5),
         fontSize: 14,
         fontWeight: 600,
-
         '& p': {
             margin: 0
         },
-
         '&:hover': {
             backgroundColor: alpha(theme.palette.secondary.dark, .7),
         }

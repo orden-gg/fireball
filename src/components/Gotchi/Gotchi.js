@@ -154,9 +154,9 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
         if (typeof value === 'string') return gotchiSections[value];
 
         return (
-            Object.keys(value).map((key) => (
+            Object.keys(value).map(key => (
                 gotchiSections[key](
-                    value[key].map( item => (
+                    value[key].map(item => (
                         renderSection(item)
                     ))
                 )

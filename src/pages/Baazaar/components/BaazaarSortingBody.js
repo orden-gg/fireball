@@ -165,7 +165,6 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                 }
             </div>
 
-
             <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>

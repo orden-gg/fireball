@@ -12,44 +12,36 @@ export default makeStyles(theme => ({
         position: 'relative',
         transition: 'all .2s ease-in-out',
         textAlign: 'center',
-
         '.horizontal &': {
             margin: 0
         },
-
         '&:hover': {
             textDecoration: 'none',
             backgroundColor: alpha(theme.palette.secondary.dark, .6),
         },
-
         '.narrowed &': {
             background: 'none',
             padding: '5px 10px 5px 5px',
         },
-
         '& p': {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             fontSize: 16,
             margin: 0,
-
             '.narrowed &': {
                 fontSize: 14,
-
                 '&:hover': {
                     textDecoration: 'underline',
                 }
             }
         }
     },
-
     callMadeIcon: {
         position: 'absolute',
         right: 2,
         bottom: 2,
         fontSize: 12,
-
         '.narrowed &': {
             bottom: 8
         }

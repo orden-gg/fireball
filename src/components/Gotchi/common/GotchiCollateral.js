@@ -10,9 +10,19 @@ export default function GotchiCollateral({ gotchi }) {
     const collateral = graphUtils.getCollateralName(gotchi.collateral);
 
     return (
-        <Tooltip title={collateral} classes={{ tooltip: classes.customTooltip }} enterTouchDelay={0} placement='top' followCursor>
+        <Tooltip
+            title={collateral}
+            classes={{ tooltip: classes.customTooltip }}
+            enterTouchDelay={0}
+            placement='top'
+            followCursor
+        >
             <div className={classes.gotchiBadge}>
-                <img src={graphUtils.getCollateralImg(collateral)} width={25} alt={collateral} />
+                <img
+                    src={graphUtils.getCollateralImg(collateral)}
+                    width={25}
+                    alt={collateral}
+                />
             </div>
         </Tooltip>
     );
