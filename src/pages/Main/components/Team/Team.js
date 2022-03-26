@@ -11,7 +11,7 @@ import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import styles from './styles';
 
-const gotchiesId = [4271, 8005, 4282, 23470, 13998];
+const gotchiesId = [4285, 8005, 4282, 23470, 13998];
 
 export default function Team() {
     const classes = styles();

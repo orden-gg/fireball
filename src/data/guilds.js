@@ -191,7 +191,52 @@ const guilds = [
     },{
         name: 'cRekto Club',
         logo: require('../assets/images/guilds/crekto-club.png').default,
-        members: [],
+        members: [
+            '0xE8777Bc36A160902c812444874EA21aE4449e99e',
+            '0x52E7e4C7e9Ae9Fd1e3C39359382ce1890b783953',
+            '0xa1586347C540C1b5CD83113872EEb7815A57dfe6',
+            '0x532cB3e10f461280946d139CCB2bF1Bd64BA047a',
+            '0x10604BE9723C0721ed82eCcE49ce68FF0Fc26227',
+            '0x1e0b68335c9C42D418F1bc6Fe9c03f19df3C90A3',
+            '0xC7Dc6bA8dE6770f8ada1dF1653EE07f531729Dd5',
+            '0x4C26A148030d7377AD8AD032bf8eF3dAFb5E5b62',
+            '0x67Bc5fC3FF395631b0305253f8cBEaBcf41d811F',
+            '0x4117F0dB169B126a44fCa628De4223c264AD6F19',
+            '0x6B7f6f99783A256a1C378B7971C23Ae24140944b',
+            '0x6CA2fC6CF24cfE57F259F39EB1Db52BAA257c1e6',
+            '0x624857D6D8cFfdD770398BeeB2B76e3C797eAD26',
+            '0xB2FF18975AF49C522a410a75565bD475F4bAC00f',
+            '0xe1DfeC1c1213BAF331eb586468eBDF6b67F7c332',
+            '0xF7f83e73480afbc76754e52404A10c70ebb62Eb4',
+            '0xE0350C57c2BA6eF8731e41E06F528E6661355B6b',
+            '0x845657F96DC0492E9Ffa0Bed0BA6F425E05B62Ad',
+            '0x7BB8705a3581f549C039401903251Aa010ADe9C6',
+            '0xdDDff3048C1d89FA8fE1221b7bC35624622B9058',
+            '0x82131E86d080312E13605aaDA6538a94Df5B41A5',
+            '0xE7824cFa1C9FAFa4767dF34305123F3151A00F1B',
+            '0xB02DC63B4e234e1aBc36EAD88DF610d67f4920dD',
+            '0x831A97E402955EFB4C72E96B80490A4E45a1D02c',
+            '0xA3aE371Ce95E2FebE99db246652d947b91AF48C3',
+            '0xbC1443c470c6130ed1052748e179fd313E5f20F4',
+            '0xfe791B87F607AE6BE8449e64d393c91be46a1245',
+            '0x3c865BCad9c26a1E24f15a7881e2d09400F51812',
+            '0x703cF6401d04A06378C6F59dbd9117203Ba9892D',
+            '0x33c01376c5F53A2B9D623B833F2f77f9B118A8C0',
+            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
+            '0x3a120FDd1260422Fc76cB5c7E9b5E6F292c96b56',
+            '0xDb1D5d5aCDd6a2233610884715440C92Cb0e85cA',
+            '0x39001877121f282464112926294459638214E7bd',
+            '0xbFF64D0aa474b778ed52209cF6b615b7619bfc94',
+            '0xE4ea40377D1ecA80c5F6D060A18528f3f73b2B61',
+            '0x5C1De9ce04dC35d8A2d2AB821840319F03a5e291',
+            '0xdaaF88a9bEC5e584329e4954Bf72E7909F3A71E9',
+            '0x99F63103C109dBce7a45e111DA8cF2c8C86cf6c1',
+            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
+            '0x0b31e9737FeE75157A9aA775e35a43dEc1dc2059',
+            '0xE5F53aAA6620cfcE303297B2290Bb51cD86A01B2',
+            '0x99Ac39F74CC51f683667F08B4591A6bc3639e0C5',
+            '0xEd89Ea70A367E41bb4FF1a0A185BF0C07deC69de'
+        ],
         description: [
             {
                 title: 'Description',
@@ -628,7 +673,22 @@ const guilds = [
     },{
         name: 'MSG',
         logo: require('../assets/images/guilds/msg.jpeg').default,
-        members: [],
+        members: [
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x86aecfc1E3973108Ce14b9b741a99d3466127170',
+            '0x244291D3F74380D7CD10b861622aFF1216Fc2697',
+            '0x6d49DEC27E02eFccEF9a5136dDe10A06333cc9f7',
+            '0x54021E58aF1756dc70CE7034d7636De2D2f1fA74',
+            '0x3285bf2A8c9248a135e9D13d8DDbC7679aaC0AA1',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+            '0x00000000005dbcB0d0513FcDa746382Fe8a53468',
+            '0x00064e885741Ed13A122C5A115999e05c71B8FCa',
+            '0x244FE02FBCf4dB4Ad96063B161F00e444FC54011',
+            '0x8e4Bdd156e4dD802dd919F4FD2645681CE99a538',
+            '0xfaCEf700458D4Fc9746F7f3e0d37B462711fF09e',
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+        ],
         description: [
             {
                 title: 'Description',
@@ -645,8 +705,8 @@ const guilds = [
         ],
         banner: '',
         socials: {
-            twitter: 'https://twitter.com/msg13gaang',
-            twitch: 'https://www.twitch.tv/msg13gaang',
+            website: 'https://msggaang.wtf/',
+            twitter: 'https://twitter.com/msggaang',
             discord: 'https://discord.com/invite/XUASaaxu2Q'
         }
     },{
@@ -667,7 +727,7 @@ const guilds = [
                 text: 'Cherry#0302'
             }
         ],
-        banner: '',
+        banner: require('../assets/images/guilds/msg-gang-banner.jpg').default,
         socials: {
             twitter: 'https://twitter.com/MugnBunsGuild',
             discord: 'https://discord.com/invite/mugnbuns'
@@ -820,7 +880,8 @@ const guilds = [
             '0xfabd243f41cfaf4fe442e0f7740801151b747e44',
             '0xfbb073e09d84970d1efe099abbe9e626f8ff7024',
             '0xff3b5ec89aa8d54e0b4950ebeca56b039b07971a',
-            '0xBa00D625A28372a1C90DBa8A1d48EEEa9Bb495f7'
+            '0xBa00D625A28372a1C90DBa8A1d48EEEa9Bb495f7',
+            '0x90EF65E04DFa51E14b16206d79782c978a2cC033'
         ],
         description: [
             {
