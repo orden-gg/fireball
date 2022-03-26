@@ -20,7 +20,7 @@ const styles = makeStyles( theme => ({
         color: theme.palette.primary.main
     },
     logo: {
-        width: 20
+        width: 80
     },
     logoText: {
         whiteSpace: 'nowrap',
@@ -34,8 +34,10 @@ const styles = makeStyles( theme => ({
         fontWeight: 700,
         color: theme.palette.text.primary,
         textDecoration: 'none',
+        paddingBottom: 6,
         [theme.breakpoints.up('sm')]: {
-            justifyContent: 'flex-start'
+            justifyContent: 'flex-start',
+            paddingBottom: 10,
         }
     },
     navWrapper: {
@@ -81,9 +83,7 @@ const styles = makeStyles( theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             justifyContent: 'flex-end',
-            borderLeft: '1px solid #3C404A',
-            paddingLeft: 12,
-            marginLeft: 24,
+            marginLeft: 16,
         }
     },
     navLink: {
