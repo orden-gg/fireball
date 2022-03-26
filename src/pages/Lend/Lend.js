@@ -1,10 +1,17 @@
+import ContentAndSidebar from 'components/ContentAndSidebar/ContentAndSidebar';
 import React from 'react';
-import { Grid } from '@mui/material';
 
 export default function Lend() {
     return (
-        <Grid container>
-            Hello Lend
-        </Grid>
+        <div>
+            <ContentAndSidebar>
+                <div>
+                    <span>Hello Lend</span>
+                </div>
+                <div>
+                    <span>I'm here</span>
+                </div>
+            </ContentAndSidebar>
+        </div>
     );
 }

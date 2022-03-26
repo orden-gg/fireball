@@ -1,9 +1,8 @@
-
 import React from 'react';
 
-import styles from './styles';
+import styles from './style';
 
-export default function GridContent({ children, sidebar }) {
+export default function ContentAndSidebar({ children }) {
     const classes = styles();
 
     return (
@@ -11,10 +10,10 @@ export default function GridContent({ children, sidebar }) {
             className={classes.content}
         >
             <div className={classes.sidebar}>
-                {sidebar}
+                {children[0]}
             </div>
             <div className={classes.inner}>
-                {children}
+                {children[1]}
             </div>
         </div>
     );
