@@ -100,7 +100,8 @@ export default function Listings() {
             .filter(listing => listing.category === ListingCategories.Fourth)
             .map(listing => ({
                 ...listing.parcel,
-                priceInWei: listing.priceInWei
+                priceInWei: listing.priceInWei,
+                baazaarId: listing.id
             }));
 
         const listedPortals = listings
