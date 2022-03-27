@@ -14,7 +14,16 @@ export default function Consumable({ consumable }) {
     const stats = itemUtils.getEmojiStatsById(consumable.id);
 
     return (
-        <ERC1155 item={{ id: consumable.id, rarity: 'drop', category: 2, balance: consumable.balance }}>
+        <ERC1155 item={{
+            id: consumable.id,
+            rarity: 'drop',
+            category: 2,
+            balance: consumable.balance,
+            listing: {
+                listing: consumable.listing,
+                price: consumable.price
+            }
+        }}>
 
             <div className={classes.iconWrapper}>
                 <img

@@ -26,7 +26,11 @@ export default function Wearable({ wearable, raffleChances, tooltip }) {
             slot: slot,
             tooltip: tooltip,
             priceInWei: wearable.priceInWei,
-            quantity: wearable.quantity
+            quantity: wearable.quantity,
+            listing: {
+                listing: wearable.listing,
+                price: wearable.price
+            }
         }}>
 
             <div className={classes.iconWrapper}>

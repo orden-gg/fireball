@@ -18,3 +18,11 @@ export const baazaarFilteringTypes = {
     id: 'id',
     stats: 'stats'
 };
+
+export const ListingCategories = Object.freeze({
+    Zero: '0',
+    First: '1',
+    Second: '2',
+    Third: '3',
+    Fourth: '4'
+});

@@ -11,6 +11,7 @@ import sealedPortal from 'assets/images/portals/h1-sealed.svg';
 import openPortal from 'assets/images/portals/h1-open.svg';
 import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
 import h2OpenPortal from 'assets/images/portals/h2-open.svg';
+import { ListingCategories } from 'data/types';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
@@ -57,8 +58,8 @@ export default function Portal({ portal }) {
 
             <img className={classes.portalImage} src={
                 portal.portal.hauntId === "1" ?
-                    (portal.category === '0' ? sealedPortal : openPortal) :
-                    (portal.category === '0' ? h2SealedPortal : h2OpenPortal)
+                    (portal.category === ListingCategories.Zero ? sealedPortal : openPortal) :
+                    (portal.category === ListingCategories.Zero ? h2SealedPortal : h2OpenPortal)
             } alt="Portal" />
 
             <div className={classNames(classes.label, classes.labelSlot)}>

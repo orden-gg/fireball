@@ -44,12 +44,17 @@ export default function ERC1155({ children, item }) {
             }
         });
 
-        // current
-        thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
-            if (!controller.signal.aborted) {
-                setCurrent(response);
-            }
-        });
+        if (item.listing) {
+            setCurrent(item.listing);
+        } else {
+            // current
+            thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
+                if (!controller.signal.aborted) {
+                    console.log('current', response)
+                    setCurrent(response);
+                }
+            });
+        }
 
         return () => controller?.abort(); // cleanup on destroy
     }, [item]);

@@ -18,7 +18,11 @@ export default function Ticket({ ticket }) {
             category: 3,
             balance: ticket.balance,
             priceInWei: ticket.priceInWei,
-            quantity: ticket.quantity
+            quantity: ticket.quantity,
+            listing: {
+                listing: ticket.listing,
+                price: ticket.price
+            }
         }}>
             <div className={classes.iconWrapper}>
                 <img

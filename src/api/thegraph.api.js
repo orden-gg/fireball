@@ -9,6 +9,8 @@ import {
     gotchiesQuery,
     svgQuery,
     erc1155Query,
+    erc721ListingsBySeller,
+    erc1155ListingsBySeller,
     userQuery,
     realmQuery,
     auctionQuery,
@@ -228,6 +230,18 @@ export default {
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
+    },
+
+    async getErc721ListingsBySeller(seller) {
+        return await this.getData(erc721ListingsBySeller(seller))
+            .then(response => response.data.erc721Listings)
+            .catch((error) => console.log(error));
+    },
+
+    async getErc1155ListingsBySeller(seller) {
+        return await this.getData(erc1155ListingsBySeller(seller))
+            .then(response => response.data.erc1155Listings)
+            .catch((error) => console.log(error));
     },
 
     async getRaffleData(query) {
