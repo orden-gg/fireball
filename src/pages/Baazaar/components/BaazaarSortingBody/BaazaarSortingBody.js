@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { Grid, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import Wearable from 'components/Items/Wearable/Wearable';
 import Gotchi from 'components/Gotchi/Gotchi';
@@ -18,7 +18,7 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
     const { selectedGoodsType } = useContext(BaazaarContext);
 
     return (
-        <Grid className={classes.baazaarBody} item xs={12} sm={12} md={9} lg={9} xl={10}>
+        <div className={classes.baazaarBody}>
             <div className={classes.baazaarListItems}>
                 {
                     // eslint-disable-next-line array-callback-return
@@ -60,6 +60,6 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                     </Typography>
                 }
             </div>
-        </Grid>
+        </div>
     );
 }

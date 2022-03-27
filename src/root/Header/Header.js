@@ -7,7 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import LoginButton from 'components/Login/LoginButton';
-import fireball from 'assets/images/animated/fireball.gif';
+import logo from 'assets/images/logo-white.svg';
 import discord from 'assets/images/icons/discord.svg';
 
 import styles from './styles';
@@ -69,7 +69,7 @@ export default function Header() {
     return (
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
-                <img className={classes.logo} src={fireball} alt='logo' />
+                <img className={classes.logo} src={logo} alt='logo' />
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>

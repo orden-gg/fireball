@@ -132,7 +132,7 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                                                 return <Chip
                                                     className={classes.singleChip}
                                                     key={id}
-                                                    label={item.name + ": " + item.value[0] + "-" + item.value[1]}
+                                                    label={item.name + ": " + item.value[0] + " <> " + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}
                                                 />

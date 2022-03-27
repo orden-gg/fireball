@@ -145,3 +145,5 @@ export const sets = [
     ['Vacation Geisha', [], [115, 304, 243, 302], [4, 0, -2, 0, 0]],
     ['Tooth Fairy', [], [306, 307, 308, 93], [4, 0, 0, -2, 0]]
 ];
+
+export default sets;
