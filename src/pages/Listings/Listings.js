@@ -67,6 +67,7 @@ export default function Listings() {
             thegraph.getErc1155ListingsBySeller(address)
         ]).then(([erc721Listings, erc1155Listings]) => {
             const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+
             setIsListingsEmpty(isListingsEmpty);
 
             if (isListingsEmpty) {
