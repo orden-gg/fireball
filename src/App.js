@@ -15,7 +15,7 @@ import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
 import Autopet from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
-import Listings from './pages/Listings/Listings';
+import Shop from './pages/Shop/Shop';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from "./contexts/BaazaarContext";
 import LoginContextProvider from './contexts/LoginContext';
@@ -63,7 +63,7 @@ export default function App() {
                                     <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
-                                    <Route path={`/listings`} component={ Listings } />
+                                    <Route path={`/shop`} component={ Shop } />
                                     <Route exact path={`/404`} component={ NotFound } />
                                     <Redirect from='*' to='/404' />
                                 </Switch>

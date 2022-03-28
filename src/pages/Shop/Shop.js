@@ -27,7 +27,7 @@ import styles from './styles';
 
 import ListingTitle from './components/ListingTitle';
 
-export default function Listings() {
+export default function Shop() {
     const classes = styles();
 
     const history = useHistory();
