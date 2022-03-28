@@ -19,10 +19,15 @@ export const baazaarFilteringTypes = {
     stats: 'stats'
 };
 
-export const ListingCategories = Object.freeze({
-    Zero: '0',
-    First: '1',
-    Second: '2',
-    Third: '3',
-    Fourth: '4'
+export const Erc721Categories = Object.freeze({
+    ClosedPortal: '0',
+    OpenedPortal: '2',
+    Aavegotchi: '3'
+});
+
+export const Erc1155Categories = Object.freeze({
+    Wearable: '0',
+    Consumable: '2',
+    Ticket: '3',
+    Realm: '4'
 });

@@ -15,7 +15,7 @@ import Parcel from 'components/Items/Parcel/Parcel';
 import Portal from 'components/Items/Portal/Portal';
 import Ticket from 'components/Items/Ticket/Ticket';
 import Wearable from 'components/Items/Wearable/Wearable';
-import { ListingCategories } from 'data/types';
+import { Erc721Categories, Erc1155Categories } from 'data/types';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 import warehousePlaceholder from 'assets/images/wearables/15.svg';
 import realmPlaceholder from 'assets/images/icons/kek.png';
@@ -107,11 +107,11 @@ export default function Listings() {
 
     const handleSetErc721Listings = (listings) => {
         const listedGotchis = listings
-            .filter(listing => listing.category === ListingCategories.Third)
+            .filter(listing => listing.category === Erc721Categories.Aavegotchi)
             .map(listing => listing.gotchi);
 
         const listedParcels = listings
-            .filter(listing => listing.category === ListingCategories.Fourth)
+            .filter(listing => listing.category === Erc1155Categories.Realm)
             .map(listing => ({
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,
@@ -119,7 +119,7 @@ export default function Listings() {
             }));
 
         const listedPortals = listings
-            .filter(listing => listing.category === ListingCategories.Zero || listing.category === ListingCategories.Second)
+            .filter(listing => listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal)
             .map(listing => ({
                 priceInWei: listing.priceInWei,
                 category: listing.category,
@@ -136,20 +136,20 @@ export default function Listings() {
 
     const handleSetErc1155Listings = (listings) => {
         const wearables = listings
-            .filter(listing => listing.category === ListingCategories.Zero)
+            .filter(listing => listing.category === Erc1155Categories.Wearable)
             .map(listing => ({
                 ...mapWearableAndTicket(listing)
             }));
 
         const tickets = listings
-            .filter(listing => listing.category === ListingCategories.Third)
+            .filter(listing => listing.category === Erc1155Categories.Ticket)
             .map(listing => ({
                 ...mapWearableAndTicket(listing),
                 erc1155TypeId: listing.erc1155TypeId,
             }));
 
         const consumables = listings
-            .filter(listing => listing.category === ListingCategories.Second)
+            .filter(listing => listing.category === Erc1155Categories.Consumable)
             .map(listing => ({
                 id: parseInt(listing.erc1155TypeId, 10),
                 balance: parseInt(listing.quantity, 10),
