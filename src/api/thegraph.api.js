@@ -235,13 +235,13 @@ export default {
     async getErc721ListingsBySeller(seller) {
         return await this.getData(erc721ListingsBySeller(seller))
             .then(response => response.data.erc721Listings)
-            .catch((error) => console.log(error));
+            .catch(error => console.log(error));
     },
 
     async getErc1155ListingsBySeller(seller) {
         return await this.getData(erc1155ListingsBySeller(seller))
             .then(response => response.data.erc1155Listings)
-            .catch((error) => console.log(error));
+            .catch(error => console.log(error));
     },
 
     async getRaffleData(query) {

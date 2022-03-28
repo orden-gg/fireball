@@ -311,7 +311,6 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
             skip: ${skip},
             orderDirection: ${orderDir},
             orderBy: timeCreated,
-
             where: {
                 category: "4",
                 size: ${size},

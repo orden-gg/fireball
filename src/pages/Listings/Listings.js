@@ -79,7 +79,7 @@ export default function Listings() {
             console.log(error);
 
             setEmptyListings();
-        }).finally(() =>setIsListingsLoading(false));
+        }).finally(() => setIsListingsLoading(false));
     };
 
     const setEmptyListings = () => {
@@ -162,9 +162,11 @@ export default function Listings() {
     }
 
     if (isListingsLoading) {
-        return <div className={classes.loaderBox}>
-                    <CircularProgress color='primary' />
-                </div>
+        return (
+            <div className={classes.loaderBox}>
+                <CircularProgress color='primary' />
+            </div>
+        )
     } else if (isListingsEmpty) {
         return <Typography className={classes.noListings}>No listings here :(</Typography>
     }
@@ -177,8 +179,8 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    gotchis.map((gotchi, i)=>{
-                        return <div className={classes.listItem} key={i}>
+                    gotchis.map(gotchi =>
+                        <div className={classes.listItem} key={gotchi.id}>
                             <Gotchi
                                 gotchi={gotchi}
                                 render={[
@@ -200,7 +202,7 @@ export default function Listings() {
                                 ]}
                             />
                         </div>
-                    })
+                    )
                 }
             </div>
 
@@ -211,11 +213,11 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    wearables.map(wearable => {
-                        return <div className={classes.listItem} key={wearable.listing}>
+                    wearables.map(wearable =>
+                        <div className={classes.listItem} key={wearable.listing}>
                             <Wearable wearable={wearable} />
                         </div>
-                    })
+                    )
                 }
             </div>
 
@@ -225,11 +227,11 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    parcels.map(parcel => {
-                        return <div className={classes.listItem} key={parcel.parcelId}>
+                    parcels.map(parcel =>
+                        <div className={classes.listItem} key={parcel.parcelId}>
                             <Parcel parcel={parcel} isBaazaarCard={true} />
                         </div>
-                    })
+                    )
                 }
             </div>
 
@@ -240,11 +242,11 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    portals.map(portal => {
-                        return <div className={classes.listItem} key={portal.tokenId}>
+                    portals.map(portal =>
+                        <div className={classes.listItem} key={portal.tokenId}>
                             <Portal portal={portal} isBaazaarCard={true} />
                         </div>
-                    })
+                    )
                 }
             </div>
 
@@ -254,11 +256,11 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    tickets.map(ticket => {
-                        return <div className={classes.listItem} key={ticket.listing}>
+                    tickets.map(ticket =>
+                        <div className={classes.listItem} key={ticket.listing}>
                             <Ticket ticket={ticket} />
                         </div>
-                    })
+                    )
                 }
             </div>
 
@@ -268,11 +270,11 @@ export default function Listings() {
 
             <div className={classes.list}>
                 {
-                    consumables.map(consumable => {
-                        return <div className={classes.listItem} key={consumable.listing}>
+                    consumables.map(consumable =>
+                        <div className={classes.listItem} key={consumable.listing}>
                             <Consumable consumable={consumable} />
                         </div>
-                    })
+                    )
                 }
             </div>
         </div>
