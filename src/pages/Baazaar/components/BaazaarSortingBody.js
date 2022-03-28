@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { Backdrop, CircularProgress, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import GotchiHorizontal from 'components/Gotchi/GotchiHorizontal';
 import Parcel from 'components/Items/Parcel/Parcel';
@@ -18,7 +18,7 @@ import Aavegotchi from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
 
 import { baazaarSortingBodyStyles } from '../styles';
 
-export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrevPageClick, backdropIsOpen }) {
+export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrevPageClick }) {
     const classes = baazaarSortingBodyStyles();
     const { selectedGoodsType } = useContext(BaazaarContext);
 
@@ -164,10 +164,6 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                     </Typography>
                 }
             </div>
-
-            <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
-                <CircularProgress color='primary' />
-            </Backdrop>
         </div>
     );
 }

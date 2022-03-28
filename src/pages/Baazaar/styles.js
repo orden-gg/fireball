@@ -8,6 +8,11 @@ const styles = makeStyles(theme => ({
             display: 'flex',
             alignItems: 'stretch'
         }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.appBar - 1,
+        color: '#fff',
+        position: 'absolute'
     }
 }));
 
@@ -227,11 +232,6 @@ const baazaarSortingBodyStyles = makeStyles(theme => ({
             top: -17
         }
     },
-    backdrop: {
-        zIndex: theme.zIndex.appBar - 1,
-        color: '#fff',
-        position: 'absolute'
-    }
 }));
 
 export {
