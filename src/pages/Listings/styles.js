@@ -14,12 +14,12 @@ const styles = makeStyles(theme => ({
     },
     listingsTitleImg: {
         marginRight: '8px',
-        width: '24px',
-        height: '24px'
+        width: '32px',
+        height: '32px'
     },
     listingsTitle: {
         fontWeight: '500',
-        fontSize: '0.875rem',
+        fontSize: '1.25rem',
         lineHeight: '1.75',
         textTransform: 'uppercase'
     },
