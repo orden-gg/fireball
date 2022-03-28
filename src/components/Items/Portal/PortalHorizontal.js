@@ -12,7 +12,6 @@ export default function PortalHorizontal({ portal, render }) {
     const classes = styles();
 
     const gotchiSections = {
-
         imageCell(children) {
             return (
                 <div className={classes.portalImageCell}>
@@ -67,11 +66,13 @@ export default function PortalHorizontal({ portal, render }) {
     }
 
     function renderSection(value) {
-        if (typeof value === 'string') return gotchiSections[value];
+        if (typeof value === 'string') {
+            return gotchiSections[value];
+        }
 
         return (
-            Object.keys(value).map( (key) => (
-                gotchiSections[key](value[key].map( item => (
+            Object.keys(value).map(key => (
+                gotchiSections[key](value[key].map(item => (
                     renderSection(item)
                 )))
             ))
@@ -80,7 +81,7 @@ export default function PortalHorizontal({ portal, render }) {
 
     return (
         <div className={classNames(classes.horizontalCard, `haunt${portal.portal.hauntId}`)}>
-            {render.map( (name) => {
+            {render.map(name => {
                 return renderSection(name)
             })}
         </div>

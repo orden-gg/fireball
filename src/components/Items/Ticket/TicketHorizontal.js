@@ -48,8 +48,11 @@ export default function TicketHorizontal({ ticket, render }) {
 
         get cardName() {
             return (
-                <CardName itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
-                                  itemRarity={itemUtils.getItemRarityName(ticket.erc1155TypeId)} item={ticket} />
+                <CardName
+                    itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
+                    itemRarity={itemUtils.getItemRarityName(ticket.erc1155TypeId)}
+                    item={ticket}
+                />
             );
         },
 
@@ -71,11 +74,13 @@ export default function TicketHorizontal({ ticket, render }) {
     }
 
     function renderSection(value) {
-        if (typeof value === 'string') return gotchiSections[value];
+        if (typeof value === 'string') {
+            return gotchiSections[value];
+        }
 
         return (
-            Object.keys(value).map( (key) => (
-                gotchiSections[key](value[key].map( item => (
+            Object.keys(value).map(key => (
+                gotchiSections[key](value[key].map(item => (
                     renderSection(item)
                 )))
             ))
@@ -84,7 +89,7 @@ export default function TicketHorizontal({ ticket, render }) {
 
     return (
         <div className={classNames(classes.horizontalCard, ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
-            {render.map( (name) => {
+            {render.map(name => {
                 return renderSection(name)
             })}
         </div>

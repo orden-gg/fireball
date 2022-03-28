@@ -50,13 +50,11 @@ const styles = makeStyles(theme => ({
     itemBalancxeDivider: {
         margin: '0 2px'
     },
-
     // horizontal
     horizontalCard: {
         display: 'flex',
         minHeight: 200,
         padding: theme.spacing(0, 1),
-
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
@@ -107,23 +105,18 @@ const styles = makeStyles(theme => ({
         minWidth: 250,
         display: 'flex',
         flexDirection: 'column',
-
         '.common &': {
             backgroundColor: alpha(theme.palette.rarity.common, .15)
         },
-
         '.uncommon &': {
             backgroundColor: alpha(theme.palette.rarity.uncommon, .15)
         },
-
         '.rare &': {
             backgroundColor: alpha(theme.palette.rarity.rare, .15)
         },
-
         '.legendary &': {
             backgroundColor: alpha(theme.palette.rarity.legendary, .15)
         },
-
         '.mythical &': {
             backgroundColor: alpha(theme.palette.rarity.mythical, .15)
         }
@@ -132,7 +125,6 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        // alignItems: 'center',
         margin: theme.spacing(2, 1),
         width: 320
     },
@@ -148,11 +140,9 @@ const styles = makeStyles(theme => ({
         minWidth: 250,
         display: 'flex',
         flexDirection: 'column',
-
         '.haunt1 &': {
             backgroundColor: alpha(theme.palette.haunts.h1, .15),
         },
-
         '.haunt2 &': {
             backgroundColor: alpha(theme.palette.haunts.h2, .15),
         },
@@ -161,7 +151,6 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        // alignItems: 'center',
         margin: theme.spacing(2, 1),
         width: 320
     },
@@ -177,31 +166,24 @@ const styles = makeStyles(theme => ({
         minWidth: 250,
         display: 'flex',
         flexDirection: 'column',
-
         '.common &': {
             backgroundColor: alpha(theme.palette.rarity.common, .15)
         },
-
         '.uncommon &': {
             backgroundColor: alpha(theme.palette.rarity.uncommon, .15)
         },
-
         '.rare &': {
             backgroundColor: alpha(theme.palette.rarity.rare, .15)
         },
-
         '.legendary &': {
             backgroundColor: alpha(theme.palette.rarity.legendary, .15)
         },
-
         '.mythical &': {
             backgroundColor: alpha(theme.palette.rarity.mythical, .15)
         },
-
         '.godlike &': {
             backgroundColor: alpha(theme.palette.rarity.godlike, .15)
         },
-
         '.drop &': {
             backgroundColor: alpha(theme.palette.rarity.drop, .05)
         }
@@ -210,7 +192,6 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        // alignItems: 'center',
         margin: theme.spacing(2, 1),
         width: 320
     },
@@ -337,7 +318,6 @@ const tooltipStyles = makeStyles(theme => ({
                     ${theme.palette.secondary.main} 1px -1px 0px',
                     ${theme.palette.secondary.main} -1px 1px 0px',
                     ${theme.palette.secondary.main} 1px 1px 0px`,
-
         '.tooltip-wearable &': { // labelSlot
             top: 0,
             opacity: .7
@@ -402,7 +382,6 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         justifyContent: 'center',
         minHeight: '100px',
         marginBottom: 4,
-
         '.tooltip-wearable &': { // iconWrapper
             minHeight: 60
         },
@@ -452,7 +431,6 @@ const ERC1155InnerStyles = makeStyles(theme => ({
                     ${theme.palette.secondary.main} 1px -1px 0px',
                     ${theme.palette.secondary.main} -1px 1px 0px',
                     ${theme.palette.secondary.main} 1px 1px 0px`,
-
         '.tooltip-wearable &': { // name
             fontSize: 14
         },
@@ -494,7 +472,6 @@ const ERC1155InnerStyles = makeStyles(theme => ({
     },
     stats: {
         fontWeight: '500',
-
         '.tooltip-wearable &': { // stats
             fontSize: 13
         }
@@ -525,19 +502,15 @@ const parselStyles = makeStyles(theme => ({
         '& img': {
             marginRight: 2
         },
-
         '&.fud': {
             backgroundColor: theme.palette.alchemica.fud
         },
-
         '&.fomo': {
             backgroundColor: theme.palette.alchemica.fomo
         },
-
         '&.alpha': {
             backgroundColor: theme.palette.alchemica.alpha
         },
-
         '&.kek': {
             backgroundColor: theme.palette.alchemica.kek
         }
@@ -552,15 +525,12 @@ const parselStyles = makeStyles(theme => ({
     },
     labelParselPrice: {
         color: theme.palette.secondary.main,
-
         '.humble &': {
             backgroundColor: theme.palette.realm.humble
         },
-
         '.resonable &': {
             backgroundColor: theme.palette.realm.resonable
         },
-
         '.specions &': {
             backgroundColor: theme.palette.realm.specions
         }
@@ -578,7 +548,6 @@ const portalStyles = makeStyles(theme => ({
     portalImage: {
         width: 100,
         marginTop: 10,
-
         '.horizontal &': {
             margin: 'auto'
         }

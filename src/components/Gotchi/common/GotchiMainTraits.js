@@ -22,10 +22,9 @@ export default function GotchiMainTraits({ gotchi }) {
                 <HighlightNumber type={calculateRarityType(gotchi.modifiedRarityScore)}>
                     <p className={classes.mainVal}>
                         🏆{gotchi.modifiedRarityScore}
-
                         <span className={classes.defaultVal}>
-                                    ({gotchi.baseRarityScore})
-                                </span>
+                            ({gotchi.baseRarityScore})
+                        </span>
                     </p>
                 </HighlightNumber>
             </div>

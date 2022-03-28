@@ -20,6 +20,8 @@ export default function PortalImage({ portal }) {
                 portal.portal.hauntId === '1' ?
                 (portal.category === '0' ? sealedPortal : openPortal) :
                 (portal.category === '0' ? h2SealedPortal : h2OpenPortal)
-        } alt='Portal' />
+            }
+            alt='Portal'
+        />
     );
 }

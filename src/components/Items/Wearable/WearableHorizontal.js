@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import itemUtils from 'utils/itemUtils';
 import WearableImage from './WearableImage';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
 import HorizontalLink from '../common/HorizontalLink/HorizontalLink';
 import CardName from '../common/CardName/CardName';
 import CardStats from '../common/CardStats/CardStats';
 import styles from './../styles';
-import itemUtils from 'utils/itemUtils';
 
 export default function WearableHorizontal({ wearable, render }) {
     const classes = styles();
@@ -67,11 +67,13 @@ export default function WearableHorizontal({ wearable, render }) {
     }
 
     function renderSection(value) {
-        if (typeof value === 'string') return gotchiSections[value];
+        if (typeof value === 'string') {
+            return gotchiSections[value];
+        }
 
         return (
-            Object.keys(value).map( (key) => (
-                gotchiSections[key](value[key].map( item => (
+            Object.keys(value).map(key => (
+                gotchiSections[key](value[key].map(item => (
                     renderSection(item)
                 )))
             ))
@@ -81,7 +83,7 @@ export default function WearableHorizontal({ wearable, render }) {
     return (
         <div className={classNames(classes.horizontalCard, itemUtils.getItemRarityById(wearable.erc1155TypeId))}>
             {wearable.rarity}
-            {render.map( (name) => {
+            {render.map(name => {
                 return renderSection(name)
             })}
         </div>
