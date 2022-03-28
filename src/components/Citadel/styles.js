@@ -8,7 +8,7 @@ const keyframes = {
     }
 };
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     citadel: {
         position: 'relative',
 

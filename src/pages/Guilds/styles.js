@@ -23,7 +23,7 @@ const keyframes = {
     }
 }
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     guildsWrapper: {
         position: 'relative',
         maxWidth: 1920,
@@ -59,7 +59,7 @@ const styles = makeStyles( theme => ({
     },
     guildsList: {
         padding: 0,
-        display: "grid",
+        display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
         gridGap: theme.spacing(7, 3),
         marginTop: 40,
@@ -138,7 +138,7 @@ const styles = makeStyles( theme => ({
 
 }));
 
-const guildStyles = makeStyles( theme => ({
+const guildStyles = makeStyles(theme => ({
     guildWrapper: {
         position: 'relative'
     },
@@ -208,7 +208,7 @@ const guildStyles = makeStyles( theme => ({
     '@keyframes bounce': keyframes.bounce
 }));
 
-const guildBanner = makeStyles( theme => ({
+const guildBanner = makeStyles(theme => ({
     guildBanner: {
         margin: 'auto',
         padding: theme.spacing(5, 1, 5),
@@ -373,7 +373,7 @@ const guildBanner = makeStyles( theme => ({
     '@keyframes move': keyframes.move
 }));
 
-const guildDetailsStyles = makeStyles( theme => ({
+const guildDetailsStyles = makeStyles(theme => ({
     detailsWrapper: {
         background: 'none',
         boxShadow: 'none',
@@ -540,7 +540,7 @@ const guildDetailsStyles = makeStyles( theme => ({
     '@keyframes show': keyframes.show
 }));
 
-const guildContentStyles = makeStyles( theme => ({
+const guildContentStyles = makeStyles(theme => ({
     guildGotchis: {
         padding: theme.spacing(2),
         maxWidth: 1920,
@@ -623,7 +623,7 @@ const guildContentStyles = makeStyles( theme => ({
     }
 }));
 
-const guildNavStyles = makeStyles( theme => ({
+const guildNavStyles = makeStyles(theme => ({
     container: {
         margin: theme.spacing(1, 0),
         display: 'flex',

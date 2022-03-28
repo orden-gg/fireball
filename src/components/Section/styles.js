@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     section: {
         padding: '50px 0',
         [theme.breakpoints.up('md')]: {

@@ -2,7 +2,7 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',

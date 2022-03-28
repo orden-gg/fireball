@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     portalsColumn: {
         marginBottom: 30,
         [theme.breakpoints.up('md')]: {

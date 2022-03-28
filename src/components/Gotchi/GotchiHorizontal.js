@@ -1,29 +1,47 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import GotchiId from './common/GotchiId';
 import GotchiCollateral from './common/GotchiCollateral';
-import GotchiOwner from './common/GotchiOwner';
 import GotchiMainTraits from './common/GotchiMainTraits';
 import GotchiName from './common/GotchiName';
 import GotchiSVG from './common/GotchiSVG';
-import GotchiRewards from './common/GotchiRewards';
 import GotchiLevel from './GotchiLevel';
-import GotchiSkillPoints from './GotchiSkillPoints';
-import GotchiListing from './GotchiListing';
 import GotchiTraitsHighlight from './GotchiTraitsHighlight';
-import GotchiWearablesLine from './GotchiWearablesLine';
+import HorizontalPrice from '../Items/common/HorizontalPrice/HorizontalPrice';
 import styles from './styles';
 
-export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, render, inPortal }) {
+export default function GotchiHorizontal({ gotchi, item, title, narrowed, renderSvgByStats, render }) {
     const classes = styles();
 
     const gotchiSections = {
-        badges: (children) => {
+        badges(children) {
             return (
-                <div
-                    className={classes.gotchiBadges}
-                    key={`${gotchi.id}-badges`}
-                >
+                <div className={classes.gotchiBadges} key={`${gotchi.id}-badges`}>
+                    {children}
+                </div>
+            );
+        },
+
+        imageCell(children) {
+            return (
+                <div className={classes.gotchiImageCell} key={`${gotchi.id}-imageCell`}>
+                    {children}
+                </div>
+            );
+        },
+
+        traitsCell(children) {
+            return (
+                <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
+                    {children}
+                </div>
+            )
+        },
+
+        priceCell(children) {
+            return (
+                <div key={`${gotchi.id}-priceCell`} className={classes.gotchiPriceCell}>
                     {children}
                 </div>
             );
@@ -35,15 +53,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                     gotchi={gotchi}
                     title={title}
                     key={`${gotchi.id}-id`}
-                />
-            );
-        },
-
-        get owner() {
-            return (
-                <GotchiOwner
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-owner`}
                 />
             );
         },
@@ -69,16 +78,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
             )
         },
 
-        get skillpoints() {
-            return (
-                <GotchiSkillPoints
-                    id={gotchi.id}
-                    usedPoints={gotchi.usedSkillPoints}
-                    key={`${gotchi.id}-skillpoints`}
-                />
-            );
-        },
-
         get mainTraits() {
             return (
                 <GotchiMainTraits
@@ -98,17 +97,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
             )
         },
 
-        get wearablesLine() {
-            return (
-                <div
-                    className={classes.gotchiInnerSection}
-                    key={`${gotchi.id}-wearablesLine`}
-                >
-                    <GotchiWearablesLine wearables={gotchi.equippedWearables}/>
-                </div>
-            );
-        },
-
         get name() {
             return (
                 <GotchiName
@@ -123,50 +111,36 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                 <GotchiSVG
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
-                    inPortal={inPortal}
                     key={`${gotchi.id}-svg`}
                 />
             );
         },
 
-        get listing() {
+        // price
+        get price() {
             return (
-                <GotchiListing
-                    id={gotchi.id}
-                    listing={gotchi.listings}
-                    history={gotchi.historicalPrices}
-                    key={`${gotchi.id}-listings`}
-                />
-            )
-        },
-
-        get rewards() {
-            return (
-                <GotchiRewards
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-rewards`}
-                />
+                <HorizontalPrice item={item} key={`${gotchi.id}-gotchi-price`} label='Sold for' />
             )
         }
     }
 
     function renderSection(value) {
-        if (typeof value === 'string') return gotchiSections[value];
+        if (typeof value === 'string') {
+            return gotchiSections[value];
+        }
 
         return (
             Object.keys(value).map(key => (
-                gotchiSections[key](
-                    value[key].map(item => (
-                        renderSection(item)
-                    ))
-                )
+                gotchiSections[key](value[key].map( item => (
+                    renderSection(item)
+                )))
             ))
         )
     }
 
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'vertical' )}>
-            {render.map((name) => {
+        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'horizontal')}>
+            {render.map(name => {
                 return renderSection(name)
             })}
         </div>

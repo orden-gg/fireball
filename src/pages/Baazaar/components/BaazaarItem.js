@@ -8,7 +8,7 @@ import itemUtils from 'utils/itemUtils';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/icons/ghst-token.png';
 
-import { baazaarItemStyles } from '../../styles';
+import { baazaarItemStyles } from '../styles';
 
 export default function BaazaarItem({ item }) {
     const classes = baazaarItemStyles();
