@@ -61,39 +61,41 @@ export default function Shop() {
     }, [params.address, activeAddress]);
 
     useEffect(() => {
-        let mounted = true;
+        if (ethersApi.isEthAddress(currentAddress)) {
+            let mounted = true;
 
-        setIsListingsLoading(true);
+            setIsListingsLoading(true);
 
-        Promise.all([
-            thegraph.getErc721ListingsBySeller(currentAddress),
-            thegraph.getErc1155ListingsBySeller(currentAddress)
-        ]).then(([erc721Listings, erc1155Listings]) => {
-            if (mounted) {
-                const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+            Promise.all([
+                thegraph.getErc721ListingsBySeller(currentAddress),
+                thegraph.getErc1155ListingsBySeller(currentAddress)
+            ]).then(([erc721Listings, erc1155Listings]) => {
+                if (mounted) {
+                    const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
 
-                setIsListingsEmpty(isListingsEmpty);
+                    setIsListingsEmpty(isListingsEmpty);
 
-                if (isListingsEmpty) {
-                    setEmptyListings();
-                } else {
-                    handleSetErc721Listings(erc721Listings);
-                    handleSetErc1155Listings(erc1155Listings);
+                    if (isListingsEmpty) {
+                        setEmptyListings();
+                    } else {
+                        handleSetErc721Listings(erc721Listings);
+                        handleSetErc1155Listings(erc1155Listings);
+                    }
                 }
-            }
-        }).catch(error => {
-            if (mounted) {
-                console.log(error);
+            }).catch(error => {
+                if (mounted) {
+                    console.log(error);
 
-                setEmptyListings();
-            }
-        }).finally(() => {
-            if (mounted) {
-                setIsListingsLoading(false)
-            }
-        });
+                    setEmptyListings();
+                }
+            }).finally(() => {
+                if (mounted) {
+                    setIsListingsLoading(false)
+                }
+            });
 
-        return () => mounted = false;
+            return () => mounted = false;
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAddress]);
 
