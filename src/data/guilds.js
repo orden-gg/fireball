@@ -675,7 +675,7 @@ const guilds = [
         }
     },{
         name: 'MSG',
-        logo: require('../assets/images/guilds/msg.jpeg').default,
+        logo: require('../assets/images/guilds/msg-gang-banner.jpg').default,
         members: [
             '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
             '0x86aecfc1E3973108Ce14b9b741a99d3466127170',
@@ -691,6 +691,7 @@ const guilds = [
             '0xfaCEf700458D4Fc9746F7f3e0d37B462711fF09e',
             '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
             '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+            '0xc89A3292Eb0a8396A2505deB6195AFA7f83A8A30',
         ],
         description: [
             {

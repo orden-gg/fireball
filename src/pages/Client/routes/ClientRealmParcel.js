@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
-import ParcelBaazaarLink from 'components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
+import ParcelBaazaarLink from 'components/Items/Parcel/ParcelBaazaarLink';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';

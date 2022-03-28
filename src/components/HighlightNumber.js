@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material';
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     box: {
         padding: 2,
         border: '3px solid transparent'

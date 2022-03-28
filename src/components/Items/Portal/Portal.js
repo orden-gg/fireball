@@ -7,11 +7,9 @@ import classNames from 'classnames';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
-import sealedPortal from 'assets/images/portals/h1-sealed.svg';
-import openPortal from 'assets/images/portals/h1-open.svg';
-import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
-import h2OpenPortal from 'assets/images/portals/h2-open.svg';
-import { ListingCategories } from 'data/types';
+
+import PortalImage from './PortalImage';
+import CardName from '../common/CardName/CardName';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
@@ -56,11 +54,7 @@ export default function Portal({ portal }) {
                 </Tooltip>
             </div>
 
-            <img className={classes.portalImage} src={
-                portal.portal.hauntId === "1" ?
-                    (portal.category === ListingCategories.Zero ? sealedPortal : openPortal) :
-                    (portal.category === ListingCategories.Zero ? h2SealedPortal : h2OpenPortal)
-            } alt="Portal" />
+            <PortalImage portal={portal} />
 
             <div className={classNames(classes.label, classes.labelSlot)}>
                 [{portal.tokenId}]
@@ -74,9 +68,7 @@ export default function Portal({ portal }) {
                 underline='none'
                 className={classNames(classes.nameWrapper, 'two-lined')}
             >
-                <Typography className={classNames(classes.name, classes.textHighlight)}>
-                    Portal {portal.tokenId}
-                </Typography>
+                <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
                 <CallMade className={classes.callMadeIcon} />
             </Link>
         </div>

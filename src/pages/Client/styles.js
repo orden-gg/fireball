@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 import mapSvg from 'assets/images/icons/map.svg';
 import listSvg from 'assets/images/icons/list.svg';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     container: {
         padding: theme.spacing(3),
         display: 'flex',
@@ -35,7 +35,7 @@ const styles = makeStyles( theme => ({
     }
 }));
 
-const routersStyles = makeStyles( theme => ({
+const routersStyles = makeStyles(theme => ({
     list: {
         display: 'grid',
         alignItems: 'start',
@@ -87,7 +87,7 @@ const routersStyles = makeStyles( theme => ({
     },
 }));
 
-const clientNavStyles = makeStyles( theme => ({
+const clientNavStyles = makeStyles(theme => ({
     container: {
         margin: theme.spacing(1, 0),
         display: 'flex',
@@ -201,7 +201,7 @@ const clientNavStyles = makeStyles( theme => ({
     }
 }));
 
-const loadRewardsStyles = makeStyles( theme => ({
+const loadRewardsStyles = makeStyles(theme => ({
     loadWrapper: {
         display: 'flex',
         alignItems: 'center',
