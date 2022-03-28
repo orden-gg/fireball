@@ -39,6 +39,7 @@ export default function Listings() {
 
     const [isListingsLoading, setIsListingsLoading] = useState(true);
     const [isListingsEmpty, setIsListingsEmpty] = useState(true);
+    const [currentAddress, setCurrentAddress] = useState(null);
     const [gotchis, setGotchis] = useState([]);
     const [wearables, setWearables] = useState([]);
     const [parcels, setParcels] = useState([]);
@@ -50,7 +51,7 @@ export default function Listings() {
         const currentAddress = params.address ? params.address : activeAddress;
 
         if (currentAddress) {
-            getListings(currentAddress);
+            setCurrentAddress(currentAddress);
 
             history.push({ path: location.pathname, search: `?address=${currentAddress}` });
         } else {
@@ -59,29 +60,41 @@ export default function Listings() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.address, activeAddress]);
 
-    const getListings = (address) => {
+    useEffect(() => {
+        let mounted = true;
+
         setIsListingsLoading(true);
 
         Promise.all([
-            thegraph.getErc721ListingsBySeller(address),
-            thegraph.getErc1155ListingsBySeller(address)
+            thegraph.getErc721ListingsBySeller(currentAddress),
+            thegraph.getErc1155ListingsBySeller(currentAddress)
         ]).then(([erc721Listings, erc1155Listings]) => {
-            const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+            if (mounted) {
+                const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
 
-            setIsListingsEmpty(isListingsEmpty);
+                setIsListingsEmpty(isListingsEmpty);
 
-            if (isListingsEmpty) {
-                setEmptyListings();
-            } else {
-                handleSetErc721Listings(erc721Listings);
-                handleSetErc1155Listings(erc1155Listings);
+                if (isListingsEmpty) {
+                    setEmptyListings();
+                } else {
+                    handleSetErc721Listings(erc721Listings);
+                    handleSetErc1155Listings(erc1155Listings);
+                }
             }
         }).catch(error => {
-            console.log(error);
+            if (mounted) {
+                console.log(error);
 
-            setEmptyListings();
-        }).finally(() => setIsListingsLoading(false));
-    };
+                setEmptyListings();
+            }
+        }).finally(() => {
+            if (mounted) {
+                setIsListingsLoading(false)
+            }
+        });
+
+        return () => mounted = false;
+    }, [currentAddress]);
 
     const setEmptyListings = () => {
         setGotchis([]);
