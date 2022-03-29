@@ -27,6 +27,11 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           equippedSetID
           equippedSetName
           usedSkillPoints
+          listings(where:{cancelled: false, timePurchased: 0}) {
+            id
+            priceInWei
+          }
+          historicalPrices
           owner {
             id
           }
@@ -93,9 +98,9 @@ export const svgQuery = (id) => {
 };
 
 export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
-  return `{ 
+  return `{
       erc1155Listings (
-          first: 1, 
+          first: 1,
           orderBy: ${orderBy},
           orderDirection: ${orderDireciton},
           where: {
@@ -226,7 +231,7 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
             skip: ${skip},
             orderDirection: ${orderDir},
             orderBy: timeCreated,
-            
+
             where: {
                 category: "4",
                 size: ${size},

@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './style';
 
-export default function ContentAndSidebar({ children }) {
+export default function ContentWrapper({ children }) {
     const classes = styles();
 
     return (

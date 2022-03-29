@@ -472,4 +472,4 @@ export {
     GotchiSkillpointsStyles,
     GotchiListingStyles,
     CustomTooltipStyles
- }
+}
