@@ -1,19 +1,15 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import classNames from 'classnames';
 
-import { ERC1155InnerStyles } from '../styles';
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import ERC1155 from 'components/Items/ERC1155/ERC1155';
+import itemUtils from 'utils/itemUtils';
 
-import itemUtils from '../../../utils/itemUtils';
-import ERC1155 from '../ERC1155/ERC1155';
-import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
+import CardName from '../common/CardName/CardName';
+import CardStats from '../common/CardStats/CardStats';
+import WearableImage from './WearableImage';
 
-export default function Wearable({wearable, raffleChances, tooltip}) {
-    const classes = ERC1155InnerStyles();
-
-    const name = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
+export default function Wearable({ wearable, raffleChances, tooltip }) {
     const rarity = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);
-    const stats = itemUtils.getEmojiStatsById(wearable.id || wearable.erc1155TypeId);
     const slot = itemUtils.getItemSlotById(wearable.id || wearable.erc1155TypeId);
 
     return (
@@ -28,25 +24,9 @@ export default function Wearable({wearable, raffleChances, tooltip}) {
             priceInWei: wearable.priceInWei,
             quantity: wearable.quantity
         }}>
-
-            <div className={classes.iconWrapper}>
-                <img
-                    src={itemUtils.getWearableImg(wearable.id || wearable.erc1155TypeId)}
-                    alt={name}
-                    className={classes.icon}
-                />
-            </div>
-
-            <div className={classes.nameWrapper}>
-                <Typography className={classNames(classes.name, classes.textHighlight, rarity)}>
-                    {name}
-                </Typography>
-            </div>
-
-            <Typography variant='subtitle1' className={classes.stats}>
-                {stats}
-            </Typography>
-
+            <WearableImage wearable={wearable} />
+            <CardName item={wearable} />
+            <CardStats item={wearable} />
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </ERC1155>

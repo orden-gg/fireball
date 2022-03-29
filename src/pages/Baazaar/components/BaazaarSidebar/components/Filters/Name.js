@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { TextField } from "@mui/material";
-import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
+import React, { useContext } from 'react';
+import { TextField } from '@mui/material';
 
-import styles from "./styles";
+import { BaazaarContext } from 'contexts/BaazaarContext';
 
+import styles from './styles';
 
-export default function Name({runFilterWatcher}) {
+export default function Name({ runFilterWatcher }) {
     const classes = styles();
     const { name, setName } = useContext(BaazaarContext);
 

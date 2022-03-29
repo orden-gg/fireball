@@ -1,11 +1,10 @@
-import React, {useContext, useState} from "react";
-import {Button, Grid, Slider} from "@mui/material";
-import { BaazaarContext } from '../../../../../../contexts/BaazaarContext';
+import React, { useContext, useState } from 'react';
+import { Button, Grid, Slider } from '@mui/material';
+import classNames from 'classnames';
 
-import classNames from "classnames";
+import { BaazaarContext } from 'contexts/BaazaarContext';
 
-import styles from "./styles";
-
+import styles from './styles';
 
 let traitsEmojis = {
     NRG: '⚡️',
@@ -16,9 +15,9 @@ let traitsEmojis = {
     EYC: '👁'
 };
 
-export default function TraitSlider({type, runFilterWatcher}) {
+export default function TraitSlider({ type, runFilterWatcher }) {
     const classes = styles();
-    const [sliderRange, setSliderRange] = useState([0,99]);
+    const [sliderRange, setSliderRange] = useState([-20, 120]);
     const { changeSingleStat } = useContext(BaazaarContext);
 
     const onSliderChange = (event, value) => {
@@ -32,7 +31,7 @@ export default function TraitSlider({type, runFilterWatcher}) {
     };
 
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={1} className={classes.traitsWrapper}>
             <Grid item xs={2}>
                 {traitsEmojis[type]}
             </Grid>
@@ -41,11 +40,11 @@ export default function TraitSlider({type, runFilterWatcher}) {
                     <Grid item xs={12}>
                         <Slider
                             className={classes.slider}
-                            min={0}
-                            max={99}
+                            min={-20}
+                            max={120}
                             value={sliderRange}
                             onChange={(event, value) => onSliderChange(null, value)}
-                            valueLabelDisplay="auto"
+                            valueLabelDisplay='auto'
                             disableSwap
                             size={'small'}
                         />

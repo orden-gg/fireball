@@ -8,7 +8,7 @@ const raffles = [
         startDate: DateTime.local(2021, 3, 29, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 4, 1, 14, { zone: 'utc' }),
         tickets: [0, 1, 2, 3, 4, 5],
-        icon: require('../../../assets/wearables/156.svg').default,
+        icon: require('../../../assets/images/wearables/156.svg').default,
     },
     {
         id: 4,
@@ -17,7 +17,7 @@ const raffles = [
         startDate: DateTime.local(2021, 9, 5, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 9, 8, 14, { zone: 'utc' }),
         tickets: [6],
-        icon: require('../../../assets/images/h2_sealed.svg').default
+        icon: require('../../../assets/images/portals/h2-sealed.svg').default
     },
     {
         id: 5,
@@ -26,12 +26,12 @@ const raffles = [
         startDate: DateTime.local(2021, 9, 24, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 9, 27, 14, { zone: 'utc' }),
         tickets: [0, 1, 2, 3, 4, 5],
-        icon: require('../../../assets/wearables/261.svg').default
+        icon: require('../../../assets/images/wearables/261.svg').default
     },
     {
         id: 6,
         name: 'realm',
-        type: 'realm-generic',
+        type: 'realm-generic', // realm type without spicifications (hamble, spacious, reasonable)
         tickets: [6],
         startDate: DateTime.local(2021, 11, 5, 14, { zone: 'utc' }),
         endDate: DateTime.local(2021, 11, 8, 14, { zone: 'utc' }),
@@ -53,7 +53,7 @@ const raffles = [
         tickets: [0, 1, 2, 3, 4, 5],
         startDate: DateTime.local(2022, 1, 26, 14, { zone: 'utc' }),
         endDate: DateTime.local(2022, 1, 29, 14, { zone: 'utc' }),
-        icon: require('../../../assets/wearables/313.svg').default
+        icon: require('../../../assets/images/wearables/313.svg').default
     },
 ];
 

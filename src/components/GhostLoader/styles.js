@@ -1,6 +1,6 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     wrapper: {
         width: 360,
         height: 360,
@@ -83,7 +83,7 @@ const styles = makeStyles( theme => ({
         height: 55,
         width: '100%',
         filter: 'url(#goo)',
-        
+
         '&:before': {
           content: '""',
           background: '#fff',

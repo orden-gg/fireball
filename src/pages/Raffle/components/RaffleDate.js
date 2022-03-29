@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+
+import classNames from 'classnames';
 import { DateTime, Duration } from 'luxon';
-import useInterval from '../../../hooks/useInterval';
+
+import useInterval from 'hooks/useInterval';
 
 import { raffleDataStyles } from '../styles';
-import classNames from 'classnames';
 
-export default function RaffleDate({start, end}) {
+export default function RaffleDate({ start, end }) {
     const [type, setType] = useState(null);
     const [title, setTitle] = useState(null);
     const classes = raffleDataStyles();
@@ -24,7 +26,7 @@ export default function RaffleDate({start, end}) {
         const local = DateTime.local();
         const diff = end - local;
 
-        if(local > start && local < end) {
+        if (local > start && local < end) {
             setType('live');
             setTitle(`live for ${Duration.fromObject({milliseconds: diff}).toFormat('hh:mm:ss')}`);
         } else if (local < start) {
@@ -36,7 +38,7 @@ export default function RaffleDate({start, end}) {
         }
     };
 
-    if(!title) return null;
+    if (!title) return null;
 
     return (
         <div className={classNames(classes.title, type)}>

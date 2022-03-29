@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Typography, Tooltip } from '@mui/material';
-import { useTheme } from '@emotion/react';
 import { alpha, Box } from '@mui/system';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useTheme } from '@emotion/react';
+
 import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
+
+import ethersApi from 'api/ethers.api';
+import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
-
-import commonUtils from '../../../utils/commonUtils';
-import thegraph from '../../../api/thegraph';
-
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
-import Web3 from "web3";
-
-const web3 = new Web3();
-
-export default function ERC1155({children, item}) {
+export default function ERC1155({ children, item }) {
     const classes = {
         ...itemStyles(),
         ...styles(),
         ...tooltipStyles()
     };
-    
+
     const theme = useTheme();
 
     const [last, setLast] = useState(null);
@@ -36,10 +34,10 @@ export default function ERC1155({children, item}) {
 
         // last sold
         thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setLast(response);
 
-                if(response?.lastSale) {
+                if (response?.lastSale) {
                     let date = new Date(response?.lastSale * 1000).toJSON()
                     setLastDate(date);
                 }
@@ -48,7 +46,7 @@ export default function ERC1155({children, item}) {
 
         // current
         thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
-            if(!controller.signal.aborted) {
+            if (!controller.signal.aborted) {
                 setCurrent(response);
             }
         });
@@ -75,7 +73,7 @@ export default function ERC1155({children, item}) {
                                 <Typography variant='subtitle2'>
                                     {
                                         last.price === 0 && !item.priceInWei ? '???' :
-                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : parseFloat(web3.utils.fromWei(item.priceInWei)))
+                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
                                     }
                                 </Typography>
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />
@@ -157,7 +155,7 @@ export default function ERC1155({children, item}) {
                                     </Box>
                                 ) : (
                                     <Typography variant='caption'>
-                                        Sold for <Link 
+                                        Sold for <Link
                                             href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
                                             target='_blank'
                                             underline='none'
@@ -174,7 +172,7 @@ export default function ERC1155({children, item}) {
                     >
                         <div>
                             {current.price === 0 ? (
-                                <Typography 
+                                <Typography
                                     variant='subtitle2'
                                     className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
                                     No listings
@@ -218,7 +216,7 @@ export default function ERC1155({children, item}) {
                         foregroundColor={alpha(theme.palette.secondary.main, .5)}
                         className={classes.priceLoader}
                     >
-                        <rect x='0' y='0' width='70' height='27' /> 
+                        <rect x='0' y='0' width='70' height='27' />
                     </ContentLoader>
                 )}
             </div>

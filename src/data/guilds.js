@@ -1,7 +1,7 @@
 const guilds = [
     {
         name: 'ordenGG',
-        logo: require('../assets/guilds/ordenGG.svg').default,
+        logo: require('../assets/images/guilds/ordenGG.svg').default,
         members: [
             '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
             '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
@@ -18,7 +18,7 @@ const guilds = [
                 text: 'e-sport & gamedev DAO always playing a good game ☀️'
             },
         ],
-        banner: require('../assets/guilds/ordenGG-banner.png').default,
+        banner: require('../assets/images/guilds/ordenGG-banner.png').default,
         socials: {
             twitter: 'https://twitter.com/orden_gg/',
             discord: 'https://discord.com/invite/NXEEETxSkC'
@@ -26,7 +26,7 @@ const guilds = [
     },
     {
         name: 'Aavegotchi Francophonie',
-        logo: require('../assets/guilds/aavegotchi-francophonie.jpg').default,
+        logo: require('../assets/images/guilds/aavegotchi-francophonie.jpg').default,
         members: [
             '0xbe0c04ec30d93fec3384f070ddb0252dde38b4fe',
             '0x6649DaD69e7994f329bB5f0a829C82b838815a56',
@@ -66,7 +66,7 @@ const guilds = [
     },
     {
         name: 'Aeolian Haunts',
-        logo: require('../assets/guilds/aeolian-haunts.jpeg').default,
+        logo: require('../assets/images/guilds/aeolian-haunts.jpeg').default,
         members: [],
         description: [
             {
@@ -89,7 +89,7 @@ const guilds = [
         }
     },{
         name: 'Aavegotchi Aavenue',
-        logo: require('../assets/guilds/aavegotchi-aavenue.png').default,
+        logo: require('../assets/images/guilds/aavegotchi-aavenue.png').default,
         members: [],
         description: [
             {
@@ -111,7 +111,7 @@ const guilds = [
         }
     },{
         name: 'BlackPool’s Aapegotchis',
-        logo: require('../assets/guilds/blackpool-aapegotchis.png').default,
+        logo: require('../assets/images/guilds/blackpool-aapegotchis.png').default,
         members: [
             '0x93468adecdccd18131ce1fd8caeed68fb3de43e7',
             '0xc31372db84e456193e72a162928539c8f5999ff6',
@@ -167,7 +167,7 @@ const guilds = [
         }
     },{
         name: 'Chigotchi Bulls',
-        logo: require('../assets/guilds/chigotchi-bulls.png').default,
+        logo: require('../assets/images/guilds/chigotchi-bulls.png').default,
         members: [],
         description: [
             {
@@ -190,8 +190,56 @@ const guilds = [
         }
     },{
         name: 'cRekto Club',
-        logo: require('../assets/guilds/crekto-club.png').default,
-        members: [],
+        logo: require('../assets/images/guilds/crekto-club.png').default,
+        members: [
+            '0xE8777Bc36A160902c812444874EA21aE4449e99e',
+            '0x52E7e4C7e9Ae9Fd1e3C39359382ce1890b783953',
+            '0xa1586347C540C1b5CD83113872EEb7815A57dfe6',
+            '0x532cB3e10f461280946d139CCB2bF1Bd64BA047a',
+            '0x10604BE9723C0721ed82eCcE49ce68FF0Fc26227',
+            '0x1e0b68335c9C42D418F1bc6Fe9c03f19df3C90A3',
+            '0xC7Dc6bA8dE6770f8ada1dF1653EE07f531729Dd5',
+            '0x4C26A148030d7377AD8AD032bf8eF3dAFb5E5b62',
+            '0x67Bc5fC3FF395631b0305253f8cBEaBcf41d811F',
+            '0x4117F0dB169B126a44fCa628De4223c264AD6F19',
+            '0x6B7f6f99783A256a1C378B7971C23Ae24140944b',
+            '0x6CA2fC6CF24cfE57F259F39EB1Db52BAA257c1e6',
+            '0x624857D6D8cFfdD770398BeeB2B76e3C797eAD26',
+            '0xB2FF18975AF49C522a410a75565bD475F4bAC00f',
+            '0xe1DfeC1c1213BAF331eb586468eBDF6b67F7c332',
+            '0xF7f83e73480afbc76754e52404A10c70ebb62Eb4',
+            '0xE0350C57c2BA6eF8731e41E06F528E6661355B6b',
+            '0x845657F96DC0492E9Ffa0Bed0BA6F425E05B62Ad',
+            '0x7BB8705a3581f549C039401903251Aa010ADe9C6',
+            '0xdDDff3048C1d89FA8fE1221b7bC35624622B9058',
+            '0x82131E86d080312E13605aaDA6538a94Df5B41A5',
+            '0xE7824cFa1C9FAFa4767dF34305123F3151A00F1B',
+            '0xB02DC63B4e234e1aBc36EAD88DF610d67f4920dD',
+            '0x831A97E402955EFB4C72E96B80490A4E45a1D02c',
+            '0xA3aE371Ce95E2FebE99db246652d947b91AF48C3',
+            '0xbC1443c470c6130ed1052748e179fd313E5f20F4',
+            '0xfe791B87F607AE6BE8449e64d393c91be46a1245',
+            '0x3c865BCad9c26a1E24f15a7881e2d09400F51812',
+            '0x703cF6401d04A06378C6F59dbd9117203Ba9892D',
+            '0x33c01376c5F53A2B9D623B833F2f77f9B118A8C0',
+            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
+            '0x3a120FDd1260422Fc76cB5c7E9b5E6F292c96b56',
+            '0xDb1D5d5aCDd6a2233610884715440C92Cb0e85cA',
+            '0x39001877121f282464112926294459638214E7bd',
+            '0xbFF64D0aa474b778ed52209cF6b615b7619bfc94',
+            '0xE4ea40377D1ecA80c5F6D060A18528f3f73b2B61',
+            '0x5C1De9ce04dC35d8A2d2AB821840319F03a5e291',
+            '0xdaaF88a9bEC5e584329e4954Bf72E7909F3A71E9',
+            '0x99F63103C109dBce7a45e111DA8cF2c8C86cf6c1',
+            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
+            '0x0b31e9737FeE75157A9aA775e35a43dEc1dc2059',
+            '0xE5F53aAA6620cfcE303297B2290Bb51cD86A01B2',
+            '0x99Ac39F74CC51f683667F08B4591A6bc3639e0C5',
+            '0x262944448Ec574dd5f82136964BbF189CC1AB579',
+            '0xE1a1d5c32888c5b140917B296e82cf3A448F37A6',
+            '0x76E059C6FF6bf9FFFD5f33AFdf4AB2FD511C9DF4',
+            '0xEd89Ea70A367E41bb4FF1a0A185BF0C07deC69de'
+        ],
         description: [
             {
                 title: 'Description',
@@ -213,7 +261,7 @@ const guilds = [
         }
     },{
         name: 'DeFi Alpha Gaming Guild',
-        logo: require('../assets/guilds/defi-alpha-gaming-guild.png').default,
+        logo: require('../assets/images/guilds/defi-alpha-gaming-guild.png').default,
         members: [],
         description: [
             {
@@ -237,7 +285,7 @@ const guilds = [
         }
     },{
         name: 'F8 Guild',
-        logo: require('../assets/guilds/f8-guild.png').default,
+        logo: require('../assets/images/guilds/f8-guild.png').default,
         members: [],
         description: [
             {
@@ -260,7 +308,7 @@ const guilds = [
         }
     },{
         name: 'Frenzone',
-        logo: require('../assets/guilds/frenzone.png').default,
+        logo: require('../assets/images/guilds/frenzone.png').default,
         members: [],
         description: [
             {
@@ -283,7 +331,7 @@ const guilds = [
         }
     },{
         name: 'Ghost Squad',
-        logo: require('../assets/guilds/ghost-squad.png').default,
+        logo: require('../assets/images/guilds/ghost-squad.png').default,
         members: [
             '0xE88632728Ed377f556cB964e6F670f6017d497e4',
             '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a',
@@ -306,7 +354,7 @@ const guilds = [
                 text: 'Gotchinomics#4936'
             }
         ],
-        banner: require('../assets/guilds/ghost-squad-banner.png').default,
+        banner: require('../assets/images/guilds/ghost-squad-banner.png').default,
         socials: {
             twitter: 'https://twitter.com/gotchighstsquad',
             discord: 'https://discord.com/invite/JQHx9u8mcV',
@@ -314,7 +362,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi FArmy Gang',
-        logo: require('../assets/guilds/gotchi-farmy-gang.png').default,
+        logo: require('../assets/images/guilds/gotchi-farmy-gang.png').default,
         members: [
             '0x064D58647A6F780c822fa1D9EE5295c1a0D5c692',
             '0x0c404F55595ab844D519a084fF1B8cB36AAAD1d1',
@@ -461,7 +509,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi Gaang Maafia',
-        logo: require('../assets/guilds/gotchi-gaang-maafia.jpeg').default,
+        logo: require('../assets/images/guilds/gotchi-gaang-maafia.jpeg').default,
         members: [],
         description: [
             {
@@ -483,7 +531,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi Riders',
-        logo: require('../assets/guilds/gotchi-riders.png').default,
+        logo: require('../assets/images/guilds/gotchi-riders.png').default,
         members: [],
         description: [
             {
@@ -505,7 +553,7 @@ const guilds = [
         }
     },{
         name: 'Keepers of the Realm',
-        logo: require('../assets/guilds/keepers-of-the-realm.png').default,
+        logo: require('../assets/images/guilds/keepers-of-the-realm.png').default,
         members: [],
         description: [
             {
@@ -527,7 +575,7 @@ const guilds = [
         }
     },{
         name: 'LevX DAO',
-        logo: require('../assets/guilds/levx.png').default,
+        logo: require('../assets/images/guilds/levx.png').default,
         members: [],
         description: [
             {
@@ -550,7 +598,7 @@ const guilds = [
         }
     },{
         name: 'Los Mustachos',
-        logo: require('../assets/guilds/mustachos.png').default,
+        logo: require('../assets/images/guilds/mustachos.png').default,
         members: [],
         description: [
             {
@@ -573,7 +621,7 @@ const guilds = [
         }
     },{
         name: 'Metaguild',
-        logo: require('../assets/guilds/metaguild.png').default,
+        logo: require('../assets/images/guilds/metaguild.png').default,
         members: [
             '0xC68C8452be34032ab999787796AE0fAaf071e054',
             '0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6',
@@ -619,7 +667,7 @@ const guilds = [
                 text: 'Sandro#7777 egor#1111 kupilslona#0022'
             }
         ],
-        banner: require('../assets/guilds/metaguild-banner.png').default,
+        banner: require('../assets/images/guilds/metaguild-banner.png').default,
         socials: {
             website: 'https://metaguild.com/',
             twitter: 'https://twitter.com/metaguildcom',
@@ -627,8 +675,24 @@ const guilds = [
         }
     },{
         name: 'MSG',
-        logo: require('../assets/guilds/msg.jpeg').default,
-        members: [],
+        logo: require('../assets/images/guilds/msg-gang-banner.jpg').default,
+        members: [
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x86aecfc1E3973108Ce14b9b741a99d3466127170',
+            '0x244291D3F74380D7CD10b861622aFF1216Fc2697',
+            '0x6d49DEC27E02eFccEF9a5136dDe10A06333cc9f7',
+            '0x54021E58aF1756dc70CE7034d7636De2D2f1fA74',
+            '0x3285bf2A8c9248a135e9D13d8DDbC7679aaC0AA1',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+            '0x00000000005dbcB0d0513FcDa746382Fe8a53468',
+            '0x00064e885741Ed13A122C5A115999e05c71B8FCa',
+            '0x244FE02FBCf4dB4Ad96063B161F00e444FC54011',
+            '0x8e4Bdd156e4dD802dd919F4FD2645681CE99a538',
+            '0xfaCEf700458D4Fc9746F7f3e0d37B462711fF09e',
+            '0xc13eC844Eb19D6A72DDD5F2779484BA35279A817',
+            '0x2Bf034ecCEbc8CD60Dab9c249b6c2996Dcb7D8EC',
+            '0xc89A3292Eb0a8396A2505deB6195AFA7f83A8A30',
+        ],
         description: [
             {
                 title: 'Description',
@@ -645,13 +709,13 @@ const guilds = [
         ],
         banner: '',
         socials: {
-            twitter: 'https://twitter.com/msg13gaang',
-            twitch: 'https://www.twitch.tv/msg13gaang',
+            website: 'https://msggaang.wtf/',
+            twitter: 'https://twitter.com/msggaang',
             discord: 'https://discord.com/invite/XUASaaxu2Q'
         }
     },{
         name: `Mug’N’Buns`,
-        logo: require('../assets/guilds/mugnbuns.png').default,
+        logo: require('../assets/images/guilds/mugnbuns.png').default,
         members: [],
         description: [
             {
@@ -667,14 +731,14 @@ const guilds = [
                 text: 'Cherry#0302'
             }
         ],
-        banner: '',
+        banner: require('../assets/images/guilds/msg-gang-banner.jpg').default,
         socials: {
             twitter: 'https://twitter.com/MugnBunsGuild',
             discord: 'https://discord.com/invite/mugnbuns'
         }
     },{
         name: 'TGC',
-        logo: require('../assets/guilds/tgc.jpeg').default,
+        logo: require('../assets/images/guilds/tgc.jpeg').default,
         members: [],
         description: [
             {
@@ -697,7 +761,7 @@ const guilds = [
         }
     },{
         name: 'The Order of Portal Mages',
-        logo: require('../assets/guilds/the-order-of-portal-mages.jpeg').default,
+        logo: require('../assets/images/guilds/the-order-of-portal-mages.jpeg').default,
         members: [],
         description: [
             {
@@ -720,7 +784,7 @@ const guilds = [
         }
     },{
         name: 'WAGMI Warriors',
-        logo: require('../assets/guilds/WAGMI-warriors.png').default,
+        logo: require('../assets/images/guilds/WAGMI-warriors.png').default,
         members: ['0x26cf02F892B04aF4Cf350539CE2C77FCF79Ec172'],
         description: [
             {
@@ -751,27 +815,101 @@ const guilds = [
         }
     },{
         name: '8bit Gamers Guild',
-        logo: require('../assets/guilds/8gg.jpeg').default,
+        logo: require('../assets/images/guilds/8gg.jpeg').default,
         members: []
     }, {
         name: 'Aavemaa',
-        logo: require('../assets/guilds/aavemaa.png').default,
-        members: []
+        logo: require('../assets/images/guilds/aavemaa.png').default,
+        members: [
+            '0xA62F79725e08DA9B8684fdaC2bfED855d41186E4',
+            '0x09D43aDa2A315C88f627BB9350847f9C80F225e9',
+            '0xb0C4Cc1AA998DF91D2c27cE06641261707A8c9C3'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Aavemaa is a low intensity guild on aavegotchi consisting of mainly finnish irl frens.'
+            },
+            {
+                title: 'Requirement',
+                text: 'None really.'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'mikkop#3569'
+            }
+        ],
+        banner: '',
+        socials: {
+            website: 'https://peakd.com/aavegotchi/@rova/opastus-aavegotchiin',
+            discord: 'https://discord.gg/RrvzVegn'
+        }
     }, {
         name: 'Cryptoticker.io GHST Guild',
-        logo: require('../assets/guilds/cryptoticker.png').default,
+        logo: require('../assets/images/guilds/cryptoticker.png').default,
         members: []
     }, {
         name: 'Geistreich',
-        logo: require('../assets/guilds/geistreich.png').default,
+        logo: require('../assets/images/guilds/geistreich.png').default,
         members: []
     }, {
         name: 'gmDAO',
-        logo: require('../assets/guilds/gmdao.png').default,
-        members: []
+        logo: require('../assets/images/guilds/gmdao.png').default,
+        members: [
+            '0x2c2f799ef62709ef3ac770fa452955844328ff91',
+            '0xde6b1d60b5c5c0c8a41c8c3241c56e8754d5ca65',
+            '0x31a6d0ea27db941257024189a3718472d40ef663',
+            '0x6c32ae11056885ee17a57eea1ca0a1d1387585b1',
+            '0x813dfd379a0ab39ef734aa7b883e41e01aa16f02',
+            '0xa6ab5ca03954e8b2bb54e9006efb8e68824271fa',
+            '0xfb91a0d6dff39f19d0ea9c988ad8dfb93244c40b',
+            '0x08ea587c88bbaa9ec7e73f9b36828ec9ba6f021f',
+            '0x297e3e1b23cdf212d93885cdea78fad626b31cb7',
+            '0x35f87cf2c34137314d133e6b95a8cbd31de82301',
+            '0x39c60bae189d4ebacb6616bb20d8c3a0abd7ea85',
+            '0x3f3f1501df473080ef8e8c28272d22daab1551a4',
+            '0x50aa5ab2c9331bd6b55fe60a17c8720b86f49c64',
+            '0x5a6c0ff57d4416bd1158d68ce01973a66a35dd1a',
+            '0x73da56cb889afb72adb2879d08233f8baca2c362',
+            '0x759dc40a301c76ce49a98ae291cb145d8769f18e',
+            '0x7f8334a7b1d429a617be2863e281f0230da8f238',
+            '0x8088f578198bd15775e9d534f82fa82422471dd3',
+            '0x8c9ec6a671c6819e84fb325604f73e321af0b5e3',
+            '0x9080196182f77b89bb5b0eee3ddb48cfa716c4c3',
+            '0x9875094945893d40979e2858b6caf788dcce3368',
+            '0x99b29366c13b0cae8bf023d5e09aa5ded6b56c2e',
+            '0x9b5c8aabf848a89b1378a930d42fb094a7d94c74',
+            '0xbdc7a955505e20410061744f556f6dec761bfb8f',
+            '0xde3fa0765da943ef535182b86b9e5e0af2fed02b',
+            '0xfabd243f41cfaf4fe442e0f7740801151b747e44',
+            '0xfbb073e09d84970d1efe099abbe9e626f8ff7024',
+            '0xff3b5ec89aa8d54e0b4950ebeca56b039b07971a',
+            '0xBa00D625A28372a1C90DBa8A1d48EEEa9Bb495f7',
+            '0x90EF65E04DFa51E14b16206d79782c978a2cC033'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'gmDAO is a quantitative hedgefund investing in the metaverse. HQ in the gotchiverse.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Adhere to the discord rules of gmDAO.'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'nationalbank#6969'
+            }
+        ],
+        banner: '',
+        socials: {
+            website: 'https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C',
+            twitter: 'https://twitter.com/gmdaogm',
+            discord: 'https://discord.gg/vcbZBYSbvq'
+        }
     }, {
         name: 'SynthGuild',
-        logo: require('../assets/guilds/synthguild.png').default,
+        logo: require('../assets/images/guilds/synthguild.png').default,
         members: []
     }
 ]

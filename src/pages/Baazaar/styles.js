@@ -1,21 +1,24 @@
 import { alpha } from '@mui/system';
-
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     baazaar: {
         padding: 24,
-        width: 'calc(100vw + 24px)'
+        [theme.breakpoints.up('sm')]: {
+            display: 'flex',
+            alignItems: 'stretch'
+        }
     },
     backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff'
+        zIndex: theme.zIndex.appBar - 1,
+        color: '#fff',
+        position: 'absolute'
     }
 }));
 
-const baazaarBodyStyles = makeStyles( theme => ({
+const baazaarBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        padding: 30
+        flexGrow: 1,
     },
     pagination: {
         display: 'flex',
@@ -34,7 +37,7 @@ const baazaarBodyStyles = makeStyles( theme => ({
     }
 }));
 
-const baazaarItemStyles = makeStyles( theme => ({
+const baazaarItemStyles = makeStyles(theme => ({
     baazaarItem: {
         background: theme.palette.background.paper,
         borderWidth: 2,
@@ -147,7 +150,7 @@ const baazaarItemStyles = makeStyles( theme => ({
     }
 }));
 
-const paginationStyles = makeStyles( theme => ({
+const paginationStyles = makeStyles(theme => ({
     wrap: {
         display: 'flex',
         marginTop: 20
@@ -163,15 +166,27 @@ const paginationStyles = makeStyles( theme => ({
     }
 }));
 
-const baazaarSortingBodyStyles = makeStyles( theme => ({
+const baazaarSortingBodyStyles = makeStyles(theme => ({
     baazaarBody: {
-        padding: 30
+        flexGrow: 1,
+        position: 'relative'
     },
     baazaarListItems: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill,minmax(192px,1fr))',
         gridGap: 12,
-        width: '100%'
+        width: '100%',
+
+        '&.horizontal': {
+            display: 'flex',
+            flexDirection: 'column',
+            gridTemplateColumns: 'none'
+        }
+    },
+    baazaarListItem: {
+        '.horizontal &': {
+            maxWidth: 850
+        }
     },
     pagination: {
         display: 'flex',
@@ -216,7 +231,7 @@ const baazaarSortingBodyStyles = makeStyles( theme => ({
         '& .carousel-status': {
             top: -17
         }
-    }
+    },
 }));
 
 export {

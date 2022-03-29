@@ -1,18 +1,9 @@
-import React from "react";
-import {
-    Box,
-    Button,
-    Grid,
-    Slider,
-    TextField,
-    ToggleButton,
-    ToggleButtonGroup, Tooltip
-} from "@mui/material";
+import React from 'react';
+import { Box, Button, Grid, Slider, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 
-import styles from "./styles";
+import styles from './styles';
 
-
-export default function AdvancedSearch({selectedTraits, onTraitsChange, sliderRange, onSliderChange, onRangeChange, sliderIsValid, onAddTraitClick}) {
+export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderRange, onSliderChange, onRangeChange, sliderIsValid, onAddTraitClick }) {
     const classes = styles();
 
     return (
@@ -61,8 +52,8 @@ export default function AdvancedSearch({selectedTraits, onTraitsChange, sliderRa
             </Grid>
             <Grid item xs={12}>
                 <Slider
-                    min={0}
-                    max={99}
+                    min={-20}
+                    max={120}
                     value={sliderRange}
                     onChange={onSliderChange}
                     valueLabelDisplay="auto"

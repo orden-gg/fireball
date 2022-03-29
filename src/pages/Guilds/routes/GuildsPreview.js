@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
-import styles from '../styles';
-// import ScrollAnimation from 'react-animate-on-scroll';
-import { GuildsContext } from '../../../contexts/GuildsContext';
 import { Box } from '@mui/system';
-import guildUtils from '../../../utils/guildUtils';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+import { GuildsContext } from 'contexts/GuildsContext';
+import guildUtils from 'utils/guildUtils';
+
 import GuildLogo from '../components/GuildLogo';
+import styles from '../styles';
 
 export default function GuildsPreview() {
     const classes = styles();
@@ -18,9 +20,8 @@ export default function GuildsPreview() {
     }
 
     const renderList = () => {
-        
         return (
-            guildsData.sort( guild => guild.members.length ? -1 : 1).map( (guild, index) => {
+            guildsData.sort( guild => guild.members.length ? -1 : 1).map((guild, index) => {
                 return (
                     <div className={classes.guildItem} key={index}>
                         <button
@@ -31,7 +32,7 @@ export default function GuildsPreview() {
                             <div className={classes.guildLogo}>
                                 <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
                             </div>
-                            
+
                             <p className={classes.guildName}>{guild.name}</p>
                         </button>
                     </div>
@@ -40,7 +41,7 @@ export default function GuildsPreview() {
         )
     }
 
-    useEffect( () => {
+    useEffect(() => {
         setCurrentGuild([]);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +49,15 @@ export default function GuildsPreview() {
 
     return (
         <Box className={classes.guildsWrapper}>
-            <h1 className={classes.guildsTitle}>Aavegotchi Guilds</h1>
+            <a
+                className={classes.guildsTitle}
+                href='https://fireball-gg.notion.site/how-to-add-guild-to-fireball-gg-cd78871152b04110b385f42ac94ea452'
+                target='_blank'
+                rel='noreferrer'
+            >
+                <span>how to add your guild</span>
+                <ArrowForwardIcon fontSize='small' />
+            </a>
             <ul className={classes.guildsList}>
                 { renderList() }
             </ul>

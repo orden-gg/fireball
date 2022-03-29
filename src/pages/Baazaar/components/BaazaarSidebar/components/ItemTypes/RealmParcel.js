@@ -1,7 +1,8 @@
-import React from "react";
-import Parcel from "../../../../../../components/Items/Parcel/Parcel";
+import React from 'react';
 
-export default function RealmParcel({item}) {
+import Parcel from 'components/Items/Parcel/Parcel';
+
+export default function RealmParcel({ item }) {
     return (
         <div>
             <Parcel

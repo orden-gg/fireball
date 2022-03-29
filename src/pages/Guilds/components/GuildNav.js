@@ -2,14 +2,12 @@ import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import { useRouteMatch } from 'react-router';
-
 import { NavLink } from 'react-router-dom';
-
-import { GuildsContext } from '../../../contexts/GuildsContext';
-
-import gotchiPlaceholder from '../../../assets/images/gotchi-placeholder.svg';
-import realmPlaceholder from '../../../assets/images/icons/kek.png';
 import ContentLoader from 'react-content-loader';
+
+import { GuildsContext } from 'contexts/GuildsContext';
+import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
+import realmPlaceholder from 'assets/images/icons/kek.png';
 
 import { guildNavStyles } from '../styles';
 
@@ -18,10 +16,11 @@ export default function GuildNav() {
     const classes = guildNavStyles();
     const theme = useTheme();
 
-    const { 
+    const {
         guildGotchis,
         guildRealm
-     } = useContext(GuildsContext);
+    } = useContext(GuildsContext);
+
     return (
         <div className={classes.container}>
             <div className={classes.navItem}>

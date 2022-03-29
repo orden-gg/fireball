@@ -1,18 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Button, Grid, Link, List, ListItem, Typography} from '@mui/material';
-import {useHistory} from 'react-router';
-import {useLocation} from 'react-router-dom';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
-import thegraph from '../../../api/thegraph';
-import commonUtils from '../../../utils/commonUtils';
-import ParcelImage from '../../../components/Items/ParcelImage/ParcelImage';
-import {parcelSinglePage, routersStyles} from '../styles'
-import ParcelBaazaarLink from '../../../components/Items/Parcel/common/ParcelBaazaarLink/ParcelBaazaarLink';
-import Web3 from 'web3';
-import classNames from 'classnames';
-import itemUtils from '../../../utils/itemUtils';
+import React, { useEffect, useState } from 'react';
+import { Box, Button, Grid, Link, List, ListItem, Typography } from '@mui/material';
+import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
-const web3 = new Web3();
+import classNames from 'classnames';
+
+import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
+import ParcelBaazaarLink from 'components/Items/Parcel/ParcelBaazaarLink';
+import ethersApi from 'api/ethers.api';
+import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
+import itemUtils from 'utils/itemUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
+import { parcelSinglePage, routersStyles } from '../styles'
 
 export default function ClientRealmParcel() {
     const classes = {
@@ -182,7 +183,7 @@ export default function ClientRealmParcel() {
                                                         <Typography
                                                             className={classes.reserveTitle}>Price: </Typography>
                                                         <img src={ghstIcon} alt={'GHST'} className={classes.priceIcon}/>
-                                                        {web3.utils.fromWei(item.priceInWei)}
+                                                        {ethersApi.fromWei(item.priceInWei)}
                                                     </Grid>
                                                 </Grid>
                                             </ListItem>

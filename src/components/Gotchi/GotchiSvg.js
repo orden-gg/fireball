@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import thegraph from '../../api/thegraph';
 import classNames from 'classnames';
 
-import gotchiLoading from '../../assets/images/gotchi-loading.gif';
+import thegraph from 'api/thegraph.api';
+import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
+
 import { GotchiSvgStyles } from './styles';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
-export default function GotchiSvg({id, size, hideWearables, hideBg}) {
+export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
     const classes = GotchiSvgStyles();
     const svgRef = useRef(null);
     const [loadingSvg, setLoadingSvg] = useState(true);
@@ -22,7 +22,7 @@ export default function GotchiSvg({id, size, hideWearables, hideBg}) {
 
         thegraph.getGotchiSvgById(id)
             .then((response)=> {
-                if(!controller.signal.aborted) {
+                if (!controller.signal.aborted) {
                     let svgString = response.data.aavegotchis[0].svg;
                     let svgUniqueStyles = svgString.match(regex).map((val) => {
                         return val.replace(/<\/?style>/g,'');

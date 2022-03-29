@@ -1,22 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-    Grid,
-    Checkbox,
-    Chip,
-    ToggleButton,
-    ToggleButtonGroup
-} from "@mui/material";
-import { BaazaarContext } from "../../../../../../contexts/BaazaarContext";
-import Stats from "./Stats";
-import Name from "./Name";
-import Id from "./Id";
+import React, { useContext, useEffect, useState } from 'react';
+import { Grid, Checkbox, Chip, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import classNames from 'classnames';
-import { baazaarFilteringTypes } from '../../../../../../data/types';
 
-import styles from "./styles";
+import { BaazaarContext } from 'contexts/BaazaarContext';
+import { baazaarFilteringTypes } from 'data/types';
 
+import Stats from './Stats';
+import Name from './Name';
+import Id from './Id';
+import styles from './styles';
 
-export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
+export default function GotchiFilters({ runFilterWatcher, runInstantFiltering }) {
     const classes = styles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);
@@ -138,7 +132,7 @@ export default function GotchiFilters({runFilterWatcher, runInstantFiltering}) {
                                                 return <Chip
                                                     className={classes.singleChip}
                                                     key={id}
-                                                    label={item.name + ": " + item.value[0] + "-" + item.value[1]}
+                                                    label={item.name + ": " + item.value[0] + " <> " + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}
                                                 />

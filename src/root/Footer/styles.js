@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     footerWrapper: {
         backgroundColor: theme.palette.secondary.dark,
         padding: '5px 24px',
@@ -33,6 +33,12 @@ const styles = makeStyles( theme => ({
     buttons: {
         whiteSpace: 'nowrap',
         margin: '12px auto 0',
+        '& .MuiButton-root': {
+            textTransform: 'lowercase',
+            padding: '2px 4px',
+            minWidth: 56,
+            fontSize: 12
+        },
         [theme.breakpoints.up('md')]: {
             margin: 0
         }

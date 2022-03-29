@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import classNames from 'classnames';
+
+import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
+
 import renderSvg from './GotchiSvgRender';
 import { GotchiSvgStyles } from './styles';
-
-import gotchiLoading from '../../assets/images/gotchi-loading.gif';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
-export default function GotchiSvgByStats({gotchi, size}) {
+export default function GotchiSvgByStats({ gotchi, size }) {
     const classes = GotchiSvgStyles();
     const svgRef = useRef();
     const [loadingSvg, setLoadingSvg] = useState(true);
@@ -42,7 +42,7 @@ export default function GotchiSvgByStats({gotchi, size}) {
         }).catch((error) => {
             console.log(error);
         });
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

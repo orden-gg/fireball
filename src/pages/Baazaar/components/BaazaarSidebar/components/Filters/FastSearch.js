@@ -1,8 +1,9 @@
-import React from "react";
-import { Grid } from "@mui/material";
-import TraitSlider from "./TraitSlider";
+import React from 'react';
+import { Grid } from '@mui/material';
 
-export default function AdvancedSearch({runFilterWatcher}) {
+import TraitSlider from './TraitSlider';
+
+export default function AdvancedSearch({ runFilterWatcher }) {
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>

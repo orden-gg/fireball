@@ -1,18 +1,19 @@
 import React, { useContext, useEffect } from 'react';
 import { Backdrop, Typography, Box } from '@mui/material';
-import styles from "./styles";
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
-import commonUtils from '../../utils/commonUtils';
 
-import { LoginContext } from '../../contexts/LoginContext';
+import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import { LoginContext } from 'contexts/LoginContext';
+import commonUtils from 'utils/commonUtils';
+import MetamaskIcon from 'assets/images/icons/metamask.png';
+
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
-import MetamaskIcon from '../../assets/images/metamask-icon.png';
-import GotchiSvg from '../Gotchi/GotchiSvg';
+import styles from './styles';
 
 export default function LoginButton() {
     const classes = styles();
@@ -84,7 +85,7 @@ export default function LoginButton() {
                             <Typography className={classes.addressText} variant='subtitle2'>
                                 {commonUtils.cutAddress(activeAddress)}
                             </Typography>
-                        </div> 
+                        </div>
                     ) : (
                         null
                     )}
@@ -114,10 +115,14 @@ export default function LoginButton() {
                 ) : (
                     null
                 )}
-
             </div>
 
-            {modalOpen ? <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} /> : null}
+            {modalOpen ? (
+                <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+            ) : (
+                null
+            )}
+
             <Backdrop
                 sx={{ }}
                 open={dropdownOpen}

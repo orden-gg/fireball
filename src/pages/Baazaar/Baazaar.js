@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Backdrop, CircularProgress } from '@mui/material';
-import styles from './styles';
-import thegraph from '../../api/thegraph';
-import BaazaarBody from './components/BaazaarBody/BaazaarBody';
-import BaazaarSortingBody from './components/BaazaarSortingBody/BaazaarSortingBody';
-import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
-import { BaazaarContext } from '../../contexts/BaazaarContext';
-import { listingTypes } from '../../data/types';
-import Web3 from 'web3';
-import { baazaarFilteringTypes } from '../../data/types';
-import useInterval from '../../hooks/useInterval';
-import {getQueries} from './baazaarQueryBuilder';
+import thegraph from 'api/thegraph.api';
+import { BaazaarContext } from 'contexts/BaazaarContext';
+import useInterval from 'hooks/useInterval';
+import { listingTypes } from 'data/types';
+import { baazaarFilteringTypes } from 'data/types';
 
-const web3 = new Web3();
+import BaazaarBody from './components/BaazaarBody';
+import BaazaarSortingBody from './components/BaazaarSortingBody';
+import BaazaarSidebar from './components/BaazaarSidebar/BaazaarSidebar';
+import { getQueries } from './baazaarQueryBuilder';
+import styles from './styles';
+import ethersApi from 'api/ethers.api';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 var paginationConfigs = {
         gotchiLimit: 60,
@@ -38,7 +37,7 @@ export default function Baazaar() {
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
     const {filteringType, exactMatch, id, name, orderingTypes,
-        sortingOrder, minBRS, stats, selectedGoodsType, priceFrom,
+        sortingOrder, minBRS, minKIN, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
         fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
     // watch filters
@@ -127,8 +126,8 @@ export default function Baazaar() {
             orderDirection: ${params.ordering ? params.ordering.split('-')[1] : defaults.defaultOrdering[1]},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${web3.utils.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${web3.utils.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
                 ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -166,8 +165,8 @@ export default function Baazaar() {
             orderDirection: ${order},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${web3.utils.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${web3.utils.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
                 ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -206,6 +205,11 @@ export default function Baazaar() {
                     equippedSetID
                     equippedSetName
                     usedSkillPoints
+                    listings(where:{cancelled: false, timePurchased: 0}) {
+                        id
+                        priceInWei
+                    }
+                    historicalPrices
                 },
                 portal {
                     id,
@@ -228,6 +232,7 @@ export default function Baazaar() {
     const getBaazaarItems = (params) => {
         showBackdrop(true);
         thegraph.getData(getGraphQueryString(params)).then((response) => {
+            console.log('graph', response.data.category);
             setGoods(response.data.category);
             showBackdrop(false);
         }).catch(() => {
@@ -364,9 +369,9 @@ export default function Baazaar() {
     const sortLocalGotchis = () => {
         filteredLocalGoods.sort((a, b) => {
             if (sortingOrder === orderingTypes.priceASC) {
-                return web3.utils.fromWei(a.priceInWei) - web3.utils.fromWei(b.priceInWei);
+                return ethersApi.fromWei(a.priceInWei) - ethersApi.fromWei(b.priceInWei);
             } else if (sortingOrder === orderingTypes.priceDESC) {
-                return web3.utils.fromWei(b.priceInWei) - web3.utils.fromWei(a.priceInWei);
+                return ethersApi.fromWei(b.priceInWei) - ethersApi.fromWei(a.priceInWei);
             } else if (sortingOrder === orderingTypes.timeASC) {
                 return parseInt(a.timeCreated) - parseInt(b.timeCreated);
             } else {
@@ -383,7 +388,7 @@ export default function Baazaar() {
             const gotchiTraits = gotchi.numericTraits;
             let hasDifference = false;
 
-            if ((!priceFrom ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) < parseFloat(priceFrom)) || (!priceTo ? false : parseFloat(web3.utils.fromWei(item.priceInWei)) > parseFloat(priceTo))) {
+            if ((!priceFrom ? false : ethersApi.fromWei(item.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : ethersApi.fromWei(item.priceInWei) > parseFloat(priceTo))) {
                 return false;
             }
 
@@ -409,7 +414,7 @@ export default function Baazaar() {
                     return gotchi.id.split(id).length > 1;
                 }
             } else if (filteringType === baazaarFilteringTypes.stats) {
-                if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS)) {
+                if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS) || parseInt(gotchi.kinship) <= parseInt(minKIN)) {
                     return false;
                 }
                 filtersMap.forEach((traitName, index) => {
@@ -443,7 +448,7 @@ export default function Baazaar() {
         const filterSingleRealm = (parcelItem) => {
             const item = parcelItem.parcel;
 
-            if ((!priceFrom ? false : parseFloat(web3.utils.fromWei(parcelItem.priceInWei)) < parseFloat(priceFrom)) || (!priceTo ? false : parseFloat(web3.utils.fromWei(parcelItem.priceInWei)) > parseFloat(priceTo))) {
+            if ((!priceFrom ? false : ethersApi.fromWei(parcelItem.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : ethersApi.fromWei(parcelItem.priceInWei) > parseFloat(priceTo))) {
                 return false;
             }
 
@@ -557,7 +562,7 @@ export default function Baazaar() {
     }, [selectedGoodsType, selectedListingType]);
 
     return (
-        <Grid classes={{root: classes.baazaar}} container spacing={3}>
+        <div className={classes.baazaar}>
             <BaazaarSidebar
                 setPage={setPage}
                 runFilterWatcher={runFilterWatcher}
@@ -586,11 +591,13 @@ export default function Baazaar() {
                         paginationIsVisible={true}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
+                        backdropIsOpen={backdropIsOpen}
                     />
             }
+
             <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>
-        </Grid>
+        </div>
     );
 }

@@ -1,29 +1,27 @@
 import React, { useContext, useEffect } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
+import GhostLoader from 'components/GhostLoader/GhostLoader';
+import Parcel from 'components/Items/Parcel/Parcel';
+import { ClientContext } from 'contexts/ClientContext';
+import fud from 'assets/images/icons/fud.png';
+import fomo from 'assets/images/icons/fomo.png';
+import alpha from 'assets/images/icons/alpha.png';
+import kek from 'assets/images/icons/kek.png';
+
 import { routersStyles } from '../styles';
-
-import { ClientContext } from '../../../contexts/ClientContext';
-
-import Parcel from '../../../components/Items/Parcel/Parcel';
-
-import fud from '../../../assets/images/icons/fud.png';
-import fomo from '../../../assets/images/icons/fomo.png';
-import alpha from '../../../assets/images/icons/alpha.png';
-import kek from '../../../assets/images/icons/kek.png';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientRealmList() {
     const classes = routersStyles();
     const { realm, realmFilter, loadingRealm, sortData, setRealmView } = useContext(ClientContext);
 
-    useEffect( () => {
+    useEffect(() => {
         setRealmView('list');
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if(loadingRealm || !realm.length) {
+    if (loadingRealm || !realm.length) {
         return <Box  className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingRealm || !realm.length}

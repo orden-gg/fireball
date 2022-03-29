@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import styles from "./styles";
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
-import thegraph from '../../../../api/thegraph';
-import commonUtils from '../../../../utils/commonUtils';
-import { portalsQuery } from './queries';
-import openedPortal from '../../../../assets/images/portal-opened.gif';
-import sealedPortal from '../../../../assets/images/portal-sealed.svg';
 import classNames from 'classnames';
+
+import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
+import openedPortal from 'assets/images/animated/h1-open.gif';
+import sealedPortal from 'assets/images/portals/h1-sealed.svg';
+
+import { portalsQuery } from './queries';
+import styles from './styles';
 
 export default function Portals() {
     const classes = styles();
@@ -32,11 +34,10 @@ export default function Portals() {
             });
     };
 
-    
     const getSealedPortals = () => {
         return commonUtils.formatNumber(portalsAmount - openedPortals);
     };
-    
+
     const getOpenedPortalsPercentage = () => {
         return (openedPortals / portalsAmount * 100).toFixed(2);
     };

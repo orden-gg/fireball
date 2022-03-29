@@ -1,19 +1,20 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { FormControl, IconButton, Input, InputAdornment, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import classNames from 'classnames';
-
-import commonUtils from '../../utils/commonUtils';
-import styles from "./styles";
-import { LoginContext } from '../../contexts/LoginContext';
-
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MetamaskIcon from '../../assets/images/metamask-icon.png';
-import GotchiSvg from '../Gotchi/GotchiSvg';
 
-export default function LoginAddress({address, isMetamask}) {
+import classNames from 'classnames';
+
+import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import MetamaskIcon from 'assets/images/icons/metamask.png';
+import { LoginContext } from 'contexts/LoginContext';
+import commonUtils from 'utils/commonUtils';
+
+import styles from './styles';
+
+export default function LoginAddress({ address, isMetamask }) {
     const classes = styles();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(address.name);
@@ -146,6 +147,6 @@ export default function LoginAddress({address, isMetamask}) {
                     null
                 )}
             </Box>
-        </Box>  
+        </Box>
     );
 }

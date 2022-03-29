@@ -70,6 +70,11 @@ export const userQuery = (id, skip) => {
             equippedSetID
             equippedSetName
             usedSkillPoints
+            listings(where:{cancelled: false, timePurchased: 0}) {
+              id
+              priceInWei
+            }
+            historicalPrices
             owner {
               id
             }

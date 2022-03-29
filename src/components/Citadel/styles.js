@@ -1,14 +1,14 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const keyframes = {
     drop: {
-        '100%': { 
+        '100%': {
             top: '100%'
         }
     }
-}
+};
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     citadel: {
         position: 'relative',
 
@@ -16,7 +16,6 @@ const styles = makeStyles( theme => ({
             display: 'block'
         }
     },
-
     citadelLoading: {
         position: 'absolute',
         left: 0,
@@ -27,18 +26,16 @@ const styles = makeStyles( theme => ({
         justifyContent: 'space-around',
         background: '#110121',
         transition: '.2s linear',
-        
+
         '&.is-loaded': {
             opacity: 0,
             visibility: 'hidden'
         }
     },
-    
     citadelLoadingLine: {
         width: 1,
         position: 'relative',
         overflow: 'hidden',
-
         '&:after': {
             content: '""',
             display: 'block',
@@ -51,21 +48,18 @@ const styles = makeStyles( theme => ({
             animation: '7s cubic-bezier(0.4, 0.26, 0, 0.97) 0s infinite $drop',
             willChange: 'top'
         },
-
         '&:nth-of-type(1)': {
-            
+
             '&:after': {
                 animationDelay: '2.5s'
             }
         },
-
         '&:nth-of-type(3)': {
             '&:after': {
                 animationDelay: '2s'
             }
         }
     },
-
     citadelLoadingInner: {
         position: 'absolute',
         left: '50%',
@@ -74,12 +68,10 @@ const styles = makeStyles( theme => ({
         width: 134,
         height: 124
     },
-
     citadelLoadingIcon: {
         width: '100%',
         height: '100%'
     },
-
     citadelInterface: {
         position: 'absolute',
         right: theme.spacing(1),
@@ -89,7 +81,6 @@ const styles = makeStyles( theme => ({
         alignItems: 'flex-end',
         width: 1
     },
-
     citadelInterfaceButton: {
         margin: theme.spacing(.2, 0),
 
@@ -97,12 +88,10 @@ const styles = makeStyles( theme => ({
             color: theme.palette.primary.main
         }
     },
-
     citadelSearch: {
         display: 'flex',
         alignItems: 'center'
     },
-
     citadelSearchField: {
         width: 150,
 
@@ -111,7 +100,6 @@ const styles = makeStyles( theme => ({
             fontSize: 14
         }
     },
-
     parcel: {
         position: 'absolute',
         minWidth: 220,
@@ -120,7 +108,6 @@ const styles = makeStyles( theme => ({
         bottom: theme.spacing(2),
         background: theme.palette.background.paper,
     },
-
     closeParcel: {
         position: 'absolute',
         left: '100%',

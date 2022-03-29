@@ -93,7 +93,6 @@ html, body {
   animation-name:none !important;
 }
 
-
 @keyframes downHands {
   from {
     --hand_translateY: -4px;

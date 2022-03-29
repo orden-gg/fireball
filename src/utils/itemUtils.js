@@ -26,12 +26,12 @@ export default {
         let stats = items[id]?.stats;
         let emojis = {'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁'};
 
-        if(!stats) return null;
+        if (!stats) return null;
 
         Object.entries(emojis).forEach((item) => {
             let [key, value] = item;
 
-            if(stats.includes(key)) {
+            if (stats.includes(key)) {
                 stats = stats.replace(`${key} `, value);
             }
         });
@@ -134,13 +134,13 @@ export default {
         const typeMap = {
             wearable: () => returnWearable(),
             closed_portal: () => {
-                return require(`../assets/images/portal-sealed.svg`).default;
+                return require(`../assets/images/portals/h1-sealed.svg`).default;
             },
             open_portal: () => {
-                return require(`../assets/images/portal-open.svg`).default;
+                return require(`../assets/images/portals/h1-open.svg`).default;
             },
             realm: () => {
-                return require(`../assets/images/portal-sealed.svg`).default;
+                return require(`../assets/images/portals/h1-sealed.svg`).default;
             },
             consumable: () => returnWearable(),
             ticket: () => returnTicket.call(this)
@@ -148,36 +148,44 @@ export default {
 
         function returnWearable() {
             try {
-                return require(`../assets/wearables/${item.erc1155TypeId}.svg`).default;
+                return require(`../assets/images/wearables/${item.erc1155TypeId}.svg`).default;
             } catch (error) {
-                return require(`../assets/images/no-image2.svg`).default;
+                return require(`../assets/images/image-placeholder.svg`).default;
             }
         }
 
         function returnTicket() {
             try {
-                return require(`../assets/tickets/${this.getBaazaarItemRarityName(item)}.svg`).default;
+                return require(`../assets/images/tickets/${this.getBaazaarItemRarityName(item)}.svg`).default;
             } catch (error) {
-                return require(`../assets/images/no-image2.svg`).default;
+                return require(`../assets/images/image-placeholder.svg`).default;
             }
         }
 
         return typeMap[this.getItemType(item)]();
     },
 
+    getPortalImg(hauntId) {
+        try {
+            return require(`../assets/images/portals/h${hauntId}-open.svg`).default;
+        } catch (error) {
+            return require(`../assets/images/image-placeholder.svg`).default;
+        }
+    },
+
     getWearableImg(id) {
         try {
-            return require(`../assets/wearables/${id}.svg`).default;
+            return require(`../assets/images/wearables/${id}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/no-image2.svg`).default;
+            return require(`../assets/images/image-placeholder.svg`).default;
         }
     },
 
     getTicketImg(name) {
         try {
-            return require(`../assets/tickets/${name}.svg`).default;
+            return require(`../assets/images/tickets/${name}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/no-image2.svg`).default;
+            return require(`../assets/images/image-placeholder.svg`).default;
         }
     },
 
@@ -270,7 +278,7 @@ export default {
         try {
             return require(`../assets/images/icons/${name}.png`).default;
         } catch (error) {
-            return require(`../assets/images/no-image2.svg`).default;
+            return require(`../assets/images/image-placeholder.svg`).default;
         }
     },
 }

@@ -1,16 +1,14 @@
 import Phaser from 'phaser';
 
-import parcelsData from '../../../data/parcels.json';
+import parcelsData from 'data/parcels.json';
+import walls from 'assets/images/citadel/walls.svg';
 
-import walls from '../../../assets/images/citadel/walls.svg';
 import Highlight from './Highlight';
 import ActiveParcels from './ActiveParcels';
 import DistrictsGrid from './DistrictsGrid';
 import DistrictNumber from './DistrictNumber';
 
-
 export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wrapperRef }) {
-
     return class Citadel_scene extends Phaser.Scene {
         constructor() {
             super({ key: 'Citadel_scene' });
@@ -20,7 +18,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
 
             this.wrapper = wrapperRef.current;
 
-            if(this.wrapper === null) return;
+            if (this.wrapper === null) return;
 
             this.settings = {
                 highlight: true,
@@ -102,7 +100,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         create() {
-
             this.walls = this.add.image(0, 0, 'walls');
             this.parcels = this.createParcels();
             this.activeParcels = new ActiveParcels(this);
@@ -112,6 +109,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             this.citadel.add([this.walls, this.parcels, this.districtsGrid]);
 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
+
             let { width, height } = this.sys.canvas;
             this.scale.resize(width, height);
             this.updateZoom();
@@ -123,56 +121,56 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
                 gameObject.y = dragY;
                 this.settings.isDragging = true;
             });
-    
+
             this.input.on('dragend', () => {
-                setTimeout( () => {
+                setTimeout(() => {
                     this.settings.isDragging = false;
                 }, 50);
             });
 
             this.scale.on('resize', () => {
-
                 this.updateZoom();
 
-                if(this.selectedParcel) {
+                if (this.selectedParcel) {
                     let { x, y } = this.calculateParcelCenter(this.selectedParcel);
+
                     this.moveToCenter(x, y);
                 }
             });
-    
+
             this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
                 let camera = this.cameras.main;
-                
-                if(!this.cursorFromCenter) this.cursorFromCenter = this.getCursorFromCenter(pointer);
+
+                if (!this.cursorFromCenter) this.cursorFromCenter = this.getCursorFromCenter(pointer);
 
                 let zoom = camera.zoom = this.getCameraZoom(deltaY);
 
-                if(zoom <= this.settings.zoom.min) return this.moveToCenter(camera.centerX, camera.centerY);
+                if (zoom <= this.settings.zoom.min) return this.moveToCenter(camera.centerX, camera.centerY);
 
                 this.zoomToPointer(pointer);
             });
 
             this.input.on('pointerup', (pointer) => {
-                if(this.settings.isDragging) return;
+                if (this.settings.isDragging) return;
 
                 let parcel = this.getSelectedParcel(
                     this.getCursorFromCenter(pointer)
                 );
 
-                if(parcel !== undefined) this.addSelectedParcel(+parcel.tokenId);
+                if (parcel !== undefined) this.addSelectedParcel(+parcel.tokenId);
             });
 
             this.input.on('pointermove', (pointer) => {
                 this.cursorFromCenter = null;
             });
-            
         }
 
         addCitadel() {
             let citadel = this.add.container(this.cameras.main.centerX, this.cameras.main.centerY);
-            citadel.setSize(this.CITAADEL_WIDTH, this.CITAADEL_HEIGHT);
 
+            citadel.setSize(this.CITAADEL_WIDTH, this.CITAADEL_HEIGHT);
             citadel.setInteractive();
+
             this.input.setDraggable(citadel);
             this.input.dragDistanceThreshold = 3;
 
@@ -184,7 +182,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
 
             for(let id in parcelsData) {
                 let parcelData = parcelsData[id];
-
                 let { w, h } = this.getParcelSize(parcelData);
 
                 graphics.fillStyle(this.getParcelColor(parcelData), 1);
@@ -194,7 +191,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         createOwnerParcels() {
-
             for(let parcel of this.ownerParcelsData) {
                 let { x, y } = this.getParcelPosition(parcel);
                 let { w, h } = this.getParcelSize(parcel);
@@ -210,19 +206,19 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         createGridNumbers() {
             let districts = this.settings.districts;
             let numbers = [];
-            let [ x, y ] = [ 0, 0];
+            let [x, y] = [0, 0];
 
             for (let number of districts.numbersMap) {
                 if (!number) {
                     ++x;
-                    continue 
+                    continue
                 };
 
                 numbers.push(
                     new DistrictNumber(this, number, x, y, districts.width, districts.height)
                 );
 
-                if(++x%districts.x === 0) {
+                if (++x%districts.x === 0) {
                     ++y;
                     x = 0;
                 };
@@ -232,23 +228,23 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         addSelectedParcel(tokenId) {
-            if(typeof tokenId !== 'number') {
+            if (typeof tokenId !== 'number') {
                 this.highlight.destroy();
                 this.highlight = null;
                 this.selectedParcel = null;
                 setSelectedId(null);
             } else {
-                if(!parcelsData[tokenId]) return;
+                if (!parcelsData[tokenId]) return;
                 this.selectedParcel = parcelsData[tokenId];
                 setSelectedId(this.selectedParcel.tokenId);
 
                 this.addHighlight(this.selectedParcel);
-    
+
                 setTimeout(() => {
                     let { x, y } = this.calculateParcelCenter(this.selectedParcel);
                     this.moveToCenter(x, y, 500);
 
-                    setTimeout( () => {
+                    setTimeout(() => {
                         this.add.tween({
                             targets: this.cameras.main,
                             zoom: 1.1,
@@ -263,8 +259,8 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         addHighlight(parcel) {
             let { x, y } = this.getParcelPosition(parcel);
             let { w, h } = this.getParcelSize(parcel);
-            
-            if(this.highlight) this.highlight.update(x, y, w, h);
+
+            if (this.highlight) this.highlight.update(x, y, w, h);
 
             else {
                 this.highlight = new Highlight(this, x, y, w, h);
@@ -276,11 +272,11 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             this.ownerParcelsData = ownerParcels;
             this.showOwnerParcels(true);
         }
-        
+
         updateZoom() {
             let { width: w, height: h } = this.sys.canvas;
 
-            if(w/h > this.CITAADEL_WIDTH/this.CITAADEL_HEIGHT) {
+            if (w/h > this.CITAADEL_WIDTH/this.CITAADEL_HEIGHT) {
                 this.settings.zoom.min = h/this.CITAADEL_HEIGHT;
             } else {
                 this.settings.zoom.min = w/this.CITAADEL_WIDTH;
@@ -288,8 +284,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         moveToCenter(x, y, duration) {
-
-            if(duration) return (
+            if (duration) return (
                 this.add.tween({
                     targets: this.citadel,
                     x: x,
@@ -316,8 +311,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         showOwnerParcels(b) {
-
-            if(b) {
+            if (b) {
                 this.parcels.setAlpha(0.5);
                 this.walls.setAlpha(0.5);
                 this.citadel.add(this.createOwnerParcels());
@@ -329,7 +323,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         showGrid(b) {
-            if(b) {
+            if (b) {
                 this.districtsNumbers = this.createGridNumbers();
                 this.citadel.add(this.districtsNumbers);
                 this.districtsGrid.createLines();
@@ -341,7 +335,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         calculateParcelCenter(item) {
-
             let { x, y } = this.getParcelPosition(item);
             let { w, h } = this.getParcelSize(item);
 
@@ -375,7 +368,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             let parcel;
 
             for(let id in parcelsData) {
-
                 let { x, y } = this.getParcelPosition(parcelsData[id]);
                 let { w, h } = this.getParcelSize(parcelsData[id]);
 
@@ -412,11 +404,11 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         getCameraZoom(deltaY) {
             let nextZoom = this.cameras.main.zoom+-(deltaY)*0.001;
             let { min, max } = this.settings.zoom;
-    
-            if(nextZoom <= min) {
+
+            if (nextZoom <= min) {
                 nextZoom = min;
             }
-            else if(nextZoom >= max) {
+            else if (nextZoom >= max) {
                 nextZoom = max;
             }
 

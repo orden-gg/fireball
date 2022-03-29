@@ -1,6 +1,6 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     rootContainer: {
         paddingTop: 0
     },
@@ -69,8 +69,11 @@ const styles = makeStyles( theme => ({
             color: theme.palette.rarity.rare
         }
     },
+    traitsWrapper: {
+        paddingRight: 6
+    },
     traitsContainer: {
-        paddingTop: '0 !important'
+        paddingTop: '0 !important',
     },
     slider: {
         padding: '13px 0 0'

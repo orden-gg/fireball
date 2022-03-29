@@ -1,11 +1,11 @@
-import React, {createContext, useEffect, useState} from 'react';
-import thegraph from '../api/thegraph';
-import commonUtils from '../utils/commonUtils';
-import web3 from '../api/web3';
-
-import { raffleTicketPriceQuery } from '../pages/Raffle/data/queries.data';
-import itemUtils from '../utils/itemUtils';
+import React, { createContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
+
+import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
+import ethersApi from 'api/ethers.api';
+import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
+import itemUtils from 'utils/itemUtils';
 
 export const RaffleContext = createContext({});
 
@@ -19,7 +19,7 @@ const RaffleContextProvider = (props) => {
     const [pricesSpinner, setPricesSpinner] = useState(true);
 
     useEffect(() => {
-        if(!raffleSpinner && !loadingEntered) {
+        if (!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
                     ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
@@ -96,12 +96,12 @@ const RaffleContextProvider = (props) => {
                     modified[elem].value = item.quantity;
                     modified[elem].prizes = modified[elem].prizes.map((item) => {
                         let index = won.findIndex(prize => prize.itemId === item.id);
-                        return ({ 
+                        return ({
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0
                         })
                     });
-                    
+
                 });
 
                 return modified;
@@ -113,7 +113,7 @@ const RaffleContextProvider = (props) => {
     const onAddressChange = (address, raffle) => {
         tickets.forEach((item, i) => tickets[i].value = '');
 
-        if(web3.isAddressValid(address)) {
+        if (ethersApi.isEthAddress(address)) {
             getAddressData(address, raffle);
         }
     };
@@ -126,8 +126,8 @@ const RaffleContextProvider = (props) => {
 
     const countWearablesChances = (ticket) => {
         const wearables = ticket.prizes;
-        
-        if(wearables) {
+
+        if (wearables) {
             wearables.forEach((wearable) => {
                 let perc = wearable.quantity * 100 / ticket.items;
                 let chance = perc * ticket.chance / 100;

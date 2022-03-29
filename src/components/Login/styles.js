@@ -1,8 +1,7 @@
 import { alpha } from '@mui/system';
+import { makeStyles } from '@mui/styles';
 
-import { makeStyles } from "@mui/styles";
-
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     loginNavigation: {
         display: 'flex',
         alignItems: 'center',
@@ -47,7 +46,7 @@ const styles = makeStyles( theme => ({
         },
 
         '&.gotchi': {
-            
+
         }
     },
     caption: {
@@ -90,7 +89,7 @@ const styles = makeStyles( theme => ({
         '&.offset-top': {
             paddingTop: 74
         },
-        
+
         '.opened &': {
             display: 'block'
         }

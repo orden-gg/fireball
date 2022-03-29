@@ -1,7 +1,9 @@
-import React, {createContext, useState} from 'react';
-import Web3 from 'web3';
-import useLocalStorage from '../hooks/useLocalStorage';
+import React, { createContext, useState } from 'react';
+
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
+
+import useLocalStorage from 'hooks/useLocalStorage';
 
 export const LoginContext = createContext({});
 
@@ -26,7 +28,7 @@ const LoginContextProvider = (props) => {
 
     const logoutAddress = (event, address) => {
         let filtered = storageAddresses.filter(item => item.address !== address);
-        
+
         setStorageAddresses(filtered);
         selectActiveAddress(filtered.length ? filtered[0].address : '');
 
@@ -44,10 +46,9 @@ const LoginContextProvider = (props) => {
     const connectMetamask = async () => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
-                await connect(Web3);
+                await connect(ethers.providers.Web3Provider, 'any');
                 return true;
             } catch (error) {
-                console.log(error);
                 return false;
             }
         }

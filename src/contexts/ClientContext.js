@@ -1,9 +1,11 @@
-import React, {createContext, useState} from 'react';
-import thegraph from '../api/thegraph';
-import web3 from '../api/web3';
-import commonUtils from '../utils/commonUtils';
-import graphUtils from '../utils/graphUtils';
-import itemUtils from '../utils/itemUtils';
+import React, { createContext, useState } from 'react';
+
+import thegraph from 'api/thegraph.api';
+import mainApi from 'api/main.api';
+import ticketsApi from 'api/tickets.api';
+import commonUtils from 'utils/commonUtils';
+import graphUtils from 'utils/graphUtils';
+import itemUtils from 'utils/itemUtils';
 
 export const ClientContext = createContext({});
 
@@ -28,7 +30,7 @@ const ClientContextProvider = (props) => {
     const [reward, setReward] = useState(null);
     const [rewardCalculating, setRewardCalculating] = useState(false);
     const [rewardCalculated, setRewardCalculated] = useState(false);
-    const [ realmView, setRealmView ] = useState('map');
+    const [realmView, setRealmView] = useState('map');
 
     const getClientData = () => {
         getGotchis(clientActive);
@@ -49,7 +51,7 @@ const ClientContextProvider = (props) => {
         let dir = 'desc';
         let modified = filter;
 
-        if(asc || desc) {
+        if (asc || desc) {
             modified = filter.slice(0, -4);
             asc ? dir = 'asc' : dir = 'desc';
         }
@@ -60,7 +62,7 @@ const ClientContextProvider = (props) => {
     const sortData = (event, newFilter, setter) => {
         let [filter, dir] = getFilter(newFilter);
 
-        if(setter === 'gotchis') {
+        if (setter === 'gotchis') {
             setGotchis(commonUtils.basicSort(gotchis, filter, dir));
             setGotchisFilter(newFilter);
         } else if (setter === 'warehouse') {
@@ -87,9 +89,9 @@ const ClientContextProvider = (props) => {
                 for(let wearable of equipped) {
                     let index = wearables.findIndex(item => item.id === wearable);
 
-                    if((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+                    if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
 
-                    if(wearables[index] === undefined) {
+                    if (wearables[index] === undefined) {
                         wearables.push({
                             id: wearable,
                             balance: 1,
@@ -108,13 +110,13 @@ const ClientContextProvider = (props) => {
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...wearables].reduce((items, current) => {
                     let duplicated = items.find(item => item.id === current.id);
-        
-                    if(duplicated) {
+
+                    if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
                         return items;
                     }
-        
+
                     return items.concat(current);
                 }, []), wFilter, wDir));
 
@@ -130,7 +132,7 @@ const ClientContextProvider = (props) => {
     const getInventory = (address) => {
         setLoadingWarehouse(true);
 
-        web3.getInventoryByAddress(address).then((response) => {
+        mainApi.getInventoryByAddress(address).then((response) => {
             let modified = [];
             let [wFilter, wDir] = getFilter(warehouseFilter);
 
@@ -147,13 +149,13 @@ const ClientContextProvider = (props) => {
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
                     let duplicated = items.find(item => item.id === current.id);
-        
-                    if(duplicated) {
+
+                    if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
                         return items;
                     }
-        
+
                     return items.concat(current);
                 }, []), wFilter, wDir));
             setLoadingWarehouse(false);
@@ -168,14 +170,12 @@ const ClientContextProvider = (props) => {
     const getTickets = (address) => {
         setLoadingTickets(true);
 
-        web3.getTicketsByAddress(address).then((response) => {
+        ticketsApi.getTicketsByAddress(address).then((response) => {
             let modified = response.filter((item) => item.balance > 0);
             setTickets(modified);
             setLoadingTickets(false);
         }).catch((error) => {
             console.log(error);
-            setTickets([]);
-            setLoadingTickets(false);
         });
     };
 

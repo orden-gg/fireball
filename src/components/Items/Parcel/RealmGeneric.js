@@ -1,12 +1,12 @@
 import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
-
 import classNames from 'classnames';
+
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-import RaffleItemChance from '../../../pages/Raffle/components/RaffleItemChance';
-
-export default function RealmGeneric({realm, raffleChances}) {
+export default function RealmGeneric({ realm, raffleChances }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

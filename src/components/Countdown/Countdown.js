@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { DateTime, Duration } from "luxon";
-import useInterval from '../../hooks/useInterval';
-import styles from "./styles";
+import { DateTime, Duration } from 'luxon';
+
+import useInterval from 'hooks/useInterval';
+import styles from './styles';
 
 const interval = 1000/24;
 
@@ -11,15 +12,14 @@ const names = {
     mm: ['minute', 'minutes'],
     hh: ['hour', 'hours'],
     dd: ['day', 'days'],
-    M: ['month', 'months'],
-    // YY: ['year', 'years'] 
+    M: ['month', 'months']
 }
 
 const getName = (names, number) => {
     return names[Number(number) === 1 ? 0 : 1];
 }
 
-export default function Countdown({date, format, onEnd, id}) {
+export default function Countdown({ date, format, onEnd, id }) {
     const [time, setTime] = useState({});
     const classes = styles();
     const formatArray = format.split(':');
@@ -34,8 +34,7 @@ export default function Countdown({date, format, onEnd, id}) {
 
     }, time.milliseconds <= 0 ? null : interval);
 
-    
-    useEffect( () => {
+    useEffect(() => {
         if (time.milliseconds <= 0) {
             onEnd(id);
         }

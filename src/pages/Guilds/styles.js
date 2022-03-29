@@ -1,37 +1,35 @@
 
-import { alpha } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { alpha } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
-import mapSvg from '../../assets/images/svgs/map.svg';
-import listSvg from '../../assets/images/svgs/list.svg';
+import mapSvg from 'assets/images/icons/map.svg';
+import listSvg from 'assets/images/icons/list.svg';
 
 const keyframes = {
-
     move: {
-        '100%': { 
+        '100%': {
             transform: 'none'
         }
     },
     bounce: {
-        '50%': { 
+        '50%': {
             transform: 'translateY(-20%)'
         }
     },
     show: {
-        '100%': { 
+        '100%': {
             opacity: 1
         }
     }
-
 }
 
-const styles = makeStyles( theme => ({
-
+const styles = makeStyles(theme => ({
     guildsWrapper: {
         position: 'relative',
         maxWidth: 1920,
         padding: theme.spacing(2),
         margin: 'auto',
+        textAlign: 'right',
 
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(1.5)
@@ -42,30 +40,33 @@ const styles = makeStyles( theme => ({
         }
     },
     guildsTitle: {
+        display: 'inline-flex',
+        alignItems: 'center',
         textAlign: 'center',
-        fontSize: 36,
-        marginTop: theme.spacing(6),
+        fontSize: 18,
+        color: theme.palette.primary.main,
+        marginTop: 20,
+        paddingRight: 20,
+        textDecoration: 'none',
 
-        [theme.breakpoints.down('md')]: {
-            fontSize: 28,
-            marginTop: theme.spacing(3)
+        '& span': {
+            marginRight: 4,
         },
 
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 24,
-        }
+        '&:hover': {
+            color: theme.palette.primary.dark,
+        },
     },
     guildsList: {
         padding: 0,
-        display: "grid",
+        display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
         gridGap: theme.spacing(7, 3),
-        marginTop: theme.spacing(7),
+        marginTop: 40,
 
         [theme.breakpoints.down('md')]: {
             gridTemplateColumns: 'repeat(auto-fill, minmax(180px,1fr))',
             gridGap: theme.spacing(4, 2),
-            marginTop: theme.spacing(4),
         },
 
         [theme.breakpoints.down('sm')]: {
@@ -137,8 +138,7 @@ const styles = makeStyles( theme => ({
 
 }));
 
-const guildStyles = makeStyles( theme => ({
-
+const guildStyles = makeStyles(theme => ({
     guildWrapper: {
         position: 'relative'
     },
@@ -157,7 +157,7 @@ const guildStyles = makeStyles( theme => ({
             left: theme.spacing(1),
             top: theme.spacing(.5),
         },
-        
+
         '& .MuiSvgIcon-root': {
             fontSize: 30,
             transition: 'translate .2s ease',
@@ -208,7 +208,7 @@ const guildStyles = makeStyles( theme => ({
     '@keyframes bounce': keyframes.bounce
 }));
 
-const guildBanner = makeStyles( theme => ({
+const guildBanner = makeStyles(theme => ({
     guildBanner: {
         margin: 'auto',
         padding: theme.spacing(5, 1, 5),
@@ -289,7 +289,7 @@ const guildBanner = makeStyles( theme => ({
         [theme.breakpoints.down('md')]: {
             maxHeight: 85
         },
-        
+
         '&.placeholder': {
             color: theme.palette.secondary.dark
         }
@@ -373,7 +373,7 @@ const guildBanner = makeStyles( theme => ({
     '@keyframes move': keyframes.move
 }));
 
-const guildDetailsStyles = makeStyles( theme => ({
+const guildDetailsStyles = makeStyles(theme => ({
     detailsWrapper: {
         background: 'none',
         boxShadow: 'none',
@@ -415,7 +415,7 @@ const guildDetailsStyles = makeStyles( theme => ({
             [theme.breakpoints.down('md')]: {
                 padding: theme.spacing(0, 1.5)
             },
-    
+
             [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(0, 1)
             }
@@ -533,7 +533,6 @@ const guildDetailsStyles = makeStyles( theme => ({
     detailText: {
         fontSize: 16,
         textAlign: 'center',
-
         [theme.breakpoints.down('md')]: {
             fontSize: 14
         }
@@ -541,7 +540,7 @@ const guildDetailsStyles = makeStyles( theme => ({
     '@keyframes show': keyframes.show
 }));
 
-const guildContentStyles = makeStyles( theme => ({
+const guildContentStyles = makeStyles(theme => ({
     guildGotchis: {
         padding: theme.spacing(2),
         maxWidth: 1920,
@@ -624,7 +623,7 @@ const guildContentStyles = makeStyles( theme => ({
     }
 }));
 
-const guildNavStyles = makeStyles( theme => ({
+const guildNavStyles = makeStyles(theme => ({
     container: {
         margin: theme.spacing(1, 0),
         display: 'flex',
@@ -685,7 +684,7 @@ const guildNavStyles = makeStyles( theme => ({
         height: 14,
         marginLeft: 8
     },
-    
+
     realmViewSwitch: {
         position: 'absolute',
         left: '100%',
@@ -730,10 +729,8 @@ const guildNavStyles = makeStyles( theme => ({
             borderRadius: 20 / 2
         },
         '& .Mui-checked+.MuiSwitch-track': {
-            // opacity: 1,
             backgroundColor: '#fff'
         },
-
         '.active + &': {
             marginLeft: theme.spacing(2),
             opacity: 1,

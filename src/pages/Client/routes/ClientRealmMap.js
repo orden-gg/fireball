@@ -1,15 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 
-import { ClientContext } from '../../../contexts/ClientContext';
-import Citadel from '../../../components/Citadel/Citadel';
+import Citadel from 'components/Citadel/Citadel';
+import { ClientContext } from 'contexts/ClientContext';
+
 import styles from '../styles';
 
 export default function ClientRealmMap() {
-
     const { realm, setRealmView } = useContext(ClientContext);
     const classes = styles();
 
-    useEffect( () => {
+    useEffect(() => {
         setRealmView('map');
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

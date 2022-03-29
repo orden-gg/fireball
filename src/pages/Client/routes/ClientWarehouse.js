@@ -1,19 +1,18 @@
 import React, { useContext } from 'react';
 import { Box, Typography, ToggleButtonGroup, ToggleButton, Tooltip  } from '@mui/material';
 
+import Wearable from 'components/Items/Wearable/Wearable';
+import Consumable from 'components/Items/Consumable/Consumable';
+import GhostLoader from 'components/GhostLoader/GhostLoader';
+import { ClientContext } from 'contexts/ClientContext';
+
 import { routersStyles } from '../styles';
-
-import { ClientContext } from '../../../contexts/ClientContext';
-
-import Wearable from '../../../components/Items/Wearable/Wearable';
-import Consumable from '../../../components/Items/Consumable/Consumable';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
 
 export default function ClientWarehouse() {
     const classes = routersStyles();
     const { warehouse, warehouseFilter, loadingGotchis, loadingWarehouse, sortData } = useContext(ClientContext);
 
-    if(loadingWarehouse || loadingGotchis || !warehouse.length) {
+    if (loadingWarehouse || loadingGotchis || !warehouse.length) {
         return <Box textAlign='center' paddingTop={'32px'}>
             <GhostLoader
                 animate={loadingWarehouse || loadingGotchis || !warehouse.length}

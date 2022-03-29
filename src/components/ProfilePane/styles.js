@@ -1,8 +1,7 @@
-import { alpha } from "@mui/material";
+import { alpha } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
-import { makeStyles } from "@mui/styles";
-
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     container: {
         maxWidth: 1232,
         margin: '0 auto',

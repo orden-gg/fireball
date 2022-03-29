@@ -1,21 +1,16 @@
-import Web3 from 'web3';
-import { MAIN_CONTRACT, POLYGON_RPC } from "../../api/common/constants";
-import { SVG_ABI } from '../../data/abi/svg';
-
-const web3 = new Web3(POLYGON_RPC);
-const contract = new web3.eth.Contract(SVG_ABI, MAIN_CONTRACT);
+import mainApi from 'api/main.api';
 
 const renderSvg = async (gotchies) => {
     let svgs = [];
 
     for (let key in gotchies) {
-        let cache = await contract.methods.previewAavegotchi(
-                parseInt(gotchies[key].hauntId),
-                gotchies[key].collateral,
-                gotchies[key].numericTraits,
-                gotchies[key].equippedWearables
-            ).call();
-    
+        let cache = await mainApi.previewAavegotchi(
+            parseInt(gotchies[key].hauntId),
+            gotchies[key].collateral,
+            gotchies[key].numericTraits,
+            gotchies[key].equippedWearables
+        );
+
         svgs.push(cache);
     }
 

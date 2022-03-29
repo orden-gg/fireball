@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import Countdown from '../../../components/Countdown/Countdown';
+
+import Countdown from 'components/Countdown/Countdown';
 
 import { raffleCountdownStyles } from '../styles';
 
-export default function RaffleCountdown({start, end}) {
+export default function RaffleCountdown({ start, end }) {
     const [currentCountdown, setCurrentCountdown] = useState(0);
     const classes = raffleCountdownStyles();
 

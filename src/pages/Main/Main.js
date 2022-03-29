@@ -1,8 +1,10 @@
 import React from 'react';
 import { Grid } from '@mui/material';
+
+import Section from 'components/Section/Section';
+
 import Portals from './components/Portals/Portals';
 import Team from './components/Team/Team';
-import Section from '../../components/Section/Section';
 
 export default function Main() {
     return (

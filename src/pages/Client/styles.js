@@ -1,11 +1,10 @@
 import { alpha } from '@mui/system';
+import { makeStyles } from '@mui/styles';
 
-import { makeStyles } from "@mui/styles";
+import mapSvg from 'assets/images/icons/map.svg';
+import listSvg from 'assets/images/icons/list.svg';
 
-import mapSvg from '../../assets/images/svgs/map.svg';
-import listSvg from '../../assets/images/svgs/list.svg';
-
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     container: {
         padding: theme.spacing(3),
         display: 'flex',
@@ -36,7 +35,7 @@ const styles = makeStyles( theme => ({
     }
 }));
 
-const routersStyles = makeStyles( theme => ({
+const routersStyles = makeStyles(theme => ({
     list: {
         display: 'grid',
         alignItems: 'start',
@@ -88,7 +87,7 @@ const routersStyles = makeStyles( theme => ({
     },
 }));
 
-const clientNavStyles = makeStyles( theme => ({
+const clientNavStyles = makeStyles(theme => ({
     container: {
         margin: theme.spacing(1, 0),
         display: 'flex',
@@ -131,15 +130,12 @@ const clientNavStyles = makeStyles( theme => ({
         fontWeight: 600,
         color: theme.palette.primary.main,
         marginLeft: 8,
-
         '.Mui-disabled &': {
             opacity: .4
         },
-
         '.active &, .active:hover &': {
             color: theme.palette.secondary.main
         },
-
         'Mui-disabled.active &, Mui-disabled.active:hover &': {
             color: theme.palette.primary.main
         }
@@ -149,7 +145,6 @@ const clientNavStyles = makeStyles( theme => ({
         height: 14,
         marginLeft: 8
     },
-    
     realmViewSwitch: {
         position: 'absolute',
         left: '100%',
@@ -206,7 +201,7 @@ const clientNavStyles = makeStyles( theme => ({
     }
 }));
 
-const loadRewardsStyles = makeStyles( theme => ({
+const loadRewardsStyles = makeStyles(theme => ({
     loadWrapper: {
         display: 'flex',
         alignItems: 'center',

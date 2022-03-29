@@ -1,15 +1,15 @@
 
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 
-import ParcelGeneric from '../../../components/Items/Parcel/ParcelGeneric';
-import RealmGeneric from '../../../components/Items/Parcel/RealmGeneric';
-import PortalGeneric from '../../../components/Items/Portal/PortalGeneric';
-import Wearable from '../../../components/Items/Wearable/Wearable';
+import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
+import RealmGeneric from 'components/Items/Parcel/RealmGeneric';
+import PortalGeneric from 'components/Items/Portal/PortalGeneric';
+import Wearable from 'components/Items/Wearable/Wearable';
 
 import { itemsStyles } from '../styles';
 
-export default function RaffleItems({tickets, type}) {
+export default function RaffleItems({ tickets, type }) {
     const classes = itemsStyles();
 
     const renderItem = (item) => {
@@ -67,13 +67,13 @@ export default function RaffleItems({tickets, type}) {
                 return null;
         }
     };
-    
+
     return (
         <div className={classes.list}>
             {
                 tickets.slice(0).reverse().map((ticket) => {
 
-                    if(ticket.prizes) return ticket.prizes.map((item, i) => {
+                    if (ticket.prizes) return ticket.prizes.map((item, i) => {
                         let clean = tickets.some(t => t['value'] !== '');
 
                         return <div

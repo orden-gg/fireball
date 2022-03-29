@@ -3,9 +3,9 @@ import React, { createContext, useState } from 'react';
 export const SnackbarContext = createContext({});
 
 const SnackbarContextProvider = (props) => {
-    const [isOpen, setToOpen ] = useState(false),
-        [message, setMessage] = useState(''),
-        [type, setType] = useState('success');
+    const [isOpen, setToOpen ] = useState(false);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState('success');
 
     const showSnackbar = (type, message) => {
         setType(type);

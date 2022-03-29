@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Modal, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import web3 from '../../api/web3';
 
-import styles from "./styles";
-import { LoginContext } from '../../contexts/LoginContext';
-import thegraph from '../../api/thegraph';
+import ethersApi from 'api/ethers.api';
+import thegraph from 'api/thegraph.api';
+import { LoginContext } from 'contexts/LoginContext';
 
-export default function LoginModal({modalOpen, setModalOpen}) {
+import styles from './styles';
+
+export default function LoginModal({ modalOpen, setModalOpen }) {
     const classes = styles();
 
     const [name, setName] = useState('');
@@ -34,7 +35,7 @@ export default function LoginModal({modalOpen, setModalOpen}) {
     };
 
     const onAddressChange = (value) => {
-        web3.isAddressValid(value) ? setIsAddressValid(true) : setIsAddressValid(false);
+        ethersApi.isEthAddress(value) ? setIsAddressValid(true) : setIsAddressValid(false);
         setAddress(value);
     };
 

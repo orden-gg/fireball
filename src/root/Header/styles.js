@@ -1,9 +1,8 @@
 
 import { alpha } from '@mui/system';
+import { makeStyles } from '@mui/styles';
 
-import { makeStyles } from "@mui/styles";
-
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',
@@ -21,7 +20,7 @@ const styles = makeStyles( theme => ({
         color: theme.palette.primary.main
     },
     logo: {
-        width: 20
+        width: 80
     },
     logoText: {
         whiteSpace: 'nowrap',
@@ -35,8 +34,10 @@ const styles = makeStyles( theme => ({
         fontWeight: 700,
         color: theme.palette.text.primary,
         textDecoration: 'none',
+        paddingBottom: 6,
         [theme.breakpoints.up('sm')]: {
-            justifyContent: 'flex-start'
+            justifyContent: 'flex-start',
+            paddingBottom: 10,
         }
     },
     navWrapper: {
@@ -82,9 +83,7 @@ const styles = makeStyles( theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             justifyContent: 'flex-end',
-            borderLeft: '1px solid #3C404A',
-            paddingLeft: 12,
-            marginLeft: 24,
+            marginLeft: 16,
         }
     },
     navLink: {
@@ -156,7 +155,7 @@ const styles = makeStyles( theme => ({
     socialLinkJoin: {
         position: 'absolute',
         display: 'none',
-        bottom: -11,
+        bottom: -12,
         right: 5,
         pointerEvents: 'none',
         '& > span': {

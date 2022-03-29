@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link, Tooltip, Typography } from '@mui/material';
-import classNames from 'classnames';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 import CallMade from '@mui/icons-material/CallMade';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
-import commonUtils from '../../../utils/commonUtils';
-import Web3 from "web3";
-import sealedPortal from '../../../assets/images/portal-sealed.svg';
-import openPortal from '../../../assets/images/portal-open.svg';
-import h2SealedPortal from '../../../assets/images/h2_sealed.svg';
-import h2OpenPortal from '../../../assets/images/h2_open.svg';
 
-var web3 = new Web3();
+import classNames from 'classnames';
 
-export default function Portal({portal}) {
+import ethersApi from 'api/ethers.api';
+import commonUtils from 'utils/commonUtils';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+
+import PortalImage from './PortalImage';
+import CardName from '../common/CardName/CardName';
+
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
+
+export default function Portal({ portal }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -32,7 +32,7 @@ export default function Portal({portal}) {
                         <Typography variant='subtitle2'>
                             {
                                 commonUtils.formatPrice(
-                                    parseFloat(web3.utils.fromWei(portal.priceInWei))
+                                    ethersApi.fromWei(portal.priceInWei)
                                 )
                             }
                         </Typography>
@@ -54,11 +54,7 @@ export default function Portal({portal}) {
                 </Tooltip>
             </div>
 
-            <img className={classes.portalImage} src={
-                portal.portal.hauntId === "1" ?
-                    (portal.category === '0' ? sealedPortal : openPortal) :
-                    (portal.category === '0' ? h2SealedPortal : h2OpenPortal)
-            } alt="Portal" />
+            <PortalImage portal={portal} />
 
             <div className={classNames(classes.label, classes.labelSlot)}>
                 [{portal.tokenId}]
@@ -72,9 +68,7 @@ export default function Portal({portal}) {
                 underline='none'
                 className={classNames(classes.nameWrapper, 'two-lined')}
             >
-                <Typography className={classNames(classes.name, classes.textHighlight)}>
-                    Portal {portal.tokenId}
-                </Typography>
+                <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
                 <CallMade className={classes.callMadeIcon} />
             </Link>
         </div>

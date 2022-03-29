@@ -1,4 +1,4 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 export default makeStyles((theme) => ({
     rootContainer: {
@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
     },
     stackOfChips: {
         maxWidth: '100%',
-        overflowX: "auto",
+        overflowX: 'auto',
         height: 34,
         '& > *': {
             margin: '0 5px 2px 0',

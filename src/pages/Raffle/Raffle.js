@@ -1,25 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
-import {Helmet} from 'react-helmet';
-import styles from './styles';
-
+import { Helmet } from 'react-helmet';
 import queryString from 'query-string'
-import { LoginContext } from '../../contexts/LoginContext';
-import ProfilePane from '../../components/ProfilePane/ProfilePane';
-import RaffleContextProvider from '../../contexts/RaffleContext';
-import commonUtils from '../../utils/commonUtils';
-import web3 from '../../api/web3';
 
-// data
-import raffles from './data/raffles.data';
+import ProfilePane from 'components/ProfilePane/ProfilePane';
+import ethersApi from 'api/ethers.api';
+import { LoginContext } from 'contexts/LoginContext';
+import RaffleContextProvider from 'contexts/RaffleContext';
+import commonUtils from 'utils/commonUtils';
 
-// components
+import RaffleContent from './routes/RaffleContent';
 import RaffleNav from './components/RaffleNav';
 import RaffleTickets from './components/RaffleTickets';
-
-// routes
-import RaffleContent from './routes/RaffleContent';
+import raffles from './data/raffles.data';
+import styles from './styles';
 
 export default function Raffle() {
     const classes = styles();
@@ -34,19 +29,19 @@ export default function Raffle() {
     const { activeAddress } = useContext(LoginContext);
 
     useEffect(() => {
-        if(activeAddress) {
+        if (activeAddress) {
             setRaffleActive(activeAddress);
         }
     }, [activeAddress]);
 
     useEffect(() => {
-        if(params.address) {
+        if (params.address) {
             setRaffleActive(params.address);
         }
     }, [params.address]);
 
     useEffect(() => {
-        if(raffleActive) {
+        if (raffleActive) {
             history.push({ path: location.pathname, search: `?address=${raffleActive}` });
         } else {
             history.push({ path: location.pathname });
@@ -73,7 +68,7 @@ export default function Raffle() {
 
             <RaffleNav user={raffleActive} />
 
-            {web3.isAddressValid(raffleActive) ? (
+            {ethersApi.isEthAddress(raffleActive) ? (
                 <RaffleTickets address={raffleActive} />
             ) : (
                 null

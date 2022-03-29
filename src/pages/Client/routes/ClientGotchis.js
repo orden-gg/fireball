@@ -2,14 +2,13 @@ import React, { useContext } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Tooltip, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
+import Gotchi from 'components/Gotchi/Gotchi';
+import GhostLoader from 'components/GhostLoader/GhostLoader';
+import { ClientContext } from 'contexts/ClientContext';
+import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import commonUtils from 'utils/commonUtils';
+
 import { loadRewardsStyles, routersStyles } from '../styles';
-
-import { ClientContext } from '../../../contexts/ClientContext';
-import commonUtils from '../../../utils/commonUtils';
-
-import Gotchi from '../../../components/Gotchi/Gotchi';
-import GhostLoader from '../../../components/GhostLoader/GhostLoader';
-import ghstIcon from '../../../assets/images/ghst-doubleside.gif';
 
 export default function ClientGotchis() {
     const classes = {
@@ -18,8 +17,7 @@ export default function ClientGotchis() {
     };
     const { gotchis, gotchisFilter, loadingGotchis, sortData, reward, calculateReward, rewardCalculating, rewardCalculated } = useContext(ClientContext);
 
-
-    if(loadingGotchis || !gotchis.length) {
+    if (loadingGotchis || !gotchis.length) {
         return <Box className={classes.loaderBox}>
             <GhostLoader
                 animate={loadingGotchis || !gotchis.length}
@@ -101,7 +99,7 @@ export default function ClientGotchis() {
                                 <img src={ghstIcon} width='18' alt='GHST Token Icon' />/round)
                             </Box>
                         </Typography>
-                        
+
                     ) : (
                         null
                     )}
@@ -113,12 +111,13 @@ export default function ClientGotchis() {
                 {
                     gotchis.map((gotchi, i)=>{
                         return <div className={classes.listItem}  key={i}>
-                            <Gotchi 
+                            <Gotchi
                                 gotchi={gotchi}
                                 render={[
                                     {
                                         badges: [
                                             'id',
+                                            'skillpoints',
                                             'level',
                                             'collateral'
                                         ]
@@ -128,6 +127,7 @@ export default function ClientGotchis() {
                                     'mainTraits',
                                     'numericTraits',
                                     'wearablesLine',
+                                    'listing',
                                     'rewards'
                                 ]}
                             />

@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { raffleChanceStyles } from '../styles';
-import commonUtils from '../../../utils/commonUtils';
+import commonUtils from 'utils/commonUtils';
 
-export default function RaffleItemChance({stats}) {
+import { raffleChanceStyles } from '../styles';
+
+export default function RaffleItemChance({ stats }) {
     const classes = raffleChanceStyles();
 
     return (
