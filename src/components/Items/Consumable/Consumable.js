@@ -15,10 +15,11 @@ export default function Consumable({ consumable }) {
             listing: {
                 listing: consumable.listing,
                 price: consumable.price
-            }
+            },
+            shouldLoadCurrent: false
         }}>
             <ConsumableImg consumable={consumable} />
-            <CardName itemName={consumable} />
+            <CardName item={consumable} />
             <ConsumableStats consumable={consumable} />
         </ERC1155>
     )

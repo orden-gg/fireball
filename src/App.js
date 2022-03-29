@@ -1,8 +1,11 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
+
+import classNames from 'classnames';
 
 import SnackbarContextProvider from "./contexts/SnackbarContext";
 import Header from './root/Header/Header';
@@ -25,6 +28,7 @@ import { styled } from '@mui/system';
 
 const classes = {
     wrapper: 'page-wrapper',
+    noHeaderWrapper: 'no-header-page-wrapper',
     content: 'page-content'
 }
 
@@ -33,7 +37,10 @@ const Wrapper = styled('div')(() => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        paddingTop: 70,
+        paddingTop: 70
+    },
+    [`&.${classes.noHeaderWrapper}`]: {
+        paddingTop: 0
     },
     [`& .${classes.content}`]: {
         flexGrow: 1
@@ -41,6 +48,11 @@ const Wrapper = styled('div')(() => ({
 }));
 
 export default function App() {
+    const location = useLocation();
+    // TODO find a better way how to handle hide/show header/footer
+    const isDisplayHeader = location.pathname !== '/shop';
+    const isDisplayFooter = location.pathname !== '/shop';
+
     return (
         <SnackbarContextProvider>
             <BaazaarContextProvider>
@@ -51,8 +63,8 @@ export default function App() {
                             <title>fireball.gg gotchiverse client</title>
                         </Helmet>
 
-                        <Wrapper className={classes.wrapper}>
-                            <Header />
+                        <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
+                            { isDisplayHeader && <Header /> }
 
                             <Box className={classes.content}>
                                 <Switch>
@@ -69,7 +81,7 @@ export default function App() {
                                 </Switch>
                             </Box>
 
-                            <Footer />
+                            { isDisplayFooter && <Footer /> }
                         </Wrapper>
 
                     </ClientContextProvider>
