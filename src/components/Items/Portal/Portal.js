@@ -13,7 +13,7 @@ import CardName from '../common/CardName/CardName';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
-export default function Portal({ portal }) {
+export default function Portal({ portal, isShopItem = false }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -24,21 +24,23 @@ export default function Portal({ portal }) {
 
     return (
         <div className={classNames(classes.item, classes.portalCard)}>
-
             <div className={classes.labels}>
-
-                <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                    <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
-                        <Typography variant='subtitle2'>
-                            {
-                                commonUtils.formatPrice(
-                                    ethersApi.fromWei(portal.priceInWei)
-                                )
-                            }
-                        </Typography>
-                        <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                    </div>
-                </Tooltip>
+                { !isShopItem &&
+                    <>
+                        <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
+                            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
+                                <Typography variant='subtitle2'>
+                                    {
+                                        commonUtils.formatPrice(
+                                            ethersApi.fromWei(portal.priceInWei)
+                                        )
+                                    }
+                                </Typography>
+                                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                            </div>
+                        </Tooltip>
+                    </>
+                }
 
                 <Tooltip
                     title='District'
@@ -71,6 +73,13 @@ export default function Portal({ portal }) {
                 <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
                 <CallMade className={classes.callMadeIcon} />
             </Link>
+
+            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice, classes.shopParcelPrice)}>
+                <Typography variant='subtitle2'>
+                    { commonUtils.formatPrice(ethersApi.fromWei(portal.priceInWei)) }
+                </Typography>
+                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+            </div>
         </div>
     )
 }

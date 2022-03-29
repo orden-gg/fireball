@@ -16,7 +16,7 @@ import ghstIcon from 'assets/images/animated/ghst-token.gif';
 import ParcelBaazaarLink from './ParcelBaazaarLink';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function Parcel({ parcel, isBaazaarCard }) {
+export default function Parcel({ parcel, isBaazaarCard, isShopItem = false }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -53,34 +53,37 @@ export default function Parcel({ parcel, isBaazaarCard }) {
         <div className={classNames(classes.item, size, classes.parcelCard)}>
 
             <div className={classes.labels}>
+                { !isShopItem &&
+                    <>
+                        {current ? (
+                            <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
+                                <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
+                                    <Typography variant='subtitle2'>
+                                        {
+                                            isBaazaarCard ? commonUtils.formatPrice(
+                                                    ethersApi.fromWei(parcel.priceInWei)
+                                                ) :
+                                                commonUtils.formatPrice(current.price)
+                                        }
+                                    </Typography>
+                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                </div>
+                            </Tooltip>
 
-                {current ? (
-                    <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                        <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
-                            <Typography variant='subtitle2'>
-                                {
-                                    isBaazaarCard ? commonUtils.formatPrice(
-                                            ethersApi.fromWei(parcel.priceInWei)
-                                        ) :
-                                        commonUtils.formatPrice(current.price)
-                                }
-                            </Typography>
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                        </div>
-                    </Tooltip>
-
-                ) : (
-                    <ContentLoader
-                        speed={2}
-                        width={70}
-                        height={27}
-                        viewBox='0 0 70 27'
-                        backgroundColor={alpha(theme.palette.realm[size], .6)}
-                        foregroundColor={alpha(theme.palette.realm[size], .2)}
-                    >
-                        <rect x='0' y='0' width='70' height='27' />
-                    </ContentLoader>
-                )}
+                        ) : (
+                            <ContentLoader
+                                speed={2}
+                                width={70}
+                                height={27}
+                                viewBox='0 0 70 27'
+                                backgroundColor={alpha(theme.palette.realm[size], .6)}
+                                foregroundColor={alpha(theme.palette.realm[size], .2)}
+                            >
+                                <rect x='0' y='0' width='70' height='27' />
+                            </ContentLoader>
+                        )}
+                    </>
+                }
 
                 <Tooltip
                     title='District'
@@ -118,6 +121,13 @@ export default function Parcel({ parcel, isBaazaarCard }) {
                         null
                     )
                 })}
+            </div>
+
+            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice, classes.shopParcelPrice)}>
+                <Typography variant='subtitle2'>
+                    { commonUtils.formatPrice(ethersApi.fromWei(parcel.priceInWei)) }
+                </Typography>
+                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
             </div>
         </div>
     )

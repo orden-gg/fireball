@@ -44,7 +44,7 @@ export default function ERC1155({ children, item }) {
             }
         });
 
-        if (item.listing) {
+        if (item.isShopItem) {
             setCurrent(item.listing);
         } else {
             // current
@@ -63,39 +63,42 @@ export default function ERC1155({ children, item }) {
 
             {(item.balance || item.priceInWei) ? (
                 <div className={classes.labels}>
-                    {last && current ? (
-                        <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                            <div
-                                className={
-                                    classNames(
-                                        classes.label,
-                                        classes.labelTotal,
-                                        classes.labelRarityColored
-                                    )
-                                }
-                            >
-                                <Typography variant='subtitle2'>
-                                    {
-                                        last.price === 0 && !item.priceInWei ? '???' :
-                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
-                                    }
-                                </Typography>
-                                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                            </div>
-                        </Tooltip>
+                    { !item.isShopItem &&
+                        <>
+                            {last && current ? (
+                                <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
+                                    <div
+                                        className={
+                                            classNames(
+                                                classes.label,
+                                                classes.labelTotal,
+                                                classes.labelRarityColored
+                                            )
+                                        }
+                                    >
+                                        <Typography variant='subtitle2'>
+                                            {
+                                                last.price === 0 && !item.priceInWei ? '???' :
+                                                commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
+                                            }
+                                        </Typography>
+                                        <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                    </div>
+                                </Tooltip>
+                            ) : (
+                                <ContentLoader
+                                    speed={2}
+                                    viewBox='0 0 70 27'
+                                    backgroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .6)}
+                                    foregroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .2)}
 
-                    ) : (
-                        <ContentLoader
-                            speed={2}
-                            viewBox='0 0 70 27'
-                            backgroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .6)}
-                            foregroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .2)}
-
-                            className={classes.totalValueLoader}
-                        >
-                            <rect x='0' y='0' width='70' height='27' />
-                        </ContentLoader>
-                    )}
+                                    className={classes.totalValueLoader}
+                                >
+                                    <rect x='0' y='0' width='70' height='27' />
+                                </ContentLoader>
+                            )}
+                        </>
+                    }
 
                     {
                         (item.balance || item.quantity) && <div className={classNames(classes.label, classes.labelBalance)}>
@@ -149,80 +152,99 @@ export default function ERC1155({ children, item }) {
             {children}
 
             <div className={classes.prices}>
-                {current && last ? (
-                    <Tooltip
-                        title={
-                            <React.Fragment>
-                                {last.price === 0 ? (
-                                    <Box color='error.main'>
-                                        <Typography variant='caption'>No sales</Typography>
-                                    </Box>
-                                ) : (
-                                    <Typography variant='caption'>
-                                        Sold for <Link
-                                            href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
+                { !item.isShopItem ?
+                    <>
+                        {current && last ? (
+                            <Tooltip
+                                title={
+                                    <React.Fragment>
+                                        {last.price === 0 ? (
+                                            <Box color='error.main'>
+                                                <Typography variant='caption'>No sales</Typography>
+                                            </Box>
+                                        ) : (
+                                            <Typography variant='caption'>
+                                                Sold for <Link
+                                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
+                                                    target='_blank'
+                                                    underline='none'
+                                                    className={classes.soldOutLink}
+                                                >
+                                                    {commonUtils.formatPrice(last.price)}
+                                                </Link> [{DateTime.fromISO(lastDate).toRelative()}]
+                                            </Typography>
+                                        )}
+                                    </React.Fragment>
+                                }
+                                placement='top'
+                                classes={{ tooltip: classes.customTooltip }}
+                            >
+                                <div>
+                                    {current.price === 0 ? (
+                                        <Typography
+                                            variant='subtitle2'
+                                            className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
+                                            No listings
+                                        </Typography>
+                                    ) : (
+                                        <Link
+                                            href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
                                             target='_blank'
                                             underline='none'
-                                            className={classes.soldOutLink}
+                                            className={classNames(classes.label, classes.labelTotal, 'baazarPrice')}
                                         >
-                                            {commonUtils.formatPrice(last.price)}
-                                        </Link> [{DateTime.fromISO(lastDate).toRelative()}]
-                                    </Typography>
-                                )}
-                            </React.Fragment>
-                        }
-                        placement='top'
-                        classes={{ tooltip: classes.customTooltip }}
-                    >
-                        <div>
-                            {current.price === 0 ? (
-                                <Typography
-                                    variant='subtitle2'
-                                    className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
-                                    No listings
-                                </Typography>
-                            ) : (
-                                <Link
-                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
-                                    target='_blank'
-                                    underline='none'
-                                    className={classNames(classes.label, classes.labelTotal, 'baazarPrice')}
-                                >
-                                    {current.price === last.price ? (
-                                        <Typography className={classes.lastPrice} variant='subtitle2'>
-                                            {commonUtils.formatPrice(current.price)}
-                                        </Typography>
-                                    ) : current.price > last.price ? (
-                                        <>
-                                            <KeyboardArrowUpIcon color='success' fontSize='inherit' />
-                                            <Typography className={classes.lastPriceUp} variant='subtitle2'>
-                                                {commonUtils.formatPrice(current.price)}
-                                            </Typography>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
-                                            <Typography className={classes.lastPriceDown} variant='subtitle2'>
-                                                {commonUtils.formatPrice(current.price)}
-                                            </Typography>
-                                        </>
+                                            {current.price === last.price ? (
+                                                <Typography className={classes.lastPrice} variant='subtitle2'>
+                                                    {commonUtils.formatPrice(current.price)}
+                                                </Typography>
+                                            ) : current.price > last.price ? (
+                                                <>
+                                                    <KeyboardArrowUpIcon color='success' fontSize='inherit' />
+                                                    <Typography className={classes.lastPriceUp} variant='subtitle2'>
+                                                        {commonUtils.formatPrice(current.price)}
+                                                    </Typography>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
+                                                    <Typography className={classes.lastPriceDown} variant='subtitle2'>
+                                                        {commonUtils.formatPrice(current.price)}
+                                                    </Typography>
+                                                </>
+                                            )}
+                                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                        </Link>
                                     )}
-                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                                </Link>
-                            )}
+                                </div>
+                            </Tooltip>
+                        ) : (
+                            <ContentLoader
+                                speed={2}
+                                viewBox='0 0 70 27'
+                                backgroundColor={alpha(theme.palette.secondary.dark, .5)}
+                                foregroundColor={alpha(theme.palette.secondary.main, .5)}
+                                className={classes.priceLoader}
+                            >
+                                <rect x='0' y='0' width='70' height='27' />
+                            </ContentLoader>
+                        )}
+                    </> : <>
+                        <div
+                            className={
+                                classNames(
+                                    classes.label,
+                                    classes.labelTotal,
+                                    classes.labelRarityColored
+                                )
+                            }
+                        >
+                            <Typography variant='subtitle2'>
+                                { ethersApi.fromWei(item.priceInWei)}
+                            </Typography>
+                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </div>
-                    </Tooltip>
-                ) : (
-                    <ContentLoader
-                        speed={2}
-                        viewBox='0 0 70 27'
-                        backgroundColor={alpha(theme.palette.secondary.dark, .5)}
-                        foregroundColor={alpha(theme.palette.secondary.main, .5)}
-                        className={classes.priceLoader}
-                    >
-                        <rect x='0' y='0' width='70' height='27' />
-                    </ContentLoader>
-                )}
+                    </>
+                }
             </div>
         </div>
     )

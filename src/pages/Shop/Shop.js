@@ -252,7 +252,7 @@ export default function Shop() {
                 {
                     wearables.map(wearable =>
                         <div className={classes.listItem} key={wearable.listing}>
-                            <Wearable wearable={wearable} />
+                            <Wearable wearable={wearable} isShopItem={true} />
                         </div>
                     )
                 }
@@ -266,7 +266,7 @@ export default function Shop() {
                 {
                     parcels.map(parcel =>
                         <div className={classes.listItem} key={parcel.parcelId}>
-                            <Parcel parcel={parcel} isBaazaarCard={true} />
+                            <Parcel parcel={parcel} isBaazaarCard={true} isShopItem={true} />
                         </div>
                     )
                 }
@@ -281,7 +281,7 @@ export default function Shop() {
                 {
                     portals.map(portal =>
                         <div className={classes.listItem} key={portal.tokenId}>
-                            <Portal portal={portal} isBaazaarCard={true} />
+                            <Portal portal={portal} isBaazaarCard={true} isShopItem={true} />
                         </div>
                     )
                 }
@@ -295,7 +295,7 @@ export default function Shop() {
                 {
                     tickets.map(ticket =>
                         <div className={classes.listItem} key={ticket.listing}>
-                            <Ticket ticket={ticket} />
+                            <Ticket ticket={ticket} isShopItem={true} />
                         </div>
                     )
                 }
@@ -309,7 +309,7 @@ export default function Shop() {
                 {
                     consumables.map(consumable =>
                         <div className={classes.listItem} key={consumable.listing}>
-                            <Consumable consumable={consumable} />
+                            <Consumable consumable={consumable} isShopItem={true} />
                         </div>
                     )
                 }
