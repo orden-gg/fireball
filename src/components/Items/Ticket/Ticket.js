@@ -1,16 +1,12 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import classNames from 'classnames';
 
 import ERC1155 from 'components/Items/ERC1155/ERC1155';
-import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 
-import { ERC1155InnerStyles } from '../styles';
+import TicketImage from './TicketImage';
+import CardName from '../common/CardName/CardName';
 
 export default function Ticket({ ticket }) {
-    const classes = ERC1155InnerStyles();
-
     return (
         <ERC1155 item={{
             id: ticket.id || parseInt(ticket.erc1155TypeId),
@@ -20,19 +16,12 @@ export default function Ticket({ ticket }) {
             priceInWei: ticket.priceInWei,
             quantity: ticket.quantity
         }}>
-            <div className={classes.iconWrapper}>
-                <img
-                    src={itemUtils.getTicketImg(ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId))}
-                    alt={ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)}
-                    className={classes.icon}
-                />
-            </div>
-
-            <div className={classes.nameWrapper}>
-                <Typography className={classNames(classes.name, classes.textHighlight, ticket.name)}>
-                    {commonUtils.capitalize(ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId))} ticket
-                </Typography>
-            </div>
+            <TicketImage ticket={ticket} />
+            <CardName
+                item={ticket}
+                itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
+                itemRarity='drop'
+            />
         </ERC1155>
     )
 }

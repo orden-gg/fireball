@@ -2,7 +2,7 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles( theme => ({
+const styles = makeStyles(theme => ({
     root: {
         overflowY: 'auto',
         padding: '15px 10px 10px',

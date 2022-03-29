@@ -28,12 +28,12 @@ export default function GotchiListing({ listing, history }) {
                         {history.length ? (
                             <>
                                 <p><span>Sales history:</span></p>
-                                <div class={classes.tooltipInner}>
+                                <div className={classes.tooltipInner}>
                                     {history.map((price, index) => {
-                                        return <p class={classes.tooltipItem} key={index}>
+                                        return <p className={classes.tooltipItem} key={index}>
                                             {commonUtils.formatPrice(ethersApi.fromWei(price))}
                                             <img src={ghstIcon} width='14' alt='GHST Token Icon' />
-                                            {index !== history.length - 1 && <span class={classes.tooltipDivider}>{'->'}</span>}
+                                            {index !== history.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
                                         </p>
                                     })}
                                 </div>
