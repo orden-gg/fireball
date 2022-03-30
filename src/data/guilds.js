@@ -927,6 +927,7 @@ const guilds = [
         members: []
     }, {
         name: 'Hodler Sqvad',
+        logo: require('../assets/images/guilds/hodlersqvad.png').default,
         members: [
             '0x240CC373085818eD0A26F388B8629773d6482505',
             '0x55E476F115ED9608C98FFC5aD651b456Bf821c15',
@@ -951,7 +952,7 @@ const guilds = [
             },
             {
                 title: 'Point of Contact',
-                text: ['CryptoLord | Hodler Sqvad#3547', King Kong | Hodler Sqvad#3380']
+                text: 'CryptoLord | Hodler Sqvad#3547 King Kong | Hodler Sqvad#3380'
             }
         ],
         banner: '',
