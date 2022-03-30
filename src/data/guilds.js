@@ -944,6 +944,7 @@ const guilds = [
                 text: 'FuzzCuzz#6071 | Dunc Idaho#8289'
             }
         ],
+        banner: '',
         socials: {
             twitter: 'https://twitter.com/SynthGuild',
             discord: 'https://discord.gg/k4wumxSK'
