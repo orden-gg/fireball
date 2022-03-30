@@ -242,6 +242,31 @@ const loadRewardsStyles = makeStyles(theme => ({
 }));
 
 const parcelSinglePage = makeStyles(theme => ({
+
+    nameWrapper: {
+        whiteSpace: 'nowrap',
+        position: 'relative',
+        '& p': {
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+        },
+        '&.two-lined': {
+            backgroundColor: alpha(theme.palette.secondary.dark, .25),
+            margin: '20px 0 0',
+            padding: 4,
+            borderRadius: 2,
+            whiteSpace: 'inherit',
+            minHeight: 52,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all .2s ease-in-out',
+            minWidth: '100%',
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.secondary.dark, .5),
+            }
+        }
+    },
     name: {
         fontWeight: '500',
         lineHeight: '1.4',
@@ -255,6 +280,30 @@ const parcelSinglePage = makeStyles(theme => ({
         '.tooltip-wearable &': { // name
             fontSize: 14
         },
+    },
+    textHighlight: {
+        '&.humble': {
+            color: theme.palette.realm.humble
+        },
+        '&.reasonable': {
+            color: theme.palette.realm.reasonable
+        },
+        '&.spacious': {
+            color: theme.palette.realm.spacious
+        },
+        '&.partner': {
+            color: theme.palette.realm.partner
+        },
+        '&.realm-generic': {
+            color: '#c1a415'
+        },
+    },
+    callMadeIcon: {
+        position: 'absolute',
+        right: 2,
+        bottom: 2,
+        fontSize: 14,
+        color: '#fff'
     },
     parcelInfoContainer: {
         maxWidth: 300

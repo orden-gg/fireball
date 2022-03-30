@@ -152,99 +152,80 @@ export default function ERC1155({ children, item }) {
             {children}
 
             <div className={classes.prices}>
-                { !item.isShopItem ?
-                    <>
-                        {current && last ? (
-                            <Tooltip
-                                title={
-                                    <React.Fragment>
-                                        {last.price === 0 ? (
-                                            <Box color='error.main'>
-                                                <Typography variant='caption'>No sales</Typography>
-                                            </Box>
-                                        ) : (
-                                            <Typography variant='caption'>
-                                                Sold for <Link
-                                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
-                                                    target='_blank'
-                                                    underline='none'
-                                                    className={classes.soldOutLink}
-                                                >
-                                                    {commonUtils.formatPrice(last.price)}
-                                                </Link> [{DateTime.fromISO(lastDate).toRelative()}]
-                                            </Typography>
-                                        )}
-                                    </React.Fragment>
-                                }
-                                placement='top'
-                                classes={{ tooltip: classes.customTooltip }}
-                            >
-                                <div>
-                                    {current.price === 0 ? (
-                                        <Typography
-                                            variant='subtitle2'
-                                            className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
-                                            No listings
-                                        </Typography>
-                                    ) : (
-                                        <Link
-                                            href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
+                {current && last ? (
+                    <Tooltip
+                        title={
+                            <React.Fragment>
+                                {last.price === 0 ? (
+                                    <Box color='error.main'>
+                                        <Typography variant='caption'>No sales</Typography>
+                                    </Box>
+                                ) : (
+                                    <Typography variant='caption'>
+                                        Sold for <Link
+                                            href={`https://app.aavegotchi.com/baazaar/erc1155/${last.listing}`}
                                             target='_blank'
                                             underline='none'
-                                            className={classNames(classes.label, classes.labelTotal, 'baazarPrice')}
+                                            className={classes.soldOutLink}
                                         >
-                                            {current.price === last.price ? (
-                                                <Typography className={classes.lastPrice} variant='subtitle2'>
-                                                    {commonUtils.formatPrice(current.price)}
-                                                </Typography>
-                                            ) : current.price > last.price ? (
-                                                <>
-                                                    <KeyboardArrowUpIcon color='success' fontSize='inherit' />
-                                                    <Typography className={classes.lastPriceUp} variant='subtitle2'>
-                                                        {commonUtils.formatPrice(current.price)}
-                                                    </Typography>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
-                                                    <Typography className={classes.lastPriceDown} variant='subtitle2'>
-                                                        {commonUtils.formatPrice(current.price)}
-                                                    </Typography>
-                                                </>
-                                            )}
-                                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                                        </Link>
+                                            {commonUtils.formatPrice(last.price)}
+                                        </Link> [{DateTime.fromISO(lastDate).toRelative()}]
+                                    </Typography>
+                                )}
+                            </React.Fragment>
+                        }
+                        placement='top'
+                        classes={{ tooltip: classes.customTooltip }}
+                    >
+                        <div>
+                            {current.price === 0 ? (
+                                <Typography
+                                    variant='subtitle2'
+                                    className={classNames(classes.label, classes.labelTotal, classes.labelListing, 'baazarPrice')}>
+                                    No listings
+                                </Typography>
+                            ) : (
+                                <Link
+                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
+                                    target='_blank'
+                                    underline='none'
+                                    className={classNames(classes.label, classes.labelTotal, 'baazarPrice')}
+                                >
+                                    {current.price === last.price ? (
+                                        <Typography className={classes.lastPrice} variant='subtitle2'>
+                                            {commonUtils.formatPrice(current.price)}
+                                        </Typography>
+                                    ) : current.price > last.price ? (
+                                        <>
+                                            <KeyboardArrowUpIcon color='success' fontSize='inherit' />
+                                            <Typography className={classes.lastPriceUp} variant='subtitle2'>
+                                                {commonUtils.formatPrice(current.price)}
+                                            </Typography>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
+                                            <Typography className={classes.lastPriceDown} variant='subtitle2'>
+                                                {commonUtils.formatPrice(current.price)}
+                                            </Typography>
+                                        </>
                                     )}
-                                </div>
-                            </Tooltip>
-                        ) : (
-                            <ContentLoader
-                                speed={2}
-                                viewBox='0 0 70 27'
-                                backgroundColor={alpha(theme.palette.secondary.dark, .5)}
-                                foregroundColor={alpha(theme.palette.secondary.main, .5)}
-                                className={classes.priceLoader}
-                            >
-                                <rect x='0' y='0' width='70' height='27' />
-                            </ContentLoader>
-                        )}
-                    </> : <>
-                        <div
-                            className={
-                                classNames(
-                                    classes.label,
-                                    classes.labelTotal,
-                                    classes.labelRarityColored
-                                )
-                            }
-                        >
-                            <Typography variant='subtitle2'>
-                                { ethersApi.fromWei(item.priceInWei)}
-                            </Typography>
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                </Link>
+                            )}
                         </div>
-                    </>
-                }
+                    </Tooltip>
+                ) : (
+                    <ContentLoader
+                        speed={2}
+                        viewBox='0 0 70 27'
+                        backgroundColor={alpha(theme.palette.secondary.dark, .5)}
+                        foregroundColor={alpha(theme.palette.secondary.main, .5)}
+                        className={classes.priceLoader}
+                    >
+                        <rect x='0' y='0' width='70' height='27' />
+                    </ContentLoader>
+                )}
             </div>
         </div>
     )

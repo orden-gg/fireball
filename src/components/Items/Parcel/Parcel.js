@@ -13,7 +13,7 @@ import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import ParcelBaazaarLink from './ParcelBaazaarLink';
+import ParcelLink from './ParcelLink';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 export default function Parcel({ parcel, isBaazaarCard, isShopItem = false }) {
@@ -105,7 +105,7 @@ export default function Parcel({ parcel, isBaazaarCard, isShopItem = false }) {
                 [{parcel.tokenId}]
             </div>
 
-            <ParcelBaazaarLink parcel={parcel} isBaazaarCard={isBaazaarCard} link={parcel.baazaarId} />
+            <ParcelLink parcel={parcel} isBaazaarCard={isBaazaarCard} link={parcel.baazaarId} />
 
             <div className={classes.boosts}>
                 {Object.entries(boosts).map((boost, i) => {
@@ -123,12 +123,14 @@ export default function Parcel({ parcel, isBaazaarCard, isShopItem = false }) {
                 })}
             </div>
 
-            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice, classes.shopParcelPrice)}>
-                <Typography variant='subtitle2'>
-                    { commonUtils.formatPrice(ethersApi.fromWei(parcel.priceInWei)) }
-                </Typography>
-                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-            </div>
+            { isShopItem &&
+                <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice, classes.shopParcelPrice)}>
+                    <Typography variant='subtitle2'>
+                        { commonUtils.formatPrice(ethersApi.fromWei(parcel.priceInWei)) }
+                    </Typography>
+                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                </div>
+            }
         </div>
     )
 }
