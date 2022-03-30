@@ -925,6 +925,40 @@ const guilds = [
         name: 'SynthGuild',
         logo: require('../assets/images/guilds/synthguild.png').default,
         members: []
+    }, {
+        name: 'Hodler Sqvad',
+        members: [
+            '0x240CC373085818eD0A26F388B8629773d6482505',
+            '0x55E476F115ED9608C98FFC5aD651b456Bf821c15',
+            '0xd1484CbE24DD699f68C153728788efe602EC2a39',
+            '0x0b51A6351a6a4e4360Fd7B91d8719e85d4AaF50B',
+            '0x91Ca4460E386808F8CC5D9f464f047914b6C3d5F',
+            '0x56B9eDEeDedEbfD94af535733C126eC1c3C3E16c',
+            '0xd09A9E564EaFd17F608d444e958F9EaBf4AB322b',
+            '0xe2c6aE45946D70C3B9f0836FBe5aAfE2916a011d',
+            '0xbe67d6800fab847f99F81A8E25b0F8d3391785a2',
+            '0x6E59d37708A0A05109a9c91cC56ae58dc5cEE8fC',
+            '0xf2cB1cAf152c6e36f1FF1A1C8eb88232221cCdE0'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'The Hodler Sqvad is a community of cryptogames since the beginning.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Be in the Discord and have at least gotchi or a land.'
+            },
+            {
+                title: 'Point of Contact',
+                text: ['CryptoLord | Hodler Sqvad#3547', King Kong | Hodler Sqvad#3380']
+            }
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/HodlerSqvad',
+            discord: 'https://discord.gg/DShQV47R38'
+        }
     }
 ]
 
