@@ -35,14 +35,6 @@ export default {
         return Number(number).toLocaleString('en', options);
     },
 
-    formatTraits(traits, useEmojis) {
-        let traitsKeys = ['NRG', 'AGG', 'SPK', 'BRN', 'EYS', 'EYC'];
-        let traitsEmojis = ['⚡️', '👹', '👻', '🧠', '👀', '👁'];
-
-        return traits.reduce((item, val, i) => ({...item,[useEmojis ? traitsEmojis[i] : traitsKeys[i]]:val}),{});
-    },
-
-
     formatChance(chance, items) {
         const percentage = (chance * 100).toFixed(1);
 

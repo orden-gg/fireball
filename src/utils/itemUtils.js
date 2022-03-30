@@ -130,6 +130,28 @@ export default {
         }
     },
 
+    getTraitKey(index, useEmojis) {
+        const traitsKeys = ['NRG', 'AGG', 'SPK', 'BRN', 'EYS', 'EYC'];
+        const trait = traitsKeys[index];
+
+        return useEmojis ?
+            require(`../assets/images/traits/${trait.toLocaleLowerCase()}.png`).default :
+            traitsKeys[index]
+    },
+
+    getRarityByTrait(trait) {
+        switch (true) {
+            case trait >= 100 || trait <= -1:
+                return 'godlike'
+            case trait >= 98 || trait <= 1:
+                return 'mythical'
+            case trait >= 91 || trait <= 9:
+                return 'rare'
+            default:
+                return 'common'
+        }
+    },
+
     getItemImg(item) {
         const typeMap = {
             wearable: () => returnWearable(),

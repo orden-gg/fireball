@@ -116,16 +116,16 @@ export default function ClientGotchis() {
                                 render={[
                                     {
                                         badges: [
-                                            'id',
+                                            'collateral',
+                                            'rs',
                                             'skillpoints',
-                                            'level',
-                                            'collateral'
+                                            'kinship',
+                                            'level'
                                         ]
                                     },
                                     'svg',
                                     'name',
-                                    'mainTraits',
-                                    'numericTraits',
+                                    'traits',
                                     'wearablesLine',
                                     'listing',
                                     'rewards'
