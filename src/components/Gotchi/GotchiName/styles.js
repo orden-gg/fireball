@@ -3,7 +3,8 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     gotchiName: {
-        display: 'block',
+        display: 'flex',
+        justifyContent: 'center',
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
         color: theme.palette.text.primary,
         fontWeight: '500',

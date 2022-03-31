@@ -15,8 +15,8 @@ export default function GotchiName({ gotchi }) {
         >
             <p>
                 {gotchi.name ? gotchi.name : 'Unnamed'}
-                <span className={classes.gotchiId}>({gotchi.id})</span>
             </p>
+            <span className={classes.gotchiId}>({gotchi.id})</span>
 
             {/* <CallMade className={classes.callMadeIcon} /> */}
         </Link>
