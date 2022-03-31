@@ -924,7 +924,31 @@ const guilds = [
     }, {
         name: 'SynthGuild',
         logo: require('../assets/images/guilds/synthguild.png').default,
-        members: []
+        members: [
+            '0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b',
+            '0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7',
+            '0x6f48134d8bdeb954ad97525cf0adb9ad446260b1',
+            '0x854a2a03c868eb2c8779b3a769ee9a5c13f06f40'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'District 7 degens who work and chill together.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Be able to work, rest and play!'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'FuzzCuzz#6071 | Dunc Idaho#8289'
+            }
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/SynthGuild',
+            discord: 'https://discord.gg/k4wumxSK'
+        }
     }, {
         name: 'Hodler Sqvad',
         logo: require('../assets/images/guilds/hodlersqvad.png').default,
