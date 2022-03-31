@@ -15,8 +15,7 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '2px 5px',
-
+        padding: '2px 3px 2px 2px',
         minHeight: 26,
         '&.common': {
             backgroundColor: theme.palette.rarity.common
@@ -44,7 +43,7 @@ const styles = makeStyles(theme => ({
         }
     },
     gotchiTraitIcon: {
-        width: 22
+        width: 21
     },
     mainVal: {
         fontWeight: 600,

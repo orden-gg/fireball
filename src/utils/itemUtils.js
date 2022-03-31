@@ -145,7 +145,7 @@ export default {
                 return 'godlike'
             case trait >= 98 || trait <= 1:
                 return 'mythical'
-            case trait >= 91 || trait <= 9:
+            case trait >= 90 || trait <= 9:
                 return 'rare'
             default:
                 return 'common'

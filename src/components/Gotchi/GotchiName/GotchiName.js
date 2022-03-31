@@ -13,12 +13,8 @@ export default function GotchiName({ gotchi }) {
             target='_blank'
             underline='none'
         >
-            <p>
-                {gotchi.name ? gotchi.name : 'Unnamed'}
-            </p>
+            <p>{gotchi.name ? gotchi.name : 'Unnamed'}</p>
             <span className={classes.gotchiId}>({gotchi.id})</span>
-
-            {/* <CallMade className={classes.callMadeIcon} /> */}
         </Link>
     );
 }
