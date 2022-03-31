@@ -23,6 +23,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
             .then((response)=> {
                 if (!controller.signal.aborted) {
                     setAvailablePoints(response);
+                    setLoadingPoints(false);
                 }
             }).catch((error) => {
                 console.log(error);
@@ -58,7 +59,9 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
                     </div>
                 </Tooltip>
             ) : (
-                <span>...</span>
+                <div className={classes.skillpoints}>
+                    <span>...</span>
+                </div>
             )}
         </>
     );
