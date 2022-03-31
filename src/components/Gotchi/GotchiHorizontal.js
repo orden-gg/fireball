@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import GotchiId from './GotchiId/GotchiId';
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
 import GotchiName from './GotchiName/GotchiName';
 import GotchiLevel from './GotchiLevel/GotchiLevel';
@@ -44,16 +43,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
                 <div key={`${gotchi.id}-priceCell`} className={classes.gotchiPriceCell}>
                     {children}
                 </div>
-            );
-        },
-
-        get id() {
-            return (
-                <GotchiId
-                    gotchi={gotchi}
-                    title={title}
-                    key={`${gotchi.id}-id`}
-                />
             );
         },
 

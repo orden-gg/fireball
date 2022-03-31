@@ -2,10 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import GotchiId from './GotchiId/GotchiId';
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
 import GotchiOwner from './GotchiOwner/GotchiOwner';
-import GotchiMainTraits from './GotchiMainTraits/GotchiMainTraits';
 import GotchiName from './GotchiName/GotchiName';
 import GotchiImage from './GotchiImage/GotchiImage';
 import GotchiRewards from './GotchiRewards/GotchiRewards';
@@ -19,7 +17,7 @@ import GotchiKinship from './GotchiKinship/GotchiKinship';
 
 import styles from './styles';
 
-export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, render, portal }) {
+export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
     const classes = styles();
 
     const gotchiSections = {
@@ -31,16 +29,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                 >
                     {children}
                 </div>
-            );
-        },
-
-        get id() {
-            return (
-                <GotchiId
-                    gotchi={gotchi}
-                    title={title}
-                    key={`${gotchi.id}-id`}
-                />
             );
         },
 
@@ -97,15 +85,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                     id={gotchi.id}
                     usedPoints={gotchi.usedSkillPoints}
                     key={`${gotchi.id}-skillpoints`}
-                />
-            );
-        },
-
-        get mainTraits() {
-            return (
-                <GotchiMainTraits
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-mainTraits`}
                 />
             );
         },
