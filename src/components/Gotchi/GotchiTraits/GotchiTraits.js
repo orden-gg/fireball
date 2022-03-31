@@ -7,6 +7,14 @@ import styles from './styles';
 export default function GotchiTraits({ traits, currentTraits }) {
     const classes = styles();
 
+    const renderDefaultTrait = (trait, id) => {
+        if (id < traits.length-2) {
+            return <span className={classes.defaultVal}>
+                ({trait})
+            </span>
+        }
+    }
+
     return (
         <div className={classes.gotchiTraits}>
             {
@@ -20,12 +28,8 @@ export default function GotchiTraits({ traits, currentTraits }) {
                         >
                             <img alt='trait icon' src={traitKey} className={classes.gotchiTraitIcon} />
                             <p className={classes.mainVal}>
-
                                 <span className={classes.modifiedValue}>{currentTraits[index]}</span>
-
-                                <span className={classes.defaultVal}>
-                                    ({traitVal})
-                                </span>
+                                {renderDefaultTrait(traitVal, index)}
                             </p>
                         </div>
                     )

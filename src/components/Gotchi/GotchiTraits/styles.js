@@ -15,7 +15,7 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 2,
+        padding: '2px 5px',
 
         minHeight: 26,
         '&.common': {
