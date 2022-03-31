@@ -36,7 +36,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
 
     return (
         <>
-            {loadingPoints ? (
+            {!loadingPoints ? (
                 <Tooltip
                     title={
                         <React.Fragment>
