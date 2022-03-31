@@ -69,7 +69,7 @@ export default function Parcel({ parcel }) {
                 })}
             </div>
             <div className={classes.parcelPriceContainer}>
-                <ERC721Listing listing={parcel.listings} history={parcel.historicalPrices}/>
+                <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
             </div>
         </div>
     )

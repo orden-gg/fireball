@@ -134,8 +134,8 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
             return (
                 <ERC721Listing
                     key={`${gotchi.id}-listing`}
-                    listing={gotchi.listings}
-                    history={gotchi.historicalPrices}
+                    listings={gotchi.listings}
+                    historicalPrices={gotchi.historicalPrices}
                 />
             )
         },

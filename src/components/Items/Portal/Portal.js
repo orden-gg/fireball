@@ -55,7 +55,7 @@ export default function Portal({ portal, isShopItem = false }) {
             </Link>
 
             <div className={classes.portalPriceContainer}>
-                <ERC721Listing listing={portal.listings} history={portal.historicalPrices}/>
+                <ERC721Listing listings={portal.listings} historicalPrices={portal.historicalPrices}/>
             </div>
         </div>
     )
