@@ -130,13 +130,8 @@ export default {
         }
     },
 
-    getTraitKey(index, useEmojis) {
-        const traitsKeys = ['NRG', 'AGG', 'SPK', 'BRN', 'EYS', 'EYC'];
-        const trait = traitsKeys[index];
-
-        return useEmojis ?
-            require(`../assets/images/traits/${trait.toLocaleLowerCase()}.png`).default :
-            traitsKeys[index]
+    getTraitIconByName(trait) {
+        return require(`../assets/images/traits/${trait}.png`).default;
     },
 
     getRarityByTrait(trait) {

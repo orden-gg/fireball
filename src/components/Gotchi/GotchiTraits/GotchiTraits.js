@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 
+import { traitsKeys } from 'data/gotchi.data';
 import itemUtils from 'utils/itemUtils';
 
 import styles from './styles';
@@ -8,10 +9,10 @@ export default function GotchiTraits({ traits, currentTraits }) {
     const classes = styles();
 
     const renderDefaultTrait = (trait, id) => {
-        if (id < traits.length-2) {
+        if (id < traits.length - 2) {
             return <span className={classes.defaultVal}>
                 ({trait})
-            </span>
+            </span>;
         }
     }
 
@@ -19,7 +20,7 @@ export default function GotchiTraits({ traits, currentTraits }) {
         <div className={classes.gotchiTraits}>
             {
                 traits.map((traitVal, index) => {
-                    const traitKey = itemUtils.getTraitKey(index, true);
+                    const traitKey = itemUtils.getTraitIconByName(traitsKeys[index]);
 
                     return (
                         <div

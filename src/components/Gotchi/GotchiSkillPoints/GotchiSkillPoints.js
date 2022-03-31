@@ -49,11 +49,9 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
                     followCursor
                 >
                     <div className={classes.skillpoints}>
-                        <span
-                            className={
-                                availablePoints > 0 ? classes.skillpointsHighlight : ''
-                            }
-                        >{availablePoints}</span>
+                        <span className={availablePoints > 0 ? classes.skillpointsHighlight : ''}>
+                            {availablePoints}
+                        </span>
                         /
                         <span>{usedPoints}</span>
                     </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './styles';
-
 import kinshipIcon from 'assets/images/animated/gotchi-heart.gif';
+
+import styles from './styles';
 
 export default function GotchiKinship({ gotchi }) {
     const classes = styles();
