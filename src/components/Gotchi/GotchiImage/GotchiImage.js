@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ShineLabel from 'components/Labels/ShineLabel';
 import itemUtils from 'utils/itemUtils';
 
 import GotchiSvgByStats from './GotchiSvgByStats';

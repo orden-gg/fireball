@@ -12,12 +12,11 @@ const styles = makeStyles(theme => ({
     },
     gotchiTrait: {
         flexBasis: '49%',
-        margin: '1px 0',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 2,
-        margin: theme.spacing(.5, 0),
+
         minHeight: 26,
         '&.common': {
             backgroundColor: theme.palette.rarity.common
@@ -36,6 +35,12 @@ const styles = makeStyles(theme => ({
         },
         '&.godlike': {
             backgroundColor: theme.palette.rarity.godlike
+        },
+        '.vertical &': {
+            margin: '1px 0',
+        },
+        '.horizontal &': {
+            margin: theme.spacing(.5, 0),
         }
     },
     gotchiTraitIcon: {

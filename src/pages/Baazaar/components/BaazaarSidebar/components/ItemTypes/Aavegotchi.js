@@ -26,7 +26,7 @@ export default function Aavegotchi({ item }) {
                                             'kinship',
                                             'level'
                                         ]
-                                    },,
+                                    },
                                     'svg',
                                     'name',
                                     'traits',
