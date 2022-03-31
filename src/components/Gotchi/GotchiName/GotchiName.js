@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from '@mui/material';
-import CallMade from '@mui/icons-material/CallMade';
 
-import styles from '../styles';
+import styles from './styles';
 
 export default function GotchiName({ gotchi }) {
     const classes = styles();
@@ -15,7 +14,7 @@ export default function GotchiName({ gotchi }) {
             underline='none'
         >
             <p>{gotchi.name ? gotchi.name : 'Unnamed'}</p>
-            <CallMade className={classes.callMadeIcon} />
+            <span className={classes.gotchiId}>({gotchi.id})</span>
         </Link>
     );
 }

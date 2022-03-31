@@ -7,14 +7,14 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import { GotchiListingStyles, CustomTooltipStyles } from './styles';
+import styles from './styles';
+import { CustomTooltipStyles } from '../styles';
 
 export default function GotchiListing({ listing, history }) {
     const classes = {
-        ...GotchiListingStyles(),
+        ...styles(),
         ...CustomTooltipStyles()
     };
-
     const currentPrice = listing?.length && ethersApi.fromWei(listing[0].priceInWei);
     const lastPrice = history?.length && ethersApi.fromWei(history[history.length - 1]);
 
@@ -56,6 +56,7 @@ export default function GotchiListing({ listing, history }) {
                             underline='none'
                             className={classes.listingLink}
                         >
+                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                             {!lastPrice ? (
                                 <p className={classes.lastPrice}>{commonUtils.formatPrice(currentPrice)}</p>
                             ) : currentPrice > lastPrice ? (
@@ -69,12 +70,11 @@ export default function GotchiListing({ listing, history }) {
                                     <p className={classes.lastPriceDown}>{commonUtils.formatPrice(currentPrice)}</p>
                                 </>
                             )}
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
-                            <p className={classes.lastPrice}>{commonUtils.formatPrice(lastPrice)}</p>
                             <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                            <p className={classes.lastPrice}>{commonUtils.formatPrice(lastPrice)}</p>
                         </div>
                     )}
                 </div>

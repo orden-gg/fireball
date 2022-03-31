@@ -4,13 +4,13 @@ import classNames from 'classnames';
 import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
 
 import renderSvg from './GotchiSvgRender';
-import { GotchiSvgStyles } from './styles';
+import styles from './styles';
 
 let regex = /<style>(.*?)<\/style>/g;
 let regexClass = /\.(.*?)\}/g;
 
 export default function GotchiSvgByStats({ gotchi, size }) {
-    const classes = GotchiSvgStyles();
+    const classes = styles();
     const svgRef = useRef();
     const [loadingSvg, setLoadingSvg] = useState(true);
     let svgInner = document.createElement('div');
