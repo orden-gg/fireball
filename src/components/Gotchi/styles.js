@@ -9,7 +9,6 @@ const styles = makeStyles(theme => ({
         height: '100%',
         position: 'relative',
         border: '3px solid #FF67FF',
-        fontFamily: '"Fira Code" monospace',
         '&:hover': {
             textDecoration: 'none'
         },
