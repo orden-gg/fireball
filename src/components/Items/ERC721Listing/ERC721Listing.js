@@ -7,18 +7,20 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import { GotchiListingStyles, CustomTooltipStyles } from './styles';
+import { GotchiListingStyles, CustomTooltipStyles } from '../../Gotchi/styles';
 
-export default function GotchiListing({ listing, history }) {
+export default function ERC721Listing({ listing, history }) {
     const classes = {
         ...GotchiListingStyles(),
         ...CustomTooltipStyles()
     };
 
+    if (!listing?.length && !history?.length) {
+        return null;
+    };
+
     const currentPrice = listing?.length && ethersApi.fromWei(listing[0].priceInWei);
     const lastPrice = history?.length && ethersApi.fromWei(history[history.length - 1]);
-
-    if (!listing?.length && !history?.length) return null;
 
     return (
         <div className={classes.container}>

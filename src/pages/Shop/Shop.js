@@ -111,7 +111,12 @@ export default function Shop() {
             .map(listing => ({
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,
-                baazaarId: listing.id
+                baazaarId: listing.id,
+                historicalPrices: Boolean(listing.parcel.historicalPrices) ? listing.parcel.historicalPrices : [],
+                listings: [{
+                    id: listing.parcel.tokenId,
+                    priceInWei: listing.priceInWei
+                }]
             }));
 
         const listedPortals = listings
@@ -122,7 +127,12 @@ export default function Shop() {
                 tokenId: listing.tokenId,
                 portal: {
                     hauntId: listing.portal.hauntId
-                }
+                },
+                historicalPrices: Boolean(listing.portal.historicalPrices) ? listing.portal.historicalPrices : [],
+                listings: [{
+                    id: listing.tokenId,
+                    priceInWei: listing.priceInWei
+                }]
             }));
 
         setGotchis(listedGotchis);
@@ -266,7 +276,7 @@ export default function Shop() {
                 {
                     parcels.map(parcel =>
                         <div className={classes.listItem} key={parcel.parcelId}>
-                            <Parcel parcel={parcel} isBaazaarCard={true} isShopItem={true} />
+                            <Parcel parcel={parcel} />
                         </div>
                     )
                 }

@@ -523,6 +523,11 @@ const parselStyles = makeStyles(theme => ({
         fontSize: 14,
         color: '#fff'
     },
+    parcelPriceContainer: {
+        position: 'absolute',
+        right: '8px',
+        bottom: '8px'
+    },
     labelParselPrice: {
         color: theme.palette.secondary.main,
         '.humble &': {
@@ -556,6 +561,11 @@ const portalStyles = makeStyles(theme => ({
         '.horizontal &': {
             margin: 'auto'
         }
+    },
+    portalPriceContainer: {
+        position: 'absolute',
+        right: '8px',
+        bottom: '8px'
     },
 }));
 

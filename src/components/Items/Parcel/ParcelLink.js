@@ -7,7 +7,7 @@ import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function ParcelLink({ parcel, text }) {
+export default function ParcelLink({ parcel }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -32,7 +32,7 @@ export default function ParcelLink({ parcel, text }) {
             className={classNames(classes.nameWrapper, 'two-lined')}
         >
             <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                {text || name}
+                {name}
             </Typography>
             <CallMade className={classes.callMadeIcon} />
         </Link>

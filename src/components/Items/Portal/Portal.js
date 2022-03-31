@@ -4,13 +4,10 @@ import CallMade from '@mui/icons-material/CallMade';
 
 import classNames from 'classnames';
 
-import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
 
 import PortalImage from './PortalImage';
 import CardName from '../common/CardName/CardName';
-
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
 export default function Portal({ portal, isShopItem = false }) {
@@ -25,25 +22,8 @@ export default function Portal({ portal, isShopItem = false }) {
     return (
         <div className={classNames(classes.item, classes.portalCard)}>
             <div className={classes.labels}>
-                { !isShopItem &&
-                    <>
-                        <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
-                                <Typography variant='subtitle2'>
-                                    {
-                                        commonUtils.formatPrice(
-                                            ethersApi.fromWei(portal.priceInWei)
-                                        )
-                                    }
-                                </Typography>
-                                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                            </div>
-                        </Tooltip>
-                    </>
-                }
-
                 <Tooltip
-                    title='District'
+                    title='Haunt'
                     classes={{ tooltip: classes.customTooltip }}
                     placement='top'
                     followCursor
@@ -74,11 +54,8 @@ export default function Portal({ portal, isShopItem = false }) {
                 <CallMade className={classes.callMadeIcon} />
             </Link>
 
-            <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice, classes.shopParcelPrice)}>
-                <Typography variant='subtitle2'>
-                    { commonUtils.formatPrice(ethersApi.fromWei(portal.priceInWei)) }
-                </Typography>
-                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+            <div className={classes.portalPriceContainer}>
+                <ERC721Listing listing={portal.listings} history={portal.historicalPrices}/>
             </div>
         </div>
     )

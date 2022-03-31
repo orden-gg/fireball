@@ -169,9 +169,11 @@ export const erc721ListingsBySeller = (seller) => {
                 kekBoost
                 size
                 auctionId
+                historicalPrices
             }
             portal {
                 hauntId
+                historicalPrices
             }
         }
     }`
