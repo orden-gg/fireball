@@ -20,18 +20,18 @@ export default function Aavegotchi({ item }) {
                                 render={[
                                     {
                                         badges: [
-                                            'id',
+                                            'collateral',
+                                            'rs',
                                             'skillpoints',
-                                            'level',
-                                            'collateral'
+                                            'kinship',
+                                            'level'
                                         ]
                                     },
                                     'svg',
                                     'name',
-                                    'mainTraits',
-                                    'numericTraits',
+                                    'traits',
                                     'wearablesLine',
-                                    'listing',
+                                    'listing'
                                 ]}
                             /> :
                             <Gotchi
@@ -47,15 +47,16 @@ export default function Aavegotchi({ item }) {
                                 render={[
                                     {
                                         badges: [
-                                            'id',
-                                            'level',
-                                            'collateral'
+                                            'collateral',
+                                            'rs',
+                                            'skillpoints',
+                                            'kinship',
+                                            'level'
                                         ]
                                     },
                                     'svg',
                                     'name',
-                                    'mainTraits',
-                                    'numericTraits',
+                                    'traits',
                                     'wearablesLine',
                                     'listing',
                                 ]}

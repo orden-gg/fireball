@@ -3,10 +3,14 @@ import { Tooltip } from '@mui/material';
 
 import graphUtils from 'utils/graphUtils';
 
-import styles from '../styles';
+import { CustomTooltipStyles } from '../styles';
+import styles from './styles';
 
 export default function GotchiCollateral({ gotchi }) {
-    const classes = styles();
+    const classes = {
+        ...CustomTooltipStyles(),
+        ...styles()
+    };
     const collateral = graphUtils.getCollateralName(gotchi.collateral);
 
     return (
@@ -17,7 +21,7 @@ export default function GotchiCollateral({ gotchi }) {
             placement='top'
             followCursor
         >
-            <div className={classes.gotchiBadge}>
+            <div className={classes.gotchiCollateral}>
                 <img
                     src={graphUtils.getCollateralImg(collateral)}
                     width={25}

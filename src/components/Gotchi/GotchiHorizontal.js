@@ -1,14 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import GotchiId from './common/GotchiId';
-import GotchiCollateral from './common/GotchiCollateral';
-import GotchiMainTraits from './common/GotchiMainTraits';
-import GotchiName from './common/GotchiName';
-import GotchiSVG from './common/GotchiSVG';
-import GotchiLevel from './GotchiLevel';
-import GotchiTraitsHighlight from './GotchiTraitsHighlight';
+import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
+import GotchiName from './GotchiName/GotchiName';
+import GotchiLevel from './GotchiLevel/GotchiLevel';
+import GotchiTraits from './GotchiTraits/GotchiTraits';
 import HorizontalPrice from '../Items/common/HorizontalPrice/HorizontalPrice';
+import GotchiImage from './GotchiImage/GotchiImage';
+
 import styles from './styles';
 
 export default function GotchiHorizontal({ gotchi, item, title, narrowed, renderSvgByStats, render }) {
@@ -47,16 +46,6 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
             );
         },
 
-        get id() {
-            return (
-                <GotchiId
-                    gotchi={gotchi}
-                    title={title}
-                    key={`${gotchi.id}-id`}
-                />
-            );
-        },
-
         get collateral() {
             return (
                 <GotchiCollateral
@@ -78,18 +67,9 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
             )
         },
 
-        get mainTraits() {
+        get traits() {
             return (
-                <GotchiMainTraits
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-mainTraits`}
-                />
-            );
-        },
-
-        get numericTraits() {
-            return (
-                <GotchiTraitsHighlight
+                <GotchiTraits
                     traits={gotchi.numericTraits}
                     currentTraits={gotchi.modifiedNumericTraits}
                     key={`${gotchi.id}-numericTraits`}
@@ -108,7 +88,7 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
 
         get svg() {
             return (
-                <GotchiSVG
+                <GotchiImage
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
                     key={`${gotchi.id}-svg`}

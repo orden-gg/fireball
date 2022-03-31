@@ -31,18 +31,19 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                     render={
                         [
                             {
-                                imageCell: ['svg', 'name']
-                            },
-                            {
-                                traitsCell: ['mainTraits', 'numericTraits']
-                            },
-                            {
-                                priceCell: [
+                                imageCell: [
                                     {
-                                        badges: ['collateral', 'id', 'level']
+                                        badges: ['collateral', 'level']
                                     },
-                                    'price'
+                                    'svg',
+                                    'name'
                                 ]
+                            },
+                            {
+                                traitsCell: ['traits']
+                            },
+                            {
+                                priceCell: ['price']
                             }
                         ]
                     }

@@ -3,7 +3,7 @@ import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import classNames from 'classnames';
 
-import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import Subtitle from 'components/Subtitle/Subtitle';
 import thegraph from 'api/thegraph.api';
 import { gotchiByIdQuery } from 'api/common/queries';

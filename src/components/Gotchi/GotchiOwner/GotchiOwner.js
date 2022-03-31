@@ -3,7 +3,7 @@ import { Link } from '@mui/material';
 
 import commonUtils from 'utils/commonUtils';
 
-import styles from '../styles';
+import styles from './styles';
 
 export default function GotchiOwner({ gotchi }) {
     const classes = styles();

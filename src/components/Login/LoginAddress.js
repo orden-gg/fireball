@@ -7,7 +7,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import classNames from 'classnames';
 
-import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import MetamaskIcon from 'assets/images/icons/metamask.png';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';

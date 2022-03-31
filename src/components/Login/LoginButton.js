@@ -4,7 +4,7 @@ import { Backdrop, Typography, Box } from '@mui/material';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import GotchiSvg from 'components/Gotchi/GotchiSvg';
+import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 import MetamaskIcon from 'assets/images/icons/metamask.png';

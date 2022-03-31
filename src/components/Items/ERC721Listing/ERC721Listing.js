@@ -7,11 +7,12 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import { GotchiListingStyles, CustomTooltipStyles } from '../../Gotchi/styles';
+import styles from './styles';
+import { CustomTooltipStyles } from '../../Gotchi/styles';
 
 export default function ERC721Listing({ listing, history }) {
     const classes = {
-        ...GotchiListingStyles(),
+        ...styles(),
         ...CustomTooltipStyles()
     };
 
@@ -59,7 +60,7 @@ export default function ERC721Listing({ listing, history }) {
                             className={classes.listingLink}
                         >
                             {!lastPrice ? (
-                                <p className={classes.lastPrice}>{commonUtils.formatPrice(currentPrice)}</p>
+                                <p>{commonUtils.formatPrice(currentPrice)}</p>
                             ) : currentPrice > lastPrice ? (
                                 <>
                                     <KeyboardArrowUpIcon color='success' fontSize='inherit' />
@@ -75,7 +76,7 @@ export default function ERC721Listing({ listing, history }) {
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
-                            <p className={classes.lastPrice}>{commonUtils.formatPrice(lastPrice)}</p>
+                            <p>{commonUtils.formatPrice(lastPrice)}</p>
                             <img src={ghstIcon} width='18' alt='GHST Token Icon' />
                         </div>
                     )}
