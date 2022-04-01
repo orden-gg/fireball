@@ -38,12 +38,16 @@ const ItemContainer = styled.div`
 //     width: 100%;
 //   }
 
-export default function GotchisLazy({ items }) {
-    if (!items.length) return;
+export default function GotchisLazy({ items, render }) {
+    if (!items) return;
+
+    if (items.length === 0) return (
+        <div style={{ padding: '24px', textAlign: 'center' }}><span>No gotchis</span></div>
+    );
 
     return (
         <VirtuosoGrid
-            style={{ height: '100%' }}
+            style={{ height: 'calc(100% - 40px)' }}
             totalCount={items.length}
             components={{
                 List: ListContainer,
@@ -51,22 +55,7 @@ export default function GotchisLazy({ items }) {
             itemContent={(index) => (
                 <Gotchi
                     gotchi={items[index]}
-                    render={[
-                        {
-                            badges: [
-                                'id',
-                                'skillpoints',
-                                'level',
-                                'collateral'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'mainTraits',
-                        'numericTraits',
-                        'wearablesLine',
-                        'listing',
-                    ]}
+                    render={render}
                 />
             )}
         />

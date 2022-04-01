@@ -1,13 +1,21 @@
+import { CircularProgress } from '@mui/material';
+import classNames from 'classnames';
 import React from 'react';
 
 import { ContentInnerStyles } from './style';
 
-export default function ContentInner({ children }) {
+export default function ContentInner({ children, dataLoading }) {
     const classes = ContentInnerStyles();
 
     return (
-        <div className={classes.content}>
-            {children}
+        <div className={classNames(classes.content, dataLoading && 'loading')}>
+            {!dataLoading ? (
+                <>
+                    {children}
+                </>
+            ) : (
+                <CircularProgress color='primary' />
+            )}
         </div>
     );
 }

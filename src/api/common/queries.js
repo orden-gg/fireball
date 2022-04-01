@@ -319,3 +319,40 @@ export const raffleWinsQuery = (address) => {
       }
     }`
 };
+
+export const lendingsQuery = (skip, orderDir) => {
+    return `{
+      gotchiLendings(
+          first: 1000,
+          skip: ${skip},
+          orderBy: "timeCreated",
+          orderDirection: ${orderDir},
+          where: {
+            borrower_not: "0x0000000000000000000000000000000000000000",
+            cancelled: false
+        }
+      ) {
+        id
+        rentDuration
+        upfrontCost
+        period
+        gotchi {
+            id
+            name
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+        }
+        lender
+        borrower
+        thirdPartyAddress
+        whitelistId
+        whitelistMembers
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
+      }
+    }`
+};

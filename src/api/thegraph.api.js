@@ -19,6 +19,7 @@ import {
     parselQuery,
     clientParselQuery,
     listedParcelQuery,
+    lendingsQuery,
     getParcelHistoricalPricesQuery
 } from './common/queries';
 
@@ -26,6 +27,10 @@ const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-c
 const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
+
+ // TODO: temporary lend graph
+// const lend = 'https://api.thegraph.com/subgraphs/name/nicolasnin/lendinggotchi';
+const lend = 'https://static.138.182.90.157.clients.your-server.de/subgraphs/name/aavegotchi/aavegotchi-core-matic-lending-two';
 
 const clientFactory = (() => {
     const createClient = (url) => {
@@ -39,7 +44,8 @@ const clientFactory = (() => {
         client: createClient(baseUrl),
         raffleClient: createClient(raffle),
         svgsClient: createClient(gotchiSVGs),
-        realmClient: createClient(realm)
+        realmClient: createClient(realm),
+        lendClient: createClient(lend)
     }
 })();
 
@@ -394,5 +400,24 @@ export default {
         });
 
         return queries;
-    }
+    },
+
+    async getLendings() {
+        function getQueries() {
+            let queries = [];
+
+            for (let i = 0; i < 4; i++) {
+                queries.push(lendingsQuery(i * 1000, 'asc'))
+                queries.push(lendingsQuery(i * 1000, 'desc'))
+            }
+
+            return queries;
+        }
+
+        return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
+            let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id');
+
+            return filteredArray;
+        }).catch(e => console.log(e));
+    },
 }

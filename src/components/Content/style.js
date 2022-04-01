@@ -24,6 +24,7 @@ const styles = makeStyles(theme => ({
     },
     inner: {
         background: theme.palette.background.paper,
+        borderRadius: 4,
         [theme.breakpoints.up('sm')]: {
             flexGrow: 1
         }
@@ -32,7 +33,12 @@ const styles = makeStyles(theme => ({
 
 const ContentInnerStyles = makeStyles(theme => ({
     content: {
-        height: 'calc(100vh - 168px)'
+        height: 'calc(100vh - 168px)',
+        '&.loading': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
     }
 }));
 

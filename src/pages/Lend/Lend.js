@@ -7,41 +7,68 @@ import thegraphApi from 'api/thegraph.api';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import Gotchi from 'components/Gotchi/Gotchi';
 import commonUtils from 'utils/commonUtils';
+import GotchiSorting from 'components/Filters/GotchiSorting';
 
 export default function Lend() {
-    const [gotchis, setGotchis] = useState([]);
+    const [lendings, setLendings] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
-    const defaultFilter = 'modifiedRarityScore';
+    const defaultSorting = 'modifiedRarityScore';
 
     useEffect(() => {
         let mounted = true;
 
-        thegraphApi.getGotchisByAddress('0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667').then((response)=> {
-        // thegraphApi.getAllGotchies().then((response)=> {
+        thegraphApi.getLendings().then((response) => {
             if (mounted) {
-                const sorted = commonUtils.basicSort(response, defaultFilter);
+                console.log(response);
 
-                setGotchis(sorted);
+                const sorted = commonUtils.basicSort(response, defaultSorting);
+
+                setLendings(sorted);
                 setDataLoading(false);
             }
         });
+
+        // thegraphApi.getGotchisByAddress('0xc46d3c9d93febdd5027c9b696fe576dc654c66de').then((response)=> {
+        // thegraphApi.getAllGotchies().then((response)=> {
+
+        // });
 
         return () => mounted = false;
     }, []);
 
     return (
         <ContentWrapper>
-            <GotchiFilters gotchis={gotchis} setGotchis={setGotchis} defaultFilter={defaultFilter} />
+            <GotchiFilters
+                gotchis={lendings}
+                setGotchis={setLendings}
+            />
 
-            <ContentInner>
-                {!dataLoading ? (
-                    <GotchisLazy
-                        items={gotchis}
-                    />
-                ) : (
-                    <span>🧑‍🦯 loading ⛑️</span>
-                )}
+            <ContentInner dataLoading={dataLoading}>
+                <GotchiSorting
+                    gotchis={lendings}
+                    setGotchis={setLendings}
+                    defaultSorting={defaultSorting}
+                />
+                <GotchisLazy
+                    items={lendings}
+                    render = {[
+                        {
+                            badges: [
+                                'id',
+                                'skillpoints',
+                                'level',
+                                'collateral'
+                            ]
+                        },
+                        'svg',
+                        'name',
+                        'mainTraits',
+                        'numericTraits',
+                        'wearablesLine',
+                        'listing',
+                    ]}
+                />
             </ContentInner>
         </ContentWrapper>
     );
