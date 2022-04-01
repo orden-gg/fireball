@@ -242,7 +242,6 @@ const loadRewardsStyles = makeStyles(theme => ({
 }));
 
 const parcelSinglePage = makeStyles(theme => ({
-
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
