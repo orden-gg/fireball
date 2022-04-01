@@ -61,4 +61,37 @@ export default {
     checkArrayForDuplicates(array) {
         return new Set(array).size !== array.length;
     },
+
+    convertFloatNumberToSuffixNumber(number) {
+        const roundedNumber = Math.floor(number);
+        const digits = roundedNumber.toString().split('');
+        let convertedNumber;
+
+        switch (digits.length) {
+            case 4:
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}K`;
+
+                break;
+            case 5:
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}K`;
+
+                break;
+            case 6:
+                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}K`;
+
+                break;
+            case 7:
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}${digits[3]}M`;
+
+                break;
+            case 8:
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}${digits[4]}M`;
+
+                break;
+            default:
+                convertedNumber = digits.join('');
+        }
+
+        return convertedNumber;
+    }
 }
