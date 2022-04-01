@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'react-router';
 import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 
-import SnackbarContextProvider from "./contexts/SnackbarContext";
 import Header from './root/Header/Header';
 import Footer from './root/Footer/Footer';
 
@@ -16,9 +15,10 @@ import Client from './pages/Client/Client';
 import Autopet from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
 import NotFound from './pages/NotFound/NotFound';
-import BaazaarContextProvider from "./contexts/BaazaarContext";
-import LoginContextProvider from './contexts/LoginContext';
+import BaazaarContextProvider from './contexts/BaazaarContext';
 import ClientContextProvider from './contexts/ClientContext';
+import LoginContextProvider from './contexts/LoginContext';
+import SnackbarContextProvider from './contexts/SnackbarContext';
 
 import { styled } from '@mui/system';
 
