@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import { Box, Button, Link, Toolbar, Typography, IconButton } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -7,6 +7,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import LoginButton from 'components/Login/LoginButton';
+import { LoginContext } from 'contexts/LoginContext';
 import logo from 'assets/images/logo-white.svg';
 import discord from 'assets/images/icons/discord.svg';
 
@@ -19,6 +20,8 @@ export default function Header() {
     const location = useLocation();
     const navRef = useRef(null);
     const hamburgerRef = useRef(null);
+
+    const { activeAddress } = useContext(LoginContext);
 
     // Close nav on route change
     useEffect(() => {
@@ -98,7 +101,9 @@ export default function Header() {
                 </nav>
                 {renderSocials('mobile')}
             </Box>
-            <Balances />
+
+            { activeAddress && <Balances /> }
+
             <Box className={classes.group}>
                 <LoginButton />
                 <IconButton

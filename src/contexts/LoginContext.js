@@ -29,19 +29,21 @@ const LoginContextProvider = (props) => {
     const [ghstBalance, setGhstBalance] = useState(0);
 
     useEffect(() => {
-        Promise.all([
-            alchemicaApi.getFudBalance(activeAddress),
-            alchemicaApi.getFomoBalance(activeAddress),
-            alchemicaApi.getAlphaBalance(activeAddress),
-            alchemicaApi.getAkekBalance(activeAddress),
-            ghstApi.getBalanceOf(activeAddress),
-        ]).then(([fud, fomo, alpha, akek, ghst]) => {
-            setFudBalance(commonUtils.convertFloatNumberToSuffixNumber(fud))
-            setFomoBalance(commonUtils.convertFloatNumberToSuffixNumber(fomo))
-            setAlphaBalance(commonUtils.convertFloatNumberToSuffixNumber(alpha))
-            setAkekBalance(commonUtils.convertFloatNumberToSuffixNumber(akek))
-            setGhstBalance(commonUtils.convertFloatNumberToSuffixNumber(ghst));
-        });
+        if (activeAddress) {
+            Promise.all([
+                alchemicaApi.getFudBalance(activeAddress),
+                alchemicaApi.getFomoBalance(activeAddress),
+                alchemicaApi.getAlphaBalance(activeAddress),
+                alchemicaApi.getAkekBalance(activeAddress),
+                ghstApi.getBalanceOf(activeAddress),
+            ]).then(([fud, fomo, alpha, akek, ghst]) => {
+                setFudBalance(commonUtils.convertFloatNumberToSuffixNumber(fud))
+                setFomoBalance(commonUtils.convertFloatNumberToSuffixNumber(fomo))
+                setAlphaBalance(commonUtils.convertFloatNumberToSuffixNumber(alpha))
+                setAkekBalance(commonUtils.convertFloatNumberToSuffixNumber(akek))
+                setGhstBalance(commonUtils.convertFloatNumberToSuffixNumber(ghst));
+            });
+        }
     }, [activeAddress])
 
     const selectActiveAddress = (address) => {
