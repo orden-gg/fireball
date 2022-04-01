@@ -1,20 +1,23 @@
 import React from 'react';
+
 import classNames from 'classnames';
-import GotchiId from './common/GotchiId';
-import GotchiCollateral from './common/GotchiCollateral';
-import GotchiOwner from './common/GotchiOwner';
-import GotchiMainTraits from './common/GotchiMainTraits';
-import GotchiName from './common/GotchiName';
-import GotchiSVG from './common/GotchiSVG';
-import GotchiRewards from './common/GotchiRewards';
-import GotchiLevel from './GotchiLevel';
-import GotchiSkillPoints from './GotchiSkillPoints';
-import GotchiListing from './GotchiListing';
-import GotchiTraitsHighlight from './GotchiTraitsHighlight';
-import GotchiWearablesLine from './GotchiWearablesLine';
+
+import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
+import GotchiOwner from './GotchiOwner/GotchiOwner';
+import GotchiName from './GotchiName/GotchiName';
+import GotchiImage from './GotchiImage/GotchiImage';
+import GotchiRewards from './GotchiRewards/GotchiRewards';
+import GotchiLevel from './GotchiLevel/GotchiLevel';
+import GotchiSkillPoints from './GotchiSkillPoints/GotchiSkillPoints';
+import GotchiListing from './GotchiListing/GotchiListing';
+import GotchiTraits from './GotchiTraits/GotchiTraits';
+import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
+import GotchiRs from './GotchiRs/GotchiRs';
+import GotchiKinship from './GotchiKinship/GotchiKinship';
+
 import styles from './styles';
 
-export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, render, inPortal }) {
+export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
     const classes = styles();
 
     const gotchiSections = {
@@ -29,12 +32,20 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
             );
         },
 
-        get id() {
+        get rs() {
             return (
-                <GotchiId
+                <GotchiRs
                     gotchi={gotchi}
-                    title={title}
-                    key={`${gotchi.id}-id`}
+                    key={`${gotchi.id}-rs`}
+                />
+            );
+        },
+
+        get kinship() {
+            return (
+                <GotchiKinship
+                    gotchi={gotchi}
+                    key={`${gotchi.id}-kinship`}
                 />
             );
         },
@@ -63,7 +74,6 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                     level={gotchi.level}
                     toNextLevel={gotchi.toNextLevel}
                     experience={gotchi.experience}
-                    size={25}
                     key={`${gotchi.id}-level`}
                 />
             )
@@ -79,21 +89,12 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
             );
         },
 
-        get mainTraits() {
+        get traits() {
             return (
-                <GotchiMainTraits
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-mainTraits`}
-                />
-            );
-        },
-
-        get numericTraits() {
-            return (
-                <GotchiTraitsHighlight
+                <GotchiTraits
                     traits={gotchi.numericTraits}
                     currentTraits={gotchi.modifiedNumericTraits}
-                    key={`${gotchi.id}-numericTraits`}
+                    key={`${gotchi.id}-traits`}
                 />
             )
         },
@@ -104,7 +105,7 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
                     className={classes.gotchiInnerSection}
                     key={`${gotchi.id}-wearablesLine`}
                 >
-                    <GotchiWearablesLine wearables={gotchi.equippedWearables}/>
+                    <GotchiWearablesLine gotchi={gotchi}/>
                 </div>
             );
         },
@@ -120,10 +121,10 @@ export default function Gotchi({ gotchi, title, narrowed, renderSvgByStats, rend
 
         get svg() {
             return (
-                <GotchiSVG
+                <GotchiImage
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
-                    inPortal={inPortal}
+                    portal={portal}
                     key={`${gotchi.id}-svg`}
                 />
             );

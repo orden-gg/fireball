@@ -22,12 +22,12 @@ const theme = createTheme({
             primary: '#fff'
         },
         rarity: {
-            common: 'rgb(128, 100, 255)',
-            uncommon: 'rgb(51, 186, 204)',
-            rare: 'rgb(89, 188, 255)',
-            legendary: 'rgb(255, 195, 107)',
-            mythical: 'rgb(255, 150, 255)',
-            godlike: 'rgb(81, 255, 168)',
+            common: '#7257FF',
+            uncommon: '#00CEB3',
+            rare: '#00C0FF',
+            legendary: '#FBB710',
+            mythical: '#FF67FF',
+            godlike: '#00E994',
             drop: 'rgb(0, 0, 0)'
         },
         realm: {
@@ -50,8 +50,8 @@ const theme = createTheme({
             light: '#c1ad87'
         },
         haunts: {
-            h1: 'rgb(193, 95, 255)',
-            h2: 'rgb(0, 224, 199)'
+            h1: '#591F96',
+            h2: '#04608C'
         }
     },
     typography: {
@@ -76,10 +76,6 @@ const theme = createTheme({
                 root: {
                     textDecoration: 'none',
                     color: 'inherit',
-
-                    // '&:hover': {
-                    //     textDecoration: 'underline'
-                    // }
                 },
             },
         },

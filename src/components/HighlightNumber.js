@@ -6,7 +6,8 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles(theme => ({
     box: {
         padding: 2,
-        border: '3px solid transparent'
+        border: '3px solid transparent',
+        backgroundColor: '#7257FF'
     }
 }));
 
@@ -15,31 +16,15 @@ export default function HighlightNumber({ children, type }) {
     const theme = useTheme();
 
     const getColor = (type) => {
-        switch (type) {
-            case 'common':
-                return theme.palette.rarity.common;
-            case 'uncommon':
-                return theme.palette.rarity.uncommon;
-            case 'rare':
-                return theme.palette.rarity.rare;
-            case 'legendary':
-                return theme.palette.rarity.legendary;
-            case 'mythical':
-                return theme.palette.rarity.mythical;
-            case 'godlike':
-                return theme.palette.rarity.godlike;
-            default:
-                return 'transparent';
-        }
+        return theme.palette.rarity[type] || 'transparent';
     };
 
     return (
         <div
             className={classes.box}
             style={{
-                backgroundColor: getColor(type) === 'transparent' ? 'transparent' : alpha(getColor(type), .8),
-                borderColor: getColor(type) === 'transparent' ? 'transparent' : alpha(theme.palette.secondary.dark, .5),
-                color: getColor(type) === 'transparent' ? theme.palette.text.primary : theme.palette.secondary.main
+                backgroundColor: getColor(type) === 'transparent' ? '#7257FF' : alpha(getColor(type), .8),
+                color: getColor(type) === '#7257FF' ? theme.palette.text.primary : theme.palette.secondary.main
             }}
         >
             {children}

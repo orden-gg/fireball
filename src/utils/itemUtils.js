@@ -130,6 +130,23 @@ export default {
         }
     },
 
+    getTraitIconByName(trait) {
+        return require(`../assets/images/traits/${trait}.png`).default;
+    },
+
+    getRarityByTrait(trait) {
+        switch (true) {
+            case trait >= 100 || trait <= -1:
+                return 'godlike'
+            case trait >= 98 || trait <= 1:
+                return 'mythical'
+            case trait >= 90 || trait <= 9:
+                return 'rare'
+            default:
+                return 'common'
+        }
+    },
+
     getItemImg(item) {
         const typeMap = {
             wearable: () => returnWearable(),

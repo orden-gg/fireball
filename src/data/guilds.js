@@ -376,6 +376,7 @@ const guilds = [
             '0x1deAfd00617fc80F176A6e97F92aBc4b4F6da384',
             '0x24435Da3AcBAe0532b2Fb12839a938A78B32911C',
             '0x24777CA8E50C9cEC03b89aA65EacdAC5279DB7a8',
+            '0x2718E86f5793Ac08bd3C4A301382E8c1DA2a1e30',
             '0x28822e61aDc850DA5674D839DcfdccC8656b2459',
             '0x2994d42Ff4547f5C88F97FE3c11e4c97f85A0283',
             '0x2B8562315e88FCA0492d2fee254bC2a5164EAba2',
@@ -392,26 +393,32 @@ const guilds = [
             '0x3BBF5B5e873543dc90bCaEe9BC98bd8CcD06e60f',
             '0x3d240611133B4c24eC19c0dA0e0521a474092651',
             '0x3e05FC835a92fa1AD481C623d1F5097BFd55Bb18',
+            '0x3E35fAAE5FB365cad9fA38e54784B98567A6d765',
             '0x4176D5d5813Bb33f1761dbEF41107Ec1728062f6',
             '0x43FF4C088df0A425d1a519D3030A1a3DFff05CfD',
             '0x45c33E53f40a93131bD317049372878b1B4ef81F',
             '0x494c1B2a2D0FF337315634DAbeede6d751E68060',
             '0x49971D89202A42Fce5D2BDfE4dF92f417aB479f5',
             '0x49a338c8A8C92f3f7E5A4700A191bb41595591b2',
+            '0x4C5d1029C2c64fC6477529d5A391cA667a514B4C',
             '0x4F086538EA410fe7aD1fd369E586cf39DCCA024D',
             '0x4fa8e8bEf04b0b072Cb10Ba8E18D9b4dD580d75a',
             '0x52fb99CeC82C6Dde1E07806972EE6F7C8ac431Fa',
             '0x55f64cfff506E311c315A1eBD389E430aF5f12ED',
             '0x579ea3F1e0617Aa237E36C0501822b55bE8D84ED',
             '0x58C2930c58d66cA722471FA5C16F4fE25367cF32',
+            '0x59480D300aD462d72988e47b42CFCEF6db6E2251',
             '0x59c3D7966837E8C6B96251b6Ea0eF2cD4b17015C',
             '0x59cAd07ceF1e55d861Fb106fcc95aFbeff29b06B',
             '0x5AA59e166E4405C05ABF85AD44A8ED84A1d51a06',
+            '0x5aE7aE79765973cA60EE9f9e29866B63952Ae807',
             '0x5e8256A68E28655d9b421E94a0DF3C292B6248bD',
             '0x5f2B6648A7B62beA1B4bC31eDC318365FA7BB0FF',
+            '0x60523Cd3F5CF0061C6f042545371Fa6ff8cD397B',
             '0x60A179E57A67c36dfF0a03B283CD287149Ed0F51',
             '0x636bFC1dAde24c7E60E5807795E4534D42cb5803',
             '0x639BB215b1B243561A9F19c13A1dB3DB0919Fd60',
+            '0x64f961EeC2ba222DCba8Fa354F03e27529b96F5B',
             '0x65cCb7dcE8fbBB27972e0b482733AbB2713A75F6',
             '0x66633Cc6B84CD127A0bb84864c1a4eA0172469A6',
             '0x677975399cbd8aa7BD17A4B87C04Ed07A85978d4',
@@ -436,6 +443,7 @@ const guilds = [
             '0x9198a98CD0df9b1b5260F4dE4c2202ff237b0b79',
             '0x92dB5dCbf375FA203c9cB60f095C5800D59f0A3E',
             '0x92Fb569f24da3C2E98F78DA7D7C464369ea30389',
+            '0x937Df4e3d6dB229A10ff0098ab3A1bCC40C33ea4',
             '0x956F1CE3ff2ea59A8b41DF83Ce9F85ED59D73F92',
             '0x9875094945893d40979E2858B6cAf788dcCE3368',
             '0x9Bb39C8e80E32273FAAA1bBe74eBC6eE5b0e0415',
@@ -461,17 +469,20 @@ const guilds = [
             '0xc7748db7338cc106aeb041b59965d0101eda8636',
             '0xc7C274A7cD4aA39b86a124fFcd0f7AeC0bA4e486',
             '0xcd5b5a0E19252F5e607c34e63154ba2CbccDcD22',
+            '0xcd96e4D81B1dD956B2a34716E718e704C9C3128E',
             '0xD10242803C5A2b8767Eb89D5360131A98021CB7D',
             '0xD12090A5a386B59d0AFb53fB02eC16d46a56EBF4',
             '0xD5161c76579A49Ac41Db3fd4ddDF24eCCaeB750c',
             '0xd6715f048B7812F6fcFd04a84CcE9F391968e705',
             '0xD93217d38EffdFfbE5d4DB9dCE9ACCD348265629',
             '0xD94d15D519F020af8dDC6654C374c19ea025a3B6',
+            '0xdc25324B8186DE47A976191a54ea0366428Af632',
             '0xDD1Dcb8C0b1fcd2cD447423D9E07a6d66527412e',
             '0xDe34393312C0C1e97e404d18A04580E9610e063C',
             '0xdee5aF5e572B94B14C6B8Ead41C76119685e5Dab',
             '0xDF14100B76a5b5fd46FbA22b7Ac124919CFfC92a',
             '0xe1bcd0f5c6c855ee3452b38e16fed0b7cb0cc507',
+            '0xE2dE15659663F7024699E1e573C033e2EFD5bCb1',
             '0xe2ed8448c47b00d505abbdee375c346b4c40d09b',
             '0xe6a766f12Fe9FDcB61b5c1D46051004F77e79631',
             '0xE7c8712fC60B20693046c71E5012801eaAfc7217',
@@ -481,8 +492,11 @@ const guilds = [
             '0xEE41c71686dB358B465caea6989D9eBEF7dF89DF',
             '0xf0B8BCd1921d37Bf83D71CCee40D55A13b98f3c5',
             '0xF0Bc763e0A6AF4784a36fa102220FF60eC651f9e',
+            '0xf0dfc85855Ad879d629c78f73E55F4040c28f02D',
             '0xF1E34bdc4D2316f27a5A61E2d5679292Faf67A4f',
+            '0xf746A85E0e1A8f5E9E5c221135FacA5ADF71eb14',
             '0xf7ea3A3aa86aA4E8877D1B93C554AaA55694CFEA',
+            '0xf929a6e76b4Bed6D81bcD58E0aC2991854892214',
             '0xfbb073e09D84970d1eFe099aBBE9E626f8FF7024',
             '0xfbb938AaB5fB05D81c396C0cBd8e4D7735695db7',
             '0xfd4476E38d9AfE25C95B45A120C0b07D0dC7C6a9',
@@ -651,7 +665,8 @@ const guilds = [
             '0x6004ec8712b6d60c02D5812a46FFD7e17e7Ee41c',
             '0x8DF6a2DadfaC1009442430CA40F8479d206f7673',
             '0x7909759B82EB27aB3Cc886C5f3fCE3A72a565b39',
-            '0xC727Bff1962590C71A6CB56C6D11F37beE740A5D'
+            '0xC727Bff1962590C71A6CB56C6D11F37beE740A5D',
+            '0xE7824cFa1C9FAFa4767dF34305123F3151A00F1B'
         ],
         description: [
             {
@@ -910,7 +925,66 @@ const guilds = [
     }, {
         name: 'SynthGuild',
         logo: require('../assets/images/guilds/synthguild.png').default,
-        members: []
+        members: [
+            '0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b',
+            '0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7',
+            '0x6f48134d8bdeb954ad97525cf0adb9ad446260b1',
+            '0x854a2a03c868eb2c8779b3a769ee9a5c13f06f40'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'District 7 degens who work and chill together.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Be able to work, rest and play!'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'FuzzCuzz#6071 | Dunc Idaho#8289'
+            }
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/SynthGuild',
+            discord: 'https://discord.gg/k4wumxSK'
+        }
+    }, {
+        name: 'Hodler Sqvad',
+        logo: require('../assets/images/guilds/hodlersqvad.png').default,
+        members: [
+            '0x240CC373085818eD0A26F388B8629773d6482505',
+            '0x55E476F115ED9608C98FFC5aD651b456Bf821c15',
+            '0xd1484CbE24DD699f68C153728788efe602EC2a39',
+            '0x0b51A6351a6a4e4360Fd7B91d8719e85d4AaF50B',
+            '0x91Ca4460E386808F8CC5D9f464f047914b6C3d5F',
+            '0x56B9eDEeDedEbfD94af535733C126eC1c3C3E16c',
+            '0xd09A9E564EaFd17F608d444e958F9EaBf4AB322b',
+            '0xe2c6aE45946D70C3B9f0836FBe5aAfE2916a011d',
+            '0xbe67d6800fab847f99F81A8E25b0F8d3391785a2',
+            '0x6E59d37708A0A05109a9c91cC56ae58dc5cEE8fC',
+            '0xf2cB1cAf152c6e36f1FF1A1C8eb88232221cCdE0'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'The Hodler Sqvad is a community of cryptogames since the beginning.'
+            },
+            {
+                title: 'Requirement',
+                text: 'Be in the Discord and have at least gotchi or a land.'
+            },
+            {
+                title: 'Point of Contact',
+                text: 'CryptoLord | Hodler Sqvad#3547 King Kong | Hodler Sqvad#3380'
+            }
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/HodlerSqvad',
+            discord: 'https://discord.gg/DShQV47R38'
+        }
     }
 ]
 
