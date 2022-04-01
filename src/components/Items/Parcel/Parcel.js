@@ -29,7 +29,6 @@ export default function Parcel({ parcel }) {
 
     return (
         <div className={classNames(classes.item, size, classes.parcelCard)}>
-
             <div className={classes.labels}>
                 <Tooltip
                     title='District'
@@ -68,6 +67,7 @@ export default function Parcel({ parcel }) {
                     )
                 })}
             </div>
+
             <div className={classes.parcelPriceContainer}>
                 <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
             </div>
