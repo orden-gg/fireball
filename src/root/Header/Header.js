@@ -11,6 +11,7 @@ import logo from 'assets/images/logo-white.svg';
 import discord from 'assets/images/icons/discord.svg';
 
 import styles from './styles';
+import Balances from './components/Balances';
 
 export default function Header() {
     const classes = styles();
@@ -97,6 +98,7 @@ export default function Header() {
                 </nav>
                 {renderSocials('mobile')}
             </Box>
+            <Balances />
             <Box className={classes.group}>
                 <LoginButton />
                 <IconButton

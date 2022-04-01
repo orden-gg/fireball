@@ -26,5 +26,9 @@ export default {
         return contract.allowance(address, AUTOPET_CONTRACT).then(allowance => (
             ethers.utils.formatUnits(allowance._hex) >= 100
         ));
-    }
+    },
+
+    getBalanceOf(address) {
+        return contract.balanceOf(address).then(balance => ethers.utils.formatUnits(balance._hex));
+    },
 }
