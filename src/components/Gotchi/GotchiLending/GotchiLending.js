@@ -1,16 +1,16 @@
 import React from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
+import classNames from 'classnames';
 import { Duration } from 'luxon';
 
+import ViewInAppButton from 'components/ViewInAppButton/ViewInAppButton';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import ghstIcon from 'assets/images/tokens/ghst.svg';
 
 import styles from './styles';
-import classNames from 'classnames';
-import ViewInAppButton from 'components/ViewInAppButton/ViewInAppButton';
 
 export default function GotchiLending({ gotchi }) {
     const classes = styles();

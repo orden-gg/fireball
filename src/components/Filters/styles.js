@@ -7,9 +7,6 @@ const styles = makeStyles(theme => ({
         '& + $section': {
             marginTop: 12
         }
-    },
-    testhere: {
-        // background: 'red'
     }
 }));
 
@@ -20,7 +17,6 @@ const GotchiSortingStyles = makeStyles(theme => ({
         justifyContent: 'space-between',
         background: alpha('#000', .2),
         borderRadius: '4px 4px 0 0'
-        // border: `1px solid ${alpha('#000', .1)}`
     },
     inner: {
         display: 'flex',

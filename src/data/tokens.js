@@ -1,4 +1,4 @@
-import { GHST_CONTRACT, FUD_CONTRACT, AKEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT } from 'api/common/constants';
+import { GHST_CONTRACT, FUD_CONTRACT, KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT } from 'api/common/constants';
 
 const tokens = [
     {
@@ -19,7 +19,7 @@ const tokens = [
     },
     {
         name: 'KEK',
-        address: AKEK_CONTRACT
+        address: KEK_CONTRACT
     },
 ];
 

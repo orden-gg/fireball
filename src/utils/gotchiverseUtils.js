@@ -4,9 +4,9 @@ import commonUtils from './commonUtils';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    getGuildImg(name, format) {
+    getGuildImg(name) {
         try {
-            return require(`../assets/images/guilds/${name}.${format ? format : 'png'}`).default;
+            return require(`../assets/images/guilds/${name}.png`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }

@@ -15,8 +15,8 @@ import GotchisLazy from 'components/Lazy/GotchisLazy';
 import GotchiSorting from 'components/Filters/GotchiSorting';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
-import guilds from 'data/guilds';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
+import guilds from 'data/guilds';
 
 const sortings = [
     {

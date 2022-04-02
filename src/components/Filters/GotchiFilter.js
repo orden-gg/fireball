@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import qs from 'query-string';
 import { Alert, AlertTitle, Autocomplete, Avatar, Chip, Link, TextField } from '@mui/material';
+import qs from 'query-string';
+
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading }) {
     const classes = styles();

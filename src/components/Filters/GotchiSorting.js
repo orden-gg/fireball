@@ -2,14 +2,15 @@
 import React, { useState } from 'react';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { Divider } from '@mui/material';
+
+import classNames from 'classnames';
 
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 import commonUtils from 'utils/commonUtils';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 
 import { GotchiSortingStyles } from './styles';
-import { Divider } from '@mui/material';
-import classNames from 'classnames';
 
 const directions = [
     {
@@ -60,7 +61,9 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSo
                     aria-label='sorting'
                     list={sortings}
                 />
-                <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
+
+                <Divider flexItem orientation='vertical' sx={{ mx: 0.5, my: 1 }} />
+
                 <CustomToggleButtonGroup
                     value={direction}
                     onChange={(event, value) => onDirectionChange(event, value)}

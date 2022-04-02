@@ -30,7 +30,7 @@ const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raf
 const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 
- // TODO: temporary lend graph
+// TODO: temporary lend graph
 // const lend = 'https://api.thegraph.com/subgraphs/name/nicolasnin/lendinggotchi';
 const lend = 'https://static.138.182.90.157.clients.your-server.de/subgraphs/name/aavegotchi/aavegotchi-core-matic-lending-two';
 
