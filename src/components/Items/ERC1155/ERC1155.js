@@ -33,7 +33,7 @@ export default function ERC1155({ children, item }) {
         let controller = new AbortController();
 
         // last sold
-        thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response) => {
+        thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then(response => {
             if (!controller.signal.aborted) {
                 setLast(response);
 
@@ -44,12 +44,16 @@ export default function ERC1155({ children, item }) {
             }
         });
 
-        // current
-        thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response) => {
-            if (!controller.signal.aborted) {
-                setCurrent(response);
-            }
-        });
+        if (item.isShopItem) {
+            setCurrent(item.listing);
+        } else {
+            // current
+            thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then(response => {
+                if (!controller.signal.aborted) {
+                    setCurrent(response);
+                }
+            });
+        }
 
         return () => controller?.abort(); // cleanup on destroy
     }, [item]);
@@ -59,39 +63,42 @@ export default function ERC1155({ children, item }) {
 
             {(item.balance || item.priceInWei) ? (
                 <div className={classes.labels}>
-                    {last && current ? (
-                        <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                            <div
-                                className={
-                                    classNames(
-                                        classes.label,
-                                        classes.labelTotal,
-                                        classes.labelRarityColored
-                                    )
-                                }
-                            >
-                                <Typography variant='subtitle2'>
-                                    {
-                                        last.price === 0 && !item.priceInWei ? '???' :
-                                        commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
-                                    }
-                                </Typography>
-                                <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                            </div>
-                        </Tooltip>
+                    { !item.isShopItem &&
+                        <>
+                            {last && current ? (
+                                <Tooltip title='Total value' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
+                                    <div
+                                        className={
+                                            classNames(
+                                                classes.label,
+                                                classes.labelTotal,
+                                                classes.labelRarityColored
+                                            )
+                                        }
+                                    >
+                                        <Typography variant='subtitle2'>
+                                            {
+                                                last.price === 0 && !item.priceInWei ? '???' :
+                                                commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
+                                            }
+                                        </Typography>
+                                        <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                    </div>
+                                </Tooltip>
+                            ) : (
+                                <ContentLoader
+                                    speed={2}
+                                    viewBox='0 0 70 27'
+                                    backgroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .6)}
+                                    foregroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .2)}
 
-                    ) : (
-                        <ContentLoader
-                            speed={2}
-                            viewBox='0 0 70 27'
-                            backgroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .6)}
-                            foregroundColor={alpha(theme.palette.rarity[item.rarity || 'common'], .2)}
-
-                            className={classes.totalValueLoader}
-                        >
-                            <rect x='0' y='0' width='70' height='27' />
-                        </ContentLoader>
-                    )}
+                                    className={classes.totalValueLoader}
+                                >
+                                    <rect x='0' y='0' width='70' height='27' />
+                                </ContentLoader>
+                            )}
+                        </>
+                    }
 
                     {
                         (item.balance || item.quantity) && <div className={classNames(classes.label, classes.labelBalance)}>

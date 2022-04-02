@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Grid, Link, List, ListItem, Typography } from '@mui/material';
+import { CallMade } from '@mui/icons-material';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
 import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
-import ParcelBaazaarLink from 'components/Items/Parcel/ParcelBaazaarLink';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
-import { parcelSinglePage, routersStyles } from '../styles'
+import { parcelSinglePage, routersStyles } from '../styles';
 
 export default function ClientRealmParcel() {
     const classes = {
@@ -95,8 +95,17 @@ export default function ClientRealmParcel() {
 
                                 {
                                     baazaarId ? <Box>
-                                        <ParcelBaazaarLink parcel={parcel} isBaazaarCard={true} link={baazaarId}
-                                                           text={'Watch in Baazaar'}/>
+                                        <Link
+                                            href={`https://app.aavegotchi.com/baazaar/erc721/${baazaarId}`}
+                                            target={'_blank'}
+                                            underline='none'
+                                            className={classNames(classes.nameWrapper, 'two-lined')}
+                                        >
+                                            <Typography className={classNames(classes.name, classes.textHighlight, itemUtils.getParcelSize(parcel.size))}>
+                                                Watch in Baazaar
+                                            </Typography>
+                                            <CallMade className={classes.callMadeIcon} />
+                                        </Link>
                                     </Box> : <Box className={classes.notListedInBaazaar}>
                                         Not listed in Baazaar
                                     </Box>

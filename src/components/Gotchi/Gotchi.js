@@ -9,11 +9,11 @@ import GotchiImage from './GotchiImage/GotchiImage';
 import GotchiRewards from './GotchiRewards/GotchiRewards';
 import GotchiLevel from './GotchiLevel/GotchiLevel';
 import GotchiSkillPoints from './GotchiSkillPoints/GotchiSkillPoints';
-import GotchiListing from './GotchiListing/GotchiListing';
 import GotchiTraits from './GotchiTraits/GotchiTraits';
 import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
 import GotchiRs from './GotchiRs/GotchiRs';
 import GotchiKinship from './GotchiKinship/GotchiKinship';
+import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
 
 import styles from './styles';
 
@@ -132,11 +132,10 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
 
         get listing() {
             return (
-                <GotchiListing
-                    id={gotchi.id}
-                    listing={gotchi.listings}
-                    history={gotchi.historicalPrices}
-                    key={`${gotchi.id}-listings`}
+                <ERC721Listing
+                    key={`${gotchi.id}-listing`}
+                    listings={gotchi.listings}
+                    historicalPrices={gotchi.historicalPrices}
                 />
             )
         },

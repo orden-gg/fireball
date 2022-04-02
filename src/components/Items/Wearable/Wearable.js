@@ -8,7 +8,7 @@ import CardName from '../common/CardName/CardName';
 import CardStats from '../common/CardStats/CardStats';
 import WearableImage from './WearableImage';
 
-export default function Wearable({ wearable, raffleChances, tooltip }) {
+export default function Wearable({ wearable, raffleChances, tooltip, isShopItem }) {
     const rarity = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);
     const slot = itemUtils.getItemSlotById(wearable.id || wearable.erc1155TypeId);
 
@@ -22,7 +22,12 @@ export default function Wearable({ wearable, raffleChances, tooltip }) {
             slot: slot,
             tooltip: tooltip,
             priceInWei: wearable.priceInWei,
-            quantity: wearable.quantity
+            quantity: wearable.quantity,
+            listing: {
+                listing: wearable.listing,
+                price: wearable.price
+            },
+            isShopItem
         }}>
             <WearableImage wearable={wearable} />
             <CardName item={wearable} />
