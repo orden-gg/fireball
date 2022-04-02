@@ -33,14 +33,18 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSo
     const [direction, setDirection] = useState('desc');
 
     const onSortChange = (event, value) => {
-        if (!value) return;
+        if (!value) {
+            return;
+        }
 
         setSorting(value);
         sortGotchis(value, direction);
     };
 
     const onDirectionChange = (event, value) => {
-        if (!value) return;
+        if (!value) {
+            return;
+        }
 
         setDirection(value);
         sortGotchis(sorting, value);

@@ -19,17 +19,18 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading
     const [guildsFilter, setGuildsFilter] = useState([]);
 
     useEffect(() => {
-        if(params.guild) setGuildsFilter(params.guild.split(','))
-
+        if(params.guild) {
+            setGuildsFilter(params.guild.split(','));
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if(!dataLoading) filterGotchis(guildsFilter);
-
+        if(!dataLoading) {
+            filterGotchis(guildsFilter);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataLoading]);
-
 
     const handleChange = (event, newValue) => {
         filterGotchis(newValue);
@@ -38,18 +39,24 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading
     };
 
     const filterGotchis = (filters) => {
-        const filtered = gotchis.filter((gotchi) => {
-            return filters.some((filter) => filter === gotchi.guild);
-        });
+        let filteredGotchis;
 
-        setGotchis(filters.length > 0 ? filtered : gotchis);
+        if (filters.length > 0) {
+            filteredGotchis = gotchis.filter(gotchi =>
+                filters.some((filter) => filter === gotchi.guild)
+            );
+        } else {
+            filteredGotchis = gotchis;
+        }
+
+        setGotchis(filteredGotchis);
     };
 
     const handleQueryParams = (filters) => {
         if (filters.length > 0) {
             history.push({
                 path: location.pathname,
-                search: `?guild=${filters.map((filter)=>filter)}`
+                search: `?guild=${filters.map((filter) => filter)}`
             });
         } else {
             history.push({ path: location.pathname });

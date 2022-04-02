@@ -176,7 +176,6 @@ export default {
         return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response)=> {
             let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
-            console.log('👻', filteredArray)
             return modifyTraits(filteredArray);
         });
     },

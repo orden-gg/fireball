@@ -22,10 +22,12 @@ export default function GotchiLending({ gotchi }) {
         return (
             <>
                 {Object.entries(periodObject).map((period, index) => {
-                    let value = period[1];
-                    let key = value > 1 ? period[0] : period[0].slice(0, -1);
+                    const value = period[1];
+                    const key = value > 1 ? period[0] : period[0].slice(0, -1);
 
-                    if(value === 0) return null;
+                    if(value === 0) {
+                        return null;
+                    }
 
                     return <span style={{ margin: '2px 2px 0' }} key={index}>
                         {value} {key}
@@ -77,7 +79,7 @@ export default function GotchiLending({ gotchi }) {
 
             <div className={classNames(classes.section, classes.tokens)}>
                 {gotchi.tokensToShare.map((token, index) => {
-                    let tokenName = graphUtils.getTokenName(token);
+                    const tokenName = graphUtils.getTokenName(token);
 
                     return (
                         <img
