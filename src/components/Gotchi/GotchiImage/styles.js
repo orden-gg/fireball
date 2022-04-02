@@ -83,7 +83,30 @@ const styles = makeStyles(theme => ({
         position: 'absolute',
         right: 5,
         top: 5
-    }
+    },
+    whitelist: {
+        background: alpha('#000', .3),
+        borderRadius: 2,
+        padding: '2px 4px',
+        position: 'absolute',
+        bottom: 8,
+        right: 8,
+        fontWeight: 'bold',
+        zIndex: 5,
+        display: 'flex',
+        alignItems: 'center'
+    },
+    guild: {
+        position: 'absolute',
+        bottom: 8,
+        left: 8,
+        zIndex: 5,
+    },
+    guildAvatar: {
+        width: 32,
+        height: 32,
+        border: '2px solid #fff'
+    },
 }));
 
 export default styles;

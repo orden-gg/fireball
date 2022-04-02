@@ -34,7 +34,7 @@ const LoginContextProvider = (props) => {
                 alchemicaApi.getFudBalance(activeAddress),
                 alchemicaApi.getFomoBalance(activeAddress),
                 alchemicaApi.getAlphaBalance(activeAddress),
-                alchemicaApi.getAkekBalance(activeAddress),
+                alchemicaApi.getKekBalance(activeAddress),
                 ghstApi.getBalanceOf(activeAddress),
             ]).then(([fud, fomo, alpha, akek, ghst]) => {
                 setFudBalance(commonUtils.convertFloatNumberToSuffixNumber(fud))

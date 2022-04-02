@@ -13,9 +13,11 @@ import GotchiTraits from './GotchiTraits/GotchiTraits';
 import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
 import GotchiRs from './GotchiRs/GotchiRs';
 import GotchiKinship from './GotchiKinship/GotchiKinship';
+import GotchiLending from './GotchiLending/GotchiLending';
 import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
 
 import styles from './styles';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
     const classes = styles();
@@ -125,7 +127,17 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
                     portal={portal}
+                    whitelist={gotchi.whitelistId}
                     key={`${gotchi.id}-svg`}
+                />
+            );
+        },
+
+        get lending() {
+            return (
+                <GotchiLending
+                    gotchi={gotchi}
+                    key={`${gotchi.id}-lending`}
                 />
             );
         },
@@ -165,7 +177,14 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
     }
 
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'vertical' )}>
+        <div
+            className={classNames(
+                classes.gotchi,
+                `haunt${gotchi.hauntId}`,
+                narrowed && 'narrowed', 'vertical',
+                gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
+            )}
+        >
             {render.map((name) => {
                 return renderSection(name)
             })}

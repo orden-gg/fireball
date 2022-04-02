@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { GuildsContext } from 'contexts/GuildsContext';
-import guildUtils from 'utils/guildUtils';
+import commonUtils from 'utils/commonUtils';
 
 import GuildLogo from '../components/GuildLogo';
 import styles from '../styles';
@@ -16,7 +16,7 @@ export default function GuildsPreview() {
     const history = useHistory();
 
     const handleClick = (guild) => (event) => {
-        history.push(`${match.url}/${guildUtils.nameToPath(guild.name)}`)
+        history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`)
     }
 
     const renderList = () => {
@@ -51,7 +51,7 @@ export default function GuildsPreview() {
         <Box className={classes.guildsWrapper}>
             <a
                 className={classes.guildsTitle}
-                href='https://fireball-gg.notion.site/how-to-add-guild-to-fireball-gg-cd78871152b04110b385f42ac94ea452'
+                href='https://fireball-gg.notion.site/How-to-add-guild-to-fireball-gg-a2bec3bd315c4d42961bc0148bb17c26'
                 target='_blank'
                 rel='noreferrer'
             >

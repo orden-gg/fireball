@@ -83,6 +83,9 @@ export default function Header() {
                             <Typography variant={'caption'}>Beta</Typography>
                         </Box>
                     </NavLink>
+                    <NavLink className={classes.navLink} to='/lend'>
+                        Lend
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/market'>
                         <Box className={classes.navLinkBox}>
                             Market
@@ -115,7 +118,8 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-                {renderSocials('tablet')}
+                {/* !TODO: Temporary solution for header responsiveness */}
+                {/* {renderSocials('tablet')} */}
             </Box>
         </Toolbar>
     )

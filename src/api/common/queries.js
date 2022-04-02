@@ -27,6 +27,11 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           equippedSetID
           equippedSetName
           usedSkillPoints
+          listings(where:{cancelled: false, timePurchased: 0}) {
+            id
+            priceInWei
+          }
+          historicalPrices
           owner {
             id
           }
@@ -397,6 +402,42 @@ export const raffleWinsQuery = (address) => {
           id
         }
         quantity
+      }
+    }`
+};
+
+export const lendingsQuery = (skip, orderDir) => {
+    return `{
+      gotchiLendings(
+          first: 1000,
+          skip: ${skip},
+          orderBy: "timeCreated",
+          orderDirection: ${orderDir},
+          where: {
+            borrower: "0x0000000000000000000000000000000000000000",
+            cancelled: false
+        }
+      ) {
+        id
+        timeCreated
+        rentDuration
+        upfrontCost
+        period
+        gotchi {
+            id
+            name
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
       }
     }`
 };

@@ -1,5 +1,6 @@
 import collaterals from 'data/collaterals';
 import sets from 'data/sets';
+import tokens from 'data/tokens';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -45,6 +46,20 @@ export default {
     getCollateralImg(name) {
         try {
             return require(`../assets/images/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
+        } catch (error) {
+            return require(`../assets/images/image-placeholder.svg`).default;
+        }
+    },
+
+    getTokenName(address) {
+        const index = tokens.findIndex(coll => coll.address.toLowerCase() === address.toLowerCase());
+
+        return tokens[index]?.name;
+    },
+
+    getTokenImg(name) {
+        try {
+            return require(`../assets/images/tokens/${name.toLowerCase()}.svg`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }

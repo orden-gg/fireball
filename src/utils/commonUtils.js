@@ -93,5 +93,9 @@ export default {
         }
 
         return convertedNumber;
-    }
+    },
+
+    stringToKey(string) {
+        return string.replace(/’| /g, '').replace(/ /g, '').toLowerCase();
+    },
 }
