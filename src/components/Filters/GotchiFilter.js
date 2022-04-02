@@ -1,25 +1,57 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import qs from 'query-string';
 import { Alert, AlertTitle, Autocomplete, Avatar, Chip, Link, TextField } from '@mui/material';
 
 import styles from './styles';
-import collaterals from 'data/collaterals';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
-export default function GotchiFilters({ gotchis, setGotchis, guilds }) {
+export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading }) {
     const classes = styles();
+
+    const history = useHistory();
+    const location = useLocation();
+    const params = qs.parse(location.search);
 
     const [guildsFilter, setGuildsFilter] = useState([]);
 
     useEffect(() => {
-        filterGotchis();
-    }, [guildsFilter]);
+        if(params.guild) setGuildsFilter(params.guild.split(','))
 
-    const filterGotchis = () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if(!dataLoading) filterGotchis(guildsFilter);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataLoading]);
+
+
+    const handleChange = (event, newValue) => {
+        filterGotchis(newValue);
+        handleQueryParams(newValue)
+        setGuildsFilter(newValue);
+    };
+
+    const filterGotchis = (filters) => {
         const filtered = gotchis.filter((gotchi) => {
-            return guildsFilter.some((filter) => filter === gotchi.guild);
+            return filters.some((filter) => filter === gotchi.guild);
         });
 
-        setGotchis(guildsFilter.length > 0 ? filtered : gotchis);
+        setGotchis(filters.length > 0 ? filtered : gotchis);
+    };
+
+    const handleQueryParams = (filters) => {
+        if (filters.length > 0) {
+            history.push({
+                path: location.pathname,
+                search: `?guild=${filters.map((filter)=>filter)}`
+            });
+        } else {
+            history.push({ path: location.pathname });
+        }
     };
 
     return (
@@ -28,9 +60,7 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds }) {
                 <Autocomplete
                     multiple
                     value={guildsFilter}
-                    onChange={(event, newValue) => {
-                        setGuildsFilter(newValue);
-                    }}
+                    onChange={handleChange}
                     options={guilds}
                     getOptionLabel={(option) => option}
                     renderInput={(params) => (
@@ -56,7 +86,7 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds }) {
             </div>
 
             <div className={classes.section}>
-                <Alert severity='info'>
+                <Alert severity='info' icon={false}>
                     <AlertTitle>Note!</AlertTitle>
                     More complex filters <strong>comming soon!</strong>.<br />
                     This page will be guild-focused.<br />

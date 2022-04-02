@@ -113,6 +113,7 @@ export default function Lend() {
                 gotchis={lendingsCache}
                 setGotchis={setLendings}
                 guilds={guildsKeys}
+                dataLoading={dataLoading}
             />
 
             <ContentInner dataLoading={dataLoading}>

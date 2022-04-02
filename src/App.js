@@ -71,7 +71,7 @@ export default function App() {
                                 <Switch>
                                     <Route exact path={`/`} component={ Main } />
                                     <Route exact path={`/market`} component={ Baazaar } />
-                                    <Route exact path={`/lend`} component={ Lend } />
+                                    <Route path={`/lend`} component={ Lend } />
                                     <Route exact path={`/explorer`} component={ GhostExplorer } />
                                     <Route path={`/autopet`} component={ Autopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
