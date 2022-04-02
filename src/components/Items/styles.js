@@ -482,7 +482,7 @@ const parselStyles = makeStyles(theme => ({
     boosts: {
         position: 'absolute',
         bottom: 0,
-        right: 0,
+        left: 0,
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -523,6 +523,11 @@ const parselStyles = makeStyles(theme => ({
         fontSize: 14,
         color: '#fff'
     },
+    parcelPriceContainer: {
+        position: 'absolute',
+        right: '8px',
+        bottom: '8px'
+    },
     labelParselPrice: {
         color: theme.palette.secondary.main,
         '.humble &': {
@@ -534,6 +539,11 @@ const parselStyles = makeStyles(theme => ({
         '.specions &': {
             backgroundColor: theme.palette.realm.specions
         }
+    },
+    shopParcelPrice: {
+        position: 'absolute',
+        bottom: 0,
+        right: 0
     },
     size: {
         position: 'absolute',
@@ -551,6 +561,11 @@ const portalStyles = makeStyles(theme => ({
         '.horizontal &': {
             margin: 'auto'
         }
+    },
+    portalPriceContainer: {
+        position: 'absolute',
+        right: '8px',
+        bottom: '8px'
     },
 }));
 

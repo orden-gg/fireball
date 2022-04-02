@@ -7,7 +7,7 @@ import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function ParcelBaazaarLink({ parcel, isBaazaarCard, link, text }) {
+export default function ParcelLink({ parcel }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -26,16 +26,13 @@ export default function ParcelBaazaarLink({ parcel, isBaazaarCard, link, text })
 
     return (
         <Link
-            href={
-                isBaazaarCard ? `https://app.aavegotchi.com/baazaar/erc721/${link}` :
-                    `${window.location.origin}/client/realm/parcel/${parcel.tokenId}`
-            }
-            target={isBaazaarCard ? '_blank' : '_self'}
+            href={`${window.location.origin}/client/realm/parcel/${parcel.tokenId}`}
+            target={'_blank'}
             underline='none'
             className={classNames(classes.nameWrapper, 'two-lined')}
         >
             <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                {text || name}
+                {name}
             </Typography>
             <CallMade className={classes.callMadeIcon} />
         </Link>

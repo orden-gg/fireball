@@ -18,3 +18,16 @@ export const baazaarFilteringTypes = {
     id: 'id',
     stats: 'stats'
 };
+
+export const Erc721Categories = Object.freeze({
+    ClosedPortal: '0',
+    OpenedPortal: '2',
+    Aavegotchi: '3'
+});
+
+export const Erc1155Categories = Object.freeze({
+    Wearable: '0',
+    Consumable: '2',
+    Ticket: '3',
+    Realm: '4'
+});

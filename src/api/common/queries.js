@@ -117,6 +117,93 @@ export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
   }`
 };
 
+export const erc721ListingsBySeller = (seller) => {
+    return `{
+        erc721Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timePurchased: 0
+            }
+        )
+        {
+            id
+            tokenId
+            category
+            priceInWei
+            gotchi {
+                id
+                name
+                numericTraits
+                modifiedNumericTraits
+                withSetsNumericTraits
+                baseRarityScore
+                modifiedRarityScore
+                withSetsRarityScore
+                kinship
+                toNextLevel
+                level
+                experience
+                equippedWearables
+                collateral
+                hauntId
+                createdAt
+                possibleSets
+                equippedSetID
+                equippedSetName
+                usedSkillPoints
+                listings(where: { cancelled: false, timePurchased: 0 }) {
+                    id
+                    priceInWei
+                }
+                historicalPrices
+                owner {
+                    id
+                }
+            }
+            parcel {
+                parcelId
+                parcelHash
+                tokenId
+                coordinateX
+                coordinateY
+                district
+                fudBoost
+                fomoBoost
+                alphaBoost
+                kekBoost
+                size
+                auctionId
+                historicalPrices
+            }
+            portal {
+                hauntId
+                historicalPrices
+            }
+        }
+    }`
+};
+
+export const erc1155ListingsBySeller = (seller) => {
+    return `{
+        erc1155Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timeLastPurchased: 0
+            }
+        )
+        {
+            id
+            erc1155TypeId
+            category
+            quantity
+            priceInWei
+            rarityLevel
+        }
+    }`
+};
+
 export const realmQuery = (address, skip) => {
     return `{
       parcels(first: 1000, skip: ${skip} where: { owner: "${address}" }) {
@@ -231,7 +318,6 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
             skip: ${skip},
             orderDirection: ${orderDir},
             orderBy: timeCreated,
-
             where: {
                 category: "4",
                 size: ${size},
@@ -320,27 +406,6 @@ export const raffleWinsQuery = (address) => {
     }`
 };
 
-// export const lendingsQuery = (skip, orderDir) => {
-//     return `{
-//         listings(
-//           first: 1000,
-//           skip: ${skip},
-//           orderBy: "timeCreated",
-//           orderDirection: ${orderDir},
-//           where: {
-//             renter: null,
-//             canceled: false
-//         }
-//       ) {
-//         id
-//         lender
-//         renter
-//         split
-//       }
-//     }`
-// };
-
-// TODO: query saved for official graph
 export const lendingsQuery = (skip, orderDir) => {
     return `{
       gotchiLendings(

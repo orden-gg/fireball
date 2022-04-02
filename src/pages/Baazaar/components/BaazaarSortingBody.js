@@ -144,7 +144,21 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && <Ticket ticket={item} />
                                 }
                                 {
-                                    (item.__typename === 'ERC721Listing' && item.category === '4') && <Parcel parcel={{...item.parcel, priceInWei: item.priceInWei, tokenId: item.tokenId, baazaarId: item.id}} isBaazaarCard={true}/>
+                                    (item.__typename === 'ERC721Listing' && item.category === '4') &&
+                                        <Parcel
+                                            parcel={{
+                                                ...item.parcel,
+                                                priceInWei: item.priceInWei,
+                                                tokenId: item.tokenId,
+                                                baazaarId: item.id,
+                                                listings: [{
+                                                    id: item.tokenId,
+                                                    priceInWei: item.priceInWei,
+                                                    __typename: 'ERC721Listing'
+                                                }],
+                                                historicalPrices: Boolean(item.parcel.historicalPrices) ? item.parcel.historicalPrices : []
+                                            }}
+                                        />
                                 }
                             </div>
                         }

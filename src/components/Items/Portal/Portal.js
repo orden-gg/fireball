@@ -4,16 +4,13 @@ import CallMade from '@mui/icons-material/CallMade';
 
 import classNames from 'classnames';
 
-import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
+import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
 
 import PortalImage from './PortalImage';
 import CardName from '../common/CardName/CardName';
-
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
-export default function Portal({ portal }) {
+export default function Portal({ portal, isShopItem = false }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -24,24 +21,9 @@ export default function Portal({ portal }) {
 
     return (
         <div className={classNames(classes.item, classes.portalCard)}>
-
             <div className={classes.labels}>
-
-                <Tooltip title='Price' classes={{ tooltip: classes.customTooltip }} placement='top' followCursor>
-                    <div className={classNames(classes.label, classes.labelTotal, classes.labelParselPrice)}>
-                        <Typography variant='subtitle2'>
-                            {
-                                commonUtils.formatPrice(
-                                    ethersApi.fromWei(portal.priceInWei)
-                                )
-                            }
-                        </Typography>
-                        <img src={ghstIcon} width='18' alt='GHST Token Icon' />
-                    </div>
-                </Tooltip>
-
                 <Tooltip
-                    title='District'
+                    title='Haunt'
                     classes={{ tooltip: classes.customTooltip }}
                     placement='top'
                     followCursor
@@ -71,6 +53,10 @@ export default function Portal({ portal }) {
                 <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
                 <CallMade className={classes.callMadeIcon} />
             </Link>
+
+            <div className={classes.portalPriceContainer}>
+                <ERC721Listing listings={portal.listings} historicalPrices={portal.historicalPrices}/>
+            </div>
         </div>
     )
 }
