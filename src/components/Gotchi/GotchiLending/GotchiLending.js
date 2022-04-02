@@ -25,7 +25,7 @@ export default function GotchiLending({ gotchi }) {
                     const value = period[1];
                     const key = value > 1 ? period[0] : period[0].slice(0, -1);
 
-                    if(value === 0) {
+                    if (value === 0) {
                         return null;
                     }
 

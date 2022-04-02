@@ -19,14 +19,14 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading
     const [guildsFilter, setGuildsFilter] = useState([]);
 
     useEffect(() => {
-        if(params.guild) {
+        if (params.guild) {
             setGuildsFilter(params.guild.split(','));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if(!dataLoading) {
+        if (!dataLoading) {
             filterGotchis(guildsFilter);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

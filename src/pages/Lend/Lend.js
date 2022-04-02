@@ -79,7 +79,6 @@ export default function Lend() {
     const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
     const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
 
-
     useEffect(() => {
         let mounted = true;
         setDataLoading(true);

@@ -420,7 +420,7 @@ export default {
         function getQueries() {
             const queries = [];
 
-            for (const i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
                 queries.push(lendingsQuery(i * 1000, 'asc'))
                 queries.push(lendingsQuery(i * 1000, 'desc'))
             }
