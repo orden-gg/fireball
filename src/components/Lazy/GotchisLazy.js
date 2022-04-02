@@ -11,6 +11,11 @@ const ListContainer = styled.div`
     grid-gap: 12px;
 `;
 
+const NoContent = styled.div`
+    text-align: center;
+    padding: 24px;
+`;
+
 export default function GotchisLazy({ items, render }) {
     const gridRef = useRef(null);;
 
@@ -26,11 +31,15 @@ export default function GotchisLazy({ items, render }) {
         });
     };
 
-    if (!items) return;
+    if (!items) {
+        return;
+    }
 
-    if (items.length === 0) return (
-        <div style={{ padding: '24px', textAlign: 'center' }}><span>No gotchis</span></div>
-    );
+    if (items.length === 0) {
+        return <NoContent>
+            <span>No gotchis</span>
+        </NoContent>
+    }
 
     return (
         <VirtuosoGrid
