@@ -118,7 +118,7 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-                {renderSocials('tablet')}
+                {/* {renderSocials('tablet')} */}
             </Box>
         </Toolbar>
     )

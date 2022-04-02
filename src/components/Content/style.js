@@ -3,7 +3,6 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     content: {
-        textAlign: 'center',
         padding: '24px 24px 0',
         [theme.breakpoints.up('sm')]: {
             display: 'flex',

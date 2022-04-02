@@ -320,6 +320,27 @@ export const raffleWinsQuery = (address) => {
     }`
 };
 
+// export const lendingsQuery = (skip, orderDir) => {
+//     return `{
+//         listings(
+//           first: 1000,
+//           skip: ${skip},
+//           orderBy: "timeCreated",
+//           orderDirection: ${orderDir},
+//           where: {
+//             renter: null,
+//             canceled: false
+//         }
+//       ) {
+//         id
+//         lender
+//         renter
+//         split
+//       }
+//     }`
+// };
+
+// TODO: query saved for official graph
 export const lendingsQuery = (skip, orderDir) => {
     return `{
       gotchiLendings(
@@ -328,11 +349,12 @@ export const lendingsQuery = (skip, orderDir) => {
           orderBy: "timeCreated",
           orderDirection: ${orderDir},
           where: {
-            borrower_not: "0x0000000000000000000000000000000000000000",
+            borrower: "0x0000000000000000000000000000000000000000",
             cancelled: false
         }
       ) {
         id
+        timeCreated
         rentDuration
         upfrontCost
         period
@@ -346,9 +368,7 @@ export const lendingsQuery = (skip, orderDir) => {
         }
         lender
         borrower
-        thirdPartyAddress
         whitelistId
-        whitelistMembers
         tokensToShare
         splitOther
         splitBorrower

@@ -14,7 +14,7 @@ import GotchiTraits from './GotchiTraits/GotchiTraits';
 import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
 import GotchiRs from './GotchiRs/GotchiRs';
 import GotchiKinship from './GotchiKinship/GotchiKinship';
-
+import GotchiLending from './GotchiLending/GotchiLending';
 import styles from './styles';
 
 export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
@@ -125,7 +125,17 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
                     portal={portal}
+                    whitelist={gotchi.whitelistId}
                     key={`${gotchi.id}-svg`}
+                />
+            );
+        },
+
+        get lending() {
+            return (
+                <GotchiLending
+                    gotchi={gotchi}
+                    key={`${gotchi.id}-lending`}
                 />
             );
         },

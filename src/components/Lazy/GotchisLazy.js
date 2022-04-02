@@ -1,6 +1,8 @@
-import React from 'react';
-import { VirtuosoGrid } from 'react-virtuoso'
+import React, { useEffect, useRef } from 'react';
 import styled from '@emotion/styled'
+
+import { VirtuosoGrid } from 'react-virtuoso'
+
 import Gotchi from 'components/Gotchi/Gotchi';
 
 const ListContainer = styled.div`
@@ -9,36 +11,22 @@ const ListContainer = styled.div`
     grid-gap: 12px;
 `;
 
-// flex-wrap: wrap;
-// justify-content: space-between;
-
-const ItemWrapper = styled.div`
-    max-width: 100%;
-    min-height: 100%;
-`;
-// flex: 1;
-
-const ItemContainer = styled.div`
-
-`;
-
-// width: 200px;
-
-// margin-bottom: 12px;
-// display: flex;
-// flex: none;
-// align-content: stretch;
-
-
-//   @media (max-width: 1024px) {
-//     width: 50%;
-//   }
-
-//   @media (max-width: 300px) {
-//     width: 100%;
-//   }
-
 export default function GotchisLazy({ items, render }) {
+    const gridRef = useRef(null);;
+
+    useEffect(() => {
+        scrollToTop();
+    }, [items]);
+
+    const scrollToTop = () => {
+        gridRef.current.scrollToIndex({
+            index: 0,
+            align: 'start',
+            behavior: 'auto'
+        });
+    };
+
+
     if (!items) return;
 
     if (items.length === 0) return (
@@ -47,6 +35,7 @@ export default function GotchisLazy({ items, render }) {
 
     return (
         <VirtuosoGrid
+            ref={gridRef}
             style={{ height: 'calc(100% - 40px)' }}
             totalCount={items.length}
             components={{

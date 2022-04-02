@@ -1,24 +1,18 @@
-import styled from '@emotion/styled';
-import { Autocomplete, Button, ButtonGroup, Chip, FormControlLabel, FormGroup, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Alert, AlertTitle, Autocomplete, Chip, Link, TextField } from '@mui/material';
 
 import styles from './styles';
 import collaterals from 'data/collaterals';
-import CustomTooltip from 'components/custom/CustomTooltip';
-import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 
 export default function GotchiFilters({ gotchis, setGotchis, defaultSorting }) {
     const classes = styles();
 
     const [value, setValue] = useState([]);
 
-    // useEffect(() => {
-    //     console.log('🤖', value)
-    // }, [value])
-
     return (
         <>
             <div className={classes.section}>
+
                 <Autocomplete
                     multiple
                     value={value}
@@ -45,7 +39,21 @@ export default function GotchiFilters({ gotchis, setGotchis, defaultSorting }) {
                         ))
                     }
                 />
-                </div>
+            </div>
+
+            <div className={classes.section}>
+                <Alert severity='info'>
+                    <AlertTitle>Note!</AlertTitle>
+                    More complex filters are <strong>comming soon!</strong>. This page will be guild-focused.<br />
+                    To achive best experience
+                    <Link
+                        href='https://fireball-gg.notion.site/How-to-add-guild-to-fireball-gg-a2bec3bd315c4d42961bc0148bb17c26'
+                        target='_blank'
+                        style={{ margin: '0 6px', color: 'cyan', textDecoration: 'underline' }}
+                    ><strong>add your guild</strong></Link>
+                    to our data!
+                </Alert>
+            </div>
         </>
     )
 }

@@ -51,7 +51,7 @@ export default function GuildsPreview() {
         <Box className={classes.guildsWrapper}>
             <a
                 className={classes.guildsTitle}
-                href='https://fireball-gg.notion.site/how-to-add-guild-to-fireball-gg-cd78871152b04110b385f42ac94ea452'
+                href='https://fireball-gg.notion.site/How-to-add-guild-to-fireball-gg-a2bec3bd315c4d42961bc0148bb17c26'
                 target='_blank'
                 rel='noreferrer'
             >

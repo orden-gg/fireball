@@ -1,4 +1,5 @@
 import React from 'react';
+import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
 
 import itemUtils from 'utils/itemUtils';
 
@@ -27,6 +28,15 @@ export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
                 ) : (
                     <GotchiSvg id={gotchi.id} size={'100%'} />
                 )
+            }
+            {
+                gotchi.whitelistId && <div className={classes.whitelist}>
+                    <PlaylistAddCheckOutlinedIcon
+                        className={classes.icon}
+                        fontSize='small'
+                    />
+                    {gotchi.whitelistId}
+                </div>
             }
         </div>
     )
