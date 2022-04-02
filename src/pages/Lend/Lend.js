@@ -76,12 +76,8 @@ export default function Lend() {
 
     const defaultSorting = 'timeCreated';
 
-    const availableGuilds = guilds.filter((guild) => {
-        return guild.members.length > 0;
-    });
-    const guildsKeys = availableGuilds.map((guild)=> {
-        return commonUtils.stringToKey(guild.name)
-    });
+    const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
+    const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
 
 
     useEffect(() => {

@@ -13,9 +13,9 @@ export default {
     },
 
     gedAddressGuild(address) {
-        const guild = guilds.filter((guild) => {
-            return guild.members.some((member) => member.toLowerCase() === address.toLowerCase())
-        })[0];
+        const guild = guilds.filter((guild) =>
+            guild.members.some((member) => member.toLowerCase() === address.toLowerCase())
+        )[0];
 
         return guild ? commonUtils.stringToKey(guild.name) : undefined;
     },

@@ -176,6 +176,7 @@ export default {
         return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response)=> {
             let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
+            console.log('👻', filteredArray)
             return modifyTraits(filteredArray);
         });
     },
@@ -418,7 +419,7 @@ export default {
 
     async getLendings() {
         function getQueries() {
-            let queries = [];
+            const queries = [];
 
             for (let i = 0; i < 6; i++) {
                 queries.push(lendingsQuery(i * 1000, 'asc'))
@@ -429,7 +430,7 @@ export default {
         }
 
         return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
-            let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+            const filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
                 ...item,
                 ...item.gotchi,
                 lendingId: item.id

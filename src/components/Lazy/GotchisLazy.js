@@ -26,7 +26,6 @@ export default function GotchisLazy({ items, render }) {
         });
     };
 
-
     if (!items) return;
 
     if (items.length === 0) return (
