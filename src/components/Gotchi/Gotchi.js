@@ -17,6 +17,7 @@ import GotchiLending from './GotchiLending/GotchiLending';
 import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
 
 import styles from './styles';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
     const classes = styles();
@@ -176,7 +177,14 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
     }
 
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'vertical' )}>
+        <div
+            className={classNames(
+                classes.gotchi,
+                `haunt${gotchi.hauntId}`,
+                narrowed && 'narrowed', 'vertical',
+                gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
+            )}
+        >
             {render.map((name) => {
                 return renderSection(name)
             })}

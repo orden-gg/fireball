@@ -25,4 +25,16 @@ export default {
 
         return guilds[index]?.name;
     },
+
+    getRarityNameByRS(rs) {
+        switch (true) {
+            case rs > 580:
+                return 'godlike'
+            case rs > 525:
+                return 'mythical'
+            default:
+                return 'rare'
+        }
+    },
+
 }
