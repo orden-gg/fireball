@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import thegraph from 'api/thegraph.api';
 import { GuildsContext } from 'contexts/GuildsContext';
-import guildUtils from 'utils/guildUtils';
+import commonUtils from 'utils/commonUtils';
 
 import GuildGotchis from '../components/GuildGotchis';
 import GuildBanner from '../components/GuildInfo/GuildBanner';
@@ -59,7 +59,7 @@ export default function Guild({backToGuilds}) {
 
     useEffect(() => {
         let guild = guildsData.find( guild => (
-            guildUtils.nameToPath(guild.name) === params.name
+            commonUtils.stringToKey(guild.name) === params.name
         ));
 
         if (

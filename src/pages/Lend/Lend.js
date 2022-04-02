@@ -15,6 +15,8 @@ import GotchisLazy from 'components/Lazy/GotchisLazy';
 import GotchiSorting from 'components/Filters/GotchiSorting';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
+import guilds from 'data/guilds';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 const sortings = [
     {
@@ -69,22 +71,36 @@ const sortings = [
 
 export default function Lend() {
     const [lendings, setLendings] = useState([]);
+    const [lendingsCache, setLendingsCache] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
     const defaultSorting = 'timeCreated';
 
+    const availableGuilds = guilds.filter((guild) => {
+        return guild.members.length > 0;
+    });
+    const guildsKeys = availableGuilds.map((guild)=> {
+        return commonUtils.stringToKey(guild.name)
+    });
+
+
     useEffect(() => {
         let mounted = true;
         setDataLoading(true);
-        console.log('useEffect', '🕛');
 
         thegraphApi.getLendings().then((response) => {
             if (mounted) {
-                const sorted = commonUtils.basicSort(response, defaultSorting);
+                const withGuilds = response.map((listing) => {
+                    return {
+                        ...listing,
+                        guild: gotchiverseUtils.gedAddressGuild(listing.lender)
+                    }
+                });
+                const sorted = commonUtils.basicSort(withGuilds, defaultSorting);
 
                 setLendings(sorted);
+                setLendingsCache(sorted);
                 setDataLoading(false);
-                console.log('data here', '🕑')
             }
         });
 
@@ -94,8 +110,9 @@ export default function Lend() {
     return (
         <ContentWrapper>
             <GotchiFilters
-                gotchis={lendings}
+                gotchis={lendingsCache}
                 setGotchis={setLendings}
+                guilds={guildsKeys}
             />
 
             <ContentInner dataLoading={dataLoading}>

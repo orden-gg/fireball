@@ -31,21 +31,21 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSo
     const [sorting, setSorting] = useState(defaultSorting);
     const [direction, setDirection] = useState('desc');
 
-    const onFilterChange = (event, value) => {
+    const onSortChange = (event, value) => {
         if (!value) return;
 
         setSorting(value);
-        filterGotchis(value, direction);
+        sortGotchis(value, direction);
     };
 
     const onDirectionChange = (event, value) => {
         if (!value) return;
 
         setDirection(value);
-        filterGotchis(sorting, value);
+        sortGotchis(sorting, value);
     };
 
-    const filterGotchis = (filter, dir) => {
+    const sortGotchis = (filter, dir) => {
         const sorted = commonUtils.basicSort(gotchis, filter, dir);
 
         setGotchis(sorted);
@@ -56,7 +56,7 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSo
             <div className={classes.inner}>
                 <CustomToggleButtonGroup
                     value={sorting}
-                    onChange={(event, value) => onFilterChange(event, value)}
+                    onChange={(event, value) => onSortChange(event, value)}
                     aria-label='sorting'
                     list={sortings}
                 />

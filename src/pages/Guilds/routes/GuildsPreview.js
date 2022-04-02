@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { GuildsContext } from 'contexts/GuildsContext';
-import guildUtils from 'utils/guildUtils';
+import commonUtils from 'utils/commonUtils';
 
 import GuildLogo from '../components/GuildLogo';
 import styles from '../styles';
@@ -16,7 +16,7 @@ export default function GuildsPreview() {
     const history = useHistory();
 
     const handleClick = (guild) => (event) => {
-        history.push(`${match.url}/${guildUtils.nameToPath(guild.name)}`)
+        history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`)
     }
 
     const renderList = () => {

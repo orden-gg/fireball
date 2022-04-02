@@ -46,12 +46,9 @@ export default function CustomToggleButtonGroup({ list, ...props }) {
                             placement='top'
                             followCursor
                         >
-                            {/* <span>{item.name}</span> */}
-                            {/* {item.icon ? (
-                                item.icon
-                            ) : ( */}
-                                <span className='tooltip-inner'>{item.icon ? item.icon : item.name}</span>
-                            {/* )} */}
+                            <span className='tooltip-inner'>
+                                {item.icon ? item.icon : item.name}
+                            </span>
                         </CustomTooltip>
                     </ToggleButton>
                 })

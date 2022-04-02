@@ -96,6 +96,17 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center'
     },
+    guild: {
+        position: 'absolute',
+        bottom: 8,
+        left: 8,
+        zIndex: 5,
+    },
+    guildAvatar: {
+        width: 32,
+        height: 32,
+        border: '2px solid #fff'
+    },
 }));
 
 export default styles;

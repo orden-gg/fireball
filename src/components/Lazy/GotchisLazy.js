@@ -15,7 +15,7 @@ export default function GotchisLazy({ items, render }) {
     const gridRef = useRef(null);;
 
     useEffect(() => {
-        scrollToTop();
+        if(items.length) scrollToTop();
     }, [items]);
 
     const scrollToTop = () => {

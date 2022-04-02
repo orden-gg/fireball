@@ -403,7 +403,6 @@ export default {
     },
 
     async getLendings() {
-        console.log('getLendings', '🕐')
         function getQueries() {
             let queries = [];
 
@@ -417,19 +416,9 @@ export default {
 
         return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
             let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+                ...item,
                 ...item.gotchi,
-                lendingId: item.id,
-                timeCreated: item.timeCreated,
-                rentDuration: item.rentDuration,
-                upfrontCost: item.upfrontCost,
-                period: item.period,
-                lender: item.lender,
-                borrower: item.borrower,
-                whitelistId: item.whitelistId,
-                tokensToShare: item.tokensToShare,
-                splitOther: item.splitOther,
-                splitBorrower: item.splitBorrower,
-                splitOwner: item.splitOwner
+                lendingId: item.id
             }));
 
             return filteredArray;
