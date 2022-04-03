@@ -63,15 +63,6 @@ export default function ClientGotchis() {
                             <Box className={classes.filtersInner} component='span'><span>📅</span></Box>
                         </Tooltip>
                     </ToggleButton>
-                    {rewardCalculated ? (
-                        <ToggleButton className={classes.filtersButton} value='reward' aria-label='reward'>
-                            <Tooltip title='Reward' placement='top' followCursor>
-                                <Box className={classes.filtersInner} component='span'><span>🎁</span></Box>
-                            </Tooltip>
-                        </ToggleButton>
-                    ) : (
-                        null
-                    )}
                 </ToggleButtonGroup>
 
 

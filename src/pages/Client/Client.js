@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
@@ -15,10 +15,35 @@ import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 import LoginNavigation from 'components/Login/LoginNavigation';
-import ProfilePane from 'components/ProfilePane/ProfilePane';
+import PageNav from 'components/PageNav/PageNav';
 import ClientNav from './components/ClientNav';
 
+import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
+import warehouseIcon from 'assets/images/wearables/15.svg';
+import ticketsIcon from 'assets/images/tickets/rare.svg';
+import realmIcon from 'assets/images/icons/kek.png';
+
 import styles from './styles';
+
+const navLinks = [
+    {
+        name: 'gotchis',
+        icon: gotchiIcon
+    },
+    {
+        name: 'warehouse',
+        icon: warehouseIcon
+    },
+    {
+        name: 'tickets',
+        icon: ticketsIcon
+    },
+    {
+        name: 'realm',
+        icon: realmIcon,
+        subroute: '/map'
+    }
+];
 
 export default function Client() {
     const classes = styles();
@@ -30,6 +55,8 @@ export default function Client() {
 
     const { activeAddress } = useContext(LoginContext);
     const { clientActive, setClientActive, getClientData } = useContext(ClientContext);
+
+    const [navLinksState, setNavLinksState] = useState(navLinks)
 
     useEffect(() => {
         if (activeAddress) {
@@ -81,9 +108,13 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <ProfilePane address={clientActive} />
-
                     <ClientNav />
+
+                    <PageNav
+                        links={navLinksState}
+                        query={`?address=${clientActive}`}
+                    />
+
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
                         <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
