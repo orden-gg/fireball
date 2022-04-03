@@ -870,7 +870,8 @@ const guilds = [
     }, {
         name: 'Geistreich',
         logo: require('../assets/images/guilds/geistreich.png').default,
-        members: ['x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f'
+        members: [
+            '0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f'
         ],
         description: [
             {
@@ -878,6 +879,7 @@ const guilds = [
                 text: 'Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature.'
             },
         ],
+        banner: '',
         socials: {
             twitter: 'https://twitter.com/GotchisGermany'
         }
