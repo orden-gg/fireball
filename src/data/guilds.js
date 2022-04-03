@@ -115,8 +115,6 @@ const guilds = [
         logo: require('../assets/images/guilds/blackpoolsaapegotchis.png').default,
         members: [
             '0x93468adecdccd18131ce1fd8caeed68fb3de43e7',
-            '0xe520fba3548a13bf6c575121f97520456700d1e3',
-            '0xAD3E1dDAe478d08799A124DeA6a38807F7D28FeA',
             '0xc31372db84e456193e72a162928539c8f5999ff6',
             '0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4',
             '0x9ff84B91998dF96A6587DB8dDe8D4E47518107d6',
@@ -227,7 +225,6 @@ const guilds = [
             '0x3c865BCad9c26a1E24f15a7881e2d09400F51812',
             '0x703cF6401d04A06378C6F59dbd9117203Ba9892D',
             '0x33c01376c5F53A2B9D623B833F2f77f9B118A8C0',
-            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
             '0x3a120FDd1260422Fc76cB5c7E9b5E6F292c96b56',
             '0xDb1D5d5aCDd6a2233610884715440C92Cb0e85cA',
             '0x39001877121f282464112926294459638214E7bd',
