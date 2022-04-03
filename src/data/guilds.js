@@ -4,6 +4,7 @@ const guilds = [
         logo: require('../assets/images/guilds/ordenGG.svg').default,
         members: [
             '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
+            '0xf1d88980505e00db65609ec5420f40c3eb1b77fd',
             '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
             '0xADA8aA2777825bc615C5F12126F8bf275E2245e5',
             '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667',
@@ -111,7 +112,7 @@ const guilds = [
         }
     },{
         name: 'BlackPool’s Aapegotchis',
-        logo: require('../assets/images/guilds/blackpool-aapegotchis.png').default,
+        logo: require('../assets/images/guilds/blackpoolsaapegotchis.png').default,
         members: [
             '0x93468adecdccd18131ce1fd8caeed68fb3de43e7',
             '0xc31372db84e456193e72a162928539c8f5999ff6',
@@ -190,7 +191,7 @@ const guilds = [
         }
     },{
         name: 'cRekto Club',
-        logo: require('../assets/images/guilds/crekto-club.png').default,
+        logo: require('../assets/images/guilds/crektoclub.png').default,
         members: [
             '0xE8777Bc36A160902c812444874EA21aE4449e99e',
             '0x52E7e4C7e9Ae9Fd1e3C39359382ce1890b783953',
@@ -331,7 +332,7 @@ const guilds = [
         }
     },{
         name: 'Ghost Squad',
-        logo: require('../assets/images/guilds/ghost-squad.png').default,
+        logo: require('../assets/images/guilds/ghostsquad.png').default,
         members: [
             '0xE88632728Ed377f556cB964e6F670f6017d497e4',
             '0x2b29518e5ac3eda4cfc138facd6f023bffc5d65a',
@@ -362,7 +363,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi FArmy Gang',
-        logo: require('../assets/images/guilds/gotchi-farmy-gang.png').default,
+        logo: require('../assets/images/guilds/gotchifarmygang.png').default,
         members: [
             '0x064D58647A6F780c822fa1D9EE5295c1a0D5c692',
             '0x0c404F55595ab844D519a084fF1B8cB36AAAD1d1',
@@ -445,7 +446,6 @@ const guilds = [
             '0x92Fb569f24da3C2E98F78DA7D7C464369ea30389',
             '0x937Df4e3d6dB229A10ff0098ab3A1bCC40C33ea4',
             '0x956F1CE3ff2ea59A8b41DF83Ce9F85ED59D73F92',
-            '0x9875094945893d40979E2858B6cAf788dcCE3368',
             '0x9Bb39C8e80E32273FAAA1bBe74eBC6eE5b0e0415',
             '0x9cca9d2aad42623b068017da87a8689aa80b9e76',
             '0x9daDe4007d2058E2d3637a6a885593Eb14feD22a',
@@ -799,7 +799,7 @@ const guilds = [
         }
     },{
         name: 'WAGMI Warriors',
-        logo: require('../assets/images/guilds/WAGMI-warriors.png').default,
+        logo: require('../assets/images/guilds/wagmiwarriors.png').default,
         members: ['0x26cf02F892B04aF4Cf350539CE2C77FCF79Ec172'],
         description: [
             {

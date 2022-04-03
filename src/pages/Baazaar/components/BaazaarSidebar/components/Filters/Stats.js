@@ -96,8 +96,8 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
                     >
                         <MenuItem value='all'>All</MenuItem>
                         {
-                            collaterals.map((coll) => {
-                                return <MenuItem value={coll.address}>
+                            collaterals.map((coll, index) => {
+                                return <MenuItem key={index} value={coll.address}>
                                     {coll.name}
                                 </MenuItem>
                             })

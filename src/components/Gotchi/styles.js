@@ -8,7 +8,7 @@ const styles = makeStyles(theme => ({
         textAlign: 'center',
         height: '100%',
         position: 'relative',
-        border: '3px solid #FF67FF',
+        border: '3px solid gray',
         '&:hover': {
             textDecoration: 'none'
         },
@@ -28,6 +28,15 @@ const styles = makeStyles(theme => ({
         '&.horizontal': {
             display: 'flex',
             padding: theme.spacing(0, 1)
+        },
+        '&.rare': {
+            borderColor: theme.palette.rarity.rare
+        },
+        '&.mythical': {
+            borderColor: theme.palette.rarity.mythical
+        },
+        '&.godlike': {
+            borderColor: theme.palette.rarity.godlike
         }
     },
     gotchiBadges: {

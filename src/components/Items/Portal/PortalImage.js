@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Erc721Categories } from 'data/types';
 import sealedPortal from 'assets/images/portals/h1-sealed.svg';
 import openPortal from 'assets/images/portals/h1-open.svg';
 import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
@@ -18,8 +19,8 @@ export default function PortalImage({ portal }) {
              style={{'maxWidth': '100px'}}
              src={
                 portal.portal.hauntId === '1' ?
-                (portal.category === '0' ? sealedPortal : openPortal) :
-                (portal.category === '0' ? h2SealedPortal : h2OpenPortal)
+                (portal.category === Erc721Categories.ClosedPortal ? sealedPortal : openPortal) :
+                (portal.category === Erc721Categories.ClosedPortal ? h2SealedPortal : h2OpenPortal)
             }
             alt='Portal'
         />

@@ -27,6 +27,11 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
           equippedSetID
           equippedSetName
           usedSkillPoints
+          listings(where:{cancelled: false, timePurchased: 0}) {
+            id
+            priceInWei
+          }
+          historicalPrices
           owner {
             id
           }
@@ -93,9 +98,9 @@ export const svgQuery = (id) => {
 };
 
 export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
-  return `{ 
+  return `{
       erc1155Listings (
-          first: 1, 
+          first: 1,
           orderBy: ${orderBy},
           orderDirection: ${orderDireciton},
           where: {
@@ -110,6 +115,93 @@ export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
           timeLastPurchased
       }
   }`
+};
+
+export const erc721ListingsBySeller = (seller) => {
+    return `{
+        erc721Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timePurchased: 0
+            }
+        )
+        {
+            id
+            tokenId
+            category
+            priceInWei
+            gotchi {
+                id
+                name
+                numericTraits
+                modifiedNumericTraits
+                withSetsNumericTraits
+                baseRarityScore
+                modifiedRarityScore
+                withSetsRarityScore
+                kinship
+                toNextLevel
+                level
+                experience
+                equippedWearables
+                collateral
+                hauntId
+                createdAt
+                possibleSets
+                equippedSetID
+                equippedSetName
+                usedSkillPoints
+                listings(where: { cancelled: false, timePurchased: 0 }) {
+                    id
+                    priceInWei
+                }
+                historicalPrices
+                owner {
+                    id
+                }
+            }
+            parcel {
+                parcelId
+                parcelHash
+                tokenId
+                coordinateX
+                coordinateY
+                district
+                fudBoost
+                fomoBoost
+                alphaBoost
+                kekBoost
+                size
+                auctionId
+                historicalPrices
+            }
+            portal {
+                hauntId
+                historicalPrices
+            }
+        }
+    }`
+};
+
+export const erc1155ListingsBySeller = (seller) => {
+    return `{
+        erc1155Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timeLastPurchased: 0
+            }
+        )
+        {
+            id
+            erc1155TypeId
+            category
+            quantity
+            priceInWei
+            rarityLevel
+        }
+    }`
 };
 
 export const realmQuery = (address, skip) => {
@@ -226,7 +318,6 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
             skip: ${skip},
             orderDirection: ${orderDir},
             orderBy: timeCreated,
-            
             where: {
                 category: "4",
                 size: ${size},
@@ -311,6 +402,42 @@ export const raffleWinsQuery = (address) => {
           id
         }
         quantity
+      }
+    }`
+};
+
+export const lendingsQuery = (skip, orderDir) => {
+    return `{
+      gotchiLendings(
+          first: 1000,
+          skip: ${skip},
+          orderBy: "timeCreated",
+          orderDirection: ${orderDir},
+          where: {
+            borrower: "0x0000000000000000000000000000000000000000",
+            cancelled: false
+        }
+      ) {
+        id
+        timeCreated
+        rentDuration
+        upfrontCost
+        period
+        gotchi {
+            id
+            name
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
       }
     }`
 };

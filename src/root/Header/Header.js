@@ -83,10 +83,8 @@ export default function Header() {
                             <Typography variant={'caption'}>Beta</Typography>
                         </Box>
                     </NavLink>
-                    <NavLink className={classes.navLink} to='/autopet'>
-                        <Box className={classes.navLinkBox}>
-                            Autopet
-                        </Box>
+                    <NavLink className={classes.navLink} to='/lend'>
+                        Lend
                     </NavLink>
                     <NavLink className={classes.navLink} to='/market'>
                         <Box className={classes.navLinkBox}>
@@ -94,9 +92,9 @@ export default function Header() {
                             <Typography variant={'caption'}>Filter</Typography>
                         </Box>
                     </NavLink>
-                    {/* <NavLink className={classes.navLink} to='/explorer'>
-                        Explorer
-                    </NavLink> */}
+                    <NavLink className={classes.navLink} to='/autopet'>
+                        Autopet
+                    </NavLink>
                     <NavLink className={classes.navLink} to='/guilds'>
                         Guilds
                     </NavLink>
@@ -120,7 +118,8 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-                {renderSocials('tablet')}
+                {/* !TODO: Temporary solution for header responsiveness */}
+                {/* {renderSocials('tablet')} */}
             </Box>
         </Toolbar>
     )
