@@ -870,7 +870,19 @@ const guilds = [
     }, {
         name: 'Geistreich',
         logo: require('../assets/images/guilds/geistreich.png').default,
-        members: []
+        members: [
+            '0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature.'
+            },
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/GotchisGermany'
+        }
     }, {
         name: 'gmDAO',
         logo: require('../assets/images/guilds/gmdao.png').default,
