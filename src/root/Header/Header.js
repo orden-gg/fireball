@@ -118,7 +118,7 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-                {/* !TODO: Temporary solution for header responsiveness! */}
+                {/* !TODO: Temporary solution for header responsiveness */}
                 {/* {renderSocials('tablet')} */}
             </Box>
         </Toolbar>
