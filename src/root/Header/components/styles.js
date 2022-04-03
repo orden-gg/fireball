@@ -3,7 +3,6 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(() => ({
     balancesWrapper: {
-        width: '75%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
