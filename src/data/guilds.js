@@ -115,6 +115,8 @@ const guilds = [
         logo: require('../assets/images/guilds/blackpoolsaapegotchis.png').default,
         members: [
             '0x93468adecdccd18131ce1fd8caeed68fb3de43e7',
+            '0xe520fba3548a13bf6c575121f97520456700d1e3',
+            '0xAD3E1dDAe478d08799A124DeA6a38807F7D28FeA',
             '0xc31372db84e456193e72a162928539c8f5999ff6',
             '0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4',
             '0x9ff84B91998dF96A6587DB8dDe8D4E47518107d6',
@@ -146,7 +148,8 @@ const guilds = [
             '0x2718E86f5793Ac08bd3C4A301382E8c1DA2a1e30',
             '0xBDc7a955505e20410061744f556f6dEC761Bfb8f',
             '0x2fa37cb96c19E9B1F9aD060AEd00C0CFC727AE39',
-            '0x70d545fb144db628f7ef75cb7bc2a3e80d1798fc'
+            '0x70d545fb144db628f7ef75cb7bc2a3e80d1798fc',
+            '0x49a5492FDFe5AcC966dD5f41310dfDfe8dAA349C'
         ],
         description: [
             {
@@ -155,7 +158,7 @@ const guilds = [
             },
             {
                 title: 'Requirement',
-                text: 'Wear any item from the Aastronaut set (more options to come)'
+                text: 'Wear any item from the Aastronaut set and/or the Citaadel Knight set.'
             },
             {
                 title: 'Point of Contact',
@@ -164,7 +167,8 @@ const guilds = [
         ],
         banner: '',
         socials: {
-            discord: 'https://discord.com/invite/ddUyu4F4pp'
+            twitter: 'https://twitter.com/BlackpoolHQ',
+            discord: 'https://discord.gg/ddUyu4F4pp'
         }
     },{
         name: 'Chigotchi Bulls',
