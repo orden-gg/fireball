@@ -1,9 +1,13 @@
 import ethersApi from './ethers.api';
 
-import { MAIN_CONTRACT, AUTOPET_OPERATOR } from './common/constants';
+import { MAIN_CONTRACT, AUTOPET_OPERATOR, OLD_AUTOPET_CONTRACT } from './common/constants';
 import { MAIN_ABI } from 'data/abi/main.abi';
+import { OLD_AUTOPET_ABI } from 'data/abi/oldAutopet.abi';
 
 const contract = ethersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
+
+// OLD
+const autopetContract = ethersApi.makeContract(OLD_AUTOPET_CONTRACT, OLD_AUTOPET_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -60,5 +64,21 @@ export default {
             console.log(error);
             return null;
         }
+    },
+
+    // old code,
+    async oldApprovePet(isApproved) {
+        const writeContract = ethersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
+        const operator = await autopetContract.operator();
+        const transaction = await writeContract.setPetOperatorForAll(operator, isApproved);
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
+    },
+    isOldPetApproved(address) {
+        return autopetContract.operator().then(operator => (
+            contract.isPetOperatorForAll(address, operator)
+        ));
     },
 }

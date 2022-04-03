@@ -93,7 +93,16 @@ export default function Header() {
                         </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/autopet'>
-                        Autopet
+                        <Box className={classes.navLinkBox}>
+                            Autopet
+                            <Typography variant={'caption'}>New</Typography>
+                        </Box>
+                    </NavLink>
+                    <NavLink className={classes.navLink} to='/autopet-old'>
+                        <Box className={classes.navLinkBox}>
+                            Autopet
+                            <Typography variant={'caption'}>Old</Typography>
+                        </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/guilds'>
                         Guilds
