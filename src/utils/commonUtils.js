@@ -54,6 +54,10 @@ export default {
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
     },
 
+    primitiveSort(array, sortDir) {
+        return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
+    },
+
     basicSort(array, sortType, sortDir) {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
     },
@@ -98,4 +102,8 @@ export default {
     stringToKey(string) {
         return string.replace(/’| /g, '').replace(/ /g, '').toLowerCase();
     },
+
+    isEmptyObject(obj) {
+        return Object.keys(obj).length === 0;
+    }
 }

@@ -72,6 +72,7 @@ const sortings = [
 export default function Lend() {
     const [lendings, setLendings] = useState([]);
     const [lendingsCache, setLendingsCache] = useState([]);
+    const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
     const defaultSorting = 'timeCreated';
@@ -85,14 +86,21 @@ export default function Lend() {
 
         thegraphApi.getLendings().then((response) => {
             if (mounted) {
-                const withGuilds = response.map((listing) => {
+                const whitelistData = [];
+                const mappedData = response.map((listing) => {
+                    if (listing.whitelistId) {
+                        collectWhitelistData(listing.whitelistId, whitelistData)
+                    }
+
                     return {
                         ...listing,
                         guild: gotchiverseUtils.gedAddressGuild(listing.lender)
                     }
                 });
-                const sorted = commonUtils.basicSort(withGuilds, defaultSorting);
 
+                const sorted = commonUtils.basicSort(mappedData, defaultSorting);
+
+                setWhitelist(commonUtils.primitiveSort(whitelistData, 'asc'));
                 setLendings(sorted);
                 setLendingsCache(sorted);
                 setDataLoading(false);
@@ -102,12 +110,21 @@ export default function Lend() {
         return () => mounted = false;
     }, []);
 
+    const collectWhitelistData = (id, array) => {
+        const index = array.findIndex(savedId => savedId === id);
+
+        if (index === -1) {
+            array.push(id);
+        }
+    };
+
     return (
         <ContentWrapper>
             <GotchiFilters
                 gotchis={lendingsCache}
                 setGotchis={setLendings}
                 guilds={guildsKeys}
+                whitelist={whitelist}
                 dataLoading={dataLoading}
             />
 
