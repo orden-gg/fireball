@@ -24,7 +24,7 @@ export default function GotchiTraits({ traits, currentTraits }) {
 
                     return (
                         <div
-                            className={classNames(classes.gotchiTrait, itemUtils.getRarityByTrait(traitVal))}
+                            className={classNames(classes.gotchiTrait, itemUtils.getRarityByTrait(currentTraits[index]))}
                             key={index}
                         >
                             <img alt='trait icon' src={traitKey} className={classes.gotchiTraitIcon} />

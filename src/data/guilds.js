@@ -146,7 +146,8 @@ const guilds = [
             '0x2718E86f5793Ac08bd3C4A301382E8c1DA2a1e30',
             '0xBDc7a955505e20410061744f556f6dEC761Bfb8f',
             '0x2fa37cb96c19E9B1F9aD060AEd00C0CFC727AE39',
-            '0x70d545fb144db628f7ef75cb7bc2a3e80d1798fc'
+            '0x70d545fb144db628f7ef75cb7bc2a3e80d1798fc',
+            '0x49a5492FDFe5AcC966dD5f41310dfDfe8dAA349C'
         ],
         description: [
             {
@@ -155,7 +156,7 @@ const guilds = [
             },
             {
                 title: 'Requirement',
-                text: 'Wear any item from the Aastronaut set (more options to come)'
+                text: 'Wear any item from the Aastronaut set and/or the Citaadel Knight set.'
             },
             {
                 title: 'Point of Contact',
@@ -164,7 +165,8 @@ const guilds = [
         ],
         banner: '',
         socials: {
-            discord: 'https://discord.com/invite/ddUyu4F4pp'
+            twitter: 'https://twitter.com/BlackpoolHQ',
+            discord: 'https://discord.gg/ddUyu4F4pp'
         }
     },{
         name: 'Chigotchi Bulls',
@@ -223,7 +225,6 @@ const guilds = [
             '0x3c865BCad9c26a1E24f15a7881e2d09400F51812',
             '0x703cF6401d04A06378C6F59dbd9117203Ba9892D',
             '0x33c01376c5F53A2B9D623B833F2f77f9B118A8C0',
-            '0xDC6953C238C4Ffff57d7C16aC32bc716f7074e3a',
             '0x3a120FDd1260422Fc76cB5c7E9b5E6F292c96b56',
             '0xDb1D5d5aCDd6a2233610884715440C92Cb0e85cA',
             '0x39001877121f282464112926294459638214E7bd',
@@ -866,7 +867,19 @@ const guilds = [
     }, {
         name: 'Geistreich',
         logo: require('../assets/images/guilds/geistreich.png').default,
-        members: []
+        members: [
+            '0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f'
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature.'
+            },
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/GotchisGermany'
+        }
     }, {
         name: 'gmDAO',
         logo: require('../assets/images/guilds/gmdao.png').default,
@@ -900,7 +913,8 @@ const guilds = [
             '0xfbb073e09d84970d1efe099abbe9e626f8ff7024',
             '0xff3b5ec89aa8d54e0b4950ebeca56b039b07971a',
             '0xBa00D625A28372a1C90DBa8A1d48EEEa9Bb495f7',
-            '0x90EF65E04DFa51E14b16206d79782c978a2cC033'
+            '0x90EF65E04DFa51E14b16206d79782c978a2cC033',
+            '0xAe0E224BdA978E530465Fee0c7C318A8234799e0'
         ],
         description: [
             {
@@ -985,7 +999,35 @@ const guilds = [
             twitter: 'https://twitter.com/HodlerSqvad',
             discord: 'https://discord.gg/DShQV47R38'
         }
-    }
+    }, {
+        name: 'PlayToDAO',
+        logo: require('../assets/images/guilds/playtodao.png').default,
+        members: [
+            '0xC99DF6B7A5130Dce61bA98614A2457DAA8d92d1c',
+            '0x9C415DC99eb8fF4Fe2FDa81cf7DCcD15820dD5cA',
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Smart access to play to earn.',
+            },
+            {
+                title: 'Requirement',
+                text: 'Join our discord and get a scolarship.',
+            },
+            {
+                title: 'Point of Contact',
+                text: 'Marco#0908 | Jose Marcos#6220',
+            },
+        ],
+        banner: '',
+        socials: {
+            website: 'https://playtodao.com/',
+            twitter: 'https://twitter.com/PlayToDAO',
+            discord: 'https://discord.gg/aDjwSerZWZ',
+        },
+    },
+
 ]
 
 export default guilds;
