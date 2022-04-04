@@ -16,6 +16,16 @@ const headerStyles = makeStyles(theme => ({
         fontSize: 40,
         marginBottom: 0
     },
+    autopetLink: {
+        textAlign: 'center',
+        marginTop: 8,
+        '& a': {
+            fontSize: 22,
+            fontWeight: '500',
+            color: theme.palette.primary.main,
+            textDecoration: 'none'
+        }
+    },
     autopetTerms: {
         display: 'flex',
         justifyContent: 'space-between',
@@ -51,7 +61,9 @@ const headerStyles = makeStyles(theme => ({
         }
     },
     autopetHeaderWarning: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2),
+        maxWidth: 600,
+        margin: 'auto'
     },
     autopetTermsTextHighlight: {
         color: theme.palette.success.light

@@ -17,17 +17,22 @@ const headerStyles = makeStyles(theme => ({
         marginBottom: 0
     },
     autopetTerms: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginTop: theme.spacing(3)
-
+        marginTop: theme.spacing(3),
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            justifyContent: 'space-between',
+        }
     },
     autopetTermsBox: {
         borderRadius: 5,
         boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
         backgroundColor: theme.palette.background.paper,
         flexBasis: `calc(50% - ${theme.spacing(1)})`,
-        padding: theme.spacing(3)
+        padding: theme.spacing(3),
+        marginBottom: theme.spacing(3),
+        [theme.breakpoints.up('md')]: {
+            margin: 0
+        }
     },
     autopetTermsTitle: {
         margin: theme.spacing(0, 0, 2),
@@ -55,6 +60,15 @@ const headerStyles = makeStyles(theme => ({
     },
     autopetTermsTextHighlight: {
         color: theme.palette.success.light
+    },
+    warnings: {
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            justifyContent: 'space-between',
+            '& > div': {
+                flexBasis: `calc(50% - ${theme.spacing(1)})`,
+            }
+        }
     }
 }));
 

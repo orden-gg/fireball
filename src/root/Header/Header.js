@@ -11,8 +11,8 @@ import { LoginContext } from 'contexts/LoginContext';
 import logo from 'assets/images/logo-white.svg';
 import discord from 'assets/images/icons/discord.svg';
 
-import styles from './styles';
 import Balances from './components/Balances';
+import styles from './styles';
 
 export default function Header() {
     const classes = styles();
@@ -93,16 +93,7 @@ export default function Header() {
                         </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/autopet'>
-                        <Box className={classes.navLinkBox}>
-                            Autopet
-                            <Typography variant={'caption'}>New</Typography>
-                        </Box>
-                    </NavLink>
-                    <NavLink className={classes.navLink} to='/autopet-old'>
-                        <Box className={classes.navLinkBox}>
-                            Autopet
-                            <Typography variant={'caption'}>Old</Typography>
-                        </Box>
+                        Autopet
                     </NavLink>
                     <NavLink className={classes.navLink} to='/guilds'>
                         Guilds

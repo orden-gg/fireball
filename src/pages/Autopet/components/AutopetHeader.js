@@ -1,4 +1,5 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 import { headerStyles } from '../styles';
 
@@ -32,10 +33,17 @@ export default function AutopetHeader() {
                 </div>
             </div>
 
-            <Alert severity='warning' className={classes.autopetHeaderWarning}> 
-                <AlertTitle>ASSETS SECURITY WARNING!</AlertTitle>
-                Make sure to verify the URL and contract address before interacting with any similar interface!
-            </Alert>
+            <div className={classes.warnings}>
+                <Alert severity='warning' className={classes.autopetHeaderWarning}>
+                    <AlertTitle>ASSETS SECURITY WARNING!</AlertTitle>
+                    Make sure to verify the URL and contract address before interacting with any similar interface!
+                </Alert>
+
+                <Alert severity='error' className={classes.autopetHeaderWarning}>
+                    <AlertTitle>If you still use v1 version!</AlertTitle>
+                    Please migrate to current, you can do it from old interface <NavLink to='/autopet-v1' style={{ color: 'red' }}>here</NavLink>
+                </Alert>
+            </div>
         </div>
     )
 }
