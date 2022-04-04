@@ -11,8 +11,8 @@ import { LoginContext } from 'contexts/LoginContext';
 import logo from 'assets/images/logo-white.svg';
 import discord from 'assets/images/icons/discord.svg';
 
-import styles from './styles';
 import Balances from './components/Balances';
+import styles from './styles';
 
 export default function Header() {
     const classes = styles();

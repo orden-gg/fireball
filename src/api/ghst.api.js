@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 import ethersApi from './ethers.api';
 
-import { AUTOPET_CONTRACT, GHST_CONTRACT } from './common/constants';
+import { OLD_AUTOPET_CONTRACT, AUTOPET_CONTRACT, GHST_CONTRACT } from './common/constants';
 import { GHST_ABI } from 'data/abi/ghst.abi';
 
 const contract = ethersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');
@@ -31,4 +31,25 @@ export default {
     getBalanceOf(address) {
         return contract.balanceOf(address).then(balance => ethers.utils.formatUnits(balance._hex));
     },
+
+    // OLD CODE
+    isOldGhstApproved(address) {
+        return contract.allowance(address, OLD_AUTOPET_CONTRACT).then(allowance => (
+            ethers.utils.formatUnits(allowance._hex) >= 100
+        ));
+    },
+
+    async oldApproveGhst(isApproved) {
+        const writeContract = ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
+        const maxSpend = isApproved ? '999999999999' : '0';
+        const transaction = await writeContract.approve(
+            OLD_AUTOPET_CONTRACT,
+            ethers.utils.parseUnits(maxSpend)
+        );
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
+    },
+
 }

@@ -1,18 +1,21 @@
-import { Alert, AlertTitle, Typography } from '@mui/material';
+import { Alert, AlertTitle } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-import { AUTOPET_CONTRACT } from 'api/common/constants';
-
 import { headerStyles } from '../styles';
+
 
 export default function AutopetHeader() {
     const classes = headerStyles();
 
     return (
         <div className={classes.autopetHeader}>
-            <h1 className={classes.autopetTitle}>Trustless Autopet</h1>
+            <h1 className={classes.autopetTitle}>Autopet v1 - deprecated!</h1>
 
-            <div className={classes.autopetTerms}>
+            <div className={classes.autopetLink}>
+                <NavLink to='/autopet'>NEW VERSION HERE</NavLink>
+            </div>
+
+            {/* <div className={classes.autopetTerms}>
                 <div className={classes.autopetTermsBox}>
                     <h3 className={classes.autopetTermsTitle}>How does it work?!</h3>
                     <Typography className={classes.autopetTermsText}>
@@ -28,24 +31,17 @@ export default function AutopetHeader() {
                     <Typography className={classes.autopetTermsText}>
                         In the Gotchiverse, petting delegation can be used as a form of <span className={classes.autopetTermsTextHighlight}>diplomatic gameplay</span> and coordination mechanic. By having a specific guild pet your Gotchis, you are paying a minor membership fee and demonstrating your loyalty to that guild.
                     </Typography>
-                    {/* gm, add change credentials to your guild */}
                     <Typography className={classes.autopetTermsText}>
-                        <span className={classes.autopetTermsTextHighlight}>OrdenGG</span>'s autopet address is <span className={classes.autopetTermsTextHighlight}>{AUTOPET_CONTRACT}</span> and the code is open and verified
+                        <span className={classes.autopetTermsTextHighlight}>OrdenGG</span>'s autopet address is <span className={classes.autopetTermsTextHighlight}>{OLD_AUTOPET_CONTRACT}</span> and the code is open and verified
                     </Typography>
                 </div>
-            </div>
+            </div> */}
 
-            <div className={classes.warnings}>
-                <Alert severity='warning' className={classes.autopetHeaderWarning}>
-                    <AlertTitle>ASSETS SECURITY WARNING!</AlertTitle>
-                    Make sure to verify the URL and contract address before interacting with any similar interface!
-                </Alert>
-
-                <Alert severity='error' className={classes.autopetHeaderWarning}>
-                    <AlertTitle>If you still use v1 version!</AlertTitle>
-                    Please migrate to current, you can do it from old interface <NavLink to='/autopet-v1' style={{ color: 'red' }}>here</NavLink>
-                </Alert>
-            </div>
+            <Alert severity='error' className={classes.autopetHeaderWarning}>
+                <AlertTitle>Please migrate to new autopet version!</AlertTitle>
+                New version includes multiple petting bot operators (much less chance your gotchi wont be petted on time).<br />
+                V1 autopet is still working but will be stopped 1st May!
+            </Alert>
         </div>
     )
 }
