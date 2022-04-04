@@ -38,7 +38,7 @@ export default function StakePanel({ index, dir }) {
 
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={stakeState === 'approving' || !availableStake}
+                    disabled={stakeState === 'approving' || !availableStake || !isStaked}
                     variant='contained'
                     fullWidth
                     size='large'

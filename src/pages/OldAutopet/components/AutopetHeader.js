@@ -2,6 +2,8 @@ import { Alert, AlertTitle, Typography } from '@mui/material';
 
 import { headerStyles } from '../styles';
 
+import { OLD_AUTOPET_CONTRACT } from 'api/common/constants';
+
 export default function AutopetHeader() {
     const classes = headerStyles();
 
@@ -27,12 +29,12 @@ export default function AutopetHeader() {
                     </Typography>
                     {/* gm, add change credentials to your guild */}
                     <Typography className={classes.autopetTermsText}>
-                        <span className={classes.autopetTermsTextHighlight}>OrdenGG</span>'s autopet address is <span className={classes.autopetTermsTextHighlight}>0x715FB0175ebCa2802855D8AdCc93fd913EF60E93</span> and the code is open and verified
+                        <span className={classes.autopetTermsTextHighlight}>OrdenGG</span>'s autopet address is <span className={classes.autopetTermsTextHighlight}>{OLD_AUTOPET_CONTRACT}</span> and the code is open and verified
                     </Typography>
                 </div>
             </div>
 
-            <Alert severity='warning' className={classes.autopetHeaderWarning}> 
+            <Alert severity='warning' className={classes.autopetHeaderWarning}>
                 <AlertTitle>ASSETS SECURITY WARNING!</AlertTitle>
                 Make sure to verify the URL and contract address before interacting with any similar interface!
             </Alert>

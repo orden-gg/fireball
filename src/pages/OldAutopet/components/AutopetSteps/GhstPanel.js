@@ -31,7 +31,7 @@ export default function GhstPanel({ index, dir }) {
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={ghstState !== 'approve' || isStaked || !isUserConnected}
+                    disabled={ghstState !== 'approve' || isStaked || !isUserConnected || !isGhstApproved}
                     variant='contained'
                     fullWidth
                     size='large'
