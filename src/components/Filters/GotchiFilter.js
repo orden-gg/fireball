@@ -8,8 +8,6 @@ import qs from 'query-string';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
-import commonUtils from 'utils/commonUtils';
-import { useParams } from 'react-router-dom';
 
 export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, dataLoading }) {
     const classes = styles();
@@ -19,101 +17,69 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
     const params = qs.parse(location.search);
 
     const [guildsFilter, setGuildsFilter] = useState([]);
-    const [whitelistFilter, setWhitelistFilter] = useState('');
+    const [whitelistFilter, setWhitelistFilter] = useState(null);
 
     useEffect(() => {
-      console.log('query', params)
-    }, [])
+        if (!dataLoading) {
+            handleQueryParams();
+            filterData();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [guildsFilter, whitelistFilter, dataLoading])
 
     useEffect(() => {
-        if(!commonUtils.isEmptyObject(params)) {
-            if (params.guild) {
-                setGuildsFilter(params.guild.split(','));
-            }
-            if (params.whitelist) {
-                setWhitelistFilter(params.whitelist);
-            }
+        if (params.guild) {
+            setGuildsFilter(params.guild.length > 1 ? params.guild.split(',') : params.guild);
+        }
+
+        if (params.whitelist) {
+            setWhitelistFilter(params.whitelist);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // useEffect(() => {
-    //   console.log('guilds filter', guildsFilter)
-    // }, [guildsFilter])
-
-    // useEffect(() => {
-    //   console.log('whitelist filter', whitelistFilter)
-    // }, [whitelistFilter])
-
-
-    useEffect(() => {
-        if (!dataLoading) {
-            filterData([guildsFilter, whitelistFilter]);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataLoading]);
-
     const handleGuilds = (event, newValue) => {
-        filterData([newValue, whitelistFilter]);
-        handleQueryParams(newValue)
         setGuildsFilter(newValue);
     };
 
     const handleWhitelist = (event, newValue) => {
-        // filterData([newValue, whitelistFilter]);
-        // handleQueryParams(newValue)
         setWhitelistFilter(newValue);
     };
 
-    // const filterGotchis = (filters) => {
-    //     let filteredGotchis;
-
-    //     if (filters.length > 0) {
-    //         filteredGotchis = gotchis.filter(gotchi =>
-    //             filters.some((filter) => filter === gotchi.guild)
-    //         );
-    //     } else {
-    //         filteredGotchis = gotchis;
-    //     }
-
-    //     setGotchis(filteredGotchis);
-    // };
-
-    const filterData = (conditions) => {
+    const filterData = () => {
         let filtered;
+        const isGuildsFilter = (guildsFilter.length > 0) === true;
+        const isWhitelistFilter = typeof whitelistFilter === 'string';
 
-        if (conditions[0].length > 0 || conditions[1] !== null) {
-            filtered = gotchis.filter(gotchi => {
-
+        if (isGuildsFilter || isWhitelistFilter) {
+            if (!isGuildsFilter) {
+                filtered = gotchis.filter(gotchi =>
+                    gotchi.whitelistId === whitelistFilter
+                );
+            } else if (!isWhitelistFilter) {
+                filtered = gotchis.filter(gotchi =>
+                    guildsFilter.indexOf(gotchi.guild) !== -1
+                );
+            } else {
+                filtered = gotchis.filter(gotchi =>
+                    guildsFilter.indexOf(gotchi.guild) !== -1 && gotchi.whitelistId === whitelistFilter
+                );
             }
-                // conditions.some((filter) => filter === gotchi.guild)
-            );
         } else {
             filtered = gotchis;
         }
 
-        console.log('filtered', filtered)
-
-        // setGotchis(filtered);
+        setGotchis(filtered);
     };
 
-    const handleQueryParams = (filters) => {
-        console.log('param', params)
+    const handleQueryParams = () => {
+        params.guild = guildsFilter.map((filter) => filter)
+        params.whitelist = whitelistFilter ? whitelistFilter : [];
 
-        params.guild = filters.map((filter) => filter)
-        params.whitelist = 22;
-        let string = qs.stringify(params, {arrayFormat: 'comma'});
-
-        console.log('string', string)
-
-        // if (filters.length > 0) {
-        //     history.push({
-        //         path: location.pathname,
-        //         search: `?guild=${filters.map((filter) => filter)}`
-        //     });
-        // } else {
-        //     history.push({ path: location.pathname });
-        // }
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
+        });
     };
 
     return (
@@ -148,11 +114,12 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
                 <Autocomplete
                     id='whitelist-autocomplete'
                     disablePortal
+                    value={whitelistFilter}
                     options={whitelist}
                     disabled={whitelist.length === 0}
                     onChange={handleWhitelist}
                     renderInput={(params) => (
-                        <TextField {...params} label='Whitelist Id' size='small' />
+                        <TextField {...params} label='Whitelist' size='small' />
                     )}
                 />
             </div>
