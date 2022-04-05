@@ -63,6 +63,10 @@ export default {
     },
 
     convertFloatNumberToSuffixNumber(number) {
+        if (number < 100) {
+            return number.toFixed(2);
+        }
+
         const roundedNumber = Math.floor(number);
         const digits = roundedNumber.toString().split('');
         let convertedNumber;

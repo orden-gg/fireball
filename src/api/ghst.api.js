@@ -29,7 +29,7 @@ export default {
     },
 
     getBalanceOf(address) {
-        return contract.balanceOf(address).then(balance => ethers.utils.formatUnits(balance._hex));
+        return contract.balanceOf(address).then(balance => Number(ethers.utils.formatUnits(balance._hex)));
     },
 
     // OLD CODE

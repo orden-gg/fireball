@@ -13,18 +13,18 @@ const fudContract = ethersApi.makeContract(FUD_CONTRACT, FUD_ABI, 'polygon');
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getKekBalance(address) {
-        return akekContract.balanceOf(address).then(response => ethers.utils.formatUnits(response._hex));
+        return akekContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 
     getAlphaBalance(address) {
-        return alphaContract.balanceOf(address).then(response => ethers.utils.formatUnits(response._hex));
+        return alphaContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 
     getFomoBalance(address) {
-        return fomoContract.balanceOf(address).then(response => ethers.utils.formatUnits(response._hex));
+        return fomoContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 
     getFudBalance(address) {
-        return fudContract.balanceOf(address).then(response => ethers.utils.formatUnits(response._hex));
+        return fudContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 }
