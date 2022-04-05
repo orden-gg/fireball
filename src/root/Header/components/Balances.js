@@ -29,7 +29,7 @@ export default function Balances() {
                             />
                             <p>{token.amount}</p>
                         </div>
-                        <p className={classes.balancePrice}>{token.balance}$</p>
+                        <p className={classes.balancePrice}>{token.balance}{token.balance !== 0 ? '$' : ''}</p>
                     </div>
                 )
             }

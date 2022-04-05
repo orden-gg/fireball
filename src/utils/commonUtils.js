@@ -68,7 +68,7 @@ export default {
 
     convertFloatNumberToSuffixNumber(number) {
         if (number < 100) {
-            return number.toFixed(2);
+            return Number(number.toFixed(2));
         }
 
         const roundedNumber = Math.floor(number);
@@ -97,7 +97,7 @@ export default {
 
                 break;
             default:
-                convertedNumber = digits.join('');
+                convertedNumber = Number(digits.join(''));
         }
 
         return convertedNumber;
