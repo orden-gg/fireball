@@ -54,6 +54,8 @@ const BalancesContextProvider = (props) => {
 
     useEffect(() => {
         if (activeAddress) {
+            let mounted = true;
+
             async function getBalances() {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
                 const [fudAmount, fomoAmount, alphaAmount, kekAmount, gshtAmount] = await Promise.all([
@@ -110,10 +112,22 @@ const BalancesContextProvider = (props) => {
                     },
                 ];
 
-                setTokens(tokens);
+                if (mounted) {
+                    setTokens(tokens);
+                }
             }
 
             getBalances();
+
+            const interval = setInterval(() => {
+                getBalances();
+            }, 5000);
+
+            return () => {
+                mounted = false;
+
+                clearInterval(interval);
+            }
         }
     }, [activeAddress]);
 
