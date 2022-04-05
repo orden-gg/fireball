@@ -7,6 +7,11 @@ const styles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    balanceLoader: {
+        minWidth: 50,
+        height: 14,
+        padding: '0px 6px'
+    },
     balance: {
         minWidth: 50,
         textAlign: 'center',

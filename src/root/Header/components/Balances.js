@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useTheme } from '@emotion/react';
 
 import classNames from 'classnames';
 
@@ -6,11 +7,13 @@ import CustomTooltip from 'components/custom/CustomTooltip';
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import styles from './styles';
+import ContentLoader from 'react-content-loader';
 
 export default function Balances() {
     const classes = styles();
+    const theme = useTheme();
 
-    const { tokens } = useContext(BalancesContext);
+    const { tokens, isBalancesLoading } = useContext(BalancesContext);
 
     if (!Boolean(tokens.length)) {
         return null;
@@ -20,33 +23,45 @@ export default function Balances() {
         <div className={classes.balancesWrapper}>
             {
                 tokens.map((token, index) =>
-                    <CustomTooltip
-                        title={
-                            <React.Fragment>
-                                <span>{token.pricePerToken}$/{token.alt}</span>
-                            </React.Fragment>
-                        }
-                        enterTouchDelay={0}
-                        placement='top'
-                        followCursor
-                        key={index}
-                    >
-                        <div className={classes.balance}>
-                            <div className={classNames(classes.balanceValue, token.alt)}>
-                                <img
-                                    src={token.imgSrc}
-                                    className={classes.balanceIcon}
-                                    width={14}
-                                    height={14}
-                                    alt={token.alt}
-                                />
-                                <p>{token.amount}</p>
+                    ( isBalancesLoading ?
+                        <ContentLoader
+                            speed={2}
+                            viewBox='0 0 28 14'
+                            backgroundColor={theme.palette.secondary.main}
+                            foregroundColor={theme.palette.primary.dark}
+                            className={classes.balanceLoader}
+                            key={index}
+                        >
+                            <rect x='0' y='0' width='28' height='14' />
+                        </ContentLoader> :
+                        <CustomTooltip
+                            title={
+                                <React.Fragment>
+                                    <span>{token.pricePerToken}$/{token.alt}</span>
+                                </React.Fragment>
+                            }
+                            enterTouchDelay={0}
+                            placement='top'
+                            followCursor
+                            key={index}
+                        >
+                            <div className={classes.balance}>
+                                <div className={classNames(classes.balanceValue, token.alt)}>
+                                    <img
+                                        src={token.imgSrc}
+                                        className={classes.balanceIcon}
+                                        width={14}
+                                        height={14}
+                                        alt={token.alt}
+                                    />
+                                    <p>{token.amount}</p>
+                                </div>
+                                <p className={classes.balancePrice}>
+                                    {token.balance !== 0 ? `${token.balance}$` : ''}
+                                </p>
                             </div>
-                            <p className={classes.balancePrice}>
-                                {token.balance !== 0 ? `${token.balance}$` : ''}
-                            </p>
-                        </div>
-                    </CustomTooltip>
+                        </CustomTooltip>
+                    )
                 )
             }
         </div>

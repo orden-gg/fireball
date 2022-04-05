@@ -46,6 +46,7 @@ const BalancesContextProvider = (props) => {
 
     const { activeAddress } = useContext(LoginContext);
 
+    const [isBalancesLoading, setIsBalancesLoading] = useState(false);
     const [tokens, setTokens] = useState([...initialTokensValues.map(token => ({
         amount: token.amount,
         balance: token.balance,
@@ -55,6 +56,8 @@ const BalancesContextProvider = (props) => {
     useEffect(() => {
         if (activeAddress) {
             let mounted = true;
+
+            setIsBalancesLoading(true);
 
             async function getBalances() {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
@@ -106,7 +109,7 @@ const BalancesContextProvider = (props) => {
                         imgSrc: kekIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekPrice)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount)
                     },
                     {
                         alt: 'ghst',
@@ -119,6 +122,7 @@ const BalancesContextProvider = (props) => {
 
                 if (mounted) {
                     setTokens(tokens);
+                    setIsBalancesLoading(false);
                 }
             }
 
@@ -160,7 +164,8 @@ const BalancesContextProvider = (props) => {
 
     return (
         <BalancesContext.Provider value={{
-            tokens
+            tokens,
+            isBalancesLoading
         }}>
             { props.children }
         </BalancesContext.Provider>
