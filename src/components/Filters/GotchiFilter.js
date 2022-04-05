@@ -32,11 +32,11 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
 
     useEffect(() => {
         if (!dataLoading) {
-            handleQueryParams();
-            filterData();
+            handleQueryParams(guildsFilter, whitelistFilter);
+            filterData(guildsFilter, whitelistFilter);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildsFilter, whitelistFilter, dataLoading])
+    }, [guildsFilter, whitelistFilter, dataLoading]);
 
     const handleGuilds = (event, newValue) => {
         setGuildsFilter(newValue);
@@ -46,9 +46,9 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
         setWhitelistFilter(newValue);
     };
 
-    const handleQueryParams = () => {
-        params.guild = guildsFilter.map((filter) => filter)
-        params.whitelist = whitelistFilter ? whitelistFilter : [];
+    const handleQueryParams = (guildsF, whitelistF) => {
+        params.guild = guildsF.map((filter) => filter);
+        params.whitelist = whitelistF ? whitelistF : [];
 
         history.push({
             path: location.pathname,
@@ -56,23 +56,23 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
         });
     };
 
-    const filterData = () => {
+    const filterData = (guildsF, whitelistF) => {
         let filtered;
-        const isGuildsFilter = (guildsFilter.length > 0) === true;
-        const isWhitelistFilter = typeof whitelistFilter === 'string';
+        const isGuildsFilter = guildsF.length > 0;
+        const isWhitelistFilter = typeof whitelistF === 'string';
 
         if (isGuildsFilter || isWhitelistFilter) {
-            if (!isGuildsFilter) {
+            if (isGuildsFilter && isWhitelistFilter) {
                 filtered = gotchis.filter(gotchi =>
-                    gotchi.whitelistId === whitelistFilter
+                    guildsF.indexOf(gotchi.guild) !== -1 && gotchi.whitelistId === whitelistF
                 );
-            } else if (!isWhitelistFilter) {
+            } else if (isGuildsFilter) {
                 filtered = gotchis.filter(gotchi =>
-                    guildsFilter.indexOf(gotchi.guild) !== -1
+                    guildsF.indexOf(gotchi.guild) !== -1
                 );
             } else {
                 filtered = gotchis.filter(gotchi =>
-                    guildsFilter.indexOf(gotchi.guild) !== -1 && gotchi.whitelistId === whitelistFilter
+                    gotchi.whitelistId === whitelistF
                 );
             }
         } else {

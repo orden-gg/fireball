@@ -87,20 +87,25 @@ export default function Lend() {
         thegraphApi.getLendings().then((response) => {
             if (mounted) {
                 const whitelistData = [];
-                const mappedData = response.map((listing) => {
+                const mappedData = [];
+                response.forEach((listing) => {
                     if (listing.whitelistId) {
-                        collectWhitelistData(listing.whitelistId, whitelistData)
+                        const index = whitelistData.findIndex(savedId => savedId === listing.whitelistId);
+
+                        if (index === -1) {
+                            whitelistData.push(listing.whitelistId);
+                        }
                     }
 
-                    return {
+                    mappedData.push({
                         ...listing,
                         guild: gotchiverseUtils.gedAddressGuild(listing.lender)
-                    }
+                    })
                 });
 
                 const sorted = commonUtils.basicSort(mappedData, defaultSorting);
 
-                setWhitelist(commonUtils.primitiveSort(whitelistData, 'asc'));
+                setWhitelist(commonUtils.sortByDirection(whitelistData, 'asc'));
                 setLendings(sorted);
                 setLendingsCache(sorted);
                 setDataLoading(false);
@@ -109,14 +114,6 @@ export default function Lend() {
 
         return () => mounted = false;
     }, []);
-
-    const collectWhitelistData = (id, array) => {
-        const index = array.findIndex(savedId => savedId === id);
-
-        if (index === -1) {
-            array.push(id);
-        }
-    };
 
     return (
         <ContentWrapper>

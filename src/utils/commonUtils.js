@@ -54,7 +54,7 @@ export default {
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
     },
 
-    primitiveSort(array, sortDir) {
+    sortByDirection(array, sortDir) {
         return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
     },
 
