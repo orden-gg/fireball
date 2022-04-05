@@ -42,7 +42,9 @@ export default function Balances() {
                             </CustomTooltip>
                             <p>{token.amount}</p>
                         </div>
-                        <p className={classes.balancePrice}>{token.balance}{token.balance !== 0 ? '$' : ''}</p>
+                        <p className={classes.balancePrice}>
+                            {token.balance !== 0 ? `${token.balance}$` : ''}
+                        </p>
                     </div>
                 )
             }
