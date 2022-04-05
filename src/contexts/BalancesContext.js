@@ -121,7 +121,7 @@ const BalancesContextProvider = (props) => {
 
             const interval = setInterval(() => {
                 getBalances();
-            }, 5000);
+            }, 30000);
 
             return () => {
                 mounted = false;
