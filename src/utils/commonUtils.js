@@ -77,23 +77,23 @@ export default {
 
         switch (digits.length) {
             case 4:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}K`;
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}k`;
 
                 break;
             case 5:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}K`;
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}k`;
 
                 break;
             case 6:
-                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}K`;
+                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}k`;
 
                 break;
             case 7:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}${digits[3]}M`;
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}${digits[3]}m`;
 
                 break;
             case 8:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}${digits[4]}M`;
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}${digits[4]}m`;
 
                 break;
             default:

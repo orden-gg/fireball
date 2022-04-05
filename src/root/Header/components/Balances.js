@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Typography } from '@mui/material';
+import classNames from 'classnames';
 
 import { BalancesContext } from 'contexts/BalancesContext';
 
@@ -19,12 +19,17 @@ export default function Balances() {
             {
                 tokens.map((token, index) =>
                     <div className={classes.balance} key={index}>
-                        <img src={token.imgSrc} width={16} height={16} alt={token.alt} />
-
-                        <div className={classes.balanceValueWrapper}>
-                            <Typography className={classes.balanceValue}>{token.amount}</Typography>
-                            <Typography className={classes.balanceValue}>{token.balance}$</Typography>
+                        <div className={classNames(classes.balanceValue, token.alt)}>
+                            <img
+                                src={token.imgSrc}
+                                className={classes.balanceIcon}
+                                width={14}
+                                height={14}
+                                alt={token.alt}
+                            />
+                            <p>{token.amount}</p>
                         </div>
+                        <p className={classes.balancePrice}>{token.balance}$</p>
                     </div>
                 )
             }

@@ -81,31 +81,31 @@ const BalancesContextProvider = (props) => {
 
                 const tokens = [
                     {
-                        alt: 'FUD',
+                        alt: 'fud',
                         imgSrc: fudIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fudBalance)
                     },
                     {
-                        alt: 'FOMO',
+                        alt: 'fomo',
                         imgSrc: fomoIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fomoBalance)
                     },
                     {
-                        alt: 'ALPHA',
+                        alt: 'alpha',
                         imgSrc: alphaIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(alphaBalance)
                     },
                     {
-                        alt: 'KEK',
+                        alt: 'kek',
                         imgSrc: kekIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(kekBalance)
                     },
                     {
-                        alt: 'GHST',
+                        alt: 'ghst',
                         imgSrc: ghstIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance)

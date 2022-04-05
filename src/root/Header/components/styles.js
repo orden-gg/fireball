@@ -1,26 +1,52 @@
 
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+const styles = makeStyles(theme => ({
     balancesWrapper: {
-        width: '70%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     },
     balance: {
-        width: '75px',
-        display: 'flex',
-        alignItems: 'center'
+        minWidth: 50,
+        textAlign: 'center',
+        padding: '2px 6px',
+        '& + $balance': {
+            marginLeft: 6
+        },
+        '& p': {
+            margin: 0,
+            lineHeight: 1.2,
+            textShadow: '2px 2px 0 black'
+        },
     },
-    balanceValueWrapper: {
-        marginLeft: '4px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
+    balanceIcon: {
+        marginRight: 4
     },
     balanceValue: {
-        fontSize: '12px'
+        display: 'flex',
+        alignItems: 'center',
+        fontWeight: 'bold',
+        '&.fud': {
+            color: theme.palette.alchemica.fud
+        },
+        '&.fomo': {
+            color: theme.palette.alchemica.fomo
+        },
+        '&.alpha': {
+            color: theme.palette.alchemica.alpha
+        },
+        '&.kek': {
+            color: theme.palette.alchemica.kek
+        },
+        '& p': {
+            opacity: .8
+        }
+    },
+    balancePrice: {
+        fontSize: 11,
+        fontWeight: 500,
+        opacity: .8,
     }
 }));
 
