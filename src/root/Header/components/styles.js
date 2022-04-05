@@ -11,6 +11,7 @@ const styles = makeStyles(theme => ({
         minWidth: 50,
         textAlign: 'center',
         padding: '2px 6px',
+        cursor: 'default',
         '& + $balance': {
             marginLeft: 6
         },

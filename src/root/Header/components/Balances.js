@@ -20,18 +20,19 @@ export default function Balances() {
         <div className={classes.balancesWrapper}>
             {
                 tokens.map((token, index) =>
-                    <div className={classes.balance} key={index}>
-                        <div className={classNames(classes.balanceValue, token.alt)}>
-                            <CustomTooltip
-                                title={
-                                    <React.Fragment>
-                                        <span>{token.pricePerToken}$/{token.alt}</span>
-                                    </React.Fragment>
-                                }
-                                enterTouchDelay={0}
-                                placement='top'
-                                followCursor
-                            >
+                    <CustomTooltip
+                        title={
+                            <React.Fragment>
+                                <span>{token.pricePerToken}$/{token.alt}</span>
+                            </React.Fragment>
+                        }
+                        enterTouchDelay={0}
+                        placement='top'
+                        followCursor
+                        key={index}
+                    >
+                        <div className={classes.balance}>
+                            <div className={classNames(classes.balanceValue, token.alt)}>
                                 <img
                                     src={token.imgSrc}
                                     className={classes.balanceIcon}
@@ -39,13 +40,13 @@ export default function Balances() {
                                     height={14}
                                     alt={token.alt}
                                 />
-                            </CustomTooltip>
-                            <p>{token.amount}</p>
+                                <p>{token.amount}</p>
+                            </div>
+                            <p className={classes.balancePrice}>
+                                {token.balance !== 0 ? `${token.balance}$` : ''}
+                            </p>
                         </div>
-                        <p className={classes.balancePrice}>
-                            {token.balance !== 0 ? `${token.balance}$` : ''}
-                        </p>
-                    </div>
+                    </CustomTooltip>
                 )
             }
         </div>
