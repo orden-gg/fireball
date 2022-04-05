@@ -20,14 +20,6 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
     const [whitelistFilter, setWhitelistFilter] = useState(null);
 
     useEffect(() => {
-        if (!dataLoading) {
-            handleQueryParams();
-            filterData();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildsFilter, whitelistFilter, dataLoading])
-
-    useEffect(() => {
         if (params.guild) {
             setGuildsFilter(params.guild.length > 1 ? params.guild.split(',') : params.guild);
         }
@@ -38,12 +30,30 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        if (!dataLoading) {
+            handleQueryParams();
+            filterData();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [guildsFilter, whitelistFilter, dataLoading])
+
     const handleGuilds = (event, newValue) => {
         setGuildsFilter(newValue);
     };
 
     const handleWhitelist = (event, newValue) => {
         setWhitelistFilter(newValue);
+    };
+
+    const handleQueryParams = () => {
+        params.guild = guildsFilter.map((filter) => filter)
+        params.whitelist = whitelistFilter ? whitelistFilter : [];
+
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
+        });
     };
 
     const filterData = () => {
@@ -70,16 +80,6 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, 
         }
 
         setGotchis(filtered);
-    };
-
-    const handleQueryParams = () => {
-        params.guild = guildsFilter.map((filter) => filter)
-        params.whitelist = whitelistFilter ? whitelistFilter : [];
-
-        history.push({
-            path: location.pathname,
-            search: qs.stringify(params, { arrayFormat: 'comma' })
-        });
     };
 
     return (
