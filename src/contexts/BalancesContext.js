@@ -71,11 +71,11 @@ const BalancesContextProvider = (props) => {
                     quickSwapApi.getTokenData(ALPHA_CONTRACT),
                     quickSwapApi.getTokenData(KEK_CONTRACT)
                 ]);
-                const [fudBalance, fomoBalance, alphaBalance, kekBalance] = await Promise.all([
-                    getTokenBalance(ghst, ghstPrice, fudToken, fudAmount),
-                    getTokenBalance(ghst, ghstPrice, fomoToken, fomoAmount),
-                    getTokenBalance(ghst, ghstPrice, alphaToken, alphaAmount),
-                    getTokenBalance(ghst, ghstPrice, kekToken, kekAmount),
+                const [fudPrice, fomoPrice, alphaPrice, kekPrice] = await Promise.all([
+                    getTokenPrice(ghst, ghstPrice, fudToken),
+                    getTokenPrice(ghst, ghstPrice, fomoToken),
+                    getTokenPrice(ghst, ghstPrice, alphaToken),
+                    getTokenPrice(ghst, ghstPrice, kekToken),
                 ]);
                 const ghstBalance = gshtAmount * ghstPrice;
 
@@ -84,30 +84,35 @@ const BalancesContextProvider = (props) => {
                         alt: 'fud',
                         imgSrc: fudIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudBalance)
+                        pricePerToken: fudPrice.toFixed(2),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount)
                     },
                     {
                         alt: 'fomo',
                         imgSrc: fomoIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoBalance)
+                        pricePerToken: fomoPrice.toFixed(2),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount)
                     },
                     {
                         alt: 'alpha',
                         imgSrc: alphaIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaBalance)
+                        pricePerToken: alphaPrice.toFixed(2),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount)
                     },
                     {
                         alt: 'kek',
                         imgSrc: kekIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekBalance)
+                        pricePerToken: kekPrice.toFixed(2),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekPrice)
                     },
                     {
                         alt: 'ghst',
                         imgSrc: ghstIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
+                        pricePerToken: ghstPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance)
                     },
                 ];
@@ -139,19 +144,18 @@ const BalancesContextProvider = (props) => {
 
         const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
         const ghstTokenRoute = quickSwapApi.getTokenRouteByPair(ghst, ghstTokenPair);
-        const ghstPriceToToken = ghstTokenRoute.midPrice.toSignificant(6);
+        const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
         return [ghst, ghstPriceToToken];
     }
 
-    const getTokenBalance = async (ghst, ghstPrice, token, tokenAmount) => {
+    const getTokenPrice = async (ghst, ghstPrice, token) => {
         const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
         const ghstTokenRoute = quickSwapApi.getTokenRouteByPair(token, ghstTokenPair);
-        const tokenToGhstPrice = ghstTokenRoute.midPrice.toSignificant(6);
+        const tokenToGhstPrice = Number(ghstTokenRoute.midPrice.toSignificant(6));
         const tokenPrice = ghstPrice * tokenToGhstPrice;
-        const tokenBalance = tokenPrice * tokenAmount;
 
-        return tokenBalance;
+        return tokenPrice;
     }
 
     return (
