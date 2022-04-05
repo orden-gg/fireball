@@ -23,8 +23,10 @@ const styles = makeStyles(theme => ({
     inner: {
         background: theme.palette.background.paper,
         borderRadius: 4,
+        minHeight: '100%',
         [theme.breakpoints.up('sm')]: {
-            flexGrow: 1
+            flexGrow: 1,
+            alignSelf: 'stretch'
         }
     }
 }));
@@ -32,6 +34,7 @@ const styles = makeStyles(theme => ({
 const ContentInnerStyles = makeStyles(theme => ({
     content: {
         height: 'calc(100vh - 168px)',
+        minHeight: '100%',
         '&.loading': {
             display: 'flex',
             alignItems: 'center',

@@ -9,7 +9,7 @@ import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
 
-export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading }) {
+export default function GotchiFilters({ gotchis, setGotchis, guilds, whitelist, dataLoading }) {
     const classes = styles();
 
     const history = useHistory();
@@ -17,67 +17,83 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading
     const params = qs.parse(location.search);
 
     const [guildsFilter, setGuildsFilter] = useState([]);
+    const [whitelistFilter, setWhitelistFilter] = useState(null);
 
     useEffect(() => {
         if (params.guild) {
-            setGuildsFilter(params.guild.split(','));
+            setGuildsFilter(params.guild.length > 1 ? params.guild.split(',') : params.guild);
+        }
+
+        if (params.whitelist) {
+            setWhitelistFilter(params.whitelist);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (!dataLoading) {
-            filterGotchis(guildsFilter);
+            handleQueryParams(guildsFilter, whitelistFilter);
+            filterData(guildsFilter, whitelistFilter);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataLoading]);
+    }, [guildsFilter, whitelistFilter, dataLoading]);
 
-    const handleChange = (event, newValue) => {
-        filterGotchis(newValue);
-        handleQueryParams(newValue)
+    const handleGuilds = (event, newValue) => {
         setGuildsFilter(newValue);
     };
 
-    const filterGotchis = (filters) => {
-        let filteredGotchis;
-
-        if (filters.length > 0) {
-            filteredGotchis = gotchis.filter(gotchi =>
-                filters.some((filter) => filter === gotchi.guild)
-            );
-        } else {
-            filteredGotchis = gotchis;
-        }
-
-        setGotchis(filteredGotchis);
+    const handleWhitelist = (event, newValue) => {
+        setWhitelistFilter(newValue);
     };
 
-    const handleQueryParams = (filters) => {
-        if (filters.length > 0) {
-            history.push({
-                path: location.pathname,
-                search: `?guild=${filters.map((filter) => filter)}`
-            });
+    const handleQueryParams = (guildsF, whitelistF) => {
+        params.guild = guildsF.map((filter) => filter);
+        params.whitelist = whitelistF ? whitelistF : [];
+
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
+        });
+    };
+
+    const filterData = (guildsF, whitelistF) => {
+        let filtered;
+        const isGuildsFilter = guildsF.length > 0;
+        const isWhitelistFilter = typeof whitelistF === 'string';
+
+        if (isGuildsFilter || isWhitelistFilter) {
+            if (isGuildsFilter && isWhitelistFilter) {
+                filtered = gotchis.filter(gotchi =>
+                    guildsF.indexOf(gotchi.guild) !== -1 && gotchi.whitelistId === whitelistF
+                );
+            } else if (isGuildsFilter) {
+                filtered = gotchis.filter(gotchi =>
+                    guildsF.indexOf(gotchi.guild) !== -1
+                );
+            } else {
+                filtered = gotchis.filter(gotchi =>
+                    gotchi.whitelistId === whitelistF
+                );
+            }
         } else {
-            history.push({ path: location.pathname });
+            filtered = gotchis;
         }
+
+        setGotchis(filtered);
     };
 
     return (
         <>
             <div className={classes.section}>
                 <Autocomplete
+                    id='guilds-autocomplete'
                     multiple
                     value={guildsFilter}
-                    onChange={handleChange}
+                    onChange={handleGuilds}
                     options={guilds}
                     getOptionLabel={(option) => option}
                     renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            size='small'
-                            label='Guilds'
-                        />
+                        <TextField {...params} size='small' label='Guilds'/>
                     )}
                     renderTags={(tagValue, getTagProps) =>
                         tagValue.map((option, index) => (
@@ -91,6 +107,20 @@ export default function GotchiFilters({ gotchis, setGotchis, guilds, dataLoading
                             />
                         ))
                     }
+                />
+            </div>
+
+            <div className={classes.section}>
+                <Autocomplete
+                    id='whitelist-autocomplete'
+                    disablePortal
+                    value={whitelistFilter}
+                    options={whitelist}
+                    disabled={whitelist.length === 0}
+                    onChange={handleWhitelist}
+                    renderInput={(params) => (
+                        <TextField {...params} label='Whitelist' size='small' />
+                    )}
                 />
             </div>
 
