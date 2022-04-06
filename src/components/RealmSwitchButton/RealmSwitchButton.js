@@ -22,6 +22,10 @@ export default function RealmSwitchButton({ view }) {
         let path = view === 'list' ? 'map' : 'list';
         let url = `${match.url}/${path}`;
 
+        console.log('🪂', params)
+        console.log('🌴', path)
+        console.log('📃', url)
+
         history.push({
             path: url,
             search: qs.stringify(params)
