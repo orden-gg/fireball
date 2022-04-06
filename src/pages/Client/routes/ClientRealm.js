@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { useRouteMatch } from 'react-router';
 
+import RealmSwitchButton from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
 
 import ClientRealmMap from './ClientRealmMap';
@@ -14,6 +15,8 @@ export default function ClientRealm() {
 
     return (
         <>
+            <RealmSwitchButton view={realmView} />
+
             <Switch>
                 <Route path={`${match.path}/list`} >
                     <ClientRealmList name='list' />

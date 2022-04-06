@@ -6,6 +6,10 @@ import ticketsApi from 'api/tickets.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
+import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
+import warehouseIcon from 'assets/images/wearables/15.svg';
+import ticketsIcon from 'assets/images/tickets/rare.svg';
+import realmIcon from 'assets/images/icons/kek.png';
 
 export const ClientContext = createContext({});
 
@@ -31,6 +35,34 @@ const ClientContextProvider = (props) => {
     const [rewardCalculating, setRewardCalculating] = useState(false);
     const [rewardCalculated, setRewardCalculated] = useState(false);
     const [realmView, setRealmView] = useState('map');
+
+    const navData = [
+        {
+            name: 'gotchis',
+            icon: gotchiIcon,
+            loading: loadingGotchis,
+            items: gotchis.length
+        },
+        {
+            name: 'warehouse',
+            icon: warehouseIcon,
+            loading: loadingWarehouse,
+            items: warehouse.length
+        },
+        {
+            name: 'tickets',
+            icon: ticketsIcon,
+            loading: loadingTickets,
+            items: tickets.length
+        },
+        {
+            name: 'realm',
+            icon: realmIcon,
+            loading: loadingRealm,
+            items: realm.length,
+            subroute: '/map'
+        }
+    ];
 
     const getClientData = () => {
         getGotchis(clientActive);
@@ -247,6 +279,8 @@ const ClientContextProvider = (props) => {
             rewardCalculated,
             rewardCalculating,
             calculateReward,
+
+            navData,
 
             getClientData,
             sortData

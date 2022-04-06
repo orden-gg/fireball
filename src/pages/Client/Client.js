@@ -18,32 +18,7 @@ import LoginNavigation from 'components/Login/LoginNavigation';
 import PageNav from 'components/PageNav/PageNav';
 import ClientNav from './components/ClientNav';
 
-import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
-import warehouseIcon from 'assets/images/wearables/15.svg';
-import ticketsIcon from 'assets/images/tickets/rare.svg';
-import realmIcon from 'assets/images/icons/kek.png';
-
 import styles from './styles';
-
-const navLinks = [
-    {
-        name: 'gotchis',
-        icon: gotchiIcon
-    },
-    {
-        name: 'warehouse',
-        icon: warehouseIcon
-    },
-    {
-        name: 'tickets',
-        icon: ticketsIcon
-    },
-    {
-        name: 'realm',
-        icon: realmIcon,
-        subroute: '/map'
-    }
-];
 
 export default function Client() {
     const classes = styles();
@@ -54,9 +29,7 @@ export default function Client() {
     const params = queryString.parse(location.search);
 
     const { activeAddress } = useContext(LoginContext);
-    const { clientActive, setClientActive, getClientData } = useContext(ClientContext);
-
-    const [navLinksState, setNavLinksState] = useState(navLinks)
+    const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
         if (activeAddress) {
@@ -108,10 +81,10 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <ClientNav />
+                    {/* <ClientNav /> */}
 
                     <PageNav
-                        links={navLinksState}
+                        links={navData}
                         query={`?address=${clientActive}`}
                     />
 
