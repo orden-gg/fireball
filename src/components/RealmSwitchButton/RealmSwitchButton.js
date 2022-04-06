@@ -1,6 +1,10 @@
 import React from 'react';
-import { useHistory, useRouteMatch } from 'react-router';
-import { Switch, Tooltip } from '@mui/material';
+import { useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { Switch } from '@mui/material';
+
+import qs from 'query-string';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
 
@@ -8,25 +12,20 @@ import styles from './styles';
 
 export default function RealmSwitchButton({ view }) {
     const classes = styles();
+
     const match = useRouteMatch();
+    const location = useLocation();
     const history = useHistory();
+    const params = qs.parse(location.search);
 
     const updateView = () => {
         let path = view === 'list' ? 'map' : 'list';
         let url = `${match.url}/${path}`;
 
-        console.log('🥕', url)
-        // history.push({ pathname: url });
-
         history.push({
             path: url,
-            search: qs.stringify(params, { arrayFormat: 'comma' })
+            search: qs.stringify(params)
         });
-
-        // if (clientActive) {
-        //     history.push({ pathname: url, search: `?address=${clientActive}` });
-        // } else {
-        // }
     }
 
     return (

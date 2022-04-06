@@ -81,7 +81,7 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    {/* <ClientNav /> */}
+                    <ClientNav />
 
                     <PageNav
                         links={navData}
