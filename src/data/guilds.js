@@ -945,7 +945,7 @@ const guilds = [
             '0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b',
             '0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7',
             '0x6f48134d8bdeb954ad97525cf0adb9ad446260b1',
-            '0x854a2a03c868eb2c8779b3a769ee9a5c13f06f40'
+            '0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993'
         ],
         description: [
             {
