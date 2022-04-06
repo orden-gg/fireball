@@ -16,23 +16,28 @@ const headerStyles = makeStyles(theme => ({
         fontSize: 40,
         marginBottom: 0
     },
-    autopetTerms: {
-        marginTop: theme.spacing(3),
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            justifyContent: 'space-between',
+    autopetLink: {
+        textAlign: 'center',
+        marginTop: 8,
+        '& a': {
+            fontSize: 22,
+            fontWeight: '500',
+            color: theme.palette.primary.main,
+            textDecoration: 'none'
         }
+    },
+    autopetTerms: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: theme.spacing(3)
+
     },
     autopetTermsBox: {
         borderRadius: 5,
         boxShadow: '0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)',
         backgroundColor: theme.palette.background.paper,
         flexBasis: `calc(50% - ${theme.spacing(1)})`,
-        padding: theme.spacing(3),
-        marginBottom: theme.spacing(3),
-        [theme.breakpoints.up('md')]: {
-            margin: 0
-        }
+        padding: theme.spacing(3)
     },
     autopetTermsTitle: {
         margin: theme.spacing(0, 0, 2),
@@ -56,19 +61,12 @@ const headerStyles = makeStyles(theme => ({
         }
     },
     autopetHeaderWarning: {
-        marginTop: theme.spacing(2)
+        marginTop: theme.spacing(2),
+        maxWidth: 600,
+        margin: 'auto'
     },
     autopetTermsTextHighlight: {
         color: theme.palette.success.light
-    },
-    warnings: {
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            justifyContent: 'space-between',
-            '& > div': {
-                flexBasis: `calc(50% - ${theme.spacing(1)})`,
-            }
-        }
     }
 }));
 

@@ -341,6 +341,8 @@ const guilds = [
             '0x6648e94A5BDd783Bf6649d54FC2891F97C6Ca22d',
             '0x40CF6bb888ca670e20139b1caA0BA0996f65371c',
             '0x494317b283247c07cAB8085e43EbDfCA37b2eBcA',
+            '0x999166B837eBf770CE91Bf365618c5B215c5140e',
+            '0xa540A85FAD845Fc76A9C9A13C96AE1B1fA12EA07'
           ],
         description: [
             {
@@ -913,7 +915,8 @@ const guilds = [
             '0xfbb073e09d84970d1efe099abbe9e626f8ff7024',
             '0xff3b5ec89aa8d54e0b4950ebeca56b039b07971a',
             '0xBa00D625A28372a1C90DBa8A1d48EEEa9Bb495f7',
-            '0x90EF65E04DFa51E14b16206d79782c978a2cC033'
+            '0x90EF65E04DFa51E14b16206d79782c978a2cC033',
+            '0xAe0E224BdA978E530465Fee0c7C318A8234799e0'
         ],
         description: [
             {
@@ -998,7 +1001,35 @@ const guilds = [
             twitter: 'https://twitter.com/HodlerSqvad',
             discord: 'https://discord.gg/DShQV47R38'
         }
-    }
+    }, {
+        name: 'PlayToDAO',
+        logo: require('../assets/images/guilds/playtodao.png').default,
+        members: [
+            '0xC99DF6B7A5130Dce61bA98614A2457DAA8d92d1c',
+            '0x9C415DC99eb8fF4Fe2FDa81cf7DCcD15820dD5cA',
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Smart access to play to earn.',
+            },
+            {
+                title: 'Requirement',
+                text: 'Join our discord and get a scolarship.',
+            },
+            {
+                title: 'Point of Contact',
+                text: 'Marco#0908 | Jose Marcos#6220',
+            },
+        ],
+        banner: '',
+        socials: {
+            website: 'https://playtodao.com/',
+            twitter: 'https://twitter.com/PlayToDAO',
+            discord: 'https://discord.gg/aDjwSerZWZ',
+        },
+    },
+
 ]
 
 export default guilds;

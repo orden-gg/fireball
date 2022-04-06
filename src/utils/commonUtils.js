@@ -54,6 +54,10 @@ export default {
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
     },
 
+    sortByDirection(array, sortDir) {
+        return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
+    },
+
     basicSort(array, sortType, sortDir) {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
     },
@@ -63,33 +67,37 @@ export default {
     },
 
     convertFloatNumberToSuffixNumber(number) {
+        if (number < 100) {
+            return Number(number.toFixed(2));
+        }
+
         const roundedNumber = Math.floor(number);
         const digits = roundedNumber.toString().split('');
         let convertedNumber;
 
         switch (digits.length) {
             case 4:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}K`;
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}k`;
 
                 break;
             case 5:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}K`;
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}k`;
 
                 break;
             case 6:
-                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}K`;
+                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}k`;
 
                 break;
             case 7:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}${digits[3]}M`;
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}${digits[3]}m`;
 
                 break;
             case 8:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}${digits[4]}M`;
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}${digits[4]}m`;
 
                 break;
             default:
-                convertedNumber = digits.join('');
+                convertedNumber = Number(digits.join(''));
         }
 
         return convertedNumber;
@@ -98,4 +106,8 @@ export default {
     stringToKey(string) {
         return string.replace(/’| /g, '').replace(/ /g, '').toLowerCase();
     },
+
+    isEmptyObject(obj) {
+        return Object.keys(obj).length === 0;
+    }
 }

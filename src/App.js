@@ -21,11 +21,13 @@ import Raffle from './pages/Raffle/Raffle';
 import Shop from './pages/Shop/Shop';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from './contexts/BaazaarContext';
+import BalancesContextProvider from 'contexts/BalancesContext';
 import ClientContextProvider from './contexts/ClientContext';
 import LoginContextProvider from './contexts/LoginContext';
 import SnackbarContextProvider from './contexts/SnackbarContext';
 
 import { styled } from '@mui/system';
+import OldAutopet from 'pages/OldAutopet/OldAutopet';
 
 const classes = {
     wrapper: 'page-wrapper',
@@ -65,7 +67,11 @@ export default function App() {
                         </Helmet>
 
                         <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
-                            { isDisplayHeader && <Header /> }
+                            { isDisplayHeader &&
+                                <BalancesContextProvider>
+                                    <Header />
+                                </BalancesContextProvider>
+                            }
 
                             <Box className={classes.content}>
                                 <Switch>
@@ -74,6 +80,7 @@ export default function App() {
                                     <Route path={`/lend`} component={ Lend } />
                                     <Route exact path={`/explorer`} component={ GhostExplorer } />
                                     <Route path={`/autopet`} component={ Autopet } />
+                                    <Route path={`/autopet-v1`} component={ OldAutopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />

@@ -6,6 +6,7 @@ import ethersApi from './ethers.api';
 import graphUtils from 'utils/graphUtils';
 
 import {
+    gotchiByIdQuery,
     gotchiesQuery,
     svgQuery,
     erc1155Query,
@@ -178,6 +179,10 @@ export default {
 
             return modifyTraits(filteredArray);
         });
+    },
+
+    getGotchiesByIds(ids) {
+        return this.getJoinedData([...ids.map(id => gotchiByIdQuery(id))]);
     },
 
     getGotchiQueries() {
