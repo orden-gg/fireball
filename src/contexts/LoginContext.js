@@ -1,12 +1,9 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
-import alchemicaApi from 'api/alchemica.api';
-import ghstApi from 'api/ghst.api';
 import useLocalStorage from 'hooks/useLocalStorage';
-import commonUtils from 'utils/commonUtils';
 
 export const LoginContext = createContext({});
 
@@ -21,30 +18,6 @@ const LoginContextProvider = (props) => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
-    const [fudBalance, setFudBalance] = useState(0);
-    const [fomoBalance, setFomoBalance] = useState(0);
-    const [alphaBalance, setAlphaBalance] = useState(0);
-    const [akekBalance, setAkekBalance] = useState(0);
-    const [ghstBalance, setGhstBalance] = useState(0);
-
-    useEffect(() => {
-        if (activeAddress) {
-            Promise.all([
-                alchemicaApi.getFudBalance(activeAddress),
-                alchemicaApi.getFomoBalance(activeAddress),
-                alchemicaApi.getAlphaBalance(activeAddress),
-                alchemicaApi.getKekBalance(activeAddress),
-                ghstApi.getBalanceOf(activeAddress),
-            ]).then(([fud, fomo, alpha, akek, ghst]) => {
-                setFudBalance(commonUtils.convertFloatNumberToSuffixNumber(fud))
-                setFomoBalance(commonUtils.convertFloatNumberToSuffixNumber(fomo))
-                setAlphaBalance(commonUtils.convertFloatNumberToSuffixNumber(alpha))
-                setAkekBalance(commonUtils.convertFloatNumberToSuffixNumber(akek))
-                setGhstBalance(commonUtils.convertFloatNumberToSuffixNumber(ghst));
-            });
-        }
-    }, [activeAddress])
 
     const selectActiveAddress = (address) => {
         setStorageActive(address);
@@ -111,13 +84,7 @@ const LoginContextProvider = (props) => {
             setModalOpen,
 
             dropdownOpen,
-            setDropdownOpen,
-
-            fudBalance,
-            fomoBalance,
-            alphaBalance,
-            akekBalance,
-            ghstBalance
+            setDropdownOpen
         }}>
             { props.children }
         </LoginContext.Provider>

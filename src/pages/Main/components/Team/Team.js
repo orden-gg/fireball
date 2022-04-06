@@ -6,12 +6,11 @@ import classNames from 'classnames';
 import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import Subtitle from 'components/Subtitle/Subtitle';
 import thegraph from 'api/thegraph.api';
-import { gotchiByIdQuery } from 'api/common/queries';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import styles from './styles';
 
-const gotchiesId = [4285, 8005, 4282, 23470, 13998];
+const gotchiesId = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
 
 export default function Team() {
     const classes = styles();
@@ -19,13 +18,7 @@ export default function Team() {
     const [members, setMembers] = useState([]);
 
     useEffect(() => {
-        thegraph.getJoinedData([
-            gotchiByIdQuery(gotchiesId[0]),
-            gotchiByIdQuery(gotchiesId[1]),
-            gotchiByIdQuery(gotchiesId[2]),
-            gotchiByIdQuery(gotchiesId[3]),
-            gotchiByIdQuery(gotchiesId[4])
-        ]).then((response) => {
+        thegraph.getGotchiesByIds(gotchiesId).then((response) => {
             let formattedArray = [];
 
             response.forEach((gotchi) => {
