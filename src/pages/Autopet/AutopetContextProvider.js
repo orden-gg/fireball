@@ -112,6 +112,15 @@ const AutopetContextProvider = (props) => {
         }
     };
 
+    const checkGhstSpend = async () => {
+        const ghstApproved = await ghstApi.isGhstApproved(connectedWallet);
+
+        if(!ghstApproved) {
+            setIsGhstApproved(ghstApproved);
+            updateProgress('ghst', ghstApproved);
+        }
+    }
+
     const approveStake = async (approval) => {
         const succesMessage = approval ? 'Staking approved!' : 'Unstaking approved!';
         const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
@@ -125,22 +134,25 @@ const AutopetContextProvider = (props) => {
                 setIsStaked(approval);
                 updateProgress('stake', approval);
                 showSnackbar('success', succesMessage);
-            } else {
-                showSnackbar('error', errorMessage);
-            }
 
-            setStakeState('approve');
+                if(!approval) {
+                    checkGhstSpend()
+                }
+            } else {
+                showSnackbar('error', errorMessage)
+            };
+
+            setStakeState('approve')
         } catch {
-            setStakeState('approve');
+            setStakeState('approve')
         }
     };
 
     const updateProgress = (name, isApproved) => {
         setTabs(data => {
-            const duplicated = {...data};
-            duplicated[name].done = isApproved;
+            data[name].done = isApproved;
 
-            return duplicated;
+            return {...data}
         });
     };
 
@@ -166,48 +178,33 @@ const AutopetContextProvider = (props) => {
         setIsUserConnected(walletConnected);
 
         if (accounts[0] === connectedWallet || !walletConnected) {
-            return;
-        }
-
-        const tabsDuplicated = { ...tabs };
-        let ready = 0;
-
-        const updateTabs = () => {
-            if (ready === Object.keys(tabs).length) {
-                setTabs(tabsDuplicated);
-            }
-        }
+            return
+        };
 
         setConnectedWallet(accounts[0]);
 
-        tabsDuplicated.connect.done = walletConnected;
-        ++ready;
-        updateTabs();
-
-        mainApi.isPetApproved(accounts[0]).then(isApproved => {
-            setIsPetApproved(isApproved);
-            tabsDuplicated.pet.done = isApproved;
-            ++ready;
-            updateTabs();
-        });
-
-        ghstApi.isGhstApproved(accounts[0]).then(isApproved => {
-            setIsGhstApproved(isApproved);
-            tabsDuplicated.ghst.done = isApproved;
-            ++ready;
-            updateTabs();
-        });
-
-        autopetApi.getUsers().then(users => {
-            const isStaked = users.some(address => (
+        (async function loadData() {
+            const [petApproved, ghstApproved, users] = await Promise.all([
+                mainApi.isPetApproved(accounts[0]),
+                ghstApi.isGhstApproved(accounts[0]),
+                autopetApi.getUsers()
+            ]);
+            const ghstStaked = users.some(address => (
                 accounts[0].toLowerCase() === address.toLowerCase()
             ));
 
-            setIsStaked(isStaked);
-            tabsDuplicated.stake.done = isStaked;
-            ++ready;
-            updateTabs();
-        });
+            setIsPetApproved(petApproved);
+            setIsGhstApproved(ghstStaked || ghstApproved);
+            setIsStaked(ghstStaked);
+            setTabs(data => {
+                data.connect.done = walletConnected;
+                data.pet.done = petApproved;
+                data.ghst.done = ghstStaked || ghstApproved;
+                data.stake.done = ghstStaked;
+
+                return {...data}
+            })
+        })();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);

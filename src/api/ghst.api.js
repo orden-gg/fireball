@@ -11,7 +11,7 @@ const contract = ethersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');
 export default {
     async approveGhst(isApproved) {
         const writeContract = ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
-        const maxSpend = isApproved ? '999999999999' : '0';
+        const maxSpend = isApproved ? '100' : '0';
         const transaction = await writeContract.approve(
             AUTOPET_CONTRACT,
             ethers.utils.parseUnits(maxSpend)
@@ -24,8 +24,8 @@ export default {
 
     isGhstApproved(address) {
         return contract.allowance(address, AUTOPET_CONTRACT).then(allowance => (
-            ethers.utils.formatUnits(allowance._hex) >= 100
-        ));
+            Number(ethers.utils.formatUnits(allowance._hex)) >= 100
+        ))
     },
 
     getBalanceOf(address) {
@@ -41,7 +41,7 @@ export default {
 
     async oldApproveGhst(isApproved) {
         const writeContract = ethersApi.makeContractWithSigner(GHST_CONTRACT, GHST_ABI);
-        const maxSpend = isApproved ? '999999999999' : '0';
+        const maxSpend = isApproved ? '100' : '0';
         const transaction = await writeContract.approve(
             OLD_AUTOPET_CONTRACT,
             ethers.utils.parseUnits(maxSpend)
