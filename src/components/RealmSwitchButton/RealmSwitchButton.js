@@ -1,7 +1,5 @@
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import { Switch } from '@mui/material';
 
 import qs from 'query-string';
@@ -22,12 +20,8 @@ export default function RealmSwitchButton({ view }) {
         let path = view === 'list' ? 'map' : 'list';
         let url = `${match.url}/${path}`;
 
-        console.log('🪂', params)
-        console.log('🌴', path)
-        console.log('📃', url)
-
         history.push({
-            path: url,
+            pathname: url,
             search: qs.stringify(params)
         });
     }

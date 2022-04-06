@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
@@ -16,7 +16,6 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 import LoginNavigation from 'components/Login/LoginNavigation';
 import PageNav from 'components/PageNav/PageNav';
-import ClientNav from './components/ClientNav';
 
 import styles from './styles';
 
@@ -81,8 +80,6 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <ClientNav />
-
                     <PageNav
                         links={navData}
                         query={`?address=${clientActive}`}

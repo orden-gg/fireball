@@ -34,7 +34,7 @@ export default function PageNav({ links, query }) {
                                 className={classes.button}
                                 activeClassName='active'
                                 to={{
-                                    pathname: `${match.url}/${link.name}${link.subroute ? link.subroute : ''}`,
+                                    pathname: `${match.url}/${link.name}`,
                                     search: query ? query : ''
                                 }}
                             >

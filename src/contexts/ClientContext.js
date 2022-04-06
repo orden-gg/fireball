@@ -59,8 +59,7 @@ const ClientContextProvider = (props) => {
             name: 'realm',
             icon: realmIcon,
             loading: loadingRealm,
-            items: realm.length,
-            subroute: '/map'
+            items: realm.length
         }
     ];
 
