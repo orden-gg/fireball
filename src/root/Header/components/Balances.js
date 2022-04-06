@@ -26,13 +26,13 @@ export default function Balances() {
                     ( isBalancesLoading ?
                         <ContentLoader
                             speed={2}
-                            viewBox='0 0 28 14'
-                            backgroundColor={theme.palette.secondary.main}
-                            foregroundColor={theme.palette.primary.dark}
+                            viewBox='0 0 55 20'
+                            backgroundColor={theme.palette.secondary.dark}
+                            foregroundColor={'#16181a'}
                             className={classes.balanceLoader}
                             key={index}
                         >
-                            <rect x='0' y='0' width='28' height='14' />
+                            <rect x='0' y='0' width='55' height='20' />
                         </ContentLoader> :
                         <CustomTooltip
                             title={

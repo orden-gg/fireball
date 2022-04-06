@@ -8,9 +8,13 @@ const styles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     balanceLoader: {
-        minWidth: 50,
-        height: 14,
-        padding: '0px 6px'
+        width: 50,
+        height: 20,
+        borderRadius: 4,
+        overflow: 'hidden',
+        '& + $balanceLoader': {
+            marginLeft: 6
+        },
     },
     balance: {
         minWidth: 50,
