@@ -23,6 +23,7 @@ import {
     clientParselQuery,
     listedParcelQuery,
     lendingsQuery,
+    lendingsByAddressQuery,
     getParcelHistoricalPricesQuery
 } from './common/queries';
 
@@ -442,5 +443,30 @@ export default {
 
             return filteredArray;
         }).catch(e => console.log(e));
+    },
+
+    async getLendingsByAddress(address) {
+        function getQueries() {
+            let queries = [];
+
+            for (let i = 0; i < 1; i++) {
+                queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000))
+            }
+
+            return queries;
+        }
+
+        return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
+            console.log(response)
+            let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+                ...item,
+                ...item.gotchi,
+                lendingId: item.id
+            }));
+
+            console.log(filteredArray)
+
+            return filteredArray;
+        });
     },
 }

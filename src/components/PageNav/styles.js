@@ -3,7 +3,7 @@ import { alpha } from '@mui/material';
 
 const styles = makeStyles(theme => ({
     container: {
-        margin: theme.spacing(1, 0),
+        marginBottom: theme.spacing(1),
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

@@ -137,6 +137,7 @@ export default function Lend() {
                     render = {[
                         {
                             badges: [
+                                'collateral',
                                 'rs',
                                 'kinship'
                             ]

@@ -426,6 +426,47 @@ export const lendingsQuery = (skip, orderDir) => {
         gotchi {
             id
             name
+            collateral
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
+      }
+    }`
+};
+
+export const lendingsByAddressQuery = (address, skip) => {
+    return `{
+      gotchiLendings(
+        first: 1000,
+        skip: ${skip},
+        where:{
+            lender: "${address}",
+            borrower_not: "0x0000000000000000000000000000000000000000",
+            cancelled: false,
+            completed: false
+        }
+      ) {
+        id
+        timeCreated
+        timeAgreed
+        rentDuration
+        upfrontCost
+        period
+        lastClaimed
+        completed
+        gotchi {
+            id
+            name
+            collateral
             kinship
             hauntId
             baseRarityScore

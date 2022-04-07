@@ -20,6 +20,9 @@ const ClientContextProvider = (props) => {
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
+    const [lendings, setLendings] = useState([]);
+    const [lendingsFilter, setLendingsFilter] = useState('modifiedRarityScore');
+
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
@@ -44,6 +47,12 @@ const ClientContextProvider = (props) => {
             items: gotchis.length
         },
         {
+            name: 'lendings',
+            icon: gotchiIcon,
+            loading: loadingGotchis,
+            items: lendings.length
+        },
+        {
             name: 'warehouse',
             icon: warehouseIcon,
             loading: loadingWarehouse,
@@ -65,6 +74,7 @@ const ClientContextProvider = (props) => {
 
     const getClientData = () => {
         getGotchis(clientActive);
+        getLendings(clientActive);
         getInventory(clientActive);
         getTickets(clientActive);
         getRealm(clientActive);
@@ -159,6 +169,13 @@ const ClientContextProvider = (props) => {
             setLoadingGotchis(false);
         });
     };
+
+    const getLendings = (address) => {
+        thegraph.getLendingsByAddress(address).then((response) => {
+            console.log('👻', response)
+            setLendings(response);
+        });
+    }
 
     const getInventory = (address) => {
         setLoadingWarehouse(true);
@@ -258,6 +275,10 @@ const ClientContextProvider = (props) => {
             gotchisFilter,
             loadingGotchis,
             setGotchis,
+
+            lendings,
+            lendingsFilter,
+            setLendings,
 
             warehouse,
             warehouseFilter,
