@@ -18,7 +18,7 @@ const ClientContextProvider = (props) => {
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
-    const [gotchisSorting, setGotchisSorting] = useState(['experience', 'desc'])
+    const [gotchisSorting, setGotchisSorting] = useState(['modifiedRarityScore', 'desc'])
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);

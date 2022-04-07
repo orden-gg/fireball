@@ -10,7 +10,7 @@ import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 import commonUtils from 'utils/commonUtils';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 
-import { GotchiSortingStyles } from './styles';
+import { LazySortingStyles } from './styles';
 
 const directions = [
     {
@@ -27,16 +27,10 @@ const directions = [
     }
 ];
 
-export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults, setSorting }) {
-    const classes = GotchiSortingStyles();
+export default function LazySorting({ items, setItems, sortingList, setSorting, defaults }) {
+    const classes = LazySortingStyles();
 
     const [sorting, direction] = defaults;
-
-    console.log('sorting', sorting)
-    console.log('direction', direction)
-
-    // const [sorting, setSorting] = useState(defaults[0]);
-    // const [direction, setDirection] = useState(defaults[1]);
 
     const onSortChange = (event, value) => {
         if (!value) {
@@ -44,7 +38,7 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults,
         }
 
         setSorting([value, direction]);
-        sortGotchis(value, direction);
+        sortItems(value, direction);
     };
 
     const onDirectionChange = (event, value) => {
@@ -53,13 +47,13 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults,
         }
 
         setSorting([sorting, value]);
-        sortGotchis(sorting, value);
+        sortItems(sorting, value);
     };
 
-    const sortGotchis = (filter, dir) => {
-        const sorted = commonUtils.basicSort(gotchis, filter, dir);
+    const sortItems = (filter, dir) => {
+        const sorted = commonUtils.basicSort(items, filter, dir);
 
-        setGotchis(sorted);
+        setItems(sorted);
     };
 
     return (
@@ -69,7 +63,7 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults,
                     value={sorting}
                     onChange={(event, value) => onSortChange(event, value)}
                     aria-label='sorting'
-                    list={sortings}
+                    list={sortingList}
                 />
 
                 <Divider flexItem orientation='vertical' sx={{ mx: 0.5, my: 1 }} />
@@ -82,8 +76,8 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults,
                 />
             </div>
 
-            {gotchis.length > 0 && <div className={classNames(classes.inner, classes.results)}>
-                {gotchis.length}
+            {items.length > 0 && <div className={classNames(classes.inner, classes.results)}>
+                {items.length}
                 <img src={gotchiPlaceholder} alt='placeholder' width={20} height={20} />
             </div>}
         </div>

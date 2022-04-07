@@ -7,7 +7,7 @@ import { ContentInnerStyles } from './style';
 
 export default function ContentInner({ children, dataLoading, offset }) {
     const classes = ContentInnerStyles();
-    const contentOffset = offset || 168;
+    const contentOffset = offset || 248;
 
     return (
         <div className={classNames(classes.content, dataLoading && 'loading')} style={{ height: `calc(100vh - ${contentOffset}px)`, }}>

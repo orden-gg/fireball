@@ -7,7 +7,7 @@ import ScienceIcon from '@mui/icons-material/Science';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import ContentInner from 'components/Content/ContentInner';
-import GotchiSorting from 'components/Filters/GotchiSorting';
+import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
@@ -36,18 +36,18 @@ const sortings = [
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
     },
-    {
-        name: 'experience',
-        key: 'experience',
-        tooltip: 'experience',
-        icon: <ScienceIcon fontSize='small' />
-    },
-    {
-        name: 'age',
-        key: 'createdAt',
-        tooltip: 'age',
-        icon: <CalendarMonthIcon fontSize='small' />
-    }
+    // {
+    //     name: 'experience',
+    //     key: 'experience',
+    //     tooltip: 'experience',
+    //     icon: <ScienceIcon fontSize='small' />
+    // },
+    // {
+    //     name: 'age',
+    //     key: 'createdAt',
+    //     tooltip: 'age',
+    //     icon: <CalendarMonthIcon fontSize='small' />
+    // }
 ];
 
 export default function ClientLendings() {
@@ -61,15 +61,15 @@ export default function ClientLendings() {
 
     return (
         <>
-            <GotchiSorting
-                gotchis={lendings}
-                setGotchis={setLendings}
-                defaults={lendingsSorting}
+            <LazySorting
+                items={lendings}
+                setItems={setLendings}
+                sortingList={sortings}
                 setSorting={setLendingsSorting}
-                sortings={sortings}
+                defaults={lendingsSorting}
             />
 
-            <ContentInner dataLoading={loadingGotchis} offset={247}>
+            <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
                     items={lendings}
                     render = {[

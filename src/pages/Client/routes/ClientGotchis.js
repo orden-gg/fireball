@@ -7,7 +7,7 @@ import ScienceIcon from '@mui/icons-material/Science';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import ContentInner from 'components/Content/ContentInner';
-import GotchiSorting from 'components/Filters/GotchiSorting';
+import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
@@ -61,14 +61,15 @@ export default function ClientGotchis() {
 
     return (
         <>
-            <GotchiSorting
-                gotchis={gotchis}
-                setGotchis={setGotchis}
-                defaults={gotchisSorting}
+            <LazySorting
+                items={gotchis}
+                setItems={setGotchis}
+                sortingList={sortings}
                 setSorting={setGotchisSorting}
-                sortings={sortings}
+                defaults={gotchisSorting}
             />
-            <ContentInner dataLoading={loadingGotchis} offset={247}>
+
+            <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
                     items={gotchis}
                     render = {[

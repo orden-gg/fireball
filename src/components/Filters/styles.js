@@ -10,7 +10,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const GotchiSortingStyles = makeStyles(theme => ({
+const LazySortingStyles = makeStyles(theme => ({
     container: {
         alignItems: 'center',
         display: 'flex',
@@ -31,5 +31,5 @@ const GotchiSortingStyles = makeStyles(theme => ({
 
 export {
     styles as default,
-    GotchiSortingStyles
+    LazySortingStyles
 }
