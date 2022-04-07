@@ -42,16 +42,18 @@ export default function AutopetSteps() {
     };
 
     useEffect(() => {
-        for (const [index, key] of Object.keys(tabs).entries()) {
-            if (!tabs[key].done) {
+        const keys = Object.keys(tabs);
+        const completeCount = keys.reduce(
+            (sum, key) => tabs[key].done ? 1 + sum : sum, 0
+        );
+
+        for (const [index, key] of keys.entries()) {
+            if (!tabs[key].done || index === keys.length - 1) {
                 setCurrentTab(index);
+
                 break;
             }
         }
-
-        const completeCount = Object.keys(tabs).reduce(
-            (sum, key) => tabs[key].done ? 1 + sum : sum, 0
-        );
 
         setProgress(completeCount)
     }, [tabs]);
