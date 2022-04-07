@@ -8,26 +8,39 @@ export const GuildsContext = createContext({});
 const GuildsContextProvider = (props) => {
     const [currentGuild, setCurrentGuild] = useState({});
     const [guildsData, setGuildsData] = useState(
-        [...guilds].reverse().sort(guild => guild.members.length ? -1 : 1)
+        JSON.parse(JSON.stringify(guilds)).map(guild => {
+            guild.members = guild.members.map(address => address.toLowerCase());
+
+            return guild;
+        })
+        .reverse()
+        .sort(guild => guild.members.length ? -1 : 1)
     );
 
     const setGotchisByGuild = gotchis => {
         setGuildsData(guildsState => {
-            return guildsState.map(guild => {
-                guild.gotchis = [];
+            const start = new Date();
 
-                guild.members = guild.members.map(address => address.toLowerCase());
+            for(let gotchi of gotchis) {
+                for(let guild of guildsState) {
+                    if(guild.members.length === 0) {
+                        guild.gotchis = [];
+                        continue;
+                    }
 
-                for(let gotchi of gotchis) {
+                    if(!guild.hasOwnProperty('gotchis')) {
+                        guild.gotchis = [];
+                    }
+
                     const isGuildGotchi = guild.members.includes(gotchi.owner.id);
 
                     if(isGuildGotchi) {
                         guild.gotchis.push(gotchi);
                     }
                 }
+            }
 
-                return guild;
-            })
+            return [...guildsState]
         });
     }
 
@@ -68,7 +81,7 @@ const GuildsContextProvider = (props) => {
 
                 setGotchisByGuild(gotchis);
             });
-        }, 1000);
+        }, 0);
 
         return () => destroyed = true;
         // eslint-disable-next-line react-hooks/exhaustive-deps
