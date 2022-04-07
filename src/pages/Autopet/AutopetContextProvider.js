@@ -115,7 +115,7 @@ const AutopetContextProvider = (props) => {
     const checkGhstSpend = async () => {
         const ghstApproved = await ghstApi.isGhstApproved(connectedWallet);
 
-        if(!ghstApproved) {
+        if (!ghstApproved) {
             setIsGhstApproved(ghstApproved);
             updateProgress('ghst', ghstApproved);
         }
@@ -135,16 +135,16 @@ const AutopetContextProvider = (props) => {
                 updateProgress('stake', approval);
                 showSnackbar('success', succesMessage);
 
-                if(!approval) {
-                    checkGhstSpend()
+                if (!approval) {
+                    checkGhstSpend();
                 }
             } else {
-                showSnackbar('error', errorMessage)
-            };
+                showSnackbar('error', errorMessage);
+            }
 
-            setStakeState('approve')
+            setStakeState('approve');
         } catch {
-            setStakeState('approve')
+            setStakeState('approve');
         }
     };
 
@@ -152,7 +152,7 @@ const AutopetContextProvider = (props) => {
         setTabs(data => {
             data[name].done = isApproved;
 
-            return {...data}
+            return {...data};
         });
     };
 
@@ -178,7 +178,7 @@ const AutopetContextProvider = (props) => {
         setIsUserConnected(walletConnected);
 
         if (accounts[0] === connectedWallet || !walletConnected) {
-            return
+            return;
         };
 
         setConnectedWallet(accounts[0]);
@@ -202,8 +202,8 @@ const AutopetContextProvider = (props) => {
                 data.ghst.done = ghstStaked || ghstApproved;
                 data.stake.done = ghstStaked;
 
-                return {...data}
-            })
+                return {...data};
+            });
         })();
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

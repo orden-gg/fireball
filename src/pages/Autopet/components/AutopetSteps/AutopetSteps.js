@@ -48,7 +48,7 @@ export default function AutopetSteps() {
         );
 
         for (const [index, key] of keys.entries()) {
-            if (!tabs[key].done || index === keys.length-1) {
+            if (!tabs[key].done || index === keys.length - 1) {
                 setCurrentTab(index);
 
                 break;

@@ -25,7 +25,7 @@ export default {
     isGhstApproved(address) {
         return contract.allowance(address, AUTOPET_CONTRACT).then(allowance => (
             Number(ethers.utils.formatUnits(allowance._hex)) >= 100
-        ))
+        ));
     },
 
     getBalanceOf(address) {
