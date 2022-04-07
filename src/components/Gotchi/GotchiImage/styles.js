@@ -12,7 +12,8 @@ const styles = makeStyles(theme => ({
         },
         '.narrowed &': {
             padding: 0,
-            marginTop: 5
+            marginTop: 5,
+            background: 'none'
         },
         '.horizontal &': {
             margin: '0 47px'

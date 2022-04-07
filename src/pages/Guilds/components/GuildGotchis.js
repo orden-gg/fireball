@@ -17,13 +17,6 @@ export default function GuildGotchis() {
                         gotchi={item}
                         narrowed={true}
                         render={[
-                            {
-                                badges: [
-                                    'owner',
-                                    'level',
-                                    'collateral'
-                                ]
-                            },
                             'svg',
                             'name'
                         ]}
