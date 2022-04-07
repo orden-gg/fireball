@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { GuildsContext } from 'contexts/GuildsContext';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
 import { guildDetailsStyles } from '../../styles';
 

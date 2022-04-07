@@ -1,26 +1,19 @@
 import React from 'react';
-import { Redirect, Route, Switch, useHistory, useRouteMatch } from 'react-router';
+import { Redirect, Route, Switch, useRouteMatch } from 'react-router';
 
-import GuildsContextProvider from 'contexts/GuildsContext';
+import GuildsContextProvider from 'pages/Guilds/GuildsContext';
 
 import Guild from './routes/Guild';
 import GuildsPreview from './routes/GuildsPreview';
 
 export default function Guilds() {
     const match = useRouteMatch();
-    const history = useHistory();
-
-    const backToGuilds = () => {
-        history.push(match.path);
-    }
 
     return (
         <GuildsContextProvider>
             <Switch>
                 <Route exact path={`${match.path}/`} component={GuildsPreview} />
-                <Route path={`${match.path}/:name`}>
-                    <Guild {...{backToGuilds}} />
-                </Route>
+                <Route path={`${match.path}/:name`} component={Guild} />
                 <Redirect from={match.path} to={match.path} />
             </Switch>
         </GuildsContextProvider>

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 
 import Gotchi from 'components/Gotchi/Gotchi';
-import { GuildsContext } from 'contexts/GuildsContext';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
 import { guildContentStyles } from '../styles';
 
 export default function GuildGotchis() {
     const classes = guildContentStyles();
-    const { guildGotchis } = useContext(GuildsContext);
+    const { currentGuild } = useContext(GuildsContext);
 
-    const renderGotchis = (gotchis) => {
-        return gotchis.map((item) => {
+    const renderGotchis = gotchis => {
+        return gotchis.map(item => {
             return (
                 <div key={item.id} className={classes.item}>
                     <Gotchi
@@ -25,7 +25,7 @@ export default function GuildGotchis() {
                                 ]
                             },
                             'svg',
-                            'name',
+                            'name'
                         ]}
                     />
                 </div>
@@ -35,7 +35,7 @@ export default function GuildGotchis() {
 
     return (
         <div className={classes.guildGotchis}>
-            {!!guildGotchis.length && renderGotchis(guildGotchis)}
+            {renderGotchis(currentGuild.gotchis || [])}
         </div>
     );
 }

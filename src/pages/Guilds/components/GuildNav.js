@@ -5,7 +5,7 @@ import { useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 
-import { GuildsContext } from 'contexts/GuildsContext';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 import realmPlaceholder from 'assets/images/icons/kek.png';
 
@@ -15,28 +15,26 @@ export default function GuildNav() {
     const match = useRouteMatch();
     const classes = guildNavStyles();
     const theme = useTheme();
-
-    const {
-        guildGotchis,
-        guildRealm
-    } = useContext(GuildsContext);
+    const { currentGuild } = useContext(GuildsContext);
 
     return (
         <div className={classes.container}>
             <div className={classes.navItem}>
                 <Button
-                    disabled={!guildGotchis.length}
+                    disabled={!currentGuild.gotchis}
                     startIcon={
                         <img src={gotchiPlaceholder} alt='gotchi' width={24} height={24} />
                     }
                     component={NavLink}
                     className={classes.button}
                     activeClassName='active'
-                    to={{ pathname: `${match.url}/gotchis`}}
+                    to={{pathname: `${match.url}/gotchis`}}
                 >
                     Gotchis
                     {
-                        !guildGotchis.length ? (
+                        currentGuild.gotchis ? (
+                            <span className={classes.label}>[{currentGuild.gotchis.length}]</span>
+                        ) : (
                             <ContentLoader
                                 speed={2}
                                 viewBox='0 0 28 14'
@@ -46,26 +44,26 @@ export default function GuildNav() {
                             >
                                 <rect x='0' y='0' width='28' height='14' />
                             </ContentLoader>
-                        ) : (
-                            <span className={classes.label}>[{guildGotchis.length}]</span>
                         )
                     }
                 </Button>
             </div>
             <div className={classes.navItem}>
                 <Button
-                    disabled={!guildRealm.length}
+                    disabled={!currentGuild.realm}
                     startIcon={
                         <img src={realmPlaceholder} alt='gotchi' width={20} />
                     }
                     component={NavLink}
                     className={classes.button}
                     activeClassName='active'
-                    to={{ pathname: `${match.url}/realm` }}
+                    to={{pathname: `${match.url}/realm`}}
                 >
                     Realm
                     {
-                        !guildRealm.length ? (
+                        currentGuild.realm ? (
+                            <span className={classes.label}>[{currentGuild.realm.length}]</span>
+                        ) : (
                             <ContentLoader
                                 speed={2}
                                 viewBox='0 0 28 14'
@@ -75,8 +73,6 @@ export default function GuildNav() {
                             >
                                 <rect x='0' y='0' width='28' height='14' />
                             </ContentLoader>
-                        ) : (
-                            <span className={classes.label}>[{guildRealm.length}]</span>
                         )
                     }
                 </Button>

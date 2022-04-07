@@ -4,7 +4,6 @@ const guilds = [
         logo: require('../assets/images/guilds/ordenGG.svg').default,
         members: [
             '0xc46d3c9d93febdd5027c9b696fe576dc654c66de',
-            '0xf1d88980505e00db65609ec5420f40c3eb1b77fd',
             '0x4E7bf3694962fC482a16D60FD78f99db9C4C52B0',
             '0xADA8aA2777825bc615C5F12126F8bf275E2245e5',
             '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667',
