@@ -46,7 +46,7 @@ export default function GotchisLazy({ items, render }) {
     return (
         <VirtuosoGrid
             ref={gridRef}
-            style={{ height: 'calc(100% - 40px)' }}
+            style={{ height: '100%' }}
             totalCount={items.length}
             components={{
                 List: ListContainer,

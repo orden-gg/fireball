@@ -18,10 +18,12 @@ const ClientContextProvider = (props) => {
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
+    const [gotchisSorting, setGotchisSorting] = useState(['experience', 'desc'])
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);
     const [lendingsFilter, setLendingsFilter] = useState('modifiedRarityScore');
+    const [lendingsSorting, setLendingsSorting] = useState(['kinship', 'asc'])
 
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
@@ -120,7 +122,8 @@ const ClientContextProvider = (props) => {
 
         thegraph.getGotchisByAddress(address).then((response)=> {
             let wearables = [];
-            let [gFilter, gDir] = getFilter(gotchisFilter);
+            // let [gFilter, gDir] = getFilter(gotchisFilter);
+            let [gFilter, gDir] = gotchisSorting;
             let [wFilter, wDir] = getFilter(warehouseFilter);
 
             // collect all equipped wearables
@@ -172,8 +175,9 @@ const ClientContextProvider = (props) => {
 
     const getLendings = (address) => {
         thegraph.getLendingsByAddress(address).then((response) => {
-            console.log('👻', response)
-            setLendings(response);
+            let [lFilter, lDir] = lendingsSorting;
+
+            setLendings(commonUtils.basicSort(response, lFilter, lDir));
         });
     }
 
@@ -273,12 +277,16 @@ const ClientContextProvider = (props) => {
 
             gotchis,
             gotchisFilter,
+            gotchisSorting,
             loadingGotchis,
             setGotchis,
+            setGotchisSorting,
 
             lendings,
             lendingsFilter,
+            lendingsSorting,
             setLendings,
+            setLendingsSorting,
 
             warehouse,
             warehouseFilter,

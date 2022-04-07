@@ -5,11 +5,12 @@ import classNames from 'classnames';
 
 import { ContentInnerStyles } from './style';
 
-export default function ContentInner({ children, dataLoading }) {
+export default function ContentInner({ children, dataLoading, offset }) {
     const classes = ContentInnerStyles();
+    const contentOffset = offset || 168;
 
     return (
-        <div className={classNames(classes.content, dataLoading && 'loading')}>
+        <div className={classNames(classes.content, dataLoading && 'loading')} style={{ height: `calc(100vh - ${contentOffset}px)`, }}>
             {!dataLoading ? (
                 <>
                     {children}

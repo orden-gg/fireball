@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        padding: '6px 24px 24px',
+        padding: '6px 24px 0',
         display: 'flex',
         flexDirection: 'column'
     },

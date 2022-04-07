@@ -27,17 +27,23 @@ const directions = [
     }
 ];
 
-export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSorting }) {
+export default function GotchiSorting({ gotchis, setGotchis, sortings, defaults, setSorting }) {
     const classes = GotchiSortingStyles();
-    const [sorting, setSorting] = useState(defaultSorting);
-    const [direction, setDirection] = useState('desc');
+
+    const [sorting, direction] = defaults;
+
+    console.log('sorting', sorting)
+    console.log('direction', direction)
+
+    // const [sorting, setSorting] = useState(defaults[0]);
+    // const [direction, setDirection] = useState(defaults[1]);
 
     const onSortChange = (event, value) => {
         if (!value) {
             return;
         }
 
-        setSorting(value);
+        setSorting([value, direction]);
         sortGotchis(value, direction);
     };
 
@@ -46,7 +52,7 @@ export default function GotchiSorting({ gotchis, setGotchis, sortings, defaultSo
             return;
         }
 
-        setDirection(value);
+        setSorting([sorting, value]);
         sortGotchis(sorting, value);
     };
 

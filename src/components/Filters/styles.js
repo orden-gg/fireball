@@ -16,7 +16,8 @@ const GotchiSortingStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         background: alpha('#000', .2),
-        borderRadius: '4px 4px 0 0'
+        borderRadius: '4px 4px 0 0',
+        height: 40
     },
     inner: {
         display: 'flex',
