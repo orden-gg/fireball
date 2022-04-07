@@ -17,16 +17,13 @@ const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
 
     const [gotchis, setGotchis] = useState([]);
-    const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
     const [gotchisSorting, setGotchisSorting] = useState(['modifiedRarityScore', 'desc']);
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);
-    const [lendingsFilter, setLendingsFilter] = useState('modifiedRarityScore');
     const [lendingsSorting, setLendingsSorting] = useState(['kinship', 'asc']);
 
     const [warehouse, setWarehouse] = useState([]);
-    const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
     const [warehouseSorting, setWarehouseSorting] = useState(['rarityId', 'desc']);
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
@@ -34,7 +31,6 @@ const ClientContextProvider = (props) => {
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
-    const [realmFilter, setRealmFilter] = useState(null);
     const [realmSorting, setRealmSorting] = useState(['size', 'asc']);
     const [loadingRealm, setLoadingRealm] = useState(true);
 
@@ -87,36 +83,6 @@ const ClientContextProvider = (props) => {
         setWarehouse([]);
         setReward(null);
         setRewardCalculated(false);
-        setGotchisFilter('modifiedRarityScore'); // prevent reward sorting to be selected
-    };
-
-    const getFilter = (filter) => {
-        let asc = filter?.includes('Asce');
-        let desc = filter?.includes('Desc');
-        let dir = 'desc';
-        let modified = filter;
-
-        if (asc || desc) {
-            modified = filter.slice(0, -4);
-            asc ? dir = 'asc' : dir = 'desc';
-        }
-
-        return [modified, dir];
-    }
-
-    const sortData = (event, newFilter, setter) => {
-        const [filter, dir] = getFilter(newFilter);
-
-        if (setter === 'gotchis') {
-            setGotchis(commonUtils.basicSort(gotchis, filter, dir));
-            setGotchisFilter(newFilter);
-        } else if (setter === 'warehouse') {
-            setWarehouse(commonUtils.basicSort(warehouse, filter, dir));
-            setWarehouseFilter(newFilter);
-        } else if (setter === 'realm') {
-            setRealm(commonUtils.basicSort(realm, filter, dir));
-            setRealmFilter(newFilter);
-        }
     };
 
     const getGotchis = (address) => {
@@ -280,20 +246,17 @@ const ClientContextProvider = (props) => {
             setClientActive,
 
             gotchis,
-            gotchisFilter,
             gotchisSorting,
             loadingGotchis,
             setGotchis,
             setGotchisSorting,
 
             lendings,
-            lendingsFilter,
             lendingsSorting,
             setLendings,
             setLendingsSorting,
 
             warehouse,
-            warehouseFilter,
             warehouseSorting,
             loadingWarehouse,
             setWarehouse,
@@ -303,7 +266,6 @@ const ClientContextProvider = (props) => {
             loadingTickets,
 
             realm,
-            realmFilter,
             realmView,
             realmSorting,
             loadingRealm,
@@ -317,9 +279,7 @@ const ClientContextProvider = (props) => {
             calculateReward,
 
             navData,
-
             getClientData,
-            sortData
         }}>
             { props.children }
         </ClientContext.Provider>
