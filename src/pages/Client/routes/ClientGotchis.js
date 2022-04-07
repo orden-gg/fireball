@@ -10,6 +10,7 @@ import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
+import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
 
 const sortings = [
     {
@@ -67,6 +68,14 @@ export default function ClientGotchis() {
                 sortingList={sortings}
                 setSorting={setGotchisSorting}
                 defaults={gotchisSorting}
+                placeholder={
+                    <img
+                        src={gotchiIcon}
+                        alt='gotchi'
+                        width={20}
+                        height={20}
+                    />
+                }
             />
 
             <ContentInner dataLoading={loadingGotchis}>

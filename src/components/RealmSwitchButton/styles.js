@@ -6,8 +6,8 @@ import listSvg from 'assets/images/icons/list.svg';
 const styles = makeStyles(theme => ({
     button: {
         position: 'absolute',
-        top: 74,
-        right: 0,
+        top: 84,
+        right: 4,
         width: 62,
         height: 34,
         padding: 7,

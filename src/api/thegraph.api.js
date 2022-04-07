@@ -457,14 +457,11 @@ export default {
         }
 
         return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
-            console.log(response)
             let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
                 ...item,
                 ...item.gotchi,
                 lendingId: item.id
             }));
-
-            console.log(filteredArray)
 
             return filteredArray;
         });

@@ -23,9 +23,9 @@ const theme = createTheme({
         },
         rarity: {
             common: '#7257FF',
-            uncommon: '#00CEB3',
+            uncommon: '#33bacc',
             rare: '#00C0FF',
-            legendary: '#FBB710',
+            legendary: '#ffc36b',
             mythical: '#FF67FF',
             godlike: '#00E994',
             drop: 'rgb(0, 0, 0)'

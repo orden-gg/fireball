@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 import commonUtils from 'utils/commonUtils';
-import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 
 import { LazySortingStyles } from './styles';
 
@@ -27,7 +26,7 @@ const directions = [
     }
 ];
 
-export default function LazySorting({ items, setItems, sortingList, setSorting, defaults }) {
+export default function LazySorting({ items, setItems, sortingList, setSorting, defaults, placeholder }) {
     const classes = LazySortingStyles();
 
     const [sorting, direction] = defaults;
@@ -77,8 +76,8 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
             </div>
 
             {items.length > 0 && <div className={classNames(classes.inner, classes.results)}>
-                {items.length}
-                <img src={gotchiPlaceholder} alt='placeholder' width={20} height={20} />
+                <span>{items.length}</span>
+                <span className={classes.placeholder}>{placeholder}</span>
             </div>}
         </div>
     )

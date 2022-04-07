@@ -3,13 +3,12 @@ import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import ScienceIcon from '@mui/icons-material/Science';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
+import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
 
 const sortings = [
     {
@@ -35,19 +34,7 @@ const sortings = [
         key: 'kinship',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
-    },
-    // {
-    //     name: 'experience',
-    //     key: 'experience',
-    //     tooltip: 'experience',
-    //     icon: <ScienceIcon fontSize='small' />
-    // },
-    // {
-    //     name: 'age',
-    //     key: 'createdAt',
-    //     tooltip: 'age',
-    //     icon: <CalendarMonthIcon fontSize='small' />
-    // }
+    }
 ];
 
 export default function ClientLendings() {
@@ -67,6 +54,14 @@ export default function ClientLendings() {
                 sortingList={sortings}
                 setSorting={setLendingsSorting}
                 defaults={lendingsSorting}
+                placeholder={
+                    <img
+                        src={gotchiIcon}
+                        alt='gotchi'
+                        width={20}
+                        height={20}
+                    />
+                }
             />
 
             <ContentInner dataLoading={loadingGotchis}>

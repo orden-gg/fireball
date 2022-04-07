@@ -18,15 +18,16 @@ const ClientContextProvider = (props) => {
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
-    const [gotchisSorting, setGotchisSorting] = useState(['modifiedRarityScore', 'desc'])
+    const [gotchisSorting, setGotchisSorting] = useState(['modifiedRarityScore', 'desc']);
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);
     const [lendingsFilter, setLendingsFilter] = useState('modifiedRarityScore');
-    const [lendingsSorting, setLendingsSorting] = useState(['kinship', 'asc'])
+    const [lendingsSorting, setLendingsSorting] = useState(['kinship', 'asc']);
 
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
+    const [warehouseSorting, setWarehouseSorting] = useState(['rarityId', 'desc']);
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [tickets, setTickets] = useState([]);
@@ -34,6 +35,7 @@ const ClientContextProvider = (props) => {
 
     const [realm, setRealm] = useState([]);
     const [realmFilter, setRealmFilter] = useState(null);
+    const [realmSorting, setRealmSorting] = useState(['size', 'asc']);
     const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
@@ -103,7 +105,7 @@ const ClientContextProvider = (props) => {
     }
 
     const sortData = (event, newFilter, setter) => {
-        let [filter, dir] = getFilter(newFilter);
+        const [filter, dir] = getFilter(newFilter);
 
         if (setter === 'gotchis') {
             setGotchis(commonUtils.basicSort(gotchis, filter, dir));
@@ -121,10 +123,9 @@ const ClientContextProvider = (props) => {
         setLoadingGotchis(true);
 
         thegraph.getGotchisByAddress(address).then((response)=> {
-            let wearables = [];
-            // let [gFilter, gDir] = getFilter(gotchisFilter);
-            let [gFilter, gDir] = gotchisSorting;
-            let [wFilter, wDir] = getFilter(warehouseFilter);
+            const wearables = [];
+            const [gFilter, gDir] = gotchisSorting;
+            const [wFilter, wDir] = warehouseSorting;
 
             // collect all equipped wearables
             response.forEach((item) => {
@@ -175,9 +176,9 @@ const ClientContextProvider = (props) => {
 
     const getLendings = (address) => {
         thegraph.getLendingsByAddress(address).then((response) => {
-            let [lFilter, lDir] = lendingsSorting;
+            const [sort, direction] = lendingsSorting;
 
-            setLendings(commonUtils.basicSort(response, lFilter, lDir));
+            setLendings(commonUtils.basicSort(response, sort, direction));
         });
     }
 
@@ -185,8 +186,8 @@ const ClientContextProvider = (props) => {
         setLoadingWarehouse(true);
 
         mainApi.getInventoryByAddress(address).then((response) => {
-            let modified = [];
-            let [wFilter, wDir] = getFilter(warehouseFilter);
+            const modified = [];
+            const [wFilter, wDir] = warehouseSorting;
 
             response.items.forEach((item) => {
                 modified.push({
@@ -223,7 +224,8 @@ const ClientContextProvider = (props) => {
         setLoadingTickets(true);
 
         ticketsApi.getTicketsByAddress(address).then((response) => {
-            let modified = response.filter((item) => item.balance > 0);
+            const modified = response.filter((item) => item.balance > 0);
+
             setTickets(modified);
             setLoadingTickets(false);
         }).catch((error) => {
@@ -235,7 +237,9 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address).then((response) => {
-            setRealm(response);
+            const [sort, direction] = realmSorting;
+
+            setRealm(commonUtils.basicSort(response, sort, direction));
             setLoadingRealm(false);
         }).catch((error) => {
             console.log(error);
@@ -290,18 +294,22 @@ const ClientContextProvider = (props) => {
 
             warehouse,
             warehouseFilter,
+            warehouseSorting,
             loadingWarehouse,
             setWarehouse,
+            setWarehouseSorting,
 
             tickets,
             loadingTickets,
 
             realm,
             realmFilter,
+            realmView,
+            realmSorting,
             loadingRealm,
             setRealm,
-            realmView,
             setRealmView,
+            setRealmSorting,
 
             reward,
             rewardCalculated,
