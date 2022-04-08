@@ -471,6 +471,7 @@ export const lendingsByAddressQuery = (address, skip) => {
             hauntId
             baseRarityScore
             modifiedRarityScore
+            escrow
         }
         lender
         borrower
@@ -481,4 +482,22 @@ export const lendingsByAddressQuery = (address, skip) => {
         splitOwner
       }
     }`
+};
+
+export const incomeQuery = (id, timestamp) => {
+    return `{
+        vortexClaims(
+            first: 1000,
+            where:{
+                gotchiId: "${id}",
+                timestamp_gt: "${timestamp}"
+            }
+        ) {
+          gotchiId
+          FUDAmount
+          FOMOAmount
+          ALPHAAmount
+          KEKAmount
+        }
+      }`
 };

@@ -24,13 +24,15 @@ import {
     listedParcelQuery,
     lendingsQuery,
     lendingsByAddressQuery,
-    getParcelHistoricalPricesQuery
+    getParcelHistoricalPricesQuery,
+    incomeQuery
 } from './common/queries';
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
+const income = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 
 // TODO: temporary lend graph
 // const lend = 'https://api.thegraph.com/subgraphs/name/nicolasnin/lendinggotchi';
@@ -49,7 +51,8 @@ const clientFactory = (() => {
         raffleClient: createClient(raffle),
         svgsClient: createClient(gotchiSVGs),
         realmClient: createClient(realm),
-        lendClient: createClient(lend)
+        lendClient: createClient(lend),
+        incomeClient: createClient(income),
     }
 })();
 
@@ -465,5 +468,38 @@ export default {
 
             return filteredArray;
         });
+    },
+
+    async getIncomeById(id, timestamp) {
+        return await getGraphData(clientFactory.incomeClient, incomeQuery(id, timestamp)).then((response) => {
+            const data = response.data.vortexClaims;
+
+            if (!data.length) { // return 0 income if there are no records
+                return {
+                    FUDAmount: 0,
+                    FOMOAmount: 0,
+                    ALPHAAmount: 0,
+                    KEKAmount: 0
+                }
+            }
+
+            const combined = data.reduce(function(acc, x) {
+                for (var key in x) {
+                    if(key === 'gotchiId' || key === '__typename') {
+                        break;
+                    }
+
+                    acc[key] = acc[key] ? (
+                        acc[key] + ethersApi.fromWei(x[key].toString())
+                    ) : (
+                        ethersApi.fromWei(x[key].toString())
+                    )
+                }
+
+                return acc;
+            }, {});
+
+            return combined;
+        }).catch(e => console.log(e));
     },
 }

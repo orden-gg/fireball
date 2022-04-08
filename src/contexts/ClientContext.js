@@ -10,6 +10,9 @@ import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
 import warehouseIcon from 'assets/images/wearables/15.svg';
 import ticketsIcon from 'assets/images/tickets/rare.svg';
 import realmIcon from 'assets/images/icons/kek.png';
+import thegraphApi from 'api/thegraph.api';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
+import { DateTime } from 'luxon';
 
 export const ClientContext = createContext({});
 
@@ -21,7 +24,8 @@ const ClientContextProvider = (props) => {
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);
-    const [lendingsSorting, setLendingsSorting] = useState(['kinship', 'asc']);
+    const [lendingsSorting, setLendingsSorting] = useState(['totalTokens', 'desc']);
+    const [loadingLendings, setLoadingLendings] = useState(true);
 
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseSorting, setWarehouseSorting] = useState(['rarityId', 'desc']);
@@ -31,7 +35,7 @@ const ClientContextProvider = (props) => {
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
-    const [realmSorting, setRealmSorting] = useState(['size', 'asc']);
+    const [realmSorting, setRealmSorting] = useState(['size', 'desc']);
     const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
@@ -141,11 +145,34 @@ const ClientContextProvider = (props) => {
     };
 
     const getLendings = (address) => {
-        thegraph.getLendingsByAddress(address).then((response) => {
-            const [sort, direction] = lendingsSorting;
+        setLoadingLendings(true);
 
-            setLendings(commonUtils.basicSort(response, sort, direction));
-        });
+        thegraph.getLendingsByAddress(address)
+            .then(lendings => lendings)
+            .then(response => {
+                const balancesRequest = [];
+                const [sort, direction] = lendingsSorting;
+
+                for (let i = 0; i < response.length; i++) {
+                    balancesRequest.push(thegraphApi.getIncomeById(response[i].id, response[i].timeAgreed));
+                }
+
+                Promise.all(balancesRequest).then(balances => {
+                    balances.forEach((balance, i) => {
+                        response[i].fud = balance.FUDAmount;
+                        response[i].fomo = balance.FOMOAmount;
+                        response[i].alpha = balance.ALPHAAmount;
+                        response[i].kek = balance.KEKAmount;
+                        response[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
+                        response[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
+                        response[i].endTime = parseInt(response[i].timeAgreed) + parseInt(response[i].period)
+                    });
+
+                    setLendings(commonUtils.basicSort(response, sort, direction));
+                    setLoadingLendings(false);
+                });
+            }
+        );
     }
 
     const getInventory = (address) => {
@@ -253,6 +280,7 @@ const ClientContextProvider = (props) => {
 
             lendings,
             lendingsSorting,
+            loadingLendings,
             setLendings,
             setLendingsSorting,
 

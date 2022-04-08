@@ -39,7 +39,7 @@ const theme = createTheme({
         },
         alchemica: {
             fud: 'rgb(0, 255, 0)',
-            fomo: 'rgb(255, 30, 0)',
+            fomo: '#F37721',
             alpha: 'rgb(55, 255, 255)',
             kek: '#fa34f3'
         },

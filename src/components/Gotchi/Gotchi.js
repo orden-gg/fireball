@@ -1,6 +1,7 @@
 import React from 'react';
-
 import classNames from 'classnames';
+
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
 import GotchiOwner from './GotchiOwner/GotchiOwner';
@@ -14,10 +15,10 @@ import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
 import GotchiRs from './GotchiRs/GotchiRs';
 import GotchiKinship from './GotchiKinship/GotchiKinship';
 import GotchiLending from './GotchiLending/GotchiLending';
+import GotchiLendingStats from './GotchiLendingStats/GotchiLendingStats';
 import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
 
 import styles from './styles';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
     const classes = styles();
@@ -138,6 +139,15 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
                 <GotchiLending
                     gotchi={gotchi}
                     key={`${gotchi.id}-lending`}
+                />
+            );
+        },
+
+        get lendingStats() {
+            return (
+                <GotchiLendingStats
+                    gotchi={gotchi}
+                    key={`${gotchi.id}-lending-stats`}
                 />
             );
         },

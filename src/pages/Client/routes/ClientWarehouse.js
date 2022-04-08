@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 import ContentInner from 'components/Content/ContentInner';
@@ -14,7 +14,7 @@ const sortings = [
         name: 'rarity',
         key: 'rarityId',
         tooltip: 'rarity',
-        icon: <ElectricBoltIcon fontSize='small' />
+        icon: <GrainIcon fontSize='small' />
     },
     {
         name: 'quantity',

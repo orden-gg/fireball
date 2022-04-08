@@ -11,13 +11,9 @@ import graphUtils from 'utils/graphUtils';
 import ghstIcon from 'assets/images/tokens/ghst.svg';
 
 import styles from './styles';
-import { DateTime } from 'luxon';
 
 export default function GotchiLending({ gotchi }) {
     const classes = styles();
-
-    // const local = DateTime.local();
-    const diff = +gotchi.timeAgreed + +gotchi.period;
 
     const periodToMillis = gotchi.period * 1000;
     const periodObject = Duration.fromMillis(periodToMillis).shiftTo('years', 'months', 'days', 'hours').normalize().toObject();
@@ -95,23 +91,6 @@ export default function GotchiLending({ gotchi }) {
                         />
                     )
                 })}
-            </div>
-
-            <div>
-                <span>Last: {gotchi.lastClaimed > 0 ? (
-                    <span style={{ color: 'cyan' }}>{DateTime.fromSeconds(+gotchi.lastClaimed).toRelative()}</span>
-                 ) : (
-                    <span style={{ color: 'red' }}>Never!</span>
-                    )}
-                </span>
-            </div>
-
-            <div>
-                <span>Over: {gotchi.timeAgreed ? (
-                    <span style={{ color: 'cyan' }}>{DateTime.fromSeconds(+diff).toRelative()}</span>
-                ) : (
-                    null
-                )}</span>
             </div>
 
             <ViewInAppButton link={`https://app.aavegotchi.com/lending/${gotchi.lendingId}`} />
