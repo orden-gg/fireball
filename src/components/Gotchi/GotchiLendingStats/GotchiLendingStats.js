@@ -4,9 +4,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import TimelineIcon from '@mui/icons-material/Timeline';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';

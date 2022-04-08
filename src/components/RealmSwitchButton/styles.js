@@ -46,9 +46,6 @@ const styles = makeStyles(theme => ({
         '& .Mui-checked+.MuiSwitch-track': {
             backgroundColor: '#fff'
         },
-        // '.active + &': {
-        //     marginLeft: theme.spacing(2),
-        // }
     }
 }));
 

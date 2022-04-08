@@ -19,7 +19,6 @@ export default function ClientRealm() {
     const params = qs.parse(location.search);
     const redirect = `${match.path}/${realmView}${params ? `?${qs.stringify(params)}` : ''}`;
 
-
     return (
         <>
             <RealmSwitchButton view={realmView} />

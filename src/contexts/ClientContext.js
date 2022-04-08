@@ -12,7 +12,6 @@ import ticketsIcon from 'assets/images/tickets/rare.svg';
 import realmIcon from 'assets/images/icons/kek.png';
 import thegraphApi from 'api/thegraph.api';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
-import { DateTime } from 'luxon';
 
 export const ClientContext = createContext({});
 

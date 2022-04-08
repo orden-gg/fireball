@@ -1,11 +1,5 @@
 import React, { useContext } from 'react';
-import GrainIcon from '@mui/icons-material/Grain';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CreditScoreIcon from '@mui/icons-material/CreditScore';
-import LensIcon from '@mui/icons-material/Lens';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import TimerIcon from '@mui/icons-material/Timer';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 
