@@ -1,7 +1,7 @@
 import React from 'react';
 import TimerIcon from '@mui/icons-material/Timer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
@@ -62,7 +62,7 @@ export default function GotchiLendingStats({ gotchi }) {
                 <div className={classes.splits}>
                     <div>owner</div>
                     <div>
-                        <span className={gotchi.splitOwner > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitOwner > 0 ? 'highlight' : ''}>
                             {gotchi.splitOwner}
                         </span>%
                     </div>
@@ -70,7 +70,7 @@ export default function GotchiLendingStats({ gotchi }) {
                 <div className={classes.splits}>
                     <div>borrower</div>
                     <div>
-                        <span className={gotchi.splitBorrower > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitBorrower > 0 ? 'highlight' : ''}>
                             {gotchi.splitBorrower}
                         </span>%
                     </div>
@@ -78,7 +78,7 @@ export default function GotchiLendingStats({ gotchi }) {
                 <div className={classes.splits}>
                     <div>other</div>
                     <div>
-                        <span className={gotchi.splitOther > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitOther > 0 ? 'highlight' : ''}>
                             {gotchi.splitOther}
                         </span>%
                     </div>
@@ -90,15 +90,16 @@ export default function GotchiLendingStats({ gotchi }) {
                     <CustomTooltip
                         title={
                             <span>
-                                total <span className='highlight'>tokens</span> / balanced <span className='highlight'>income</span>
+                                total <span className='highlight'>alchemica</span> (power in <span className='highlight'>fud</span> equivalent)
                             </span>
                         }
                         placement='top'
                         followCursor
                     >
                         <div className={classes.inner}>
-                            <EmojiEventsOutlinedIcon className={classes.innerIcon} fontSize='small' />
-                            {gotchi.totalTokens} / {gotchi.income}
+                            <GroupWorkIcon className={classes.innerIcon} fontSize='small' />
+                            {gotchi.totalTokens}
+                            <span className={classes.alchemicaPower}>({gotchi.income})</span>
                         </div>
                     </CustomTooltip>
                 </div>

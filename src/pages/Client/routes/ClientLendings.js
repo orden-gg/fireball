@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import TimerIcon from '@mui/icons-material/Timer';
-import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
@@ -23,13 +23,13 @@ const sortings = [
     {
         name: 'income',
         key: 'income',
-        tooltip: 'balanced income',
-        icon: <ChangeCircleIcon fontSize='small' />
+        tooltip: 'alchemica power',
+        icon: <LocalFireDepartmentIcon fontSize='small' />
     },
     {
         name: 'total',
         key: 'totalTokens',
-        tooltip: 'total tokens',
+        tooltip: 'total alchemica',
         icon: <GroupWorkIcon fontSize='small' />
     },
     {

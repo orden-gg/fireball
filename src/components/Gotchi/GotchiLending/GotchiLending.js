@@ -54,7 +54,7 @@ export default function GotchiLending({ gotchi }) {
                 <div className={classes.splits}>
                     <div>owner</div>
                     <div>
-                        <span className={gotchi.splitOwner > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitOwner > 0 ? 'highlight' : ''}>
                             {gotchi.splitOwner}
                         </span>%
                     </div>
@@ -62,7 +62,7 @@ export default function GotchiLending({ gotchi }) {
                 <div className={classes.splits}>
                     <div>borrower</div>
                     <div>
-                        <span className={gotchi.splitBorrower > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitBorrower > 0 ? 'highlight' : ''}>
                             {gotchi.splitBorrower}
                         </span>%
                     </div>
@@ -70,7 +70,7 @@ export default function GotchiLending({ gotchi }) {
                 <div className={classes.splits}>
                     <div>other</div>
                     <div>
-                        <span className={gotchi.splitOther > 0 ? 'highlight' : undefined}>
+                        <span className={gotchi.splitOther > 0 ? 'highlight' : ''}>
                             {gotchi.splitOther}
                         </span>%
                     </div>

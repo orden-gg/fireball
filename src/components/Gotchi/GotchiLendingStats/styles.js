@@ -104,6 +104,11 @@ const styles = makeStyles(theme => ({
     activityBad: {
         color: '#ff0000'
     },
+    alchemicaPower: {
+        fontSize: 12,
+        marginLeft: 4,
+        color: theme.palette.primary.main
+    },
     bottom: {
         display: 'flex',
         alignItems: 'center',
