@@ -3,20 +3,21 @@ import { Alert, AlertTitle } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
+
 import { Helmet } from 'react-helmet';
 import queryString from 'query-string'
 
+import LoginNavigation from 'components/Login/LoginNavigation';
+import PageNav from 'components/PageNav/PageNav';
 import { LoginContext } from 'contexts/LoginContext';
 import { ClientContext } from 'contexts/ClientContext';
 import commonUtils from 'utils/commonUtils';
 
 import ClientGotchis from './routes/ClientGotchis';
+import ClientLendings from './routes/ClientLendings';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
-import LoginNavigation from 'components/Login/LoginNavigation';
-import ProfilePane from 'components/ProfilePane/ProfilePane';
-import ClientNav from './components/ClientNav';
 
 import styles from './styles';
 
@@ -29,7 +30,7 @@ export default function Client() {
     const params = queryString.parse(location.search);
 
     const { activeAddress } = useContext(LoginContext);
-    const { clientActive, setClientActive, getClientData } = useContext(ClientContext);
+    const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
         if (activeAddress) {
@@ -81,11 +82,14 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <ProfilePane address={clientActive} />
+                    <PageNav
+                        links={navData}
+                        query={`?address=${clientActive}`}
+                    />
 
-                    <ClientNav />
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
+                        <Route path={`${match.path}/lendings`} component={ ClientLendings } />
                         <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
                         <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                         <Route path={`${match.path}/realm`} component={ ClientRealm } />

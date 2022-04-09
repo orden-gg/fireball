@@ -6,6 +6,12 @@ import ticketsApi from 'api/tickets.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
+import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
+import warehouseIcon from 'assets/images/wearables/15.svg';
+import ticketsIcon from 'assets/images/tickets/rare.svg';
+import realmIcon from 'assets/images/icons/kek.png';
+import thegraphApi from 'api/thegraph.api';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export const ClientContext = createContext({});
 
@@ -13,18 +19,22 @@ const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
 
     const [gotchis, setGotchis] = useState([]);
-    const [gotchisFilter, setGotchisFilter] = useState('modifiedRarityScore');
+    const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
+    const [lendings, setLendings] = useState([]);
+    const [lendingsSorting, setLendingsSorting] = useState({ type: 'totalTokens', dir: 'desc' });
+    const [loadingLendings, setLoadingLendings] = useState(true);
+
     const [warehouse, setWarehouse] = useState([]);
-    const [warehouseFilter, setWarehouseFilter] = useState('rarityIdDesc');
+    const [warehouseSorting, setWarehouseSorting] = useState({ type: 'rarityId', dir: 'desc' });
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
-    const [realmFilter, setRealmFilter] = useState(null);
+    const [realmSorting, setRealmSorting] = useState({ type: 'size', dir: 'desc' });
     const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
@@ -32,8 +42,42 @@ const ClientContextProvider = (props) => {
     const [rewardCalculated, setRewardCalculated] = useState(false);
     const [realmView, setRealmView] = useState('map');
 
+    const navData = [
+        {
+            name: 'gotchis',
+            icon: gotchiIcon,
+            loading: loadingGotchis,
+            items: gotchis.length
+        },
+        {
+            name: 'lendings',
+            icon: gotchiIcon,
+            loading: loadingGotchis,
+            items: lendings.length
+        },
+        {
+            name: 'warehouse',
+            icon: warehouseIcon,
+            loading: loadingWarehouse,
+            items: warehouse.length
+        },
+        {
+            name: 'tickets',
+            icon: ticketsIcon,
+            loading: loadingTickets,
+            items: tickets.length
+        },
+        {
+            name: 'realm',
+            icon: realmIcon,
+            loading: loadingRealm,
+            items: realm.length
+        }
+    ];
+
     const getClientData = () => {
         getGotchis(clientActive);
+        getLendings(clientActive);
         getInventory(clientActive);
         getTickets(clientActive);
         getRealm(clientActive);
@@ -42,45 +86,15 @@ const ClientContextProvider = (props) => {
         setWarehouse([]);
         setReward(null);
         setRewardCalculated(false);
-        setGotchisFilter('modifiedRarityScore'); // prevent reward sorting to be selected
-    };
-
-    const getFilter = (filter) => {
-        let asc = filter?.includes('Asce');
-        let desc = filter?.includes('Desc');
-        let dir = 'desc';
-        let modified = filter;
-
-        if (asc || desc) {
-            modified = filter.slice(0, -4);
-            asc ? dir = 'asc' : dir = 'desc';
-        }
-
-        return [modified, dir];
-    }
-
-    const sortData = (event, newFilter, setter) => {
-        let [filter, dir] = getFilter(newFilter);
-
-        if (setter === 'gotchis') {
-            setGotchis(commonUtils.basicSort(gotchis, filter, dir));
-            setGotchisFilter(newFilter);
-        } else if (setter === 'warehouse') {
-            setWarehouse(commonUtils.basicSort(warehouse, filter, dir));
-            setWarehouseFilter(newFilter);
-        } else if (setter === 'realm') {
-            setRealm(commonUtils.basicSort(realm, filter, dir));
-            setRealmFilter(newFilter);
-        }
     };
 
     const getGotchis = (address) => {
         setLoadingGotchis(true);
 
         thegraph.getGotchisByAddress(address).then((response)=> {
-            let wearables = [];
-            let [gFilter, gDir] = getFilter(gotchisFilter);
-            let [wFilter, wDir] = getFilter(warehouseFilter);
+            const wearables = [];
+            const { type: gSortType, dir: gSortDir } = gotchisSorting;
+            const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
             response.forEach((item) => {
@@ -118,9 +132,9 @@ const ClientContextProvider = (props) => {
                     }
 
                     return items.concat(current);
-                }, []), wFilter, wDir));
+                }, []), wSortType, wSortDir));
 
-            setGotchis(commonUtils.basicSort(response, gFilter, gDir));
+            setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
         }).catch((error) => {
             console.log(error);
@@ -129,12 +143,42 @@ const ClientContextProvider = (props) => {
         });
     };
 
+    const getLendings = (address) => {
+        setLoadingLendings(true);
+
+        thegraph.getLendingsByAddress(address)
+            .then(lendings => {
+                const balancesRequest = [];
+                const { type, dir } = lendingsSorting;
+
+                for (let i = 0; i < lendings.length; i++) {
+                    balancesRequest.push(thegraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
+                }
+
+                Promise.all(balancesRequest).then(balances => {
+                    balances.forEach((balance, i) => {
+                        lendings[i].fud = balance.FUDAmount;
+                        lendings[i].fomo = balance.FOMOAmount;
+                        lendings[i].alpha = balance.ALPHAAmount;
+                        lendings[i].kek = balance.KEKAmount;
+                        lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
+                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
+                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
+                    });
+
+                    setLendings(commonUtils.basicSort(lendings, type, dir));
+                    setLoadingLendings(false);
+                });
+            }
+        );
+    }
+
     const getInventory = (address) => {
         setLoadingWarehouse(true);
 
         mainApi.getInventoryByAddress(address).then((response) => {
-            let modified = [];
-            let [wFilter, wDir] = getFilter(warehouseFilter);
+            const modified = [];
+            const { type, dir } = warehouseSorting;
 
             response.items.forEach((item) => {
                 modified.push({
@@ -157,7 +201,7 @@ const ClientContextProvider = (props) => {
                     }
 
                     return items.concat(current);
-                }, []), wFilter, wDir));
+                }, []), type, dir));
             setLoadingWarehouse(false);
 
         }).catch((error) => {
@@ -171,7 +215,8 @@ const ClientContextProvider = (props) => {
         setLoadingTickets(true);
 
         ticketsApi.getTicketsByAddress(address).then((response) => {
-            let modified = response.filter((item) => item.balance > 0);
+            const modified = response.filter((item) => item.balance > 0);
+
             setTickets(modified);
             setLoadingTickets(false);
         }).catch((error) => {
@@ -183,7 +228,9 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address).then((response) => {
-            setRealm(response);
+            const { type, dir } = realmSorting;
+
+            setRealm(commonUtils.basicSort(response, type, dir));
             setLoadingRealm(false);
         }).catch((error) => {
             console.log(error);
@@ -224,32 +271,41 @@ const ClientContextProvider = (props) => {
             setClientActive,
 
             gotchis,
-            gotchisFilter,
+            gotchisSorting,
             loadingGotchis,
             setGotchis,
+            setGotchisSorting,
+
+            lendings,
+            lendingsSorting,
+            loadingLendings,
+            setLendings,
+            setLendingsSorting,
 
             warehouse,
-            warehouseFilter,
+            warehouseSorting,
             loadingWarehouse,
             setWarehouse,
+            setWarehouseSorting,
 
             tickets,
             loadingTickets,
 
             realm,
-            realmFilter,
+            realmView,
+            realmSorting,
             loadingRealm,
             setRealm,
-            realmView,
             setRealmView,
+            setRealmSorting,
 
             reward,
             rewardCalculated,
             rewardCalculating,
             calculateReward,
 
+            navData,
             getClientData,
-            sortData
         }}>
             { props.children }
         </ClientContext.Provider>

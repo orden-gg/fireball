@@ -426,6 +426,7 @@ export const lendingsQuery = (skip, orderDir) => {
         gotchi {
             id
             name
+            collateral
             kinship
             hauntId
             baseRarityScore
@@ -440,4 +441,63 @@ export const lendingsQuery = (skip, orderDir) => {
         splitOwner
       }
     }`
+};
+
+export const lendingsByAddressQuery = (address, skip) => {
+    return `{
+      gotchiLendings(
+        first: 1000,
+        skip: ${skip},
+        where:{
+            lender: "${address}",
+            borrower_not: "0x0000000000000000000000000000000000000000",
+            cancelled: false,
+            completed: false
+        }
+      ) {
+        id
+        timeCreated
+        timeAgreed
+        rentDuration
+        upfrontCost
+        period
+        lastClaimed
+        completed
+        gotchi {
+            id
+            name
+            collateral
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+            escrow
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
+      }
+    }`
+};
+
+export const incomeQuery = (id, timestamp) => {
+    return `{
+        vortexClaims(
+            first: 1000,
+            where:{
+                gotchiId: "${id}",
+                timestamp_gt: "${timestamp}"
+            }
+        ) {
+          gotchiId
+          FUDAmount
+          FOMOAmount
+          ALPHAAmount
+          KEKAmount
+        }
+      }`
 };

@@ -12,7 +12,7 @@ import ContentWrapper from 'components/Content/ContentWrapper';
 import ContentInner from 'components/Content/ContentInner';
 import GotchiFilters from 'components/Filters/GotchiFilter';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import GotchiSorting from 'components/Filters/GotchiSorting';
+import LazySorting from 'components/Filters/LazySorting';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
@@ -75,7 +75,7 @@ export default function Lend() {
     const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
-    const defaultSorting = 'timeCreated';
+    const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
 
     const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
     const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
@@ -88,6 +88,8 @@ export default function Lend() {
             if (mounted) {
                 const whitelistData = [];
                 const mappedData = [];
+                const { type, dir } = lendingsSorting;
+
                 response.forEach((listing) => {
                     if (listing.whitelistId) {
                         const index = whitelistData.findIndex(savedId => savedId === listing.whitelistId);
@@ -103,7 +105,7 @@ export default function Lend() {
                     })
                 });
 
-                const sorted = commonUtils.basicSort(mappedData, defaultSorting);
+                const sorted = commonUtils.basicSort(mappedData, type, dir);
 
                 setWhitelist(commonUtils.sortByDirection(whitelistData, 'asc'));
                 setLendings(sorted);
@@ -113,6 +115,8 @@ export default function Lend() {
         });
 
         return () => mounted = false;
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -125,28 +129,33 @@ export default function Lend() {
                 dataLoading={dataLoading}
             />
 
-            <ContentInner dataLoading={dataLoading}>
-                <GotchiSorting
-                    gotchis={lendings}
-                    setGotchis={setLendings}
-                    defaultSorting={defaultSorting}
-                    sortings={sortings}
-                />
-                <GotchisLazy
+            <>
+                <LazySorting
                     items={lendings}
-                    render = {[
-                        {
-                            badges: [
-                                'rs',
-                                'kinship'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'lending'
-                    ]}
+                    setItems={setLendings}
+                    sortingList={sortings}
+                    sortingDefaults={lendingsSorting}
+                    setSorting={setLendingsSorting}
                 />
-            </ContentInner>
+
+                <ContentInner dataLoading={dataLoading}>
+                    <GotchisLazy
+                        items={lendings}
+                        render = {[
+                            {
+                                badges: [
+                                    'collateral',
+                                    'rs',
+                                    'kinship'
+                                ]
+                            },
+                            'svg',
+                            'name',
+                            'lending'
+                        ]}
+                    />
+                </ContentInner>
+            </>
         </ContentWrapper>
     );
 }

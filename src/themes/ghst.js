@@ -23,9 +23,9 @@ const theme = createTheme({
         },
         rarity: {
             common: '#7257FF',
-            uncommon: '#00CEB3',
+            uncommon: '#33bacc',
             rare: '#00C0FF',
-            legendary: '#FBB710',
+            legendary: '#ffc36b',
             mythical: '#FF67FF',
             godlike: '#00E994',
             drop: 'rgb(0, 0, 0)'
@@ -39,7 +39,7 @@ const theme = createTheme({
         },
         alchemica: {
             fud: 'rgb(0, 255, 0)',
-            fomo: 'rgb(255, 30, 0)',
+            fomo: '#F37721',
             alpha: 'rgb(55, 255, 255)',
             kek: '#fa34f3'
         },
