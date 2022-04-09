@@ -19,22 +19,22 @@ const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
 
     const [gotchis, setGotchis] = useState([]);
-    const [gotchisSorting, setGotchisSorting] = useState(['modifiedRarityScore', 'desc']);
+    const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState(true);
 
     const [lendings, setLendings] = useState([]);
-    const [lendingsSorting, setLendingsSorting] = useState(['totalTokens', 'desc']);
+    const [lendingsSorting, setLendingsSorting] = useState({ type: 'totalTokens', dir: 'desc' });
     const [loadingLendings, setLoadingLendings] = useState(true);
 
     const [warehouse, setWarehouse] = useState([]);
-    const [warehouseSorting, setWarehouseSorting] = useState(['rarityId', 'desc']);
+    const [warehouseSorting, setWarehouseSorting] = useState({ type: 'rarityId', dir: 'desc' });
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     const [realm, setRealm] = useState([]);
-    const [realmSorting, setRealmSorting] = useState(['size', 'desc']);
+    const [realmSorting, setRealmSorting] = useState({ type: 'size', dir: 'desc' });
     const [loadingRealm, setLoadingRealm] = useState(true);
 
     const [reward, setReward] = useState(null);
@@ -93,8 +93,8 @@ const ClientContextProvider = (props) => {
 
         thegraph.getGotchisByAddress(address).then((response)=> {
             const wearables = [];
-            const [gFilter, gDir] = gotchisSorting;
-            const [wFilter, wDir] = warehouseSorting;
+            const { type: gSortType, dir: gSortDir } = gotchisSorting;
+            const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
             response.forEach((item) => {
@@ -132,9 +132,9 @@ const ClientContextProvider = (props) => {
                     }
 
                     return items.concat(current);
-                }, []), wFilter, wDir));
+                }, []), wSortType, wSortDir));
 
-            setGotchis(commonUtils.basicSort(response, gFilter, gDir));
+            setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
         }).catch((error) => {
             console.log(error);
@@ -147,27 +147,26 @@ const ClientContextProvider = (props) => {
         setLoadingLendings(true);
 
         thegraph.getLendingsByAddress(address)
-            .then(lendings => lendings)
-            .then(response => {
+            .then(lendings => {
                 const balancesRequest = [];
-                const [sort, direction] = lendingsSorting;
+                const { type, dir } = lendingsSorting;
 
-                for (let i = 0; i < response.length; i++) {
-                    balancesRequest.push(thegraphApi.getIncomeById(response[i].id, response[i].timeAgreed));
+                for (let i = 0; i < lendings.length; i++) {
+                    balancesRequest.push(thegraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
                 }
 
                 Promise.all(balancesRequest).then(balances => {
                     balances.forEach((balance, i) => {
-                        response[i].fud = balance.FUDAmount;
-                        response[i].fomo = balance.FOMOAmount;
-                        response[i].alpha = balance.ALPHAAmount;
-                        response[i].kek = balance.KEKAmount;
-                        response[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                        response[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
-                        response[i].endTime = parseInt(response[i].timeAgreed) + parseInt(response[i].period)
+                        lendings[i].fud = balance.FUDAmount;
+                        lendings[i].fomo = balance.FOMOAmount;
+                        lendings[i].alpha = balance.ALPHAAmount;
+                        lendings[i].kek = balance.KEKAmount;
+                        lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
+                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
+                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
                     });
 
-                    setLendings(commonUtils.basicSort(response, sort, direction));
+                    setLendings(commonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
                 });
             }
@@ -179,7 +178,7 @@ const ClientContextProvider = (props) => {
 
         mainApi.getInventoryByAddress(address).then((response) => {
             const modified = [];
-            const [wFilter, wDir] = warehouseSorting;
+            const { type, dir } = warehouseSorting;
 
             response.items.forEach((item) => {
                 modified.push({
@@ -202,7 +201,7 @@ const ClientContextProvider = (props) => {
                     }
 
                     return items.concat(current);
-                }, []), wFilter, wDir));
+                }, []), type, dir));
             setLoadingWarehouse(false);
 
         }).catch((error) => {
@@ -229,9 +228,9 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address).then((response) => {
-            const [sort, direction] = realmSorting;
+            const { type, dir } = realmSorting;
 
-            setRealm(commonUtils.basicSort(response, sort, direction));
+            setRealm(commonUtils.basicSort(response, type, dir));
             setLoadingRealm(false);
         }).catch((error) => {
             console.log(error);

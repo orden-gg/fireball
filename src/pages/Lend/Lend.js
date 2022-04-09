@@ -75,7 +75,7 @@ export default function Lend() {
     const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
 
-    const [lendingsSorting, setLendingsSorting] = useState(['timeCreated', 'desc']);
+    const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
 
     const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
     const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
@@ -88,7 +88,7 @@ export default function Lend() {
             if (mounted) {
                 const whitelistData = [];
                 const mappedData = [];
-                const [sort, direction] = lendingsSorting;
+                const { type, dir } = lendingsSorting;
 
                 response.forEach((listing) => {
                     if (listing.whitelistId) {
@@ -105,7 +105,7 @@ export default function Lend() {
                     })
                 });
 
-                const sorted = commonUtils.basicSort(mappedData, sort, direction);
+                const sorted = commonUtils.basicSort(mappedData, type, dir);
 
                 setWhitelist(commonUtils.sortByDirection(whitelistData, 'asc'));
                 setLendings(sorted);

@@ -29,24 +29,24 @@ const directions = [
 export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults, placeholder }) {
     const classes = LazySortingStyles();
 
-    const [sorting, direction] = sortingDefaults;
+    const { type, dir } = sortingDefaults;
 
-    const onSortChange = (event, value) => {
-        if (!value) {
+    const onSortChange = (event, sortProp, sortDir) => {
+        if (!sortProp) {
             return;
         }
 
-        setSorting([value, direction]);
-        sortItems(value, direction);
+        setSorting({ type: sortProp, dir: sortDir });
+        sortItems(sortProp, sortDir);
     };
 
-    const onDirectionChange = (event, value) => {
-        if (!value) {
+    const onDirectionChange = (event, sortDir, sortProp) => {
+        if (!sortDir) {
             return;
         }
 
-        setSorting([sorting, value]);
-        sortItems(sorting, value);
+        setSorting({ type: sortProp, dir: sortDir });
+        sortItems(sortProp, sortDir);
     };
 
     const sortItems = (filter, dir) => {
@@ -59,8 +59,8 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
         <div className={classes.container}>
             <div className={classes.inner}>
                 <CustomToggleButtonGroup
-                    value={sorting}
-                    onChange={(event, value) => onSortChange(event, value)}
+                    value={type}
+                    onChange={(event, value) => onSortChange(event, value, dir)}
                     aria-label='sorting'
                     list={sortingList}
                 />
@@ -68,8 +68,8 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
                 <Divider flexItem orientation='vertical' sx={{ mx: 0.5, my: 1 }} />
 
                 <CustomToggleButtonGroup
-                    value={direction}
-                    onChange={(event, value) => onDirectionChange(event, value)}
+                    value={dir}
+                    onChange={(event, value) => onDirectionChange(event, value, type)}
                     aria-label='sorting direction'
                     list={directions}
                 />
