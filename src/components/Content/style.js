@@ -33,7 +33,8 @@ const styles = makeStyles(theme => ({
 
 const ContentInnerStyles = makeStyles(theme => ({
     content: {
-        height: 'calc(100vh - 168px)',
+        background: theme.palette.background.paper,
+        borderRadius: 4,
         minHeight: '100%',
         '&.loading': {
             display: 'flex',

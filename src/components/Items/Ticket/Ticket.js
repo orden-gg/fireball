@@ -9,7 +9,7 @@ import CardName from '../common/CardName/CardName';
 export default function Ticket({ ticket, isShopItem }) {
     return (
         <ERC1155 item={{
-            id: ticket.id || parseInt(ticket.erc1155TypeId),
+            id: typeof ticket.id === 'number' ? ticket.id : parseInt(ticket.erc1155TypeId),
             rarity: ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId),
             category: 3,
             balance: ticket.balance,

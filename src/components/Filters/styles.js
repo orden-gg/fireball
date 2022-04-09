@@ -10,13 +10,14 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const GotchiSortingStyles = makeStyles(theme => ({
+const LazySortingStyles = makeStyles(theme => ({
     container: {
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'space-between',
-        background: alpha('#000', .2),
-        borderRadius: '4px 4px 0 0'
+        background: alpha('#000', .15),
+        borderRadius: '4px 4px 0 0',
+        height: 40
     },
     inner: {
         display: 'flex',
@@ -25,10 +26,16 @@ const GotchiSortingStyles = makeStyles(theme => ({
     results: {
         paddingRight: 8,
         fontWeight: 'bold'
+    },
+    placeholder: {
+        marginLeft: 4,
+        '& img': {
+            display: 'block'
+        }
     }
 }));
 
 export {
     styles as default,
-    GotchiSortingStyles
+    LazySortingStyles
 }

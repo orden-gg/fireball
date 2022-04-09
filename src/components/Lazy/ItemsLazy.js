@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 
 import { VirtuosoGrid } from 'react-virtuoso'
 
-import Gotchi from 'components/Gotchi/Gotchi';
-
 const ListContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(192px,1fr));
@@ -16,8 +14,8 @@ const NoContent = styled.div`
     padding: 24px;
 `;
 
-export default function GotchisLazy({ items, render }) {
-    const gridRef = useRef(null);;
+export default function ItemsLazy({ items, component }) {
+    const gridRef = useRef(null);
 
     useEffect(() => {
         if (items.length) {
@@ -38,9 +36,11 @@ export default function GotchisLazy({ items, render }) {
     }
 
     if (items.length === 0) {
-        return <NoContent>
-            <span>No gotchis</span>
-        </NoContent>
+        return (
+            <NoContent>
+                <span>No items</span>
+            </NoContent>
+        );
     }
 
     return (
@@ -51,12 +51,7 @@ export default function GotchisLazy({ items, render }) {
             components={{
                 List: ListContainer,
             }}
-            itemContent={(index) => (
-                <Gotchi
-                    gotchi={items[index]}
-                    render={render}
-                />
-            )}
+            itemContent={(index) => component(items[index])}
         />
     );
 }

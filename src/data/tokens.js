@@ -2,23 +2,23 @@ import { GHST_CONTRACT, FUD_CONTRACT, KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRAC
 
 const tokens = [
     {
-        name: 'GHST',
+        name: 'ghst',
         address: GHST_CONTRACT
     },
     {
-        name: 'FUD',
+        name: 'fud',
         address: FUD_CONTRACT
     },
     {
-        name: 'FOMO',
+        name: 'fomo',
         address: FOMO_CONTRACT
     },
     {
-        name: 'ALPHA',
+        name: 'alpha',
         address: ALPHA_CONTRACT
     },
     {
-        name: 'KEK',
+        name: 'kek',
         address: KEK_CONTRACT
     },
 ];

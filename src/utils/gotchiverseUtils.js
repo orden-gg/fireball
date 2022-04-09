@@ -37,4 +37,11 @@ export default {
         }
     },
 
+    countAlchemicaEfficency(fud, fomo, alpha, kek) {
+        // 1 fomo = 2 fud
+        // 1 alpha = 4 fud
+        // 1 kek = 10 fud
+        return fud + fomo * 2 + alpha * 4 + kek * 10;
+    },
+
 }

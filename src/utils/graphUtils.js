@@ -59,7 +59,7 @@ export default {
 
     getTokenImg(name) {
         try {
-            return require(`../assets/images/tokens/${name.toLowerCase()}.svg`).default;
+            return require(`../assets/images/tokens/${name}.svg`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
