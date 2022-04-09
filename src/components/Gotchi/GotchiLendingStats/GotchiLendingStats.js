@@ -13,25 +13,24 @@ import CustomTooltip from 'components/custom/CustomTooltip';
 import ShineLabel from 'components/Labels/ShineLabel';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
+import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';
 
 import styles from './styles';
 
 export default function GotchiLendingStats({ gotchi }) {
     const classes = styles();
 
-    const dayMillis = 86400 * 1000;
-    const halfDayMillis = 43200 * 1000;
     const timeDiff = DateTime.local() - DateTime.fromSeconds(gotchi.endTime);
     const lastClaimed = parseInt(gotchi.lastClaimed) > 0 ? DateTime.fromSeconds(parseInt(gotchi.lastClaimed)) : 0;
 
     const renderActivity = (lastActivity) => {
         return (
-            DateTime.local() - lastActivity > dayMillis ? (
+            DateTime.local() - lastActivity > DAY_MILLIS ? (
                 <KeyboardDoubleArrowDownIcon
                     className={classNames(classes.activityIcon, classes.activityBad)}
                     fontSize='small'
                 />
-            ) : DateTime.local() - lastActivity > halfDayMillis ? (
+            ) : DateTime.local() - lastActivity > HALF_DAY_MILLIS ? (
                 <KeyboardControlKeyIcon
                     className={classNames(classes.activityIcon, classes.activityModerate)}
                     fontSize='small'
@@ -89,7 +88,11 @@ export default function GotchiLendingStats({ gotchi }) {
             <div className={classNames(classes.section, classes.tokensStats)}>
                 <div className={classNames(classes.inner, classes.income)}>
                     <CustomTooltip
-                        title={<span>total <span className='highlight'>tokens</span> / balanced <span className='highlight'>income</span></span>}
+                        title={
+                            <span>
+                                total <span className='highlight'>tokens</span> / balanced <span className='highlight'>income</span>
+                            </span>
+                        }
                         placement='top'
                         followCursor
                     >
@@ -101,22 +104,24 @@ export default function GotchiLendingStats({ gotchi }) {
                 </div>
             </div>
 
-            <div className={classNames(classes.section, classes.tokens)}>
-                {gotchi.tokensToShare.map((token, index) => {
-                    const tokenName = graphUtils.getTokenName(token);
+            {gotchi.tokensToShare.length > 0 && (
+                <div className={classNames(classes.section, classes.tokens)}>
+                    {gotchi.tokensToShare.map((token, index) => {
+                        const tokenName = graphUtils.getTokenName(token);
 
-                    return (
-                        <div className={classNames(classes.token, tokenName)} key={index}>
-                            <img
-                                src={graphUtils.getTokenImg(tokenName)}
-                                width={14}
-                                alt={tokenName}
-                            />
-                            <span>{commonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
-                        </div>
-                    )
-                })}
-            </div>
+                        return (
+                            <div className={classNames(classes.token, tokenName)} key={index}>
+                                <img
+                                    src={graphUtils.getTokenImg(tokenName)}
+                                    width={14}
+                                    alt={tokenName}
+                                />
+                                <span>{commonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
+                            </div>
+                        )
+                    })}
+                </div>
+            )}
 
             <div className={classNames(classes.section, classes.bottom)}>
                 <div className={classes.inner}>
@@ -125,7 +130,11 @@ export default function GotchiLendingStats({ gotchi }) {
 
                 <div className={classes.inner}>
                     <CustomTooltip
-                        title={<span>last claimed: <span className='highlight'>{lastClaimed > 0 ? lastClaimed.toRelative() : 'never'}</span></span>}
+                        title={
+                            <span>
+                                last claimed: <span className='highlight'>{lastClaimed > 0 ? lastClaimed.toRelative() : 'never'}</span>
+                            </span>
+                        }
                         placement='top'
                         followCursor
                     >

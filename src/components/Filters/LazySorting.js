@@ -26,10 +26,10 @@ const directions = [
     }
 ];
 
-export default function LazySorting({ items, setItems, sortingList, setSorting, defaults, placeholder }) {
+export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults, placeholder }) {
     const classes = LazySortingStyles();
 
-    const [sorting, direction] = defaults;
+    const [sorting, direction] = sortingDefaults;
 
     const onSortChange = (event, value) => {
         if (!value) {

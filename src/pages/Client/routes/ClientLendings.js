@@ -73,8 +73,8 @@ export default function ClientLendings() {
                 items={lendings}
                 setItems={setLendings}
                 sortingList={sortings}
+                sortingDefaults={lendingsSorting}
                 setSorting={setLendingsSorting}
-                defaults={lendingsSorting}
                 placeholder={
                     <img
                         src={gotchiIcon}

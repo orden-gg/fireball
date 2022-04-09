@@ -30,25 +30,25 @@ const sortings = [
         name: 'fudBoost',
         key: 'fudBoost',
         tooltip: 'fud boost',
-        icon: <img src={fud} alt='Fud' width={18} />
+        icon: <img src={fud} alt='fud' width={18} />
     },
     {
         name: 'fomoBoost',
         key: 'fomoBoost',
         tooltip: 'fomo boost',
-        icon: <img src={fomo} alt='Fud' width={18} />
+        icon: <img src={fomo} alt='fomo' width={18} />
     },
     {
         name: 'alphaBoost',
         key: 'alphaBoost',
         tooltip: 'alpha boost',
-        icon: <img src={alpha} alt='Fud' width={18} />
+        icon: <img src={alpha} alt='alpha' width={18} />
     },
     {
         name: 'kekBoost',
         key: 'kekBoost',
         tooltip: 'kek boost',
-        icon: <img src={kek} alt='Fud' width={18} />
+        icon: <img src={kek} alt='kek' width={18} />
     }
 ];
 
@@ -74,8 +74,8 @@ export default function ClientRealmList() {
                 items={realm}
                 setItems={setRealm}
                 sortingList={sortings}
+                sortingDefaults={realmSorting}
                 setSorting={setRealmSorting}
-                defaults={realmSorting}
                 placeholder={
                     <img
                         src={realmIcon}

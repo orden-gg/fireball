@@ -66,8 +66,8 @@ export default function ClientGotchis() {
                 items={gotchis}
                 setItems={setGotchis}
                 sortingList={sortings}
+                sortingDefaults={gotchisSorting}
                 setSorting={setGotchisSorting}
-                defaults={gotchisSorting}
                 placeholder={
                     <img
                         src={gotchiIcon}

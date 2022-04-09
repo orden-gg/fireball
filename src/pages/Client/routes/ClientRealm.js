@@ -17,7 +17,7 @@ export default function ClientRealm() {
 
     const location = useLocation();
     const params = qs.parse(location.search);
-    const redirect = `${match.path}/${realmView}${params ? `?${qs.stringify(params)}` : ''}`;
+    const redirectUrl = `${match.path}/${realmView}${params ? `?${qs.stringify(params)}` : ''}`;
 
     return (
         <>
@@ -34,7 +34,7 @@ export default function ClientRealm() {
                     <ClientRealmParcel name='parcel' />
                 </Route>
                 <Redirect from={`${match.path}/parcel`} to={`${match.path}/${realmView}`} />
-                <Redirect from={match.path} to={redirect} />
+                <Redirect from={match.path} to={redirectUrl} />
             </Switch>
         </>
     );

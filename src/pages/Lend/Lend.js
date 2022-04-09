@@ -134,8 +134,8 @@ export default function Lend() {
                     items={lendings}
                     setItems={setLendings}
                     sortingList={sortings}
+                    sortingDefaults={lendingsSorting}
                     setSorting={setLendingsSorting}
-                    defaults={lendingsSorting}
                 />
 
                 <ContentInner dataLoading={dataLoading}>

@@ -17,8 +17,8 @@ export default function RealmSwitchButton({ view }) {
     const params = qs.parse(location.search);
 
     const updateView = () => {
-        let path = view === 'list' ? 'map' : 'list';
-        let url = `${match.url}/${path}`;
+        const path = view === 'list' ? 'map' : 'list';
+        const url = `${match.url}/${path}`;
 
         history.push({
             pathname: url,

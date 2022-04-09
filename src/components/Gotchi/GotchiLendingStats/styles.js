@@ -51,7 +51,7 @@ const styles = makeStyles(theme => ({
     tokensStats: {
         display: 'flex',
         justifyContent: 'center',
-        padding: '4px 0 0 ',
+        padding: '4px 0 0',
         fontSize: 16,
     },
     token: {

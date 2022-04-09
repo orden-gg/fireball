@@ -450,7 +450,7 @@ export default {
 
     async getLendingsByAddress(address) {
         function getQueries() {
-            let queries = [];
+            const queries = [];
 
             for (let i = 0; i < 1; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000))
@@ -460,7 +460,7 @@ export default {
         }
 
         return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
-            let filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+            const filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
                 ...item,
                 ...item.gotchi,
                 lendingId: item.id
@@ -483,9 +483,9 @@ export default {
                 }
             }
 
-            const combined = data.reduce(function(acc, x) {
-                for (var key in x) {
-                    if(key === 'gotchiId' || key === '__typename') {
+            const combined = data.reduce((acc, x) => {
+                for (let key in x) {
+                    if (key === 'gotchiId' || key === '__typename') {
                         break;
                     }
 

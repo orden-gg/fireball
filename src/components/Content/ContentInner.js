@@ -10,7 +10,10 @@ export default function ContentInner({ children, dataLoading, offset }) {
     const contentOffset = offset || 248;
 
     return (
-        <div className={classNames(classes.content, dataLoading && 'loading')} style={{ height: `calc(100vh - ${contentOffset}px)`, }}>
+        <div
+            className={classNames(classes.content, dataLoading && 'loading')}
+            style={{ height: `calc(100vh - ${contentOffset}px)` }}
+        >
             {!dataLoading ? (
                 <>
                     {children}

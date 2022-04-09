@@ -40,8 +40,8 @@ export default function ClientWarehouse() {
                 items={warehouse}
                 setItems={setWarehouse}
                 sortingList={sortings}
+                sortingDefaults={warehouseSorting}
                 setSorting={setWarehouseSorting}
-                defaults={warehouseSorting}
                 placeholder={
                     <img
                         src={warehouseIcon}
