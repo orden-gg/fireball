@@ -11,6 +11,7 @@ import GuildLogo from '../components/GuildLogo';
 import { GuildsContext } from '../GuildsContext';
 
 import styles from '../styles';
+import WearableImage from 'components/Items/Wearable/WearableImage';
 
 export default function GuildsPreview() {
     const classes = styles();
@@ -23,9 +24,11 @@ export default function GuildsPreview() {
     }
 
     const setNumber = items => {
-        return items ?
-            items.length :
-            <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
+        if (items !== undefined) {
+            return items.length
+        }
+
+        return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
     }
 
     const renderList = () => {
@@ -37,10 +40,14 @@ export default function GuildsPreview() {
                     key={index}
                     onClick={() => {handleClick(guild)}}
                 >
+                    {
+                        guild.wearableId && (
+                            <WearableImage className={classes.guildWearable} wearable={{id: guild.wearableId}} />
+                        )
+                    }
                     <div className={classes.guildLogo}>
                         <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
                     </div>
-
                     <div className={classes.guildBody}>
                         <p className={classes.guildName}>{guild.name}</p>
                         <ul className={classes.guildInfoList}>

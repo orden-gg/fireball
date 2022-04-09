@@ -19,8 +19,6 @@ const GuildsContextProvider = (props) => {
 
     const setGotchisByGuild = gotchis => {
         setGuildsData(guildsState => {
-            const start = new Date();
-
             for(let gotchi of gotchis) {
                 for(let guild of guildsState) {
                     if(guild.members.length === 0) {
@@ -70,20 +68,25 @@ const GuildsContextProvider = (props) => {
         setTimeout(() => {
             for(let id of guildsData.keys()) {
                 thegraph.getRealmByAddresses(guildsData[id].members).then(realm => {
-                    if(destroyed) return;
+                    if(destroyed) {
+                        return;
+                    }
 
                     setRealmByGuild(realm, id);
                 });
             }
 
             thegraph.getAllGotchies().then(gotchis => {
-                if(destroyed) return;
+                if(destroyed) {
+                    return;
+                }
 
                 setGotchisByGuild(gotchis);
             });
         }, 0);
 
         return () => destroyed = true;
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

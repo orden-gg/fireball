@@ -12,6 +12,7 @@ import fud from 'assets/images/tokens/fud.svg';
 import fomo from 'assets/images/tokens/fomo.svg';
 import alpha from 'assets/images/tokens/alpha.svg';
 import kek from 'assets/images/tokens/kek.svg';
+import Gotchi from 'components/Gotchi/Gotchi';
 
 const sortings = [
     {
@@ -88,18 +89,23 @@ export default function ClientLendings() {
             <ContentInner dataLoading={loadingLendings}>
                 <GotchisLazy
                     items={lendings}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'kinship'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'lendingStats'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={lendings[id]}
+                            render={[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'kinship'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                'lendingStats'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>

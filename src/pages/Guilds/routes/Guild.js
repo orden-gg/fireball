@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -46,22 +46,29 @@ export default function Guild() {
         };
 
         loadGuildRealm(currentGuild);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentGuild]);
 
     return (
         <>
             <Box className={classes.guildWrapper}>
-                <IconButton className={classes.backButton} onClick={ () => {history.push('/guilds')}} >
-                    <ArrowBackIcon />
-                </IconButton>
 
-                <GuildBanner />
+                <div className={classes.guildSidebar}>
+                    <GuildBanner />
+                    {Boolean(currentGuild.description?.length) &&  <GuildsDetails />}
 
-                {Boolean(currentGuild.description?.length) &&  <GuildsDetails />}
-
-                <GuildNav />
+                    <Tooltip
+                        title='Back to guilds'
+                    >
+                        <IconButton className={classes.backButton} onClick={ () => {history.push('/guilds')}} >
+                            <ArrowBackIcon />
+                        </IconButton>
+                    </Tooltip>
+                </div>
 
                 <Box className={classes.guildContent}>
+                    <GuildNav />
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ GuildGotchis } />
                         <Route path={`${match.path}/realm`} component={ GuildsRealm } />

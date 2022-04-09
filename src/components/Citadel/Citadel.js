@@ -144,7 +144,7 @@ export default function Citadel({ ownerParcels, className}) {
                 </Tooltip>
             </div>
 
-            <IonPhaser ref={gameRef} game={game} initialize={true} />
+            <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
             {
                 selectedParcel && (

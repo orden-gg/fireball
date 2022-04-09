@@ -1,87 +1,67 @@
 import React, { useContext } from 'react';
-import { IconButton, Link, Tooltip, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import WebIcon from '@mui/icons-material/Web';
+import { IconButton, Tooltip, Typography } from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useHistory } from 'react-router-dom';
 
-import classNames from 'classnames';
-
+import WearableImage from 'components/Items/Wearable/WearableImage';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
-import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
-import { ReactComponent as TwitchIcon } from 'assets/images/icons/twitch.svg';
-
+import defaultBanner from 'assets/images/guilds/ordenGG-banner.png';
 import GuildLogo from '../GuildLogo';
+import GuildSocials from './GuildSocials';
 import { guildBanner } from '../../styles';
+import commonUtils from 'utils/commonUtils';
 
 export default function GuildBanner() {
     const classes = guildBanner();
-    const { currentGuild } = useContext(GuildsContext);
-    const socials = {
-        facebook: <FacebookIcon className={classes.guildSocialIcon} />,
-        twitter: <TwitterIcon className={classes.guildSocialIcon} />,
-        discord: <DiscordIcon className={classes.guildSocialIcon} />,
-        telegram: <TelegramIcon className={classes.guildSocialIcon} />,
-        twitch: <TwitchIcon className={classes.guildSocialIcon} />,
-        default: <WebIcon className={classes.guildSocialIcon} />
-    }
+    const { currentGuild, setCurrentGuild, guildsData } = useContext(GuildsContext);
+    const history = useHistory();
 
-    const renderSocials = () => {
-        if (!currentGuild.hasOwnProperty('socials')) {
-            return null;
-        };
+    const changeGuild = direction => {
+        const guildId = guildsData.indexOf(currentGuild)+direction;
+        const guild = guildsData[guildId];
 
-        return (
-            Object.keys(currentGuild.socials).map(key => (
-                <Tooltip
-                    title={key}
-                    key={key}
-                    placement='top'
-                    followCursor
-                >
-                    <IconButton
-                        component={Link}
-                        href={currentGuild.socials[key]}
-                        target='_blank'
-                        className={classes.guildSocialButton}
-                    >
-                        {socials[key] || socials.default}
-                    </IconButton>
-                </Tooltip>
-            ))
-        );
+        if(guild === undefined || guild.members.length === 0) {
+            return;
+        }
+
+        history.push(`/guilds/${commonUtils.stringToKey(guild.name)}`);
+
+        setCurrentGuild(guild);
     }
 
     return (
-        <Box
-            className={
-                classNames(
-                    classes.guildBanner,
-                    currentGuild.banner?.length && classes.guildBannerIs
-                )
-            }
-            style={{backgroundImage: `url(${currentGuild.banner})`}}
-        >
+        <div className={classes.guildBanner} >
             <div className={classes.guildBannerInner}>
-                <div className={classes.guildBannerTop}>
-                    <Typography className={classNames(classes.guildMembers, classes.guildBannerText)}>
-                        Members
-                        <span>
-                            {currentGuild.members?.length ? `(${currentGuild.members.length})` : '...'}
-                        </span>
-                    </Typography>
-
-                    <div className={classes.guildLogo}>
-                        <GuildLogo logo={currentGuild.logo} className={classes.guildLogoImage} />
-                    </div>
-
-                    <Typography className={classNames(classes.guildGotchis, classes.guildBannerText)}>
-                        {renderSocials()}
-                    </Typography>
+                <div
+                    style={{backgroundImage: `url(${currentGuild.banner || defaultBanner})`}}
+                    className={classes.guildBannerBg}
+                ></div>
+                <div className={classes.guildLogo}>
+                    <GuildLogo logo={currentGuild.logo} className={classes.guildLogoImage} />
                 </div>
-                <Typography component='h1' className={classes.guildName}>{currentGuild?.name}</Typography>
+                <Typography component='h1' className={classes.guildName}>
+                    {currentGuild.name}
+                </Typography>
+                <Tooltip
+                    title='Previous guild'
+                    placement='top'
+                    followCursor
+                >
+                    <IconButton onClick={() => changeGuild(-1)} className={classes.buttonPrev}>
+                        <ArrowForwardIosIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip
+                    title='Next guild'
+                    placement='top'
+                    followCursor
+                >
+                    <IconButton onClick={() => changeGuild(1)} className={classes.buttonNext} >
+                        <ArrowForwardIosIcon />
+                    </IconButton>
+                </Tooltip>
             </div>
-        </Box>
+            <GuildSocials />
+        </div>
     );
 }

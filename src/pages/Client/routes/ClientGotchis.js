@@ -11,6 +11,7 @@ import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
 import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
+import Gotchi from 'components/Gotchi/Gotchi';
 
 const sortings = [
     {
@@ -81,23 +82,28 @@ export default function ClientGotchis() {
             <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
                     items={gotchis}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'skillpoints',
-                                'kinship',
-                                'level'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'traits',
-                        'wearablesLine',
-                        'listing',
-                        'rewards'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={gotchis[id]}
+                            render={[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'skillpoints',
+                                        'kinship',
+                                        'level'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                'traits',
+                                'wearablesLine',
+                                'listing',
+                                'rewards'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>

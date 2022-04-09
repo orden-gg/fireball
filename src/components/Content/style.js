@@ -36,8 +36,9 @@ const ContentInnerStyles = makeStyles(theme => ({
         background: theme.palette.background.paper,
         borderRadius: 4,
         minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         '&.loading': {
-            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
         }

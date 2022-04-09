@@ -6,14 +6,15 @@ const styles = makeStyles(theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',
-        padding: '11px 14px 11px 24px',
+        padding: '2px 14px 2px 24px',
         background: theme.palette.background.default,
         boxShadow: '0px 4px 16px rgba(29, 32, 37, 0.67)',
         position: 'fixed',
         top: 0,
+        height: 66,
         zIndex: theme.zIndex.appBar,
         [theme.breakpoints.up('md')]: {
-            padding: '11px 32px'
+            padding: '2px 32px'
         },
     },
     highlight: {

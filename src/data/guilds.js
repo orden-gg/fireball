@@ -22,7 +22,8 @@ const guilds = [
         socials: {
             twitter: 'https://twitter.com/orden_gg/',
             discord: 'https://discord.com/invite/NXEEETxSkC'
-        }
+        },
+        wearableId: 130
     },
     {
         name: 'Aavegotchi Francophonie',
