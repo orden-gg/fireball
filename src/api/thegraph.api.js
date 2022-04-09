@@ -52,7 +52,7 @@ const clientFactory = (() => {
         svgsClient: createClient(gotchiSVGs),
         realmClient: createClient(realm),
         lendClient: createClient(lend),
-        incomeClient: createClient(income),
+        incomeClient: createClient(income)
     }
 })();
 

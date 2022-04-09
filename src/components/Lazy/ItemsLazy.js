@@ -36,9 +36,11 @@ export default function ItemsLazy({ items, component }) {
     }
 
     if (items.length === 0) {
-        return <NoContent>
-            <span>No items</span>
-        </NoContent>
+        return (
+            <NoContent>
+                <span>No items</span>
+            </NoContent>
+        );
     }
 
     return (
