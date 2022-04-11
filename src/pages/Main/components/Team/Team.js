@@ -46,9 +46,14 @@ export default function Team() {
                 ) : (
                     <>
                         {
-                            members.map( (gotchi, index) => (
+                            members.map((gotchi, index) => (
                                 <Grid item xs={6} sm={4} md={2} key={index}>
-                                    <Link href={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} target='_blank' className={classes.teamMember} underline='none'>
+                                    <Link
+                                        href={`/client/?address=${gotchi.owner.id}`}
+                                        target='_blank'
+                                        className={classes.teamMember}
+                                        underline='none'
+                                    >
                                         <Typography className={classes.aavegotchiName} variant='h3'>{gotchi.name}</Typography>
                                         <GotchiSvg id={gotchi.id} size={107} hideWareables={false} />
                                     </Link>
@@ -57,7 +62,12 @@ export default function Team() {
                         }
 
                         <Grid item xs={6} sm={4} md={2}>
-                            <Link href='https://discord.gg/NXEEETxSkC' target='_blank' className={classes.teamMember} underline='none'>
+                            <Link
+                                href='https://discord.gg/orden'
+                                target='_blank'
+                                className={classes.teamMember}
+                                underline='none'
+                            >
                                 <Typography className={classNames(classes.aavegotchiName, classes.aavegotchiYouName)} variant='h3'>You!</Typography>
                                 <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
                             </Link>

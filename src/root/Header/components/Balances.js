@@ -37,11 +37,11 @@ export default function Balances() {
                         <CustomTooltip
                             title={
                                 <React.Fragment>
-                                    <span>{token.pricePerToken}$/{token.alt}</span>
+                                    <span>{token.pricePerToken}$/<span className='highlight'>{token.alt}</span></span>
                                 </React.Fragment>
                             }
                             enterTouchDelay={0}
-                            placement='top'
+                            placement='bottom'
                             followCursor
                             key={index}
                         >

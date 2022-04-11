@@ -87,21 +87,21 @@ const BalancesContextProvider = (props) => {
                         alt: 'fud',
                         imgSrc: fudIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
-                        pricePerToken: fudPrice.toFixed(2),
+                        pricePerToken: fudPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount)
                     },
                     {
                         alt: 'fomo',
                         imgSrc: fomoIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
-                        pricePerToken: fomoPrice.toFixed(2),
+                        pricePerToken: fomoPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount)
                     },
                     {
                         alt: 'alpha',
                         imgSrc: alphaIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
-                        pricePerToken: alphaPrice.toFixed(2),
+                        pricePerToken: alphaPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount)
                     },
                     {
