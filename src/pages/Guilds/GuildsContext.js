@@ -10,7 +10,7 @@ export const GuildsContext = createContext({});
 const GuildsContextProvider = (props) => {
     const [currentGuild, setCurrentGuild] = useState({});
     const [guildsData, setGuildsData] = useState(
-        guilds.map(guild => {
+        JSON.parse(JSON.stringify(guilds)).map(guild => {
             guild.members = guild.members.map(address => address.toLowerCase());
 
             return guild;
@@ -44,28 +44,11 @@ const GuildsContextProvider = (props) => {
         });
     }
 
-    const setLendingsByGuild = gotchis => {
+    const setLendingsByGuild = (lendings, id) => {
         setGuildsData(guildsState => {
-            for(let gotchi of gotchis) {
-                for(let guild of guildsState) {
-                    if (guild.members.length === 0) {
-                        guild.lendings = [];
-                        continue;
-                    }
+            guildsState[id].lendings = lendings;
 
-                    if (!guild.hasOwnProperty('lendings')) {
-                        guild.lendings = [];
-                    }
-
-                    const isGuildGotchi = guild.members.includes(gotchi.lender.toLowerCase());
-
-                    if (isGuildGotchi) {
-                        guild.lendings.push(gotchi);
-                    }
-                }
-            }
-
-            return [...guildsState]
+            return [...guildsState];
         });
     }
 
@@ -93,16 +76,25 @@ const GuildsContextProvider = (props) => {
         let destroyed = false;
 
         for(let id of guildsData.keys()) {
-            thegraph.getRealmByAddresses(guildsData[id].members).then(realm => {
+            const members = guildsData[id].members;
+
+            thegraph.getRealmByAddresses(members).then(realm => {
                 if (destroyed) {
                     return;
                 }
 
                 setRealmByGuild(realm, id);
             });
+
+            Promise.all(
+                members.map(address => thegraph.getLendingsByAddress(address))
+            ).then(responses => {
+                setLendingsByGuild(
+                    responses.reduce((result, current) => result.concat(current), []),
+                    id
+                )
+            });
         }
-
-
 
         setTimeout(() => {
             thegraph.getAllGotchies().then(gotchis => {
@@ -111,14 +103,6 @@ const GuildsContextProvider = (props) => {
                 }
 
                 setGotchisByGuild(gotchis);
-            });
-
-            thegraph.getLendings().then(gotchis => {
-                if (destroyed) {
-                    return;
-                }
-
-                setLendingsByGuild(gotchis);
             });
         }, 0);
 
