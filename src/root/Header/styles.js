@@ -127,52 +127,6 @@ const styles = makeStyles(theme => ({
             display: 'none'
         }
     },
-    socialLinkList: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'nowrap',
-        fontSize: '1rem',
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        '&.tablet': {
-            display: 'none'
-        },
-        [theme.breakpoints.up('md')]: {
-            paddingLeft: 12,
-            width: 'unset',
-            margin: '5px 0',
-            '&.tablet': {
-                display: 'flex'
-            },
-            '&.mobile': {
-                display: 'none'
-            },
-        }
-    },
-    socialLinkJoin: {
-        position: 'absolute',
-        display: 'none',
-        bottom: -12,
-        right: 5,
-        pointerEvents: 'none',
-        '& > span': {
-            fontSize: '0.55rem',
-            letterSpacing: '1px'
-        },
-        [theme.breakpoints.up('md')]: {
-            display: 'block'
-        },
-    },
-    iconButton: {
-        color: '#fd9af9',
-        '& img': {
-            width: 26,
-            height: 26
-        }
-    },
-    iconButtonText: {
-        marginLeft: '8px'
-    },
     group: {
         display: 'flex',
         alignItems: 'center',

@@ -49,6 +49,8 @@ const BalancesContextProvider = (props) => {
         imgSrc: token.imgSrc
     }))]);
 
+    const fetchInterval = 120; // seconds
+
     useEffect(() => {
         if (activeAddress) {
             let mounted = true;
@@ -83,36 +85,41 @@ const BalancesContextProvider = (props) => {
                         key: 'fud',
                         icon: <FudTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
-                        pricePerToken: fudPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount)
+                        pricePerToken: fudPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
+                        swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'fomo',
                         icon: <FomoTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
-                        pricePerToken: fomoPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount)
+                        pricePerToken: fomoPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
+                        swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'alpha',
                         icon: <AlphaTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
-                        pricePerToken: alphaPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount)
+                        pricePerToken: alphaPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
+                        swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'kek',
                         icon: <KekTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
+                        swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'ghst',
                         icon: <GhstTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         pricePerToken: ghstPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
+                        swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
                     },
                 ];
 
@@ -126,7 +133,7 @@ const BalancesContextProvider = (props) => {
 
             const interval = setInterval(() => {
                 getBalances();
-            }, 30000);
+            }, fetchInterval * 1000);
 
             return () => {
                 mounted = false;
@@ -156,6 +163,10 @@ const BalancesContextProvider = (props) => {
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
         return tokenPrice;
+    }
+
+    const generateSwapUrl = (inputToken, outputToken) => {
+        return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
     }
 
     return (

@@ -54,7 +54,7 @@ const ClientContextProvider = (props) => {
         },
         {
             name: 'warehouse',
-            icon: <WarehouseIcon width={24} height={24}/>,
+            icon: <WarehouseIcon width={24} height={24} />,
             loading: loadingWarehouse,
             items: warehouse.length
         },

@@ -46,6 +46,9 @@ export const gotchiByIdQuery = (id) => {
       name
       numericTraits
       equippedWearables
+      owner {
+        id
+      }
     }
   }`
 }

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import MusicOffIcon from '@mui/icons-material/MusicOff';
 
 import song from 'assets/music/halloween.mp3';
 
-import styles from './styles';
-
 export default function MusicButton() {
-    const classes = styles();
     const [playing, setPlaying] = useState(false);
     const [audio] = useState(new Audio(song));
 
@@ -23,13 +22,15 @@ export default function MusicButton() {
     }, [playing]);
 
     return (
-        <Button
-            className={classes.button}
-            size='small'
-            variant='contained'
+        <IconButton
+            color={playing ? 'primary' : 'default'}
             onClick={() => setPlaying(!playing)}
         >
-            {playing ? '[pause]' : '[play]'}
-        </Button>
+            {playing ? (
+                <MusicOffIcon />
+            ) : (
+                <MusicNoteIcon />
+            )}
+        </IconButton>
     );
 }
