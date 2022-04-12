@@ -90,35 +90,40 @@ const BalancesContextProvider = (props) => {
                         imgSrc: fudIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
                         pricePerToken: fudPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
+                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${FUD_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
                     },
                     {
                         alt: 'fomo',
                         imgSrc: fomoIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
                         pricePerToken: fomoPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
+                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${FOMO_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
                     },
                     {
                         alt: 'alpha',
                         imgSrc: alphaIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
                         pricePerToken: alphaPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
+                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${ALPHA_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
                     },
                     {
                         alt: 'kek',
                         imgSrc: kekIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
+                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${KEK_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
                     },
                     {
                         alt: 'ghst',
                         imgSrc: ghstIcon,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         pricePerToken: ghstPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
+                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${GHST_CONTRACT}&outputCurrency=${DAI_CONTRACT}`
                     },
                 ];
 

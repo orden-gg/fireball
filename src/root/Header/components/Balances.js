@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
 import classNames from 'classnames';
@@ -45,7 +46,7 @@ export default function Balances() {
                             followCursor
                             key={index}
                         >
-                            <div className={classes.balance}>
+                            <Link className={classes.balance} href={token.swapUrl} target='_blank'>
                                 <div className={classNames(classes.balanceValue, token.alt)}>
                                     <img
                                         src={token.imgSrc}
@@ -59,7 +60,7 @@ export default function Balances() {
                                 <p className={classes.balancePrice}>
                                     {token.balance !== 0 ? `${token.balance}$` : ''}
                                 </p>
-                            </div>
+                            </Link>
                         </CustomTooltip>
                     )
                 )
