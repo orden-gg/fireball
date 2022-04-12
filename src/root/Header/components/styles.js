@@ -26,7 +26,7 @@ const styles = makeStyles(theme => ({
         '& p': {
             margin: 0,
             lineHeight: 1.2,
-            textShadow: `1px 1px 0 ${alpha('#000', .8)}`
+            textShadow: `1px 1px 0 ${alpha('#000', .7)}`
         },
     },
     balanceIcon: {
