@@ -6,10 +6,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
+import { DiscordIcon, LogoIcon } from 'components/Icons/Icons';
 import LoginButton from 'components/Login/LoginButton';
 import { LoginContext } from 'contexts/LoginContext';
-import logo from 'assets/images/logo-white.svg';
-import discord from 'assets/images/icons/discord.svg';
 
 import Balances from './components/Balances';
 import styles from './styles';
@@ -47,7 +46,7 @@ export default function Header() {
             <Box className={classNames(classes.socialLinkList, view)} >
                 <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
                     <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <img src={ discord } alt='' />
+                        <DiscordIcon width={24} height={24} />
                         <Box component='span' className={classes.iconButtonText}>500</Box>
                     </Button>
                 </Link>
@@ -73,7 +72,7 @@ export default function Header() {
     return (
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
-                <img className={classes.logo} src={logo} alt='logo' />
+                <LogoIcon width={80} height={34} />
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>

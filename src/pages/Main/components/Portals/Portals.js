@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, CircularProgress, Grid } from '@mui/material';
+
 import classNames from 'classnames';
 
+import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
-import openedPortal from 'assets/images/animated/h1-open.gif';
-import sealedPortal from 'assets/images/portals/h1-sealed.svg';
 
 import { portalsQuery } from './queries';
 import styles from './styles';
@@ -67,12 +67,12 @@ export default function Portals() {
                 </Box>
             </Grid>
             <Grid className={classNames(classes.portalsColumn, 'center')} container item xs={12} md={2}>
-                <img
-                  src={eegg ? sealedPortal : openedPortal }
-                  className={classes.portalsImage}
-                  onClick={onPortalClick}
-                  alt='Portal'
-                />
+                <div className={classes.portalsImage} onClick={onPortalClick}>
+                    { eegg ?
+                        <H1SealedPortalIcon width={150} height={150} /> :
+                        <H1OpenedPortalGif width={150} height={150} />
+                    }
+                </div>
             </Grid>
             <Grid item xs={12} md={4}>
                 <Box className={classes.portalsDescr}>

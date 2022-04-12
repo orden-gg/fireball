@@ -129,8 +129,6 @@ const baazaarItemStyles = makeStyles(theme => ({
     priceImg: {
         marginTop: 2,
         '& img': {
-            width: 18,
-            height: 18,
             marginRight: 7
         }
     },

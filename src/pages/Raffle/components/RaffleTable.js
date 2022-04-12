@@ -6,10 +6,10 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import { RaffleContext } from 'contexts/RaffleContext';
 import itemUtils from 'utils/itemUtils';
 import commonUtils from 'utils/commonUtils';
-import ghst from 'assets/images/animated/ghst-token.gif';
 
 import { tableStyles } from '../styles';
 
@@ -208,7 +208,7 @@ export default function RaffleTablee() {
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
                                             {commonUtils.formatPrice(ticket.value > 0 ? ticket.price * ticket.value : ticket.price)}
-                                            <img src={ghst} width='26' alt='GHST Token Icon' />
+                                            <GhstTokenGif width={26} height={26} />
                                         </Typography>
                                     )}
                                 </Box>

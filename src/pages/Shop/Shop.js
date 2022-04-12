@@ -6,6 +6,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import queryString from 'query-string'
 
+import {
+    BaazarIcon,
+    ConsumableIcon,
+    GotchiIcon,
+    H1SealedPortalIcon,
+    KekIcon,
+    RareTicketIcon,
+    WarehouseIcon
+} from 'components/Icons/Icons';
 import Consumable from 'components/Items/Consumable/Consumable';
 import Gotchi from 'components/Gotchi/Gotchi';
 import Parcel from 'components/Items/Parcel/Parcel';
@@ -16,13 +25,6 @@ import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import itemUtils from 'utils/itemUtils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
-import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
-import warehousePlaceholder from 'assets/images/wearables/15.svg';
-import realmPlaceholder from 'assets/images/icons/kek.png';
-import portalPlaceholder from 'assets/images/portals/h1-sealed.svg';
-import ticketsPlaceholder from 'assets/images/tickets/rare.svg';
-import consumablePlaceholder from 'assets/images/icons/consumable.svg';
-import baazarPlaceholder from 'assets/images/baazar.svg';
 
 import styles from './styles';
 
@@ -208,7 +210,7 @@ export default function Shop() {
             </IconButton>
 
             <div className={classes.header}>
-                <img className={classes.headerLogo} src={baazarPlaceholder} alt='Baazar' />
+                <BaazarIcon className={classes.headerLogo} />
                 <TextField
                     className={classes.shopAddress}
                     variant='outlined'
@@ -221,7 +223,7 @@ export default function Shop() {
             { loaderRender() }
 
             {
-                Boolean(gotchis.length) && <ListingTitle src={gotchiPlaceholder} alt='gotchi' title='Gotchis' />
+                Boolean(gotchis.length) && <ListingTitle icon={<GotchiIcon width={32} height={32} />} title='Gotchis' />
             }
 
             <div className={classes.list}>
@@ -255,7 +257,7 @@ export default function Shop() {
 
 
             {
-                Boolean(wearables.length) && <ListingTitle src={warehousePlaceholder} alt='wearable' title='Wearables' />
+                Boolean(wearables.length) && <ListingTitle icon={<WarehouseIcon width={32} height={32} />}title='Wearables' />
             }
 
             <div className={classes.list}>
@@ -269,7 +271,7 @@ export default function Shop() {
             </div>
 
             {
-                Boolean(parcels.length) && <ListingTitle src={realmPlaceholder} alt='parcel' title='Parcels' />
+                Boolean(parcels.length) && <ListingTitle icon={<KekIcon width={32} height={32} alt='parcel' />} title='Parcels' />
             }
 
             <div className={classes.list}>
@@ -283,7 +285,7 @@ export default function Shop() {
             </div>
 
             {
-                Boolean(portals.length) && <ListingTitle src={portalPlaceholder} alt='portal' title='Portals' />
+                Boolean(portals.length) && <ListingTitle icon={<H1SealedPortalIcon width={32} height={32} />} title='Portals' />
             }
 
 
@@ -298,7 +300,7 @@ export default function Shop() {
             </div>
 
             {
-                Boolean(tickets.length) && <ListingTitle src={ticketsPlaceholder} alt='ticket' title='Tickets' />
+                Boolean(tickets.length) && <ListingTitle icon={<RareTicketIcon width={32} height={32} />} title='Tickets' />
             }
 
             <div className={classes.list}>
@@ -312,7 +314,7 @@ export default function Shop() {
             </div>
 
             {
-                Boolean(consumables.length) && <ListingTitle src={consumablePlaceholder} alt='consumable' title='Consumables' />
+                Boolean(consumables.length) && <ListingTitle icon={<ConsumableIcon width={32} height={32} />} title='Consumables' />
             }
 
             <div className={classes.list}>

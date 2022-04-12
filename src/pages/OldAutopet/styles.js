@@ -115,8 +115,7 @@ const tabStyles = makeStyles(theme => ({
         width: 22
     },
     tabGotchi: {
-        display: 'inline-block',
-        width: 20
+        display: 'inline-block'
 
     },
     tabPanel: {
@@ -203,10 +202,6 @@ const infoStyles = makeStyles(theme => ({
         position: 'absolute',
         right: theme.spacing(.5),
         bottom: theme.spacing(.5)
-    },
-    autopetInfoGhst: {
-        width: 48,
-        height: 48
     }
 }));
 

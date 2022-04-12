@@ -4,11 +4,11 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import classNames from 'classnames';
 import { Duration } from 'luxon';
 
+import { GhstTokenIcon } from 'components/Icons/Icons';
 import ViewInAppButton from 'components/ViewInAppButton/ViewInAppButton';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
-import ghstIcon from 'assets/images/tokens/ghst.svg';
 
 import styles from './styles';
 
@@ -45,7 +45,7 @@ export default function GotchiLending({ gotchi }) {
                     {renderPeriod()}
                 </div>
                 <div className={classes.inner}>
-                    <img src={ghstIcon} className={classes.innerIcon} width='18' alt='GHST token' />
+                    <GhstTokenIcon className={classes.innerIcon} width={18} height={18} />
                     {commonUtils.formatPrice(ethersApi.fromWei(gotchi.upfrontCost))}
                 </div>
             </div>
