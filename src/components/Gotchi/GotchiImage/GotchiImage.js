@@ -21,15 +21,15 @@ export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
                     className={classes.gotchiSvgPortal}
                     src={itemUtils.getPortalImg(gotchi.hauntId)}
                     alt={`haunt-${gotchi.hauntId}-portal`}
-                    width={'100%'} />
+                    width='100%' />
             ) : (
                 null
             )}
             {
                 renderSvgByStats ? (
-                    <GotchiSvgByStats gotchi={gotchi} size={'100%'} />
+                    <GotchiSvgByStats gotchi={gotchi} size='100%' />
                 ) : (
-                    <GotchiSvg id={gotchi.id} size={'100%'} />
+                    <GotchiSvg id={gotchi.id} size='100%' />
                 )
             }
             {

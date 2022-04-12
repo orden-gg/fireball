@@ -49,7 +49,7 @@ export default function GotchiSvgByStats({ gotchi, size }) {
     return (
         <div className={classes.svgWrapper} style={{ width: size }}>
             {loadingSvg ? (
-                <GotchiLoadingGif width={'100%'} />
+                <GotchiLoadingGif width='100%' />
             ) : (
                 <div
                     className={classNames(classes.svgImage, `gotchi-${gotchi.tempId}`, `gotchi-svg-${gotchi.id}`)}

@@ -164,7 +164,7 @@ export default function Citadel({ ownerParcels, className}) {
                 <span className={classes.citadelLoadingLine}></span>
                 <span className={classes.citadelLoadingLine}></span>
                 <div className={classes.citadelLoadingInner}>
-                    <GotchiverseGif width={'100%'} height={'100%'} />
+                    <GotchiverseGif width='100%' height='100%' />
                 </div>
             </div>
         </div>

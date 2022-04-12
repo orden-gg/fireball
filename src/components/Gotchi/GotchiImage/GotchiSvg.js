@@ -51,7 +51,7 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
     return (
         <div className={classNames(classes.svgWrapper, hideWearables && 'hide-wearables', hideBg && 'hide-bg' )} style={{ width: size }}>
             {loadingSvg ? (
-                <GotchiLoadingGif width={'100%'} />
+                <GotchiLoadingGif width='100%' />
             ) : (
                 <div
                     className={classNames(classes.svgImage, `gotchi-${id}`)}

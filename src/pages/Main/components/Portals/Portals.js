@@ -68,10 +68,11 @@ export default function Portals() {
             </Grid>
             <Grid className={classNames(classes.portalsColumn, 'center')} container item xs={12} md={2}>
                 <div className={classes.portalsImage} onClick={onPortalClick}>
-                    { eegg ?
-                        <H1SealedPortalIcon width={150} height={150} /> :
+                    { eegg ? (
+                        <H1SealedPortalIcon width={150} height={150} />
+                    ) : (
                         <H1OpenedPortalGif width={150} height={150} />
-                    }
+                    )}
                 </div>
             </Grid>
             <Grid item xs={12} md={4}>
