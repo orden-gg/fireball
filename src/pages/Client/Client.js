@@ -9,10 +9,10 @@ import queryString from 'query-string'
 
 import LoginNavigation from 'components/Login/LoginNavigation';
 import PageNav from 'components/PageNav/PageNav';
+import { BaazarIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 import { ClientContext } from 'contexts/ClientContext';
 import commonUtils from 'utils/commonUtils';
-import ShopIcon from 'assets/images/baazar.svg';
 
 import ClientGotchis from './routes/ClientGotchis';
 import ClientLendings from './routes/ClientLendings';
@@ -93,12 +93,7 @@ export default function Client() {
                             target='_blank'
                             className={classes.shopBtn}
                         >
-                            <img
-                                src={ShopIcon}
-                                alt='shop-icon'
-                                width={24}
-                                height={24}
-                            />
+                            <BaazarIcon width={24} height={24} />
                         </Button>
                     </div>
 

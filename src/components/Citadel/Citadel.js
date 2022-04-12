@@ -13,10 +13,10 @@ import Phaser from 'phaser';
 import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 
+import { GotchiverseGif } from 'components/Icons/Icons';
 import Parcel from 'components/Items/Parcel/Parcel';
 import thegraph from 'api/thegraph.api';
 import useFullscreenStatus from 'hooks/useFullscreenStatus';
-import CitadelLoading from 'assets/images/animated/gotchiverse.gif';
 
 import CitadelScene from './components/Scene';
 import styles from './styles';
@@ -164,7 +164,7 @@ export default function Citadel({ ownerParcels, className}) {
                 <span className={classes.citadelLoadingLine}></span>
                 <span className={classes.citadelLoadingLine}></span>
                 <div className={classes.citadelLoadingInner}>
-                    <img src={CitadelLoading} alt='Citadel loader' className={classes.citadelLoadingIcon} />
+                    <GotchiverseGif width='100%' height='100%' />
                 </div>
             </div>
         </div>

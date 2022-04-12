@@ -22,14 +22,7 @@ export default function PageNav({ links, query }) {
                         <div className={classes.navItem} key={index}>
                             <Button
                                 disabled={link.items === 0}
-                                startIcon={
-                                    <img
-                                        src={link.icon}
-                                        alt={link.name}
-                                        width={24}
-                                        height={24}
-                                    />
-                                }
+                                startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
                                 activeClassName='active'

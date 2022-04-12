@@ -4,9 +4,9 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 
 import classNames from 'classnames';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import autopetApi from 'api/autopet.api';
 import thegraph from 'api/thegraph.api';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import AutopetInfoCard from './AutopetInfoCard';
 import { infoStyles } from '../../styles';
@@ -71,7 +71,7 @@ export default function AutopetInfo() {
                     fee !== null ? (
                         <>
                             {fee}
-                            <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                            <GhstTokenGif width={48} height={48} />
                             <span className={classes.autopetCardCountLabel}>staked</span>
                         </>
                     ) : (
@@ -89,7 +89,7 @@ export default function AutopetInfo() {
                     totalStaked !== null ? (
                         <>
                             {totalStaked}
-                            <img src={ghstIcon} alt='ghst icon' className={classes.autopetInfoGhst} />
+                            <GhstTokenGif width={48} height={48} />
                         </>
                     ) : (
                         null

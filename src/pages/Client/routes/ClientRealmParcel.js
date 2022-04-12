@@ -6,12 +6,12 @@ import { useLocation } from 'react-router-dom';
 
 import classNames from 'classnames';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import { parcelSinglePage, routersStyles } from '../styles';
 
@@ -191,7 +191,7 @@ export default function ClientRealmParcel() {
                                                     <Grid item xs={12} sm={6} md={2}>
                                                         <Typography
                                                             className={classes.reserveTitle}>Price: </Typography>
-                                                        <img src={ghstIcon} alt={'GHST'} className={classes.priceIcon}/>
+                                                        <GhstTokenGif width={15} height={15} />
                                                         {ethersApi.fromWei(item.priceInWei)}
                                                     </Grid>
                                                 </Grid>

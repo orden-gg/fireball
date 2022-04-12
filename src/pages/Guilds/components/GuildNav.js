@@ -6,8 +6,7 @@ import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 
 import { GuildsContext } from 'contexts/GuildsContext';
-import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
-import realmPlaceholder from 'assets/images/icons/kek.png';
+import { GotchiIcon, KekIcon } from 'components/Icons/Icons';
 
 import { guildNavStyles } from '../styles';
 
@@ -27,7 +26,7 @@ export default function GuildNav() {
                 <Button
                     disabled={!guildGotchis.length}
                     startIcon={
-                        <img src={gotchiPlaceholder} alt='gotchi' width={24} height={24} />
+                        <GotchiIcon width={24} height={24} />
                     }
                     component={NavLink}
                     className={classes.button}
@@ -56,7 +55,7 @@ export default function GuildNav() {
                 <Button
                     disabled={!guildRealm.length}
                     startIcon={
-                        <img src={realmPlaceholder} alt='gotchi' width={20} />
+                        <KekIcon width={20} height={20} alt='realm' />
                     }
                     component={NavLink}
                     className={classes.button}

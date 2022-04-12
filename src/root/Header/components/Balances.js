@@ -38,7 +38,7 @@ export default function Balances() {
                         <CustomTooltip
                             title={
                                 <React.Fragment>
-                                    <span>{token.pricePerToken}$/<span className='highlight'>{token.alt}</span></span>
+                                    <span>{token.pricePerToken}$/<span className='highlight'>{token.key}</span></span>
                                 </React.Fragment>
                             }
                             enterTouchDelay={0}
@@ -47,14 +47,8 @@ export default function Balances() {
                             key={index}
                         >
                             <Link className={classes.balance} href={token.swapUrl} target='_blank'>
-                                <div className={classNames(classes.balanceValue, token.alt)}>
-                                    <img
-                                        src={token.imgSrc}
-                                        className={classes.balanceIcon}
-                                        width={14}
-                                        height={14}
-                                        alt={token.alt}
-                                    />
+                                <div className={classNames(classes.balanceValue, token.key)}>
+                                    { token.icon }
                                     <p>{token.amount}</p>
                                 </div>
                                 <p className={classes.balancePrice}>

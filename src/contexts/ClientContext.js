@@ -1,16 +1,13 @@
 import React, { createContext, useState } from 'react';
 
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
 import ticketsApi from 'api/tickets.api';
+import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
-import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
-import warehouseIcon from 'assets/images/wearables/15.svg';
-import ticketsIcon from 'assets/images/tickets/rare.svg';
-import realmIcon from 'assets/images/icons/kek.png';
-import thegraphApi from 'api/thegraph.api';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export const ClientContext = createContext({});
@@ -45,31 +42,31 @@ const ClientContextProvider = (props) => {
     const navData = [
         {
             name: 'gotchis',
-            icon: gotchiIcon,
+            icon: <GotchiIcon width={24} height={24} />,
             loading: loadingGotchis,
             items: gotchis.length
         },
         {
             name: 'lendings',
-            icon: gotchiIcon,
+            icon: <GotchiIcon width={24} height={24} />,
             loading: loadingLendings,
             items: lendings.length
         },
         {
             name: 'warehouse',
-            icon: warehouseIcon,
+            icon: <WarehouseIcon width={24} height={24} />,
             loading: loadingWarehouse,
             items: warehouse.length
         },
         {
             name: 'tickets',
-            icon: ticketsIcon,
+            icon: <RareTicketIcon width={24} height={24} />,
             loading: loadingTickets,
             items: tickets.length
         },
         {
             name: 'realm',
-            icon: realmIcon,
+            icon: <KekIcon width={24} height={24} alt='realm' />,
             loading: loadingRealm,
             items: realm.length
         }

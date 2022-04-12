@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import styles from './styles';
 
@@ -11,7 +11,7 @@ export default function HorizontalPrice({ item, label }) {
     return (
         <div className={classes.priceRoot}>
             {label || ''}
-            <img src={ghstIcon} alt='ghst-token'/>
+            <GhstTokenGif width={25} height={25} />
             {
                 ethersApi.fromWei(item.priceInWei)
             }

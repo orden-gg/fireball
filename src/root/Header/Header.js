@@ -4,9 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
+import { LogoIcon } from 'components/Icons/Icons';
 import LoginButton from 'components/Login/LoginButton';
 import { LoginContext } from 'contexts/LoginContext';
-import logo from 'assets/images/logo-white.svg';
 
 import Balances from './components/Balances';
 import styles from './styles';
@@ -42,7 +42,7 @@ export default function Header() {
     return (
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/'>
-                <img className={classes.logo} src={logo} alt='logo' />
+                <LogoIcon width={80} height={34} />
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>

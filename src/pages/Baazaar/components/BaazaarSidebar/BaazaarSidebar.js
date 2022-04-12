@@ -4,21 +4,23 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
+import {
+    ActivityIcon,
+    BaazarIcon,
+    ConsumableIcon,
+    GhstTokenGif,
+    GotchiIcon,
+    H1OpenedPortalIcon,
+    H1SealedPortalIcon,
+    KekIcon,
+    ListingIcon,
+    PurchaseIcon,
+    RareTicketIcon,
+    SoldIcon,
+    WarehouseIcon
+} from 'components/Icons/Icons';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
-import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
-import warehousePlaceholder from 'assets/images/wearables/15.svg';
-import ticketsPlaceholder from 'assets/images/tickets/rare.svg';
-import realmPlaceholder from 'assets/images/icons/kek.png';
-import closedPortals from 'assets/images/portals/h1-sealed.svg';
-import openedPortals from 'assets/images/portals/h1-open.svg';
-import consumables from 'assets/images/wearables/127.svg';
-import activity from 'assets/images/icons/activity.svg';
-import listing from 'assets/images/icons/listing.svg';
-import sold from 'assets/images/icons/sold.svg';
-import purchased from 'assets/images/icons/purchase.svg';
-import baazaar from 'assets/images/baazaar.png';
-import ghst from 'assets/images/animated/ghst-token.gif';
 
 import GotchiFilters from './components/Filters/GotchiFilters';
 import RealmFilters from './components/Filters/RealmFilters';
@@ -81,32 +83,32 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                 >
                     <ToggleButton className={classes.toggleItem} value={listingTypes.aavegotchi} aria-label='modified rarity score'>
                         <Tooltip title='Aavegotchi' placement='top' followCursor>
-                            <img src={gotchiPlaceholder} alt='gotchi' />
+                            <GotchiIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.closedPortal} aria-label='modified rarity score'>
                         <Tooltip title='Closed portals' placement='top' followCursor>
-                            <img src={closedPortals} alt='closed-portals' />
+                            <H1SealedPortalIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.wearable} aria-label='modified rarity score'>
                         <Tooltip title='Wearables' placement='top' followCursor>
-                            <img src={warehousePlaceholder} alt='warehouse' />
+                            <WarehouseIcon widht={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.consumable} aria-label='modified rarity score'>
                         <Tooltip title='Consumables' placement='top' followCursor>
-                            <img src={consumables} alt='consumables' />
+                            <ConsumableIcon widht={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.tickets} aria-label='modified rarity score'>
                         <Tooltip title='Tickets' placement='top' followCursor>
-                            <img src={ticketsPlaceholder} alt='tickets' />
+                            <RareTicketIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.realm} aria-label='modified rarity score'>
                         <Tooltip title='Realm' placement='top' followCursor>
-                            <img src={realmPlaceholder} alt='realm' />
+                            <KekIcon width={16} height={16} alt='realm' />
                         </Tooltip>
                     </ToggleButton>
                 </ToggleButtonGroup>
@@ -122,22 +124,22 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                 >
                     <ToggleButton className={classes.toggleItem} value={listingTypes.activity} aria-label='modified rarity score'>
                         <Tooltip title='Activity' placement='top' followCursor>
-                            <img src={activity} alt='activity' />
+                            <ActivityIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.listing} aria-label='modified rarity score'>
                         <Tooltip title='Listing' placement='top' followCursor>
-                            <img src={listing} alt='listing' />
+                            <ListingIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.sold} aria-label='modified rarity score'>
                         <Tooltip title='Sold' placement='top' followCursor>
-                            <img src={sold} alt='sold' />
+                            <SoldIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.purchased} aria-label='modified rarity score'>
                         <Tooltip title='Purchased' placement='top' followCursor>
-                            <img src={purchased} alt='purchased' />
+                            <PurchaseIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                 </ToggleButtonGroup>
@@ -161,11 +163,11 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         size={'small'}
                     >
                         <ToggleButton className={classes.toggleItem} value={'priceInWei-asc'} aria-label='modified rarity score'>
-                            <img src={ghst} alt='ghst' />
+                            <GhstTokenGif width={16} height={16} />
                             <ArrowDownwardIcon />
                         </ToggleButton>
                         <ToggleButton className={classes.toggleItem} value={'priceInWei-desc'} aria-label='modified rarity score'>
-                            <img src={ghst} alt='ghst' />
+                            <GhstTokenGif width={16} height={16} />
                             <ArrowUpwardIcon />
                         </ToggleButton>
                         <ToggleButton className={classes.toggleItem} value={'timeCreated-desc'} aria-label='modified rarity score'>
@@ -201,7 +203,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                             />
                         </Grid>
                         <Grid item xs={2} className={classes.priceFilter}>
-                            <img src={ghst} alt='ghst' />
+                            <GhstTokenGif width={25} height={25} />
                         </Grid>
                         <Grid item xs={5}>
                             <TextField
@@ -281,7 +283,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.all} aria-label='modified rarity score'>
                             <Tooltip title='All items' placement='top' followCursor>
                                 <>
-                                    <img src={baazaar} alt='baazaar' />
+                                    <BaazarIcon width={16} height={16} />
                                     <Typography variant='caption'>All items</Typography>
                                 </>
                             </Tooltip>
@@ -289,7 +291,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.aavegotchi} aria-label='modified rarity score'>
                             <Tooltip title='Aavegotchi' placement='top' followCursor>
                                 <>
-                                    <img src={gotchiPlaceholder} alt='gotchi' />
+                                    <GotchiIcon width={16} height={16} />
                                     <Typography variant='caption'>Aavegotchi</Typography>
                                 </>
                             </Tooltip>
@@ -297,7 +299,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.closedPortal} aria-label='modified rarity score'>
                             <Tooltip title='Sealed portals' placement='top' followCursor>
                                 <>
-                                    <img src={closedPortals} alt='sealed-portals' />
+                                    <H1SealedPortalIcon width={16} height={16} />
                                     <Typography variant='caption'>Sealed portals</Typography>
                                 </>
                             </Tooltip>
@@ -305,7 +307,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.openedPortal} aria-label='modified rarity score'>
                             <Tooltip title='Opened portals' placement='top' followCursor>
                                 <>
-                                    <img src={openedPortals} alt='opened-portals' />
+                                    <H1OpenedPortalIcon width={16} height={16} />
                                     <Typography variant='caption'>Opened portals</Typography>
                                 </>
                             </Tooltip>
@@ -313,7 +315,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.wearable} aria-label='modified rarity score'>
                             <Tooltip title='Wearables' placement='top' followCursor>
                                 <>
-                                    <img src={warehousePlaceholder} alt='wearables' />
+                                    <WarehouseIcon width={16} height={16} />
                                     <Typography variant='caption'>Wearables</Typography>
                                 </>
                             </Tooltip>
@@ -321,7 +323,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.consumable} aria-label='modified rarity score'>
                             <Tooltip title='Consumables' placement='top' followCursor>
                                 <>
-                                    <img src={consumables} alt='consumables' />
+                                    <ConsumableIcon widht={16} height={16} />
                                     <Typography variant='caption'>Consumables</Typography>
                                 </>
                             </Tooltip>
@@ -329,7 +331,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.tickets} aria-label='modified rarity score'>
                             <Tooltip title='Tickets' placement='top' followCursor>
                                 <>
-                                    <img src={ticketsPlaceholder} alt='tickets' />
+                                    <RareTicketIcon width={16} height={16} />
                                     <Typography variant='caption'>Tickets</Typography>
                                 </>
                             </Tooltip>
@@ -337,7 +339,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.realm} aria-label='modified rarity score'>
                             <Tooltip title='Realm' placement='top' followCursor>
                                 <>
-                                    <img src={realmPlaceholder} alt='realm' />
+                                    <KekIcon width={16} height={16} alt='realm' />
                                     <Typography variant='caption'>Realm</Typography>
                                 </>
                             </Tooltip>

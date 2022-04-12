@@ -19,9 +19,6 @@ const styles = makeStyles(theme => ({
     highlight: {
         color: theme.palette.primary.main
     },
-    logo: {
-        width: 80
-    },
     logoText: {
         whiteSpace: 'nowrap',
         fontSize: '1.125rem',
