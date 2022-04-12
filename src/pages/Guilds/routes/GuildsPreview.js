@@ -10,7 +10,6 @@ import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 import fud from 'assets/images/icons/fud.png';
-
 import styles from '../styles';
 
 export default function GuildsPreview() {

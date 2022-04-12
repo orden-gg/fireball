@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 
 import Gotchi from 'components/Gotchi/Gotchi';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
-
 import GotchisLazy from 'components/Lazy/GotchisLazy';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import { guildContentStyles } from '../styles';
 
 export default function GuildGotchis() {

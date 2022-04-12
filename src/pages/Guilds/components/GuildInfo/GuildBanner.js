@@ -3,13 +3,12 @@ import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useHistory } from 'react-router-dom';
 
-import WearableImage from 'components/Items/Wearable/WearableImage';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
-import defaultBanner from 'assets/images/guilds/ordenGG-banner.png';
 import GuildLogo from '../GuildLogo';
 import GuildSocials from './GuildSocials';
-import { guildBanner } from '../../styles';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
+import defaultBanner from 'assets/images/guilds/ordenGG-banner.png';
+import { guildBanner } from '../../styles';
 
 export default function GuildBanner() {
     const classes = guildBanner();

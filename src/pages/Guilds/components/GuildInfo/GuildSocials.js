@@ -5,11 +5,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import WebIcon from '@mui/icons-material/Web';
 
-
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 import { ReactComponent as TwitchIcon } from 'assets/images/icons/twitch.svg';
-
 import { guildSocialsStyles } from '../../styles';
 
 export default function GuildSocials() {

@@ -1,21 +1,14 @@
 import React, { useContext } from 'react';
-import { Button } from '@mui/material';
-import { useTheme } from '@emotion/react';
-import { useRouteMatch } from 'react-router';
-import { NavLink } from 'react-router-dom';
-import ContentLoader from 'react-content-loader';
 
+import PageNav from 'components/PageNav/PageNav';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
 import realmPlaceholder from 'assets/images/icons/kek.png';
 
 import { guildNavStyles } from '../styles';
-import PageNav from 'components/PageNav/PageNav';
 
 export default function GuildNav() {
-    const match = useRouteMatch();
     const classes = guildNavStyles();
-    const theme = useTheme();
     const { currentGuild } = useContext(GuildsContext);
     const navData = [
         {

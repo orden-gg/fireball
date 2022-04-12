@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import guilds from 'data/guilds';
 import thegraph from 'api/thegraph.api';
+import guilds from 'data/guilds';
 
 export const GuildsContext = createContext({});
 
