@@ -171,19 +171,22 @@ const guilds = [
     },{
         name: 'Chigotchi Bulls',
         logo: require('../assets/images/guilds/chigotchi-bulls.png').default,
-        members: [],
+        members: [
+            '0x4572192Ed1DEe5fD0f8f07269bE4eF3e3e270715',
+            '0x9d083a671780d50852f1B748Bb72ea30736C01EC'
+        ],
         description: [
             {
                 title: 'Description',
-                text: 'A guild for sports NFT enthusiasts, specifically Aavegotchi and NBA Top Shot collectors.'
+                text: 'OG Aair Gotchi Guild. '
             },
             {
                 title: 'Requirement',
-                text: 'None, but voting power is based on roles, which are based on NFTs owned by members.'
+                text: 'Complete our guild/scholar application form: https://forms.gle/j99jtwQ5Un5UHw8n8.'
             },
             {
                 title: 'Point of Contact',
-                text: 'legendarybagger#1201'
+                text: 'humbledbagger#1337'
             }
         ],
         banner: '',

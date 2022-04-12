@@ -52,7 +52,7 @@ const ClientContextProvider = (props) => {
         {
             name: 'lendings',
             icon: gotchiIcon,
-            loading: loadingGotchis,
+            loading: loadingLendings,
             items: lendings.length
         },
         {
