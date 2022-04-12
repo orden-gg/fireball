@@ -7,7 +7,7 @@ import GuildLogo from '../GuildLogo';
 import GuildSocials from './GuildSocials';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
-import defaultBanner from 'assets/images/guilds/ordenGG-banner.png';
+import defaultBanner from 'assets/images/guilds/default-banner.png';
 
 import { guildBanner } from '../../styles';
 
@@ -20,7 +20,7 @@ export default function GuildBanner() {
         const guildId = guildsData.indexOf(currentGuild)+direction;
         const guild = guildsData[guildId];
 
-        if(guild === undefined || guild.members.length === 0) {
+        if (guild === undefined || guild.members.length === 0) {
             return;
         }
 
@@ -29,11 +29,21 @@ export default function GuildBanner() {
         setCurrentGuild(guild);
     }
 
+    const getBannerUrl = () => {
+        try {
+            return require(`assets/images/guilds/${currentGuild.banner}`).default;
+        } catch (error) {
+            console.log(error);
+
+            return defaultBanner;
+        }
+    }
+
     return (
         <div className={classes.guildBanner} >
             <div className={classes.guildBannerInner}>
                 <div
-                    style={{backgroundImage: `url(${currentGuild.banner || defaultBanner})`}}
+                    style={{backgroundImage: `url(${getBannerUrl()})`}}
                     className={classes.guildBannerBg}
                 ></div>
                 <div className={classes.guildLogo}>

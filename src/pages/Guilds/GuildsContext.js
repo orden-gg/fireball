@@ -1,14 +1,16 @@
 import React, { createContext, useEffect, useState } from 'react';
 
 import thegraph from 'api/thegraph.api';
-import guilds from 'data/guilds';
+import guilds from 'data/guilds.json';
+
+console.log(guilds);
 
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
     const [currentGuild, setCurrentGuild] = useState({});
     const [guildsData, setGuildsData] = useState(
-        JSON.parse(JSON.stringify(guilds)).map(guild => {
+        guilds.map(guild => {
             guild.members = guild.members.map(address => address.toLowerCase());
 
             return guild;
@@ -21,18 +23,18 @@ const GuildsContextProvider = (props) => {
         setGuildsData(guildsState => {
             for(let gotchi of gotchis) {
                 for(let guild of guildsState) {
-                    if(guild.members.length === 0) {
+                    if (guild.members.length === 0) {
                         guild.gotchis = [];
                         continue;
                     }
 
-                    if(!guild.hasOwnProperty('gotchis')) {
+                    if (!guild.hasOwnProperty('gotchis')) {
                         guild.gotchis = [];
                     }
 
                     const isGuildGotchi = guild.members.includes(gotchi.owner.id);
 
-                    if(isGuildGotchi) {
+                    if (isGuildGotchi) {
                         guild.gotchis.push(gotchi);
                     }
                 }
@@ -46,20 +48,18 @@ const GuildsContextProvider = (props) => {
         setGuildsData(guildsState => {
             for(let gotchi of gotchis) {
                 for(let guild of guildsState) {
-                    if(guild.members.length === 0) {
+                    if (guild.members.length === 0) {
                         guild.lendings = [];
                         continue;
                     }
 
-                    if(!guild.hasOwnProperty('lendings')) {
+                    if (!guild.hasOwnProperty('lendings')) {
                         guild.lendings = [];
                     }
 
-                    console.log(gotchi.lender);
-
                     const isGuildGotchi = guild.members.includes(gotchi.lender.toLowerCase());
 
-                    if(isGuildGotchi) {
+                    if (isGuildGotchi) {
                         guild.lendings.push(gotchi);
                     }
                 }
@@ -94,7 +94,7 @@ const GuildsContextProvider = (props) => {
 
         for(let id of guildsData.keys()) {
             thegraph.getRealmByAddresses(guildsData[id].members).then(realm => {
-                if(destroyed) {
+                if (destroyed) {
                     return;
                 }
 
@@ -106,7 +106,7 @@ const GuildsContextProvider = (props) => {
 
         setTimeout(() => {
             thegraph.getAllGotchies().then(gotchis => {
-                if(destroyed) {
+                if (destroyed) {
                     return;
                 }
 
@@ -114,7 +114,7 @@ const GuildsContextProvider = (props) => {
             });
 
             thegraph.getLendings().then(gotchis => {
-                if(destroyed) {
+                if (destroyed) {
                     return;
                 }
 

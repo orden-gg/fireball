@@ -32,7 +32,7 @@ export default function GuildsPreview() {
     }
 
     const renderWaerables = guild => {
-        if(guild.hasOwnProperty('wearables')) {
+        if (guild.hasOwnProperty('wearables')) {
 
             return <GuildWearables
                 wearables={guild.wearables}

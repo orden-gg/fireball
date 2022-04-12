@@ -17,7 +17,7 @@ import Gotchi from 'components/Gotchi/Gotchi';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
-import guilds from 'data/guilds';
+import guilds from 'data/guilds.json';
 
 const sortings = [
     {
