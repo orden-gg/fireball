@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
-
-import { guildDetailsStyles } from '../../styles';
-
 import Modal from 'components/Modal/Modal';
+import GuildWearables from '../GuildWearables';
+import { GuildsContext } from 'pages/Guilds/GuildsContext';
+import { guildDetailsStyles } from '../../styles';
 
 export default function GuildsDetails() {
     const classes = guildDetailsStyles();
@@ -39,6 +38,23 @@ export default function GuildsDetails() {
                                 </div>
                             </li>
                         ))
+                    }
+                    {
+                        currentGuild.wearables?.length > 0 && (
+                            <li className={classes.detailsItem}>
+                                <p className={classes.detailTitle}>Guild wearables</p>
+                                <div className={classes.detailBody}>
+                                    <div className={classes.guildWearables}>
+                                        {
+                                            <GuildWearables
+                                                wearables={currentGuild.wearables}
+                                                className={classes.guildWearable}
+                                            />
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        )
                     }
                 </ul>
             </Modal>

@@ -23,7 +23,7 @@ const guilds = [
             twitter: 'https://twitter.com/orden_gg/',
             discord: 'https://discord.com/invite/NXEEETxSkC'
         },
-        wearableId: 130
+        wearables: [130, 150, 135, 141]
     },
     {
         name: 'Aavegotchi Francophonie',

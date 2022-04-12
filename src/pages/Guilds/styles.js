@@ -160,15 +160,29 @@ const styles = makeStyles(theme => ({
             marginLeft: theme.spacing(.5)
         }
     },
+    guildWearables: {
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
     guildWearable: {
-        position: 'absolute',
-        left: '65%',
-        width: '50%',
-        height: '90%',
-        maxHeight: 'auto',
-        transform: 'translateX(-50%)',
-        opacity: .2,
-        filter: 'grayscale(100%)'
+        width: 22,
+        height: 15,
+        margin: theme.spacing(1.5, 1, .5, 0)
+    }
+}));
+
+const guildWearables = makeStyles(theme => ({
+    guildWearable: {
+        minHeight: 'auto',
+        position: 'relative',
+        '& img': {
+            maxHeight: '120%',
+            width: '100%',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }
     }
 }));
 
@@ -306,25 +320,6 @@ const guildBanner = makeStyles(theme => ({
         marginTop: theme.spacing(1),
         [theme.breakpoints.down('md')]: {
             fontSize: 18
-        }
-    },
-    guildWearable: {
-        width: 30,
-        height: 20,
-        display: 'inline-flex',
-        margin: 0,
-        minHeight: 'auto',
-        alignItems: 'center',
-        position: 'relative',
-        verticalAlign: 'middle',
-        margin: '-2px 0 0 3px',
-        '& img': {
-            maxHeight: '120%',
-            width: '100%',
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)'
         }
     },
     buttonPrev: {
@@ -479,6 +474,15 @@ const guildDetailsStyles = makeStyles(theme => ({
             fontSize: 14
         }
     },
+    guildWearables: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    guildWearable: {
+        width: 30,
+        height: 20,
+        margin: theme.spacing(1)
+    },
     '@keyframes show': keyframes.show
 }));
 
@@ -567,5 +571,6 @@ export {
     guildDetailsStyles,
     guildContentStyles,
     guildNavStyles,
-    guildSocialsStyles
+    guildSocialsStyles,
+    guildWearables
 }

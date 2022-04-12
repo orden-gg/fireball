@@ -4,14 +4,14 @@ import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Skeleton, Tooltip } from '@mui/material';
 
+import GuildLogo from '../components/GuildLogo';
+import GuildWearables from '../components/GuildWearables';
+import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 import fud from 'assets/images/icons/fud.png';
-import GuildLogo from '../components/GuildLogo';
-import { GuildsContext } from '../GuildsContext';
 
 import styles from '../styles';
-import WearableImage from 'components/Items/Wearable/WearableImage';
 
 export default function GuildsPreview() {
     const classes = styles();
@@ -31,6 +31,16 @@ export default function GuildsPreview() {
         return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
     }
 
+    const renderWaerables = guild => {
+        if(guild.hasOwnProperty('wearables')) {
+
+            return <GuildWearables
+                wearables={guild.wearables}
+                className={classes.guildWearable}
+            />
+        }
+    }
+
     const renderList = () => {
         return (
             guildsData.map((guild, index) => (
@@ -40,11 +50,6 @@ export default function GuildsPreview() {
                     key={index}
                     onClick={() => {handleClick(guild)}}
                 >
-                    {
-                        guild.wearableId && (
-                            <WearableImage className={classes.guildWearable} wearable={{id: guild.wearableId}} />
-                        )
-                    }
                     <div className={classes.guildLogo}>
                         <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
                     </div>
@@ -68,6 +73,7 @@ export default function GuildsPreview() {
                                 </li>
                             </Tooltip>
                         </ul>
+                        <div className={classes.guildWearables}>{renderWaerables(guild)}</div>
                     </div>
                 </Button>
             ))
