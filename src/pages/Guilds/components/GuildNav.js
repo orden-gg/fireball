@@ -18,6 +18,12 @@ export default function GuildNav() {
             items: currentGuild.gotchis?.length
         },
         {
+            name: 'lendings',
+            icon: gotchiPlaceholder,
+            loading: !currentGuild.lendings,
+            items: currentGuild.lendings?.length
+        },
+        {
             name: 'realm',
             icon: realmPlaceholder,
             loading: !currentGuild.realm,

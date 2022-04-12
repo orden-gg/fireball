@@ -42,6 +42,33 @@ const GuildsContextProvider = (props) => {
         });
     }
 
+    const setLendingsByGuild = gotchis => {
+        setGuildsData(guildsState => {
+            for(let gotchi of gotchis) {
+                for(let guild of guildsState) {
+                    if(guild.members.length === 0) {
+                        guild.lendings = [];
+                        continue;
+                    }
+
+                    if(!guild.hasOwnProperty('lendings')) {
+                        guild.lendings = [];
+                    }
+
+                    console.log(gotchi.lender);
+
+                    const isGuildGotchi = guild.members.includes(gotchi.lender.toLowerCase());
+
+                    if(isGuildGotchi) {
+                        guild.lendings.push(gotchi);
+                    }
+                }
+            }
+
+            return [...guildsState]
+        });
+    }
+
     const loadGuildRealm = guild => {
         const id = guildsData.indexOf(guild);
 
@@ -65,23 +92,33 @@ const GuildsContextProvider = (props) => {
     useEffect(() => {
         let destroyed = false;
 
+        for(let id of guildsData.keys()) {
+            thegraph.getRealmByAddresses(guildsData[id].members).then(realm => {
+                if(destroyed) {
+                    return;
+                }
+
+                setRealmByGuild(realm, id);
+            });
+        }
+
+
+
         setTimeout(() => {
-            for(let id of guildsData.keys()) {
-                thegraph.getRealmByAddresses(guildsData[id].members).then(realm => {
-                    if(destroyed) {
-                        return;
-                    }
-
-                    setRealmByGuild(realm, id);
-                });
-            }
-
             thegraph.getAllGotchies().then(gotchis => {
                 if(destroyed) {
                     return;
                 }
 
                 setGotchisByGuild(gotchis);
+            });
+
+            thegraph.getLendings().then(gotchis => {
+                if(destroyed) {
+                    return;
+                }
+
+                setLendingsByGuild(gotchis);
             });
         }, 0);
 

@@ -4,6 +4,7 @@ import { Button, Typography } from '@mui/material';
 import Modal from 'components/Modal/Modal';
 import GuildWearables from '../GuildWearables';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
+
 import { guildDetailsStyles } from '../../styles';
 
 export default function GuildsDetails() {

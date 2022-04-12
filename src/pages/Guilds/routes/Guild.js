@@ -11,6 +11,7 @@ import GuildNav from '../components/GuildNav';
 import GuildsRealm from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
+
 import { guildStyles } from '../styles';
 
 export default function Guild() {
@@ -69,7 +70,14 @@ export default function Guild() {
                 <Box className={classes.guildContent}>
                     <GuildNav />
                     <Switch>
-                        <Route path={`${match.path}/gotchis`} component={ GuildGotchis } />
+                        <Route
+                            path={`${match.path}/gotchis`}
+                            component={() => <GuildGotchis gotchis={currentGuild.gotchis} />}
+                        />
+                        <Route
+                            path={`${match.path}/lendings`}
+                            component={() => <GuildGotchis gotchis={currentGuild.lendings} />}
+                        />
                         <Route path={`${match.path}/realm`} component={ GuildsRealm } />
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />
                     </Switch>

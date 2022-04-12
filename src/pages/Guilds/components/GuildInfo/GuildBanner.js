@@ -8,6 +8,7 @@ import GuildSocials from './GuildSocials';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import defaultBanner from 'assets/images/guilds/ordenGG-banner.png';
+
 import { guildBanner } from '../../styles';
 
 export default function GuildBanner() {

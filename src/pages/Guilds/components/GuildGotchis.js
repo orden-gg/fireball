@@ -1,23 +1,20 @@
-import React, { useContext } from 'react';
-
 import Gotchi from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
+
 import { guildContentStyles } from '../styles';
 
-export default function GuildGotchis() {
+export default function GuildGotchis({gotchis}) {
     const classes = guildContentStyles();
-    const { currentGuild } = useContext(GuildsContext);
 
     return (
         <div className={classes.guildGotchis}>
             {
-                currentGuild.gotchis?.length > 0 ? (
+                gotchis?.length > 0 ? (
                     <GotchisLazy
-                        items={currentGuild.gotchis}
+                        items={gotchis}
                         renderItem={id => (
                             <Gotchi
-                                gotchi={currentGuild.gotchis[id]}
+                                gotchi={gotchis[id]}
                                 narrowed={true}
                                 render={[
                                     'svg',

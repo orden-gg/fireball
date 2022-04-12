@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import { ReactComponent as Placeholder } from 'assets/images/icons/ghst.svg';

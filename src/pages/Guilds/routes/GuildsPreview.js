@@ -10,6 +10,7 @@ import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 import fud from 'assets/images/icons/fud.png';
+
 import styles from '../styles';
 
 export default function GuildsPreview() {
@@ -59,7 +60,13 @@ export default function GuildsPreview() {
                                 <li className={classes.guildInfoItem}>
                                     <img src={gotchi} className={classes.guildInfoItemIcon} alt='gotchi icon' />
                                     <span className={classes.guildInfoAmount}>
-                                        {setNumber(guild.gotchis)}
+                                        {
+                                            setNumber(
+                                                guild.gotchis && guild.lendings ? (
+                                                    [...guild.gotchis, ...guild.lendings]
+                                                ) : undefined
+                                            )
+                                        }
                                     </span>
                                 </li>
                             </Tooltip>

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import WearableImage from 'components/Items/Wearable/WearableImage';
+
 import { guildWearables } from '../styles';
 
 export default function GuildWearables({wearables, className}) {
