@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Alert, AlertTitle } from '@mui/material';
+import { Alert, AlertTitle, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -12,6 +12,7 @@ import PageNav from 'components/PageNav/PageNav';
 import { LoginContext } from 'contexts/LoginContext';
 import { ClientContext } from 'contexts/ClientContext';
 import commonUtils from 'utils/commonUtils';
+import ShopIcon from 'assets/images/baazar.svg';
 
 import ClientGotchis from './routes/ClientGotchis';
 import ClientLendings from './routes/ClientLendings';
@@ -82,10 +83,24 @@ export default function Client() {
                 </Box>
             ) : (
                 <>
-                    <PageNav
-                        links={navData}
-                        query={`?address=${clientActive}`}
-                    />
+                    <div className={classes.head}>
+                        <PageNav
+                            links={navData}
+                            query={`?address=${clientActive}`}
+                        />
+                        <Button
+                            href={`/shop?address=${clientActive}`}
+                            target='_blank'
+                            className={classes.shopBtn}
+                        >
+                            <img
+                                src={ShopIcon}
+                                alt='shop-icon'
+                                width={24}
+                                height={24}
+                            />
+                        </Button>
+                    </div>
 
                     <Switch>
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
