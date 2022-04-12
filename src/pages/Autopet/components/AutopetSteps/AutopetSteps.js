@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 import SwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
 
-import { ReactComponent as Gotchi } from 'assets/images/gotchi-placeholder.svg'
+import { GotchiIcon } from 'components/Icons/Icons';
 
 import PetPanel from './PetPanel';
 import GhstPanel from './GhstPanel';
@@ -89,7 +89,7 @@ export default function AutopetSteps() {
                                         {
                                             tabs[key].done &&
                                             <>
-                                                <Gotchi className={classes.tabGotchi} />
+                                                <GotchiIcon className={classes.tabGotchi} width={20} height={20} />
                                                 <DoneIcon className={classes.tabArrow} />
                                             </>
                                         }

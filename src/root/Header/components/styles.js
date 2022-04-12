@@ -28,15 +28,15 @@ const styles = makeStyles(theme => ({
             margin: 0,
             lineHeight: 1.2,
             textShadow: '2px 2px 0 black'
-        },
-    },
-    balanceIcon: {
-        marginRight: 4
+        }
     },
     balanceValue: {
         display: 'flex',
         alignItems: 'center',
         fontWeight: 'bold',
+        '& img': {
+            marginRight: 4
+        },
         '&.fud': {
             color: theme.palette.alchemica.fud
         },

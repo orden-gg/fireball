@@ -1,10 +1,7 @@
 import React from 'react';
 
+import { H1OpenedPortalIcon, H1SealedPortalIcon, H2OpenedPortalIcon, H2SealedPortalIcon } from 'components/Icons/Icons';
 import { Erc721Categories } from 'data/types';
-import sealedPortal from 'assets/images/portals/h1-sealed.svg';
-import openPortal from 'assets/images/portals/h1-open.svg';
-import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
-import h2OpenPortal from 'assets/images/portals/h2-open.svg';
 
 import styles, { portalStyles } from '../styles';
 
@@ -14,15 +11,23 @@ export default function PortalImage({ portal }) {
         ...portalStyles()
     };
 
+    const renderPortalImage = (portal) => {
+        let portalIcon;
+
+        if (portal.portal.hauntId === '1') {
+            portalIcon = portal.category === Erc721Categories.ClosedPortal ?
+                <H1SealedPortalIcon width={100} height={100} /> :
+                <H1OpenedPortalIcon width={100} height={100} />;
+        } else {
+            portalIcon = portal.category === Erc721Categories.ClosedPortal ?
+                <H2SealedPortalIcon width={100} height={100} /> :
+                <H2OpenedPortalIcon width={100} height={100} />;
+        }
+
+        return React.cloneElement(portalIcon, { className: classes.portalImage });
+    }
+
     return (
-        <img className={classes.portalImage}
-             style={{'maxWidth': '100px'}}
-             src={
-                portal.portal.hauntId === '1' ?
-                (portal.category === Erc721Categories.ClosedPortal ? sealedPortal : openPortal) :
-                (portal.category === Erc721Categories.ClosedPortal ? h2SealedPortal : h2OpenPortal)
-            }
-            alt='Portal'
-        />
+        renderPortalImage(portal)
     );
 }

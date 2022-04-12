@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
 import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
+import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
-import MetamaskIcon from 'assets/images/icons/metamask.png';
 
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
@@ -67,7 +67,7 @@ export default function LoginButton() {
                     { activeAddress ? (
                         isMetamaskActive ? (
                             <Box className={classNames(classes.buttonIcon, 'metamask')}>
-                                <img src={MetamaskIcon} alt='Metamask icon' width={18} />
+                                <MetamaskIcon width={18} height={18} />
                             </Box>
                         ) : (
                             <Box className={classNames(classes.buttonIcon, 'gotchi')}>

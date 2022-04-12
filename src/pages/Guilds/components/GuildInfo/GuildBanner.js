@@ -8,9 +8,8 @@ import WebIcon from '@mui/icons-material/Web';
 
 import classNames from 'classnames';
 
+import { DiscordIcon, TwitchIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'contexts/GuildsContext';
-import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
-import { ReactComponent as TwitchIcon } from 'assets/images/icons/twitch.svg';
 
 import GuildLogo from '../GuildLogo';
 import { guildBanner } from '../../styles';

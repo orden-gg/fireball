@@ -9,10 +9,10 @@ import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
@@ -82,7 +82,7 @@ export default function ERC1155({ children, item }) {
                                                 commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
                                             }
                                         </Typography>
-                                        <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                        <GhstTokenGif width={18} height={18} />
                                     </div>
                                 </Tooltip>
                             ) : (
@@ -210,7 +210,7 @@ export default function ERC1155({ children, item }) {
                                             </Typography>
                                         </>
                                     )}
-                                    <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                                    <GhstTokenGif width={18} height={18} />
                                 </Link>
                             )}
                         </div>

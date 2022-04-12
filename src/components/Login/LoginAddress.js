@@ -8,7 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import classNames from 'classnames';
 
 import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
-import MetamaskIcon from 'assets/images/icons/metamask.png';
+import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 
@@ -87,7 +87,7 @@ export default function LoginAddress({ address, isMetamask }) {
                         </Box>
                     ) : (
                         <Box className={classNames(classes.loginAddressFormIcon, 'metamask')}>
-                            <img src={MetamaskIcon} alt='Metamask icon' width={22} />
+                            <MetamaskIcon width={22} height={22} />
                         </Box>
                     )}
 

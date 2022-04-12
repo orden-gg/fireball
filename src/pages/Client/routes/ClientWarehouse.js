@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
+import { WarehouseIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import LazySorting from 'components/Filters/LazySorting';
 import Wearable from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
-import warehouseIcon from 'assets/images/wearables/15.svg';
 
 const sortings = [
     {
@@ -43,12 +43,7 @@ export default function ClientWarehouse() {
                 sortingDefaults={warehouseSorting}
                 setSorting={setWarehouseSorting}
                 placeholder={
-                    <img
-                        src={warehouseIcon}
-                        alt='wearable'
-                        width={20}
-                        height={20}
-                    />
+                    <WarehouseIcon width={20} height={20} />
                 }
             />
 

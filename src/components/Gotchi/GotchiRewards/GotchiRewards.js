@@ -2,8 +2,8 @@ import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import commonUtils from 'utils/commonUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import styles from './styles';
 
@@ -23,7 +23,7 @@ export default function GotchiRewards({ gotchi }) {
                                             {item.name}[<span>{item.position}</span>] -
                                             <span className={classes.rankReward}>
                                                 {commonUtils.formatPrice(item.reward)}
-                                                <img src={ghstIcon} width='14' alt='GHST Token Icon' />
+                                                <GhstTokenGif width={14} height={14} />
                                             </span>
                                         </p>
                                     ) : (

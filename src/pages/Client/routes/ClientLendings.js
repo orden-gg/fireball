@@ -3,15 +3,11 @@ import TimerIcon from '@mui/icons-material/Timer';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
+import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { ClientContext } from 'contexts/ClientContext';
-import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
-import fud from 'assets/images/tokens/fud.svg';
-import fomo from 'assets/images/tokens/fomo.svg';
-import alpha from 'assets/images/tokens/alpha.svg';
-import kek from 'assets/images/tokens/kek.svg';
 
 const sortings = [
     {
@@ -36,25 +32,25 @@ const sortings = [
         name: 'fud',
         key: 'fud',
         tooltip: 'fud',
-        icon: <img src={fud} alt='fud' width={18} />
+        icon: <FudTokenIcon height={18} width={18} />
     },
     {
         name: 'fomo',
         key: 'fomo',
         tooltip: 'fomo',
-        icon: <img src={fomo} alt='fomo' width={18} />
+        icon: <FomoTokenIcon height={18} width={18} />
     },
     {
         name: 'alpha',
         key: 'alpha',
         tooltip: 'alpha',
-        icon: <img src={alpha} alt='alpha' width={18} />
+        icon: <AlphaTokenIcon height={18} width={18} />
     },
     {
         name: 'kek',
         key: 'kek',
         tooltip: 'kek',
-        icon: <img src={kek} alt='kek' width={18} />
+        icon: <KekTokenIcon height={18} width={18} />
     }
 ];
 
@@ -76,12 +72,7 @@ export default function ClientLendings() {
                 sortingDefaults={lendingsSorting}
                 setSorting={setLendingsSorting}
                 placeholder={
-                    <img
-                        src={gotchiIcon}
-                        alt='gotchi'
-                        width={20}
-                        height={20}
-                    />
+                    <GotchiIcon width={20} height={20} />
                 }
             />
 

@@ -7,12 +7,8 @@ const styles = makeStyles(() => ({
         justifyContent: 'center',
         padding: '16px 0'
     },
-    listingsTitleImg: {
-        marginRight: '8px',
-        width: '32px',
-        height: '32px'
-    },
     listingsTitle: {
+        marginLeft: '8px',
         fontWeight: '500',
         fontSize: '1.25rem',
         lineHeight: '1.75',

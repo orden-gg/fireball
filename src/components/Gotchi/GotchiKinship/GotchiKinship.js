@@ -1,6 +1,6 @@
 import React from 'react';
 
-import kinshipIcon from 'assets/images/animated/gotchi-heart.gif';
+import { GotchiHeartGif } from 'components/Icons/Icons';
 
 import styles from './styles';
 
@@ -9,7 +9,7 @@ export default function GotchiKinship({ gotchi }) {
 
     return (
         <div className={classes.gotchiKinship}>
-            <img className={classes.gotchiKinshipIcon} src={kinshipIcon} alt='gotchi-heart' />
+            <GotchiHeartGif className={classes.gotchiKinshipIcon} width={12} height={12} />
             {gotchi.kinship}
         </div>
     );
