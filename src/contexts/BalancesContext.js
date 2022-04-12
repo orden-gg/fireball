@@ -91,7 +91,7 @@ const BalancesContextProvider = (props) => {
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
                         pricePerToken: fudPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
-                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${FUD_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
+                        swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         alt: 'fomo',
@@ -99,7 +99,7 @@ const BalancesContextProvider = (props) => {
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
                         pricePerToken: fomoPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
-                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${FOMO_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
+                        swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         alt: 'alpha',
@@ -107,7 +107,7 @@ const BalancesContextProvider = (props) => {
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
                         pricePerToken: alphaPrice.toFixed(3),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
-                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${ALPHA_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
+                        swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         alt: 'kek',
@@ -115,7 +115,7 @@ const BalancesContextProvider = (props) => {
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
-                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${KEK_CONTRACT}&outputCurrency=${GHST_CONTRACT}`
+                        swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         alt: 'ghst',
@@ -123,7 +123,7 @@ const BalancesContextProvider = (props) => {
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         pricePerToken: ghstPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
-                        swapUrl: `https://quickswap.exchange/#/swap?inputCurrency=${GHST_CONTRACT}&outputCurrency=${DAI_CONTRACT}`
+                        swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
                     },
                 ];
 
@@ -167,6 +167,10 @@ const BalancesContextProvider = (props) => {
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
         return tokenPrice;
+    }
+
+    const generateSwapUrl = (inputToken, outputToken) => {
+        return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
     }
 
     return (

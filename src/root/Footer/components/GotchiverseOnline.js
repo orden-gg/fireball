@@ -20,7 +20,7 @@ export default function GotchiverseOnline() {
     useEffect(() => {
         let mounted = true;
 
-        const getOnline = (()=> {
+        const getOnline = (() => {
             gotchiverseApi.getOnlineCount()
                 .then(gotchiverseOnline => {
                     if (mounted) {
