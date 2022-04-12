@@ -53,6 +53,8 @@ const BalancesContextProvider = (props) => {
         imgSrc: token.imgSrc
     }))]);
 
+    const fetchInterval = 120; // seconds
+
     useEffect(() => {
         if (activeAddress) {
             let mounted = true;
@@ -130,7 +132,7 @@ const BalancesContextProvider = (props) => {
 
             const interval = setInterval(() => {
                 getBalances();
-            }, 30000);
+            }, fetchInterval * 1000);
 
             return () => {
                 mounted = false;

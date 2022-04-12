@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { useTheme } from '@emotion/react';
 
 import classNames from 'classnames';
+import ContentLoader from 'react-content-loader';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import styles from './styles';
-import ContentLoader from 'react-content-loader';
 
 export default function Balances() {
     const classes = styles();

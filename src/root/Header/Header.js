@@ -1,7 +1,5 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import { Box, Button, Link, Toolbar, Typography, IconButton } from '@mui/material';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Box, Toolbar, Typography, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
@@ -9,7 +7,6 @@ import classNames from 'classnames';
 import LoginButton from 'components/Login/LoginButton';
 import { LoginContext } from 'contexts/LoginContext';
 import logo from 'assets/images/logo-white.svg';
-import discord from 'assets/images/icons/discord.svg';
 
 import Balances from './components/Balances';
 import styles from './styles';
@@ -40,34 +37,6 @@ export default function Header() {
         if (navRef.current && !navRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target)) {
             setNavOpen(false);
         }
-    };
-
-    const renderSocials = (view) => {
-        return (
-            <Box className={classNames(classes.socialLinkList, view)} >
-                <Link href='https://discord.gg/NXEEETxSkC' className={classes.socialLink} target='_blank' underline='none'>
-                    <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <img src={ discord } alt='' />
-                        <Box component='span' className={classes.iconButtonText}>500</Box>
-                    </Button>
-                </Link>
-                <Link href='https://twitter.com/orden_gg' className={classes.socialLink} target='_blank' underline='none'>
-                    <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <TwitterIcon />
-                        <Box component='span' className={classes.iconButtonText}>1200</Box>
-                    </Button>
-                </Link>
-                <Link href='https://github.com/orden-gg/fireball' className={classes.socialLink} target='_blank' underline='none'>
-                    <Button className={classes.iconButton} aria-label='add an alarm'>
-                        <GitHubIcon />
-                        <Box component='span' className={classes.iconButtonText}>16</Box>
-                    </Button>
-                </Link>
-                <Box className={classes.socialLinkJoin}>
-                    <Typography variant={'caption'}>Join our community!</Typography>
-                </Box>
-            </Box>
-        )
     };
 
     return (
@@ -102,7 +71,6 @@ export default function Header() {
                         Raffle Calculator
                     </NavLink>
                 </nav>
-                {renderSocials('mobile')}
             </Box>
 
             { activeAddress && <Balances /> }
@@ -118,8 +86,6 @@ export default function Header() {
                 >
                     <MenuIcon />
                 </IconButton>
-                {/* !TODO: Temporary solution for header responsiveness */}
-                {/* {renderSocials('tablet')} */}
             </Box>
         </Toolbar>
     )

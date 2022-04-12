@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
@@ -31,17 +32,51 @@ const styles = makeStyles(theme => ({
         }
     },
     buttons: {
-        whiteSpace: 'nowrap',
+        display: 'flex',
+        alignItems: 'center',
         margin: '12px auto 0',
-        '& .MuiButton-root': {
-            textTransform: 'lowercase',
-            padding: '2px 4px',
-            minWidth: 56,
-            fontSize: 12
-        },
         [theme.breakpoints.up('md')]: {
             margin: 0
         }
+    },
+    btnsGroup: {
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    btn: {
+        '& + $btn': {
+            marginLeft: 4
+        }
+    },
+    playBtn: {
+        fontSize: 12,
+        textTransform: 'lowercase',
+        padding: '2px 4px',
+        minWidth: 56,
+        marginLeft: 8,
+        backgroundColor: alpha('#fff', .05),
+        '&:hover': {
+            backgroundColor: alpha('#fff', .1)
+        }
+    },
+    discordIcon: {
+        '& path': {
+            fill: '#fff'
+        }
+    },
+    socialJoin: {
+        position: 'absolute',
+        bottom: -10,
+        right: 4,
+        whiteSpace: 'nowrap',
+        pointerEvents: 'none',
+        fontSize: 10,
+        opacity: .8
+    },
+    divider: {
+        margin: '0 12px',
+        height: 20
     }
 }));
 
