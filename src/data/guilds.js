@@ -1031,9 +1031,9 @@ const guilds = [
             discord: 'https://discord.gg/aDjwSerZWZ',
         },
     },{
-        
+
         name: 'DOUBLE TOP',
-        logo: require('../assets/images/guilds/2top_logo.jpg').default,
+        logo: require('../assets/images/guilds/doubletop.png').default,
         members: [
             '0x8C9482e27CC7Cae722FdEc48616a1F849fA51F8c',
             '0x27ca0cfC3Da1F074963b77c13339EE7203CC3a7a',
