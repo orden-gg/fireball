@@ -13,7 +13,7 @@ import ContentInner from 'components/Content/ContentInner';
 import GotchiFilters from 'components/Filters/GotchiFilter';
 import { GotchiIcon } from 'components/Icons/Icons';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import LazySorting from 'components/Filters/LazySorting';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
@@ -81,6 +81,14 @@ export default function Lend() {
     const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
     const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
 
+    const sorting = {
+        items: lendings,
+        setItems: setLendings,
+        sortingList: sortings,
+        sortingDefaults: lendingsSorting,
+        setSorting: setLendingsSorting
+    };
+
     useEffect(() => {
         let mounted = true;
         setDataLoading(true);
@@ -131,12 +139,9 @@ export default function Lend() {
             />
 
             <>
-                <LazySorting
-                    items={lendings}
-                    setItems={setLendings}
-                    sortingList={sortings}
-                    sortingDefaults={lendingsSorting}
-                    setSorting={setLendingsSorting}
+                <SortFilterPanel
+                    sorting={sorting}
+                    itemsLength={lendings.length}
                     placeholder={
                         <GotchiIcon width={20} height={20} />
                     }

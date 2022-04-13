@@ -5,8 +5,8 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
-import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
 
 const sortings = [
@@ -63,14 +63,19 @@ export default function ClientLendings() {
         loadingLendings
     } = useContext(ClientContext);
 
+    const sorting = {
+        items: lendings,
+        setItems: setLendings,
+        sortingList: sortings,
+        sortingDefaults: lendingsSorting,
+        setSorting: setLendingsSorting
+    };
+
     return (
         <>
-            <LazySorting
-                items={lendings}
-                setItems={setLendings}
-                sortingList={sortings}
-                sortingDefaults={lendingsSorting}
-                setSorting={setLendingsSorting}
+            <SortFilterPanel
+                sorting={sorting}
+                itemsLength={lendings.length}
                 placeholder={
                     <GotchiIcon width={20} height={20} />
                 }

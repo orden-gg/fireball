@@ -5,8 +5,8 @@ import HouseIcon from '@mui/icons-material/House';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
-import LazySorting from 'components/Filters/LazySorting';
 import Parcel from 'components/Items/Parcel/Parcel';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
 
 const sortings = [
@@ -58,6 +58,14 @@ export default function ClientRealmList() {
         setRealmView
     } = useContext(ClientContext);
 
+    const sorting = {
+        items: realm,
+        setItems: setRealm,
+        sortingList: sortings,
+        sortingDefaults: realmSorting,
+        setSorting: setRealmSorting
+    };
+
     useEffect(() => {
         setRealmView('list');
 
@@ -66,14 +74,11 @@ export default function ClientRealmList() {
 
     return (
         <>
-            <LazySorting
-                items={realm}
-                setItems={setRealm}
-                sortingList={sortings}
-                sortingDefaults={realmSorting}
-                setSorting={setRealmSorting}
+            <SortFilterPanel
+                sorting={sorting}
+                itemsLength={realm.length}
                 placeholder={
-                    <KekIcon height={20} width={20} />
+                    <KekIcon width={20} height={20} />
                 }
             />
 

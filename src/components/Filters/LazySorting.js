@@ -4,8 +4,6 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
-import classNames from 'classnames';
-
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 import commonUtils from 'utils/commonUtils';
 
@@ -26,7 +24,7 @@ const directions = [
     }
 ];
 
-export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults, placeholder }) {
+export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults }) {
     const classes = LazySortingStyles();
 
     const { type, dir } = sortingDefaults;
@@ -56,7 +54,7 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
     };
 
     return (
-        <div className={classes.container}>
+        <>
             <div className={classes.inner}>
                 <CustomToggleButtonGroup
                     value={type}
@@ -74,11 +72,6 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
                     list={directions}
                 />
             </div>
-
-            {items.length > 0 && <div className={classNames(classes.inner, classes.results)}>
-                <span>{items.length}</span>
-                <span className={classes.placeholder}>{placeholder}</span>
-            </div>}
-        </div>
+        </>
     )
 }

@@ -5,7 +5,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
-import LazySorting from 'components/Filters/LazySorting';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import Wearable from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
 
@@ -34,14 +34,19 @@ export default function ClientWarehouse() {
         loadingWarehouse,
     } = useContext(ClientContext);
 
+    const sorting = {
+        items: warehouse,
+        setItems: setWarehouse,
+        sortingList: sortings,
+        sortingDefaults: warehouseSorting,
+        setSorting: setWarehouseSorting
+    };
+
     return (
         <>
-            <LazySorting
-                items={warehouse}
-                setItems={setWarehouse}
-                sortingList={sortings}
-                sortingDefaults={warehouseSorting}
-                setSorting={setWarehouseSorting}
+            <SortFilterPanel
+                sorting={sorting}
+                itemsLength={warehouse.length}
                 placeholder={
                     <WarehouseIcon width={20} height={20} />
                 }
