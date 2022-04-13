@@ -1030,8 +1030,34 @@ const guilds = [
             twitter: 'https://twitter.com/PlayToDAO',
             discord: 'https://discord.gg/aDjwSerZWZ',
         },
-    },
+    },{
 
+        name: 'DOUBLE TOP',
+        logo: require('../assets/images/guilds/doubletop.png').default,
+        members: [
+            '0x8C9482e27CC7Cae722FdEc48616a1F849fA51F8c',
+            '0x27ca0cfC3Da1F074963b77c13339EE7203CC3a7a',
+        ],
+        description: [
+            {
+                title: 'Description',
+                text: 'Aavegotchi gaming guild by DOUBLE TOP team.',
+            },
+            {
+                title: 'Requirement',
+                text: 'Join our telegram chat and fill out the form',
+            },
+            {
+                title: 'Point of Contact',
+                text: '@pashtzt',
+            },
+        ],
+        banner: '',
+        socials: {
+            twitter: 'https://twitter.com/doubletop_io',
+            telegram: 'https://t.me/doubletop_chat',
+        },
+}
 ]
 
 export default guilds;
