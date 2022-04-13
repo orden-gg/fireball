@@ -6,10 +6,9 @@ import { Button, Skeleton, Tooltip } from '@mui/material';
 
 import GuildLogo from '../components/GuildLogo';
 import GuildWearables from '../components/GuildWearables';
+import { FudIcon, GotchiIcon } from 'components/Icons/Icons';
 import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
-import gotchi from 'assets/images/gotchi-placeholder.svg';
-import fud from 'assets/images/icons/fud.png';
 
 import styles from '../styles';
 
@@ -58,7 +57,7 @@ export default function GuildsPreview() {
                         <ul className={classes.guildInfoList}>
                             <Tooltip title='Gotchis' followCursor placement='top'>
                                 <li className={classes.guildInfoItem}>
-                                    <img src={gotchi} className={classes.guildInfoItemIcon} alt='gotchi icon' />
+                                    <GotchiIcon className={classes.guildInfoItemIcon} />
                                     <span className={classes.guildInfoAmount}>
                                         {
                                             setNumber(
@@ -72,7 +71,7 @@ export default function GuildsPreview() {
                             </Tooltip>
                             <Tooltip title='Realm' followCursor placement='top'>
                                 <li className={classes.guildInfoItem}>
-                                    <img src={fud} className={classes.guildInfoItemIcon} alt='realm icon' />
+                                    <FudIcon className={classes.guildInfoItemIcon} />
                                     <span className={classes.guildInfoAmount}>
                                         {setNumber(guild.realm)}
                                     </span>

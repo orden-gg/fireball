@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
-import gotchiLoading from 'assets/images/animated/gotchi-loading.gif';
+import { GotchiLoadingGif } from 'components/Icons/Icons';
 
 import renderSvg from './GotchiSvgRender';
 import styles from './styles';
@@ -49,10 +49,7 @@ export default function GotchiSvgByStats({ gotchi, size }) {
     return (
         <div className={classes.svgWrapper} style={{ width: size }}>
             {loadingSvg ? (
-                <img
-                    className={classes.svgPlaceholder}
-                    src={gotchiLoading} alt='Gotchi Loading...'
-                />
+                <GotchiLoadingGif width='100%' />
             ) : (
                 <div
                     className={classNames(classes.svgImage, `gotchi-${gotchi.tempId}`, `gotchi-svg-${gotchi.id}`)}

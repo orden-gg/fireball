@@ -2,16 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 
+import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import LazySorting from 'components/Filters/LazySorting';
 import Parcel from 'components/Items/Parcel/Parcel';
 import { ClientContext } from 'contexts/ClientContext';
-import fud from 'assets/images/icons/fud.png';
-import fomo from 'assets/images/icons/fomo.png';
-import alpha from 'assets/images/icons/alpha.png';
-import kek from 'assets/images/icons/kek.png';
-import realmIcon from 'assets/images/icons/kek.png';
 
 const sortings = [
     {
@@ -30,25 +26,25 @@ const sortings = [
         name: 'fudBoost',
         key: 'fudBoost',
         tooltip: 'fud boost',
-        icon: <img src={fud} alt='fud' width={18} />
+        icon: <FudIcon height={18} width={18} />
     },
     {
         name: 'fomoBoost',
         key: 'fomoBoost',
         tooltip: 'fomo boost',
-        icon: <img src={fomo} alt='fomo' width={18} />
+        icon: <FomoIcon height={18} width={18} />
     },
     {
         name: 'alphaBoost',
         key: 'alphaBoost',
         tooltip: 'alpha boost',
-        icon: <img src={alpha} alt='alpha' width={18} />
+        icon: <AlphaIcon height={18} width={18} />
     },
     {
         name: 'kekBoost',
         key: 'kekBoost',
         tooltip: 'kek boost',
-        icon: <img src={kek} alt='kek' width={18} />
+        icon: <KekIcon height={18} width={18} />
     }
 ];
 
@@ -77,12 +73,7 @@ export default function ClientRealmList() {
                 sortingDefaults={realmSorting}
                 setSorting={setRealmSorting}
                 placeholder={
-                    <img
-                        src={realmIcon}
-                        alt='realm'
-                        width={20}
-                        height={20}
-                    />
+                    <KekIcon height={20} width={20} />
                 }
             />
 

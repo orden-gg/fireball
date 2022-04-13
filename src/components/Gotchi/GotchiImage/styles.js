@@ -75,9 +75,6 @@ const styles = makeStyles(theme => ({
         left: 0,
         opacity: .5
     },
-    svgPlaceholder: {
-        width: '100%'
-    },
     gotchiHaunt: {
         color: '#000',
         textTransform: 'uppercase',

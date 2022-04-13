@@ -5,8 +5,8 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
+import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-import MetamaskIcon from 'assets/images/icons/metamask.png';
 
 import styles from './styles';
 
@@ -37,7 +37,7 @@ export default function LoginNavigation() {
                         fullWidth
                         className={classes.metamaskButton}
                     >
-                        Connect <img src={MetamaskIcon} alt='metamask icon' className={classes.metamaskButtonIcon} />
+                        Connect <MetamaskIcon className={classes.metamaskButtonIcon} width={20} height={20} />
                     </Button>
 
                     <Typography className={classes.dropdownDivider}>or</Typography>

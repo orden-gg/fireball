@@ -1,14 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import alchemicaApi from 'api/alchemica.api';
 import ghstApi from 'api/ghst.api';
 import quickSwapApi from 'api/quickswap.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, KEK_CONTRACT } from 'api/common/constants';
-import alphaIcon from 'assets/images/icons/alpha.svg';
-import fomoIcon from 'assets/images/icons/fomo.svg';
-import fudIcon from 'assets/images/icons/fud.svg';
-import ghstIcon from 'assets/images/icons/ghst-token.svg';
-import kekIcon from 'assets/images/icons/kek.svg';
 import commonUtils from 'utils/commonUtils';
 
 import { LoginContext } from './LoginContext';
@@ -18,27 +14,27 @@ export const BalancesContext = createContext({});
 const BalancesContextProvider = (props) => {
     const initialTokensValues = [
         {
-            imgSrc: fudIcon,
+            icon: <FudTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
         },
         {
-            imgSrc: fomoIcon,
+            icon: <FomoTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
         },
         {
-            imgSrc: alphaIcon,
+            icon: <AlphaTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
         },
         {
-            imgSrc: kekIcon,
+            icon: <KekTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
         },
         {
-            imgSrc: ghstIcon,
+            icon: <GhstTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
         }
@@ -52,6 +48,8 @@ const BalancesContextProvider = (props) => {
         balance: token.balance,
         imgSrc: token.imgSrc
     }))]);
+
+    const fetchInterval = 120; // seconds
 
     useEffect(() => {
         if (activeAddress) {
@@ -84,39 +82,44 @@ const BalancesContextProvider = (props) => {
 
                 const tokens = [
                     {
-                        alt: 'fud',
-                        imgSrc: fudIcon,
+                        key: 'fud',
+                        icon: <FudTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
-                        pricePerToken: fudPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount)
+                        pricePerToken: fudPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
+                        swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
                     },
                     {
-                        alt: 'fomo',
-                        imgSrc: fomoIcon,
+                        key: 'fomo',
+                        icon: <FomoTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
-                        pricePerToken: fomoPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount)
+                        pricePerToken: fomoPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
+                        swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
                     },
                     {
-                        alt: 'alpha',
-                        imgSrc: alphaIcon,
+                        key: 'alpha',
+                        icon: <AlphaTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
-                        pricePerToken: alphaPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount)
+                        pricePerToken: alphaPrice.toFixed(3),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
+                        swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
                     },
                     {
-                        alt: 'kek',
-                        imgSrc: kekIcon,
+                        key: 'kek',
+                        icon: <KekTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
+                        swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
                     },
                     {
-                        alt: 'ghst',
-                        imgSrc: ghstIcon,
+                        key: 'ghst',
+                        icon: <GhstTokenIcon height={14} width={14} />,
                         amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         pricePerToken: ghstPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance)
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
+                        swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
                     },
                 ];
 
@@ -130,7 +133,7 @@ const BalancesContextProvider = (props) => {
 
             const interval = setInterval(() => {
                 getBalances();
-            }, 30000);
+            }, fetchInterval * 1000);
 
             return () => {
                 mounted = false;
@@ -160,6 +163,10 @@ const BalancesContextProvider = (props) => {
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
         return tokenPrice;
+    }
+
+    const generateSwapUrl = (inputToken, outputToken) => {
+        return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
     }
 
     return (

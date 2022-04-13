@@ -102,7 +102,6 @@ const styles = makeStyles(theme => ({
         maxWidth: 160,
     },
     metamaskButtonIcon: {
-        width: 20,
         margin: '0 6px'
     },
     customButton: {

@@ -3,9 +3,9 @@ import { Link, Tooltip } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
+import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
-import ghstIcon from 'assets/images/animated/ghst-token.gif';
 
 import styles from './styles';
 import { CustomTooltipStyles } from '../../Gotchi/styles';
@@ -35,7 +35,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                                     {historicalPrices.map((price, index) => {
                                         return <p className={classes.tooltipItem} key={index}>
                                             {commonUtils.formatPrice(ethersApi.fromWei(price))}
-                                            <img src={ghstIcon} width='14' alt='GHST Token Icon' />
+                                            <GhstTokenGif width={14} height={14} />
                                             {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
                                         </p>
                                     })}
@@ -72,12 +72,12 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                                     <p className={classes.lastPriceDown}>{commonUtils.formatPrice(currentPrice)}</p>
                                 </>
                             )}
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                            <GhstTokenGif width={18} height={18} />
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
                             <p>{commonUtils.formatPrice(lastPrice)}</p>
-                            <img src={ghstIcon} width='18' alt='GHST Token Icon' />
+                            <GhstTokenGif width={18} height={18} />
                         </div>
                     )}
                 </div>

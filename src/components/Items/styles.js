@@ -557,6 +557,7 @@ const parselStyles = makeStyles(theme => ({
 const portalStyles = makeStyles(theme => ({
     portalImage: {
         width: 100,
+        maxWidth: 100,
         marginTop: 10,
         '.horizontal &': {
             margin: 'auto'

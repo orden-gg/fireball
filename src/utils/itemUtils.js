@@ -154,7 +154,7 @@ export default {
                 return require(`../assets/images/portals/h1-sealed.svg`).default;
             },
             open_portal: () => {
-                return require(`../assets/images/portals/h1-open.svg`).default;
+                return require(`../assets/images/portals/h1-opened.svg`).default;
             },
             realm: () => {
                 return require(`../assets/images/portals/h1-sealed.svg`).default;

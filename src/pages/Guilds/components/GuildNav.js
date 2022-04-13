@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 
 import PageNav from 'components/PageNav/PageNav';
+import { GotchiIcon, KekIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
-import gotchiPlaceholder from 'assets/images/gotchi-placeholder.svg';
-import realmPlaceholder from 'assets/images/icons/kek.png';
 
 import { guildNavStyles } from '../styles';
 
@@ -13,19 +12,19 @@ export default function GuildNav() {
     const navData = [
         {
             name: 'gotchis',
-            icon: gotchiPlaceholder,
+            icon: <GotchiIcon />,
             loading: !currentGuild.gotchis,
             items: currentGuild.gotchis?.length
         },
         {
             name: 'lendings',
-            icon: gotchiPlaceholder,
+            icon: <GotchiIcon />,
             loading: !currentGuild.lendings,
             items: currentGuild.lendings?.length
         },
         {
             name: 'realm',
-            icon: realmPlaceholder,
+            icon: <KekIcon />,
             loading: !currentGuild.realm,
             items: currentGuild.realm?.length
         }

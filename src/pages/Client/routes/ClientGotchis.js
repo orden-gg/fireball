@@ -9,9 +9,9 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import { ClientContext } from 'contexts/ClientContext';
-import gotchiIcon from 'assets/images/gotchi-placeholder.svg';
 import Gotchi from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { ClientContext } from 'contexts/ClientContext';
 
 const sortings = [
     {
@@ -70,12 +70,7 @@ export default function ClientGotchis() {
                 sortingDefaults={gotchisSorting}
                 setSorting={setGotchisSorting}
                 placeholder={
-                    <img
-                        src={gotchiIcon}
-                        alt='gotchi'
-                        width={20}
-                        height={20}
-                    />
+                    <GotchiIcon width={20} height={20} />
                 }
             />
 

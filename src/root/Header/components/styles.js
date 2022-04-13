@@ -1,4 +1,4 @@
-
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
@@ -20,23 +20,22 @@ const styles = makeStyles(theme => ({
         minWidth: 50,
         textAlign: 'center',
         padding: '2px 6px',
-        cursor: 'default',
         '& + $balance': {
             marginLeft: 6
         },
         '& p': {
             margin: 0,
             lineHeight: 1.2,
-            textShadow: '2px 2px 0 black'
+            textShadow: `1px 1px 0 ${alpha('#000', .7)}`
         },
-    },
-    balanceIcon: {
-        marginRight: 4
     },
     balanceValue: {
         display: 'flex',
         alignItems: 'center',
-        fontWeight: 'bold',
+        fontWeight: '500',
+        '& img': {
+            marginRight: 4
+        },
         '&.fud': {
             color: theme.palette.alchemica.fud
         },

@@ -29,6 +29,22 @@ const styles = makeStyles(theme => ({
         top: 70,
         right: 0,
         bottom: 70
+    },
+    head: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center'
+    },
+    shopBtn: {
+        padding: 6,
+        margin: 4,
+        minWidth: 50,
+        color: '#fff',
+        border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
+        backgroundColor: alpha(theme.palette.secondary.dark, .4),
+        '&:hover': {
+            backgroundColor: theme.palette.secondary.dark,
+        },
     }
 }));
 
