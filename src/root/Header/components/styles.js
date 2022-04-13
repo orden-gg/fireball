@@ -29,13 +29,13 @@ const styles = makeStyles(theme => ({
             textShadow: `1px 1px 0 ${alpha('#000', .7)}`
         },
     },
-    balanceIcon: {
-        marginRight: 4
-    },
     balanceValue: {
         display: 'flex',
         alignItems: 'center',
         fontWeight: '500',
+        '& img': {
+            marginRight: 4
+        },
         '&.fud': {
             color: theme.palette.alchemica.fud
         },
