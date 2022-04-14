@@ -488,7 +488,7 @@ const parselStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'space-between',
         '& div:last-child': {
-            borderBottomRightRadius: 4
+            borderBottomLeftRadius: 4
         },
     },
 
