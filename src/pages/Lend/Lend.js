@@ -11,6 +11,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import ContentWrapper from 'components/Content/ContentWrapper';
 import ContentInner from 'components/Content/ContentInner';
 import GotchiFilters from 'components/Filters/GotchiFilter';
+import { GotchiIcon } from 'components/Icons/Icons';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import LazySorting from 'components/Filters/LazySorting';
 import Gotchi from 'components/Gotchi/Gotchi';
@@ -137,6 +138,9 @@ export default function Lend() {
                     sortingList={sortings}
                     sortingDefaults={lendingsSorting}
                     setSorting={setLendingsSorting}
+                    placeholder={
+                        <GotchiIcon width={20} height={20} />
+                    }
                 />
 
                 <ContentInner dataLoading={dataLoading}>

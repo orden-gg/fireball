@@ -184,7 +184,7 @@ export default {
 
     getPortalImg(hauntId) {
         try {
-            return require(`../assets/images/portals/h${hauntId}-open.svg`).default;
+            return require(`../assets/images/portals/h${hauntId}-opened.svg`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
