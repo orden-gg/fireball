@@ -1,110 +1,80 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import thegraph from 'api/thegraph.api';
-import guilds from 'data/guilds.json';
+import thegraphApi from 'api/thegraph.api';
+import fireballApi from 'api/fireball.api';
+import guildsData from 'data/guilds.json';
+import commonUtils from 'utils/commonUtils';
 
-console.log(guilds);
+guildsData.reverse().sort(guild => guild.members.length ? -1 : 1);
 
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
-    const [currentGuild, setCurrentGuild] = useState({});
-    const [guildsData, setGuildsData] = useState(
-        JSON.parse(JSON.stringify(guilds)).map(guild => {
-            guild.members = guild.members.map(address => address.toLowerCase());
+    const [realm, setRealm] = useState([]);
 
-            return guild;
-        })
-        .reverse()
-        .sort(guild => guild.members.length ? -1 : 1)
-    );
+    const [gotchis, setGotchis] = useState([]);
+    const [lendings, setLendings] = useState([]);
+    const [gotchisAmount, setGotchisAmount] = useState([]);
+    const [guildId, setGuildId] = useState(null);
 
-    const setGotchisByGuild = gotchis => {
-        setGuildsData(guildsState => {
-            for(let gotchi of gotchis) {
-                for(let guild of guildsState) {
-                    if (guild.members.length === 0) {
-                        guild.gotchis = [];
-                        continue;
-                    }
+    const loadGuildGotchis = id => {
+        thegraphApi.getGotchisByAddresses(guildsData[id].members).then(responses => {
+            setGotchis(gotchisState => {
+                gotchisState[id] = responses;
 
-                    if (!guild.hasOwnProperty('gotchis')) {
-                        guild.gotchis = [];
-                    }
-
-                    const isGuildGotchi = guild.members.includes(gotchi.owner.id);
-
-                    if (isGuildGotchi) {
-                        guild.gotchis.push(gotchi);
-                    }
-                }
-            }
-
-            return [...guildsState]
+                return [...gotchisState];
+            });
         });
     }
 
-    const setLendingsByGuild = (lendings, id) => {
-        setGuildsData(guildsState => {
-            guildsState[id].lendings = lendings;
+    const loadGuildLendings = id => {
+        const promises = guildsData[id].members.map(address => thegraphApi.getLendingsByAddress(address));
 
-            return [...guildsState];
+        Promise.all(promises).then(responses => {
+            const guildLendings = responses.reduce((result, current) => result.concat(current), []);
+
+            setLendings(lendingsState => {
+                lendingsState[id] = guildLendings;
+
+                return [...lendingsState];
+            });
         });
     }
 
-    const loadGuildRealm = guild => {
-        const id = guildsData.indexOf(guild);
+    const loadGuildRealm = id => {
+        thegraphApi.getRealmByAddresses(guildsData[id].members).then(realm => {
+            setRealm(realmState => {
+                realmState[id] = realm;
 
-        thegraph.getRealmByAddresses(guild.members).then(realm => {
-            setGuildsData(guildsState => {
-                guildsState[id].realm = realm;
-
-                return [...guildsState];
+                return [...realmState];
             })
         });
     }
 
-    const setRealmByGuild = (realm, id) => {
-        setGuildsData(guildsState => {
-            guildsState[id].realm = realm;
-
-            return [...guildsState];
-        });
+    const loadGuildData = id => {
+        loadGuildGotchis(id);
+        loadGuildLendings(id);
+        loadGuildRealm(id);
     }
 
     useEffect(() => {
         let destroyed = false;
 
-        for(let id of guildsData.keys()) {
-            const members = guildsData[id].members;
+        const promises = guildsData
+            .filter(guild => guild.members?.length > 0)
+            .map(guild =>
+                fireballApi.getGotchisAmountByGuild(commonUtils.stringToKey(guild.name))
+            );
 
-            thegraph.getRealmByAddresses(members).then(realm => {
-                if (destroyed) {
-                    return;
-                }
+        Promise.all(promises).then(response => {
+            if(destroyed) {
+                return;
+            }
 
-                setRealmByGuild(realm, id);
-            });
-
-            Promise.all(
-                members.map(address => thegraph.getLendingsByAddress(address))
-            ).then(responses => {
-                setLendingsByGuild(
-                    responses.reduce((result, current) => result.concat(current), []),
-                    id
-                )
-            });
-        }
-
-        setTimeout(() => {
-            thegraph.getAllGotchies().then(gotchis => {
-                if (destroyed) {
-                    return;
-                }
-
-                setGotchisByGuild(gotchis);
-            });
-        }, 0);
+            setGotchisAmount(
+                guildsData.map((guild, id) => response[id]?.ghosts_num || 0)
+            );
+        });
 
         return () => destroyed = true;
 
@@ -114,11 +84,14 @@ const GuildsContextProvider = (props) => {
     return (
         <GuildsContext.Provider value={{
             guildsData,
+            gotchisAmount,
+            guildId,
+            gotchis,
+            lendings,
+            realm,
 
-            currentGuild,
-            setCurrentGuild,
-
-            loadGuildRealm
+            loadGuildData,
+            setGuildId
         }}>
             { props.children }
         </GuildsContext.Provider>

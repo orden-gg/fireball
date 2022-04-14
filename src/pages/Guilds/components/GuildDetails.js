@@ -1,16 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
 import Modal from 'components/Modal/Modal';
-import GuildWearables from '../GuildWearables';
+import GuildWearables from './GuildWearables';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
-import { guildDetailsStyles } from '../../styles';
+import { guildDetailsStyles } from '../styles';
 
 export default function GuildsDetails() {
     const classes = guildDetailsStyles();
-    const { currentGuild } = useContext(GuildsContext);
+    const { guildId, guildsData } = useContext(GuildsContext);
     const [modalOpen, setModalOpen] = useState(false);
+    const [guild, setGuild] = useState({});
+
+    useEffect(() => {
+        if(guildId !== null) {
+            setGuild(guildsData[guildId]);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [guildId]);
 
     return (
         <>
@@ -31,7 +40,7 @@ export default function GuildsDetails() {
             >
                  <ul className={classes.detailsList}>
                      {
-                        currentGuild.description.map((item, index) => (
+                        guild.description?.map((item, index) => (
                             <li className={classes.detailsItem} key={index}>
                                 <p className={classes.detailTitle}>{item.title}</p>
                                 <div className={classes.detailBody}>
@@ -41,14 +50,14 @@ export default function GuildsDetails() {
                         ))
                     }
                     {
-                        currentGuild.wearables?.length > 0 && (
+                        guild.wearables?.length > 0 && (
                             <li className={classes.detailsItem}>
                                 <p className={classes.detailTitle}>Guild wearables</p>
                                 <div className={classes.detailBody}>
                                     <div className={classes.guildWearables}>
                                         {
                                             <GuildWearables
-                                                wearables={currentGuild.wearables}
+                                                wearables={guild.wearables}
                                                 className={classes.guildWearable}
                                             />
                                         }

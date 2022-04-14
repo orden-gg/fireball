@@ -8,8 +8,6 @@ export default function GuildLogo({ logo, className }) {
 
         return <img src={logoUrl} className={className} alt='guild logo' />
     } catch (error) {
-        console.log(error);
-
         return <Placeholder className={classNames(className, 'placeholder')} />;
     }
 }

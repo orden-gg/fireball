@@ -3,7 +3,7 @@ import GotchisLazy from 'components/Lazy/GotchisLazy';
 
 import { guildContentStyles } from '../styles';
 
-export default function GuildGotchis({gotchis}) {
+export default function GuildGotchis({ gotchis }) {
     const classes = guildContentStyles();
 
     return (

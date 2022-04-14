@@ -137,13 +137,13 @@ const styles = makeStyles(theme => ({
         },
     },
     guildInfoItemIcon: {
-        width: 25,
-        height: 25,
-        maxWidth: 25,
-        maxHeight: 25,
+        width: 20,
+        maxWidth: 20,
+        maxHeight: 20,
         [theme.breakpoints.down('md')]: {
-            maxWidth: 20,
-            maxHeight: 20
+            width: 18,
+            maxWidth: 18,
+            maxHeight: 18
         }
     },
     guildInfoAmountLoader: {
@@ -220,7 +220,7 @@ const guildStyles = makeStyles(theme => ({
     backButton: {
         position: 'absolute',
         left: '100%',
-        top: theme.spacing(1.7),
+        top: theme.spacing(2.6),
         marginLeft: theme.spacing(1),
         zIndex: 4,
         [theme.breakpoints.down('md')]: {

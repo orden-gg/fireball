@@ -8,11 +8,11 @@ import WebIcon from '@mui/icons-material/Web';
 import { DiscordIcon, TwitchIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
-import { guildSocialsStyles } from '../../styles';
+import { guildSocialsStyles } from '../styles';
 
 export default function GuildSocials() {
     const classes = guildSocialsStyles();
-    const { currentGuild } = useContext(GuildsContext);
+    const { guildId, guildsData } = useContext(GuildsContext);
     const socials = {
         facebook: <FacebookIcon className={classes.guildSocialIcon} />,
         twitter: <TwitterIcon className={classes.guildSocialIcon} />,
@@ -23,12 +23,14 @@ export default function GuildSocials() {
     }
 
     const renderSocials = () => {
-        if (!currentGuild.hasOwnProperty('socials')) {
+        const guild = guildsData[guildId];
+
+        if (guild === undefined || !guild.hasOwnProperty('socials')) {
             return null;
         };
 
         return (
-            Object.keys(currentGuild.socials).map(key => (
+            Object.keys(guild.socials).map(key => (
                 <Tooltip
                     title={key}
                     key={key}
@@ -37,7 +39,7 @@ export default function GuildSocials() {
                 >
                     <IconButton
                         component={Link}
-                        href={currentGuild.socials[key]}
+                        href={guild.socials[key]}
                         target='_blank'
                         className={classes.guildSocialButton}
                     >

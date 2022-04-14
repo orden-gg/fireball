@@ -5,8 +5,8 @@ import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import GuildGotchis from '../components/GuildGotchis';
-import GuildBanner from '../components/GuildInfo/GuildBanner';
-import GuildsDetails from '../components/GuildInfo/GuildDetails';
+import GuildBanner from '../components/GuildBanner';
+import GuildsDetails from '../components/GuildDetails';
 import GuildNav from '../components/GuildNav';
 import GuildsRealm from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
@@ -21,34 +21,33 @@ export default function Guild() {
     const match = useRouteMatch();
     const {
         guildsData,
-        currentGuild,
-        setCurrentGuild,
-        loadGuildRealm
+        guildId,
+        gotchis,
+        lendings,
+        setGuildId,
     } = useContext(GuildsContext);
 
     useEffect(() => {
-        let guild = guildsData.find( guild => (
+        const guildId = guildsData.findIndex(guild => (
             commonUtils.stringToKey(guild.name) === params.name
         ));
 
-        if (guild === undefined || guild.members?.length === 0) {
+        if (guildId === undefined || guildsData[guildId].members?.length === 0) {
             return history.push('/guilds');
         };
 
-        setCurrentGuild(guild);
+        setGuildId(guildId);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (Object.keys(currentGuild).length === 0) {
-            return;
+        if (guildId !== null) {
+            // loadGuildData(guildId);
         };
 
-        loadGuildRealm(currentGuild);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentGuild]);
+    }, [guildId]);
 
     return (
         <>
@@ -56,7 +55,7 @@ export default function Guild() {
 
                 <div className={classes.guildSidebar}>
                     <GuildBanner />
-                    {Boolean(currentGuild.description?.length) &&  <GuildsDetails />}
+                    {Boolean(guildsData[guildId]?.description?.length) &&  <GuildsDetails />}
 
                     <Tooltip
                         title='Back to guilds'
@@ -72,11 +71,11 @@ export default function Guild() {
                     <Switch>
                         <Route
                             path={`${match.path}/gotchis`}
-                            component={() => <GuildGotchis gotchis={currentGuild.gotchis} />}
+                            component={() => <GuildGotchis gotchis={gotchis[guildId]} />}
                         />
                         <Route
                             path={`${match.path}/lendings`}
-                            component={() => <GuildGotchis gotchis={currentGuild.lendings} />}
+                            component={() => <GuildGotchis gotchis={lendings[guildId]} />}
                         />
                         <Route path={`${match.path}/realm`} component={ GuildsRealm } />
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />

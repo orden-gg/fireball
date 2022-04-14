@@ -4,9 +4,9 @@ import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Skeleton, Tooltip } from '@mui/material';
 
+import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
 import GuildLogo from '../components/GuildLogo';
 import GuildWearables from '../components/GuildWearables';
-import { FudIcon, GotchiIcon } from 'components/Icons/Icons';
 import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
 
@@ -14,7 +14,11 @@ import styles from '../styles';
 
 export default function GuildsPreview() {
     const classes = styles();
-    const { guildsData, setCurrentGuild } = useContext(GuildsContext);
+    const {
+        guildsData,
+        gotchisAmount,
+        setGuildId
+    } = useContext(GuildsContext);
     const match = useRouteMatch();
     const history = useHistory();
 
@@ -22,12 +26,12 @@ export default function GuildsPreview() {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
     }
 
-    const setNumber = items => {
-        if (items !== undefined) {
-            return items.length
+    const setNumber = amount => {
+        if (amount !== undefined) {
+            return amount
+        } else {
+            return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
         }
-
-        return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
     }
 
     const renderWaerables = guild => {
@@ -36,57 +40,13 @@ export default function GuildsPreview() {
             return <GuildWearables
                 wearables={guild.wearables}
                 className={classes.guildWearable}
+                tooltip='Guild wearable'
             />
         }
     }
 
-    const renderList = () => {
-        return (
-            guildsData.map((guild, index) => (
-                <Button
-                    className={classes.guildButton}
-                    disabled={!guild.members?.length}
-                    key={index}
-                    onClick={() => {handleClick(guild)}}
-                >
-                    <div className={classes.guildLogo}>
-                        <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
-                    </div>
-                    <div className={classes.guildBody}>
-                        <p className={classes.guildName}>{guild.name}</p>
-                        <ul className={classes.guildInfoList}>
-                            <Tooltip title='Gotchis' followCursor placement='top'>
-                                <li className={classes.guildInfoItem}>
-                                    <GotchiIcon className={classes.guildInfoItemIcon} />
-                                    <span className={classes.guildInfoAmount}>
-                                        {
-                                            setNumber(
-                                                guild.gotchis && guild.lendings ? (
-                                                    [...guild.gotchis, ...guild.lendings]
-                                                ) : undefined
-                                            )
-                                        }
-                                    </span>
-                                </li>
-                            </Tooltip>
-                            <Tooltip title='Realm' followCursor placement='top'>
-                                <li className={classes.guildInfoItem}>
-                                    <FudIcon className={classes.guildInfoItemIcon} />
-                                    <span className={classes.guildInfoAmount}>
-                                        {setNumber(guild.realm)}
-                                    </span>
-                                </li>
-                            </Tooltip>
-                        </ul>
-                        <div className={classes.guildWearables}>{renderWaerables(guild)}</div>
-                    </div>
-                </Button>
-            ))
-        )
-    }
-
     useEffect(() => {
-        setCurrentGuild({});
+        setGuildId(null);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -102,7 +62,70 @@ export default function GuildsPreview() {
                 <span>how to add your guild</span>
                 <ArrowForwardIcon fontSize='small' />
             </a>
-            <ul className={classes.guildsList}>{renderList()}</ul>
+            <ul className={classes.guildsList}>
+                {
+                    guildsData.map((guild, id) => (
+                        <Button
+                            className={classes.guildButton}
+                            disabled={!guild.members?.length}
+                            key={id}
+                            onClick={() => {handleClick(guild)}}
+                        >
+                            <div className={classes.guildLogo}>
+                                <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
+                            </div>
+                            <div className={classes.guildBody}>
+                                <p className={classes.guildName}>{guild.name}</p>
+                                <ul className={classes.guildInfoList}>
+                                    <Tooltip title='Gotchis' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <GotchiIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                {setNumber(gotchisAmount[id])}
+                                            </span>
+                                        </li>
+                                    </Tooltip>
+                                    <Tooltip title='Lendings' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <LendingIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                !
+                                            </span>
+                                        </li>
+                                    </Tooltip>
+                                    <Tooltip title='Wearables' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <WarehouseIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                !
+                                            </span>
+                                        </li>
+                                    </Tooltip>
+                                    <Tooltip title='Realm' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <FudIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                !
+                                            </span>
+                                        </li>
+                                    </Tooltip>
+                                    <Tooltip title='Voting power' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <GhstTokenIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                !
+                                            </span>
+                                        </li>
+                                    </Tooltip>
+                                </ul>
+                                <div className={classes.guildWearables}>
+                                    {renderWaerables(guild)}
+                                </div>
+                            </div>
+                        </Button>
+                    ))
+                }
+            </ul>
         </Box>
     );
 }

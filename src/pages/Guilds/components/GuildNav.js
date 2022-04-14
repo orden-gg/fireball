@@ -1,32 +1,38 @@
 import React, { useContext } from 'react';
 
 import PageNav from 'components/PageNav/PageNav';
-import { GotchiIcon, KekIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
 import { guildNavStyles } from '../styles';
 
 export default function GuildNav() {
     const classes = guildNavStyles();
-    const { currentGuild } = useContext(GuildsContext);
+    const {
+        guildId,
+        gotchis,
+        lendings,
+        realm,
+    } = useContext(GuildsContext);
+
     const navData = [
         {
             name: 'gotchis',
-            icon: <GotchiIcon />,
-            loading: !currentGuild.gotchis,
-            items: currentGuild.gotchis?.length
+            icon: <GotchiIcon width={24} height={24} />,
+            loading: !gotchis[guildId],
+            items: gotchis[guildId]?.length
         },
         {
             name: 'lendings',
-            icon: <GotchiIcon />,
-            loading: !currentGuild.lendings,
-            items: currentGuild.lendings?.length
+            icon: <LendingIcon width={24} height={24} />,
+            loading: !lendings[guildId],
+            items: lendings[guildId]?.length
         },
         {
             name: 'realm',
-            icon: <KekIcon />,
-            loading: !currentGuild.realm,
-            items: currentGuild.realm?.length
+            icon: <KekIcon width={24} height={24} />,
+            loading: !realm[guildId],
+            items: realm[guildId]?.length
         }
     ];
 

@@ -1,43 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useHistory } from 'react-router-dom';
 
-import GuildLogo from '../GuildLogo';
+import GuildLogo from './GuildLogo';
 import GuildSocials from './GuildSocials';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
-import { guildBanner } from '../../styles';
+import { guildBanner } from '../styles';
 
 export default function GuildBanner() {
     const classes = guildBanner();
-    const { currentGuild, setCurrentGuild, guildsData } = useContext(GuildsContext);
+    const { guildId, setGuildId, guildsData } = useContext(GuildsContext);
     const history = useHistory();
+    const [guild, setGuild] = useState([]);
 
     const changeGuild = direction => {
-        const guildId = guildsData.indexOf(currentGuild)+direction;
-        const guild = guildsData[guildId];
+        const id = guildId+direction;
+        const nextGuild = guildsData[id];
 
-        if (guild === undefined || guild.members.length === 0) {
+        if (nextGuild === undefined || nextGuild.members?.length === 0) {
             return;
         }
 
-        history.push(`/guilds/${commonUtils.stringToKey(guild.name)}`);
+        history.push(`/guilds/${commonUtils.stringToKey(nextGuild.name)}`);
 
-        setCurrentGuild(guild);
+        setGuildId(id);
     }
 
     const getBannerUrl = () => {
         try {
-            return require(`assets/images/guilds/${currentGuild.banner}`).default;
+            return require(`assets/images/guilds/${guild.banner}`).default;
         } catch (error) {
-            console.log(error);
-
             return defaultBanner;
         }
     }
+
+    useEffect(() => {
+        if(guildId !== null) {
+            setGuild(guildsData[guildId]);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [guildId]);
 
     return (
         <div className={classes.guildBanner} >
@@ -47,10 +54,10 @@ export default function GuildBanner() {
                     className={classes.guildBannerBg}
                 ></div>
                 <div className={classes.guildLogo}>
-                    <GuildLogo logo={currentGuild.logo} className={classes.guildLogoImage} />
+                    <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
                 </div>
                 <Typography component='h1' className={classes.guildName}>
-                    {currentGuild.name}
+                    {guild.name}
                 </Typography>
                 <Tooltip
                     title='Previous guild'
