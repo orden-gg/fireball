@@ -99,7 +99,9 @@ export default function GotchiLendingStats({ gotchi }) {
                         <div className={classes.inner}>
                             <GroupWorkIcon className={classes.innerIcon} fontSize='small' />
                             {commonUtils.convertFloatNumberToSuffixNumber(gotchi.totalTokens)}
-                            <span className={classes.alchemicaPower}>({gotchi.income})</span>
+                            <span className={classes.alchemicaPower}>
+                                ({commonUtils.convertFloatNumberToSuffixNumber(gotchi.income)})
+                            </span>
                         </div>
                     </CustomTooltip>
                 </div>
