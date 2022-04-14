@@ -10,10 +10,21 @@ const styles = makeStyles(theme => ({
         borderRadius: 4,
     },
     link: {
-        fontSize: 16,
         fontWeight: 500,
         '&:hover': {
             textDecoration: 'underline'
+        }
+    },
+    linkIcon: {
+        fontSize: 14
+    },
+    text: {
+        fontWeight: 500
+    },
+    button: {
+        marginLeft: 4,
+        '& + $button': {
+            marginLeft: 0
         }
     }
 }));

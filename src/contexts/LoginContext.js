@@ -66,6 +66,7 @@ const LoginContextProvider = (props) => {
             setStorageAddresses,
 
             activeAddress,
+            setActiveAddress,
             selectActiveAddress,
 
             logoutAddress,

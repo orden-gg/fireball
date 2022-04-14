@@ -16,21 +16,15 @@ const styles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 2,
     },
     buttonInner: {
-        height: 38,
+        height: 34,
         display: 'flex',
-        background: theme.palette.primary.main,
-        padding: 2,
         borderRadius: 4,
         cursor: 'pointer',
         position: 'relative',
-        transition: 'background .2s ease-in-out',
-        '&:hover': {
-            background: theme.palette.primary.dark
-        },
-        '.opened &': {
-            background: theme.palette.primary.dark,
-            borderRadius: '4px 4px 0 0'
-        }
+        // '.opened &': {
+        //     background: theme.palette.primary.dark,
+        //     borderRadius: '4px 4px 0 0'
+        // }
     },
     buttonIcon: {
         backgroundColor: theme.palette.secondary.main,
@@ -40,13 +34,8 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         padding: 2,
-
         '&.metamask': {
             justifyContent: 'center',
-        },
-
-        '&.gotchi': {
-
         }
     },
     caption: {
@@ -54,12 +43,18 @@ const styles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         color: theme.palette.background.default,
-        padding: '0 12px',
+        background: alpha(theme.palette.primary.main, 1),
+        borderRadius: 4,
+        padding: '0 8px',
         whiteSpace: 'nowrap',
-        textTransform: 'uppercase'
+        textTransform: 'lowercase',
+        transition: 'background .2s ease-in-out',
+        '&:hover': {
+            background: alpha(theme.palette.primary.main, .7),
+        },
     },
     captionText: {
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: '600',
         margin: 0
     },
@@ -67,9 +62,12 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: theme.palette.background.default,
+        background: alpha('#000', .2),
         padding: '0 8px',
-        borderRadius: '0 4px 4px 0',
+        borderRadius: 4,
+        '&:hover': {
+            background: alpha('#000', .3),
+        },
     },
     addressText: {
         fontWeight: '700'
@@ -195,10 +193,6 @@ const styles = makeStyles(theme => ({
     loginAddressFormIcon: {
         marginRight: 4,
         height: 35,
-
-        '&.gotchi': {
-            padding: 0
-        },
         '&.metamask': {
             padding: '0 4px',
             display: 'flex',

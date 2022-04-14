@@ -21,6 +21,7 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 
 import styles from './styles';
+import EthAddress from 'components/EthAddress/EthAddress';
 
 export default function Client() {
     const classes = styles();
@@ -30,7 +31,7 @@ export default function Client() {
 
     const params = queryString.parse(location.search);
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
@@ -43,6 +44,7 @@ export default function Client() {
 
     useEffect(() => {
         if (params.address) {
+            setActiveAddress(params.address);
             setClientActive(params.address);
         }
 
@@ -69,6 +71,14 @@ export default function Client() {
                         : 'Client'}
                 </title>
             </Helmet>
+
+            <EthAddress
+                address={clientActive}
+                icon={true}
+                clientLink={true}
+                polygonLink={true}
+                copy={true}
+            />
 
             {!clientActive?.length ? (
                 <Box className={classes.alertWrapper}>

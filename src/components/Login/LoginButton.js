@@ -1,26 +1,27 @@
 import React, { useContext, useEffect } from 'react';
-import { Backdrop, Typography, Box } from '@mui/material';
+import { Backdrop, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
+// import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-import commonUtils from 'utils/commonUtils';
+// import commonUtils from 'utils/commonUtils';
 
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 import LoginModal from './LoginModal';
 
 import styles from './styles';
+import EthAddress from 'components/EthAddress/EthAddress';
 
 export default function LoginButton() {
     const classes = styles();
     const { getAccounts, metaState } = useMetamask();
 
     const { activeAddress, selectActiveAddress, storageAddresses,
-            connectMetamask, isMetamaskActive, getActiveAddressSvgId,
+            connectMetamask, isMetamaskActive,
             modalOpen, setModalOpen, dropdownOpen, setDropdownOpen
     } = useContext(LoginContext);
 
@@ -66,13 +67,11 @@ export default function LoginButton() {
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     { activeAddress ? (
                         isMetamaskActive ? (
-                            <Box className={classNames(classes.buttonIcon, 'metamask')}>
+                            <div className={classNames(classes.buttonIcon, 'metamask')}>
                                 <MetamaskIcon width={18} height={18} />
-                            </Box>
+                            </div>
                         ) : (
-                            <Box className={classNames(classes.buttonIcon, 'gotchi')}>
-                                <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
-                            </Box>
+                            null
                         )
                     ) : (
                         <div className={classes.caption}>
@@ -82,22 +81,23 @@ export default function LoginButton() {
 
                     { activeAddress ? (
                         <div className={classes.address}>
-                            <Typography className={classes.addressText} variant='subtitle2'>
+                            <EthAddress address={activeAddress} icon={true} />
+                            {/* <Typography className={classes.addressText} variant='subtitle2'>
                                 {commonUtils.cutAddress(activeAddress)}
-                            </Typography>
+                            </Typography> */}
                         </div>
                     ) : (
                         null
                     )}
                 </div>
 
-                {dropdownOpen ? (
-                    <Box className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
-                        <Box className={classNames(classes.loginList, 'custom-scroll')}>
+                { dropdownOpen ? (
+                    <div className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
+                        <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
-                                <Box className={classes.loginAddressBox}>
+                                <div className={classes.loginAddressBox}>
                                     <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} setDropdownOpen={setDropdownOpen} />
-                                </Box>
+                                </div>
                             ) : (
                                 null
                             )}
@@ -109,15 +109,15 @@ export default function LoginButton() {
                             ) : (
                                 null
                             )}
-                        </Box>
+                        </div>
                         <LoginNavigation />
-                    </Box>
+                    </div>
                 ) : (
                     null
                 )}
             </div>
 
-            {modalOpen ? (
+            { modalOpen ? (
                 <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
             ) : (
                 null
