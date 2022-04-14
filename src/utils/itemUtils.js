@@ -293,7 +293,7 @@ export default {
 
     getAlchemicaImg(name) {
         try {
-            return require(`../assets/images/icons/${name}.png`).default;
+            return require(`../assets/images/icons/${name}.svg`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
