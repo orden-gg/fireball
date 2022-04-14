@@ -945,9 +945,12 @@ const guilds = [
         logo: require('../assets/images/guilds/synthguild.png').default,
         members: [
             '0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b',
-            '0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7',
             '0x6f48134d8bdeb954ad97525cf0adb9ad446260b1',
-            '0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993'
+            '0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7',
+            '0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993',
+            '0x4edb4161d16c89b71aec027930a943c3d4cf0777',
+            '0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138',
+            '0x65E856C356f0c220fC69C51A66B007748C7596e4'
         ],
         description: [
             {
@@ -966,7 +969,7 @@ const guilds = [
         banner: '',
         socials: {
             twitter: 'https://twitter.com/SynthGuild',
-            discord: 'https://discord.gg/k4wumxSK'
+            discord: 'https://discord.gg/F4DXSCctNW'
         }
     }, {
         name: 'Hodler Sqvad',
