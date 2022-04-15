@@ -49,6 +49,7 @@ export default function Team() {
                         {
                             members.map((gotchi, index) =>
                                 <Gotchi
+                                    className='narrowed team'
                                     gotchi={gotchi}
                                     key={index}
                                     render={['name', 'svg']}

@@ -43,7 +43,7 @@ export default function Header() {
         <Toolbar className={classes.toolbar}>
             <NavLink className={classes.logoWrapper} to='/' >
                 <LogoIcon className={classes.logoDesktop} width={80} height={34} />
-                <MobileLogoIcon width={24} className={classes.logoMobile} />
+                <MobileLogoIcon width={24} height={36} className={classes.logoMobile} />
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
