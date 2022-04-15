@@ -22,7 +22,6 @@ const styles = makeStyles(theme => ({
         paddingBottom: '100%',
         position: 'relative',
         '& > img': {
-            width: '100%',
             position: 'absolute',
             left: '5%',
             top: '5%',

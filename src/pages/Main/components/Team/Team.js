@@ -50,6 +50,7 @@ export default function Team() {
                                 <Gotchi
                                     className='narrowed team'
                                     gotchi={gotchi}
+                                    key={index}
                                     render={['name', 'svg']}
                                 />
                             )
