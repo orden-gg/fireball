@@ -21,7 +21,7 @@ import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
 
 import styles from './styles';
 
-export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, portal }) {
+export default function Gotchi({ gotchi, renderSvgByStats, render, portal, className }) {
     const classes = styles();
 
     const gotchiSections = {
@@ -192,7 +192,8 @@ export default function Gotchi({ gotchi, narrowed, renderSvgByStats, render, por
             className={classNames(
                 classes.gotchi,
                 `haunt${gotchi.hauntId}`,
-                narrowed && 'narrowed', 'vertical',
+                'vertical',
+                className || null,
                 gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
             )}
         >

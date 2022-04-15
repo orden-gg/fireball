@@ -10,7 +10,7 @@ import GotchiImage from './GotchiImage/GotchiImage';
 
 import styles from './styles';
 
-export default function GotchiHorizontal({ gotchi, item, title, narrowed, renderSvgByStats, render }) {
+export default function GotchiHorizontal({ gotchi, item, title, className, renderSvgByStats, render }) {
     const classes = styles();
 
     const gotchiSections = {
@@ -119,7 +119,14 @@ export default function GotchiHorizontal({ gotchi, item, title, narrowed, render
     }
 
     return (
-        <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, narrowed && 'narrowed', 'horizontal')}>
+        <div className={
+            classNames(
+                classes.gotchi,
+                `haunt${gotchi.hauntId}`,
+                className || null,
+                'horizontal'
+            )}
+        >
             {render.map(name => {
                 return renderSection(name)
             })}

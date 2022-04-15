@@ -66,7 +66,7 @@ export default function GhostExplorer() {
                             <Gotchi
                                 gotchi={item}
                                 gotchiColor={theme.palette.customColors.gray}
-                                narrowed={true}
+                                className='narrowed'
                                 render={[
                                     'svg',
                                     'name'
