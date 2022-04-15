@@ -42,7 +42,6 @@ const styles = makeStyles(theme => ({
         }
     },
     logoMobile: {
-        width: 24,
         [theme.breakpoints.up('md')]: {
             display: 'none'
         }

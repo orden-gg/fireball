@@ -156,11 +156,11 @@ export const ListingIcon = ({ width, height }) => {
 };
 
 export const LogoIcon = ({ className, width, height }) => {
-    return <img className={className || null} width={width} height={height} src={logo} alt='logo' />;
+    return <img className={className} width={width} height={height} src={logo} alt='logo' />;
 };
 
-export const LogoMobile = ({ className, width, height }) => {
-    return <img className={className || null} width={width} height={height} src={logoMobile} alt='logo part' />;
+export const MobileLogoIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={logoMobile} alt='logo part' />;
 };
 
 export const MetamaskIcon = ({ className, width, height }) => {

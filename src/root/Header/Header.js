@@ -5,7 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import LoginButton from 'components/Login/LoginButton';
-import { LogoIcon, LogoMobile } from 'components/Icons/Icons';
+import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
 import Balances from './components/Balances';
@@ -41,9 +41,9 @@ export default function Header() {
 
     return (
         <Toolbar className={classes.toolbar}>
-            <NavLink className={classes.logoWrapper} to='/' style={{position: 'relative'}}>
+            <NavLink className={classes.logoWrapper} to='/' >
                 <LogoIcon className={classes.logoDesktop} width={80} height={34} />
-                <LogoMobile className={classes.logoMobile} />
+                <MobileLogoIcon width={24} className={classes.logoMobile} />
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>

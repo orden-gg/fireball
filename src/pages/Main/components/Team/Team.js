@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, CircularProgress, Grid, Link } from '@mui/material';
 import { Box } from '@mui/system';
 
+import classNames from 'classnames';
+
 import Subtitle from 'components/Subtitle/Subtitle';
+import Gotchi from 'components/Gotchi/Gotchi';
 import thegraph from 'api/thegraph.api';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import styles from './styles';
-import Gotchi from 'components/Gotchi/Gotchi';
-import classNames from 'classnames';
 
-const gotchiesId = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
+const gotchisIds = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
 
 export default function Team() {
     const classes = styles();
@@ -18,7 +19,7 @@ export default function Team() {
     const [members, setMembers] = useState([]);
 
     useEffect(() => {
-        thegraph.getGotchiesByIds(gotchiesId).then((response) => {
+        thegraph.getGotchiesByIds(gotchisIds).then((response) => {
             const formattedArray = [];
 
             response.forEach((gotchi) => {
@@ -48,7 +49,6 @@ export default function Team() {
                         {
                             members.map((gotchi, index) =>
                                 <Gotchi
-                                    className='narrowed team'
                                     gotchi={gotchi}
                                     key={index}
                                     render={['name', 'svg']}

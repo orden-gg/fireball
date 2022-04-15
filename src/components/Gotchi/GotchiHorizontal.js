@@ -123,7 +123,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
             classNames(
                 classes.gotchi,
                 `haunt${gotchi.hauntId}`,
-                className || null,
+                className,
                 'horizontal'
             )}
         >

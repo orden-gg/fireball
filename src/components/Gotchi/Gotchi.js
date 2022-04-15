@@ -193,7 +193,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                 classes.gotchi,
                 `haunt${gotchi.hauntId}`,
                 'vertical',
-                className || null,
+                className,
                 gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
             )}
         >
