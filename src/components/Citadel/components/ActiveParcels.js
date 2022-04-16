@@ -4,12 +4,18 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
         super(scene);
         scene.add.existing(this);
         this.parcels = [];
+        this.colors = [0xffffff, 0xfff000];
+        this.duration = 1000;
+        this.fillStyle(this.colors[0], 1);
     }
 
-    animateParcels(color1, color2, duration) {
-        let [fromColor, toColor] = [Phaser.Display.Color.ValueToColor(color1), Phaser.Display.Color.ValueToColor(color2)];
+    animateParcels(isAnimate) {
+        let [fromColor, toColor] = [
+            Phaser.Display.Color.ValueToColor(this.colors[0]),
+            Phaser.Display.Color.ValueToColor(this.colors[1])
+        ];
 
-        if (!color1) {
+        if (!isAnimate) {
             this.parcelsTween.stop();
             this.clear();
             return;
@@ -20,30 +26,38 @@ export default class ActiveParcels extends Phaser.GameObjects.Graphics {
             to: 100,
             repeat: -1,
             yoyo: true,
-            duration: duration,
+            duration: this.duration,
             onUpdate: tween => {
                 const value = tween.getValue();
                 const color = Phaser.Display.Color.Interpolate.ColorWithColor(fromColor, toColor, 100, value);
 
                 this.clear();
-                for(let parcel of this.parcels) {
-                    let {x, y, w, h} = parcel;
-
-                    this.create(x, y, w, h, Phaser.Display.Color.GetColor(color.r, color.g, color.b), false);
-                }
+                this.fillStyle(
+                    Phaser.Display.Color.GetColor(color.r, color.g, color.b),
+                    1
+                )
+                this.updateGraphics();
             }
         });
     }
 
-    create(x, y, w, h, color, firstCreate) {
-        if (firstCreate) this.parcels.push({
-            x: x,
-            y: y,
-            w: w,
-            h: h
-        });
-        this.fillStyle(color, 1);
-        this.fillRect(x, y, w, h);
+    create(parcelsData) {
+        this.parcels = [];
+
+        for(let parcel of parcelsData) {
+            const { x, y, w, h } = parcel;
+            this.parcels.push(parcel);
+            this.fillRect(x, y, w, h);
+        }
+
+        this.animateParcels(true);
     }
 
+    updateGraphics() {
+        for(let parcel of this.parcels) {
+            let {x, y, w, h} = parcel;
+
+            this.fillRect(x, y, w, h);
+        }
+    }
 }
