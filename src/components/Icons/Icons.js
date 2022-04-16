@@ -18,6 +18,7 @@ import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
+import logoMobile from 'assets/images/icons/logo-mobile.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
 import sold from 'assets/images/icons/sold.svg';
@@ -159,8 +160,12 @@ export const ListingIcon = ({ width, height }) => {
     return <img width={width} height={height} src={listing} alt='listing' />;
 };
 
-export const LogoIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={logo} alt='logo' />;
+export const LogoIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={logo} alt='logo' />;
+};
+
+export const MobileLogoIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={logoMobile} alt='logo part' />;
 };
 
 export const MetamaskIcon = ({ className, width, height }) => {

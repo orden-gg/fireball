@@ -3,14 +3,11 @@ import { alpha } from '@mui/material';
 
 const styles = makeStyles(theme => ({
     container: {
-        marginBottom: 8,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
         position: 'relative',
         zIndex: 1,
-        alignSelf: 'center'
+        margin: '0 auto 8px'
     },
     navItem: {
         margin: 4,
@@ -39,11 +36,16 @@ const styles = makeStyles(theme => ({
             },
         }
     },
+    navName: {
+        marginRight: 8,
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
+    },
     label: {
         fontSize: 14,
         fontWeight: 600,
         color: theme.palette.primary.main,
-        marginLeft: 8,
         '.Mui-disabled &': {
             opacity: .4
         },
@@ -56,8 +58,7 @@ const styles = makeStyles(theme => ({
     },
     buttonLoader: {
         width: 28,
-        height: 14,
-        marginLeft: 8
+        height: 14
     }
 }));
 

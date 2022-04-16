@@ -10,7 +10,8 @@ const styles = makeStyles(theme => ({
         position: 'relative',
         border: '3px solid gray',
         '&:hover': {
-            textDecoration: 'none'
+            textDecoration: 'none',
+            zIndex: 1
         },
         '&.haunt1': {
             backgroundColor: theme.palette.haunts.h1,

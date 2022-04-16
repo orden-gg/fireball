@@ -7,6 +7,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import PercentIcon from '@mui/icons-material/Percent';
+import { ToggleButton } from '@mui/material';
 
 import ContentWrapper from 'components/Content/ContentWrapper';
 import ContentInner from 'components/Content/ContentInner';
@@ -76,6 +77,7 @@ export default function Lend() {
     const [lendingsCache, setLendingsCache] = useState([]);
     const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
+    const [linksListView, setLinksListView] = useState(false);
 
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
 
@@ -143,26 +145,46 @@ export default function Lend() {
                     }
                 />
 
+                <ToggleButton
+                    value='check'
+                    selected={linksListView}
+                    onChange={() => {
+                        setLinksListView(!linksListView);
+                    }}
+                    style={{ position: 'absolute', top: 0, right: 0, width: 36, padding: '6px 0', color: 'transparent', border: 'none' }}
+                >
+                    List
+                </ToggleButton>
+
                 <ContentInner dataLoading={dataLoading}>
-                    <GotchisLazy
-                        items={lendings}
-                        renderItem={id => (
-                            <Gotchi
-                                gotchi={lendings[id]}
-                                render={[
-                                    {
-                                        badges: [
-                                            'rs',
-                                            'kinship'
-                                        ]
-                                    },
-                                    'svg',
-                                    'name',
-                                    'lending'
-                                ]}
-                            />
-                        )}
-                    />
+                    {/* // !temporary code (hidden feature) */}
+                    { linksListView ? (
+                        <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
+                            {lendings.map((lend) => {
+                                return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
+                            })}
+                        </ol>
+                    ) : (
+                        <GotchisLazy
+                            items={lendings}
+                            renderItem={id => (
+                                <Gotchi
+                                    gotchi={lendings[id]}
+                                    render={[
+                                        {
+                                            badges: [
+                                                'rs',
+                                                'kinship'
+                                            ]
+                                        },
+                                        'svg',
+                                        'name',
+                                        'lending'
+                                    ]}
+                                />
+                            )}
+                        />
+                    )}
                 </ContentInner>
             </>
         </ContentWrapper>

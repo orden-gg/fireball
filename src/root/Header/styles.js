@@ -29,13 +29,22 @@ const styles = makeStyles(theme => ({
         display: 'inline-flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
+        marginRight: theme.spacing(1),
         fontWeight: 700,
         color: theme.palette.text.primary,
         textDecoration: 'none',
-        paddingBottom: 6,
-        [theme.breakpoints.up('sm')]: {
-            justifyContent: 'flex-start',
+        [theme.breakpoints.up('md')]: {
             paddingBottom: 10,
+        }
+    },
+    logoDesktop: {
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
+    },
+    logoMobile: {
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
         }
     },
     navWrapper: {
@@ -85,7 +94,8 @@ const styles = makeStyles(theme => ({
         }
     },
     navLink: {
-        display: 'block',
+        display: 'flex',
+        alignItems: 'center',
         fontSize: 20,
         color: theme.palette.common.white,
         fontWeight: 500,

@@ -7,7 +7,7 @@ import { useTheme } from '@emotion/react';
 
 import styles from './styles';
 
-export default function PageNav({ links, query }) {
+export default function PageNav({ links, query, children }) {
     const classes = styles();
     const match = useRouteMatch();
     const theme = useTheme();
@@ -31,7 +31,7 @@ export default function PageNav({ links, query }) {
                                     search: query ? query : ''
                                 }}
                             >
-                                {link.name}
+                                <span className={classes.navName}>{link.name}</span>
                                 {
                                     link.loading ? (
                                         <ContentLoader
@@ -52,6 +52,7 @@ export default function PageNav({ links, query }) {
                     )
                 })
             }
+            {children}
         </div>
     );
 }

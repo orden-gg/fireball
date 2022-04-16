@@ -14,11 +14,20 @@ const styles = makeStyles(theme => ({
         fontSize: 15,
         '&:hover': {
             textDecoration: 'none',
-            backgroundColor: alpha(theme.palette.secondary.dark, .6),
+            backgroundColor: alpha(theme.palette.secondary.dark, .6)
+        },
+        '.team &': {
+            textShadow: '0 0 2px #000',
+            '&:hover p': {
+                overflow: 'visible'
+            }
         },
         '.narrowed &': {
             background: 'none',
-            padding: '5px 10px 5px 5px',
+            padding: 5,
+            '&:hover': {
+                textDecoration: 'underline'
+            }
         },
         '& p': {
             overflow: 'hidden',
@@ -26,15 +35,16 @@ const styles = makeStyles(theme => ({
             whiteSpace: 'nowrap',
             margin: 0,
             '.narrowed &': {
-                fontSize: 14,
-                '&:hover': {
-                    textDecoration: 'underline',
-                }
+                fontSize: 14
             }
         }
     },
     gotchiId: {
-        color: '#00FFFF'
+        color: '#00FFFF',
+
+        '.team &': {
+            display: 'none'
+        }
     },
     callMadeIcon: {
         position: 'absolute',
