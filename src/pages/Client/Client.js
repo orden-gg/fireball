@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Alert, AlertTitle, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -81,16 +81,11 @@ export default function Client() {
             />
 
             {!clientActive?.length ? (
-                <Box className={classes.alertWrapper}>
-                    <Box className={classes.alertInner}>
-                        <Alert severity='info' className={classes.alert}>
-                            <AlertTitle>Fren, provide the address!</AlertTitle>
-                            You cannot use the client without a valid ETH address.
-                        </Alert>
-
+                // <Box className={classes.alertWrapper}>
+                    <div className={classes.alert}>
                         <LoginNavigation />
-                    </Box>
-                </Box>
+                    </div>
+                // </Box>
             ) : (
                 <>
                     <div className={classes.head}>

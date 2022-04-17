@@ -3,12 +3,16 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     loginNavigation: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
 
-        '&.connect': {
-            justifyContent: 'space-between'
+        display: 'flex',
+        alignItems: 'flex-start',
+        // justifyContent: 'flex-end',
+
+        // '&.connect': {
+        //     justifyContent: 'space-between'
+        // }
+        '& form': {
+            flexGrow: 1
         }
     },
     button: {
@@ -92,12 +96,14 @@ const styles = makeStyles(theme => ({
             display: 'block'
         }
     },
-    dropdownDivider: {
-        textAlign: 'center',
-        margin: '0 8px'
-    },
+    // dropdownDivider: {
+    //     textAlign: 'center',
+    //     margin: '0 8px'
+    // },
     metamaskButton: {
-        maxWidth: 160,
+        width: 40,
+        minWidth: 40,
+        marginLeft: 8
     },
     metamaskButtonIcon: {
         margin: '0 6px'

@@ -11,7 +11,6 @@ const LoginContextProvider = (props) => {
     const { connect, metaState } = useMetamask();
     const [storageAddresses, setStorageAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
     const [storageActive, setStorageActive] = useLocalStorage('ACTIVE_ADDRESS', JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')) || '');
-    const [gotchiIds, setGotchiIds] = useState([]); // ids for random SVG render
 
     const [activeAddress, setActiveAddress] = useState(storageActive);
     const [isMetamaskActive, setIsMetamaskActive] = useState(false);
@@ -75,9 +74,6 @@ const LoginContextProvider = (props) => {
             connectMetamask,
             isMetamaskActive,
             setIsMetamaskActive,
-
-            gotchiIds,
-            setGotchiIds,
 
             getActiveAddressSvgId,
 

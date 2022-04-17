@@ -7,22 +7,23 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    alertWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh - 192px)'
-    },
-    alertInner: {
-        backgroundColor: theme.palette.secondary.dark,
-        maxWidth: 400,
-        margin: 'auto',
-        padding: 24,
-        borderRadius: 4
-    },
+    // alertWrapper: {
+    //     display: 'flex',
+    //     // alignItems: 'flex-start',
+    //     justifyContent: 'center',
+    //     // minHeight: 'calc(100vh - 192px)'
+    // },
     alert: {
-        marginBottom: 24
+        // backgroundColor: theme.palette.secondary.dark,
+        maxWidth: 500,
+        marginTop: 16,
+        margin: 'auto',
+        width: '100%'
+        // borderRadius: 4
     },
+    // alert: {
+    //     marginBottom: 24
+    // },
     clientCitadel: {
         position: 'fixed',
         left: 0,

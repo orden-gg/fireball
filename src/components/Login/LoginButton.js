@@ -11,7 +11,6 @@ import { LoginContext } from 'contexts/LoginContext';
 
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
-import LoginModal from './LoginModal';
 
 import styles from './styles';
 import EthAddress from 'components/EthAddress/EthAddress';
@@ -116,12 +115,6 @@ export default function LoginButton() {
                     null
                 )}
             </div>
-
-            { modalOpen ? (
-                <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
-            ) : (
-                null
-            )}
 
             <Backdrop
                 sx={{ }}
