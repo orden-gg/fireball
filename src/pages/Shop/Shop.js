@@ -23,9 +23,9 @@ import Ticket from 'components/Items/Ticket/Ticket';
 import Wearable from 'components/Items/Wearable/Wearable';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
-import commonUtils from 'utils/commonUtils';
 
 import styles from './styles';
 
