@@ -106,7 +106,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             this.districtsGrid = new DistrictsGrid(this, this.settings.districts);
 
             this.citadel = this.addCitadel();
-            this.citadel.add([this.walls, this.parcels, this.districtsGrid]);
+            this.citadel.add([this.walls, this.parcels, this.districtsGrid, this.activeParcels]);
 
             this.cameras.main.zoom = this.settings.zoom.min * 2;
 
@@ -191,16 +191,6 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         createOwnerParcels() {
-            for(let parcel of this.ownerParcelsData) {
-                let { x, y } = this.getParcelPosition(parcel);
-                let { w, h } = this.getParcelSize(parcel);
-
-                this.activeParcels.create(x, y, w, h, 0xffffff, true);
-            }
-
-            this.activeParcels.animateParcels(0xffffff, 0xfff000, 1000);
-
-            return this.activeParcels
         }
 
         createGridNumbers() {
@@ -269,7 +259,14 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
         }
 
         addOwnerParcels(ownerParcels) {
-            this.ownerParcelsData = ownerParcels;
+            this.ownerParcelsData = ownerParcels.map(parcel => {
+                const { x, y } = this.getParcelPosition(parcel);
+                const { w, h } = this.getParcelSize(parcel);
+
+                return { x, y, w, h};
+            });
+
+            this.activeParcels.create(this.ownerParcelsData);
             this.showOwnerParcels(true);
         }
 
@@ -314,12 +311,14 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             if (b) {
                 this.parcels.setAlpha(0.5);
                 this.walls.setAlpha(0.5);
-                this.citadel.add(this.createOwnerParcels());
+                this.activeParcels.setAlpha(1);
             } else {
                 this.parcels.setAlpha(1);
                 this.walls.setAlpha(1);
-                this.activeParcels.animateParcels(b);
+                this.activeParcels.setAlpha(0);
             }
+
+            this.activeParcels.animateParcels(b);
         }
 
         showGrid(b) {

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, CircularProgress, Grid, Link, Typography } from '@mui/material';
+import { Avatar, CircularProgress, Grid, Link } from '@mui/material';
 import { Box } from '@mui/system';
+
 import classNames from 'classnames';
 
-import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
 import Subtitle from 'components/Subtitle/Subtitle';
+import Gotchi from 'components/Gotchi/Gotchi';
 import thegraph from 'api/thegraph.api';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import styles from './styles';
 
-const gotchiesId = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
+const gotchisIds = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
 
 export default function Team() {
     const classes = styles();
@@ -18,8 +19,8 @@ export default function Team() {
     const [members, setMembers] = useState([]);
 
     useEffect(() => {
-        thegraph.getGotchiesByIds(gotchiesId).then((response) => {
-            let formattedArray = [];
+        thegraph.getGotchiesByIds(gotchisIds).then((response) => {
+            const formattedArray = [];
 
             response.forEach((gotchi) => {
                 formattedArray.push(gotchi.data.aavegotchi);
@@ -40,41 +41,33 @@ export default function Team() {
                 </Grid>
             </Grid>
 
-            <Grid container justifyContent='center'>
+            <div className={classes.teamWrapper}>
                 {dataSpinner ? (
                     <CircularProgress component='span' color='primary' size={22}/>
                 ) : (
                     <>
                         {
-                            members.map((gotchi, index) => (
-                                <Grid item xs={6} sm={4} md={2} key={index}>
-                                    <Link
-                                        href={`/client/?address=${gotchi.owner.id}`}
-                                        target='_blank'
-                                        className={classes.teamMember}
-                                        underline='none'
-                                    >
-                                        <Typography className={classes.aavegotchiName} variant='h3'>{gotchi.name}</Typography>
-                                        <GotchiSvg id={gotchi.id} size={107} hideWareables={false} />
-                                    </Link>
-                                </Grid>
-                            ))
+                            members.map((gotchi, index) =>
+                                <Gotchi
+                                    className='narrowed team'
+                                    gotchi={gotchi}
+                                    key={index}
+                                    render={['name', 'svg']}
+                                />
+                            )
                         }
-
-                        <Grid item xs={6} sm={4} md={2}>
-                            <Link
-                                href='https://discord.gg/orden'
-                                target='_blank'
-                                className={classes.teamMember}
-                                underline='none'
-                            >
-                                <Typography className={classNames(classes.aavegotchiName, classes.aavegotchiYouName)} variant='h3'>You!</Typography>
-                                <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
-                            </Link>
-                        </Grid>
+                        <Link
+                            href='https://discord.gg/orden'
+                            target='_blank'
+                            className={classNames(classes.teamMember, classes.teamUser)}
+                            underline='none'
+                        >
+                            <p className={classes.aavegotchiName} variant='h3'>You!</p>
+                            <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
+                        </Link>
                     </>
                 )}
-            </Grid>
+            </div>
         </Box>
     );
 }

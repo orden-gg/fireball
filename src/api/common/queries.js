@@ -43,6 +43,7 @@ export const gotchiByIdQuery = (id) => {
   return `{
     aavegotchi(id: ${id}) {
       id
+      hauntId
       name
       numericTraits
       equippedWearables
