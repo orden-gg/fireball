@@ -528,7 +528,7 @@ const guilds = [
         }
     },{
         name: 'Gotchi Gaang Maafia',
-        logo: require('../assets/images/guilds/gotchi-gaang-maafia.jpeg').default,
+        logo: require('../assets/images/guilds/gotchigaangmaafia.png').default,
         members: [
             '0x352ac32c9663fb7caac363f77b121c34d9acb420',
             '0x8f1fc3766884d4a890acb2cf4bd7a9af7b2a6932',
