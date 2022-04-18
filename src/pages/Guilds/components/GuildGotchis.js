@@ -15,7 +15,7 @@ export default function GuildGotchis({ gotchis }) {
                         renderItem={id => (
                             <Gotchi
                                 gotchi={gotchis[id]}
-                                narrowed={true}
+                                className='narrowed'
                                 render={[
                                     'svg',
                                     'name'

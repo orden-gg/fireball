@@ -10,10 +10,9 @@ guildsData.reverse().sort(guild => guild.members.length ? -1 : 1);
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
-    const [realm, setRealm] = useState([]);
-
-    const [gotchis, setGotchis] = useState([]);
-    const [lendings, setLendings] = useState([]);
+    const [realm, setRealm] = useState({});
+    const [gotchis, setGotchis] = useState({});
+    const [lendings, setLendings] = useState({});
     const [gotchisAmount, setGotchisAmount] = useState([]);
     const [guildId, setGuildId] = useState(null);
 
@@ -22,7 +21,7 @@ const GuildsContextProvider = (props) => {
             setGotchis(gotchisState => {
                 gotchisState[id] = responses;
 
-                return [...gotchisState];
+                return {...gotchisState};
             });
         });
     }
@@ -36,7 +35,7 @@ const GuildsContextProvider = (props) => {
             setLendings(lendingsState => {
                 lendingsState[id] = guildLendings;
 
-                return [...lendingsState];
+                return {...lendingsState};
             });
         });
     }
@@ -46,7 +45,7 @@ const GuildsContextProvider = (props) => {
             setRealm(realmState => {
                 realmState[id] = realm;
 
-                return [...realmState];
+                return {...realmState};
             })
         });
     }

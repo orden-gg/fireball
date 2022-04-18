@@ -25,6 +25,7 @@ export default function Guild() {
         gotchis,
         lendings,
         setGuildId,
+        loadGuildData
     } = useContext(GuildsContext);
 
     useEffect(() => {
@@ -43,7 +44,7 @@ export default function Guild() {
 
     useEffect(() => {
         if (guildId !== null) {
-            // loadGuildData(guildId);
+            loadGuildData(guildId);
         };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,7 +56,7 @@ export default function Guild() {
 
                 <div className={classes.guildSidebar}>
                     <GuildBanner />
-                    {Boolean(guildsData[guildId]?.description?.length) &&  <GuildsDetails />}
+                    {<GuildsDetails guild={guildsData[guildId]} />}
 
                     <Tooltip
                         title='Back to guilds'

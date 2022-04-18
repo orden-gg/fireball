@@ -220,7 +220,7 @@ const guildStyles = makeStyles(theme => ({
     backButton: {
         position: 'absolute',
         left: '100%',
-        top: theme.spacing(2.6),
+        top: theme.spacing(2.4),
         marginLeft: theme.spacing(1),
         zIndex: 4,
         [theme.breakpoints.down('md')]: {
@@ -229,7 +229,7 @@ const guildStyles = makeStyles(theme => ({
         },
         [theme.breakpoints.down('sm')]: {
             left: theme.spacing(1),
-            top: theme.spacing(.5),
+            top: theme.spacing(1),
         },
         '& .MuiSvgIcon-root': {
             fontSize: 30,
@@ -555,11 +555,12 @@ const guildNavStyles = makeStyles(theme => ({
         position: 'relative',
         zIndex: 2,
         alignSelf: 'center',
-        padding: theme.spacing(2, 0),
+        padding: theme.spacing(2, 0, 1.5),
+        margin: 0,
         width: '100%',
         boxShadow: `0 10px 8px ${theme.palette.background.secondary}`,
         [theme.breakpoints.down('md')]: {
-            padding: theme.spacing(1, 0)
+            padding: theme.spacing(1, 0, .7)
         }
     }
 }));

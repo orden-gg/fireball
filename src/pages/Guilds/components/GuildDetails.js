@@ -3,23 +3,15 @@ import { Button, Typography } from '@mui/material';
 
 import Modal from 'components/Modal/Modal';
 import GuildWearables from './GuildWearables';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
-
 import { guildDetailsStyles } from '../styles';
 
-export default function GuildsDetails() {
+export default function GuildsDetails({ guild }) {
     const classes = guildDetailsStyles();
-    const { guildId, guildsData } = useContext(GuildsContext);
     const [modalOpen, setModalOpen] = useState(false);
-    const [guild, setGuild] = useState({});
 
-    useEffect(() => {
-        if(guildId !== null) {
-            setGuild(guildsData[guildId]);
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
+    if(!guild?.description?.length && !guild?.wearables.length) {
+        return null;
+    }
 
     return (
         <>

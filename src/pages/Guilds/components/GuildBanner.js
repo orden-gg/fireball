@@ -15,7 +15,7 @@ export default function GuildBanner() {
     const classes = guildBanner();
     const { guildId, setGuildId, guildsData } = useContext(GuildsContext);
     const history = useHistory();
-    const [guild, setGuild] = useState([]);
+    const [guild, setGuild] = useState({});
 
     const changeGuild = direction => {
         const id = guildId+direction;
@@ -26,7 +26,6 @@ export default function GuildBanner() {
         }
 
         history.push(`/guilds/${commonUtils.stringToKey(nextGuild.name)}`);
-
         setGuildId(id);
     }
 
