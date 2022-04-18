@@ -16,7 +16,7 @@ import ethersApi from 'api/ethers.api';
 export default function LoginNavigation() {
     const classes = styles();
     const { metaState } = useMetamask();
-    const { connectMetamask, selectActiveAddress, setIsMetamaskActive, setModalOpen, setDropdownOpen } = useContext(LoginContext);
+    const { connectMetamask, setActiveAddress, selectActiveAddress, setIsMetamaskActive, setDropdownOpen } = useContext(LoginContext);
 
     const [address, setAddress] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -27,10 +27,10 @@ export default function LoginNavigation() {
         });
     };
 
-    const onCustomClick = () => {
-        setModalOpen(true);
-        setDropdownOpen(false);
-    };
+    // const onCustomClick = () => {
+    //     setModalOpen(true);
+    //     setDropdownOpen(false);
+    // };
 
     const isFormValid = (addr) => {
         return isSubmitted && !ethersApi.isEthAddress(addr);
@@ -48,7 +48,7 @@ export default function LoginNavigation() {
         setIsSubmitted(true);
 
         if (ethersApi.isEthAddress(formatted)) {
-            selectActiveAddress(formatted);
+            setActiveAddress(formatted);
             setDropdownOpen(false);
         }
         // setAddressHelperText('Not a valid address!');
@@ -69,7 +69,7 @@ export default function LoginNavigation() {
             <form onSubmit={onFormSubmit}>
                 <TextField
                     error={isFormValid(address)}
-                    helperText={isFormValid(address) && 'is not valid eth address!'}
+                    helperText={isFormValid(address) && 'not valid eth address!'}
                     fullWidth
                     size='small'
                     label='eth address'

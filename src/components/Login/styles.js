@@ -30,18 +30,18 @@ const styles = makeStyles(theme => ({
         //     borderRadius: '4px 4px 0 0'
         // }
     },
-    buttonIcon: {
-        backgroundColor: theme.palette.secondary.main,
-        width: 34,
-        borderRadius: '4px 0 0 4px',
-        marginRight: 2,
-        display: 'flex',
-        alignItems: 'center',
-        padding: 2,
-        '&.metamask': {
-            justifyContent: 'center',
-        }
-    },
+    // buttonIcon: {
+    //     backgroundColor: theme.palette.secondary.main,
+    //     width: 34,
+    //     borderRadius: '4px 0 0 4px',
+    //     marginRight: 2,
+    //     display: 'flex',
+    //     alignItems: 'center',
+    //     padding: 2,
+    //     '&.metamask': {
+    //         justifyContent: 'center',
+    //     }
+    // },
     caption: {
         display: 'flex',
         alignItems: 'center',
@@ -100,6 +100,20 @@ const styles = makeStyles(theme => ({
     //     textAlign: 'center',
     //     margin: '0 8px'
     // },
+    buttonIcon: {
+        position: 'absolute',
+        top: -6,
+        right: -6,
+        // background: alpha('#000', .3),
+        background: theme.palette.secondary.dark,
+        padding: 2,
+        borderRadius: '50%',
+        // transform: 'translateY(-50%)',
+        // opacity: .6,
+        '& img': {
+            display: 'block'
+        }
+    },
     metamaskButton: {
         width: 40,
         minWidth: 40,
@@ -138,12 +152,10 @@ const styles = makeStyles(theme => ({
         position: 'relative',
         overflow: 'hidden',
         padding: '11px 6px 10px',
-
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 2,
-
         '&:hover': {
             backgroundColor: theme.palette.background.default,
         },

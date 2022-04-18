@@ -19,9 +19,14 @@ export default function LoginButton() {
     const classes = styles();
     const { getAccounts, metaState } = useMetamask();
 
-    const { activeAddress, selectActiveAddress, storageAddresses,
-            connectMetamask, isMetamaskActive,
-            modalOpen, setModalOpen, dropdownOpen, setDropdownOpen
+    const {
+        activeAddress,
+        selectActiveAddress,
+        storageAddresses,
+        connectMetamask,
+        isMetamaskActive,
+        dropdownOpen,
+        setDropdownOpen
     } = useContext(LoginContext);
 
     useEffect(() => { // connect metamask on load
@@ -65,13 +70,10 @@ export default function LoginButton() {
 
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     { activeAddress ? (
-                        isMetamaskActive ? (
-                            <div className={classNames(classes.buttonIcon, 'metamask')}>
-                                <MetamaskIcon width={18} height={18} />
+                        isMetamaskActive &&
+                            <div className={classes.buttonIcon}>
+                                <MetamaskIcon width={14} height={14} />
                             </div>
-                        ) : (
-                            null
-                        )
                     ) : (
                         <div className={classes.caption}>
                             <Typography className={classes.captionText}>Connect account</Typography>

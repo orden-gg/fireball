@@ -9,13 +9,18 @@ export const LoginContext = createContext({});
 
 const LoginContextProvider = (props) => {
     const { connect, metaState } = useMetamask();
-    const [storageAddresses, setStorageAddresses] = useLocalStorage('LOGGED_ADDRESSES', JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []);
-    const [storageActive, setStorageActive] = useLocalStorage('ACTIVE_ADDRESS', JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')) || '');
+    const [storageAddresses, setStorageAddresses] = useLocalStorage(
+        'LOGGED_ADDRESSES',
+        JSON.parse(localStorage.getItem('LOGGED_ADDRESSES')) || []
+    );
+    const [storageActive, setStorageActive] = useLocalStorage(
+        'ACTIVE_ADDRESS',
+        JSON.parse(localStorage.getItem('ACTIVE_ADDRESS')) || ''
+    );
 
     const [activeAddress, setActiveAddress] = useState(storageActive);
     const [isMetamaskActive, setIsMetamaskActive] = useState(false);
 
-    const [modalOpen, setModalOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const selectActiveAddress = (address) => {
@@ -53,12 +58,6 @@ const LoginContextProvider = (props) => {
         }
     };
 
-    const getActiveAddressSvgId = () => {
-        let active = storageAddresses.find((item) => item.address === activeAddress);
-
-        return active?.gotchiId ? active.gotchiId : 5402;
-    };
-
     return (
         <LoginContext.Provider value={{
             storageAddresses,
@@ -74,11 +73,6 @@ const LoginContextProvider = (props) => {
             connectMetamask,
             isMetamaskActive,
             setIsMetamaskActive,
-
-            getActiveAddressSvgId,
-
-            modalOpen,
-            setModalOpen,
 
             dropdownOpen,
             setDropdownOpen
