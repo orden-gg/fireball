@@ -9,30 +9,29 @@ import { guildNavStyles } from '../styles';
 export default function GuildNav() {
     const classes = guildNavStyles();
     const {
-        guildId,
-        gotchis,
-        lendings,
-        realm,
+        guildGotchis,
+        guildLendings,
+        guildRealm,
     } = useContext(GuildsContext);
 
     const navData = [
         {
             name: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            loading: !gotchis[guildId],
-            items: gotchis[guildId]?.length
+            loading: false,
+            items: guildGotchis.length || '...'
         },
         {
             name: 'lendings',
             icon: <LendingIcon width={24} height={24} />,
-            loading: !lendings[guildId],
-            items: lendings[guildId]?.length
+            loading: false,
+            items: guildLendings.length || '...'
         },
         {
             name: 'realm',
             icon: <KekIcon width={24} height={24} />,
-            loading: !realm[guildId],
-            items: realm[guildId]?.length
+            loading: false,
+            items: guildRealm.length || '...'
         }
     ];
 

@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import thegraphApi from 'api/thegraph.api';
 import fireballApi from 'api/fireball.api';
 import guildsData from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
@@ -10,51 +9,11 @@ guildsData.reverse().sort(guild => guild.members.length ? -1 : 1);
 export const GuildsContext = createContext({});
 
 const GuildsContextProvider = (props) => {
-    const [realm, setRealm] = useState({});
-    const [gotchis, setGotchis] = useState({});
-    const [lendings, setLendings] = useState({});
+    const [guildRealm, setGuildRealm] = useState([]);
+    const [guildGotchis, setGuildGotchis] = useState([]);
+    const [guildLendings, setGuildLendings] = useState([]);
     const [gotchisAmount, setGotchisAmount] = useState([]);
     const [guildId, setGuildId] = useState(null);
-
-    const loadGuildGotchis = id => {
-        thegraphApi.getGotchisByAddresses(guildsData[id].members).then(responses => {
-            setGotchis(gotchisState => {
-                gotchisState[id] = responses;
-
-                return {...gotchisState};
-            });
-        });
-    }
-
-    const loadGuildLendings = id => {
-        const promises = guildsData[id].members.map(address => thegraphApi.getLendingsByAddress(address));
-
-        Promise.all(promises).then(responses => {
-            const guildLendings = responses.reduce((result, current) => result.concat(current), []);
-
-            setLendings(lendingsState => {
-                lendingsState[id] = guildLendings;
-
-                return {...lendingsState};
-            });
-        });
-    }
-
-    const loadGuildRealm = id => {
-        thegraphApi.getRealmByAddresses(guildsData[id].members).then(realm => {
-            setRealm(realmState => {
-                realmState[id] = realm;
-
-                return {...realmState};
-            })
-        });
-    }
-
-    const loadGuildData = id => {
-        loadGuildGotchis(id);
-        loadGuildLendings(id);
-        loadGuildRealm(id);
-    }
 
     useEffect(() => {
         let destroyed = false;
@@ -80,17 +39,25 @@ const GuildsContextProvider = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        setGuildGotchis([]);
+        setGuildLendings([]);
+        setGuildRealm([]);
+    }, [guildId]);
+
     return (
         <GuildsContext.Provider value={{
             guildsData,
             gotchisAmount,
             guildId,
-            gotchis,
-            lendings,
-            realm,
+            guildGotchis,
+            guildLendings,
+            guildRealm,
 
-            loadGuildData,
-            setGuildId
+            setGuildId,
+            setGuildGotchis,
+            setGuildLendings,
+            setGuildRealm
         }}>
             { props.children }
         </GuildsContext.Provider>

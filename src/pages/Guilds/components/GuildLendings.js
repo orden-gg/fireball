@@ -3,14 +3,14 @@ import { CircularProgress } from '@mui/material';
 
 import Gotchi from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import thegraphApi from 'api/thegraph.api';
 import { GuildsContext } from '../GuildsContext';
+import thegraphApi from 'api/thegraph.api';
 
 import { guildContentStyles } from '../styles';
 
-export default function GuildGotchis() {
-    const { guildId, guildsData, guildGotchis, setGuildGotchis } = useContext(GuildsContext);
+export default function GuildLendings() {
     const classes = guildContentStyles();
+    const { guildId, guildsData, guildLendings, setGuildLendings } = useContext(GuildsContext);
 
     useEffect(() => {
         let mounted = true;
@@ -19,9 +19,13 @@ export default function GuildGotchis() {
             return;
         }
 
-        thegraphApi.getGotchisByAddresses(guildsData[guildId].members).then(gotchis => {
+        const promises = guildsData[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
+
+        Promise.all(promises).then(responses => {
             if(mounted) {
-                setGuildGotchis(gotchis);
+                const lendings = responses.reduce((result, current) => result.concat(current), []);
+
+                setGuildLendings(lendings);
             }
         });
 
@@ -31,12 +35,12 @@ export default function GuildGotchis() {
     return (
         <div className={classes.guildGotchis}>
             {
-                guildGotchis.length > 0 ? (
+                guildLendings?.length > 0 ? (
                     <GotchisLazy
-                        items={guildGotchis}
+                        items={guildLendings}
                         renderItem={id => (
                             <Gotchi
-                                gotchi={guildGotchis[id]}
+                                gotchi={guildLendings[id]}
                                 className='narrowed'
                                 render={[
                                     'svg',

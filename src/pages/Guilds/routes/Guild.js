@@ -4,10 +4,11 @@ import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import GuildGotchis from '../components/GuildGotchis';
 import GuildBanner from '../components/GuildBanner';
 import GuildsDetails from '../components/GuildDetails';
 import GuildNav from '../components/GuildNav';
+import GuildGotchis from '../components/GuildGotchis';
+import GuildLendings from '../components/GuildLendings';
 import GuildsRealm from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
 import commonUtils from 'utils/commonUtils';
@@ -22,10 +23,7 @@ export default function Guild() {
     const {
         guildsData,
         guildId,
-        gotchis,
-        lendings,
-        setGuildId,
-        loadGuildData
+        setGuildId
     } = useContext(GuildsContext);
 
     useEffect(() => {
@@ -41,14 +39,6 @@ export default function Guild() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if (guildId !== null) {
-            loadGuildData(guildId);
-        };
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
 
     return (
         <>
@@ -70,14 +60,8 @@ export default function Guild() {
                 <Box className={classes.guildContent}>
                     <GuildNav />
                     <Switch>
-                        <Route
-                            path={`${match.path}/gotchis`}
-                            component={() => <GuildGotchis gotchis={gotchis[guildId]} />}
-                        />
-                        <Route
-                            path={`${match.path}/lendings`}
-                            component={() => <GuildGotchis gotchis={lendings[guildId]} />}
-                        />
+                        <Route path={`${match.path}/gotchis`} component={GuildGotchis} />
+                        <Route path={`${match.path}/lendings`} component={GuildLendings} />
                         <Route path={`${match.path}/realm`} component={ GuildsRealm } />
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />
                     </Switch>

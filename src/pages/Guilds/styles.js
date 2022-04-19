@@ -490,6 +490,8 @@ const guildContentStyles = makeStyles(theme => ({
     guildGotchis: {
         height: '100%',
         paddingLeft: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
         [theme.breakpoints.down('sm')]: {
             height: '80vh',
             paddingRight: theme.spacing(2)
@@ -543,6 +545,9 @@ const guildContentStyles = makeStyles(theme => ({
                 right: 5
             }
         }
+    },
+    loading: {
+        margin: 'auto'
     }
 }));
 
