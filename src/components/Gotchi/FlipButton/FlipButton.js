@@ -10,7 +10,7 @@ export default function FlipButton({ flipCard }) {
 
     return (
         <CustomTooltip
-            title='flip card'
+            title='show stats'
             enterTouchDelay={0}
             placement='top'
             followCursor
