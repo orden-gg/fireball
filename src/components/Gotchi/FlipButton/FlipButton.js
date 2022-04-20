@@ -1,5 +1,4 @@
 import React from 'react';
-import { Tooltip } from '@mui/material';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
