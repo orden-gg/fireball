@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classNames from 'classnames';
-
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
 import GotchiOwner from './GotchiOwner/GotchiOwner';
@@ -18,11 +16,18 @@ import GotchiKinship from './GotchiKinship/GotchiKinship';
 import GotchiLending from './GotchiLending/GotchiLending';
 import GotchiLendingStats from './GotchiLendingStats/GotchiLendingStats';
 import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
+import FlipButton from './FlipButton/FlipButton';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
 
 export default function Gotchi({ gotchi, renderSvgByStats, render, portal, className }) {
+    const [isFlipped, setIsFlipped] = useState(false);
     const classes = styles();
+
+    const flipCard = () => {
+        setIsFlipped(!isFlipped);
+    }
 
     const gotchiSections = {
         badges: (children) => {
@@ -30,6 +35,42 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                 <div
                     className={classes.gotchiBadges}
                     key={`${gotchi.id}-badges`}
+                >
+                    {children}
+                </div>
+            );
+        },
+
+        flipContainer: (children) => {
+            return (
+                <div
+                    className={classNames(
+                        classes.gotchiFlipContainer,
+                        isFlipped && classes.gotchiIsFlipped
+                    )}
+                    key={`${gotchi.id}-flipContainer`}
+                >
+                    {children}
+                </div>
+            );
+        },
+
+        flipBack: (children) => {
+            return (
+                <div
+                    className={classes.gotchiFlipBack}
+                    key={`${gotchi.id}-flipBack`}
+                >
+                    {children}
+                </div>
+            );
+        },
+
+        flipFront: (children) => {
+            return (
+                <div
+                    className={classes.gotchiFlipFront}
+                    key={`${gotchi.id}-flipFront`}
                 >
                     {children}
                 </div>
@@ -170,6 +211,10 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     key={`${gotchi.id}-rewards`}
                 />
             )
+        },
+
+        get flipButton() {
+            return <FlipButton key={`${gotchi.id}-flipButton`} {...{flipCard}} />
         }
     }
 
