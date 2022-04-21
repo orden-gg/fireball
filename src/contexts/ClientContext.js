@@ -159,10 +159,7 @@ const ClientContextProvider = (props) => {
         thegraph.getLendingsByAddress(address)
             .then(lendings => {
                 if (originalOwnerAddress) {
-                    return gotchiVaultApi.getTokenIdsOfOriginalOwner(originalOwnerAddress).then(tokenIdsOfOriginalOwner => {
-                        const stringIds = tokenIdsOfOriginalOwner.map(id => id.toString())
-                        return lendings.filter(l => stringIds.includes(l.gotchi.id))
-                    })
+                    return lendings.filter(l => l.originalOwner.toLowerCase() === originalOwnerAddress.toLowerCase())
                 } else {
                     return lendings
                 }

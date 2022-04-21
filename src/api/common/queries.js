@@ -477,6 +477,7 @@ export const lendingsByAddressQuery = (address, skip) => {
             modifiedRarityScore
             escrow
         }
+        originalOwner
         lender
         borrower
         whitelistId
