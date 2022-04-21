@@ -13,13 +13,13 @@ import styles from './styles';
 import { AccountCircle } from '@mui/icons-material';
 import ethersApi from 'api/ethers.api';
 
-export default function LoginNavigation() {
+export default function LoginNavigation({ address, onSubmit }) {
     const classes = styles();
     const { metaState } = useMetamask();
     const { connectMetamask, setActiveAddress, selectActiveAddress, setIsMetamaskActive, setDropdownOpen } = useContext(LoginContext);
 
-    const [address, setAddress] = useState('');
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [formValue, setFormValue] = useState(address ? address : '');
+    const [isFormSabmitted, setIsFormSubmitted] = useState(address ? true : false);
 
     const onMetamaskClick = () => {
         connectMetamask().then((connected) => {
@@ -33,24 +33,29 @@ export default function LoginNavigation() {
     // };
 
     const isFormValid = (addr) => {
-        return isSubmitted && !ethersApi.isEthAddress(addr);
+        return isFormSabmitted && !ethersApi.isEthAddress(addr);
     };
 
     // const onAddressChange = (value) => {
     //     ethersApi.isEthAddress(value) ? setIsAddressValid(true) : setIsAddressValid(false);
-    //     setAddress(value);
+    //     setFormValue(value);
     // };
 
     const onFormSubmit = (e) => {
-        let formatted = address.toLowerCase();
+        let formatted = formValue.toLowerCase();
         // let duplicated = storageAddresses.find((item) => item.address === formattedAddress);
 
-        setIsSubmitted(true);
+
+        setIsFormSubmitted(true);
 
         if (ethersApi.isEthAddress(formatted)) {
-            setActiveAddress(formatted);
-            setDropdownOpen(false);
+            onSubmit(formatted);
+        //     setActiveAddress(formatted);
+        //     setDropdownOpen(false);
         }
+
+
+
         // setAddressHelperText('Not a valid address!');
 
         // if (duplicated) {
@@ -61,6 +66,8 @@ export default function LoginNavigation() {
         //     selectActiveAddress(formattedAddress)
         //     setModalOpen(false);
         // }
+
+
         e.preventDefault();
     };
 
@@ -68,13 +75,14 @@ export default function LoginNavigation() {
         <div className={classNames(classes.loginNavigation, !metaState.account[0] && 'connect')}>
             <form onSubmit={onFormSubmit}>
                 <TextField
-                    error={isFormValid(address)}
-                    helperText={isFormValid(address) && 'not valid eth address!'}
+                    value={formValue}
+                    error={isFormValid(formValue)}
+                    helperText={isFormValid(formValue) && 'not valid eth address!'}
                     fullWidth
                     size='small'
                     label='eth address'
                     variant='outlined'
-                    onChange={(event) => setAddress(event.target.value)}
+                    onChange={(event) => setFormValue(event.target.value)}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position='end'>

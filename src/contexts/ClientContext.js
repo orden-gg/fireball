@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
@@ -9,11 +9,13 @@ import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
+import { LoginContext } from './LoginContext';
 
 export const ClientContext = createContext({});
 
 const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
+    const { activeAddress, setActiveAddress } = useContext(LoginContext);
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
@@ -72,17 +74,19 @@ const ClientContextProvider = (props) => {
         }
     ];
 
-    const getClientData = () => {
-        getGotchis(clientActive);
-        getLendings(clientActive);
-        getInventory(clientActive);
-        getTickets(clientActive);
-        getRealm(clientActive);
+    const getClientData = (address) => {
+        getGotchis(address);
+        getLendings(address);
+        getInventory(address);
+        getTickets(address);
+        getRealm(address);
+
+        console.log('data here!!')
 
         // reset
-        setWarehouse([]);
-        setReward(null);
-        setRewardCalculated(false);
+        // setWarehouse([]);
+        // setReward(null);
+        // setRewardCalculated(false);
     };
 
     const getGotchis = (address) => {

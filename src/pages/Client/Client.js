@@ -5,7 +5,7 @@ import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router
 import { useLocation } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
-import queryString from 'query-string'
+import qs from 'query-string';
 
 import LoginNavigation from 'components/Login/LoginNavigation';
 import PageNav from 'components/PageNav/PageNav';
@@ -22,6 +22,9 @@ import ClientRealm from './routes/ClientRealm';
 
 import styles from './styles';
 import EthAddress from 'components/EthAddress/EthAddress';
+import ethersApi from 'api/ethers.api';
+import ClientAccount from './routes/ClientAccount';
+import { useParams } from 'react-router';
 
 export default function Client() {
     const classes = styles();
@@ -29,91 +32,118 @@ export default function Client() {
     const location = useLocation();
     const history = useHistory();
 
-    const params = queryString.parse(location.search);
+    const { account } = useParams();
+
+    const isCoreRoute = location.pathname !== '/client' && location.pathname !== `/client/${account}`;
+    // const qParams = qs.parse(location.search);
 
     const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
-        if (activeAddress) {
-            setClientActive(activeAddress);
+        if (account) {
+            if (ethersApi.isEthAddress(account)) {
+                // console.log('account',account)
+                getClientData(account);
+            } else {
+                history.push({ pathname: `/client/${account}` });
+            }
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeAddress]);
+    }, [account]);
 
-    useEffect(() => {
-        if (params.address) {
-            setActiveAddress(params.address);
-            setClientActive(params.address);
-        }
+    // useEffect(() => {
+    //     if (activeAddress) {
+    //         setClientActive(activeAddress);
+    //     }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.address]);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [activeAddress]);
 
-    useEffect(() => {
-        if (clientActive) {
-            getClientData();
-            history.push({ path: location.pathname, search: `?address=${clientActive}` });
-        } else {
-            history.push({ path: location.pathname });
-        }
+    // useEffect(() => {
+    //     console.log(qParams)
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clientActive]);
+    //     if (ethersApi.isEthAddress(qParams.address)) {
+    //         setActiveAddress(qParams.address);
+    //         // setClientActive(qParams.address);
+    //     }
+
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [qParams.address]);
+
+    // useEffect(() => {
+    //     console.log('account', account)
+    //     if (!ethersApi.isEthAddress(account)) {
+    //         console.log('yo')
+    //         history.push({ path: location.pathname });
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+
+
+    //     if (activeAddress) {
+    //         getClientData();
+    //         history.push({ path: location.pathname, search: `?address=${activeAddress}` });
+
+    //     }
+
+    //     console.log('active', activeAddress)
+    //     // } else {
+    //     //     history.push({ path: location.pathname });
+    //     // }
+
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [activeAddress]);
+
+    const onAddressSubmit = (address) => {
+        setActiveAddress(address)
+        history.push({ pathname: `/client/${address}` });
+    };
 
     return (
-        <Box className={classes.container}>
-            <Helmet>
+        <div className={classes.container}>
+            {/* <Helmet>
                 <title>
-                    {clientActive ?
-                        `${commonUtils.cutAddress(clientActive, '...')} || ${location.pathname.split('/')[2]}`
+                    {activeAddress ?
+                        `${commonUtils.cutAddress(activeAddress, '...')} || ${location.pathname.split('/')[2]}`
                         : 'Client'}
                 </title>
-            </Helmet>
+            </Helmet> */}
 
-            <EthAddress
-                address={clientActive}
-                icon={true}
-                clientLink={true}
-                polygonLink={true}
-                copy={true}
-            />
-
-            {!clientActive?.length ? (
-                // <Box className={classes.alertWrapper}>
-                    <div className={classes.alert}>
-                        <LoginNavigation />
-                    </div>
-                // </Box>
-            ) : (
-                <>
-                    <div className={classes.head}>
-                        <PageNav
-                            links={navData}
-                            query={`?address=${clientActive}`}
+            { isCoreRoute ? (
+                <div className={classes.head}>
+                    <PageNav
+                        links={navData}
+                        query={`?address=${account}`}
+                    >
+                        <Button
+                            href={`/shop?address=${account}`}
+                            target='_blank'
+                            className={classes.shopBtn}
                         >
-                            <Button
-                                href={`/shop?address=${clientActive}`}
-                                target='_blank'
-                                className={classes.shopBtn}
-                            >
-                                <BaazarIcon width={24} height={24} />
-                            </Button>
-                        </PageNav>
-                    </div>
-
-                    <Switch>
-                        <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
-                        <Route path={`${match.path}/lendings`} component={ ClientLendings } />
-                        <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
-                        <Route path={`${match.path}/tickets`} component={ ClientTickets } />
-                        <Route path={`${match.path}/realm`} component={ ClientRealm } />
-                        <Redirect from={match.path} to={`${match.path}/gotchis`} />
-                    </Switch>
-                </>
+                            <BaazarIcon width={24} height={24} />
+                        </Button>
+                    </PageNav>
+                </div>
+            ) : (
+                <div className={classes.loginNav}>
+                    <LoginNavigation address={account} onSubmit={onAddressSubmit} />
+                </div>
             )}
 
-        </Box>
+            { ethersApi.isEthAddress(account) &&
+                <Switch>
+                    <Route exact path={`${match.path}`} component={ ClientAccount } />
+                    <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
+                    <Route path={`${match.path}/lendings`} component={ ClientLendings } />
+                    <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
+                    <Route path={`${match.path}/tickets`} component={ ClientTickets } />
+                    <Route path={`${match.path}/realm`} component={ ClientRealm } />
+                    <Redirect from={match.path} to={`${match.path}/gotchis`} />
+                </Switch>
+            }
+        </div>
     );
 }

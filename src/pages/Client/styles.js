@@ -13,7 +13,7 @@ const styles = makeStyles(theme => ({
     //     justifyContent: 'center',
     //     // minHeight: 'calc(100vh - 192px)'
     // },
-    alert: {
+    loginNav: {
         // backgroundColor: theme.palette.secondary.dark,
         maxWidth: 500,
         marginTop: 16,
@@ -301,9 +301,31 @@ const parcelSinglePage = makeStyles(theme => ({
     }
 }));
 
+const accountStyles = makeStyles(theme => ({
+    container: {
+        paddingTop: 12
+    },
+    account: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: 12
+    },
+    alert: {
+        maxWidth: 500,
+        width: '100%',
+        margin: 'auto',
+        marginBottom: 12
+    },
+    accountNav: {
+        display: 'flex',
+        justifyContent: 'center',
+    }
+}));
+
 export {
     styles as default,
     routersStyles,
     loadRewardsStyles,
-    parcelSinglePage
+    parcelSinglePage,
+    accountStyles
 };
