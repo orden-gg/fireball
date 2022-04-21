@@ -31,7 +31,7 @@ export default function Client() {
     const params = queryString.parse(location.search);
 
     const { activeAddress } = useContext(LoginContext);
-    const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
+    const { clientActive, setClientActive, originalOwner, setOriginalOwner, getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
         if (activeAddress) {
@@ -50,15 +50,23 @@ export default function Client() {
     }, [params.address]);
 
     useEffect(() => {
+        if (params.originalOwner) {
+            setOriginalOwner(params.originalOwner);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params.originalOwner]);
+
+    useEffect(() => {
         if (clientActive) {
             getClientData();
-            history.push({ path: location.pathname, search: `?address=${clientActive}` });
+            history.push({ path: location.pathname, search: `?address=${clientActive}` + (originalOwner ? `&originalOwner=${originalOwner}` : "") });
         } else {
             history.push({ path: location.pathname });
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clientActive]);
+    }, [clientActive, originalOwner]);
 
     return (
         <Box className={classes.container}>
@@ -86,7 +94,7 @@ export default function Client() {
                     <div className={classes.head}>
                         <PageNav
                             links={navData}
-                            query={`?address=${clientActive}`}
+                            query={`?address=${clientActive}` + (originalOwner ? `&originalOwner=${originalOwner}` : '')}
                         >
                             <Button
                                 href={`/shop?address=${clientActive}`}

@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
+import gotchiVaultApi from 'api/gotchivault.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
@@ -14,6 +15,7 @@ export const ClientContext = createContext({});
 
 const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
+    const [originalOwner, setOriginalOwner] = useState(null);
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
@@ -73,8 +75,8 @@ const ClientContextProvider = (props) => {
     ];
 
     const getClientData = () => {
-        getGotchis(clientActive);
-        getLendings(clientActive);
+        getGotchis(clientActive, originalOwner);
+        getLendings(clientActive, originalOwner);
         getInventory(clientActive);
         getTickets(clientActive);
         getRealm(clientActive);
@@ -85,89 +87,110 @@ const ClientContextProvider = (props) => {
         setRewardCalculated(false);
     };
 
-    const getGotchis = (address) => {
+    const getGotchis = (address, originalOwnerAddress) => {
         setLoadingGotchis(true);
 
-        thegraph.getGotchisByAddress(address).then((response)=> {
-            const wearables = [];
-            const { type: gSortType, dir: gSortDir } = gotchisSorting;
-            const { type: wSortType, dir: wSortDir } = warehouseSorting;
-
-            // collect all equipped wearables
-            response.forEach((item) => {
-                let equipped = item.equippedWearables.filter((item) => item > 0);
-
-                for(let wearable of equipped) {
-                    let index = wearables.findIndex(item => item.id === wearable);
-
-                    if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
-
-                    if (wearables[index] === undefined) {
-                        wearables.push({
-                            id: wearable,
-                            balance: 1,
-                            rarity: itemUtils.getItemRarityById(wearable),
-                            rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
-                            holders: [item.id],
-                            category: 0
-                        });
-                    } else {
-                        wearables[index].balance += 1;
-                        wearables[index].holders.push(item.id);
-                    }
+        thegraph.getGotchisByAddress(address)
+            .then(gotchis => {
+                if (originalOwnerAddress) {
+                    return gotchiVaultApi.getTokenIdsOfOriginalOwner(originalOwnerAddress).then(tokenIdsOfOriginalOwner => {
+                        const stringIds = tokenIdsOfOriginalOwner.map(id => id.toString())
+                        return gotchis.filter(g => stringIds.includes(g.id))
+                    })
+                } else {
+                    return gotchis
                 }
-            });
+            })
+            .then((response)=> {
+                const wearables = [];
+                const {type: gSortType, dir: gSortDir} = gotchisSorting;
+                const {type: wSortType, dir: wSortDir} = warehouseSorting;
 
-            setWarehouse((existing) => commonUtils.basicSort(
-                [...existing, ...wearables].reduce((items, current) => {
-                    let duplicated = items.find(item => item.id === current.id);
+                // collect all equipped wearables
+                response.forEach((item) => {
+                    let equipped = item.equippedWearables.filter((item) => item > 0);
 
-                    if (duplicated) {
-                        duplicated.balance += current.balance;
-                        duplicated.holders = current.holders;
-                        return items;
+                    for (let wearable of equipped) {
+                        let index = wearables.findIndex(item => item.id === wearable);
+
+                        if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+
+                        if (wearables[index] === undefined) {
+                            wearables.push({
+                                id: wearable,
+                                balance: 1,
+                                rarity: itemUtils.getItemRarityById(wearable),
+                                rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
+                                holders: [item.id],
+                                category: 0
+                            });
+                        } else {
+                            wearables[index].balance += 1;
+                            wearables[index].holders.push(item.id);
+                        }
                     }
+                });
 
-                    return items.concat(current);
-                }, []), wSortType, wSortDir));
+                setWarehouse((existing) => commonUtils.basicSort(
+                    [...existing, ...wearables].reduce((items, current) => {
+                        let duplicated = items.find(item => item.id === current.id);
 
-            setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
-            setLoadingGotchis(false);
-        }).catch((error) => {
+                        if (duplicated) {
+                            duplicated.balance += current.balance;
+                            duplicated.holders = current.holders;
+                            return items;
+                        }
+
+                        return items.concat(current);
+                    }, []), wSortType, wSortDir));
+
+                setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
+                setLoadingGotchis(false);
+            }).catch((error) => {
             console.log(error);
             setGotchis([]);
             setLoadingGotchis(false);
         });
     };
 
-    const getLendings = (address) => {
+    const getLendings = (address, originalOwnerAddress) => {
         setLoadingLendings(true);
 
         thegraph.getLendingsByAddress(address)
             .then(lendings => {
-                const balancesRequest = [];
-                const { type, dir } = lendingsSorting;
-
-                for (let i = 0; i < lendings.length; i++) {
-                    balancesRequest.push(thegraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
+                if (originalOwnerAddress) {
+                    return gotchiVaultApi.getTokenIdsOfOriginalOwner(originalOwnerAddress).then(tokenIdsOfOriginalOwner => {
+                        const stringIds = tokenIdsOfOriginalOwner.map(id => id.toString())
+                        return lendings.filter(l => stringIds.includes(l.gotchi.id))
+                    })
+                } else {
+                    return lendings
                 }
+            })
+            .then(lendings => {
+                    const balancesRequest = [];
+                    const { type, dir } = lendingsSorting;
 
-                Promise.all(balancesRequest).then(balances => {
-                    balances.forEach((balance, i) => {
-                        lendings[i].fud = balance.FUDAmount;
-                        lendings[i].fomo = balance.FOMOAmount;
-                        lendings[i].alpha = balance.ALPHAAmount;
-                        lendings[i].kek = balance.KEKAmount;
-                        lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
-                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
+                    for (let i = 0; i < lendings.length; i++) {
+                        balancesRequest.push(thegraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
+                    }
+
+                    Promise.all(balancesRequest).then(balances => {
+                        balances.forEach((balance, i) => {
+                            lendings[i].fud = balance.FUDAmount;
+                            lendings[i].fomo = balance.FOMOAmount;
+                            lendings[i].alpha = balance.ALPHAAmount;
+                            lendings[i].kek = balance.KEKAmount;
+                            lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
+                            lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
+                            lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
+                        });
+
+                        setLendings(commonUtils.basicSort(lendings, type, dir));
+                        setLoadingLendings(false);
                     });
-
-                    setLendings(commonUtils.basicSort(lendings, type, dir));
-                    setLoadingLendings(false);
-                });
-            }
-        );
+                }
+            );
     }
 
     const getInventory = (address) => {
@@ -266,6 +289,8 @@ const ClientContextProvider = (props) => {
         <ClientContext.Provider value={{
             clientActive,
             setClientActive,
+            originalOwner,
+            setOriginalOwner,
 
             gotchis,
             gotchisSorting,

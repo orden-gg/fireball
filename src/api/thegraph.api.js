@@ -451,7 +451,7 @@ export default {
         function getQueries() {
             const queries = [];
 
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 5; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000))
             }
 
