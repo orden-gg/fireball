@@ -90,51 +90,51 @@ const ClientContextProvider = (props) => {
         setLoadingGotchis(true);
 
         thegraph.getGotchisByAddress(address).then((response)=> {
-                const wearables = [];
-                const {type: gSortType, dir: gSortDir} = gotchisSorting;
-                const {type: wSortType, dir: wSortDir} = warehouseSorting;
+            const wearables = [];
+            const {type: gSortType, dir: gSortDir} = gotchisSorting;
+            const {type: wSortType, dir: wSortDir} = warehouseSorting;
 
-                // collect all equipped wearables
-                response.forEach((item) => {
-                    let equipped = item.equippedWearables.filter((item) => item > 0);
+            // collect all equipped wearables
+            response.forEach((item) => {
+                let equipped = item.equippedWearables.filter((item) => item > 0);
 
-                    for (let wearable of equipped) {
-                        let index = wearables.findIndex(item => item.id === wearable);
+                for (let wearable of equipped) {
+                    let index = wearables.findIndex(item => item.id === wearable);
 
-                        if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+                    if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
 
-                        if (wearables[index] === undefined) {
-                            wearables.push({
-                                id: wearable,
-                                balance: 1,
-                                rarity: itemUtils.getItemRarityById(wearable),
-                                rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
-                                holders: [item.id],
-                                category: 0
-                            });
-                        } else {
-                            wearables[index].balance += 1;
-                            wearables[index].holders.push(item.id);
-                        }
+                    if (wearables[index] === undefined) {
+                        wearables.push({
+                            id: wearable,
+                            balance: 1,
+                            rarity: itemUtils.getItemRarityById(wearable),
+                            rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
+                            holders: [item.id],
+                            category: 0
+                        });
+                    } else {
+                        wearables[index].balance += 1;
+                        wearables[index].holders.push(item.id);
                     }
-                });
+                }
+            });
 
-                setWarehouse((existing) => commonUtils.basicSort(
-                    [...existing, ...wearables].reduce((items, current) => {
-                        let duplicated = items.find(item => item.id === current.id);
+            setWarehouse((existing) => commonUtils.basicSort(
+                [...existing, ...wearables].reduce((items, current) => {
+                    let duplicated = items.find(item => item.id === current.id);
 
-                        if (duplicated) {
-                            duplicated.balance += current.balance;
-                            duplicated.holders = current.holders;
-                            return items;
-                        }
+                    if (duplicated) {
+                        duplicated.balance += current.balance;
+                        duplicated.holders = current.holders;
+                        return items;
+                    }
 
-                        return items.concat(current);
-                    }, []), wSortType, wSortDir));
+                    return items.concat(current);
+                }, []), wSortType, wSortDir));
 
-                setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
-                setLoadingGotchis(false);
-            }).catch((error) => {
+            setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
+            setLoadingGotchis(false);
+        }).catch((error) => {
             console.log(error);
             setGotchis([]);
             setLoadingGotchis(false);
