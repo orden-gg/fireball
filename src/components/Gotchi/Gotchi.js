@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -25,9 +25,9 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
     const [isFlipped, setIsFlipped] = useState(false);
     const classes = styles();
 
-    const flipCard = () => {
+    const flipCard = useCallback(() => {
         setIsFlipped(!isFlipped);
-    }
+    }, [isFlipped]);
 
     const gotchiSections = {
         badges: (children) => {
@@ -214,7 +214,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
         },
 
         get flipButton() {
-            return <FlipButton key={`${gotchi.id}-flipButton`} {...{flipCard}} />
+            return <FlipButton key={`${gotchi.id}-flipButton`} flipCard={flipCard} />
         }
     }
 
