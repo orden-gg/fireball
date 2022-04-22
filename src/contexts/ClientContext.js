@@ -91,14 +91,14 @@ const ClientContextProvider = (props) => {
 
         thegraph.getGotchisByAddress(address).then((response)=> {
             const wearables = [];
-            const {type: gSortType, dir: gSortDir} = gotchisSorting;
-            const {type: wSortType, dir: wSortDir} = warehouseSorting;
+            const { type: gSortType, dir: gSortDir } = gotchisSorting;
+            const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
             response.forEach((item) => {
                 let equipped = item.equippedWearables.filter((item) => item > 0);
 
-                for (let wearable of equipped) {
+                for(let wearable of equipped) {
                     let index = wearables.findIndex(item => item.id === wearable);
 
                     if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
