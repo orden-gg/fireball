@@ -3,7 +3,6 @@ import React, { createContext, useState } from 'react';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
-import gotchiVaultApi from 'api/gotchivault.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
@@ -75,7 +74,7 @@ const ClientContextProvider = (props) => {
     ];
 
     const getClientData = () => {
-        getGotchis(clientActive, originalOwner);
+        getGotchis(clientActive);
         getLendings(clientActive, originalOwner);
         getInventory(clientActive);
         getTickets(clientActive);
@@ -87,20 +86,10 @@ const ClientContextProvider = (props) => {
         setRewardCalculated(false);
     };
 
-    const getGotchis = (address, originalOwnerAddress) => {
+    const getGotchis = (address) => {
         setLoadingGotchis(true);
 
         thegraph.getGotchisByAddress(address)
-            .then(gotchis => {
-                if (originalOwnerAddress) {
-                    return gotchiVaultApi.getTokenIdsOfOriginalOwner(originalOwnerAddress).then(tokenIdsOfOriginalOwner => {
-                        const stringIds = tokenIdsOfOriginalOwner.map(id => id.toString())
-                        return gotchis.filter(g => stringIds.includes(g.id))
-                    })
-                } else {
-                    return gotchis
-                }
-            })
             .then((response)=> {
                 const wearables = [];
                 const {type: gSortType, dir: gSortDir} = gotchisSorting;
