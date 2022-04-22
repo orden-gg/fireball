@@ -89,8 +89,7 @@ const ClientContextProvider = (props) => {
     const getGotchis = (address) => {
         setLoadingGotchis(true);
 
-        thegraph.getGotchisByAddress(address)
-            .then((response)=> {
+        thegraph.getGotchisByAddress(address).then((response)=> {
                 const wearables = [];
                 const {type: gSortType, dir: gSortDir} = gotchisSorting;
                 const {type: wSortType, dir: wSortDir} = warehouseSorting;
