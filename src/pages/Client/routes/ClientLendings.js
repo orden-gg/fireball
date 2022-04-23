@@ -89,7 +89,21 @@ export default function ClientLendings() {
                         },
                         'svg',
                         'name',
-                        'lendingStats'
+                        {
+                            flipContainer: [
+                                {
+                                    flipBack: [
+                                        'traits',
+                                        'wearablesLine',
+                                        'listing'
+                                    ]
+                                },
+                                {
+                                    flipFront: ['lendingStats']
+                                }
+                            ]
+                        },
+                        'flipButton'
                     ]}
                 />
             </ContentInner>

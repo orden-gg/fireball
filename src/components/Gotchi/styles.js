@@ -3,12 +3,14 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     gotchi: {
-        display: 'block',
+        display: 'flex',
+        flexDirection: 'column',
         color: '#fff',
         textAlign: 'center',
         height: '100%',
         position: 'relative',
         border: '3px solid gray',
+        alignItem: 'space-between',
         '&:hover': {
             textDecoration: 'none',
             zIndex: 1
@@ -80,6 +82,21 @@ const styles = makeStyles(theme => ({
         flexDirection: 'column',
         margin: theme.spacing(3, 1),
         flex: '1 1 auto'
+    },
+    gotchiIsFlipped: {
+        position: 'relative',
+        margin: 'auto 0'
+    },
+    gotchiFlipBack: {
+        display: 'none',
+        '$gotchiIsFlipped &': {
+            display: 'block'
+        }
+    },
+    gotchiFlipFront: {
+        '$gotchiIsFlipped &': {
+            display: 'none'
+        }
     }
 }));
 
