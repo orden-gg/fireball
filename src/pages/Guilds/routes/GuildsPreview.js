@@ -81,7 +81,7 @@ export default function GuildsPreview() {
                                         <li className={classes.guildInfoItem}>
                                             <GotchiIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
-                                                {setNumber(gotchisAmount[id])}
+                                                -
                                             </span>
                                         </li>
                                     </Tooltip>
@@ -89,7 +89,7 @@ export default function GuildsPreview() {
                                         <li className={classes.guildInfoItem}>
                                             <LendingIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
-                                                !
+                                                -
                                             </span>
                                         </li>
                                     </Tooltip>
@@ -97,7 +97,7 @@ export default function GuildsPreview() {
                                         <li className={classes.guildInfoItem}>
                                             <WarehouseIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
-                                                !
+                                                -
                                             </span>
                                         </li>
                                     </Tooltip>
@@ -105,7 +105,7 @@ export default function GuildsPreview() {
                                         <li className={classes.guildInfoItem}>
                                             <FudIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
-                                                !
+                                                -
                                             </span>
                                         </li>
                                     </Tooltip>
@@ -113,7 +113,7 @@ export default function GuildsPreview() {
                                         <li className={classes.guildInfoItem}>
                                             <GhstTokenIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
-                                                !
+                                                -
                                             </span>
                                         </li>
                                     </Tooltip>
