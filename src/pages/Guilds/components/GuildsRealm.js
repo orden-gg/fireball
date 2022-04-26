@@ -25,6 +25,8 @@ export default function GuildRealm() {
         });
 
         return () => mounted = false;
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [guildId]);
 
     return <Citadel

@@ -18,7 +18,7 @@
         "description": [{ "title": "Description", "text": "e-sport & gamedev DAO always playing a good game ☀️" }],
         "banner": "ordenGG-banner.png",
         "socials": { "twitter": "https://twitter.com/orden_gg/", "discord": "https://discord.com/invite/NXEEETxSkC" },
-        "wearables": [130, 150, 135, 141]
+        "wearables": [130]
     },
     {
         "name": "Aavegotchi Francophonie",

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
 import Modal from 'components/Modal/Modal';

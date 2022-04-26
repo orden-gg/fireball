@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Button, Skeleton, Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
 import GuildLogo from '../components/GuildLogo';
@@ -16,7 +16,6 @@ export default function GuildsPreview() {
     const classes = styles();
     const {
         guildsData,
-        gotchisAmount,
         setGuildId
     } = useContext(GuildsContext);
     const match = useRouteMatch();
@@ -26,13 +25,13 @@ export default function GuildsPreview() {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
     }
 
-    const setNumber = amount => {
-        if (amount !== undefined) {
-            return amount
-        } else {
-            return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
-        }
-    }
+    // const setNumber = amount => {
+    //     if (amount !== undefined) {
+    //         return amount
+    //     } else {
+    //         return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
+    //     }
+    // } Will be used in a future
 
     const renderWaerables = guild => {
         if (guild.hasOwnProperty('wearables')) {
