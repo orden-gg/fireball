@@ -22,6 +22,7 @@ import logoMobile from 'assets/images/icons/logo-mobile.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
 import sold from 'assets/images/icons/sold.svg';
+import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
@@ -178,4 +179,8 @@ export const PurchaseIcon = ({ width, height }) => {
 
 export const SoldIcon = ({ width, height }) => {
     return <img width={width} height={height} src={sold} alt='sold' />;
+};
+
+export const FiregemIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={firegem} alt='sold' />;
 };
