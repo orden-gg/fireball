@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
@@ -8,6 +8,7 @@ import ItemsLazy from 'components/Lazy/ItemsLazy';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import Wearable from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
+import commonUtils from 'utils/commonUtils';
 
 const sortings = [
     {
@@ -34,12 +35,17 @@ export default function ClientWarehouse() {
         loadingWarehouse,
     } = useContext(ClientContext);
 
+    const onSortingChanged = useCallback((prop, dir) => {
+        const sortedItems = commonUtils.basicSort(warehouse, prop, dir);
+
+        setWarehouse([...sortedItems]);
+    }, [warehouse, setWarehouse]);
+
     const sorting = {
-        items: warehouse,
-        setItems: setWarehouse,
         sortingList: sortings,
         sortingDefaults: warehouseSorting,
-        setSorting: setWarehouseSorting
+        setSorting: setWarehouseSorting,
+        onSortingChanged: onSortingChanged
     };
 
     return (

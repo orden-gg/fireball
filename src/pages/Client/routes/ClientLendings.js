@@ -11,9 +11,9 @@ import ContentInner from 'components/Content/ContentInner';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
-import collaterals from 'data/collaterals';
-import { FilterComponent, FilterDomainType } from 'data/filterTypes';
+import { filtersData } from 'data/filters.data';
 import commonUtils from 'utils/commonUtils';
+import filtersUtils from 'utils/filtersUtils';
 
 const sortings = [
     {
@@ -61,162 +61,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {
-        key: 'hauntId',
-        domainType: FilterDomainType.Equals,
-        componentType: FilterComponent.MultipleAutocomplete,
-        placeholder: 'HauntId',
-        items: [
-            {
-                title: 'Haunt 1',
-                value: '1',
-                isSelected: false,
-                queryParamValue: '1'
-            },
-            {
-                title: 'Haunt 2',
-                value: '2',
-                isSelected: false,
-                queryParamValue: '2'
-            }
-        ],
-        isFilterActive: false,
-        resetFilterFn: (filter) => {
-            filter.isFilterActive = false;
-            filter.items.forEach(item => item.isSelected = false);
-        },
-        predicateFn: (filter, compareItem, key) => {
-            return filter.items.some(item => item.isSelected && item.value === compareItem[key]);
-        },
-        updateFromQueryFn: (filter, compareValue, compareKey) => {
-            filter.isFilterActive = true;
-
-            filter.items.forEach(item => {
-                let filterItem;
-
-                if (typeof compareValue === 'string') {
-                    filterItem = compareValue === item[compareKey] ? item : null;
-                } else {
-                    filterItem = compareValue.find(value => value === item[compareKey]);
-                }
-
-                if (Boolean(filterItem)) {
-                    item.isSelected = true;
-                } else {
-                    item.isSelected = false;
-                }
-            });
-        },
-        updateFromFilterFn: (filter, selectedValue) => {
-            filter.isFilterActive = true;
-
-            filter.items.forEach(item => {
-                const filterItem = selectedValue.find(
-                    selectedValue => selectedValue.value === item.value
-                );
-
-                if (Boolean(filterItem)) {
-                    item.isSelected = true;
-                } else {
-                    item.isSelected = false;
-                }
-            });
-        },
-        getQueryParamsFn: (filter) => {
-            return filter.items
-                .filter(item => item.isSelected)
-                .map(selectedValue => selectedValue.queryParamValue);
-        }
-    },
-    collateral: {
-        key: 'collateral',
-        domainType: FilterDomainType.Equals,
-        componentType: FilterComponent.MultipleAutocomplete,
-        placeholder: 'Collateral',
-        items: collaterals.map(collateral => ({
-            title: collateral.name,
-            value: collateral.address,
-            isSelected: false,
-            queryParamValue: collateral.name.toLowerCase()
-        })),
-        isFilterActive: false,
-        resetFilterFn: (filter) => {
-            filter.isFilterActive = false;
-            filter.items.forEach(item => item.isSelected = false);
-        },
-        predicateFn: (filter, compareItem, key) => {
-            return filter.items.some(item => item.isSelected && item.value === compareItem[key]);
-        },
-        updateFromQueryFn: (filter, compareValue, compareKey) => {
-            filter.isFilterActive = true;
-
-            filter.items.forEach(item => {
-                let filterItem;
-
-                if (typeof compareValue === 'string') {
-                    filterItem = compareValue === item[compareKey] ? item : null;
-                } else {
-                    filterItem = compareValue.find(value => value === item[compareKey]);
-                }
-
-                if (Boolean(filterItem)) {
-                    item.isSelected = true;
-                } else {
-                    item.isSelected = false;
-                }
-            });
-        },
-        updateFromFilterFn: (filter, selectedValue) => {
-            filter.isFilterActive = true;
-
-            filter.items.forEach(item => {
-                const filterItem = selectedValue.find(
-                    selectedValue => selectedValue.value === item.value
-                );
-
-                if (Boolean(filterItem)) {
-                    item.isSelected = true;
-                } else {
-                    item.isSelected = false;
-                }
-            });
-        },
-        getQueryParamsFn: (filter) => {
-            return filter.items
-                .filter(item => item.isSelected)
-                .map(selectedValue => selectedValue.queryParamValue);
-        }
-    },
-    search: {
-        key: 'search',
-        isMultipleKeys: true,
-        keys: ['id', 'name'],
-        domainType: FilterDomainType.Contains,
-        componentType: FilterComponent.Input,
-        placeholder: 'Name&Id',
-        value: '',
-        isFilterActive: false,
-        resetFilterFn: (filter) => {
-            filter.isFilterActive = false;
-            filter.value = '';
-        },
-        predicateFn: (filter, compareItem) => {
-            return filter.keys.some(key => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
-        },
-        updateFromQueryFn: (filter, compareValue) => {
-            filter.isFilterActive = true;
-
-            filter.value = compareValue;
-        },
-        updateFromFilterFn: (filter, selectedValue) => {
-            filter.isFilterActive = true;
-
-            filter.value = selectedValue;
-        },
-        getQueryParamsFn: (filter) => {
-            return filter.value;
-        }
-    }
+    hauntId: {...filtersData.hauntId},
+    collateral: {...filtersData.collateral},
+    search: {...filtersData.search}
 };
 
 export default function ClientLendings() {
@@ -226,7 +73,6 @@ export default function ClientLendings() {
 
     const {
         lendings,
-        setLendings,
         lendingsSorting,
         setLendingsSorting,
         loadingLendings
@@ -237,18 +83,10 @@ export default function ClientLendings() {
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
     useEffect(() => {
-        const queryParamsCopy = {...queryParams};
-        delete queryParamsCopy.address;
-        const currentFiltersCopy = {...currentFilters};
-
-        Object.entries(currentFiltersCopy).forEach(([currentKey, currentFilter]) => {
-            if (Boolean(queryParamsCopy[currentKey])) {
-                currentFilter.updateFromQueryFn(currentFilter, queryParamsCopy[currentKey], 'queryParamValue');
-            }
-        });
+        filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
 
         setCurrentFilters(currentFilters);
-    }, [currentFilters, queryParams, location.search]);
+    }, [currentFilters, queryParams]);
 
     useEffect(() => {
         const activeFilters = Object.entries(currentFilters)
@@ -281,7 +119,6 @@ export default function ClientLendings() {
     }, [applySorting]);
 
     const sorting = {
-        setItems: setLendings,
         sortingList: sortings,
         sortingDefaults: lendingsSorting,
         setSorting: setLendingsSorting,
@@ -289,23 +126,7 @@ export default function ClientLendings() {
     };
 
     const getUpdatedFilters = useCallback(selectedFilters => {
-        const currentFiltersCopy = {...currentFilters};
-
-        if (Object.keys(selectedFilters).length === 0) {
-            Object.entries(currentFiltersCopy).forEach(([key, currentFilter]) => {
-                currentFilter.resetFilterFn(currentFilter);
-            });
-        } else {
-            Object.entries(currentFiltersCopy).forEach(([currentKey, currentFilter]) => {
-                if (Boolean(selectedFilters[currentKey])) {
-                    currentFilter.updateFromFilterFn(currentFilter, selectedFilters[currentKey].selectedValue);
-                } else {
-                    currentFilter.resetFilterFn(currentFilter);
-                }
-            });
-        }
-
-        return currentFiltersCopy;
+        return filtersUtils.getUpdatedFiltersFromSelectedFilters(selectedFilters, currentFilters);
     }, [currentFilters]);
 
     const updateQueryParams = useCallback(filters => {

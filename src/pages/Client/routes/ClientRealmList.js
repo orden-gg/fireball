@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 
@@ -8,6 +8,7 @@ import ItemsLazy from 'components/Lazy/ItemsLazy';
 import Parcel from 'components/Items/Parcel/Parcel';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
+import commonUtils from 'utils/commonUtils';
 
 const sortings = [
     {
@@ -58,12 +59,17 @@ export default function ClientRealmList() {
         setRealmView
     } = useContext(ClientContext);
 
+    const onSortingChanged = useCallback((prop, dir) => {
+        const sortedItems = commonUtils.basicSort(realm, prop, dir);
+
+        setRealm([...sortedItems]);
+    }, [realm, setRealm]);
+
     const sorting = {
-        items: realm,
-        setItems: setRealm,
         sortingList: sortings,
         sortingDefaults: realmSorting,
-        setSorting: setRealmSorting
+        setSorting: setRealmSorting,
+        onSortingChanged: onSortingChanged
     };
 
     useEffect(() => {
