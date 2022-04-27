@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert, AlertTitle, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
@@ -10,8 +10,8 @@ import queryString from 'query-string'
 import LoginNavigation from 'components/Login/LoginNavigation';
 import PageNav from 'components/PageNav/PageNav';
 import { BaazarIcon } from 'components/Icons/Icons';
-import { LoginContext } from 'contexts/LoginContext';
 import { ClientContext } from 'contexts/ClientContext';
+import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 
 import ClientGotchis from './routes/ClientGotchis';
@@ -28,10 +28,9 @@ export default function Client() {
     const location = useLocation();
     const history = useHistory();
 
-    const params = queryString.parse(location.search);
-
     const { activeAddress } = useContext(LoginContext);
     const { clientActive, setClientActive, getClientData, navData } = useContext(ClientContext);
+    const [queryParams] = useState(queryString.parse(location.search));
 
     useEffect(() => {
         if (activeAddress) {
@@ -42,17 +41,19 @@ export default function Client() {
     }, [activeAddress]);
 
     useEffect(() => {
-        if (params.address) {
-            setClientActive(params.address);
+        if (queryParams.address) {
+            setClientActive(queryParams.address);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.address]);
+    }, [queryParams.address]);
 
     useEffect(() => {
         if (clientActive) {
             getClientData();
-            history.push({ path: location.pathname, search: `?address=${clientActive}` });
+            queryParams.address = clientActive;
+
+            history.push({ path: location.pathname, search: queryString.stringify(queryParams, { arrayFormat: 'comma' }) });
         } else {
             history.push({ path: location.pathname });
         }

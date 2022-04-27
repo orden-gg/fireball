@@ -5,7 +5,6 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
-import commonUtils from 'utils/commonUtils';
 
 import { LazySortingStyles } from './styles';
 
@@ -24,7 +23,7 @@ const directions = [
     }
 ];
 
-export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults }) {
+export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults, onSortingChanged }) {
     const classes = LazySortingStyles();
 
     const { type, dir } = sortingDefaults;
@@ -47,10 +46,8 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
         sortItems(sortProp, sortDir);
     };
 
-    const sortItems = (filter, dir) => {
-        const sorted = commonUtils.basicSort(items, filter, dir);
-
-        setItems(sorted);
+    const sortItems = (prop, dir) => {
+        onSortingChanged(prop, dir);
     };
 
     return (

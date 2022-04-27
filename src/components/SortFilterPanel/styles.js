@@ -3,18 +3,45 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        alignItems: 'center',
+        position: 'relative',
+        height: 40,
         display: 'flex',
-        justifyContent: 'space-between',
+        alignItems: 'center',
         background: alpha('#000', .15),
-        borderRadius: '4px 4px 0 0',
-        height: 40
+        borderRadius: '4px 4px 0 0'
     },
     inner: {
         display: 'flex',
         alignItems: 'center'
     },
+    dropdownContainer: {
+        position: 'relative',
+        zIndex: theme.zIndex.drawer + 2
+    },
+    filterButton: {
+        marginLeft: 8,
+        lineHeight: 1.5
+    },
+    filtersDropdown: {
+        position: 'absolute',
+        left: 8,
+        minWidth: 250,
+        maxWidth: 500,
+        background: theme.palette.background.paper,
+        borderRadius: '4px 0 4px 4px',
+        cursor: 'default',
+        overflow: 'hidden',
+        display: 'none',
+
+        '.opened &': {
+            display: 'block'
+        }
+    },
+    filterBackdrop: {
+        zIndex: theme.zIndex.drawer + 1
+    },
     results: {
+        marginLeft: 'auto',
         paddingRight: 8,
         fontWeight: 'bold'
     },
