@@ -25,6 +25,7 @@ import EthAddress from 'components/EthAddress/EthAddress';
 import ethersApi from 'api/ethers.api';
 import ClientAccount from './routes/ClientAccount';
 import { useParams } from 'react-router';
+import ClientRoutes from './ClientRoutes';
 
 export default function Client() {
     const classes = styles();
@@ -112,7 +113,7 @@ export default function Client() {
                 </title>
             </Helmet> */}
 
-            { isCoreRoute ? (
+            {/* { isCoreRoute ? (
                 <div className={classes.head}>
                     <PageNav
                         links={navData}
@@ -129,21 +130,25 @@ export default function Client() {
                 </div>
             ) : (
                 <div className={classes.loginNav}>
-                    <LoginNavigation address={account} onSubmit={onAddressSubmit} />
                 </div>
-            )}
+            )} */}
 
-            { ethersApi.isEthAddress(account) &&
-                <Switch>
-                    <Route exact path={`${match.path}`} component={ ClientAccount } />
-                    <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
-                    <Route path={`${match.path}/lendings`} component={ ClientLendings } />
-                    <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
-                    <Route path={`${match.path}/tickets`} component={ ClientTickets } />
-                    <Route path={`${match.path}/realm`} component={ ClientRealm } />
-                    <Redirect from={match.path} to={`${match.path}/gotchis`} />
-                </Switch>
-            }
+            {/* <div className={classes.loginNav}>
+                <LoginNavigation address={account} onSubmit={onAddressSubmit} />
+            </div> */}
+
+            {/* { ethersApi.isEthAddress(account) && */}
+            <Switch>
+                <Route exact path={`${match.path}/`} component={ ClientAccount } />
+                <Route path={`${match.path}/:account`} component={ ClientRoutes } />
+                {/* <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
+                <Route path={`${match.path}/lendings`} component={ ClientLendings } />
+                <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
+                <Route path={`${match.path}/tickets`} component={ ClientTickets } />
+                <Route path={`${match.path}/realm`} component={ ClientRealm } /> */}
+                {/* <Redirect from={match.path} to={`${match.path}/gotchis`} /> */}
+            </Switch>
+            {/* } */}
         </div>
     );
 }

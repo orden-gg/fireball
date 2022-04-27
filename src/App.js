@@ -82,8 +82,8 @@ export default function App() {
                                     <Route path={`/autopet`} component={ Autopet } />
                                     <Route path={`/autopet-v1`} component={ OldAutopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
-                                    <Route path={`/client/:account`} component={ Client } />
-                                    <Route path={`/client/`} component={ Client } />
+                                    {/* <Route path={`/client/:account`} component={ Client } /> */}
+                                    <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
                                     <Route path={`/shop`} component={ Shop } />
                                     <Route exact path={`/404`} component={ NotFound } />

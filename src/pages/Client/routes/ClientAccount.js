@@ -8,6 +8,7 @@ import { BaazarIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 
 import styles, { accountStyles } from '../styles';
+import LoginNavigation from 'components/Login/LoginNavigation';
 
 export default function ClientAccount() {
     const classes = {
@@ -17,11 +18,20 @@ export default function ClientAccount() {
 
     const { account } = useParams();
 
-    const { navData } = useContext(ClientContext);
+    const { navData, setActiveAddress } = useContext(ClientContext);
+
+    const onAddressSubmit = (address) => {
+        setActiveAddress(address);
+        // history.push({ pathname: `/client/${address}` });
+    };
 
     return (
         <div className={classes.container}>
-            <Alert severity='info' className={classes.alert}>
+            <div className={classes.loginNav}>
+                <LoginNavigation address={account} onSubmit={onAddressSubmit} />
+            </div>
+
+            {/* <Alert severity='info' className={classes.alert}>
                 <AlertTitle>Coming soon!</AlertTitle>
                 Account info, stats, voting power, etc.
             </Alert>
@@ -49,7 +59,7 @@ export default function ClientAccount() {
                         <BaazarIcon width={24} height={24} />
                     </Button>
                 </PageNav>
-            </div>
+            </div> */}
         </div>
     );
 }
