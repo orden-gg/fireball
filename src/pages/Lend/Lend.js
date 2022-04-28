@@ -140,7 +140,6 @@ export default function Lend() {
 
             <>
                 <SortFilterPanel
-                    isShowFilters={false}
                     sorting={sorting}
                     itemsLength={lendings.length}
                     placeholder={

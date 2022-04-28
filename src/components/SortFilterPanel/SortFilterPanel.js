@@ -8,7 +8,15 @@ import LazySorting from 'components/Filters/LazySorting';
 
 import styles from './styles';
 
-export default function SortFilterPanel({ isShowFilters = true, sorting, itemsLength, placeholder, filters, applyFilters, resetFilters }) {
+export default function SortFilterPanel({
+    sorting,
+    itemsLength,
+    placeholder,
+    isShowFilters = false,
+    filters,
+    applyFilters,
+    resetFilters
+}) {
     const classes = styles();
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -59,6 +67,7 @@ export default function SortFilterPanel({ isShowFilters = true, sorting, itemsLe
                         >
                             Filters
                         </Button>
+                        { Boolean(filtersCount) && <span className={classes.filtersCount}>{filtersCount}</span> }
 
                         {isDropdownOpen && (
                             <div className={classes.filtersDropdown}>

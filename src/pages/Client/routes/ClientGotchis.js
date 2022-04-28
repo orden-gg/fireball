@@ -196,6 +196,7 @@ export default function ClientGotchis() {
                 placeholder={
                     <GotchiIcon width={20} height={20} />
                 }
+                isShowFilters={true}
                 filters={currentFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}

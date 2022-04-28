@@ -198,6 +198,7 @@ export default function ClientLendings() {
                 placeholder={
                     <GotchiIcon width={20} height={20} />
                 }
+                isShowFilters={true}
                 filters={currentFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}
