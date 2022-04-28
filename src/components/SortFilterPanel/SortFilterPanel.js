@@ -8,7 +8,7 @@ import LazySorting from 'components/Filters/LazySorting';
 
 import styles from './styles';
 
-export default function SortFilterPanel({ sorting, itemsLength, placeholder, filters, applyFilters, resetFilters }) {
+export default function SortFilterPanel({ isShowFilters = true, sorting, itemsLength, placeholder, filters, applyFilters, resetFilters }) {
     const classes = styles();
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -48,36 +48,39 @@ export default function SortFilterPanel({ sorting, itemsLength, placeholder, fil
         <div className={classNames(classes.container, isDropdownOpen ? 'opened' : 'closed')}>
             <LazySorting {...sorting}/>
 
-            <div className={classes.dropdownContainer}>
-                <Button
-                    className={classes.filterButton}
-                    variant='outlined'
-                    color='primary'
-                    onClick={() => onToglleFilterDropdown(isDropdownOpen)}
-                >
-                    Filters
-                </Button>
+            {
+                isShowFilters &&
+                    <div className={classes.dropdownContainer}>
+                        <Button
+                            className={classes.filterButton}
+                            variant='outlined'
+                            color='primary'
+                            onClick={() => onToglleFilterDropdown(isDropdownOpen)}
+                        >
+                            Filters
+                        </Button>
 
-                {isDropdownOpen && (
-                    <div className={classes.filtersDropdown}>
-                        <Filters filters={filters} onSetSelectedFilters={onSetSelectedFilters}/>
-                        <Button
-                            variant='outlined'
-                            color='primary'
-                            onClick={onReserFilters}
-                        >
-                            Reset Filters
-                        </Button>
-                        <Button
-                            variant='outlined'
-                            color='primary'
-                            onClick={onApplyFilters}
-                        >
-                            Apply Filters
-                        </Button>
+                        {isDropdownOpen && (
+                            <div className={classes.filtersDropdown}>
+                                <Filters filters={filters} onSetSelectedFilters={onSetSelectedFilters}/>
+                                <Button
+                                    variant='outlined'
+                                    color='primary'
+                                    onClick={onReserFilters}
+                                >
+                                    Reset Filters
+                                </Button>
+                                <Button
+                                    variant='outlined'
+                                    color='primary'
+                                    onClick={onApplyFilters}
+                                >
+                                    Apply Filters
+                                </Button>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
+            }
 
             { itemsLength > 0 &&
                 <div className={classNames(classes.inner, classes.results)}>
