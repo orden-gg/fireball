@@ -50,7 +50,8 @@ export default function SortFilterPanel({
 
     const onReserFilters = useCallback(() => {
         setIsDropdownOpen(false);
-        resetFilters()
+        setSelectedFilters({});
+        resetFilters();
     }, [setIsDropdownOpen, resetFilters]);
 
     return (
