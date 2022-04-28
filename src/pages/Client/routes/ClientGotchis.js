@@ -97,18 +97,31 @@ export default function ClientGotchis() {
             .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
 
         if (activeFilters.length > 0) {
-            const filteredGotchis = gotchis.filter(lending =>
-                Object.entries(currentFilters).every(([key, filter]) =>
-                    filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                )
-            );
+            setSortedFilteredGotchis(filteredGotchisCache => {
+                let filteredGotchis;
+
+                if (isSortingChanged) {
+                    filteredGotchis = filteredGotchisCache.filter(lending =>
+                        Object.entries(currentFilters).every(([key, filter]) =>
+                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
+                        )
+                    );
+                } else {
+                    filteredGotchis = gotchis.filter(lending =>
+                        Object.entries(currentFilters).every(([key, filter]) =>
+                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
+                        )
+                    );
+                }
+
+                return filteredGotchis;
+            });
 
             setIsFiltersApplied(true);
-            setSortedFilteredGotchis(filteredGotchis);
         } else {
             setSortedFilteredGotchis([...gotchis]);
         }
-    }, [currentFilters, gotchis]);
+    }, [currentFilters, gotchis, isSortingChanged]);
 
 
     const applySorting = useCallback((prop, dir) => {
@@ -178,7 +191,7 @@ export default function ClientGotchis() {
     return (
         <>
             <SortFilterPanel
-                sorting={{...sorting, items: getGotchis() }}
+                sorting={sorting}
                 itemsLength={getGotchis().length}
                 placeholder={
                     <GotchiIcon width={20} height={20} />

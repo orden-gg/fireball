@@ -83,6 +83,13 @@ export default function ClientLendings() {
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
     useEffect(() => {
+        return () => {
+            onResetFilters();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
         filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
 
         setCurrentFilters(currentFilters);
@@ -93,18 +100,31 @@ export default function ClientLendings() {
             .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
 
         if (activeFilters.length > 0) {
-            const filteredLendings = lendings.filter(lending =>
-                Object.entries(currentFilters).every(([key, filter]) =>
-                    filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                )
-            );
+            setSortedFilteredLendings(filteredLendingsCache => {
+                let filteredLendings;
+
+                if (isSortingChanged) {
+                    filteredLendings = filteredLendingsCache.filter(lending =>
+                        Object.entries(currentFilters).every(([key, filter]) =>
+                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
+                        )
+                    );
+                } else {
+                    filteredLendings = lendings.filter(lending =>
+                        Object.entries(currentFilters).every(([key, filter]) =>
+                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
+                        )
+                    );
+                }
+
+                return filteredLendings;
+            });
 
             setIsFiltersApplied(true);
-            setSortedFilteredLendings(filteredLendings);
         } else {
             setSortedFilteredLendings([...lendings]);
         }
-    }, [currentFilters, lendings]);
+    }, [currentFilters, lendings, isSortingChanged]);
 
     const applySorting = useCallback((prop, dir) => {
         const itemsToSort = isSortingChanged || isFiltersApplied ? sortedFilteredLendings : lendings;
@@ -173,7 +193,7 @@ export default function ClientLendings() {
     return (
         <>
             <SortFilterPanel
-                sorting={{...sorting, items: getLendings() }}
+                sorting={sorting}
                 itemsLength={getLendings().length}
                 placeholder={
                     <GotchiIcon width={20} height={20} />
