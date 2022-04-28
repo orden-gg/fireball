@@ -15,7 +15,8 @@ export default function SortFilterPanel({
     isShowFilters = false,
     filters,
     applyFilters,
-    resetFilters
+    resetFilters,
+    filtersCount
 }) {
     const classes = styles();
 

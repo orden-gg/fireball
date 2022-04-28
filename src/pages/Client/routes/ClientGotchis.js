@@ -78,6 +78,7 @@ export default function ClientGotchis() {
     const [sortedFilteredGotchis, setSortedFilteredGotchis] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
+    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
         return () => {
@@ -89,6 +90,9 @@ export default function ClientGotchis() {
     useEffect(() => {
         filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
 
+        const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
+
+        setActiveFiltersCount(filtersCount);
         setCurrentFilters(currentFilters);
     }, [currentFilters, queryParams]);
 
@@ -200,6 +204,7 @@ export default function ClientGotchis() {
                 filters={currentFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}
+                filtersCount={activeFiltersCount}
             />
 
             <ContentInner dataLoading={loadingGotchis}>

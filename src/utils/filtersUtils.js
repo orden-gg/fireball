@@ -1,33 +1,46 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    updateFiltersFromQueryParams: (queryParams, currentFilters) => {
+    updateFiltersFromQueryParams: (queryParams, filters) => {
         const queryParamsCopy = {...queryParams};
         delete queryParamsCopy.address;
 
-        Object.entries(currentFilters).forEach(([currentKey, currentFilter]) => {
+        Object.entries(filters).forEach(([currentKey, filter]) => {
             if (Boolean(queryParamsCopy[currentKey])) {
-                currentFilter.updateFromQueryFn(currentFilter, queryParamsCopy[currentKey], 'queryParamValue');
+                filter.updateFromQueryFn(filter, queryParamsCopy[currentKey], 'queryParamValue');
             }
         });
     },
 
-    getUpdatedFiltersFromSelectedFilters: (selectedFilters, currentFilters) => {
-        const currentFiltersCopy = {...currentFilters};
+    getUpdatedFiltersFromSelectedFilters: (selectedFilters, filters) => {
+        const currentFiltersCopy = {...filters};
 
         if (Object.keys(selectedFilters).length === 0) {
-            Object.entries(currentFiltersCopy).forEach(([key, currentFilter]) => {
-                currentFilter.resetFilterFn(currentFilter);
+            Object.entries(currentFiltersCopy).forEach(([key, filter]) => {
+                filter.resetFilterFn(filter);
             });
         } else {
-            Object.entries(currentFiltersCopy).forEach(([currentKey, currentFilter]) => {
+            Object.entries(currentFiltersCopy).forEach(([currentKey, filter]) => {
                 if (Boolean(selectedFilters[currentKey])) {
-                    currentFilter.updateFromFilterFn(currentFilter, selectedFilters[currentKey].selectedValue);
+                    filter.updateFromFilterFn(filter, selectedFilters[currentKey].selectedValue);
                 } else {
-                    currentFilter.resetFilterFn(currentFilter);
+                    filter.resetFilterFn(filter);
                 }
             });
         }
 
         return currentFiltersCopy;
+    },
+
+    getActiveFiltersCount: (filters) => {
+        let count = 0;
+        const activeFilters = Object.entries(filters).filter(([key, filter]) => filter.isFilterActive);
+
+        if (activeFilters) {
+            Object.entries(filters).forEach(([key, filter]) => {
+                count += filter.getActiveFiltersCountFn(filter);
+            });
+        }
+
+        return count;
     }
 }

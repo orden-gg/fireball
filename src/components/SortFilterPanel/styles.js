@@ -22,6 +22,19 @@ const styles = makeStyles(theme => ({
         marginLeft: 8,
         lineHeight: 1.5
     },
+    filtersCount: {
+        position: 'absolute',
+        top: -8,
+        right: -8,
+        width: 18,
+        border: '2px solid #fd9af9',
+        height: 18,
+        fontSize: 10,
+        borderRadius: '50%',
+        textAlign: 'center',
+        color: '#fd9af9',
+        background: '#000'
+    },
     filtersDropdown: {
         position: 'absolute',
         left: 8,

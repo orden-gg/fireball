@@ -81,6 +81,7 @@ export default function ClientLendings() {
     const [sortedFilteredLendings, setSortedFilteredLendings] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
+    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
         return () => {
@@ -90,8 +91,11 @@ export default function ClientLendings() {
     }, []);
 
     useEffect(() => {
-        filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
+        filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters);
 
+        const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
+
+        setActiveFiltersCount(filtersCount);
         setCurrentFilters(currentFilters);
     }, [currentFilters, queryParams]);
 
@@ -202,6 +206,7 @@ export default function ClientLendings() {
                 filters={currentFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}
+                filtersCount={activeFiltersCount}
             />
 
             <ContentInner dataLoading={loadingLendings}>

@@ -52,6 +52,10 @@ export default {
             .map(selectedValue => selectedValue.queryParamValue);
     },
 
+    multipleSelectionGetActiveFiltersCount: (filter) => {
+        return filter.isFilterActive ? filter.items.filter(item => item.isSelected).length : 0;
+    },
+
     // Input filter handlers
     inputResetFilterFn: (filter) => {
         filter.isFilterActive = false;
@@ -76,5 +80,9 @@ export default {
 
     inputGetQueryParamsFn: (filter) => {
         return filter.value;
-    }
+    },
+
+    inputGetActiveFiltersCount: (filter) => {
+        return Boolean(filter.value) ? 1 : 0;
+    },
 }

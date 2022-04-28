@@ -27,7 +27,8 @@ export const filtersData = {
         predicateFn: filterHelpers.multipleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
         updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn
+        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
     },
     collateral: {
         key: 'collateral',
@@ -45,7 +46,8 @@ export const filtersData = {
         predicateFn: filterHelpers.multipleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
         updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn
+        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
     },
     search: {
         key: 'search',
@@ -60,6 +62,7 @@ export const filtersData = {
         predicateFn: filterHelpers.inputPredicateFn,
         updateFromQueryFn: filterHelpers.inputUpdateFromQueryFn,
         updateFromFilterFn: filterHelpers.inputUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.inputGetQueryParamsFn
+        getQueryParamsFn: filterHelpers.inputGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.inputGetActiveFiltersCount
     }
 };
