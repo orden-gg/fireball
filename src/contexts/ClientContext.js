@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
+import installationsApi from 'api/installations.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
@@ -26,6 +27,9 @@ const ClientContextProvider = (props) => {
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseSorting, setWarehouseSorting] = useState({ type: 'rarityId', dir: 'desc' });
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
+
+    const [installations, setInstallations] = useState([]);
+    const [loadingInstallations, setLoadingInstallations] = useState(true);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
@@ -59,6 +63,12 @@ const ClientContextProvider = (props) => {
             items: warehouse.length
         },
         {
+            name: 'installations',
+            icon: <KekIcon width={24} height={24} alt='realm' />,
+            loading: loadingInstallations,
+            items: installations.length
+        },
+        {
             name: 'tickets',
             icon: <RareTicketIcon width={24} height={24} />,
             loading: loadingTickets,
@@ -78,6 +88,7 @@ const ClientContextProvider = (props) => {
         getInventory(clientActive);
         getTickets(clientActive);
         getRealm(clientActive);
+        getInstallations(clientActive);
 
         // reset
         setWarehouse([]);
@@ -208,6 +219,15 @@ const ClientContextProvider = (props) => {
         });
     };
 
+    const getInstallations = (address) => {
+        installationsApi.getInstallationsByAddress(address).then((response) => {
+            setInstallations(response);
+            setLoadingInstallations(false);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
     const getTickets = (address) => {
         setLoadingTickets(true);
 
@@ -284,6 +304,9 @@ const ClientContextProvider = (props) => {
             loadingWarehouse,
             setWarehouse,
             setWarehouseSorting,
+
+            installations,
+            loadingInstallations,
 
             tickets,
             loadingTickets,
