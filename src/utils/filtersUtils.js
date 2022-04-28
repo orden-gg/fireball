@@ -42,5 +42,13 @@ export default {
         }
 
         return count;
+    },
+
+    getModifiedItems: (filters, items) => {
+        return items.filter(item =>
+            Object.entries(filters).every(([key, filter]) =>
+                filter.isFilterActive ? filter.predicateFn(filter, item, key) : true
+            )
+        );
     }
 }

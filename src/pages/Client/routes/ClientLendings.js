@@ -78,7 +78,7 @@ export default function ClientLendings() {
         loadingLendings
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
-    const [sortedFilteredLendings, setSortedFilteredLendings] = useState([]);
+    const [modifiedLendings, setModifiedLendings] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -100,42 +100,40 @@ export default function ClientLendings() {
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters)
-            .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
+        setModifiedLendings(modifiedLendingsCache => {
+            const activeFilters = Object.entries(currentFilters)
+                .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
+            let modifiedLendings;
 
-        if (activeFilters.length > 0) {
-            setSortedFilteredLendings(filteredLendingsCache => {
-                let filteredLendings;
-
-                if (isSortingChanged) {
-                    filteredLendings = filteredLendingsCache.filter(lending =>
-                        Object.entries(currentFilters).every(([key, filter]) =>
-                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                        )
-                    );
+            if (activeFilters.length > 0) {
+                if (isSortingChanged && !isFiltersApplied) {
+                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, modifiedLendingsCache);
+                } else if (isSortingChanged && isFiltersApplied) {
+                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, lendings);
+                    modifiedLendings = commonUtils.basicSort(modifiedLendings, lendingsSorting.type, lendingsSorting.dir);
                 } else {
-                    filteredLendings = lendings.filter(lending =>
-                        Object.entries(currentFilters).every(([key, filter]) =>
-                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                        )
-                    );
+                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, lendings);
                 }
 
-                return filteredLendings;
-            });
+                setIsFiltersApplied(true);
+            } else {
+                if (isSortingChanged) {
+                    modifiedLendings = commonUtils.basicSort(modifiedLendingsCache, lendingsSorting.type, lendingsSorting.dir);
+                } else {
+                    modifiedLendings = lendings;
+                }
+            }
 
-            setIsFiltersApplied(true);
-        } else {
-            setSortedFilteredLendings([...lendings]);
-        }
-    }, [currentFilters, lendings, isSortingChanged]);
+            return modifiedLendings;
+        });
+    }, [currentFilters, lendings, isFiltersApplied, isSortingChanged, lendingsSorting]);
 
     const applySorting = useCallback((prop, dir) => {
-        const itemsToSort = isSortingChanged || isFiltersApplied ? sortedFilteredLendings : lendings;
+        const itemsToSort = isSortingChanged || isFiltersApplied ? modifiedLendings : lendings;
         const sortedItems = commonUtils.basicSort(itemsToSort, prop, dir);
 
-        setSortedFilteredLendings([...sortedItems])
-    }, [isSortingChanged, isFiltersApplied, lendings, sortedFilteredLendings]);
+        setModifiedLendings([...sortedItems])
+    }, [isSortingChanged, isFiltersApplied, lendings, modifiedLendings]);
 
     const onSortingChanged = useCallback((prop, dir) => {
         applySorting(prop, dir);
@@ -191,8 +189,8 @@ export default function ClientLendings() {
     }, [currentFilters, updateQueryParams]);
 
     const getLendings = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? sortedFilteredLendings: lendings;
-    }, [isSortingChanged, isFiltersApplied, sortedFilteredLendings, lendings]);
+        return (isSortingChanged || isFiltersApplied) ? modifiedLendings: lendings;
+    }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
 
     return (
         <>

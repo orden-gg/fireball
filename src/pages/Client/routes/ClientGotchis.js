@@ -75,7 +75,7 @@ export default function ClientGotchis() {
         loadingGotchis
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
-    const [sortedFilteredGotchis, setSortedFilteredGotchis] = useState([]);
+    const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -97,43 +97,40 @@ export default function ClientGotchis() {
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters)
-            .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
+        setModifiedGotchis(modifiedGotchisCache => {
+            const activeFilters = Object.entries(currentFilters)
+                .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
+            let modifiedGotchis;
 
-        if (activeFilters.length > 0) {
-            setSortedFilteredGotchis(filteredGotchisCache => {
-                let filteredGotchis;
-
-                if (isSortingChanged) {
-                    filteredGotchis = filteredGotchisCache.filter(lending =>
-                        Object.entries(currentFilters).every(([key, filter]) =>
-                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                        )
-                    );
+            if (activeFilters.length > 0) {
+                if (isSortingChanged && !isFiltersApplied) {
+                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, modifiedGotchisCache);
+                } else if (isSortingChanged && isFiltersApplied) {
+                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, gotchis);
+                    modifiedGotchis = commonUtils.basicSort(modifiedGotchis, gotchisSorting.type, gotchisSorting.dir);
                 } else {
-                    filteredGotchis = gotchis.filter(lending =>
-                        Object.entries(currentFilters).every(([key, filter]) =>
-                            filter.isFilterActive ? filter.predicateFn(filter, lending, key) : true
-                        )
-                    );
+                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, gotchis);
                 }
 
-                return filteredGotchis;
-            });
+                setIsFiltersApplied(true);
+            } else {
+                if (isSortingChanged) {
+                    modifiedGotchis = commonUtils.basicSort(modifiedGotchisCache, gotchisSorting.type, gotchisSorting.dir);
+                } else {
+                    modifiedGotchis = gotchis;
+                }
+            }
 
-            setIsFiltersApplied(true);
-        } else {
-            setSortedFilteredGotchis([...gotchis]);
-        }
-    }, [currentFilters, gotchis, isSortingChanged]);
-
+            return modifiedGotchis;
+        });
+    }, [currentFilters, gotchis, isFiltersApplied, isSortingChanged, gotchisSorting]);
 
     const applySorting = useCallback((prop, dir) => {
-        const itemsToSort = isSortingChanged || isFiltersApplied ? sortedFilteredGotchis : gotchis;
+        const itemsToSort = isSortingChanged || isFiltersApplied ? modifiedGotchis : gotchis;
         const sortedItems = commonUtils.basicSort(itemsToSort, prop, dir);
 
-        setSortedFilteredGotchis([...sortedItems]);
-    }, [isSortingChanged, isFiltersApplied, gotchis, sortedFilteredGotchis]);
+        setModifiedGotchis([...sortedItems]);
+    }, [isSortingChanged, isFiltersApplied, gotchis, modifiedGotchis]);
 
     const onSortingChanged = useCallback((prop, dir) => {
         applySorting(prop, dir);
@@ -189,8 +186,8 @@ export default function ClientGotchis() {
     }, [currentFilters, updateQueryParams]);
 
     const getGotchis = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? sortedFilteredGotchis: gotchis;
-    }, [isSortingChanged, isFiltersApplied, sortedFilteredGotchis, gotchis]);
+        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis: gotchis;
+    }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
 
     return (
         <>
