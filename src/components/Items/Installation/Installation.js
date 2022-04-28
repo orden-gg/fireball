@@ -3,10 +3,7 @@ import InstallationImage from './InstallationImage';
 import ERC1155 from '../ERC1155/ERC1155';
 import { Erc1155Categories } from 'data/types';
 
-import styles from './styles';
-
 export default function Installation({ data }) {
-    const classes = styles();
 
     return (
         <ERC1155 item={{

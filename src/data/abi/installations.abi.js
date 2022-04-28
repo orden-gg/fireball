@@ -1,4 +1,4 @@
-export default [
+const INSTALLATIONS_ABI = [
     {
         "anonymous": false,
         "inputs": [
@@ -677,4 +677,6 @@ export default [
         "stateMutability": "view",
         "type": "function"
     }
-]
+];
+
+export default INSTALLATIONS_ABI;
