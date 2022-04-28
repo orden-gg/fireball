@@ -29,6 +29,7 @@ const ClientContextProvider = (props) => {
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [installations, setInstallations] = useState([]);
+    const [tiles, setTiles] = useState([]);
     const [loadingInstallations, setLoadingInstallations] = useState(true);
 
     const [tickets, setTickets] = useState([]);
@@ -63,7 +64,7 @@ const ClientContextProvider = (props) => {
             items: warehouse.length
         },
         {
-            name: 'installations',
+            name: 'realmcraft',
             icon: <KekIcon width={24} height={24} alt='realm' />,
             loading: loadingInstallations,
             items: installations.length
@@ -220,8 +221,14 @@ const ClientContextProvider = (props) => {
     };
 
     const getInstallations = (address) => {
-        installationsApi.getInstallationsByAddress(address).then((response) => {
-            setInstallations(response);
+        const promises = [
+            installationsApi.getInstallationsByAddress(address),
+            installationsApi.getTilesByAddress(address)
+        ];
+
+        Promise.all(promises).then(([installations, tiles]) => {
+            setInstallations(installations);
+            setTiles(tiles);
             setLoadingInstallations(false);
         }).catch((error) => {
             console.log(error);
@@ -307,6 +314,8 @@ const ClientContextProvider = (props) => {
 
             installations,
             loadingInstallations,
+
+            tiles,
 
             tickets,
             loadingTickets,

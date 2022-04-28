@@ -6,13 +6,17 @@ import ItemsLazy from 'components/Lazy/ItemsLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
 export default function ClientWarehouse() {
-    const { installations, loadingInstallations } = useContext(ClientContext);
+    const {
+        tiles,
+        installations,
+        loadingInstallations
+    } = useContext(ClientContext);
 
     return (
         <>
             <ContentInner dataLoading={loadingInstallations}>
                 <ItemsLazy
-                    items={installations}
+                    items={[...installations, ...tiles]}
                     component={props => <Installation data={props} />}
                 />
             </ContentInner>

@@ -103,7 +103,7 @@ export default function Client() {
                         <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
                         <Route path={`${match.path}/lendings`} component={ ClientLendings } />
                         <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
-                        <Route path={`${match.path}/installations`} component={ ClientInstallations } />
+                        <Route path={`${match.path}/realmcraft`} component={ ClientInstallations } />
                         <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                         <Route path={`${match.path}/realm`} component={ ClientRealm } />
                         <Redirect from={match.path} to={`${match.path}/gotchis`} />

@@ -1,17 +1,20 @@
 import React from 'react';
 
-import installationsUtils from 'utils/installationsUtils';
+import installationUtils from 'utils/installationUtils';
+import tileUtils from 'utils/tileUtils';
 
 import styles from './styles';
 
 export default function InstallationImage({ data }) {
     const classes = styles();
-    const name = installationsUtils.getInstallationNameById(data.id);
+    const utils = data.type === 'tile' ? tileUtils : installationUtils;
+    const name = utils.getNameById(data.id);
+    const src = utils.getImageById(data.id);
 
     return (
         <div className={classes.installationImageBox}>
             <img
-                src={installationsUtils.getInstallationImage(data.id)}
+                src={src}
                 alt={name}
                 className={classes.installationImage}
             />

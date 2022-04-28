@@ -2,11 +2,11 @@ import installations from 'data/installations';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    getInstallationNameById(id) {
+    getNameById(id) {
         return installations[id]?.name || '';
     },
 
-    getInstallationImage(id) {
+    getImageById(id) {
         try {
             return require(`../assets/images/installations/${id}.gif`).default;
         } catch (error) {
