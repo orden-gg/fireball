@@ -7,7 +7,7 @@ export const filtersData = {
         key: 'hauntId',
         domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultipleAutocomplete,
-        placeholder: 'HauntId',
+        placeholder: 'Haunt',
         items: [
             {
                 title: 'Haunt 1',

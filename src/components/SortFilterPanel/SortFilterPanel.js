@@ -74,20 +74,22 @@ export default function SortFilterPanel({
                         {isDropdownOpen && (
                             <div className={classes.filtersDropdown}>
                                 <Filters filters={filters} onSetSelectedFilters={onSetSelectedFilters}/>
-                                <Button
-                                    variant='outlined'
-                                    color='primary'
-                                    onClick={onReserFilters}
-                                >
-                                    Reset Filters
-                                </Button>
-                                <Button
-                                    variant='outlined'
-                                    color='primary'
-                                    onClick={onApplyFilters}
-                                >
-                                    Apply Filters
-                                </Button>
+                                <div className={classes.buttonsWrapper}>
+                                    <Button
+                                        variant='outlined'
+                                        color='primary'
+                                        onClick={onReserFilters}
+                                    >
+                                        Reset Filters
+                                    </Button>
+                                    <Button
+                                        variant='outlined'
+                                        color='primary'
+                                        onClick={onApplyFilters}
+                                    >
+                                        Apply Filters
+                                    </Button>
+                                </div>
                             </div>
                         )}
                     </div>

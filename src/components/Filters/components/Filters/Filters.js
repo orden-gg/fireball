@@ -16,11 +16,11 @@ export default function Filters({ filters, onSetSelectedFilters }) {
 
             switch (renderFilter.componentType) {
                 case FilterComponent.MultipleAutocomplete:
-                    componentToRender = <MultiAutocomplete key={key} options={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <MultiAutocomplete key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 case FilterComponent.Input:
-                    componentToRender = <Input key={key} options={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <Input key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 default:

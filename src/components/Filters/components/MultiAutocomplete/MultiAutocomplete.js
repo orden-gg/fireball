@@ -1,58 +1,59 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Chip } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import { Button } from '@mui/material';
 
 import styles from './styles';
+import classNames from 'classnames';
 
-export default function MultiAutocomplete({ options, onSetSelectedFilters }) {
+export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
     const classes = styles();
 
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
-        const selectedOptions = options.items.filter(item => item.isSelected);
+        const selectedItems = option.items.filter(item => item.isSelected);
 
-        setSelectedOptions(selectedOptionsCache => [...selectedOptions, ...selectedOptionsCache]);
-    }, [options]);
+        setSelectedItems(selectedItemsCache => [...selectedItems, ...selectedItemsCache]);
+    }, [option]);
 
-    const onHandleAutocompleteChange = useCallback((event, values) => {
-        const selectedValues = [...values.map(value => ({ ...value, isSelected: true }))];
+    const onHandleSelectionChange = useCallback(item => {
+        const selectedItemIndex = selectedItems.findIndex(selectedItem => selectedItem.value === item.value);
 
-        setSelectedOptions(selectedValues);
-        onSetSelectedFilters([options.key], {
-            ...options,
-            selectedValue: selectedValues
+        if (selectedItemIndex !== -1) {
+            selectedItems.splice(selectedItemIndex, 1);
+        } else {
+            selectedItems.push({ ...item, isSelected: true });
+        }
+
+        setSelectedItems([...selectedItems]);
+        onSetSelectedFilters([option.key], {
+            ...option,
+            selectedValue: selectedItems
         });
-    }, [options, onSetSelectedFilters]);
+    }, [option, onSetSelectedFilters, selectedItems]);
+
+    const isItemSelected = useCallback(item => {
+        const selectedItem = selectedItems.find(selItem => selItem.value === item.value);
+
+        return Boolean(selectedItem) && selectedItem.isSelected;
+    }, [selectedItems]);
 
     return (
         <div className={classes.wrapper}>
-            <div>{options.placeholder}:</div>
-            <Autocomplete
-                id={`${options.key}-autocomplete`}
-                multiple
-                style={{ width: 400 }}
-                value={selectedOptions}
-                onChange={onHandleAutocompleteChange}
-                options={options.items}
-                getOptionLabel={option => option.title}
-                isOptionEqualToValue={(option, value) => option.value === value.value}
-                renderInput={(params) => (
-                    <TextField {...params} size='small' label={options.placeholder} />
+            <span className={classes.placeholder}>{option.placeholder}</span>
+            <div className={classes.items}>
+                {
+                    option.items.map(item =>
+                        <Button
+                            className={classNames(classes.item, isItemSelected(item) ? 'selected' : '' )}
+                            key={item.value}
+                            variant='outlined'
+                            size='small'
+                            onClick={() => onHandleSelectionChange(item)}
+                        >
+                            {item.title}
+                        </Button>
                 )}
-                renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => {
-                        return (
-                            <Chip
-                                label={option.title}
-                                size='small'
-                                {...getTagProps({ index })}
-                            />
-                        );
-                    })
-                }
-            />
+            </div>
         </div>
     );
 }

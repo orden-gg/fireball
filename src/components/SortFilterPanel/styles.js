@@ -38,7 +38,7 @@ const styles = makeStyles(theme => ({
     filtersDropdown: {
         position: 'absolute',
         left: 8,
-        minWidth: 250,
+        minWidth: 350,
         maxWidth: 500,
         background: theme.palette.background.paper,
         borderRadius: '4px 0 4px 4px',
@@ -52,6 +52,11 @@ const styles = makeStyles(theme => ({
     },
     filterBackdrop: {
         zIndex: theme.zIndex.drawer + 1
+    },
+    buttonsWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: 12
     },
     results: {
         marginLeft: 'auto',

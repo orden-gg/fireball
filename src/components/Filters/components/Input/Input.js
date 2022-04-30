@@ -3,30 +3,31 @@ import TextField from '@mui/material/TextField';
 
 import styles from './styles';
 
-export default function MultiAutocomplete({ options, onSetSelectedFilters }) {
+export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState([]);
 
     useEffect(() => {
-        setCurrentValue(options.value);
-    }, [options.value]);
+        setCurrentValue(option.value);
+    }, [option.value]);
 
     const onInputChange = useCallback((value) => {
         setCurrentValue(value);
 
-        onSetSelectedFilters([options.key], {
-            ...options,
+        onSetSelectedFilters([option.key], {
+            ...option,
             selectedValue: value
         });
-    }, [options, onSetSelectedFilters]);
+    }, [option, onSetSelectedFilters]);
 
     return (
         <div className={classes.wrapper}>
-            <div>{options.placeholder}:</div>
+            <div className={classes.placeholder}>{option.placeholder}</div>
             <TextField
                 variant='outlined'
-                label={options.placeholder}
+                size='small'
+                label={option.placeholder}
                 value={currentValue}
                 onChange={event => onInputChange(event.target.value)}
             ></TextField>
