@@ -9,9 +9,8 @@ import { ClientContext } from 'contexts/ClientContext';
 
 import styles, { accountStyles } from '../styles';
 import LoginNavigation from 'components/Login/LoginNavigation';
-import ClientNav from '../components/ClientNav';
 
-export default function ClientAccount() {
+export default function ClientNav() {
     const classes = {
         ...styles(),
         ...accountStyles()
@@ -19,23 +18,16 @@ export default function ClientAccount() {
 
     const { account } = useParams();
 
+    const { navData, setActiveAddress } = useContext(ClientContext);
+
+    const onAddressSubmit = (address) => {
+        setActiveAddress(address);
+        // history.push({ pathname: `/client/${address}` });
+    };
+
     return (
-        <div className={classes.accountContainer}>
-            <ClientNav />
-
-            <Alert severity='info' className={classes.alert}>
-                <AlertTitle>Coming soon!</AlertTitle>
-                Account info, stats, voting power, etc.
-            </Alert>
-
-            <div className={classes.account}>
-                <EthAddress
-                    address={account}
-                    icon={true}
-                    polygonButton={true}
-                    copyButton={true}
-                />
-            </div>
+        <div className={classes.loginNav}>
+            <LoginNavigation address={account} onSubmit={onAddressSubmit} />
         </div>
     );
 }

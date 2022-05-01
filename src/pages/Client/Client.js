@@ -26,6 +26,7 @@ import ethersApi from 'api/ethers.api';
 import ClientAccount from './routes/ClientAccount';
 import { useParams } from 'react-router';
 import ClientRoutes from './ClientRoutes';
+import ClientNav from './components/ClientNav';
 
 export default function Client() {
     const classes = styles();
@@ -139,14 +140,14 @@ export default function Client() {
 
             {/* { ethersApi.isEthAddress(account) && */}
             <Switch>
-                <Route exact path={`${match.path}/`} component={ ClientAccount } />
+                <Route exact path={`${match.path}/`} component={ ClientNav } />
                 <Route path={`${match.path}/:account`} component={ ClientRoutes } />
                 {/* <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
                 <Route path={`${match.path}/lendings`} component={ ClientLendings } />
                 <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
                 <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                 <Route path={`${match.path}/realm`} component={ ClientRealm } /> */}
-                {/* <Redirect from={match.path} to={`${match.path}/gotchis`} /> */}
+                <Redirect from={match.path} to={match.path} />
             </Switch>
             {/* } */}
         </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { useLocation } from 'react-router-dom';
-
+import { styled } from '@mui/system';
 import { Box } from '@mui/system';
-import { Helmet } from 'react-helmet';
 
+import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
 import Header from './root/Header/Header';
@@ -17,6 +17,7 @@ import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
 import Autopet from './pages/Autopet/Autopet';
+import OldAutopet from './pages/OldAutopet/OldAutopet';
 import Raffle from './pages/Raffle/Raffle';
 import Shop from './pages/Shop/Shop';
 import NotFound from './pages/NotFound/NotFound';
@@ -25,9 +26,6 @@ import BalancesContextProvider from 'contexts/BalancesContext';
 import ClientContextProvider from './contexts/ClientContext';
 import LoginContextProvider from './contexts/LoginContext';
 import SnackbarContextProvider from './contexts/SnackbarContext';
-
-import { styled } from '@mui/system';
-import OldAutopet from 'pages/OldAutopet/OldAutopet';
 
 const classes = {
     wrapper: 'page-wrapper',
@@ -82,7 +80,6 @@ export default function App() {
                                     <Route path={`/autopet`} component={ Autopet } />
                                     <Route path={`/autopet-v1`} component={ OldAutopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
-                                    {/* <Route path={`/client/:account`} component={ Client } /> */}
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
                                     <Route path={`/shop`} component={ Shop } />

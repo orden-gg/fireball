@@ -16,14 +16,17 @@ const styles = makeStyles(theme => ({
     loginNav: {
         // backgroundColor: theme.palette.secondary.dark,
         maxWidth: 500,
-        marginTop: 16,
-        margin: 'auto',
+        margin: '16px auto',
         width: '100%'
         // borderRadius: 4
     },
     // alert: {
     //     marginBottom: 24
-    // },
+    // },,
+    routesNav: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
     clientCitadel: {
         position: 'fixed',
         left: 0,
@@ -35,7 +38,7 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         overflow: 'auto'
     },
-    shopBtn: {
+    customBtn: {
         padding: 6,
         margin: 4,
         minWidth: 50,
@@ -45,6 +48,14 @@ const styles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: theme.palette.secondary.dark,
         },
+        '&.active, &.active:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.main,
+            '&.Mui-disabled': {
+                backgroundColor: alpha(theme.palette.primary.main, .1),
+                color: alpha('#fff', .2),
+            },
+        }
     }
 }));
 
@@ -303,7 +314,7 @@ const parcelSinglePage = makeStyles(theme => ({
 
 const accountStyles = makeStyles(theme => ({
     container: {
-        paddingTop: 12
+        // paddingTop: 12
     },
     account: {
         display: 'flex',
@@ -315,10 +326,6 @@ const accountStyles = makeStyles(theme => ({
         width: '100%',
         margin: 'auto',
         marginBottom: 12
-    },
-    accountNav: {
-        display: 'flex',
-        justifyContent: 'center',
     }
 }));
 

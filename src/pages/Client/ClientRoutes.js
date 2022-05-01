@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { Route, Switch, Redirect, useRouteMatch, useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
+import CabinIcon from '@mui/icons-material/Cabin';
 
 import { Helmet } from 'react-helmet';
 import qs from 'query-string';
@@ -25,6 +26,7 @@ import EthAddress from 'components/EthAddress/EthAddress';
 import ethersApi from 'api/ethers.api';
 import ClientAccount from './routes/ClientAccount';
 import { useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 export default function ClientRoutes() {
     const classes = styles();
@@ -33,20 +35,45 @@ export default function ClientRoutes() {
     const history = useHistory();
 
     const { account } = useParams();
+    const { navData } = useContext(ClientContext);
 
     console.log('account', account);
 
     return (
-        <div className={classes.container}>
-            <span>Routes</span>
+        <div className={classes.routes}>
+            <div className={classes.routesNav}>
+                <PageNav
+                    links={navData}
+                    // query={`?address=${account}`}
+                    // counts={false}
+                >
+                    <Button
+                        href={`/shop?address=${account}`}
+                        target='_blank'
+                        className={classes.customBtn}
+                    >
+                        <BaazarIcon width={24} height={24} />
+                    </Button>
+                    <Button
+                        to={`/client/${account}/`}
+                        className={classes.customBtn}
+                        component={NavLink}
+                        activeClassName='active'
+                        end
+                    >
+                        <CabinIcon />
+                    </Button>
+                </PageNav>
+            </div>
 
             <Switch>
+                <Route exact path={`${match.path}/`} component={ ClientAccount } />
                 <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
                 <Route path={`${match.path}/lendings`} component={ ClientLendings } />
                 <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
                 <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                 <Route path={`${match.path}/realm`} component={ ClientRealm } />
-                {/* <Redirect from={match.path} to={`${match.path}/gotchis`} /> */}
+                <Redirect from='*' to={match.path} />
             </Switch>
         </div>
     );

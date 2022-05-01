@@ -17,24 +17,26 @@ export default function ClientRealm() {
 
     const location = useLocation();
     const params = qs.parse(location.search);
-    const redirectUrl = `${match.path}/${realmView}${params ? `?${qs.stringify(params)}` : ''}`;
+    const redirectUrl = `${realmView}${params ? `?${qs.stringify(params)}` : ''}`;
+
+    // const { account } = useParams();
 
     return (
         <>
             <RealmSwitchButton view={realmView} />
 
             <Switch>
-                <Route path={`${match.path}/list`} >
+                <Route path={`/list`} >
                     <ClientRealmList name='list' />
                 </Route>
-                <Route path={`${match.path}/map`}>
+                <Route path={`/map`}>
                     <ClientRealmMap name='map' />
                 </Route>
-                <Route path={`${match.path}/parcel/*`}>
+                <Route path={`/parcel/*`}>
                     <ClientRealmParcel name='parcel' />
                 </Route>
-                <Redirect from={`${match.path}/parcel`} to={`${match.path}/${realmView}`} />
-                <Redirect from={match.path} to={redirectUrl} />
+                <Redirect from={`/parcel`} to={`/${realmView}`} />
+                <Redirect from={match.path} to={realmView} />
             </Switch>
         </>
     );

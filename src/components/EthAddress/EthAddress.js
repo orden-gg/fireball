@@ -4,13 +4,14 @@ import CallMade from '@mui/icons-material/CallMade';
 
 import Blockies from 'react-blockies';
 
+import CustomTooltip from 'components/custom/CustomTooltip.js';
+import CopyToClipboard from 'components/CopyToClipboard/CopyToClipboard.js';
 import ethersApi from 'api/ethers.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
 import styles from './styles.js'
-import CopyToClipboard from 'components/CopyToClipboard/CopyToClipboard.js';
 
-export default function EthAddress({ address, icon, clientLink, polygonLink, copy }) {
+export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton }) {
     const classes = styles();
 
     if(!ethersApi.isEthAddress(address)) {
@@ -40,18 +41,28 @@ export default function EthAddress({ address, icon, clientLink, polygonLink, cop
                 </span>
             )}
 
-            { copy && <div className={classes.button}>
+            { copyButton && <div className={classes.button}>
                 <CopyToClipboard copy={address} />
             </div>}
 
-            { polygonLink && <div className={classes.button}>
-                <IconButton
-                    href={`https://polygonscan.com/address/${address}`}
-                    target='_blank'
-                    size='small'
+            { polygonButton && <div className={classes.button}>
+                <CustomTooltip
+                    title={
+                        <span>
+                            view on <span className='highlight'>polygonscan</span>
+                        </span>
+                    }
+                    placement='top'
+                    followCursor
                 >
-                    <CallMade className={classes.linkIcon} />
-                </IconButton>
+                    <IconButton
+                        href={`https://polygonscan.com/address/${address}`}
+                        target='_blank'
+                        size='small'
+                    >
+                        <CallMade className={classes.linkIcon} />
+                    </IconButton>
+                </CustomTooltip>
             </div>}
         </div>
     );

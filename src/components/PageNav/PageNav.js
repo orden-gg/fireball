@@ -7,7 +7,7 @@ import { useTheme } from '@emotion/react';
 
 import styles from './styles';
 
-export default function PageNav({ links, query, children }) {
+export default function PageNav({ links, query, counts, children }) {
     const classes = styles();
     const match = useRouteMatch();
     const theme = useTheme();
@@ -21,18 +21,15 @@ export default function PageNav({ links, query, children }) {
                     return (
                         <div className={classes.navItem} key={index}>
                             <Button
-                                disabled={link.items === 0}
+                                disabled={counts && link.items === 0}
                                 startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
                                 activeClassName='active'
-                                to={{
-                                    pathname: `${match.url}/${link.name}`,
-                                    search: query ? query : ''
-                                }}
+                                to={link.name}
                             >
                                 <span className={classes.navName}>{link.name}</span>
-                                {
+                                { counts && (
                                     link.loading ? (
                                         <ContentLoader
                                             speed={2}
@@ -46,7 +43,7 @@ export default function PageNav({ links, query, children }) {
                                     ) : (
                                         <span className={classes.label}>[{link.items}]</span>
                                     )
-                                }
+                                )}
                             </Button>
                         </div>
                     )
