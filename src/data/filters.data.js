@@ -7,7 +7,7 @@ export const filtersData = {
         key: 'hauntId',
         domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultipleAutocomplete,
-        placeholder: 'Haunt',
+        title: 'Haunt',
         items: [
             {
                 title: 'Haunt 1',
@@ -34,7 +34,7 @@ export const filtersData = {
         key: 'collateral',
         domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultipleAutocomplete,
-        placeholder: 'Collateral',
+        title: 'Collateral',
         items: collaterals.map(collateral => ({
             title: collateral.name,
             value: collateral.address,
@@ -55,7 +55,8 @@ export const filtersData = {
         keys: ['id', 'name'],
         domainType: FilterDomainType.Contains,
         componentType: FilterComponent.Input,
-        placeholder: 'Name&Id',
+        title: 'Search',
+        placeholder: 'Name or Id',
         value: '',
         isFilterActive: false,
         resetFilterFn: filterHelpers.inputResetFilterFn,

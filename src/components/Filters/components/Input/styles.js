@@ -5,7 +5,7 @@ const styles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    placeholder: {
+    title: {
         marginBottom: 8
     },
 }));

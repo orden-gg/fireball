@@ -23,7 +23,7 @@ export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.placeholder}>{option.placeholder}</div>
+            <div className={classes.title}>{option.title}</div>
             <TextField
                 variant='outlined'
                 size='small'

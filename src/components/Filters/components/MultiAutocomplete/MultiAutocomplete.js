@@ -39,7 +39,7 @@ export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
 
     return (
         <div className={classes.wrapper}>
-            <span className={classes.placeholder}>{option.placeholder}</span>
+            <span className={classes.title}>{option.title}</span>
             <div className={classes.items}>
                 {
                     option.items.map(item =>
