@@ -1,43 +1,47 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
 import Gotchi from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import { GuildsContext } from '../GuildsContext';
 import thegraphApi from 'api/thegraph.api';
 
+import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
 export default function GuildLendings() {
     const classes = guildContentStyles();
-    const { guildId, guildsData, guildLendings, setGuildLendings } = useContext(GuildsContext);
+
+    const { guildId, guilds, guildLendings, setGuildLendings } = useContext(GuildsContext);
+
+    const [isLendingsLoading, setIsLendingsLoading] = useState(false);
 
     useEffect(() => {
         let mounted = true;
 
-        if(guildId === null) {
+        if (guildId === null) {
             return;
         }
 
-        const promises = guildsData[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
+        setIsLendingsLoading(true);
+
+        const promises = guilds[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
 
         Promise.all(promises).then(responses => {
-            if(mounted) {
+            if (mounted) {
                 const lendings = responses.reduce((result, current) => result.concat(current), []);
 
                 setGuildLendings(lendings);
             }
-        });
+        }).finally(() => setIsLendingsLoading(false));
 
         return () => mounted = false;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
+    }, [guilds, guildId, setGuildLendings]);
 
     return (
         <div className={classes.guildGotchis}>
-            {
-                guildLendings?.length > 0 ? (
+            {isLendingsLoading ? (
+                <CircularProgress className={classes.loading} />
+            ) : guildLendings?.length > 0 ? (
                     <GotchisLazy
                         items={guildLendings}
                         renderItem={id => (
@@ -51,7 +55,9 @@ export default function GuildLendings() {
                             />
                         )}
                     />
-                ) : <CircularProgress className={classes.loading} />
+                ) : (
+                    <div className={classes.noData}>No Gotchi Lendings :(</div>
+                )
             }
         </div>
     );

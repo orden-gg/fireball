@@ -15,7 +15,7 @@ import styles from '../styles';
 export default function GuildsPreview() {
     const classes = styles();
     const {
-        guildsData,
+        guilds,
         setGuildId
     } = useContext(GuildsContext);
     const match = useRouteMatch();
@@ -25,13 +25,14 @@ export default function GuildsPreview() {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
     }
 
+    // TODO Use in the future or remove
     // const setNumber = amount => {
     //     if (amount !== undefined) {
     //         return amount
     //     } else {
     //         return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
     //     }
-    // } Will be used in a future
+    // }
 
     const renderWaerables = guild => {
         if (guild.hasOwnProperty('wearables')) {
@@ -46,9 +47,7 @@ export default function GuildsPreview() {
 
     useEffect(() => {
         setGuildId(null);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [setGuildId]);
 
     return (
         <Box className={classes.guildsWrapper}>
@@ -63,7 +62,7 @@ export default function GuildsPreview() {
             </a>
             <ul className={classes.guildsList}>
                 {
-                    guildsData.map((guild, id) => (
+                    guilds.map((guild, id) => (
                         <Button
                             className={classes.guildButton}
                             disabled={!guild.members?.length}

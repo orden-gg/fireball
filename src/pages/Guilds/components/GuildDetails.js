@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
 import Modal from 'components/Modal/Modal';
+
 import GuildWearables from './GuildWearables';
 import { guildDetailsStyles } from '../styles';
 
 export default function GuildsDetails({ guild }) {
     const classes = guildDetailsStyles();
+
     const [modalOpen, setModalOpen] = useState(false);
 
-    if(!guild?.description?.length && !guild?.wearables.length) {
+    if (!guild?.description?.length && !guild?.wearables.length) {
         return null;
     }
 

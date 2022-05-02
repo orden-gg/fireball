@@ -11,7 +11,7 @@ export default function CustomModal({children, modalOpen, setModalOpen, classNam
     const onModalClose = () => {
         setModalOpen(false);
 
-        if(handleModalClose) {
+        if (Boolean(handleModalClose)) {
             handleModalClose();
         };
     }

@@ -7,27 +7,26 @@ import thegraphApi from 'api/thegraph.api';
 import { guildContentStyles } from '../styles';
 
 export default function GuildRealm() {
-    const { guildsData, guildId, guildRealm, setGuildRealm } = useContext(GuildsContext);
     const classes = guildContentStyles();
+
+    const { guilds, guildId, guildRealm, setGuildRealm } = useContext(GuildsContext);
 
 
     useEffect(() => {
         let mounted = true;
 
-        if(guildId === null) {
+        if (guildId === null) {
             return;
         }
 
-        thegraphApi.getRealmByAddresses(guildsData[guildId].members).then(realm => {
-            if(mounted) {
+        thegraphApi.getRealmByAddresses(guilds[guildId].members).then(realm => {
+            if (mounted) {
                 setGuildRealm(realm);
             }
         });
 
         return () => mounted = false;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
+    }, [guilds, guildId, setGuildRealm]);
 
     return <Citadel
         className={classes.guildCitadel}

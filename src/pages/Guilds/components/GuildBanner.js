@@ -1,33 +1,34 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useHistory } from 'react-router-dom';
 
-import GuildLogo from './GuildLogo';
-import GuildSocials from './GuildSocials';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
+import GuildLogo from './GuildLogo';
+import GuildSocials from './GuildSocials';
 import { guildBanner } from '../styles';
 
 export default function GuildBanner() {
     const classes = guildBanner();
-    const { guildId, setGuildId, guildsData } = useContext(GuildsContext);
     const history = useHistory();
+
+    const { guildId, setGuildId, guilds } = useContext(GuildsContext);
+
     const [guild, setGuild] = useState({});
 
-    const changeGuild = direction => {
-        const id = guildId+direction;
-        const nextGuild = guildsData[id];
+    const onGuildChange = useCallback((currentGuildId) => {
+        const nextGuild = guilds[currentGuildId];
 
         if (nextGuild === undefined || nextGuild.members?.length === 0) {
             return;
         }
 
         history.push(`/guilds/${commonUtils.stringToKey(nextGuild.name)}`);
-        setGuildId(id);
-    }
+        setGuildId(currentGuildId);
+    }, [guilds, history, setGuildId]);
 
     const getBannerUrl = () => {
         try {
@@ -38,12 +39,10 @@ export default function GuildBanner() {
     }
 
     useEffect(() => {
-        if(guildId !== null) {
-            setGuild(guildsData[guildId]);
+        if (guildId !== null) {
+            setGuild(guilds[guildId]);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
+    }, [guilds, guildId]);
 
     return (
         <div className={classes.guildBanner} >
@@ -63,7 +62,7 @@ export default function GuildBanner() {
                     placement='top'
                     followCursor
                 >
-                    <IconButton onClick={() => changeGuild(-1)} className={classes.buttonPrev}>
+                    <IconButton onClick={() => onGuildChange(guildId - 1)} className={classes.buttonPrev}>
                         <ArrowForwardIosIcon />
                     </IconButton>
                 </Tooltip>
@@ -72,7 +71,7 @@ export default function GuildBanner() {
                     placement='top'
                     followCursor
                 >
-                    <IconButton onClick={() => changeGuild(1)} className={classes.buttonNext} >
+                    <IconButton onClick={() => onGuildChange(guildId + 1)} className={classes.buttonNext} >
                         <ArrowForwardIosIcon />
                     </IconButton>
                 </Tooltip>

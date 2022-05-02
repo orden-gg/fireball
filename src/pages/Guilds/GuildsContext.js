@@ -4,40 +4,52 @@ import fireballApi from 'api/fireball.api';
 import guildsData from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
 
-guildsData.reverse().sort(guild => guild.members.length ? -1 : 1);
-
 export const GuildsContext = createContext({});
 
+const getModifiedGuilds = (guilds) => {
+    const guildsCopy = [...guilds];
+    const ordenGuildIndex = guildsCopy.findIndex(guild => guild.name === 'ordenGG');
+    const ordenGuild = guildsCopy.splice(ordenGuildIndex, 1);
+    const activeGuilds = guildsCopy.filter(guild => guild.members.length > 0);
+    const inactiveGuilds = guildsCopy.filter(guild => guild.members.length === 0);
+
+    activeGuilds.sort((a, b) => a.name.localeCompare(b.name));
+    inactiveGuilds.sort((a, b) => a.name.localeCompare(b.name));
+
+    const modifiedGuilds = ordenGuild.concat(activeGuilds).concat(inactiveGuilds)
+
+    return modifiedGuilds;
+}
+
 const GuildsContextProvider = (props) => {
+    const [guilds] = useState(getModifiedGuilds([...guildsData]));
     const [guildRealm, setGuildRealm] = useState([]);
     const [guildGotchis, setGuildGotchis] = useState([]);
     const [guildLendings, setGuildLendings] = useState([]);
-    const [gotchisAmount, setGotchisAmount] = useState([]);
+    const [gotchisAmount, setGotchisAmount] = useState([]); // TODO check if needed, not used anywhere for now
     const [guildId, setGuildId] = useState(null);
 
     useEffect(() => {
-        let destroyed = false;
+        let mounted = false;
 
-        const promises = guildsData
+        const promises = guilds
             .filter(guild => guild.members?.length > 0)
             .map(guild =>
                 fireballApi.getGotchisAmountByGuild(commonUtils.stringToKey(guild.name))
             );
 
         Promise.all(promises).then(response => {
-            if(destroyed) {
+            if (mounted) {
                 return;
             }
 
             setGotchisAmount(
-                guildsData.map((guild, id) => response[id]?.ghosts_num || 0)
+                guilds.map((guild, id) => response[id]?.ghosts_num || 0)
             );
         });
 
-        return () => destroyed = true;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        return () => mounted = true;
+    }, [guilds]);
 
     useEffect(() => {
         setGuildGotchis([]);
@@ -47,7 +59,7 @@ const GuildsContextProvider = (props) => {
 
     return (
         <GuildsContext.Provider value={{
-            guildsData,
+            guilds,
             gotchisAmount,
             guildId,
             guildGotchis,

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
 import Gotchi from 'components/Gotchi/Gotchi';
@@ -9,31 +9,35 @@ import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
 export default function GuildGotchis() {
-    const { guildId, guildsData, guildGotchis, setGuildGotchis } = useContext(GuildsContext);
     const classes = guildContentStyles();
+
+    const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext(GuildsContext);
+
+    const [isGotchisLoading, setIsGotchisLoading] = useState(false);
 
     useEffect(() => {
         let mounted = true;
 
-        if(guildId === null) {
+        if (guildId === null) {
             return;
         }
 
-        thegraphApi.getGotchisByAddresses(guildsData[guildId].members).then(gotchis => {
-            if(mounted) {
+        setIsGotchisLoading(true);
+
+        thegraphApi.getGotchisByAddresses(guilds[guildId].members).then(gotchis => {
+            if (mounted) {
                 setGuildGotchis(gotchis);
             }
-        });
+        }).finally(() => setIsGotchisLoading(false));
 
         return () => mounted = false;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [guildId]);
+    }, [guilds, guildId, setGuildGotchis]);
 
     return (
         <div className={classes.guildGotchis}>
-            {
-                guildGotchis.length > 0 ? (
+            {isGotchisLoading ? (
+                <CircularProgress className={classes.loading} />
+            ) : guildGotchis.length > 0 ? (
                     <GotchisLazy
                         items={guildGotchis}
                         renderItem={id => (
@@ -47,7 +51,9 @@ export default function GuildGotchis() {
                             />
                         )}
                     />
-                ) : <CircularProgress className={classes.loading} />
+                ) : (
+                    <div className={classes.noData}>No Gotchis :(</div>
+                )
             }
         </div>
     );

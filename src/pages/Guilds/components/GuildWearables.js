@@ -9,7 +9,7 @@ import { guildWearables } from '../styles';
 export default function GuildWearables({ tooltip, wearables, className }) {
     const classes = guildWearables();
 
-    const renderWearableImage = id => (
+    const renderWearableImage = (id) => (
         <WearableImage
             className={classNames(classes.guildWearable, className || null)}
             wearable={{id: id}}
@@ -17,15 +17,17 @@ export default function GuildWearables({ tooltip, wearables, className }) {
         />
     )
 
-    return wearables.map(id =>
-        tooltip !== undefined ? (
-            <Tooltip key={id} title='Guild wearable' followCursor placement='top'>
-                <span>
-                    {renderWearableImage(id)}
-                </span>
-            </Tooltip>
-        ) : (
-            renderWearableImage(id)
+    return (
+        wearables.map(id =>
+            tooltip !== undefined ? (
+                <Tooltip key={id} title='Guild wearable' followCursor placement='top'>
+                    <span>
+                        {renderWearableImage(id)}
+                    </span>
+                </Tooltip>
+            ) : (
+                renderWearableImage(id)
+            )
         )
-    )
+    );
 }

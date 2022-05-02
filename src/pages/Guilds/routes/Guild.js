@@ -21,17 +21,17 @@ export default function Guild() {
     const history = useHistory();
     const match = useRouteMatch();
     const {
-        guildsData,
+        guilds,
         guildId,
         setGuildId
     } = useContext(GuildsContext);
 
     useEffect(() => {
-        const guildId = guildsData.findIndex(guild => (
+        const guildId = guilds.findIndex(guild => (
             commonUtils.stringToKey(guild.name) === params.name
         ));
 
-        if (guildId === undefined || guildsData[guildId].members?.length === 0) {
+        if (guildId === undefined || guilds[guildId].members?.length === 0) {
             return history.push('/guilds');
         };
 
@@ -46,7 +46,7 @@ export default function Guild() {
 
                 <div className={classes.guildSidebar}>
                     <GuildBanner />
-                    {<GuildsDetails guild={guildsData[guildId]} />}
+                    {<GuildsDetails guild={guilds[guildId]} />}
 
                     <Tooltip
                         title='Back to guilds'
