@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import Installation from 'components/Items/Installation/Installation';
+import Tile from 'components/Items/Tile.js/Tile';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import { ClientContext } from 'contexts/ClientContext';
@@ -8,16 +9,23 @@ import { ClientContext } from 'contexts/ClientContext';
 export default function ClientWarehouse() {
     const {
         tiles,
+        loadingTiles,
         installations,
         loadingInstallations
     } = useContext(ClientContext);
 
     return (
         <>
-            <ContentInner dataLoading={loadingInstallations}>
+            <ContentInner dataLoading={loadingTiles || loadingInstallations}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
-                    component={props => <Installation data={props} />}
+                    component={props => {
+                        if(props.type === 'tile') {
+                            return <Tile data={props} />
+                        } else {
+                            return <Installation data={props} />
+                        }
+                    }}
                 />
             </ContentInner>
         </>

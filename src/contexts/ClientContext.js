@@ -4,6 +4,7 @@ import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/I
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
 import installationsApi from 'api/installations.api';
+import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
@@ -29,8 +30,10 @@ const ClientContextProvider = (props) => {
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
 
     const [installations, setInstallations] = useState([]);
-    const [tiles, setTiles] = useState([]);
     const [loadingInstallations, setLoadingInstallations] = useState(true);
+
+    const [tiles, setTiles] = useState([]);
+    const [loadingTiles, setLoadingTiles] = useState(true);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
@@ -90,6 +93,7 @@ const ClientContextProvider = (props) => {
         getTickets(clientActive);
         getRealm(clientActive);
         getInstallations(clientActive);
+        getTiles(clientActive);
 
         // reset
         setWarehouse([]);
@@ -221,19 +225,22 @@ const ClientContextProvider = (props) => {
     };
 
     const getInstallations = (address) => {
-        const promises = [
-            installationsApi.getInstallationsByAddress(address),
-            installationsApi.getTilesByAddress(address)
-        ];
-
-        Promise.all(promises).then(([installations, tiles]) => {
+        installationsApi.getInstallationsByAddress(address).then(installations => {
             setInstallations(installations);
-            setTiles(tiles);
             setLoadingInstallations(false);
         }).catch((error) => {
             console.log(error);
         });
-    }
+    };
+
+    const getTiles = (address) => {
+        tilesApi.getTilesByAddress(address).then(tiles => {
+            setTiles(tiles);
+            setLoadingTiles(false);
+        }).catch((error) => {
+            console.log(error);
+        });
+    };
 
     const getTickets = (address) => {
         setLoadingTickets(true);
@@ -316,6 +323,7 @@ const ClientContextProvider = (props) => {
             loadingInstallations,
 
             tiles,
+            loadingTiles,
 
             tickets,
             loadingTickets,
