@@ -115,7 +115,7 @@ export default function ClientGotchis() {
                 setIsFiltersApplied(true);
             } else {
                 if (isSortingChanged) {
-                    modifiedGotchis = commonUtils.basicSort(modifiedGotchisCache, gotchisSorting.type, gotchisSorting.dir);
+                    modifiedGotchis = commonUtils.basicSort(gotchis, gotchisSorting.type, gotchisSorting.dir);
                 } else {
                     modifiedGotchis = gotchis;
                 }
