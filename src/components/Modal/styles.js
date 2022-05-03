@@ -7,7 +7,6 @@ const styles = makeStyles( theme => ({
         overflow: 'auto',
         padding: '10px'
     },
-
     modal: {
         outline: 'none',
         margin: 'auto',
@@ -17,7 +16,6 @@ const styles = makeStyles( theme => ({
         padding: theme.spacing(2),
         border: `1px solid ${theme.palette.secondary.light}`
     },
-
     close: {
         cursor: 'pointer',
         position: 'absolute',

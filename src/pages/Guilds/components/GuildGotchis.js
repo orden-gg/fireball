@@ -4,8 +4,8 @@ import { CircularProgress } from '@mui/material';
 import Gotchi from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import thegraphApi from 'api/thegraph.api';
-import { GuildsContext } from '../GuildsContext';
 
+import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
 export default function GuildGotchis() {

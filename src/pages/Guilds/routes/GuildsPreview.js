@@ -5,11 +5,11 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Tooltip } from '@mui/material';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
+import commonUtils from 'utils/commonUtils';
+
 import GuildLogo from '../components/GuildLogo';
 import GuildWearables from '../components/GuildWearables';
 import { GuildsContext } from '../GuildsContext';
-import commonUtils from 'utils/commonUtils';
-
 import styles from '../styles';
 
 export default function GuildsPreview() {

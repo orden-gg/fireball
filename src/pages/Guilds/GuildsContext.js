@@ -1,8 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 
-import fireballApi from 'api/fireball.api';
 import guildsData from 'data/guilds.json';
-import commonUtils from 'utils/commonUtils';
 
 export const GuildsContext = createContext({});
 
@@ -26,30 +24,7 @@ const GuildsContextProvider = (props) => {
     const [guildRealm, setGuildRealm] = useState([]);
     const [guildGotchis, setGuildGotchis] = useState([]);
     const [guildLendings, setGuildLendings] = useState([]);
-    const [gotchisAmount, setGotchisAmount] = useState([]); // TODO check if needed, not used anywhere for now
     const [guildId, setGuildId] = useState(null);
-
-    useEffect(() => {
-        let mounted = false;
-
-        const promises = guilds
-            .filter(guild => guild.members?.length > 0)
-            .map(guild =>
-                fireballApi.getGotchisAmountByGuild(commonUtils.stringToKey(guild.name))
-            );
-
-        Promise.all(promises).then(response => {
-            if (mounted) {
-                return;
-            }
-
-            setGotchisAmount(
-                guilds.map((guild, id) => response[id]?.ghosts_num || 0)
-            );
-        });
-
-        return () => mounted = true;
-    }, [guilds]);
 
     useEffect(() => {
         setGuildGotchis([]);
@@ -60,7 +35,6 @@ const GuildsContextProvider = (props) => {
     return (
         <GuildsContext.Provider value={{
             guilds,
-            gotchisAmount,
             guildId,
             guildGotchis,
             guildLendings,

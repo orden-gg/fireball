@@ -4,6 +4,8 @@ import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import commonUtils from 'utils/commonUtils';
+
 import GuildBanner from '../components/GuildBanner';
 import GuildsDetails from '../components/GuildDetails';
 import GuildNav from '../components/GuildNav';
@@ -11,8 +13,6 @@ import GuildGotchis from '../components/GuildGotchis';
 import GuildLendings from '../components/GuildLendings';
 import GuildsRealm from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
-import commonUtils from 'utils/commonUtils';
-
 import { guildStyles } from '../styles';
 
 export default function Guild() {
