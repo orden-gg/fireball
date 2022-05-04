@@ -1,20 +1,25 @@
+import { Erc1155Categories } from 'data/types';
+
 import CardName from '../common/CardName/CardName';
+import ERC1155 from '../ERC1155/ERC1155';
+
 import TileImage from './TileImage';
 
-import styles from './styles';
-
 export default function Tile({ data }) {
-    const classes = styles();
 
     return (
-        <div className={classes.tile}>
-            <span className={classes.tileBalance}>{data.balance}</span>
+        <ERC1155 item={{
+            id: data.id,
+            rarity: 'legendary',
+            category: Erc1155Categories.Tile,
+            balance: data.balance
+        }}>
             <TileImage data={data} />
             <CardName
                 item={data}
                 itemName={data.name}
                 itemRarity='golden'
             />
-        </div>
+        </ERC1155>
     )
 }

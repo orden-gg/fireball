@@ -29,5 +29,6 @@ export const Erc1155Categories = Object.freeze({
     Wearable: '0',
     Consumable: '2',
     Ticket: '3',
-    Realm: '4'
+    Realm: '4',
+    Tile: '5'
 });

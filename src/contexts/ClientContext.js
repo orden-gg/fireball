@@ -7,10 +7,13 @@ import installationsApi from 'api/installations.api';
 import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
+import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
+import tilesUtils from 'utils/tilesUtils';
+import installationsUtils from 'utils/installationsUtils';
 
 export const ClientContext = createContext({});
 
@@ -68,7 +71,7 @@ const ClientContextProvider = (props) => {
         },
         {
             name: 'installations',
-            icon: <AnvilIcon width={24} height={24} alt='realm' />,
+            icon: <AnvilIcon width={24} height={24} />,
             loading: loadingInstallations || loadingTiles,
             items: installations.length + tiles.length
         },
@@ -225,21 +228,37 @@ const ClientContextProvider = (props) => {
     };
 
     const getInstallations = (address) => {
-        installationsApi.getInstallationsByAddress(address).then(installations => {
-            setInstallations(installations);
-            setLoadingInstallations(false);
-        }).catch((error) => {
-            console.log(error);
-        });
+        installationsApi.getInstallationsByAddress(address).then(response => {
+            setInstallations(
+                response.map(item => {
+                    const id = ethersApi.formatBigNumber(item.installationId._hex);
+
+                    return {
+                        type: 'instalation',
+                        name: installationsUtils.getNameById(id),
+                        balance: ethersApi.formatBigNumber(item.balance._hex),
+                        id: id
+                    }
+                })
+            );
+        }).finally(() => setLoadingInstallations(false));
     };
 
     const getTiles = (address) => {
-        tilesApi.getTilesByAddress(address).then(tiles => {
-            setTiles(tiles);
-            setLoadingTiles(false);
-        }).catch((error) => {
-            console.log(error);
-        });
+        tilesApi.getTilesByAddress(address).then(response => {
+            setTiles(
+                response.map(item => {
+                    const id = ethersApi.formatBigNumber(item.tileId._hex);
+
+                    return {
+                        type: 'tile',
+                        name: tilesUtils.getNameById(id),
+                        balance: ethersApi.formatBigNumber(item.balance._hex),
+                        id: id
+                    }
+                })
+            );
+        }).finally(() => setLoadingTiles(false));
     };
 
     const getTickets = (address) => {

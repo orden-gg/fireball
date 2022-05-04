@@ -6,7 +6,7 @@ import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
-export default function ClientWarehouse() {
+export default function ClientInstallations() {
     const {
         tiles,
         loadingTiles,

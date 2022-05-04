@@ -28,15 +28,15 @@ const theme = createTheme({
             legendary: '#ffc36b',
             mythical: '#FF67FF',
             godlike: '#00E994',
-            drop: 'rgb(0, 0, 0)'
+            drop: 'rgb(0, 0, 0)',
+            golden: '#ffc36b'
         },
         realm: {
             // humble: '#320fc7',
             humble: '#6c4bfb',
             reasonable: '#119773',
             spacious: '#8840b7',
-            partner: '#bf91ff',
-            golden: '#ffc36b'
+            partner: '#bf91ff'
         },
         alchemica: {
             fud: 'rgb(0, 255, 0)',

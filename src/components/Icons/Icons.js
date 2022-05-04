@@ -8,6 +8,7 @@ import h1OpenedPortalGif from 'assets/images/animated/h1-opened.gif';
 // icons
 import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
+import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import discord from 'assets/images/icons/discord.svg';
@@ -26,7 +27,6 @@ import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
-import anvil from 'assets/images/icons/anvil.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 
 // portals
@@ -183,9 +183,9 @@ export const SoldIcon = ({ width, height }) => {
 };
 
 export const FiregemIcon = ({ className, width, height }) => {
-    return <img className={className} width={width} height={height} src={firegem} alt='sold' />;
+    return <img className={className} width={width} height={height} src={firegem} alt='firegem' />;
 };
 
-export const AnvilIcon = ({ className, width, height }) => {
-    return <img className={className} width={width} height={height} src={anvil} alt='sold' />;
+export const AnvilIcon = ({ width, height }) => {
+    return <img width={width} height={height} src={anvil} alt='anvil' />;
 };

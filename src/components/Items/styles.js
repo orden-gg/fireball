@@ -85,13 +85,15 @@ const styles = makeStyles(theme => ({
         '&.spacious': {
             backgroundColor: alpha(theme.palette.realm.spacious, .15)
         },
+        '&.golden': {
+            backgroundColor: alpha(theme.palette.rarity.golden, .15)
+        },
         '&.partner': {
             backgroundColor: alpha(theme.palette.realm.partner, .15)
         },
         '&.haunt1': {
             backgroundColor: alpha(theme.palette.haunts.h1, .15),
         },
-
         '&.haunt2': {
             backgroundColor: alpha(theme.palette.haunts.h2, .15),
         },
@@ -241,6 +243,9 @@ const itemStyles = makeStyles(theme => ({
         '&.spacious': {
             backgroundColor: alpha(theme.palette.realm.spacious, .15)
         },
+        '&.golden': {
+            backgroundColor: alpha(theme.palette.rarity.golden, .15)
+        },
         '&.partner': {
             backgroundColor: alpha(theme.palette.realm.partner, .15)
         },
@@ -363,6 +368,10 @@ const tooltipStyles = makeStyles(theme => ({
         '.drop &': {
             backgroundColor: theme.palette.customColors.lightGray,
             color: theme.palette.secondary.main
+        },
+        '.golden &': {
+            backgroundColor: theme.palette.rarity.golden,
+            color: theme.palette.secondary.main
         }
     },
     labelBalance: {
@@ -459,6 +468,9 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         },
         '&.reasonable': {
             color: theme.palette.realm.reasonable
+        },
+        '&.golden': {
+            color: theme.palette.rarity.golden
         },
         '&.spacious': {
             color: theme.palette.realm.spacious

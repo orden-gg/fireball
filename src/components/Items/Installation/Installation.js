@@ -1,7 +1,10 @@
-import CardName from '../common/CardName/CardName';
-import InstallationImage from './InstallationImage';
-import ERC1155 from '../ERC1155/ERC1155';
+
 import { Erc1155Categories } from 'data/types';
+
+import CardName from '../common/CardName/CardName';
+import ERC1155 from '../ERC1155/ERC1155';
+
+import InstallationImage from './InstallationImage';
 
 export default function Installation({ data }) {
 
@@ -16,7 +19,7 @@ export default function Installation({ data }) {
             <CardName
                 item={data}
                 itemName={data.name}
-                itemRarity='legendary'
+                itemRarity='golden'
             />
         </ERC1155>
     )
