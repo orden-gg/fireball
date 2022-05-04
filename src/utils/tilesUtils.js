@@ -8,7 +8,7 @@ export default {
 
     getImageById(id) {
         try {
-            return require(`../assets/images/tiles/${id}.gif`).default;
+            return require(`../assets/images/tiles/${id}.png`).default;
         } catch (error) {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
