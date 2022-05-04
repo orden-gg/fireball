@@ -133,7 +133,7 @@
     },
     {
         "name": "Chigotchi Bulls",
-        "logo": "chigotchi-bulls.png",
+        "logo": "chigotchibulls.png",
         "members": ["0x4572192Ed1DEe5fD0f8f07269bE4eF3e3e270715", "0x9d083a671780d50852f1B748Bb72ea30736C01EC"],
         "description": [
             { "title": "Description", "text": "OG Aair Gotchi Guild. " },
