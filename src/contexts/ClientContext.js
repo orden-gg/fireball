@@ -69,8 +69,8 @@ const ClientContextProvider = (props) => {
         {
             name: 'realmcraft',
             icon: <KekIcon width={24} height={24} alt='realm' />,
-            loading: loadingInstallations,
-            items: installations.length
+            loading: loadingInstallations || loadingTiles,
+            items: installations.length + tiles.length
         },
         {
             name: 'tickets',
