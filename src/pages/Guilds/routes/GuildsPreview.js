@@ -2,50 +2,56 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Button, Divider } from '@mui/material';
 
-import { GuildsContext } from 'contexts/GuildsContext';
+import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
+import CustomTooltip from 'components/custom/CustomTooltip';
 import commonUtils from 'utils/commonUtils';
 
 import GuildLogo from '../components/GuildLogo';
+import GuildWearables from '../components/GuildWearables';
+import { GuildsContext } from '../GuildsContext';
 import styles from '../styles';
 
 export default function GuildsPreview() {
     const classes = styles();
-    const { guildsData, setCurrentGuild } = useContext(GuildsContext);
+    const {
+        guilds,
+        setGuildId
+    } = useContext(GuildsContext);
     const match = useRouteMatch();
     const history = useHistory();
 
-    const handleClick = (guild) => (event) => {
-        history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`)
+    const handleClick = (guild) => {
+        history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
     }
 
-    const renderList = () => {
-        return (
-            guildsData.sort( guild => guild.members.length ? -1 : 1).map((guild, index) => {
-                return (
-                    <div className={classes.guildItem} key={index}>
-                        <button
-                            className={classes.guildButton}
-                            disabled={!guild.members?.length}
-                            onClick={ handleClick(guild) }
-                        >
-                            <div className={classes.guildLogo}>
-                                <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
-                            </div>
+    // TODO Use in the future or remove
+    // const setNumber = amount => {
+    //     if (amount !== undefined) {
+    //         return amount
+    //     } else {
+    //         return <Skeleton  animation="wave" variant="text" className={classes.guildInfoAmountLoader} />;
+    //     }
+    // }
 
-                            <p className={classes.guildName}>{guild.name}</p>
-                        </button>
-                    </div>
-                )
-            })
-        )
+    const renderWaerables = guild => {
+        if (guild.hasOwnProperty('wearables')) {
+
+            return <>
+                <Divider className={classes.divider} />
+                <GuildWearables
+                    wearables={guild.wearables}
+                    className={classes.guildWearable}
+                    tooltip='Guild wearable'
+                />
+            </>
+        }
     }
 
     useEffect(() => {
-        setCurrentGuild([]);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [] );
+        setGuildId(null);
+    }, [setGuildId]);
 
     return (
         <Box className={classes.guildsWrapper}>
@@ -59,7 +65,68 @@ export default function GuildsPreview() {
                 <ArrowForwardIcon fontSize='small' />
             </a>
             <ul className={classes.guildsList}>
-                { renderList() }
+                {
+                    guilds.map((guild, id) => (
+                        <Button
+                            className={classes.guildButton}
+                            disabled={!guild.members?.length}
+                            key={id}
+                            onClick={() => {handleClick(guild)}}
+                        >
+                            <div className={classes.guildLogo}>
+                                <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
+                            </div>
+                            <div className={classes.guildBody}>
+                                <p className={classes.guildName}>{guild.name}</p>
+                                <ul className={classes.guildInfoList}>
+                                    <CustomTooltip title='Gotchis' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <GotchiIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                -
+                                            </span>
+                                        </li>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Lendings' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <LendingIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                -
+                                            </span>
+                                        </li>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Wearables' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <WarehouseIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                -
+                                            </span>
+                                        </li>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Realm' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <FudIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                -
+                                            </span>
+                                        </li>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Voting power' followCursor placement='top'>
+                                        <li className={classes.guildInfoItem}>
+                                            <GhstTokenIcon className={classes.guildInfoItemIcon} />
+                                            <span className={classes.guildInfoAmount}>
+                                                -
+                                            </span>
+                                        </li>
+                                    </CustomTooltip>
+                                </ul>
+                                <div className={classes.guildWearables}>
+                                    {renderWaerables(guild)}
+                                </div>
+                            </div>
+                        </Button>
+                    ))
+                }
             </ul>
         </Box>
     );

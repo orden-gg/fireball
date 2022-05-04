@@ -7,7 +7,7 @@ const styles = makeStyles(theme => ({
         alignItems: 'center',
         position: 'relative',
         zIndex: 1,
-        margin: '0 auto 8px'
+        margin: 'auto'
     },
     navItem: {
         margin: 4,

@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
+import Gotchi from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 
@@ -76,23 +77,28 @@ export default function ClientGotchis() {
             <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
                     items={gotchis}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'skillpoints',
-                                'kinship',
-                                'level'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'traits',
-                        'wearablesLine',
-                        'listing',
-                        'rewards'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={gotchis[id]}
+                            render={[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'skillpoints',
+                                        'kinship',
+                                        'level'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                'traits',
+                                'wearablesLine',
+                                'listing',
+                                'rewards'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>
