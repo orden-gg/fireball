@@ -132,18 +132,19 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(1),
         [theme.breakpoints.down('md')]: {
             marginRight: theme.spacing(1)
         },
     },
     guildInfoItemIcon: {
-        width: 20,
-        maxWidth: 20,
-        maxHeight: 20,
+        width: 24,
+        maxWidth: 24,
+        maxHeight: 24,
         [theme.breakpoints.down('md')]: {
-            width: 18,
-            maxWidth: 18,
-            maxHeight: 18
+            width: 20,
+            maxWidth: 20,
+            maxHeight: 20
         }
     },
     guildInfoAmountLoader: {
@@ -162,12 +163,19 @@ const styles = makeStyles(theme => ({
     },
     guildWearables: {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     },
     guildWearable: {
-        width: 22,
-        height: 15,
-        margin: theme.spacing(1.5, 1, .5, 0)
+        width: 24,
+        height: 24,
+        margin: theme.spacing(0, 1, .5, 0),
+        background: alpha('#000', .15),
+        borderRadius: 2
+    },
+    divider: {
+        width: '100%',
+        marginBottom: theme.spacing(1),
+        opacity: .5
     }
 }));
 
@@ -176,8 +184,8 @@ const guildWearables = makeStyles(theme => ({
         minHeight: 'auto',
         position: 'relative',
         '& img': {
-            maxHeight: '120%',
-            width: '100%',
+            maxHeight: '80%',
+            width: '80%',
             position: 'absolute',
             left: '50%',
             top: '50%',

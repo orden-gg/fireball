@@ -2,9 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Button, Tooltip } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
+import CustomTooltip from 'components/custom/CustomTooltip';
 import commonUtils from 'utils/commonUtils';
 
 import GuildLogo from '../components/GuildLogo';
@@ -37,11 +38,14 @@ export default function GuildsPreview() {
     const renderWaerables = guild => {
         if (guild.hasOwnProperty('wearables')) {
 
-            return <GuildWearables
-                wearables={guild.wearables}
-                className={classes.guildWearable}
-                tooltip='Guild wearable'
-            />
+            return <>
+                <Divider className={classes.divider} />
+                <GuildWearables
+                    wearables={guild.wearables}
+                    className={classes.guildWearable}
+                    tooltip='Guild wearable'
+                />
+            </>
         }
     }
 
@@ -75,46 +79,46 @@ export default function GuildsPreview() {
                             <div className={classes.guildBody}>
                                 <p className={classes.guildName}>{guild.name}</p>
                                 <ul className={classes.guildInfoList}>
-                                    <Tooltip title='Gotchis' followCursor placement='top'>
+                                    <CustomTooltip title='Gotchis' followCursor placement='top'>
                                         <li className={classes.guildInfoItem}>
                                             <GotchiIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
                                                 -
                                             </span>
                                         </li>
-                                    </Tooltip>
-                                    <Tooltip title='Lendings' followCursor placement='top'>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Lendings' followCursor placement='top'>
                                         <li className={classes.guildInfoItem}>
                                             <LendingIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
                                                 -
                                             </span>
                                         </li>
-                                    </Tooltip>
-                                    <Tooltip title='Wearables' followCursor placement='top'>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Wearables' followCursor placement='top'>
                                         <li className={classes.guildInfoItem}>
                                             <WarehouseIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
                                                 -
                                             </span>
                                         </li>
-                                    </Tooltip>
-                                    <Tooltip title='Realm' followCursor placement='top'>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Realm' followCursor placement='top'>
                                         <li className={classes.guildInfoItem}>
                                             <FudIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
                                                 -
                                             </span>
                                         </li>
-                                    </Tooltip>
-                                    <Tooltip title='Voting power' followCursor placement='top'>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Voting power' followCursor placement='top'>
                                         <li className={classes.guildInfoItem}>
                                             <GhstTokenIcon className={classes.guildInfoItemIcon} />
                                             <span className={classes.guildInfoAmount}>
                                                 -
                                             </span>
                                         </li>
-                                    </Tooltip>
+                                    </CustomTooltip>
                                 </ul>
                                 <div className={classes.guildWearables}>
                                     {renderWaerables(guild)}

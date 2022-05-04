@@ -1,8 +1,8 @@
-import { Tooltip } from '@mui/material';
-
 import classNames from 'classnames';
 
+import CustomTooltip from 'components/custom/CustomTooltip';
 import WearableImage from 'components/Items/Wearable/WearableImage';
+import itemUtils from 'utils/itemUtils';
 
 import { guildWearables } from '../styles';
 
@@ -20,11 +20,16 @@ export default function GuildWearables({ tooltip, wearables, className }) {
     return (
         wearables.map(id =>
             tooltip !== undefined ? (
-                <Tooltip key={id} title='Guild wearable' followCursor placement='top'>
+                <CustomTooltip
+                    title={itemUtils.getItemNameById(id)}
+                    followCursor
+                    placement='top'
+                    key={id}
+                >
                     <span>
                         {renderWearableImage(id)}
                     </span>
-                </Tooltip>
+                </CustomTooltip>
             ) : (
                 renderWearableImage(id)
             )

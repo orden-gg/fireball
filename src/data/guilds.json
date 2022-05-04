@@ -128,7 +128,8 @@
             { "title": "Point of Contact", "text": "Hazelstar#7954" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/BlackpoolHQ", "discord": "https://discord.gg/ddUyu4F4pp" }
+        "socials": { "twitter": "https://twitter.com/BlackpoolHQ", "discord": "https://discord.gg/ddUyu4F4pp" },
+        "wearables": [310, 309, 311, 312, 253, 252, 254]
     },
     {
         "name": "Chigotchi Bulls",
@@ -199,7 +200,8 @@
             { "title": "Point of Contact", "text": "https://twitter.com/Mingkuan100" }
         ],
         "banner": "",
-        "socials": { "telegram": "https://t.me/cRekto_club", "discord": "https://discord.com/invite/w9SRJfFgnE" }
+        "socials": { "telegram": "https://t.me/cRekto_club", "discord": "https://discord.com/invite/w9SRJfFgnE" },
+        "wearables": [228, 229, 300]
     },
     {
         "name": "DeFi Alpha Gaming Guild",
@@ -262,7 +264,8 @@
             { "title": "Point of Contact", "text": "Gotchinomics#4936" }
         ],
         "banner": "ghost-squad-banner.png",
-        "socials": { "twitter": "https://twitter.com/gotchighstsquad", "discord": "https://discord.com/invite/JQHx9u8mcV", "youtube": "https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg" }
+        "socials": { "twitter": "https://twitter.com/gotchighstsquad", "discord": "https://discord.com/invite/JQHx9u8mcV", "youtube": "https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg" },
+        "wearables": [87]
     },
     {
         "name": "Gotchi FArmy Gang",
@@ -574,7 +577,8 @@
             { "title": "Point of Contact", "text": "Fantasma#1777" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/LosMustachos", "discord": "https://discord.com/invite/bnAKfeczhu" }
+        "socials": { "twitter": "https://twitter.com/LosMustachos", "discord": "https://discord.com/invite/bnAKfeczhu" },
+        "wearables": [146, 13, 157, 219, 209, 260]
     },
     {
         "name": "Metaguild",
@@ -710,7 +714,8 @@
             { "title": "Discord", "text": "https://discord.gg/TNneBnhrM2" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/WagmiWarriors", "discord": "https://discord.gg/TNneBnhrM2" }
+        "socials": { "twitter": "https://twitter.com/WagmiWarriors", "discord": "https://discord.gg/TNneBnhrM2" },
+        "wearables": [239, 240, 241, 76, 205]
     },
     { "name": "8bit Gamers Guild", "logo": "8gg.jpeg", "members": [] },
     {
@@ -729,7 +734,9 @@
     {
         "name": "Geistreich",
         "logo": "geistreich.png",
-        "members": ["0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f"],
+        "members": [
+            "0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f"
+        ],
         "description": [{ "title": "Description", "text": "Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature." }],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/GotchisGermany" }
