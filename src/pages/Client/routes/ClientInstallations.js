@@ -20,7 +20,7 @@ export default function ClientInstallations() {
                 <ItemsLazy
                     items={[...installations, ...tiles]}
                     component={props => {
-                        if(props.type === 'tile') {
+                        if (props.type === 'tile') {
                             return <Tile data={props} />
                         } else {
                             return <Installation data={props} />
