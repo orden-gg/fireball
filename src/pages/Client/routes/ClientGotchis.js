@@ -81,9 +81,7 @@ export default function ClientGotchis() {
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
-        return () => {
-            onResetFilters();
-        };
+        return () => onResetFilters();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -97,32 +95,16 @@ export default function ClientGotchis() {
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
-        setModifiedGotchis(modifiedGotchisCache => {
-            const activeFilters = Object.entries(currentFilters)
-                .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
-            let modifiedGotchis;
-
-            if (activeFilters.length > 0) {
-                if (isSortingChanged && !isFiltersApplied) {
-                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, modifiedGotchisCache);
-                } else if (isSortingChanged && isFiltersApplied) {
-                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, gotchis);
-                    modifiedGotchis = commonUtils.basicSort(modifiedGotchis, gotchisSorting.type, gotchisSorting.dir);
-                } else {
-                    modifiedGotchis = filtersUtils.getModifiedItems(currentFilters, gotchis);
-                }
-
-                setIsFiltersApplied(true);
-            } else {
-                if (isSortingChanged) {
-                    modifiedGotchis = commonUtils.basicSort(gotchis, gotchisSorting.type, gotchisSorting.dir);
-                } else {
-                    modifiedGotchis = gotchis;
-                }
-            }
-
-            return modifiedGotchis;
-        });
+        setModifiedGotchis(modifiedGotchisCache => filtersUtils.getFilteredSortedItems({
+            items: gotchis,
+            itemsCache: modifiedGotchisCache,
+            filters: currentFilters,
+            isFiltersApplied,
+            isFiltersAppliedSetter: setIsFiltersApplied,
+            sorting: gotchisSorting,
+            isSortingChanged,
+            getFilteredItems: filtersUtils.getFilteredItems
+        }));
     }, [currentFilters, gotchis, isFiltersApplied, isSortingChanged, gotchisSorting]);
 
     const applySorting = useCallback((prop, dir) => {

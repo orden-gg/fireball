@@ -84,9 +84,7 @@ export default function ClientLendings() {
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
-        return () => {
-            onResetFilters();
-        };
+        return () => onResetFilters();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -100,32 +98,16 @@ export default function ClientLendings() {
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
-        setModifiedLendings(modifiedLendingsCache => {
-            const activeFilters = Object.entries(currentFilters)
-                .filter(([currentKey, currentFilter]) => currentFilter.isFilterActive);
-            let modifiedLendings;
-
-            if (activeFilters.length > 0) {
-                if (isSortingChanged && !isFiltersApplied) {
-                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, modifiedLendingsCache);
-                } else if (isSortingChanged && isFiltersApplied) {
-                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, lendings);
-                    modifiedLendings = commonUtils.basicSort(modifiedLendings, lendingsSorting.type, lendingsSorting.dir);
-                } else {
-                    modifiedLendings = filtersUtils.getModifiedItems(currentFilters, lendings);
-                }
-
-                setIsFiltersApplied(true);
-            } else {
-                if (isSortingChanged) {
-                    modifiedLendings = commonUtils.basicSort(modifiedLendingsCache, lendingsSorting.type, lendingsSorting.dir);
-                } else {
-                    modifiedLendings = lendings;
-                }
-            }
-
-            return modifiedLendings;
-        });
+        setModifiedLendings(modifiedLendingsCache => filtersUtils.getFilteredSortedItems({
+            items: lendings,
+            itemsCache: modifiedLendingsCache,
+            filters: currentFilters,
+            isFiltersApplied,
+            isFiltersAppliedSetter: setIsFiltersApplied,
+            sorting: lendingsSorting,
+            isSortingChanged,
+            getFilteredItems: filtersUtils.getFilteredItems
+        }));
     }, [currentFilters, lendings, isFiltersApplied, isSortingChanged, lendingsSorting]);
 
     const applySorting = useCallback((prop, dir) => {
