@@ -219,8 +219,7 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
 
         addSelectedParcel(tokenId) {
             if (typeof tokenId !== 'number') {
-                this.highlight.destroy();
-                this.highlight = null;
+                this.highlight.remove();
                 this.selectedParcel = null;
                 setSelectedId(null);
             } else {
@@ -250,12 +249,8 @@ export default function CitadelScene({ setScene, setSelectedId, ownerParcels, wr
             let { x, y } = this.getParcelPosition(parcel);
             let { w, h } = this.getParcelSize(parcel);
 
-            if (this.highlight) this.highlight.update(x, y, w, h);
-
-            else {
-                this.highlight = new Highlight(this, x, y, w, h);
-                this.citadel.add(this.highlight);
-            }
+            this.highlight = new Highlight(this, x, y, w, h);
+            this.citadel.add(this.highlight);
         }
 
         addOwnerParcels(ownerParcels) {

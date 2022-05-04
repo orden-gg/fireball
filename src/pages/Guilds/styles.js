@@ -1,9 +1,5 @@
-
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
-import mapSvg from 'assets/images/icons/map.svg';
-import listSvg from 'assets/images/icons/list.svg';
 
 const keyframes = {
     move: {
@@ -30,11 +26,9 @@ const styles = makeStyles(theme => ({
         padding: theme.spacing(2),
         margin: 'auto',
         textAlign: 'right',
-
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(1.5)
         },
-
         [theme.breakpoints.down('sm')]: {
             padding: theme.spacing(1)
         }
@@ -48,11 +42,9 @@ const styles = makeStyles(theme => ({
         marginTop: 20,
         paddingRight: 20,
         textDecoration: 'none',
-
         '& span': {
             marginRight: 4,
         },
-
         '&:hover': {
             color: theme.palette.primary.dark,
         },
@@ -60,172 +52,226 @@ const styles = makeStyles(theme => ({
     guildsList: {
         padding: 0,
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(240px,1fr))',
-        gridGap: theme.spacing(7, 3),
-        marginTop: 40,
-
+        gridTemplateColumns: 'repeat(auto-fill, minmax(380px,1fr))',
+        gridGap: theme.spacing(3),
+        marginTop: theme.spacing(4),
         [theme.breakpoints.down('md')]: {
-            gridTemplateColumns: 'repeat(auto-fill, minmax(180px,1fr))',
-            gridGap: theme.spacing(4, 2),
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))',
+            gridGap: theme.spacing(2)
         },
-
         [theme.breakpoints.down('sm')]: {
-            gridTemplateColumns: 'repeat(auto-fill, minmax(164px,1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(200px,1fr))',
+            gridGap: theme.spacing(1)
         }
-    },
-    guildItem: {
-        textAlign: 'center',
     },
     guildButton: {
         color: theme.palette.text.primary,
         width: '100%',
         cursor: 'pointer',
         background: 'none',
-        border: 'none',
-        padding: 0,
-
+        padding: theme.spacing(0),
+        border: `2px solid ${theme.palette.primary.main}`,
+        backgroundColor: theme.palette.secondary.dark,
         '&:disabled': {
             opacity: .3,
             cursor: 'default'
-        },
-
-        '&:not([disabled]):hover': {
-            color: theme.palette.primary.main,
-
-            '& $guildLogo': {
-                transform: 'translateY(-8%)'
-            }
         }
+    },
+    guildBody: {
+        flex: '1 1 auto',
+        textAlign: 'left',
+        padding: theme.spacing(2),
+        position: 'relative',
+        zIndex: 1,
+        [theme.breakpoints.down('md')]: {
+            padding: theme.spacing(1)
+        },
     },
     guildName: {
         fontWeight: 700,
         transition: 'color .2s linear',
-        fontSize: 24,
-        margin: theme.spacing(2, 0, 0),
-
+        fontSize: 18,
+        lineHeight: 1.2,
+        margin: 0,
         [theme.breakpoints.down('md')]: {
-            fontSize: 22,
-            marginTop: theme.spacing(1.5)
+            fontSize: 14,
         },
-
         [theme.breakpoints.down('sm')]: {
-            fontSize: 18
+            fontSize: 12
         }
     },
     guildLogo: {
-        width: '80%',
-        margin: 'auto',
+        maxWidth: '30%',
+        minWidth: '30%',
+        minHeight: '100%',
         position: 'relative',
-        paddingBottom: '50%',
-        transition: 'transform .2s ease-out',
-
-        [theme.breakpoints.down('sm')]: {
-            width: '90%'
-        }
+        paddingBottom: '30%',
+        backgroundColor: '#000',
+        zIndex: 1
     },
     guildLogoImage: {
         position: 'absolute',
         left: '50%',
         top: '50%',
         transform: 'translate(-50%, -50%)',
-        maxWidth: '100%',
-        maxHeight: '100%',
-
+        maxWidth: '80%',
+        maxHeight: '80%',
         '&.placeholder': {
             color: alpha(theme.palette.secondary.dark, .7)
         }
+    },
+    guildInfoList: {
+        listStyle: 'none',
+        padding: 0,
+        textTransform: 'none',
+        marginTop: theme.spacing(1),
+        display: 'flex',
+        flexWrap: 'wrap'
+    },
+    guildInfoItem: {
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: theme.spacing(2),
+        marginBottom: theme.spacing(1),
+        [theme.breakpoints.down('md')]: {
+            marginRight: theme.spacing(1)
+        },
+    },
+    guildInfoItemIcon: {
+        width: 24,
+        maxWidth: 24,
+        maxHeight: 24,
+        [theme.breakpoints.down('md')]: {
+            width: 20,
+            maxWidth: 20,
+            maxHeight: 20
+        }
+    },
+    guildInfoAmountLoader: {
+        minWidth: 30,
+        [theme.breakpoints.down('md')]: {
+            minWidth: 20
+        }
+    },
+    guildInfoAmount: {
+        display: 'inline-block',
+        marginLeft: theme.spacing(1),
+        [theme.breakpoints.down('md')]: {
+            fontSize: 12,
+            marginLeft: theme.spacing(.5)
+        }
+    },
+    guildWearables: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    guildWearable: {
+        width: 24,
+        height: 24,
+        margin: theme.spacing(0, 1, .5, 0),
+        background: alpha('#000', .15),
+        borderRadius: 2
+    },
+    divider: {
+        width: '100%',
+        marginBottom: theme.spacing(1),
+        opacity: .5
     }
+}));
 
+const guildWearables = makeStyles(theme => ({
+    guildWearable: {
+        minHeight: 'auto',
+        position: 'relative',
+        '& img': {
+            maxHeight: '80%',
+            width: '80%',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }
+    }
 }));
 
 const guildStyles = makeStyles(theme => ({
     guildWrapper: {
-        position: 'relative'
+        position: 'relative',
+        display: 'flex',
+        minHeight: 'calc(100vh - 140px)',
+        backgroundColor: theme.palette.background.secondary,
+        [theme.breakpoints.down('sm')]: {
+            display: 'block'
+        }
+    },
+    guildSidebar: {
+        flexBasis: '25%',
+        minWidth: 180,
+        position: 'relative',
+        backgroundColor: theme.palette.background.default,
+        boxShadow: `5px 0 5px 0 ${theme.palette.secondary.dark}`,
+        paddingBottom: theme.spacing(4),
+        zIndex: 3,
+        [theme.breakpoints.down('md')]: {
+            maxWidth: '30%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            maxWidth: 'none',
+            paddingBottom: 0
+        }
+    },
+    guildContent: {
+        flexGrow: '1',
+        display: 'flex',
+        flexDirection: 'column'
     },
     backButton: {
         position: 'absolute',
-        left: theme.spacing(3),
-        top: theme.spacing(2),
-        zIndex: 1,
-
+        left: '100%',
+        top: theme.spacing(2.4),
+        marginLeft: theme.spacing(1),
+        zIndex: 4,
         [theme.breakpoints.down('md')]: {
-            left: theme.spacing(2),
-            top: theme.spacing(1),
+            width: 25,
+            height: 25
         },
-
         [theme.breakpoints.down('sm')]: {
             left: theme.spacing(1),
-            top: theme.spacing(.5),
+            top: theme.spacing(1),
         },
-
         '& .MuiSvgIcon-root': {
             fontSize: 30,
             transition: 'translate .2s ease',
-
+            [theme.breakpoints.down('md')]: {
+                fontSize: 20
+            },
             [theme.breakpoints.down('sm')]: {
                 fontSize: 24
             }
         },
-
         '&:hover': {
             color: theme.palette.primary.main
         }
-    },
-    backdrop: {
-        zIndex: theme.zIndex.appBar - 1,
-        color: '#fff'
-    },
-    backdropBox: {
-        width: 200,
-        animation: '3s ease infinite $bounce',
-
-        [theme.breakpoints.down('md')]: {
-            width: 120
-        }
-    },
-    backdropImage: {
-        width: '100%',
-        transition: '.5s linear',
-        willChange: 'transform, opacity',
-        color: theme.palette.secondary.dark,
-
-        '&.out': {
-            opacity: 0,
-            transform: 'scale(2)'
-        },
-    },
-    guildContent: {
-        background: theme.palette.background.secondary,
-        padding: theme.spacing(2, 0),
-        marginTop: theme.spacing(3),
-
-        [theme.breakpoints.down('md')]: {
-            marginTop: theme.spacing(2),
-        }
-    },
-    '@keyframes show': keyframes.show,
-    '@keyframes move': keyframes.move,
-    '@keyframes bounce': keyframes.bounce
+    }
 }));
 
 const guildBanner = makeStyles(theme => ({
     guildBanner: {
-        margin: 'auto',
-        padding: theme.spacing(5, 1, 5),
-        minHeight: '25vh',
+        minHeight: '30%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
-
         [theme.breakpoints.down('sm')]: {
-            padding: theme.spacing(3, 1, 2.5)
+            position: 'relative'
         }
     },
-    guildBannerIs: {
-        position: 'relative',
+    guildBannerBg: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        right: 0,
+        bottom: 0,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-
         '&:before': {
             content: '""',
             position: 'absolute',
@@ -237,9 +283,18 @@ const guildBanner = makeStyles(theme => ({
         }
     },
     guildBannerInner: {
-        maxWidth: 1200,
-        margin: 'auto',
-        width: '100%'
+        padding: theme.spacing(2, 3),
+        position: 'relative',
+        flexGrow: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        [theme.breakpoints.down('sm')]: {
+            paddingBottom: theme.spacing(1),
+            position: 'static',
+            padding: theme.spacing(2, 1)
+        }
     },
     guildBannerTop: {
         display: 'flex',
@@ -247,228 +302,126 @@ const guildBanner = makeStyles(theme => ({
         alignItems: 'center',
     },
     guildBannerText: {
-        fontSize: 24,
-        flexGrow: 1,
-        width: '100%',
-
-        [theme.breakpoints.down('md')]: {
-            fontSize: 20
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 14
-        }
+        fontSize: 14
     },
     guildLogo: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        margin: theme.spacing(0, 6),
-        minWidth: 260,
         transform: 'translateY(-10%)',
         opacity: 0,
         animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
-
-        [theme.breakpoints.down('md')]: {
-            minWidth: 170,
-            margin: theme.spacing(0, 3),
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            minWidth: 100,
-            margin: theme.spacing(0, 1)
-        }
     },
     guildLogoImage: {
-        maxHeight: 160,
-
-        [theme.breakpoints.down('md')]: {
-            maxHeight: 130
-        },
-
-        [theme.breakpoints.down('md')]: {
-            maxHeight: 85
-        },
-
+        maxHeight: 85,
         '&.placeholder': {
             color: theme.palette.secondary.dark
-        }
-    },
-    guildMembers: {
-        textAlign: 'right',
-        transform: 'translateX(-50px)',
-        opacity: 0,
-        animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
-
-        '& span': {
-            color: theme.palette.primary.main,
-            marginLeft: theme.spacing(2),
-
-            [theme.breakpoints.down('md')]: {
-                marginLeft: theme.spacing(1)
-            }
-        }
-    },
-    guildGotchis: {
-        transform: 'translateX(50px)',
-        opacity: 0,
-        animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
-
-        '& span': {
-            color: theme.palette.primary.main,
-            marginRight: theme.spacing(2),
-
-            [theme.breakpoints.down('md')]: {
-                marginRight: theme.spacing(1)
-            }
         }
     },
     guildName: {
         textAlign: 'center',
         color: theme.palette.primary.main,
-        fontSize: 46,
+        fontSize: 24,
         opacity: 0,
         animation: '1s ease .5s forwards $show',
         lineHeight: 1.2,
-        marginTop: theme.spacing(3),
-        padding: theme.spacing(0, 2),
-
-        [theme.breakpoints.down('md')]: {
-            fontSize: 32,
-            marginTop: theme.spacing(1)
-        },
-
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 24
-        },
-    },
-    guildSocials: {
-        display: 'flex',
-        justifyContent: 'center',
         marginTop: theme.spacing(1),
-        opacity: 0,
-        animation: '1s ease .8s forwards $show',
-    },
-    guildSocialButton: {
-        marginLeft: theme.spacing(1),
-
-        [theme.breakpoints.down('sm')]: {
-            width: 30,
-            height: 30,
-            padding: 5,
-            marginLeft: theme.spacing(1)
-        },
-
-        '&:hover': {
-            color: theme.palette.primary.main
+        [theme.breakpoints.down('md')]: {
+            fontSize: 18
         }
     },
-    guildSocialIcon: {
-
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 20
+    buttonPrev: {
+        position: 'absolute',
+        top: '50%',
+        left: theme.spacing(1),
+        transform: 'translateY(-50%) scaleX(-1)',
+        [theme.breakpoints.down('md')]: {
+            width: 24,
+            height: 24,
+            '& .MuiSvgIcon-root': {
+                fontSize: 16
+            }
+        }
+    },
+    buttonNext: {
+        position: 'absolute',
+        top: '50%',
+        right: theme.spacing(1),
+        transform: 'translateY(-50%)',
+        [theme.breakpoints.down('md')]: {
+            width: 24,
+            height: 24,
+            '& .MuiSvgIcon-root': {
+                fontSize: 16
+            }
         }
     },
     '@keyframes show': keyframes.show,
     '@keyframes move': keyframes.move
 }));
 
-const guildDetailsStyles = makeStyles(theme => ({
-    detailsWrapper: {
-        background: 'none',
-        boxShadow: 'none',
-        maxWidth: 1200,
-        margin: `${theme.spacing(3)} auto`,
-        opacity: 0,
-        animation: '2s ease-out 1s forwards $show',
-        display: 'flex',
-        flexDirection: 'column',
-
-        [theme.breakpoints.down('md')]: {
-            margin: `${theme.spacing(2)} auto`,
-        },
-
-        '&.Mui-expanded': {
-            margin: `${theme.spacing(3)} auto`,
-
-            [theme.breakpoints.down('md')]: {
-                margin: `${theme.spacing(2)} auto`,
-            },
-
-            '&:last-of-type': {
-                marginBottom: theme.spacing(3),
-
-                [theme.breakpoints.down('md')]: {
-                    marginBottom: theme.spacing(2)
-                },
-
-            }
-        },
-
-        '&:before': {
-            content: 'none'
-        },
-
-        '& .MuiCollapse-root': {
-            padding: theme.spacing(0, 2),
-
-            [theme.breakpoints.down('md')]: {
-                padding: theme.spacing(0, 1.5)
-            },
-
-            [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(0, 1)
-            }
+const guildSocialsStyles = makeStyles(theme => ({
+    guildSocials: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 10,
+        textAlign: 'center',
+        [theme.breakpoints.down('sm')]: {
+            position: 'static'
         }
     },
-    detailsHead: {
-        minHeight: 'auto',
-        fontSize: 15,
-        display: 'inline-flex',
-        margin: '0 auto',
-        position: 'relative',
-
+    guildSocialButton: {
+        margin: theme.spacing(0, 1),
         [theme.breakpoints.down('md')]: {
-            fontSize: 13
+            width: 30,
+            height: 30,
+            padding: 5,
+            margin: theme.spacing(0, .5)
         },
-
-        [theme.breakpoints.down('sm')]: {
-            fontSize: 12
-        },
-
-        '&:after': {
-            content: '""',
-            position: 'absolute',
-            bottom: 0,
-            left: '50%',
-            right: '50%',
-            height: 1,
-            backgroundColor: theme.palette.text.primary,
-            transition: '.1s linear'
-        },
-
-        '&:hover:after': {
-            left: theme.spacing(2),
-            right: theme.spacing(2),
-        },
-
-        '&.Mui-expanded': {
-            minHeight: 'auto',
-        },
-
-        '& .MuiAccordionSummary-content': {
-            margin: `0 ${theme.spacing(1)} 0 0`
+        '&:hover': {
+            color: theme.palette.primary.main
         }
+    },
+    guildSocialIcon: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 20
+        }
+    }
+}));
+
+const guildDetailsStyles = makeStyles(theme => ({
+    detailsButton: {
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12,
+            padding: '2px 5px'
+        }
+    },
+    detailsWrapper: {
+        margin: theme.spacing(3, 0),
+        opacity: 0,
+        animation: '2s ease-out 1s forwards $show',
+        textAlign: 'center',
+        [theme.breakpoints.down('md')]: {
+            margin: theme.spacing(2, 0)
+        },
+        [theme.breakpoints.down('sm')]: {
+            position: 'absolute',
+            right: 10,
+            top: 10,
+            margin: 0
+        }
+    },
+    detailsModal: {
+        width: 800
     },
     detailsArrow: {
         fontSize: 24,
         margin: '0 -6px',
-
         [theme.breakpoints.down('md')]: {
             fontSize: 22,
             margin: '0 -5px',
         },
-
         [theme.breakpoints.down('sm')]: {
             fontSize: 18,
             margin: '0 -4px',
@@ -479,13 +432,11 @@ const guildDetailsStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         borderRadius: theme.spacing(1.5),
         padding: theme.spacing(4, 6),
-
         [theme.breakpoints.down('md')]: {
             marginTop: theme.spacing(2),
             borderRadius: theme.spacing(1),
             padding: theme.spacing(3)
         },
-
         [theme.breakpoints.down('sm')]: {
             padding: theme.spacing(2)
         }
@@ -496,10 +447,8 @@ const guildDetailsStyles = makeStyles(theme => ({
         margin: 0
     },
     detailsItem: {
-
         '& + $detailsItem': {
             marginTop: theme.spacing(4),
-
             [theme.breakpoints.down('md')]: {
                 marginTop: theme.spacing(3)
             }
@@ -510,22 +459,18 @@ const guildDetailsStyles = makeStyles(theme => ({
         fontSize: 26,
         margin: 0,
         color: theme.palette.primary.main,
-
         [theme.breakpoints.down('md')]: {
             fontSize: 22
         },
-
         [theme.breakpoints.down('sm')]: {
             fontSize: 18
         }
     },
     detailBody: {
         marginTop: theme.spacing(1.5),
-
         [theme.breakpoints.down('md')]: {
             marginTop: theme.spacing(1)
         },
-
         [theme.breakpoints.down('sm')]: {
             marginTop: theme.spacing(.5)
         }
@@ -537,28 +482,28 @@ const guildDetailsStyles = makeStyles(theme => ({
             fontSize: 14
         }
     },
+    guildWearables: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    guildWearable: {
+        width: 30,
+        height: 20,
+        margin: theme.spacing(1)
+    },
     '@keyframes show': keyframes.show
 }));
 
 const guildContentStyles = makeStyles(theme => ({
     guildGotchis: {
-        padding: theme.spacing(2),
-        maxWidth: 1920,
-        margin: 'auto',
-        gap: theme.spacing(2),
-        gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-        display: 'grid',
-    },
-    guildRealm: {
-        display: 'grid',
-        alignItems: 'start',
-        gap: theme.spacing(2),
-        padding: theme.spacing(2),
-        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
-        gridAutoRows: '1fr',
-    },
-    guildRealmItem: {
-        height: '100%'
+        height: '100%',
+        paddingLeft: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        [theme.breakpoints.down('sm')]: {
+            height: '80vh',
+            paddingRight: theme.spacing(2)
+        }
     },
     memberName: {
         textAlign: 'center'
@@ -592,149 +537,49 @@ const guildContentStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(2)
     },
     guildCitadel: {
-        height: 600,
-        margin: theme.spacing(2, 5),
+        height: '100%',
         position: 'relative',
-
+        maxWidth: '100%',
+        margin: theme.spacing(0, 2),
+        zIndex: 2,
         '& .citadel-interface': {
             top: 30
         },
-
-        [theme.breakpoints.up('hd')]: {
-            height: 900,
-            maxWidth: 1900,
-            margin: theme.spacing(2, 'auto')
-        },
-
-        [theme.breakpoints.down('md')]: {
-            height: 400,
-            margin: theme.spacing(1, 3)
-        },
-
         [theme.breakpoints.down('sm')]: {
-            height: 300,
-            margin: theme.spacing(.5, 2),
-
+            paddingBottom: '60%',
+            margin: 0,
             '& .citadel-interface': {
                 top: 10,
                 right: 5
             }
         }
+    },
+    loading: {
+        margin: 'auto'
+    },
+    noData: {
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }));
 
 const guildNavStyles = makeStyles(theme => ({
-    container: {
-        margin: theme.spacing(1, 0),
+    guildNav: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexWrap: 'wrap',
         position: 'relative',
-        zIndex: 1,
-        alignSelf: 'center'
-    },
-    navItem: {
-        margin: 4,
-        position: 'relative'
-    },
-    button: {
-        paddingRight: 12,
-        paddingLeft: 12,
-        color: '#fff',
-        border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
-        backgroundColor: alpha(theme.palette.secondary.dark, .4),
-        '&:hover': {
-            backgroundColor: theme.palette.secondary.dark,
-        },
-        '&.Mui-disabled': {
-            backgroundColor: alpha(theme.palette.secondary.dark, .2),
-            borderColor: alpha(theme.palette.secondary.light, .2),
-            color: alpha('#fff', .3)
-        },
-        '&.active, &.active:hover': {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.secondary.main,
-            '&.Mui-disabled': {
-                backgroundColor: alpha(theme.palette.primary.main, .1),
-                color: alpha('#fff', .2),
-            },
-        }
-    },
-    label: {
-        fontSize: 14,
-        fontWeight: 600,
-        color: theme.palette.primary.main,
-        marginLeft: 8,
-
-        '.Mui-disabled &': {
-            opacity: .4
-        },
-
-        '.active &, .active:hover &': {
-            color: theme.palette.secondary.main
-        },
-
-        'Mui-disabled.active &, Mui-disabled.active:hover &': {
-            color: theme.palette.primary.main
-        }
-    },
-    buttonLoader: {
-        width: 28,
-        height: 14,
-        marginLeft: 8
-    },
-
-    realmViewSwitch: {
-        position: 'absolute',
-        left: '100%',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        visibility: 'hidden',
-        opacity: 0,
-        transition: '.5s ease-in-out',
-        width: 62,
-        height: 34,
-        padding: 7,
-        willChange: 'opacity, transform',
-
-        '& .MuiSwitch-switchBase': {
-            margin: 1,
-            padding: 0,
-            transform: 'translateX(6px)',
-            '&.Mui-checked': {
-                color: '#fff',
-                transform: 'translateX(22px)',
-                '& .MuiSwitch-thumb:before': {
-                    backgroundImage: `url(${mapSvg})`,
-                }
-            },
-        },
-        '& .MuiSwitch-thumb': {
-            width: 32,
-            height: 32,
-            '&:before': {
-                content: "''",
-                position: 'absolute',
-                width: '80%',
-                height: '80%',
-                left: '10%',
-                top: '10%',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                backgroundImage: `url(${listSvg})`,
-            },
-        },
-        '& .MuiSwitch-track': {
-            borderRadius: 20 / 2
-        },
-        '& .Mui-checked+.MuiSwitch-track': {
-            backgroundColor: '#fff'
-        },
-        '.active + &': {
-            marginLeft: theme.spacing(2),
-            opacity: 1,
-            visibility: 'visible'
+        zIndex: 2,
+        alignSelf: 'center',
+        padding: theme.spacing(2, 0, 1.5),
+        margin: 0,
+        width: '100%',
+        boxShadow: `0 10px 8px ${theme.palette.background.secondary}`,
+        [theme.breakpoints.down('md')]: {
+            padding: theme.spacing(1, 0, .7)
         }
     }
 }));
@@ -745,5 +590,7 @@ export {
     guildBanner,
     guildDetailsStyles,
     guildContentStyles,
-    guildNavStyles
+    guildNavStyles,
+    guildSocialsStyles,
+    guildWearables
 }

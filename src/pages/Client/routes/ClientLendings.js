@@ -7,6 +7,7 @@ import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon }
 import ContentInner from 'components/Content/ContentInner';
 import LazySorting from 'components/Filters/LazySorting';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
+import Gotchi from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 
 const sortings = [
@@ -79,32 +80,37 @@ export default function ClientLendings() {
             <ContentInner dataLoading={loadingLendings}>
                 <GotchisLazy
                     items={lendings}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'kinship'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        {
-                            flipContainer: [
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={lendings[id]}
+                            render={[
                                 {
-                                    flipBack: [
-                                        'traits',
-                                        'wearablesLine',
-                                        'listing'
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'kinship'
                                     ]
                                 },
+                                'svg',
+                                'name',
                                 {
-                                    flipFront: ['lendingStats']
-                                }
-                            ]
-                        },
-                        'flipButton'
-                    ]}
+                                    flipContainer: [
+                                        {
+                                            flipBack: [
+                                                'traits',
+                                                'wearablesLine',
+                                                'listing'
+                                            ]
+                                        },
+                                        {
+                                            flipFront: ['lendingStats']
+                                        }
+                                    ]
+                                },
+                                'flipButton'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>

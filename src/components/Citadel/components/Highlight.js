@@ -14,4 +14,8 @@ export default class Highlight extends Phaser.GameObjects.Rectangle {
         this.setSize(w, h);
         this.setPosition(x, y);
     }
+
+    remove() {
+        this.destroy();
+    }
 }

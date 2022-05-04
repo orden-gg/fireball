@@ -8,12 +8,12 @@ import thegraphApi from 'api/thegraph.api';
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
-export default function GuildGotchis() {
+export default function GuildLendings() {
     const classes = guildContentStyles();
 
-    const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext(GuildsContext);
+    const { guildId, guilds, guildLendings, setGuildLendings } = useContext(GuildsContext);
 
-    const [isGotchisLoading, setIsGotchisLoading] = useState(false);
+    const [isLendingsLoading, setIsLendingsLoading] = useState(false);
 
     useEffect(() => {
         let mounted = true;
@@ -22,27 +22,31 @@ export default function GuildGotchis() {
             return;
         }
 
-        setIsGotchisLoading(true);
+        setIsLendingsLoading(true);
 
-        thegraphApi.getGotchisByAddresses(guilds[guildId].members).then(gotchis => {
+        const promises = guilds[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
+
+        Promise.all(promises).then(responses => {
             if (mounted) {
-                setGuildGotchis(gotchis);
+                const lendings = responses.reduce((result, current) => result.concat(current), []);
+
+                setGuildLendings(lendings);
             }
-        }).finally(() => setIsGotchisLoading(false));
+        }).finally(() => setIsLendingsLoading(false));
 
         return () => mounted = false;
-    }, [guilds, guildId, setGuildGotchis]);
+    }, [guilds, guildId, setGuildLendings]);
 
     return (
         <div className={classes.guildGotchis}>
-            {isGotchisLoading ? (
+            {isLendingsLoading ? (
                 <CircularProgress className={classes.loading} />
-            ) : guildGotchis.length > 0 ? (
+            ) : guildLendings?.length > 0 ? (
                     <GotchisLazy
-                        items={guildGotchis}
+                        items={guildLendings}
                         renderItem={id => (
                             <Gotchi
-                                gotchi={guildGotchis[id]}
+                                gotchi={guildLendings[id]}
                                 className='narrowed'
                                 render={[
                                     'svg',
@@ -52,7 +56,7 @@ export default function GuildGotchis() {
                         )}
                     />
                 ) : (
-                    <div className={classes.noData}>No Gotchis :(</div>
+                    <div className={classes.noData}>No Gotchi Lendings :(</div>
                 )
             }
         </div>
