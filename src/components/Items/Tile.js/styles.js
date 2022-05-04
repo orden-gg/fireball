@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     tile: {
         textAlign: 'center',
         padding: theme.spacing(4, 1.5, 4.5),
-        backgroundColor: alpha(theme.palette.rarity.legendary, .1),
+        backgroundColor: alpha(theme.palette.realm.golden, .1),
         borderRadius: theme.spacing(1),
         position: 'relative'
     },

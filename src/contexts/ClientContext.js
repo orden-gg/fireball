@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
 import installationsApi from 'api/installations.api';
@@ -67,8 +67,8 @@ const ClientContextProvider = (props) => {
             items: warehouse.length
         },
         {
-            name: 'realmcraft',
-            icon: <KekIcon width={24} height={24} alt='realm' />,
+            name: 'installations',
+            icon: <AnvilIcon width={24} height={24} alt='realm' />,
             loading: loadingInstallations || loadingTiles,
             items: installations.length + tiles.length
         },

@@ -70,6 +70,9 @@ export default makeStyles(theme => ({
         '&.spacious': {
             color: theme.palette.realm.spacious
         },
+        '&.golden': {
+            color: theme.palette.realm.golden
+        },
         '&.partner': {
             color: theme.palette.realm.partner
         },

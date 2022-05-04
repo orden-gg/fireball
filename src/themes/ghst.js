@@ -35,7 +35,8 @@ const theme = createTheme({
             humble: '#6c4bfb',
             reasonable: '#119773',
             spacious: '#8840b7',
-            partner: '#bf91ff'
+            partner: '#bf91ff',
+            golden: '#ffc36b'
         },
         alchemica: {
             fud: 'rgb(0, 255, 0)',

@@ -13,7 +13,7 @@ export default function Tile({ data }) {
             <CardName
                 item={data}
                 itemName={data.name}
-                itemRarity='legendary'
+                itemRarity='golden'
             />
         </div>
     )
