@@ -13,6 +13,20 @@ export default {
         });
     },
 
+    getUpdatedQueryParams: (queryParams, filters) => {
+        const params = {...queryParams};
+
+        Object.entries(filters).forEach(([key, filter]) => {
+            if (filter.isFilterActive) {
+                params[key] = filter.getQueryParamsFn(filter);
+            } else {
+                delete params[key];
+            }
+        });
+
+        return params;
+    },
+
     getUpdatedFiltersFromSelectedFilters: (selectedFilters, filters) => {
         const currentFiltersCopy = {...filters};
 

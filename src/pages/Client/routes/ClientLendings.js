@@ -134,15 +134,7 @@ export default function ClientLendings() {
     }, [currentFilters]);
 
     const updateQueryParams = useCallback(filters => {
-        const params = {...queryParams};
-
-        Object.entries(filters).forEach(([key, filter]) => {
-            if (filter.isFilterActive) {
-                params[key] = filter.getQueryParamsFn(filter);
-            } else {
-                delete params[key];
-            }
-        });
+        const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
         history.push({
             path: location.pathname,
