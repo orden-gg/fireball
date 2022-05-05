@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0" y="0" viewBox="0 0 225 126" style="enable-background:new 0 0 225 126" xml:space="preserve">
+  <style>
+    .st0{fill:#111f36}.st4{fill:#3f5984}.st6{fill:#5f7dac}.st8{fill:#2d4e85}
+  </style>
+  <path class="st0" d="M59 90h18v9H59v-9z"/>
+  <path style="fill:#b87d00" d="M59 99h117v27H59z"/>
+  <path class="st0" d="M0 27h225v9H0v-9z"/>
+  <path class="st0" d="M216 18V9h-40 18V0H50v9H27v9H9v27h18v9h14v9h9v9h27v18H59v9h117v-9h-18V72h18v-9h18v-9h9.5v-9H225V18z"/>
+  <path style="fill:#618cd1" d="M194 18h22v9h-22z"/>
+  <path style="fill:#8bace1" d="M50 9v9H27v9h167V9z"/>
+  <path class="st4" d="M9 27v9h27v9h180V27z"/>
+  <path d="M41 45h135v18H41v-9h-5v-9h5z" style="fill:#274069"/>
+  <path class="st6" d="M194 18H50v36h135V36h9z"/>
+  <path d="M185 45h18v9h-18zM50 54h18v9H50zm18 9h90v9H68z" style="fill:#102a54"/>
+  <path class="st4" d="M86 72h63v18H86z"/>
+  <path class="st8" d="M77 90h81v9H77z"/>
+  <path class="st6" d="M86 90h72v9H86z"/>
+  <path class="st8" d="M122 72h27v9h-27z"/>
+  <path style="fill:#314361" d="M104 72h27v9h-27z"/>
+  <path style="fill:#9d6b00" d="M50 108h135v18H50z"/>
+  <path style="fill:#c28708" d="M95 108h45v9H95z"/>
+  <path d="M167 108h18v9h-18v-9zm-117 0h18v9H50v-9z" style="fill:#975304"/>
+  <path style="fill:#de9c0e" d="M104 99h9v9h-9z"/>
+  <path d="M158 99h18v9h-18v-9zm-99 0h21v9H59v-9z" style="fill:#7c4b00"/>
+  <path style="fill:#ac790b" d="M167 117v-9h-18v9h-23v9h50v-9z"/>
+</svg>

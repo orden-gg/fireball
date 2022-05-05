@@ -7,6 +7,8 @@ import TicketImage from './TicketImage';
 import CardName from '../common/CardName/CardName';
 
 export default function Ticket({ ticket, isShopItem }) {
+    const ticketRarity = ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId);
+
     return (
         <ERC1155 item={{
             id: typeof ticket.id === 'number' ? ticket.id : parseInt(ticket.erc1155TypeId),
@@ -24,8 +26,8 @@ export default function Ticket({ ticket, isShopItem }) {
             <TicketImage ticket={ticket} />
             <CardName
                 item={ticket}
-                itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
-                itemRarity='drop'
+                itemName={`${ticketRarity} ticket`}
+                itemRarity={ticketRarity}
             />
         </ERC1155>
     )
