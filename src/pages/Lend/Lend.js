@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -84,12 +84,17 @@ export default function Lend() {
     const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
     const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
 
+    const onSortingChanged = useCallback((prop, dir) => {
+        const sortedLendings = commonUtils.basicSort(lendings, prop, dir);
+
+        setLendings(sortedLendings);
+    }, [lendings]);
+
     const sorting = {
-        items: lendings,
-        setItems: setLendings,
         sortingList: sortings,
         sortingDefaults: lendingsSorting,
-        setSorting: setLendingsSorting
+        setSorting: setLendingsSorting,
+        onSortingChanged: onSortingChanged
     };
 
     useEffect(() => {
