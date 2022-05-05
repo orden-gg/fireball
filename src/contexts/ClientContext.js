@@ -229,35 +229,35 @@ const ClientContextProvider = (props) => {
 
     const getInstallations = (address) => {
         installationsApi.getInstallationsByAddress(address).then(response => {
-            setInstallations(
-                response.map(item => {
-                    const id = ethersApi.formatBigNumber(item.installationId._hex);
+            const installations = response.map(item => {
+                const id = ethersApi.formatBigNumber(item.installationId._hex);
 
-                    return {
-                        type: 'instalation',
-                        name: installationsUtils.getNameById(id),
-                        balance: ethersApi.formatBigNumber(item.balance._hex),
-                        id: id
-                    }
-                })
-            );
+                return {
+                    type: 'instalation',
+                    name: installationsUtils.getNameById(id),
+                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    id: id
+                }
+            });
+
+            setInstallations(installations);
         }).finally(() => setLoadingInstallations(false));
     };
 
     const getTiles = (address) => {
         tilesApi.getTilesByAddress(address).then(response => {
-            setTiles(
-                response.map(item => {
-                    const id = ethersApi.formatBigNumber(item.tileId._hex);
+            const tiles = response.map(item => {
+                const id = ethersApi.formatBigNumber(item.tileId._hex);
 
-                    return {
-                        type: 'tile',
-                        name: tilesUtils.getNameById(id),
-                        balance: ethersApi.formatBigNumber(item.balance._hex),
-                        id: id
-                    }
-                })
-            );
+                return {
+                    type: 'tile',
+                    name: tilesUtils.getNameById(id),
+                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    id: id
+                }
+            });
+
+            setTiles(tiles);
         }).finally(() => setLoadingTiles(false));
     };
 

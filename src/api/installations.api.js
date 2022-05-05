@@ -7,7 +7,7 @@ const installationsContract = ethersApi.makeContract(INSTALLATION_CONTRACT, INST
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async getInstallationsByAddress(address) {
-        return await installationsContract.installationsBalances(address).then(response => response);
+    getInstallationsByAddress(address) {
+        return installationsContract.installationsBalances(address);
     }
 }

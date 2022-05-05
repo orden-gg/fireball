@@ -7,7 +7,7 @@ const tilesContract = ethersApi.makeContract(TILES_CONTRACT, TILES_ABI, 'polygon
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async getTilesByAddress(address) {
-        return await tilesContract.tilesBalances(address).then(response => response);
+     getTilesByAddress(address) {
+        return tilesContract.tilesBalances(address);
     }
 }
