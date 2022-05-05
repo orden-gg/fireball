@@ -1,6 +1,9 @@
 const tiles = {
     1: {
-        'name': 'LE Golden Tile'
+        'name': 'LE Golden Tile- Gotchiverse'
+    },
+    2: {
+        'name': 'LE Golden Tile - Portal'
     }
 };
 

@@ -5,6 +5,9 @@ export default makeStyles(theme => ({
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
+        '.instalation &, .tile &': {
+            whiteSpace: 'normal'
+        },
         '& p': {
             textOverflow: 'ellipsis',
             overflow: 'hidden',

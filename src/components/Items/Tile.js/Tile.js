@@ -8,12 +8,15 @@ import TileImage from './TileImage';
 export default function Tile({ data }) {
 
     return (
-        <ERC1155 item={{
-            id: data.id,
-            rarity: 'legendary',
-            category: Erc1155Categories.Tile,
-            balance: data.balance
-        }}>
+        <ERC1155
+            className='tile'
+            item={{
+                id: data.id,
+                rarity: 'golden',
+                category: Erc1155Categories.Tile,
+                balance: data.balance
+            }}
+        >
             <TileImage data={data} />
             <CardName
                 item={data}

@@ -16,7 +16,7 @@ import commonUtils from 'utils/commonUtils';
 
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
-export default function ERC1155({ children, item }) {
+export default function ERC1155({ children, item, className }) {
     const classes = {
         ...itemStyles(),
         ...styles(),
@@ -59,7 +59,7 @@ export default function ERC1155({ children, item }) {
     }, [item]);
 
     return (
-        <div className={classNames(classes.item, item.rarity, item.tooltip ? classes.tooltip : '')}>
+        <div className={classNames(classes.item, item.rarity, item.tooltip ? classes.tooltip : '', className)}>
 
             {(item.balance || item.priceInWei) ? (
                 <div className={classes.labels}>

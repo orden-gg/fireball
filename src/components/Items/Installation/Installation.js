@@ -9,12 +9,15 @@ import InstallationImage from './InstallationImage';
 export default function Installation({ data }) {
 
     return (
-        <ERC1155 item={{
-            id: data.id,
-            rarity: 'legendary',
-            category: Erc1155Categories.Realm,
-            balance: data.balance
-        }}>
+        <ERC1155
+            className= 'installation'
+            item={{
+                id: data.id,
+                rarity: 'golden',
+                category: Erc1155Categories.Realm,
+                balance: data.balance
+            }}
+        >
             <InstallationImage data={data} />
             <CardName
                 item={data}
