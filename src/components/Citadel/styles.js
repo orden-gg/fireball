@@ -10,8 +10,7 @@ const keyframes = {
 
 const styles = makeStyles(theme => ({
     citadel: {
-        position: 'relative',
-
+        position: 'absolute',
         '& canvas': {
             display: 'block'
         }
@@ -26,7 +25,6 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-around',
         background: '#110121',
         transition: '.2s linear',
-
         '&.is-loaded': {
             opacity: 0,
             visibility: 'hidden'
@@ -79,11 +77,11 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        width: 1
+        width: 1,
+        zIndex: 1
     },
     citadelInterfaceButton: {
         margin: theme.spacing(.2, 0),
-
         '&:hover': {
             color: theme.palette.primary.main
         }
@@ -94,7 +92,6 @@ const styles = makeStyles(theme => ({
     },
     citadelSearchField: {
         width: 150,
-
         '& .MuiInput-input': {
             textAlign: 'right',
             fontSize: 14

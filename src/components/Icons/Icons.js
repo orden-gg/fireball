@@ -18,12 +18,15 @@ import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
+import logoMobile from 'assets/images/icons/logo-mobile.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
 import sold from 'assets/images/icons/sold.svg';
+import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
+import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 
 // portals
 import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
@@ -76,8 +79,8 @@ export const FomoIcon = ({ width, height }) => {
     return <img width={width} height={height} src={fomo} alt='fomo' />;
 };
 
-export const FudIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={fud} alt='fud' />;
+export const FudIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={fud} alt='fud' />;
 };
 
 export const ConsumableIcon = ({ width, height }) => {
@@ -90,6 +93,10 @@ export const DiscordIcon = ({ className, width, height }) => {
 
 export const GotchiIcon = ({ className, width, height }) => {
     return <img className={className} width={width} height={height} src={gotchi} alt='gotchi' />;
+};
+
+export const LendingIcon = ({ className, width, height }) => {
+    return <Lending className={className} width={width} height={height} alt='lending' />;
 };
 
 export const KekIcon = ({ width, height, alt }) => {
@@ -108,8 +115,8 @@ export const RareTicketIcon = ({ width, height }) => {
     return <img width={width} height={height} src={rareTicket} alt='ticket' />;
 };
 
-export const WarehouseIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={warehouse} alt='warehouse' />;
+export const WarehouseIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={warehouse} alt='warehouse' />;
 };
 
 // portals
@@ -154,8 +161,12 @@ export const ListingIcon = ({ width, height }) => {
     return <img width={width} height={height} src={listing} alt='listing' />;
 };
 
-export const LogoIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={logo} alt='logo' />;
+export const LogoIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={logo} alt='logo' />;
+};
+
+export const MobileLogoIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={logoMobile} alt='logo part' />;
 };
 
 export const MetamaskIcon = ({ className, width, height }) => {
@@ -168,4 +179,8 @@ export const PurchaseIcon = ({ width, height }) => {
 
 export const SoldIcon = ({ width, height }) => {
     return <img width={width} height={height} src={sold} alt='sold' />;
+};
+
+export const FiregemIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={firegem} alt='sold' />;
 };

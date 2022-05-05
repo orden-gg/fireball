@@ -88,14 +88,15 @@ export default function Client() {
                         <PageNav
                             links={navData}
                             query={`?address=${clientActive}`}
-                        />
-                        <Button
-                            href={`/shop?address=${clientActive}`}
-                            target='_blank'
-                            className={classes.shopBtn}
                         >
-                            <BaazarIcon width={24} height={24} />
-                        </Button>
+                            <Button
+                                href={`/shop?address=${clientActive}`}
+                                target='_blank'
+                                className={classes.shopBtn}
+                            >
+                                <BaazarIcon width={24} height={24} />
+                            </Button>
+                        </PageNav>
                     </div>
 
                     <Switch>

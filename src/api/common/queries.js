@@ -43,6 +43,7 @@ export const gotchiByIdQuery = (id) => {
   return `{
     aavegotchi(id: ${id}) {
       id
+      hauntId
       name
       numericTraits
       equippedWearables
@@ -475,6 +476,14 @@ export const lendingsByAddressQuery = (address, skip) => {
             baseRarityScore
             modifiedRarityScore
             escrow
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            withSetsRarityScore
+            equippedWearables
+            possibleSets
+            equippedSetID
+            equippedSetName
         }
         lender
         borrower

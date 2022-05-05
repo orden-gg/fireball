@@ -11,6 +11,7 @@ import qs from 'query-string';
 
 import ContentInner from 'components/Content/ContentInner';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
+import Gotchi from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
@@ -181,23 +182,28 @@ export default function ClientGotchis() {
             <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
                     items={getGotchis()}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'skillpoints',
-                                'kinship',
-                                'level'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'traits',
-                        'wearablesLine',
-                        'listing',
-                        'rewards'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={getGotchis()[id]}
+                            render={[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'skillpoints',
+                                        'kinship',
+                                        'level'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                'traits',
+                                'wearablesLine',
+                                'listing',
+                                'rewards'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>

@@ -1,4 +1,4 @@
-import guilds from 'data/guilds';
+import guilds from 'data/guilds.json';
 
 import commonUtils from './commonUtils';
 

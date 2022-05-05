@@ -10,6 +10,7 @@ import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon }
 import ContentInner from 'components/Content/ContentInner';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import Gotchi from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import commonUtils from 'utils/commonUtils';
@@ -184,18 +185,37 @@ export default function ClientLendings() {
             <ContentInner dataLoading={loadingLendings}>
                 <GotchisLazy
                     items={getLendings()}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'kinship'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'lendingStats'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={getLendings()[id]}
+                            render={[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'kinship'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                {
+                                    flipContainer: [
+                                        {
+                                            flipBack: [
+                                                'traits',
+                                                'wearablesLine',
+                                                'listing'
+                                            ]
+                                        },
+                                        {
+                                            flipFront: ['lendingStats']
+                                        }
+                                    ]
+                                },
+                                'flipButton'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </>

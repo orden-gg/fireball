@@ -19,6 +19,7 @@ import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 
 import styles from './styles';
+import Gotchi from 'components/Gotchi/Gotchi';
 
 const sortings = [
     {
@@ -199,23 +200,28 @@ export default function GhostExplorer() {
             <ContentInner dataLoading={isGotchisLoading}>
                 <GotchisLazy
                     items={getGotchis()}
-                    render = {[
-                        {
-                            badges: [
-                                'collateral',
-                                'rs',
-                                'skillpoints',
-                                'kinship',
-                                'level'
-                            ]
-                        },
-                        'svg',
-                        'name',
-                        'traits',
-                        'wearablesLine',
-                        'listing',
-                        'rewards'
-                    ]}
+                    renderItem={id => (
+                        <Gotchi
+                            gotchi={getGotchis()[id]}
+                            render = {[
+                                {
+                                    badges: [
+                                        'collateral',
+                                        'rs',
+                                        'skillpoints',
+                                        'kinship',
+                                        'level'
+                                    ]
+                                },
+                                'svg',
+                                'name',
+                                'traits',
+                                'wearablesLine',
+                                'listing',
+                                'rewards'
+                            ]}
+                        />
+                    )}
                 />
             </ContentInner>
         </div>

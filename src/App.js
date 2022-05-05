@@ -40,7 +40,7 @@ const Wrapper = styled('div')(() => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%',
-        paddingTop: 70
+        paddingTop: 66
     },
     [`&.${classes.noHeaderWrapper}`]: {
         paddingTop: 0

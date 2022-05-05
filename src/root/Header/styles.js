@@ -6,14 +6,15 @@ const styles = makeStyles(theme => ({
     toolbar: {
         width: '100%',
         justifyContent: 'space-between',
-        padding: '11px 14px 11px 24px',
+        padding: '2px 14px 2px 24px',
         background: theme.palette.background.default,
         boxShadow: '0px 4px 16px rgba(29, 32, 37, 0.67)',
         position: 'fixed',
         top: 0,
+        height: 66,
         zIndex: theme.zIndex.appBar,
         [theme.breakpoints.up('md')]: {
-            padding: '11px 32px'
+            padding: '2px 32px'
         },
     },
     highlight: {
@@ -28,13 +29,22 @@ const styles = makeStyles(theme => ({
         display: 'inline-flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
+        marginRight: theme.spacing(1),
         fontWeight: 700,
         color: theme.palette.text.primary,
         textDecoration: 'none',
-        paddingBottom: 6,
-        [theme.breakpoints.up('sm')]: {
-            justifyContent: 'flex-start',
+        [theme.breakpoints.up('md')]: {
             paddingBottom: 10,
+        }
+    },
+    logoDesktop: {
+        [theme.breakpoints.down('md')]: {
+            display: 'none'
+        }
+    },
+    logoMobile: {
+        [theme.breakpoints.up('md')]: {
+            display: 'none'
         }
     },
     navWrapper: {
@@ -84,7 +94,8 @@ const styles = makeStyles(theme => ({
         }
     },
     navLink: {
-        display: 'block',
+        display: 'flex',
+        alignItems: 'center',
         fontSize: 20,
         color: theme.palette.common.white,
         fontWeight: 500,
