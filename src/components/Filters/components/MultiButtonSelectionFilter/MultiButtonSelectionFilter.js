@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
-import styles from './styles';
 import classNames from 'classnames';
 
-export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
+import styles from './styles';
+
+export default function MultiButtonSelectionFilter({ option, onSetSelectedFilters }) {
     const classes = styles();
 
     const [selectedItems, setSelectedItems] = useState([]);

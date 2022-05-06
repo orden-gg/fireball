@@ -2,8 +2,8 @@ import React from 'react';
 
 import { FilterComponent } from 'data/filterTypes';
 
-import MultiAutocomplete from '../MultiAutocomplete/MultiAutocomplete';
-import Input from '../Input/Input';
+import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
+import Input from '../InputFilter/InputFilter';
 
 import styles from './styles';
 
@@ -16,7 +16,7 @@ export default function Filters({ filters, onSetSelectedFilters }) {
 
             switch (renderFilter.componentType) {
                 case FilterComponent.MultipleAutocomplete:
-                    componentToRender = <MultiAutocomplete key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <MultiButtonSelectionFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 case FilterComponent.Input:

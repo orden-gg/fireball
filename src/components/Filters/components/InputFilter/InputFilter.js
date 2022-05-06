@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 
 import styles from './styles';
 
-export default function MultiAutocomplete({ option, onSetSelectedFilters }) {
+export default function InputFilter({ option, onSetSelectedFilters }) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState([]);
