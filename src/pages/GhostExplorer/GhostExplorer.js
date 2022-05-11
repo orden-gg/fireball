@@ -77,6 +77,7 @@ export default function GhostExplorer() {
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [selectedFilters, setSelectedFilters] = useState({});
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -105,12 +106,12 @@ export default function GhostExplorer() {
     }, []);
 
     useEffect(() => {
-        filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
-
         const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
 
         setActiveFiltersCount(filtersCount);
-        setCurrentFilters(currentFilters);
+        setCurrentFilters(currentFiltersCache =>
+            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
@@ -158,7 +159,21 @@ export default function GhostExplorer() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onApplyFilters = useCallback(selectedFilters => {
+    const onSetSelectedFilters = (key, filtersObj) => {
+        setSelectedFilters(selectedFiltersCache => {
+            selectedFiltersCache[key] = filtersObj;
+
+            if (!Boolean(filtersObj.selectedValue.length)) {
+                delete selectedFiltersCache[key];
+            }
+
+            return {...selectedFiltersCache};
+        });
+
+        onApplyFilters();
+    }
+
+    const onApplyFilters = useCallback(() => {
         if (Object.keys(selectedFilters).length > 0) {
             setIsFiltersApplied(true);
         }
@@ -166,7 +181,7 @@ export default function GhostExplorer() {
         const updatedCurrentFilters = getUpdatedFilters(selectedFilters);
         setCurrentFilters(updatedCurrentFilters);
         updateQueryParams(updatedCurrentFilters);
-    }, [updateQueryParams, getUpdatedFilters]);
+    }, [selectedFilters, updateQueryParams, getUpdatedFilters]);
 
     const onResetFilters = useCallback(() => {
         Object.entries(currentFilters).forEach(([key, filter]) => {
@@ -176,7 +191,7 @@ export default function GhostExplorer() {
         setIsFiltersApplied(false);
         setCurrentFilters(currentFilters);
         updateQueryParams(currentFilters);
-    }, [currentFilters, updateQueryParams]);
+    }, [selectedFilters, currentFilters, updateQueryParams]);
 
     const getGotchis = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedGotchis: gotchis;
@@ -192,6 +207,7 @@ export default function GhostExplorer() {
                 }
                 isShowFilters={true}
                 filters={currentFilters}
+                setSelectedFilters={onSetSelectedFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}
                 filtersCount={activeFiltersCount}

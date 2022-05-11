@@ -76,6 +76,7 @@ export default function ClientGotchis() {
         loadingGotchis
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [selectedFilters, setSelectedFilters] = useState({});
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
@@ -87,12 +88,12 @@ export default function ClientGotchis() {
     }, []);
 
     useEffect(() => {
-        filtersUtils.updateFiltersFromQueryParams(queryParams, currentFilters)
-
         const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
 
         setActiveFiltersCount(filtersCount);
-        setCurrentFilters(currentFilters);
+        setCurrentFilters(currentFiltersCache =>
+            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
     }, [currentFilters, queryParams]);
 
     useEffect(() => {
@@ -140,7 +141,21 @@ export default function ClientGotchis() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onApplyFilters = useCallback(selectedFilters => {
+    const onSetSelectedFilters = (key, filtersObj) => {
+        setSelectedFilters(selectedFiltersCache => {
+            selectedFiltersCache[key] = filtersObj;
+
+            if (!Boolean(filtersObj.selectedValue.length)) {
+                delete selectedFiltersCache[key];
+            }
+
+            return {...selectedFiltersCache};
+        });
+
+        onApplyFilters();
+    }
+
+    const onApplyFilters = useCallback(() => {
         if (Object.keys(selectedFilters).length > 0) {
             setIsFiltersApplied(true);
         }
@@ -148,13 +163,14 @@ export default function ClientGotchis() {
         const updatedCurrentFilters = getUpdatedFilters(selectedFilters);
         setCurrentFilters(updatedCurrentFilters);
         updateQueryParams(updatedCurrentFilters);
-    }, [updateQueryParams, getUpdatedFilters]);
+    }, [selectedFilters, updateQueryParams, getUpdatedFilters]);
 
     const onResetFilters = useCallback(() => {
         Object.entries(currentFilters).forEach(([key, filter]) => {
             filter.resetFilterFn(filter);
         });
 
+        setSelectedFilters({});
         setIsFiltersApplied(false);
         setCurrentFilters(currentFilters);
         updateQueryParams(currentFilters);
@@ -174,6 +190,7 @@ export default function ClientGotchis() {
                 }
                 isShowFilters={true}
                 filters={currentFilters}
+                setSelectedFilters={onSetSelectedFilters}
                 applyFilters={onApplyFilters}
                 resetFilters={onResetFilters}
                 filtersCount={activeFiltersCount}

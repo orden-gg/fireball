@@ -8,48 +8,30 @@ import styles from './styles';
 export default function MultiButtonSelectionFilter({ option, onSetSelectedFilters }) {
     const classes = styles();
 
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [items, setItems] = useState([...option.items]);
 
-    useEffect(() => {
-        const selectedItems = option.items.filter(item => item.isSelected);
+    const onHandleSelectionChange = useCallback(index => {
+        items[index].isSelected = !items[index].isSelected;
 
-        setSelectedItems(selectedItemsCache => [...selectedItems, ...selectedItemsCache]);
-    }, [option]);
-
-    const onHandleSelectionChange = useCallback(item => {
-        const selectedItemIndex = selectedItems.findIndex(selectedItem => selectedItem.value === item.value);
-
-        if (selectedItemIndex !== -1) {
-            selectedItems.splice(selectedItemIndex, 1);
-        } else {
-            selectedItems.push({ ...item, isSelected: true });
-        }
-
-        setSelectedItems([...selectedItems]);
+        setItems([...items]);
         onSetSelectedFilters([option.key], {
             ...option,
-            selectedValue: selectedItems
+            selectedValue: items.filter(item => item.isSelected)
         });
-    }, [option, onSetSelectedFilters, selectedItems]);
-
-    const isItemSelected = useCallback(item => {
-        const selectedItem = selectedItems.find(selItem => selItem.value === item.value);
-
-        return Boolean(selectedItem) && selectedItem.isSelected;
-    }, [selectedItems]);
+    }, [option, onSetSelectedFilters, items]);
 
     return (
         <div className={classes.wrapper}>
             <span className={classes.title}>{option.title}</span>
             <div className={classes.items}>
                 {
-                    option.items.map(item =>
+                    items.map((item, index) =>
                         <Button
-                            className={classNames(classes.item, isItemSelected(item) ? 'selected' : '' )}
+                            className={classNames(classes.item, item.isSelected ? 'selected' : '' )}
                             key={item.value}
                             variant='outlined'
                             size='small'
-                            onClick={() => onHandleSelectionChange(item)}
+                            onClick={() => onHandleSelectionChange(index)}
                         >
                             {item.title}
                         </Button>

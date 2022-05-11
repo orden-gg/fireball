@@ -14,6 +14,7 @@ export default function SortFilterPanel({
     placeholder,
     isShowFilters = false,
     filters,
+    setSelectedFilters,
     applyFilters,
     resetFilters,
     filtersCount
@@ -21,7 +22,6 @@ export default function SortFilterPanel({
     const classes = styles();
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [selectedFilters, setSelectedFilters] = useState({});
 
     const onToglleFilterDropdown = (isOpen) => {
         setIsDropdownOpen(!isOpen);
@@ -32,25 +32,16 @@ export default function SortFilterPanel({
     }
 
     const onSetSelectedFilters = (key, filtersObj) => {
-        setSelectedFilters(selectedFiltersCache => {
-            selectedFiltersCache[key] = filtersObj;
-
-            if (!Boolean(filtersObj.selectedValue.length)) {
-                delete selectedFiltersCache[key];
-            }
-
-            return {...selectedFiltersCache};
-        });
+        setSelectedFilters(key, filtersObj);
     }
 
     const onApplyFilters = useCallback(() => {
         setIsDropdownOpen(false);
-        applyFilters(selectedFilters)
-    }, [setIsDropdownOpen, applyFilters, selectedFilters]);
+        applyFilters();
+    }, [setIsDropdownOpen, applyFilters]);
 
     const onReserFilters = useCallback(() => {
         setIsDropdownOpen(false);
-        setSelectedFilters({});
         resetFilters();
     }, [setIsDropdownOpen, resetFilters]);
 

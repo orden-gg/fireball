@@ -2,15 +2,14 @@ import commonUtils from './commonUtils';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    updateFiltersFromQueryParams: (queryParams, filters) => {
-        const queryParamsCopy = {...queryParams};
-        delete queryParamsCopy.address;
-
-        Object.entries(filters).forEach(([currentKey, filter]) => {
-            if (Boolean(queryParamsCopy[currentKey])) {
-                filter.updateFromQueryFn(filter, queryParamsCopy[currentKey], 'queryParamValue');
+    getUpdateFiltersFromQueryParams: (queryParams, filters) => {
+        Object.entries(filters).forEach(([key, filter]) => {
+            if (Boolean(queryParams[key])) {
+                filter.updateFromQueryFn(filter, queryParams[key], 'queryParamValue');
             }
         });
+
+        return filters;
     },
 
     getUpdatedQueryParams: (queryParams, filters) => {
@@ -28,23 +27,23 @@ export default {
     },
 
     getUpdatedFiltersFromSelectedFilters: (selectedFilters, filters) => {
-        const currentFiltersCopy = {...filters};
+        const filtersCopy = {...filters};
 
         if (Object.keys(selectedFilters).length === 0) {
-            Object.entries(currentFiltersCopy).forEach(([key, filter]) => {
+            Object.entries(filtersCopy).forEach(([key, filter]) => {
                 filter.resetFilterFn(filter);
             });
         } else {
-            Object.entries(currentFiltersCopy).forEach(([currentKey, filter]) => {
-                if (Boolean(selectedFilters[currentKey])) {
-                    filter.updateFromFilterFn(filter, selectedFilters[currentKey].selectedValue);
+            Object.entries(filtersCopy).forEach(([key, filter]) => {
+                if (Boolean(selectedFilters[key])) {
+                    filter.updateFromFilterFn(filter, selectedFilters[key].selectedValue);
                 } else {
                     filter.resetFilterFn(filter);
                 }
             });
         }
 
-        return currentFiltersCopy;
+        return filtersCopy;
     },
 
     getActiveFiltersCount: (filters) => {
