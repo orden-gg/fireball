@@ -25,6 +25,7 @@ import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
+import boat from 'assets/images/wearables/204.svg';
 
 // portals
 import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
@@ -111,6 +112,10 @@ export const RareTicketIcon = ({ width, height }) => {
 
 export const WarehouseIcon = ({ width, height }) => {
     return <img width={width} height={height} src={warehouse} alt='warehouse' />;
+};
+
+export const BoatIcon = ({ width, height }) => {
+    return <img width={width} height={height} src={boat} alt='boat' />;
 };
 
 // portals

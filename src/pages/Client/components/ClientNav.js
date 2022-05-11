@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
-import { Alert, AlertTitle, Button } from '@mui/material';
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
-import EthAddress from 'components/EthAddress/EthAddress';
-import PageNav from 'components/PageNav/PageNav';
-import { BaazarIcon } from 'components/Icons/Icons';
-import { ClientContext } from 'contexts/ClientContext';
+import LoginNavigation from 'components/Login/LoginNavigation';
+import { LoginContext } from 'contexts/LoginContext';
 
 import styles, { accountStyles } from '../styles';
-import LoginNavigation from 'components/Login/LoginNavigation';
 
 export default function ClientNav() {
     const classes = {
@@ -16,13 +13,14 @@ export default function ClientNav() {
         ...accountStyles()
     };
 
+    const history = useHistory();
     const { account } = useParams();
 
-    const { navData, setActiveAddress } = useContext(ClientContext);
+    const { selectActiveAddress } = useContext(LoginContext);
 
     const onAddressSubmit = (address) => {
-        setActiveAddress(address);
-        // history.push({ pathname: `/client/${address}` });
+        selectActiveAddress(address);
+        history.push({ pathname: `/client/${address}` });
     };
 
     return (

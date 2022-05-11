@@ -313,19 +313,22 @@ const parcelSinglePage = makeStyles(theme => ({
 }));
 
 const accountStyles = makeStyles(theme => ({
-    container: {
-        // paddingTop: 12
+    accountContainer: {
+        // maxWidth: 500,
+        // margin: 'auto'
     },
     account: {
-        display: 'flex',
-        justifyContent: 'center',
-        marginBottom: 12
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
     },
     alert: {
-        maxWidth: 500,
-        width: '100%',
-        margin: 'auto',
-        marginBottom: 12
+        marginTop: 12,
+        [theme.breakpoints.up('md')]: {
+            marginTop: 0
+        }
     }
 }));
 

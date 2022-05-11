@@ -45,7 +45,6 @@ export default function LoginNavigation({ address, onSubmit }) {
         let formatted = formValue.toLowerCase();
         // let duplicated = storageAddresses.find((item) => item.address === formattedAddress);
 
-
         setIsFormSubmitted(true);
 
         if (ethersApi.isEthAddress(formatted)) {

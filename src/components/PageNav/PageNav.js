@@ -7,7 +7,7 @@ import { useTheme } from '@emotion/react';
 
 import styles from './styles';
 
-export default function PageNav({ links, query, counts, children }) {
+export default function PageNav({ links, query, counts, beforeContent, afterContent }) {
     const classes = styles();
     const match = useRouteMatch();
     const theme = useTheme();
@@ -16,6 +16,7 @@ export default function PageNav({ links, query, counts, children }) {
 
     return (
         <div className={classes.container}>
+            {beforeContent}
             {
                 data.map((link, index) => {
                     return (
@@ -26,7 +27,12 @@ export default function PageNav({ links, query, counts, children }) {
                                 component={NavLink}
                                 className={classes.button}
                                 activeClassName='active'
-                                to={link.name}
+                                to={{
+                                    pathname: `${match.url}/${link.name}`
+                                }}
+
+                                // to={`${match.url}/${link.name}`}
+                                // to={link.name}
                             >
                                 <span className={classes.navName}>{link.name}</span>
                                 { counts && (
@@ -49,7 +55,7 @@ export default function PageNav({ links, query, counts, children }) {
                     )
                 })
             }
-            {children}
+            {afterContent}
         </div>
     );
 }
