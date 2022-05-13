@@ -3,14 +3,8 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     loginNavigation: {
-
         display: 'flex',
         alignItems: 'flex-start',
-        // justifyContent: 'flex-end',
-
-        // '&.connect': {
-        //     justifyContent: 'space-between'
-        // }
         '& form': {
             flexGrow: 1
         }
@@ -25,23 +19,7 @@ const styles = makeStyles(theme => ({
         borderRadius: 4,
         cursor: 'pointer',
         position: 'relative',
-        // '.opened &': {
-        //     background: theme.palette.primary.dark,
-        //     borderRadius: '4px 4px 0 0'
-        // }
     },
-    // buttonIcon: {
-    //     backgroundColor: theme.palette.secondary.main,
-    //     width: 34,
-    //     borderRadius: '4px 0 0 4px',
-    //     marginRight: 2,
-    //     display: 'flex',
-    //     alignItems: 'center',
-    //     padding: 2,
-    //     '&.metamask': {
-    //         justifyContent: 'center',
-    //     }
-    // },
     caption: {
         display: 'flex',
         alignItems: 'center',
@@ -89,27 +67,20 @@ const styles = makeStyles(theme => ({
         display: 'none',
 
         '&.offset-top': {
-            paddingTop: 74
+            paddingTop: 57
         },
 
         '.opened &': {
             display: 'block'
         }
     },
-    // dropdownDivider: {
-    //     textAlign: 'center',
-    //     margin: '0 8px'
-    // },
     buttonIcon: {
         position: 'absolute',
         top: -6,
         right: -6,
-        // background: alpha('#000', .3),
         background: theme.palette.secondary.dark,
         padding: 2,
         borderRadius: '50%',
-        // transform: 'translateY(-50%)',
-        // opacity: .6,
         '& img': {
             display: 'block'
         }
@@ -146,12 +117,11 @@ const styles = makeStyles(theme => ({
     },
     loginAddress: {
         backgroundColor: alpha(theme.palette.background.default, .6),
-        border: '2px solid transparent',
         cursor: 'pointer',
         transition: 'all .2s ease-in-out',
         position: 'relative',
         overflow: 'hidden',
-        padding: '11px 6px 10px',
+        padding: '8px 6px 8px 10px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -160,8 +130,7 @@ const styles = makeStyles(theme => ({
             backgroundColor: theme.palette.background.default,
         },
         '&.active': {
-            backgroundColor: alpha(theme.palette.primary.main, .05),
-            borderColor: alpha(theme.palette.primary.main, .3)
+            backgroundColor: alpha('#000', .3),
         },
         '&:first-of-type': {
             marginTop: 0
@@ -184,6 +153,9 @@ const styles = makeStyles(theme => ({
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             padding: '0 0 2px'
+        },
+        '&.metamask input': {
+            textFillColor: 'orange'
         }
     },
     loginAddressAddress: {
@@ -208,15 +180,6 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center'
     },
-    loginAddressFormIcon: {
-        marginRight: 4,
-        height: 35,
-        '&.metamask': {
-            padding: '0 4px',
-            display: 'flex',
-            alignItems: 'center'
-        }
-    },
     modal: {
         position: 'absolute',
         top: '50%',
@@ -229,7 +192,11 @@ const styles = makeStyles(theme => ({
     },
     modalTitle: {
         marginBottom: 24
-    }
+    },
+    blockiesIcon: {
+        marginRight: 8,
+        borderRadius: 4,
+    },
 }));
 
 export default styles

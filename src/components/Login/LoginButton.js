@@ -4,16 +4,14 @@ import { Backdrop, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-// import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
+import EthAddress from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-// import commonUtils from 'utils/commonUtils';
 
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
 
 import styles from './styles';
-import EthAddress from 'components/EthAddress/EthAddress';
 
 export default function LoginButton() {
     const classes = styles();
@@ -23,6 +21,7 @@ export default function LoginButton() {
         activeAddress,
         selectActiveAddress,
         storageAddresses,
+        setStorageAddresses,
         connectMetamask,
         isMetamaskActive,
         dropdownOpen,
@@ -64,6 +63,23 @@ export default function LoginButton() {
         setDropdownOpen(!dropdownOpen);
     };
 
+    const onAddressSubmit = (address) => {
+        let duplicated = storageAddresses.find((item) => item.address === address);
+
+        dropdownClose();
+        selectActiveAddress(address);
+
+        if (!duplicated) {
+            setStorageAddresses([
+                {
+                    name: address.slice(0, 6),
+                    address: address
+                },
+                ...storageAddresses
+            ]);
+        }
+    };
+
     return (
         <>
             <div className={classNames(classes.button, dropdownOpen ? 'opened' : 'closed')}>
@@ -83,9 +99,6 @@ export default function LoginButton() {
                     { activeAddress ? (
                         <div className={classes.address}>
                             <EthAddress address={activeAddress} icon={true} />
-                            {/* <Typography className={classes.addressText} variant='subtitle2'>
-                                {commonUtils.cutAddress(activeAddress)}
-                            </Typography> */}
                         </div>
                     ) : (
                         null
@@ -111,7 +124,7 @@ export default function LoginButton() {
                                 null
                             )}
                         </div>
-                        <LoginNavigation />
+                        <LoginNavigation onSubmit={onAddressSubmit} />
                     </div>
                 ) : (
                     null

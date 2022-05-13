@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import PageNav from 'components/PageNav/PageNav';
 import { BaazarIcon, BoatIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
+import { LoginContext } from 'contexts/LoginContext';
 import ethersApi from 'api/ethers.api';
 
 import ClientAccount from './routes/ClientAccount';
@@ -17,27 +18,37 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 
 import styles from './styles';
+import { useLocation } from 'react-router-dom';
 
 export default function ClientRoutes() {
     const classes = styles();
     const match = useRouteMatch();
     const history = useHistory();
+    const location = useLocation();
 
     const { account } = useParams();
+
+    const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { getClientData, navData } = useContext(ClientContext);
 
     useEffect(() => {
-        if (account) {
-            if (ethersApi.isEthAddress(account)) {
-                // console.log('account',account)
-                getClientData(account);
-            } else {
-                history.push({ pathname: `/client/${account}` });
-            }
+        if (ethersApi.isEthAddress(account)) {
+            setActiveAddress(account);
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [account]);
+    }, []);
+
+    useEffect(() => {
+        const subroute = location.pathname.split('/')[3];
+
+        if (activeAddress) {
+            history.push({
+                pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`
+            });
+            getClientData(activeAddress);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeAddress]);
 
     return (
         <div className={classes.routes}>

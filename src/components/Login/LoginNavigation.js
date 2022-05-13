@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import classNames from 'classnames';
@@ -8,15 +7,14 @@ import { useMetamask } from 'use-metamask';
 
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
+import ethersApi from 'api/ethers.api';
 
 import styles from './styles';
-import { AccountCircle } from '@mui/icons-material';
-import ethersApi from 'api/ethers.api';
 
 export default function LoginNavigation({ address, onSubmit }) {
     const classes = styles();
     const { metaState } = useMetamask();
-    const { connectMetamask, setActiveAddress, selectActiveAddress, setIsMetamaskActive, setDropdownOpen } = useContext(LoginContext);
+    const { connectMetamask, setIsMetamaskActive } = useContext(LoginContext);
 
     const [formValue, setFormValue] = useState(address ? address : '');
     const [isFormSabmitted, setIsFormSubmitted] = useState(address ? true : false);
@@ -27,46 +25,18 @@ export default function LoginNavigation({ address, onSubmit }) {
         });
     };
 
-    // const onCustomClick = () => {
-    //     setModalOpen(true);
-    //     setDropdownOpen(false);
-    // };
-
     const isFormValid = (addr) => {
         return isFormSabmitted && !ethersApi.isEthAddress(addr);
     };
 
-    // const onAddressChange = (value) => {
-    //     ethersApi.isEthAddress(value) ? setIsAddressValid(true) : setIsAddressValid(false);
-    //     setFormValue(value);
-    // };
-
     const onFormSubmit = (e) => {
         let formatted = formValue.toLowerCase();
-        // let duplicated = storageAddresses.find((item) => item.address === formattedAddress);
-
-        setIsFormSubmitted(true);
 
         if (ethersApi.isEthAddress(formatted)) {
             onSubmit(formatted);
-        //     setActiveAddress(formatted);
-        //     setDropdownOpen(false);
         }
 
-
-
-        // setAddressHelperText('Not a valid address!');
-
-        // if (duplicated) {
-        //     setIsAddressValid(false);
-        //     setAddressHelperText('Address already added!');
-        // } else if (isAddressValid) {
-        //     setStorageAddresses([{name: name, address: formattedAddress, gotchiId: generateRandomGotchiId()}, ...storageAddresses]);
-        //     selectActiveAddress(formattedAddress)
-        //     setModalOpen(false);
-        // }
-
-
+        setIsFormSubmitted(true);
         e.preventDefault();
     };
 
@@ -86,8 +56,6 @@ export default function LoginNavigation({ address, onSubmit }) {
                         endAdornment: (
                             <InputAdornment position='end'>
                                 <IconButton
-                                    // onClick={onSubmit}
-                                    // onMouseDown={handleMouseDownPassword}
                                     edge='end'
                                     color='primary'
                                     type='submit'
@@ -112,21 +80,10 @@ export default function LoginNavigation({ address, onSubmit }) {
                     >
                         <MetamaskIcon className={classes.metamaskButtonIcon} width={24} height={24} />
                     </Button>
-
-                    {/* <Typography className={classes.dropdownDivider}>or</Typography> */}
                 </>
             ) : (
                 null
             )}
-
-            {/* <Button
-                color='primary'
-                onClick={onCustomClick}
-                fullWidth
-                className={classes.customButton}
-            >
-                Add custom
-            </Button> */}
         </div>
     );
 }
