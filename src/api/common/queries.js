@@ -283,6 +283,7 @@ export const listedParcelQuery = (id) => {
                 }
             ) {
                 id
+                priceInWei
             }
         }`
 };
@@ -305,6 +306,27 @@ export const getParcelHistoricalPricesQuery = (id) => {
         }
     }`
 }
+
+export const getParcelOrderDirectionQuery = (data) => {
+    return `{
+        erc721Listings(
+            first: 1,
+            orderBy: priceInWei,
+            orderDirection: ${data.direction},
+            where: {
+                ${data.direction === 'desc' ? `priceInWei_lt: "${data.limit+"000000000000000000"}",` : ""}
+                size: "${data.size}",
+                category: "4",
+                cancelled: false,
+                timePurchased: 0,
+            }
+        ){
+            id
+            priceInWei
+            size
+        }
+    }`
+  }
 
 export const auctionQuery = (id) => {
     return `{
@@ -345,7 +367,9 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
                 tokenId
                 parcelId
                 parcelHash
-                owner
+                owner {
+                    id
+                }
                 district
                 fudBoost
                 fomoBoost
@@ -354,6 +378,8 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
                 size
                 timesTraded
                 historicalPrices
+                coordinateX,
+                coordinateY
             }
         }
     }`

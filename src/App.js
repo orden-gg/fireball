@@ -19,6 +19,7 @@ import Client from './pages/Client/Client';
 import Autopet from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
 import Shop from './pages/Shop/Shop';
+import Map from './pages/Map/Map';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from './contexts/BaazaarContext';
 import BalancesContextProvider from 'contexts/BalancesContext';
@@ -85,6 +86,7 @@ export default function App() {
                                     <Route path={`/client`} component={ Client } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
                                     <Route path={`/shop`} component={ Shop } />
+                                    <Route path={`/map`} component={ Map } />
                                     <Route exact path={`/404`} component={ NotFound } />
                                     <Redirect from='*' to='/404' />
                                 </Switch>

@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const keyframes = {
@@ -14,7 +15,63 @@ const styles = makeStyles(theme => ({
         '& canvas': {
             display: 'block'
         }
+    }
+}));
+
+const InterfaceStyles = makeStyles(theme => ({
+    citadelInterface: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(11),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end',
+        width: 1,
+        zIndex: 1
     },
+    citadelInterfaceButton: {
+        margin: theme.spacing(.2, 0),
+        '&:hover': {
+            color: theme.palette.primary.main
+        }
+    },
+    citadelSearch: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    citadelSearchField: {
+        width: 150,
+        '& .MuiInput-input': {
+            textAlign: 'right',
+            fontSize: 14
+        }
+    },
+    interfaceDivider: {
+        width: 40,
+        backgroundColor: alpha('#fff', .3)
+    }
+}));
+
+const ParcelBoxStyle = makeStyles(theme => ({
+    parcel: {
+        position: 'absolute',
+        minWidth: 220,
+        maxWidth: 260,
+        left: theme.spacing(2),
+        bottom: theme.spacing(2),
+        background: theme.palette.background.paper,
+    },
+    closeParcel: {
+        position: 'absolute',
+        left: '100%',
+        top: 0,
+        marginLeft: theme.spacing(.5),
+        width: 30,
+        height: 30
+    }
+}));
+
+const LoaderStyles = makeStyles(theme => ({
     citadelLoading: {
         position: 'absolute',
         left: 0,
@@ -25,6 +82,7 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-around',
         background: '#110121',
         transition: '.2s linear',
+        zIndex: 1,
         '&.is-loaded': {
             opacity: 0,
             visibility: 'hidden'
@@ -70,50 +128,12 @@ const styles = makeStyles(theme => ({
         width: '100%',
         height: '100%'
     },
-    citadelInterface: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(11),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        width: 1,
-        zIndex: 1
-    },
-    citadelInterfaceButton: {
-        margin: theme.spacing(.2, 0),
-        '&:hover': {
-            color: theme.palette.primary.main
-        }
-    },
-    citadelSearch: {
-        display: 'flex',
-        alignItems: 'center'
-    },
-    citadelSearchField: {
-        width: 150,
-        '& .MuiInput-input': {
-            textAlign: 'right',
-            fontSize: 14
-        }
-    },
-    parcel: {
-        position: 'absolute',
-        minWidth: 220,
-        maxWidth: 260,
-        left: theme.spacing(2),
-        bottom: theme.spacing(2),
-        background: theme.palette.background.paper,
-    },
-    closeParcel: {
-        position: 'absolute',
-        left: '100%',
-        top: 0,
-        marginLeft: theme.spacing(.5),
-        width: 30,
-        height: 30
-    },
     '@keyframes drop': keyframes.drop
-}));
+}))
 
-export default styles;
+export {
+    styles as default,
+    LoaderStyles,
+    ParcelBoxStyle,
+    InterfaceStyles
+}

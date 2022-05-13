@@ -1,15 +1,17 @@
 import Phaser from 'phaser';
+
+import { CITADEL_WIDTH, CITADEL_HEIGHT, COLORS } from 'data/citadel.data';
 export default class DistrictNumber extends Phaser.GameObjects.Text {
     constructor(scene, number, x, y, w, h) {
         super(scene);
         scene.add.existing(this);
         this.text = number;
 
-        let [offsetX, offsetY] = [number-1 ? w/2 : w*1.5, number-1 ? h/2 : h]
+        const [offsetX, offsetY] = [number-1 ? w/2 : w*1.5, number-1 ? h/2 : h]
 
         this.setPosition(
-            x*w-scene.CITAADEL_WIDTH/2+offsetX,
-            y*h-scene.CITAADEL_HEIGHT/2+offsetY
+            x*w-CITADEL_WIDTH/2+offsetX,
+            y*h-CITADEL_HEIGHT/2+offsetY
         );
 
         this.setOrigin(.5, .5);
@@ -17,7 +19,7 @@ export default class DistrictNumber extends Phaser.GameObjects.Text {
 
         this.setStyle({
             fontSize: 125,
-            color: '#fd9af9'
+            color: `#${COLORS.grid.toString(16)}`
         });
     }
 

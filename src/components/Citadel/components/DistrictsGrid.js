@@ -1,19 +1,24 @@
 import Phaser from 'phaser';
+
+import { DISTRICTS, COLORS } from 'data/citadel.data';
+
+import { CITADEL_WIDTH, CITADEL_HEIGHT } from 'data/citadel.data';
 export default class DistrictsGrid extends Phaser.GameObjects.Graphics {
-    constructor(scene, settings) {
+    constructor(scene) {
         super(scene);
         scene.add.existing(this);
-        this.settings = settings;
 
-        this.setPosition(-scene.CITAADEL_WIDTH/2, -scene.CITAADEL_HEIGHT/2);
+        this.setPosition(-CITADEL_WIDTH/2, -CITADEL_HEIGHT/2);
+
+        this.createLines();
     }
 
     createLines() {
-        let [w, h] = [this.settings.width, this.settings.height];
+        let [w, h] = [DISTRICTS.width, DISTRICTS.height];
 
-        this.lineStyle(8, 0xfd9af9, .5);
+        this.lineStyle(8, COLORS.grid, .5);
 
-        for(let line of this.settings.lineMap) {
+        for(let line of DISTRICTS.lineMap) {
             this.beginPath();
 
             this.moveTo(line[0]*w, line[1]*h);

@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import axios from 'axios';
 
+import { COLORS } from 'data/citadel.data';
+
 import styles from '../styles';
 
 export default function ParcelImage({ parcel, parcelSize }) {
@@ -47,7 +49,7 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         const {size} = parcel;
 
-        context.strokeStyle = 'white';
+        context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
         +size === 0 && drawRect(5, 5);
         +size === 1 && drawRect(9, 9);
         +size === 3 && drawRect(32, 16);
