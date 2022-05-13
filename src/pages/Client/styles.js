@@ -5,7 +5,8 @@ const styles = makeStyles(theme => ({
     container: {
         padding: '7px 24px 0',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        minHeight: '100%'
     },
     loginNav: {
         maxWidth: 500,
@@ -14,7 +15,8 @@ const styles = makeStyles(theme => ({
     },
     routesNav: {
         display: 'flex',
-        justifyContent: 'center',
+        overflow: 'auto',
+        marginBottom: 4
     },
     clientCitadel: {
         position: 'fixed',
@@ -22,10 +24,6 @@ const styles = makeStyles(theme => ({
         top: 70,
         right: 0,
         bottom: 70
-    },
-    head: {
-        display: 'flex',
-        overflow: 'auto'
     },
     customBtn: {
         padding: 6,
