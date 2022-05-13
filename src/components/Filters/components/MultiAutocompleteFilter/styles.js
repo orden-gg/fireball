@@ -2,8 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(() => ({
     wrapper: {
-        display: 'flex',
-        flexDirection: 'column'
+        display: 'flex'
     }
 }));
 

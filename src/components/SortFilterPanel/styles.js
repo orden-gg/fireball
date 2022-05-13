@@ -50,6 +50,9 @@ const styles = makeStyles(theme => ({
             display: 'block'
         }
     },
+    filtersWrapper: {
+        padding: 12,
+    },
     filterBackdrop: {
         zIndex: theme.zIndex.drawer + 1
     },

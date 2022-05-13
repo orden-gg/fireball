@@ -191,7 +191,7 @@ export default function GhostExplorer() {
         setIsFiltersApplied(false);
         setCurrentFilters(currentFilters);
         updateQueryParams(currentFilters);
-    }, [selectedFilters, currentFilters, updateQueryParams]);
+    }, [currentFilters, updateQueryParams]);
 
     const getGotchis = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedGotchis: gotchis;

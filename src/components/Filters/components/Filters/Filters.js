@@ -1,13 +1,16 @@
 import React from 'react';
 
+import classNames from 'classnames';
+
 import { FilterComponent } from 'data/filterTypes';
 
+import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import Input from '../InputFilter/InputFilter';
 
 import styles from './styles';
 
-export default function Filters({ filters, onSetSelectedFilters }) {
+export default function Filters({ filters, onSetSelectedFilters, className }) {
     const classes = styles();
 
     const renderFiltersComponents = (renderFilters) => {
@@ -16,6 +19,10 @@ export default function Filters({ filters, onSetSelectedFilters }) {
 
             switch (renderFilter.componentType) {
                 case FilterComponent.MultipleAutocomplete:
+                    componentToRender = <MultiAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+
+                    break;
+                case FilterComponent.MultiButtonSelection:
                     componentToRender = <MultiButtonSelectionFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
@@ -32,7 +39,7 @@ export default function Filters({ filters, onSetSelectedFilters }) {
     }
 
     return (
-        <div className={classes.filtersWrapper}>
+        <div className={classNames(classes.wrapper, className)}>
             { renderFiltersComponents(filters) }
         </div>
     );

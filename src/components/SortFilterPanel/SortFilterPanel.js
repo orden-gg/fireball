@@ -64,7 +64,12 @@ export default function SortFilterPanel({
 
                         {isDropdownOpen && (
                             <div className={classes.filtersDropdown}>
-                                <Filters filters={filters} onSetSelectedFilters={onSetSelectedFilters}/>
+                                <Filters
+                                    filters={filters}
+                                    onSetSelectedFilters={onSetSelectedFilters}
+                                    className={classes.filtersWrapper}
+                                />
+
                                 <div className={classes.buttonsWrapper}>
                                     <Button
                                         variant='outlined'

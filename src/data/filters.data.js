@@ -1,12 +1,14 @@
 import collaterals from 'data/collaterals';
 import { FilterComponent, FilterDomainType } from 'data/filterTypes';
+import guilds from 'data/guilds.json';
+import commonUtils from 'utils/commonUtils';
 import filterHelpers from 'utils/filterFunctions.helper';
 
 export const filtersData = {
     hauntId: {
         key: 'hauntId',
         domainType: FilterDomainType.Equals,
-        componentType: FilterComponent.MultipleAutocomplete,
+        componentType: FilterComponent.MultiButtonSelection,
         title: 'Haunt',
         items: [
             {
@@ -33,7 +35,7 @@ export const filtersData = {
     collateral: {
         key: 'collateral',
         domainType: FilterDomainType.Equals,
-        componentType: FilterComponent.MultipleAutocomplete,
+        componentType: FilterComponent.MultiButtonSelection,
         title: 'Collateral',
         items: collaterals.map(collateral => ({
             title: collateral.name,
@@ -65,5 +67,26 @@ export const filtersData = {
         updateFromFilterFn: filterHelpers.inputUpdateFromFilterFn,
         getQueryParamsFn: filterHelpers.inputGetQueryParamsFn,
         getActiveFiltersCountFn: filterHelpers.inputGetActiveFiltersCount
-    }
+    },
+    guild: {
+        key: 'guild',
+        domainType: FilterDomainType.Equals,
+        componentType: FilterComponent.MultipleAutocomplete,
+        title: 'Guilds',
+        items: guilds
+            .filter(guild => guild.members.length > 0)
+            .map(guild => ({
+                title: commonUtils.stringToKey(guild.name),
+                value: commonUtils.stringToKey(guild.name),
+                isSelected: false,
+                queryParamValue: commonUtils.stringToKey(guild.name)
+            })),
+        isFilterActive: false,
+        resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
+        predicateFn: filterHelpers.multipleSelectionPredicateFn,
+        updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
+    },
 };
