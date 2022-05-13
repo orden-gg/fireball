@@ -11,7 +11,7 @@ import commonUtils from 'utils/commonUtils.js';
 
 import styles from './styles.js'
 
-export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton, size }) {
+export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton }) {
     const classes = styles();
 
     if(!ethersApi.isEthAddress(address)) {
@@ -23,7 +23,7 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
             { icon && <Blockies
                 seed={address}
                 size={8}
-                scale={size === 'large' ? 3.5 : 2.5}
+                scale={2.5}
                 className={classes.icon}
             />}
 

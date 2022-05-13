@@ -7,22 +7,11 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column'
     },
-    // alertWrapper: {
-    //     display: 'flex',
-    //     // alignItems: 'flex-start',
-    //     justifyContent: 'center',
-    //     // minHeight: 'calc(100vh - 192px)'
-    // },
     loginNav: {
-        // backgroundColor: theme.palette.secondary.dark,
         maxWidth: 500,
         margin: '16px auto',
         width: '100%'
-        // borderRadius: 4
     },
-    // alert: {
-    //     marginBottom: 24
-    // },,
     routesNav: {
         display: 'flex',
         justifyContent: 'center',
@@ -313,10 +302,6 @@ const parcelSinglePage = makeStyles(theme => ({
 }));
 
 const accountStyles = makeStyles(theme => ({
-    accountContainer: {
-        // maxWidth: 500,
-        // margin: 'auto'
-    },
     account: {
         [theme.breakpoints.up('md')]: {
             display: 'flex',

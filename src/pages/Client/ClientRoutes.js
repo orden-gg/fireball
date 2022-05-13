@@ -4,11 +4,14 @@ import { Route, Switch, useRouteMatch, useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router';
 
+import Helmet from 'react-helmet';
+
 import PageNav from 'components/PageNav/PageNav';
-import { BaazarIcon, BoatIcon } from 'components/Icons/Icons';
+import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { LoginContext } from 'contexts/LoginContext';
 import ethersApi from 'api/ethers.api';
+import commonUtils from 'utils/commonUtils';
 
 import ClientAccount from './routes/ClientAccount';
 import ClientGotchis from './routes/ClientGotchis';
@@ -26,6 +29,8 @@ export default function ClientRoutes() {
     const history = useHistory();
     const location = useLocation();
 
+    const subroute = location.pathname.split('/')[3];
+
     const { account } = useParams();
 
     const { activeAddress, setActiveAddress } = useContext(LoginContext);
@@ -39,8 +44,6 @@ export default function ClientRoutes() {
     }, []);
 
     useEffect(() => {
-        const subroute = location.pathname.split('/')[3];
-
         if (activeAddress) {
             history.push({
                 pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`
@@ -53,11 +56,18 @@ export default function ClientRoutes() {
     return (
         <div className={classes.routes}>
 
+            <Helmet>
+                <title>
+                    { account ?
+                        `${commonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
+                        : 'client'}
+                </title>
+            </Helmet>
+
             { ethersApi.isEthAddress(account) && (
                 <div className={classes.routesNav}>
                     <PageNav
                         links={navData}
-                        counts={true}
                         beforeContent={(
                             <Button
                                 to={`/client/${account}`}
@@ -66,7 +76,7 @@ export default function ClientRoutes() {
                                 activeClassName='active'
                                 exact
                             >
-                                <BoatIcon width={24} height={24} />
+                                <GameControllerIcon width={24} height={24} />
                             </Button>
                         )}
                         afterContent={(

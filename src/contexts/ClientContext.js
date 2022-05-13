@@ -9,13 +9,11 @@ import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
-// import { LoginContext } from './LoginContext';
 
 export const ClientContext = createContext({});
 
 const ClientContextProvider = (props) => {
     const [clientActive, setClientActive] = useState(null);
-    // const { activeAddress, setActiveAddress } = useContext(LoginContext);
 
     const [gotchis, setGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });

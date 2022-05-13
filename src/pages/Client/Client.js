@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 
+import Helmet from 'react-helmet';
+
 import ClientRoutes from './ClientRoutes';
 import ClientNav from './components/ClientNav';
 import styles from './styles';
@@ -11,13 +13,9 @@ export default function Client() {
 
     return (
         <div className={classes.container}>
-            {/* <Helmet>
-                <title>
-                    {activeAddress ?
-                        `${commonUtils.cutAddress(activeAddress, '...')} || ${location.pathname.split('/')[2]}`
-                        : 'Client'}
-                </title>
-            </Helmet> */}
+            <Helmet>
+                <title>client</title>
+            </Helmet>
 
             <Switch>
                 <Route exact path={`${match.path}/`} component={ ClientNav } />

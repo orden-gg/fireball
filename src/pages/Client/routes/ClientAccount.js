@@ -27,7 +27,6 @@ export default function ClientAccount() {
                         icon={true}
                         polygonButton={true}
                         copyButton={true}
-                        size='large'
                     />
 
                     <Alert severity='info' className={classes.alert}>
