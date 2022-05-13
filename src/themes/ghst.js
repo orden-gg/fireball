@@ -28,7 +28,8 @@ const theme = createTheme({
             legendary: '#ffc36b',
             mythical: '#FF67FF',
             godlike: '#00E994',
-            drop: 'rgb(0, 0, 0)'
+            drop: 'rgb(0, 0, 0)',
+            golden: '#ffc36b'
         },
         realm: {
             // humble: '#320fc7',

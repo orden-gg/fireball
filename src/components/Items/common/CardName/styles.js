@@ -5,6 +5,9 @@ export default makeStyles(theme => ({
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
+        '.instalation &, .tile &': {
+            whiteSpace: 'normal'
+        },
         '& p': {
             textOverflow: 'ellipsis',
             overflow: 'hidden',
@@ -69,6 +72,9 @@ export default makeStyles(theme => ({
         },
         '&.spacious': {
             color: theme.palette.realm.spacious
+        },
+        '&.golden': {
+            color: theme.palette.rarity.golden
         },
         '&.partner': {
             color: theme.palette.realm.partner

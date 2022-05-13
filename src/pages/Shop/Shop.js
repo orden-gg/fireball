@@ -23,6 +23,7 @@ import Ticket from 'components/Items/Ticket/Ticket';
 import Wearable from 'components/Items/Wearable/Wearable';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
 
@@ -107,6 +108,7 @@ export default function Shop() {
         const listedGotchis = listings
             .filter(listing => listing.category === Erc721Categories.Aavegotchi)
             .map(listing => listing.gotchi);
+        const sortedGotchis = commonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc')
 
         const listedParcels = listings
             .filter(listing => listing.category === Erc1155Categories.Realm)
@@ -120,6 +122,7 @@ export default function Shop() {
                     priceInWei: listing.priceInWei
                 }]
             }));
+        const sortedParcels = commonUtils.basicSort(listedParcels, 'size', 'desc');
 
         const listedPortals = listings
             .filter(listing => listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal)
@@ -136,27 +139,30 @@ export default function Shop() {
                     priceInWei: listing.priceInWei
                 }]
             }));
+        const sortedPortals = commonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
-        setGotchis(listedGotchis);
-        setParcels(listedParcels);
-        setPortals(listedPortals);
+        setGotchis(sortedGotchis);
+        setParcels(sortedParcels);
+        setPortals(sortedPortals);
     }
 
     const handleSetErc1155Listings = (listings) => {
-        const wearables = listings
+        const listedWearables = listings
             .filter(listing => listing.category === Erc1155Categories.Wearable)
             .map(listing => ({
                 ...mapWearableAndTicket(listing)
             }));
+        const sortedWearables = commonUtils.basicSort(listedWearables, 'rarityId', 'desc');
 
-        const tickets = listings
+        const listedTickets = listings
             .filter(listing => listing.category === Erc1155Categories.Ticket)
             .map(listing => ({
                 ...mapWearableAndTicket(listing),
                 erc1155TypeId: listing.erc1155TypeId,
             }));
+        const sortedTickets = commonUtils.basicSort(listedTickets, 'rarityId', 'desc');
 
-        const consumables = listings
+        const listedConsumables = listings
             .filter(listing => listing.category === Erc1155Categories.Consumable)
             .map(listing => ({
                 id: parseInt(listing.erc1155TypeId, 10),
@@ -165,9 +171,9 @@ export default function Shop() {
                 price: ethersApi.fromWei(listing.priceInWei)
             }));
 
-        setWearables(wearables);
-        setTickets(tickets);
-        setConsumables(consumables);
+        setWearables(sortedWearables);
+        setTickets(sortedTickets);
+        setConsumables(listedConsumables);
     }
 
     const mapWearableAndTicket = (listing) => {

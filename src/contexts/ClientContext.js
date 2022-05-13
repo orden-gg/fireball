@@ -1,14 +1,19 @@
 import React, { createContext, useState } from 'react';
 
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
+import installationsApi from 'api/installations.api';
+import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
+import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
+import tilesUtils from 'utils/tilesUtils';
+import installationsUtils from 'utils/installationsUtils';
 
 export const ClientContext = createContext({});
 
@@ -26,6 +31,12 @@ const ClientContextProvider = (props) => {
     const [warehouse, setWarehouse] = useState([]);
     const [warehouseSorting, setWarehouseSorting] = useState({ type: 'rarityId', dir: 'desc' });
     const [loadingWarehouse, setLoadingWarehouse] = useState(false);
+
+    const [installations, setInstallations] = useState([]);
+    const [loadingInstallations, setLoadingInstallations] = useState(true);
+
+    const [tiles, setTiles] = useState([]);
+    const [loadingTiles, setLoadingTiles] = useState(true);
 
     const [tickets, setTickets] = useState([]);
     const [loadingTickets, setLoadingTickets] = useState(true);
@@ -59,6 +70,12 @@ const ClientContextProvider = (props) => {
             items: warehouse.length
         },
         {
+            name: 'installations',
+            icon: <AnvilIcon width={24} height={24} />,
+            loading: loadingInstallations || loadingTiles,
+            items: installations.length + tiles.length
+        },
+        {
             name: 'tickets',
             icon: <RareTicketIcon width={24} height={24} />,
             loading: loadingTickets,
@@ -78,6 +95,8 @@ const ClientContextProvider = (props) => {
         getInventory(address);
         getTickets(address);
         getRealm(address);
+        getInstallations(address);
+        getTiles(address);
 
         // reset
         setWarehouse([]);
@@ -206,6 +225,40 @@ const ClientContextProvider = (props) => {
         });
     };
 
+    const getInstallations = (address) => {
+        installationsApi.getInstallationsByAddress(address).then(response => {
+            const installations = response.map(item => {
+                const id = ethersApi.formatBigNumber(item.installationId._hex);
+
+                return {
+                    type: 'instalation',
+                    name: installationsUtils.getNameById(id),
+                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    id: id
+                }
+            });
+
+            setInstallations(installations);
+        }).finally(() => setLoadingInstallations(false));
+    };
+
+    const getTiles = (address) => {
+        tilesApi.getTilesByAddress(address).then(response => {
+            const tiles = response.map(item => {
+                const id = ethersApi.formatBigNumber(item.tileId._hex);
+
+                return {
+                    type: 'tile',
+                    name: tilesUtils.getNameById(id),
+                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    id: id
+                }
+            });
+
+            setTiles(tiles);
+        }).finally(() => setLoadingTiles(false));
+    };
+
     const getTickets = (address) => {
         setLoadingTickets(true);
 
@@ -282,6 +335,12 @@ const ClientContextProvider = (props) => {
             loadingWarehouse,
             setWarehouse,
             setWarehouseSorting,
+
+            installations,
+            loadingInstallations,
+
+            tiles,
+            loadingTiles,
 
             tickets,
             loadingTickets,
