@@ -11,6 +11,7 @@ import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import consumable from 'assets/images/icons/consumable.svg';
+import controller from 'assets/images/wearables/204.svg';
 import discord from 'assets/images/icons/discord.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
@@ -27,7 +28,6 @@ import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
-import controller from 'assets/images/wearables/204.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 
 // portals

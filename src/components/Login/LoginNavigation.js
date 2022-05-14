@@ -29,15 +29,16 @@ export default function LoginNavigation({ address, onSubmit }) {
         return isFormSabmitted && !ethersApi.isEthAddress(addr);
     };
 
-    const onFormSubmit = (e) => {
+    const onFormSubmit = (event) => {
         let formatted = formValue.toLowerCase();
+
+        event.preventDefault();
 
         if (ethersApi.isEthAddress(formatted)) {
             onSubmit(formatted);
         }
 
         setIsFormSubmitted(true);
-        e.preventDefault();
     };
 
     return (

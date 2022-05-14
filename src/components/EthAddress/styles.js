@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
@@ -22,9 +23,17 @@ const styles = makeStyles(theme => ({
         fontWeight: 500
     },
     button: {
-        marginLeft: 4,
+        marginLeft: 5,
         '& + $button': {
-            marginLeft: 0
+            marginLeft: 2
+        }
+    },
+    linkButton: {
+        background: alpha('#000', .2),
+        borderRadius: 4,
+        padding: 5,
+        '&:hover': {
+            background: alpha('#000', .4),
         }
     }
 }));

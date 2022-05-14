@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Button } from '@mui/material';
-import { Route, Switch, useRouteMatch, useHistory } from 'react-router';
-import { NavLink } from 'react-router-dom';
-import { useParams } from 'react-router';
+import { Route, Switch, useRouteMatch, useHistory, useParams } from 'react-router';
+import { Redirect, NavLink } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
 
@@ -59,9 +58,11 @@ export default function ClientRoutes() {
 
             <Helmet>
                 <title>
-                    { account ?
+                    { account ? (
                         `${commonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
-                        : 'client'}
+                    ) : (
+                        'client'
+                    )}
                 </title>
             </Helmet>
 
@@ -101,8 +102,7 @@ export default function ClientRoutes() {
                 <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
                 <Route path={`${match.path}/tickets`} component={ ClientTickets } />
                 <Route path={`${match.path}/realm`} component={ ClientRealm } />
-                {/* <Redirect from='*' to={`${match.path}`} /> */}
-                {/* <Redirect from={match.path} to={`${match.path}/gotchis`} /> */}
+                <Redirect from='*' to={`/client/${account}`} />
             </Switch>
         </div>
     );

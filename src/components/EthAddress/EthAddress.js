@@ -14,7 +14,7 @@ import styles from './styles.js'
 export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton }) {
     const classes = styles();
 
-    if(!ethersApi.isEthAddress(address)) {
+    if (!ethersApi.isEthAddress(address)) {
         return null;
     }
 
@@ -41,29 +41,33 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
                 </span>
             )}
 
-            { copyButton && <div className={classes.button}>
-                <CopyToClipboard copy={address} />
-            </div>}
+            { copyButton &&
+                <div className={classes.button}>
+                    <CopyToClipboard copy={address} />
+                </div>
+            }
 
-            { polygonButton && <div className={classes.button}>
-                <CustomTooltip
-                    title={
-                        <span>
-                            view on <span className='highlight'>polygonscan</span>
-                        </span>
-                    }
-                    placement='top'
-                    followCursor
-                >
-                    <IconButton
-                        href={`https://polygonscan.com/address/${address}`}
-                        target='_blank'
-                        size='small'
+            { polygonButton &&
+                <div className={classes.button}>
+                    <CustomTooltip
+                        title={
+                            <span>
+                                view on <span className='highlight'>polygonscan</span>
+                            </span>
+                        }
+                        placement='top'
+                        followCursor
                     >
-                        <CallMade className={classes.linkIcon} />
-                    </IconButton>
-                </CustomTooltip>
-            </div>}
+                        <IconButton
+                            href={`https://polygonscan.com/address/${address}`}
+                            target='_blank'
+                            className={classes.linkButton}
+                        >
+                            <CallMade className={classes.linkIcon} />
+                        </IconButton>
+                    </CustomTooltip>
+                </div>
+            }
         </div>
     );
 }

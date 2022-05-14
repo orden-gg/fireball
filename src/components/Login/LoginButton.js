@@ -64,7 +64,7 @@ export default function LoginButton() {
     };
 
     const onAddressSubmit = (address) => {
-        let duplicated = storageAddresses.find((item) => item.address === address);
+        const duplicated = storageAddresses.find((item) => item.address === address);
 
         dropdownClose();
         selectActiveAddress(address);

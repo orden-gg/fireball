@@ -44,25 +44,25 @@ export default function LoginAddress({ address, isMetamask }) {
     };
 
     const confirmNewAddress = (event) => {
+        event.stopPropagation();
+
         if (name.length > 0) {
             setEditMode(false);
 
             if (name !== address.name) updateAddressName(address.address, name)
         }
-
-        event.stopPropagation();
     };
 
     const editAddress = (event) => {
+        event.stopPropagation();
+
         setEditMode(true);
         nameRef.current.focus();
-
-        event.stopPropagation();
     };
 
     const copyAddress = (event) => {
-        copyToClipboard();
         event.stopPropagation();
+        copyToClipboard();
     };
 
     const copyToClipboard = async () => {
