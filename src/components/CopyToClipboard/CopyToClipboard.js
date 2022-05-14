@@ -16,16 +16,14 @@ export default function CopyToClipboard({ copy }) {
 
     const copyText = (event, text) => {
         event.stopPropagation();
-        toClipboard(text);
+
+        toClipboard(text)
+            .then(r => setTooltipText('copied!'))
+            .catch(err => setTooltipText(defaultTooltipText));
     };
 
     const toClipboard = async (text) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            setTooltipText('copied!');
-        } catch (err) {
-            setTooltipText(defaultTooltipText);
-        }
+        navigator.clipboard.writeText(text);
     };
 
     return (
