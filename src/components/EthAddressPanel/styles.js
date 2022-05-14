@@ -2,8 +2,8 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        display: 'flex',
-        alignItems: 'center'
+        // display: 'flex',
+        // alignItems: 'center'
     },
 }));
 
