@@ -21,13 +21,11 @@ import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import Gotchi from 'components/Gotchi/Gotchi';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
+import filtersUtils from 'utils/filtersUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import { filtersData } from 'data/filters.data';
-import filtersUtils from 'utils/filtersUtils';
 
 import styles from './styles';
-import GotchiFilters from 'components/Filters/GotchiFilter';
-import guilds from 'data/guilds.json';
 
 const sortings = [
     {
@@ -235,20 +233,11 @@ export default function Lend() {
     const getLendings = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedLendings: lendings;
     }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
-    const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
-    const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
 
     return (
         <ContentWrapper>
             <>
                 <Filters className={classes.section} filters={currentFilters} onSetSelectedFilters={onSetSelectedFilters}/>
-                {/* <GotchiFilters
-                    gotchis={lendings}
-                    setGotchis={setLendings}
-                    guilds={guildsKeys}
-                    whitelist={[]}
-                    dataLoading={dataLoading}
-                /> */}
                 <div className={classes.section}>
                     <Alert severity='info' icon={false}>
                         <AlertTitle>Note!</AlertTitle>
