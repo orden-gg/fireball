@@ -26,26 +26,6 @@ export default {
         return params;
     },
 
-    getUpdatedFiltersFromSelectedFilters: (selectedFilters, filters) => {
-        const filtersCopy = {...filters};
-
-        if (Object.keys(selectedFilters).length === 0) {
-            Object.entries(filtersCopy).forEach(([key, filter]) => {
-                filter.resetFilterFn(filter);
-            });
-        } else {
-            Object.entries(filtersCopy).forEach(([key, filter]) => {
-                if (Boolean(selectedFilters[key])) {
-                    filter.updateFromFilterFn(filter, selectedFilters[key].selectedValue);
-                } else {
-                    filter.resetFilterFn(filter);
-                }
-            });
-        }
-
-        return filtersCopy;
-    },
-
     getActiveFiltersCount: (filters) => {
         let count = 0;
         const activeFilters = Object.entries(filters).filter(([key, filter]) => filter.isFilterActive);

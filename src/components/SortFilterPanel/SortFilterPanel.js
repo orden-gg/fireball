@@ -78,13 +78,6 @@ export default function SortFilterPanel({
                                     >
                                         Reset Filters
                                     </Button>
-                                    <Button
-                                        variant='outlined'
-                                        color='primary'
-                                        onClick={onApplyFilters}
-                                    >
-                                        Apply Filters
-                                    </Button>
                                 </div>
                             </div>
                         )}
