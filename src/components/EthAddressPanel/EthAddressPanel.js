@@ -16,8 +16,7 @@ export default function EthAddressPanel({ address }) {
 
         aavegotchilandApi.getAddressInfo(address).then((res) => {
             if (mounted) {
-                console.log(res)
-                setAccount(res);
+                setAccount(res.data);
                 setDataLoading(false);
             }
         }).catch((error) => {

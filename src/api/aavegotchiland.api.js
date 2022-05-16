@@ -1,16 +1,21 @@
-import axios from 'axios';
+import { setup } from 'axios-cache-adapter'
 
-const api = 'https://api.aavegotchi.land';
+const api = setup({
+    baseURL: 'https://api.aavegotchi.land',
+
+    cache: {
+        maxAge: 10 * 60 * 1000, // caching for 10 mins
+        exclude: { query: false }
+    }
+});
+
+const noCacheOptions = {
+    cache: { maxAge: 0 }
+};
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    async getAddressInfo(address) {
-        return await axios.get(`${api}/address_info?address=${address}`)
-            .then(r => r.data);
-    },
-
-    async getAddressItemization(address) {
-        return await axios.get(`${api}/itemization?address=${address}`)
-            .then(r => r.data.itemizations);
+    getAddressInfo(address, disableCache) {
+        return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
     },
 }
