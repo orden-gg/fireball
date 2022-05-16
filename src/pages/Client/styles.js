@@ -5,23 +5,18 @@ const styles = makeStyles(theme => ({
     container: {
         padding: '7px 24px 0',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        minHeight: '100%'
     },
-    alertWrapper: {
+    loginNav: {
+        maxWidth: 500,
+        margin: '16px auto',
+        width: '100%'
+    },
+    routesNav: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 'calc(100vh - 192px)'
-    },
-    alertInner: {
-        backgroundColor: theme.palette.secondary.dark,
-        maxWidth: 400,
-        margin: 'auto',
-        padding: 24,
-        borderRadius: 4
-    },
-    alert: {
-        marginBottom: 24
+        overflow: 'auto',
+        marginBottom: 4
     },
     clientCitadel: {
         position: 'fixed',
@@ -30,11 +25,7 @@ const styles = makeStyles(theme => ({
         right: 0,
         bottom: 70
     },
-    head: {
-        display: 'flex',
-        overflow: 'auto'
-    },
-    shopBtn: {
+    customBtn: {
         padding: 6,
         margin: 4,
         minWidth: 50,
@@ -44,6 +35,14 @@ const styles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: theme.palette.secondary.dark,
         },
+        '&.active, &.active:hover': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.secondary.main,
+            '&.Mui-disabled': {
+                backgroundColor: alpha(theme.palette.primary.main, .1),
+                color: alpha('#fff', .2),
+            },
+        }
     }
 }));
 
@@ -300,9 +299,26 @@ const parcelSinglePage = makeStyles(theme => ({
     }
 }));
 
+const accountStyles = makeStyles(theme => ({
+    account: {
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
+    },
+    alert: {
+        marginTop: 12,
+        [theme.breakpoints.up('md')]: {
+            marginTop: 0
+        }
+    }
+}));
+
 export {
     styles as default,
     routersStyles,
     loadRewardsStyles,
-    parcelSinglePage
+    parcelSinglePage,
+    accountStyles
 };

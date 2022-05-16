@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { FormControl, IconButton, Input, InputAdornment, Tooltip, Typography } from '@mui/material';
+import { FormControl, IconButton, Input, InputAdornment, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import classNames from 'classnames';
+import Blockies from 'react-blockies';
 
-import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
-import { MetamaskIcon } from 'components/Icons/Icons';
+import CustomTooltip from 'components/custom/CustomTooltip';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 
@@ -44,25 +44,25 @@ export default function LoginAddress({ address, isMetamask }) {
     };
 
     const confirmNewAddress = (event) => {
+        event.stopPropagation();
+
         if (name.length > 0) {
             setEditMode(false);
 
             if (name !== address.name) updateAddressName(address.address, name)
         }
-
-        event.stopPropagation();
     };
 
     const editAddress = (event) => {
+        event.stopPropagation();
+
         setEditMode(true);
         nameRef.current.focus();
-
-        event.stopPropagation();
     };
 
     const copyAddress = (event) => {
-        copyToClipboard();
         event.stopPropagation();
+        copyToClipboard();
     };
 
     const copyToClipboard = async () => {
@@ -81,16 +81,13 @@ export default function LoginAddress({ address, isMetamask }) {
             <Box className={classes.loginAddressBody}>
 
                 <Box component='form' className={classes.loginAddressForm}>
-                    {!isMetamask ? (
-                        <Box className={classNames(classes.loginAddressFormIcon, 'gotchi')}>
-                            <GotchiSvg id={address.gotchiId ? address.gotchiId : 5402} size={35} hideWearables={true} hideBg={true}  />
-                        </Box>
-                    ) : (
-                        <Box className={classNames(classes.loginAddressFormIcon, 'metamask')}>
-                            <MetamaskIcon width={22} height={22} />
-                        </Box>
-                    )}
 
+                    <Blockies
+                        seed={address.address}
+                        size={8}
+                        scale={2.5}
+                        className={classes.blockiesIcon}
+                    />
 
                     <FormControl variant='standard' disabled={!editMode}>
                         <Input
@@ -100,7 +97,7 @@ export default function LoginAddress({ address, isMetamask }) {
                             inputRef={nameRef}
                             value={name}
                             onChange={(event) => onNameChange(event.target.value)}
-                            className={classes.loginAddressName}
+                            className={classNames(classes.loginAddressName, isMetamask && 'metamask')}
                             endAdornment={
                                 <InputAdornment position='end'>
                                     {editMode ? (
@@ -116,32 +113,32 @@ export default function LoginAddress({ address, isMetamask }) {
                     </FormControl>
                 </Box>
 
-                <Tooltip title={copyTooltipText} placement='top' followCursor>
+                <CustomTooltip title={copyTooltipText} placement='top' followCursor>
                     <Typography
                         className={classes.loginAddressAddress}
                         color='primary.main'
                         onClick={(event) => copyAddress(event)}
                         onMouseLeave={() => setCopyTooltipText('Copy address')}
                     >
-                        {commonUtils.cutAddress(address.address)}
+                        {commonUtils.cutAddress(address.address, '..')}
                     </Typography>
-                </Tooltip>
+                </CustomTooltip>
             </Box>
 
             <Box className={classes.loginAddressIcons}>
                 {!isMetamask ? (
                     <>
-                        <Tooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>
+                        <CustomTooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>
                             <IconButton size='small' onClick={(event) => editAddress(event)}>
                                 <EditIcon fontSize='small' />
                             </IconButton>
-                        </Tooltip>
+                        </CustomTooltip>
 
-                        <Tooltip title='Logout' placement='top' followCursor>
+                        <CustomTooltip title='Logout' placement='top' followCursor>
                             <IconButton size='small' color='warning' onClick={(event) => logoutAddress(event, address.address)}>
                                 <LogoutIcon fontSize='small' />
                             </IconButton>
-                        </Tooltip>
+                        </CustomTooltip>
                     </>
                 ) : (
                     null

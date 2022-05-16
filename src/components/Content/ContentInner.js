@@ -7,7 +7,7 @@ import { ContentInnerStyles } from './style';
 
 export default function ContentInner({ children, dataLoading, offset }) {
     const classes = ContentInnerStyles();
-    const contentOffset = offset || 248;
+    const contentOffset = offset || 240;
 
     return (
         <div

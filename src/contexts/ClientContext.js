@@ -89,19 +89,17 @@ const ClientContextProvider = (props) => {
         }
     ];
 
-    const getClientData = () => {
-        getGotchis(clientActive);
-        getLendings(clientActive);
-        getInventory(clientActive);
-        getTickets(clientActive);
-        getRealm(clientActive);
-        getInstallations(clientActive);
-        getTiles(clientActive);
+    const getClientData = (address) => {
+        getGotchis(address);
+        getLendings(address);
+        getInventory(address);
+        getTickets(address);
+        getRealm(address);
+        getInstallations(address);
+        getTiles(address);
 
         // reset
         setWarehouse([]);
-        setReward(null);
-        setRewardCalculated(false);
     };
 
     const getGotchis = (address) => {
