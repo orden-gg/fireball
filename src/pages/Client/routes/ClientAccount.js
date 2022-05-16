@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert } from '@mui/material';
 import { useParams } from 'react-router';
+import { Alert } from '@mui/material';
 
 import EthAddress from 'components/EthAddress/EthAddress';
 import ethersApi from 'api/ethers.api';

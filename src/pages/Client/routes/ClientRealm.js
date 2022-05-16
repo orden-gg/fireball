@@ -19,10 +19,10 @@ export default function ClientRealm() {
             <RealmSwitchButton view={realmView} />
 
             <Switch>
-                <Route path='/client/:account/realm/map' component={ClientRealmMap} />
-                <Route path='/client/:account/realm/list' component={ClientRealmList} />
-                <Route path='/client/:account/realm/parcel/*' component={ClientRealmParcel} />
-                <Redirect from={match.path} to={`/client/:account/realm/${realmView}`} />
+                <Route path={`${match.path}/map`} component={ClientRealmMap} />
+                <Route path={`${match.path}/list`} component={ClientRealmList} />
+                <Route path={`${match.path}/parcel/*`} component={ClientRealmParcel} />
+                <Redirect from={match.path} to={`${match.path}/${realmView}`} />
             </Switch>
         </>
     );

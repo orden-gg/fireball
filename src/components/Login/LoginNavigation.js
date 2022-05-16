@@ -30,9 +30,9 @@ export default function LoginNavigation({ address, onSubmit }) {
     };
 
     const onFormSubmit = (event) => {
-        let formatted = formValue.toLowerCase();
-
         event.preventDefault();
+
+        const formatted = formValue.toLowerCase();
 
         if (ethersApi.isEthAddress(formatted)) {
             onSubmit(formatted);
