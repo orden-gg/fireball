@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -15,8 +14,6 @@ export default function Map() {
     const [isListedLoaded, setIsListedLoaded] = useState(false);
     const [ownerRealm, setOwnerRealm] = useState({});
     const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
-    const location = useLocation();
-    const history = useHistory();
     const classes = styles();
 
     const combineParcels = (listedParcels) => {
@@ -81,8 +78,6 @@ export default function Map() {
         let mounted = true;
 
         if (activeAddress) {
-            history.push({ path: location.pathname, search: `?address=${activeAddress}` });
-
             setIsOwnerLoaded(false);
 
             thegraphApi.getRealmByAddress(activeAddress).then(ownerRealm => {
@@ -100,7 +95,6 @@ export default function Map() {
             .catch(error => console.log(error))
             .finally(() => setIsOwnerLoaded(true));
         } else {
-            history.push({ path: location.pathname });
             setIsOwnerLoaded(true);
         }
 
