@@ -16,7 +16,7 @@ export default function ClientInstallations() {
 
     return (
         <>
-            <ContentInner dataLoading={loadingTiles || loadingInstallations}>
+            <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={200}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
                     component={props => {

@@ -15,7 +15,6 @@ export default function SortFilterPanel({
     isShowFilters = false,
     filters,
     setSelectedFilters,
-    applyFilters,
     resetFilters,
     filtersCount
 }) {
@@ -34,11 +33,6 @@ export default function SortFilterPanel({
     const onSetSelectedFilters = (key, filtersObj) => {
         setSelectedFilters(key, filtersObj);
     }
-
-    const onApplyFilters = useCallback(() => {
-        setIsDropdownOpen(false);
-        applyFilters();
-    }, [setIsDropdownOpen, applyFilters]);
 
     const onReserFilters = useCallback(() => {
         setIsDropdownOpen(false);
