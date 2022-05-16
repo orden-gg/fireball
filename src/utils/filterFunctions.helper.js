@@ -56,6 +56,54 @@ export default {
         return filter.isFilterActive ? filter.items.filter(item => item.isSelected).length : 0;
     },
 
+    // Single selection filter handlers
+    singleSelectionResetFilterFn: (filter) => {
+        filter.isFilterActive = false;
+        filter.items.forEach(item => item.isSelected = false);
+    },
+
+    singleSelectionPredicateFn: (filter, compareItem, key) => {
+        return Boolean(filter.items.find(item => item.isSelected && item.value === compareItem[key]));
+    },
+
+    singleSelectionUpdateFromQueryFn: (filter, compareValue, compareKey) => {
+        filter.isFilterActive = true;
+
+        filter.items.forEach(item => {
+            const filterItem = compareValue === item[compareKey] ? item : null;
+
+            if (Boolean(filterItem)) {
+                item.isSelected = true;
+            } else {
+                item.isSelected = false;
+            }
+        });
+    },
+
+    singleSelectionUpdateFromFilterFn: (filter, selectedValue) => {
+        filter.isFilterActive = true;
+
+        filter.items.forEach(item => {
+            if (item.value === selectedValue) {
+                item.isSelected = true;
+
+                return;
+            } else {
+                item.isSelected = false;
+            }
+        });
+    },
+
+    singleSelectionGetQueryParamsFn: (filter) => {
+        const filterItem = filter.items.find(item => item.isSelected);
+
+        return filterItem?.queryParamValue;
+    },
+
+    singleSelectionGetActiveFiltersCount: (filter) => {
+        return filter.isFilterActive ? filter.items.filter(item => item.isSelected).length : 0;
+    },
+
     // Input filter handlers
     inputResetFilterFn: (filter) => {
         filter.isFilterActive = false;

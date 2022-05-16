@@ -5,6 +5,11 @@ const styles = makeStyles(theme => ({
         '& + $section': {
             marginTop: 12
         }
+    },
+    filtersWrapper: {
+        '& > *': {
+            paddingBottom: 12,
+        }
     }
 }));
 

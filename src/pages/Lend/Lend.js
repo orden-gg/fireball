@@ -10,6 +10,7 @@ import CopyrightIcon from '@mui/icons-material/Copyright';
 import PercentIcon from '@mui/icons-material/Percent';
 import { Alert, AlertTitle, Link, ToggleButton } from '@mui/material';
 
+import classNames from 'classnames';
 import qs from 'query-string';
 
 import ContentWrapper from 'components/Content/ContentWrapper';
@@ -79,7 +80,8 @@ const sortings = [
 ];
 
 const initialFilters = {
-    guild: {...filtersData.guild}
+    guild: {...filtersData.guild},
+    whitelistId: {...filtersData.whitelistId}
 };
 
 export default function Lend() {
@@ -91,12 +93,10 @@ export default function Lend() {
 
     const [modifiedLendings, setModifiedLendings] = useState([]);
     const [lendings, setLendings] = useState([]);
-    const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const [linksListView, setLinksListView] = useState(false);
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
-    const [selectedFilters, setSelectedFilters] = useState({});
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
@@ -118,11 +118,7 @@ export default function Lend() {
 
                 response.forEach((listing) => {
                     if (listing.whitelistId) {
-                        const index = whitelistData.findIndex(savedId => savedId === listing.whitelistId);
-
-                        if (index === -1) {
-                            whitelistData.push(listing.whitelistId);
-                        }
+                        whitelistData.push(listing.whitelistId);
                     }
 
                     mappedData.push({
@@ -132,8 +128,27 @@ export default function Lend() {
                 });
 
                 const sorted = commonUtils.basicSort(mappedData, type, dir);
+                const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
 
-                setWhitelist(commonUtils.sortByDirection(whitelistData, 'asc'));
+                setCurrentFilters(currentFiltersCache => {
+                    const currentFiltersCacheCopy = {...currentFiltersCache};
+
+                    currentFiltersCacheCopy.whitelistId = {
+                        ...currentFiltersCacheCopy.whitelistId,
+                        items: sortedWhitelist.map(whitelist => ({
+                            title: whitelist,
+                            value: whitelist,
+                            queryParamValue: whitelist,
+                            isSelected: false
+                        }))
+                    };
+
+                    if (queryParams.whitelistId) {
+                        return filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                    } else {
+                        return currentFiltersCacheCopy;
+                    }
+                });
                 setModifiedLendings(sorted);
                 setLendings(sorted);
                 setDataLoading(false);
@@ -182,10 +197,6 @@ export default function Lend() {
         onSortingChanged: onSortingChanged
     };
 
-    const getUpdatedFilters = useCallback(selectedFilters => {
-        return filtersUtils.getUpdatedFiltersFromSelectedFilters(selectedFilters, currentFilters);
-    }, [currentFilters]);
-
     const updateQueryParams = useCallback(filters => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
@@ -195,36 +206,32 @@ export default function Lend() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = (key, filtersObj) => {
-        setSelectedFilters(selectedFiltersCache => {
-            selectedFiltersCache[key] = filtersObj;
+    const onSetSelectedFilters = useCallback((key, filtersObj) => {
+        const currentFiltersCopy = {...currentFilters};
 
-            if (!Boolean(filtersObj.selectedValue.length)) {
-                delete selectedFiltersCache[key];
-            }
-
-            return {...selectedFiltersCache};
-        });
-
-        onApplyFilters();
-    }
-
-    const onApplyFilters = useCallback(() => {
-        if (Object.keys(selectedFilters).length > 0) {
-            setIsFiltersApplied(true);
+        if (!Boolean(filtersObj.selectedValue.length)) {
+            currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
+        } else {
+            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], filtersObj.selectedValue);
         }
 
-        const updatedCurrentFilters = getUpdatedFilters(selectedFilters);
-        setCurrentFilters(updatedCurrentFilters);
-        updateQueryParams(updatedCurrentFilters);
-    }, [selectedFilters, updateQueryParams, getUpdatedFilters]);
+        const activeFilters = Object.entries(currentFiltersCopy).filter(([key, filter]) => filter.isFilterActive);
+
+        if (activeFilters.length > 0) {
+            setIsFiltersApplied(true);
+        } else {
+            setIsFiltersApplied(false);
+        }
+
+        setCurrentFilters({...currentFiltersCopy});
+        updateQueryParams(currentFiltersCopy);
+    }, [currentFilters, updateQueryParams]);
 
     const onResetFilters = useCallback(() => {
         Object.entries(currentFilters).forEach(([key, filter]) => {
             filter.resetFilterFn(filter);
         });
 
-        setSelectedFilters({});
         setIsFiltersApplied(false);
         setCurrentFilters(currentFilters);
         updateQueryParams(currentFilters);
@@ -237,7 +244,7 @@ export default function Lend() {
     return (
         <ContentWrapper>
             <>
-                <Filters className={classes.section} filters={currentFilters} onSetSelectedFilters={onSetSelectedFilters}/>
+                <Filters className={classNames(classes.section, classes.filtersWrapper)} filters={currentFilters} onSetSelectedFilters={onSetSelectedFilters}/>
                 <div className={classes.section}>
                     <Alert severity='info' icon={false}>
                         <AlertTitle>Note!</AlertTitle>

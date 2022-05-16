@@ -89,4 +89,18 @@ export const filtersData = {
         getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
         getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
     },
+    whitelistId: {
+        key: 'whitelistId',
+        domainType: FilterDomainType.Equals,
+        componentType: FilterComponent.SingleAutocomplete,
+        title: 'Whitelist',
+        items: [],
+        isFilterActive: false,
+        resetFilterFn: filterHelpers.singleSelectionResetFilterFn,
+        predicateFn: filterHelpers.singleSelectionPredicateFn,
+        updateFromQueryFn: filterHelpers.singleSelectionUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.singleSelectionUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.singleSelectionGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.singleSelectionGetActiveFiltersCount
+    }
 };
