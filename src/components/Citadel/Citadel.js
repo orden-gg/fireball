@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
+import BlurOnIcon from '@mui/icons-material/BlurOn';
+import BlurOffIcon from '@mui/icons-material/BlurOff';
 
 import Phaser from 'phaser';
 import classNames from 'classnames';
@@ -127,8 +129,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     settings={{
                         type: 'guilds',
-                        tooltip: 'guilds',
-                        icons: [<GridOnIcon />, <GridOffIcon />]
+                        tooltip: 'Guilds',
+                        icons: [<BlurOnIcon />, <BlurOffIcon />]
                     }}
                     handleClick={toggleGroup}
                 />

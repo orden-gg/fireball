@@ -9,7 +9,7 @@ import CreateParcels from './CreateParcels';
 import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import citadelUtils from 'utils/citadelUtils';
-export default class Citadel_scene extends Phaser.Scene {
+export default class CitadelScene extends Phaser.Scene {
         constructor({ onParcelSelect, onSceneCreated, wrapperRef }) {
             super({ key: 'Citadel_scene' });
 
