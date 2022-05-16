@@ -20,12 +20,10 @@ export default function SingleAutocompleteFilter({ option, onSetSelectedFilters 
     }, [option.items]);
 
     const onHandleChange = useCallback((event, value) => {
-        setCurrentValue(value);
+        const selectedValue = value ? value.value : '';
 
-        onSetSelectedFilters(option.key, {
-            ...option,
-            selectedValue: value ? value.value : ''
-        });
+        setCurrentValue(value);
+        onSetSelectedFilters(option.key, selectedValue);
     }, [option, onSetSelectedFilters]);
 
     return (

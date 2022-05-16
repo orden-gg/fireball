@@ -14,10 +14,10 @@ export default function MultiButtonSelectionFilter({ option, onSetSelectedFilter
         items[index].isSelected = !items[index].isSelected;
 
         setItems([...items]);
-        onSetSelectedFilters([option.key], {
-            ...option,
-            selectedValue: items.filter(item => item.isSelected)
-        });
+
+        const selectedItems = items.filter(item => item.isSelected);
+
+        onSetSelectedFilters(option.key, selectedItems);
     }, [option, onSetSelectedFilters, items]);
 
     return (

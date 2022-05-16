@@ -7,10 +7,7 @@ import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function MultiAutocompleteFilter({ option, onSetSelectedFilters }) {
     const onHandleAutocompleteChange = useCallback((event, values) => {
-        onSetSelectedFilters(option.key, {
-            ...option,
-            selectedValue: values
-        });
+        onSetSelectedFilters(option.key, values);
     }, [option, onSetSelectedFilters]);
 
     return (

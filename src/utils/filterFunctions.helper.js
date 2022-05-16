@@ -1,6 +1,15 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     // Multiple selection filter handlers
+    multipleSelectionGetIsFilterValidFn: (values) => {
+        return values.length > 0;
+    },
+
+    multipleSelectionIsFilterValidFn: (filter) => {
+        filter.isFilterActive = false;
+        filter.items.forEach(item => item.isSelected = false);
+    },
+
     multipleSelectionResetFilterFn: (filter) => {
         filter.isFilterActive = false;
         filter.items.forEach(item => item.isSelected = false);
@@ -30,11 +39,11 @@ export default {
         });
     },
 
-    multipleSelectionUpdateFromFilterFn: (filter, selectedValue) => {
+    multipleSelectionUpdateFromFilterFn: (filter, selectedValues) => {
         filter.isFilterActive = true;
 
         filter.items.forEach(item => {
-            const filterItem = selectedValue.find(
+            const filterItem = selectedValues.find(
                 selectedValue => selectedValue.value === item.value
             );
 
@@ -49,7 +58,7 @@ export default {
     multipleSelectionGetQueryParamsFn: (filter) => {
         return filter.items
             .filter(item => item.isSelected)
-            .map(selectedValue => selectedValue.queryParamValue);
+            .map(item => item.queryParamValue);
     },
 
     multipleSelectionGetActiveFiltersCount: (filter) => {
@@ -57,6 +66,10 @@ export default {
     },
 
     // Single selection filter handlers
+    singleSelectionGetIsFilterValidFn: (value) => {
+        return Boolean(value);
+    },
+
     singleSelectionResetFilterFn: (filter) => {
         filter.isFilterActive = false;
         filter.items.forEach(item => item.isSelected = false);
@@ -105,6 +118,10 @@ export default {
     },
 
     // Input filter handlers
+    inputGetIsFilterValidFn: (value) => {
+        return Boolean(value);
+    },
+
     inputResetFilterFn: (filter) => {
         filter.isFilterActive = false;
         filter.value = '';

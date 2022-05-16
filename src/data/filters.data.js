@@ -1,5 +1,5 @@
 import collaterals from 'data/collaterals';
-import { FilterComponent, FilterDomainType } from 'data/filterTypes';
+import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
 import filterHelpers from 'utils/filterFunctions.helper';
@@ -7,7 +7,6 @@ import filterHelpers from 'utils/filterFunctions.helper';
 export const filtersData = {
     hauntId: {
         key: 'hauntId',
-        domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultiButtonSelection,
         title: 'Haunt',
         items: [
@@ -25,6 +24,7 @@ export const filtersData = {
             }
         ],
         isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
         resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
         predicateFn: filterHelpers.multipleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
@@ -34,7 +34,6 @@ export const filtersData = {
     },
     collateral: {
         key: 'collateral',
-        domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultiButtonSelection,
         title: 'Collateral',
         items: collaterals.map(collateral => ({
@@ -44,6 +43,7 @@ export const filtersData = {
             queryParamValue: collateral.name.toLowerCase()
         })),
         isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
         resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
         predicateFn: filterHelpers.multipleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
@@ -55,12 +55,12 @@ export const filtersData = {
         key: 'search',
         isMultipleKeys: true,
         keys: ['id', 'name'],
-        domainType: FilterDomainType.Contains,
         componentType: FilterComponent.Input,
         title: 'Search',
         placeholder: 'Name or Id',
         value: '',
         isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.inputGetIsFilterValidFn,
         resetFilterFn: filterHelpers.inputResetFilterFn,
         predicateFn: filterHelpers.inputPredicateFn,
         updateFromQueryFn: filterHelpers.inputUpdateFromQueryFn,
@@ -70,7 +70,6 @@ export const filtersData = {
     },
     guild: {
         key: 'guild',
-        domainType: FilterDomainType.Equals,
         componentType: FilterComponent.MultipleAutocomplete,
         title: 'Guilds',
         items: guilds
@@ -82,6 +81,7 @@ export const filtersData = {
                 queryParamValue: commonUtils.stringToKey(guild.name)
             })),
         isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
         resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
         predicateFn: filterHelpers.multipleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
@@ -91,11 +91,11 @@ export const filtersData = {
     },
     whitelistId: {
         key: 'whitelistId',
-        domainType: FilterDomainType.Equals,
         componentType: FilterComponent.SingleAutocomplete,
         title: 'Whitelist',
         items: [],
         isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.singleSelectionGetIsFilterValidFn,
         resetFilterFn: filterHelpers.singleSelectionResetFilterFn,
         predicateFn: filterHelpers.singleSelectionPredicateFn,
         updateFromQueryFn: filterHelpers.singleSelectionUpdateFromQueryFn,

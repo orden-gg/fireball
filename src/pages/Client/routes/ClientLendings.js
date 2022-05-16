@@ -139,13 +139,13 @@ export default function ClientLendings() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = useCallback((key, filtersObj) => {
+    const onSetSelectedFilters = useCallback((key, selectedValue) => {
         const currentFiltersCopy = {...currentFilters};
 
-        if (!Boolean(filtersObj.selectedValue.length)) {
+        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue)) {
             currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
         } else {
-            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], filtersObj.selectedValue);
+            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], selectedValue);
         }
 
         const activeFilters = Object.entries(currentFiltersCopy).filter(([key, filter]) => filter.isFilterActive);
