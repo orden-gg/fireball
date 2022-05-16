@@ -38,6 +38,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
                     this.clear();
                     this.fillStyle(color, 1);
                     this.updateGraphics();
+                    // console.log(this.settings.parcels);
                 }
             });
         }
@@ -45,11 +46,11 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
     create(parcels) {
         if (Array.isArray(parcels)) {
-            for(const parcel of parcels) {
+            for (const parcel of parcels) {
                 this.addParcel(parcel);
             }
         } else {
-            for(const id in parcels) {
+            for (const id in parcels) {
                 this.addParcel(parcels[id]);
             }
         }
@@ -100,7 +101,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     }
 
     updateGraphics() {
-        for(let parcel of this.settings.parcels) {
+        for (let parcel of this.settings.parcels) {
             const { x, y } = citadelUtils.getParcelPosition(+parcel.coordinateX, +parcel.coordinateY);
             const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
@@ -108,8 +109,9 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         }
     }
 
-    updateParcels(parcels) {
-        this.settings.parcels = parcels;
+    removeGroup(settings) {
+        this.animate(false);
+        this.destroy();
     }
 
     show(isActive) {

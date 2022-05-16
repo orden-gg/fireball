@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -9,22 +9,25 @@ import styles from '../styles';
 
 export default function ClientRealmMap() {
     const { realm, setRealmView, loadingRealm } = useContext(ClientContext);
-    const [parcelsGroups, setParcelsGroups] = useState([]);
     const classes = styles();
+
+    const realmGroups = useMemo(() => {
+        const group = [];
+
+        group.push({
+            parcels: realm,
+            icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+            tooltip: 'Owner realm',
+            type: 'owner',
+            active: true,
+            animate: true
+        });
+
+        return group;
+    }, [realm]);
+
     useEffect(() => {
         setRealmView('map');
-        if(realm.length > 0) {
-            setParcelsGroups([
-                {
-                    parcels: realm,
-                    icons: [<VisibilityIcon />, <VisibilityOffIcon />],
-                    tooltip: 'Owner realm',
-                    type: 'owner',
-                    active: true,
-                    animate: true
-                }
-            ])
-        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -32,7 +35,7 @@ export default function ClientRealmMap() {
     return (
         <Citadel
             className={classes.clientCitadel}
-            parcelsGroups={parcelsGroups}
+            realmGroups={realmGroups}
             isLoaded={!loadingRealm}
         />
     );

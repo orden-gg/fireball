@@ -12,18 +12,18 @@ export default function GuildRealm() {
     const classes = guildContentStyles();
     const { guilds, guildId, guildRealm, setGuildRealm } = useContext(GuildsContext);
     const [isLoaded, setIsLoaded] = useState(false);
-    const parcelsGroups = useMemo(() => {
+
+    const realmGroups = useMemo(() => {
         const groups = [];
-        if (guildRealm.length > 0) {
-            groups.push({
-                parcels: guildRealm,
-                icons: [<VisibilityIcon />, <VisibilityOffIcon />],
-                tooltip: 'Owner realm',
-                type: 'owner',
-                active: true,
-                animate: true
-            });
-        }
+
+        groups.push({
+            parcels: guildRealm,
+            icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+            tooltip: 'Owner realm',
+            type: 'owner',
+            active: true,
+            animate: true
+        });
 
         return groups;
     }, [guildRealm]);
@@ -48,7 +48,7 @@ export default function GuildRealm() {
     return (
         <Citadel
             className={classes.guildCitadel}
-            parcelsGroups={parcelsGroups}
+            realmGroups={realmGroups}
             isLoaded={isLoaded}
         />
     )

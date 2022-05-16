@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -10,8 +11,12 @@ import styles from './styles';
 
 export default function Map() {
     const { activeAddress } = useContext(LoginContext);
-    const [parcelsGroups, setParcelsGroups] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    const [listedRealm, setListedRealm] = useState({});
+    const [isListedLoaded, setIsListedLoaded] = useState(false);
+    const [ownerRealm, setOwnerRealm] = useState({});
+    const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
+    const location = useLocation();
+    const history = useHistory();
     const classes = styles();
 
     const combineParcels = (listedParcels) => {
@@ -32,6 +37,8 @@ export default function Map() {
     }
 
     useEffect(() => {
+        let mounted = true;
+
         Promise.all([
             thegraphApi.getParcelPriceByDirection({ size: 0, direction: "desc", limit: 500 }),
             thegraphApi.getParcelPriceByDirection({ size: 0, direction: "asc" }),
@@ -41,50 +48,73 @@ export default function Map() {
             thegraphApi.getParcelPriceByDirection({ size: 2, direction: "asc" }),
             thegraphApi.getParcelPriceByDirection({ size: 3, direction: "desc", limit: 3000 }),
             thegraphApi.getParcelPriceByDirection({ size: 3, direction: "asc" }),
-            thegraphApi.getAllListedParcels(),
-            thegraphApi.getRealmByAddress(activeAddress)
-        ]).then(([humbleAsc, humbleDesc, reasonableAsc, reasonableDesc, vSpaciousAsc, vSpaciousDesc, hSpaciousAsc, hSpaciousDesc, listedParcels, ownerRealm]) => {
-            const combined = combineParcels(listedParcels);
-            const groups = [];
+            thegraphApi.getAllListedParcels()
+        ]).then(([humbleAsc, humbleDesc, reasonableAsc, reasonableDesc, vSpaciousAsc, vSpaciousDesc, hSpaciousAsc, hSpaciousDesc, listedParcels]) => {
+            if (mounted) {
+                const combined = combineParcels(listedParcels);
 
-            groups.push({
-                parcels: combined,
-                type: 'listed',
-                active: false,
-                icons: [<VisibilityIcon />, <VisibilityOffIcon />],
-                tooltip: 'Listed realm',
-                range: {
-                    humble: {min: humbleDesc, max: humbleAsc},
-                    reasonable: {min: reasonableDesc, max: reasonableAsc},
-                    spacious: {min: Math.min(hSpaciousDesc, vSpaciousDesc), max: Math.max(hSpaciousAsc, vSpaciousAsc)},
-                }
-            });
-
-            if (ownerRealm.length > 0) {
-                groups.push({
-                    parcels: ownerRealm,
-                    type: 'owner',
+                setListedRealm({
+                    parcels: combined,
+                    type: 'listed',
                     active: false,
-                    animate: true,
                     icons: [<VisibilityIcon />, <VisibilityOffIcon />],
-                    tooltip: 'Owner realm'
-                })
+                    tooltip: 'Listed realm',
+                    range: {
+                        humble: {min: humbleDesc, max: humbleAsc},
+                        reasonable: {min: reasonableDesc, max: reasonableAsc},
+                        spacious: {min: Math.min(hSpaciousDesc, vSpaciousDesc), max: Math.max(hSpaciousAsc, vSpaciousAsc)},
+                    }
+                });
+
+                setIsListedLoaded(true);
             }
+        })
+        .catch(error => console.log(error))
+        .finally(() => setIsListedLoaded(true));
 
-            setParcelsGroups(groups);
+        return () => mounted = false;
 
-            setIsLoaded(true);
-        }).catch((error) => {
-            console.log(error);
-        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        let mounted = true;
+
+        if (activeAddress) {
+            history.push({ path: location.pathname, search: `?address=${activeAddress}` });
+
+            setIsOwnerLoaded(false);
+
+            thegraphApi.getRealmByAddress(activeAddress).then(ownerRealm => {
+                if (mounted) {
+                    setOwnerRealm({
+                        parcels: ownerRealm,
+                        type: 'owner',
+                        active: false,
+                        animate: true,
+                        icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+                        tooltip: 'Owner realm'
+                    });
+                }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setIsOwnerLoaded(true));
+        } else {
+            history.push({ path: location.pathname });
+            setIsOwnerLoaded(true);
+        }
+
+        return () => mounted = false;
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeAddress]);
 
     return (
         <div className={classes.mapWrapper}>
             <Citadel
                 className={classes.citadel}
-                parcelsGroups={parcelsGroups}
-                isLoaded={isLoaded}
+                realmGroups={[listedRealm, ownerRealm]}
+                isLoaded={isOwnerLoaded && isListedLoaded}
             />
         </div>
     )

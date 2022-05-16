@@ -18,37 +18,41 @@ import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
 import styles, { InterfaceStyles } from './styles';
 
-export default function Citadel({ parcelsGroups, className, isLoaded }) {
+export default function Citadel({ realmGroups, className, isLoaded }) {
     const [game, setGame] = useState(null);
+    const [sceneCreated, setSceneCreated] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedParcel, setSelectedParcel] = useState(null);
-    const [scene, setScene] = useState(null);
     const classes = { ...styles(), ...InterfaceStyles() }
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
     const searchParcles = (id) => {
-        scene.addSelectedParcel(+id);
+        game.scene.addSelectedParcel(+id);
     }
 
     const removeSelected = () => {
-        scene.removeSelectedParcel();
+        game.scene.removeSelectedParcel();
         setSelectedParcel(null);
     }
 
     const toggleGroup = (type, isActive) => {
-        scene.toggleGroup(type, isActive);
+        game.scene.toggleGroup(type, isActive);
     };
 
     const basicButtons = useMemo(() => {
-        return parcelsGroups.map(group =>
-            <BasicButton
-                settings={group}
-                handleClick={toggleGroup}
-                key={group.type}
-            />
-        )
-    }, [parcelsGroups, scene]);
+        return realmGroups
+            .filter(group => Boolean(Object.keys(group).length) && group.parcels.length > 0)
+            .map(group =>
+                <BasicButton
+                    settings={group}
+                    handleClick={toggleGroup}
+                    key={group.type}
+                />
+            );
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realmGroups, sceneCreated]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,23 +66,24 @@ export default function Citadel({ parcelsGroups, className, isLoaded }) {
                     width: window.innerWidth,
                     height: window.innerHeight
                 },
-                scene: CitadelScene({
-                    onCreated(scene) {
-                        setScene(scene)
-                    },
+                scene: new CitadelScene({
                     onParcelSelect(id) {
                         setSelectedId(id)
+                    },
+                    onSceneCreated() {
+                        setSceneCreated(true);
                     },
                     wrapperRef
                 })
             });
         }, 100);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (selectedId) {
-            const listedGroup = parcelsGroups.find(group => group.type === 'listed');
+            const listedGroup = realmGroups.find(group => group.type === 'listed');
 
             if (listedGroup !== undefined) {
                 const parcel = listedGroup.parcels.find(parcel => parcel.id === selectedId);
@@ -88,19 +93,23 @@ export default function Citadel({ parcelsGroups, className, isLoaded }) {
                 };
             };
 
-            thegraph.getRealmById(selectedId).then((parcel) => {
+            thegraph.getRealmById(selectedId).then(parcel => {
                 setSelectedParcel(parcel);
             });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedId]);
 
     useEffect(() => {
-        if (scene && isLoaded) {
-            for (const group of parcelsGroups) {
-                scene.addGroup(group);
+        if (sceneCreated && isLoaded) {
+            for (const group of realmGroups) {
+                game.scene.addGroup(group);
             }
         }
-    }, [scene, isLoaded]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sceneCreated, isLoaded]);
 
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
@@ -111,11 +120,19 @@ export default function Citadel({ parcelsGroups, className, isLoaded }) {
                     settings={{
                         type: 'grid',
                         tooltip: 'Districts grid',
-                        icons: [<GridOffIcon />, <GridOnIcon />]
+                        icons: [<GridOnIcon />, <GridOffIcon />]
                     }}
                     handleClick={toggleGroup}
                 />
-                <Divider className={classes.interfaceDivider}/>
+                <BasicButton
+                    settings={{
+                        type: 'guilds',
+                        tooltip: 'guilds',
+                        icons: [<GridOnIcon />, <GridOffIcon />]
+                    }}
+                    handleClick={toggleGroup}
+                />
+                {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
                 {basicButtons}
             </CitadelInterface>
 

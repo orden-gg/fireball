@@ -7,11 +7,10 @@ import walls from 'assets/images/citadel/walls.svg';
 import Highlight from './Highlight';
 import CreateParcels from './CreateParcels';
 import DistrictsGridContainer from './DistrictsGridContainer';
+import GuildsLogos from './GuildsLogos';
 import citadelUtils from 'utils/citadelUtils';
-
-export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) {
-    return class Citadel_scene extends Phaser.Scene {
-        constructor() {
+export default class Citadel_scene extends Phaser.Scene {
+        constructor({ onParcelSelect, onSceneCreated, wrapperRef }) {
             super({ key: 'Citadel_scene' });
 
             this.wrapper = wrapperRef.current;
@@ -20,7 +19,11 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
 
             this.settings = {}
 
+            this.onSceneCreated = onSceneCreated;
+
             this.selectedParcel = null;
+            this.onParcelSelect = onParcelSelect;
+            this.groups = {};
         }
 
         preload() {
@@ -31,23 +34,25 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
             const { width: w, height: h } = this.sys.canvas;
 
             this.walls = this.add.image(0, 0, 'walls');
+
             this.parcels = new CreateParcels(this, {
                 parcels: parcelsData,
                 type: 'parcels',
                 active: true
             });
 
-            this.groups = {
-                grid: new DistrictsGridContainer(this, {
-                    type: 'grid',
-                    active: false
-                })
-            };
+            this.groups.grid = new DistrictsGridContainer(this, {
+                type: 'grid'
+            });
+            this.groups.guilds = new GuildsLogos(this, {
+                type: 'guilds'
+            });
 
             this.citadel = this.addCitadel([
                 this.walls,
                 this.parcels,
-                this.groups.grid
+                this.groups.guilds,
+                this.groups.grid,
             ]);
 
             this.cameras.main.zoom = ZOOM.min * 2;
@@ -55,7 +60,7 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
             this.scale.resize(w, h);
             this.updateZoom();
 
-            onCreated(this);
+            this.onSceneCreated();
 
             this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
                 gameObject.x = dragX;
@@ -135,7 +140,9 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
             this.selectedParcel = parcelsData[tokenId];
             this.addHighlight(this.selectedParcel);
 
-            onParcelSelect(this.selectedParcel.tokenId);
+            this.onParcelSelect(this.selectedParcel.tokenId);
+
+            this.reOrderItems();
 
             setTimeout(() => {
                 let { x, y } = this.calculateParcelCenter(this.selectedParcel);
@@ -168,20 +175,20 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
         addGroup(group) {
             const type = group.type;
 
-            if (!this.groups.hasOwnProperty(group.type)) {
+            if (this.groups?.hasOwnProperty(type)) {
+                group.active = this.groups[type].isActive;
+                this.groups[type].removeGroup();
+                delete this.groups[type];
+            }
+
+            if (group.parcels.length !== 0) {
                 this.groups[type] = new CreateParcels(this, group);
                 this.groups[type].animate(Boolean(group.animate));
 
-                if (group.active) {
-                    this.fadeMap(.5);
-                };
-
-                this.citadel.add(this.groups[type]);
-            } else {
-                if (this.groups[type].parcels !== group.parcels) {
-                    this.groups[type].updateParcels(group.parcels);
-                }
+                this.citadel.add(this.groups[type], 0);
             }
+
+            this.updateMapFade();
         }
 
         updateZoom() {
@@ -226,6 +233,16 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
 
             group.show(isActive);
 
+            if (group.isAnimate) {
+                group.animate(isActive);
+            }
+
+            this.updateMapFade();
+
+            this.reOrderItems();
+        }
+
+        updateMapFade() {
             const isSomeShown = Object.entries(this.groups).some(([, item]) => item.isActive);
 
             if (isSomeShown) {
@@ -233,10 +250,11 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
             } else {
                 this.fadeMap(1);
             }
+        }
 
-            if (group.isAnimate) {
-                group.animate(isActive);
-            }
+        reOrderItems() {
+            this.citadel.bringToTop(this.groups.guilds);
+            this.citadel.bringToTop(this.groups.grid);
         }
 
         fadeMap(fade) {
@@ -258,7 +276,7 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
         getSelectedParcel({cx, cy}) {
             let parcel;
 
-            for(const id in parcelsData) {
+            for (const id in parcelsData) {
                 const { x, y } = citadelUtils.getParcelPosition(parcelsData[id].coordinateX, parcelsData[id].coordinateY);
                 const { w, h } = citadelUtils.getParcelSize(parcelsData[id].size);
                 const xRange = cx < x+w && cx > +x;
@@ -295,4 +313,3 @@ export default function CitadelScene({ onCreated, onParcelSelect, wrapperRef }) 
             return nextZoom;
         }
     }
-}

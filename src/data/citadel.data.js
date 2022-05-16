@@ -72,7 +72,8 @@ const COLORS = {
         guild: [0xffffff, 0xfff000],
         listed: [0x0074F9, 0x560102],
     },
-    grid: 0xfd9af9
+    grid: 0xfd9af9,
+    logo: { back: 0x000000, border: 0xfd9af9 }
 
 }
 
