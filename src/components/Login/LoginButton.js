@@ -1,17 +1,15 @@
 import React, { useContext, useEffect } from 'react';
-import { Backdrop, Typography, Box } from '@mui/material';
+import { Backdrop, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import GotchiSvg from 'components/Gotchi/GotchiImage/GotchiSvg';
+import EthAddress from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-import commonUtils from 'utils/commonUtils';
 
 import LoginNavigation from './LoginNavigation';
 import LoginAddress from './LoginAddress';
-import LoginModal from './LoginModal';
 
 import styles from './styles';
 
@@ -19,9 +17,15 @@ export default function LoginButton() {
     const classes = styles();
     const { getAccounts, metaState } = useMetamask();
 
-    const { activeAddress, selectActiveAddress, storageAddresses,
-            connectMetamask, isMetamaskActive, getActiveAddressSvgId,
-            modalOpen, setModalOpen, dropdownOpen, setDropdownOpen
+    const {
+        activeAddress,
+        selectActiveAddress,
+        storageAddresses,
+        setStorageAddresses,
+        connectMetamask,
+        isMetamaskActive,
+        dropdownOpen,
+        setDropdownOpen
     } = useContext(LoginContext);
 
     useEffect(() => { // connect metamask on load
@@ -59,21 +63,33 @@ export default function LoginButton() {
         setDropdownOpen(!dropdownOpen);
     };
 
+    const onAddressSubmit = (address) => {
+        const duplicated = storageAddresses.find((item) => item.address === address);
+
+        dropdownClose();
+        selectActiveAddress(address);
+
+        if (!duplicated) {
+            setStorageAddresses([
+                {
+                    name: address.slice(0, 6),
+                    address: address
+                },
+                ...storageAddresses
+            ]);
+        }
+    };
+
     return (
         <>
             <div className={classNames(classes.button, dropdownOpen ? 'opened' : 'closed')}>
 
                 <div className={classes.buttonInner} onClick={dropdownToggle}>
                     { activeAddress ? (
-                        isMetamaskActive ? (
-                            <Box className={classNames(classes.buttonIcon, 'metamask')}>
-                                <MetamaskIcon width={18} height={18} />
-                            </Box>
-                        ) : (
-                            <Box className={classNames(classes.buttonIcon, 'gotchi')}>
-                                <GotchiSvg id={getActiveAddressSvgId()} size={26} hideWearables={true} hideBg={true}  />
-                            </Box>
-                        )
+                        isMetamaskActive &&
+                            <div className={classes.buttonIcon}>
+                                <MetamaskIcon width={14} height={14} />
+                            </div>
                     ) : (
                         <div className={classes.caption}>
                             <Typography className={classes.captionText}>Connect account</Typography>
@@ -82,22 +98,20 @@ export default function LoginButton() {
 
                     { activeAddress ? (
                         <div className={classes.address}>
-                            <Typography className={classes.addressText} variant='subtitle2'>
-                                {commonUtils.cutAddress(activeAddress)}
-                            </Typography>
+                            <EthAddress address={activeAddress} icon={true} />
                         </div>
                     ) : (
                         null
                     )}
                 </div>
 
-                {dropdownOpen ? (
-                    <Box className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
-                        <Box className={classNames(classes.loginList, 'custom-scroll')}>
+                { dropdownOpen ? (
+                    <div className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
+                        <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
-                                <Box className={classes.loginAddressBox}>
+                                <div className={classes.loginAddressBox}>
                                     <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} setDropdownOpen={setDropdownOpen} />
-                                </Box>
+                                </div>
                             ) : (
                                 null
                             )}
@@ -109,19 +123,13 @@ export default function LoginButton() {
                             ) : (
                                 null
                             )}
-                        </Box>
-                        <LoginNavigation />
-                    </Box>
+                        </div>
+                        <LoginNavigation onSubmit={onAddressSubmit} />
+                    </div>
                 ) : (
                     null
                 )}
             </div>
-
-            {modalOpen ? (
-                <LoginModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
-            ) : (
-                null
-            )}
 
             <Backdrop
                 sx={{ }}

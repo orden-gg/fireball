@@ -19,6 +19,7 @@ export default function Header() {
     const hamburgerRef = useRef(null);
 
     const { activeAddress } = useContext(LoginContext);
+    const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
 
     // Close nav on route change
     useEffect(() => {
@@ -47,10 +48,9 @@ export default function Header() {
             </NavLink>
             <Box className={classNames(classes.navWrapper, navOpen ? 'opened' : 'closed')} ref={navRef}>
                 <nav className={classes.navigation}>
-                    <NavLink className={classes.navLink} to='/client'>
+                    <NavLink className={classes.navLink} to={clientLink}>
                         <Box className={classes.navLinkBox}>
                             Client
-                            <Typography variant={'caption'}>Beta</Typography>
                         </Box>
                     </NavLink>
                     <NavLink className={classes.navLink} to='/lend'>
