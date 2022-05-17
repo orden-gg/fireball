@@ -1,13 +1,17 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
 import BlurOnIcon from '@mui/icons-material/BlurOn';
 import BlurOffIcon from '@mui/icons-material/BlurOff';
+import DeselectIcon from '@mui/icons-material/Deselect';
+import SelectAllIcon from '@mui/icons-material/SelectAll';
 
 import Phaser from 'phaser';
 import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
+import qs from 'query-string';
 
 import thegraph from 'api/thegraph.api';
 
@@ -25,9 +29,13 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const [sceneCreated, setSceneCreated] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedParcel, setSelectedParcel] = useState(null);
+    const [isMultiselect, setIsMultiselect] = useState(false);
     const classes = { ...styles(), ...InterfaceStyles() }
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
+    const location = useLocation();
+    const history = useHistory();
+    const params = qs.parse(location.search);
 
     const searchParcles = (id) => {
         game.scene.addSelectedParcel(+id);
@@ -75,6 +83,14 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     onSceneCreated() {
                         setSceneCreated(true);
                     },
+                    onMultiselectChange(ids) {
+                        setIsMultiselect(ids.length > 0);
+                        params.multiselect = ids;
+                        history.push({
+                            path: location.pathname,
+                            search: qs.stringify(params, { arrayFormat: 'comma' })
+                        });
+                    },
                     wrapperRef
                 })
             });
@@ -105,11 +121,17 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     useEffect(() => {
         if (sceneCreated && isLoaded) {
+            const multiselect = params.multiselect;
+            const isMultiselect = Boolean(multiselect?.split(',')?.length);
             for (const group of realmGroups) {
                 game.scene.addGroup(group);
             }
-        }
 
+            if(isMultiselect) {
+                game.scene.setMultiselect(multiselect.split(','));
+                setIsMultiselect(isMultiselect);
+            }
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sceneCreated, isLoaded]);
 
@@ -136,6 +158,19 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 />
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
                 {basicButtons}
+                {
+                    isMultiselect && (
+                        <BasicButton
+                            settings={{
+                                type: 'multiselect',
+                                tooltip: 'Multiselect',
+                                active: true,
+                                icons: [<SelectAllIcon />, <DeselectIcon />]
+                            }}
+                            handleClick={toggleGroup}
+                        />
+                    )
+                }
             </CitadelInterface>
 
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />

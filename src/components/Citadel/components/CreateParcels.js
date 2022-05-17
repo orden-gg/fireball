@@ -38,7 +38,6 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
                     this.clear();
                     this.fillStyle(color, 1);
                     this.updateGraphics();
-                    // console.log(this.settings.parcels);
                 }
             });
         }
@@ -47,16 +46,16 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     create(parcels) {
         if (Array.isArray(parcels)) {
             for (const parcel of parcels) {
-                this.addParcel(parcel);
+                this.drawParcel(parcel);
             }
         } else {
             for (const id in parcels) {
-                this.addParcel(parcels[id]);
+                this.drawParcel(parcels[id]);
             }
         }
     }
 
-    addParcel(parcel) {
+    drawParcel(parcel) {
         const { x, y } = citadelUtils.getParcelPosition(parcel.coordinateX, parcel.coordinateY);
         const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
@@ -101,7 +100,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     }
 
     updateGraphics() {
-        for (let parcel of this.settings.parcels) {
+        for (const parcel of this.settings.parcels) {
             const { x, y } = citadelUtils.getParcelPosition(+parcel.coordinateX, +parcel.coordinateY);
             const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
@@ -109,9 +108,19 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         }
     }
 
-    removeGroup(settings) {
+    removeGroup() {
         this.animate(false);
         this.destroy();
+    }
+
+    toggleParcel(parcel) {
+        const parcelIndex = this.settings.parcels.findIndex(item => item.tokenId === parcel.tokenId);
+
+        if(parcelIndex === -1) {
+            this.settings.parcels = this.settings.parcels.concat(parcel);
+        } else {
+            this.settings.parcels.splice(parcelIndex, 1);
+        }
     }
 
     show(isActive) {

@@ -71,6 +71,7 @@ const COLORS = {
         owner: [0xffffff, 0xfff000],
         guild: [0xffffff, 0xfff000],
         listed: [0x0074F9, 0x560102],
+        multiselect: [0xffffff, 0x3cff69]
     },
     grid: 0xfd9af9,
     logo: { back: 0x000000, border: 0xfd9af9 }

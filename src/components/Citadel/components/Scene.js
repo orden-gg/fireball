@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import parcelsData from 'data/parcels.json';
-import { CITADEL_WIDTH, CITADEL_HEIGHT, ZOOM } from 'data/citadel.data';
+import { CITADEL_WIDTH, CITADEL_HEIGHT, ZOOM, COLORS } from 'data/citadel.data';
 import walls from 'assets/images/citadel/walls.svg';
 
 import Highlight from './Highlight';
@@ -10,7 +10,7 @@ import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import citadelUtils from 'utils/citadelUtils';
 export default class CitadelScene extends Phaser.Scene {
-        constructor({ onParcelSelect, onSceneCreated, wrapperRef }) {
+        constructor({ onMultiselectChange, onParcelSelect, onSceneCreated, wrapperRef }) {
             super({ key: 'Citadel_scene' });
 
             this.wrapper = wrapperRef.current;
@@ -20,10 +20,12 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings = {}
 
             this.onSceneCreated = onSceneCreated;
+            this.onMultiselectChange = onMultiselectChange;
 
             this.selectedParcel = null;
             this.onParcelSelect = onParcelSelect;
             this.groups = {};
+            this.multiselect = {};
         }
 
         preload() {
@@ -110,10 +112,16 @@ export default class CitadelScene extends Phaser.Scene {
                     this.getCursorFromCenter(pointer)
                 );
 
-                if (parcel !== undefined) this.addSelectedParcel(+parcel.tokenId);
+                const shiftPressed = pointer.event.shiftKey;
+
+                if (shiftPressed) {
+                    return this.toggleMultiselect(parcel);
+                }
+
+                this.addSelectedParcel(parcel);
             });
 
-            this.input.on('pointermove', (pointer) => {
+            this.input.on('pointermove', pointer => {
                 this.cursorFromCenter = null;
             });
         }
@@ -130,22 +138,27 @@ export default class CitadelScene extends Phaser.Scene {
             return citadel;
         }
 
-        addSelectedParcel(tokenId) {
-            if (isNaN(tokenId) || parcelsData[tokenId] === undefined) {
+        addSelectedParcel(parcel) {
+            if (parcel === undefined) {
                 return;
             } else if (this.selectedParcel !== null) {
                 this.removeSelectedParcel();
             }
 
-            this.selectedParcel = parcelsData[tokenId];
-            this.addHighlight(this.selectedParcel);
+            this.selectedParcel = parcel;
 
-            this.onParcelSelect(this.selectedParcel.tokenId);
+            const { x, y } = citadelUtils.getParcelPosition(parcel.coordinateX, parcel.coordinateY);
+            const { w, h } = citadelUtils.getParcelSize(parcel.size);
+
+            this.selected = new Highlight(this, x, y, w, h, COLORS.parcels.selected);
+            this.citadel.add(this.selected);
+
+            this.onParcelSelect(parcel.tokenId);
 
             this.reOrderItems();
 
             setTimeout(() => {
-                let { x, y } = this.calculateParcelCenter(this.selectedParcel);
+                let { x, y } = this.calculateParcelCenter(parcel);
                 this.moveToCenter(x, y, 500);
 
                 setTimeout(() => {
@@ -160,16 +173,52 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         removeSelectedParcel() {
-            this.highlight.remove();
+            this.selected.remove();
             this.selectedParcel = null;
         }
 
-        addHighlight(parcel) {
-            const { x, y } = citadelUtils.getParcelPosition(parcel.coordinateX, parcel.coordinateY);
-            const { w, h } = citadelUtils.getParcelSize(parcel.size);
+        setMultiselect(ids) {
+            const parcels = ids
+                .filter(id => parcelsData[id] !== undefined)
+                .map(id => parcelsData[id]);
 
-            this.highlight = new Highlight(this, x, y, w, h);
-            this.citadel.add(this.highlight);
+            if(parcels.length === 0) {
+                return;
+            };
+
+            this.groups.multiselect = new CreateParcels(this, {
+                parcels: parcels,
+                type: 'multiselect',
+                active: true,
+                animate: true
+            });
+
+            this.citadel.add(this.groups.multiselect);
+            this.groups.multiselect.animate(true);
+            this.fadeMap(.5);
+            this.reOrderItems();
+        }
+
+        toggleMultiselect(parcel) {
+            if (parcel === undefined) {
+                return;
+            }
+
+            if (!this.groups.hasOwnProperty('multiselect')) {
+                this.setMultiselect([parcel.tokenId]);
+            } else {
+                this.groups.multiselect.toggleParcel(parcel);
+            }
+
+            const ids = this.groups.multiselect.parcels.map(parcel => parcel.tokenId);
+
+            if(ids.length === 0) {
+                this.groups.multiselect.removeGroup();
+                delete this.groups.multiselect;
+                this.updateMapFade();
+            }
+
+            this.onMultiselectChange(ids);
         }
 
         addGroup(group) {
