@@ -11,6 +11,7 @@ import {
     svgQuery,
     erc1155Query,
     erc721ListingsBySeller,
+    erc721SalesHistory,
     erc1155ListingsBySeller,
     userQuery,
     realmQuery,
@@ -23,7 +24,6 @@ import {
     listedParcelQuery,
     lendingsQuery,
     lendingsByAddressQuery,
-    getParcelHistoricalPricesQuery,
     incomeQuery
 } from './common/queries';
 
@@ -370,25 +370,19 @@ export default {
     },
 
     async getRealmById(id) {
-        return await this.getRealmData(parselQuery(id)).then((response) => {
-            return response.data.parcel
-        })
+        return await this.getData(parselQuery(id)).then((response) => {
+            return response.data.parcel;
+        });
     },
 
-    async getRealmFromClientById(id) {
-        return await getGraphData(clientFactory.client, parselQuery(id)).then((response) => {
-            return response.data.parcel
+    async getErc721SalesHistory(id, category) {
+        return await this.getData(erc721SalesHistory(id, category)).then((response) => {
+            return response.data.erc721Listings;
         })
     },
 
     async getListedParcel(id) {
         return await this.getRealmDataFromClient(listedParcelQuery(id)).then((response) => {
-            return response.data.erc721Listings
-        })
-    },
-
-    async getParcelHistoricalPrices(id) {
-        return await this.getRealmDataFromClient(getParcelHistoricalPricesQuery(id)).then((response) => {
             return response.data.erc721Listings
         })
     },

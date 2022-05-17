@@ -20,17 +20,19 @@ export default function ParcelPage() {
 
         setParcelLoading(true);
 
-        thegraphApi.getRealmFromClientById(parcelId).then((res) => {
-            if (mounted) {
-                setParcel(res);
-                setParcelLoading(false);
-            }
-        }).catch((err) => {
-            if (mounted) {
-                console.log(err);
-                setParcelLoading(false);
-            }
-        });
+        thegraphApi.getRealmById(parcelId)
+            .then(res => {
+                if (mounted) {
+                    setParcel(res);
+                    setParcelLoading(false);
+                }
+            })
+            .catch((err) => {
+                if (mounted) {
+                    console.log(err);
+                    setParcelLoading(false);
+                }
+            });
 
         return () => mounted = false;
     }, [parcelId]);

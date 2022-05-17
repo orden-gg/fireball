@@ -26,10 +26,10 @@ export default function ParcelLink({ parcel }) {
 
     return (
         <Link
-            href={`${window.location.origin}/client/realm/parcel/${parcel.tokenId}`}
+            href={`/parcel/${parcel.tokenId}`}
             target={'_blank'}
             underline='none'
-            className={classNames(classes.nameWrapper, 'two-lined')}
+            className={classNames(classes.nameWrapper, 'two-lined', 'parcel-name')}
         >
             <Typography className={classNames(classes.name, classes.textHighlight, size)}>
                 {name}

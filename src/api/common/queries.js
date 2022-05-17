@@ -266,16 +266,16 @@ export const listedParcelQuery = (id) => {
         }`
 };
 
-export const getParcelHistoricalPricesQuery = (id) => {
+export const erc721SalesHistory = (id, category) => {
     return `{
         erc721Listings(
             where:{
                 tokenId_in: ["${id}"]
-                category: "4"
+                category: "${category}"
                 timePurchased_not: 0
             },
             orderBy: timePurchased,
-            orderDirection:desc,
+            orderDirection: desc,
         ) {
             buyer
             seller

@@ -31,7 +31,7 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
 
             { clientLink ? (
                 <Link
-                    href={`/client/?address=${address}`}
+                    href={`/client/${address}`}
                     target='_blank'
                     className={classes.link}
                 >

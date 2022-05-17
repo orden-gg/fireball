@@ -48,9 +48,10 @@ export default function ParcelImage({ parcel, parcelSize }) {
             }
         }
 
-        const {size} = parcel;
+        const { size } = parcel;
 
         context.strokeStyle = 'white';
+        context.lineWidth = 2;
         +size === 0 && drawRect(5, 5);
         +size === 1 && drawRect(9, 9);
         +size === 3 && drawRect(32, 16);
@@ -86,8 +87,8 @@ export default function ParcelImage({ parcel, parcelSize }) {
             ) : (
                 <canvas
                     ref={canvasRef}
-                    width={parcelSize}
-                    height={parcelSize}
+                    width={parcelSize - 4}
+                    height={parcelSize - 4}
                 />
             )}
         </div>
