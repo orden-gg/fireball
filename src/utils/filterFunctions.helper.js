@@ -160,11 +160,17 @@ export default {
     },
 
     rangeSliderPredicateFn: (filter, compareItem) => {
+        let lowerBorderValue;
+        let upperBorderValue;
         const compareValue = compareItem[filter.key];
-        const minValueInMiliseconds = filter.value[0] * 60 * 60;
-        const maxValueInMiliseconds = filter.value[1] * 60 * 60;
 
-        return minValueInMiliseconds <= compareValue && compareValue <= maxValueInMiliseconds;
+        if (Boolean(filter.valueMapperFn)) {
+            [lowerBorderValue, upperBorderValue] = filter.valueMapperFn(filter.value);
+        } else {
+            [lowerBorderValue, upperBorderValue] = filter.value;
+        }
+
+        return lowerBorderValue <= compareValue && compareValue <= upperBorderValue;
     },
 
     rangeSliderUpdateFromQueryFn: (filter, value) => {

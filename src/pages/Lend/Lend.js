@@ -20,6 +20,7 @@ import GotchisLazy from 'components/Lazy/GotchisLazy';
 import Filters from 'components/Filters/components/Filters/Filters';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import Gotchi from 'components/Gotchi/Gotchi';
+import ethersApi from 'api/ethers.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
@@ -82,7 +83,9 @@ const sortings = [
 const initialFilters = {
     guild: {...filtersData.guild},
     whitelistId: {...filtersData.whitelistId},
-    period: {...filtersData.period}
+    period: {...filtersData.period},
+    splitBorrower: {...filtersData.splitBorrower},
+    upfrontCost: {...filtersData.upfrontCost}
 };
 
 export default function Lend() {
@@ -130,6 +133,8 @@ export default function Lend() {
 
                 const sorted = commonUtils.basicSort(mappedData, type, dir);
                 const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+                const upfronCostValues = sorted.map(item => ethersApi.fromWei(item.upfrontCost));
+                const maxUpfrontCost = Math.max(...upfronCostValues);
 
                 setCurrentFilters(currentFiltersCache => {
                     const currentFiltersCacheCopy = {...currentFiltersCache};
@@ -143,6 +148,11 @@ export default function Lend() {
                             isSelected: false
                         }))
                     };
+                    currentFiltersCacheCopy.upfrontCost = {
+                        ...currentFiltersCacheCopy.upfrontCost,
+                        max: maxUpfrontCost,
+                        value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
+                    }
 
                     if (queryParams.whitelistId) {
                         return filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);

@@ -1,4 +1,6 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import PercentIcon from '@mui/icons-material/Percent';
 
 import collaterals from 'data/collaterals';
 import { FilterComponent } from 'data/filterTypes';
@@ -113,6 +115,43 @@ export const filtersData = {
         min: 0,
         max: 720,
         value: [0, 720],
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
+        predicateFn: filterHelpers.rangeSliderPredicateFn,
+        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
+        valueMapperFn: (value) => {
+            return value.map(val => val * 60 * 60);
+        }
+    },
+    splitBorrower: {
+        key: 'splitBorrower',
+        tooltip: 'borrower revenue',
+        icon: <PercentIcon fontSize='small' />,
+        componentType: FilterComponent.RangeSlider,
+        min: 0,
+        max: 100,
+        value: [0, 100],
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
+        predicateFn: filterHelpers.rangeSliderPredicateFn,
+        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
+    },
+    upfrontCost: {
+        key: 'upfrontCost',
+        tooltip: 'upfront cost',
+        icon: <AttachMoneyIcon fontSize='small' />,
+        componentType: FilterComponent.RangeSlider,
+        min: 0,
+        max: 100,
+        value: [0, 100],
         isFilterActive: false,
         getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
         resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
