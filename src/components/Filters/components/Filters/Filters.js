@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { FilterComponent } from 'data/filterTypes';
 
-import Input from '../InputFilter/InputFilter';
+import InputFilter from '../InputFilter/InputFilter';
 import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
@@ -21,7 +21,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
 
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:
-                    componentToRender = <Input key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <InputFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 case FilterComponent.MultipleAutocomplete:
