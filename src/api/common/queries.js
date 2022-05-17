@@ -244,30 +244,9 @@ export const parselQuery = (id) => {
       fomoBoost
       alphaBoost
       kekBoost
-    }
-  }`
-};
-
-export const clientParselQuery = (id) => {
-    return `{
-    parcel( id: ${id}) {
-      historicalPrices
       timesTraded
-      auctionId
-      tokenId
-      parcelId
-      owner {
-        id
-      }
-      coordinateX
-      coordinateY
-      size
-      district
-      parcelHash
-      fudBoost
-      fomoBoost
-      alphaBoost
-      kekBoost
+      historicalPrices
+      activeListing
     }
   }`
 };

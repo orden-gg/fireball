@@ -20,7 +20,6 @@ import {
     raffleWinsQuery,
     listedParcelsQuery,
     parselQuery,
-    clientParselQuery,
     listedParcelQuery,
     lendingsQuery,
     lendingsByAddressQuery,
@@ -377,7 +376,7 @@ export default {
     },
 
     async getRealmFromClientById(id) {
-        return await this.getRealmDataFromClient(clientParselQuery(id)).then((response) => {
+        return await getGraphData(clientFactory.client, parselQuery(id)).then((response) => {
             return response.data.parcel
         })
     },
