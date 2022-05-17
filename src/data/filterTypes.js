@@ -4,8 +4,9 @@ export const FilterDomainType = Object.freeze({
 });
 
 export const FilterComponent = Object.freeze({
+    Input: 'Input',
     MultipleAutocomplete: 'MultipleAutocomplete',
-    SingleAutocomplete: 'SingleAutocomplete',
     MultiButtonSelection: 'MultiButtonSelection',
-    Input: 'Input'
+    RangeSlider: 'RangeSlider',
+    SingleAutocomplete: 'SingleAutocomplete',
 });

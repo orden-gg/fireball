@@ -1,3 +1,5 @@
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+
 import collaterals from 'data/collaterals';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
@@ -102,5 +104,22 @@ export const filtersData = {
         updateFromFilterFn: filterHelpers.singleSelectionUpdateFromFilterFn,
         getQueryParamsFn: filterHelpers.singleSelectionGetQueryParamsFn,
         getActiveFiltersCountFn: filterHelpers.singleSelectionGetActiveFiltersCount
+    },
+    period: {
+        key: 'period',
+        tooltip: 'rental period',
+        icon: <AccessTimeIcon fontSize='small' />,
+        componentType: FilterComponent.RangeSlider,
+        min: 0,
+        max: 720,
+        value: [0, 720],
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
+        predicateFn: filterHelpers.rangeSliderPredicateFn,
+        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
     }
 };

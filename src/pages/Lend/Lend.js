@@ -81,7 +81,8 @@ const sortings = [
 
 const initialFilters = {
     guild: {...filtersData.guild},
-    whitelistId: {...filtersData.whitelistId}
+    whitelistId: {...filtersData.whitelistId},
+    period: {...filtersData.period}
 };
 
 export default function Lend() {
@@ -89,8 +90,8 @@ export default function Lend() {
 
     const history = useHistory();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
+    const [queryParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
     const [modifiedLendings, setModifiedLendings] = useState([]);
     const [lendings, setLendings] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
@@ -209,7 +210,7 @@ export default function Lend() {
     const onSetSelectedFilters = useCallback((key, selectedValue) => {
         const currentFiltersCopy = {...currentFilters};
 
-        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue)) {
+        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue, currentFiltersCopy[key])) {
             currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
         } else {
             currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], selectedValue);

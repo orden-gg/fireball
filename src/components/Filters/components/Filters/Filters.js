@@ -8,6 +8,7 @@ import Input from '../InputFilter/InputFilter';
 import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
+import RangeSliderFilter from '../RangeSliderFilter/RangeSliderFilter';
 
 import styles from './styles';
 
@@ -19,20 +20,24 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
             let componentToRender;
 
             switch (renderFilter.componentType) {
-                case FilterComponent.MultipleAutocomplete:
-                    componentToRender = <MultiAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                case FilterComponent.Input:
+                    componentToRender = <Input key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
-                case FilterComponent.SingleAutocomplete:
-                    componentToRender = <SingleAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                case FilterComponent.MultipleAutocomplete:
+                    componentToRender = <MultiAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 case FilterComponent.MultiButtonSelection:
                     componentToRender = <MultiButtonSelectionFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
-                case FilterComponent.Input:
-                    componentToRender = <Input key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                case FilterComponent.SingleAutocomplete:
+                    componentToRender = <SingleAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+
+                    break;
+                case FilterComponent.RangeSlider:
+                    componentToRender = <RangeSliderFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
 
                     break;
                 default:

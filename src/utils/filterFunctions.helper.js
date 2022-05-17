@@ -15,8 +15,8 @@ export default {
         filter.items.forEach(item => item.isSelected = false);
     },
 
-    multipleSelectionPredicateFn: (filter, compareItem, key) => {
-        return filter.items.some(item => item.isSelected && item.value === compareItem[key]);
+    multipleSelectionPredicateFn: (filter, compareItem) => {
+        return filter.items.some(item => item.isSelected && item.value === compareItem[filter.key]);
     },
 
     multipleSelectionUpdateFromQueryFn: (filter, compareValue, compareKey) => {
@@ -39,13 +39,11 @@ export default {
         });
     },
 
-    multipleSelectionUpdateFromFilterFn: (filter, selectedValues) => {
+    multipleSelectionUpdateFromFilterFn: (filter, values) => {
         filter.isFilterActive = true;
 
         filter.items.forEach(item => {
-            const filterItem = selectedValues.find(
-                selectedValue => selectedValue.value === item.value
-            );
+            const filterItem = values.find(value => value.value === item.value);
 
             if (Boolean(filterItem)) {
                 item.isSelected = true;
@@ -93,11 +91,11 @@ export default {
         });
     },
 
-    singleSelectionUpdateFromFilterFn: (filter, selectedValue) => {
+    singleSelectionUpdateFromFilterFn: (filter, value) => {
         filter.isFilterActive = true;
 
         filter.items.forEach(item => {
-            if (item.value === selectedValue) {
+            if (item.value === value) {
                 item.isSelected = true;
 
                 return;
@@ -131,16 +129,16 @@ export default {
         return filter.keys.some(key => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
     },
 
-    inputUpdateFromQueryFn: (filter, selectedValue) => {
+    inputUpdateFromQueryFn: (filter, value) => {
         filter.isFilterActive = true;
 
-        filter.value = selectedValue;
+        filter.value = value;
     },
 
-    inputUpdateFromFilterFn: (filter, selectedValue) => {
+    inputUpdateFromFilterFn: (filter, value) => {
         filter.isFilterActive = true;
 
-        filter.value = selectedValue;
+        filter.value = value;
     },
 
     inputGetQueryParamsFn: (filter) => {
@@ -149,5 +147,43 @@ export default {
 
     inputGetActiveFiltersCount: (filter) => {
         return Boolean(filter.value) ? 1 : 0;
+    },
+
+    // Range slider filter handlers
+    rangeSliderGetIsFilterValidFn: (values, filter) => {
+        return values[0] > filter.min || values[1] < filter.max;
+    },
+
+    rangeSliderResetFilterFn: (filter) => {
+        filter.isFilterActive = false;
+        filter.value = [filter.min, filter.max];
+    },
+
+    rangeSliderPredicateFn: (filter, compareItem) => {
+        const compareValue = compareItem[filter.key];
+        const minValueInMiliseconds = filter.value[0] * 60 * 60;
+        const maxValueInMiliseconds = filter.value[1] * 60 * 60;
+
+        return minValueInMiliseconds <= compareValue && compareValue <= maxValueInMiliseconds;
+    },
+
+    rangeSliderUpdateFromQueryFn: (filter, value) => {
+        filter.isFilterActive = true;
+
+        filter.value = value.map(value => parseInt(value, 10));
+    },
+
+    rangeSliderUpdateFromFilterFn: (filter, value) => {
+        filter.isFilterActive = true;
+
+        filter.value = value;
+    },
+
+    rangeSliderGetQueryParamsFn: (filter) => {
+        return filter.value;
+    },
+
+    rangeSliderGetActiveFiltersCount: (filter) => {
+        return filter.isFilterActive ? 1 : 0;
     },
 }
