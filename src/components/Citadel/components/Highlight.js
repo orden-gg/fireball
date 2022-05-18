@@ -1,5 +1,4 @@
 import Phaser from 'phaser';
-import { COLORS } from 'data/citadel.data';
 export default class Highlight extends Phaser.GameObjects.Rectangle {
     constructor(scene, x, y, w, h, color) {
         super(scene);

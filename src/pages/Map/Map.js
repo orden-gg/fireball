@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import BlurOnIcon from '@mui/icons-material/BlurOn';
+import BlurOffIcon from '@mui/icons-material/BlurOff';
 
 import Citadel from 'components/Citadel/Citadel';
 
@@ -54,7 +56,7 @@ export default function Map() {
                     parcels: combined,
                     type: 'listed',
                     active: false,
-                    icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+                    icons: [<BlurOnIcon />, <BlurOffIcon />],
                     tooltip: 'Listed realm',
                     range: {
                         humble: {min: humbleDesc, max: humbleAsc},

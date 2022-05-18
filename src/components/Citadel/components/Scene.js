@@ -25,7 +25,6 @@ export default class CitadelScene extends Phaser.Scene {
             this.selectedParcel = null;
             this.onParcelSelect = onParcelSelect;
             this.groups = {};
-            this.multiselect = {};
         }
 
         preload() {
@@ -186,16 +185,15 @@ export default class CitadelScene extends Phaser.Scene {
                 return;
             };
 
-            this.groups.multiselect = new CreateParcels(this, {
+            this.multiselect = new CreateParcels(this, {
                 parcels: parcels,
                 type: 'multiselect',
                 active: true,
                 animate: true
             });
 
-            this.citadel.add(this.groups.multiselect);
-            this.groups.multiselect.animate(true);
-            this.fadeMap(.5);
+            this.citadel.add(this.multiselect);
+            this.multiselect.animate(true);
             this.reOrderItems();
         }
 
@@ -204,18 +202,17 @@ export default class CitadelScene extends Phaser.Scene {
                 return;
             }
 
-            if (!this.groups.hasOwnProperty('multiselect')) {
+            if (!this.hasOwnProperty('multiselect')) {
                 this.setMultiselect([parcel.tokenId]);
             } else {
-                this.groups.multiselect.toggleParcel(parcel);
+                this.multiselect.toggleParcel(parcel);
             }
 
-            const ids = this.groups.multiselect.parcels.map(parcel => parcel.tokenId);
+            const ids = this.multiselect.parcels.map(parcel => parcel.tokenId);
 
             if(ids.length === 0) {
-                this.groups.multiselect.removeGroup();
-                delete this.groups.multiselect;
-                this.updateMapFade();
+                this.multiselect.removeGroup();
+                delete this.multiselect;
             }
 
             this.onMultiselectChange(ids);

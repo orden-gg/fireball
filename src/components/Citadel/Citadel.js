@@ -3,8 +3,6 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
-import BlurOnIcon from '@mui/icons-material/BlurOn';
-import BlurOffIcon from '@mui/icons-material/BlurOff';
 import DeselectIcon from '@mui/icons-material/Deselect';
 import SelectAllIcon from '@mui/icons-material/SelectAll';
 
@@ -29,7 +27,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const [sceneCreated, setSceneCreated] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedParcel, setSelectedParcel] = useState(null);
-    const [isMultiselect, setIsMultiselect] = useState(false);
     const classes = { ...styles(), ...InterfaceStyles() }
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
@@ -55,7 +52,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             .filter(group => Boolean(Object.keys(group).length) && group.parcels.length > 0)
             .map(group =>
                 <BasicButton
-                    settings={group}
+                    {...group}
                     handleClick={toggleGroup}
                     key={group.type}
                 />
@@ -84,7 +81,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         setSceneCreated(true);
                     },
                     onMultiselectChange(ids) {
-                        setIsMultiselect(ids.length > 0);
                         params.multiselect = ids;
                         history.push({
                             path: location.pathname,
@@ -129,7 +125,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
             if(isMultiselect) {
                 game.scene.setMultiselect(multiselect.split(','));
-                setIsMultiselect(isMultiselect);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,36 +136,19 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <SearchForm searchParcles={searchParcles} />
                 <FullscreenButton wrapperRef={wrapperRef} />
                 <BasicButton
-                    settings={{
-                        type: 'grid',
-                        tooltip: 'Districts grid',
-                        icons: [<GridOnIcon />, <GridOffIcon />]
-                    }}
+                    type='grid'
+                    tooltip='Districts grid'
+                    icons={[<GridOnIcon />, <GridOffIcon />]}
                     handleClick={toggleGroup}
                 />
                 <BasicButton
-                    settings={{
-                        type: 'guilds',
-                        tooltip: 'Guilds',
-                        icons: [<BlurOnIcon />, <BlurOffIcon />]
-                    }}
+                    type='guilds'
+                    tooltip='Guilds'
+                    icons={[<SelectAllIcon />, <DeselectIcon />]}
                     handleClick={toggleGroup}
                 />
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
                 {basicButtons}
-                {
-                    isMultiselect && (
-                        <BasicButton
-                            settings={{
-                                type: 'multiselect',
-                                tooltip: 'Multiselect',
-                                active: true,
-                                icons: [<SelectAllIcon />, <DeselectIcon />]
-                            }}
-                            handleClick={toggleGroup}
-                        />
-                    )
-                }
             </CitadelInterface>
 
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
