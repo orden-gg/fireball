@@ -339,6 +339,9 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
                 size
                 timesTraded
                 historicalPrices
+                owner {
+                    id
+                }
             }
         }
     }`
