@@ -52,7 +52,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                 followCursor
             >
                 <div className={classes.listing}>
-                    {listings.length ? (
+                    {listings?.length ? (
                         <Link
                             href={`https://app.aavegotchi.com/baazaar/erc721/${listings[0].id}`}
                             target='_blank'
