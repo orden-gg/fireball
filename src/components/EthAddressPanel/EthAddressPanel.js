@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles.js'
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';
+import EthAddress from 'components/EthAddress/EthAddress.js';
 
 export default function EthAddressPanel({ address }) {
     const classes = styles();
@@ -34,7 +35,12 @@ export default function EthAddressPanel({ address }) {
 
     return (
         <div className={classes.container}>
-            addr - {address}
+            <EthAddress
+                address={address}
+                icon={true}
+                copyButton={true}
+                polygonButton={true}
+            />
 
             { dataLoading ? (
                 <p>Loading...</p>

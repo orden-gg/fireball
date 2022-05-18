@@ -22,7 +22,7 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
         <div className={classes.container}>
             { icon &&
                 <Blockies
-                    seed={address}
+                    seed={address.toLowerCase()}
                     size={8}
                     scale={2.5}
                     className={classes.icon}

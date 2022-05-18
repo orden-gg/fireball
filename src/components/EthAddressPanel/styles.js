@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        background: alpha('#000', .5),
+        background: alpha('#000', .2),
         padding: 16,
         borderRadius: 4
     },
