@@ -179,6 +179,9 @@ export const erc721ListingsBySeller = (seller) => {
                 size
                 auctionId
                 historicalPrices
+                owner {
+                    id
+                }
             }
             portal {
                 hauntId

@@ -152,7 +152,7 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                                                 tokenId: item.tokenId,
                                                 baazaarId: item.id,
                                                 listings: [{
-                                                    id: item.tokenId,
+                                                    id: item.id,
                                                     priceInWei: item.priceInWei,
                                                     __typename: 'ERC721Listing'
                                                 }],
