@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -29,17 +29,17 @@ export default function LoginNavigation({ address, onSubmit }) {
         return isFormSabmitted && !ethersApi.isEthAddress(addr);
     };
 
-    const onFormSubmit = (event) => {
-        let formatted = formValue.toLowerCase();
-
+    const onFormSubmit = useCallback((event) => {
         event.preventDefault();
+
+        const formatted = formValue.toLowerCase();
 
         if (ethersApi.isEthAddress(formatted)) {
             onSubmit(formatted);
         }
 
         setIsFormSubmitted(true);
-    };
+    }, [formValue, onSubmit]);
 
     return (
         <div className={classNames(classes.loginNavigation, !metaState.account[0] && 'connect')}>

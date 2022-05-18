@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 
 import LoginNavigation from 'components/Login/LoginNavigation';
+import { LoginContext } from 'contexts/LoginContext';
 
 import styles, { accountStyles } from '../styles';
 
@@ -15,9 +16,12 @@ export default function ClientNav() {
     const history = useHistory();
     const { account } = useParams();
 
-    const onAddressSubmit = (address) => {
+    const { setActiveAddress } = useContext(LoginContext);
+
+    const onAddressSubmit = useCallback((address) => {
         history.push({ pathname: `/client/${address}` });
-    };
+        setActiveAddress(address);
+    }, [history, setActiveAddress]);
 
     return (
         <div className={classes.loginNav}>

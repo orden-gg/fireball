@@ -55,7 +55,6 @@ export default function ClientRoutes() {
 
     return (
         <div className={classes.routes}>
-
             <Helmet>
                 <title>
                     { account ? (

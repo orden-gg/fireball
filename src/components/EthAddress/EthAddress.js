@@ -20,12 +20,14 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
 
     return (
         <div className={classes.container}>
-            { icon && <Blockies
-                seed={address}
-                size={8}
-                scale={2.5}
-                className={classes.icon}
-            />}
+            { icon &&
+                <Blockies
+                    seed={address}
+                    size={8}
+                    scale={2.5}
+                    className={classes.icon}
+                />
+            }
 
             { clientLink ? (
                 <Link
