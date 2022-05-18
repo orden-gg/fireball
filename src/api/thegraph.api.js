@@ -348,8 +348,8 @@ export default {
             return queries;
         }
 
-        return await graphJoin(clientFactory.realmClient, getQueries()).then((response) => {
-            return filterCombinedGraphData(response, ['parcels'], 'parcelId');
+        return await graphJoin(clientFactory.client, getQueries()).then((response) => {
+            return filterCombinedGraphData(response, ['parcels'], 'tokenId');
         });
     },
 

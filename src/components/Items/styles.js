@@ -427,7 +427,8 @@ const ERC1155InnerStyles = makeStyles(theme => ({
             }
         },
         '&.parcel-name': {
-            marginTop: 8
+            marginTop: 8,
+            cursor: 'pointer'
         }
     },
     name: {

@@ -69,7 +69,8 @@ const styles = makeStyles(theme => ({
         margin: '0 0 4px',
         textTransform: 'capitalize',
         [theme.breakpoints.up('md')]: {
-            marginBottom: 0
+            marginBottom: 0,
+            marginRight: 8
         }
     },
     sales: {

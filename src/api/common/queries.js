@@ -210,19 +210,24 @@ export const erc1155ListingsBySeller = (seller) => {
 
 export const realmQuery = (address, skip) => {
     return `{
-      parcels(first: 1000, skip: ${skip} where: { owner: "${address}" }) {
-        parcelId
-        parcelHash
+      parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
         tokenId
+        parcelId
+        owner {
+          id
+        }
         coordinateX
         coordinateY
+        size
         district
+        parcelHash
         fudBoost
         fomoBoost
         alphaBoost
         kekBoost
-        size
-        auctionId
+        timesTraded
+        historicalPrices
+        activeListing
       }
     }`
 };
