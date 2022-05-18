@@ -24,8 +24,8 @@ import {
     parselQuery,
     lendingsQuery,
     lendingsByAddressQuery,
+    incomeQuery,
     getParcelOrderDirectionQuery
-    incomeQuery
 } from './common/queries';
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -385,7 +385,7 @@ export default {
     },
 
     async getParcelPriceByDirection(data) {
-        return await this.getRealmDataFromClient(getParcelOrderDirectionQuery(data)).then((response) => {
+        return await this.getData(getParcelOrderDirectionQuery(data)).then(response => {
             return ethersApi.fromWei(response.data.erc721Listings[0].priceInWei);
         })
     },
