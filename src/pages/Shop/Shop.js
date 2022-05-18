@@ -118,7 +118,7 @@ export default function Shop() {
                 baazaarId: listing.id,
                 historicalPrices: Boolean(listing.parcel.historicalPrices) ? listing.parcel.historicalPrices : [],
                 listings: [{
-                    id: listing.parcel.tokenId,
+                    id: listing.id,
                     priceInWei: listing.priceInWei
                 }]
             }));

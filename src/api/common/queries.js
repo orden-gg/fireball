@@ -179,6 +179,9 @@ export const erc721ListingsBySeller = (seller) => {
                 size
                 auctionId
                 historicalPrices
+                owner {
+                    id
+                }
             }
             portal {
                 hauntId
@@ -210,19 +213,24 @@ export const erc1155ListingsBySeller = (seller) => {
 
 export const realmQuery = (address, skip) => {
     return `{
-      parcels(first: 1000, skip: ${skip} where: { owner: "${address}" }) {
-        parcelId
-        parcelHash
+      parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
         tokenId
+        parcelId
+        owner {
+          id
+        }
         coordinateX
         coordinateY
+        size
         district
+        parcelHash
         fudBoost
         fomoBoost
         alphaBoost
         kekBoost
-        size
-        auctionId
+        timesTraded
+        historicalPrices
+        activeListing
       }
     }`
 };
@@ -244,59 +252,39 @@ export const parselQuery = (id) => {
       fomoBoost
       alphaBoost
       kekBoost
-    }
-  }`
-};
-
-export const clientParselQuery = (id) => {
-    return `{
-    parcel( id: ${id}) {
-      historicalPrices
       timesTraded
-      auctionId
-      tokenId
-      parcelId
-      owner {
-        id
-      }
-      coordinateX
-      coordinateY
-      size
-      district
-      parcelHash
-      fudBoost
-      fomoBoost
-      alphaBoost
-      kekBoost
+      historicalPrices
+      activeListing
     }
   }`
 };
 
-export const listedParcelQuery = (id) => {
+export const activeListingQeury = (erc, id, type, category) => {
     return `{
-        erc721Listings(
+        ${erc}Listings(
                 where: {
-                    category: "4"
-                    parcel: "${id}"
+                    category: "${category}"
+                    ${type}: "${id}"
                     cancelled: false
                     timePurchased: 0
                 }
             ) {
                 id
+                priceInWei
             }
         }`
 };
 
-export const getParcelHistoricalPricesQuery = (id) => {
+export const erc721SalesHistory = (id, category) => {
     return `{
         erc721Listings(
             where:{
                 tokenId_in: ["${id}"]
-                category: "4"
+                category: "${category}"
                 timePurchased_not: 0
             },
             orderBy: timePurchased,
-            orderDirection:desc,
+            orderDirection: desc,
         ) {
             buyer
             seller
@@ -354,6 +342,9 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
                 size
                 timesTraded
                 historicalPrices
+                owner {
+                    id
+                }
             }
         }
     }`

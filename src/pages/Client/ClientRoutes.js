@@ -33,11 +33,12 @@ export default function ClientRoutes() {
     const subroute = location.pathname.split('/')[3];
 
     const { account } = useParams();
+    const queryParams = queryString.parse(location.search);
 
     const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { getClientData, navData } = useContext(ClientContext);
 
-    const [queryParams] = useState(queryString.parse(location.search));
+    const [isActiveAddressSet, setIsActiveAddressSet] = useState(false);
 
     useEffect(() => {
         if (ethersApi.isEthAddress(account)) {
@@ -48,11 +49,17 @@ export default function ClientRoutes() {
 
     useEffect(() => {
         if (activeAddress) {
-            history.push({
-                pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
-                search: queryString.stringify(queryParams, { arrayFormat: 'comma' })
-            });
-            getClientData(activeAddress);
+            if (activeAddress !== account && !isActiveAddressSet) {
+                setActiveAddress(account);
+            } else {
+                history.push({
+                    pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
+                    search: queryString.stringify(queryParams, { arrayFormat: 'comma' })
+                });
+                getClientData(activeAddress);
+            }
+
+            setIsActiveAddressSet(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
