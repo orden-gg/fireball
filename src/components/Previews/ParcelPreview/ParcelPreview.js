@@ -63,14 +63,20 @@ export default function ParcelPreview({ parcel }) {
 
                         <div className={classes.boosts}>
                             { boosts.map((boost, i) => {
+                                const multiplierValue = itemUtils.getAlchemicaMultiplier(boost.name);
+                                const totalBoost = boost.value * multiplierValue;
+
                                 return boost.value > 0 ? (
                                     <div className={classNames(classes.boost, boost.name)} key={i}>
                                         <img
-                                            src={itemUtils.getAlchemicaImg(boost.name)}
+                                            src={itemUtils.getAlchemicaTokenImg(boost.name)}
                                             alt={boost.name}
-                                            width={16}
+                                            width={32}
                                         />
-                                        {boost.value}
+                                        <div className={classes.boostInner}>
+                                            <h5>{totalBoost}</h5>
+                                            <p>{boost.value}pts  x {multiplierValue}</p>
+                                        </div>
                                     </div>
                                 ) : (
                                     null

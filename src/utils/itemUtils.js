@@ -298,4 +298,27 @@ export default {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
     },
+
+    getAlchemicaTokenImg(name) {
+        try {
+            return require(`../assets/images/tokens/${name}-token.svg`).default;
+        } catch (error) {
+            return require(`../assets/images/image-placeholder.svg`).default;
+        }
+    },
+
+    getAlchemicaMultiplier(name) {
+        switch (name) {
+            case 'fud':
+                return 1000;
+            case 'fomo':
+                return 500;
+            case 'alpha':
+                return 250;
+            case 'kek':
+                return 100;
+            default:
+                return '';
+        }
+    },
 }

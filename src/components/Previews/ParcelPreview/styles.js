@@ -90,37 +90,39 @@ const styles = makeStyles(theme => ({
         },
     },
     boost: {
-        display: 'flex',
-        alignItems: 'center',
         borderRadius: 4,
         padding: 4,
         border: '2px solid transparent',
-        fontWeight: 500,
         marginRight: 8,
-        fontSize: 16,
         textShadow: '1px 1px 0 black',
-        lineHeight: 1,
-        '& img': {
-            marginRight: 4
+        textAlign: 'center',
+
+        '& h5': {
+            fontWeight: 500,
+            fontSize: 16,
+            lineHeight: 1,
+            margin: 0
+        },
+        '& p': {
+            fontSize: 10,
+            margin: 0,
+            color: '#fff',
+            opacity: .5
         },
         '&.fud': {
             background: alpha(theme.palette.alchemica.fud, .1),
-            borderColor: alpha(theme.palette.alchemica.fud, .3),
             color: theme.palette.alchemica.fud
         },
         '&.fomo': {
             background: alpha(theme.palette.alchemica.fomo, .1),
-            borderColor: alpha(theme.palette.alchemica.fomo, .3),
             color: theme.palette.alchemica.fomo
         },
         '&.alpha': {
             background: alpha(theme.palette.alchemica.alpha, .1),
-            borderColor: alpha(theme.palette.alchemica.alpha, .3),
             color: theme.palette.alchemica.alpha
         },
         '&.kek': {
             background: alpha(theme.palette.alchemica.kek, .1),
-            borderColor: alpha(theme.palette.alchemica.kek, .3),
             color: theme.palette.alchemica.kek
         }
     },
