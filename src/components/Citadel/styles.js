@@ -129,11 +129,31 @@ const LoaderStyles = makeStyles(theme => ({
         height: '100%'
     },
     '@keyframes drop': keyframes.drop
-}))
+}));
+
+const InfoStyles = makeStyles(theme => ({
+    infoContainer: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        bottom: 0
+    },
+    infoItem: {
+        fontSize: 11,
+        margin: theme.spacing(.5, 0),
+        opacity: .8
+    },
+    infoButton: {
+        padding: 4,
+        borderRadius: 4,
+        display: 'inline-block',
+        backgroundColor: theme.palette.background.default
+    }
+}));
 
 export {
     styles as default,
     LoaderStyles,
     ParcelBoxStyle,
-    InterfaceStyles
+    InterfaceStyles,
+    InfoStyles
 }

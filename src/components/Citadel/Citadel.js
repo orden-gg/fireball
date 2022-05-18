@@ -20,6 +20,7 @@ import CitadelInterface from './components/CitadelInterface'
 import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
+import CitadelInfo from './components/CitadelInfo';
 import styles, { InterfaceStyles } from './styles';
 
 export default function Citadel({ realmGroups, className, isLoaded }) {
@@ -119,6 +120,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         if (sceneCreated && isLoaded) {
             const multiselect = params.multiselect;
             const isMultiselect = Boolean(multiselect?.split(',')?.length);
+
             for (const group of realmGroups) {
                 game.scene.addGroup(group);
             }
@@ -152,6 +154,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             </CitadelInterface>
 
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
+
+            <CitadelInfo />
 
             <ParcelBox
                 removeSelected={removeSelected}
