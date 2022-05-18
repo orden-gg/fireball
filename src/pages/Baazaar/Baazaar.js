@@ -232,7 +232,6 @@ export default function Baazaar() {
     const getBaazaarItems = (params) => {
         showBackdrop(true);
         thegraph.getData(getGraphQueryString(params)).then((response) => {
-            console.log('graph', response.data.category);
             setGoods(response.data.category);
             showBackdrop(false);
         }).catch(() => {

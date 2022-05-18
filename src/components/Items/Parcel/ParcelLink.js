@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { Link, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Typography } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 import classNames from 'classnames';
 
+import CustomModal from 'components/Modal/Modal';
+import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
@@ -17,6 +19,7 @@ export default function ParcelLink({ parcel }) {
 
     const [name, setName] = useState('');
     const [size, setSize] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         setName(parcel.parcelHash.replace(/-/g, ' '));
@@ -25,16 +28,22 @@ export default function ParcelLink({ parcel }) {
     }, []);
 
     return (
-        <Link
-            href={`${window.location.origin}/client/realm/parcel/${parcel.tokenId}`}
-            target={'_blank'}
-            underline='none'
-            className={classNames(classes.nameWrapper, 'two-lined')}
-        >
-            <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                {name}
-            </Typography>
-            <CallMade className={classes.callMadeIcon} />
-        </Link>
+        <>
+            <div
+                className={classNames(classes.nameWrapper, 'two-lined', 'parcel-name')}
+                onClick={() => setModalOpen(true)}
+            >
+                <Typography className={classNames(classes.name, classes.textHighlight, size)}>
+                    {name}
+                </Typography>
+                <CallMade className={classes.callMadeIcon} />
+
+            </div>
+
+
+            <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+                <ParcelPreview parcel={parcel} />
+            </CustomModal>
+        </>
     )
 }

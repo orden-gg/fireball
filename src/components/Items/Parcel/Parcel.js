@@ -44,7 +44,7 @@ export default function Parcel({ parcel }) {
                 </Tooltip>
             </div>
 
-            <ParcelImage key={parcel.parcelId} parcel={parcel} parcelSize={150} />
+            <ParcelImage key={parcel.parcelId} parcel={parcel} parcelSize={160} />
 
             <div className={classNames(classes.label, classes.labelSlot)}>
                 [{parcel.tokenId}]

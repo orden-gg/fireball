@@ -4,15 +4,11 @@ import { IconButton, Modal } from '@mui/material';
 
 import classNames from 'classnames';
 
-export default function CustomModal({ children, modalOpen, setModalOpen, className, handleModalClose }) {
+export default function CustomModal({ children, modalOpen, setModalOpen, className }) {
     const classes = styles();
 
     const onModalClose = () => {
         setModalOpen(false);
-
-        if (Boolean(handleModalClose)) {
-            handleModalClose();
-        };
     }
 
     return (

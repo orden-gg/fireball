@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        display: 'flex',
+        display: 'inline-flex',
         alignItems: 'center'
     },
     icon: {

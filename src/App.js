@@ -16,6 +16,7 @@ import Lend from 'pages/Lend/Lend';
 import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
+import ParcelPage from './pages/Parcel/ParcelPage';
 import Autopet from './pages/Autopet/Autopet';
 import OldAutopet from './pages/OldAutopet/OldAutopet';
 import Raffle from './pages/Raffle/Raffle';
@@ -82,6 +83,7 @@ export default function App() {
                                     <Route path={`/autopet-v1`} component={ OldAutopet } />
                                     <Route path={`/guilds`} component={ Guilds } />
                                     <Route path={`/client`} component={ Client } />
+                                    <Route path={`/parcel/:parcelId`} component={ ParcelPage } />
                                     <Route path={`/raffle-calculator`} component={ Raffle } />
                                     <Route path={`/shop`} component={ Shop } />
                                     <Route path={`/map`} component={ Map } />

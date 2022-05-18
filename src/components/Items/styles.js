@@ -270,10 +270,6 @@ const itemStyles = makeStyles(theme => ({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        '& canvas': {
-            maxWidth: 100,
-            maxHeight: 100
-        }
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -326,7 +322,7 @@ const tooltipStyles = makeStyles(theme => ({
         '.tooltip-wearable &': { // labelSlot
             top: 0,
             opacity: .7
-        },
+        }
     },
     labelTotal: {
         backgroundColor: theme.palette.primary.main,
@@ -429,6 +425,10 @@ const ERC1155InnerStyles = makeStyles(theme => ({
             '&:hover': {
                 backgroundColor: alpha(theme.palette.secondary.dark, .5),
             }
+        },
+        '&.parcel-name': {
+            marginTop: 8,
+            cursor: 'pointer'
         }
     },
     name: {
@@ -551,6 +551,21 @@ const parselStyles = makeStyles(theme => ({
         '.specions &': {
             backgroundColor: theme.palette.realm.specions
         }
+    },
+    labelSlot: {
+        position: 'absolute',
+        top: 10,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        opacity: .5,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
+                    ${theme.palette.secondary.main} -1px -1px 0px',
+                    ${theme.palette.secondary.main} 1px -1px 0px',
+                    ${theme.palette.secondary.main} -1px 1px 0px',
+                    ${theme.palette.secondary.main} 1px 1px 0px`,
     },
     shopParcelPrice: {
         position: 'absolute',

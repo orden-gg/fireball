@@ -9,8 +9,10 @@ import {
     gotchiByIdQuery,
     gotchiesQuery,
     svgQuery,
+    activeListingQeury,
     erc1155Query,
     erc721ListingsBySeller,
+    erc721SalesHistory,
     erc1155ListingsBySeller,
     userQuery,
     realmQuery,
@@ -20,13 +22,10 @@ import {
     raffleWinsQuery,
     listedParcelsQuery,
     parselQuery,
-    clientParselQuery,
-    listedParcelQuery,
     lendingsQuery,
     lendingsByAddressQuery,
-    getParcelHistoricalPricesQuery,
-    incomeQuery,
     getParcelOrderDirectionQuery
+    incomeQuery
 } from './common/queries';
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -339,10 +338,6 @@ export default {
         return await getGraphData(clientFactory.realmClient, query);
     },
 
-    async getRealmDataFromClient(query) {
-        return await getGraphData(clientFactory.client, query);
-    },
-
     async getRealmByAddress(address) {
         function getQueries() {
             let queries = [];
@@ -354,8 +349,8 @@ export default {
             return queries;
         }
 
-        return await graphJoin(clientFactory.realmClient, getQueries()).then((response) => {
-            return filterCombinedGraphData(response, ['parcels'], 'parcelId');
+        return await graphJoin(clientFactory.client, getQueries()).then((response) => {
+            return filterCombinedGraphData(response, ['parcels'], 'tokenId');
         });
     },
 
@@ -372,26 +367,20 @@ export default {
     },
 
     async getRealmById(id) {
-        return await this.getRealmData(parselQuery(id)).then((response) => {
-            return response.data.parcel
+        return await this.getData(parselQuery(id)).then((response) => {
+            return response.data.parcel;
+        });
+    },
+
+    async getErc721SalesHistory(id, category) {
+        return await this.getData(erc721SalesHistory(id, category)).then((response) => {
+            return response.data.erc721Listings;
         })
     },
 
-    async getRealmFromClientById(id) {
-        return await this.getRealmDataFromClient(clientParselQuery(id)).then((response) => {
-            return response.data.parcel
-        })
-    },
-
-    async getListedParcel(id) {
-        return await this.getRealmDataFromClient(listedParcelQuery(id)).then((response) => {
-            return response.data.erc721Listings
-        })
-    },
-
-    async getParcelHistoricalPrices(id) {
-        return await this.getRealmDataFromClient(getParcelHistoricalPricesQuery(id)).then((response) => {
-            return response.data.erc721Listings
+    async getActiveListing(erc, id, type, category) {
+        return await this.getData(activeListingQeury(erc, id, type, category)).then((response) => {
+            return response.data.erc721Listings[0];
         })
     },
 
