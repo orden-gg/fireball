@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { Route, Switch, useRouteMatch, useHistory, useParams } from 'react-router';
 import { Redirect, NavLink } from 'react-router-dom';
@@ -36,6 +36,8 @@ export default function ClientRoutes() {
     const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { getClientData, navData } = useContext(ClientContext);
 
+    const [isActiveAddressSet, setIsActiveAddressSet] = useState(false);
+
     useEffect(() => {
         if (ethersApi.isEthAddress(account)) {
             setActiveAddress(account);
@@ -45,10 +47,16 @@ export default function ClientRoutes() {
 
     useEffect(() => {
         if (activeAddress) {
-            history.push({
-                pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`
-            });
-            getClientData(activeAddress);
+            if (activeAddress !== account && !isActiveAddressSet) {
+                setActiveAddress(account);
+            } else {
+                history.push({
+                    pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`
+                });
+                getClientData(activeAddress);
+            }
+
+            setIsActiveAddressSet(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
