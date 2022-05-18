@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import EthAddress from 'components/EthAddress/EthAddress';
+import ActiveListingButton from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';
 
 import SalesHistory from '../SalesHistory/SalesHistory';
@@ -32,48 +33,61 @@ export default function ParcelPreview({ parcel }) {
                 </div>
 
                 <div className={classes.content}>
-                    <div className={classes.contentTop}>
-                        <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
-                        <EthAddress
-                            address={parcel.owner.id}
-                            icon={true}
-                            clientLink={true}
-                            polygonButton={true}
-                            copyButton={true}
+                    <div className={classes.contentInner}>
+                        <div className={classes.contentTop}>
+                            <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
+                            <EthAddress
+                                address={parcel.owner.id}
+                                icon={true}
+                                clientLink={true}
+                                polygonButton={true}
+                                copyButton={true}
+                            />
+                        </div>
+
+                        <div className={classes.badges}>
+                            <Paper className={classes.badge} elevation={0}>
+                                <span className={classes.highlighted}>id:</span>
+                                {parcel.tokenId}
+                            </Paper>
+                            <Paper className={classes.badge} elevation={0}>
+                                <span className={classes.highlighted}>district:</span>
+                                {parcel.district}
+                            </Paper>
+                            <Paper className={classes.badge} elevation={0}>
+                                <span className={classes.highlighted}>size:</span>
+                                {itemUtils.getParcelSize(parcel.size)}
+                                ({itemUtils.getParcelDimmentions(parcel.size)})
+                            </Paper>
+                        </div>
+
+                        <div className={classes.boosts}>
+                            { boosts.map((boost, i) => {
+                                return boost.value > 0 ? (
+                                    <div className={classNames(classes.boost, boost.name)} key={i}>
+                                        <img
+                                            src={itemUtils.getAlchemicaImg(boost.name)}
+                                            alt={boost.name}
+                                            width={16}
+                                        />
+                                        {boost.value}
+                                    </div>
+                                ) : (
+                                    null
+                                )
+                            })}
+                        </div>
+                    </div>
+
+                    <div className={classes.listing}>
+                        <ActiveListingButton
+                            item={{
+                                erc: 'erc721',
+                                id: parcel.tokenId,
+                                type: 'parcel',
+                                category: '4'
+                            }}
                         />
-                    </div>
-
-                    <div className={classes.badges}>
-                        <Paper className={classes.badge} elevation={0}>
-                            <span className={classes.highlighted}>id:</span>
-                            {parcel.tokenId}
-                        </Paper>
-                        <Paper className={classes.badge} elevation={0}>
-                            <span className={classes.highlighted}>district:</span>
-                            {parcel.district}
-                        </Paper>
-                        <Paper className={classes.badge} elevation={0}>
-                            <span className={classes.highlighted}>size:</span>
-                            {itemUtils.getParcelSize(parcel.size)}
-                            ({itemUtils.getParcelDimmentions(parcel.size)})
-                        </Paper>
-                    </div>
-
-                    <div className={classes.boosts}>
-                        { boosts.map((boost, i) => {
-                            return boost.value > 0 ? (
-                                <div className={classNames(classes.boost, boost.name)} key={i}>
-                                    <img
-                                        src={itemUtils.getAlchemicaImg(boost.name)}
-                                        alt={boost.name}
-                                        width={16}
-                                    />
-                                    {boost.value}
-                                </div>
-                            ) : (
-                                null
-                            )
-                        })}
                     </div>
                 </div>
             </div>

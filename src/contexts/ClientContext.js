@@ -226,6 +226,8 @@ const ClientContextProvider = (props) => {
     };
 
     const getInstallations = (address) => {
+        setLoadingInstallations(true);
+
         installationsApi.getInstallationsByAddress(address).then(response => {
             const installations = response.map(item => {
                 const id = ethersApi.formatBigNumber(item.installationId._hex);
@@ -239,10 +241,13 @@ const ClientContextProvider = (props) => {
             });
 
             setInstallations(installations);
-        }).finally(() => setLoadingInstallations(false));
+            setLoadingInstallations(false);
+        });
     };
 
     const getTiles = (address) => {
+        setLoadingTiles(true);
+
         tilesApi.getTilesByAddress(address).then(response => {
             const tiles = response.map(item => {
                 const id = ethersApi.formatBigNumber(item.tileId._hex);
@@ -256,7 +261,8 @@ const ClientContextProvider = (props) => {
             });
 
             setTiles(tiles);
-        }).finally(() => setLoadingTiles(false));
+            setLoadingTiles(false);
+        });
     };
 
     const getTickets = (address) => {

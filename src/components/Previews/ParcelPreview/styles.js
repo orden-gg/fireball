@@ -16,6 +16,11 @@ const styles = makeStyles(theme => ({
     },
     content: {
         flexGrow: '1',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        }
     },
     contentTop: {
         textAlign: 'center',
@@ -117,6 +122,10 @@ const styles = makeStyles(theme => ({
             borderColor: alpha(theme.palette.alchemica.kek, .3),
             color: theme.palette.alchemica.kek
         }
+    },
+    listing: {
+        textAlign: 'right',
+        marginTop: 12
     }
 }));
 

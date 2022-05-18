@@ -251,17 +251,18 @@ export const parselQuery = (id) => {
   }`
 };
 
-export const listedParcelQuery = (id) => {
+export const activeListingQeury = (erc, id, type, category) => {
     return `{
-        erc721Listings(
+        ${erc}Listings(
                 where: {
-                    category: "4"
-                    parcel: "${id}"
+                    category: "${category}"
+                    ${type}: "${id}"
                     cancelled: false
                     timePurchased: 0
                 }
             ) {
                 id
+                priceInWei
             }
         }`
 };

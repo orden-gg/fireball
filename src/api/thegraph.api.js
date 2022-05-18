@@ -9,6 +9,7 @@ import {
     gotchiByIdQuery,
     gotchiesQuery,
     svgQuery,
+    activeListingQeury,
     erc1155Query,
     erc721ListingsBySeller,
     erc721SalesHistory,
@@ -21,7 +22,6 @@ import {
     raffleWinsQuery,
     listedParcelsQuery,
     parselQuery,
-    listedParcelQuery,
     lendingsQuery,
     lendingsByAddressQuery,
     incomeQuery
@@ -337,10 +337,6 @@ export default {
         return await getGraphData(clientFactory.realmClient, query);
     },
 
-    async getRealmDataFromClient(query) {
-        return await getGraphData(clientFactory.client, query);
-    },
-
     async getRealmByAddress(address) {
         function getQueries() {
             let queries = [];
@@ -381,9 +377,9 @@ export default {
         })
     },
 
-    async getListedParcel(id) {
-        return await this.getRealmDataFromClient(listedParcelQuery(id)).then((response) => {
-            return response.data.erc721Listings
+    async getActiveListing(erc, id, type, category) {
+        return await this.getData(activeListingQeury(erc, id, type, category)).then((response) => {
+            return response.data.erc721Listings[0];
         })
     },
 
