@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from "@mui/styles";
 
 const styles = makeStyles( theme => ({
@@ -12,15 +13,13 @@ const styles = makeStyles( theme => ({
         margin: 'auto',
         position: 'relative',
         backgroundColor: theme.palette.background.secondary,
-        borderRadius: 15,
-        padding: theme.spacing(2),
-        border: `1px solid ${theme.palette.secondary.light}`
+        border: `3px solid ${alpha('#000', .5)}`
     },
     close: {
         cursor: 'pointer',
         position: 'absolute',
         right: 0,
-        top: 0
+        bottom: '100%'
     }
 }));
 
