@@ -270,10 +270,6 @@ const itemStyles = makeStyles(theme => ({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-        // '& canvas': {
-        //     maxWidth: 100,
-        //     maxHeight: 100
-        // }
     },
     itemBalanceDivider: {
         margin: '0 2px'

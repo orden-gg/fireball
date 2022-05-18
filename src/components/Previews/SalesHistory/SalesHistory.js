@@ -47,8 +47,8 @@ export default function SalesHistory({ id, category }) {
                         <div>price</div>
                     </div>
 
-                    { history.map((item, i) => {
-                        return <div className={classes.row} key={i}>
+                    { history.map((item, i) => (
+                        <div className={classes.row} key={i}>
                             <div>
                                 <EthAddress
                                     address={item.seller}
@@ -73,7 +73,7 @@ export default function SalesHistory({ id, category }) {
                                 <GhstTokenIcon height={15} width={15} />
                             </div>
                         </div>
-                    })}
+                    ))}
                 </>
             )}
         </div>

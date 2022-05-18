@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraphApi from 'api/thegraph.api';
 
 import styles from './styles';
-import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
 export default function ParcelPage() {
     const classes = styles();
@@ -24,12 +24,11 @@ export default function ParcelPage() {
             .then(res => {
                 if (mounted) {
                     setParcel(res);
-                    setParcelLoading(false);
                 }
             })
-            .catch((err) => {
+            .catch((err) => console.log(err))
+            .finally(() => {
                 if (mounted) {
-                    console.log(err);
                     setParcelLoading(false);
                 }
             });
