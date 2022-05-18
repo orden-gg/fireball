@@ -19,7 +19,7 @@ export default function MultiAutocompleteFilter({ option, onSetSelectedFilters }
             options={option.items}
             getOptionLabel={option => option.title}
             isOptionEqualToValue={(option, value) => option.value === value.value}
-            renderInput={(params) => (
+            renderInput={params => (
                 <TextField {...params} size='small' label={option.title} />
             )}
             renderTags={(tagValue, getTagProps) =>

@@ -12,7 +12,7 @@ export default function InputFilter({ option, onSetSelectedFilters }) {
         setCurrentValue(option.value);
     }, [option.value]);
 
-    const onInputChange = useCallback((value) => {
+    const onInputChange = useCallback(value => {
         setCurrentValue(value);
 
         onSetSelectedFilters(option.key, value);

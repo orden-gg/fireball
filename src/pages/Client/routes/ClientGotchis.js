@@ -168,7 +168,7 @@ export default function ClientGotchis() {
     }, [currentFilters, updateQueryParams]);
 
     const getGotchis = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis: gotchis;
+        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
     }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
 
     return (

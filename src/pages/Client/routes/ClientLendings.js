@@ -171,7 +171,7 @@ export default function ClientLendings() {
     }, [currentFilters, updateQueryParams]);
 
     const getLendings = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedLendings: lendings;
+        return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
     }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
 
     return (

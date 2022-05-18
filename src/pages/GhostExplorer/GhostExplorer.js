@@ -10,6 +10,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import qs from 'query-string';
 
 import ContentInner from 'components/Content/ContentInner';
+import Gotchi from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
@@ -19,7 +20,6 @@ import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 
 import styles from './styles';
-import Gotchi from 'components/Gotchi/Gotchi';
 
 const sortings = [
     {
@@ -186,7 +186,7 @@ export default function GhostExplorer() {
     }, [currentFilters, updateQueryParams]);
 
     const getGotchis = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis: gotchis;
+        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
     }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
 
     return (

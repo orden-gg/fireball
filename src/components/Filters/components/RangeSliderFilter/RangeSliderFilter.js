@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Slider } from '@mui/material';
 
-import styles from './styles';
 import CustomTooltip from 'components/custom/CustomTooltip';
+
+import styles from './styles';
 
 export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
     const classes = styles();
@@ -12,7 +13,7 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
         setCurrentValue(option.value);
     }, [option.value]);
 
-    const onSliderChange = (value) => {
+    const onSliderChange = value => {
         setCurrentValue(value);
     };
 
@@ -40,7 +41,7 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
                 onChangeCommitted={(event, value) => onSliderChangeCommited(value)}
                 valueLabelDisplay='auto'
                 disableSwap
-                size={'small'}
+                size='small'
             />
         </div>
     );

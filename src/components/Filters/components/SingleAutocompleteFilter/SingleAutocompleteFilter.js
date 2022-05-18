@@ -36,7 +36,7 @@ export default function SingleAutocompleteFilter({ option, onSetSelectedFilters 
             options={option.items}
             disabled={option.items.length === 0}
             onChange={onHandleChange}
-            renderInput={(params) => (
+            renderInput={params => (
                 <TextField {...params} label={option.title} size='small' />
             )}
         />

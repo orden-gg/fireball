@@ -114,13 +114,13 @@ export default function Lend() {
 
         setDataLoading(true);
 
-        thegraphApi.getLendings().then((response) => {
+        thegraphApi.getLendings().then(response => {
             if (mounted) {
                 const whitelistData = [];
                 const mappedData = [];
                 const { type, dir } = lendingsSorting;
 
-                response.forEach((listing) => {
+                response.forEach(listing => {
                     if (listing.whitelistId) {
                         whitelistData.push(listing.whitelistId);
                     }
@@ -249,7 +249,7 @@ export default function Lend() {
     }, [currentFilters, updateQueryParams]);
 
     const getLendings = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedLendings: lendings;
+        return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
     }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
 
     return (
@@ -297,7 +297,7 @@ export default function Lend() {
                     {/* // !temporary code (hidden feature) */}
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
-                            {getLendings().map((lend) => {
+                            {getLendings().map(lend => {
                                 return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
                             })}
                         </ol>

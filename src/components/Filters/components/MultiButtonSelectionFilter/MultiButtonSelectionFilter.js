@@ -27,7 +27,7 @@ export default function MultiButtonSelectionFilter({ option, onSetSelectedFilter
                 {
                     items.map((item, index) =>
                         <Button
-                            className={classNames(classes.item, item.isSelected ? 'selected' : '' )}
+                            className={classNames(classes.item, item.isSelected && 'selected' )}
                             key={item.value}
                             variant='outlined'
                             size='small'
