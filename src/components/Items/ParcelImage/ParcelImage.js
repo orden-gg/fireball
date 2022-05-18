@@ -1,11 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
-import styles from '../styles';
+import { GotchiverseGif } from 'components/Icons/Icons';
+
+import styles from './styles';
 
 export default function ParcelImage({ parcel, parcelSize }) {
     const classes = styles();
     const canvasRef = useRef(null);
+    const [imageLoading, setImageLoading] = useState(true);
 
     const processColorsMap = (map) => {
         let cache = [];
@@ -45,9 +48,10 @@ export default function ParcelImage({ parcel, parcelSize }) {
             }
         }
 
-        const {size} = parcel;
+        const { size } = parcel;
 
         context.strokeStyle = 'white';
+        context.lineWidth = 2;
         +size === 0 && drawRect(5, 5);
         +size === 1 && drawRect(9, 9);
         +size === 3 && drawRect(32, 16);
@@ -57,14 +61,36 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
 
     useEffect(() => {
-        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${parcelSize}`).then((response) => {
-            processColorsMap(response.data);
-        });
+        let mounted = true;
 
+        setImageLoading(true);
+
+        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${parcelSize}`)
+            .then((res) => {
+                if (mounted) {
+                    setImageLoading(false);
+                    processColorsMap(res.data);
+                }
+            });
+
+        return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[]);
+    }, []);
 
     return (
-        <canvas className={classes.parcelImage} ref={canvasRef} width={parcelSize} height={parcelSize}/>
+        <div
+            className={classes.image}
+            style={{ width: parcelSize, height: parcelSize }}
+        >
+            { imageLoading ? (
+                <GotchiverseGif width='100%' height='100%' />
+            ) : (
+                <canvas
+                    ref={canvasRef}
+                    width={parcelSize - 4}
+                    height={parcelSize - 4}
+                />
+            )}
+        </div>
     );
 }
