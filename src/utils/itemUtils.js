@@ -318,7 +318,7 @@ export default {
             case 'kek':
                 return 100;
             default:
-                return '';
+                return 1;
         }
     },
 }
