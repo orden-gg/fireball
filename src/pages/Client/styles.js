@@ -300,6 +300,9 @@ const parcelSinglePage = makeStyles(theme => ({
 }));
 
 const accountStyles = makeStyles(theme => ({
+    accountContainer: {
+        marginBottom: 20
+    },
     account: {
         [theme.breakpoints.up('md')]: {
             display: 'flex',
