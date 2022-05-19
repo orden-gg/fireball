@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+
 import ethersApi from 'api/ethers.api';
 import citadelUtils from 'utils/citadelUtils';
 import { COLORS } from 'data/citadel.data';
@@ -101,7 +102,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
     updateGraphics() {
         for (const parcel of this.settings.parcels) {
-            const { x, y } = citadelUtils.getParcelPosition(+parcel.coordinateX, +parcel.coordinateY);
+            const { x, y } = citadelUtils.getParcelPosition(parcel.coordinateX, parcel.coordinateY);
             const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
             this.fillRect(x, y, w, h);
@@ -116,7 +117,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     toggleParcel(parcel) {
         const parcelIndex = this.settings.parcels.findIndex(item => item.tokenId === parcel.tokenId);
 
-        if(parcelIndex === -1) {
+        if (parcelIndex === -1) {
             this.settings.parcels = this.settings.parcels.concat(parcel);
         } else {
             this.settings.parcels.splice(parcelIndex, 1);
@@ -126,11 +127,11 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     show(isActive) {
         this.settings.active = isActive;
 
-        isActive ? (
-            this.setAlpha(1)
-        ) : (
-            this.setAlpha(0)
-        )
+        if (isActive) {
+            this.setAlpha(1);
+        } else {
+            this.setAlpha(0);
+        }
     }
 
     get parcels() {

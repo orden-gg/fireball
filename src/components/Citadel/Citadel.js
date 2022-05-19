@@ -11,11 +11,12 @@ import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
+import CustomModal from 'components/Modal/Modal';
+import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraph from 'api/thegraph.api';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
-import ParcelBox from './components/ParcelBox';
 import CitadelInterface from './components/CitadelInterface'
 import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
@@ -24,19 +25,23 @@ import CitadelInfo from './components/CitadelInfo';
 import styles, { InterfaceStyles } from './styles';
 
 export default function Citadel({ realmGroups, className, isLoaded }) {
-    const [game, setGame] = useState(null);
-    const [sceneCreated, setSceneCreated] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
-    const [selectedParcel, setSelectedParcel] = useState(null);
     const classes = { ...styles(), ...InterfaceStyles() }
-    const gameRef = useRef(null);
-    const wrapperRef = useRef(null);
+
     const location = useLocation();
     const history = useHistory();
+
     const params = qs.parse(location.search);
 
-    const searchParcles = (id) => {
-        game.scene.addSelectedParcel(+id);
+    const [game, setGame] = useState(null);
+    const [sceneCreated, setSceneCreated] = useState(false);
+    // const [selectedId, setSelectedId] = useState(null);
+    const [selectedParcel, setSelectedParcel] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    const gameRef = useRef(null);
+    const wrapperRef = useRef(null);
+
+    const searchParcles = id => {
+        game.scene.addSelectedParcel(id);
     }
 
     const removeSelected = () => {
@@ -50,7 +55,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const basicButtons = useMemo(() => {
         return realmGroups
-            .filter(group => Boolean(Object.keys(group).length) && group.parcels.length > 0)
+            .filter(group => group.parcels?.length > 0)
             .map(group =>
                 <BasicButton
                     {...group}
@@ -58,7 +63,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     key={group.type}
                 />
             );
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, sceneCreated]);
 
@@ -76,7 +80,9 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 },
                 scene: new CitadelScene({
                     onParcelSelect(id) {
-                        setSelectedId(id)
+                        thegraph.getRealmById(id).then(parcel => {
+                            setSelectedParcel(parcel);
+                        });
                     },
                     onSceneCreated() {
                         setSceneCreated(true);
@@ -92,41 +98,26 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 })
             });
         }, 100);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (selectedId) {
-            const listedGroup = realmGroups.find(group => group.type === 'listed');
-
-            if (listedGroup !== undefined) {
-                const parcel = listedGroup.parcels.find(parcel => parcel.id === selectedId);
-
-                if (parcel) {
-                    return setSelectedParcel(parcel);
-                };
-            };
-
-            thegraph.getRealmById(selectedId).then(parcel => {
-                setSelectedParcel(parcel);
-            });
+        if(selectedParcel !== null) {
+            setModalOpen(true);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedId]);
+    }, [selectedParcel]);
 
     useEffect(() => {
         if (sceneCreated && isLoaded) {
-            const multiselect = params.multiselect;
-            const isMultiselect = Boolean(multiselect?.split(',')?.length);
+            const multiselect = params.multiselect?.split(',');
+            const isMultiselect = multiselect !== undefined && multiselect.length > 0;
 
             for (const group of realmGroups) {
                 game.scene.addGroup(group);
             }
 
-            if(isMultiselect) {
-                game.scene.setMultiselect(multiselect.split(','));
+            if (isMultiselect) {
+                game.scene.setMultiselect(multiselect);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,10 +148,17 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
             <CitadelInfo />
 
-            <ParcelBox
+            {/* <ParcelBox
                 removeSelected={removeSelected}
                 selectedParcel={selectedParcel}
-            />
+            /> */}
+            <CustomModal
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                onModalClose={removeSelected}
+            >
+                <ParcelPreview parcel={selectedParcel} />
+            </CustomModal>
 
             <CitadelLoader isLoaded={isLoaded} />
         </div>

@@ -5,13 +5,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import { InterfaceStyles } from '../styles';
 
 export default function SearchForm({ searchParcles }) {
-    const [searchId, setSearchId] = useState(null);
     const classes = InterfaceStyles();
+
+    const [searchId, setSearchId] = useState(null);
 
     return (
         <div className={classes.citadelSearch}>
             <TextField className={classes.citadelSearchField} placeholder="Search by id" variant="standard" onChange={ (event) => setSearchId(event.target.value) }/>
-            <IconButton onClick={() => searchParcles(+searchId)} className={classes.citadelInterfaceButton}>
+            <IconButton onClick={() => searchParcles(searchId)} className={classes.citadelInterfaceButton}>
                 <SearchIcon />
             </IconButton>
         </div>

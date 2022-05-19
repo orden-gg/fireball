@@ -1,6 +1,6 @@
 const CITADEL_WIDTH = 9504;
 const CITADEL_HEIGHT = 6336;
-const PARCEL_SIZE = {
+const PARCEL_SIZE = Object.freeze({
     0: {
         width: 8,
         height: 8
@@ -17,14 +17,14 @@ const PARCEL_SIZE = {
         width: 64,
         height: 32
     }
-}
-const PARCEL_NAME = {
+});
+const PARCEL_NAME = Object.freeze({
     0: 'humble',
     1: 'reasonable',
     2: 'spacious',
     3: 'spacious'
-}
-const DISTRICTS = {
+});
+const DISTRICTS = Object.freeze({
     length: 49,
     x: 9,
     width: CITADEL_WIDTH/9,
@@ -54,20 +54,14 @@ const DISTRICTS = {
         40, 17, 2, null, null, null, 10, 29, 47,
         39, 16, 15, 14, 13, 12, 11, 30, 49
     ]
-}
+});
 const ZOOM = { min: .1, max: 10 };
-const COLORS = {
+const COLORS = Object.freeze({
     parcels: {
         selected: 0xfd9af9,
-        humble: {
-            default: 0x2500c2
-        },
-        reasonable: {
-            default: 0x016f52
-        },
-        spacious: {
-            default: 0x340055
-        },
+        humble: { default: 0x2500c2 },
+        reasonable: { default: 0x016f52 },
+        spacious: { default: 0x340055 },
         owner: [0xffffff, 0xfff000],
         guild: [0xffffff, 0xfff000],
         listed: [0x78b5fe, 0x002758],
@@ -75,8 +69,7 @@ const COLORS = {
     },
     grid: 0xfd9af9,
     logo: { back: 0x000000, border: 0xfd9af9 }
-
-}
+});
 
 export {
     CITADEL_WIDTH,

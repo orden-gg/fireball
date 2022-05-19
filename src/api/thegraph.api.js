@@ -384,8 +384,8 @@ export default {
         })
     },
 
-    async getParcelPriceByDirection(data) {
-        return await this.getData(getParcelOrderDirectionQuery(data)).then(response => {
+    getParcelPriceByDirection(data) {
+        return this.getData(getParcelOrderDirectionQuery(data)).then(response => {
             return ethersApi.fromWei(response.data.erc721Listings[0].priceInWei);
         })
     },

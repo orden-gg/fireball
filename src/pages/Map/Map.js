@@ -5,18 +5,20 @@ import BlurOnIcon from '@mui/icons-material/BlurOn';
 import BlurOffIcon from '@mui/icons-material/BlurOff';
 
 import Citadel from 'components/Citadel/Citadel';
-
 import thegraphApi from 'api/thegraph.api';
 import { LoginContext } from 'contexts/LoginContext';
+
 import styles from './styles';
 
 export default function Map() {
+    const classes = styles();
+
     const { activeAddress } = useContext(LoginContext);
+
     const [listedRealm, setListedRealm] = useState({});
     const [isListedLoaded, setIsListedLoaded] = useState(false);
     const [ownerRealm, setOwnerRealm] = useState({});
     const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
-    const classes = styles();
 
     const combineParcels = (listedParcels) => {
         return listedParcels.map(parcel => {
@@ -64,15 +66,12 @@ export default function Map() {
                         spacious: {min: Math.min(hSpaciousDesc, vSpaciousDesc), max: Math.max(hSpaciousAsc, vSpaciousAsc)},
                     }
                 });
-
-                setIsListedLoaded(true);
             }
         })
         .catch(error => console.log(error))
         .finally(() => setIsListedLoaded(true));
 
         return () => mounted = false;
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -96,12 +95,9 @@ export default function Map() {
             })
             .catch(error => console.log(error))
             .finally(() => setIsOwnerLoaded(true));
-        } else {
-            setIsOwnerLoaded(true);
         }
 
         return () => mounted = false;
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 

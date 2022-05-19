@@ -52,25 +52,6 @@ const InterfaceStyles = makeStyles(theme => ({
     }
 }));
 
-const ParcelBoxStyle = makeStyles(theme => ({
-    parcel: {
-        position: 'absolute',
-        minWidth: 220,
-        maxWidth: 260,
-        left: theme.spacing(2),
-        bottom: theme.spacing(2),
-        background: theme.palette.background.paper,
-    },
-    closeParcel: {
-        position: 'absolute',
-        left: '100%',
-        top: 0,
-        marginLeft: theme.spacing(.5),
-        width: 30,
-        height: 30
-    }
-}));
-
 const LoaderStyles = makeStyles(theme => ({
     citadelLoading: {
         position: 'absolute',
@@ -153,7 +134,6 @@ const InfoStyles = makeStyles(theme => ({
 export {
     styles as default,
     LoaderStyles,
-    ParcelBoxStyle,
     InterfaceStyles,
     InfoStyles
 }

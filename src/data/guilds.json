@@ -132,7 +132,10 @@
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/BlackpoolHQ", "discord": "https://discord.gg/ddUyu4F4pp" },
-        "wearables": [310, 309, 311, 312, 253, 252, 254]
+        "wearables": [310, 309, 311, 312, 253, 252, 254],
+        "home": [
+            [17447, 15762]
+        ]
     },
     {
         "name": "Chigotchi Bulls",
@@ -204,7 +207,10 @@
         ],
         "banner": "",
         "socials": { "telegram": "https://t.me/cRekto_club", "discord": "https://discord.com/invite/w9SRJfFgnE" },
-        "wearables": [228, 229, 300]
+        "wearables": [228, 229, 300],
+        "home": [
+            [25962, 15680]
+        ]
     },
     {
         "name": "DeFi Alpha Gaming Guild",
@@ -268,7 +274,10 @@
         ],
         "banner": "ghost-squad-banner.png",
         "socials": { "twitter": "https://twitter.com/gotchighstsquad", "discord": "https://discord.com/invite/JQHx9u8mcV", "youtube": "https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg" },
-        "wearables": [87]
+        "wearables": [87],
+        "home": [
+            [39410, 36120]
+        ]
     },
     {
         "name": "Gotchi FArmy Gang",
@@ -436,7 +445,10 @@
             { "title": "Point of Contact", "text": "PG#0811 Be The Coin 🧩#4204" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/TheGotchiFArmy", "discord": "https://discord.com/invite/kMHQYn2dmG" }
+        "socials": { "twitter": "https://twitter.com/TheGotchiFArmy", "discord": "https://discord.com/invite/kMHQYn2dmG" },
+        "home": [
+            [9673, 10074]
+        ]
     },
     {
         "name": "Gotchi Gaang Maafia",
@@ -486,7 +498,10 @@
             { "title": "Point of Contact", "text": "Goobz#9104" }
         ],
         "banner": "",
-        "socials": { "discord": "https://discord.com/invite/GRnRRKJz" }
+        "socials": { "discord": "https://discord.com/invite/GRnRRKJz" },
+        "home": [
+            [8573, 11514]
+        ]
     },
     {
         "name": "Gotchi Riders",
@@ -597,7 +612,10 @@
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/LosMustachos", "discord": "https://discord.com/invite/bnAKfeczhu" },
-        "wearables": [146, 13, 157, 219, 209, 260]
+        "wearables": [146, 13, 157, 219, 209, 260],
+        "home": [
+            [22637, 9904]
+        ]
     },
     {
         "name": "Metaguild",
@@ -643,7 +661,12 @@
             { "title": "Point of Contact", "text": "Sandro#7777 egor#1111 kupilslona#0022" }
         ],
         "banner": "metaguild-banner.png",
-        "socials": { "website": "https://metaguild.com/", "twitter": "https://twitter.com/metaguildcom", "discord": "https://discord.com/invite/gFYBnb3ymm" }
+        "socials": { "website": "https://metaguild.com/", "twitter": "https://twitter.com/metaguildcom", "discord": "https://discord.com/invite/gFYBnb3ymm" },
+        "home": [
+            [33911, 15928],
+            [28489, 46374],
+            [31882, 29156]
+        ]
     },
     {
         "name": "MSG",
@@ -734,7 +757,10 @@
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/WagmiWarriors", "discord": "https://discord.gg/TNneBnhrM2" },
-        "wearables": [239, 240, 241, 76, 205]
+        "wearables": [239, 240, 241, 76, 205],
+        "home": [
+            [32036, 16088]
+        ]
     },
     { "name": "8bit Gamers Guild", "logo": "8gg.jpeg", "members": [] },
     {
@@ -802,7 +828,10 @@
             { "title": "Point of Contact", "text": "nationalbank#6969" }
         ],
         "banner": "",
-        "socials": { "website": "https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C", "twitter": "https://twitter.com/gmdaogm", "discord": "https://discord.gg/vcbZBYSbvq" }
+        "socials": { "website": "https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C", "twitter": "https://twitter.com/gmdaogm", "discord": "https://discord.gg/vcbZBYSbvq" },
+        "home": [
+            [51961, 33347]
+        ]
     },
     {
         "name": "SynthGuild",

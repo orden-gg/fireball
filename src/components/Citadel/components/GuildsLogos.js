@@ -22,73 +22,133 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
 
         for (const guild of guilds) {
             if (guild.hasOwnProperty('home')) {
-                this.create(guild);
+                this.loadImages(guild);
             }
+        }
+
+        this.scene.textures.on('addtexture', (name) => {
+            const guild = guilds.find(guild => guild.name === name);
+            this.addLogos(guild);
+        }, this.scene);
+    }
+
+    loadImages(guild) {
+        const url = require(`assets/images/guilds/${guild.logo}`).default;
+        const string = '^data:';
+        const regexp = new RegExp(string);
+
+        if (!regexp.test(url)) {
+            this.scene.load.image(guild.name, url);
+            this.scene.load.start();
+        } else {
+            this.scene.textures.addBase64(guild.name, url);
         }
     }
 
-    create(guild) {
-        const url = require(`assets/images/guilds/${guild.logo}`).default;
+    addLogos(guild) {
+        for (const [first, second] of guild.home) {
+            const { x, y, w, h } = this.calculateData(parcelsData[first], parcelsData[second]);
+            const logo = this.scene.add.image(x + w / 2, y + h / 2, guild.name);
+            const scale = this.getImageScale(w, h, logo.width, logo.height);
 
-        this.scene.load.image(guild.name, url);
-        this.scene.load.once(Phaser.Loader.Events.COMPLETE, () => {
-            for (const homeIds of guild.home) {
-                this.addLogo(this.getCoords(homeIds), guild);
-            }
-        });
+            logo.setScale(scale);
+            logo.setAlpha(.6);
 
-        this.scene.load.start();
-    }
+            this.graphics.fillRect(x, y, w, h);
 
-    addLogo(coords, guild) {
-        const { x, y, w, h } = coords;
-        const logo = this.scene.add.image(x+w/2, y+h/2, guild.name);
-        const scale = this.getImageScale(w, h, logo.width, logo.height);
+            this.graphics.lineStyle(3, COLORS.logo.border, 1);
+            this.graphics.strokeRect(x, y, w, h);
 
-
-        logo.setScale(scale);
-        logo.setAlpha(.6);
-
-        this.graphics.fillRect(x, y, w, h);
-
-        this.graphics.lineStyle(3, COLORS.logo.border, 1);
-        this.graphics.strokeRect(x, y, w, h);
-
-        this.add(logo);
+            this.add(logo);
+        }
     }
 
     getImageScale(cw, ch, lw, lh) {
-        const [scaleW, scaleH] = [cw/lw, ch/lh];
+        const [scaleW, scaleH] = [cw / lw, ch / lh];
 
-        if (scaleW*100 <= scaleH*100) {
-            return scaleW*.9;
+        if (scaleW * 100 <= scaleH * 100) {
+            return scaleW * .7;
         } else {
-            return scaleH*.9;
+            return scaleH * .7;
         }
     }
 
-    getCoords(ids) {
-        const [parcelTop, parcelBottom] = [parcelsData[ids[0]], parcelsData[ids[1]]]
-        const [topLeft, bottomRight] = [
-            citadelUtils.getParcelPosition(parcelTop.coordinateX, parcelTop.coordinateY),
-            citadelUtils.getParcelPosition(parcelBottom.coordinateX, parcelBottom.coordinateY)
-        ]
-        const { w, h} = citadelUtils.getParcelSize(parcelBottom.size);
+    getStartFrom(first, second) {
+        let dir;
 
-        return {
-            ...topLeft,
-            w: Math.abs(topLeft.x - bottomRight.x)+w,
-            h: Math.abs(topLeft.y - bottomRight.y)+h
+        if (first.coordinateY < second.coordinateY) {
+            if (first.coordinateX < second.coordinateX) {
+                dir = 'lt';
+            } else {
+                dir = 'rt'
+            }
+        } else {
+            if (first.coordinateX < second.coordinateX) {
+                dir = 'lb';
+            } else {
+                dir = 'rb'
+            }
         }
+
+        return dir;
+    }
+
+    calculateData(first, second) {
+        const startFrom = this.getStartFrom(first, second);
+        const { x: x1, y: y1 } = citadelUtils.getParcelPosition(first.coordinateX, first.coordinateY);
+        const { x: x2, y: y2 } = citadelUtils.getParcelPosition(second.coordinateX, second.coordinateY);
+        const { w: w1, h: h1 } = citadelUtils.getParcelSize(first.size);
+        const { w: w2, h: h2 } = citadelUtils.getParcelSize(second.size);
+        const w = Math.abs(x1 - x2);
+        const h = Math.abs(y1 - y2);
+        let data;
+
+        switch (startFrom) {
+            case 'lb':
+                data = {
+                    x: x1,
+                    y: y1 - h,
+                    w: w + w2,
+                    h: h + h1
+                }
+                break
+            case 'rt': {
+                data = {
+                    x: x1 - w,
+                    y: y1,
+                    w: w + w1,
+                    h: h + h2
+                }
+                break
+            }
+            case 'rb':
+                data = {
+                    x: x1 - w,
+                    y: y1 - h,
+                    w: w + w1,
+                    h: h + h1
+                }
+                break
+            default:
+                data = {
+                    x: x1,
+                    y: y1,
+                    w: w + w2,
+                    h: h + h2
+                }
+                break;
+        }
+
+        return data;
     }
 
     show(isActive) {
         this.settings.active = isActive;
 
-        isActive ? (
-            this.setAlpha(1)
-        ) : (
-            this.setAlpha(0)
-        )
+        if (isActive) {
+            this.setAlpha(1);
+        } else {
+            this.setAlpha(0);
+        }
     }
 }

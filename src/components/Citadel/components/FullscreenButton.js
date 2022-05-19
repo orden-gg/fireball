@@ -8,8 +8,9 @@ import useFullscreenStatus from 'hooks/useFullscreenStatus';
 import { InterfaceStyles } from '../styles';
 
 export default function FullscreenButton({ wrapperRef }) {
-    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
     const classes = InterfaceStyles();
+
+    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const onShowFullScreen = () => {
         isFullscreen ? document.exitFullscreen() : setIsFullscreen();

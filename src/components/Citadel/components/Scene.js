@@ -111,13 +111,17 @@ export default class CitadelScene extends Phaser.Scene {
                     this.getCursorFromCenter(pointer)
                 );
 
+                if (parcel === undefined) {
+                    return;
+                }
+
                 const shiftPressed = pointer.event.shiftKey;
 
                 if (shiftPressed) {
-                    return this.toggleMultiselect(parcel);
+                    this.toggleMultiselect(parcel);
+                } else {
+                    this.addSelectedParcel(parcel.tokenId);
                 }
-
-                this.addSelectedParcel(parcel);
             });
 
             this.input.on('pointermove', pointer => {
@@ -137,7 +141,9 @@ export default class CitadelScene extends Phaser.Scene {
             return citadel;
         }
 
-        addSelectedParcel(parcel) {
+        addSelectedParcel(id) {
+            const parcel = parcelsData[id];
+
             if (parcel === undefined) {
                 return;
             } else if (this.selectedParcel !== null) {
