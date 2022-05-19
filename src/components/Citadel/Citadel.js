@@ -34,7 +34,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const [game, setGame] = useState(null);
     const [sceneCreated, setSceneCreated] = useState(false);
-    // const [selectedId, setSelectedId] = useState(null);
     const [selectedParcel, setSelectedParcel] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const gameRef = useRef(null);
@@ -148,10 +147,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
             <CitadelInfo />
 
-            {/* <ParcelBox
-                removeSelected={removeSelected}
-                selectedParcel={selectedParcel}
-            /> */}
             <CustomModal
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}

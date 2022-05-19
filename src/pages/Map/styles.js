@@ -12,6 +12,4 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-export {
-    styles as default
-}
+export default styles;

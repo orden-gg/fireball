@@ -69,7 +69,11 @@ export default function Map() {
             }
         })
         .catch(error => console.log(error))
-        .finally(() => setIsListedLoaded(true));
+        .finally(() => {
+            if (mounted) {
+                setIsListedLoaded(true);
+            }
+        });
 
         return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +98,11 @@ export default function Map() {
                 }
             })
             .catch(error => console.log(error))
-            .finally(() => setIsOwnerLoaded(true));
+            .finally(() => {
+                if (mounted) {
+                    setIsOwnerLoaded(true);
+                }
+            });
         }
 
         return () => mounted = false;
