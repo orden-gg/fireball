@@ -56,7 +56,7 @@ export default function SortFilterPanel({
                         </Button>
                         { Boolean(filtersCount) && <span className={classes.filtersCount}>{filtersCount}</span> }
 
-                        {isDropdownOpen && (
+                        { isDropdownOpen &&
                             <div className={classes.filtersDropdown}>
                                 <Filters
                                     filters={filters}
@@ -74,7 +74,7 @@ export default function SortFilterPanel({
                                     </Button>
                                 </div>
                             </div>
-                        )}
+                        }
                     </div>
             }
 

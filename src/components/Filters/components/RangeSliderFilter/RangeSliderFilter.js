@@ -13,9 +13,9 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
         setCurrentValue(option.value);
     }, [option.value]);
 
-    const onSliderChange = value => {
+    const onSliderChange = (value) => {
         setCurrentValue(value);
-    };
+    }
 
     const onSliderChangeCommited = useCallback((value) => {
         onSetSelectedFilters(option.key, value)

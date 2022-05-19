@@ -18,26 +18,31 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
     const renderFiltersComponents = (renderFilters) => {
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
+            const filterProps = {
+                key,
+                option: renderFilter,
+                onSetSelectedFilters: onSetSelectedFilters
+            };
 
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:
-                    componentToRender = <InputFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <InputFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.MultipleAutocomplete:
-                    componentToRender = <MultiAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <MultiAutocompleteFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.MultiButtonSelection:
-                    componentToRender = <MultiButtonSelectionFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <MultiButtonSelectionFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.SingleAutocomplete:
-                    componentToRender = <SingleAutocompleteFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <SingleAutocompleteFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.RangeSlider:
-                    componentToRender = <RangeSliderFilter key={key} option={renderFilter} onSetSelectedFilters={onSetSelectedFilters} />;
+                    componentToRender = <RangeSliderFilter {...filterProps} />;
 
                     break;
                 default:

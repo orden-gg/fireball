@@ -45,7 +45,6 @@ const styles = makeStyles(theme => ({
         cursor: 'default',
         overflow: 'hidden',
         display: 'none',
-
         '.opened &': {
             display: 'block'
         }

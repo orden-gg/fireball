@@ -23,18 +23,16 @@ export default function MultiAutocompleteFilter({ option, onSetSelectedFilters }
                 <TextField {...params} size='small' label={option.title} />
             )}
             renderTags={(tagValue, getTagProps) =>
-                tagValue.map((option, index) => {
-                    return (
-                        <Chip
-                            label={option.title}
-                            size='small'
-                            avatar={
-                                <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
-                            }
-                            {...getTagProps({ index })}
-                        />
-                    );
-                })
+                tagValue.map((option, index) => (
+                    <Chip
+                        label={option.title}
+                        size='small'
+                        avatar={
+                            <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
+                        }
+                        {...getTagProps({ index })}
+                    />
+                ))
             }
         />
     );

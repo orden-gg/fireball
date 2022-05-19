@@ -10,6 +10,7 @@ import styles from './styles';
 export default function Client() {
     const classes = styles();
     const match = useRouteMatch();
+
     return (
         <div className={classes.container}>
             <Helmet>
