@@ -27,6 +27,7 @@ export default function EthAddressPanel({ address }) {
                     {
                         title: 'gotchis',
                         total: data.all_gotchies_estimated_price,
+                        ghstToken: true,
                         inner: [
                             { name: 'undressed', value: data.all_gotchies_estimated_price - data.gotchi_items_estimated_price },
                             { name: 'gotchi wearables', value: data.gotchi_items_estimated_price }
@@ -35,6 +36,7 @@ export default function EthAddressPanel({ address }) {
                     {
                         title: 'wearables',
                         total: data.all_items_estimated_price,
+                        ghstToken: true,
                         inner: [
                             { name: 'inventory', value: data.inventory_items_estimated_price },
                             { name: 'equipped', value: data.gotchi_items_estimated_price },
@@ -117,7 +119,9 @@ export default function EthAddressPanel({ address }) {
                             return <div className={classes.panel} key={i}>
                                 <div className={classNames(classes.parcelRow, classes.panelTitle)}>
                                     {item.title} - <span>{formatNumber(item.total)}</span>
-                                    <GhstTokenIcon height={16} width={16} />
+                                    { item.ghstToken && (
+                                        <GhstTokenIcon height={16} width={16} />
+                                    )}
                                 </div>
 
                                 { item.inner && (
@@ -125,7 +129,9 @@ export default function EthAddressPanel({ address }) {
                                         { item.inner.map((innerItem, j) => (
                                             <p className={classes.parcelRow} key={j}>
                                                 {innerItem.name} - <span>{formatNumber(innerItem.value)}</span>
-                                                <GhstTokenIcon height={16} width={16} />
+                                                { item.ghstToken && (
+                                                    <GhstTokenIcon height={16} width={16} />
+                                                )}
                                             </p>
                                         ))}
                                     </div>
