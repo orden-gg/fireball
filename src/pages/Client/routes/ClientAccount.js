@@ -20,7 +20,9 @@ export default function ClientAccount() {
             <ClientNav />
 
             { ethersApi.isEthAddress(account) && (
-                <EthAddressPanel address={account} />
+                <div className={classes.accountPanel}>
+                    <EthAddressPanel address={account} />
+                </div>
             )}
         </div>
     );

@@ -310,6 +310,10 @@ const accountStyles = makeStyles(theme => ({
             justifyContent: 'center',
         }
     },
+    accountPanel: {
+        maxWidth: 1120,
+        margin: 'auto'
+    },
     alert: {
         marginTop: 12,
         [theme.breakpoints.up('md')]: {

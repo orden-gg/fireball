@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Link } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons.js';
 import EthAddress from 'components/EthAddress/EthAddress.js';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
@@ -21,52 +23,47 @@ export default function EthAddressPanel({ address }) {
         aavegotchilandApi.getAddressInfo(address).then((res) => {
             if (mounted) {
                 const data = res.data;
-                // const formatted = {
-                //     gotchi: formatNumber(data.all_gotchies_estimated_price),
-                //     gotchi_count: formatNumber(data.gotchies_nr),
-                //     gotchi_undressed: formatNumber(data.all_gotchies_estimated_price - data.gotchi_items_estimated_price),
-                //     gotchi_items: formatNumber(data.gotchi_items_estimated_price),
-                //     items: formatNumber(data.all_items_estimated_price),
-                //     inventory: formatNumber(data.inventory_items_estimated_price),
-                //     paid_for_erc1155: formatNumber(data.overall_ghst_paid_for_erc155),
-                //     collateral_value: formatNumber(data.total_collateral),
-                //     brs: formatNumber(data.gotchies_mbrs),
-                //     brs_medium: formatNumber(data.gotchies_medium_mbrs),
-                //     kinship: formatNumber(data.gotchies_kinship),
-                //     kinship_medium: formatNumber(data.gotchies_medium_kinship),
-                //     xp: formatNumber(data.gotchies_xp),
-                //     xp_medium: formatNumber(data.gotchies_medium_xp),
-                // };
                 const formatted = [
                     {
                         title: 'gotchis',
-                        total: formatNumber(data.all_gotchies_estimated_price),
+                        total: data.all_gotchies_estimated_price,
                         inner: [
-                            { name: 'undressed', value: formatNumber(data.all_gotchies_estimated_price - data.gotchi_items_estimated_price) },
-                            { name: 'wearables', value: formatNumber(data.gotchi_items_estimated_price) }
+                            { name: 'undressed', value: data.all_gotchies_estimated_price - data.gotchi_items_estimated_price },
+                            { name: 'gotchi wearables', value: data.gotchi_items_estimated_price }
                         ]
                     },
                     {
                         title: 'wearables',
-                        total: formatNumber(data.all_items_estimated_price),
+                        total: data.all_items_estimated_price,
                         inner: [
-                            { name: 'equipped', value: formatNumber(data.gotchi_items_estimated_price) },
-                            { name: 'inventory', value: formatNumber(data.inventory_items_estimated_price) },
+                            { name: 'inventory', value: data.inventory_items_estimated_price },
+                            { name: 'equipped', value: data.gotchi_items_estimated_price },
+                        ]
+                    },
+                    {
+                        title: 'BRS',
+                        total: data.gotchies_mbrs,
+                        inner: [
+                            { name: 'average', value: data.gotchies_medium_mbrs },
+                        ]
+                    },
+                    {
+                        title: 'kinship',
+                        total: data.gotchies_kinship,
+                        inner: [
+                            { name: 'average', value: data.gotchies_medium_kinship },
+                        ]
+                    },
+                    {
+                        title: 'xp',
+                        total: data.gotchies_xp,
+                        inner: [
+                            { name: 'average', value: data.gotchies_medium_xp },
                         ]
                     }
+                ];
 
-                    // paid_for_erc1155: formatNumber(data.overall_ghst_paid_for_erc155),
-                    // collateral_value: formatNumber(data.total_collateral),
-                    // brs: formatNumber(data.gotchies_mbrs),
-                    // brs_medium: formatNumber(data.gotchies_medium_mbrs),
-                    // kinship: formatNumber(data.gotchies_kinship),
-                    // kinship_medium: formatNumber(data.gotchies_medium_kinship),
-                    // xp: formatNumber(data.gotchies_xp),
-                    // xp_medium: formatNumber(data.gotchies_medium_xp),
-                ]
-
-                console.log(formatted)
-                setAccount(formatted);
+                setAccount(data.error ? data : formatted);
             }
         }).catch((error) => {
             console.log(error);
@@ -89,46 +86,52 @@ export default function EthAddressPanel({ address }) {
 
     return (
         <div className={classes.container}>
-            <EthAddress
-                address={address}
-                icon={true}
-                copyButton={true}
-                polygonButton={true}
-            />
+            <div className={classes.title}>
+                <EthAddress
+                    address={address}
+                    icon={true}
+                    copyButton={true}
+                    polygonButton={true}
+                />
+                <p>assets value and stats</p>
+            </div>
 
             { dataLoading ? (
                 <div className={classes.placeholder}>
                     <CircularProgress size={32} />
                 </div>
             ) : (
-                commonUtils.isEmptyObject(account) ? (
+                commonUtils.isEmptyObject(account) || account.error ? (
                     <p className={classes.placeholder}>Data not arrived :(</p>
                 ) : (
                     <div className={classes.panels}>
-                        {/* { Object.entries(account).map((data, index) => {
-                            const [key, value] = data;
+                        { !account.some(e => e.total > 0) && (
+                            <p className={classes.noStats}>Stats not available for current address :(</p>
+                        )}
 
-                            return <div key={index}>
-                                {key}:
-                                <span  style={{ color: 'orange', marginLeft: 4 }}>{value}</span>
-                            </div>
-                        })} */}
+                        { account.map((item, i) => {
+                            if (item.total === 0) {
+                                return null;
+                            }
 
-                        { account.map((item, i) => (
-                            <div className={classes.panel} key={i}>
-                                <div className={classes.panelTitle}>
-                                    {item.title} - <span>{item.total} <GhstTokenIcon height={16} width={16} /></span>
+                            return <div className={classes.panel} key={i}>
+                                <div className={classNames(classes.parcelRow, classes.panelTitle)}>
+                                    {item.title} - <span>{formatNumber(item.total)}</span>
+                                    <GhstTokenIcon height={16} width={16} />
                                 </div>
 
                                 { item.inner && (
                                     <div className={classes.panelInner}>
                                         { item.inner.map((innerItem, j) => (
-                                            <p key={j}>{innerItem.name} - {innerItem.value} <GhstTokenIcon height={16} width={16} /></p>
+                                            <p className={classes.parcelRow} key={j}>
+                                                {innerItem.name} - <span>{formatNumber(innerItem.value)}</span>
+                                                <GhstTokenIcon height={16} width={16} />
+                                            </p>
                                         ))}
                                     </div>
                                 )}
                             </div>
-                        ))}
+                        })}
                     </div>
                 )
             )}
