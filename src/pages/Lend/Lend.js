@@ -148,17 +148,22 @@ export default function Lend() {
                             isSelected: false
                         }))
                     };
+
                     currentFiltersCacheCopy.upfrontCost = {
                         ...currentFiltersCacheCopy.upfrontCost,
                         max: maxUpfrontCost,
                         value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
                     }
 
-                    if (queryParams.whitelistId) {
-                        return filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                    let filtersToReturn;
+
+                    if (Object.keys(queryParams).length > 0) {
+                        filtersToReturn = filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
                     } else {
-                        return currentFiltersCacheCopy;
+                        filtersToReturn = currentFiltersCacheCopy;
                     }
+
+                    return filtersToReturn;
                 });
                 setModifiedLendings(sorted);
                 setLendings(sorted);
