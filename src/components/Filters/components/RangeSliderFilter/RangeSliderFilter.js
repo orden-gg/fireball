@@ -14,12 +14,9 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
 
     useEffect(() => {
         setCurrentValue(option.value);
+        setMinValue(option.value[0]);
+        setMaxValue(option.value[1]);
     }, [option.value]);
-
-    useEffect(() => {
-        setMinValue(option.min);
-        setMaxValue(option.max);
-    }, [option]);
 
     const onSliderChange = (value) => {
         setCurrentValue(value);
@@ -28,30 +25,40 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
     const onMinInputChange = useCallback(value => {
         setMinValue(value);
 
-        if (value.match(floatNumberPattern)) {
-            if (value >= option.min && value <= option.max) {
-                const currentValueToSet = [parseFloat(value), maxValue];
+        const predicate = value.match(floatNumberPattern) && value >= option.min && value <= option.max && value <= maxValue;
 
-                setCurrentValue(currentValueToSet);
-                onSetSelectedFilters(option.key, currentValueToSet);
-            }
+        if (predicate) {
+            const currentValueToSet = [Number(value), Number(maxValue)];
+
+            setCurrentValue(currentValueToSet);
+            onSetSelectedFilters(option.key, currentValueToSet);
         }
     }, [maxValue, option, onSetSelectedFilters]);
 
-    const onMaxInputChange = useCallback((value) => {
+    const onMaxInputChange = useCallback(value => {
         setMaxValue(value);
 
-        if (value.match(floatNumberPattern)) {
-            if (value >= option.min && value <= option.max) {
-                const currentValueToSet = [minValue, parseFloat(value)];
+        const predicate = value.match(floatNumberPattern) && value >= option.min && value <= option.max && value >= minValue;
 
-                setCurrentValue(currentValueToSet);
-                onSetSelectedFilters(option.key, currentValueToSet);
-            }
+        if (predicate) {
+            const currentValueToSet = [Number(minValue), Number(value)];
+
+            setCurrentValue(currentValueToSet);
+            onSetSelectedFilters(option.key, currentValueToSet);
         }
     }, [minValue, option, onSetSelectedFilters]);
 
+    const updateMinValue = (value) => {
+        setMinValue(value);
+    }
+
+    const updateMaxValue = (value) => {
+        setMinValue(value);
+    }
+
     const onSliderChangeCommited = useCallback(value => {
+        updateMinValue(value[0]);
+        updateMaxValue(value[1]);
         onSetSelectedFilters(option.key, value);
     }, [option.key, onSetSelectedFilters]);
 
