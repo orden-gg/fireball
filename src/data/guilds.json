@@ -805,7 +805,19 @@
     {
         "name": "SynthGuild",
         "logo": "synthguild.png",
-        "members": ["0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b", "0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7", "0x6f48134d8bdeb954ad97525cf0adb9ad446260b1", "0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993"],
+        "members": [
+          "0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b",
+          "0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7",
+          "0x6f48134d8bdeb954ad97525cf0adb9ad446260b1",
+          "0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993",
+          "0x255f450c7dfe7d1584add15c020705b236e88d4a",
+          "0x65e856c356f0c220fc69c51a66b007748c7596e4",
+          "0x863a8faa3ed7df945ddcc03b5b6074f8e56c3fbb",
+          "0x8628d73d3f950abde99739ef34b6cfa10394f579",
+          "0x4edb4161d16c89b71aec027930a943c3d4cf0777",
+          "0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138",
+          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8"
+        ],
         "description": [
             { "title": "Description", "text": "District 7 degens who work and chill together." },
             { "title": "Requirement", "text": "Be able to work, rest and play!" },
