@@ -6,7 +6,7 @@ import { Divider } from '@mui/material';
 
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
 
-import { LazySortingStyles } from './styles';
+import styles from './styles';
 
 const directions = [
     {
@@ -24,7 +24,7 @@ const directions = [
 ];
 
 export default function LazySorting({ sortingList, setSorting, sortingDefaults, onSortingChanged }) {
-    const classes = LazySortingStyles();
+    const classes = styles();
 
     const { type, dir } = sortingDefaults;
 
