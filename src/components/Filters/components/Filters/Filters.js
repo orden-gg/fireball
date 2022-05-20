@@ -51,12 +51,12 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
             }
 
             return (
-                <>
+                <div key={`${componentToRender.key}-component`}>
                     <div className={classes.component}>
                         { componentToRender }
                     </div>
                     <Divider className={classes.divider} />
-                </>
+                </div>
             );
         });
     }
