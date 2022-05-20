@@ -14,8 +14,6 @@ export default function ClientInstallations() {
         loadingInstallations
     } = useContext(ClientContext);
 
-    console.log(installations);
-
     return (
         <>
             <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={200}>

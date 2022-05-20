@@ -111,7 +111,7 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     w: w + w2,
                     h: h + h1
                 }
-                break
+                break;
             case 'rt': {
                 data = {
                     x: x1 - w,
@@ -119,7 +119,7 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     w: w + w1,
                     h: h + h2
                 }
-                break
+                break;
             }
             case 'rb':
                 data = {
@@ -128,14 +128,14 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     w: w + w1,
                     h: h + h1
                 }
-                break
+                break;
             default:
                 data = {
                     x: x1,
                     y: y1,
                     w: w + w2,
                     h: h + h2
-                }
+                };
                 break;
         }
 

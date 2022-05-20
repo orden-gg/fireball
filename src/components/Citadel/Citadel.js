@@ -101,7 +101,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     }, []);
 
     useEffect(() => {
-        if(selectedParcel !== null) {
+        if (selectedParcel !== null) {
             setModalOpen(true);
         }
     }, [selectedParcel]);
