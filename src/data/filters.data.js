@@ -135,7 +135,7 @@ export const filtersData = {
     },
     splitBorrower: {
         key: 'splitBorrower',
-        queryParamKey: 'splitBorrower',
+        queryParamKey: 'borrower',
         tooltip: 'borrower revenue',
         icon: <PercentIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
@@ -153,7 +153,7 @@ export const filtersData = {
     },
     upfrontCost: {
         key: 'upfrontCost',
-        queryParamKey: 'upfrontCost',
+        queryParamKey: 'upfront',
         tooltip: 'upfront cost',
         icon: <AttachMoneyIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
