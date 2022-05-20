@@ -15,33 +15,51 @@ const styles = makeStyles(theme => ({
         alignItems: 'center'
     },
     dropdownContainer: {
+        height: 40,
+        display: 'flex',
+        alignItems: 'center',
         position: 'relative',
         zIndex: theme.zIndex.drawer + 2
     },
     filterButton: {
-        marginLeft: 8,
-        lineHeight: 1.5
+        marginLeft: 4,
+        lineHeight: 1,
+        padding: '9px 16px',
+        background: alpha('#fff', .06),
+        color: '#fff',
+        '&:hover': {
+            background: alpha('#fff', .12),
+        },
+        '&.active': {
+            background: alpha(theme.palette.primary.main, .8),
+            color: '#000',
+            borderRadius: '4px 4px 0 0'
+        }
     },
     filtersCount: {
         position: 'absolute',
-        top: -8,
-        right: -8,
-        width: 18,
-        border: '2px solid #fd9af9',
-        height: 18,
+        top: -2,
+        right: -4,
+        width: 14,
+        height: 14,
         fontSize: 10,
-        borderRadius: '50%',
-        textAlign: 'center',
-        color: '#fd9af9',
-        background: '#000'
+        fontWeight: 700,
+        borderRadius: 2,
+        lineHeight: 1,
+        color: '#000',
+        background: theme.palette.primary.main,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     filtersDropdown: {
         position: 'absolute',
-        left: 8,
+        top: 36,
+        left: 12,
         minWidth: 350,
         maxWidth: 500,
         background: theme.palette.background.paper,
-        borderRadius: '4px 0 4px 4px',
+        borderRadius: '0 4px 4px 4px',
         cursor: 'default',
         overflow: 'hidden',
         display: 'none',
@@ -49,15 +67,12 @@ const styles = makeStyles(theme => ({
             display: 'block'
         }
     },
-    filtersWrapper: {
-        padding: 12,
-    },
     filterBackdrop: {
         zIndex: theme.zIndex.drawer + 1
     },
     buttonsWrapper: {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         padding: 12
     },
     results: {

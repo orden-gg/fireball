@@ -1,32 +1,36 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+const styles = makeStyles(theme => ({
     wrapper: {
-        marginBottom: 12,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginBottom: -4
     },
     title: {
-        marginBottom: 8
+        lineHeight: 1,
+        marginBottom: 6
     },
     items: {
-        marginLeft: 16,
         display: 'flex',
         flexWrap: 'wrap'
     },
     item: {
-        margin: '0 0 12px 12px',
-        color: 'rgba(104, 134, 255, 0.5)',
-        border: '1px solid rgb(7 93 138)',
+        marginRight: 4,
+        marginBottom: 4,
+        padding: '4px 8px',
         textTransform: 'none',
+        background: alpha('#fff', .05),
+        color: '#fff',
+        minWidth: 40,
         '&.selected': {
-            backgroundColor: 'rgba(7, 93, 138, 1)',
-            color: '#fff'
+            background: alpha('#000', .4),
+            '&:hover': {
+                background: alpha('#000', .3),
+            }
         },
         '&:hover': {
-            backgroundColor: '',
-            color: '#fff',
-            border: '1px solid rgba(67, 127, 248, 1)',
+            background: alpha('#000', .15),
         }
     }
 }));

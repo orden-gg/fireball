@@ -13,7 +13,7 @@ export const filtersData = {
         key: 'hauntId',
         queryParamKey: 'haunt',
         componentType: FilterComponent.MultiButtonSelection,
-        title: 'Haunt',
+        // title: 'Haunt',
         items: [
             {
                 title: 'Haunt 1',
@@ -41,7 +41,7 @@ export const filtersData = {
         key: 'collateral',
         queryParamKey: 'collateral',
         componentType: FilterComponent.MultiButtonSelection,
-        title: 'Collateral',
+        // title: 'Collateral',
         items: collaterals.map(collateral => ({
             title: collateral.name,
             value: collateral.address,
@@ -64,7 +64,7 @@ export const filtersData = {
         keys: ['id', 'name'],
         componentType: FilterComponent.Input,
         title: 'Search',
-        placeholder: 'Name or Id',
+        placeholder: 'name or id',
         value: '',
         isFilterActive: false,
         getIsFilterValidFn: filterHelpers.inputGetIsFilterValidFn,

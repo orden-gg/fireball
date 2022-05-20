@@ -1,4 +1,5 @@
 import React from 'react';
+import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
@@ -49,7 +50,14 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
                     componentToRender = null;
             }
 
-            return componentToRender;
+            return (
+                <>
+                    <div className={classes.component}>
+                        { componentToRender }
+                    </div>
+                    <Divider className={classes.divider} />
+                </>
+            );
         });
     }
 

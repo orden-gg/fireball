@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Backdrop, Button } from '@mui/material';
+import { Backdrop, Button, Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
@@ -46,9 +46,10 @@ export default function SortFilterPanel({
             {
                 isShowFilters &&
                     <div className={classes.dropdownContainer}>
+                        <Divider flexItem orientation='vertical' sx={{ mx: 0.5, my: 1 }} />
+
                         <Button
-                            className={classes.filterButton}
-                            variant='outlined'
+                            className={classNames(classes.filterButton, isDropdownOpen && 'active' )}
                             color='primary'
                             onClick={() => onToglleFilterDropdown(isDropdownOpen)}
                         >
@@ -61,16 +62,16 @@ export default function SortFilterPanel({
                                 <Filters
                                     filters={filters}
                                     onSetSelectedFilters={onSetSelectedFilters}
-                                    className={classes.filtersWrapper}
                                 />
 
                                 <div className={classes.buttonsWrapper}>
                                     <Button
-                                        variant='outlined'
-                                        color='primary'
+                                        variant='contained'
+                                        color='warning'
+                                        size='small'
                                         onClick={onReserFilters}
                                     >
-                                        Reset Filters
+                                        Reset
                                     </Button>
                                 </div>
                             </div>

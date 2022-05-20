@@ -20,13 +20,16 @@ export default function InputFilter({ option, onSetSelectedFilters }) {
 
     return (
         <div className={classes.wrapper}>
-            <div className={classes.title}>{option.title}</div>
+            { option.title && (
+                <span className={classes.title}>{option.title}</span>
+            )}
             <TextField
                 variant='outlined'
                 size='small'
                 label={option.placeholder}
                 value={currentValue}
                 onChange={event => onInputChange(event.target.value)}
+                className={classes.input}
             ></TextField>
         </div>
     );

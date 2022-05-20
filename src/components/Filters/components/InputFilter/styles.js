@@ -6,8 +6,17 @@ const styles = makeStyles(() => ({
         flexDirection: 'column'
     },
     title: {
-        marginBottom: 8
+        lineHeight: 1,
+        marginBottom: 6,
     },
+    input: {
+        '& label': {
+            lineHeight: '1'
+        },
+        '& input': {
+            padding: '7px 12px'
+        }
+    }
 }));
 
 export default styles;
