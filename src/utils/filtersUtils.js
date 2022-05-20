@@ -3,9 +3,9 @@ import commonUtils from './commonUtils';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getUpdateFiltersFromQueryParams: (queryParams, filters) => {
-        Object.entries(filters).forEach(([key, filter]) => {
-            if (Boolean(queryParams[key])) {
-                filter.updateFromQueryFn(filter, queryParams[key], 'queryParamValue');
+        Object.entries(filters).forEach(([_, filter]) => {
+            if (Boolean(queryParams[filter.queryParamKey])) {
+                filter.updateFromQueryFn(filter, queryParams[filter.queryParamKey], 'queryParamValue');
             }
         });
 
@@ -15,11 +15,11 @@ export default {
     getUpdatedQueryParams: (queryParams, filters) => {
         const params = {...queryParams};
 
-        Object.entries(filters).forEach(([key, filter]) => {
+        Object.entries(filters).forEach(([_, filter]) => {
             if (filter.isFilterActive) {
-                params[key] = filter.getQueryParamsFn(filter);
+                params[filter.queryParamKey] = filter.getQueryParamsFn(filter);
             } else {
-                delete params[key];
+                delete params[filter.queryParamKey];
             }
         });
 
@@ -28,10 +28,10 @@ export default {
 
     getActiveFiltersCount: (filters) => {
         let count = 0;
-        const activeFilters = Object.entries(filters).filter(([key, filter]) => filter.isFilterActive);
+        const activeFilters = Object.entries(filters).filter(([_, filter]) => filter.isFilterActive);
 
         if (activeFilters) {
-            Object.entries(filters).forEach(([key, filter]) => {
+            Object.entries(filters).forEach(([_, filter]) => {
                 count += filter.getActiveFiltersCountFn(filter);
             });
         }

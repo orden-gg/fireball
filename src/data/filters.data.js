@@ -11,6 +11,7 @@ import filterHelpers from 'utils/filterFunctions.helper';
 export const filtersData = {
     hauntId: {
         key: 'hauntId',
+        queryParamKey: 'haunt',
         componentType: FilterComponent.MultiButtonSelection,
         title: 'Haunt',
         items: [
@@ -38,6 +39,7 @@ export const filtersData = {
     },
     collateral: {
         key: 'collateral',
+        queryParamKey: 'collateral',
         componentType: FilterComponent.MultiButtonSelection,
         title: 'Collateral',
         items: collaterals.map(collateral => ({
@@ -57,6 +59,7 @@ export const filtersData = {
     },
     search: {
         key: 'search',
+        queryParamKey: 'search',
         isMultipleKeys: true,
         keys: ['id', 'name'],
         componentType: FilterComponent.Input,
@@ -74,6 +77,7 @@ export const filtersData = {
     },
     guild: {
         key: 'guild',
+        queryParamKey: 'guild',
         componentType: FilterComponent.MultipleAutocomplete,
         title: 'Guilds',
         items: guilds
@@ -95,6 +99,7 @@ export const filtersData = {
     },
     whitelistId: {
         key: 'whitelistId',
+        queryParamKey: 'whitelistId',
         componentType: FilterComponent.SingleAutocomplete,
         title: 'Whitelist',
         items: [],
@@ -109,6 +114,7 @@ export const filtersData = {
     },
     period: {
         key: 'period',
+        queryParamKey: 'period',
         tooltip: 'rental period',
         icon: <AccessTimeIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
@@ -129,6 +135,7 @@ export const filtersData = {
     },
     splitBorrower: {
         key: 'splitBorrower',
+        queryParamKey: 'splitBorrower',
         tooltip: 'borrower revenue',
         icon: <PercentIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
@@ -146,6 +153,7 @@ export const filtersData = {
     },
     upfrontCost: {
         key: 'upfrontCost',
+        queryParamKey: 'upfrontCost',
         tooltip: 'upfront cost',
         icon: <AttachMoneyIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
