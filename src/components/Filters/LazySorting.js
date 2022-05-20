@@ -10,15 +10,15 @@ import { LazySortingStyles } from './styles';
 
 const directions = [
     {
-        name: 'asc',
-        key: 'asc',
-        tooltip: 'from 🔸 to 🔶',
-        icon: <ArrowDownwardIcon fontSize='small' />
-    },
-    {
         name: 'desc',
         key: 'desc',
         tooltip: 'from 🔶 to 🔸',
+        icon: <ArrowDownwardIcon fontSize='small' />
+    },
+    {
+        name: 'asc',
+        key: 'asc',
+        tooltip: 'from 🔸 to 🔶',
         icon: <ArrowUpwardIcon fontSize='small' />
     }
 ];
