@@ -54,7 +54,7 @@ export default function ClientRoutes() {
             } else {
                 history.push({
                     pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
-                    search: queryString.stringify(queryParams, { arrayFormat: 'comma' })
+                    search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
                 });
                 getClientData(activeAddress);
             }
