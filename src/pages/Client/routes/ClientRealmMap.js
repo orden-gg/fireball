@@ -16,7 +16,7 @@ export default function ClientRealmMap() {
 
         group.push({
             parcels: realm,
-            icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+            icons: [<VisibilityOffIcon />, <VisibilityIcon />],
             tooltip: 'Owner realm',
             type: 'owner',
             active: true,

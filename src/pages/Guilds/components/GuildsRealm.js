@@ -18,7 +18,7 @@ export default function GuildRealm() {
 
         groups.push({
             parcels: guildRealm,
-            icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+            icons: [<VisibilityOffIcon />, <VisibilityIcon />],
             tooltip: 'Owner realm',
             type: 'owner',
             active: true,

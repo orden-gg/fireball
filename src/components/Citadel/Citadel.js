@@ -14,6 +14,7 @@ import qs from 'query-string';
 import CustomModal from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraph from 'api/thegraph.api';
+import commonUtils from 'utils/commonUtils';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
@@ -24,23 +25,37 @@ import SearchForm from './components/SearchForm';
 import CitadelInfo from './components/CitadelInfo';
 import styles, { InterfaceStyles } from './styles';
 
+const paramsToArray = params => {
+    const parsedParams = {};
+
+    for(const [key, param] of Object.entries(params)) {
+        const items = param?.split(',');
+        const isExisting = items !== undefined && items[0].length !== 0;
+        parsedParams[key] = isExisting ? items : [];
+    }
+
+    return parsedParams;
+}
+
 export default function Citadel({ realmGroups, className, isLoaded }) {
     const classes = { ...styles(), ...InterfaceStyles() }
 
     const location = useLocation();
     const history = useHistory();
 
-    const params = qs.parse(location.search);
+    const [params, setParams] = useState(paramsToArray(qs.parse(location.search)));
 
     const [game, setGame] = useState(null);
-    const [sceneCreated, setSceneCreated] = useState(false);
+    const [mapCreated, setMapCreated] = useState(false);
     const [selectedParcel, setSelectedParcel] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const searchParcles = id => {
-        game.scene.addSelectedParcel(id);
+    const searchParcles = id => game.scene.addSelectedParcel(id);
+
+    const buttonIsActive = type => {
+        return params.active?.some(name => name === type);
     }
 
     const removeSelected = () => {
@@ -48,22 +63,26 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         setSelectedParcel(null);
     }
 
-    const toggleGroup = (type, isActive) => {
-        game.scene.toggleGroup(type, isActive);
-    };
+    const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
 
     const basicButtons = useMemo(() => {
         return realmGroups
-            .filter(group => group.parcels?.length > 0)
-            .map(group =>
-                <BasicButton
-                    {...group}
-                    handleClick={toggleGroup}
-                    key={group.type}
-                />
-            );
+            .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
+            .map(group => {
+
+                return (
+                    <BasicButton
+                        type={group.type}
+                        icons={group.icons}
+                        tooltip={group.tooltip}
+                        active={buttonIsActive(group.type) || group.active}
+                        handleClick={toggleGroup}
+                        key={group.type}
+                    />
+                )
+            });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [realmGroups, sceneCreated]);
+    }, [realmGroups, mapCreated]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -83,14 +102,20 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                             setSelectedParcel(parcel);
                         });
                     },
-                    onSceneCreated() {
-                        setSceneCreated(true);
-                    },
-                    onMultiselectChange(ids) {
-                        params.multiselect = ids;
-                        history.push({
-                            path: location.pathname,
-                            search: qs.stringify(params, { arrayFormat: 'comma' })
+                    onQueryParamsChange(name, param) {
+                        const queryParam = params[name] || [];
+                        const paramIndex = queryParam.findIndex(item => item === param);
+
+                        if (paramIndex === -1) {
+                            queryParam.push(param);
+                        } else {
+                            queryParam.splice(paramIndex, 1);
+                        }
+
+                        setParams(paramsState => {
+                            // paramsState[name] = queryParam;
+
+                            return {...paramsState};
                         });
                     },
                     wrapperRef
@@ -101,26 +126,48 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     }, []);
 
     useEffect(() => {
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params]);
+
+    useEffect(() => {
+        if (isLoaded) {
+            for (const group of realmGroups) {
+                if (commonUtils.isEmptyObject(group)) {
+                    continue;
+                }
+
+                game.scene.addGroup(group);
+            }
+
+            setMapCreated(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoaded, realmGroups]);
+
+    useEffect(() => {
+        if (mapCreated) {
+            if (params.active) {
+                for (const type of params.active) {
+                    game.scene.toggleGroup(type, true, true);
+                }
+            }
+
+            if (params.multiselect?.length > 0) {
+                game.scene.setMultiselect(params.multiselect);
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [mapCreated]);
+
+    useEffect(() => {
         if (selectedParcel !== null) {
             setModalOpen(true);
         }
     }, [selectedParcel]);
-
-    useEffect(() => {
-        if (sceneCreated && isLoaded) {
-            const multiselect = params.multiselect?.split(',');
-            const isMultiselect = multiselect !== undefined && multiselect.length > 0;
-
-            for (const group of realmGroups) {
-                game.scene.addGroup(group);
-            }
-
-            if (isMultiselect) {
-                game.scene.setMultiselect(multiselect);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sceneCreated, isLoaded]);
 
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
@@ -130,14 +177,16 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     type='grid'
                     tooltip='Districts grid'
-                    icons={[<GridOnIcon />, <GridOffIcon />]}
+                    icons={[<GridOffIcon />, <GridOnIcon />]}
                     handleClick={toggleGroup}
+                    active={buttonIsActive('grid')}
                 />
                 <BasicButton
                     type='guilds'
                     tooltip='Guilds'
-                    icons={[<SelectAllIcon />, <DeselectIcon />]}
+                    icons={[<DeselectIcon />, <SelectAllIcon />]}
                     handleClick={toggleGroup}
+                    active={buttonIsActive('guilds')}
                 />
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
                 {basicButtons}

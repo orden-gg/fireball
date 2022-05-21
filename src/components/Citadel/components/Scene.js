@@ -10,7 +10,7 @@ import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import citadelUtils from 'utils/citadelUtils';
 export default class CitadelScene extends Phaser.Scene {
-        constructor({ onMultiselectChange, onParcelSelect, onSceneCreated, wrapperRef }) {
+        constructor({ onQueryParamsChange, onParcelSelect, wrapperRef }) {
             super({ key: 'Citadel_scene' });
 
             this.wrapper = wrapperRef.current;
@@ -19,12 +19,12 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.settings = {}
 
-            this.onSceneCreated = onSceneCreated;
-            this.onMultiselectChange = onMultiselectChange;
+            this.onQueryParamsChange = onQueryParamsChange;
 
             this.selectedParcel = null;
             this.onParcelSelect = onParcelSelect;
             this.groups = {};
+
         }
 
         preload() {
@@ -60,8 +60,6 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.scale.resize(w, h);
             this.updateZoom();
-
-            this.onSceneCreated();
 
             this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
                 gameObject.x = dragX;
@@ -221,7 +219,7 @@ export default class CitadelScene extends Phaser.Scene {
                 delete this.multiselect;
             }
 
-            this.onMultiselectChange(ids);
+            this.onQueryParamsChange('multiselect', parcel.tokenId);
         }
 
         addGroup(group) {
@@ -280,18 +278,22 @@ export default class CitadelScene extends Phaser.Scene {
             this.citadel.setPosition(x, y);
         }
 
-        toggleGroup(type, isActive) {
+        toggleGroup(type, isActive, load) {
             const group = this.groups[type];
 
-            group.show(isActive);
-
-            if (group.isAnimate) {
-                group.animate(isActive);
+            if(group === undefined) {
+                return;
             }
+
+            group.show(isActive);
 
             this.updateMapFade();
 
             this.reOrderItems();
+
+            if(!load) {
+                this.onQueryParamsChange('active', type);
+            }
         }
 
         updateMapFade() {

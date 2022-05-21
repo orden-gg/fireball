@@ -58,7 +58,7 @@ export default function Map() {
                     parcels: combined,
                     type: 'listed',
                     active: false,
-                    icons: [<BlurOnIcon />, <BlurOffIcon />],
+                    icons: [<BlurOffIcon />, <BlurOnIcon />],
                     tooltip: 'Listed realm',
                     range: {
                         humble: {min: humbleDesc, max: humbleAsc},
@@ -83,8 +83,6 @@ export default function Map() {
         let mounted = true;
 
         if (activeAddress) {
-            setIsOwnerLoaded(false);
-
             thegraphApi.getRealmByAddress(activeAddress).then(ownerRealm => {
                 if (mounted) {
                     setOwnerRealm({
@@ -92,7 +90,7 @@ export default function Map() {
                         type: 'owner',
                         active: false,
                         animate: true,
-                        icons: [<VisibilityIcon />, <VisibilityOffIcon />],
+                        icons: [<VisibilityOffIcon />, <VisibilityIcon />],
                         tooltip: 'Owner realm'
                     });
                 }
@@ -103,6 +101,8 @@ export default function Map() {
                     setIsOwnerLoaded(true);
                 }
             });
+        } else {
+            setIsOwnerLoaded(true);
         }
 
         return () => mounted = false;

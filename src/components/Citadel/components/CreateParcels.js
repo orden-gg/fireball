@@ -132,6 +132,10 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         } else {
             this.setAlpha(0);
         }
+
+        if (this.isAnimate) {
+            this.animate(isActive);
+        }
     }
 
     get parcels() {
