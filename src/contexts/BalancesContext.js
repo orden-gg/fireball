@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
+import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import alchemicaApi from 'api/alchemica.api';
 import ghstApi from 'api/ghst.api';
 import quickSwapApi from 'api/quickswap.api';
-import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, KEK_CONTRACT } from 'api/common/constants';
+import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/constants';
 import commonUtils from 'utils/commonUtils';
 
 import { LoginContext } from './LoginContext';
@@ -34,6 +34,11 @@ const BalancesContextProvider = (props) => {
             balance: 0
         },
         {
+            icon: <GltrTokenIcon height={14} width={14} />,
+            amount: 0,
+            balance: 0
+        },
+        {
             icon: <GhstTokenIcon height={14} width={14} />,
             amount: 0,
             balance: 0
@@ -59,24 +64,27 @@ const BalancesContextProvider = (props) => {
 
             async function getBalances() {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
-                const [fudAmount, fomoAmount, alphaAmount, kekAmount, gshtAmount] = await Promise.all([
+                const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await Promise.all([
                     alchemicaApi.getFudBalance(activeAddress),
                     alchemicaApi.getFomoBalance(activeAddress),
                     alchemicaApi.getAlphaBalance(activeAddress),
                     alchemicaApi.getKekBalance(activeAddress),
+                    alchemicaApi.getGltrBalance(activeAddress),
                     ghstApi.getBalanceOf(activeAddress)
                 ]);
-                const [fudToken, fomoToken, alphaToken, kekToken] = await Promise.all([
+                const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
                     quickSwapApi.getTokenData(FUD_CONTRACT),
                     quickSwapApi.getTokenData(FOMO_CONTRACT),
                     quickSwapApi.getTokenData(ALPHA_CONTRACT),
-                    quickSwapApi.getTokenData(KEK_CONTRACT)
+                    quickSwapApi.getTokenData(KEK_CONTRACT),
+                    quickSwapApi.getTokenData(GLTR_CONTRACT)
                 ]);
-                const [fudPrice, fomoPrice, alphaPrice, kekPrice] = await Promise.all([
+                const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
                     getTokenPrice(ghst, ghstPrice, fudToken),
                     getTokenPrice(ghst, ghstPrice, fomoToken),
                     getTokenPrice(ghst, ghstPrice, alphaToken),
                     getTokenPrice(ghst, ghstPrice, kekToken),
+                    getTokenPrice(ghst, ghstPrice, gltrToken)
                 ]);
                 const ghstBalance = gshtAmount * ghstPrice;
 
@@ -112,6 +120,14 @@ const BalancesContextProvider = (props) => {
                         pricePerToken: kekPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
                         swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
+                    },
+                    {
+                        key: 'gltr',
+                        icon: <GltrTokenIcon height={14} width={14} />,
+                        amount: commonUtils.convertFloatNumberToSuffixNumber(gltrAmount),
+                        pricePerToken: gltrPrice.toFixed(5),
+                        balance: commonUtils.convertFloatNumberToSuffixNumber(gltrPrice * gltrAmount),
+                        swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'ghst',

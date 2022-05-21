@@ -42,6 +42,7 @@ import alphaToken from 'assets/images/tokens/alpha-token.svg';
 import fomoToken from 'assets/images/tokens/fomo-token.svg';
 import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
+import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 
 // animated
@@ -163,6 +164,10 @@ export const FudTokenIcon = ({ width, height }) => {
 
 export const GhstTokenIcon = ({ className, width, height }) => {
     return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
+};
+
+export const GltrTokenIcon = ({ className, width, height }) => {
+    return <img width={width} height={height} src={gltrToken} alt='gltrToken' />;
 };
 
 export const KekTokenIcon = ({ width, height }) => {

@@ -48,6 +48,9 @@ const styles = makeStyles(theme => ({
         '&.kek': {
             color: theme.palette.alchemica.kek
         },
+        '&.gltr': {
+            color: theme.palette.alchemica.gltr
+        },
         '& p': {
             opacity: .8
         }

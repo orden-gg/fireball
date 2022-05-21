@@ -42,7 +42,8 @@ const theme = createTheme({
             fud: 'rgb(0, 255, 0)',
             fomo: '#F37721',
             alpha: 'rgb(55, 255, 255)',
-            kek: '#fa34f3'
+            kek: '#fa34f3',
+            gltr: '#ffc800'
         },
         customColors: {
             lightGray: '#9A9EAA',
