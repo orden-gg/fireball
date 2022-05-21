@@ -102,6 +102,9 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                             setSelectedParcel(parcel);
                         });
                     },
+                    onMapCreated() {
+                        setMapCreated(true);
+                    },
                     onQueryParamsChange(name, param) {
                         const queryParam = params[name] || [];
                         const paramIndex = queryParam.findIndex(item => item === param);
@@ -113,7 +116,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         }
 
                         setParams(paramsState => {
-                            // paramsState[name] = queryParam;
+                            paramsState[name] = queryParam;
 
                             return {...paramsState};
                         });
@@ -134,7 +137,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     }, [params]);
 
     useEffect(() => {
-        if (isLoaded) {
+        if (isLoaded && mapCreated) {
             for (const group of realmGroups) {
                 if (commonUtils.isEmptyObject(group)) {
                     continue;
@@ -143,13 +146,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 game.scene.addGroup(group);
             }
 
-            setMapCreated(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoaded, realmGroups]);
-
-    useEffect(() => {
-        if (mapCreated) {
             if (params.active) {
                 for (const type of params.active) {
                     game.scene.toggleGroup(type, true, true);
@@ -161,7 +157,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mapCreated]);
+    }, [isLoaded, realmGroups, mapCreated]);
 
     useEffect(() => {
         if (selectedParcel !== null) {

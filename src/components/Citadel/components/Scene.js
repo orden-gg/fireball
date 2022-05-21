@@ -10,7 +10,7 @@ import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import citadelUtils from 'utils/citadelUtils';
 export default class CitadelScene extends Phaser.Scene {
-        constructor({ onQueryParamsChange, onParcelSelect, wrapperRef }) {
+        constructor({ onQueryParamsChange, onMapCreated, onParcelSelect, wrapperRef }) {
             super({ key: 'Citadel_scene' });
 
             this.wrapper = wrapperRef.current;
@@ -20,6 +20,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings = {}
 
             this.onQueryParamsChange = onQueryParamsChange;
+            this.onMapCreated = onMapCreated;
 
             this.selectedParcel = null;
             this.onParcelSelect = onParcelSelect;
@@ -60,6 +61,8 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.scale.resize(w, h);
             this.updateZoom();
+
+            this.onMapCreated();
 
             this.input.on('drag', (pointer, gameObject, dragX, dragY) => {
                 gameObject.x = dragX;
