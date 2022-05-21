@@ -98,12 +98,15 @@ export default function ClientLendings() {
                                         {
                                             flipBack: [
                                                 'traits',
+                                                'channeling',
                                                 'wearablesLine',
                                                 'listing'
                                             ]
                                         },
                                         {
-                                            flipFront: ['lendingStats']
+                                            flipFront: [
+                                                'lendingStats',
+                                            ]
                                         }
                                     ]
                                 },

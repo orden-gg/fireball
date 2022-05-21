@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        marginTop: 8,
+        margin: '8px 0',
         background: alpha('#000', .2),
         borderRadius: 4,
         display: 'flex',
