@@ -205,6 +205,7 @@ export default function ClientGotchis() {
                                 'svg',
                                 'name',
                                 'traits',
+                                'channeling',
                                 'wearablesLine',
                                 'listing',
                                 'rewards'

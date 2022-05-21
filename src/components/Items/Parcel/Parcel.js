@@ -8,6 +8,7 @@ import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import itemUtils from 'utils/itemUtils';
 
 import ParcelLink from './ParcelLink';
+import ParcelChanelling from './ParcelChanneling';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 export default function Parcel({ parcel }) {
@@ -51,6 +52,8 @@ export default function Parcel({ parcel }) {
             </div>
 
             <ParcelLink parcel={parcel} />
+
+            <ParcelChanelling parcelId={parcel.tokenId} />
 
             <div className={classes.boosts}>
                 {Object.entries(boosts).map((boost, i) => {

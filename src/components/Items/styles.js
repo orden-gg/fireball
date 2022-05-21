@@ -269,7 +269,6 @@ const itemStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        justifyContent: 'center',
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -492,16 +491,9 @@ const ERC1155InnerStyles = makeStyles(theme => ({
 
 const parselStyles = makeStyles(theme => ({
     boosts: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
         display: 'flex',
-        flexWrap: 'wrap',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        '& div:last-child': {
-            borderBottomLeftRadius: 4
-        },
+        justifyContent: 'center',
     },
 
     boost: {
@@ -511,6 +503,8 @@ const parselStyles = makeStyles(theme => ({
         color: theme.palette.secondary.main,
         fontSize: 14,
         fontWeight: 600,
+        borderRadius: 2,
+        marginTop: 8,
         '& img': {
             marginRight: 2
         },
@@ -597,11 +591,38 @@ const portalStyles = makeStyles(theme => ({
     },
 }));
 
+const channelingStyles = makeStyles(theme => ({
+    container: {
+        position: 'absolute',
+        bottom: 4,
+        left: 4,
+        background: alpha('#000', .2),
+        borderRadius: 4,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 28,
+        height: 28,
+        '& img': {
+            display: 'block'
+        }
+    },
+    unactiveIcon: {
+        filter: 'grayscale(1)'
+    },
+    placeholder: {
+        width: 28,
+        height: 28,
+        borderRadius: 4
+    },
+}));
+
 export {
     styles as default,
     itemStyles,
     ERC1155InnerStyles,
     tooltipStyles,
     parselStyles,
-    portalStyles
+    portalStyles,
+    channelingStyles
 }

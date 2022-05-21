@@ -309,7 +309,8 @@ export default function Lend() {
                                         },
                                         'svg',
                                         'name',
-                                        'lending'
+                                        'lending',
+                                        'channeling'
                                     ]}
                                 />
                             )}
