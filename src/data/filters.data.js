@@ -113,8 +113,7 @@ export const filtersData = {
     period: {
         key: 'period',
         queryParamKey: 'period',
-        tooltip: 'rental period',
-        title: 'rental period',
+        title: 'rental period (hours)',
         icon: <AccessTimeIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,
@@ -135,8 +134,7 @@ export const filtersData = {
     splitBorrower: {
         key: 'splitBorrower',
         queryParamKey: 'borrower',
-        tooltip: 'borrower revenue',
-        title: 'borrower revenue',
+        title: 'borrower revenue (%)',
         icon: <PercentIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,
@@ -154,8 +152,7 @@ export const filtersData = {
     upfrontCost: {
         key: 'upfrontCost',
         queryParamKey: 'upfront',
-        tooltip: 'upfront cost',
-        title: 'upfront cost',
+        title: 'upfront cost (ghst)',
         icon: <AttachMoneyIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,
