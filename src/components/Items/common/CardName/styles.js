@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
-        '.instalation &, .tile &': {
+        '.installation &, .tile &': {
             whiteSpace: 'normal'
         },
         '& p': {
