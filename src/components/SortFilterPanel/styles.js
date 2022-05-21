@@ -71,8 +71,6 @@ const styles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 1
     },
     buttonsWrapper: {
-        display: 'flex',
-        justifyContent: 'center',
         padding: 12
     },
     results: {
