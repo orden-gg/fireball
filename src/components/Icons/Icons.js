@@ -4,6 +4,7 @@ import gotchiHeartGif from 'assets/images/animated/gotchi-heart.gif';
 import gotchiLoadingGif from 'assets/images/animated/gotchi-loading.gif';
 import gotchiverseGif from 'assets/images/animated/gotchiverse.gif';
 import h1OpenedPortalGif from 'assets/images/animated/h1-opened.gif';
+import realmGif from 'assets/images/animated/realm.gif';
 
 // icons
 import activity from 'assets/images/icons/activity.svg';
@@ -62,6 +63,10 @@ export const GotchiverseGif = ({ width, height }) => {
 
 export const H1OpenedPortalGif = ({ className, width, height }) => {
     return <img className={className} width={width} height={height} src={h1OpenedPortalGif} alt='H1 opened portal' />;
+};
+
+export const RealmGif = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={realmGif} alt='realm' />;
 };
 
 // icons

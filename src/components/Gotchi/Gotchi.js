@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
+import GotchiChanelling from './GotchiChanneling/GotchiChanneling';
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
 import GotchiOwner from './GotchiOwner/GotchiOwner';
 import GotchiName from './GotchiName/GotchiName';
@@ -200,6 +201,15 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     key={`${gotchi.id}-listing`}
                     listings={gotchi.listings}
                     historicalPrices={gotchi.historicalPrices}
+                />
+            )
+        },
+
+        get channeling() {
+            return (
+                <GotchiChanelling
+                    gotchiId={gotchi.id}
+                    key={`${gotchi.id}-channeling`}
                 />
             )
         },

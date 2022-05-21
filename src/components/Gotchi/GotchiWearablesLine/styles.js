@@ -5,7 +5,7 @@ const styles = makeStyles(theme => ({
     gotchiWLineWrapper: {
         display: 'flex',
         alignItems: 'center',
-        margin: '35px 0 4px',
+        margin: '16px 0 4px',
         position: 'relative',
         '&:hover > div:not(:hover)': {
             opacity: .25
