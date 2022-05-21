@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -9,17 +10,24 @@ import CopyrightIcon from '@mui/icons-material/Copyright';
 import PercentIcon from '@mui/icons-material/Percent';
 import { ToggleButton } from '@mui/material';
 
+import classNames from 'classnames';
+import qs from 'query-string';
+
 import ContentWrapper from 'components/Content/ContentWrapper';
 import ContentInner from 'components/Content/ContentInner';
-import GotchiFilters from 'components/Filters/GotchiFilter';
 import { GotchiIcon } from 'components/Icons/Icons';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import LazySorting from 'components/Filters/LazySorting';
+import Filters from 'components/Filters/components/Filters/Filters';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import Gotchi from 'components/Gotchi/Gotchi';
+import ethersApi from 'api/ethers.api';
 import thegraphApi from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
+import filtersUtils from 'utils/filtersUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
-import guilds from 'data/guilds.json';
+import { filtersData } from 'data/filters.data';
+
+import styles from './styles';
 
 const sortings = [
     {
@@ -72,35 +80,49 @@ const sortings = [
     }
 ];
 
+const initialFilters = {
+    guild: {...filtersData.guild},
+    whitelistId: {...filtersData.whitelistId, divider: true},
+    period: {...filtersData.period},
+    splitBorrower: {...filtersData.splitBorrower},
+    upfrontCost: {...filtersData.upfrontCost}
+};
+
 export default function Lend() {
+    const classes = styles();
+
+    const history = useHistory();
+    const location = useLocation();
+
+    const [queryParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
+    const [modifiedLendings, setModifiedLendings] = useState([]);
     const [lendings, setLendings] = useState([]);
-    const [lendingsCache, setLendingsCache] = useState([]);
-    const [whitelist, setWhitelist] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const [linksListView, setLinksListView] = useState(false);
-
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
+    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [isSortingChanged, setIsSortingChanged] = useState(false);
+    const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
-    const availableGuilds = guilds.filter((guild) => guild.members.length > 0);
-    const guildsKeys = availableGuilds.map((guild) => commonUtils.stringToKey(guild.name));
+    useEffect(() => {
+        return () => onResetFilters();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         let mounted = true;
+
         setDataLoading(true);
 
-        thegraphApi.getLendings().then((response) => {
+        thegraphApi.getLendings().then(response => {
             if (mounted) {
                 const whitelistData = [];
                 const mappedData = [];
                 const { type, dir } = lendingsSorting;
 
-                response.forEach((listing) => {
+                response.forEach(listing => {
                     if (listing.whitelistId) {
-                        const index = whitelistData.findIndex(savedId => savedId === listing.whitelistId);
-
-                        if (index === -1) {
-                            whitelistData.push(listing.whitelistId);
-                        }
+                        whitelistData.push(listing.whitelistId);
                     }
 
                     mappedData.push({
@@ -110,36 +132,144 @@ export default function Lend() {
                 });
 
                 const sorted = commonUtils.basicSort(mappedData, type, dir);
+                const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+                const upfronCostValues = sorted.map(item => ethersApi.fromWei(item.upfrontCost));
+                const maxUpfrontCost = Math.max(...upfronCostValues);
 
-                setWhitelist(commonUtils.sortByDirection(whitelistData, 'asc'));
+                setCurrentFilters(currentFiltersCache => {
+                    const currentFiltersCacheCopy = {...currentFiltersCache};
+
+                    currentFiltersCacheCopy.whitelistId = {
+                        ...currentFiltersCacheCopy.whitelistId,
+                        items: sortedWhitelist.map(whitelist => ({
+                            title: whitelist,
+                            value: whitelist,
+                            queryParamValue: whitelist,
+                            isSelected: false
+                        }))
+                    };
+
+                    currentFiltersCacheCopy.upfrontCost = {
+                        ...currentFiltersCacheCopy.upfrontCost,
+                        max: maxUpfrontCost,
+                        value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
+                    }
+
+                    let filtersToReturn;
+
+                    if (Object.keys(queryParams).length > 0) {
+                        filtersToReturn = filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                    } else {
+                        filtersToReturn = currentFiltersCacheCopy;
+                    }
+
+                    return filtersToReturn;
+                });
+                setModifiedLendings(sorted);
                 setLendings(sorted);
-                setLendingsCache(sorted);
                 setDataLoading(false);
             }
         });
 
         return () => mounted = false;
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        setCurrentFilters(currentFiltersCache =>
+            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
+    }, [queryParams]);
+
+    useEffect(() => {
+        setModifiedLendings(modifiedLendingsCache => filtersUtils.getFilteredSortedItems({
+            items: lendings,
+            itemsCache: modifiedLendingsCache,
+            filters: currentFilters,
+            isFiltersApplied,
+            isFiltersAppliedSetter: setIsFiltersApplied,
+            sorting: lendingsSorting,
+            isSortingChanged,
+            getFilteredItems: filtersUtils.getFilteredItems
+        }));
+    }, [currentFilters, lendings, isFiltersApplied, isSortingChanged, lendingsSorting]);
+
+    const applySorting = useCallback((prop, dir) => {
+        const itemsToSort = isSortingChanged || isFiltersApplied ? modifiedLendings : lendings;
+        const sortedItems = commonUtils.basicSort(itemsToSort, prop, dir);
+
+        setModifiedLendings([...sortedItems])
+    }, [isSortingChanged, isFiltersApplied, lendings, modifiedLendings]);
+
+    const onSortingChanged = useCallback((prop, dir) => {
+        applySorting(prop, dir);
+        setIsSortingChanged(true);
+    }, [applySorting]);
+
+    const sorting = {
+        sortingList: sortings,
+        sortingDefaults: lendingsSorting,
+        setSorting: setLendingsSorting,
+        onSortingChanged: onSortingChanged
+    };
+
+    const updateQueryParams = useCallback(filters => {
+        const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
+
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
+        });
+    }, [queryParams, history, location.pathname]);
+
+    const onSetSelectedFilters = useCallback((key, selectedValue) => {
+        const currentFiltersCopy = {...currentFilters};
+
+        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue, currentFiltersCopy[key])) {
+            currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
+        } else {
+            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], selectedValue);
+        }
+
+        const activeFilters = Object.entries(currentFiltersCopy).filter(([key, filter]) => filter.isFilterActive);
+
+        if (activeFilters.length > 0) {
+            setIsFiltersApplied(true);
+        } else {
+            setIsFiltersApplied(false);
+        }
+
+        setCurrentFilters({...currentFiltersCopy});
+        updateQueryParams(currentFiltersCopy);
+    }, [currentFilters, updateQueryParams]);
+
+    const onResetFilters = useCallback(() => {
+        Object.entries(currentFilters).forEach(([key, filter]) => {
+            filter.resetFilterFn(filter);
+        });
+
+        setIsFiltersApplied(false);
+        setCurrentFilters(currentFilters);
+        updateQueryParams(currentFilters);
+    }, [currentFilters, updateQueryParams]);
+
+    const getLendings = useCallback(() => {
+        return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
+    }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
+
     return (
         <ContentWrapper>
-            <GotchiFilters
-                gotchis={lendingsCache}
-                setGotchis={setLendings}
-                guilds={guildsKeys}
-                whitelist={whitelist}
-                dataLoading={dataLoading}
-            />
+            <>
+                <Filters
+                    className={classNames(classes.section, classes.filtersWrapper)}
+                    filters={currentFilters}
+                    onSetSelectedFilters={onSetSelectedFilters}/>
+            </>
 
             <>
-                <LazySorting
-                    items={lendings}
-                    setItems={setLendings}
-                    sortingList={sortings}
-                    sortingDefaults={lendingsSorting}
-                    setSorting={setLendingsSorting}
+                <SortFilterPanel
+                    sorting={sorting}
+                    itemsLength={getLendings().length}
                     placeholder={
                         <GotchiIcon width={20} height={20} />
                     }
@@ -160,16 +290,16 @@ export default function Lend() {
                     {/* // !temporary code (hidden feature) */}
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
-                            {lendings.map((lend) => {
+                            {getLendings().map(lend => {
                                 return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
                             })}
                         </ol>
                     ) : (
                         <GotchisLazy
-                            items={lendings}
+                            items={getLendings()}
                             renderItem={id => (
                                 <Gotchi
-                                    gotchi={lendings[id]}
+                                    gotchi={getLendings()[id]}
                                     render={[
                                         {
                                             badges: [

@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
-import LazySorting from 'components/Filters/LazySorting';
 import Parcel from 'components/Items/Parcel/Parcel';
+import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
+import commonUtils from 'utils/commonUtils';
 
 const sortings = [
     {
@@ -58,6 +59,19 @@ export default function ClientRealmList() {
         setRealmView
     } = useContext(ClientContext);
 
+    const onSortingChanged = useCallback((prop, dir) => {
+        const sortedItems = commonUtils.basicSort(realm, prop, dir);
+
+        setRealm([...sortedItems]);
+    }, [realm, setRealm]);
+
+    const sorting = {
+        sortingList: sortings,
+        sortingDefaults: realmSorting,
+        setSorting: setRealmSorting,
+        onSortingChanged: onSortingChanged
+    };
+
     useEffect(() => {
         setRealmView('list');
 
@@ -66,14 +80,11 @@ export default function ClientRealmList() {
 
     return (
         <>
-            <LazySorting
-                items={realm}
-                setItems={setRealm}
-                sortingList={sortings}
-                sortingDefaults={realmSorting}
-                setSorting={setRealmSorting}
+            <SortFilterPanel
+                sorting={sorting}
+                itemsLength={realm.length}
                 placeholder={
-                    <KekIcon height={20} width={20} />
+                    <KekIcon width={20} height={20} />
                 }
             />
 

@@ -4,30 +4,27 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
-import classNames from 'classnames';
-
 import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
-import commonUtils from 'utils/commonUtils';
 
-import { LazySortingStyles } from './styles';
+import styles from './styles';
 
 const directions = [
-    {
-        name: 'asc',
-        key: 'asc',
-        tooltip: 'from 🔸 to 🔶',
-        icon: <ArrowDownwardIcon fontSize='small' />
-    },
     {
         name: 'desc',
         key: 'desc',
         tooltip: 'from 🔶 to 🔸',
+        icon: <ArrowDownwardIcon fontSize='small' />
+    },
+    {
+        name: 'asc',
+        key: 'asc',
+        tooltip: 'from 🔸 to 🔶',
         icon: <ArrowUpwardIcon fontSize='small' />
     }
 ];
 
-export default function LazySorting({ items, setItems, sortingList, setSorting, sortingDefaults, placeholder }) {
-    const classes = LazySortingStyles();
+export default function LazySorting({ sortingList, setSorting, sortingDefaults, onSortingChanged }) {
+    const classes = styles();
 
     const { type, dir } = sortingDefaults;
 
@@ -49,14 +46,12 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
         sortItems(sortProp, sortDir);
     };
 
-    const sortItems = (filter, dir) => {
-        const sorted = commonUtils.basicSort(items, filter, dir);
-
-        setItems(sorted);
+    const sortItems = (prop, dir) => {
+        onSortingChanged(prop, dir);
     };
 
     return (
-        <div className={classes.container}>
+        <>
             <div className={classes.inner}>
                 <CustomToggleButtonGroup
                     value={type}
@@ -74,11 +69,6 @@ export default function LazySorting({ items, setItems, sortingList, setSorting, 
                     list={directions}
                 />
             </div>
-
-            {items.length > 0 && <div className={classNames(classes.inner, classes.results)}>
-                <span>{items.length}</span>
-                <span className={classes.placeholder}>{placeholder}</span>
-            </div>}
-        </div>
+        </>
     )
 }

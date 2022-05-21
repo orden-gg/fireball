@@ -4,6 +4,7 @@ import { Route, Switch, useRouteMatch, useHistory, useParams } from 'react-route
 import { Redirect, NavLink } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
+import queryString from 'query-string';
 
 import PageNav from 'components/PageNav/PageNav';
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
@@ -32,6 +33,7 @@ export default function ClientRoutes() {
     const subroute = location.pathname.split('/')[3];
 
     const { account } = useParams();
+    const queryParams = queryString.parse(location.search);
 
     const { activeAddress, setActiveAddress } = useContext(LoginContext);
     const { getClientData, navData } = useContext(ClientContext);
@@ -51,7 +53,8 @@ export default function ClientRoutes() {
                 setActiveAddress(account);
             } else {
                 history.push({
-                    pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`
+                    pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
+                    search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
                 });
                 getClientData(activeAddress);
             }
