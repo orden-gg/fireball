@@ -71,6 +71,9 @@ export default function Header() {
                     <NavLink className={classes.navLink} to='/raffle-calculator'>
                         Raffle Calculator
                     </NavLink>
+                    <NavLink className={classes.navLink} to='/map'>
+                        map
+                    </NavLink>
                 </nav>
             </Box>
 

@@ -4,22 +4,26 @@ import { IconButton, Modal } from '@mui/material';
 
 import classNames from 'classnames';
 
-export default function CustomModal({ children, modalOpen, setModalOpen, className }) {
+export default function CustomModal({ children, modalOpen, setModalOpen, onModalClose, className }) {
     const classes = styles();
 
-    const onModalClose = () => {
+    const onClose = () => {
         setModalOpen(false);
+
+        if (onModalClose) {
+            onModalClose();
+        }
     }
 
     return (
         <Modal
             open={modalOpen}
-            onClose={onModalClose}
+            onClose={onClose}
             className={classes.wrapper}
         >
             <div className={classNames(classes.modal, className || null)}>
                 { children }
-                <IconButton className={classes.close} onClick={() => setModalOpen(false)}>
+                <IconButton className={classes.close} onClick={onClose}>
                     <CloseIcon  />
                 </IconButton>
             </div>

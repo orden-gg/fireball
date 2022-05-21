@@ -1,172 +1,206 @@
-import React, { useEffect, useRef, useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton, TextField, Tooltip } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import SearchIcon from '@mui/icons-material/Search';
-import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
+import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
+import DeselectIcon from '@mui/icons-material/Deselect';
+import SelectAllIcon from '@mui/icons-material/SelectAll';
 
 import Phaser from 'phaser';
 import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
+import qs from 'query-string';
 
-import { GotchiverseGif } from 'components/Icons/Icons';
-import Parcel from 'components/Items/Parcel/Parcel';
+import CustomModal from 'components/Modal/Modal';
+import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraph from 'api/thegraph.api';
-import useFullscreenStatus from 'hooks/useFullscreenStatus';
+import commonUtils from 'utils/commonUtils';
 
 import CitadelScene from './components/Scene';
-import styles from './styles';
+import CitadelLoader from './components/CitadelLoader';
+import CitadelInterface from './components/CitadelInterface'
+import FullscreenButton from './components/FullscreenButton';
+import BasicButton from './components/BasicButton';
+import SearchForm from './components/SearchForm';
+import CitadelInfo from './components/CitadelInfo';
+import styles, { InterfaceStyles } from './styles';
 
-export default function Citadel({ ownerParcels, className}) {
-    const classes = styles();
+const paramsToArray = params => {
+    const parsedParams = {};
+
+    for(const [key, param] of Object.entries(params)) {
+        const items = param?.split(',');
+        const isExisting = items !== undefined && items[0].length !== 0;
+        parsedParams[key] = isExisting ? items : [];
+    }
+
+    return parsedParams;
+}
+
+export default function Citadel({ realmGroups, className, isLoaded }) {
+    const classes = { ...styles(), ...InterfaceStyles() }
+
+    const location = useLocation();
+    const history = useHistory();
+
+    const [params, setParams] = useState(paramsToArray(qs.parse(location.search)));
+
     const [game, setGame] = useState(null);
-
-    const [selectedId, setSelectedId] = useState(null);
-    const [selectedParcel, setSelectedParcel] = useState(null);
-    const [scene, setScene] = useState(null);
     const [mapCreated, setMapCreated] = useState(false);
-
-    const [showOwnerParcels, setShowOwnerParcels] = useState(true);
-    const [searchId, setSearchId] = useState(null);
-    const [showGrid, setShowGrid] = useState(false);
-
+    const [selectedParcel, setSelectedParcel] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
+    const searchParcles = id => game.scene.addSelectedParcel(id);
+
+    const buttonIsActive = type => {
+        return params.active?.some(name => name === type);
+    }
 
     const removeSelected = () => {
-        scene.addSelectedParcel(false);
+        game.scene.removeSelectedParcel();
         setSelectedParcel(null);
     }
 
-    const toggleOwnerParcels = () => {
-        setShowOwnerParcels(!showOwnerParcels);
-        scene.showOwnerParcels(!showOwnerParcels);
-    }
+    const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
 
-    const toggleFullscreen = () => {
-        isFullscreen ? document.exitFullscreen() : setIsFullscreen();
-    }
+    const basicButtons = useMemo(() => {
+        return realmGroups
+            .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
+            .map(group => {
 
-    const toggleGrid = () => {
-        setShowGrid(!showGrid);
-        scene.showGrid(!showGrid);
-    }
-
-    const initCitadel = () => {
-        setGame({
-            width: window.innerWidth * window.devicePixelRatio,
-            height: window.innerHeight * window.devicePixelRatio,
-            type: Phaser.NONE,
-            scale: {
-                mode: Phaser.Scale.RESIZE,
-                autoCenter: Phaser.Scale.CENTER_BOTH,
-                width: window.innerWidth,
-                height: window.innerHeight
-            },
-            scene: CitadelScene({
-                setScene,
-                setSelectedId,
-                wrapperRef
-            })
-        });
-    };
+                return (
+                    <BasicButton
+                        type={group.type}
+                        icons={group.icons}
+                        tooltip={group.tooltip}
+                        active={buttonIsActive(group.type) || group.active}
+                        handleClick={toggleGroup}
+                        key={group.type}
+                    />
+                )
+            });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realmGroups, mapCreated]);
 
     useEffect(() => {
         setTimeout(() => {
-            initCitadel();
-        }, 100);
+            setGame({
+                width: window.innerWidth * window.devicePixelRatio,
+                height: window.innerHeight * window.devicePixelRatio,
+                type: Phaser.NONE,
+                scale: {
+                    mode: Phaser.Scale.RESIZE,
+                    autoCenter: Phaser.Scale.CENTER_BOTH,
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                },
+                scene: new CitadelScene({
+                    onParcelSelect(id) {
+                        thegraph.getRealmById(id).then(parcel => {
+                            setSelectedParcel(parcel);
+                        });
+                    },
+                    onMapCreated() {
+                        setMapCreated(true);
+                    },
+                    onQueryParamsChange(name, param) {
+                        const queryParam = params[name] || [];
+                        const paramIndex = queryParam.findIndex(item => item === param);
 
+                        if (paramIndex === -1) {
+                            queryParam.push(param);
+                        } else {
+                            queryParam.splice(paramIndex, 1);
+                        }
+
+                        setParams(paramsState => {
+                            paramsState[name] = queryParam;
+
+                            return {...paramsState};
+                        });
+                    },
+                    wrapperRef
+                })
+            });
+        }, 100);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        if (selectedId) thegraph.getRealmById(selectedId).then((parcel) => {
-            setSelectedParcel(parcel);
+        history.push({
+            path: location.pathname,
+            search: qs.stringify(params, { arrayFormat: 'comma' })
         });
-
-    }, [selectedId]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params]);
 
     useEffect(() => {
-        if (ownerParcels.length && scene) {
-            scene.addOwnerParcels(ownerParcels);
-            setMapCreated(true);
+        if (isLoaded && mapCreated) {
+            for (const group of realmGroups) {
+                if (commonUtils.isEmptyObject(group)) {
+                    continue;
+                }
+
+                game.scene.addGroup(group);
+            }
+
+            if (params.active) {
+                for (const type of params.active) {
+                    game.scene.toggleGroup(type, true, true);
+                }
+            }
+
+            if (params.multiselect?.length > 0) {
+                game.scene.setMultiselect(params.multiselect);
+            }
         }
-    }, [ownerParcels, scene]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoaded, realmGroups, mapCreated]);
+
+    useEffect(() => {
+        if (selectedParcel !== null) {
+            setModalOpen(true);
+        }
+    }, [selectedParcel]);
 
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
-            <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
-
-                <div className={classes.citadelSearch}>
-                    <TextField className={classes.citadelSearchField} placeholder="Search by id" variant="standard" onChange={ (event) => setSearchId(event.target.value) }/>
-                    <IconButton onClick={ () => {scene.addSelectedParcel(+searchId)}} className={classes.citadelInterfaceButton}>
-                        <SearchIcon />
-                    </IconButton>
-                </div>
-
-                <Tooltip
-                    title='Select Owner parcels'
-                    enterTouchDelay={0}
-                    placement='left'
-                >
-                    <IconButton onClick={toggleOwnerParcels} className={classes.citadelInterfaceButton}>
-                        { showOwnerParcels ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                    </IconButton>
-                </Tooltip>
-
-               {
-                    isFullscreen !== null &&
-                    <Tooltip
-                        title={ isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}
-                        enterTouchDelay={0}
-                        placement='left'
-                    >
-                        <IconButton onClick={toggleFullscreen} className={classes.citadelInterfaceButton}>
-                            { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
-                        </IconButton>
-                    </Tooltip>
-                }
-
-                <Tooltip
-                    title={ showGrid ? 'Hide Grid' : 'Show Grid' }
-                    enterTouchDelay={0}
-                    placement='left'
-                >
-                    <IconButton onClick={toggleGrid} className={classes.citadelInterfaceButton}>
-                        { showGrid ? <GridOnIcon /> : <GridOffIcon /> }
-                    </IconButton>
-                </Tooltip>
-            </div>
+            <CitadelInterface>
+                <SearchForm searchParcles={searchParcles} />
+                <FullscreenButton wrapperRef={wrapperRef} />
+                <BasicButton
+                    type='grid'
+                    tooltip='Districts grid'
+                    icons={[<GridOffIcon />, <GridOnIcon />]}
+                    handleClick={toggleGroup}
+                    active={buttonIsActive('grid')}
+                />
+                <BasicButton
+                    type='guilds'
+                    tooltip='Guilds'
+                    icons={[<DeselectIcon />, <SelectAllIcon />]}
+                    handleClick={toggleGroup}
+                    active={buttonIsActive('guilds')}
+                />
+                {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
+                {basicButtons}
+            </CitadelInterface>
 
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
-            {
-                selectedParcel && (
-                    <div className={classes.parcel}>
-                        <Parcel parcel={selectedParcel} />
+            <CitadelInfo />
 
-                        <IconButton className={classes.closeParcel} onClick={ removeSelected }>
-                            <CloseIcon />
-                        </IconButton>
-                    </div>
-                )
+            <CustomModal
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                onModalClose={removeSelected}
+            >
+                <ParcelPreview parcel={selectedParcel} />
+            </CustomModal>
 
-            }
-
-            <div className={classNames(classes.citadelLoading, mapCreated && 'is-loaded')}>
-                <span className={classes.citadelLoadingLine}></span>
-                <span className={classes.citadelLoadingLine}></span>
-                <span className={classes.citadelLoadingLine}></span>
-                <div className={classes.citadelLoadingInner}>
-                    <GotchiverseGif width='100%' height='100%' />
-                </div>
-            </div>
+            <CitadelLoader isLoaded={isLoaded} />
         </div>
     );
 }

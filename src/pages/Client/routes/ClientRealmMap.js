@@ -1,4 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import Citadel from 'components/Citadel/Citadel';
 import { ClientContext } from 'contexts/ClientContext';
@@ -6,8 +8,23 @@ import { ClientContext } from 'contexts/ClientContext';
 import styles from '../styles';
 
 export default function ClientRealmMap() {
-    const { realm, setRealmView } = useContext(ClientContext);
+    const { realm, setRealmView, loadingRealm } = useContext(ClientContext);
     const classes = styles();
+
+    const realmGroups = useMemo(() => {
+        const group = [];
+
+        group.push({
+            parcels: realm,
+            icons: [<VisibilityOffIcon />, <VisibilityIcon />],
+            tooltip: 'Owner realm',
+            type: 'owner',
+            active: true,
+            animate: true
+        });
+
+        return group;
+    }, [realm]);
 
     useEffect(() => {
         setRealmView('map');
@@ -16,6 +33,10 @@ export default function ClientRealmMap() {
     }, []);
 
     return (
-        <Citadel className={classes.clientCitadel} ownerParcels={realm} />
+        <Citadel
+            className={classes.clientCitadel}
+            realmGroups={realmGroups}
+            isLoaded={!loadingRealm}
+        />
     );
 }

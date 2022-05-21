@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
+import { COLORS } from 'data/citadel.data';
 
 import styles from './styles';
 
@@ -50,7 +51,7 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         const { size } = parcel;
 
-        context.strokeStyle = 'white';
+        context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
         context.lineWidth = 2;
         +size === 0 && drawRect(5, 5);
         +size === 1 && drawRect(9, 9);
