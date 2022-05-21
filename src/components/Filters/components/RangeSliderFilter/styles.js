@@ -1,8 +1,24 @@
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+const styles = makeStyles(theme => ({
     wrapper: {
+        background: alpha('#000', .15),
+        padding: 8,
+        borderRadius: 4
+    },
+    inputs: {
         display: 'flex',
+        justifyContent: 'space-between',
+        '& > div': {
+            width: 'calc(50% - 4px)'
+        }
+    },
+    range: {
+        padding: '0 8px',
+        '& .MuiSlider-thumb': {
+            pointerEvents: 'all !important'
+        }
     },
     textFiled: {
         '& input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
@@ -14,14 +30,9 @@ const styles = makeStyles(() => ({
         },
     },
     title: {
-        marginRight: 8
+        textAlign: 'center',
+        fontWeight: 500,
     },
-    tooltipInner: {
-        marginRight: 12,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
 }));
 
 export default styles;

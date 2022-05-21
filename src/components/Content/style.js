@@ -9,7 +9,6 @@ const styles = makeStyles(theme => ({
         }
     },
     sidebar: {
-        padding: 24,
         borderRadius: 4,
         background: theme.palette.background.paper,
         marginBottom: 24,

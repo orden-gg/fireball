@@ -13,7 +13,6 @@ export const filtersData = {
         key: 'hauntId',
         queryParamKey: 'haunt',
         componentType: FilterComponent.MultiButtonSelection,
-        // title: 'Haunt',
         items: [
             {
                 title: 'Haunt 1',
@@ -41,7 +40,6 @@ export const filtersData = {
         key: 'collateral',
         queryParamKey: 'collateral',
         componentType: FilterComponent.MultiButtonSelection,
-        // title: 'Collateral',
         items: collaterals.map(collateral => ({
             title: collateral.name,
             value: collateral.address,
@@ -116,6 +114,7 @@ export const filtersData = {
         key: 'period',
         queryParamKey: 'period',
         tooltip: 'rental period',
+        title: 'rental period',
         icon: <AccessTimeIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,
@@ -137,6 +136,7 @@ export const filtersData = {
         key: 'splitBorrower',
         queryParamKey: 'borrower',
         tooltip: 'borrower revenue',
+        title: 'borrower revenue',
         icon: <PercentIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,
@@ -155,6 +155,7 @@ export const filtersData = {
         key: 'upfrontCost',
         queryParamKey: 'upfront',
         tooltip: 'upfront cost',
+        title: 'upfront cost',
         icon: <AttachMoneyIcon fontSize='small' />,
         componentType: FilterComponent.RangeSlider,
         min: 0,

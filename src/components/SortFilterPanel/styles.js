@@ -72,7 +72,7 @@ const styles = makeStyles(theme => ({
     },
     buttonsWrapper: {
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         padding: 12
     },
     results: {

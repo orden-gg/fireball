@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Slider, TextField } from '@mui/material';
 
 import styles from './styles';
-import CustomTooltip from 'components/custom/CustomTooltip';
 
 export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
     const classes = styles();
@@ -64,45 +63,43 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
 
     return (
         <div className={classes.wrapper}>
-            <TextField
-                className={classes.textFiled}
-                variant='outlined'
-                size='small'
-                label='min'
-                inputProps={{ type: 'number' }}
-                value={minValue}
-                onChange={event => onMinInputChange(event.target.value)}
-            ></TextField>
-            <TextField
-                className={classes.textFiled}
-                variant='outlined'
-                size='small'
-                label='max'
-                inputProps={{ type: 'number' }}
-                value={maxValue}
-                onChange={event => onMaxInputChange(event.target.value)}
-            ></TextField>
+            <div className={classes.range}>
+                <div className={classes.title}>
+                    {option.title}
+                </div>
 
-            <CustomTooltip
-                title={<span>{option.tooltip}</span>}
-                placement='top'
-                followCursor
-            >
-                <span className={classes.tooltipInner}>
-                    {option.icon ? option.icon : option.title}
-                </span>
-            </CustomTooltip>
+                <Slider
+                    min={option.min}
+                    max={option.max}
+                    value={currentValue}
+                    onChange={(event, value) => onSliderChange(value)}
+                    onChangeCommitted={(event, value) => onSliderChangeCommited(value)}
+                    valueLabelDisplay='auto'
+                    disableSwap
+                    size='small'
+                />
+            </div>
 
-            <Slider
-                min={option.min}
-                max={option.max}
-                value={currentValue}
-                onChange={(event, value) => onSliderChange(value)}
-                onChangeCommitted={(event, value) => onSliderChangeCommited(value)}
-                valueLabelDisplay='auto'
-                disableSwap
-                size='small'
-            />
+            <div className={classes.inputs}>
+                <TextField
+                    className={classes.textFiled}
+                    variant='outlined'
+                    size='small'
+                    label='min'
+                    inputProps={{ type: 'number' }}
+                    value={minValue}
+                    onChange={event => onMinInputChange(event.target.value)}
+                ></TextField>
+                <TextField
+                    className={classes.textFiled}
+                    variant='outlined'
+                    size='small'
+                    label='max'
+                    inputProps={{ type: 'number' }}
+                    value={maxValue}
+                    onChange={event => onMaxInputChange(event.target.value)}
+                ></TextField>
+            </div>
         </div>
     );
 }

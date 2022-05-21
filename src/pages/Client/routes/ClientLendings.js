@@ -62,8 +62,8 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId},
-    collateral: {...filtersData.collateral},
+    hauntId: {...filtersData.hauntId, divider: true},
+    collateral: {...filtersData.collateral, divider: true},
     search: {...filtersData.search}
 };
 

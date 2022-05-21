@@ -9,7 +9,7 @@ const styles = makeStyles(theme => ({
     },
     title: {
         lineHeight: 1,
-        marginBottom: 6
+        marginBottom: 8
     },
     items: {
         display: 'flex',

@@ -17,13 +17,14 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
     const classes = styles();
 
     const renderFiltersComponents = (renderFilters) => {
-        return Object.entries(renderFilters).map(([key, renderFilter]) => {
+        return Object.entries(renderFilters).map(([key, renderFilter], index) => {
             let componentToRender;
             const filterProps = {
                 key,
                 option: renderFilter,
                 onSetSelectedFilters: onSetSelectedFilters
             };
+            const divider = filters[key].divider;
 
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:
@@ -52,10 +53,12 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
 
             return (
                 <div key={`${componentToRender.key}-component`}>
-                    <div className={classes.component}>
+                    <div className={classNames(classes.component, !divider && 'no-padding')}>
                         { componentToRender }
                     </div>
-                    <Divider className={classes.divider} />
+                    { divider && (
+                        <Divider className={classes.divider} />
+                    )}
                 </div>
             );
         });

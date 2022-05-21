@@ -6,7 +6,10 @@ const styles = makeStyles(() => ({
         flexDirection: 'column'
     },
     component: {
-        padding: 12
+        padding: 12,
+        '&.no-padding': {
+            paddingBottom: 0
+        }
     },
     divider: {
         width: '100%',

@@ -8,7 +8,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import PercentIcon from '@mui/icons-material/Percent';
-import { Alert, AlertTitle, Link, ToggleButton } from '@mui/material';
+import { ToggleButton } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
@@ -82,7 +82,7 @@ const sortings = [
 
 const initialFilters = {
     guild: {...filtersData.guild},
-    whitelistId: {...filtersData.whitelistId},
+    whitelistId: {...filtersData.whitelistId, divider: true},
     period: {...filtersData.period},
     splitBorrower: {...filtersData.splitBorrower},
     upfrontCost: {...filtersData.upfrontCost}
@@ -260,22 +260,10 @@ export default function Lend() {
     return (
         <ContentWrapper>
             <>
-                <Filters className={classNames(classes.section, classes.filtersWrapper)} filters={currentFilters} onSetSelectedFilters={onSetSelectedFilters}/>
-                <div className={classes.section}>
-                    <Alert severity='info' icon={false}>
-                        <AlertTitle>Note!</AlertTitle>
-                        More complex filters <strong>comming soon!</strong>.<br />
-                        This page will be guild-focused.<br />
-                        To achive best experience
-                        <Link
-                            href='https://fireball-gg.notion.site/How-to-add-guild-to-fireball-gg-a2bec3bd315c4d42961bc0148bb17c26'
-                            target='_blank'
-                            style={{ marginLeft: '6px', color: 'cyan', textDecoration: 'underline' }}
-                        >
-                            <strong>add your guild!</strong>
-                        </Link>
-                    </Alert>
-                </div>
+                <Filters
+                    className={classNames(classes.section, classes.filtersWrapper)}
+                    filters={currentFilters}
+                    onSetSelectedFilters={onSetSelectedFilters}/>
             </>
 
             <>

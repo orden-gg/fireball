@@ -7,9 +7,7 @@ const styles = makeStyles(theme => ({
         }
     },
     filtersWrapper: {
-        '& > *': {
-            paddingBottom: 12,
-        }
+        paddingBottom: 12
     }
 }));
 
