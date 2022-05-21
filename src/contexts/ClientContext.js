@@ -13,6 +13,7 @@ import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import tilesUtils from 'utils/tilesUtils';
+import installationsUtils from 'utils/installationsUtils';
 
 export const ClientContext = createContext({});
 
@@ -233,7 +234,7 @@ const ClientContextProvider = (props) => {
 
                 return {
                     type: 'instalation',
-                    name: 'LE Golden Altar', // TODO temporary solution for now, add dynamic name setting
+                    name: installationsUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
                 }
