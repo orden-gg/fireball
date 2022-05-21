@@ -7,7 +7,7 @@ const styles = makeStyles(theme => ({
         height: 40,
         display: 'flex',
         alignItems: 'center',
-        background: alpha('#000', .15),
+        background: alpha('#000', .2),
         borderRadius: '4px 4px 0 0'
     },
     inner: {
