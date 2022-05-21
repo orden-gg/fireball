@@ -32,7 +32,6 @@ const theme = createTheme({
             golden: '#ffc36b'
         },
         realm: {
-            // humble: '#320fc7',
             humble: '#6c4bfb',
             reasonable: '#119773',
             spacious: '#8840b7',
