@@ -1,8 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
-import { Alert } from '@mui/material';
 
-import EthAddress from 'components/EthAddress/EthAddress';
+import EthAddressPanel from 'components/EthAddressPanel/EthAddressPanel';
 import ethersApi from 'api/ethers.api';
 
 import ClientNav from '../components/ClientNav';
@@ -21,17 +20,8 @@ export default function ClientAccount() {
             <ClientNav />
 
             { ethersApi.isEthAddress(account) && (
-                <div className={classes.account}>
-                    <EthAddress
-                        address={account}
-                        icon={true}
-                        polygonButton={true}
-                        copyButton={true}
-                    />
-
-                    <Alert severity='info' className={classes.alert}>
-                        Coming soon - account info, stats, voting power, etc.
-                    </Alert>
+                <div className={classes.accountPanel}>
+                    <EthAddressPanel address={account} />
                 </div>
             )}
         </div>
