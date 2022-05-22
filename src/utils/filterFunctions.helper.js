@@ -176,7 +176,7 @@ export default {
     rangeSliderUpdateFromQueryFn: (filter, value) => {
         filter.isFilterActive = true;
 
-        filter.value = value.map(value => parseInt(value, 10));
+        filter.value = value.map(value => Number(value));
     },
 
     rangeSliderUpdateFromFilterFn: (filter, value) => {
