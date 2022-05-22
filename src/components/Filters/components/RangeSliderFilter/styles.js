@@ -20,7 +20,7 @@ const styles = makeStyles(theme => ({
             pointerEvents: 'all !important'
         }
     },
-    textFiled: {
+    textField: {
         '& input::-webkit-outer-spin-button, input::-webkit-inner-spin-button': {
             WebkitAppearance: 'none',
             margin: 0

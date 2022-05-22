@@ -82,7 +82,7 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
 
             <div className={classes.inputs}>
                 <TextField
-                    className={classes.textFiled}
+                    className={classes.textField}
                     variant='outlined'
                     size='small'
                     label='min'
@@ -91,7 +91,7 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
                     onChange={event => onMinInputChange(event.target.value)}
                 ></TextField>
                 <TextField
-                    className={classes.textFiled}
+                    className={classes.textField}
                     variant='outlined'
                     size='small'
                     label='max'
