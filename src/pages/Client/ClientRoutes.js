@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import { Route, Switch, useRouteMatch, useHistory, useParams } from 'react-router';
+import { Route, Switch, useRouteMatch, useHistory, useParams, useLocation } from 'react-router';
 import { Redirect, NavLink } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
@@ -22,7 +22,8 @@ import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
 
 import styles from './styles';
-import { useLocation } from 'react-router-dom';
+
+const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
 export default function ClientRoutes() {
     const classes = styles();
@@ -54,7 +55,11 @@ export default function ClientRoutes() {
             } else {
                 history.push({
                     pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
-                    search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
+                    search: queryString.stringify(queryParams, {
+                        sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                        arrayFormat: 'comma',
+                        encode: false
+                    })
                 });
                 getClientData(activeAddress);
             }
