@@ -294,14 +294,13 @@ export const erc721SalesHistory = (id, category) => {
     }`
 }
 
-export const getParcelOrderDirectionQuery = (data) => {
+export const getParcelOrderDirectionQuery = data => {
     return `{
         erc721Listings(
             first: 1,
             orderBy: priceInWei,
             orderDirection: ${data.direction},
             where: {
-                ${data.direction === 'desc' ? `priceInWei_lt: "${data.limit+"000000000000000000"}",` : ""}
                 size: "${data.size}",
                 category: "4",
                 cancelled: false,

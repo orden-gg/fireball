@@ -118,13 +118,14 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         setParams(paramsState => {
                             paramsState[name] = queryParam;
 
-                            return {...paramsState};
+                            return {...paramsState}
                         });
                     },
                     wrapperRef
                 })
             });
         }, 100);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -137,7 +138,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     }, [params]);
 
     useEffect(() => {
-        if (isLoaded && mapCreated) {
+        if(mapCreated) {
             for (const group of realmGroups) {
                 if (commonUtils.isEmptyObject(group)) {
                     continue;
@@ -151,13 +152,19 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     game.scene.toggleGroup(type, true, true);
                 }
             }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realmGroups, mapCreated]);
+
+    useEffect(() => {
+        if (isLoaded && mapCreated) {
 
             if (params.multiselect?.length > 0) {
                 game.scene.setMultiselect(params.multiselect);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoaded, realmGroups, mapCreated]);
+    }, [isLoaded, mapCreated]);
 
     useEffect(() => {
         if (selectedParcel !== null) {
@@ -200,7 +207,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <ParcelPreview parcel={selectedParcel} />
             </CustomModal>
 
-            <CitadelLoader isLoaded={isLoaded} />
+            <CitadelLoader isLoaded={isLoaded && mapCreated} />
         </div>
     );
 }
