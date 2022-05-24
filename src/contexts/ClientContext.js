@@ -48,7 +48,7 @@ const ClientContextProvider = (props) => {
     const [reward, setReward] = useState(null);
     const [rewardCalculating, setRewardCalculating] = useState(false);
     const [rewardCalculated, setRewardCalculated] = useState(false);
-    const [realmView, setRealmView] = useState('map');
+    const [realmView, setRealmView] = useState('list');
 
     const navData = [
         {
