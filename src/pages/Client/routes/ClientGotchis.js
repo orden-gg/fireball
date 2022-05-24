@@ -63,6 +63,7 @@ const initialFilters = {
     collateral: {...filtersData.collateral, divider: true},
     search: {...filtersData.search}
 };
+const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
 export default function ClientGotchis() {
     const history = useHistory();
@@ -82,18 +83,39 @@ export default function ClientGotchis() {
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
-        return () => onResetFilters();
+        setCurrentFilters(currentFiltersCache =>
+            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
+
+        const { sort, dir } = queryParams;
+
+        if (sort && dir) {
+            updateSorting(sort, dir);
+        }
+
+        return () => {
+            onResetFilters();
+            setGotchisSorting({ type: 'modifiedRarityScore', dir: 'desc' });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
+        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
 
-        setActiveFiltersCount(filtersCount);
-        setCurrentFilters(currentFiltersCache =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
-        );
-    }, [currentFilters, queryParams]);
+        if (activeFilters.length > 0) {
+            const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
+
+            setActiveFiltersCount(filtersCount);
+            setIsFiltersApplied(true);
+        } else {
+            setActiveFiltersCount(0);
+            setIsFiltersApplied(false);
+        }
+
+        updateQueryParams(currentFilters);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentFilters]);
 
     useEffect(() => {
         setModifiedGotchis(modifiedGotchisCache => filtersUtils.getFilteredSortedItems({
@@ -115,10 +137,27 @@ export default function ClientGotchis() {
         setModifiedGotchis([...sortedItems]);
     }, [isSortingChanged, isFiltersApplied, gotchis, modifiedGotchis]);
 
+    const updateSorting = useCallback((prop, dir) => {
+        applySorting(prop, dir);
+        setIsSortingChanged(true);
+        setGotchisSorting({ type: prop, dir });
+    }, [applySorting, setGotchisSorting]);
+
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        history.push({
+            path: location.pathname,
+            search: qs.stringify({...queryParams, sort: prop, dir }, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
+        });
+    }, [queryParams, history, location.pathname]);
+
     const onSortingChanged = useCallback((prop, dir) => {
         applySorting(prop, dir);
         setIsSortingChanged(true);
-    }, [applySorting]);
+        updateSortQueryParams(prop, dir);
+    }, [applySorting, updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
@@ -132,40 +171,36 @@ export default function ClientGotchis() {
 
         history.push({
             path: location.pathname,
-            search: qs.stringify(params, { arrayFormat: 'comma' })
+            search: qs.stringify(params, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = useCallback((key, selectedValue) => {
-        const currentFiltersCopy = {...currentFilters};
+    const onSetSelectedFilters = (key, selectedValue) => {
+        setCurrentFilters(currentFiltersCache => {
+            const cacheCopy = {...currentFiltersCache};
 
-        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue)) {
-            currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
-        } else {
-            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], selectedValue);
-        }
+            if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
+                cacheCopy[key].resetFilterFn(cacheCopy[key]);
+            } else {
+                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
+            }
 
-        const activeFilters = Object.entries(currentFiltersCopy).filter(([key, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            setIsFiltersApplied(true);
-        } else {
-            setIsFiltersApplied(false);
-        }
-
-        setCurrentFilters({...currentFiltersCopy});
-        updateQueryParams(currentFiltersCopy);
-    }, [currentFilters, updateQueryParams]);
+            return cacheCopy;
+        });
+    }
 
     const onResetFilters = useCallback(() => {
-        Object.entries(currentFilters).forEach(([key, filter]) => {
+        const currentFiltersCopy = {...currentFilters};
+
+        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
             filter.resetFilterFn(filter);
         });
 
-        setIsFiltersApplied(false);
-        setCurrentFilters(currentFilters);
-        updateQueryParams(currentFilters);
-    }, [currentFilters, updateQueryParams]);
+        setCurrentFilters({...currentFiltersCopy});
+    }, [currentFilters]);
 
     const getGotchis = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
