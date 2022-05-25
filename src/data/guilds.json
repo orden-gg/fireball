@@ -140,18 +140,24 @@
     {
         "name": "Chigotchi Bulls",
         "logo": "chigotchibulls.png",
-        "members": ["0x4572192Ed1DEe5fD0f8f07269bE4eF3e3e270715", "0x9d083a671780d50852f1B748Bb72ea30736C01EC"],
+        "members": [
+            "0x4572192Ed1DEe5fD0f8f07269bE4eF3e3e270715",
+            "0x9d083a671780d50852f1B748Bb72ea30736C01EC"
+        ],
         "description": [
             { "title": "Description", "text": "OG Aair Gotchi Guild. Ballers and Scholars only." },
-            { "title": "Requirement", "text": "Baller Requirement: At least 1 Aavegotchi with full Aair Gotchi wearable set. Scholar Requirement: Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]
-             " },
+            { 
+                "title": "Requirement",
+                "text": "Baller Requirement: At least 1 Aavegotchi with full Aair Gotchi wearable set. Scholar Requirement: Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]"
+            },
             { "title": "Point of Contact", "text": "humbledbagger#1337" }
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/chigotchibulls", "discord": "https://discord.gg/zaBBnG4VhA" },
         "wearables": [225, 226, 227],
-        "home" [
+        "home": [
             [1993, 4156, 7884, 15630, 16618, 19047, 20329, 21152, 26737, 33356, 44646]
+        ]
     },
     {
         "name": "cRekto Club",
