@@ -189,8 +189,6 @@ export default class CitadelScene extends Phaser.Scene {
         addSelectedParcel(value) {
             const parcel = this.getParcel(value);
 
-            console.log(parcel);
-
             if (parcel === undefined) {
                 return;
             } else if (this.selectedParcel !== null) {
@@ -205,8 +203,6 @@ export default class CitadelScene extends Phaser.Scene {
             this.selected.update(x, y, w, h);
             this.citadel.add(this.selected);
 
-            this.trigger('parcelSelect', parcel);
-
             this.reOrderItems();
 
             setTimeout(() => {
@@ -214,7 +210,9 @@ export default class CitadelScene extends Phaser.Scene {
                 this.moveToCenter(cx, cy, 500);
 
                 setTimeout(() => {
-                    this.zoomTo(1.1, 500);
+                    this.zoomTo(1.1, 500, () => {
+                        this.trigger('parcelSelect', parcel);
+                    });
                 }, 0);
             }, 50);
         }
@@ -306,7 +304,7 @@ export default class CitadelScene extends Phaser.Scene {
             }
         }
 
-        zoomTo(scale, duration) {
+        zoomTo(scale, duration, onComplete) {
             this.add.tween({
                 targets: this.cameras.main,
                 zoom: scale,
@@ -314,6 +312,11 @@ export default class CitadelScene extends Phaser.Scene {
                 ease: 'Power2',
                 onUpdate: () => {
                     this.trigger('zoom');
+                },
+                onComplete: () => {
+                    if (onComplete) {
+                        onComplete();
+                    }
                 }
             });
         }
@@ -353,10 +356,10 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         reOrderItems() {
-            this.citadel.bringToTop(this.groups.guilds);
-            this.citadel.bringToTop(this.groups.grid);
             this.citadel.bringToTop(this.districtHighLight);
             this.citadel.bringToTop(this.selected);
+            this.citadel.bringToTop(this.groups.guilds);
+            this.citadel.bringToTop(this.groups.grid);
         }
 
         find(type, value) {

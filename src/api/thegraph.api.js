@@ -225,14 +225,11 @@ export default {
     },
 
     async getGotchisByAddresses(addresses) {
-        let allGotchis = [];
+        const promises = addresses.map(address => this.getGotchisByAddress(address));
 
-        for(let address of addresses) {
-            let gotchis = await this.getGotchisByAddress(address);
-
-            allGotchis = [...allGotchis, ...gotchis];
-        }
-        return allGotchis;
+        return await Promise.all(promises).then(response =>
+            response.reduce((result, current) => result.concat(current), [])
+        )
     },
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
@@ -356,15 +353,11 @@ export default {
     },
 
     async getRealmByAddresses(addresses) {
+        const promises = addresses.map(address => this.getRealmByAddress(address));
 
-        let allRealm = [];
-
-        for(let address of addresses) {
-            let realm = await this.getRealmByAddress(address);
-
-            allRealm = [...allRealm, ...realm];
-        }
-        return allRealm;
+        return await Promise.all(promises).then(response =>
+            response.reduce((result, current) => result.concat(current), [])
+        )
     },
 
     async getRealmByDistrict(district) {
