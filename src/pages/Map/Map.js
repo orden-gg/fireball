@@ -20,7 +20,7 @@ export default function Map() {
     const [ownerRealm, setOwnerRealm] = useState({});
     const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
 
-    const combineParcels = (listedParcels) => {
+    const combineParcels = listedParcels => {
         return listedParcels.map(parcel => {
             return {
                 ...parcel.parcel,
@@ -61,9 +61,9 @@ export default function Map() {
                     icons: [<BlurOffIcon />, <BlurOnIcon />],
                     tooltip: 'Listed realm',
                     range: {
-                        humble: {min: humbleDesc, max: humbleAsc},
-                        reasonable: {min: reasonableDesc, max: reasonableAsc},
-                        spacious: {min: Math.min(hSpaciousDesc, vSpaciousDesc), max: Math.max(hSpaciousAsc, vSpaciousAsc)},
+                        humble: {min: humbleAsc, max: 500},
+                        reasonable: {min: reasonableAsc, max: 700},
+                        spacious: {min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000},
                     }
                 });
             }

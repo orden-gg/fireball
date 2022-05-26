@@ -13,7 +13,6 @@ import qs from 'query-string';
 
 import CustomModal from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
-import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 
 import CitadelScene from './components/Scene';
@@ -23,6 +22,7 @@ import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
 import CitadelInfo from './components/CitadelInfo';
+
 import styles, { InterfaceStyles } from './styles';
 
 const paramsToArray = params => {
@@ -52,16 +52,11 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const searchParcles = id => game.scene.addSelectedParcel(id);
+    const searchParcles = id => game.scene.addSelectedParcel(parseInt(id));
 
-    const buttonIsActive = type => {
-        return params.active?.some(name => name === type);
-    }
+    const buttonIsActive = type => params.active?.some(name => name === type);
 
-    const removeSelected = () => {
-        game.scene.removeSelectedParcel();
-        setSelectedParcel(null);
-    }
+    const removeSelected = () => setSelectedParcel(null);
 
     const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
 
@@ -96,37 +91,37 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     width: window.innerWidth,
                     height: window.innerHeight
                 },
-                scene: new CitadelScene({
-                    onParcelSelect(id) {
-                        thegraph.getRealmById(id).then(parcel => {
-                            setSelectedParcel(parcel);
-                        });
-                    },
-                    onMapCreated() {
-                        setMapCreated(true);
-                    },
-                    onQueryParamsChange(name, param) {
-                        const queryParam = params[name] || [];
-                        const paramIndex = queryParam.findIndex(item => item === param);
-
-                        if (paramIndex === -1) {
-                            queryParam.push(param);
-                        } else {
-                            queryParam.splice(paramIndex, 1);
-                        }
-
-                        setParams(paramsState => {
-                            paramsState[name] = queryParam;
-
-                            return {...paramsState};
-                        });
-                    },
-                    wrapperRef
-                })
+                scene: new CitadelScene({ wrapperRef })
             });
         }, 100);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if(game?.scene) {
+            game.scene.on('created', () => setMapCreated(true));
+
+            game.scene.on('parcelSelect', id => setSelectedParcel(id));
+
+            game.scene.on('query', ({ name, param }) => {
+                const queryParam = params[name] || [];
+                const paramIndex = queryParam.findIndex(item => item === param);
+
+                if (paramIndex === -1) {
+                    queryParam.push(param);
+                } else {
+                    queryParam.splice(paramIndex, 1);
+                }
+
+                setParams(paramsState => {
+                    paramsState[name] = queryParam;
+
+                    return {...paramsState}
+                });
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [game]);
 
     useEffect(() => {
         history.push({

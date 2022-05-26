@@ -9,9 +9,21 @@ export default function SearchForm({ searchParcles }) {
 
     const [searchId, setSearchId] = useState(null);
 
+    const onKeyPress = key => {
+        if(key === 'Enter') {
+            searchParcles(searchId);
+        }
+    }
+
     return (
         <div className={classes.citadelSearch}>
-            <TextField className={classes.citadelSearchField} placeholder="Search by id" variant="standard" onChange={ (event) => setSearchId(event.target.value) }/>
+            <TextField
+                className={classes.citadelSearchField}
+                placeholder="Search by id"
+                variant="standard"
+                onChange={ event => setSearchId(event.target.value) }
+                onKeyPress={event => onKeyPress(event.key)}
+            />
             <IconButton onClick={() => searchParcles(searchId)} className={classes.citadelInterfaceButton}>
                 <SearchIcon />
             </IconButton>

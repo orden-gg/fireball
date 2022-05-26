@@ -25,7 +25,8 @@ import {
     lendingsQuery,
     lendingsByAddressQuery,
     incomeQuery,
-    getParcelOrderDirectionQuery
+    getParcelOrderDirectionQuery,
+    realmQueryByDistrict
 } from './common/queries';
 
 const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -364,6 +365,22 @@ export default {
             allRealm = [...allRealm, ...realm];
         }
         return allRealm;
+    },
+
+    async getRealmByDistrict(district) {
+        function getQueries() {
+            let queries = [];
+
+            for (let i = 0; i < 5; i++) {
+                queries.push(realmQueryByDistrict(i * 1000, district))
+            }
+
+            return queries;
+        }
+
+        return await graphJoin(clientFactory.client, getQueries()).then(response => {
+            return filterCombinedGraphData(response, ['parcels'], 'tokenId');
+        });
     },
 
     async getRealmById(id) {

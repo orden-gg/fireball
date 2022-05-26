@@ -11,12 +11,16 @@ export default class DistrictsGrid extends Phaser.GameObjects.Graphics {
         this.setPosition(-CITADEL_WIDTH/2, -CITADEL_HEIGHT/2);
 
         this.createLines();
+
+        scene.on('zoom', () => this.createLines());
     }
 
     createLines() {
-        let [w, h] = [DISTRICTS.width, DISTRICTS.height];
+        const { w, h } = DISTRICTS;
 
-        this.lineStyle(8, COLORS.grid, .5);
+        this.clear();
+
+        this.lineStyle(3/this.scene.cameras.main.zoom, COLORS.grid, .5);
 
         for (let line of DISTRICTS.lineMap) {
             this.beginPath();

@@ -23,22 +23,10 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
     createGridNumbers(scene) {
         const numbers = [];
 
-        let [x, y] = [0, 0];
-
-        for (const number of DISTRICTS.numbersMap) {
-            if (!number) {
-                ++x;
-                continue
-            };
-
+        for (const id in DISTRICTS.positions) {
             numbers.push(
-                new DistrictNumber(scene, number, x, y, DISTRICTS.width, DISTRICTS.height)
+                new DistrictNumber(scene, id)
             );
-
-            if (++x % DISTRICTS.x === 0) {
-                ++y;
-                x = 0;
-            };
         }
 
         return numbers;

@@ -1,20 +1,26 @@
 import Phaser from 'phaser';
 export default class Highlight extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, w, h, color) {
+    constructor(scene, settings) {
         super(scene);
+
         scene.add.existing(this);
-        this.setStrokeStyle(2, color);
+
+        this.settings = settings;
+
+        this.setStrokeStyle(this.settings.size/this.scene.cameras.main.zoom, this.settings.color);
         this.setOrigin(0, 0);
-        this.setSize(w, h);
-        this.setPosition(x, y);
+        this.setAlpha(0);
+
+        scene.on('zoom', () => this.updateStroke());
     }
 
     update(x, y, w, h) {
         this.setSize(w, h);
         this.setPosition(x, y);
+        this.setAlpha(1);
     }
 
-    remove() {
-        this.destroy();
+    updateStroke() {
+        this.setStrokeStyle(this.settings.size/this.scene.cameras.main.zoom, this.settings.color);
     }
 }

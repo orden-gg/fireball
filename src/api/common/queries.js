@@ -235,6 +235,31 @@ export const realmQuery = (address, skip) => {
     }`
 };
 
+export const realmQueryByDistrict = (skip, district) => {
+    return `{
+      parcels(first: 1000, skip: ${skip}, where: { district: ${district}}) {
+        tokenId
+        parcelId
+        owner {
+          id
+        }
+        coordinateX
+        coordinateY
+        size
+        district
+        parcelHash
+        fudBoost
+        fomoBoost
+        alphaBoost
+        kekBoost
+        timesTraded
+        historicalPrices
+        activeListing
+        auctionId
+      }
+    }`
+};
+
 export const parselQuery = (id) => {
   return `{
     parcel( id: ${id}) {

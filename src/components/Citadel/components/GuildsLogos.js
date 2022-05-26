@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 
 import citadelUtils from 'utils/citadelUtils';
 import guilds from 'data/guilds.json';
-import parcelsData from 'data/parcels.json';
 import { COLORS } from 'data/citadel.data';
 
 export default class GuildsLogos extends Phaser.GameObjects.Container {
@@ -22,32 +21,17 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
 
         for (const guild of guilds) {
             if (guild.hasOwnProperty('home')) {
-                this.loadImages(guild);
+                this.addLogos(guild);
             }
-        }
-
-        this.scene.textures.on('addtexture', (name) => {
-            const guild = guilds.find(guild => guild.name === name);
-            this.addLogos(guild);
-        }, this.scene);
-    }
-
-    loadImages(guild) {
-        const url = require(`assets/images/guilds/${guild.logo}`).default;
-        const string = '^data:';
-        const regexp = new RegExp(string);
-
-        if (!regexp.test(url)) {
-            this.scene.load.image(guild.name, url);
-            this.scene.load.start();
-        } else {
-            this.scene.textures.addBase64(guild.name, url);
         }
     }
 
     addLogos(guild) {
         for (const [first, second] of guild.home) {
-            const { x, y, w, h } = this.calculateData(parcelsData[first], parcelsData[second]);
+            const { x, y, w, h } = this.calculateData(
+                citadelUtils.getParcelById(first),
+                citadelUtils.getParcelById(second)
+            );
             const logo = this.scene.add.image(x + w / 2, y + h / 2, guild.name);
             const scale = this.getImageScale(w, h, logo.width, logo.height);
 
@@ -64,12 +48,10 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
     }
 
     getImageScale(cw, ch, lw, lh) {
-        const [scaleW, scaleH] = [cw / lw, ch / lh];
-
-        if (scaleW * 100 <= scaleH * 100) {
-            return scaleW * .7;
+        if (cw / ch < lw / lh) {
+            return cw / lw * .7;
         } else {
-            return scaleH * .7;
+            return ch / lh * .7;
         }
     }
 
@@ -95,8 +77,8 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
 
     calculateData(first, second) {
         const startFrom = this.getStartFrom(first, second);
-        const { x: x1, y: y1 } = citadelUtils.getParcelPosition(first.coordinateX, first.coordinateY);
-        const { x: x2, y: y2 } = citadelUtils.getParcelPosition(second.coordinateX, second.coordinateY);
+        const { x: x1, y: y1 } = citadelUtils.getParcelCoords(first.coordinateX, first.coordinateY);
+        const { x: x2, y: y2 } = citadelUtils.getParcelCoords(second.coordinateX, second.coordinateY);
         const { w: w1, h: h1 } = citadelUtils.getParcelSize(first.size);
         const { w: w2, h: h2 } = citadelUtils.getParcelSize(second.size);
         const w = Math.abs(x1 - x2);
