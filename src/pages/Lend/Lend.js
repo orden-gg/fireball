@@ -87,14 +87,15 @@ const initialFilters = {
     splitBorrower: {...filtersData.splitBorrower},
     upfrontCost: {...filtersData.upfrontCost}
 };
+const queryParamsOrder = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
 
 export default function Lend() {
     const classes = styles();
 
     const history = useHistory();
     const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-    const [queryParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
     const [modifiedLendings, setModifiedLendings] = useState([]);
     const [lendings, setLendings] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
@@ -105,7 +106,19 @@ export default function Lend() {
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
     useEffect(() => {
-        return () => onResetFilters();
+        setCurrentFilters(currentFiltersCache =>
+            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
+
+        const { sort, dir } = queryParams;
+
+        if (sort && dir) {
+            updateSorting(sort, dir);
+        }
+
+        return () => {
+            onResetFilters();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -176,10 +189,17 @@ export default function Lend() {
     }, []);
 
     useEffect(() => {
-        setCurrentFilters(currentFiltersCache =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
-        );
-    }, [queryParams]);
+        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
+
+        if (activeFilters.length > 0) {
+            setIsFiltersApplied(true);
+        } else {
+            setIsFiltersApplied(false);
+        }
+
+        updateQueryParams(currentFilters);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentFilters]);
 
     useEffect(() => {
         setModifiedLendings(modifiedLendingsCache => filtersUtils.getFilteredSortedItems({
@@ -201,10 +221,27 @@ export default function Lend() {
         setModifiedLendings([...sortedItems])
     }, [isSortingChanged, isFiltersApplied, lendings, modifiedLendings]);
 
+    const updateSorting = useCallback((prop, dir) => {
+        applySorting(prop, dir);
+        setIsSortingChanged(true);
+        setLendingsSorting({ type: prop, dir });
+    }, [applySorting, setLendingsSorting]);
+
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        history.push({
+            path: location.pathname,
+            search: qs.stringify({...queryParams, sort: prop, dir }, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
+        });
+    }, [queryParams, history, location.pathname]);
+
     const onSortingChanged = useCallback((prop, dir) => {
         applySorting(prop, dir);
         setIsSortingChanged(true);
-    }, [applySorting]);
+        updateSortQueryParams(prop, dir);
+    }, [applySorting, updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
@@ -218,40 +255,36 @@ export default function Lend() {
 
         history.push({
             path: location.pathname,
-            search: qs.stringify(params, { arrayFormat: 'comma' })
+            search: qs.stringify(params, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = useCallback((key, selectedValue) => {
-        const currentFiltersCopy = {...currentFilters};
+    const onSetSelectedFilters = (key, selectedValue) => {
+        setCurrentFilters(currentFiltersCache => {
+            const cacheCopy = {...currentFiltersCache};
 
-        if (!currentFiltersCopy[key].getIsFilterValidFn(selectedValue, currentFiltersCopy[key])) {
-            currentFiltersCopy[key].resetFilterFn(currentFiltersCopy[key]);
-        } else {
-            currentFiltersCopy[key].updateFromFilterFn(currentFiltersCopy[key], selectedValue);
-        }
+            if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
+                cacheCopy[key].resetFilterFn(cacheCopy[key]);
+            } else {
+                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
+            }
 
-        const activeFilters = Object.entries(currentFiltersCopy).filter(([key, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            setIsFiltersApplied(true);
-        } else {
-            setIsFiltersApplied(false);
-        }
-
-        setCurrentFilters({...currentFiltersCopy});
-        updateQueryParams(currentFiltersCopy);
-    }, [currentFilters, updateQueryParams]);
+            return cacheCopy;
+        });
+    }
 
     const onResetFilters = useCallback(() => {
-        Object.entries(currentFilters).forEach(([key, filter]) => {
+        const currentFiltersCopy = {...currentFilters};
+
+        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
             filter.resetFilterFn(filter);
         });
 
-        setIsFiltersApplied(false);
-        setCurrentFilters(currentFilters);
-        updateQueryParams(currentFilters);
-    }, [currentFilters, updateQueryParams]);
+        setCurrentFilters({...currentFiltersCopy});
+    }, [currentFilters]);
 
     const getLendings = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;

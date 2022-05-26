@@ -254,9 +254,7 @@ export default class CitadelScene extends Phaser.Scene {
                 this.multiselect.toggleParcel(parcel);
             }
 
-            const ids = this.multiselect.parcels.map(parcel => parcel.tokenId);
-
-            if(ids.length === 0) {
+            if(this.multiselect.parcels.length === 0) {
                 this.multiselect.removeGroup();
                 delete this.multiselect;
             }

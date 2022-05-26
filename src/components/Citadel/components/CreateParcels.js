@@ -112,7 +112,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         const parcelIndex = this.settings.parcels.findIndex(item => item.tokenId === parcel.tokenId);
 
         if (parcelIndex === -1) {
-            this.settings.parcels = this.settings.parcels.concat(parcel);
+            this.settings.parcels.push(parcel);
         } else {
             this.settings.parcels.splice(parcelIndex, 1);
         }

@@ -45,6 +45,7 @@ const styles = makeStyles(theme => ({
     tokens: {
         display: 'flex',
         justifyContent: 'space-between',
+        flexWrap: 'wrap',
         minHeight: 26,
         padding: '0 4px'
     },
@@ -57,6 +58,8 @@ const styles = makeStyles(theme => ({
     token: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
+        flexBasis: '50%',
         textShadow: `1px 1px 0 ${alpha('#000', .6)}`,
         fontWeight: 500,
         '& img': {

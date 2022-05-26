@@ -72,10 +72,15 @@ export default function ParcelChanelling({ parcelId }) {
                     followCursor
                 >
                     <div>
-                        { moreThan24hours(lastChanneling) ? (
-                            <RealmGif height={24} width={24} />
+                        { !atLeastOneTimeChanneled(lastChanneling) ? (
+                            <span style={{ color: 'orange', fontSize: 18, fontWeight: 'bold' }}>N</span>
+
                         ) : (
-                            <FudIcon className={classes.unactiveIcon} height={24} width={28} />
+                            moreThan24hours(lastChanneling) ? (
+                                <RealmGif height={24} width={24} />
+                            ) : (
+                                <FudIcon className={classes.unactiveIcon} height={24} width={28} />
+                            )
                         )}
                     </div>
                 </CustomTooltip>

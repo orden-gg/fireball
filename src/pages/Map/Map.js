@@ -19,6 +19,8 @@ export default function Map() {
     const [isListedLoaded, setIsListedLoaded] = useState(false);
     const [ownerRealm, setOwnerRealm] = useState({});
     const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
+    const [realmGroups, setRealmGroups] = useState([]);
+    const [groupsLoaded, setGroupsLoaded] = useState(false);
 
     const combineParcels = listedParcels => {
         return listedParcels.map(parcel => {
@@ -41,16 +43,12 @@ export default function Map() {
         let mounted = true;
 
         Promise.all([
-            thegraphApi.getParcelPriceByDirection({ size: 0, direction: "desc", limit: 500 }),
             thegraphApi.getParcelPriceByDirection({ size: 0, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 1, direction: "desc", limit: 1000 }),
             thegraphApi.getParcelPriceByDirection({ size: 1, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 2, direction: "desc", limit: 3000 }),
             thegraphApi.getParcelPriceByDirection({ size: 2, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 3, direction: "desc", limit: 3000 }),
             thegraphApi.getParcelPriceByDirection({ size: 3, direction: "asc" }),
             thegraphApi.getAllListedParcels()
-        ]).then(([humbleAsc, humbleDesc, reasonableAsc, reasonableDesc, vSpaciousAsc, vSpaciousDesc, hSpaciousAsc, hSpaciousDesc, listedParcels]) => {
+        ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]) => {
             if (mounted) {
                 const combined = combineParcels(listedParcels);
 
@@ -82,6 +80,8 @@ export default function Map() {
     useEffect(() => {
         let mounted = true;
 
+        setIsOwnerLoaded(false);
+
         if (activeAddress) {
             thegraphApi.getRealmByAddress(activeAddress).then(ownerRealm => {
                 if (mounted) {
@@ -109,12 +109,20 @@ export default function Map() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 
+    useEffect(() => {
+        if (isOwnerLoaded && isListedLoaded) {
+            setRealmGroups([listedRealm, ownerRealm]);
+            setGroupsLoaded(true);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOwnerLoaded, isListedLoaded]);
+
     return (
         <div className={classes.mapWrapper}>
             <Citadel
                 className={classes.citadel}
-                realmGroups={[listedRealm, ownerRealm]}
-                isLoaded={isOwnerLoaded && isListedLoaded}
+                realmGroups={realmGroups}
+                isLoaded={groupsLoaded}
             />
         </div>
     )

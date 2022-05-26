@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { useRouteMatch } from 'react-router';
+import { useRouteMatch, useLocation } from 'react-router';
 
 import RealmSwitchButton from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
@@ -9,6 +9,7 @@ import ClientRealmMap from './ClientRealmMap';
 import ClientRealmList from './ClientRealmList';
 
 export default function ClientRealm() {
+    const location = useLocation();
     const match = useRouteMatch();
 
     const { realmView } = useContext(ClientContext);
@@ -20,7 +21,7 @@ export default function ClientRealm() {
             <Switch>
                 <Route path={`${match.path}/map`} component={ClientRealmMap} />
                 <Route path={`${match.path}/list`} component={ClientRealmList} />
-                <Redirect from={match.path} to={`${match.path}/${realmView}`} />
+                <Redirect from={match.path} to={`${match.path}/${realmView}${location.search}`} />
             </Switch>
         </>
     );
