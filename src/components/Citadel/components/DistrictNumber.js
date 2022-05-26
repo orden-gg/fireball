@@ -26,7 +26,17 @@ export default class DistrictNumber extends Phaser.GameObjects.Text {
             color: `#${COLORS.grid.toString(16)}`
         });
 
-        scene.on('zoom', () => this.setFontSize(this.getFontSize()));
+        scene.on('zoom', () => {
+            let size = this.getFontSize();
+
+            if (size < 25) {
+                size = 25;
+            } else if (size * 3 > h) {
+                size = h / 3;
+            }
+
+            this.setFontSize(size);
+        });
     }
 
     getFontSize() {
