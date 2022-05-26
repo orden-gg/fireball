@@ -1,66 +1,70 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { DateTime, Duration } from 'luxon';
 
 import useInterval from 'hooks/useInterval';
-import styles from './styles';
 
-const interval = 1000/24;
+const interval = 1000;
+const longFormat = {
+    y: { key: 'year', values: ['year', 'years'] },
+    MM: { key: 'month', values: ['month', 'months'] },
+    dd: { key: 'day', values: ['day', 'days'] },
+    hh: { key: 'hour', values: ['hour', 'hours'] },
+    mm: { key: 'minute', values: ['minute', 'minutes'] },
+    ss: { key: 'second', values: ['second', 'seconds'] }
+};
 
-const names = {
-    S: ['millisecond', 'milliseconds'],
-    ss: ['second', 'seconds'],
-    mm: ['minute', 'minutes'],
-    hh: ['hour', 'hours'],
-    dd: ['day', 'days'],
-    M: ['month', 'months']
-}
+export default function Countdown({ date, format, onEnd, replacementComponent }) {
+    const isInThePast = DateTime.fromISO(new Date(date).toISOString()).toMillis() < DateTime.now().toMillis();
 
-const getName = (names, number) => {
-    return names[Number(number) === 1 ? 0 : 1];
-}
-
-export default function Countdown({ date, format, onEnd, id }) {
-    const [time, setTime] = useState({});
-    const classes = styles();
-    const formatArray = format.split(':');
+    const [isDateInThePast, setIsDateInThePast] = useState(isInThePast);
+    const [countdown, setCountdown] = useState('');
 
     useInterval(() => {
-        const diffTime = date - DateTime.local();
+        const endDate = DateTime.fromISO(new Date(date).toISOString()).toMillis();
+        const now = DateTime.now().toMillis();
+        let diff;
+        let formattedTimeString;
 
-        setTime({
-            milliseconds: diffTime,
-            date: Duration.fromObject({milliseconds: diffTime}).toFormat(format)
-        });
+        if (endDate - now > 0) {
+            diff = endDate - now;
 
-    }, time.milliseconds <= 0 ? null : interval);
+            setIsDateInThePast(false);
+        } else {
+            diff = now - endDate;
 
-    useEffect(() => {
-        if (time.milliseconds <= 0) {
-            onEnd(id);
+            setIsDateInThePast(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [time]);
+        if (format) {
+            const mappedFormat = Object.entries(format).map(([key, value]) => `${key}'${value}'`).join(': ');
+            formattedTimeString = Duration.fromMillis(diff).toFormat(mappedFormat)
+        } else {
+            const mappedLongFormat = Object.entries(longFormat).map(([key, format]) => `${key}' ${format.values[0]}'`).join(' : ');
+            formattedTimeString = Duration.fromMillis(diff).toFormat(mappedLongFormat);
+        }
+
+        if (endDate - now > 0 ) {
+            formattedTimeString = `In ${formattedTimeString}`;
+        } else if (endDate - now < 0) {
+            formattedTimeString = `${formattedTimeString} ago`;
+        }
+
+        setCountdown(formattedTimeString);
+
+        if (parseInt(DateTime.fromMillis(endDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
+            if (Boolean(onEnd)) {
+                onEnd();
+            }
+        }
+    }, interval);
 
     return (
         <>
-            {
-                time.milliseconds <= 0 ? false : <div className={classes.wrapper}>
-                    {
-                        time?.date?.split(':').map((item, index) => {
-                            return (
-                                <div className={classes.inner} key={index}>
-                                    <span className={classes.number}>
-                                        {item}
-                                    </span>
-                                    <p className={classes.text}>
-                                        {getName(names[formatArray[index]], item)}
-                                    </p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
+            { !(isDateInThePast && replacementComponent) ? (
+                <div>Countdown: {countdown}</div>
+            ): (
+                replacementComponent
+            )}
+
         </>
     )
 }
