@@ -43,7 +43,7 @@ const InterfaceStyles = makeStyles(theme => ({
         width: 150,
         '& .MuiInput-input': {
             textAlign: 'right',
-            fontSize: 14
+            fontSize: 12
         }
     },
     interfaceDivider: {

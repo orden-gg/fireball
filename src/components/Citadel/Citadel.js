@@ -52,7 +52,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
-    const searchParcles = id => game.scene.addSelectedParcel(parseInt(id));
+    const findOnMap = (type, value) => game.scene.find(type, value);
 
     const buttonIsActive = type => params.active?.some(name => name === type);
 
@@ -169,7 +169,17 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
             <CitadelInterface>
-                <SearchForm searchParcles={searchParcles} />
+                <SearchForm
+                    onSearch={findOnMap}
+                    type='parcel'
+                    placeholder="Parcel id or name"
+                />
+                <SearchForm
+                    onSearch={findOnMap}
+                    type='district'
+                    placeholder="District id"
+                />
+                <Divider className={classes.interfaceDivider}/>
                 <FullscreenButton wrapperRef={wrapperRef} />
                 <BasicButton
                     type='grid'

@@ -108,7 +108,6 @@ const DISTRICTS = Object.freeze({
         49: {x: 8, y: 5}
     }
 });
-const ZOOM = { min: .1, max: 10 };
 const COLORS = Object.freeze({
     parcels: {
         selected: 0xfd9af9,
@@ -135,6 +134,5 @@ export {
     PARCEL_SIZE,
     PARCEL_NAME,
     DISTRICTS,
-    ZOOM,
     COLORS
 }

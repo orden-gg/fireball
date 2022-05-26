@@ -29,8 +29,8 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
     addLogos(guild) {
         for (const [first, second] of guild.home) {
             const { x, y, w, h } = this.calculateData(
-                citadelUtils.getParcelById(first),
-                citadelUtils.getParcelById(second)
+                citadelUtils.getParcelBy('tokenId', `${first}`),
+                citadelUtils.getParcelBy('tokenId', `${second}`)
             );
             const logo = this.scene.add.image(x + w / 2, y + h / 2, guild.name);
             const scale = this.getImageScale(w, h, logo.width, logo.height);

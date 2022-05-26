@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import parcelsData from 'data/parcels.json';
-import { CITADEL_WIDTH, CITADEL_HEIGHT, ZOOM, COLORS } from 'data/citadel.data';
+import { CITADEL_WIDTH, CITADEL_HEIGHT, COLORS } from 'data/citadel.data';
 import guilds from 'data/guilds.json';
 import walls from 'assets/images/citadel/walls.svg';
 
@@ -22,6 +22,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings = {}
             this.districts = {};
             this.groups = {};
+            this.zoom = { max: 10 };
         }
 
         preload() {
@@ -41,8 +42,8 @@ export default class CitadelScene extends Phaser.Scene {
             const { width: w, height: h } = this.sys.canvas;
 
             this.scale.resize(w, h);
-            this.updateZoom();
-            this.cameras.main.zoom = ZOOM.min * 2;
+            this.zoom.min = this.getZoomBySize(CITADEL_WIDTH, CITADEL_HEIGHT);
+            this.cameras.main.zoom = this.zoom.min * 2;
 
             this.walls = this.add.image(0, 0, 'walls');
             this.walls.setScale(.6666666);
@@ -90,12 +91,12 @@ export default class CitadelScene extends Phaser.Scene {
             });
 
             this.scale.on('resize', () => {
-                this.updateZoom();
+                this.zoom.min = this.getZoomBySize(CITADEL_WIDTH, CITADEL_HEIGHT);
 
                 if (this.selectedParcel !== null) {
-                    const { x, y } = this.calculateParcelCenter(this.selectedParcel);
+                    const { cx, cy } = this.calculateParcelCenter(this.selectedParcel);
 
-                    this.moveToCenter(x, y);
+                    this.moveToCenter(cx, cy);
                 }
             });
 
@@ -110,8 +111,9 @@ export default class CitadelScene extends Phaser.Scene {
 
                 this.trigger('zoom');
 
-                if (camera.zoom <= ZOOM.min) {
+                if (camera.zoom <= this.zoom.min) {
                     this.moveToCenter(camera.centerX, camera.centerY);
+
                     return;
                 }
 
@@ -184,8 +186,10 @@ export default class CitadelScene extends Phaser.Scene {
             return citadel;
         }
 
-        addSelectedParcel(data) {
-            const parcel = typeof data === 'number' ? citadelUtils.getParcelById(data) : data;
+        addSelectedParcel(value) {
+            const parcel = this.getParcel(value);
+
+            console.log(parcel);
 
             if (parcel === undefined) {
                 return;
@@ -206,19 +210,11 @@ export default class CitadelScene extends Phaser.Scene {
             this.reOrderItems();
 
             setTimeout(() => {
-                let { x, y } = this.calculateParcelCenter(parcel);
-                this.moveToCenter(x, y, 500);
+                let { cx, cy } = this.calculateParcelCenter(parcel);
+                this.moveToCenter(cx, cy, 500);
 
                 setTimeout(() => {
-                    this.add.tween({
-                        targets: this.cameras.main,
-                        zoom: 1.1,
-                        duration: 500,
-                        ease: 'Power2',
-                        onComplete: () => {
-                            this.trigger('zoom');
-                        }
-                    });
+                    this.zoomTo(1.1, 500);
                 }, 0);
             }, 50);
         }
@@ -286,16 +282,6 @@ export default class CitadelScene extends Phaser.Scene {
             }
         }
 
-        updateZoom() {
-            const { width: w, height: h } = this.sys.canvas;
-
-            if (w / h > CITADEL_WIDTH / CITADEL_HEIGHT) {
-                ZOOM.min = h / CITADEL_HEIGHT;
-            } else {
-                ZOOM.min = w / CITADEL_WIDTH;
-            }
-        }
-
         updateMapFade() {
             const isSomeShown = Object.entries(this.groups).some(([, item]) => item.isActive);
 
@@ -320,17 +306,42 @@ export default class CitadelScene extends Phaser.Scene {
             }
         }
 
+        zoomTo(scale, duration) {
+            this.add.tween({
+                targets: this.cameras.main,
+                zoom: scale,
+                duration: duration,
+                ease: 'Power2',
+                onUpdate: () => {
+                    this.trigger('zoom');
+                }
+            });
+        }
+
         zoomToPointer(pointer) {
-            const p = pointer.position;
+            const { x, y } = pointer.position;
             const { centerX, centerY, zoom } = this.cameras.main;
-            const offsetX = (p.x - centerX) / zoom;
-            const offsetY = (p.y - centerY) / zoom;
-            const [x, y] = [
+            const offsetX = (x - centerX) / zoom;
+            const offsetY = (y - centerY) / zoom;
+            const [cx, cy] = [
                 centerX + -(this.cursorFromCenter.cx) + offsetX,
                 centerY + -(this.cursorFromCenter.cy) + offsetY
             ];
 
-            this.citadel.setPosition(x, y);
+            this.citadel.setPosition(cx, cy);
+        }
+
+        zoomToDistrict(id) {
+            const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+            const { cx, cy } = this.calculateCenter({ x, y, w, h });
+
+            if (isNaN(cx) || isNaN(cy)) {
+                return;
+            }
+
+            this.moveToCenter(cx , cy, 500);
+            this.zoomTo(this.getZoomBySize(w, h) * .9, 500);
+            this.districtHighLight.update(x, y, w, h);
         }
 
         fadeMap(fade) {
@@ -348,20 +359,35 @@ export default class CitadelScene extends Phaser.Scene {
             this.citadel.bringToTop(this.selected);
         }
 
-        calculateParcelCenter(item) {
-            const { x, y } = citadelUtils.getParcelCoords(item.coordinateX, item.coordinateY);
-            const { w, h } = citadelUtils.getParcelSize(item.size);
+        find(type, value) {
+            if (type === 'parcel') {
+                this.addSelectedParcel(value);
+            } else {
+                this.zoomToDistrict(parseInt(value));
+            }
+        }
+
+        calculateParcelCenter(parcel) {
+            const params = {
+                ...citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY),
+                ...citadelUtils.getParcelSize(parcel.size)
+            };
+
+            return this.calculateCenter(params);
+        }
+
+        calculateCenter({ x, y, w, h }) {
             const { centerX, centerY } = this.cameras.main;
 
             return {
-                x: centerX-x-w/2,
-                y: centerY-y-h/2
+                cx: centerX - x - w / 2,
+                cy: centerY - y - h / 2
             }
         }
 
         setMultiselect(ids) {
             const parcels = ids
-                .map(id => citadelUtils.getParcelById(parseInt(id)))
+                .map(id => citadelUtils.getParcelBy('tokenId', id))
                 .filter(parcel => parcel !== undefined);
 
             if(parcels.length === 0) {
@@ -380,6 +406,26 @@ export default class CitadelScene extends Phaser.Scene {
             this.reOrderItems();
         }
 
+        getZoomBySize(w, h) {
+            const { width, height } = this.sys.canvas;
+
+            if (width / height > w / h) {
+                return height / h;
+            } else {
+                return width / w;
+            }
+        }
+
+        getParcel(value) {
+            if (typeof value === 'object') {
+                return value;
+            } else if (isNaN(parseInt(value))) {
+                return citadelUtils.getParcelBy('parcelHash', citadelUtils.getParcedName(value));
+            } else {
+                return citadelUtils.getParcelBy('tokenId', value);
+            }
+        }
+
         getCursorFromCenter(pointer) {
             return {
                 cx: pointer.worldX-this.citadel.x,
@@ -388,7 +434,7 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         getCameraZoom(deltaY) {
-            const { min, max } = ZOOM;
+            const { min, max } = this.zoom;
 
             let nextZoom = this.cameras.main.zoom+-(deltaY)*0.001;
 

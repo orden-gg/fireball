@@ -28,20 +28,24 @@ export default {
     getDistrictParams(id) {
         const district = DISTRICTS.positions[id];
 
-        return {
-            x: district.x * DISTRICTS.w - CITADEL_WIDTH / 2,
-            y: district.y * DISTRICTS.h - CITADEL_HEIGHT / 2,
-            w: district.w * DISTRICTS.w || DISTRICTS.w,
-            h: district.h * DISTRICTS.h || DISTRICTS.h
+        if (district === undefined) {
+            return {};
+        } else {
+            return {
+                x: district.x * DISTRICTS.w - CITADEL_WIDTH / 2,
+                y: district.y * DISTRICTS.h - CITADEL_HEIGHT / 2,
+                w: district.w * DISTRICTS.w || DISTRICTS.w,
+                h: district.h * DISTRICTS.h || DISTRICTS.h
+            }
         }
     },
 
-    getParcelById(id) {
+    getParcelBy(type, value) {
         let result;
 
         districts: for (const district in parcelsData) {
             for (const parcel of parcelsData[district]) {
-                if (parseInt(parcel.tokenId) === id) {
+                if (parcel[type] === value) {
                     result = parcel;
                     break districts;
                 }
@@ -66,8 +70,17 @@ export default {
         return result;
     },
 
+    getParcedName(value) {
+        const splited = value.split(' ');
+
+        if (splited.length > 1) {
+            return splited.join('-').toLowerCase();
+        } else {
+            return value.toLowerCase();
+        }
+    },
+
     getParcelByCoords(districtId, {cx, cy}) {
-        console.log(districtId);
         const district = parcelsData[districtId] || [];
 
         let result;
