@@ -2,6 +2,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PercentIcon from '@mui/icons-material/Percent';
 
+import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
@@ -165,6 +166,9 @@ export const filtersData = {
         updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
         updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
         getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
+        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
+        valueMapperFn: (value) => {
+            return value.map(val => ethersApi.toWei(val));
+        }
     }
 };

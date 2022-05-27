@@ -1,6 +1,9 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+
+import qs from 'query-string';
 
 import { WarehouseIcon } from 'components/Icons/Icons';
 import ContentInner from 'components/Content/ContentInner';
@@ -24,8 +27,13 @@ const sortings = [
         icon: <FormatListNumberedIcon fontSize='small' />
     }
 ];
+const queryParamsOrder = ['sort', 'dir'];
 
 export default function ClientWarehouse() {
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+
     const {
         warehouse,
         setWarehouse,
@@ -35,11 +43,39 @@ export default function ClientWarehouse() {
         loadingWarehouse,
     } = useContext(ClientContext);
 
-    const onSortingChanged = useCallback((prop, dir) => {
-        const sortedItems = commonUtils.basicSort(warehouse, prop, dir);
+    useEffect(() => {
+        const { sort, dir } = queryParams;
+
+        if (sort && dir) {
+            setWarehouseSorting({ type: sort, dir });
+        }
+
+        return () => {
+            setWarehouseSorting({ type: 'rarityId', dir: 'desc' });
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        const sortedItems = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
         setWarehouse([...sortedItems]);
-    }, [warehouse, setWarehouse]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadingWarehouse, warehouseSorting]);
+
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        history.push({
+            path: location.pathname,
+            search: qs.stringify({...queryParams, sort: prop, dir }, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
+        });
+    }, [queryParams, history, location.pathname]);
+
+    const onSortingChanged = useCallback((prop, dir) => {
+        updateSortQueryParams(prop, dir);
+    }, [updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
