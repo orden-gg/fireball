@@ -6,7 +6,7 @@ import { COLORS } from 'data/citadel.data';
 
 import styles from './styles';
 
-export default function ParcelImage({ parcel, parcelSize }) {
+export default function ParcelImage({ parcel, imageSize }) {
     const classes = styles();
     const canvasRef = useRef(null);
     const [imageLoading, setImageLoading] = useState(true);
@@ -32,41 +32,53 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         let context = canvas.getContext('2d');
 
-        const drawRect = (width, height) => {
-            const parcelX = (parcelSize - width < parcel.coordinateX ? parcelSize - width : parcel.coordinateX) / 2;
-            const parcelY = (parcelSize - height < parcel.coordinateY ? parcelSize - height : parcel.coordinateY) / 2;
-
-            context.rect(parcelX, parcelY, width, height);
-        };
-
         context.globalAlpha = 1;
 
-        for (let x = 0; x < parcelSize; x++) {
-            for (let y = 0; y < parcelSize; y++) {
+        for (let x = 0; x < imageSize; x++) {
+            for (let y = 0; y < imageSize; y++) {
                 context.beginPath();
-                context.fillStyle = `rgba(${cache[x*parcelSize+y].join(',')})`;
+                context.fillStyle = `rgba(${cache[x*imageSize+y].join(',')})`;
                 context.fillRect(y,x, x+1,y+1);
             }
         }
 
-        const { size } = parcel;
-
         context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
-        context.lineWidth = 2;
-        +size === 0 && drawRect(5, 5);
-        +size === 1 && drawRect(9, 9);
-        +size === 3 && drawRect(32, 16);
-        +size === 2 && drawRect(16, 32);
-        context.stroke();
+
+        drawParcelBorder(parcel, context)
     };
 
+    const drawParcelBorder = (parcel, context) => {
+        const size = Number(parcel.size);
+
+        switch(size) {
+            case 0:
+                return drawRect(parcel, context, 5, 5, 2);
+            case 1:
+                return drawRect(parcel, context, 10, 10, 2);
+            case 2:
+                return drawRect(parcel, context, 16, 32, 2);
+            case 3:
+                return drawRect(parcel, context, 32, 16, 2);
+            default:
+                return;
+        }
+    }
+
+    const drawRect = (parcel, context, width, height, line) => {
+        const parcelX = (imageSize - width < parcel.coordinateX ? imageSize - width : parcel.coordinateX) / 2;
+        const parcelY = (imageSize - height < parcel.coordinateY ? imageSize - height : parcel.coordinateY) / 2;
+
+        context.lineWidth = line;
+        context.rect(parcelX, parcelY, width, height);
+        context.stroke();
+    };
 
     useEffect(() => {
         let mounted = true;
 
         setImageLoading(true);
 
-        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${parcelSize}`)
+        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${imageSize}`)
             .then((res) => {
                 if (mounted) {
                     setImageLoading(false);
@@ -81,15 +93,15 @@ export default function ParcelImage({ parcel, parcelSize }) {
     return (
         <div
             className={classes.image}
-            style={{ width: parcelSize, height: parcelSize }}
+            style={{ width: imageSize, height: imageSize }}
         >
             { imageLoading ? (
                 <GotchiverseGif width='100%' height='100%' />
             ) : (
                 <canvas
                     ref={canvasRef}
-                    width={parcelSize - 4}
-                    height={parcelSize - 4}
+                    width={imageSize - 4}
+                    height={imageSize - 4}
                 />
             )}
         </div>

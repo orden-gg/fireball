@@ -58,7 +58,7 @@ const DISTRICTS = Object.freeze({
 const ZOOM = { min: .1, max: 10 };
 const COLORS = Object.freeze({
     parcels: {
-        selected: 0xfd9af9,
+        selected: 0xffffff,
         humble: { default: 0x2500c2 },
         reasonable: { default: 0x016f52 },
         spacious: { default: 0x340055 },
