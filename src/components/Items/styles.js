@@ -1,5 +1,6 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
+import { lighten } from '@mui/material';
 
 const styles = makeStyles(theme => ({
     soldOutLink: {
@@ -276,8 +277,11 @@ const itemStyles = makeStyles(theme => ({
         // height: 320
     },
     parcelName: {
-        fontSize: 16,
+        fontSize: 17,
         textShadow: `1px 1px 0px ${alpha('#000', .4)}`,
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden'
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -472,16 +476,16 @@ const ERC1155InnerStyles = makeStyles(theme => ({
             color: theme.palette.rarity.godlike
         },
         '&.humble': {
-            color: theme.palette.realm.humble
+            color: lighten(theme.palette.realm.humble, .3)
         },
         '&.reasonable': {
-            color: theme.palette.realm.reasonable
+            color: lighten(theme.palette.realm.reasonable, .3)
         },
         '&.golden': {
             color: theme.palette.rarity.golden
         },
         '&.spacious': {
-            color: theme.palette.realm.spacious
+            color: lighten(theme.palette.realm.spacious, .3)
         },
         '&.partner': {
             color: theme.palette.realm.partner
