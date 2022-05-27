@@ -266,10 +266,18 @@ const itemStyles = makeStyles(theme => ({
         }
     },
     parcelCard: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
+        padding: '28px 0'
+        // display: 'flex',
+        // alignItems: 'center',
+        // flexDirection: 'column',
+        // '& > div': {
+        //     flexGrow: 1
+        // }
         // height: 320
+    },
+    parcelName: {
+        fontSize: 16,
+        textShadow: `1px 1px 0px ${alpha('#000', .4)}`,
     },
     itemBalanceDivider: {
         margin: '0 2px'

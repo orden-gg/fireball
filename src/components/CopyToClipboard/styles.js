@@ -12,6 +12,27 @@ const styles = makeStyles(() => ({
         '&:hover': {
             background: alpha('#000', .4),
         }
+    },
+    block: {
+        position: 'relative',
+        background: alpha('#000', .1),
+        padding: 4,
+        cursor: 'pointer',
+        transition: 'all .3s ease-in-out',
+        '&:hover': {
+            background: alpha('#000', .4),
+        },
+        '& span': {
+            position: 'relative',
+            zIndex: 1
+        }
+    },
+    blockIcon: {
+        position: 'absolute',
+        right: 4,
+        bottom: 4,
+        fontSize: 12,
+        opacity: .7
     }
 }));
 

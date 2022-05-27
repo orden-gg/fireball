@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import itemUtils from 'utils/itemUtils';
 
-import ParcelLink from './ParcelLink';
+import ParcelName from './ParcelName';
 // import ParcelChanelling from './ParcelChanneling';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 // import installationsApi from 'api/installations.api';
@@ -65,7 +65,7 @@ export default function Parcel({ parcel }) {
                 [{parcel.tokenId}]
             </div>
 
-            <ParcelLink parcel={parcel} />
+            <ParcelName parcel={parcel} />
 
             {/* { aaltarLoading ? (
                 <span style={{ color: 'orange'}}>loading..</span>
