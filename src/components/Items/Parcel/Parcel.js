@@ -3,13 +3,15 @@ import { Tooltip, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
+// import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import itemUtils from 'utils/itemUtils';
 
 import ParcelLink from './ParcelLink';
-import ParcelChanelling from './ParcelChanneling';
+// import ParcelChanelling from './ParcelChanneling';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+// import installationsApi from 'api/installations.api';
+import ChannelingInfo from 'components/ChannelingInfo/ChannelingInfo';
 
 export default function Parcel({ parcel }) {
     const classes = {
@@ -21,12 +23,23 @@ export default function Parcel({ parcel }) {
 
     const size = itemUtils.getParcelSize(parcel.size);
 
-    const boosts = {
-        fud: parcel.fudBoost,
-        fomo: parcel.fomoBoost,
-        alpha: parcel.alphaBoost,
-        kek: parcel.kekBoost
-    };
+    // const [aaltar, setAaltar] = useState({id: null})
+    // const [aaltarLoading, setAaltarLoading] = useState(true)
+
+    // const boosts = {
+    //     fud: parcel.fudBoost,
+    //     fomo: parcel.fomoBoost,
+    //     alpha: parcel.alphaBoost,
+    //     kek: parcel.kekBoost
+    // };
+
+    // useEffect(() => {
+    //     installationsApi.getParcelInstallations(parcel.tokenId).then(res => {
+    //         console.log(`${parcel.tokenId} / ${itemUtils.getParcelSize(parcel.size)}: `, res);
+    //         setAaltar(res)
+    //         setAaltarLoading(false)
+    //     })
+    // }, [parcel]);
 
     return (
         <div className={classNames(classes.item, size, classes.parcelCard)}>
@@ -45,7 +58,7 @@ export default function Parcel({ parcel }) {
                 </Tooltip>
             </div>
 
-            <ParcelImage key={parcel.parcelId} parcel={parcel} parcelSize={160} />
+            <ParcelImage key={parcel.parcelId} parcel={parcel} imageSize={160} />
 
             <div className={classNames(classes.label, classes.labelSlot)}>
                 [{parcel.tokenId}]
@@ -53,7 +66,19 @@ export default function Parcel({ parcel }) {
 
             <ParcelLink parcel={parcel} />
 
-            <ParcelChanelling parcelId={parcel.tokenId} />
+            {/* { aaltarLoading ? (
+                <span style={{ color: 'orange'}}>loading..</span>
+            ) : (
+                aaltar?.id ? (
+                    <span>{aaltar.id} level {aaltar.level}</span>
+                ) : (
+                    <span style={{ color: 'red' }}>No AALTAR!!</span>
+                )
+            )} */}
+
+            { parcel.channeled && <ChannelingInfo last={parcel.channeled} readyIn={'?'} />}
+
+            {/* <ParcelChanelling parcelId={parcel.tokenId} />
 
             <div className={classes.boosts}>
                 {Object.entries(boosts).map((boost, i) => {
@@ -73,7 +98,7 @@ export default function Parcel({ parcel }) {
 
             <div className={classes.parcelPriceContainer}>
                 <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -148,6 +148,16 @@ const ClientContextProvider = (props) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
+            // const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
+            // const ids = gtch.map(gotchi => Number(gotchi.id));
+            // console.log('ids', ids)
+
+            // if(ids.length) {
+            //     thegraphApi.getGotchisGotchiverseInfo(ids)
+            //         .then(res => console.log(res))
+            //         .catch(e => console.log(e))
+            // }
+
             setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
         }).catch((error) => {
@@ -281,16 +291,32 @@ const ClientContextProvider = (props) => {
     const getRealm = (address) => {
         setLoadingRealm(true);
 
-        thegraph.getRealmByAddress(address).then((response) => {
-            const { type, dir } = realmSorting;
+        thegraph.getRealmByAddress(address)
+            .then(async (res) => {
+                const { type, dir } = realmSorting;
 
-            setRealm(commonUtils.basicSort(response, type, dir));
-            setLoadingRealm(false);
-        }).catch((error) => {
-            console.log(error);
-            setRealm([]);
-            setLoadingRealm(false);
-        });
+                const parcels = JSON.parse(JSON.stringify(res));
+                const parcelIds = parcels.map(parcel => parcel.tokenId);
+
+                if(parcelIds.length) {
+                    await thegraphApi.getParcelsGotchiverseInfo(parcelIds)
+                        .then(parcelsInfo => {
+                            parcelsInfo.forEach((parcel, i) => {
+                                parcels[i]['channeled'] = parcel.chanelled
+                            })
+                        })
+                }
+
+                console.log('modified parcels', parcels);
+
+                setRealm(commonUtils.basicSort(parcels, type, dir));
+                setLoadingRealm(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setRealm([]);
+                setLoadingRealm(false);
+            });
     };
 
     const calculateReward = () => {

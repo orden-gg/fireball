@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Typography } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 import classNames from 'classnames';
@@ -17,15 +17,9 @@ export default function ParcelLink({ parcel }) {
         ...parselStyles()
     };
 
-    const [name, setName] = useState('');
-    const [size, setSize] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
 
-    useEffect(() => {
-        setName(parcel.parcelHash.replace(/-/g, ' '));
-        setSize(itemUtils.getParcelSize(parcel.size));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const size = itemUtils.getParcelSize(parcel.size);
 
     return (
         <>
@@ -34,7 +28,7 @@ export default function ParcelLink({ parcel }) {
                 onClick={() => setModalOpen(true)}
             >
                 <Typography className={classNames(classes.name, classes.textHighlight, size)}>
-                    {name}
+                    {parcel.parcelHash}
                 </Typography>
                 <CallMade className={classes.callMadeIcon} />
 

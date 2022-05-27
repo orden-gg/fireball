@@ -525,3 +525,30 @@ export const incomeQuery = (id, timestamp) => {
         }
       }`
 };
+
+// ! Gotchiverse queries
+
+export const gotchisLastChanneledQuery = (gotchis) => {
+    return `{
+        gotchis(
+            first: ${gotchis.length},
+            where: { id_in: ${JSON.stringify(gotchis)}
+        })  {
+          id
+          lastChanneledAlchemica
+        }
+      }`
+};
+
+export const parcelsLastChanneledQuery = (parcels) => {
+    return `{
+        parcels(
+            first: ${parcels.length},
+            where: { id_in: ${JSON.stringify(parcels)}
+        })  {
+          id
+          lastChanneledAlchemica
+          equippedInstallations
+        }
+      }`
+};
