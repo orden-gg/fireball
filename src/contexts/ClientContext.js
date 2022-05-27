@@ -295,19 +295,29 @@ const ClientContextProvider = (props) => {
             .then(async (res) => {
                 const { type, dir } = realmSorting;
 
-                const parcels = JSON.parse(JSON.stringify(res));
-                const parcelIds = parcels.map(parcel => parcel.tokenId);
+                let parcels = res;
+                const parcelIds = res.map(parcel => parcel.tokenId);
 
-                if(parcelIds.length) {
-                    await thegraphApi.getParcelsGotchiverseInfo(parcelIds)
-                        .then(parcelsInfo => {
-                            parcelsInfo.forEach((parcel, i) => {
-                                parcels[i]['channeled'] = parcel.chanelled
-                            })
-                        })
+                if (parcelIds.length) {
+                    const [parcelsInfo, parcelUpgrades] = await Promise.all([
+                        thegraphApi.getParcelsGotchiverseInfo(parcelIds),
+                        installationsApi.getAllUpgradeQueue(),
+                    ]);
+
+                    parcels = parcels.map((parcel, index) => {
+                        const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);
+
+                        return {
+                            ...parcel,
+                            lastChanneled: parcelsInfo[index].lastChanneled,
+                            installations: parcelsInfo[index].installations,
+                            altarLevel: installationsUtils.getLevelById(parcelsInfo[index].installations[0]),
+                            upgrading: isUpgrading ? true : false
+                        }
+                    });
                 }
 
-                console.log('modified parcels', parcels);
+                // console.log('parcels', parcels)
 
                 setRealm(commonUtils.basicSort(parcels, type, dir));
                 setLoadingRealm(false);

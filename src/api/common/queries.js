@@ -528,7 +528,7 @@ export const incomeQuery = (id, timestamp) => {
 
 // ! Gotchiverse queries
 
-export const gotchisLastChanneledQuery = (gotchis) => {
+export const gotchisGotchiverseQuery = (gotchis) => {
     return `{
         gotchis(
             first: ${gotchis.length},
@@ -540,12 +540,12 @@ export const gotchisLastChanneledQuery = (gotchis) => {
       }`
 };
 
-export const parcelsLastChanneledQuery = (parcels) => {
+export const parcelsGotchiverseQuery = (parcels) => {
     return `{
         parcels(
             first: ${parcels.length},
             where: { id_in: ${JSON.stringify(parcels)}
-        })  {
+        }) {
           id
           lastChanneledAlchemica
           equippedInstallations

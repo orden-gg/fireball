@@ -26,8 +26,8 @@ import {
     lendingsByAddressQuery,
     incomeQuery,
     getParcelOrderDirectionQuery,
-    gotchisLastChanneledQuery,
-    parcelsLastChanneledQuery
+    gotchisGotchiverseQuery,
+    parcelsGotchiverseQuery
 } from './common/queries';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -505,27 +505,27 @@ export default {
     // ! GOTCHIVERSE
 
     getGotchisGotchiverseInfo(gotchiIds) {
-        return getGraphData(clientFactory.gotchiverseClient, gotchisLastChanneledQuery(gotchiIds))
+        return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds))
             .then(res => {
                 const dataArr = res.data.gotchis;
 
                 // * gotchiverse return empty data if gotchi never channeled alchemica!
                 return gotchiIds.map((id, i) => ({
                     id: id,
-                    chanelled: Number(dataArr[i]?.lastChanneledAlchemica) || 0
+                    lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0
                 }))
             })
     },
 
     getParcelsGotchiverseInfo(parcelsIds) {
-        return getGraphData(clientFactory.gotchiverseClient, parcelsLastChanneledQuery(parcelsIds))
+        return getGraphData(clientFactory.gotchiverseClient, parcelsGotchiverseQuery(parcelsIds))
             .then(res => {
                 const dataArr = res.data.parcels;
 
                 // * gotchiverse return empty data if parcel was never channeled!
                 return parcelsIds.map((id, i) => ({
                     id: id,
-                    chanelled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
+                    lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
                     installations: dataArr[i]?.equippedInstallations || []
                 }))
             })

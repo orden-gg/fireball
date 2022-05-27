@@ -12,6 +12,7 @@ import ParcelLink from './ParcelLink';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 // import installationsApi from 'api/installations.api';
 import ChannelingInfo from 'components/ChannelingInfo/ChannelingInfo';
+import ParcelInstallations from './ParcelInstallations';
 
 export default function Parcel({ parcel }) {
     const classes = {
@@ -76,7 +77,13 @@ export default function Parcel({ parcel }) {
                 )
             )} */}
 
-            { parcel.channeled && <ChannelingInfo last={parcel.channeled} readyIn={'?'} />}
+            { parcel.lastChanneled && (
+                <ChannelingInfo last={parcel.lastChanneled} readyIn={'?'} />
+            )}
+
+            { parcel.installations && (
+                <ParcelInstallations installations={parcel.installations} upgrading={parcel.upgrading} />
+            )}
 
             {/* <ParcelChanelling parcelId={parcel.tokenId} />
 

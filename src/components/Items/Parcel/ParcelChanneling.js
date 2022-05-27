@@ -34,6 +34,10 @@ export default function ParcelChanelling({ parcelId }) {
             }
         });
 
+        // realmApi.getParcelInfo(parcelId).then(res => {
+        //     console.log('res', res)
+        // })
+
         return () => mounted = false;
     }, [parcelId]);
 

@@ -269,7 +269,7 @@ const itemStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        height: 320
+        // height: 320
     },
     itemBalanceDivider: {
         margin: '0 2px'

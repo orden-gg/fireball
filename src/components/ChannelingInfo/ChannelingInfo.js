@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import { DateTime } from 'luxon';
+import { DateTime } from 'luxon';
 
 // import { FudIcon, RealmGif } from 'components/Icons/Icons';
 // import CustomTooltip from 'components/custom/CustomTooltip';
@@ -53,8 +53,10 @@ export default function ChannelingInfo({ last, readyIn }) {
 
     return (
         <div className={classes.container}>
-            <p>last {last}</p>
-            <p>ready {readyIn}</p>
+            <p>last: {DateTime.fromSeconds(last).toRelative()}</p>
+            {/* <p>{DateTime.fromSeconds(last).toRelative()}</p> */}
+            {/* <p>last {last} - { DateTime.local(last, { zone: 'utc' }).toRelative()}</p> */}
+            <p>ready: {readyIn}</p>
             {/* { lastChannelingLoading ? (
                 <ContentLoader
                     speed={2}

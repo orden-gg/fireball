@@ -9,5 +9,27 @@ const installationsContract = ethersApi.makeContract(INSTALLATION_CONTRACT, INST
 export default {
     getInstallationsByAddress(address) {
         return installationsContract.installationsBalances(address);
-    }
+    },
+
+    getAllUpgradeQueue() {
+        return installationsContract.getAllUpgradeQueue()
+            .then(res => res.map(item => ({
+                    readyBlock: item.readyBlock,
+                    claimed: item.claimed,
+                    parcelId: ethersApi.formatBigNumber(item.parcelId),
+                    installationId: ethersApi.formatBigNumber(item.installationId),
+                }))
+            );
+    },
+
+    getUpgradeQueueByAddress(address) {
+        return installationsContract.getUserUpgradeQueue(address)
+            .then(res => res.map(item => ({
+                    readyBlock: item.readyBlock,
+                    claimed: item.claimed,
+                    parcelId: ethersApi.formatBigNumber(item.parcelId),
+                    installationId: ethersApi.formatBigNumber(item.installationId),
+                }))
+            );
+    },
 }
