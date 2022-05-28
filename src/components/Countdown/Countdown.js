@@ -1,66 +1,140 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+
 import { DateTime, Duration } from 'luxon';
 
 import useInterval from 'hooks/useInterval';
-import styles from './styles';
 
-const interval = 1000/24;
+const interval = 1000;
+const defaultLongFormat = {
+    years: { key: 'y', values: ['year', 'years'], showIfZero: false },
+    months: { key: 'MM', values: ['month', 'months'], showIfZero: false },
+    days: { key: 'dd', values: ['day', 'days'], showIfZero: false },
+    hours: { key: 'hh', values: ['hour', 'hours'], showIfZero: false },
+    minutes: { key: 'mm', values: ['minute', 'minutes'], showIfZero: false },
+    seconds: { key: 'ss', values: ['second', 'seconds'], showIfZero: false }
+};
 
-const names = {
-    S: ['millisecond', 'milliseconds'],
-    ss: ['second', 'seconds'],
-    mm: ['minute', 'minutes'],
-    hh: ['hour', 'hours'],
-    dd: ['day', 'days'],
-    M: ['month', 'months']
-}
+/***
+ * @param targetDate - luxon date in milliseconds
+ * @param shortFormat - 1y 2m 3d 4h
+ * @param longFormat - 1 year 2 months 3 days 4 hours
+ *
+ * If unit has to be shown if it's zero and previous units are also equal
+ * to zero - eg. 00 days 00 hours 21 minutes, set `@showIfZero` in formats configs to `true`
+ *
+ * @param onEnd - callback function that will trigger when current date is equal to `@targetDate`
+ * @param replacementComponent - component that will be placed instead of countdown if `@targetDate` is in the past
+*/
+export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacementComponent }) {
+    const isInThePast = targetDate < DateTime.local().toMillis();
 
-const getName = (names, number) => {
-    return names[Number(number) === 1 ? 0 : 1];
-}
-
-export default function Countdown({ date, format, onEnd, id }) {
-    const [time, setTime] = useState({});
-    const classes = styles();
-    const formatArray = format.split(':');
+    const [isDateInThePast, setIsDateInThePast] = useState(isInThePast);
+    const [countdown, setCountdown] = useState('');
 
     useInterval(() => {
-        const diffTime = date - DateTime.local();
+        const now = DateTime.local().toMillis();
+        let diff;
+        let formattedTimeString;
 
-        setTime({
-            milliseconds: diffTime,
-            date: Duration.fromObject({milliseconds: diffTime}).toFormat(format)
-        });
+        if (targetDate - now > 0) {
+            diff = targetDate - now;
 
-    }, time.milliseconds <= 0 ? null : interval);
+            setIsDateInThePast(false);
+        } else {
+            diff = now - targetDate;
 
-    useEffect(() => {
-        if (time.milliseconds <= 0) {
-            onEnd(id);
+            setIsDateInThePast(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [time]);
+        if (shortFormat) {
+            const formatKeys = Object.keys(shortFormat);
+            const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+            const mappedShortFormat = Object.keys(units)
+                .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
+                .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
+
+            formattedTimeString = Duration.fromObject(units).toFormat(mappedShortFormat.join(' '));
+        } else if (longFormat) {
+            formattedTimeString = getLongFormattedTimeString(diff, longFormat);
+        } else {
+            formattedTimeString = getLongFormattedTimeString(diff, defaultLongFormat);
+        }
+
+        if (targetDate - now > 0 ) {
+            formattedTimeString = `In ${formattedTimeString}`;
+        } else if (targetDate - now < 0) {
+            formattedTimeString = `${formattedTimeString} ago`;
+        }
+
+        setCountdown(formattedTimeString);
+
+        if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
+            if (Boolean(onEnd)) {
+                onEnd();
+            }
+        }
+    }, interval);
+
+    const getLongFormattedTimeString = (diff, format) => {
+        const formatKeys = Object.keys(format);
+        const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+        const mappedLongFormat = Object.entries(units)
+            .filter(([key]) => format[key].showIfZero || getIsShowUnit(key, units))
+            .map(([key, unit]) => `${format[key].key} ${ parseInt(unit) !== 1 ?
+                `'${format[key].values[1]}'` : `'${format[key].values[0]}'`}`
+            );
+
+        return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
+    }
+
+    const isShowUnitPredicate = (unitsKeys, units) => {
+        return unitsKeys.some(unitsKey => Boolean(units[unitsKey]) && units[unitsKey] > 0);
+    }
+
+    const getIsShowUnit = (key, units) => {
+        let unitsKeys = [];
+
+        switch (key) {
+            case 'years':
+                unitsKeys = ['years'];
+
+                break;
+            case 'months':
+                unitsKeys = ['years', 'months'];
+
+                break;
+            case 'days':
+                unitsKeys = ['years', 'months', 'days'];
+
+                break;
+            case 'hours':
+                unitsKeys = ['years', 'months', 'days', 'hours'];
+
+                break;
+            case 'minutes':
+                unitsKeys = ['years', 'months', 'days', 'hours', 'minutes'];
+
+                break;
+            case 'seconds':
+                unitsKeys = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+
+                break;
+            default:
+                unitsKeys.push('');
+
+                break;
+        }
+
+        return isShowUnitPredicate(unitsKeys, units)
+    }
 
     return (
         <>
-            {
-                time.milliseconds <= 0 ? false : <div className={classes.wrapper}>
-                    {
-                        time?.date?.split(':').map((item, index) => {
-                            return (
-                                <div className={classes.inner} key={index}>
-                                    <span className={classes.number}>
-                                        {item}
-                                    </span>
-                                    <p className={classes.text}>
-                                        {getName(names[formatArray[index]], item)}
-                                    </p>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            }
+            { !(isDateInThePast && replacementComponent) ? (
+                <div>{countdown}</div>
+            ): (
+                replacementComponent
+            )}
+
         </>
     )
 }
