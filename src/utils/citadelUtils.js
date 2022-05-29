@@ -10,11 +10,11 @@ export default {
         }
     },
 
-    getParcelColor(size) {
+    getParcelColorBySize(size) {
         return COLORS.parcels[PARCEL_NAME[size]]
     },
 
-    getParcelName(size) {
+    getParcelColorByName(size) {
         return PARCEL_NAME[size];
     },
 
@@ -40,15 +40,15 @@ export default {
         }
     },
 
-    getParcelBy(type, value) {
+    getParcelByTypeAndValue(type, value) {
         let result;
 
-        districts: for (const district in parcelsData) {
-            for (const parcel of parcelsData[district]) {
-                if (parcel[type] === value) {
-                    result = parcel;
-                    break districts;
-                }
+        for (const [, district] of Object.entries(parcelsData)) {
+            const parcel = district.find(parcel => parcel[type] === value);
+
+            if (parcel !== undefined) {
+                result = parcel;
+                break;
             }
         }
 
@@ -80,7 +80,7 @@ export default {
         }
     },
 
-    getParcelByCoords(districtId, {cx, cy}) {
+    getParcelByTypeAndValueCoords(districtId, {cx, cy}) {
         const district = parcelsData[districtId] || [];
 
         let result;

@@ -54,7 +54,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         const { x, y } = citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
         const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
-        this.fillStyle(this.getParcelColor(parcel), 1);
+        this.fillStyle(this.getParcelColorBySize(parcel), 1);
         this.fillRect(x, y, w, h);
     }
 
@@ -65,9 +65,9 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         ];
     }
 
-    getParcelColor(parcel) {
+    getParcelColorBySize(parcel) {
         if (this.settings.hasOwnProperty('range')) {
-            const range = this.settings.range[citadelUtils.getParcelName(parcel.size)];
+            const range = this.settings.range[citadelUtils.getParcelColorByName(parcel.size)];
             const percentage = this.getParcentage(range, ethersApi.fromWei(parcel.priceInWei));
             const [from, to] = this.valueToColor(
                 COLORS.parcels[this.settings.type][0],
@@ -80,7 +80,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
                 percentage > 100 ? 100 : percentage
             );
         } else {
-            return citadelUtils.getParcelColor(parcel.size)[parcel.use];
+            return citadelUtils.getParcelColorBySize(parcel.size)[parcel.use];
         }
     }
 

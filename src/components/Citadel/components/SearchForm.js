@@ -10,7 +10,7 @@ export default function SearchForm({ onSearch, type, placeholder }) {
     const [searchId, setSearchId] = useState(null);
 
     const onKeyPress = key => {
-        if(key === 'Enter') {
+        if (key === 'Enter') {
             onSearch(type, searchId);
         }
     }
@@ -21,7 +21,7 @@ export default function SearchForm({ onSearch, type, placeholder }) {
                 className={classes.citadelSearchField}
                 placeholder={placeholder}
                 variant="standard"
-                onChange={ event => setSearchId(event.target.value) }
+                onChange={event => setSearchId(event.target.value)}
                 onKeyPress={event => onKeyPress(event.key)}
             />
             <IconButton onClick={() => onSearch(type, searchId)} className={classes.citadelInterfaceButton}>

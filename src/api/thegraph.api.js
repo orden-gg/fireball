@@ -224,10 +224,10 @@ export default {
         });
     },
 
-    async getGotchisByAddresses(addresses) {
+    getGotchisByAddresses(addresses) {
         const promises = addresses.map(address => this.getGotchisByAddress(address));
 
-        return await Promise.all(promises).then(response =>
+        return Promise.all(promises).then(response =>
             response.reduce((result, current) => result.concat(current), [])
         )
     },
@@ -352,17 +352,17 @@ export default {
         });
     },
 
-    async getRealmByAddresses(addresses) {
+    getRealmByAddresses(addresses) {
         const promises = addresses.map(address => this.getRealmByAddress(address));
 
-        return await Promise.all(promises).then(response =>
+        return Promise.all(promises).then(response =>
             response.reduce((result, current) => result.concat(current), [])
         )
     },
 
     async getRealmByDistrict(district) {
         function getQueries() {
-            let queries = [];
+            const queries = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(realmQueryByDistrict(i * 1000, district))

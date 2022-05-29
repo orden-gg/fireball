@@ -125,7 +125,7 @@ export default class CitadelScene extends Phaser.Scene {
                     return;
                 }
 
-                const parcel = citadelUtils.getParcelByCoords(
+                const parcel = citadelUtils.getParcelByTypeAndValueCoords(
                     this.settings.district,
                     this.getCursorFromCenter(pointer)
                 );
@@ -390,7 +390,7 @@ export default class CitadelScene extends Phaser.Scene {
 
         setMultiselect(ids) {
             const parcels = ids
-                .map(id => citadelUtils.getParcelBy('tokenId', id))
+                .map(id => citadelUtils.getParcelByTypeAndValue('tokenId', id))
                 .filter(parcel => parcel !== undefined);
 
             if(parcels.length === 0) {
@@ -423,9 +423,9 @@ export default class CitadelScene extends Phaser.Scene {
             if (typeof value === 'object') {
                 return value;
             } else if (isNaN(parseInt(value))) {
-                return citadelUtils.getParcelBy('parcelHash', citadelUtils.getParcedName(value));
+                return citadelUtils.getParcelByTypeAndValue('parcelHash', citadelUtils.getParcedName(value));
             } else {
-                return citadelUtils.getParcelBy('tokenId', value);
+                return citadelUtils.getParcelByTypeAndValue('tokenId', value);
             }
         }
 

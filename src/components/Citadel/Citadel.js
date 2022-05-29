@@ -98,7 +98,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     }, []);
 
     useEffect(() => {
-        if(game?.scene) {
+        if (game?.scene) {
             game.scene.on('created', () => setMapCreated(true));
 
             game.scene.on('parcelSelect', id => setSelectedParcel(id));

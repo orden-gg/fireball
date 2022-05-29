@@ -36,17 +36,17 @@ export default function ParcelImage({ parcel, parcelSize }) {
             context.beginPath();
             context.fillStyle = `rgb(
                 ${map[id]},
-                ${map[id+1]},
-                ${map[id+2]}
+                ${map[id + 1]},
+                ${map[id + 2]}
             )`;
-            context.fillRect(y,x, x+1,y+1);
+            context.fillRect(y, x, x + 1, y + 1);
         }
 
         const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
         context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
         context.lineWidth = 2;
-        drawRect(w/2, h/2);
+        drawRect(w / 2, h / 2);
         context.stroke();
     };
 
@@ -56,12 +56,13 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         setImageLoading(true);
 
-        gotchiverseApi.getParcelColorMap(parcel.parcelId, parcelSize).then(response => {
+        gotchiverseApi.getParcelColorBySizeMap(parcel.parcelId, parcelSize).then(response => {
             if (mounted) {
-                setImageLoading(false);
                 processColorsMap(response);
             }
-        }).catch(e => console.log(e));
+        })
+        .catch(e => console.log(e))
+        .finally(() => setImageLoading(false));
 
         return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
