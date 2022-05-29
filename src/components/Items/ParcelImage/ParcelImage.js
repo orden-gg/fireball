@@ -11,13 +11,11 @@ export default function ParcelImage({ parcel, parcelSize }) {
     const classes = styles();
     const canvasRef = useRef(null);
     const [imageLoading, setImageLoading] = useState(true);
+    const [imageMap, setImageMap] = useState([]);
 
-    const processColorsMap = (map) => {
-        const colorsSize = map.length/4;
+    const processColorsMap = () => {
+        const colorsSize = imageMap.length/4;
         const canvas = canvasRef.current;
-
-        if (!canvas) return;
-
         const context = canvas.getContext('2d');
 
         const drawRect = (width, height) => {
@@ -35,9 +33,9 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
             context.beginPath();
             context.fillStyle = `rgb(
-                ${map[id]},
-                ${map[id + 1]},
-                ${map[id + 2]}
+                ${imageMap[id]},
+                ${imageMap[id + 1]},
+                ${imageMap[id + 2]}
             )`;
             context.fillRect(y, x, x + 1, y + 1);
         }
@@ -50,7 +48,6 @@ export default function ParcelImage({ parcel, parcelSize }) {
         context.stroke();
     };
 
-
     useEffect(() => {
         let mounted = true;
 
@@ -58,7 +55,7 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         gotchiverseApi.getParcelColorBySizeMap(parcel.parcelId, parcelSize).then(response => {
             if (mounted) {
-                processColorsMap(response);
+                setImageMap(response);
             }
         })
         .catch(e => console.log(e))
@@ -67,6 +64,12 @@ export default function ParcelImage({ parcel, parcelSize }) {
         return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (imageMap.length > 0 && !imageLoading) {
+            processColorsMap();
+        }
+    }, [imageMap, imageLoading]);
 
     return (
         <div
