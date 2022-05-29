@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import BlurOnIcon from '@mui/icons-material/BlurOn';
-import BlurOffIcon from '@mui/icons-material/BlurOff';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
 import Citadel from 'components/Citadel/Citadel';
 import thegraphApi from 'api/thegraph.api';
@@ -56,7 +56,7 @@ export default function Map() {
                     parcels: combined,
                     type: 'listed',
                     active: false,
-                    icons: [<BlurOffIcon />, <BlurOnIcon />],
+                    icons: [<MoneyOffIcon />, <AttachMoneyIcon />],
                     tooltip: 'Listed realm',
                     range: {
                         humble: {min: humbleAsc, max: 500},
