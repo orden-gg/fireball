@@ -287,19 +287,13 @@ const itemStyles = makeStyles(theme => ({
     parcelCard: {
         padding: '0 0 28px',
         cursor: 'pointer',
-        border: '2px solid transparent',
+        border: '3px solid transparent',
         borderRadius: 0,
         '&:hover $parcelImageWrapper': {
             opacity: 1,
-            '& > div': {
-                transform: 'scale(1.3)',
+            '& canvas': {
+                transform: 'scale(1.2)',
             }
-        },
-        '&:hover $parcelType, &:hover $boosts': {
-            opacity: 1,
-        },
-        '&:hover $boosts': {
-            opacity: 1,
         }
     },
     parcelName: {
@@ -308,7 +302,7 @@ const itemStyles = makeStyles(theme => ({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        padding: '4px 0',
+        padding: '6px 0',
     },
     parcelImageWrapper: {
         opacity: .7,
@@ -318,11 +312,14 @@ const itemStyles = makeStyles(theme => ({
             transition: 'all .3s ease-in-out',
         }
     },
-    parcelType: {
-        padding: 4,
-        position: 'relative',
-        zIndex: 3,
-        opacity: .5
+    parcelSize: {
+        position: 'absolute',
+        top: 3,
+        left: 8,
+        zIndex: 1,
+        '& span': {
+            fontSize: 12
+        }
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -425,19 +422,19 @@ const tooltipStyles = makeStyles(theme => ({
             color: theme.palette.secondary.main
         },
         '.humble &': {
-            backgroundColor: theme.palette.realm.humble,
+            backgroundColor: lighten(theme.palette.realm.humble, .4),
             color: theme.palette.secondary.main
         },
         '.reasonable &': {
-            backgroundColor: theme.palette.realm.reasonable,
+            backgroundColor: lighten(theme.palette.realm.reasonable, .4),
             color: theme.palette.secondary.main
         },
         '.spacious &': {
-            backgroundColor: theme.palette.realm.spacious,
+            backgroundColor: lighten(theme.palette.realm.spacious, .4),
             color: theme.palette.secondary.main
         },
         '.partner &': {
-            backgroundColor: theme.palette.realm.spacious,
+            backgroundColor: lighten(theme.palette.realm.partner, .4),
             color: theme.palette.secondary.main
         }
     },
@@ -566,36 +563,42 @@ const parselStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 36,
-        marginTop: '-36px',
+        minHeight: 40,
+        marginTop: '-40px',
         position: 'relative',
         padding: '8px 0',
-        opacity: .7,
         transition: 'opacity .3s ease-in-out',
         zIndex: 3
     },
     boost: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0 4px',
+        padding: '2px 4px',
         color: theme.palette.secondary.main,
         fontSize: 14,
         fontWeight: 600,
         borderRadius: 2,
+        lineHeight: 1,
+        border: '2px solid transparent',
+        margin: '0 2px',
         '& img': {
-            marginRight: 2
+            marginRight: 4
         },
         '&.fud': {
-            backgroundColor: theme.palette.alchemica.fud
+            backgroundColor: lighten(theme.palette.alchemica.fud, .3),
+            borderColor: theme.palette.alchemica.fud
         },
         '&.fomo': {
-            backgroundColor: theme.palette.alchemica.fomo
+            backgroundColor: lighten(theme.palette.alchemica.fomo, .3),
+            borderColor: theme.palette.alchemica.fomo
         },
         '&.alpha': {
-            backgroundColor: theme.palette.alchemica.alpha
+            backgroundColor: lighten(theme.palette.alchemica.alpha, .3),
+            borderColor: theme.palette.alchemica.alpha
         },
         '&.kek': {
-            backgroundColor: theme.palette.alchemica.kek
+            backgroundColor: lighten(theme.palette.alchemica.kek, .3),
+            borderColor: theme.palette.alchemica.kek
         }
     },
     parcelPriceContainer: {

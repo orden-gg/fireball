@@ -148,9 +148,9 @@ const ClientContextProvider = (props) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
-            // const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
-            // const ids = gtch.map(gotchi => Number(gotchi.id));
-            // console.log('ids', ids)
+            const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
+            const ids = gtch.map(gotchi => Number(gotchi.id));
+            console.log('ids', ids)
 
             // if(ids.length) {
             //     thegraphApi.getGotchisGotchiverseInfo(ids)
@@ -307,7 +307,7 @@ const ClientContextProvider = (props) => {
                     parcels = parcels.map((parcel, index) => {
                         const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);
 
-                        console.log('isUpgrading', isUpgrading)
+                        // console.log('isUpgrading', isUpgrading)
 
                         return {
                             ...parcel,
@@ -319,7 +319,7 @@ const ClientContextProvider = (props) => {
                     });
                 }
 
-                // console.log('parcels', parcels)
+                console.log('parcels', parcels)
 
                 setRealm(commonUtils.basicSort(parcels, type, dir));
                 setLoadingRealm(false);

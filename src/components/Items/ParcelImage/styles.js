@@ -12,15 +12,16 @@ const styles = makeStyles(theme => ({
             height: '100%',
             position: 'absolute',
             top: 0,
-            left: 0
+            left: 0,
+            transition: 'transform .3s ease-in-out'
         },
         '& img': {
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            maxWidth: '60%',
-            maxHeight: '60%'
+            maxWidth: '50%',
+            maxHeight: '50%'
         }
     },
 }));

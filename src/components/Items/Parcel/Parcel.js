@@ -14,6 +14,7 @@ import ParcelName from './ParcelName';
 import ParcelInstallations from './ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 import CopyToClipboardBlock from 'components/CopyToClipboard/CopyToClipboardBlock';
+import ShineLabel from 'components/Labels/ShineLabel';
 
 export default function Parcel({ parcel }) {
     const classes = {
@@ -62,6 +63,10 @@ export default function Parcel({ parcel }) {
                             {parcel.district}
                         </div>
                     </CustomTooltip>
+                </div>
+
+                <div className={classes.parcelSize}>
+                    <ShineLabel text={itemUtils.getParcelDimmentions(parcel.size)} />
                 </div>
 
                 <div className={classes.parcelImageWrapper}>
