@@ -4,6 +4,10 @@ import parcelsData from 'data/parcels.json';
 import { CITADEL_WIDTH, CITADEL_HEIGHT, COLORS } from 'data/citadel.data';
 import guilds from 'data/guilds.json';
 import walls from 'assets/images/citadel/walls.svg';
+import fud from 'assets/images/citadel/fud.png';
+import fomo from 'assets/images/citadel/fomo.png';
+import alpha from 'assets/images/citadel/alpha.png';
+import kek from 'assets/images/citadel/kek.png';
 
 import Highlight from './Highlight';
 import CreateParcels from './CreateParcels';
@@ -36,6 +40,11 @@ export default class CitadelScene extends Phaser.Scene {
                 width: CITADEL_WIDTH * 1.5,
                 height: CITADEL_HEIGHT * 1.5
             });
+
+            this.load.image('fud', fud);
+            this.load.image('fomo', fomo);
+            this.load.image('alpha', alpha);
+            this.load.image('kek', kek);
         }
 
         create() {
@@ -47,6 +56,13 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.walls = this.add.image(0, 0, 'walls');
             this.walls.setScale(.6666666);
+
+            this.alchemica = {
+                fud: this.add.image(0, 0, 'fud'),
+                fomo: this.add.image(0, 0, 'fomo'),
+                alpha: this.add.image(0, 0, 'alpha'),
+                kek: this.add.image(0, 0, 'kek')
+            }
 
             this.districtHighLight = new Highlight(this, {color: COLORS.district.hover, size: 1});
             this.selected = new Highlight(this, {color: COLORS.parcels.selected, size: 2});
@@ -70,6 +86,10 @@ export default class CitadelScene extends Phaser.Scene {
             this.citadel = this.addCitadel();
 
             this.citadel.add(this.walls);
+            for (const [, alchemica] of Object.entries(this.alchemica)) {
+                alchemica.setScale(2);
+                this.citadel.add(alchemica);
+            }
             for (const key in this.districts) {
                 this.citadel.add(this.districts[key]);
             }
@@ -184,6 +204,13 @@ export default class CitadelScene extends Phaser.Scene {
             this.input.dragDistanceThreshold = 3;
 
             return citadel;
+        }
+
+        addAlchemicaImage(name) {
+            const image = this.add.image(0, 0, name);
+            image.setScale(2);
+
+            return image;
         }
 
         addSelectedParcel(value) {
