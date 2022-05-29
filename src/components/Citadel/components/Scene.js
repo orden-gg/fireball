@@ -85,11 +85,11 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.citadel = this.addCitadel();
 
-            this.citadel.add(this.walls);
             for (const [, alchemica] of Object.entries(this.alchemica)) {
                 alchemica.setScale(2);
                 this.citadel.add(alchemica);
             }
+            this.citadel.add(this.walls);
             for (const key in this.districts) {
                 this.citadel.add(this.districts[key]);
             }
@@ -380,6 +380,7 @@ export default class CitadelScene extends Phaser.Scene {
             }
 
             this.walls.setAlpha(fade);
+            for (const [, alchemica] of Object.entries(this.alchemica)) alchemica.setAlpha(fade/2);
         }
 
         reOrderItems() {
