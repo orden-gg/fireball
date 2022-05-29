@@ -307,6 +307,8 @@ const ClientContextProvider = (props) => {
                     parcels = parcels.map((parcel, index) => {
                         const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);
 
+                        console.log('isUpgrading', isUpgrading)
+
                         return {
                             ...parcel,
                             lastChanneled: parcelsInfo[index].lastChanneled,

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { IconButton } from '@mui/material';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+
+import classNames from 'classnames';
 
 import CustomTooltip from 'components/custom/CustomTooltip.js';
 
@@ -10,7 +10,7 @@ const defaultTooltipText = <span>
     copy to <span className='highlight'>clipboard</span>
 </span>;
 
-export default function CopyToClipboardBlock({ children, text }) {
+export default function CopyToClipboardBlock({ children, text, className }) {
     const classes = styles();
     const [tooltipText, setTooltipText] = useState(defaultTooltipText);
 
@@ -34,20 +34,13 @@ export default function CopyToClipboardBlock({ children, text }) {
             className={classes.tooltip}
         >
             <div
-                className={classes.block}
+                className={classNames(classes.block, className)}
                 onClick={(event) => copyText(event, text)}
                 onMouseEnter={() => setTooltipText(defaultTooltipText)}
             >
                 <span>{children}</span>
-                <ContentCopyIcon className={classes.blockIcon} />
+                {/* <ContentCopyIcon className={classes.blockIcon} /> */}
             </div>
-            {/* <IconButton
-                className={classes.button}
-                onClick={(event) => copyText(event, text)}
-                onMouseEnter={() => setTooltipText(defaultTooltipText)}
-            >
-                <ContentCopyIcon className={classes.icon} />
-            </IconButton> */}
         </CustomTooltip>
     );
 }

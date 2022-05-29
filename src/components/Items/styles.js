@@ -214,6 +214,8 @@ const itemStyles = makeStyles(theme => ({
         textAlign: 'center',
         minHeight: '100%',
         position: 'relative',
+        transition: 'background-color .3s ease-in-out',
+        overflow: 'hidden',
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
@@ -236,19 +238,35 @@ const itemStyles = makeStyles(theme => ({
             backgroundColor: alpha(theme.palette.rarity.drop, .1)
         },
         '&.humble': {
-            backgroundColor: alpha(theme.palette.realm.humble, .15)
+            backgroundColor: alpha(theme.palette.realm.humble, .15),
+            borderColor: theme.palette.realm.humble,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.humble, .2),
+            }
         },
         '&.reasonable': {
-            backgroundColor: alpha(theme.palette.realm.reasonable, .15)
+            backgroundColor: alpha(theme.palette.realm.reasonable, .15),
+            borderColor: theme.palette.realm.reasonable,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.reasonable, .2),
+            }
         },
         '&.spacious': {
-            backgroundColor: alpha(theme.palette.realm.spacious, .15)
+            backgroundColor: alpha(theme.palette.realm.spacious, .15),
+            borderColor: theme.palette.realm.spacious,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.spacious, .2),
+            }
         },
         '&.golden': {
             backgroundColor: alpha(theme.palette.rarity.golden, .15)
         },
         '&.partner': {
-            backgroundColor: alpha(theme.palette.realm.partner, .15)
+            backgroundColor: alpha(theme.palette.realm.partner, .15),
+            borderColor: theme.palette.realm.partner,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.partner, .2),
+            }
         },
         '&.realm-generic': {
             backgroundColor: alpha('#c1a415', 0.15)
@@ -267,24 +285,51 @@ const itemStyles = makeStyles(theme => ({
         }
     },
     parcelCard: {
-        padding: '28px 0'
-        // display: 'flex',
-        // alignItems: 'center',
-        // flexDirection: 'column',
-        // '& > div': {
-        //     flexGrow: 1
-        // }
-        // height: 320
+        padding: '0 0 28px',
+        cursor: 'pointer',
+        border: '2px solid transparent',
+        borderRadius: 0,
+        '&:hover $parcelImageWrapper': {
+            opacity: 1,
+            '& > div': {
+                transform: 'scale(1.3)',
+            }
+        },
+        '&:hover $parcelType, &:hover $boosts': {
+            opacity: 1,
+        },
+        '&:hover $boosts': {
+            opacity: 1,
+        }
     },
     parcelName: {
-        fontSize: 17,
-        textShadow: `1px 1px 0px ${alpha('#000', .4)}`,
+        fontSize: 16,
+        textShadow: `1px 1px 0px ${alpha('#000', .3)}`,
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        padding: '4px 0',
+    },
+    parcelImageWrapper: {
+        opacity: .7,
+        overflow: 'hidden',
+        transition: 'opacity .3s ease-in-out',
+        '& > div': {
+            transition: 'all .3s ease-in-out',
+        }
+    },
+    parcelType: {
+        padding: 4,
+        position: 'relative',
+        zIndex: 3,
+        opacity: .5
     },
     itemBalanceDivider: {
         margin: '0 2px'
+    },
+    idHash: {
+        fontWeight: 600,
+        padding: '0 4px !important',
     }
 }));
 
@@ -301,10 +346,8 @@ const tooltipStyles = makeStyles(theme => ({
         position: 'absolute',
         top: 0,
         right: 0,
+        zIndex: 1,
         display: 'flex',
-        '& div:last-child': {
-            borderTopRightRadius: 4
-        },
     },
     label: {
         display: 'flex',
@@ -380,10 +423,26 @@ const tooltipStyles = makeStyles(theme => ({
         '.golden &': {
             backgroundColor: theme.palette.rarity.golden,
             color: theme.palette.secondary.main
+        },
+        '.humble &': {
+            backgroundColor: theme.palette.realm.humble,
+            color: theme.palette.secondary.main
+        },
+        '.reasonable &': {
+            backgroundColor: theme.palette.realm.reasonable,
+            color: theme.palette.secondary.main
+        },
+        '.spacious &': {
+            backgroundColor: theme.palette.realm.spacious,
+            color: theme.palette.secondary.main
+        },
+        '.partner &': {
+            backgroundColor: theme.palette.realm.spacious,
+            color: theme.palette.secondary.main
         }
     },
     labelBalance: {
-        backgroundColor: alpha(theme.palette.secondary.dark, .8),
+        backgroundColor: theme.palette.secondary.dark,
         minWidth: 34,
     },
     labelListing: {
@@ -507,8 +566,14 @@ const parselStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: 36,
+        marginTop: '-36px',
+        position: 'relative',
+        padding: '8px 0',
+        opacity: .7,
+        transition: 'opacity .3s ease-in-out',
+        zIndex: 3
     },
-
     boost: {
         display: 'flex',
         alignItems: 'center',
@@ -517,7 +582,6 @@ const parselStyles = makeStyles(theme => ({
         fontSize: 14,
         fontWeight: 600,
         borderRadius: 2,
-        marginTop: 8,
         '& img': {
             marginRight: 2
         },
@@ -533,14 +597,6 @@ const parselStyles = makeStyles(theme => ({
         '&.kek': {
             backgroundColor: theme.palette.alchemica.kek
         }
-    },
-
-    callMadeIcon: {
-        position: 'absolute',
-        right: 2,
-        bottom: 2,
-        fontSize: 14,
-        color: '#fff'
     },
     parcelPriceContainer: {
         position: 'absolute',

@@ -4,7 +4,7 @@ import installationsUtils from 'utils/installationsUtils';
 
 import { channelingStyles } from '../styles';
 
-export default function ParcelInstallations({ installations, upgrading }) {
+export default function ParcelInstallations({ parcel, installations, upgrading }) {
     const classes = channelingStyles();
 
     return (
@@ -12,7 +12,7 @@ export default function ParcelInstallations({ installations, upgrading }) {
             { installations.map((inst, index) => {
                 const metadata = installationsUtils.getMetadataById(inst);
 
-                // console.log(inst, metadata)
+                // console.log('parcel', parcel)
 
                 return <div key={index}>
                     {/* installation: {inst} */}

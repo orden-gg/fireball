@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
+import gotchiverseApi from 'api/gotchiverse.api';
 import { COLORS } from 'data/citadel.data';
 
 import styles from './styles';
@@ -78,13 +78,13 @@ export default function ParcelImage({ parcel, imageSize }) {
 
         setImageLoading(true);
 
-        axios.get(`https://api.gotchiverse.io/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${parcel.parcelId},${imageSize}`)
-            .then((res) => {
+        gotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
+            .then(res => {
                 if (mounted) {
                     setImageLoading(false);
-                    processColorsMap(res.data);
+                    processColorsMap(res);
                 }
-            });
+            })
 
         return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +93,7 @@ export default function ParcelImage({ parcel, imageSize }) {
     return (
         <div
             className={classes.image}
-            style={{ width: imageSize, height: imageSize }}
+            style={{ width: imageSize }}
         >
             { imageLoading ? (
                 <GotchiverseGif width='100%' height='100%' />

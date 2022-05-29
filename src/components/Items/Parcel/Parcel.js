@@ -1,18 +1,19 @@
-import React from 'react';
-import { Tooltip, Typography } from '@mui/material';
+import React, { useState } from 'react';
 
 import classNames from 'classnames';
 
-// import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
+import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
+import CustomTooltip from 'components/custom/CustomTooltip';
+import ChannelingInfo from 'components/ChannelingInfo/ChannelingInfo';
+import CustomModal from 'components/Modal/Modal';
+import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import itemUtils from 'utils/itemUtils';
 
 import ParcelName from './ParcelName';
-// import ParcelChanelling from './ParcelChanneling';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-// import installationsApi from 'api/installations.api';
-import ChannelingInfo from 'components/ChannelingInfo/ChannelingInfo';
 import ParcelInstallations from './ParcelInstallations';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import CopyToClipboardBlock from 'components/CopyToClipboard/CopyToClipboardBlock';
 
 export default function Parcel({ parcel }) {
     const classes = {
@@ -22,90 +23,96 @@ export default function Parcel({ parcel }) {
         ...parselStyles()
     };
 
+    const [modalOpen, setModalOpen] = useState(false);
+
     const size = itemUtils.getParcelSize(parcel.size);
 
-    // const [aaltar, setAaltar] = useState({id: null})
-    // const [aaltarLoading, setAaltarLoading] = useState(true)
-
-    // const boosts = {
-    //     fud: parcel.fudBoost,
-    //     fomo: parcel.fomoBoost,
-    //     alpha: parcel.alphaBoost,
-    //     kek: parcel.kekBoost
-    // };
-
-    // useEffect(() => {
-    //     installationsApi.getParcelInstallations(parcel.tokenId).then(res => {
-    //         console.log(`${parcel.tokenId} / ${itemUtils.getParcelSize(parcel.size)}: `, res);
-    //         setAaltar(res)
-    //         setAaltarLoading(false)
-    //     })
-    // }, [parcel]);
+    const boosts = {
+        fud: parcel.fudBoost,
+        fomo: parcel.fomoBoost,
+        alpha: parcel.alphaBoost,
+        kek: parcel.kekBoost
+    };
 
     return (
-        <div className={classNames(classes.item, size, classes.parcelCard)}>
-            <div className={classes.labels}>
-                <Tooltip
-                    title='District'
-                    classes={{ tooltip: classes.customTooltip }}
-                    placement='top'
-                    followCursor
-                >
-                    <div className={classNames(classes.label, classes.labelBalance)}>
-                        <Typography variant='subtitle2'>
+        <>
+            <div
+                className={classNames(classes.item, size, classes.parcelCard)}
+                onClick={() => setModalOpen(true)}
+            >
+                <div className={classes.labels}>
+                    <CopyToClipboardBlock
+                        className={classNames(
+                            classes.label,
+                            classes.labelTotal,
+                            classes.labelRarityColored,
+                            classes.idHash
+                        )}
+                        text={parcel.tokenId}
+                    >
+                        #{parcel.tokenId}
+                    </CopyToClipboardBlock>
+
+                    <CustomTooltip
+                        title='District'
+                        placement='top'
+                        followCursor
+                    >
+                        <div className={classNames(classes.label, classes.labelBalance)}>
                             {parcel.district}
-                        </Typography>
-                    </div>
-                </Tooltip>
-            </div>
-
-            <ParcelImage key={parcel.parcelId} parcel={parcel} imageSize={160} />
-
-            <div className={classNames(classes.label, classes.labelSlot)}>
-                [{parcel.tokenId}]
-            </div>
-
-            <ParcelName parcel={parcel} />
-
-            {/* { aaltarLoading ? (
-                <span style={{ color: 'orange'}}>loading..</span>
-            ) : (
-                aaltar?.id ? (
-                    <span>{aaltar.id} level {aaltar.level}</span>
-                ) : (
-                    <span style={{ color: 'red' }}>No AALTAR!!</span>
-                )
-            )} */}
-
-            { parcel.lastChanneled && (
-                <ChannelingInfo last={parcel.lastChanneled} readyIn={'?'} />
-            )}
-
-            { parcel.installations && (
-                <ParcelInstallations installations={parcel.installations} upgrading={parcel.upgrading} />
-            )}
-
-            {/* <ParcelChanelling parcelId={parcel.tokenId} />
-
-            <div className={classes.boosts}>
-                {Object.entries(boosts).map((boost, i) => {
-                    let key = boost[0];
-                    let value = boost[1];
-
-                    return value > 0 ? (
-                        <div className={classNames(classes.boost, key)} key={i}>
-                            <img src={itemUtils.getAlchemicaImg(key)} alt={key} width={13} />
-                            {value}
                         </div>
-                    ) : (
-                        null
-                    )
-                })}
+                    </CustomTooltip>
+                </div>
+
+                <div className={classes.parcelImageWrapper}>
+                    <ParcelImage
+                        parcel={parcel}
+                        imageSize={300}
+                        key={parcel.parcelId}
+                    />
+                </div>
+
+                <div className={classes.boosts}>
+                    {Object.entries(boosts).map((boost, i) => {
+                        let key = boost[0];
+                        let value = boost[1];
+
+                        return value > 0 ? (
+                            <div className={classNames(classes.boost, key)} key={i}>
+                                <img src={itemUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                {value}
+                            </div>
+                        ) : (
+                            null
+                        )
+                    })}
+                </div>
+
+                <ParcelName parcel={parcel} />
+
+                { parcel.lastChanneled && (
+                    <ChannelingInfo
+                        last={parcel.lastChanneled}
+                        readyIn={'?'} />
+                )}
+
+                { parcel.installations && (
+                    <ParcelInstallations
+                        parcel={parcel}
+                        installations={parcel.installations}
+                        upgrading={parcel.upgrading}
+                    />
+                )}
+
+                <div className={classes.parcelPriceContainer}>
+                    <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
+                </div>
             </div>
 
-            <div className={classes.parcelPriceContainer}>
-                <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
-            </div> */}
-        </div>
+
+            <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
+                <ParcelPreview parcel={parcel} />
+            </CustomModal>
+        </>
     )
 }
