@@ -40,9 +40,6 @@ export default class DistrictNumber extends Phaser.GameObjects.Text {
     }
 
     getFontSize() {
-        return parseInt(this.text) === 1 ?
-            70 / this.scene.cameras.main.zoom :
-            35 / this.scene.cameras.main.zoom
+        return 35 / this.scene.cameras.main.zoom
     }
-
 }

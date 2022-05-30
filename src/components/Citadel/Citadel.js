@@ -168,6 +168,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     return (
         <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
+            <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
+
             <CitadelInterface>
                 <SearchForm
                     onSearch={findOnMap}
@@ -180,7 +182,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     placeholder="District id"
                 />
                 <Divider className={classes.interfaceDivider}/>
-                <FullscreenButton wrapperRef={wrapperRef} />
                 <BasicButton
                     type='grid'
                     tooltip='Districts grid'
@@ -199,7 +200,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 {basicButtons}
             </CitadelInterface>
 
-            <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
+            <FullscreenButton wrapperRef={wrapperRef} />
 
             <CitadelInfo />
 

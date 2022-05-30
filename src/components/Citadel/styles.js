@@ -26,14 +26,18 @@ const InterfaceStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        width: 1,
-        zIndex: 1
+        width: 1
     },
     citadelInterfaceButton: {
         margin: theme.spacing(.2, 0),
         '&:hover': {
             color: theme.palette.primary.main
         }
+    },
+    citadelFullscreen: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        bottom: theme.spacing(.8)
     },
     citadelSearch: {
         display: 'flex',
@@ -115,7 +119,7 @@ const LoaderStyles = makeStyles(theme => ({
 const InfoStyles = makeStyles(theme => ({
     infoContainer: {
         position: 'absolute',
-        right: theme.spacing(1),
+        left: theme.spacing(1),
         bottom: 0
     },
     infoItem: {

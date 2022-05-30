@@ -86,9 +86,10 @@ export default class CitadelScene extends Phaser.Scene {
             this.citadel = this.addCitadel();
 
             this.citadel.add(this.walls);
-            for (const [, alchemica] of Object.entries(this.alchemica)) {
+            for (const [key, alchemica] of Object.entries(this.alchemica)) {
                 alchemica.setScale(2);
                 this.citadel.add(alchemica);
+                alchemica.setTint(0xffffff);
             }
             for (const key in this.districts) {
                 this.citadel.add(this.districts[key]);
@@ -146,7 +147,7 @@ export default class CitadelScene extends Phaser.Scene {
                 }
 
                 const parcel = citadelUtils.getParcelByTypeAndValueCoords(
-                    this.settings.district,
+                    parseInt(this.settings.district),
                     this.getCursorFromCenter(pointer)
                 );
 
@@ -169,16 +170,14 @@ export default class CitadelScene extends Phaser.Scene {
 
                 this.cursorFromCenter = null;
 
-                if (id === undefined) {
-                    this.districtHighLight.setAlpha(0);
-                } else {
+                if (id !== this.settings.district) {
                     const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+
+                    this.trigger('districtHover', id, this.settings.district);
+                    this.settings.district = id;
 
                     this.districtHighLight.update(x, y, w, h);
                 }
-
-                this.settings.district = id;
-
             });
         }
 
@@ -372,6 +371,8 @@ export default class CitadelScene extends Phaser.Scene {
             this.moveToCenter(cx , cy, 500);
             this.zoomTo(this.getZoomBySize(w, h) * .9, 500);
             this.districtHighLight.update(x, y, w, h);
+            this.trigger('districtHover', id, this.settings.district);
+            this.settings.district = id;
         }
 
         fadeMap(fade) {
@@ -384,17 +385,17 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         reOrderItems() {
-            this.citadel.bringToTop(this.districtHighLight);
             this.citadel.bringToTop(this.selected);
             this.citadel.bringToTop(this.groups.guilds);
             this.citadel.bringToTop(this.groups.grid);
+            this.citadel.bringToTop(this.districtHighLight);
         }
 
         find(type, value) {
             if (type === 'parcel') {
                 this.addSelectedParcel(value);
             } else {
-                this.zoomToDistrict(parseInt(value));
+                this.zoomToDistrict(value);
             }
         }
 

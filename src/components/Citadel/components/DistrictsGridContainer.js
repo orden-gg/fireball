@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import { DISTRICTS } from 'data/citadel.data';
+import { COLORS, DISTRICTS } from 'data/citadel.data';
 
 import DistrictsGrid from './DistrictsGrid';
 import DistrictNumber from './DistrictNumber';
@@ -12,21 +12,33 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
 
         this.settings = settings;
 
-        this.add([
-            new DistrictsGrid(scene),
-            ...this.createGridNumbers(scene)
-        ]);
+        this.numbers = this.createGridNumbers(scene);
+
+        console.log(Object.entries(this.numbers).map(([, number]) => number));
+
+        this.add(new DistrictsGrid(scene));
+        this.add(Object.entries(this.numbers).map(([, number]) => number));
 
         this.show(settings.active);
+
+        scene.on('districtHover', (current, previous) => {
+            if (previous !== undefined) {
+                this.numbers[previous].setColor(`#${COLORS.grid.toString(16)}`);
+                this.numbers[previous].setAlpha(this.settings.active ? .7 : 0);
+            }
+
+            if (current !== undefined) {
+                this.numbers[current].setColor(`#${COLORS.district.hover.toString(16)}`);
+                this.numbers[current].setAlpha(.7);
+            }
+        });
     }
 
     createGridNumbers(scene) {
-        const numbers = [];
+        const numbers = {};
 
         for (const id in DISTRICTS.positions) {
-            numbers.push(
-                new DistrictNumber(scene, id)
-            );
+            numbers[id] = new DistrictNumber(scene, id);
         }
 
         return numbers;
@@ -35,10 +47,12 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
     show(isActive) {
         this.settings.active = isActive;
 
-        if (isActive) {
-            this.setAlpha(1)
-        } else {
-            this.setAlpha(0)
+        for(const item of this.list) {
+            item.setAlpha(isActive ? .7 : 0);
         }
+    }
+
+    showNumber(id) {
+        const number = this.numbers[id-1];
     }
 }

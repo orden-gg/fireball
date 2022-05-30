@@ -34,8 +34,8 @@ export default {
             return {
                 x: district.x * DISTRICTS.w - CITADEL_WIDTH / 2,
                 y: district.y * DISTRICTS.h - CITADEL_HEIGHT / 2,
-                w: district.w * DISTRICTS.w || DISTRICTS.w,
-                h: district.h * DISTRICTS.h || DISTRICTS.h
+                w: DISTRICTS.w,
+                h: DISTRICTS.h
             }
         }
     },

@@ -57,7 +57,12 @@ const DISTRICTS = Object.freeze({
         [8, 0, 8, 6],
     ],
     positions: {
-        1: {x: 3, y: 2, w: 3, h: 2},
+        '1a': {x: 3, y: 2},
+        '1b': {x: 4, y: 2},
+        '1c': {x: 5, y: 2},
+        '1d': {x: 3, y: 3},
+        '1e': {x: 4, y: 3},
+        '1f': {x: 5, y: 3},
         2: {x: 2, y: 3},
         3: {x: 2, y: 2},
         4: {x: 2, y: 1},
@@ -125,6 +130,12 @@ const COLORS = Object.freeze({
     logo: { back: 0x000000, border: 0xfd9af9 },
     district: {
         hover: 0x78b5fe
+    },
+    alchemica: {
+        fud: 0xffffff,
+        fomo: 0xfe1d02,
+        alpha: 0x01ffff,
+        kek: 0xee20ff
     }
 });
 
