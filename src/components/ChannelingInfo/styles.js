@@ -7,11 +7,8 @@ const styles = makeStyles(theme => ({
         padding: '4px 8px',
         background: alpha('#000', .2),
         borderRadius: 4,
-        // display: 'flex',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // width: 28,
-        // height: 28,
+        minHeight: 50, // ! BEWARE
+        alignItems: 'center',
         '& img': {
             display: 'block'
         },

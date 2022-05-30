@@ -305,6 +305,7 @@ const ClientContextProvider = (props) => {
                         thegraphApi.getParcelsGotchiverseInfo(parcelIds),
                         installationsApi.getAllUpgradeQueue(),
                     ]);
+                    // const parcelsInfo = await thegraphApi.getParcelsGotchiverseInfo(parcelIds);
 
                     parcels = parcels.map((parcel, index) => {
                         const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);

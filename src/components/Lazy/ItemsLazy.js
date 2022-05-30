@@ -7,7 +7,6 @@ const ListContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(192px,1fr));
     grid-gap: 12px;
-    grid-auto-rows: 1fr;
 `;
 
 const NoContent = styled.div`

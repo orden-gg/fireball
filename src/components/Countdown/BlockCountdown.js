@@ -16,7 +16,7 @@ const shortFormat = {
     minutes: { key: 'mm', value: 'm', showIfZero: false },
 };
 
-export default function BlockCountdown({ block, props }) {
+export default function BlockCountdown({ block, ...props }) {
     const [timestamp, setTimestamp] = useState(null);
 
     useEffect(() => {
@@ -37,9 +37,6 @@ export default function BlockCountdown({ block, props }) {
     }
 
     return (
-        <>
-            ≈
-            <Countdown targetDate={timestamp} shortFormat={shortFormat} {...props} />
-        </>
+        <Countdown targetDate={timestamp} shortFormat={shortFormat} {...props} />
     )
 }
