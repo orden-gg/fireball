@@ -57,7 +57,7 @@ const initialFilters = {
     size: { ...filtersData.size, divider: true },
     district: { ...filtersData.district},
 };
-const queryParamsOrder = ['sort', 'dir'];
+const queryParamsOrder = ['district', 'size', 'sort', 'dir'];
 
 export default function ClientRealmList() {
     const history = useHistory();
