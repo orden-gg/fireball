@@ -3,12 +3,12 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        margin: '8px 0 0',
         padding: '4px 8px',
         background: alpha('#000', .2),
         borderRadius: 4,
         minHeight: 50, // ! BEWARE
         alignItems: 'center',
+        borderTop: `2px solid ${alpha('#000', .2)}`,
         '& img': {
             display: 'block'
         },

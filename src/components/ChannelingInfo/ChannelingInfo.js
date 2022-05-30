@@ -26,16 +26,20 @@ export default function ChannelingInfo({ parcel }) {
 
     return (
         <div className={classes.container}>
+            <div style={{ flexBasis: '100%', color: 'aqua' }}>Channeling!</div>
             <div className={classes.inner}>
                 last:
                 <Countdown targetDate={lastChanneled} shortFormat={countdownFormat} />
             </div>
             <div className={classes.inner}>
                 ready:
-                <Countdown
-                    targetDate={nextChannel}
-                    shortFormat={countdownFormat}
-                    replacementComponent={<span style={{ color: 'lime' }}>Now!</span>} />
+                <span style={{ color: 'orange' }}>
+                    <Countdown
+                        targetDate={nextChannel}
+                        shortFormat={countdownFormat}
+                        replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
+                    />
+                </span>
             </div>
         </div>
     )

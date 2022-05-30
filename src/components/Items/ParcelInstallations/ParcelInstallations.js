@@ -14,8 +14,21 @@ export default function ParcelInstallations({ parcel }) {
                 const metadata = installationsUtils.getMetadataById(inst);
 
                 return <div className={classes.installation} key={index}>
+                    <div style={{ flexBasis: '100%', color: 'deeppink' }}>Altar!</div>
                     <div>lvl: <span style={{ color: 'yellow' }}>{metadata.level}</span></div>
-                    <div>cd: {metadata.cooldown}h</div>
+                    <div>cd: <span style={{ color: 'yellow' }}>{metadata.cooldown}h</span></div>
+                    <div>radius: <span style={{ color: 'yellow' }}>{metadata.spillRadius}</span></div>
+                    <div>rate: <span style={{ color: 'yellow' }}>{metadata.spillRate / 100}%</span></div>
+                    {/* <div style={{ display: 'flex', justifyContent: 'space-between', flexBasis: '100%' }}>
+                        <div>
+                            price:
+                        </div>
+                        <div style={{ color: 'yellow' }}>
+                            {metadata.alchemicaCost.map((alch, i) => {
+                                return <span key={i}>{alch} </span>
+                            })}
+                        </div>
+                    </div> */}
 
                     { parcel.upgrading && (
                         !parcel.upgrading.claimed && (
