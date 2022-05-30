@@ -298,6 +298,8 @@ const ClientContextProvider = (props) => {
                 let parcels = res;
                 const parcelIds = res.map(parcel => parcel.tokenId);
 
+                console.log('parcels arrived', parcels);
+
                 if (parcelIds.length) {
                     const [parcelsInfo, parcelUpgrades] = await Promise.all([
                         thegraphApi.getParcelsGotchiverseInfo(parcelIds),
@@ -314,12 +316,12 @@ const ClientContextProvider = (props) => {
                             lastChanneled: parcelsInfo[index].lastChanneled,
                             installations: parcelsInfo[index].installations,
                             altarLevel: installationsUtils.getLevelById(parcelsInfo[index].installations[0]),
-                            upgrading: isUpgrading ? true : false
+                            upgrading: isUpgrading ? isUpgrading : false,
                         }
                     });
                 }
 
-                console.log('parcels', parcels)
+                console.log('parcels modified', parcels)
 
                 setRealm(commonUtils.basicSort(parcels, type, dir));
                 setLoadingRealm(false);

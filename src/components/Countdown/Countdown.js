@@ -60,7 +60,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
         }
 
         if (targetDate - now > 0 ) {
-            formattedTimeString = `In ${formattedTimeString}`;
+            formattedTimeString = `in ${formattedTimeString}`;
         } else if (targetDate - now < 0) {
             formattedTimeString = `${formattedTimeString} ago`;
         }

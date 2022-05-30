@@ -20,6 +20,25 @@ export default {
         return ethers.utils.formatUnits(value, 0);
     },
 
+    async getFutureBlockTimestamp(block, network) { // UTC timezone timestamp
+        const provider = this.getProvider(network);
+
+        return await provider.getBlock()
+            .then(async res => {
+                const currentTimestamp = res.timestamp;
+                const blocksDiff = block - res.number;
+                const averageBlockTime = 2.3; // seconds
+
+                if (blocksDiff < 0) {
+                    return await (await provider.getBlock(block)).timestamp;
+                }
+
+                const futureTimestamp = (averageBlockTime * blocksDiff) + currentTimestamp;
+
+                return parseInt(futureTimestamp)
+            });
+    },
+
     waitForTransaction(hash, network) {
         const provider = this.getProvider(network);
 
