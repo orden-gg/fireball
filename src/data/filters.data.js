@@ -5,23 +5,13 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import filterHelpers from 'utils/filterFunctions.helper';
-
-const defaultMultiSelectionFilter = {
-    isFilterActive: false,
-    getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
-    resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
-    predicateFn: filterHelpers.multipleSelectionPredicateFn,
-    updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
-    updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-    getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
-    getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
-}
 
 export const filtersData = {
     hauntId: {
@@ -126,16 +116,10 @@ export const filtersData = {
         max: 720,
         value: [0, 720],
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
         valueMapperFn: (value) => {
             return value.map(val => val * 60 * 60);
-        }
+        },
+        ...defaultRangeSliderFilter
     },
     splitBorrower: {
         key: 'splitBorrower',
@@ -146,14 +130,7 @@ export const filtersData = {
         min: 0,
         max: 100,
         value: [0, 100],
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
+        ...defaultRangeSliderFilter
     },
     upfrontCost: {
         key: 'upfrontCost',
@@ -164,17 +141,10 @@ export const filtersData = {
         min: 0,
         max: 100,
         value: [0, 100],
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
         valueMapperFn: (value) => {
             return value.map(val => ethersApi.toWei(val));
-        }
+        },
+        ...defaultRangeSliderFilter
     },
     size: {
         key: 'size',
