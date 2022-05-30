@@ -14,11 +14,13 @@ export default function ParcelInstallations({ parcel }) {
                 const metadata = installationsUtils.getMetadataById(inst);
 
                 return <div className={classes.installation} key={index}>
-                    <div style={{ flexBasis: '100%', color: 'deeppink' }}>Altar!</div>
-                    <div>lvl: <span style={{ color: 'yellow' }}>{metadata.level}</span></div>
-                    <div>cd: <span style={{ color: 'yellow' }}>{metadata.cooldown}h</span></div>
-                    <div>radius: <span style={{ color: 'yellow' }}>{metadata.spillRadius}</span></div>
-                    <div>rate: <span style={{ color: 'yellow' }}>{100 - (metadata.spillRate / 100)}%</span></div>
+                    <div style={{ color: 'deeppink' }}>Altar!</div>
+                    <div className={classes.row}>
+                        <div>lvl:<span style={{ color: 'yellow' }}>{metadata.level}</span></div>
+                        <div>cd:<span style={{ color: 'yellow' }}>{metadata.cooldown}h</span></div>
+                        {/* <div>radius: <span style={{ color: 'yellow' }}>{metadata.spillRadius}</span></div> */}
+                        <div>rate:<span style={{ color: 'yellow' }}>{100 - (metadata.spillRate / 100)}%</span></div>
+                    </div>
                     {/* <div style={{ display: 'flex', justifyContent: 'space-between', flexBasis: '100%' }}>
                         <div>
                             price:

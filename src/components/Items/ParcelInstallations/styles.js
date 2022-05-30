@@ -8,11 +8,14 @@ const styles = makeStyles(theme => ({
         borderBottom: `2px solid ${alpha('#000', .2)}`
     },
     installation: {
-        display: 'flex',
-        flexWrap: 'wrap',
         padding: '4px 8px',
+        minHeight: 72,
+    },
+    row: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
-        minHeight: 88,
     },
     upgrade: {
         flexBasis: '100% !important',

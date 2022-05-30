@@ -280,6 +280,7 @@ const itemStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: '32px 5px 5px',
         '& img': {
             minHeight: '30%'
         }
@@ -603,8 +604,9 @@ const parselStyles = makeStyles(theme => ({
     },
     parcelPriceContainer: {
         position: 'absolute',
-        right: '8px',
-        bottom: '8px'
+        right: 0,
+        bottom: 0,
+        left: 0
     },
     labelParselPrice: {
         color: theme.palette.secondary.main,
@@ -657,9 +659,10 @@ const portalStyles = makeStyles(theme => ({
         }
     },
     portalPriceContainer: {
-        position: 'absolute',
-        right: '8px',
-        bottom: '8px'
+        width: '100%'
+    //     position: 'absolute',
+    //     right: '8px',
+    //     bottom: '8px'
     },
 }));
 
