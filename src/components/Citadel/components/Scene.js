@@ -89,7 +89,7 @@ export default class CitadelScene extends Phaser.Scene {
             for (const [key, alchemica] of Object.entries(this.alchemica)) {
                 alchemica.setScale(2);
                 this.citadel.add(alchemica);
-                alchemica.setTint(0xffffff);
+                alchemica.setTintFill(COLORS.alchemica[key]);
             }
             for (const key in this.districts) {
                 this.citadel.add(this.districts[key]);

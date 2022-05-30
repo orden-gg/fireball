@@ -146,7 +146,7 @@
         ],
         "description": [
             { "title": "Description", "text": "OG Aair Gotchi Guild. Ballers and Scholars only." },
-            { 
+            {
                 "title": "Requirement",
                 "text": "Baller Requirement: At least 1 Aavegotchi with full Aair Gotchi wearable set. Scholar Requirement: Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]"
             },
@@ -154,10 +154,7 @@
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/chigotchibulls", "discord": "https://discord.gg/zaBBnG4VhA" },
-        "wearables": [225, 226, 227],
-        "home": [
-            [1993, 4156, 7884, 15630, 16618, 19047, 20329, 21152, 26737, 33356, 44646]
-        ]
+        "wearables": [225, 226, 227]
     },
     {
         "name": "cRekto Club",

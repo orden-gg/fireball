@@ -132,7 +132,7 @@ const COLORS = Object.freeze({
         hover: 0x78b5fe
     },
     alchemica: {
-        fud: 0xffffff,
+        fud: 0x01ff00,
         fomo: 0xfe1d02,
         alpha: 0x01ffff,
         kek: 0xee20ff
