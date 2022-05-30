@@ -80,7 +80,9 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
         }, interval);
 
         return () => clearInterval(timer);
-    }, []);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [targetDate]);
 
     const getLongFormattedTimeString = (diff, format) => {
         const formatKeys = Object.keys(format);
