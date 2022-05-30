@@ -308,14 +308,19 @@ const ClientContextProvider = (props) => {
 
                     parcels = parcels.map((parcel, index) => {
                         const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                        const altarLevel = installationsUtils.getLevelById(parcelsInfo[index].installations[0]);
+
+                        const cooldown = installationsUtils.getCooldownByLevel(altarLevel) * 60 * 60;
+                        const nextChannel = parcelsInfo[index].lastChanneled + cooldown;
 
                         // console.log('isUpgrading', isUpgrading)
 
                         return {
                             ...parcel,
                             lastChanneled: parcelsInfo[index].lastChanneled,
+                            nextChannel: nextChannel,
                             installations: parcelsInfo[index].installations,
-                            altarLevel: installationsUtils.getLevelById(parcelsInfo[index].installations[0]),
+                            altarLevel: altarLevel,
                             upgrading: isUpgrading ? isUpgrading : false,
                         }
                     });

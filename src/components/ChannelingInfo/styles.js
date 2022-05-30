@@ -27,6 +27,10 @@ const styles = makeStyles(theme => ({
         height: 28,
         borderRadius: 4
     },
+    inner: {
+        display: 'flex',
+        justifyContent: 'space-between'
+    }
 }));
 
 export default styles;

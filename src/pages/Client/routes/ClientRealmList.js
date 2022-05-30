@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import TimerIcon from '@mui/icons-material/Timer';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
@@ -29,10 +29,10 @@ const sortings = [
         icon: <HouseIcon fontSize='small' />
     },
     {
-        name: 'lastChanneled',
-        key: 'lastChanneled',
-        tooltip: 'last channeled',
-        icon: <AccessTimeIcon fontSize='small' />
+        name: 'nextChannel',
+        key: 'nextChannel',
+        tooltip: 'next channel',
+        icon: <TimerIcon fontSize='small' />
     },
     {
         name: 'altarLevel',

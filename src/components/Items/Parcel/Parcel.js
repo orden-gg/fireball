@@ -96,9 +96,7 @@ export default function Parcel({ parcel }) {
                 <ParcelName parcel={parcel} />
 
                 { parcel.lastChanneled && (
-                    <ChannelingInfo
-                        last={parcel.lastChanneled}
-                        readyIn={'?'} />
+                    <ChannelingInfo parcel={parcel} />
                 )}
 
                 { parcel.installations && (
