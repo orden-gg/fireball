@@ -148,9 +148,9 @@ const ClientContextProvider = (props) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
-            const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
-            const ids = gtch.map(gotchi => Number(gotchi.id));
-            console.log('ids', ids)
+            // const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
+            // const ids = gtch.map(gotchi => Number(gotchi.id));
+            // console.log('ids', ids)
 
             // if(ids.length) {
             //     thegraphApi.getGotchisGotchiverseInfo(ids)
@@ -298,17 +298,18 @@ const ClientContextProvider = (props) => {
                 let parcels = res;
                 const parcelIds = res.map(parcel => parcel.tokenId);
 
-                console.log('parcels arrived', parcels);
+                // console.log('parcels arrived', parcels);
 
                 if (parcelIds.length) {
                     const [parcelsInfo, parcelUpgrades] = await Promise.all([
                         thegraphApi.getParcelsGotchiverseInfo(parcelIds),
                         installationsApi.getAllUpgradeQueue(),
                     ]);
+                    const queue = parcelUpgrades.filter(item => !item.claimed);
                     // const parcelsInfo = await thegraphApi.getParcelsGotchiverseInfo(parcelIds);
 
                     parcels = parcels.map((parcel, index) => {
-                        const isUpgrading = parcelUpgrades.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                        const isUpgrading = queue.find(upgrade => upgrade.parcelId === parcel.tokenId);
                         const altarLevel = installationsUtils.getLevelById(parcelsInfo[index].installations[0]);
 
                         const cooldown = installationsUtils.getCooldownByLevel(altarLevel) * 60 * 60;
@@ -327,7 +328,7 @@ const ClientContextProvider = (props) => {
                     });
                 }
 
-                console.log('parcels modified', parcels)
+                // console.log('parcels modified', parcels)
 
                 setRealm(commonUtils.basicSort(parcels, type, dir));
                 setLoadingRealm(false);
