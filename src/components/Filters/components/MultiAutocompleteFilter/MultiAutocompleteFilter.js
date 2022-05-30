@@ -1,9 +1,6 @@
 import React, { useCallback } from 'react';
-import { Avatar, Chip } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 export default function MultiAutocompleteFilter({ option, onSetSelectedFilters }) {
     const onHandleAutocompleteChange = useCallback((event, values) => {
@@ -22,18 +19,7 @@ export default function MultiAutocompleteFilter({ option, onSetSelectedFilters }
             renderInput={params => (
                 <TextField {...params} size='small' label={option.title} />
             )}
-            renderTags={(tagValue, getTagProps) =>
-                tagValue.map((option, index) => (
-                    <Chip
-                        label={option.title}
-                        size='small'
-                        avatar={
-                            <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
-                        }
-                        {...getTagProps({ index })}
-                    />
-                ))
-            }
+            renderTags={option.renderTagsFn}
         />
     );
 }
