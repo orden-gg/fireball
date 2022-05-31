@@ -76,9 +76,10 @@ const sortings = [
 ];
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
-    district: { ...filtersData.district},
+    nextChannel: { ...filtersData.nextChannel, divider: true },
+    district: { ...filtersData.district }
 };
-const queryParamsOrder = ['district', 'size', 'sort', 'dir'];
+const queryParamsOrder = ['size', 'isChannelingReady', 'district', 'sort', 'dir'];
 
 export default function ClientRealmList() {
     const history = useHistory();

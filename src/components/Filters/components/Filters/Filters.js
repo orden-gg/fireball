@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { FilterComponent } from 'data/filterTypes';
 
 import InputFilter from '../InputFilter/InputFilter';
+import CheckboxFilter from '../CheckboxFilter/CheckboxFilter';
 import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
@@ -29,6 +30,10 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:
                     componentToRender = <InputFilter {...filterProps} />;
+
+                    break;
+                case FilterComponent.Checkbox:
+                    componentToRender = <CheckboxFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.MultipleAutocomplete:

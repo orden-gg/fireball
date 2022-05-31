@@ -3,6 +3,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PercentIcon from '@mui/icons-material/Percent';
 
+import { DateTime } from 'luxon';
+
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
@@ -201,5 +203,30 @@ export const filtersData = {
             ))
         },
         ...defaultMultiSelectionFilter
+    },
+    nextChannel: {
+        key: 'nextChannel',
+        queryParamKey: 'isChannelingReady',
+        title: 'Is channeling ready',
+        value: false,
+        componentType: FilterComponent.Checkbox,
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        predicateFn: (filter, compareItem, key) => {
+            let predicate;
+
+            if (!filter.value || !Boolean(compareItem[key])) {
+                predicate = true;
+            } else {
+                predicate = DateTime.local().toSeconds() >= compareItem[key];
+            }
+
+            return predicate;
+        },
+        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
     },
 };
