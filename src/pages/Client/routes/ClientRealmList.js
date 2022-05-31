@@ -96,6 +96,8 @@ export default function ClientRealmList() {
     const [modifiedRealm, setModifiedRealm] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
+    const [loadingUpgrades, setLoadingUpgrades] = useState(false);
+    const [finishedUpgrades, setFinishedUpgrades] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
@@ -237,6 +239,8 @@ export default function ClientRealmList() {
     const getRealmAdditionalData = useCallback(() => {
         const parcelIds = realm.map(parcel => parcel.tokenId);
 
+        setLoadingUpgrades(true);
+
         Promise.all([
             getRealmInfo(parcelIds),
             getRealmUpgradesQueue(parcelIds)
@@ -257,6 +261,7 @@ export default function ClientRealmList() {
             console.log('modifiedParcels', modifiedParcels)
 
             setRealm(modifiedParcels);
+            setLoadingUpgrades(false);
         });
     }, [realm, setRealm]);
 
@@ -285,7 +290,7 @@ export default function ClientRealmList() {
     const getRealmUpgradesQueue = (realmIds) => {
         return installationsApi.getAllUpgradeQueue().then(async res => {
             const activeUpgrades = res
-                .map((que, i) => ({ ...que, upgradeIndex: i })) // add indexes (needed for finalizeUpgrade function)
+                .map((que, i) => ({ ...que, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
                 .filter(que => realmIds.some(id => id === que.parcelId && !que.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
@@ -304,11 +309,20 @@ export default function ClientRealmList() {
                     }
                 });
 
+                setFinishedUpgrades(upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex))
                 return upgradesWithTimestamps;
             }
 
             return activeUpgrades;
         });
+    }
+
+    const onUpgradesFinish = (ids) => {
+        if (!ids.length) {
+            return;
+        }
+
+        installationsApi.finalizeUpgrades(ids);
     }
 
     return (
@@ -333,19 +347,21 @@ export default function ClientRealmList() {
                 />
             </ContentInner>
 
-            <ActionPane dataLoading={loadingRealm}>
+            <ActionPane dataLoading={loadingUpgrades}>
                 <Button
                     variant='contained'
                     color='info'
                     fullWidth
                     sx={{ marginBottom: '8px' }}
+                    onClick={() => onUpgradesFinish(finishedUpgrades)}
+                    disabled={!realm.length || !finishedUpgrades.length}
                 >
-                    Finish upgrades ()
+                    Finish upgrades ({finishedUpgrades.length})
                 </Button>
 
-                <Alert severity='warning'>
+                <Alert severity='warning' icon={false}>
                     <AlertTitle>Use with caution!</AlertTitle>
-                    current section still under development, use only if you understand what you do!
+                    Current section still under development, use only if you understand what you do!
                 </Alert>
             </ActionPane>
         </>

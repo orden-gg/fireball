@@ -30,4 +30,17 @@ export default {
                 installationId: ethersApi.formatBigNumber(item.installationId),
             })));
     },
+
+    finalizeUpgrades(ids) {
+        const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+
+        console.log('ids', ids)
+        console.log('contractWithSigner', contractWithSigner)
+
+        // installationsContract.finalizeUpgrades(ids);
+
+        // return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+        //     Boolean(response.status)
+        // ));
+    },
 }
