@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { Alert, AlertTitle, Button } from '@mui/material';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -22,6 +21,8 @@ import { filtersData } from 'data/filters.data';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 import installationsUtils from 'utils/installationsUtils';
+
+import ClientRealmActions from '../components/ClientRealmActions';
 
 const sortings = [
     {
@@ -318,14 +319,6 @@ export default function ClientRealmList() {
         });
     }
 
-    const onUpgradesFinish = (ids) => {
-        if (!ids.length) {
-            return;
-        }
-
-        installationsApi.finalizeUpgrades(ids);
-    }
-
     return (
         <>
             <SortFilterPanel
@@ -349,21 +342,10 @@ export default function ClientRealmList() {
             </ContentInner>
 
             <ActionPane dataLoading={loadingUpgrades}>
-                <Button
-                    variant='contained'
-                    color='info'
-                    fullWidth
-                    sx={{ marginBottom: '8px' }}
-                    onClick={() => onUpgradesFinish(finishedUpgrades)}
-                    disabled={!realm.length || !finishedUpgrades.length}
-                >
-                    Finish upgrades ({finishedUpgrades.length})
-                </Button>
-
-                <Alert severity='warning' icon={false}>
-                    <AlertTitle>Use with caution!</AlertTitle>
-                    Current section still under development, use only if you understand what you do!
-                </Alert>
+                <ClientRealmActions
+                    realm={realm}
+                    finishedUpgrades={finishedUpgrades}
+                />
             </ActionPane>
         </>
     );
