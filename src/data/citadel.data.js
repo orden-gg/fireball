@@ -111,9 +111,9 @@ const DISTRICTS = Object.freeze({
         47: {x: 8, y: 3},
         48: {x: 8, y: 4},
         49: {x: 8, y: 5}
-    }
+    },
+    numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49]
 });
-const DISTRICTS_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49];
 const COLORS = Object.freeze({
     parcels: {
         selected: 0xfd9af9,
@@ -146,6 +146,5 @@ export {
     PARCEL_SIZE,
     PARCEL_NAME,
     DISTRICTS,
-    DISTRICTS_NUMBERS,
     COLORS
 }
