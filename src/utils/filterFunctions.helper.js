@@ -5,11 +5,6 @@ export default {
         return values.length > 0;
     },
 
-    multipleSelectionIsFilterValidFn: (filter) => {
-        filter.isFilterActive = false;
-        filter.items.forEach(item => item.isSelected = false);
-    },
-
     multipleSelectionResetFilterFn: (filter) => {
         filter.isFilterActive = false;
         filter.items.forEach(item => item.isSelected = false);
