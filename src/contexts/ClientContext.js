@@ -295,42 +295,9 @@ const ClientContextProvider = (props) => {
             .then(async (res) => {
                 const { type, dir } = realmSorting;
 
-                let parcels = res;
-                const parcelIds = res.map(parcel => parcel.tokenId);
+                console.log('parcels arrived', res);
 
-                // console.log('parcels arrived', parcels);
-
-                if (parcelIds.length) {
-                    const [parcelsInfo, parcelUpgrades] = await Promise.all([
-                        thegraphApi.getParcelsGotchiverseInfo(parcelIds),
-                        installationsApi.getAllUpgradeQueue(),
-                    ]);
-                    const queue = parcelUpgrades.filter(item => !item.claimed);
-                    // const parcelsInfo = await thegraphApi.getParcelsGotchiverseInfo(parcelIds);
-
-                    parcels = parcels.map((parcel, index) => {
-                        const isUpgrading = queue.find(upgrade => upgrade.parcelId === parcel.tokenId);
-                        const altarLevel = installationsUtils.getLevelById(parcelsInfo[index].installations[0]);
-
-                        const cooldown = installationsUtils.getCooldownByLevel(altarLevel) * 60 * 60;
-                        const nextChannel = parcelsInfo[index].lastChanneled + cooldown;
-
-                        // console.log('isUpgrading', isUpgrading)
-
-                        return {
-                            ...parcel,
-                            lastChanneled: parcelsInfo[index].lastChanneled,
-                            nextChannel: nextChannel,
-                            installations: parcelsInfo[index].installations,
-                            altarLevel: altarLevel,
-                            upgrading: isUpgrading ? isUpgrading : false,
-                        }
-                    });
-                }
-
-                // console.log('parcels modified', parcels)
-
-                setRealm(commonUtils.basicSort(parcels, type, dir));
+                setRealm(commonUtils.basicSort(res, type, dir));
                 setLoadingRealm(false);
             })
             .catch((error) => {
@@ -405,6 +372,7 @@ const ClientContextProvider = (props) => {
             setRealm,
             setRealmView,
             setRealmSorting,
+            setLoadingRealm,
 
             reward,
             rewardCalculated,

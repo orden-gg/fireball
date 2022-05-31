@@ -1,9 +1,17 @@
 import React from 'react';
-import BlockCountdown from 'components/Countdown/BlockCountdown';
 
+import { DateTime } from 'luxon';
+
+import Countdown from 'components/Countdown/Countdown';
 import installationsUtils from 'utils/installationsUtils';
 
 import styles from './styles';
+
+const dataFormat = {
+    days: { key: 'dd', value: 'd', showIfZero: false },
+    hours: { key: 'hh', value: 'h', showIfZero: false },
+    minutes: { key: 'mm', value: 'm', showIfZero: false },
+};
 
 export default function ParcelInstallations({ parcel }) {
     const classes = styles();
@@ -11,7 +19,7 @@ export default function ParcelInstallations({ parcel }) {
     return (
         <div className={classes.container}>
             { parcel.installations.map((inst, index) => {
-                const metadata = installationsUtils.getMetadataById(inst);
+                const metadata = installationsUtils.getMetadataById(inst.id);
 
                 return <div className={classes.installation} key={index}>
                     <div style={{ color: 'deeppink' }}>Altar!</div>
@@ -33,19 +41,22 @@ export default function ParcelInstallations({ parcel }) {
                     </div> */}
 
                     { parcel.upgrading && (
-                        !parcel.upgrading.claimed && (
-                            <div className={classes.upgrade}>
-                                upgrade:
-                                <div style={{ color: 'orange' }}>
-                                    <BlockCountdown
-                                        block={parcel.upgrading.readyBlock}
-                                        replacementComponent={<span style={{ color: 'lime' }}>Ready!</span>}
-                                    />
-                                </div>
-                                {/* <div>installation: {installationsUtils.getTypeById(parcel.upgrading.installationId)}</div>
-                                <div>level: {installationsUtils.getLevelById(parcel.upgrading.installationId)}</div> */}
+                        <div className={classes.upgrade}>
+                            upgrade:
+                            <div style={{ color: 'orange' }}>
+                                <Countdown
+                                    targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
+                                    shortFormat={dataFormat}
+                                    replacementComponent={<span style={{ color: 'lime' }}>Ready!</span>}
+                                />
+                                {/* <BlockCountdown
+                                    block={parcel.upgrading.readyBlock}
+                                    replacementComponent={<span style={{ color: 'lime' }}>Ready!</span>}
+                                /> */}
                             </div>
-                        )
+                            {/* <div>installation: {installationsUtils.getTypeById(parcel.upgrading.installationId)}</div>
+                            <div>level: {installationsUtils.getLevelById(parcel.upgrading.installationId)}</div> */}
+                        </div>
                     )}
                 </div>
             })}

@@ -69,26 +69,28 @@ export default {
         }
     },
 
-    getCooldownByLevel(lvl) {
+    getCooldownByLevel(lvl, units) {
+        const multiplier = units === 'milis' ? 3600000 : units === 'seconds' ? 3600 : 1;
+
         switch (lvl) {
             case 1:
-                return 24;
+                return 24 * multiplier;
             case 2:
-                return 18;
+                return 18 * multiplier;
             case 3:
-                return 12;
+                return 12 * multiplier;
             case 4:
-                return 8;
+                return 8 * multiplier;
             case 5:
-                return 6;
+                return 6 * multiplier;
             case 6:
-                return 4;
+                return 4 * multiplier;
             case 7:
-                return 3;
+                return 3 * multiplier;
             case 8:
-                return 2;
+                return 2 * multiplier;
             case 9:
-                return 1;
+                return 1 * multiplier;
             default:
                 return 0;
         }

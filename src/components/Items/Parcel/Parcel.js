@@ -95,16 +95,12 @@ export default function Parcel({ parcel }) {
 
                 <ParcelName parcel={parcel} />
 
-                { parcel.lastChanneled !== undefined && (
-                    <ChannelingInfo parcel={parcel} />
+                { parcel.channeling && (
+                    <ChannelingInfo channeling={parcel.channeling} />
                 )}
 
                 { parcel.installations && (
-                    <ParcelInstallations
-                        parcel={parcel}
-                        installations={parcel.installations}
-                        upgrading={parcel.upgrading}
-                    />
+                    <ParcelInstallations parcel={parcel} />
                 )}
 
                 <div className={classes.parcelPriceContainer}>

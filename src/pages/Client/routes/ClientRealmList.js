@@ -12,10 +12,14 @@ import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import Parcel from 'components/Items/Parcel/Parcel';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import installationsApi from 'api/installations.api';
+import thegraphApi from 'api/thegraph.api';
+import ethersApi from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
+import installationsUtils from 'utils/installationsUtils';
 
 const sortings = [
     {
@@ -84,6 +88,7 @@ export default function ClientRealmList() {
         realmSorting,
         setRealmSorting,
         loadingRealm,
+        setLoadingRealm,
         setRealmView
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
@@ -115,6 +120,14 @@ export default function ClientRealmList() {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (realm.length && !loadingRealm) {
+            getRealmAdditionalData();
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadingRealm]);
 
     useEffect(() => {
         const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
@@ -219,6 +232,82 @@ export default function ClientRealmList() {
     const getRealm = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedRealm : realm;
     }, [isSortingChanged, isFiltersApplied, modifiedRealm, realm]);
+
+    const getRealmAdditionalData = useCallback(() => {
+        const parcelIds = realm.map(parcel => parcel.tokenId);
+
+        console.log('getRealmAdditionalData triggered')
+        // setLoadingRealm(true); // ! How to get this working?
+
+        Promise.all([
+            getRealmInfo(parcelIds),
+            getRealmUpgradesQueue(parcelIds)
+        ])
+        .then(([realmInfo, realmUpgradesQueue]) => {
+            const modifiedParcels = realm.map((parcel, index) => {
+                const parcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+
+                return {
+                    ...parcel,
+                    channeling: realmInfo[index],
+                    installations: realmInfo[index].installations,
+                    upgrading: parcelUpgrading ? parcelUpgrading : undefined
+                };
+            });
+
+            console.log('parcels with additional data:', modifiedParcels);
+
+            setRealm(modifiedParcels);
+            // setLoadingRealm(false); // ! How to get this working?
+        })
+    }, [realm, setLoadingRealm]);
+
+    const getRealmInfo = (realmIds) => {
+        return thegraphApi.getParcelsGotchiverseInfo(realmIds).then(res => {
+            return res.map(parcel => {
+                const installations = parcel.installations.map(id => ({
+                    id: id,
+                    name: installationsUtils.getNameById(id),
+                    level: installationsUtils.getLevelById(id),
+                    type: installationsUtils.getTypeById(id)
+                }));
+                const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
+                const nextChannel = parcel.lastChanneled + cooldown;
+
+                return {
+                    lastChanneled: parcel.lastChanneled,
+                    nextChannel: nextChannel,
+                    cooldown: cooldown,
+                    installations: installations
+                };
+            });
+        })
+    }
+
+    const getRealmUpgradesQueue = (realmIds) => {
+        return installationsApi.getAllUpgradeQueue().then(async res => {
+            const activeUpgrades = res.filter(que => realmIds.some(id => id === que.parcelId && !que.claimed));
+
+            if (activeUpgrades.length) {
+                const lastBlock = await ethersApi.getLastBlock();
+
+                const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
+                    const currentBlock = upgrade.readyBlock;
+                    const timestamp = currentBlock - lastBlock.number > 0 ?
+                        ethersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
+
+                    return {
+                        ...upgrade,
+                        timestamp: timestamp
+                    }
+                });
+
+                return upgradesWithTimestamps;
+            }
+
+            return activeUpgrades;
+        });
+    }
 
     return (
         <>

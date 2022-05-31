@@ -442,6 +442,7 @@ const tooltipStyles = makeStyles(theme => ({
     labelBalance: {
         backgroundColor: theme.palette.secondary.dark,
         minWidth: 34,
+        fontWeight: 600
     },
     labelListing: {
         color: theme.palette.error.main,

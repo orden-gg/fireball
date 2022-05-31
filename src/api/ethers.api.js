@@ -20,23 +20,19 @@ export default {
         return ethers.utils.formatUnits(value, 0);
     },
 
-    async getFutureBlockTimestamp(block, network) { // UTC timezone timestamp
+    getLastBlock(network) {
         const provider = this.getProvider(network);
 
-        return await provider.getBlock()
-            .then(async res => {
-                const currentTimestamp = res.timestamp;
-                const blocksDiff = block - res.number;
-                const averageBlockTime = 2.3; // seconds
+        return provider.getBlock();
+    },
 
-                if (blocksDiff < 0) {
-                    return await (await provider.getBlock(block)).timestamp;
-                }
+    getFutureBlockTimestamp(currentBlock, futureBLock) {
+        const averageBlockTime = 2.3; // !TODO: need more accurate way to get average block time
+        const blocksDiff = futureBLock - currentBlock.number;
 
-                const futureTimestamp = (averageBlockTime * blocksDiff) + currentTimestamp;
+        console.log('blocksDiff func', blocksDiff)
 
-                return parseInt(futureTimestamp)
-            });
+        return parseInt((averageBlockTime * blocksDiff) + currentBlock.timestamp);
     },
 
     waitForTransaction(hash, network) {

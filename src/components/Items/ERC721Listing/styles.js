@@ -20,8 +20,7 @@ const styles = makeStyles(theme => ({
         filter: 'grayscale(1)',
         color: alpha(theme.palette.common.white, .5),
         background: alpha('#707070', .2),
-        paddingLeft: 12,
-        cursor: 'default'
+        paddingLeft: 12
     },
     listingLink: {
         display: 'flex',

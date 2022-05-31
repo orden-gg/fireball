@@ -12,13 +12,13 @@ const countdownFormat = {
     minutes: { key: 'mm', value: 'm', showIfZero: false },
 };
 
-export default function ChannelingInfo({ parcel }) {
+export default function ChannelingInfo({ channeling }) {
     const classes = styles();
 
-    const lastChanneled = DateTime.fromSeconds(parcel.lastChanneled).toMillis();
-    const nextChannel = DateTime.fromSeconds(parcel.nextChannel).toMillis();
+    const lastChanneled = DateTime.fromSeconds(channeling.lastChanneled).toMillis();
+    const nextChannel = DateTime.fromSeconds(channeling.nextChannel).toMillis();
 
-    if (parcel.lastChanneled === 0) {
+    if (channeling.lastChanneled === 0) {
         return <div className={classes.container} style={{ display: 'flex', justifyContent: 'center', color: 'red' }}>
             never channeled
         </div>
