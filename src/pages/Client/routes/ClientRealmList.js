@@ -254,7 +254,8 @@ export default function ClientRealmList() {
                     nextChannel: realmInfo[index].nextChannel,
                     altarLevel: realmInfo[index].installations[0].level,
                     installations: realmInfo[index].installations,
-                    upgrading: parcelUpgrading ? parcelUpgrading : undefined
+                    upgrading: parcelUpgrading ? parcelUpgrading : undefined,
+                    isUpgradeReady: parcelUpgrading?.ready ? true: false
                 };
             });
 
