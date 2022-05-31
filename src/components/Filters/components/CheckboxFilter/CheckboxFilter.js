@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Checkbox } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 
 export default function CheckboxFilter({ option, onSetSelectedFilters }) {
     const [isChecked, setIsChecked] = useState(false);
@@ -15,14 +17,16 @@ export default function CheckboxFilter({ option, onSetSelectedFilters }) {
     }, [option, onSetSelectedFilters]);
 
     return (
-        <div>
-            <Checkbox
-                edge="start"
-                size='small'
-                checked={isChecked}
-                onChange={(event) => onCheckboxChange(event.target.checked)}
+        <FormGroup>
+            <FormControlLabel
+                label={option.title}
+                control={
+                    <Checkbox
+                        checked={isChecked}
+                        onChange={(event) => onCheckboxChange(event.target.checked)}
+                    />
+                }
             />
-                <span>{option.title}</span>
-        </div>
+        </FormGroup>
     );
 }

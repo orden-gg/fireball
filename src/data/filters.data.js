@@ -229,4 +229,21 @@ export const filtersData = {
         getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
         getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
     },
+    isUpgradeReady: {
+        key: 'isUpgradeReady',
+        queryParamKey: 'upgraded',
+        title: 'Is upgrade ready',
+        value: false,
+        componentType: FilterComponent.Checkbox,
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        predicateFn: (filter, compareItem, key) => {
+            return filter.value && compareItem[key];
+        },
+        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
+    },
 };
