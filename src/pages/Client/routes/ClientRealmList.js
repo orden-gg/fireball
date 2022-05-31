@@ -76,11 +76,20 @@ const sortings = [
 ];
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
+    altarLevel: { ...filtersData.altarLevel, divider: true },
     nextChannel: { ...filtersData.nextChannel, divider: true },
     isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true },
     district: { ...filtersData.district }
 };
-const queryParamsOrder = ['size', 'isChannelingReady', 'district', 'sort', 'dir'];
+const queryParamsOrder = [
+    initialFilters.size.queryParamKey,
+    initialFilters.altarLevel.queryParamKey,
+    initialFilters.nextChannel.queryParamKey,
+    initialFilters.isUpgradeReady.queryParamKey,
+    initialFilters.district.queryParamKey,
+    'sort',
+    'dir'
+];
 
 export default function ClientRealmList() {
     const history = useHistory();

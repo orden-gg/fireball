@@ -246,4 +246,66 @@ export const filtersData = {
         getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
         getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
     },
+    altarLevel: {
+        key: 'altarLevel',
+        queryParamKey: 'altar',
+        items: [
+            {
+                title: 'Level 1',
+                value: '1',
+                isSelected: false,
+                queryParamValue: '1'
+            },
+            {
+                title: 'Level 2',
+                value: '2',
+                isSelected: false,
+                queryParamValue: '2'
+            },
+            {
+                title: 'Level 3',
+                value: '3',
+                isSelected: false,
+                queryParamValue: '3'
+            },
+            {
+                title: 'Level 4',
+                value: '4',
+                isSelected: false,
+                queryParamValue: '4'
+            },
+            {
+                title: 'Level 5',
+                value: '5',
+                isSelected: false,
+                queryParamValue: '5'
+            },
+            {
+                title: 'Level 6',
+                value: '6',
+                isSelected: false,
+                queryParamValue: '6'
+            },
+            {
+                title: 'Level 7',
+                value: '7',
+                isSelected: false,
+                queryParamValue: '7'
+            },
+            {
+                title: 'Level 8',
+                value: '8',
+                isSelected: false,
+                queryParamValue: '8'
+            },
+            {
+                title: 'Level 9',
+                value: '9',
+                isSelected: false,
+                queryParamValue: '9'
+            },
+        ],
+        componentType: FilterComponent.MultiButtonSelection,
+        ...defaultMultiSelectionFilter
+    },
 };

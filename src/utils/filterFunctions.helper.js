@@ -11,7 +11,9 @@ export default {
     },
 
     multipleSelectionPredicateFn: (filter, compareItem) => {
-        return filter.items.some(item => item.isSelected && item.value === compareItem[filter.key]);
+        return filter.items.some(item =>
+            item.isSelected && compareItem[filter.key] && item.value.toString() === compareItem[filter.key].toString()
+        );
     },
 
     multipleSelectionUpdateFromQueryFn: (filter, compareValue, compareKey) => {
