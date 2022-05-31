@@ -1,19 +1,22 @@
+import { Avatar, Chip } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PercentIcon from '@mui/icons-material/Percent';
 
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
+import { DISTRICTS_NUMBERS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
+import gotchiverseUtils from 'utils/gotchiverseUtils';
 import filterHelpers from 'utils/filterFunctions.helper';
 
 export const filtersData = {
     hauntId: {
         key: 'hauntId',
         queryParamKey: 'haunt',
-        componentType: FilterComponent.MultiButtonSelection,
         items: [
             {
                 title: 'Haunt 1',
@@ -28,33 +31,20 @@ export const filtersData = {
                 queryParamValue: '2'
             }
         ],
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
-        predicateFn: filterHelpers.multipleSelectionPredicateFn,
-        updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
+        componentType: FilterComponent.MultiButtonSelection,
+        ...defaultMultiSelectionFilter
     },
     collateral: {
         key: 'collateral',
         queryParamKey: 'collateral',
-        componentType: FilterComponent.MultiButtonSelection,
         items: collaterals.map(collateral => ({
             title: collateral.name,
             value: collateral.address,
             isSelected: false,
             queryParamValue: collateral.name.toLowerCase()
         })),
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
-        predicateFn: filterHelpers.multipleSelectionPredicateFn,
-        updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
+        componentType: FilterComponent.MultiButtonSelection,
+        ...defaultMultiSelectionFilter
     },
     search: {
         key: 'search',
@@ -87,14 +77,19 @@ export const filtersData = {
                 isSelected: false,
                 queryParamValue: commonUtils.stringToKey(guild.name)
             })),
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.multipleSelectionGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.multipleSelectionResetFilterFn,
-        predicateFn: filterHelpers.multipleSelectionPredicateFn,
-        updateFromQueryFn: filterHelpers.multipleSelectionUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.multipleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.multipleSelectionGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.multipleSelectionGetActiveFiltersCount
+        renderTagsFn: (tagValue, getTagProps) => {
+            return tagValue.map((option, index) => (
+                <Chip
+                    size='small'
+                    label={option.title}
+                    avatar={
+                        <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
+                    }
+                    {...getTagProps({ index })}
+                />
+            ))
+        },
+        ...defaultMultiSelectionFilter
     },
     whitelistId: {
         key: 'whitelistId',
@@ -121,16 +116,10 @@ export const filtersData = {
         max: 720,
         value: [0, 720],
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
         valueMapperFn: (value) => {
             return value.map(val => val * 60 * 60);
-        }
+        },
+        ...defaultRangeSliderFilter
     },
     splitBorrower: {
         key: 'splitBorrower',
@@ -141,14 +130,7 @@ export const filtersData = {
         min: 0,
         max: 100,
         value: [0, 100],
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
+        ...defaultRangeSliderFilter
     },
     upfrontCost: {
         key: 'upfrontCost',
@@ -159,16 +141,65 @@ export const filtersData = {
         min: 0,
         max: 100,
         value: [0, 100],
-        isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.rangeSliderGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.rangeSliderResetFilterFn,
-        predicateFn: filterHelpers.rangeSliderPredicateFn,
-        updateFromQueryFn: filterHelpers.rangeSliderUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.rangeSliderUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.rangeSliderGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount,
         valueMapperFn: (value) => {
             return value.map(val => ethersApi.toWei(val));
-        }
-    }
+        },
+        ...defaultRangeSliderFilter
+    },
+    size: {
+        key: 'size',
+        queryParamKey: 'size',
+        items: [
+            {
+                title: 'Humble',
+                value: '0',
+                isSelected: false,
+                queryParamValue: '0'
+            },
+            {
+                title: 'Reasonable',
+                value: '1',
+                isSelected: false,
+                queryParamValue: '1'
+            },
+            {
+                title: 'Spacious (64x32)',
+                value: '2',
+                isSelected: false,
+                queryParamValue: '2'
+            },
+            {
+                title: 'Spacious (32x64)',
+                value: '3',
+                isSelected: false,
+                queryParamValue: '3'
+            }
+        ],
+        componentType: FilterComponent.MultiButtonSelection,
+        ...defaultMultiSelectionFilter
+    },
+    district: {
+        key: 'district',
+        queryParamKey: 'district',
+        title: 'District',
+        items: DISTRICTS_NUMBERS
+            .filter(district => Boolean(district))
+            .map(district => ({
+                title: `${district}`,
+                value: `${district}`,
+                isSelected: false,
+                queryParamValue: `${district}`
+            })),
+        componentType: FilterComponent.MultipleAutocomplete,
+        renderTagsFn: (tagValue, getTagProps) => {
+            return tagValue.map((option, index) => (
+                <Chip
+                    size='small'
+                    label={option.title}
+                    {...getTagProps({ index })}
+                />
+            ))
+        },
+        ...defaultMultiSelectionFilter
+    },
 };
