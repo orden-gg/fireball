@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Alert, AlertTitle, Button } from '@mui/material';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -12,6 +13,7 @@ import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import Parcel from 'components/Items/Parcel/Parcel';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import ActionPane from 'shared/ActionPane/ActionPane';
 import installationsApi from 'api/installations.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
@@ -88,7 +90,6 @@ export default function ClientRealmList() {
         realmSorting,
         setRealmSorting,
         loadingRealm,
-        setLoadingRealm,
         setRealmView
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
@@ -236,31 +237,28 @@ export default function ClientRealmList() {
     const getRealmAdditionalData = useCallback(() => {
         const parcelIds = realm.map(parcel => parcel.tokenId);
 
-        console.log('getRealmAdditionalData triggered')
-        // setLoadingRealm(true); // ! How to get this working?
-
         Promise.all([
             getRealmInfo(parcelIds),
             getRealmUpgradesQueue(parcelIds)
-        ])
-        .then(([realmInfo, realmUpgradesQueue]) => {
+        ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map((parcel, index) => {
                 const parcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
 
                 return {
                     ...parcel,
                     channeling: realmInfo[index],
+                    nextChannel: realmInfo[index].nextChannel,
+                    altarLevel: realmInfo[index].installations[0].level,
                     installations: realmInfo[index].installations,
                     upgrading: parcelUpgrading ? parcelUpgrading : undefined
                 };
             });
 
-            console.log('parcels with additional data:', modifiedParcels);
+            console.log('modifiedParcels', modifiedParcels)
 
             setRealm(modifiedParcels);
-            // setLoadingRealm(false); // ! How to get this working?
-        })
-    }, [realm, setLoadingRealm]);
+        });
+    }, [realm, setRealm]);
 
     const getRealmInfo = (realmIds) => {
         return thegraphApi.getParcelsGotchiverseInfo(realmIds).then(res => {
@@ -286,19 +284,23 @@ export default function ClientRealmList() {
 
     const getRealmUpgradesQueue = (realmIds) => {
         return installationsApi.getAllUpgradeQueue().then(async res => {
-            const activeUpgrades = res.filter(que => realmIds.some(id => id === que.parcelId && !que.claimed));
+            const activeUpgrades = res
+                .map((que, i) => ({ ...que, upgradeIndex: i })) // add indexes (needed for finalizeUpgrade function)
+                .filter(que => realmIds.some(id => id === que.parcelId && !que.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
                 const lastBlock = await ethersApi.getLastBlock();
 
                 const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
                     const currentBlock = upgrade.readyBlock;
-                    const timestamp = currentBlock - lastBlock.number > 0 ?
+                    const isUpgradeReady = currentBlock - lastBlock.number <= 0;
+                    const timestamp = !isUpgradeReady ?
                         ethersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
 
                     return {
                         ...upgrade,
-                        timestamp: timestamp
+                        timestamp: timestamp,
+                        ready: isUpgradeReady
                     }
                 });
 
@@ -330,6 +332,22 @@ export default function ClientRealmList() {
                     component={(props) => <Parcel parcel={props} />}
                 />
             </ContentInner>
+
+            <ActionPane dataLoading={loadingRealm}>
+                <Button
+                    variant='contained'
+                    color='info'
+                    fullWidth
+                    sx={{ marginBottom: '8px' }}
+                >
+                    Finish upgrades ()
+                </Button>
+
+                <Alert severity='warning'>
+                    <AlertTitle>Use with caution!</AlertTitle>
+                    current section still under development, use only if you understand what you do!
+                </Alert>
+            </ActionPane>
         </>
     );
 }

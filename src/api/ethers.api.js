@@ -27,10 +27,8 @@ export default {
     },
 
     getFutureBlockTimestamp(currentBlock, futureBLock) {
-        const averageBlockTime = 2.3; // !TODO: need more accurate way to get average block time
+        const averageBlockTime = 2.2; // !TODO: need more accurate way to get average block time
         const blocksDiff = futureBLock - currentBlock.number;
-
-        console.log('blocksDiff func', blocksDiff)
 
         return parseInt((averageBlockTime * blocksDiff) + currentBlock.timestamp);
     },
