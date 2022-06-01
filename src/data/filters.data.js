@@ -239,7 +239,7 @@ export const filtersData = {
         getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
         resetFilterFn: filterHelpers.checkboxResetFilterFn,
         predicateFn: (filter, compareItem, key) => {
-            return filter.value && compareItem[key];
+            return !filter.value ? !filter.value : filter.value && compareItem[key];
         },
         updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
         updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
