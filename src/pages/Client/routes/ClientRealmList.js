@@ -307,6 +307,8 @@ export default function ClientRealmList() {
             if (activeUpgrades.length) {
                 const lastBlock = await ethersApi.getLastBlock();
 
+                console.log('lastBlock', lastBlock.number)
+
                 const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
                     const currentBlock = upgrade.readyBlock;
                     const isUpgradeReady = currentBlock - lastBlock.number <= 0;
@@ -320,6 +322,7 @@ export default function ClientRealmList() {
                     }
                 });
 
+                console.log('claimableUpgrades', upgradesWithTimestamps.filter(que => que.ready))
                 setClaimableUpgrades(
                     upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex)
                 );
