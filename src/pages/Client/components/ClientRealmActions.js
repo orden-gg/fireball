@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, AlertTitle, Button } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
+import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 
 import { useMetamask } from 'use-metamask';
 
+import { SnackbarContext } from 'contexts/SnackbarContext';
 import installationsApi from 'api/installations.api';
 
-import styles, { accountStyles } from '../styles';
+import { actionStyles } from '../styles';
 
-export default function ClientRealmActions({ realm, finishedUpgrades }) {
-    const classes = {
-        ...styles(),
-        ...accountStyles()
-    };
+export default function ClientRealmActions({ claimableList }) {
+    const classes = actionStyles();
     const [isUserConnected, setIsUserConnected] = useState(false);
+    const [transactionStatus, setTransactionStatus] = useState('default');
 
     const { metaState } = useMetamask();
+    const { showSnackbar } = useContext(SnackbarContext);
+
+    const isTransactionProcessing = transactionStatus === 'processing';
+    const isTransactionCompleted = transactionStatus === 'completed';
 
     useEffect(() => {
         const accounts = metaState.account;
@@ -26,20 +30,66 @@ export default function ClientRealmActions({ realm, finishedUpgrades }) {
     }, [metaState]);
 
     const onUpgradesFinish = (ids) => {
-        installationsApi.finalizeUpgrades(ids);
+        const succesMessage = `successefully finished ${ids.length} upgrades`;
+        const errorMessage = 'upgrades finishing went wrong :(';
+
+        setTransactionStatus('processing');
+
+        const slicedArray = ids.slice(0, 1);
+
+        console.log('slicedArray', slicedArray)
+
+        installationsApi.finalizeUpgrades(slicedArray)
+            .then(completed => {
+                if (completed) {
+                    showSnackbar('success', succesMessage);
+                    setTransactionStatus('completed');
+                } else {
+                    showSnackbar('error', errorMessage);
+                    setTransactionStatus('failed');
+                }
+            })
+            .catch(e => {
+                console.log(e);
+                setTransactionStatus('failed');
+            })
+    }
+
+    const renderButtonNode = (state) => {
+        switch (state) {
+            case 'completed':
+                return (
+                    <>
+                        Completed! <CheckIcon size='small' />
+                    </>
+                );
+            case 'processing':
+                return (
+                    <>
+                        Finishing <CircularProgress size={20} color='secondary' sx={{ marginLeft: '8px' }} />
+                    </>
+                );
+            default:
+                return (
+                    <>
+                        Finish upgrades ({claimableList.length})
+                    </>
+                );
+        }
     }
 
     return (
-        <div className={classes.actions}>
+        <div>
             <Button
                 variant='contained'
-                color='info'
+                color={isTransactionCompleted ? 'success' : 'info'}
                 fullWidth
                 sx={{ marginBottom: '8px' }}
-                onClick={() => onUpgradesFinish(finishedUpgrades)}
-                disabled={!realm.length || !finishedUpgrades.length || !isUserConnected}
+                onClick={() => onUpgradesFinish(claimableList)}
+                disabled={!claimableList.length || !isUserConnected || isTransactionProcessing}
+                className={isTransactionCompleted && classes.buttonCompleted}
             >
-                Finish upgrades ({finishedUpgrades.length})
+                {renderButtonNode(transactionStatus)}
             </Button>
 
             { !isUserConnected && (

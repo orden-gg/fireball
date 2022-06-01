@@ -290,49 +290,6 @@ const INSTALLATIONS_ABI = [
         {
           "indexed": true,
           "internalType": "uint256",
-          "name": "_realmId",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_coordinateX",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_coordinateY",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "blockInitiated",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "readyBlock",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "installationId",
-          "type": "uint256"
-        }
-      ],
-      "name": "UpgradeInitiated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
           "name": "_queueId",
           "type": "uint256"
         },
@@ -945,6 +902,11 @@ const INSTALLATIONS_ABI = [
           "internalType": "struct UpgradeQueue[]",
           "name": "output_",
           "type": "tuple[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "indexes_",
+          "type": "uint256[]"
         }
       ],
       "stateMutability": "view",
@@ -1309,24 +1271,6 @@ const INSTALLATIONS_ABI = [
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "_queueId",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint40",
-          "name": "_amount",
-          "type": "uint40"
-        }
-      ],
-      "name": "reduceUpgradeTime",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
           "name": "_id",
           "type": "uint256"
         }
@@ -1366,64 +1310,17 @@ const INSTALLATIONS_ABI = [
       "type": "function"
     },
     {
+      "anonymous": false,
       "inputs": [
         {
-          "components": [
-            {
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            },
-            {
-              "internalType": "uint16",
-              "name": "coordinateX",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint16",
-              "name": "coordinateY",
-              "type": "uint16"
-            },
-            {
-              "internalType": "uint40",
-              "name": "readyBlock",
-              "type": "uint40"
-            },
-            {
-              "internalType": "bool",
-              "name": "claimed",
-              "type": "bool"
-            },
-            {
-              "internalType": "uint256",
-              "name": "parcelId",
-              "type": "uint256"
-            },
-            {
-              "internalType": "uint256",
-              "name": "installationId",
-              "type": "uint256"
-            }
-          ],
-          "internalType": "struct UpgradeQueue",
-          "name": "_upgradeQueue",
-          "type": "tuple"
-        },
-        {
-          "internalType": "bytes",
-          "name": "_signature",
-          "type": "bytes"
-        },
-        {
-          "internalType": "uint40",
-          "name": "_gltr",
-          "type": "uint40"
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_installationId",
+          "type": "uint256"
         }
       ],
-      "name": "upgradeInstallation",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      "name": "AddInstallationType",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -1457,9 +1354,41 @@ const INSTALLATIONS_ABI = [
           "internalType": "address",
           "name": "_aavegotchiDAO",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "_backendPubKey",
+          "type": "bytes"
         }
       ],
       "name": "AddressesUpdated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_installationId",
+          "type": "uint256"
+        }
+      ],
+      "name": "DeprecateInstallation",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_installationId",
+          "type": "uint256"
+        }
+      ],
+      "name": "EditInstallationType",
       "type": "event"
     },
     {
@@ -1491,6 +1420,99 @@ const INSTALLATIONS_ABI = [
         }
       ],
       "name": "UpgradeFinalized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_realmId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_coordinateX",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_coordinateY",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "blockInitiated",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "readyBlock",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "installationId",
+          "type": "uint256"
+        }
+      ],
+      "name": "UpgradeInitiated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_realmId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_queueIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "UpgradeQueueFinalized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_realmId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_queueIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "UpgradeQueued",
       "type": "event"
     },
     {
@@ -1720,10 +1742,54 @@ const INSTALLATIONS_ABI = [
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "finalizeUpgrade",
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "_upgradeIndexes",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "finalizeUpgrades",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddresses",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "_aavegotchiDiamond",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_realmDiamond",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_gltr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_pixelcraft",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_aavegotchiDAO",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_backendPubKey",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -1760,6 +1826,66 @@ const INSTALLATIONS_ABI = [
         }
       ],
       "name": "setAddresses",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "uint16",
+              "name": "coordinateX",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint16",
+              "name": "coordinateY",
+              "type": "uint16"
+            },
+            {
+              "internalType": "uint40",
+              "name": "readyBlock",
+              "type": "uint40"
+            },
+            {
+              "internalType": "bool",
+              "name": "claimed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "parcelId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "installationId",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct UpgradeQueue",
+          "name": "_upgradeQueue",
+          "type": "tuple"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_signature",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint40",
+          "name": "_gltr",
+          "type": "uint40"
+        }
+      ],
+      "name": "upgradeInstallation",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -1952,6 +2078,6 @@ const INSTALLATIONS_ABI = [
       "stateMutability": "view",
       "type": "function"
     }
-];
+  ];
 
 export default INSTALLATIONS_ABI;

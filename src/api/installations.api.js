@@ -31,16 +31,17 @@ export default {
             })));
     },
 
-    finalizeUpgrades(ids) {
+    async finalizeUpgrades(ids) {
         const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+        const transaction = await contractWithSigner.finalizeUpgrades(ids);
 
-        console.log('ids', ids)
-        console.log('contractWithSigner', contractWithSigner)
+        console.log('ids', ids);
+        console.log('transaction.hash', transaction.hash);
 
-        // installationsContract.finalizeUpgrades(ids);
-
-        // return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
-        //     Boolean(response.status)
-        // ));
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon')
+            .then(response => {
+                console.log('finalizeUpgrades', Boolean(response.status))
+                return Boolean(response.status)
+            });
     },
 }

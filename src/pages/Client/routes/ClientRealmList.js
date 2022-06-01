@@ -109,7 +109,7 @@ export default function ClientRealmList() {
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [loadingUpgrades, setLoadingUpgrades] = useState(false);
-    const [finishedUpgrades, setFinishedUpgrades] = useState([]);
+    const [claimableUpgrades, setClaimableUpgrades] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
@@ -255,7 +255,7 @@ export default function ClientRealmList() {
 
         Promise.all([
             getRealmInfo(parcelIds),
-            getRealmUpgradesQueue(parcelIds)
+            getRealmUpgradesQueue(parcelIds),
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map((parcel, index) => {
                 const parcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
@@ -270,8 +270,6 @@ export default function ClientRealmList() {
                     isUpgradeReady: parcelUpgrading?.ready ? true: false
                 };
             });
-
-            console.log('modifiedParcels', modifiedParcels)
 
             setRealm(modifiedParcels);
             setLoadingUpgrades(false);
@@ -322,7 +320,9 @@ export default function ClientRealmList() {
                     }
                 });
 
-                setFinishedUpgrades(upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex))
+                setClaimableUpgrades(
+                    upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex)
+                );
                 return upgradesWithTimestamps;
             }
 
@@ -353,10 +353,7 @@ export default function ClientRealmList() {
             </ContentInner>
 
             <ActionPane dataLoading={loadingUpgrades}>
-                <ClientRealmActions
-                    realm={realm}
-                    finishedUpgrades={finishedUpgrades}
-                />
+                <ClientRealmActions claimableList={claimableUpgrades} />
             </ActionPane>
         </>
     );

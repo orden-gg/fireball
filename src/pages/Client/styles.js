@@ -322,10 +322,18 @@ const accountStyles = makeStyles(theme => ({
     }
 }));
 
+const actionStyles = makeStyles(theme => ({
+    buttonCompleted: {
+        pointerEvents: 'none',
+        opacity: .5
+    }
+}));
+
 export {
     styles as default,
     routersStyles,
     loadRewardsStyles,
     parcelSinglePage,
-    accountStyles
+    accountStyles,
+    actionStyles
 };
