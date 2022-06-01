@@ -97,11 +97,15 @@ export default {
 
                 break;
             case 9:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}m`;
+                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}m`;
 
                 break;
             case 10:
-                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}m`;
+                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}bn`;
+
+                break;
+            case 11:
+                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}bn`;
 
                 break;
             default:
