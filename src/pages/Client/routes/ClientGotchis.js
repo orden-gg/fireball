@@ -202,6 +202,10 @@ export default function ClientGotchis() {
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
 
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedGotchis, 'client_gotchis');
+    }, [modifiedGotchis]);
+
     const getGotchis = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
     }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
@@ -218,6 +222,7 @@ export default function ClientGotchis() {
                 filters={currentFilters}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 

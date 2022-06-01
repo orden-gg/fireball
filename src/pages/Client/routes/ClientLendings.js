@@ -202,6 +202,10 @@ export default function ClientLendings() {
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
 
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedLendings, 'client_lendings');
+    }, [modifiedLendings]);
+
     const getLendings = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
     }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
@@ -218,6 +222,7 @@ export default function ClientLendings() {
                 filters={currentFilters}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 

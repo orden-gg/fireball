@@ -16,7 +16,8 @@ export default function SortFilterPanel({
     filters,
     setSelectedFilters,
     resetFilters,
-    filtersCount
+    filtersCount,
+    exportData
 }) {
     const classes = styles();
 
@@ -34,10 +35,14 @@ export default function SortFilterPanel({
         setSelectedFilters(key, filtersObj);
     }
 
-    const onReserFilters = useCallback(() => {
+    const onResetFilters = useCallback(() => {
         setIsDropdownOpen(false);
         resetFilters();
     }, [setIsDropdownOpen, resetFilters]);
+
+    const onExportData = useCallback(() => {
+        exportData();
+    }, [exportData]);
 
     return (
         <div className={classNames(classes.container, isDropdownOpen ? 'opened' : 'closed')}>
@@ -69,9 +74,17 @@ export default function SortFilterPanel({
                                         variant='contained'
                                         color='warning'
                                         size='small'
-                                        onClick={onReserFilters}
+                                        onClick={onResetFilters}
                                     >
                                         Reset
+                                    </Button>
+                                    <Button
+                                        variant='contained'
+                                        color='secondary'
+                                        size='small'
+                                        onClick={onExportData}
+                                    >
+                                        Export data (.json)
                                     </Button>
                                 </div>
                             </div>
