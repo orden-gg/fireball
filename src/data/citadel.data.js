@@ -117,9 +117,13 @@ const DISTRICTS = Object.freeze({
 const COLORS = Object.freeze({
     parcels: {
         selected: 0xfd9af9,
-        humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
-        reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
-        spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
+        // humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
+        // reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
+        // spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
+        humble: {sell: 0x5033ce, raffle: 0x5033ce, void: 0x5033ce},
+        reasonable: {sell: 0x328b74, raffle: 0x328b74, void: 0x328b74},
+        spacious: {sell: 0x52266e, raffle: 0x52266e, void: 0x52266e},
+
         paartners: {void: 0xbf91ff},
         guardian: {void: 0x006b80},
         owner: [0xffffff, 0xfff000],
@@ -127,16 +131,21 @@ const COLORS = Object.freeze({
         listed: [0x78b5fe, 0x002758],
         multiselect: [0xffffff, 0xfd9af9]
     },
-    grid: 0xfd9af9,
+    // grid: 0xfd9af9,
+    grid: 0xffffff,
     logo: { back: 0x000000, border: 0xfd9af9 },
     district: {
-        hover: 0x78b5fe
+        hover: 0xffffff
     },
     alchemica: {
-        fud: 0x01ff00,
-        fomo: 0xfe1d02,
-        alpha: 0x01ffff,
-        kek: 0xee20ff
+        // fud: 0x01ff00,
+        // fomo: 0xfe1d02,
+        // alpha: 0x01ffff,
+        // kek: 0xee20ff,
+        fud: 0x66ff65,
+        fomo: 0xfe7766,
+        alpha: 0x66fffe,
+        kek: 0xfb95fa
     }
 });
 
