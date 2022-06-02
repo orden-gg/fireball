@@ -279,11 +279,11 @@ export default function ClientRealmList() {
     const getRealmInfo = (realmIds) => {
         return thegraphApi.getParcelsGotchiverseInfo(realmIds).then(res => {
             return res.map(parcel => {
-                const installations = parcel.installations.map(id => ({
-                    id: id,
-                    name: installationsUtils.getNameById(id),
-                    level: installationsUtils.getLevelById(id),
-                    type: installationsUtils.getTypeById(id)
+                const installations = parcel.installations.map(inst => ({
+                    id: inst.id,
+                    name: installationsUtils.getNameById(inst.id),
+                    level: installationsUtils.getLevelById(inst.id),
+                    type: installationsUtils.getTypeById(inst.id)
                 }));
                 const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
                 const nextChannel = parcel.lastChanneled + cooldown;

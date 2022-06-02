@@ -30,11 +30,10 @@ export default function ClientRealmActions({ claimableList }) {
     }, [metaState]);
 
     const onUpgradesFinish = (ids) => {
-        const SLICED = ids.slice(0, ids.length - 1); // TODO: wtf is this?
-        const succesMessage = `successefully finished ${SLICED.length} upgrades`;
+        const succesMessage = `successefully finished ${ids.length} upgrades`;
         const errorMessage = 'upgrades finishing went wrong :(';
 
-        installationsApi.finalizeUpgrades(SLICED)
+        installationsApi.finalizeUpgrades(ids)
             .then(completed => {
                 if (completed) {
                     showSnackbar('success', succesMessage);

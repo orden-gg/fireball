@@ -548,7 +548,12 @@ export const parcelsGotchiverseQuery = (parcels) => {
         }) {
           id
           lastChanneledAlchemica
-          equippedInstallations
+          equippedInstallations {
+            id
+            alchemicaType
+            upgradeQueueBoost
+            deprecated
+          }
         }
       }`
 };
