@@ -183,7 +183,6 @@ export const filtersData = {
         queryParamKey: 'district',
         title: 'District',
         items: DISTRICTS.numbers
-            .filter(district => Boolean(district))
             .map(district => ({
                 title: `${district}`,
                 value: `${district}`,

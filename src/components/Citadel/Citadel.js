@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
@@ -14,6 +14,7 @@ import qs from 'query-string';
 import CustomModal from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import commonUtils from 'utils/commonUtils';
+import filtersUtils from 'utils/filtersUtils';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
@@ -22,28 +23,18 @@ import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
 import CitadelInfo from './components/CitadelInfo';
+import CitadelFilters from './components/CitadelFilters';
 
 import styles, { InterfaceStyles } from './styles';
 
-const paramsToArray = params => {
-    const parsedParams = {};
-
-    for(const [key, param] of Object.entries(params)) {
-        const items = param?.split(',');
-        const isExisting = items !== undefined && items[0].length !== 0;
-        parsedParams[key] = isExisting ? items : [];
-    }
-
-    return parsedParams;
-}
+const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
 export default function Citadel({ realmGroups, className, isLoaded }) {
     const classes = { ...styles(), ...InterfaceStyles() }
 
     const location = useLocation();
     const history = useHistory();
-
-    const [params, setParams] = useState(paramsToArray(qs.parse(location.search)));
+    const [params, setParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
 
     const [game, setGame] = useState(null);
     const [mapCreated, setMapCreated] = useState(false);
@@ -54,11 +45,30 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const findOnMap = (type, value) => game.scene.find(type, value);
 
-    const buttonIsActive = type => params.active?.some(name => name === type);
+    const buttonIsActive = type => {
+        const { active } = params;
+        if (typeof active === 'string') {
+            return active === type;
+        } else {
+            return active?.some(name => name === type);
+        }
+    };
 
     const removeSelected = () => setSelectedParcel(null);
 
     const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
+
+    const onFiltersChange = filters => {
+        updateQueryParams(filters);
+        game.scene.trigger(`filtersUpdate`, filters);
+    }
+
+    const updateQueryParams = useCallback(filters => {
+        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
+
+        setParams(newParams);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params, history, location.pathname]);
 
     const basicButtons = useMemo(() => {
         return realmGroups
@@ -104,7 +114,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             game.scene.on('parcelSelect', id => setSelectedParcel(id));
 
             game.scene.on('query', ({ name, param }) => {
-                const queryParam = params[name] || [];
+                const queryParam = typeof params[name] === 'string' ? [params[name]] : params[name] || [];
                 const paramIndex = queryParam.findIndex(item => item === param);
 
                 if (paramIndex === -1) {
@@ -116,7 +126,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 setParams(paramsState => {
                     paramsState[name] = queryParam;
 
-                    return {...paramsState}
+                    return { ...paramsState }
                 });
             });
         }
@@ -126,36 +136,38 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     useEffect(() => {
         history.push({
             path: location.pathname,
-            search: qs.stringify(params, { arrayFormat: 'comma' })
+            search: qs.stringify(params, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
-        if(mapCreated) {
-            for (const group of realmGroups) {
-                if (commonUtils.isEmptyObject(group)) {
-                    continue;
-                }
+        if (mapCreated && realmGroups.length > 0) {
+            const { active } = params;
 
-                game.scene.addGroup(group);
-            }
+            game.scene.addGroups(realmGroups.filter(group => !commonUtils.isEmptyObject(group)));
 
-            if (params.active) {
-                for (const type of params.active) {
-                    game.scene.toggleGroup(type, true, true);
+            if (active) {
+                if (typeof active === 'string') {
+                    game.scene.toggleGroup(active, true, true);
+                } else {
+                    for (const type of active) {
+                        game.scene.toggleGroup(type, true, true);
+                    }
                 }
             }
-        }
+    }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {
         if (isLoaded && mapCreated) {
+            const { multiselect } = params;
 
-            if (params.multiselect?.length > 0) {
-                game.scene.setMultiselect(params.multiselect);
-            }
+            game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoaded, mapCreated]);
@@ -199,6 +211,10 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
                 {basicButtons}
             </CitadelInterface>
+
+            {mapCreated &&
+                <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} />
+            }
 
             <FullscreenButton wrapperRef={wrapperRef} />
 

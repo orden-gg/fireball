@@ -14,8 +14,6 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
 
         this.numbers = this.createGridNumbers(scene);
 
-        console.log(Object.entries(this.numbers).map(([, number]) => number));
-
         this.add(new DistrictsGrid(scene));
         this.add(Object.entries(this.numbers).map(([, number]) => number));
 

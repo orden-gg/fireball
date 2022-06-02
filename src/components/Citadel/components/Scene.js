@@ -26,6 +26,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings = {}
             this.districts = {};
             this.groups = {};
+            this.filters = {};
             this.zoom = { max: 10 };
         }
 
@@ -94,7 +95,15 @@ export default class CitadelScene extends Phaser.Scene {
             for (const key in this.districts) {
                 this.citadel.add(this.districts[key]);
             }
-            this.citadel.add([this.groups.guilds, this.groups.grid, this.districtHighLight, this.selected]);
+            this.multiselect = new CreateParcels(this, {
+                parcels: [],
+                type: 'multiselect',
+                active: true,
+                animate: true
+            });
+            this.citadel.add([this.groups.guilds, this.groups.grid, this.districtHighLight, this.multiselect, this.selected]);
+
+
 
             this.trigger('created');
 
@@ -179,6 +188,51 @@ export default class CitadelScene extends Phaser.Scene {
                     this.districtHighLight.update(x, y, w, h);
                 }
             });
+
+            this.on('filtersUpdate', filters => {
+                for (const [key, filter] of Object.entries(filters)) {
+                    if (this.filters.hasOwnProperty(key)) {
+                        const isChanged = filter.items.some((item, index) =>
+                            item.isSelected !== this.filters[key].items[index].isSelected
+                        );
+
+                        if (isChanged) {
+                            this.filters[key] = JSON.parse(JSON.stringify(filter));
+                            this.trigger(`${key}Filter`);
+                        }
+                    } else {
+                        this.filters[key] = JSON.parse(JSON.stringify(filter));
+                        this.trigger(`${key}Filter`);
+                    }
+                }
+            });
+
+            this.on('sizeFilter', () => {
+                const filteredFades = this.getParcelsFilteredFades();
+
+                for (const key in this.districts) {
+                    this.districts[key].updateParcelsFade(filteredFades)
+                }
+
+                for (const key in this.groups) {
+                    if (this.groups[key].type === 'parcels') {
+                        this.groups[key].updateParcelsFade(filteredFades);
+                    }
+                }
+
+                this.multiselect.updateParcelsFade(filteredFades);
+
+            });
+
+            this.on('districtFilter', () => {
+                const filter = this.filters.district;
+
+                for (const data of filter.items) {
+                    const district = this.districts[data.value];
+                    district.filter = data.isSelected;
+                    district.updateFade(filter.isFilterActive ? 'filter' : 'fade');
+                }
+            });
         }
 
         loadLogo(guild) {
@@ -243,7 +297,15 @@ export default class CitadelScene extends Phaser.Scene {
             }, 50);
         }
 
-        addGroup(group) {
+        addGroups(groups) {
+            const fades = this.getParcelsFilteredFades();
+
+            for (const group of groups) {
+                this.addGroup(group, fades);
+            }
+        }
+
+        addGroup(group, fades) {
             const type = group.type;
 
             if (this.groups?.hasOwnProperty(type)) {
@@ -255,6 +317,7 @@ export default class CitadelScene extends Phaser.Scene {
             if (group.parcels.length !== 0) {
                 this.groups[type] = new CreateParcels(this, group);
                 this.groups[type].animate(Boolean(group.animate));
+                this.groups[type].updateParcelsFade(fades || {});
 
                 this.citadel.add(this.groups[type], 0);
             }
@@ -272,11 +335,6 @@ export default class CitadelScene extends Phaser.Scene {
                 this.setMultiselect([parcel.tokenId]);
             } else {
                 this.multiselect.toggleParcel(parcel);
-            }
-
-            if(this.multiselect.parcels.length === 0) {
-                this.multiselect.removeGroup();
-                delete this.multiselect;
             }
 
             this.trigger('query', {
@@ -375,13 +433,17 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings.district = id;
         }
 
-        fadeMap(fade) {
+        fadeMap(number) {
             for(const key in this.districts) {
-                this.districts[key].setAlpha(fade);
+                const district = this.districts[key];
+
+                district.fade = number === 1;
+                district.updateFade(this.filters.district?.isFilterActive ? 'filter' : 'fade');
             }
 
-            this.walls.setAlpha(fade);
-            for (const [, alchemica] of Object.entries(this.alchemica)) alchemica.setAlpha(fade === 1 ? 1 : .25);
+            this.walls.setAlpha(number);
+
+            for (const [, alchemica] of Object.entries(this.alchemica)) alchemica.setAlpha(number === 1 ? 1 : .25);
         }
 
         reOrderItems() {
@@ -426,15 +488,10 @@ export default class CitadelScene extends Phaser.Scene {
                 return;
             };
 
-            this.multiselect = new CreateParcels(this, {
-                parcels: parcels,
-                type: 'multiselect',
-                active: true,
-                animate: true
-            });
+            for(const parcel of parcels) {
+                this.multiselect.toggleParcel(parcel);;
+            }
 
-            this.citadel.add(this.multiselect);
-            this.multiselect.animate(true);
             this.reOrderItems();
         }
 
@@ -446,6 +503,18 @@ export default class CitadelScene extends Phaser.Scene {
             } else {
                 return width / w;
             }
+        }
+
+        getParcelsFilteredFades() {
+            const fades = {};
+
+            if (this.filters.size.isFilterActive) {
+                for (const item of this.filters.size.items) {
+                    fades[item.value] = item.isSelected ? 1 : .2;
+                }
+            }
+
+            return fades;
         }
 
         getParcel(value) {

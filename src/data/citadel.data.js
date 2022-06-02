@@ -112,7 +112,7 @@ const DISTRICTS = Object.freeze({
         48: {x: 8, y: 4},
         49: {x: 8, y: 5}
     },
-    numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49]
+    numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 49]
 });
 const COLORS = Object.freeze({
     parcels: {
@@ -124,6 +124,9 @@ const COLORS = Object.freeze({
         reasonable: {sell: 0x328b74, raffle: 0x328b74, void: 0x328b74},
         spacious: {sell: 0x52266e, raffle: 0x52266e, void: 0x52266e},
 
+        humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
+        reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
+        spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
         paartners: {void: 0xbf91ff},
         guardian: {void: 0x006b80},
         owner: [0xffffff, 0xfff000],
