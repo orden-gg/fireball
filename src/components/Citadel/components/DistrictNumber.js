@@ -12,34 +12,35 @@ export default class DistrictNumber extends Phaser.GameObjects.Text {
         scene.add.existing(this);
 
         this.text = id;
+        this.fontSize = h / 10;
+        this.startScale = 5;
 
         this.setPosition(
-            x + offsetX,
-            y + offsetY
+            Math.floor(x + offsetX),
+            Math.floor(y + offsetY)
         );
 
         this.setOrigin(.5, .5);
         this.setAlpha(.7);
+        this.updateScale();
 
         this.setStyle({
-            fontSize: this.getFontSize(),
+            fontSize: this.fontSize,
             color: `#${COLORS.grid.toString(16)}`
         });
 
         scene.on('zoom', () => {
-            let size = this.getFontSize();
-
-            if (size < 25) {
-                size = 25;
-            } else if (size * 3 > h) {
-                size = h / 3;
-            }
-
-            this.setFontSize(size);
+            this.updateScale();
         });
     }
 
-    getFontSize() {
-        return 35 / this.scene.cameras.main.zoom
+    updateScale() {
+        this.setScale(1 / this.scene.cameras.main.zoom);
+
+        const size = this.scale * this.fontSize;
+
+        if (size > this.fontSize * this.startScale) {
+            this.setScale(1 * this.startScale);
+        }
     }
 }
