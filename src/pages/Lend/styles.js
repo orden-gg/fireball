@@ -8,6 +8,11 @@ const styles = makeStyles(theme => ({
     },
     filtersWrapper: {
         paddingBottom: 12
+    },
+    buttonsWrapper: {
+        padding: 12,
+        display: 'flex',
+        justifyContent: 'space-between'
     }
 }));
 

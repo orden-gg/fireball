@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { Button, ToggleButton } from '@mui/material';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -8,7 +9,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import PercentIcon from '@mui/icons-material/Percent';
-import { ToggleButton } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
@@ -286,6 +286,10 @@ export default function Lend() {
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
 
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedLendings, 'lend');
+    }, [modifiedLendings]);
+
     const getLendings = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
     }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
@@ -296,7 +300,27 @@ export default function Lend() {
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={currentFilters}
-                    onSetSelectedFilters={onSetSelectedFilters}/>
+                    onSetSelectedFilters={onSetSelectedFilters}
+                />
+
+                <div className={classes.buttonsWrapper}>
+                    <Button
+                        variant='contained'
+                        color='warning'
+                        size='small'
+                        onClick={onResetFilters}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                        size='small'
+                        onClick={onExportData}
+                    >
+                        Export data (.json)
+                    </Button>
+                </div>
             </>
 
             <>

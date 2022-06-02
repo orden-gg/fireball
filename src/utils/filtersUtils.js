@@ -81,5 +81,14 @@ export default {
         }
 
         return modifiedItems;
+    },
+
+    exportData: (items, fileName) => {
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify([...items]))}`;
+        const link = document.createElement('a');
+
+        link.href = jsonString;
+        link.download = `${fileName}_${Date.now()}.json`;
+        link.click();
     }
 }

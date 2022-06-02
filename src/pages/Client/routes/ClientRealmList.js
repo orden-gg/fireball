@@ -202,6 +202,10 @@ export default function ClientRealmList() {
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
 
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedRealm, 'client_realm');
+    }, [modifiedRealm]);
+
     const getRealm = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedRealm : realm;
     }, [isSortingChanged, isFiltersApplied, modifiedRealm, realm]);
@@ -218,6 +222,7 @@ export default function ClientRealmList() {
                 isShowFilters={true}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 

@@ -223,6 +223,10 @@ export default function GhostExplorer() {
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
 
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedGotchis, 'explorer');
+    }, [modifiedGotchis]);
+
     const getGotchis = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
     }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
@@ -239,6 +243,7 @@ export default function GhostExplorer() {
                 filters={currentFilters}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 
