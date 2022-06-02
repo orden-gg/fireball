@@ -123,10 +123,6 @@ const COLORS = Object.freeze({
         humble: {sell: 0x5033ce, raffle: 0x5033ce, void: 0x5033ce},
         reasonable: {sell: 0x328b74, raffle: 0x328b74, void: 0x328b74},
         spacious: {sell: 0x52266e, raffle: 0x52266e, void: 0x52266e},
-
-        humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
-        reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
-        spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
         paartners: {void: 0xbf91ff},
         guardian: {void: 0x006b80},
         owner: [0xffffff, 0xfff000],
