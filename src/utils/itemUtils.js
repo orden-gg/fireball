@@ -269,6 +269,8 @@ export default {
                 return 'spacious';
             case '4':
                 return 'partner';
+            case '5':
+                return 'guardian';
             default:
                 return '';
         }
@@ -285,6 +287,8 @@ export default {
             case '3':
                 return '64x32';
             case '4':
+                return '64x64';
+            case '5':
                 return '64x64';
             default:
                 return '';

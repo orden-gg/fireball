@@ -26,14 +26,23 @@ const InterfaceStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        width: 1,
-        zIndex: 1
+        width: 1
     },
     citadelInterfaceButton: {
         margin: theme.spacing(.2, 0),
         '&:hover': {
-            color: theme.palette.primary.main
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.primary.main, .3)
+        },
+        '&.active': {
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.secondary.main, .7)
         }
+    },
+    citadelFullscreen: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        bottom: theme.spacing(.8)
     },
     citadelSearch: {
         display: 'flex',
@@ -43,7 +52,7 @@ const InterfaceStyles = makeStyles(theme => ({
         width: 150,
         '& .MuiInput-input': {
             textAlign: 'right',
-            fontSize: 14
+            fontSize: 12
         }
     },
     interfaceDivider: {
@@ -115,7 +124,7 @@ const LoaderStyles = makeStyles(theme => ({
 const InfoStyles = makeStyles(theme => ({
     infoContainer: {
         position: 'absolute',
-        right: theme.spacing(1),
+        left: theme.spacing(1),
         bottom: 0
     },
     infoItem: {
@@ -131,9 +140,81 @@ const InfoStyles = makeStyles(theme => ({
     }
 }));
 
+const FilterStyles = makeStyles(theme => ({
+    dropdownContainer: {
+        position: 'absolute',
+        left: theme.spacing(1),
+        top: theme.spacing(1),
+        display: 'flex',
+        alignItems: 'center'
+    },
+    filterButton: {
+        lineHeight: 1,
+        padding: '9px 16px',
+        background: alpha('#fff', .06),
+        color: '#fff',
+        '&:hover': {
+            background: alpha('#fff', .12),
+        },
+        '&.active': {
+            background: alpha(theme.palette.primary.main, .8),
+            color: '#000',
+            borderRadius: '4px 4px 0 0'
+        }
+    },
+    filtersCount: {
+        position: 'absolute',
+        top: -2,
+        right: -4,
+        width: 14,
+        height: 14,
+        fontSize: 10,
+        fontWeight: 700,
+        borderRadius: 2,
+        lineHeight: 1,
+        color: '#000',
+        background: theme.palette.primary.main,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    filtersDropdown: {
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        width: 320,
+        background: theme.palette.background.paper,
+        borderRadius: '0 4px 4px 4px',
+        cursor: 'default',
+        overflow: 'hidden',
+        display: 'none',
+        '.opened &': {
+            display: 'block'
+        }
+    },
+    filterBackdrop: {
+        zIndex: theme.zIndex.drawer + 1
+    },
+    buttonsWrapper: {
+        padding: 12
+    },
+    results: {
+        marginLeft: 'auto',
+        paddingRight: 8,
+        fontWeight: 'bold'
+    },
+    placeholder: {
+        marginLeft: 4,
+        '& img': {
+            display: 'block'
+        }
+    }
+}));
+
 export {
     styles as default,
     LoaderStyles,
     InterfaceStyles,
-    InfoStyles
+    InfoStyles,
+    FilterStyles
 }
