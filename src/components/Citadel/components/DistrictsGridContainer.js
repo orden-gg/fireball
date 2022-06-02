@@ -52,7 +52,7 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
         }
     }
 
-    showNumber(id) {
-        const number = this.numbers[id-1];
-    }
+    // showNumber(id) {
+    //     const number = this.numbers[id-1];
+    // }
 }

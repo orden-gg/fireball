@@ -31,7 +31,12 @@ const InterfaceStyles = makeStyles(theme => ({
     citadelInterfaceButton: {
         margin: theme.spacing(.2, 0),
         '&:hover': {
-            color: theme.palette.primary.main
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.primary.main, .3)
+        },
+        '&.active': {
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.secondary.main, .7)
         }
     },
     citadelFullscreen: {
