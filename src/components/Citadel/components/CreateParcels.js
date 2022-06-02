@@ -161,4 +161,12 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     get isActive() {
         return this.settings.active;
     }
+
+    get name() {
+        return 'parcels';
+    }
+
+    get type() {
+        return this.settings.type;
+    }
 }

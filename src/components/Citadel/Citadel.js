@@ -113,18 +113,9 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
             game.scene.on('parcelSelect', id => setSelectedParcel(id));
 
-            game.scene.on('query', ({ name, param }) => {
-                const queryParam = typeof params[name] === 'string' ? [params[name]] : params[name] || [];
-                const paramIndex = queryParam.findIndex(item => item === param);
-
-                if (paramIndex === -1) {
-                    queryParam.push(param);
-                } else {
-                    queryParam.splice(paramIndex, 1);
-                }
-
+            game.scene.on('query', ({ name, params }) => {
                 setParams(paramsState => {
-                    paramsState[name] = queryParam;
+                    paramsState[name] = params;
 
                     return { ...paramsState }
                 });
@@ -141,6 +132,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 arrayFormat: 'comma'
             })
         });
+
+        console.log(params);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
@@ -167,7 +160,9 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         if (isLoaded && mapCreated) {
             const { multiselect } = params;
 
-            game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
+            if (multiselect?.length > 0) {
+                game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoaded, mapCreated]);

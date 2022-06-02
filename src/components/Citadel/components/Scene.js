@@ -215,7 +215,7 @@ export default class CitadelScene extends Phaser.Scene {
                 }
 
                 for (const key in this.groups) {
-                    if (this.groups[key].type === 'parcels') {
+                    if (this.groups[key].name === 'parcels') {
                         this.groups[key].updateParcelsFade(filteredFades);
                     }
                 }
@@ -331,15 +331,11 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         toggleMultiselect(parcel) {
-            if (!this.hasOwnProperty('multiselect')) {
-                this.setMultiselect([parcel.tokenId]);
-            } else {
-                this.multiselect.toggleParcel(parcel);
-            }
+            this.multiselect.toggleParcel(parcel);
 
             this.trigger('query', {
                 name: 'multiselect',
-                param: parcel.tokenId
+                params: this.multiselect.parcels.map(parcel => parcel.tokenId)
             });
         }
 
@@ -356,10 +352,14 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.reOrderItems();
 
+            const params = Object.entries(this.groups)
+                .filter(([, group]) => group.isActive)
+                .map(([, group]) => group.type);
+            console.log(params);
             if(!load) {
                 this.trigger('query', {
                     name: 'active',
-                    param: type
+                    params: params
                 });
             }
         }
@@ -447,6 +447,7 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         reOrderItems() {
+            this.citadel.bringToTop(this.multiselect);
             this.citadel.bringToTop(this.selected);
             this.citadel.bringToTop(this.groups.guilds);
             this.citadel.bringToTop(this.groups.grid);
@@ -489,7 +490,8 @@ export default class CitadelScene extends Phaser.Scene {
             };
 
             for(const parcel of parcels) {
-                this.multiselect.toggleParcel(parcel);;
+                console.log(parcel);
+                this.multiselect.toggleParcel(parcel);
             }
 
             this.reOrderItems();

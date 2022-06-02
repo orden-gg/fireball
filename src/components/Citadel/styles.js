@@ -146,8 +146,7 @@ const FilterStyles = makeStyles(theme => ({
         left: theme.spacing(1),
         top: theme.spacing(1),
         display: 'flex',
-        alignItems: 'center',
-        zIndex: theme.zIndex.drawer + 2
+        alignItems: 'center'
     },
     filterButton: {
         lineHeight: 1,
