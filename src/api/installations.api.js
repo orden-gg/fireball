@@ -35,6 +35,9 @@ export default {
         const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
         const transaction = await contractWithSigner.finalizeUpgrades(ids);
 
+        console.log('ids', ids);
+        console.log('transaction.hash', transaction.hash);
+
         return ethersApi.waitForTransaction(transaction.hash, 'polygon')
             .then(response => {
                 console.log('finalizeUpgrades', Boolean(response.status))
