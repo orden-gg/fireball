@@ -155,9 +155,9 @@ export default function ClientRealmList() {
     }, [queryParams, history, location.pathname]);
 
     const onSortingChange = useCallback((prop, dir) => {
-        setIsSortingChanged(true);
+        updateSorting(prop, dir);
         updateSortQueryParams(prop, dir);
-    }, [updateSortQueryParams]);
+    }, [updateSorting, updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
