@@ -154,7 +154,7 @@ export default function ClientRealmList() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSortingChanged = useCallback((prop, dir) => {
+    const onSortingChange = useCallback((prop, dir) => {
         setIsSortingChanged(true);
         updateSortQueryParams(prop, dir);
     }, [updateSortQueryParams]);
@@ -162,8 +162,7 @@ export default function ClientRealmList() {
     const sorting = {
         sortingList: sortings,
         sortingDefaults: realmSorting,
-        setSorting: setRealmSorting,
-        onSortingChanged: onSortingChanged
+        onSortingChange: onSortingChange
     };
 
     const updateQueryParams = useCallback(filters => {

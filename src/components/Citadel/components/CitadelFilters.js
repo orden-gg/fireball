@@ -44,17 +44,7 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
     }
 
     const onSetSelectedFilters = (key, selectedValue) => {
-        setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = {...currentFiltersCache};
-
-            if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
-                cacheCopy[key].resetFilterFn(cacheCopy[key]);
-            } else {
-                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
-            }
-
-            return cacheCopy;
-        });
+        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     }
 
     const renderFilterBody = () => {
@@ -82,11 +72,7 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
     }
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = { ...currentFilters };
-
-        Object.entries(currentFiltersCopy).forEach(([_, filter]) => filter.resetFilterFn(filter));
-
-        setCurrentFilters({...currentFiltersCopy});
+        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     useEffect(() => {
@@ -99,17 +85,12 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
     }, []);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
-
-            setActiveFiltersCount(filtersCount);
-        } else {
-            setActiveFiltersCount(0);
-        }
-
-        onFiltersChange(currentFilters);
+        filtersUtils.onFiltersUpdate(
+            currentFilters,
+            filtersUtils.getActiveFiltersCount,
+            setActiveFiltersCount,
+            onFiltersChange
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
