@@ -16,7 +16,6 @@ import { GotchiIcon } from 'components/Icons/Icons';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 
 const sortings = [
@@ -78,8 +77,6 @@ export default function ClientGotchis() {
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
-    const [isSortingChanged, setIsSortingChanged] = useState(false);
-    const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
@@ -90,7 +87,7 @@ export default function ClientGotchis() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            updateSorting(sort, dir);
+            onSortingChange(sort, dir);
         }
 
         return () => {
@@ -101,116 +98,71 @@ export default function ClientGotchis() {
     }, []);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
-
-            setActiveFiltersCount(filtersCount);
-            setIsFiltersApplied(true);
-        } else {
-            setActiveFiltersCount(0);
-            setIsFiltersApplied(false);
-        }
-
-        updateQueryParams(currentFilters);
+        filtersUtils.onFiltersUpdate(
+            currentFilters,
+            filtersUtils.getActiveFiltersCount,
+            setActiveFiltersCount,
+            updateFilterQueryParams
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
-        setModifiedGotchis(modifiedGotchisCache => filtersUtils.getFilteredSortedItems({
+        updateSortQueryParams(gotchisSorting.type, gotchisSorting.dir);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gotchisSorting]);
+
+    useEffect(() => {
+        const modifiedGotchis = filtersUtils.getFilteredSortedItems({
             items: gotchis,
-            itemsCache: modifiedGotchisCache,
             filters: currentFilters,
-            isFiltersApplied,
-            isFiltersAppliedSetter: setIsFiltersApplied,
             sorting: gotchisSorting,
-            isSortingChanged,
             getFilteredItems: filtersUtils.getFilteredItems
-        }));
-    }, [currentFilters, gotchis, isFiltersApplied, isSortingChanged, gotchisSorting]);
-
-    const applySorting = useCallback((prop, dir) => {
-        const itemsToSort = isSortingChanged || isFiltersApplied ? modifiedGotchis : gotchis;
-        const sortedItems = commonUtils.basicSort(itemsToSort, prop, dir);
-
-        setModifiedGotchis([...sortedItems]);
-    }, [isSortingChanged, isFiltersApplied, gotchis, modifiedGotchis]);
-
-    const updateSorting = useCallback((prop, dir) => {
-        applySorting(prop, dir);
-        setIsSortingChanged(true);
-        setGotchisSorting({ type: prop, dir });
-    }, [applySorting, setGotchisSorting]);
-
-    const updateSortQueryParams = useCallback((prop, dir) => {
-        history.push({
-            path: location.pathname,
-            search: qs.stringify({...queryParams, sort: prop, dir }, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
         });
-    }, [queryParams, history, location.pathname]);
 
-    const onSortingChanged = useCallback((prop, dir) => {
-        applySorting(prop, dir);
-        setIsSortingChanged(true);
-        updateSortQueryParams(prop, dir);
-    }, [applySorting, updateSortQueryParams]);
+        setModifiedGotchis(modifiedGotchis);
+    }, [currentFilters, gotchis, gotchisSorting]);
+
+    const onSortingChange = useCallback((type, dir) => {
+        console.log('type, dir', type, dir)
+        setGotchisSorting({ type, dir });
+    }, [setGotchisSorting]);
 
     const sorting = {
         sortingList: sortings,
         sortingDefaults: gotchisSorting,
-        setSorting: setGotchisSorting,
-        onSortingChanged: onSortingChanged
+        onSortingChange: onSortingChange
     };
 
-    const updateQueryParams = useCallback(filters => {
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        const params = { ...queryParams, sort: prop, dir };
+
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, history, location.pathname]);
+
+    const updateFilterQueryParams = useCallback(filters => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
-        history.push({
-            path: location.pathname,
-            search: qs.stringify(params, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
-        });
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key, selectedValue) => {
-        setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = {...currentFiltersCache};
-
-            if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
-                cacheCopy[key].resetFilterFn(cacheCopy[key]);
-            } else {
-                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
-            }
-
-            return cacheCopy;
-        });
+        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     }
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = {...currentFilters};
-
-        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
-            filter.resetFilterFn(filter);
-        });
-
-        setCurrentFilters({...currentFiltersCopy});
+        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
-    const getGotchis = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedGotchis : gotchis;
-    }, [isSortingChanged, isFiltersApplied, modifiedGotchis, gotchis]);
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedGotchis, 'client_gotchis');
+    }, [modifiedGotchis]);
 
     return (
         <>
             <SortFilterPanel
                 sorting={sorting}
-                itemsLength={getGotchis().length}
+                itemsLength={modifiedGotchis.length}
                 placeholder={
                     <GotchiIcon width={20} height={20} />
                 }
@@ -218,15 +170,16 @@ export default function ClientGotchis() {
                 filters={currentFilters}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 
             <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
-                    items={getGotchis()}
+                    items={modifiedGotchis}
                     renderItem={id => (
                         <Gotchi
-                            gotchi={getGotchis()[id]}
+                            gotchi={modifiedGotchis[id]}
                             render={[
                                 {
                                     badges: [

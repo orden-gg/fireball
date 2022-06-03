@@ -196,16 +196,15 @@ export default function ClientRealmList() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSortingChanged = useCallback((prop, dir) => {
-        setIsSortingChanged(true);
+    const onSortingChange = useCallback((prop, dir) => {
+        updateSorting(prop, dir);
         updateSortQueryParams(prop, dir);
-    }, [updateSortQueryParams]);
+    }, [updateSorting, updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
         sortingDefaults: realmSorting,
-        setSorting: setRealmSorting,
-        onSortingChanged: onSortingChanged
+        onSortingChange: onSortingChange
     };
 
     const updateQueryParams = useCallback(filters => {
@@ -243,6 +242,10 @@ export default function ClientRealmList() {
 
         setCurrentFilters({...currentFiltersCopy});
     }, [currentFilters]);
+
+    const onExportData = useCallback(() => {
+        filtersUtils.exportData(modifiedRealm, 'client_realm');
+    }, [modifiedRealm]);
 
     const getRealm = useCallback(() => {
         return (isSortingChanged || isFiltersApplied) ? modifiedRealm : realm;
@@ -345,6 +348,7 @@ export default function ClientRealmList() {
                 isShowFilters={true}
                 setSelectedFilters={onSetSelectedFilters}
                 resetFilters={onResetFilters}
+                exportData={onExportData}
                 filtersCount={activeFiltersCount}
             />
 

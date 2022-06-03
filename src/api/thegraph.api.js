@@ -27,7 +27,8 @@ import {
     incomeQuery,
     getParcelOrderDirectionQuery,
     gotchisGotchiverseQuery,
-    parcelsGotchiverseQuery
+    parcelsGotchiverseQuery,
+    realmQueryByDistrict
 } from './common/queries';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -227,15 +228,12 @@ export default {
         });
     },
 
-    async getGotchisByAddresses(addresses) {
-        let allGotchis = [];
+    getGotchisByAddresses(addresses) {
+        const promises = addresses.map(address => this.getGotchisByAddress(address));
 
-        for(let address of addresses) {
-            let gotchis = await this.getGotchisByAddress(address);
-
-            allGotchis = [...allGotchis, ...gotchis];
-        }
-        return allGotchis;
+        return Promise.all(promises).then(response =>
+            response.reduce((result, current) => result.concat(current), [])
+        )
     },
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
@@ -358,16 +356,28 @@ export default {
         });
     },
 
-    async getRealmByAddresses(addresses) {
+    getRealmByAddresses(addresses) {
+        const promises = addresses.map(address => this.getRealmByAddress(address));
 
-        let allRealm = [];
+        return Promise.all(promises).then(response =>
+            response.reduce((result, current) => result.concat(current), [])
+        )
+    },
 
-        for(let address of addresses) {
-            let realm = await this.getRealmByAddress(address);
+    async getRealmByDistrict(district) {
+        function getQueries() {
+            const queries = [];
 
-            allRealm = [...allRealm, ...realm];
+            for (let i = 0; i < 5; i++) {
+                queries.push(realmQueryByDistrict(i * 1000, district))
+            }
+
+            return queries;
         }
-        return allRealm;
+
+        return await graphJoin(clientFactory.client, getQueries()).then(response => {
+            return filterCombinedGraphData(response, ['parcels'], 'tokenId');
+        });
     },
 
     async getRealmById(id) {

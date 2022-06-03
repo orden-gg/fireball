@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
-import { DISTRICTS_NUMBERS } from 'data/citadel.data';
+import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
 import commonUtils from 'utils/commonUtils';
@@ -184,8 +184,7 @@ export const filtersData = {
         key: 'district',
         queryParamKey: 'district',
         title: 'District',
-        items: DISTRICTS_NUMBERS
-            .filter(district => Boolean(district))
+        items: DISTRICTS.numbers
             .map(district => ({
                 title: `${district}`,
                 value: `${district}`,

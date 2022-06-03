@@ -1,26 +1,46 @@
 import Phaser from 'phaser';
 
-import { CITADEL_WIDTH, CITADEL_HEIGHT, COLORS } from 'data/citadel.data';
+import { COLORS } from 'data/citadel.data';
+import citadelUtils from 'utils/citadelUtils';
 export default class DistrictNumber extends Phaser.GameObjects.Text {
-    constructor(scene, number, x, y, w, h) {
-        super(scene);
-        scene.add.existing(this);
-        this.text = number;
+    constructor(scene, id) {
+        const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+        const [offsetX, offsetY] = [w / 2, h / 2];
 
-        const [offsetX, offsetY] = [number-1 ? w/2 : w*1.5, number-1 ? h/2 : h]
+        super(scene);
+
+        scene.add.existing(this);
+
+        this.text = id;
+        this.fontSize = h / 10;
+        this.startScale = 5;
 
         this.setPosition(
-            x*w-CITADEL_WIDTH/2+offsetX,
-            y*h-CITADEL_HEIGHT/2+offsetY
+            Math.floor(x + offsetX),
+            Math.floor(y + offsetY)
         );
 
         this.setOrigin(.5, .5);
-        this.setAlpha(.5);
+        this.setAlpha(.7);
+        this.updateScale();
 
         this.setStyle({
-            fontSize: 125,
+            fontSize: this.fontSize,
             color: `#${COLORS.grid.toString(16)}`
+        });
+
+        scene.on('zoom', () => {
+            this.updateScale();
         });
     }
 
+    updateScale() {
+        this.setScale(1 / this.scene.cameras.main.zoom);
+
+        const size = this.scale * this.fontSize;
+
+        if (size > this.fontSize * this.startScale) {
+            this.setScale(1 * this.startScale);
+        }
+    }
 }

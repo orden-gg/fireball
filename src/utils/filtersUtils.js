@@ -49,12 +49,8 @@ export default {
 
     getFilteredSortedItems: ({
         items,
-        itemsCache,
         filters,
-        isFiltersApplied,
-        isFiltersAppliedSetter,
         sorting,
-        isSortingChanged,
         getFilteredItems
     }) => {
         const activeFilters = Object.entries(filters)
@@ -62,24 +58,69 @@ export default {
         let modifiedItems;
 
         if (activeFilters.length > 0) {
-            if (isSortingChanged && !isFiltersApplied) {
-                modifiedItems = getFilteredItems(filters, itemsCache);
-            } else if (isSortingChanged && isFiltersApplied) {
-                modifiedItems = getFilteredItems(filters, items);
-                modifiedItems = commonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
-            } else {
-                modifiedItems = getFilteredItems(filters, items);
-            }
-
-            isFiltersAppliedSetter(true);
+            modifiedItems = getFilteredItems(filters, items);
+            modifiedItems = commonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
         } else {
-            if (isSortingChanged) {
-                modifiedItems = commonUtils.basicSort(items, sorting.type, sorting.dir);
-            } else {
-                modifiedItems = items;
-            }
+            modifiedItems = commonUtils.basicSort(items, sorting.type, sorting.dir);
         }
 
         return modifiedItems;
+    },
+
+    onFiltersUpdate: (currentFilters, getActiveFiltersCount, activeFiltersCountSetter, callBack) => {
+        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
+
+        if (activeFilters.length > 0) {
+            const filtersCount = getActiveFiltersCount(currentFilters);
+
+            activeFiltersCountSetter(filtersCount);
+        } else {
+            activeFiltersCountSetter(0);
+        }
+
+        callBack(currentFilters);
+    },
+
+    updateQueryParams: (history, pathname, qs, queryParams, queryParamsOrder) => {
+        history.push({
+            path: pathname,
+            search: qs.stringify(queryParams, {
+                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                arrayFormat: 'comma'
+            })
+        });
+    },
+
+    setSelectedFilters: (filtersSetter, key, selectedValue) => {
+        filtersSetter(filtersCache => {
+            const cacheCopy = {...filtersCache};
+
+            if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
+                cacheCopy[key].resetFilterFn(cacheCopy[key]);
+            } else {
+                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
+            }
+
+            return cacheCopy;
+        });
+    },
+
+    resetFilters: (filters, filtersSetter) => {
+        const filtersCopy = {...filters};
+
+        Object.entries(filtersCopy).forEach(([_, filter]) => {
+            filter.resetFilterFn(filter);
+        });
+
+        filtersSetter({...filtersCopy});
+    },
+
+    exportData: (items, fileName) => {
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify([...items]))}`;
+        const link = document.createElement('a');
+
+        link.href = jsonString;
+        link.download = `${fileName}_${Date.now()}.json`;
+        link.click();
     }
 }

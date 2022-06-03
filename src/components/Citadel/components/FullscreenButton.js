@@ -1,6 +1,7 @@
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { IconButton } from '@mui/material';
+import classNames from 'classnames';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
 import useFullscreenStatus from 'hooks/useFullscreenStatus';
@@ -26,7 +27,7 @@ export default function FullscreenButton({ wrapperRef }) {
             enterTouchDelay={0}
             placement='left'
         >
-            <IconButton onClick={onShowFullScreen} className={classes.citadelInterfaceButton}>
+            <IconButton onClick={onShowFullScreen} className={classNames(classes.citadelInterfaceButton, classes.citadelFullscreen)}>
                 { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
             </IconButton>
         </CustomTooltip>

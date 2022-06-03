@@ -37,7 +37,7 @@ export default function ParcelPreview({ parcel }) {
                         <div className={classes.contentTop}>
                             <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
                             <EthAddress
-                                address={parcel.owner.id}
+                                address={parcel.owner?.id}
                                 icon={true}
                                 clientLink={true}
                                 polygonButton={true}
