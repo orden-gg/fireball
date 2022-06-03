@@ -73,15 +73,15 @@ export default function ClientWarehouse() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSortingChanged = useCallback((prop, dir) => {
+    const onSortingChange = useCallback((prop, dir) => {
+        setWarehouseSorting({ type: prop, dir });
         updateSortQueryParams(prop, dir);
-    }, [updateSortQueryParams]);
+    }, [setWarehouseSorting, updateSortQueryParams]);
 
     const sorting = {
         sortingList: sortings,
         sortingDefaults: warehouseSorting,
-        setSorting: setWarehouseSorting,
-        onSortingChanged: onSortingChanged
+        onSortingChange: onSortingChange
     };
 
     return (

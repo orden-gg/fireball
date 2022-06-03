@@ -102,8 +102,6 @@ export default function Lend() {
     const [linksListView, setLinksListView] = useState(false);
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
-    const [isSortingChanged, setIsSortingChanged] = useState(false);
-    const [isFiltersApplied, setIsFiltersApplied] = useState(false);
 
     useEffect(() => {
         setCurrentFilters(currentFiltersCache =>
@@ -113,7 +111,7 @@ export default function Lend() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            updateSorting(sort, dir);
+            onSortingChange(sort, dir);
         }
 
         return () => {
@@ -131,7 +129,6 @@ export default function Lend() {
             if (mounted) {
                 const whitelistData = [];
                 const mappedData = [];
-                const { type, dir } = lendingsSorting;
 
                 response.forEach(listing => {
                     if (listing.whitelistId) {
@@ -144,9 +141,8 @@ export default function Lend() {
                     })
                 });
 
-                const sorted = commonUtils.basicSort(mappedData, type, dir);
                 const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
-                const upfronCostValues = sorted.map(item => ethersApi.fromWei(item.upfrontCost));
+                const upfronCostValues = mappedData.map(item => ethersApi.fromWei(item.upfrontCost));
                 const maxUpfrontCost = Math.max(...upfronCostValues);
 
                 setCurrentFilters(currentFiltersCache => {
@@ -178,8 +174,7 @@ export default function Lend() {
 
                     return filtersToReturn;
                 });
-                setModifiedLendings(sorted);
-                setLendings(sorted);
+                setLendings(mappedData);
                 setDataLoading(false);
             }
         });
@@ -189,110 +184,59 @@ export default function Lend() {
     }, []);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            setIsFiltersApplied(true);
-        } else {
-            setIsFiltersApplied(false);
-        }
-
-        updateQueryParams(currentFilters);
+        updateFilterQueryParams(currentFilters);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
-        setModifiedLendings(modifiedLendingsCache => filtersUtils.getFilteredSortedItems({
+        updateSortQueryParams(lendingsSorting.type, lendingsSorting.dir);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lendingsSorting]);
+
+    useEffect(() => {
+        const modifiedLendings = filtersUtils.getFilteredSortedItems({
             items: lendings,
-            itemsCache: modifiedLendingsCache,
             filters: currentFilters,
-            isFiltersApplied,
-            isFiltersAppliedSetter: setIsFiltersApplied,
             sorting: lendingsSorting,
-            isSortingChanged,
             getFilteredItems: filtersUtils.getFilteredItems
-        }));
-    }, [currentFilters, lendings, isFiltersApplied, isSortingChanged, lendingsSorting]);
-
-    const applySorting = useCallback((prop, dir) => {
-        const itemsToSort = isSortingChanged || isFiltersApplied ? modifiedLendings : lendings;
-        const sortedItems = commonUtils.basicSort(itemsToSort, prop, dir);
-
-        setModifiedLendings([...sortedItems])
-    }, [isSortingChanged, isFiltersApplied, lendings, modifiedLendings]);
-
-    const updateSorting = useCallback((prop, dir) => {
-        applySorting(prop, dir);
-        setIsSortingChanged(true);
-        setLendingsSorting({ type: prop, dir });
-    }, [applySorting, setLendingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop, dir) => {
-        history.push({
-            path: location.pathname,
-            search: qs.stringify({...queryParams, sort: prop, dir }, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
         });
-    }, [queryParams, history, location.pathname]);
 
-    const onSortingChanged = useCallback((prop, dir) => {
-        applySorting(prop, dir);
-        setIsSortingChanged(true);
-        updateSortQueryParams(prop, dir);
-    }, [applySorting, updateSortQueryParams]);
+        setModifiedLendings(modifiedLendings);
+    }, [currentFilters, lendings, lendingsSorting]);
+
+    const onSortingChange = useCallback((type, dir) => {
+        setLendingsSorting({ type, dir });
+    }, [setLendingsSorting]);
 
     const sorting = {
         sortingList: sortings,
         sortingDefaults: lendingsSorting,
-        setSorting: setLendingsSorting,
-        onSortingChanged: onSortingChanged
+        onSortingChange: onSortingChange
     };
 
-    const updateQueryParams = useCallback(filters => {
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        const params = { ...queryParams, sort: prop, dir };
+
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, history, location.pathname]);
+
+    const updateFilterQueryParams = useCallback(filters => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
-        history.push({
-            path: location.pathname,
-            search: qs.stringify(params, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
-        });
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key, selectedValue) => {
-        setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = {...currentFiltersCache};
-
-            if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
-                cacheCopy[key].resetFilterFn(cacheCopy[key]);
-            } else {
-                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
-            }
-
-            return cacheCopy;
-        });
+        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     }
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = {...currentFilters};
-
-        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
-            filter.resetFilterFn(filter);
-        });
-
-        setCurrentFilters({...currentFiltersCopy});
+        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
         filtersUtils.exportData(modifiedLendings, 'lend');
     }, [modifiedLendings]);
-
-    const getLendings = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedLendings : lendings;
-    }, [isSortingChanged, isFiltersApplied, modifiedLendings, lendings]);
 
     return (
         <ContentWrapper>
@@ -326,7 +270,7 @@ export default function Lend() {
             <>
                 <SortFilterPanel
                     sorting={sorting}
-                    itemsLength={getLendings().length}
+                    itemsLength={modifiedLendings.length}
                     placeholder={
                         <GotchiIcon width={20} height={20} />
                     }
@@ -347,16 +291,16 @@ export default function Lend() {
                     {/* // !temporary code (hidden feature) */}
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
-                            {getLendings().map(lend => {
+                            {modifiedLendings.map(lend => {
                                 return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
                             })}
                         </ol>
                     ) : (
                         <GotchisLazy
-                            items={getLendings()}
+                            items={modifiedLendings}
                             renderItem={id => (
                                 <Gotchi
-                                    gotchi={getLendings()[id]}
+                                    gotchi={modifiedLendings[id]}
                                     render={[
                                         {
                                             badges: [

@@ -23,7 +23,7 @@ const directions = [
     }
 ];
 
-export default function LazySorting({ sortingList, setSorting, sortingDefaults, onSortingChanged }) {
+export default function LazySorting({ sortingList, sortingDefaults, onSortingChange }) {
     const classes = styles();
 
     const { type, dir } = sortingDefaults;
@@ -33,8 +33,7 @@ export default function LazySorting({ sortingList, setSorting, sortingDefaults, 
             return;
         }
 
-        setSorting({ type: sortProp, dir: sortDir });
-        sortItems(sortProp, sortDir);
+        onSortingChange(sortProp, sortDir);
     };
 
     const onDirectionChange = (event, sortDir, sortProp) => {
@@ -42,12 +41,7 @@ export default function LazySorting({ sortingList, setSorting, sortingDefaults, 
             return;
         }
 
-        setSorting({ type: sortProp, dir: sortDir });
-        sortItems(sortProp, sortDir);
-    };
-
-    const sortItems = (prop, dir) => {
-        onSortingChanged(prop, dir);
+        onSortingChange(sortProp, sortDir);
     };
 
     return (
