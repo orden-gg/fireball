@@ -77,8 +77,8 @@ const sortings = [
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
     altarLevel: { ...filtersData.altarLevel, divider: true },
-    nextChannel: { ...filtersData.nextChannel, divider: true },
-    isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true },
+    nextChannel: { ...filtersData.nextChannel },
+    isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
     district: { ...filtersData.district }
 };
 const queryParamsOrder = [

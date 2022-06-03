@@ -18,7 +18,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
     const classes = styles();
 
     const renderFiltersComponents = (renderFilters) => {
-        return Object.entries(renderFilters).map(([key, renderFilter], index) => {
+        return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
             const filterProps = {
                 key,
@@ -58,7 +58,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
 
             return (
                 <div key={`${componentToRender.key}-component`}>
-                    <div className={classNames(classes.component, !divider && 'no-padding')}>
+                    <div className={classNames(classes.component, renderFilter.class, !divider && 'no-padding-bottom')}>
                         { componentToRender }
                     </div>
                     { divider && (

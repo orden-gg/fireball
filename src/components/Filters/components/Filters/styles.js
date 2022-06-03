@@ -7,7 +7,10 @@ const styles = makeStyles(() => ({
     },
     component: {
         padding: 12,
-        '&.no-padding': {
+        '&.no-padding-top': {
+            paddingTop: 0
+        },
+        '&.no-padding-bottom': {
             paddingBottom: 0
         }
     },
