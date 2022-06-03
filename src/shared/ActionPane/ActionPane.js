@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 import classNames from 'classnames';
@@ -14,24 +14,17 @@ export default function ActionPane({ children, dataLoading, className, width }) 
 
     return (
         <div
-            className={classNames(classes.pane, dataLoading && 'loading', paneOpened && 'opened')}
+            className={classNames(classes.pane, className, dataLoading && 'loading', paneOpened && 'opened')}
             style={{ width: `${paneSize}px`, right: `-${paneSize}px` }}
         >
-            {!dataLoading ? (
-                <>
-                    {children}
-                </>
-            ) : (
-                <div className={classes.placeholder}>
-                    <CircularProgress color='primary' size={24} />
-                </div>
-            )}
+            {children}
 
             <Button
                 className={classNames(classes.paneToggle, paneOpened && 'opened')}
                 variant='contained'
                 color='info'
                 onClick={() => setPaneOpened(!paneOpened)}
+                disabled={dataLoading}
             >
                 <KeyboardArrowLeftIcon />
             </Button>

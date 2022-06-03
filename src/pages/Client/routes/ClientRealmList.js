@@ -355,7 +355,7 @@ export default function ClientRealmList() {
                 />
             </ContentInner>
 
-            <ActionPane dataLoading={loadingUpgrades}>
+            <ActionPane dataLoading={loadingRealm || loadingUpgrades}>
                 <ClientRealmActions claimableList={claimableUpgrades} />
             </ActionPane>
         </>
