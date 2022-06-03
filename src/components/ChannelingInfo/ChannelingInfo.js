@@ -1,4 +1,5 @@
 import React from 'react';
+import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
@@ -15,8 +16,9 @@ const countdownFormat = {
 export default function ChannelingInfo({ channeling }) {
     const classes = styles();
 
-    const lastChanneled = DateTime.fromSeconds(channeling.lastChanneled).toMillis();
-    const nextChannel = DateTime.fromSeconds(channeling.nextChannel).toMillis();
+    const fromTimestampToMillis = (timestamp) => {
+        return DateTime.fromSeconds(timestamp).toMillis();
+    }
 
     if (channeling.lastChanneled === 0) {
         return <div className={classes.container} style={{ display: 'flex', justifyContent: 'center', color: 'red' }}>
@@ -24,18 +26,33 @@ export default function ChannelingInfo({ channeling }) {
         </div>
     }
 
+    if (channeling.loading) {
+        return <div className={classes.placeholder}>
+            <Skeleton
+                className={classes.placeholderInner}
+                variant='rectangular'
+                width='100%'
+                height={30}
+            />
+        </div>
+    }
+
     return (
         <div className={classes.container}>
+            {console.log('channeling', channeling)}
             <div style={{ flexBasis: '100%', color: 'aqua' }}>Channeling!</div>
             <div className={classes.inner}>
                 last:
-                <Countdown targetDate={lastChanneled} shortFormat={countdownFormat} />
+                <Countdown
+                    targetDate={fromTimestampToMillis(channeling.lastChanneled)}
+                    shortFormat={countdownFormat}
+                />
             </div>
             <div className={classes.inner}>
                 ready:
                 <span style={{ color: 'orange' }}>
                     <Countdown
-                        targetDate={nextChannel}
+                        targetDate={fromTimestampToMillis(channeling.nextChannel)}
                         shortFormat={countdownFormat}
                         replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
                     />

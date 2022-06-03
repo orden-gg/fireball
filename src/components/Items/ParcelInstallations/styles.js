@@ -21,6 +21,16 @@ const styles = makeStyles(theme => ({
         flexBasis: '100% !important',
         display: 'flex',
         justifyContent: 'space-between'
+    },
+    placeholder: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '12px 0',
+        padding: '0 12px'
+    },
+    placeholderInner: {
+        borderRadius: 4
     }
 }));
 

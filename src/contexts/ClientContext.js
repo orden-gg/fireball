@@ -295,7 +295,13 @@ const ClientContextProvider = (props) => {
             .then(async (res) => {
                 const { type, dir } = realmSorting;
 
-                setRealm(commonUtils.basicSort(res, type, dir));
+                const modified = res.map(parcel => ({
+                    ...parcel,
+                    channeling: { loading: true },
+                    installations: { loading: true }
+                }));
+
+                setRealm(commonUtils.basicSort(modified, type, dir));
                 setLoadingRealm(false);
             })
             .catch((error) => {

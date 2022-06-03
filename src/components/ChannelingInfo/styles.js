@@ -20,8 +20,13 @@ const styles = makeStyles(theme => ({
         filter: 'grayscale(1)'
     },
     placeholder: {
-        width: 28,
-        height: 28,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 12,
+        padding: '0 12px'
+    },
+    placeholderInner: {
         borderRadius: 4
     },
     inner: {

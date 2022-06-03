@@ -1,4 +1,5 @@
 import React from 'react';
+import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
@@ -15,6 +16,17 @@ const dataFormat = {
 
 export default function ParcelInstallations({ parcel }) {
     const classes = styles();
+
+    if (parcel.installations.loading) {
+        return <div className={classes.placeholder}>
+            <Skeleton
+                className={classes.placeholderInner}
+                variant='rectangular'
+                width='100%'
+                height={30}
+            />
+        </div>
+    }
 
     return (
         <div className={classes.container}>
@@ -42,7 +54,7 @@ export default function ParcelInstallations({ parcel }) {
 
                     { parcel.upgrading && (
                         <div className={classes.upgrade}>
-                            upgrade:
+                            upg:
                             <div style={{ color: 'orange' }}>
                                 <Countdown
                                     targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
