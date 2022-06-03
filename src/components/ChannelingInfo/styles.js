@@ -32,6 +32,12 @@ const styles = makeStyles(theme => ({
     inner: {
         display: 'flex',
         justifyContent: 'space-between'
+    },
+    title: {
+        color: 'aqua'
+    },
+    countdown: {
+        color: 'orange'
     }
 }));
 

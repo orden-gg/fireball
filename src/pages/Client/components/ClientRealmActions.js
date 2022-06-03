@@ -81,7 +81,7 @@ export default function ClientRealmActions({ claimableList }) {
                 sx={{ marginBottom: '8px' }}
                 onClick={() => onUpgradesFinish(claimableList)}
                 disabled={!claimableList.length || !isUserConnected || isTransactionProcessing}
-                className={isTransactionCompleted && classes.buttonCompleted}
+                className={isTransactionCompleted ? classes.buttonCompleted : null}
             >
                 {renderButtonNode(transactionStatus)}
             </Button>

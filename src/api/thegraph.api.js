@@ -28,6 +28,7 @@ import {
     getParcelOrderDirectionQuery,
     gotchisGotchiverseQuery,
     parcelsGotchiverseQuery,
+    parcelsOwnerGotchiverseQuery,
     realmQueryByDistrict
 } from './common/queries';
 
@@ -514,7 +515,7 @@ export default {
 
     // ! GOTCHIVERSE
 
-    getGotchisGotchiverseInfo(gotchiIds) {
+    getGotchisGotchiverseInfoByIds(gotchiIds) {
         return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds))
             .then(res => {
                 const dataArr = res.data.gotchis;
@@ -527,17 +528,23 @@ export default {
             })
     },
 
-    getParcelsGotchiverseInfo(parcelsIds) {
+    getParcelsGotchiverseInfoByIds(parcelsIds) {
         return getGraphData(clientFactory.gotchiverseClient, parcelsGotchiverseQuery(parcelsIds))
             .then(res => {
                 const dataArr = res.data.parcels;
 
                 // * gotchiverse return empty data if parcel was never channeled!
-                return parcelsIds.map((id, i) => ({
+                const modified = parcelsIds.map((id, i) => ({
                     id: dataArr[i]?.id || '',
                     lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
                     installations: dataArr[i]?.equippedInstallations || []
                 }))
+                return modified;
             })
+    },
+
+    getParcelsGotchiverseInfoByOwner(owner) {
+        return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner))
+            .then(res => res.data.parcels)
     },
 }

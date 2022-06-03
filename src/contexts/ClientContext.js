@@ -18,8 +18,6 @@ import installationsUtils from 'utils/installationsUtils';
 export const ClientContext = createContext({});
 
 const ClientContextProvider = (props) => {
-    const [clientActive, setClientActive] = useState(null);
-
     const [gotchis, setGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState(true);
@@ -147,16 +145,6 @@ const ClientContextProvider = (props) => {
 
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
-
-            const gtch = commonUtils.basicSort(response, 'kinship', gSortDir);
-            const ids = gtch.map(gotchi => Number(gotchi.id));
-            console.log('ids', ids)
-
-            // if(ids.length) {
-            //     thegraphApi.getGotchisGotchiverseInfo(ids)
-            //         .then(res => console.log(res))
-            //         .catch(e => console.log(e))
-            // }
 
             setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
@@ -339,9 +327,6 @@ const ClientContextProvider = (props) => {
 
     return (
         <ClientContext.Provider value={{
-            clientActive,
-            setClientActive,
-
             gotchis,
             gotchisSorting,
             loadingGotchis,

@@ -31,6 +31,20 @@ const styles = makeStyles(theme => ({
     },
     placeholderInner: {
         borderRadius: 4
+    },
+    subtitle: {
+        color: 'deeppink'
+    },
+    ready: {
+        color: 'lime'
+    },
+    inner: {
+        '& span': {
+            color: 'yellow'
+        }
+    },
+    countdown: {
+        color: 'orange'
     }
 }));
 

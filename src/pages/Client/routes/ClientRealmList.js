@@ -22,6 +22,7 @@ import filtersUtils from 'utils/filtersUtils';
 import installationsUtils from 'utils/installationsUtils';
 
 import ClientRealmActions from '../components/ClientRealmActions';
+import { LoginContext } from 'contexts/LoginContext';
 
 const sortings = [
     {
@@ -103,6 +104,7 @@ export default function ClientRealmList() {
         loadingRealm,
         setRealmView
     } = useContext(ClientContext);
+    const { activeAddress } = useContext(LoginContext)
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
     const [modifiedRealm, setModifiedRealm] = useState([]);
     const [loadingUpgrades, setLoadingUpgrades] = useState(false);
@@ -207,18 +209,19 @@ export default function ClientRealmList() {
         setLoadingUpgrades(true);
 
         Promise.all([
-            getRealmInfo(parcelIds),
+            getRealmInfo(activeAddress, realm),
             getRealmUpgradesQueue(parcelIds),
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map((parcel, index) => {
                 const parcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
 
                 return {
                     ...parcel,
-                    channeling: realmInfo[index],
-                    nextChannel: realmInfo[index].nextChannel,
-                    altarLevel: realmInfo[index].installations[0].level,
-                    installations: realmInfo[index].installations,
+                    channeling: parcelInfo,
+                    nextChannel: parcelInfo.nextChannel,
+                    altarLevel: parcelInfo.installations[0].level,
+                    installations: parcelInfo.installations,
                     upgrading: parcelUpgrading ? parcelUpgrading : undefined,
                     isUpgradeReady: parcelUpgrading?.ready ? true : false
                 };
@@ -227,23 +230,25 @@ export default function ClientRealmList() {
             setRealm(modifiedParcels);
             setLoadingUpgrades(false);
         });
-    }, [realm, setRealm]);
+    }, [realm, setRealm, activeAddress]);
 
-    const getRealmInfo = (realmIds) => {
-        return thegraphApi.getParcelsGotchiverseInfo(realmIds).then(res => {
+    const getRealmInfo = (owner) => {
+        return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then(res => {
             return res.map(parcel => {
-                const installations = parcel.installations.map(inst => ({
+                const installations = parcel.equippedInstallations.map(inst => ({
                     id: inst.id,
                     name: installationsUtils.getNameById(inst.id),
                     level: installationsUtils.getLevelById(inst.id),
                     type: installationsUtils.getTypeById(inst.id)
                 }));
                 const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
-                const nextChannel = parcel.lastChanneled + cooldown;
+                const lastChanneled = Number(parcel.lastChanneledAlchemica);
+                const nextChannel = lastChanneled + cooldown;
 
                 return {
-                    lastChanneled: parcel.lastChanneled,
-                    nextChannel: nextChannel,
+                    id: parcel.id,
+                    lastChanneled: lastChanneled,
+                    nextChannel: Number(nextChannel),
                     cooldown: cooldown,
                     installations: installations
                 };

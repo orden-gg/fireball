@@ -582,3 +582,21 @@ export const parcelsGotchiverseQuery = (parcels) => {
         }
       }`
 };
+
+export const parcelsOwnerGotchiverseQuery = (owner) => {
+    return `{
+        parcels(
+            first: 1000,
+            where: { owner: "${owner}" }
+        ) {
+          id
+          lastChanneledAlchemica
+          equippedInstallations {
+            id
+            alchemicaType
+            upgradeQueueBoost
+            deprecated
+          }
+        }
+      }`
+};

@@ -39,7 +39,8 @@ export default function ChannelingInfo({ channeling }) {
 
     return (
         <div className={classes.container}>
-            <div style={{ flexBasis: '100%', color: 'aqua' }}>Channeling!</div>
+            <div className={classes.title}>Channeling!</div>
+
             <div className={classes.inner}>
                 last:
                 <Countdown
@@ -49,13 +50,13 @@ export default function ChannelingInfo({ channeling }) {
             </div>
             <div className={classes.inner}>
                 ready:
-                <span style={{ color: 'orange' }}>
+                <div className={classes.countdown}>
                     <Countdown
                         targetDate={fromTimestampToMillis(channeling.nextChannel)}
                         shortFormat={countdownFormat}
                         replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
                     />
-                </span>
+                </div>
             </div>
         </div>
     )
