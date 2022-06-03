@@ -18,7 +18,6 @@ import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 import installationsUtils from 'utils/installationsUtils';
 
@@ -106,8 +105,6 @@ export default function ClientRealmList() {
     } = useContext(ClientContext);
     const [currentFilters, setCurrentFilters] = useState({...initialFilters});
     const [modifiedRealm, setModifiedRealm] = useState([]);
-    const [isSortingChanged, setIsSortingChanged] = useState(false);
-    const [isFiltersApplied, setIsFiltersApplied] = useState(false);
     const [loadingUpgrades, setLoadingUpgrades] = useState(false);
     const [claimableUpgrades, setClaimableUpgrades] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -126,7 +123,7 @@ export default function ClientRealmList() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            updateSorting(sort, dir);
+            onSortingChange(sort, dir);
         }
 
         return () => {
@@ -145,61 +142,34 @@ export default function ClientRealmList() {
     }, [loadingRealm]);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
-
-            setActiveFiltersCount(filtersCount);
-            setIsFiltersApplied(true);
-        } else {
-            setActiveFiltersCount(0);
-            setIsFiltersApplied(false);
-        }
-
-        updateQueryParams(currentFilters);
+        filtersUtils.onFiltersUpdate(
+            currentFilters,
+            filtersUtils.getActiveFiltersCount,
+            setActiveFiltersCount,
+            updateFilterQueryParams
+        );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
-        setModifiedRealm(modifiedGotchisCache => filtersUtils.getFilteredSortedItems({
-            items: realm,
-            itemsCache: modifiedGotchisCache,
-            filters: currentFilters,
-            isFiltersApplied,
-            isFiltersAppliedSetter: setIsFiltersApplied,
-            sorting: realmSorting,
-            isSortingChanged,
-            getFilteredItems: filtersUtils.getFilteredItems
-        }));
-    }, [currentFilters, realm, isFiltersApplied, isSortingChanged, realmSorting]);
+        updateSortQueryParams(realmSorting.type, realmSorting.dir);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realmSorting]);
 
     useEffect(() => {
-        const sortedItems = commonUtils.basicSort(realm, realmSorting.type, realmSorting.dir);
-
-        setRealm([...sortedItems]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loadingRealm, realmSorting]);
-
-    const updateSorting = useCallback((prop, dir) => {
-        setIsSortingChanged(true);
-        setRealmSorting({ type: prop, dir });
-    }, [setRealmSorting]);
-
-    const updateSortQueryParams = useCallback((prop, dir) => {
-        history.push({
-            path: location.pathname,
-            search: qs.stringify({...queryParams, sort: prop, dir }, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
+        const modifiedLendings = filtersUtils.getFilteredSortedItems({
+            items: realm,
+            filters: currentFilters,
+            sorting: realmSorting,
+            getFilteredItems: filtersUtils.getFilteredItems
         });
-    }, [queryParams, history, location.pathname]);
 
-    const onSortingChange = useCallback((prop, dir) => {
-        updateSorting(prop, dir);
-        updateSortQueryParams(prop, dir);
-    }, [updateSorting, updateSortQueryParams]);
+        setModifiedRealm(modifiedLendings);
+    }, [currentFilters, realm, realmSorting]);
+
+    const onSortingChange = useCallback((type, dir) => {
+        setRealmSorting({ type, dir });
+    }, [setRealmSorting]);
 
     const sorting = {
         sortingList: sortings,
@@ -207,49 +177,29 @@ export default function ClientRealmList() {
         onSortingChange: onSortingChange
     };
 
-    const updateQueryParams = useCallback(filters => {
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        const params = { ...queryParams, sort: prop, dir };
+
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, history, location.pathname]);
+
+    const updateFilterQueryParams = useCallback(filters => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
-        history.push({
-            path: location.pathname,
-            search: qs.stringify(params, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
-        });
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key, selectedValue) => {
-        setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = {...currentFiltersCache};
-
-            if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
-                cacheCopy[key].resetFilterFn(cacheCopy[key]);
-            } else {
-                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
-            }
-
-            return cacheCopy;
-        });
+        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     }
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = {...currentFilters};
-
-        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
-            filter.resetFilterFn(filter);
-        });
-
-        setCurrentFilters({...currentFiltersCopy});
+        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
         filtersUtils.exportData(modifiedRealm, 'client_realm');
     }, [modifiedRealm]);
-
-    const getRealm = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedRealm : realm;
-    }, [isSortingChanged, isFiltersApplied, modifiedRealm, realm]);
 
     const getRealmAdditionalData = useCallback(() => {
         const parcelIds = realm.map(parcel => parcel.tokenId);
@@ -337,7 +287,7 @@ export default function ClientRealmList() {
         <>
             <SortFilterPanel
                 sorting={sorting}
-                itemsLength={getRealm().length}
+                itemsLength={modifiedRealm.length}
                 placeholder={
                     <KekIcon width={20} height={20} />
                 }
@@ -351,7 +301,7 @@ export default function ClientRealmList() {
 
             <ContentInner dataLoading={loadingRealm}>
                 <ItemsLazy
-                    items={getRealm()}
+                    items={modifiedRealm}
                     component={(props) => <Parcel parcel={props} />}
                 />
             </ContentInner>
