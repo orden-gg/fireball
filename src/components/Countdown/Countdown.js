@@ -30,7 +30,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
     const [countdown, setCountdown] = useState('');
 
     useEffect(() => {
-        async function updateCountdown() {
+        function updateCountdown() {
             const now = DateTime.local().toMillis();
             let diff;
             let formattedTimeString;
@@ -44,6 +44,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
 
                 setIsDateInThePast(true);
             }
+
             if (shortFormat) {
                 const formatKeys = Object.keys(shortFormat);
                 const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
