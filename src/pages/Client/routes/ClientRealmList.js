@@ -270,7 +270,7 @@ export default function ClientRealmList() {
                     altarLevel: realmInfo[index].installations[0].level,
                     installations: realmInfo[index].installations,
                     upgrading: parcelUpgrading ? parcelUpgrading : undefined,
-                    isUpgradeReady: parcelUpgrading?.ready ? true: false
+                    isUpgradeReady: parcelUpgrading?.ready ? true : false
                 };
             });
 
@@ -310,8 +310,6 @@ export default function ClientRealmList() {
             if (activeUpgrades.length) {
                 const lastBlock = await ethersApi.getLastBlock();
 
-                console.log('lastBlock', lastBlock.number)
-
                 const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
                     const currentBlock = upgrade.readyBlock;
                     const isUpgradeReady = currentBlock - lastBlock.number <= 0;
@@ -325,7 +323,6 @@ export default function ClientRealmList() {
                     }
                 });
 
-                console.log('claimableUpgrades', upgradesWithTimestamps.filter(que => que.ready))
                 setClaimableUpgrades(
                     upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex)
                 );

@@ -534,7 +534,7 @@ export default {
 
                 // * gotchiverse return empty data if parcel was never channeled!
                 return parcelsIds.map((id, i) => ({
-                    id: id,
+                    id: dataArr[i]?.id || '',
                     lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
                     installations: dataArr[i]?.equippedInstallations || []
                 }))

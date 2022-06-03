@@ -39,7 +39,6 @@ export default function ChannelingInfo({ channeling }) {
 
     return (
         <div className={classes.container}>
-            {console.log('channeling', channeling)}
             <div style={{ flexBasis: '100%', color: 'aqua' }}>Channeling!</div>
             <div className={classes.inner}>
                 last:

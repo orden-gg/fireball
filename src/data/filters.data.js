@@ -205,7 +205,7 @@ export const filtersData = {
     },
     nextChannel: {
         key: 'nextChannel',
-        queryParamKey: 'isChannelingReady',
+        queryParamKey: 'channeling',
         title: 'Is channeling ready',
         value: false,
         componentType: FilterComponent.Checkbox,
