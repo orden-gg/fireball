@@ -213,8 +213,10 @@ export default function ClientRealmList() {
             getRealmUpgradesQueue(parcelIds),
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map((parcel, index) => {
-                const parcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
                 const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
+
+                console.log('isParcelUpgrading', isParcelUpgrading)
 
                 return {
                     ...parcel,
@@ -222,8 +224,8 @@ export default function ClientRealmList() {
                     nextChannel: parcelInfo.nextChannel,
                     altarLevel: parcelInfo.installations[0].level,
                     installations: parcelInfo.installations,
-                    upgrading: parcelUpgrading ? parcelUpgrading : undefined,
-                    isUpgradeReady: parcelUpgrading?.ready ? true : false
+                    upgrading: isParcelUpgrading ? isParcelUpgrading : undefined,
+                    isUpgradeReady: isParcelUpgrading?.ready ? true : false
                 };
             });
 
@@ -258,6 +260,8 @@ export default function ClientRealmList() {
 
     const getRealmUpgradesQueue = (realmIds) => {
         return installationsApi.getAllUpgradeQueue().then(async res => {
+
+            console.log('res', res)
             const activeUpgrades = res
                 .map((que, i) => ({ ...que, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
                 .filter(que => realmIds.some(id => id === que.parcelId && !que.claimed)); // get only unclaimed upgrades

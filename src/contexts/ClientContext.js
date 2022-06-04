@@ -280,7 +280,7 @@ const ClientContextProvider = (props) => {
         setLoadingRealm(true);
 
         thegraph.getRealmByAddress(address)
-            .then(async (res) => {
+            .then(res => {
                 const { type, dir } = realmSorting;
 
                 const modified = res.map(parcel => ({

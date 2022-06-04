@@ -355,7 +355,7 @@ export default class CitadelScene extends Phaser.Scene {
             const params = Object.entries(this.groups)
                 .filter(([, group]) => group.isActive)
                 .map(([, group]) => group.type);
-            console.log(params);
+
             if(!load) {
                 this.trigger('query', {
                     name: 'active',
@@ -490,7 +490,6 @@ export default class CitadelScene extends Phaser.Scene {
             };
 
             for(const parcel of parcels) {
-                console.log(parcel);
                 this.multiselect.toggleParcel(parcel);
             }
 

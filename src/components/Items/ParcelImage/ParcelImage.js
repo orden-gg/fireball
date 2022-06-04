@@ -16,13 +16,13 @@ export default function ParcelImage({ parcel, imageSize }) {
 
         map.forEach((item) => {
             if (!cache.length) {
-                cache[0] = []
+                cache[0] = [];
             }
 
             if (cache[cache.length -1].length < 4) {
                 cache[cache.length - 1].push(item)
             } else {
-                cache[cache.length] =[item]
+                cache[cache.length] = [item]
             }
         })
 
@@ -84,7 +84,7 @@ export default function ParcelImage({ parcel, imageSize }) {
                     setImageLoading(false);
                     processColorsMap(res);
                 }
-            })
+            });
 
         return () => mounted = false;
         // eslint-disable-next-line react-hooks/exhaustive-deps

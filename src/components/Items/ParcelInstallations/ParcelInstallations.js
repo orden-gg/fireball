@@ -33,29 +33,31 @@ export default function ParcelInstallations({ parcel }) {
             { parcel.installations.map((inst, index) => {
                 const metadata = installationsUtils.getMetadataById(inst.id);
 
-                return <div className={classes.installation} key={index}>
-                    <div className={classes.subtitle}>Altar!</div>
+                return (
+                    <div className={classes.installation} key={index}>
+                        <div className={classes.subtitle}>Altar!</div>
 
-                    <div className={classes.row}>
-                        <div className={classes.inner}>lvl:<span>{metadata.level}</span></div>
-                        <div className={classes.inner}>cd:<span>{metadata.cooldown}h</span></div>
-                        <div className={classes.inner}>rate:<span>{100 - (metadata.spillRate / 100)}%</span></div>
-                    </div>
-
-                    { parcel.upgrading && (
-                        <div className={classes.upgrade}>
-                            <span>upg:</span>
-
-                            <div className={classes.countdown}>
-                                <Countdown
-                                    targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
-                                    shortFormat={dataFormat}
-                                    replacementComponent={<span className={classes.ready}>Ready!</span>}
-                                />
-                            </div>
+                        <div className={classes.row}>
+                            <div className={classes.inner}>lvl:<span>{metadata.level}</span></div>
+                            <div className={classes.inner}>cd:<span>{metadata.cooldown}h</span></div>
+                            <div className={classes.inner}>rate:<span>{100 - (metadata.spillRate / 100)}%</span></div>
                         </div>
-                    )}
-                </div>
+
+                        { parcel.upgrading && (
+                            <div className={classes.upgrade}>
+                                <span>upg:</span>
+
+                                <div className={classes.countdown}>
+                                    <Countdown
+                                        targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
+                                        shortFormat={dataFormat}
+                                        replacementComponent={<span className={classes.ready}>Ready!</span>}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )
             })}
         </div>
     )

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
+import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
@@ -25,13 +26,12 @@ export default function ClientRealmActions({ claimableList }) {
         const walletConnected  = accounts.length > 0;
 
         setIsUserConnected(walletConnected);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     const onUpgradesFinish = (ids) => {
-        const succesMessage = `successefully finished ${ids.length} upgrades`;
-        const errorMessage = 'upgrades finishing went wrong :(';
+        const succesMessage = `successfully finished ${ids.length} upgrades`;
+        const errorMessage = 'finishing upgrades went wrong :(';
 
         installationsApi.finalizeUpgrades(ids)
             .then(completed => {
@@ -60,7 +60,12 @@ export default function ClientRealmActions({ claimableList }) {
             case 'processing':
                 return (
                     <>
-                        Finishing <CircularProgress size={20} color='secondary' sx={{ marginLeft: '8px' }} />
+                        Finishing
+                        <CircularProgress
+                            size={20}
+                            color='secondary'
+                            className={classes.buttonSpinner}
+                        />
                     </>
                 );
             default:
@@ -78,16 +83,15 @@ export default function ClientRealmActions({ claimableList }) {
                 variant='contained'
                 color={isTransactionCompleted ? 'success' : 'info'}
                 fullWidth
-                sx={{ marginBottom: '8px' }}
                 onClick={() => onUpgradesFinish(claimableList)}
                 disabled={!claimableList.length || !isUserConnected || isTransactionProcessing}
-                className={isTransactionCompleted ? classes.buttonCompleted : null}
+                className={classNames(classes.marginBottom, isTransactionCompleted ? classes.buttonCompleted : null)}
             >
                 {renderButtonNode(transactionStatus)}
             </Button>
 
             { !isUserConnected && (
-                <Alert severity='error' sx={{ marginBottom: '8px' }}>
+                <Alert severity='error' className={classes.marginBottom}>
                     Please connect to metamask!
                 </Alert>
             )}

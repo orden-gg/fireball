@@ -326,6 +326,12 @@ const actionStyles = makeStyles(theme => ({
     buttonCompleted: {
         pointerEvents: 'none',
         opacity: .5
+    },
+    buttonSpinner: {
+        marginLeft: 8
+    },
+    marginBottom: {
+        marginBottom: 8
     }
 }));
 

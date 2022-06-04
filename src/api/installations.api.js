@@ -18,7 +18,11 @@ export default {
                 claimed: item.claimed,
                 parcelId: ethersApi.formatBigNumber(item.parcelId),
                 installationId: ethersApi.formatBigNumber(item.installationId),
-            })));
+            })))
+            .catch(e => {
+                console.log(e);
+                return [];
+            });
     },
 
     getUpgradeQueueByAddress(address) {
@@ -28,19 +32,19 @@ export default {
                 claimed: item.claimed,
                 parcelId: ethersApi.formatBigNumber(item.parcelId),
                 installationId: ethersApi.formatBigNumber(item.installationId),
-            })));
+            })))
+            .catch(e => {
+                console.log(e);
+                return [];
+            });
     },
 
     async finalizeUpgrades(ids) {
         const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
         const transaction = await contractWithSigner.finalizeUpgrades(ids);
 
-        console.log('ids', ids);
-        console.log('transaction.hash', transaction.hash);
-
         return ethersApi.waitForTransaction(transaction.hash, 'polygon')
             .then(response => {
-                console.log('finalizeUpgrades', Boolean(response.status))
                 return Boolean(response.status)
             });
     },

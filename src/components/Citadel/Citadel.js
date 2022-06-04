@@ -133,7 +133,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             })
         });
 
-        console.log(params);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 

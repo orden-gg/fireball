@@ -39,7 +39,6 @@ export default function CopyToClipboardBlock({ children, text, className }) {
                 onMouseEnter={() => setTooltipText(defaultTooltipText)}
             >
                 <span>{children}</span>
-                {/* <ContentCopyIcon className={classes.blockIcon} /> */}
             </div>
         </CustomTooltip>
     );

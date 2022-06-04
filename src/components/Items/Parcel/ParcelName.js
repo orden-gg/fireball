@@ -1,4 +1,5 @@
 import React from 'react';
+
 import classNames from 'classnames';
 
 import CopyToClipboardBlock from 'components/CopyToClipboard/CopyToClipboardBlock';

@@ -124,7 +124,6 @@ export default function ClientGotchis() {
     }, [currentFilters, gotchis, gotchisSorting]);
 
     const onSortingChange = useCallback((type, dir) => {
-        console.log('type, dir', type, dir)
         setGotchisSorting({ type, dir });
     }, [setGotchisSorting]);
 
