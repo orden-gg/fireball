@@ -21,6 +21,7 @@ export default {
             })))
             .catch(e => {
                 console.log(e);
+
                 return [];
             });
     },
@@ -35,6 +36,7 @@ export default {
             })))
             .catch(e => {
                 console.log(e);
+
                 return [];
             });
     },

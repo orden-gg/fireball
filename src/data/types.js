@@ -49,5 +49,5 @@ export const InstallationTypes = Object.freeze({
     HarvestRate: 12,
     Capacity: 13,
     Prerequisites: 14,
-    Name: 15,
+    Name: 15
 });

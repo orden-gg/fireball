@@ -21,7 +21,6 @@ export default function ActiveListingButton({ item }) {
         thegraphApi.getActiveListing(item.erc, item.id, item.type, item.category)
             .then(res => {
                 if (mounted) {
-                    console.log(res)
                     setListing(res);
                     setListingLoading(false);
                 }

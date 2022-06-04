@@ -19,10 +19,10 @@ export default function ParcelImage({ parcel, imageSize }) {
                 cache[0] = [];
             }
 
-            if (cache[cache.length -1].length < 4) {
+            if (cache[cache.length - 1].length < 4) {
                 cache[cache.length - 1].push(item)
             } else {
-                cache[cache.length] = [item]
+                cache[cache.length] = [item];
             }
         })
 
