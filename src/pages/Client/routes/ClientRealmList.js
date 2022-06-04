@@ -19,36 +19,42 @@ const sortings = [
     {
         name: 'size',
         key: 'size',
+        paramKey: 'size',
         tooltip: 'size',
         icon: <HeightIcon fontSize='small' />
     },
     {
         name: 'district',
         key: 'district',
+        paramKey: 'district',
         tooltip: 'district',
         icon: <HouseIcon fontSize='small' />
     },
     {
         name: 'fudBoost',
         key: 'fudBoost',
+        paramKey: 'fudBoost',
         tooltip: 'fud boost',
         icon: <FudIcon height={18} width={18} />
     },
     {
         name: 'fomoBoost',
         key: 'fomoBoost',
+        paramKey: 'fomoBoost',
         tooltip: 'fomo boost',
         icon: <FomoIcon height={18} width={18} />
     },
     {
         name: 'alphaBoost',
         key: 'alphaBoost',
+        paramKey: 'alphaBoost',
         tooltip: 'alpha boost',
         icon: <AlphaIcon height={18} width={18} />
     },
     {
         name: 'kekBoost',
         key: 'kekBoost',
+        paramKey: 'kekBoost',
         tooltip: 'kek boost',
         icon: <KekIcon height={18} width={18} />
     }
@@ -92,7 +98,9 @@ export default function ClientRealmList() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            updateSorting(sort, dir);
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            updateSorting(key, dir);
         }
 
         return () => {
@@ -145,9 +153,11 @@ export default function ClientRealmList() {
     }, [setRealmSorting]);
 
     const updateSortQueryParams = useCallback((prop, dir) => {
+        const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
+
         history.push({
             path: location.pathname,
-            search: qs.stringify({...queryParams, sort: prop, dir }, {
+            search: qs.stringify({...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })

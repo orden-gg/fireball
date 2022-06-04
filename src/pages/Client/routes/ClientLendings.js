@@ -19,42 +19,49 @@ const sortings = [
     {
         name: 'endTime',
         key: 'endTime',
+        paramKey: 'endTime',
         tooltip: 'end time',
         icon: <TimerIcon fontSize='small' />
     },
     {
         name: 'income',
         key: 'income',
+        paramKey: 'income',
         tooltip: 'alchemica power',
         icon: <LocalFireDepartmentIcon fontSize='small' />
     },
     {
         name: 'total',
         key: 'totalTokens',
+        paramKey: 'totalTokens',
         tooltip: 'total alchemica',
         icon: <GroupWorkIcon fontSize='small' />
     },
     {
         name: 'fud',
         key: 'fud',
+        paramKey: 'fud',
         tooltip: 'fud',
         icon: <FudTokenIcon height={18} width={18} />
     },
     {
         name: 'fomo',
         key: 'fomo',
+        paramKey: 'fomo',
         tooltip: 'fomo',
         icon: <FomoTokenIcon height={18} width={18} />
     },
     {
         name: 'alpha',
         key: 'alpha',
+        paramKey: 'alpha',
         tooltip: 'alpha',
         icon: <AlphaTokenIcon height={18} width={18} />
     },
     {
         name: 'kek',
         key: 'kek',
+        paramKey: 'kek',
         tooltip: 'kek',
         icon: <KekTokenIcon height={18} width={18} />
     }
@@ -90,7 +97,9 @@ export default function ClientLendings() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            onSortingChange(sort, dir);
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            onSortingChange(key, dir);
         }
 
         return () => {
@@ -111,7 +120,9 @@ export default function ClientLendings() {
     }, [currentFilters]);
 
     useEffect(() => {
-        updateSortQueryParams(lendingsSorting.type, lendingsSorting.dir);
+        const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, lendingsSorting.dir);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
