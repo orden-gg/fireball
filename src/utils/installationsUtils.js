@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import { installations } from 'data/installations';
+import { InstallationTypes } from 'data/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -17,11 +18,11 @@ export default {
     },
 
     getNameById(id) {
-        return installations[id][15];
+        return installations[id][InstallationTypes.Name];
     },
 
     getLevelById(id) {
-        return installations[id][3];
+        return installations[id][InstallationTypes.Level];
     },
 
     getImageById(id) {
@@ -33,23 +34,24 @@ export default {
     },
 
     getSpillRadiusById(id) {
-        return installations[id][5];
+        return installations[id][InstallationTypes.SpillRadius];
     },
 
     getSpillRateById(id) {
-        return installations[id][6];
+        return installations[id][InstallationTypes.SpillRate];
     },
 
     getCraftTimeById(id) {
-        return installations[id][8];
+        return installations[id][InstallationTypes.CraftTime];
     },
 
     getAlchemicaCostById(id) {
-        return installations[id][11].map(token => Number(ethers.utils.formatUnits(token.hex)));
+        return installations[id][InstallationTypes.AlchemicaCost]
+            .map(token => Number(ethers.utils.formatUnits(token.hex)));
     },
 
     getTypeById(id) {
-        switch (installations[id][2]) {
+        switch (installations[id][InstallationTypes.Type]) {
             case 0:
                 return 'altar';
             case 1:

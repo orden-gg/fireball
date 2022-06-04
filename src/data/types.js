@@ -32,3 +32,22 @@ export const Erc1155Categories = Object.freeze({
     Realm: '4',
     Tile: '5'
 });
+
+export const InstallationTypes = Object.freeze({
+    Width: 0,
+    Height: 1,
+    Type: 2,
+    Level: 3,
+    AlchemicaType: 4,
+    SpillRadius: 5,
+    SpillRate: 6,
+    UpgradeQueueBoost: 7,
+    CraftTime: 8,
+    NextLevelId: 9,
+    Deprecated: 10,
+    AlchemicaCost: 11,
+    HarvestRate: 12,
+    Capacity: 13,
+    Prerequisites: 14,
+    Name: 15,
+});
