@@ -212,11 +212,9 @@ export default function ClientRealmList() {
             getRealmInfo(activeAddress, realm),
             getRealmUpgradesQueue(parcelIds),
         ]).then(([realmInfo, realmUpgradesQueue]) => {
-            const modifiedParcels = realm.map((parcel, index) => {
+            const modifiedParcels = realm.map(parcel => {
                 const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
                 const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
-
-                console.log('isParcelUpgrading', isParcelUpgrading)
 
                 return {
                     ...parcel,
@@ -224,8 +222,8 @@ export default function ClientRealmList() {
                     nextChannel: parcelInfo.nextChannel,
                     altarLevel: parcelInfo.installations[0].level,
                     installations: parcelInfo.installations,
-                    upgrading: isParcelUpgrading ? isParcelUpgrading : undefined,
-                    isUpgradeReady: isParcelUpgrading?.ready ? true : false
+                    upgrading: isParcelUpgrading,
+                    isUpgradeReady: Boolean(isParcelUpgrading?.ready)
                 };
             });
 
@@ -261,10 +259,9 @@ export default function ClientRealmList() {
     const getRealmUpgradesQueue = (realmIds) => {
         return installationsApi.getAllUpgradeQueue().then(async res => {
 
-            console.log('res', res)
             const activeUpgrades = res
-                .map((que, i) => ({ ...que, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
-                .filter(que => realmIds.some(id => id === que.parcelId && !que.claimed)); // get only unclaimed upgrades
+                .map((queue, i) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
+                .filter(queue => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
                 const lastBlock = await ethersApi.getLastBlock();
@@ -283,8 +280,9 @@ export default function ClientRealmList() {
                 });
 
                 setClaimableUpgrades(
-                    upgradesWithTimestamps.filter(que => que.ready).map(que => que.upgradeIndex)
+                    upgradesWithTimestamps.filter(queue => queue.ready).map(queue => queue.upgradeIndex)
                 );
+
                 return upgradesWithTimestamps;
             }
 
