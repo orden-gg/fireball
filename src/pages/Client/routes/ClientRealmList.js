@@ -28,48 +28,56 @@ const sortings = [
     {
         name: 'size',
         key: 'size',
+        paramKey: 'size',
         tooltip: 'size',
         icon: <HeightIcon fontSize='small' />
     },
     {
         name: 'district',
         key: 'district',
+        paramKey: 'district',
         tooltip: 'district',
         icon: <HouseIcon fontSize='small' />
     },
     {
         name: 'nextChannel',
         key: 'nextChannel',
+        paramKey: 'nextChannel',
         tooltip: 'next channel',
         icon: <TimerIcon fontSize='small' />
     },
     {
         name: 'altarLevel',
         key: 'altarLevel',
+        paramKey: 'altar',
         tooltip: 'altar level',
         icon: <AutoGraphIcon fontSize='small' />
     },
     {
         name: 'fudBoost',
         key: 'fudBoost',
+        paramKey: 'fud',
         tooltip: 'fud boost',
         icon: <FudIcon height={18} width={18} />
     },
     {
         name: 'fomoBoost',
         key: 'fomoBoost',
+        paramKey: 'fomo',
         tooltip: 'fomo boost',
         icon: <FomoIcon height={18} width={18} />
     },
     {
         name: 'alphaBoost',
         key: 'alphaBoost',
+        paramKey: 'alpha',
         tooltip: 'alpha boost',
         icon: <AlphaIcon height={18} width={18} />
     },
     {
         name: 'kekBoost',
         key: 'kekBoost',
+        paramKey: 'kek',
         tooltip: 'kek boost',
         icon: <KekIcon height={18} width={18} />
     }
@@ -125,7 +133,9 @@ export default function ClientRealmList() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            onSortingChange(sort, dir);
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            onSortingChange(key, dir);
         }
 
         return () => {
@@ -154,7 +164,9 @@ export default function ClientRealmList() {
     }, [currentFilters]);
 
     useEffect(() => {
-        updateSortQueryParams(realmSorting.type, realmSorting.dir);
+        const paramKey = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, realmSorting.dir);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmSorting]);
 

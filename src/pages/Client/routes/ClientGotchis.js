@@ -22,36 +22,42 @@ const sortings = [
     {
         name: 'id',
         key: 'id',
+        paramKey: 'id',
         tooltip: 'gotchi id',
         icon: <Grid3x3Icon fontSize='small' />
     },
     {
         name: 'mrs',
         key: 'modifiedRarityScore',
+        paramKey: 'mrs',
         tooltip: 'rarity score',
         icon: <EmojiEventsOutlinedIcon fontSize='small' />
     },
     {
         name: 'brs',
         key: 'baseRarityScore',
+        paramKey: 'brs',
         tooltip: 'base rarity score',
         icon: <FormatListNumberedIcon fontSize='small' />
     },
     {
         name: 'kin',
         key: 'kinship',
+        paramKey: 'kin',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
     },
     {
         name: 'experience',
         key: 'experience',
+        paramKey: 'exp',
         tooltip: 'experience',
         icon: <ScienceIcon fontSize='small' />
     },
     {
         name: 'age',
         key: 'createdAt',
+        paramKey: 'age',
         tooltip: 'age',
         icon: <CalendarMonthIcon fontSize='small' />
     }
@@ -87,7 +93,9 @@ export default function ClientGotchis() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            onSortingChange(sort, dir);
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            onSortingChange(key, dir);
         }
 
         return () => {
@@ -108,7 +116,9 @@ export default function ClientGotchis() {
     }, [currentFilters]);
 
     useEffect(() => {
-        updateSortQueryParams(gotchisSorting.type, gotchisSorting.dir);
+        const paramKey = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, gotchisSorting.dir);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gotchisSorting]);
 
