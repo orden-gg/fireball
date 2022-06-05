@@ -33,7 +33,7 @@ const sortings = [
     {
         name: 'total',
         key: 'totalTokens',
-        paramKey: 'totalTokens',
+        paramKey: 'total',
         tooltip: 'total alchemica',
         icon: <GroupWorkIcon fontSize='small' />
     },

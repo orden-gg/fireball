@@ -54,7 +54,7 @@ const sortings = [
     {
         name: 'time',
         key: 'timeCreated',
-        paramKey: 'timeCreated',
+        paramKey: 'created',
         tooltip: 'time created',
         icon: <FormatListNumberedIcon fontSize='small' />
     },

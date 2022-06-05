@@ -43,7 +43,7 @@ const sortings = [
     {
         name: 'kin',
         key: 'kinship',
-        paramKey: 'kinship',
+        paramKey: 'kin',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
     },
@@ -57,7 +57,7 @@ const sortings = [
     {
         name: 'age',
         key: 'createdAt',
-        paramKey: 'createdAt',
+        paramKey: 'age',
         tooltip: 'age',
         icon: <CalendarMonthIcon fontSize='small' />
     }

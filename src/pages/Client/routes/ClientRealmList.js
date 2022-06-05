@@ -33,28 +33,28 @@ const sortings = [
     {
         name: 'fudBoost',
         key: 'fudBoost',
-        paramKey: 'fudBoost',
+        paramKey: 'fud',
         tooltip: 'fud boost',
         icon: <FudIcon height={18} width={18} />
     },
     {
         name: 'fomoBoost',
         key: 'fomoBoost',
-        paramKey: 'fomoBoost',
+        paramKey: 'fomo',
         tooltip: 'fomo boost',
         icon: <FomoIcon height={18} width={18} />
     },
     {
         name: 'alphaBoost',
         key: 'alphaBoost',
-        paramKey: 'alphaBoost',
+        paramKey: 'alpha',
         tooltip: 'alpha boost',
         icon: <AlphaIcon height={18} width={18} />
     },
     {
         name: 'kekBoost',
         key: 'kekBoost',
-        paramKey: 'kekBoost',
+        paramKey: 'kek',
         tooltip: 'kek boost',
         icon: <KekIcon height={18} width={18} />
     }
