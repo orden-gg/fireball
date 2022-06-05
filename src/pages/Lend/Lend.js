@@ -33,48 +33,56 @@ const sortings = [
     {
         name: 'id',
         key: 'id',
+        paramKey: 'id',
         tooltip: 'gotchi id',
         icon: <Grid3x3Icon fontSize='small' />
     },
     {
         name: 'mrs',
         key: 'modifiedRarityScore',
+        paramKey: 'mrs',
         tooltip: 'rarity score',
         icon: <EmojiEventsOutlinedIcon fontSize='small' />
     },
     {
         name: 'kin',
         key: 'kinship',
+        paramKey: 'kinship',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
     },
     {
         name: 'time',
         key: 'timeCreated',
+        paramKey: 'created',
         tooltip: 'time created',
         icon: <FormatListNumberedIcon fontSize='small' />
     },
     {
         name: 'upfront cost',
         key: 'upfrontCost',
+        paramKey: 'cost',
         tooltip: 'upfront cost',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'period',
         key: 'period',
+        paramKey: 'period',
         tooltip: 'rental period',
         icon: <AccessTimeIcon fontSize='small' />
     },
     {
         name: 'owner revenue',
         key: 'splitOwner',
+        paramKey: 'owner',
         tooltip: 'owner revenue',
         icon: <CopyrightIcon fontSize='small' />
     },
     {
         name: 'borrower revenue',
         key: 'splitBorrower',
+        paramKey: 'borrower',
         tooltip: 'borrower revenue',
         icon: <PercentIcon fontSize='small' />
     }
@@ -111,7 +119,9 @@ export default function Lend() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            onSortingChange(sort, dir);
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            onSortingChange(key, dir);
         }
 
         return () => {
@@ -189,7 +199,9 @@ export default function Lend() {
     }, [currentFilters]);
 
     useEffect(() => {
-        updateSortQueryParams(lendingsSorting.type, lendingsSorting.dir);
+        const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, lendingsSorting.dir);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
