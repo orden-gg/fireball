@@ -143,10 +143,18 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             const groups = realmGroups.filter(group => !commonUtils.isEmptyObject(group));
 
             if (typeof active === 'string') {
-                groups.find(group => group.type === active).active = true;
+                const group = groups.find(group => group.type === active);
+
+                if (group) {
+                    group.active = true;
+                }
             } else if (active !== undefined) {
-                for (const type of active) {
-                    groups.find(group => group.type === type).active = true;
+                for (const group of groups) {
+                    const isActive = active.some(item => item === group.type);
+
+                    if (isActive) {
+                        group.active = isActive;
+                    }
                 }
             }
 
