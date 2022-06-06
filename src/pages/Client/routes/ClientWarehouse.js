@@ -17,12 +17,14 @@ const sortings = [
     {
         name: 'rarity',
         key: 'rarityId',
+        paramKey: 'rarity',
         tooltip: 'rarity',
         icon: <GrainIcon fontSize='small' />
     },
     {
         name: 'quantity',
         key: 'balance',
+        paramKey: 'quantity',
         tooltip: 'quantity',
         icon: <FormatListNumberedIcon fontSize='small' />
     }
@@ -47,7 +49,9 @@ export default function ClientWarehouse() {
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            setWarehouseSorting({ type: sort, dir });
+            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            setWarehouseSorting({ type: key, dir });
         }
 
         return () => {
@@ -64,9 +68,11 @@ export default function ClientWarehouse() {
     }, [loadingWarehouse, warehouseSorting]);
 
     const updateSortQueryParams = useCallback((prop, dir) => {
+        const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
+
         history.push({
             path: location.pathname,
-            search: qs.stringify({...queryParams, sort: prop, dir }, {
+            search: qs.stringify({...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })
