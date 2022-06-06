@@ -56,8 +56,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const removeSelected = () => setSelectedParcel(null);
 
-    const toggleGroup = (type, isActive) => {
-        game.scene.toggleGroup(type, isActive);
+    const updateGroup = (type, isActive) => {
+        game.scene.updateGroup(type, isActive);
     }
 
     const onFiltersChange = filters => {
@@ -83,7 +83,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         icons={group.icons}
                         tooltip={group.tooltip}
                         active={buttonIsActive(group.type) || group.active}
-                        handleClick={toggleGroup}
+                        handleClick={updateGroup}
                         key={group.type}
                     />
                 )
@@ -142,23 +142,17 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             const { active } = params;
             const groups = realmGroups.filter(group => !commonUtils.isEmptyObject(group));
 
-            if (typeof active === 'string') {
-                const group = groups.find(group => group.type === active);
+            game.scene.addGroups(groups);
 
-                if (group) {
-                    group.active = true;
-                }
-            } else if (active !== undefined) {
-                for (const group of groups) {
-                    const isActive = active.some(item => item === group.type);
-
-                    if (isActive) {
-                        group.active = isActive;
+            if (active) {
+                if (typeof active === 'string') {
+                    game.scene.toggleGroup(active, true);
+                } else {
+                    for (const type of active) {
+                        game.scene.toggleGroup(type, true);
                     }
                 }
             }
-
-            game.scene.addGroups(groups);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
@@ -200,14 +194,14 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     type='grid'
                     tooltip='Districts grid'
                     icons={[<GridOffIcon />, <GridOnIcon />]}
-                    handleClick={toggleGroup}
+                    handleClick={updateGroup}
                     active={buttonIsActive('grid')}
                 />
                 <BasicButton
                     type='guilds'
                     tooltip='Guilds'
                     icons={[<DeselectIcon />, <SelectAllIcon />]}
-                    handleClick={toggleGroup}
+                    handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}

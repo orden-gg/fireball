@@ -99,11 +99,6 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         return Phaser.Display.Color.GetColor(color.r, color.g, color.b);
     }
 
-    removeGroup() {
-        this.animate(false);
-        this.destroy();
-    }
-
     toggleParcel(parcel) {
         const parcelIndex = this.settings.parcels.findIndex(item => item.tokenId === parcel.tokenId);
 
@@ -112,6 +107,11 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         } else {
             this.settings.parcels.splice(parcelIndex, 1);
         }
+    }
+
+    updateParcels(group) {
+        this.settings.parcels = group.parcels;
+        this.create();
     }
 
     show(isActive) {
@@ -138,6 +138,10 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
     get isActive() {
         return this.settings.active;
+    }
+
+    get name() {
+        return 'parcels';
     }
 
     get type() {

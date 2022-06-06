@@ -6,7 +6,7 @@ export default class FiltersManager {
 
         this.groups = {
             isGroupsActive: false,
-            list: []
+            items: []
         };
 
         this.parcelsFades = {
@@ -41,13 +41,13 @@ export default class FiltersManager {
         this.fadeMapParts();
     }
 
-    updateGroup(type, isActive) {
-        const group = this.groups.list.find(group => group.type === type);
+    updateGroups(type, isActive) {
+        const group = this.groups.items.find(group => group.type === type);
 
         if (group.isActive !== isActive) {
             group.isActive = isActive;
 
-            this.groups.isGroupsActive = this.groups.list.some(item => item.isActive);
+            this.groups.isGroupsActive = this.groups.items.some(item => item.isActive);
 
             if (this.groups.isGroupsActive) {
                 this.fadeDistricts(.5);
@@ -91,7 +91,7 @@ export default class FiltersManager {
     }
 
     addGroup(group) {
-        this.groups.list.push(group);
+        this.groups.items.push(group);
 
         if (group.isActive) {
             this.fadeDistricts(.5);
@@ -120,5 +120,9 @@ export default class FiltersManager {
                 district.setAlpha(value);
             }
         }
+    }
+
+    getGroup(type) {
+        return this.groups.items.find(group => group.type === type);
     }
 }

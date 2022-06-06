@@ -133,4 +133,12 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
             this.setAlpha(0);
         }
     }
+
+    get type() {
+        return this.settings.type;
+    }
+
+    get isActive() {
+        return this.settings.active
+    }
 }

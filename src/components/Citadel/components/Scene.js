@@ -260,19 +260,24 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         addGroup(group) {
-            const { active, type } = group;
+            const { active, type, parcels } = group;
 
-            if (this.groups?.hasOwnProperty(type)) {
-                group.active = this.groups[type].isActive;
-                this.groups[type].removeGroup();
-                delete this.groups[type];
+            if (this.groups?.hasOwnProperty(type) && parcels !== this.groups[type].parcels) {
+                const isActive = this.filtersManager.getGroup(type).isActive;
+
+                if (isActive && parcels.length === 0) {
+                    this.updateGroup(type, false);
+                }
+
+                this.groups[type].updateParcels(group);
+
+                return;
             }
 
-            if (group.parcels.length !== 0) {
+            if (group.parcels.length > 0) {
                 this.groups[type] = new CreateParcels(this, group);
-                this.groups[type].animate(Boolean(group.animate));
 
-                this.citadel.add(this.groups[type], 0);
+                this.citadel.add(this.groups[type]);
 
                 this.filtersManager.addGroup({
                     isActive: active,
@@ -295,13 +300,8 @@ export default class CitadelScene extends Phaser.Scene {
             });
         }
 
-        toggleGroup(type, isActive) {
-            const group = this.groups[type];
-
-            this.filtersManager.updateGroup(type, isActive);
-            group.show(isActive);
-
-            this.reOrderItems();
+        updateGroup(type, isActive) {
+            this.toggleGroup(type, isActive);
 
             const params = Object.entries(this.groups)
                 .filter(([, group]) => group.isActive)
@@ -311,6 +311,20 @@ export default class CitadelScene extends Phaser.Scene {
                 name: 'active',
                 params: params
             });
+        }
+
+        toggleGroup(type, isActive) {
+            const group = this.groups[type];
+
+            if (group !== undefined) {
+                if (group.name === 'parcels') {
+                    this.filtersManager.updateGroups(type, group.parcels.length !== 0 && isActive);
+                }
+
+                group.show(group.parcels.length !== 0 && isActive);
+
+                this.reOrderItems();
+            }
         }
 
         moveToCenter(x, y, duration) {
