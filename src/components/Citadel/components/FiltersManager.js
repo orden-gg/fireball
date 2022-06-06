@@ -125,4 +125,21 @@ export default class FiltersManager {
     getGroup(type) {
         return this.groups.items.find(group => group.type === type);
     }
+
+    get filteredParcels() {
+        const { size, district } = this.filters;
+
+        return district.items.reduce((prev, current) => {
+            if (!district.isFilterActive || current.isSelected) {
+                const parcels = this.scene.districts[current.value].parcels
+                    .filter(parcel =>
+                        !size.isFilterActive || size.items[parcel.size].isSelected
+                    );
+
+                return prev.concat(parcels);
+            } else {
+                return prev;
+            }
+        }, []);
+    }
 }

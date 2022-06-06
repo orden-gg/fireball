@@ -45,16 +45,11 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const findOnMap = (type, value) => game.scene.find(type, value);
 
-    const buttonIsActive = type => {
-        const { active } = params;
-        if (typeof active === 'string') {
-            return active === type;
-        } else {
-            return active?.some(name => name === type);
-        }
-    };
-
     const removeSelected = () => setSelectedParcel(null);
+
+    const onExportData = () => {
+        filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'client_gotchis');
+    };
 
     const updateGroup = (type, isActive) => {
         game.scene.updateGroup(type, isActive);
@@ -65,13 +60,14 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         game.scene.filtersManager.updateFilters(filters);
     }
 
-    const updateQueryParams = useCallback(filters => {
-        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
-
-        setParams(newParams);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params, history, location.pathname]);
-
+    const buttonIsActive = type => {
+        const { active } = params;
+        if (typeof active === 'string') {
+            return active === type;
+        } else {
+            return active?.some(name => name === type);
+        }
+    };
     const basicButtons = useMemo(() => {
         return realmGroups
             .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
@@ -90,6 +86,13 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
+
+    const updateQueryParams = useCallback(filters => {
+        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
+
+        setParams(newParams);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params, history, location.pathname]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -209,7 +212,11 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             </CitadelInterface>
 
             {mapCreated &&
-                <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} />
+                <CitadelFilters
+                    onFiltersChange={onFiltersChange}
+                    queryParams={params}
+                    onExportData={onExportData}
+                />
             }
 
             <FullscreenButton wrapperRef={wrapperRef} />
