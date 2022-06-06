@@ -13,6 +13,7 @@ import Highlight from './Highlight';
 import CreateParcels from './CreateParcels';
 import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
+import FiltersManager from './FiltersManager';
 import citadelUtils from 'utils/citadelUtils';
 
 export default class CitadelScene extends Phaser.Scene {
@@ -28,6 +29,8 @@ export default class CitadelScene extends Phaser.Scene {
             this.groups = {};
             this.filters = {};
             this.zoom = { max: 10 };
+
+            this.filtersManager = new FiltersManager(this);
         }
 
         preload() {
@@ -71,7 +74,7 @@ export default class CitadelScene extends Phaser.Scene {
             for(const key in parcelsData) {
                 this.districts[key] = new CreateParcels(this, {
                     parcels: parcelsData[key],
-                    type: 'parcels',
+                    type: 'district',
                     active: true
                 });
             }
@@ -102,8 +105,6 @@ export default class CitadelScene extends Phaser.Scene {
                 animate: true
             });
             this.citadel.add([this.groups.guilds, this.groups.grid, this.districtHighLight, this.multiselect, this.selected]);
-
-
 
             this.trigger('created');
 
@@ -188,51 +189,6 @@ export default class CitadelScene extends Phaser.Scene {
                     this.districtHighLight.update(x, y, w, h);
                 }
             });
-
-            this.on('filtersUpdate', filters => {
-                for (const [key, filter] of Object.entries(filters)) {
-                    if (this.filters.hasOwnProperty(key)) {
-                        const isChanged = filter.items.some((item, index) =>
-                            item.isSelected !== this.filters[key].items[index].isSelected
-                        );
-
-                        if (isChanged) {
-                            this.filters[key] = JSON.parse(JSON.stringify(filter));
-                            this.trigger(`${key}Filter`);
-                        }
-                    } else {
-                        this.filters[key] = JSON.parse(JSON.stringify(filter));
-                        this.trigger(`${key}Filter`);
-                    }
-                }
-            });
-
-            this.on('sizeFilter', () => {
-                const filteredFades = this.getParcelsFilteredFades();
-
-                for (const key in this.districts) {
-                    this.districts[key].updateParcelsFade(filteredFades)
-                }
-
-                for (const key in this.groups) {
-                    if (this.groups[key].name === 'parcels') {
-                        this.groups[key].updateParcelsFade(filteredFades);
-                    }
-                }
-
-                this.multiselect.updateParcelsFade(filteredFades);
-
-            });
-
-            this.on('districtFilter', () => {
-                const filter = this.filters.district;
-
-                for (const data of filter.items) {
-                    const district = this.districts[data.value];
-                    district.filter = data.isSelected;
-                    district.updateFade(filter.isFilterActive ? 'filter' : 'fade');
-                }
-            });
         }
 
         loadLogo(guild) {
@@ -298,15 +254,13 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         addGroups(groups) {
-            const fades = this.getParcelsFilteredFades();
-
             for (const group of groups) {
-                this.addGroup(group, fades);
+                this.addGroup(group);
             }
         }
 
-        addGroup(group, fades) {
-            const type = group.type;
+        addGroup(group) {
+            const { active, type } = group;
 
             if (this.groups?.hasOwnProperty(type)) {
                 group.active = this.groups[type].isActive;
@@ -317,12 +271,14 @@ export default class CitadelScene extends Phaser.Scene {
             if (group.parcels.length !== 0) {
                 this.groups[type] = new CreateParcels(this, group);
                 this.groups[type].animate(Boolean(group.animate));
-                this.groups[type].updateParcelsFade(fades || {});
 
                 this.citadel.add(this.groups[type], 0);
-            }
 
-            this.updateMapFade();
+                this.filtersManager.addGroup({
+                    isActive: active,
+                    type: type
+                });
+            }
         }
 
         removeSelectedParcel() {
@@ -339,39 +295,22 @@ export default class CitadelScene extends Phaser.Scene {
             });
         }
 
-        toggleGroup(type, isActive, load) {
+        toggleGroup(type, isActive) {
             const group = this.groups[type];
 
-            if(group === undefined) {
-                return;
-            }
-
+            this.filtersManager.updateGroup(type, isActive);
             group.show(isActive);
-
-            this.updateMapFade();
 
             this.reOrderItems();
 
             const params = Object.entries(this.groups)
                 .filter(([, group]) => group.isActive)
                 .map(([, group]) => group.type);
-            console.log(params);
-            if(!load) {
-                this.trigger('query', {
-                    name: 'active',
-                    params: params
-                });
-            }
-        }
 
-        updateMapFade() {
-            const isSomeShown = Object.entries(this.groups).some(([, item]) => item.isActive);
-
-            if (isSomeShown) {
-                this.fadeMap(.5);
-            } else {
-                this.fadeMap(1);
-            }
+            this.trigger('query', {
+                name: 'active',
+                params: params
+            });
         }
 
         moveToCenter(x, y, duration) {
@@ -433,19 +372,6 @@ export default class CitadelScene extends Phaser.Scene {
             this.settings.district = id;
         }
 
-        fadeMap(number) {
-            for(const key in this.districts) {
-                const district = this.districts[key];
-
-                district.fade = number === 1;
-                district.updateFade(this.filters.district?.isFilterActive ? 'filter' : 'fade');
-            }
-
-            this.walls.setAlpha(number);
-
-            for (const [, alchemica] of Object.entries(this.alchemica)) alchemica.setAlpha(number === 1 ? 1 : .25);
-        }
-
         reOrderItems() {
             this.citadel.bringToTop(this.multiselect);
             this.citadel.bringToTop(this.selected);
@@ -490,9 +416,10 @@ export default class CitadelScene extends Phaser.Scene {
             };
 
             for(const parcel of parcels) {
-                console.log(parcel);
                 this.multiselect.toggleParcel(parcel);
             }
+
+            this.multiselect.animate(true);
 
             this.reOrderItems();
         }
@@ -505,18 +432,6 @@ export default class CitadelScene extends Phaser.Scene {
             } else {
                 return width / w;
             }
-        }
-
-        getParcelsFilteredFades() {
-            const fades = {};
-
-            if (this.filters.size.isFilterActive) {
-                for (const item of this.filters.size.items) {
-                    fades[item.value] = item.isSelected ? 1 : .2;
-                }
-            }
-
-            return fades;
         }
 
         getParcel(value) {

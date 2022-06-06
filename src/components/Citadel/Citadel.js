@@ -56,11 +56,13 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const removeSelected = () => setSelectedParcel(null);
 
-    const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
+    const toggleGroup = (type, isActive) => {
+        game.scene.toggleGroup(type, isActive);
+    }
 
     const onFiltersChange = filters => {
         updateQueryParams(filters);
-        game.scene.trigger(`filtersUpdate`, filters);
+        game.scene.filtersManager.updateFilters(filters);
     }
 
     const updateQueryParams = useCallback(filters => {
@@ -132,27 +134,24 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 arrayFormat: 'comma'
             })
         });
-
-        console.log(params);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
         if (mapCreated && realmGroups.length > 0) {
             const { active } = params;
+            const groups = realmGroups.filter(group => !commonUtils.isEmptyObject(group));
 
-            game.scene.addGroups(realmGroups.filter(group => !commonUtils.isEmptyObject(group)));
-
-            if (active) {
-                if (typeof active === 'string') {
-                    game.scene.toggleGroup(active, true, true);
-                } else {
-                    for (const type of active) {
-                        game.scene.toggleGroup(type, true, true);
-                    }
+            if (typeof active === 'string') {
+                groups.find(group => group.type === active).active = true;
+            } else if (active !== undefined) {
+                for (const type of active) {
+                    groups.find(group => group.type === type).active = true;
                 }
             }
-    }
+
+            game.scene.addGroups(groups);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 

@@ -1,0 +1,124 @@
+export default class FiltersManager {
+    constructor(scene) {
+        this.scene = scene;
+
+        this.filters = {};
+
+        this.groups = {
+            isGroupsActive: false,
+            list: []
+        };
+
+        this.parcelsFades = {
+            0: 1,
+            1: 1,
+            2: 1,
+            3: 1,
+            4: 1,
+            5: 1
+        };
+
+        this.groupActive = Object.entries(this.groups).some(([, item]) => item.isActive);
+    }
+
+    updateFilters(filters) {
+        for (const [key, filter] of Object.entries(filters)) {
+            if (this.filters.hasOwnProperty(key)) {
+                const isChanged = filter.items.some((item, index) =>
+                    item.isSelected !== this.filters[key].items[index].isSelected
+                );
+
+                if (isChanged) {
+                    this.filters[key] = JSON.parse(JSON.stringify(filter));
+                    this[`${key}Filter`]();
+                }
+            } else {
+                this.filters[key] = JSON.parse(JSON.stringify(filter));
+                this[`${key}Filter`]();
+            }
+        }
+
+        this.fadeMapParts();
+    }
+
+    updateGroup(type, isActive) {
+        const group = this.groups.list.find(group => group.type === type);
+
+        if (group.isActive !== isActive) {
+            group.isActive = isActive;
+
+            this.groups.isGroupsActive = this.groups.list.some(item => item.isActive);
+
+            if (this.groups.isGroupsActive) {
+                this.fadeDistricts(.5);
+            } else {
+                this.districtFilter();
+            }
+        }
+
+        this.fadeMapParts();
+    }
+
+    districtFilter() {
+        const filter = this.filters.district;
+
+        if (this.groups.isGroupsActive) {
+            return;
+        }
+
+        for (const item of filter.items) {
+            const district = this.scene.districts[item.value];
+
+            district.setAlpha(
+                filter.isFilterActive && !item.isSelected ? .5 : 1
+            );
+        }
+    }
+
+    sizeFilter() {
+        const filter = this.filters.size;
+
+        for (const key in this.parcelsFades) {
+            if (!filter.isFilterActive) {
+                this.parcelsFades[key] = 1;
+                continue;
+            }
+
+            this.parcelsFades[key] = filter.items[key].isSelected ? 1 : .2;
+        }
+
+        this.scene.trigger('updateParcelsFade');
+    }
+
+    addGroup(group) {
+        this.groups.list.push(group);
+
+        if (group.isActive) {
+            this.fadeDistricts(.5);
+            this.groups.isGroupsActive = true;
+        } else {
+            this.scene.groups[group.type].show(false);
+        }
+
+        this.fadeMapParts();
+    }
+
+    fadeMapParts() {
+        const number = this.groups.isGroupsActive || Object.entries(this.filters).some(([, filter]) => filter.isFilterActive) ? .5 : 1;
+        this.scene.walls.setAlpha(number);
+
+        for (const [, alchemica] of Object.entries(this.scene.alchemica)) {
+            alchemica.setAlpha(number === 1 ? 1 : .25);
+        }
+    }
+
+    fadeDistricts(value) {
+        for (const key in this.scene.districts) {
+            const district = this.scene.districts[key];
+
+            if (district.alpha !== value) {
+                district.setAlpha(value);
+            }
+        }
+    }
+}

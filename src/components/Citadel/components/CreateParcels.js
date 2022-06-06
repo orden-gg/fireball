@@ -12,18 +12,15 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
         this.settings = settings;
         this.duration = 1000;
-        this.fades = {
-            0: 1,
-            2: 1,
-            3: 1,
-            4: 1,
-            5: 1
-        };
 
-        this.filter = true;
-        this.create(this.settings.parcels);
-        this.show(settings.active);
-        this.isSelected = true;
+        this.create();
+
+        this.scene.on('updateParcelsFade', () => {
+            if (!this.settings.animate) {
+                this.clear();
+                this.create();
+            }
+        });
     }
 
     animate(isAnimate) {
@@ -43,10 +40,10 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
                 duration: this.duration,
                 onUpdate: tween => {
                     const value = tween.getValue();
-                    const color = this.getRangeColor(from, to, value);
+                    this.animateColor = this.getRangeColor(from, to, value);
 
                     this.clear();
-                    this.updateGraphics(color);
+                    this.create();
                 }
             });
         }
@@ -54,16 +51,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
     create() {
         for (const parcel of this.settings.parcels) {
-            this.drawParcel(parcel, this.getParcelColorBySize(parcel));
-        }
-    }
-
-    updateParcelsFade(fades) {
-        this.fades = fades;
-
-        if (!this.settings.animate) {
-            this.clear();
-            this.create();
+            this.drawParcel(parcel, this.animateColor || this.getParcelColorBySize(parcel));
         }
     }
 
@@ -71,7 +59,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         const { x, y } = citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
         const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
-        this.fillStyle(color, this.fades[parcel.size] || 1);
+        this.fillStyle(color, this.scene.filtersManager.parcelsFades[parcel.size]);
         this.fillRect(x, y, w, h);
     }
 
@@ -111,12 +99,6 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         return Phaser.Display.Color.GetColor(color.r, color.g, color.b);
     }
 
-    updateGraphics(color) {
-        for (const parcel of this.settings.parcels) {
-            this.drawParcel(parcel, color, this.fades[parcel.size] || 1);
-        }
-    }
-
     removeGroup() {
         this.animate(false);
         this.destroy();
@@ -146,27 +128,15 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         }
     }
 
-    updateFade(type) {
-        this.setAlpha(this[type] ? 1 : .5);
-    }
-
     get parcels() {
         return this.settings.parcels;
     }
 
     get isAnimate() {
-        return this.settings.animate;
+        return this.settings.animate
     }
 
     get isActive() {
         return this.settings.active;
-    }
-
-    get name() {
-        return 'parcels';
-    }
-
-    get type() {
-        return this.settings.type;
     }
 }
