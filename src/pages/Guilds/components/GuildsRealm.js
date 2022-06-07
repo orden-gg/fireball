@@ -18,6 +18,7 @@ export default function GuildRealm() {
 
         groups.push({
             parcels: guildRealm,
+            /* eslint-disable-next-line react/jsx-key */
             icons: [<VisibilityOffIcon />, <VisibilityIcon />],
             tooltip: 'Owner realm',
             type: 'owner',

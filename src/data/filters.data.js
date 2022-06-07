@@ -82,6 +82,7 @@ export const filtersData = {
                 <Chip
                     size='small'
                     label={option.title}
+                    key={option.title}
                     avatar={
                         <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
                     }
@@ -195,6 +196,7 @@ export const filtersData = {
                 <Chip
                     size='small'
                     label={option.title}
+                    key={option.title}
                     {...getTagProps({ index })}
                 />
             ))

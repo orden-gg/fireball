@@ -192,6 +192,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     type='grid'
                     tooltip='Districts grid'
+                    /* eslint-disable-next-line react/jsx-key */
                     icons={[<GridOffIcon />, <GridOnIcon />]}
                     handleClick={toggleGroup}
                     active={buttonIsActive('grid')}
@@ -199,6 +200,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     type='guilds'
                     tooltip='Guilds'
+                    /* eslint-disable-next-line react/jsx-key */
                     icons={[<DeselectIcon />, <SelectAllIcon />]}
                     handleClick={toggleGroup}
                     active={buttonIsActive('guilds')}

@@ -56,6 +56,7 @@ export default function Map() {
                     parcels: combined,
                     type: 'listed',
                     active: false,
+                    /* eslint-disable-next-line react/jsx-key */
                     icons: [<MoneyOffIcon />, <AttachMoneyIcon />],
                     tooltip: 'Listed realm',
                     range: {
@@ -90,6 +91,7 @@ export default function Map() {
                         type: 'owner',
                         active: false,
                         animate: true,
+                        /* eslint-disable-next-line react/jsx-key */
                         icons: [<VisibilityOffIcon />, <VisibilityIcon />],
                         tooltip: 'Owner realm'
                     });

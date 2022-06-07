@@ -304,7 +304,7 @@ export default function Lend() {
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
                             {modifiedLendings.map(lend => {
-                                return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
+                                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
                             })}
                         </ol>
                     ) : (
