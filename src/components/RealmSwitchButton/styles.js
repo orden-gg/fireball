@@ -29,7 +29,7 @@ const styles = makeStyles(() => ({
             width: 32,
             height: 32,
             '&:before': {
-                content: "''",
+                content: '\'\'',
                 position: 'absolute',
                 width: '80%',
                 height: '80%',

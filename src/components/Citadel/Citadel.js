@@ -60,7 +60,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const onFiltersChange = filters => {
         updateQueryParams(filters);
-        game.scene.trigger(`filtersUpdate`, filters);
+        game.scene.trigger('filtersUpdate', filters);
     };
 
     const updateQueryParams = useCallback(filters => {

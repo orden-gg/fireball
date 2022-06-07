@@ -65,7 +65,7 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
                     <Grid item xs={4}>
                         <TextField
                             type='text'
-                            variant={"standard"}
+                            variant={'standard'}
                             size={'small'}
                             fullWidth
                             value={sliderRange[0]}
@@ -75,7 +75,7 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
                     <Grid item xs={4}>
                         <TextField
                             type='text'
-                            variant={"standard"}
+                            variant={'standard'}
                             size={'small'}
                             fullWidth
                             value={sliderRange[1]}

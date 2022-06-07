@@ -27,7 +27,7 @@ const styles = makeStyles(theme => ({
     },
     stackOfChips: {
         maxWidth: '100%',
-        overflowX: "auto",
+        overflowX: 'auto',
         maxHeight: 53,
         '& > *': {
             margin: '0 5px 2px 0'

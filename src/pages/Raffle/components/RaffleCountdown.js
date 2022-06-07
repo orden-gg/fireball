@@ -21,7 +21,7 @@ export default function RaffleCountdown({ start, end }) {
             liveLabel: true
         },
         {
-            text: `Raffle ended`
+            text: 'Raffle ended'
         }
     ];
 

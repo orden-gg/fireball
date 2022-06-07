@@ -122,13 +122,13 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                                     item xs={12}
                                     className={classes.stackOfChipsOuter}
                                 >
-                                    <div className={classNames(classes.stackOfChips, "custom-scroll")}>
+                                    <div className={classNames(classes.stackOfChips, 'custom-scroll')}>
                                         {
                                             chips.map((item, id) => {
                                                 return <Chip
                                                     className={classes.singleChip}
                                                     key={id}
-                                                    label={item.name + ": " + item.value[0] + " <> " + item.value[1]}
+                                                    label={item.name + ': ' + item.value[0] + ' <> ' + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}
                                                 />;

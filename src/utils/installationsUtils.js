@@ -10,7 +10,7 @@ export default {
         try {
             return require(`../assets/images/installations/${id}.png`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     }
 };

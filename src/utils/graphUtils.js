@@ -47,7 +47,7 @@ export default {
         try {
             return require(`../assets/images/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -61,7 +61,7 @@ export default {
         try {
             return require(`../assets/images/tokens/${name}-token.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 

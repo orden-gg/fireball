@@ -74,19 +74,19 @@ export default function App() {
 
                             <Box className={classes.content}>
                                 <Switch>
-                                    <Route exact path={`/`} component={ Main } />
-                                    <Route exact path={`/market`} component={ Baazaar } />
-                                    <Route path={`/lend`} component={ Lend } />
-                                    <Route exact path={`/explorer`} component={ GhostExplorer } />
-                                    <Route path={`/autopet`} component={ Autopet } />
-                                    <Route path={`/autopet-v1`} component={ OldAutopet } />
-                                    <Route path={`/guilds`} component={ Guilds } />
-                                    <Route path={`/client`} component={ Client } />
-                                    <Route path={`/parcel/:parcelId`} component={ ParcelPage } />
-                                    <Route path={`/raffle-calculator`} component={ Raffle } />
-                                    <Route path={`/shop`} component={ Shop } />
-                                    <Route path={`/map`} component={ Map } />
-                                    <Route exact path={`/404`} component={ NotFound } />
+                                    <Route exact path={'/'} component={ Main } />
+                                    <Route exact path={'/market'} component={ Baazaar } />
+                                    <Route path={'/lend'} component={ Lend } />
+                                    <Route exact path={'/explorer'} component={ GhostExplorer } />
+                                    <Route path={'/autopet'} component={ Autopet } />
+                                    <Route path={'/autopet-v1'} component={ OldAutopet } />
+                                    <Route path={'/guilds'} component={ Guilds } />
+                                    <Route path={'/client'} component={ Client } />
+                                    <Route path={'/parcel/:parcelId'} component={ ParcelPage } />
+                                    <Route path={'/raffle-calculator'} component={ Raffle } />
+                                    <Route path={'/shop'} component={ Shop } />
+                                    <Route path={'/map'} component={ Map } />
+                                    <Route exact path={'/404'} component={ NotFound } />
                                     <Redirect from='*' to='/404' />
                                 </Switch>
                             </Box>

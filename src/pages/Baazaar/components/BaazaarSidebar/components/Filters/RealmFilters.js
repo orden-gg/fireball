@@ -44,7 +44,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                         label={'District'}
                                         value={districtFilter}
                                         fullWidth
-                                        size={"small"}
+                                        size={'small'}
                                         onChange={(event) => {
                                             setDistrictFilter(event.target.value);
                                         }}

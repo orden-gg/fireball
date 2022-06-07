@@ -37,7 +37,7 @@ export default function PortalHorizontal({ portal, render }) {
 
         get name() {
             return (
-                <HorizontalLink item={portal} url={`https://aavegotchi.com/portal/`} />
+                <HorizontalLink item={portal} url={'https://aavegotchi.com/portal/'} />
             );
         },
 

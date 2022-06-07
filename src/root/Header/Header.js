@@ -28,10 +28,10 @@ export default function Header() {
 
     // Close nav on outside click
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutsideNav);
+        document.addEventListener('mousedown', handleClickOutsideNav);
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutsideNav);
+            document.removeEventListener('mousedown', handleClickOutsideNav);
         };
     }, [navRef]);
 

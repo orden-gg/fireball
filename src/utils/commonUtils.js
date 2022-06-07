@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     formatNumber(number) {
-        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1'");
+        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
     },
 
     formatPrice(number) {

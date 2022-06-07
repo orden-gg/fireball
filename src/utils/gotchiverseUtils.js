@@ -8,7 +8,7 @@ export default {
         try {
             return require(`../assets/images/guilds/${name}.png`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 

@@ -43,10 +43,10 @@ export default function Map() {
         let mounted = true;
 
         Promise.all([
-            thegraphApi.getParcelPriceByDirection({ size: 0, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 1, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 2, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 3, direction: "asc" }),
+            thegraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 1, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 2, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
             thegraphApi.getAllListedParcels()
         ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]) => {
             if (mounted) {

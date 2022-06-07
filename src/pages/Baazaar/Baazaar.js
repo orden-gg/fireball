@@ -126,14 +126,14 @@ export default function Baazaar() {
             orderDirection: ${params.ordering ? params.ordering.split('-')[1] : defaults.defaultOrdering[1]},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
                         `sold: false,
                         ${params.rarity ? 'rarityLevel: ' + params.rarity : ''}` :
-                        `timePurchased: "0"`
+                        'timePurchased: "0"'
                 }
             })
             {
@@ -165,14 +165,14 @@ export default function Baazaar() {
             orderDirection: ${order},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
                         `sold: false,
                         ${params.rarity ? 'rarityLevel: ' + params.rarity : ''}` :
-                        `timePurchased: "0"`
+                        'timePurchased: "0"'
                 }
             })
             {
@@ -453,7 +453,7 @@ export default function Baazaar() {
                 return false;
             }
 
-            return  (districtFilter === 0 ? true : (districtFilter + "" === item.district)) &&
+            return  (districtFilter === 0 ? true : (districtFilter + '' === item.district)) &&
                 (sizeFilter === '4' ? true : ((item.size === '3' || item.size === '2') && sizeFilter === '2' ? true : item.size === sizeFilter)) &&
                 ((parseInt(alphaFilter) === 0 || alphaFilter === '' || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
                 ((parseInt(fudFilter) === 0 || fudFilter === '' || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&

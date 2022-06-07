@@ -151,13 +151,13 @@ export default {
         const typeMap = {
             wearable: () => returnWearable(),
             closed_portal: () => {
-                return require(`../assets/images/portals/h1-sealed.svg`).default;
+                return require('../assets/images/portals/h1-sealed.svg').default;
             },
             open_portal: () => {
-                return require(`../assets/images/portals/h1-opened.svg`).default;
+                return require('../assets/images/portals/h1-opened.svg').default;
             },
             realm: () => {
-                return require(`../assets/images/portals/h1-sealed.svg`).default;
+                return require('../assets/images/portals/h1-sealed.svg').default;
             },
             consumable: () => returnWearable(),
             ticket: () => returnTicket.call(this)
@@ -167,7 +167,7 @@ export default {
             try {
                 return require(`../assets/images/wearables/${item.erc1155TypeId}.svg`).default;
             } catch (error) {
-                return require(`../assets/images/image-placeholder.svg`).default;
+                return require('../assets/images/image-placeholder.svg').default;
             }
         }
 
@@ -175,7 +175,7 @@ export default {
             try {
                 return require(`../assets/images/tickets/${this.getBaazaarItemRarityName(item)}.svg`).default;
             } catch (error) {
-                return require(`../assets/images/image-placeholder.svg`).default;
+                return require('../assets/images/image-placeholder.svg').default;
             }
         }
 
@@ -186,7 +186,7 @@ export default {
         try {
             return require(`../assets/images/portals/h${hauntId}-opened.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -194,7 +194,7 @@ export default {
         try {
             return require(`../assets/images/wearables/${id}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -202,13 +202,13 @@ export default {
         try {
             return require(`../assets/images/tickets/${name}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
     getItemUrl(item) {
         try {
-            return `https://app.aavegotchi.com/baazaar/${item.__typename === "ERC1155Listing" ? 'erc1155' : 'erc721'}/${item.id}`;
+            return `https://app.aavegotchi.com/baazaar/${item.__typename === 'ERC1155Listing' ? 'erc1155' : 'erc721'}/${item.id}`;
         } catch (error) {
             console.error(error);
 
@@ -300,7 +300,7 @@ export default {
         try {
             return require(`../assets/images/icons/${name}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -308,7 +308,7 @@ export default {
         try {
             return require(`../assets/images/tokens/${name}-token.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
