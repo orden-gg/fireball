@@ -14,7 +14,11 @@ export default function MusicButton() {
     }, []);
 
     useEffect(() => {
-        playing ? audio.play() : audio.pause();
+        if (playing) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
     }, [playing]);
 
     return (

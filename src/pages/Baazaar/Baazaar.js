@@ -262,34 +262,36 @@ export default function Baazaar() {
 
         // combine response data
         response.forEach((item) => {
-            item.data.category.length && item.data.category.forEach((categoryItem) => {
-                if (categoryItem.gotchi) {
-                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                        processedItems.push(categoryItem.tokenId);
-                        items.push(categoryItem);
-                    }
-                } else {
-                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                        processedItems.push(categoryItem.tokenId);
-                        categoryItem.portal.options.forEach((option) => {
-                            items.push({
-                                ...categoryItem,
-                                gotchi: {
-                                    ...option,
-                                    tempId: option.id,
-                                    collateral: option.collateralType,
-                                    hauntId: categoryItem.hauntId,
-                                    id: option.id.split('-')[0],
-                                    kinship: '50',
-                                    modifiedNumericTraits: option.numericTraits,
-                                    level: '1',
-                                    equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                }
+            if (item.data.category.length) {
+                item.data.category.forEach((categoryItem) => {
+                    if (categoryItem.gotchi) {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            processedItems.push(categoryItem.tokenId);
+                            items.push(categoryItem);
+                        }
+                    } else {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            processedItems.push(categoryItem.tokenId);
+                            categoryItem.portal.options.forEach((option) => {
+                                items.push({
+                                    ...categoryItem,
+                                    gotchi: {
+                                        ...option,
+                                        tempId: option.id,
+                                        collateral: option.collateralType,
+                                        hauntId: categoryItem.hauntId,
+                                        id: option.id.split('-')[0],
+                                        kinship: '50',
+                                        modifiedNumericTraits: option.numericTraits,
+                                        level: '1',
+                                        equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         return items;
@@ -492,7 +494,11 @@ export default function Baazaar() {
         }
 
         if (isLocalFilteringFlow()) {
-            selectedGoodsType === listingTypes.aavegotchi ? handleFindGotchiClick() : handleFindRealmClick();
+            if (selectedGoodsType === listingTypes.aavegotchi) {
+                handleFindGotchiClick();
+            } else {
+                handleFindRealmClick();
+            }
         } else {
             forceLoadItems();
         }

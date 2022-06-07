@@ -44,7 +44,8 @@ module.exports = {
         ],
         "no-sequences": "error",
         "yoda": "error",
-        "no-param-reassign": "error"
+        "no-param-reassign": "error",
+        "no-unused-expressions": "error"
     },
     settings: {
         react: {

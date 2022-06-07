@@ -27,7 +27,9 @@ const LoginContextProvider = (props) => {
         setStorageActive(address);
         setActiveAddress(address);
 
-        metaState.account[0] === address ? setIsMetamaskActive(true) : setIsMetamaskActive(false);
+        const isMetamaskActive = metaState.account[0] === address;
+
+        setIsMetamaskActive(isMetamaskActive);
     };
 
     const logoutAddress = (event, address) => {
