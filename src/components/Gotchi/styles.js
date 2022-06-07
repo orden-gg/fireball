@@ -16,10 +16,10 @@ const styles = makeStyles(theme => ({
             zIndex: 1
         },
         '&.haunt1': {
-            backgroundColor: theme.palette.haunts.h1,
+            backgroundColor: theme.palette.haunts.h1
         },
         '&.haunt2': {
-            backgroundColor: theme.palette.haunts.h2,
+            backgroundColor: theme.palette.haunts.h2
         },
         '&.narrowed': {
             background: 'none',
@@ -110,7 +110,7 @@ const CustomTooltipStyles = makeStyles(theme => ({
         '& span': {
             color: theme.palette.primary.main
         }
-    },
+    }
 }));
 
 export {

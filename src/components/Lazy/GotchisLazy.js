@@ -47,7 +47,7 @@ export default function GotchisLazy({ items, renderItem }) {
             style={{ height: '100%' }}
             totalCount={items.length}
             components={{
-                List: ListContainer,
+                List: ListContainer
             }}
             itemContent={index => renderItem(index)}
         />

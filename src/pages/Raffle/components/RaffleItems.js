@@ -75,7 +75,7 @@ export default function RaffleItems({ tickets, type }) {
                         let clean = tickets.some(t => t['value'] !== '');
 
                         return <div
-                            className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean', )}
+                            className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean' )}
                             key={i}
                         >
                             {renderItem(item)}

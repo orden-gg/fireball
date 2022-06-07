@@ -19,7 +19,7 @@ const styles = makeStyles(theme => ({
     priceLoader: {
         width: 70,
         height: 27,
-        marginLeft: 4,
+        marginLeft: 4
     },
     totalValueLoader: {
         width: 70,
@@ -35,7 +35,7 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-between',
         '& div:last-child': {
             borderBottomRightRadius: 4
-        },
+        }
     },
     equippedTitle: {
         maxWidth: 200
@@ -92,13 +92,13 @@ const styles = makeStyles(theme => ({
             backgroundColor: alpha(theme.palette.realm.partner, .15)
         },
         '&.haunt1': {
-            backgroundColor: alpha(theme.palette.haunts.h1, .15),
+            backgroundColor: alpha(theme.palette.haunts.h1, .15)
         },
         '&.haunt2': {
-            backgroundColor: alpha(theme.palette.haunts.h2, .15),
+            backgroundColor: alpha(theme.palette.haunts.h2, .15)
         },
         '&:hover .labelSlot': {
-            opacity: .7,
+            opacity: .7
         }
     },
     wearableImageCell: {
@@ -143,11 +143,11 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         '.haunt1 &': {
-            backgroundColor: alpha(theme.palette.haunts.h1, .15),
+            backgroundColor: alpha(theme.palette.haunts.h1, .15)
         },
         '.haunt2 &': {
-            backgroundColor: alpha(theme.palette.haunts.h2, .15),
-        },
+            backgroundColor: alpha(theme.palette.haunts.h2, .15)
+        }
     },
     portalInfoCell: {
         display: 'flex',
@@ -253,7 +253,7 @@ const itemStyles = makeStyles(theme => ({
             backgroundColor: alpha('#c1a415', 0.15)
         },
         '&:hover .labelSlot': {
-            opacity: .7,
+            opacity: .7
         }
     },
     portalCard: {
@@ -268,7 +268,7 @@ const itemStyles = makeStyles(theme => ({
     parcelCard: {
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'column',
+        flexDirection: 'column'
     },
     itemBalanceDivider: {
         margin: '0 2px'
@@ -278,7 +278,7 @@ const itemStyles = makeStyles(theme => ({
 const tooltipStyles = makeStyles(theme => ({
     tooltip: {
         padding: '16px 12px 12px',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
     customTooltip: {
         backgroundColor: `${theme.palette.secondary.dark}`,
@@ -291,7 +291,7 @@ const tooltipStyles = makeStyles(theme => ({
         display: 'flex',
         '& div:last-child': {
             borderTopRightRadius: 4
-        },
+        }
     },
     label: {
         display: 'flex',
@@ -301,7 +301,7 @@ const tooltipStyles = makeStyles(theme => ({
         border: '3px solid transparent',
         '& h6': {
             fontWeight: '600'
-        },
+        }
     },
     labelSlot: {
         position: 'absolute',
@@ -331,9 +331,9 @@ const tooltipStyles = makeStyles(theme => ({
             backgroundColor: alpha(theme.palette.secondary.dark, .4),
             borderColor: 'transparent',
             '&:hover': {
-                backgroundColor: theme.palette.secondary.dark,
+                backgroundColor: theme.palette.secondary.dark
             }
-        },
+        }
     },
     labelRarityColored: {
         '.common &': {
@@ -371,7 +371,7 @@ const tooltipStyles = makeStyles(theme => ({
     },
     labelBalance: {
         backgroundColor: alpha(theme.palette.secondary.dark, .8),
-        minWidth: 34,
+        minWidth: 34
     },
     labelListing: {
         color: theme.palette.error.main,
@@ -407,7 +407,7 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         position: 'relative',
         '& p': {
             textOverflow: 'ellipsis',
-            overflow: 'hidden',
+            overflow: 'hidden'
         },
         '&.two-lined': {
             backgroundColor: alpha(theme.palette.secondary.dark, .25),
@@ -422,7 +422,7 @@ const ERC1155InnerStyles = makeStyles(theme => ({
             transition: 'all .2s ease-in-out',
             minWidth: '100%',
             '&:hover': {
-                backgroundColor: alpha(theme.palette.secondary.dark, .5),
+                backgroundColor: alpha(theme.palette.secondary.dark, .5)
             }
         },
         '&.parcel-name': {
@@ -441,7 +441,7 @@ const ERC1155InnerStyles = makeStyles(theme => ({
                     ${theme.palette.secondary.main} 1px 1px 0px`,
         '.tooltip-wearable &': { // name
             fontSize: 14
-        },
+        }
     },
     textHighlight: {
         '&.common': {
@@ -479,21 +479,21 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         },
         '&.realm-generic': {
             color: '#c1a415'
-        },
+        }
     },
     stats: {
         fontWeight: '500',
         '.tooltip-wearable &': { // stats
             fontSize: 13
         }
-    },
+    }
 }));
 
 const parselStyles = makeStyles(theme => ({
     boosts: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
 
     boost: {
@@ -559,7 +559,7 @@ const parselStyles = makeStyles(theme => ({
                     ${theme.palette.secondary.main} -1px -1px 0px',
                     ${theme.palette.secondary.main} 1px -1px 0px',
                     ${theme.palette.secondary.main} -1px 1px 0px',
-                    ${theme.palette.secondary.main} 1px 1px 0px`,
+                    ${theme.palette.secondary.main} 1px 1px 0px`
     },
     shopParcelPrice: {
         position: 'absolute',
@@ -588,7 +588,7 @@ const portalStyles = makeStyles(() => ({
         position: 'absolute',
         right: '8px',
         bottom: '8px'
-    },
+    }
 }));
 
 const channelingStyles = makeStyles(() => ({
@@ -614,7 +614,7 @@ const channelingStyles = makeStyles(() => ({
         width: 28,
         height: 28,
         borderRadius: 4
-    },
+    }
 }));
 
 export {

@@ -42,6 +42,6 @@ export default {
         // 1 alpha = 4 fud
         // 1 kek = 10 fud
         return fud + fomo * 2 + alpha * 4 + kek * 10;
-    },
+    }
 
 }

@@ -16,10 +16,10 @@ const styles = makeStyles(theme => ({
         '&:not(.head)': {
             background: alpha('#000', .15),
             marginTop: 4,
-            padding: '8px 0',
+            padding: '8px 0'
         },
         '&.head': {
-            color: theme.palette.warning.main,
+            color: theme.palette.warning.main
         }
     },
     cell: {

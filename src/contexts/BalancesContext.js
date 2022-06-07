@@ -137,7 +137,7 @@ const BalancesContextProvider = (props) => {
                         pricePerToken: ghstPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
                         swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
-                    },
+                    }
                 ];
 
                 if (mounted) {

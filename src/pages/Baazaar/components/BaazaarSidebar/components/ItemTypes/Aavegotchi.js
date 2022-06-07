@@ -57,7 +57,7 @@ export default function Aavegotchi({ item }) {
                                     'name',
                                     'traits',
                                     'wearablesLine',
-                                    'listing',
+                                    'listing'
                                 ]}
                             />
                     }

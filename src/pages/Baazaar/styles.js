@@ -18,7 +18,7 @@ const styles = makeStyles(theme => ({
 
 const baazaarBodyStyles = makeStyles(() => ({
     baazaarBody: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     pagination: {
         display: 'flex',
@@ -143,7 +143,7 @@ const baazaarItemStyles = makeStyles(theme => ({
         letterSpacing: '.8px',
         background: alpha(theme.palette.customColors.lightGray, .24),
         '&:hover': {
-            background: alpha(theme.palette.customColors.lightGray, .14),
+            background: alpha(theme.palette.customColors.lightGray, .14)
         }
     }
 }));
@@ -229,7 +229,7 @@ const baazaarSortingBodyStyles = makeStyles(() => ({
         '& .carousel-status': {
             top: -17
         }
-    },
+    }
 }));
 
 export {

@@ -20,7 +20,7 @@ const headerStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         [theme.breakpoints.up('md')]: {
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'space-between'
         }
     },
     autopetTermsBox: {
@@ -66,7 +66,7 @@ const headerStyles = makeStyles(theme => ({
             display: 'flex',
             justifyContent: 'space-between',
             '& > div': {
-                flexBasis: `calc(50% - ${theme.spacing(1)})`,
+                flexBasis: `calc(50% - ${theme.spacing(1)})`
             }
         }
     }
@@ -128,7 +128,7 @@ const tabStyles = makeStyles(theme => ({
         justifyContent: 'center'
     },
     panelText: {
-        textAlign: 'center',
+        textAlign: 'center'
     },
     panelError: {
         fontSize: 12,
@@ -151,7 +151,7 @@ const tabStyles = makeStyles(theme => ({
     },
     panelButtonCitcular: {
         marginLeft: theme.spacing(1),
-        color: 'inherit',
+        color: 'inherit'
     }
 
 }));
@@ -178,7 +178,7 @@ const infoStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 380,
         textAlign: 'center',
-        padding: theme.spacing(2),
+        padding: theme.spacing(2)
     },
     autopetInfoLink: {
         position: 'relative',

@@ -10,7 +10,7 @@ const styles = makeStyles(() => ({
         borderRadius: 4,
         padding: 5,
         '&:hover': {
-            background: alpha('#000', .4),
+            background: alpha('#000', .4)
         }
     }
 }));

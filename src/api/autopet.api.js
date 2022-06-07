@@ -81,5 +81,5 @@ export default {
         return oldContract.frens().then(frens => (
             parseInt(ethers.utils.formatUnits(frens._hex))
         ));
-    },
+    }
 }

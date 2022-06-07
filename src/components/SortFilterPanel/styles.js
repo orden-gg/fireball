@@ -28,7 +28,7 @@ const styles = makeStyles(theme => ({
         background: alpha('#fff', .06),
         color: '#fff',
         '&:hover': {
-            background: alpha('#fff', .12),
+            background: alpha('#fff', .12)
         },
         '&.active': {
             background: alpha(theme.palette.primary.main, .8),

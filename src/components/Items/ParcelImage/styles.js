@@ -14,7 +14,7 @@ const styles = makeStyles(() => ({
             maxWidth: '75%',
             maxHeight: '75%'
         }
-    },
+    }
 }));
 
 export default styles;

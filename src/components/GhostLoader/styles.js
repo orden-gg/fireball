@@ -20,7 +20,7 @@ const styles = makeStyles(theme => ({
         pointerEvents: 'none',
         animation: '$fly 3s linear infinite',
         '&.no-anim': {
-            animationIterationCount: '1',
+            animationIterationCount: '1'
         }
     },
     ghost: {
@@ -36,7 +36,7 @@ const styles = makeStyles(theme => ({
         '&.prepare-speach': {
             top: 100,
             left: 130,
-            transform: 'rotate(0)',
+            transform: 'rotate(0)'
         }
     },
     eyes: {
@@ -54,7 +54,7 @@ const styles = makeStyles(theme => ({
         boxShadow: '40px 0 0 #161616',
         '&.blink': {
             animation: '$blink 2s linear infinite',
-            animationDelay: '1.5s',
+            animationDelay: '1.5s'
         }
     },
     mouth: {
@@ -73,7 +73,7 @@ const styles = makeStyles(theme => ({
         '&.bla-bla': {
             animation: '$bla-bla 0.7s linear',
             animationFillMode: 'forwards',
-            animationDelay: '1.5s',
+            animationDelay: '1.5s'
         }
     },
     tail: {
@@ -119,66 +119,66 @@ const styles = makeStyles(theme => ({
         transform: 'skewX(-60deg) rotateX(-90deg)',
         animation: '$bubble .5s linear',
         animationDelay: '1.5s',
-        animationFillMode: 'forwards',
+        animationFillMode: 'forwards'
     },
     '@keyframes fly': {
         '0%': {
-            transform: 'rotate(0)',
+            transform: 'rotate(0)'
         },
         '100%': {
-            transform: 'rotate(360deg)',
-        },
+            transform: 'rotate(360deg)'
+        }
     },
     '@keyframes bubble': {
         'to': {
             right: 70,
             opacity: 1,
-            transform: 'skewX(0) rotate(0)',
-        },
+            transform: 'skewX(0) rotate(0)'
+        }
     },
     '@keyframes blink': {
         '0%': {
-            transform: 'translateX(-50%) scale(1)',
+            transform: 'translateX(-50%) scale(1)'
         },
         '35%': {
-            transform: 'translateX(-50%) scale(1)',
+            transform: 'translateX(-50%) scale(1)'
         },
         '48%': {
-            transform: 'translateX(-50%) scale(1, 0.4)',
+            transform: 'translateX(-50%) scale(1, 0.4)'
         },
         '52%': {
-            transform: 'translateX(-50%) scale(1, 0.4)',
+            transform: 'translateX(-50%) scale(1, 0.4)'
         },
         '65%': {
-            transform: 'translateX(-50%) scale(1)',
+            transform: 'translateX(-50%) scale(1)'
         },
         '100%': {
-            transform: 'translateX(-50%) scale(1)',
-        },
+            transform: 'translateX(-50%) scale(1)'
+        }
     },
     '@keyframes bla-bla': {
         '0%': {
-            transform: 'translate(0) scale(0.5)',
+            transform: 'translate(0) scale(0.5)'
         },
         '25%': {
-            transform: 'translate(0) scale(0.8)',
+            transform: 'translate(0) scale(0.8)'
         },
         '50%': {
-            transform: 'translate(0) scale(0.5)',
+            transform: 'translate(0) scale(0.5)'
         },
         '75%': {
             transform: 'translate(0) scale(0.8)',
             width: 20,
             height: 15,
             marginLeft: -10,
-            top: 60,
+            top: 60
         },
         '100%': {
             transform: 'translate(0) scale(0.4)',
             width: 36,
             height: 10,
             marginLeft: -18,
-            top: 63,
+            top: 63
         }
     },
     '@keyframes ghost-rips': {

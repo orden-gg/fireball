@@ -19,10 +19,10 @@ const styles = makeStyles(() => ({
         justifyContent: 'center',
         inset: 0,
         fontSize: 13,
-        fontWeight: 500,
+        fontWeight: 500
     },
     gotchiLvlProggress: {
-        color: '#FF1CFF',
+        color: '#FF1CFF'
     }
 }));
 

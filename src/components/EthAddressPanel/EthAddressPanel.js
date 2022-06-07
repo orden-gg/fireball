@@ -39,28 +39,28 @@ export default function EthAddressPanel({ address }) {
                         ghstToken: true,
                         inner: [
                             { name: 'inventory', value: data.inventory_items_estimated_price },
-                            { name: 'equipped', value: data.gotchi_items_estimated_price },
+                            { name: 'equipped', value: data.gotchi_items_estimated_price }
                         ]
                     },
                     {
                         title: 'BRS',
                         total: data.gotchies_mbrs,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_mbrs },
+                            { name: 'average', value: data.gotchies_medium_mbrs }
                         ]
                     },
                     {
                         title: 'kinship',
                         total: data.gotchies_kinship,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_kinship },
+                            { name: 'average', value: data.gotchies_medium_kinship }
                         ]
                     },
                     {
                         title: 'xp',
                         total: data.gotchies_xp,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_xp },
+                            { name: 'average', value: data.gotchies_medium_xp }
                         ]
                     }
                 ];

@@ -42,7 +42,7 @@ export default function ClientWarehouse() {
         warehouseSorting,
         setWarehouseSorting,
         loadingGotchis,
-        loadingWarehouse,
+        loadingWarehouse
     } = useContext(ClientContext);
 
     useEffect(() => {

@@ -7,11 +7,11 @@ const styles = makeStyles(theme => ({
         padding: 12,
         borderRadius: 4,
         maxWidth: 900,
-        margin: 'auto',
+        margin: 'auto'
     },
     inner: {
         [theme.breakpoints.up('md')]: {
-            display: 'flex',
+            display: 'flex'
         }
     },
     content: {
@@ -57,7 +57,7 @@ const styles = makeStyles(theme => ({
         marginRight: 8,
         marginBottom: 8,
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     highlighted: {
         color: theme.palette.primary.main,
@@ -80,14 +80,14 @@ const styles = makeStyles(theme => ({
     salesTitle: {
         fontWeight: '500',
         fontSize: 20,
-        margin: '0 0 8px',
+        margin: '0 0 8px'
     },
     boosts: {
         display: 'flex',
         justifyContent: 'center',
         [theme.breakpoints.up('md')]: {
             justifyContent: 'flex-start'
-        },
+        }
     },
     boost: {
         borderRadius: 4,

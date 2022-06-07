@@ -62,7 +62,7 @@ export default function Map() {
                     range: {
                         humble: {min: humbleAsc, max: 500},
                         reasonable: {min: reasonableAsc, max: 700},
-                        spacious: {min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000},
+                        spacious: {min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000}
                     }
                 });
             }

@@ -17,7 +17,7 @@ const styles = makeStyles(theme => ({
     inner: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     innerIcon: {
         marginRight: 4
@@ -34,7 +34,7 @@ const styles = makeStyles(theme => ({
         '& span': {
             marginRight: 2,
             '&.highlight': {
-                color: theme.palette.rarity.legendary,
+                color: theme.palette.rarity.legendary
             }
         }
     },
@@ -42,7 +42,7 @@ const styles = makeStyles(theme => ({
         minHeight: 38
     },
     token: {
-        margin: '0 2px',
+        margin: '0 2px'
     }
 }));
 

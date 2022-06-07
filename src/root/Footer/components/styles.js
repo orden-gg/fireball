@@ -23,7 +23,7 @@ const styles = makeStyles(theme => ({
         width: 60,
         height: 20,
         borderRadius: 4
-    },
+    }
 }));
 
 export default styles;

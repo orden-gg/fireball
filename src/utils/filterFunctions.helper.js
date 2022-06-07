@@ -186,5 +186,5 @@ export default {
 
     rangeSliderGetActiveFiltersCount: (filter) => {
         return filter.isFilterActive ? 1 : 0;
-    },
+    }
 }

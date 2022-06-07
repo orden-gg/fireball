@@ -14,7 +14,7 @@ const styles = makeStyles(theme => ({
         overflow: 'hidden',
         '& + $balanceLoader': {
             marginLeft: 6
-        },
+        }
     },
     balance: {
         minWidth: 50,
@@ -27,7 +27,7 @@ const styles = makeStyles(theme => ({
             margin: 0,
             lineHeight: 1.2,
             textShadow: `1px 1px 0 ${alpha('#000', .7)}`
-        },
+        }
     },
     balanceValue: {
         display: 'flex',
@@ -58,7 +58,7 @@ const styles = makeStyles(theme => ({
     balancePrice: {
         fontSize: 11,
         fontWeight: 500,
-        opacity: .8,
+        opacity: .8
     }
 }));
 

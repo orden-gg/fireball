@@ -325,5 +325,5 @@ export default {
             default:
                 return 1;
         }
-    },
+    }
 }

@@ -30,7 +30,7 @@ const styles = makeStyles(theme => ({
         overflowX: "auto",
         maxHeight: 53,
         '& > *': {
-            margin: '0 5px 2px 0',
+            margin: '0 5px 2px 0'
         }
     },
     singleChip: {
@@ -73,7 +73,7 @@ const styles = makeStyles(theme => ({
         paddingRight: 6
     },
     traitsContainer: {
-        paddingTop: '0 !important',
+        paddingTop: '0 !important'
     },
     slider: {
         padding: '13px 0 0'

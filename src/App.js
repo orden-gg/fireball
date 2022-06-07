@@ -46,7 +46,7 @@ const Wrapper = styled('div')(() => ({
     },
     [`& .${classes.content}`]: {
         flexGrow: 1
-    },
+    }
 }));
 
 export default function App() {

@@ -45,7 +45,7 @@ const styles = makeStyles(theme => ({
         letterSpacing: '1px',
         background: alpha(theme.palette.customColors.lightGray, .24),
         '&:hover': {
-            background: alpha(theme.palette.customColors.lightGray, .14),
+            background: alpha(theme.palette.customColors.lightGray, .14)
         }
     },
     common: {

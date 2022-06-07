@@ -33,15 +33,15 @@ const styles = makeStyles(theme => ({
         border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
         backgroundColor: alpha(theme.palette.secondary.dark, .4),
         '&:hover': {
-            backgroundColor: theme.palette.secondary.dark,
+            backgroundColor: theme.palette.secondary.dark
         },
         '&.active, &.active:hover': {
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.secondary.main,
             '&.Mui-disabled': {
                 backgroundColor: alpha(theme.palette.primary.main, .1),
-                color: alpha('#fff', .2),
-            },
+                color: alpha('#fff', .2)
+            }
         }
     }
 }));
@@ -52,7 +52,7 @@ const routersStyles = makeStyles(theme => ({
         alignItems: 'start',
         gap: 12,
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gridAutoRows: '1fr',
+        gridAutoRows: '1fr'
     },
     listItem: {
         height: '100%'
@@ -81,7 +81,7 @@ const routersStyles = makeStyles(theme => ({
     filtersButton: {
         padding: 0,
         '&.Mui-selected': {
-            backgroundColor: theme.palette.secondary.dark,
+            backgroundColor: theme.palette.secondary.dark
         }
     },
     filtersInner: {
@@ -95,7 +95,7 @@ const routersStyles = makeStyles(theme => ({
         '& span': {
             width: 18
         }
-    },
+    }
 }));
 
 const loadRewardsStyles = makeStyles(theme => ({
@@ -144,7 +144,7 @@ const parcelSinglePage = makeStyles(theme => ({
         position: 'relative',
         '& p': {
             textOverflow: 'ellipsis',
-            overflow: 'hidden',
+            overflow: 'hidden'
         },
         '&.two-lined': {
             backgroundColor: alpha(theme.palette.secondary.dark, .25),
@@ -159,7 +159,7 @@ const parcelSinglePage = makeStyles(theme => ({
             transition: 'all .2s ease-in-out',
             minWidth: '100%',
             '&:hover': {
-                backgroundColor: alpha(theme.palette.secondary.dark, .5),
+                backgroundColor: alpha(theme.palette.secondary.dark, .5)
             }
         }
     },
@@ -175,7 +175,7 @@ const parcelSinglePage = makeStyles(theme => ({
 
         '.tooltip-wearable &': { // name
             fontSize: 14
-        },
+        }
     },
     textHighlight: {
         '&.humble': {
@@ -192,7 +192,7 @@ const parcelSinglePage = makeStyles(theme => ({
         },
         '&.realm-generic': {
             color: '#c1a415'
-        },
+        }
     },
     callMadeIcon: {
         position: 'absolute',
@@ -226,7 +226,7 @@ const parcelSinglePage = makeStyles(theme => ({
     notListedInBaazaar: {
         margin: '15px 0',
         padding: 20,
-        border: `1px solid ${alpha(theme.palette.primary.main, .3)}`,
+        border: `1px solid ${alpha(theme.palette.primary.main, .3)}`
     },
     ownerLink: {
         margin: '15px 0',
@@ -245,7 +245,7 @@ const parcelSinglePage = makeStyles(theme => ({
             width: '100%'
         },
         [theme.breakpoints.up('xs')]: {
-            padding: '20px 0 0 48px',
+            padding: '20px 0 0 48px'
         }
     },
     parcelTransactionsWrapper: {
@@ -307,7 +307,7 @@ const accountStyles = makeStyles(theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'center'
         }
     },
     accountPanel: {

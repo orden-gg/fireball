@@ -202,5 +202,5 @@ export const filtersData = {
             ))
         },
         ...defaultMultiSelectionFilter
-    },
+    }
 };

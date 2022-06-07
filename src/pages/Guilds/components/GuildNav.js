@@ -11,7 +11,7 @@ export default function GuildNav() {
     const {
         guildGotchis,
         guildLendings,
-        guildRealm,
+        guildRealm
     } = useContext(GuildsContext);
 
     const navData = [

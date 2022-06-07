@@ -22,7 +22,7 @@ const styles = makeStyles(() => ({
         width: 28,
         height: 28,
         borderRadius: 4
-    },
+    }
 }));
 
 export default styles;

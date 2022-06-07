@@ -27,7 +27,7 @@ const styles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.dark,
         borderRadius: 5,
         padding: '2px 6px',
-        display: 'inline-block',
+        display: 'inline-block'
     },
     text: {
         display: 'block',

@@ -6,7 +6,7 @@ const styles = makeStyles(() => ({
     },
     alert: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'center'
     }
 }));
 

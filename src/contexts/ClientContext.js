@@ -367,7 +367,7 @@ const ClientContextProvider = (props) => {
             calculateReward,
 
             navData,
-            getClientData,
+            getClientData
         }}>
             { props.children }
         </ClientContext.Provider>

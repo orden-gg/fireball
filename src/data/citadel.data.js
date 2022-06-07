@@ -7,7 +7,7 @@ const PARCEL_SIZE = Object.freeze({
     },
     1: {
         width: 16,
-        height: 16,
+        height: 16
     },
     2: {
         width: 32,
@@ -54,7 +54,7 @@ const DISTRICTS = Object.freeze({
         [5, 4, 5, 6],
         [6, 0, 6, 6],
         [7, 0, 7, 6],
-        [8, 0, 8, 6],
+        [8, 0, 8, 6]
     ],
     positions: {
         '1a': {x: 3, y: 2},

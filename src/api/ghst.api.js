@@ -50,6 +50,6 @@ export default {
         return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
             Boolean(response.status)
         ));
-    },
+    }
 
 }

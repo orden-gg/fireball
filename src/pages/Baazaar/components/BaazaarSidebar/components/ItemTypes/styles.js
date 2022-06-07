@@ -22,7 +22,7 @@ export default makeStyles(() => ({
         overflowX: 'auto',
         height: 34,
         '& > *': {
-            margin: '0 5px 2px 0',
+            margin: '0 5px 2px 0'
         }
     },
     sliderContainer: {

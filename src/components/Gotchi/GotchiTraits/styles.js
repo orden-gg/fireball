@@ -36,10 +36,10 @@ const styles = makeStyles(theme => ({
             backgroundColor: theme.palette.rarity.godlike
         },
         '.vertical &': {
-            margin: '1px 0',
+            margin: '1px 0'
         },
         '.horizontal &': {
-            margin: theme.spacing(.5, 0),
+            margin: theme.spacing(.5, 0)
         }
     },
     gotchiTraitIcon: {

@@ -27,12 +27,12 @@ const styles = makeStyles(() => ({
         },
         '& input[type=number]': {
             MozAppearance: 'textfield'
-        },
+        }
     },
     title: {
         textAlign: 'center',
-        fontWeight: 500,
-    },
+        fontWeight: 500
+    }
 }));
 
 export default styles;

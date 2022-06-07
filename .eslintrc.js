@@ -45,7 +45,14 @@ module.exports = {
         "no-sequences": "error",
         "yoda": "error",
         "no-param-reassign": "error",
-        "no-unused-expressions": "error"
+        "no-unused-expressions": "error",
+        "comma-dangle": ["error", {
+            "arrays": "never",
+            "objects": "never",
+            "imports": "never",
+            "exports": "never",
+            "functions": "never"
+        }]
     },
     settings: {
         react: {

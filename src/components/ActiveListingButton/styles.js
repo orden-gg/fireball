@@ -20,7 +20,7 @@ const styles = makeStyles(theme => ({
         '& img': {
             marginLeft: 4
         }
-    },
+    }
 }));
 
 export default styles;

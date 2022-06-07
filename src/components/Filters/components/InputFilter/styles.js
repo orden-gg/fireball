@@ -7,7 +7,7 @@ const styles = makeStyles(() => ({
     },
     title: {
         lineHeight: 1,
-        marginBottom: 8,
+        marginBottom: 8
     },
     input: {
         '& label': {

@@ -17,5 +17,5 @@ const noCacheOptions = {
 export default {
     getAddressInfo(address, disableCache) {
         return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
-    },
+    }
 }

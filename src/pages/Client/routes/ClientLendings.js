@@ -212,7 +212,7 @@ export default function ClientLendings() {
                                         },
                                         {
                                             flipFront: [
-                                                'lendingStats',
+                                                'lendingStats'
                                             ]
                                         }
                                     ]

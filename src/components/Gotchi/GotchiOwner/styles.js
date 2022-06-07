@@ -12,7 +12,7 @@ const styles = makeStyles(() => ({
         '.narrowed &': {
             fontSize: 12
         }
-    },
+    }
 }));
 
 export default styles;

@@ -157,7 +157,7 @@ export default function Shop() {
             .filter(listing => listing.category === Erc1155Categories.Ticket)
             .map(listing => ({
                 ...mapWearableAndTicket(listing),
-                erc1155TypeId: listing.erc1155TypeId,
+                erc1155TypeId: listing.erc1155TypeId
             }));
         const sortedTickets = commonUtils.basicSort(listedTickets, 'rarityId', 'desc');
 

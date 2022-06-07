@@ -8,7 +8,7 @@ const styles = makeStyles(theme => ({
         borderRadius: 4
     },
     placeholder: {
-        textAlign: 'center',
+        textAlign: 'center'
     },
     powered: {
         display: 'inline-flex',
@@ -20,14 +20,14 @@ const styles = makeStyles(theme => ({
         textDecoration: 'none',
         transition: 'background .3s ease-in-out',
         '&:hover': {
-            background: alpha('#000', .5),
+            background: alpha('#000', .5)
         },
         '& img': {
             marginLeft: 8
         },
         '& span': {
             color: theme.palette.primary.main,
-            marginLeft: 8,
+            marginLeft: 8
         }
     },
     poweredWrapper: {
@@ -70,7 +70,7 @@ const styles = makeStyles(theme => ({
         fontSize: 18
     },
     panelInner: {
-        display: 'flex',
+        display: 'flex'
     },
     parcelRow: {
         display: 'flex',

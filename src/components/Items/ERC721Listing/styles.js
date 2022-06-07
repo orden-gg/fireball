@@ -18,13 +18,13 @@ const styles = makeStyles(theme => ({
         fontWeight: 600,
         '& p': {
             margin: 0
-        },
+        }
     },
     listingShadow: {
         display: 'flex',
         alignItems: 'center',
         filter: 'grayscale(1)',
-        color: alpha(theme.palette.common.white, .5),
+        color: alpha(theme.palette.common.white, .5)
     },
     listingLink: {
         display: 'flex',

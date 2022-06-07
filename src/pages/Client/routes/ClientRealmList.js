@@ -61,7 +61,7 @@ const sortings = [
 ];
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
-    district: { ...filtersData.district},
+    district: { ...filtersData.district}
 };
 const queryParamsOrder = ['district', 'size', 'sort', 'dir'];
 

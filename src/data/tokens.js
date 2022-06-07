@@ -20,7 +20,7 @@ const tokens = [
     {
         name: 'kek',
         address: KEK_CONTRACT
-    },
+    }
 ];
 
 export default tokens;

@@ -17,11 +17,11 @@ export default makeStyles(theme => ({
         },
         '&:hover': {
             textDecoration: 'none',
-            backgroundColor: alpha(theme.palette.secondary.dark, .6),
+            backgroundColor: alpha(theme.palette.secondary.dark, .6)
         },
         '.narrowed &': {
             background: 'none',
-            padding: '5px 10px 5px 5px',
+            padding: '5px 10px 5px 5px'
         },
         '& p': {
             overflow: 'hidden',
@@ -32,7 +32,7 @@ export default makeStyles(theme => ({
             '.narrowed &': {
                 fontSize: 14,
                 '&:hover': {
-                    textDecoration: 'underline',
+                    textDecoration: 'underline'
                 }
             }
         }

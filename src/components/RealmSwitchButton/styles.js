@@ -21,9 +21,9 @@ const styles = makeStyles(() => ({
                 color: '#fff',
                 transform: 'translateX(22px)',
                 '& .MuiSwitch-thumb:before': {
-                    backgroundImage: `url(${mapSvg})`,
+                    backgroundImage: `url(${mapSvg})`
                 }
-            },
+            }
         },
         '& .MuiSwitch-thumb': {
             width: 32,
@@ -37,15 +37,15 @@ const styles = makeStyles(() => ({
                 top: '10%',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                backgroundImage: `url(${listSvg})`,
-            },
+                backgroundImage: `url(${listSvg})`
+            }
         },
         '& .MuiSwitch-track': {
             borderRadius: 20 / 2
         },
         '& .Mui-checked+.MuiSwitch-track': {
             backgroundColor: '#fff'
-        },
+        }
     }
 }));
 

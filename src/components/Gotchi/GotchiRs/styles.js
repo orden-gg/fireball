@@ -7,7 +7,7 @@ const styles = makeStyles(() => ({
     },
     modifiedRs: {
         fontWeight: 600
-    },
+    }
 }));
 
 export default styles;

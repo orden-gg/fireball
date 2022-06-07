@@ -306,7 +306,7 @@ export default {
             merged.forEach((item) => {
                 data.push({
                     ticketId: item.ticketId,
-                    quantity: item.quantity,
+                    quantity: item.quantity
                 });
             });
 
@@ -324,7 +324,7 @@ export default {
             filtered.forEach((item) => {
                 data.push({
                     itemId: (item.item.id).substring(2),
-                    quantity: item.quantity,
+                    quantity: item.quantity
                 });
             });
 
@@ -424,7 +424,7 @@ export default {
         const sizes = [0,1,2,3];
         let queries = [];
 
-        sizes.forEach((size, ) => {
+        sizes.forEach((size ) => {
             for (let i = 0; i < 5; i++) {
                 queries.push(listedParcelsQuery(i*1000, 'asc', size));
                 queries.push(listedParcelsQuery(i*1000, 'desc', size));
@@ -510,5 +510,5 @@ export default {
 
             return combined;
         }).catch(e => console.log(e));
-    },
+    }
 }

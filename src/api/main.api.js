@@ -84,5 +84,5 @@ export default {
         return autopetContract.operator().then(operator => (
             contract.isPetOperatorForAll(address, operator)
         ));
-    },
+    }
 }

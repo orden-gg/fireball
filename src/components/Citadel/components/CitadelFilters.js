@@ -28,7 +28,7 @@ sizesFilter.items = [
 
 const initialFilters = {
     size: sizesFilter,
-    district: { ...filtersData.district},
+    district: { ...filtersData.district}
 };
 
 export default function CitadelFilters({ onFiltersChange, queryParams }) {

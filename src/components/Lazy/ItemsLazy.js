@@ -49,7 +49,7 @@ export default function ItemsLazy({ items, component }) {
             style={{ height: '100%' }}
             totalCount={items.length}
             components={{
-                List: ListContainer,
+                List: ListContainer
             }}
             itemContent={(index) => component(items[index])}
         />
