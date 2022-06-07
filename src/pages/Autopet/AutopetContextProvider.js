@@ -158,7 +158,7 @@ const AutopetContextProvider = (props) => {
 
     const renderButtonNode = (state, defaultNode, approvedNode) => {
         switch (state) {
-            case 'approved' :
+            case 'approved':
                 return approvedNode;
             case 'approving':
                 return (
