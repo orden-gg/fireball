@@ -58,7 +58,8 @@ module.exports = {
         "array-bracket-spacing": ["error", "never"],
         "arrow-spacing": "error",
         "keyword-spacing": "error",
-        "switch-colon-spacing": "error"
+        "switch-colon-spacing": "error",
+        "eol-last": ["error", "always"]
     },
     settings: {
         react: {
