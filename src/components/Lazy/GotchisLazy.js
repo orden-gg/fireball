@@ -15,7 +15,7 @@ const NoContent = styled.div`
 `;
 
 export default function GotchisLazy({ items, renderItem }) {
-    const gridRef = useRef(null);;
+    const gridRef = useRef(null);
 
     useEffect(() => {
         if (items.length) {

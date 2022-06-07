@@ -27,7 +27,7 @@ export default function GuildSocials() {
 
         if (guild === undefined || !guild.hasOwnProperty('socials')) {
             return null;
-        };
+        }
 
         return (
             Object.keys(guild.socials).map(key => (

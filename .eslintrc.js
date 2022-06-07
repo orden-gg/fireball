@@ -31,7 +31,6 @@ module.exports = {
         "react/no-children-prop": "off",
         "react/jsx-key": "off",
         "no-prototype-builtins": "off",
-        "no-extra-semi": "off",
         "react/display-name": "off",
         "no-inner-declarations": "off",
         "react/no-unescaped-entities": "off"

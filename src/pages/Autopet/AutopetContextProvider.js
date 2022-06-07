@@ -179,7 +179,7 @@ const AutopetContextProvider = (props) => {
 
         if (accounts[0] === connectedWallet || !walletConnected) {
             return;
-        };
+        }
 
         setConnectedWallet(accounts[0]);
 

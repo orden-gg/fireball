@@ -488,7 +488,7 @@ export default class CitadelScene extends Phaser.Scene {
 
             if(parcels.length === 0) {
                 return;
-            };
+            }
 
             for(const parcel of parcels) {
                 console.log(parcel);
@@ -572,5 +572,5 @@ export default class CitadelScene extends Phaser.Scene {
             for (let i = 0; i < handlers.length; i++) {
                 handlers[i].apply(this, [].slice.call(arguments, 1));
             }
-        };
+        }
     }

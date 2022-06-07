@@ -33,7 +33,7 @@ export default function Guild() {
 
         if (guildId === undefined || guilds[guildId].members?.length === 0) {
             return history.push('/guilds');
-        };
+        }
 
         setGuildId(guildId);
 

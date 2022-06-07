@@ -17,7 +17,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
 
     if (!listings?.length && !historicalPrices?.length) {
         return null;
-    };
+    }
 
     const currentPrice = listings?.length && ethersApi.fromWei(listings[0].priceInWei);
     const lastPrice = historicalPrices?.length && ethersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
