@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
@@ -10,7 +9,7 @@ import GotchiImage from './GotchiImage/GotchiImage';
 
 import styles from './styles';
 
-export default function GotchiHorizontal({ gotchi, item, title, className, renderSvgByStats, render }) {
+export default function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, render }) {
     const classes = styles();
 
     const gotchiSections = {

@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 import mapSvg from 'assets/images/icons/map.svg';
 import listSvg from 'assets/images/icons/list.svg';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     button: {
         position: 'absolute',
         top: 80,

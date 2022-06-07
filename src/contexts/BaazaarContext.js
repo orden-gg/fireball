@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { listingTypes } from 'data/types';
 
@@ -43,7 +43,7 @@ const BaazaarContextProvider = (props) => {
     const [stats, setStats] = useState(defaultTraits);
     const [collateral, setCollateral] = useState('all');
 
-    const addStat = (stat) => {
+    const addStat = () => {
         setStats({
             ...stats,
             [selectedTraits]: [...stats[selectedTraits], sliderRange]

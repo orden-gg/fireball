@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 

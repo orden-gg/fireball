@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Grid, Slider } from '@mui/material';
 import classNames from 'classnames';
 

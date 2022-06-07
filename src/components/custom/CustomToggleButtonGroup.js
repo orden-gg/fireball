@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import CustomTooltip from './CustomTooltip';

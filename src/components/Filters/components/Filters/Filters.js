@@ -1,4 +1,3 @@
-import React from 'react';
 import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
@@ -17,7 +16,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
     const classes = styles();
 
     const renderFiltersComponents = (renderFilters) => {
-        return Object.entries(renderFilters).map(([key, renderFilter], index) => {
+        return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
             const filterProps = {
                 key,

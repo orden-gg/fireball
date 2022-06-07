@@ -1,5 +1,3 @@
-import React from 'react';
-
 import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles } from '../styles';

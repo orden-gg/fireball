@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import theme from '../../src/themes/ghst';

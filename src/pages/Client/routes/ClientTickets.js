@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import ContentInner from 'components/Content/ContentInner';
 import Ticket from 'components/Items/Ticket/Ticket';

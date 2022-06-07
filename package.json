@@ -57,13 +57,8 @@
     "start:prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
-    "clean": "rm -rf node_modules"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "clean": "rm -rf node_modules",
+    "lint": "eslint -c .eslintrc.js --ext .js,.jsx ."
   },
   "browserslist": {
     "production": [

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from '@mui/material';
 
 import styles from './styles';

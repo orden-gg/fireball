@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { RaffleContext } from 'contexts/RaffleContext';

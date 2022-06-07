@@ -1,11 +1,10 @@
-import React from 'react';
 import { Grid, Typography } from '@mui/material';
 
 import BaazaarItem from './BaazaarItem';
 import Pagination from './Pagination';
 import { baazaarBodyStyles } from '../styles';
 
-export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick, backdropIsOpen }) {
+export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick }) {
     const classes = baazaarBodyStyles();
 
     return (

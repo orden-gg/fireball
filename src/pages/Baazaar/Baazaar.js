@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import thegraph from 'api/thegraph.api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import useInterval from 'hooks/useInterval';
@@ -82,7 +82,7 @@ export default function Baazaar() {
         }
     };
 
-    const getSalesData = (params) => {
+    const getSalesData = () => {
         showBackdrop(true);
         thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
             let cacheData = [];
@@ -315,7 +315,7 @@ export default function Baazaar() {
         });
     };
 
-    const getAllRealmParcels = (params) => {
+    const getAllRealmParcels = () => {
         showBackdrop(true);
         localGoods = [];
         thegraph.getAllListedParcels().then((response) => {

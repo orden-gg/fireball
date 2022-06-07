@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ConsumableImg from './ConsumableImg';
 import ConsumableStats from './ConsumableStats';
 import CardName from '../common/CardName/CardName';

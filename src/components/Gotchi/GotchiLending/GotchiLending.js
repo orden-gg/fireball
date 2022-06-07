@@ -1,4 +1,3 @@
-import React from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 import classNames from 'classnames';

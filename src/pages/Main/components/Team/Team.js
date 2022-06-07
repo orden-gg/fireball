@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Avatar, CircularProgress, Grid, Link } from '@mui/material';
 import { Box } from '@mui/system';
 

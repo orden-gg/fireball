@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, Tooltip, Typography } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 
@@ -10,7 +9,7 @@ import PortalImage from './PortalImage';
 import CardName from '../common/CardName/CardName';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
-export default function Portal({ portal, isShopItem = false }) {
+export default function Portal({ portal }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),

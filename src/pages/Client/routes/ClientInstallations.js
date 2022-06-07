@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import Installation from 'components/Items/Installation/Installation';
 import Tile from 'components/Items/Tile.js/Tile';

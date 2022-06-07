@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
@@ -18,8 +18,8 @@ export default function CopyToClipboard({ copy }) {
         event.stopPropagation();
 
         toClipboard(text)
-            .then(r => setTooltipText('copied!'))
-            .catch(err => setTooltipText(defaultTooltipText));
+            .then(() => setTooltipText('copied!'))
+            .catch(() => setTooltipText(defaultTooltipText));
     };
 
     const toClipboard = async (text) => {

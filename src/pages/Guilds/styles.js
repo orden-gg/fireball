@@ -179,7 +179,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const guildWearables = makeStyles(theme => ({
+const guildWearables = makeStyles(() => ({
     guildWearable: {
         minHeight: 'auto',
         position: 'relative',

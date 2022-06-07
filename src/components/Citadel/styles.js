@@ -9,7 +9,7 @@ const keyframes = {
     }
 };
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     citadel: {
         position: 'absolute',
         '& canvas': {
@@ -61,7 +61,7 @@ const InterfaceStyles = makeStyles(theme => ({
     }
 }));
 
-const LoaderStyles = makeStyles(theme => ({
+const LoaderStyles = makeStyles(() => ({
     citadelLoading: {
         position: 'absolute',
         left: 0,

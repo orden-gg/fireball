@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
@@ -21,7 +21,7 @@ const RaffleContextProvider = (props) => {
     useEffect(() => {
         if (!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
-                return ticketsCache.map((ticket, i) => {
+                return ticketsCache.map((ticket) => {
                     ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
                     ticket.prizes = countWearablesChances(ticket);
                     return ticket;
@@ -90,7 +90,7 @@ const RaffleContextProvider = (props) => {
             setTickets((ticketsCache) => {
                 let modified = [...ticketsCache];
 
-                entered.forEach((item, i) => {
+                entered.forEach((item) => {
                     let elem = modified.length > 1 ? item.ticketId : 0;
 
                     modified[elem].value = item.quantity;

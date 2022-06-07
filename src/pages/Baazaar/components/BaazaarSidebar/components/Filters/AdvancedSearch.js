@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Grid, Slider, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 
 import styles from './styles';

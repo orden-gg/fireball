@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
 import styles from './styles';

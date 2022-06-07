@@ -1,5 +1,3 @@
-import React from 'react';
-
 import installationsUtils from 'utils/installationsUtils';
 
 import styles from './styles';

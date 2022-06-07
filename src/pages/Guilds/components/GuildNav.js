@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import PageNav from 'components/PageNav/PageNav';
 import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';

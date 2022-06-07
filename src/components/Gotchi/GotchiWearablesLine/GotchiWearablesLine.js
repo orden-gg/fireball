@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, useTheme } from '@mui/material';
 import classNames from 'classnames';
 

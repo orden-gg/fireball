@@ -575,7 +575,7 @@ const parselStyles = makeStyles(theme => ({
     }
 }));
 
-const portalStyles = makeStyles(theme => ({
+const portalStyles = makeStyles(() => ({
     portalImage: {
         width: 100,
         maxWidth: 100,
@@ -591,7 +591,7 @@ const portalStyles = makeStyles(theme => ({
     },
 }));
 
-const channelingStyles = makeStyles(theme => ({
+const channelingStyles = makeStyles(() => ({
     container: {
         position: 'absolute',
         bottom: 4,

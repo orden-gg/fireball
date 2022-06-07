@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 

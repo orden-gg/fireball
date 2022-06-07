@@ -16,7 +16,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const baazaarBodyStyles = makeStyles(theme => ({
+const baazaarBodyStyles = makeStyles(() => ({
     baazaarBody: {
         flexGrow: 1,
     },
@@ -148,7 +148,7 @@ const baazaarItemStyles = makeStyles(theme => ({
     }
 }));
 
-const paginationStyles = makeStyles(theme => ({
+const paginationStyles = makeStyles(() => ({
     wrap: {
         display: 'flex',
         marginTop: 20
@@ -164,7 +164,7 @@ const paginationStyles = makeStyles(theme => ({
     }
 }));
 
-const baazaarSortingBodyStyles = makeStyles(theme => ({
+const baazaarSortingBodyStyles = makeStyles(() => ({
     baazaarBody: {
         flexGrow: 1,
         position: 'relative'

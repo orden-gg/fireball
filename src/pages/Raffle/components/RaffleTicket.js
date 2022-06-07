@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme } from '@emotion/react';
 
 import commonUtils from 'utils/commonUtils';

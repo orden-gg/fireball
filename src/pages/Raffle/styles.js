@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     container: {
         maxWidth: 1280,
         padding: 24,
@@ -405,7 +405,7 @@ const tableStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleCountdownStyles = makeStyles(theme => ({
+const raffleCountdownStyles = makeStyles(() => ({
     countdownWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -466,7 +466,7 @@ const raffleNavStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleDataStyles = makeStyles(theme => ({
+const raffleDataStyles = makeStyles(() => ({
     title: {
         textAlign: 'center',
         fontSize: 10,
@@ -484,7 +484,7 @@ const raffleDataStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleChanceStyles = makeStyles(theme => ({
+const raffleChanceStyles = makeStyles(() => ({
     container: {
         marginTop: '8px'
     }
@@ -519,7 +519,7 @@ const ticketStyles = makeStyles(theme => ({
     }
 }));
 
-const itemsStyles = makeStyles(theme => ({
+const itemsStyles = makeStyles(() => ({
     list: {
         display: 'grid',
         gap: 12,

@@ -71,7 +71,7 @@ const getGraphData = async (client, query) => {
 // multi query requests
 const graphJoin = async (client, queries) => {
     try {
-        return await new Promise((resolve, reject) => {
+        return await new Promise((resolve) => {
             const queriesCounter = queries.length;
             let requestCounter = 0;
             let responseArray = [];

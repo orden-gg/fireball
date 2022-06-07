@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Backdrop, Typography } from '@mui/material';
 
 import classNames from 'classnames';

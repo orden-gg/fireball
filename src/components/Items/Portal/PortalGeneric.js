@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import { Switch } from '@mui/material';
 

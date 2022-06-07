@@ -1,4 +1,3 @@
-import React from 'react';
 import TimerIcon from '@mui/icons-material/Timer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';

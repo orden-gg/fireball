@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 
 import Helmet from 'react-helmet';

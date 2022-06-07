@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';

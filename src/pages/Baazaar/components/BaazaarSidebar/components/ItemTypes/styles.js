@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
     rootContainer: {
         paddingTop: 13,
         marginBottom: 25

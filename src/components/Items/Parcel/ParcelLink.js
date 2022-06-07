@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 import classNames from 'classnames';
