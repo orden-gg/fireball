@@ -33,7 +33,7 @@ const LoginContextProvider = (props) => {
     };
 
     const logoutAddress = (event, address) => {
-        let filtered = storageAddresses.filter(item => item.address !== address);
+        const filtered = storageAddresses.filter(item => item.address !== address);
 
         event.stopPropagation();
 
@@ -43,8 +43,8 @@ const LoginContextProvider = (props) => {
     };
 
     const updateAddressName = (address, newName) => {
-        let storageAddressesCache = [...storageAddresses];
-        let itemForUpdate = storageAddressesCache.find((item) => item.address === address);
+        const storageAddressesCache = [...storageAddresses];
+        const itemForUpdate = storageAddressesCache.find((item) => item.address === address);
 
         itemForUpdate.name = newName;
         setStorageAddresses(storageAddressesCache);

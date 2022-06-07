@@ -32,7 +32,7 @@ export default function LoginButton() {
         if (metaState.isAvailable) {
             (async () => {
                 try {
-                    let account = await getAccounts();
+                    const account = await getAccounts();
                     if (account.length) connectMetamask();
                 } catch (error) {
                     console.log(error);

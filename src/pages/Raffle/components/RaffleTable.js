@@ -19,10 +19,10 @@ export default function RaffleTablee() {
     const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
 
     const handleInputChange = (event, i) => {
-        let newValue = event.target.value > 0 ? +event.target.value : '';
+        const newValue = event.target.value > 0 ? +event.target.value : '';
 
         setTickets((ticketsCache) => {
-            let modified = [...ticketsCache];
+            const modified = [...ticketsCache];
             modified[i].value = newValue;
             modified[i].chance = countChances(newValue, modified[i].entered, modified[i].items);
             modified[i].prizes = countWearablesChances(modified[i]);

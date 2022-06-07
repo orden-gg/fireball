@@ -112,10 +112,10 @@ const ClientContextProvider = (props) => {
 
             // collect all equipped wearables
             response.forEach((item) => {
-                let equipped = item.equippedWearables.filter((item) => item > 0);
+                const equipped = item.equippedWearables.filter((item) => item > 0);
 
-                for (let wearable of equipped) {
-                    let index = wearables.findIndex(item => item.id === wearable);
+                for (const wearable of equipped) {
+                    const index = wearables.findIndex(item => item.id === wearable);
 
                     if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
 
@@ -137,7 +137,7 @@ const ClientContextProvider = (props) => {
 
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...wearables].reduce((items, current) => {
-                    let duplicated = items.find(item => item.id === current.id);
+                    const duplicated = items.find(item => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -207,7 +207,7 @@ const ClientContextProvider = (props) => {
 
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
-                    let duplicated = items.find(item => item.id === current.id);
+                    const duplicated = items.find(item => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -299,14 +299,14 @@ const ClientContextProvider = (props) => {
         setRewardCalculating(true);
 
         thegraph.getAllGotchies().then((response) => {
-            let brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
-            let kinLeaders = commonUtils.basicSort(response, 'kinship');
-            let expLeaders = commonUtils.basicSort(response, 'experience');
+            const brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
+            const kinLeaders = commonUtils.basicSort(response, 'kinship');
+            const expLeaders = commonUtils.basicSort(response, 'experience');
 
             gotchis.forEach((item, index) => {
-                let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
-                let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
-                let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
+                const BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
+                const KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
+                const EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
 
                 gotchis[index] = {
                     ...item,

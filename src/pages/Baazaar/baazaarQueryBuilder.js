@@ -22,7 +22,7 @@ export const getQueries = (selectedGoodsType, listingType) => {
         }`;
     };
 
-    let queries = [];
+    const queries = [];
     let params;
 
     if (listingType === listingTypes.all) {

@@ -44,7 +44,7 @@ export default {
             await contract.itemBalances(address.toLowerCase())
                 .then((response) => {
                     const collection = response.map((item) => {
-                        let inner = item.map((i) => ethersApi.formatBigNumber(i));
+                        const inner = item.map((i) => ethersApi.formatBigNumber(i));
 
                         return { itemId: inner[0], balance: inner[1] };
                     });

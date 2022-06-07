@@ -58,7 +58,7 @@ const BaazaarContextProvider = (props) => {
     };
 
     const removeStat = (stat) => {
-        let oldStats = [...stats[stat.name]];
+        const oldStats = [...stats[stat.name]];
 
         oldStats.splice(stat.id, 1);
 

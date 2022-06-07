@@ -44,13 +44,13 @@ export default {
     },
 
     cutAddress(address, symbol) {
-        let splitter = symbol ? symbol : '~~';
+        const splitter = symbol ? symbol : '~~';
 
         return address.slice(0, 4) + splitter + address.slice(38);
     },
 
     getSellerShortAddress(item) {
-        let sellerAddress = item.seller;
+        const sellerAddress = item.seller;
 
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
     },

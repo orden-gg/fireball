@@ -56,8 +56,8 @@ export default function Parcel({ parcel }) {
 
             <div className={classes.boosts}>
                 {Object.entries(boosts).map((boost, i) => {
-                    let key = boost[0];
-                    let value = boost[1];
+                    const key = boost[0];
+                    const value = boost[1];
 
                     return value > 0 ? (
                         <div className={classNames(classes.boost, key)} key={i}>

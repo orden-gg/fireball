@@ -15,7 +15,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
     const [availablePoints, setAvailablePoints] = useState(true);
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         setLoadingPoints(true);
 

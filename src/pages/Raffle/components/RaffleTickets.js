@@ -13,7 +13,7 @@ export default function RaffleTickets({ address }) {
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         getTickets(controller);
 

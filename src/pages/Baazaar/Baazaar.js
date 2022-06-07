@@ -45,7 +45,7 @@ export default function Baazaar() {
     const [userIsTyping, setUserTypingStatus] = useState(false);
 
     const forceLoadItems = () => {
-        let params = {
+        const params = {
             skip: (page - 1) * paginationConfigs.limit,
             limit: paginationConfigs.limit
         };
@@ -257,7 +257,7 @@ export default function Baazaar() {
     };
 
     const processResponse = (response) => {
-        let processedItems = [],
+        const processedItems = [],
             items = [];
 
         // combine response data

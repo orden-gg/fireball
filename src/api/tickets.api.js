@@ -11,7 +11,7 @@ const contract = ethersApi.makeContract(TICKETS_CONTRACT, TICKETS_ABI, 'polygon'
 export default {
     async getTicketsByAddress(address) {
         try {
-            let responseArray = [];
+            const responseArray = [];
 
             await Promise.all([
                 contract.balanceOf(address.toLowerCase(), 0),

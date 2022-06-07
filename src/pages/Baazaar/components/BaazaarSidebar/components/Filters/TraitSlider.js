@@ -6,7 +6,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 
 import styles from './styles';
 
-let traitsEmojis = {
+const traitsEmojis = {
     NRG: '⚡️',
     AGG: '👹',
     SPK: '👻',

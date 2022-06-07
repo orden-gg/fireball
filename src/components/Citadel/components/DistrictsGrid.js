@@ -22,7 +22,7 @@ export default class DistrictsGrid extends Phaser.GameObjects.Graphics {
 
         this.lineStyle(3/this.scene.cameras.main.zoom, COLORS.grid, .5);
 
-        for (let line of DISTRICTS.lineMap) {
+        for (const line of DISTRICTS.lineMap) {
             this.beginPath();
 
             this.moveTo(line[0]*w, line[1]*h);

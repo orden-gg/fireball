@@ -1,7 +1,7 @@
 export const paramsToUrlString = (params) => {
     let str = '';
 
-    for (let key in params) {
+    for (const key in params) {
         if (str !== '') {
             str += '&';
         }

@@ -17,9 +17,9 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
     const { filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats } = useContext(BaazaarContext);
 
     const getChips = () => {
-        let chipsList = [];
+        const chipsList = [];
 
-        for (let chip in stats) {
+        for (const chip in stats) {
             if (stats.hasOwnProperty(chip)) {
                 stats[chip].forEach((item, id) => {
                     chipsList.push({

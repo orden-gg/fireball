@@ -287,7 +287,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.reOrderItems();
 
             setTimeout(() => {
-                let { cx, cy } = this.calculateParcelCenter(parcel);
+                const { cx, cy } = this.calculateParcelCenter(parcel);
                 this.moveToCenter(cx, cy, 500);
 
                 setTimeout(() => {

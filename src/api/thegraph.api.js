@@ -75,7 +75,7 @@ const graphJoin = async (client, queries) => {
         return await new Promise((resolve) => {
             const queriesCounter = queries.length;
             let requestCounter = 0;
-            let responseArray = [];
+            const responseArray = [];
 
             for (let i = 0; i < queriesCounter; i++) {
                 raiseCounter();
@@ -116,7 +116,7 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
     let responseArray = [];
 
     const getProperChild = (item, route) => {
-        let routeCache = [...route];
+        const routeCache = [...route];
 
         const getNestedChild = (item, routeCache) => {
             const current = routeCache[0];
@@ -150,14 +150,14 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
 
 // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
 const modifyTraits = (gotchis) => {
-    let gotchisCache = [...gotchis];
+    const gotchisCache = [...gotchis];
 
     return gotchisCache.map((gotchi) => {
-        let gotchiCache = { ...gotchi };
+        const gotchiCache = { ...gotchi };
 
         if (gotchiCache.equippedSetID && graphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
-            let modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);
-            let brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
+            const modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);
+            const brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
             gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
             gotchiCache.modifiedNumericTraits = gotchiCache.modifiedNumericTraits.map((item, index) => {
@@ -182,7 +182,7 @@ export default {
 
     async getAllGotchies() {
         return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response) => {
-            let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
+            const filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
             return modifyTraits(filteredArray);
         });
@@ -194,7 +194,7 @@ export default {
 
     getGotchiQueries() {
         const maxPossibleSkips = 6; // TODO: 12000 limitation per haunt
-        let queries = [];
+        const queries = [];
 
         for (let i = 0; i < maxPossibleSkips; i++) {
             queries.push(gotchiesQuery(i*1000, 'asc', 1));
@@ -208,7 +208,7 @@ export default {
 
     async getGotchisByAddress(address) {
         function getQueries() {
-            let queries = [];
+            const queries = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(userQuery(address.toLowerCase(), i * 1000));
@@ -220,7 +220,7 @@ export default {
         return await graphJoin(clientFactory.client, getQueries()).then((response) => {
             if (!response[0].data.user) return []; // terminate if thegraph has no data about address
 
-            let filteredArray = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+            const filteredArray = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
 
             return modifyTraits(filteredArray);
 
@@ -237,7 +237,7 @@ export default {
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
         return await this.getData(erc1155Query(id, sold, category, orderBy, orderDireciton)).then((response) => {
-            let erc1155 = response.data.erc1155Listings;
+            const erc1155 = response.data.erc1155Listings;
 
             return {
                 listing: erc1155[0]?.id || null,
@@ -265,9 +265,9 @@ export default {
 
     async getRaffle(id) {
         return await this.getRaffleData(raffleQuery(id)).then((response) => {
-            let data = [];
-            let total = response.data.raffles[0].stats;
-            let prizes = response.data.raffles[0].ticketPools;
+            const data = [];
+            const total = response.data.raffles[0].stats;
+            const prizes = response.data.raffles[0].ticketPools;
 
             prizes.forEach((pool) => {
                 data.push({
@@ -286,13 +286,13 @@ export default {
 
     async getRaffleEntered(address, raffle) {
         return await this.getRaffleData(raffleEntrantsQuery(address.toLowerCase())).then((response) => {
-            let data = [];
-            let received = JSON.parse(JSON.stringify(response.data.raffleEntrants));
+            const data = [];
+            const received = JSON.parse(JSON.stringify(response.data.raffleEntrants));
 
-            let filtered = received.filter((item) => +item.raffle.id === raffle);
+            const filtered = received.filter((item) => +item.raffle.id === raffle);
 
-            let merged = filtered.reduce((items, current) => {
-                let duplicated = items.find(item => item.ticketId === current.ticketId);
+            const merged = filtered.reduce((items, current) => {
+                const duplicated = items.find(item => item.ticketId === current.ticketId);
 
                 if (duplicated) {
                     duplicated.quantity = +duplicated.quantity + +current.quantity;
@@ -318,8 +318,8 @@ export default {
         return await this.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response) => {
             const data = [];
 
-            let received = JSON.parse(JSON.stringify(response.data.raffleWinners));
-            let filtered = received.filter((item) => +item.raffle.id === raffle);
+            const received = JSON.parse(JSON.stringify(response.data.raffleWinners));
+            const filtered = received.filter((item) => +item.raffle.id === raffle);
 
             filtered.forEach((item) => {
                 data.push({
@@ -342,7 +342,7 @@ export default {
 
     async getRealmByAddress(address) {
         function getQueries() {
-            let queries = [];
+            const queries = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(realmQuery(address.toLowerCase(), i * 1000));
@@ -406,7 +406,7 @@ export default {
 
     async getRealmAuctionPrice(id) {
         return await this.getRealmData(auctionQuery(id)).then((response) => {
-            let erc721 = response.data.auctions;
+            const erc721 = response.data.auctions;
 
             return {
                 price: erc721[0]?.highestBid / 10**18 || 0
@@ -422,7 +422,7 @@ export default {
 
     getListedParcelsQueries() {
         const sizes = [0,1,2,3];
-        let queries = [];
+        const queries = [];
 
         sizes.forEach((size ) => {
             for (let i = 0; i < 5; i++) {
@@ -493,7 +493,7 @@ export default {
             }
 
             const combined = data.reduce((acc, x) => {
-                for (let key in x) {
+                for (const key in x) {
                     if (key === 'gotchiId' || key === '__typename') {
                         break;
                     }

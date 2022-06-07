@@ -60,7 +60,8 @@ module.exports = {
         'keyword-spacing': 'error',
         'switch-colon-spacing': 'error',
         'eol-last': ['error', 'always'],
-        'quotes': ['error', 'single']
+        'quotes': ['error', 'single'],
+        'prefer-const': 'error'
     },
     settings: {
         react: {
