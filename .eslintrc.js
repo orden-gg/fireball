@@ -28,7 +28,6 @@ module.exports = {
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-        "no-extra-boolean-cast": "off",
         "react/no-children-prop": "off",
         "react/jsx-key": "off",
         "no-prototype-builtins": "off",

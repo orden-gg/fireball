@@ -116,7 +116,7 @@ export default function Shop() {
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,
                 baazaarId: listing.id,
-                historicalPrices: Boolean(listing.parcel.historicalPrices) ? listing.parcel.historicalPrices : [],
+                historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
                 listings: [{
                     id: listing.id,
                     priceInWei: listing.priceInWei
@@ -133,7 +133,7 @@ export default function Shop() {
                 portal: {
                     hauntId: listing.portal.hauntId
                 },
-                historicalPrices: Boolean(listing.portal.historicalPrices) ? listing.portal.historicalPrices : [],
+                historicalPrices: listing.portal.historicalPrices ? listing.portal.historicalPrices : [],
                 listings: [{
                     id: listing.tokenId,
                     priceInWei: listing.priceInWei

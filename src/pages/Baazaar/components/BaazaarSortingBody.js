@@ -156,7 +156,7 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                                                     priceInWei: item.priceInWei,
                                                     __typename: 'ERC721Listing'
                                                 }],
-                                                historicalPrices: Boolean(item.parcel.historicalPrices) ? item.parcel.historicalPrices : []
+                                                historicalPrices: item.parcel.historicalPrices ? item.parcel.historicalPrices : []
                                             }}
                                         />
                                 }

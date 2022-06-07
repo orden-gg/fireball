@@ -34,7 +34,7 @@ export default function Map() {
                     priceInWei: parcel.priceInWei,
                     __typename: 'ERC721Listing'
                 }],
-                historicalPrices: Boolean(parcel.parcel.historicalPrices) ? parcel.parcel.historicalPrices : []
+                historicalPrices: parcel.parcel.historicalPrices ? parcel.parcel.historicalPrices : []
             }
         });
     }

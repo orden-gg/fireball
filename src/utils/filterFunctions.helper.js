@@ -26,7 +26,7 @@ export default {
                 filterItem = compareValue.find(value => value === item[compareKey]);
             }
 
-            if (Boolean(filterItem)) {
+            if (filterItem) {
                 item.isSelected = true;
             } else {
                 item.isSelected = false;
@@ -40,7 +40,7 @@ export default {
         filter.items.forEach(item => {
             const filterItem = values.find(value => value.value === item.value);
 
-            if (Boolean(filterItem)) {
+            if (filterItem) {
                 item.isSelected = true;
             } else {
                 item.isSelected = false;
@@ -78,7 +78,7 @@ export default {
         filter.items.forEach(item => {
             const filterItem = compareValue === item[compareKey] ? item : null;
 
-            if (Boolean(filterItem)) {
+            if (filterItem) {
                 item.isSelected = true;
             } else {
                 item.isSelected = false;
@@ -141,7 +141,7 @@ export default {
     },
 
     inputGetActiveFiltersCount: (filter) => {
-        return Boolean(filter.value) ? 1 : 0;
+        return filter.value ? 1 : 0;
     },
 
     // Range slider filter handlers
@@ -159,7 +159,7 @@ export default {
         let upperBorderValue;
         const compareValue = compareItem[filter.key];
 
-        if (Boolean(filter.valueMapperFn)) {
+        if (filter.valueMapperFn) {
             [lowerBorderValue, upperBorderValue] = filter.valueMapperFn(filter.value);
         } else {
             [lowerBorderValue, upperBorderValue] = filter.value;

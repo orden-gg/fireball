@@ -68,7 +68,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
         setCountdown(formattedTimeString);
 
         if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
-            if (Boolean(onEnd)) {
+            if (onEnd) {
                 onEnd();
             }
         }

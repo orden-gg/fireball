@@ -4,7 +4,7 @@ import commonUtils from './commonUtils';
 export default {
     getUpdateFiltersFromQueryParams: (queryParams, filters) => {
         Object.entries(filters).forEach(([_, filter]) => {
-            if (Boolean(queryParams[filter.queryParamKey])) {
+            if (queryParams[filter.queryParamKey]) {
                 filter.updateFromQueryFn(filter, queryParams[filter.queryParamKey], 'queryParamValue');
             }
         });
