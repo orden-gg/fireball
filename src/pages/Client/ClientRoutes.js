@@ -45,7 +45,6 @@ export default function ClientRoutes() {
         if (ethersApi.isEthAddress(account)) {
             setActiveAddress(account);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -66,7 +65,6 @@ export default function ClientRoutes() {
 
             setIsActiveAddressSet(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 
     return (

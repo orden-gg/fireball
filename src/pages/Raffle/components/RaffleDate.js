@@ -14,8 +14,6 @@ export default function RaffleDate({ start, end }) {
 
     useEffect(() => {
         renderTitle();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useInterval(() => {

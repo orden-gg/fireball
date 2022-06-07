@@ -29,8 +29,6 @@ const RaffleContextProvider = (props) => {
                 });
             });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleSpinner, loadingEntered])
 
     const getRaffleData = (raffle, raffleTickets) => {

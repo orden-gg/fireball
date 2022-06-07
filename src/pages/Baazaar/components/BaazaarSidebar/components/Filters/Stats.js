@@ -76,8 +76,6 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [collateral, stats]);
 
     return (

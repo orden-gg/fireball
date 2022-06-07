@@ -62,14 +62,12 @@ export default function ParcelImage({ parcel, parcelSize }) {
         .finally(() => setImageLoading(false));
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (imageMap.length > 0 && !imageLoading) {
             processColorsMap();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageMap, imageLoading]);
 
     return (

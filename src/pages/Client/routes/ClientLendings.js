@@ -106,7 +106,6 @@ export default function ClientLendings() {
             onResetFilters();
             setLendingsSorting({ type: 'totalTokens', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -116,14 +115,12 @@ export default function ClientLendings() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
     useEffect(() => {

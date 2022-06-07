@@ -102,7 +102,6 @@ export default function ClientGotchis() {
             onResetFilters();
             setGotchisSorting({ type: 'modifiedRarityScore', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -112,14 +111,12 @@ export default function ClientGotchis() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, gotchisSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gotchisSorting]);
 
     useEffect(() => {

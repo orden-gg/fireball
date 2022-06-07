@@ -210,8 +210,6 @@ const AutopetContextProvider = (props) => {
             ++ready;
             updateTabs();
         });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     return (

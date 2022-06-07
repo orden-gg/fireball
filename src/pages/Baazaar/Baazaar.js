@@ -537,8 +537,6 @@ export default function Baazaar() {
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
@@ -556,8 +554,6 @@ export default function Baazaar() {
         setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedGoodsType, selectedListingType]);
 
     return (

@@ -29,8 +29,6 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [districtFilter, sizeFilter])
 
     return (

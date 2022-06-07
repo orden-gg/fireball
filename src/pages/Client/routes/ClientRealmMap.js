@@ -29,8 +29,6 @@ export default function ClientRealmMap() {
 
     useEffect(() => {
         setRealmView('map');
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

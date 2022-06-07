@@ -75,7 +75,6 @@ export default function Map() {
         });
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -108,7 +107,6 @@ export default function Map() {
         }
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 
     useEffect(() => {
@@ -116,7 +114,6 @@ export default function Map() {
             setRealmGroups([listedRealm, ownerRealm]);
             setGroupsLoaded(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOwnerLoaded, isListedLoaded]);
 
     return (

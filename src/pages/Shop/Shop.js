@@ -92,7 +92,6 @@ export default function Shop() {
 
             return () => mounted = false;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAddress]);
 
     const setEmptyListings = () => {

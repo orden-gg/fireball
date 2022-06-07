@@ -24,7 +24,6 @@ export default function ParcelLink({ parcel }) {
     useEffect(() => {
         setName(parcel.parcelHash.replace(/-/g, ' '));
         setSize(itemUtils.getParcelSize(parcel.size));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

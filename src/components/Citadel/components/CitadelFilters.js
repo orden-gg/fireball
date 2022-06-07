@@ -81,7 +81,6 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
         );
 
         return () => onResetFilters();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -91,7 +90,6 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
             setActiveFiltersCount,
             onFiltersChange
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     return (

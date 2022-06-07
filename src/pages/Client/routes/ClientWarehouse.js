@@ -57,14 +57,12 @@ export default function ClientWarehouse() {
         return () => {
             setWarehouseSorting({ type: 'rarityId', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         const sortedItems = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
         setWarehouse([...sortedItems]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadingWarehouse, warehouseSorting]);
 
     const updateSortQueryParams = useCallback((prop, dir) => {

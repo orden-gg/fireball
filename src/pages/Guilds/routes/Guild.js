@@ -36,8 +36,6 @@ export default function Guild() {
         }
 
         setGuildId(guildId);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

@@ -39,8 +39,6 @@ export default function LoginButton() {
                 }
             })();
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => { // handle metamask accounts
@@ -51,8 +49,6 @@ export default function LoginButton() {
         } else if (isMetamaskActive) { // on metamask logout
             selectActiveAddress(storageAddresses.length ? storageAddresses[0].address : '');
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     const dropdownClose = () => {

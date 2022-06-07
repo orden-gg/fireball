@@ -67,7 +67,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
 
         setParams(newParams);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params, history, location.pathname]);
 
     const basicButtons = useMemo(() => {
@@ -86,7 +85,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     />
                 )
             });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {
@@ -104,7 +102,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 scene: new CitadelScene({ wrapperRef })
             });
         }, 100);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -121,7 +118,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 });
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [game]);
 
     useEffect(() => {
@@ -134,7 +130,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         });
 
         console.log(params);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
@@ -153,7 +148,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 }
             }
     }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {
@@ -164,7 +158,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoaded, mapCreated]);
 
     useEffect(() => {

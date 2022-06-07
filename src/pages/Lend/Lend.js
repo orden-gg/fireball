@@ -127,7 +127,6 @@ export default function Lend() {
         return () => {
             onResetFilters();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -190,19 +189,16 @@ export default function Lend() {
         });
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         updateFilterQueryParams(currentFilters);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
     useEffect(() => {

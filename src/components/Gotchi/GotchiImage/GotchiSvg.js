@@ -44,8 +44,6 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
             });
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (

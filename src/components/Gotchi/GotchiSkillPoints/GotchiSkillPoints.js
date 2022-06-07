@@ -30,8 +30,6 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
             });
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (

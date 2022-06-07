@@ -18,8 +18,6 @@ export default function RaffleTickets({ address }) {
         getTickets(controller);
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[address]);
 
     const getTickets = (controller) => {

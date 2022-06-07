@@ -86,8 +86,6 @@ export default function ClientRealmList() {
 
     useEffect(() => {
         setRealmView('list');
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -107,7 +105,6 @@ export default function ClientRealmList() {
             onResetFilters();
             setRealmSorting({ type: 'size', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -124,7 +121,6 @@ export default function ClientRealmList() {
         }
 
         updateQueryParams(currentFilters);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
@@ -144,7 +140,6 @@ export default function ClientRealmList() {
         const sortedItems = commonUtils.basicSort(realm, realmSorting.type, realmSorting.dir);
 
         setRealm([...sortedItems]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadingRealm, realmSorting]);
 
     const updateSorting = useCallback((prop, dir) => {
