@@ -23,8 +23,8 @@ export default function AutopetSteps() {
     const classes = tabStyles();
 
     const { tabs } = useContext(AutopetContext);
-    const [ currentTab, setCurrentTab ] = useState(0);
-    const [ progress, setProgress ] = useState(0);
+    const [currentTab, setCurrentTab] = useState(0);
+    const [progress, setProgress] = useState(0);
 
     const a11yProps = (index) => {
       return {

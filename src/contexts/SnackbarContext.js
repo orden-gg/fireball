@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 export const SnackbarContext = createContext({});
 
 const SnackbarContextProvider = (props) => {
-    const [isOpen, setToOpen ] = useState(false);
+    const [isOpen, setToOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [type, setType] = useState('success');
 

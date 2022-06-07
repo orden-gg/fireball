@@ -54,7 +54,8 @@ module.exports = {
             "functions": "never"
         }],
         "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
-        "object-curly-spacing": ["error", "always"]
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "never"]
     },
     settings: {
         react: {
