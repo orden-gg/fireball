@@ -64,6 +64,7 @@ const getGraphData = async (client, query) => {
         });
     } catch (error) {
         console.error(error);
+
         return []
     }
 };
@@ -105,6 +106,7 @@ const graphJoin = async (client, queries) => {
         });
     } catch (error) {
         console.error(error);
+
         return [];
     }
 };
@@ -121,6 +123,7 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
 
             if (routeCache.length > 1) {
                 routeCache.splice(0,1)
+
                 return getNestedChild(item[current], routeCache);
             } else {
                 return item[current];
@@ -293,6 +296,7 @@ export default {
 
                 if (duplicated) {
                     duplicated.quantity = +duplicated.quantity + +current.quantity;
+
                     return items;
                 }
 

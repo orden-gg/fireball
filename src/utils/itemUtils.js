@@ -211,6 +211,7 @@ export default {
             return `https://app.aavegotchi.com/baazaar/${item.__typename === "ERC1155Listing" ? 'erc1155' : 'erc721'}/${item.id}`;
         } catch (error) {
             console.error(error);
+
             return 'https://app.aavegotchi.com/baazaar';
         }
     },

@@ -45,6 +45,7 @@ export default {
 
     cutAddress(address, symbol) {
         let splitter = symbol ? symbol : '~~'
+
         return address.slice(0, 4) + splitter + address.slice(38);
     },
 

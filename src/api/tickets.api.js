@@ -34,6 +34,7 @@ export default {
             return responseArray;
         } catch (error) {
             console.log(error);
+
             return [];
         }
     },

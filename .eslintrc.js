@@ -32,7 +32,15 @@ module.exports = {
         "no-prototype-builtins": "off",
         "react/display-name": "off",
         "react/no-unescaped-entities": "off",
-        "eqeqeq": "error"
+        "eqeqeq": "error",
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          }
+        ],
     },
     settings: {
         react: {

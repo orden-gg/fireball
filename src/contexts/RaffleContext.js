@@ -24,6 +24,7 @@ const RaffleContextProvider = (props) => {
                 return ticketsCache.map((ticket) => {
                     ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
                     ticket.prizes = countWearablesChances(ticket);
+
                     return ticket;
                 });
             });
@@ -50,6 +51,7 @@ const RaffleContextProvider = (props) => {
                     ticket.entered = total[
                         ticket.rarity === 'godlike' ? 'totalGodLike' : `total${commonUtils.capitalize(ticket.rarity)}`
                     ];
+
                     return ticket;
                 });
             });
@@ -67,12 +69,14 @@ const RaffleContextProvider = (props) => {
                 let prices = item.data.erc1155Listings.map((wei)=> parseInt(wei.priceInWei));
                 let average = prices.reduce((a,b) => a + b, 0) / prices.length;
                 let price = average / 10**18;
+
                 return price.toFixed(2);
             });
 
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
                     ticket.price = averagePrices[i];
+
                     return ticket;
                 });
             });
@@ -96,6 +100,7 @@ const RaffleContextProvider = (props) => {
                     modified[elem].value = item.quantity;
                     modified[elem].prizes = modified[elem].prizes.map((item) => {
                         let index = won.findIndex(prize => prize.itemId === item.id);
+
                         return ({
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0

@@ -32,6 +32,7 @@ export default {
                 });
         } catch (error) {
             console.log(error);
+
             return null;
         }
     },
@@ -44,6 +45,7 @@ export default {
                 .then((response) => {
                     const collection = response.map((item)=> {
                         let inner = item.map((i) => ethersApi.formatBigNumber(i));
+
                         return { itemId: inner[0], balance: inner[1] }
                     });
 
@@ -53,6 +55,7 @@ export default {
             return contractResponse;
         } catch (error) {
             console.log(error);
+
             return [];
         }
     },
@@ -62,6 +65,7 @@ export default {
             return contract.previewAavegotchi(haunt, collateral, traits, wearables);
         } catch (error) {
             console.log(error);
+
             return null;
         }
     },

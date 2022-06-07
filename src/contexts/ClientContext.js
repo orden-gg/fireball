@@ -142,6 +142,7 @@ const ClientContextProvider = (props) => {
                     if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
+
                         return items;
                     }
 
@@ -211,6 +212,7 @@ const ClientContextProvider = (props) => {
                     if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
+
                         return items;
                     }
 

@@ -52,6 +52,7 @@ const LoginContextProvider = (props) => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
                 await connect(ethers.providers.Web3Provider, 'any');
+
                 return true;
             } catch (error) {
                 return false;

@@ -13,6 +13,7 @@ export default function useInterval(callback, delay) {
         }
         if (delay !== null) {
             let id = setInterval(tick, delay);
+
             return () => clearInterval(id);
         }
     }, [delay]);

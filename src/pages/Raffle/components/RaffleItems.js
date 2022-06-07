@@ -81,6 +81,7 @@ export default function RaffleItems({ tickets, type }) {
                             {renderItem(item)}
                         </div>
                     })
+
                     return null;
                 })
             }
