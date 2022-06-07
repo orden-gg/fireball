@@ -42,6 +42,7 @@ module.exports = {
             "next": "return"
           }
         ],
+        "no-sequences": "error"
     },
     settings: {
         react: {
