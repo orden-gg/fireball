@@ -52,7 +52,8 @@ module.exports = {
             "imports": "never",
             "exports": "never",
             "functions": "never"
-        }]
+        }],
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true}]
     },
     settings: {
         react: {

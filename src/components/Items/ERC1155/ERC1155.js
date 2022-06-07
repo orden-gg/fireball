@@ -38,7 +38,7 @@ export default function ERC1155({ children, item, className }) {
                 setLast(response);
 
                 if (response?.lastSale) {
-                    let date = new Date(response?.lastSale * 1000).toJSON()
+                    let date = new Date(response?.lastSale * 1000).toJSON();
                     setLastDate(date);
                 }
             }
@@ -120,7 +120,7 @@ export default function ERC1155({ children, item, className }) {
                                                             {holder}
                                                         </Link>
                                                             {index === (item.holders.length - 1) ? '' : ', '}
-                                                    </span>
+                                                    </span>;
                                                     })
                                                 }
                                             </div>
@@ -228,5 +228,5 @@ export default function ERC1155({ children, item, className }) {
                 )}
             </div>
         </div>
-    )
+    );
 }

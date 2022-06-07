@@ -10,4 +10,4 @@ export default {
      getTilesByAddress(address) {
         return tilesContract.tilesBalances(address);
     }
-}
+};

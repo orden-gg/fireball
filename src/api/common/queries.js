@@ -36,7 +36,7 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
             id
           }
         }
-    }`
+    }`;
 };
 
 export const gotchiByIdQuery = (id) => {
@@ -51,8 +51,8 @@ export const gotchiByIdQuery = (id) => {
         id
       }
     }
-  }`
-}
+  }`;
+};
 
 export const userQuery = (id, skip) => {
     return `{
@@ -89,7 +89,7 @@ export const userQuery = (id, skip) => {
             }
           }
         }
-    }`
+    }`;
 };
 
 export const svgQuery = (id) => {
@@ -98,7 +98,7 @@ export const svgQuery = (id) => {
           id
           svg
         }
-      }`
+      }`;
 };
 
 export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
@@ -118,7 +118,7 @@ export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
           priceInWei
           timeLastPurchased
       }
-  }`
+  }`;
 };
 
 export const erc721ListingsBySeller = (seller) => {
@@ -188,7 +188,7 @@ export const erc721ListingsBySeller = (seller) => {
                 historicalPrices
             }
         }
-    }`
+    }`;
 };
 
 export const erc1155ListingsBySeller = (seller) => {
@@ -208,7 +208,7 @@ export const erc1155ListingsBySeller = (seller) => {
             priceInWei
             rarityLevel
         }
-    }`
+    }`;
 };
 
 export const realmQuery = (address, skip) => {
@@ -232,7 +232,7 @@ export const realmQuery = (address, skip) => {
         historicalPrices
         activeListing
       }
-    }`
+    }`;
 };
 
 export const realmQueryByDistrict = (skip, district) => {
@@ -257,7 +257,7 @@ export const realmQueryByDistrict = (skip, district) => {
         activeListing
         auctionId
       }
-    }`
+    }`;
 };
 
 export const parselQuery = (id) => {
@@ -281,7 +281,7 @@ export const parselQuery = (id) => {
       historicalPrices
       activeListing
     }
-  }`
+  }`;
 };
 
 export const activeListingQeury = (erc, id, type, category) => {
@@ -297,7 +297,7 @@ export const activeListingQeury = (erc, id, type, category) => {
                 id
                 priceInWei
             }
-        }`
+        }`;
 };
 
 export const erc721SalesHistory = (id, category) => {
@@ -316,8 +316,8 @@ export const erc721SalesHistory = (id, category) => {
             timePurchased
             priceInWei
         }
-    }`
-}
+    }`;
+};
 
 export const getParcelOrderDirectionQuery = data => {
     return `{
@@ -336,8 +336,8 @@ export const getParcelOrderDirectionQuery = data => {
             priceInWei
             size
         }
-    }`
-  }
+    }`;
+  };
 
 export const auctionQuery = (id) => {
     return `{
@@ -345,7 +345,7 @@ export const auctionQuery = (id) => {
         id
         highestBid
       }
-    }`
+    }`;
 };
 
 export const listedParcelsQuery = (skip, orderDir, size) => {
@@ -393,7 +393,7 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
                 coordinateY
             }
         }
-    }`
+    }`;
 };
 
 export const raffleQuery = (id) => {
@@ -416,7 +416,7 @@ export const raffleQuery = (id) => {
         totalDrop
       }
     }
-  }`
+  }`;
 };
 
 export const raffleEntrantsQuery = (address) => {
@@ -429,7 +429,7 @@ export const raffleEntrantsQuery = (address) => {
           id
         }
       }
-    }`
+    }`;
 };
 
 export const raffleWinsQuery = (address) => {
@@ -444,7 +444,7 @@ export const raffleWinsQuery = (address) => {
         }
         quantity
       }
-    }`
+    }`;
 };
 
 export const lendingsQuery = (skip, orderDir) => {
@@ -481,7 +481,7 @@ export const lendingsQuery = (skip, orderDir) => {
         splitBorrower
         splitOwner
       }
-    }`
+    }`;
 };
 
 export const lendingsByAddressQuery = (address, skip) => {
@@ -530,7 +530,7 @@ export const lendingsByAddressQuery = (address, skip) => {
         splitBorrower
         splitOwner
       }
-    }`
+    }`;
 };
 
 export const incomeQuery = (id, timestamp) => {
@@ -548,5 +548,5 @@ export const incomeQuery = (id, timestamp) => {
           ALPHAAmount
           KEKAmount
         }
-      }`
+      }`;
 };

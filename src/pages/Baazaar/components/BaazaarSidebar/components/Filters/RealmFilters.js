@@ -29,7 +29,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
 
     useEffect(() => {
         runInstantFiltering();
-    }, [districtFilter, sizeFilter])
+    }, [districtFilter, sizeFilter]);
 
     return (
         <Grid container spacing={2} className={classes.rootContainer}>
@@ -52,7 +52,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                         <MenuItem value={0}>All</MenuItem>
                                         {
                                             districts.map((item, index) => {
-                                                    return <MenuItem key={index} value={item}>{item}</MenuItem>
+                                                    return <MenuItem key={index} value={item}>{item}</MenuItem>;
                                                 })
                                         }
                                     </Select>

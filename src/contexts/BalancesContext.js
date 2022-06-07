@@ -144,7 +144,7 @@ const BalancesContextProvider = (props) => {
                     setTokens(tokens);
                     setIsBalancesLoading(false);
                 }
-            }
+            };
 
             getBalances();
 
@@ -156,7 +156,7 @@ const BalancesContextProvider = (props) => {
                 mounted = false;
 
                 clearInterval(interval);
-            }
+            };
         }
     }, [activeAddress]);
 
@@ -171,7 +171,7 @@ const BalancesContextProvider = (props) => {
         const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
         return [ghst, ghstPriceToToken];
-    }
+    };
 
     const getTokenPrice = async (ghst, ghstPrice, token) => {
         const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
@@ -180,11 +180,11 @@ const BalancesContextProvider = (props) => {
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
         return tokenPrice;
-    }
+    };
 
     const generateSwapUrl = (inputToken, outputToken) => {
         return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
-    }
+    };
 
     return (
         <BalancesContext.Provider value={{
@@ -193,7 +193,7 @@ const BalancesContextProvider = (props) => {
         }}>
             { props.children }
         </BalancesContext.Provider>
-    )
-}
+    );
+};
 
 export default BalancesContextProvider;

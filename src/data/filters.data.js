@@ -5,7 +5,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
-import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data';
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
@@ -88,7 +88,7 @@ export const filtersData = {
                     }
                     {...getTagProps({ index })}
                 />
-            ))
+            ));
         },
         ...defaultMultiSelectionFilter
     },
@@ -199,7 +199,7 @@ export const filtersData = {
                     key={option.title}
                     {...getTagProps({ index })}
                 />
-            ))
+            ));
         },
         ...defaultMultiSelectionFilter
     }

@@ -20,5 +20,5 @@ export default function Subtitle({ children, margin, variant, innerBg }) {
                 </Typography>
             </Box>
         </Box>
-    )
+    );
 }

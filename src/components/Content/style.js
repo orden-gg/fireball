@@ -48,4 +48,4 @@ const ContentInnerStyles = makeStyles(theme => ({
 export {
     styles as default,
     ContentInnerStyles
-}
+};

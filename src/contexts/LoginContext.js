@@ -83,7 +83,7 @@ const LoginContextProvider = (props) => {
         }}>
             { props.children }
         </LoginContext.Provider>
-    )
-}
+    );
+};
 
 export default LoginContextProvider;

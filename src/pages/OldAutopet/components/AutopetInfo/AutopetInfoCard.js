@@ -14,5 +14,5 @@ export default function AutopetInfoCard({ name, count }) {
                 {count ? count : <CircularProgress color='inherit' />}
             </span>
         </div>
-    )
+    );
 }

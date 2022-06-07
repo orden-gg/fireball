@@ -32,7 +32,7 @@ const classes = {
     wrapper: 'page-wrapper',
     noHeaderWrapper: 'no-header-page-wrapper',
     content: 'page-content'
-}
+};
 
 const Wrapper = styled('div')(() => ({
     [`&.${classes.wrapper}`]: {

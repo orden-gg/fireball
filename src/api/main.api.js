@@ -28,7 +28,7 @@ export default {
         try {
             return await contract.availableSkillPoints(tokenId)
                 .then((response) => {
-                    return ethersApi.formatBigNumber(response)
+                    return ethersApi.formatBigNumber(response);
                 });
         } catch (error) {
             console.log(error);
@@ -46,7 +46,7 @@ export default {
                     const collection = response.map((item)=> {
                         let inner = item.map((i) => ethersApi.formatBigNumber(i));
 
-                        return { itemId: inner[0], balance: inner[1] }
+                        return { itemId: inner[0], balance: inner[1] };
                     });
 
                     contractResponse = {items: collection, owner: address};
@@ -85,4 +85,4 @@ export default {
             contract.isPetOperatorForAll(address, operator)
         ));
     }
-}
+};

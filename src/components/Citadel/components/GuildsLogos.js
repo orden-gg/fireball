@@ -62,13 +62,13 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
             if (first.coordinateX < second.coordinateX) {
                 dir = 'lt';
             } else {
-                dir = 'rt'
+                dir = 'rt';
             }
         } else {
             if (first.coordinateX < second.coordinateX) {
                 dir = 'lb';
             } else {
-                dir = 'rb'
+                dir = 'rb';
             }
         }
 
@@ -92,7 +92,7 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     y: y1 - h,
                     w: w + w2,
                     h: h + h1
-                }
+                };
                 break;
             case 'rt': {
                 data = {
@@ -100,7 +100,7 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     y: y1,
                     w: w + w1,
                     h: h + h2
-                }
+                };
                 break;
             }
             case 'rb':
@@ -109,7 +109,7 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
                     y: y1 - h,
                     w: w + w1,
                     h: h + h1
-                }
+                };
                 break;
             default:
                 data = {

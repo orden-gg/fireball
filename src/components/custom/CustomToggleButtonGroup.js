@@ -49,7 +49,7 @@ export default function CustomToggleButtonGroup({ list, ...props }) {
                                 {item.icon ? item.icon : item.name}
                             </span>
                         </CustomTooltip>
-                    </ToggleButton>
+                    </ToggleButton>;
                 })
             }
         </StyledToggleButtonGroup>

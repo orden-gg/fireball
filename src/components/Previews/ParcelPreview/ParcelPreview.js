@@ -79,7 +79,7 @@ export default function ParcelPreview({ parcel }) {
                                     </div>
                                 ) : (
                                     null
-                                )
+                                );
                             })}
                         </div>
                     </div>

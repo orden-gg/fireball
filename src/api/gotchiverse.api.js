@@ -15,4 +15,4 @@ export default {
             .then(response => response.data)
             .catch(e => console.log(e));
     }
-}
+};

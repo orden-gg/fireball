@@ -137,13 +137,13 @@ export default {
     getRarityByTrait(trait) {
         switch (true) {
             case trait >= 100 || trait <= -1:
-                return 'godlike'
+                return 'godlike';
             case trait >= 98 || trait <= 1:
-                return 'mythical'
+                return 'mythical';
             case trait >= 90 || trait <= 9:
-                return 'rare'
+                return 'rare';
             default:
-                return 'common'
+                return 'common';
         }
     },
 
@@ -326,4 +326,4 @@ export default {
                 return 1;
         }
     }
-}
+};

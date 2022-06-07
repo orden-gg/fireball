@@ -47,7 +47,7 @@ export default function PageNav({ links, beforeContent, afterContent }) {
                                 )}
                             </Button>
                         </div>
-                    )
+                    );
                 })
             }
             {afterContent}

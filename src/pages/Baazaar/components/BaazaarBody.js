@@ -13,7 +13,7 @@ export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPre
                 {
                     // eslint-disable-next-line array-callback-return
                     goods.map((item) => {
-                        return <BaazaarItem key={item.id} item={item} />
+                        return <BaazaarItem key={item.id} item={item} />;
                     })
                 }
                 <Grid className={classes.pagination} item xs={12}>

@@ -22,7 +22,7 @@ export default function useFullscreenStatus(elRef) {
 
     setIsFullscreen(
       fullscreenProp !== null ? document[fullscreenProp] !== null : null
-    )
+    );
   }, []);
 
   useEffect(() => {
@@ -45,6 +45,6 @@ function getBrowserFullscreenElementProp() {
   } else if (typeof document.webkitFullscreenElement !== 'undefined') {
     return 'webkitFullscreenElement';
   } else {
-    return null
+    return null;
   }
 }

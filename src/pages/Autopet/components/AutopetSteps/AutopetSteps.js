@@ -55,7 +55,7 @@ export default function AutopetSteps() {
             }
         }
 
-        setProgress(completeCount)
+        setProgress(completeCount);
     }, [tabs]);
 
     return (
@@ -120,5 +120,5 @@ export default function AutopetSteps() {
 
             </Box>
         </>
-    )
+    );
 }

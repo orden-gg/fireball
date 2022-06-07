@@ -20,7 +20,7 @@ const BaazaarContextProvider = (props) => {
         timeDESC: 'timeCreated-desc',
         timeASC: 'timeCreated-asc'
     });
-    const [districtFilter, setDistrictFilter] = useState(0)
+    const [districtFilter, setDistrictFilter] = useState(0);
     const [sizeFilter, setSizeFilter] = useState('4');
     const [alphaFilter, setAlphaFilter] = useState('');
     const [kekFilter, setKekFilter] = useState('');
@@ -125,7 +125,7 @@ const BaazaarContextProvider = (props) => {
         }}>
             { props.children }
         </BaazaarContext.Provider>
-    )
-}
+    );
+};
 
 export default BaazaarContextProvider;

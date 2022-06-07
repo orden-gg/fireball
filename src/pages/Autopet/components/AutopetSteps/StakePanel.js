@@ -50,5 +50,5 @@ export default function StakePanel({ index, dir }) {
             </div>
             <PanelErrorText isShown={!availableStake} children='Please approve petting & GHST before staking' />
         </div>
-    )
+    );
 }

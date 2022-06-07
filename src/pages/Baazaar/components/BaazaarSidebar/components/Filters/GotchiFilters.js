@@ -26,7 +26,7 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                         name: chip,
                         value: item,
                         id
-                    })
+                    });
                 });
             }
         }
@@ -51,7 +51,7 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
     };
 
     useEffect(() => {
-        setChips(getChips())
+        setChips(getChips());
     }, [stats]);
 
     useEffect(() => {
@@ -131,7 +131,7 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                                                     label={item.name + ": " + item.value[0] + " <> " + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}
-                                                />
+                                                />;
                                             })
                                         }
                                     </div>

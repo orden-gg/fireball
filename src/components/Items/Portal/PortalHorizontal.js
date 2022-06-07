@@ -44,7 +44,7 @@ export default function PortalHorizontal({ portal, render }) {
         get cardStats() {
             return (
                 <CardStats itemStats={`Haunt ${portal.portal.hauntId}`} />
-            )
+            );
         },
 
         get cardName() {
@@ -55,14 +55,14 @@ export default function PortalHorizontal({ portal, render }) {
 
         // image
         get image() {
-            return <PortalImage portal={portal} key={`${portal.id}-portal-image`} />
+            return <PortalImage portal={portal} key={`${portal.id}-portal-image`} />;
         },
 
         // price
         get price() {
-            return <HorizontalPrice label='Sold for ' item={portal} key={`${portal.id}-portal-price`} />
+            return <HorizontalPrice label='Sold for ' item={portal} key={`${portal.id}-portal-price`} />;
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') {
@@ -75,13 +75,13 @@ export default function PortalHorizontal({ portal, render }) {
                     renderSection(item)
                 )))
             ))
-        )
+        );
     }
 
     return (
         <div className={classNames(classes.horizontalCard, `haunt${portal.portal.hauntId}`)}>
             {render.map(name => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

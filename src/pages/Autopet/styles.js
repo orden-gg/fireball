@@ -212,4 +212,4 @@ export {
     headerStyles,
     tabStyles,
     infoStyles
-}
+};

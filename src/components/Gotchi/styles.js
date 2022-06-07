@@ -116,4 +116,4 @@ const CustomTooltipStyles = makeStyles(theme => ({
 export {
     styles as default,
     CustomTooltipStyles
-}
+};

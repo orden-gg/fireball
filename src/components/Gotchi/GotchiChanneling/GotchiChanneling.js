@@ -36,13 +36,13 @@ export default function GotchiChanelling({ gotchiId }) {
 
     const atLeastOneTimeChanneled = (date) => {
         return date > 0;
-    }
+    };
 
     const moreThan24hours = (date) => {
         const dateDiff = DateTime.local() - DateTime.fromMillis(date);
 
         return dateDiff > DAY_MILLIS;
-    }
+    };
 
     return (
         <div className={classes.container}>
@@ -83,5 +83,5 @@ export default function GotchiChanelling({ gotchiId }) {
                 </CustomTooltip>
             )}
         </div>
-    )
+    );
 }

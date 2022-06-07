@@ -14,4 +14,4 @@ export default {
             .then(r => r.data);
 
     }
-}
+};

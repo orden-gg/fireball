@@ -17,7 +17,7 @@ const keyframes = {
             opacity: 1
         }
     }
-}
+};
 
 const styles = makeStyles(theme => ({
     guildsWrapper: {
@@ -593,4 +593,4 @@ export {
     guildNavStyles,
     guildSocialsStyles,
     guildWearables
-}
+};

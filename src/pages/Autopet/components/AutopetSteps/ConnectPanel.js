@@ -38,5 +38,5 @@ export default function ConnectPanel({ index, dir }) {
                 </Button>
             </div>
         </div>
-    )
+    );
 }

@@ -47,5 +47,5 @@ export default function ParcelGeneric({ parcel, raffleChances }) {
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </div>
-    )
+    );
 }

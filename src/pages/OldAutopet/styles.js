@@ -210,4 +210,4 @@ export {
     headerStyles,
     tabStyles,
     infoStyles
-}
+};

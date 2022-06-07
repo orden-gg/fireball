@@ -36,7 +36,7 @@ export default function GuildBanner() {
         } catch (error) {
             return defaultBanner;
         }
-    }
+    };
 
     useEffect(() => {
         if (guildId !== null) {

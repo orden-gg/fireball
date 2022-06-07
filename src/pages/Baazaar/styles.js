@@ -238,4 +238,4 @@ export {
     baazaarItemStyles,
     paginationStyles,
     baazaarSortingBodyStyles
-}
+};

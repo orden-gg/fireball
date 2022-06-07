@@ -123,4 +123,4 @@ export default {
         link.download = `${fileName}_${Date.now()}.json`;
         link.click();
     }
-}
+};

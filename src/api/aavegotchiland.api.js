@@ -1,4 +1,4 @@
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'axios-cache-adapter';
 
 const api = setup({
     baseURL: 'https://api.aavegotchi.land',
@@ -18,4 +18,4 @@ export default {
     getAddressInfo(address, disableCache) {
         return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
     }
-}
+};

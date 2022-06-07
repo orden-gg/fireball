@@ -67,5 +67,5 @@ export default function GhostLoader({animate, text}) {
                 </svg>
             </div>
         )
-    )
+    );
 }

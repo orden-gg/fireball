@@ -21,9 +21,9 @@ export default function ClientInstallations() {
                     items={[...installations, ...tiles]}
                     component={props => {
                         if (props.type === 'tile') {
-                            return <Tile data={props} />
+                            return <Tile data={props} />;
                         } else {
-                            return <Installation data={props} />
+                            return <Installation data={props} />;
                         }
                     }}
                 />

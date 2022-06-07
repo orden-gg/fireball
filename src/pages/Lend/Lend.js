@@ -147,7 +147,7 @@ export default function Lend() {
                     mappedData.push({
                         ...listing,
                         guild: gotchiverseUtils.gedAddressGuild(listing.lender)
-                    })
+                    });
                 });
 
                 const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
@@ -171,7 +171,7 @@ export default function Lend() {
                         ...currentFiltersCacheCopy.upfrontCost,
                         max: maxUpfrontCost,
                         value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
-                    }
+                    };
 
                     let filtersToReturn;
 
@@ -236,7 +236,7 @@ export default function Lend() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -300,7 +300,7 @@ export default function Lend() {
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
                             {modifiedLendings.map(lend => {
-                                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
+                                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>;
                             })}
                         </ol>
                     ) : (

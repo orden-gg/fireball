@@ -29,7 +29,7 @@ const RaffleContextProvider = (props) => {
                 });
             });
         }
-    }, [raffleSpinner, loadingEntered])
+    }, [raffleSpinner, loadingEntered]);
 
     const getRaffleData = (raffle, raffleTickets) => {
         getRaffle(raffle);
@@ -102,7 +102,7 @@ const RaffleContextProvider = (props) => {
                         return ({
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0
-                        })
+                        });
                     });
 
                 });
@@ -125,7 +125,7 @@ const RaffleContextProvider = (props) => {
         const supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
 
         return value / supply * items;
-    }
+    };
 
     const countWearablesChances = (ticket) => {
         const wearables = ticket.prizes;
@@ -136,11 +136,11 @@ const RaffleContextProvider = (props) => {
                 let chance = perc * ticket.chance / 100;
 
                 wearable.chance = chance;
-            })
+            });
         }
 
         return wearables;
-    }
+    };
 
     const getTicketsPreset = (tickets) => {
         return tickets.map((ticket) => ({
@@ -148,7 +148,7 @@ const RaffleContextProvider = (props) => {
             rarity: itemUtils.getItemRarityName(ticket.toString()),
             value: ''
         }));
-    }
+    };
 
     return (
         <RaffleContext.Provider value={{
@@ -171,7 +171,7 @@ const RaffleContextProvider = (props) => {
         }}>
             { props.children }
         </RaffleContext.Provider>
-    )
-}
+    );
+};
 
 export default RaffleContextProvider;

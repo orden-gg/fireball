@@ -43,7 +43,7 @@ const clientFactory = (() => {
         return new ApolloClient({
             link: new HttpLink({ uri: url, fetch }),
             cache: new InMemoryCache()
-        })
+        });
     };
 
     return {
@@ -53,7 +53,7 @@ const clientFactory = (() => {
         realmClient: createClient(realm),
         lendClient: createClient(lend),
         incomeClient: createClient(income)
-    }
+    };
 })();
 
 // single query requests
@@ -65,7 +65,7 @@ const getGraphData = async (client, query) => {
     } catch (error) {
         console.error(error);
 
-        return []
+        return [];
     }
 };
 
@@ -87,7 +87,7 @@ const graphJoin = async (client, queries) => {
                         lowerCounter();
                         checkRequestsResult();
                     })
-                )
+                );
             }
 
             function checkRequestsResult() {
@@ -122,13 +122,13 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
             const current = routeCache[0];
 
             if (routeCache.length > 1) {
-                routeCache.splice(0,1)
+                routeCache.splice(0,1);
 
                 return getNestedChild(item[current], routeCache);
             } else {
                 return item[current];
             }
-        }
+        };
 
         return getNestedChild(item, routeCache);
     };
@@ -167,7 +167,7 @@ const modifyTraits = (gotchis) => {
 
         return gotchiCache;
     });
-}
+};
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -211,7 +211,7 @@ export default {
             let queries = [];
 
             for (let i = 0; i < 5; i++) {
-                queries.push(userQuery(address.toLowerCase(), i * 1000))
+                queries.push(userQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;
@@ -232,7 +232,7 @@ export default {
 
         return Promise.all(promises).then(response =>
             response.reduce((result, current) => result.concat(current), [])
-        )
+        );
     },
 
     async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
@@ -345,7 +345,7 @@ export default {
             let queries = [];
 
             for (let i = 0; i < 5; i++) {
-                queries.push(realmQuery(address.toLowerCase(), i * 1000))
+                queries.push(realmQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;
@@ -361,7 +361,7 @@ export default {
 
         return Promise.all(promises).then(response =>
             response.reduce((result, current) => result.concat(current), [])
-        )
+        );
     },
 
     async getRealmByDistrict(district) {
@@ -369,7 +369,7 @@ export default {
             const queries = [];
 
             for (let i = 0; i < 5; i++) {
-                queries.push(realmQueryByDistrict(i * 1000, district))
+                queries.push(realmQueryByDistrict(i * 1000, district));
             }
 
             return queries;
@@ -389,19 +389,19 @@ export default {
     async getErc721SalesHistory(id, category) {
         return await this.getData(erc721SalesHistory(id, category)).then((response) => {
             return response.data.erc721Listings;
-        })
+        });
     },
 
     async getActiveListing(erc, id, type, category) {
         return await this.getData(activeListingQeury(erc, id, type, category)).then((response) => {
             return response.data.erc721Listings[0];
-        })
+        });
     },
 
     getParcelPriceByDirection(data) {
         return this.getData(getParcelOrderDirectionQuery(data)).then(response => {
             return ethersApi.fromWei(response.data.erc721Listings[0].priceInWei);
-        })
+        });
     },
 
     async getRealmAuctionPrice(id) {
@@ -439,8 +439,8 @@ export default {
             const queries = [];
 
             for (let i = 0; i < 6; i++) {
-                queries.push(lendingsQuery(i * 1000, 'asc'))
-                queries.push(lendingsQuery(i * 1000, 'desc'))
+                queries.push(lendingsQuery(i * 1000, 'asc'));
+                queries.push(lendingsQuery(i * 1000, 'desc'));
             }
 
             return queries;
@@ -462,7 +462,7 @@ export default {
             const queries = [];
 
             for (let i = 0; i < 1; i++) {
-                queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000))
+                queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;
@@ -489,7 +489,7 @@ export default {
                     FOMOAmount: 0,
                     ALPHAAmount: 0,
                     KEKAmount: 0
-                }
+                };
             }
 
             const combined = data.reduce((acc, x) => {
@@ -502,7 +502,7 @@ export default {
                         acc[key] + ethersApi.fromWei(x[key].toString())
                     ) : (
                         ethersApi.fromWei(x[key].toString())
-                    )
+                    );
                 }
 
                 return acc;
@@ -511,4 +511,4 @@ export default {
             return combined;
         }).catch(e => console.log(e));
     }
-}
+};

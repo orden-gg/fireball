@@ -10,4 +10,4 @@ export default {
     getInstallationsByAddress(address) {
         return installationsContract.installationsBalances(address);
     }
-}
+};

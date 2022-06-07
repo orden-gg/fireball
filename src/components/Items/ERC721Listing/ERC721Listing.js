@@ -36,7 +36,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                                             {commonUtils.formatPrice(ethersApi.fromWei(price))}
                                             <GhstTokenGif width={14} height={14} />
                                             {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
-                                        </p>
+                                        </p>;
                                     })}
                                 </div>
                             </>

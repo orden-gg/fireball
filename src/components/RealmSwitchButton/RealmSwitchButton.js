@@ -23,7 +23,7 @@ export default function RealmSwitchButton({ view }) {
             pathname: url,
             search: qs.stringify(params)
         });
-    }
+    };
 
     return (
         <CustomTooltip

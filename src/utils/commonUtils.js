@@ -44,7 +44,7 @@ export default {
     },
 
     cutAddress(address, symbol) {
-        let splitter = symbol ? symbol : '~~'
+        let splitter = symbol ? symbol : '~~';
 
         return address.slice(0, 4) + splitter + address.slice(38);
     },
@@ -123,4 +123,4 @@ export default {
     isEmptyObject(obj) {
         return Object.keys(obj).length === 0;
     }
-}
+};

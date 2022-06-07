@@ -9,17 +9,17 @@ export const getQueries = (selectedGoodsType, listingType) => {
                 where: {
                     category: ${params.category},
                     ${getWhereParams(selectedGoodsType, listingType).map((item) => {
-                return item + ','
+                return item + ',';
             })}
                 },
                 ${getOrderParams(selectedGoodsType, listingType).map((item) => {
-                return item + ','
+                return item + ',';
             })}
             ) {
                 __typename
                 ${params.params}
             }
-        }`
+        }`;
     };
 
     let queries = [];

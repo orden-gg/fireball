@@ -20,7 +20,7 @@ export default function GuildSocials() {
         telegram: <TelegramIcon className={classes.guildSocialIcon} />,
         twitch: <TwitchIcon className={classes.guildSocialIcon} />,
         default: <WebIcon className={classes.guildSocialIcon} />
-    }
+    };
 
     const renderSocials = () => {
         const guild = guilds[guildId];
@@ -48,9 +48,9 @@ export default function GuildSocials() {
                 </Tooltip>
             ))
         );
-    }
+    };
 
     return <div className={classes.guildSocials}>
         {renderSocials()}
-    </div>
+    </div>;
 }

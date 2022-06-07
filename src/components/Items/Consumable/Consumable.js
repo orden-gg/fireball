@@ -20,5 +20,5 @@ export default function Consumable({ consumable, isShopItem }) {
             <CardName item={consumable} />
             <ConsumableStats consumable={consumable} />
         </ERC1155>
-    )
+    );
 }

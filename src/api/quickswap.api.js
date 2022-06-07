@@ -16,4 +16,4 @@ export default {
     getTokenRouteByPair(token, pair) {
         return new quickSwap.Route([pair], token);
     }
-}
+};

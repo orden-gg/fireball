@@ -25,15 +25,15 @@ export default function SortFilterPanel({
 
     const onToglleFilterDropdown = (isOpen) => {
         setIsDropdownOpen(!isOpen);
-    }
+    };
 
     const onCloseDropdown = () => {
         setIsDropdownOpen(false);
-    }
+    };
 
     const onSetSelectedFilters = (key, filtersObj) => {
         setSelectedFilters(key, filtersObj);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         setIsDropdownOpen(false);

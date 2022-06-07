@@ -27,7 +27,7 @@ export default function GotchiRewards({ gotchi }) {
                                         </p>
                                     ) : (
                                         null
-                                    )
+                                    );
                                 })}
                             </>
                         }

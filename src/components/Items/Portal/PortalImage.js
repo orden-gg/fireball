@@ -25,7 +25,7 @@ export default function PortalImage({ portal }) {
         }
 
         return React.cloneElement(portalIcon, { className: classes.portalImage });
-    }
+    };
 
     return (
         renderPortalImage(portal)

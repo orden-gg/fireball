@@ -22,4 +22,4 @@ const defaultRangeSliderFilter = {
     getActiveFiltersCountFn: filterHelpers.rangeSliderGetActiveFiltersCount
 };
 
-export { defaultMultiSelectionFilter, defaultRangeSliderFilter }
+export { defaultMultiSelectionFilter, defaultRangeSliderFilter };

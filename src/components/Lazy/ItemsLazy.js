@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
-import { VirtuosoGrid } from 'react-virtuoso'
+import { VirtuosoGrid } from 'react-virtuoso';
 
 const ListContainer = styled.div`
     display: grid;

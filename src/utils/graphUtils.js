@@ -80,4 +80,4 @@ export default {
     isExistingSetId(id) {
         return id <= sets.length;
     }
-}
+};

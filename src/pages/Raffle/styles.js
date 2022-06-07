@@ -550,4 +550,4 @@ export {
     tableStyles,
     itemsStyles,
     titleStyles
-}
+};

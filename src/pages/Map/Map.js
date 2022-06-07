@@ -35,9 +35,9 @@ export default function Map() {
                     __typename: 'ERC721Listing'
                 }],
                 historicalPrices: parcel.parcel.historicalPrices ? parcel.parcel.historicalPrices : []
-            }
+            };
         });
-    }
+    };
 
     useEffect(() => {
         let mounted = true;
@@ -124,5 +124,5 @@ export default function Map() {
                 isLoaded={groupsLoaded}
             />
         </div>
-    )
+    );
 }

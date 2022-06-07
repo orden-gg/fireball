@@ -55,5 +55,5 @@ export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
                 </div>
             }
         </div>
-    )
+    );
 }

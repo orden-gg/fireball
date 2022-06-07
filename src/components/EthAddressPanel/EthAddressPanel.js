@@ -8,7 +8,7 @@ import EthAddress from 'components/EthAddress/EthAddress.js';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
-import styles from './styles.js'
+import styles from './styles.js';
 
 export default function EthAddressPanel({ address }) {
     const classes = styles();
@@ -84,7 +84,7 @@ export default function EthAddressPanel({ address }) {
 
     const formatNumber = (number) => {
         return commonUtils.convertFloatNumberToSuffixNumber(number);
-    }
+    };
 
     return (
         <div className={classes.container}>
@@ -136,7 +136,7 @@ export default function EthAddressPanel({ address }) {
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </div>;
                         })}
                     </div>
                 )

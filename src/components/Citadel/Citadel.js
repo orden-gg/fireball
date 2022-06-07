@@ -18,7 +18,7 @@ import filtersUtils from 'utils/filtersUtils';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
-import CitadelInterface from './components/CitadelInterface'
+import CitadelInterface from './components/CitadelInterface';
 import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
@@ -30,7 +30,7 @@ import styles, { InterfaceStyles } from './styles';
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
 export default function Citadel({ realmGroups, className, isLoaded }) {
-    const classes = { ...styles(), ...InterfaceStyles() }
+    const classes = { ...styles(), ...InterfaceStyles() };
 
     const location = useLocation();
     const history = useHistory();
@@ -61,7 +61,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const onFiltersChange = filters => {
         updateQueryParams(filters);
         game.scene.trigger(`filtersUpdate`, filters);
-    }
+    };
 
     const updateQueryParams = useCallback(filters => {
         const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
@@ -83,7 +83,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         handleClick={toggleGroup}
                         key={group.type}
                     />
-                )
+                );
             });
     }, [realmGroups, mapCreated]);
 
@@ -114,7 +114,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 setParams(paramsState => {
                     paramsState[name] = params;
 
-                    return { ...paramsState }
+                    return { ...paramsState };
                 });
             });
         }

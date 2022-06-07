@@ -23,7 +23,7 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.selectedParcel = null;
 
-            this.settings = {}
+            this.settings = {};
             this.districts = {};
             this.groups = {};
             this.filters = {};
@@ -63,7 +63,7 @@ export default class CitadelScene extends Phaser.Scene {
                 fomo: this.add.image(0, 0, 'fomo'),
                 alpha: this.add.image(0, 0, 'alpha'),
                 kek: this.add.image(0, 0, 'kek')
-            }
+            };
 
             this.districtHighLight = new Highlight(this, {color: COLORS.district.hover, size: 1});
             this.selected = new Highlight(this, {color: COLORS.parcels.selected, size: 2});
@@ -212,7 +212,7 @@ export default class CitadelScene extends Phaser.Scene {
                 const filteredFades = this.getParcelsFilteredFades();
 
                 for (const key in this.districts) {
-                    this.districts[key].updateParcelsFade(filteredFades)
+                    this.districts[key].updateParcelsFade(filteredFades);
                 }
 
                 for (const key in this.groups) {
@@ -478,7 +478,7 @@ export default class CitadelScene extends Phaser.Scene {
             return {
                 cx: centerX - x - w / 2,
                 cy: centerY - y - h / 2
-            }
+            };
         }
 
         setMultiselect(ids) {
@@ -534,7 +534,7 @@ export default class CitadelScene extends Phaser.Scene {
             return {
                 cx: pointer.worldX-this.citadel.x,
                 cy: pointer.worldY-this.citadel.y
-            }
+            };
         }
 
         getCameraZoom(deltaY) {

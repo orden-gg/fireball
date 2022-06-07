@@ -25,5 +25,5 @@ export default function Installation({ data }) {
                 itemRarity='golden'
             />
         </ERC1155>
-    )
+    );
 }

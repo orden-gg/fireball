@@ -29,11 +29,11 @@ export default {
     getRarityNameByRS(rs) {
         switch (true) {
             case rs > 580:
-                return 'godlike'
+                return 'godlike';
             case rs > 525:
-                return 'mythical'
+                return 'mythical';
             default:
-                return 'rare'
+                return 'rare';
         }
     },
 
@@ -44,4 +44,4 @@ export default {
         return fud + fomo * 2 + alpha * 4 + kek * 10;
     }
 
-}
+};

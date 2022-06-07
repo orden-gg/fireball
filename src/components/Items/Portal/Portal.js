@@ -57,5 +57,5 @@ export default function Portal({ portal }) {
                 <ERC721Listing listings={portal.listings} historicalPrices={portal.historicalPrices}/>
             </div>
         </div>
-    )
+    );
 }

@@ -11,5 +11,5 @@ export default function PanelErrorText({ children, isShown }) {
                 {children}
             </Typography>
         )
-    )
+    );
 }

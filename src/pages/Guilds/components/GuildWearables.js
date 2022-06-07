@@ -15,7 +15,7 @@ export default function GuildWearables({ tooltip, wearables, className }) {
             wearable={{id: id}}
             key={id}
         />
-    )
+    );
 
     return (
         wearables.map(id =>

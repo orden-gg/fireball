@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
-import { VirtuosoGrid } from 'react-virtuoso'
+import { VirtuosoGrid } from 'react-virtuoso';
 
 const ListContainer = styled.div`
     display: grid;
@@ -38,7 +38,7 @@ export default function GotchisLazy({ items, renderItem }) {
     if (items.length === 0) {
         return <NoContent>
             <span>No gotchis</span>
-        </NoContent>
+        </NoContent>;
     }
 
     return (

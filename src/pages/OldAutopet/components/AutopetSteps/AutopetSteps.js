@@ -53,7 +53,7 @@ export default function AutopetSteps() {
             (sum, key) => tabs[key].done ? 1 + sum : sum, 0
         );
 
-        setProgress(completeCount)
+        setProgress(completeCount);
     }, [tabs]);
 
     return (
@@ -119,5 +119,5 @@ export default function AutopetSteps() {
 
             </Box>
         </>
-    )
+    );
 }

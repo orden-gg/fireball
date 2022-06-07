@@ -40,7 +40,7 @@ export default function GotchiverseOnline() {
             mounted = false;
 
             clearInterval(interval);
-        }
+        };
     }, []);
 
     const renderOnlineTemplate = (TemplateIcon, text) => {

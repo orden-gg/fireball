@@ -657,4 +657,4 @@ export const AUTOPET_ABI = [
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ]
+  ];

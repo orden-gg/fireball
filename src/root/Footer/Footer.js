@@ -106,5 +106,5 @@ export default function Footer() {
                 </Alert>
             </Snackbar>
         </Box>
-    )
+    );
 }

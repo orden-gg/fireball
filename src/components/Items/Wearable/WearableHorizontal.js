@@ -51,19 +51,19 @@ export default function WearableHorizontal({ wearable, render }) {
         },
 
         get cardStats() {
-            return <CardStats item={wearable} />
+            return <CardStats item={wearable} />;
         },
 
         // price
         get cardName() {
-            return <CardName item={wearable} />
+            return <CardName item={wearable} />;
         },
 
         // price
         get price() {
-            return <HorizontalPrice label='Sold for ' item={wearable} key={`${wearable.id}-price`} />
+            return <HorizontalPrice label='Sold for ' item={wearable} key={`${wearable.id}-price`} />;
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') {
@@ -76,14 +76,14 @@ export default function WearableHorizontal({ wearable, render }) {
                     renderSection(item)
                 )))
             ))
-        )
+        );
     }
 
     return (
         <div className={classNames(classes.horizontalCard, itemUtils.getItemRarityById(wearable.erc1155TypeId))}>
             {wearable.rarity}
             {render.map(name => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

@@ -24,7 +24,7 @@ export default function GuildsPreview() {
 
     const handleClick = (guild) => {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
-    }
+    };
 
     // TODO Use in the future or remove
     // const setNumber = amount => {
@@ -45,9 +45,9 @@ export default function GuildsPreview() {
                     className={classes.guildWearable}
                     tooltip='Guild wearable'
                 />
-            </>
+            </>;
         }
-    }
+    };
 
     useEffect(() => {
         setGuildId(null);

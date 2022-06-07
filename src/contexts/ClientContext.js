@@ -177,8 +177,8 @@ const ClientContextProvider = (props) => {
                         lendings[i].alpha = balance.ALPHAAmount;
                         lendings[i].kek = balance.KEKAmount;
                         lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
-                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
+                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount);
+                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period);
                     });
 
                     setLendings(commonUtils.basicSort(lendings, type, dir));
@@ -186,7 +186,7 @@ const ClientContextProvider = (props) => {
                 });
             }
         );
-    }
+    };
 
     const getInventory = (address) => {
         setLoadingWarehouse(true);
@@ -239,7 +239,7 @@ const ClientContextProvider = (props) => {
                     name: installationsUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
-                }
+                };
             });
 
             setInstallations(installations);
@@ -259,7 +259,7 @@ const ClientContextProvider = (props) => {
                     name: tilesUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
-                }
+                };
             });
 
             setTiles(tiles);
@@ -312,12 +312,12 @@ const ClientContextProvider = (props) => {
                     ...item,
                     reward: BRS.reward + KIN.reward + EXP.reward,
                     rewardStats: [BRS, KIN, EXP]
-                }
+                };
             });
 
             setReward(gotchis.reduce((prev, next) => prev + next.reward, 0));
             setRewardCalculating(false);
-            setRewardCalculated(true)
+            setRewardCalculated(true);
         });
     };
 
@@ -371,7 +371,7 @@ const ClientContextProvider = (props) => {
         }}>
             { props.children }
         </ClientContext.Provider>
-    )
-}
+    );
+};
 
 export default ClientContextProvider;

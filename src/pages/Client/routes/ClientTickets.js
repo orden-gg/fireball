@@ -17,7 +17,7 @@ export default function ClientTickets() {
                     tickets.map((ticket, i)=>{
                         return <div className={classes.listItem} key={i}>
                             <Ticket ticket={ticket} />
-                        </div>
+                        </div>;
                     })
                 }
             </div>

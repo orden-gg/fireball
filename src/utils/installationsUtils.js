@@ -13,4 +13,4 @@ export default {
             return require(`../assets/images/image-placeholder.svg`).default;
         }
     }
-}
+};

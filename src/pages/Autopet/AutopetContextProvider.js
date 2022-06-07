@@ -64,7 +64,7 @@ const AutopetContextProvider = (props) => {
 
         updateProgress('connect', isConnected);
         setIsUserConnected(isConnected);
-    }
+    };
 
     const approvePet = async (approval) => {
         const succesMessage = approval ? 'Petting approved!' : 'Petting approval revoked!';
@@ -119,7 +119,7 @@ const AutopetContextProvider = (props) => {
             setIsGhstApproved(ghstApproved);
             updateProgress('ghst', ghstApproved);
         }
-    }
+    };
 
     const approveStake = async (approval) => {
         const succesMessage = approval ? 'Staking approved!' : 'Unstaking approved!';
@@ -159,17 +159,17 @@ const AutopetContextProvider = (props) => {
     const renderButtonNode = (state, defaultNode, approvedNode) => {
         switch (state) {
             case 'approved' :
-                return approvedNode
+                return approvedNode;
             case 'approving':
                 return (
                     <>
                         Approving <CircularProgress size={20} className={classes.panelButtonCitcular} />
                     </>
-                )
+                );
             default:
-                return defaultNode
+                return defaultNode;
         }
-    }
+    };
 
     useEffect(() => {
         const accounts = metaState.account;
@@ -231,7 +231,7 @@ const AutopetContextProvider = (props) => {
         }}>
             { props.children }
         </AutopetContext.Provider>
-    )
-}
+    );
+};
 
 export default AutopetContextProvider;

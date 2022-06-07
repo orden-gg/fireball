@@ -23,7 +23,7 @@ const SnackbarContextProvider = (props) => {
         <SnackbarContext.Provider value={{ isOpen, type, message, showSnackbar, onSnackbarClose }}>
             { props.children }
         </SnackbarContext.Provider>
-    )
-}
+    );
+};
 
 export default SnackbarContextProvider;

@@ -28,5 +28,5 @@ export default function Ticket({ ticket, isShopItem }) {
                 itemRarity={ticketRarity}
             />
         </ERC1155>
-    )
+    );
 }

@@ -41,11 +41,11 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
 
     const onToglleFilterDropdown = isOpen => {
         setIsDropdownOpen(!isOpen);
-    }
+    };
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const renderFilterBody = () => {
         if (isDropdownOpen) {
@@ -67,9 +67,9 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
                         </Button>
                     </div>
                 </div>
-            )
+            );
         }
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -106,5 +106,5 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
 
             { renderFilterBody() }
         </div>
-    )
+    );
 }

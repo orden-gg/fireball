@@ -62,5 +62,5 @@ export default function LazySorting({ sortingList, sortingDefaults, onSortingCha
                 />
             </div>
         </>
-    )
+    );
 }

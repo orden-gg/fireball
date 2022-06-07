@@ -47,4 +47,4 @@ export default {
                 return new ethers.providers.JsonRpcProvider(POLYGON_RPC);
         }
     }
-}
+};

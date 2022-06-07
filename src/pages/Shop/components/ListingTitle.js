@@ -10,5 +10,5 @@ export default function ListingTitle({ icon, title }) {
             { icon }
             <Typography className={classes.listingsTitle} variant='subtitle1'>{title}</Typography>
         </div>
-    )
+    );
 }

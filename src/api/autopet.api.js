@@ -82,4 +82,4 @@ export default {
             parseInt(ethers.utils.formatUnits(frens._hex))
         ));
     }
-}
+};

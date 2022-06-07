@@ -16,4 +16,4 @@ export default {
         // !TODO: find a better solution for BigNumber parcing (default method doesn't work)
         return realmContract.getParcelLastChanneled(id).then(response => response - 0);
     }
-}
+};

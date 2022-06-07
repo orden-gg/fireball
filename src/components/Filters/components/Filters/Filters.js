@@ -61,7 +61,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
                 </div>
             );
         });
-    }
+    };
 
     return (
         <div className={classNames(classes.wrapper, className)}>

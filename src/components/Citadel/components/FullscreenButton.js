@@ -19,7 +19,7 @@ export default function FullscreenButton({ wrapperRef }) {
         } else {
             setIsFullscreen();
         }
-    }
+    };
 
     if (isFullscreen === null) {
         return '';

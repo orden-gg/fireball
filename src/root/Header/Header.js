@@ -93,5 +93,5 @@ export default function Header() {
                 </IconButton>
             </Box>
         </Toolbar>
-    )
+    );
 }

@@ -40,5 +40,5 @@ export default function RealmGeneric({ realm, raffleChances }) {
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </div>
-    )
+    );
 }

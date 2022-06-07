@@ -33,5 +33,5 @@ export default function Wearable({ wearable, raffleChances, tooltip, isShopItem 
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </ERC1155>
-    )
+    );
 }

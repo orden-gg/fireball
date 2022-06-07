@@ -14,7 +14,7 @@ export default function GotchiTraits({ traits, currentTraits }) {
                 ({trait})
             </span>;
         }
-    }
+    };
 
     return (
         <div className={classes.gotchiTraits}>
@@ -33,7 +33,7 @@ export default function GotchiTraits({ traits, currentTraits }) {
                                 {renderDefaultTrait(traitVal, index)}
                             </p>
                         </div>
-                    )
+                    );
                 })
             }
         </div>

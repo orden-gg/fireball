@@ -194,7 +194,7 @@ export default function ClientRealmList() {
 
             return cacheCopy;
         });
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         const currentFiltersCopy = {...currentFilters};

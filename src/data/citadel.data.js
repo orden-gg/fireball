@@ -155,4 +155,4 @@ export {
     PARCEL_NAME,
     DISTRICTS,
     COLORS
-}
+};

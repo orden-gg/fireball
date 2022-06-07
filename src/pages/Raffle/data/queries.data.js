@@ -14,7 +14,7 @@ export const raffleTicketPriceQuery = (id) => {
             id,
             priceInWei
         }
-    }`
+    }`;
 };
 
 export const rafflePortalsPriceQuery = () => {
@@ -33,8 +33,8 @@ export const rafflePortalsPriceQuery = () => {
             id
             priceInWei
         }
-    }`
-}
+    }`;
+};
 
 export const raffleTotalQuery = (id) => {
     return `{
@@ -48,7 +48,7 @@ export const raffleTotalQuery = (id) => {
             totalGodLike
             totalDrop
         }
-    }`
+    }`;
 };
 
 export const raffle5TotalEnteredQuery = () => {
@@ -56,7 +56,7 @@ export const raffle5TotalEnteredQuery = () => {
         total(id: 4) {
             totalDrop
         }
-    }`
+    }`;
 };
 
 export const raffle6TotalEnteredQuery = () => {
@@ -70,5 +70,5 @@ export const raffle6TotalEnteredQuery = () => {
             totalLegendary
             totalGodLike
         }
-    }`
+    }`;
 };

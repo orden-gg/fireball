@@ -44,5 +44,5 @@ export default function PortalGeneric({ portal, raffleChances }) {
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </div>
-    )
+    );
 }

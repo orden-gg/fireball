@@ -2,7 +2,7 @@ import {useContext, useEffect, useState} from 'react';
 import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import { Helmet } from 'react-helmet';
-import queryString from 'query-string'
+import queryString from 'query-string';
 
 import ProfilePane from 'components/ProfilePane/ProfilePane';
 import ethersApi from 'api/ethers.api';

@@ -44,5 +44,5 @@ export default function ParcelLink({ parcel }) {
                 <ParcelPreview parcel={parcel} />
             </CustomModal>
         </>
-    )
+    );
 }

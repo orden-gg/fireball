@@ -122,7 +122,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     experience={gotchi.experience}
                     key={`${gotchi.id}-level`}
                 />
-            )
+            );
         },
 
         get skillpoints() {
@@ -142,7 +142,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     currentTraits={gotchi.modifiedNumericTraits}
                     key={`${gotchi.id}-traits`}
                 />
-            )
+            );
         },
 
         get wearablesLine() {
@@ -202,7 +202,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     listings={gotchi.listings}
                     historicalPrices={gotchi.historicalPrices}
                 />
-            )
+            );
         },
 
         get channeling() {
@@ -211,7 +211,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     gotchiId={gotchi.id}
                     key={`${gotchi.id}-channeling`}
                 />
-            )
+            );
         },
 
         get rewards() {
@@ -220,13 +220,13 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     gotchi={gotchi}
                     key={`${gotchi.id}-rewards`}
                 />
-            )
+            );
         },
 
         get flipButton() {
-            return <FlipButton key={`${gotchi.id}-flipButton`} flipCard={flipCard} />
+            return <FlipButton key={`${gotchi.id}-flipButton`} flipCard={flipCard} />;
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') return gotchiSections[value];
@@ -239,7 +239,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     ))
                 )
             ))
-        )
+        );
     }
 
     return (
@@ -253,7 +253,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
             )}
         >
             {render.map((name) => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

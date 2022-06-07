@@ -49,7 +49,7 @@ export default function LoginAddress({ address, isMetamask }) {
         if (name.length > 0) {
             setEditMode(false);
 
-            if (name !== address.name) updateAddressName(address.address, name)
+            if (name !== address.name) updateAddressName(address.address, name);
         }
     };
 

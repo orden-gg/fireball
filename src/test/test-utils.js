@@ -6,18 +6,18 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 const AllTheProviders = ({children}) => {
-  const history = createMemoryHistory()
+  const history = createMemoryHistory();
 
   return (
     <Router history={history}>
         <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
     </Router>
-  )
-}
+  );
+};
 
 const customRender = (ui, options) =>
-  render(ui, { wrapper: AllTheProviders, ...options })
+  render(ui, { wrapper: AllTheProviders, ...options });
 
-export * from '@testing-library/react'
+export * from '@testing-library/react';
 
-export { customRender as render }
+export { customRender as render };

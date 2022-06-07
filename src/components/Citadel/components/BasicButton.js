@@ -15,7 +15,7 @@ export default function BasicButton({ active, type, tooltip, icons, handleClick 
     const switchButtonState = isActive => {
         setIsActive(isActive);
         handleClick(type, isActive);
-    }
+    };
 
     return (
         <CustomTooltip

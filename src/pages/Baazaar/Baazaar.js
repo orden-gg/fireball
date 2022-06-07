@@ -154,7 +154,7 @@ export default function Baazaar() {
                         gotchi`
                 }
             }
-        }`
+        }`;
     };
 
     const getAllItemsQueryString = (params, skip, type, order) => {
@@ -226,7 +226,7 @@ export default function Baazaar() {
                     }
                 }
             }
-        }`
+        }`;
     };
 
     const getBaazaarItems = (params) => {
@@ -458,7 +458,7 @@ export default function Baazaar() {
                 ((parseInt(alphaFilter) === 0 || alphaFilter === '' || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
                 ((parseInt(fudFilter) === 0 || fudFilter === '' || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&
                 ((parseInt(kekFilter) === 0 || kekFilter === '' || kekFilter === null) ? true : parseInt(item.kekBoost) >= parseInt(kekFilter)) &&
-                ((parseInt(fomoFilter) === 0 || fomoFilter === '' || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter))
+                ((parseInt(fomoFilter) === 0 || fomoFilter === '' || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter));
         };
 
         filteredLocalGoods = localGoods.filter((item) => {

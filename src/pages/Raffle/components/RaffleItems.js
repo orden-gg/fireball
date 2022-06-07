@@ -23,7 +23,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></RealmGeneric>
+                ></RealmGeneric>;
             case 'realm':
                 return <ParcelGeneric
                     parcel={{
@@ -35,7 +35,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></ParcelGeneric>
+                ></ParcelGeneric>;
             case 'portals':
                 return <PortalGeneric
                     portal={{
@@ -47,7 +47,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></PortalGeneric>
+                ></PortalGeneric>;
             case 'wearables':
                 return <Wearable
                     wearable={{
@@ -60,7 +60,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></Wearable>
+                ></Wearable>;
             default:
                 return null;
         }
@@ -79,8 +79,8 @@ export default function RaffleItems({ tickets, type }) {
                             key={i}
                         >
                             {renderItem(item)}
-                        </div>
-                    })
+                        </div>;
+                    });
 
                     return null;
                 })

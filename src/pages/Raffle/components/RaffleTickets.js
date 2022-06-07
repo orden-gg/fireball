@@ -49,7 +49,7 @@ export default function RaffleTickets({ address }) {
                     tickets.map((ticket, i)=>{
                         return <Grid item xs={4} sm={true} key={i} style={{ filter: `grayscale(${ticket.balance > 0 ? 0 : 1})` }}>
                             <RaffleTicket ticket={ticket} />
-                        </Grid>
+                        </Grid>;
                     })
                 )}
             </Grid>

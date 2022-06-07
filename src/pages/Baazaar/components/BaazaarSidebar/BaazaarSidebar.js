@@ -48,7 +48,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
             setSelectedLocalGoods([]);
             setSelectedListingType(value);
         }
-    }
+    };
 
     const onSortByChange = (event, value) => {
         setSortingOrder(value);

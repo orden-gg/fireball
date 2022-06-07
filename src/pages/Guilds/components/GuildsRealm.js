@@ -52,5 +52,5 @@ export default function GuildRealm() {
             realmGroups={realmGroups}
             isLoaded={isLoaded}
         />
-    )
+    );
 }

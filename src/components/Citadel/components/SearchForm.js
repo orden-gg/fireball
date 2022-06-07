@@ -13,7 +13,7 @@ export default function SearchForm({ onSearch, type, placeholder }) {
         if (key === 'Enter') {
             onSearch(type, searchId);
         }
-    }
+    };
 
     return (
         <div className={classes.citadelSearch}>

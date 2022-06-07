@@ -9,5 +9,5 @@ export default function CitadelInterface({ children }) {
         <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
             {children}
         </div>
-    )
+    );
 }

@@ -66,7 +66,7 @@ export default function Parcel({ parcel }) {
                         </div>
                     ) : (
                         null
-                    )
+                    );
                 })}
             </div>
 
@@ -74,5 +74,5 @@ export default function Parcel({ parcel }) {
                 <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
             </div>
         </div>
-    )
+    );
 }

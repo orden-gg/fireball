@@ -55,7 +55,7 @@ export default function GotchiWearablesLine({ gotchi }) {
                                 key={index}
                             ></div>
                         </Tooltip>
-                    )
+                    );
                 })
             }
         </div>

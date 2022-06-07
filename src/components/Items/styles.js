@@ -625,4 +625,4 @@ export {
     parselStyles,
     portalStyles,
     channelingStyles
-}
+};

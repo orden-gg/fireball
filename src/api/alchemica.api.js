@@ -32,4 +32,4 @@ export default {
     getGltrBalance(address) {
         return gltrContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     }
-}
+};

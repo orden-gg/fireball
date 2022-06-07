@@ -34,7 +34,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                 <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         priceCell(children) {
@@ -63,7 +63,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                     size={25}
                     key={`${gotchi.id}-level`}
                 />
-            )
+            );
         },
 
         get traits() {
@@ -73,7 +73,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                     currentTraits={gotchi.modifiedNumericTraits}
                     key={`${gotchi.id}-numericTraits`}
                 />
-            )
+            );
         },
 
         get name() {
@@ -99,9 +99,9 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
         get price() {
             return (
                 <HorizontalPrice item={item} key={`${gotchi.id}-gotchi-price`} label='Sold for' />
-            )
+            );
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') {
@@ -114,7 +114,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                     renderSection(item)
                 )))
             ))
-        )
+        );
     }
 
     return (
@@ -127,7 +127,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
             )}
         >
             {render.map(name => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

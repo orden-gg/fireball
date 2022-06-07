@@ -34,6 +34,6 @@ const renderSvg = async (gotchies) => {
 
         return htmlToElement(item.replace(regex, `<style>${svgs}</style>`));
     });
-}
+};
 
 export default renderSvg;
