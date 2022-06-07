@@ -114,7 +114,7 @@ const ClientContextProvider = (props) => {
             response.forEach((item) => {
                 let equipped = item.equippedWearables.filter((item) => item > 0);
 
-                for(let wearable of equipped) {
+                for (let wearable of equipped) {
                     let index = wearables.findIndex(item => item.id === wearable);
 
                     if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg

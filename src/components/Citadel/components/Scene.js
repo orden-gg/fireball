@@ -68,7 +68,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.districtHighLight = new Highlight(this, { color: COLORS.district.hover, size: 1 });
             this.selected = new Highlight(this, { color: COLORS.parcels.selected, size: 2 });
 
-            for(const key in parcelsData) {
+            for (const key in parcelsData) {
                 this.districts[key] = new CreateParcels(this, {
                     parcels: parcelsData[key],
                     type: 'parcels',
@@ -343,7 +343,7 @@ export default class CitadelScene extends Phaser.Scene {
         toggleGroup(type, isActive, load) {
             const group = this.groups[type];
 
-            if(group === undefined) {
+            if (group === undefined) {
                 return;
             }
 
@@ -357,7 +357,7 @@ export default class CitadelScene extends Phaser.Scene {
                 .filter(([, group]) => group.isActive)
                 .map(([, group]) => group.type);
             console.log(params);
-            if(!load) {
+            if (!load) {
                 this.trigger('query', {
                     name: 'active',
                     params: params
@@ -435,7 +435,7 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         fadeMap(number) {
-            for(const key in this.districts) {
+            for (const key in this.districts) {
                 const district = this.districts[key];
 
                 district.fade = number === 1;
@@ -486,11 +486,11 @@ export default class CitadelScene extends Phaser.Scene {
                 .map(id => citadelUtils.getParcelByTypeAndValue('tokenId', id))
                 .filter(parcel => parcel !== undefined);
 
-            if(parcels.length === 0) {
+            if (parcels.length === 0) {
                 return;
             }
 
-            for(const parcel of parcels) {
+            for (const parcel of parcels) {
                 console.log(parcel);
                 this.multiselect.toggleParcel(parcel);
             }

@@ -13,7 +13,7 @@ export default {
             return { reward: 0 };
         }
 
-        switch(type) {
+        switch (type) {
             case 'BRS':
                 return {
                     name: type,

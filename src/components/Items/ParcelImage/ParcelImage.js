@@ -27,7 +27,7 @@ export default function ParcelImage({ parcel, parcelSize }) {
 
         context.globalAlpha = 1;
 
-        for(let i = 0; i < colorsSize; i++) {
+        for (let i = 0; i < colorsSize; i++) {
             const id = i * 4;
             const [x, y] = [Math.floor(i / parcelSize), i % parcelSize];
 

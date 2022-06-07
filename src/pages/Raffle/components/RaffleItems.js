@@ -11,7 +11,7 @@ export default function RaffleItems({ tickets, type }) {
     const classes = itemsStyles();
 
     const renderItem = (item) => {
-        switch(type) {
+        switch (type) {
             case 'realm-generic':
                 return <RealmGeneric
                     realm={{
