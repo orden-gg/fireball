@@ -42,7 +42,8 @@ module.exports = {
             "next": "return"
           }
         ],
-        "no-sequences": "error"
+        "no-sequences": "error",
+        "yoda": "error"
     },
     settings: {
         react: {
