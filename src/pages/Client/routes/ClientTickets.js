@@ -14,7 +14,7 @@ export default function ClientTickets() {
         <ContentInner dataLoading={loadingTickets} offset={208}>
             <div className={classes.list}>
                 {
-                    tickets.map((ticket, i)=>{
+                    tickets.map((ticket, i) => {
                         return <div className={classes.listItem} key={i}>
                             <Ticket ticket={ticket} />
                         </div>;

@@ -63,8 +63,8 @@ const RaffleContextProvider = (props) => {
         setPricesSpinner(true);
 
         thegraph.getJoinedData(queries).then((response) => {
-            let averagePrices = response.map((item)=> {
-                let prices = item.data.erc1155Listings.map((wei)=> parseInt(wei.priceInWei));
+            let averagePrices = response.map((item) => {
+                let prices = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
                 let average = prices.reduce((a,b) => a + b, 0) / prices.length;
                 let price = average / 10**18;
 

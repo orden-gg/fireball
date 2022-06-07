@@ -94,7 +94,7 @@ export default function GhostExplorer() {
             if (mounted) {
                 setGotchis(response, gotchisSorting.type, gotchisSorting.dir);
             }
-        }).catch((e)=> {
+        }).catch((e) => {
             console.log(e);
         }).finally(() => setIsGotchisLoading(false));
 

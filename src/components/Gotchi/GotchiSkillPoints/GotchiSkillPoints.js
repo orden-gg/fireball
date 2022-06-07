@@ -20,7 +20,7 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
         setLoadingPoints(true);
 
         mainApi.getAvailableSkillPoints(id)
-            .then((response)=> {
+            .then((response) => {
                 if (!controller.signal.aborted) {
                     setAvailablePoints(response);
                     setLoadingPoints(false);

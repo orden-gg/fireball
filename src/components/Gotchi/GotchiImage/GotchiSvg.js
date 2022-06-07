@@ -22,7 +22,7 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
         setLoadingSvg(true);
 
         thegraph.getGotchiSvgById(id)
-            .then((response)=> {
+            .then((response) => {
                 if (!controller.signal.aborted) {
                     let svgString = response.data.aavegotchis[0].svg;
                     let svgUniqueStyles = svgString.match(regex).map((val) => {

@@ -181,7 +181,7 @@ export default {
     },
 
     async getAllGotchies() {
-        return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response)=> {
+        return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response) => {
             let filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
             return modifyTraits(filteredArray);
@@ -415,7 +415,7 @@ export default {
     },
 
     async getAllListedParcels() {
-        return await graphJoin(clientFactory.client, this.getListedParcelsQueries()).then((response)=> {
+        return await graphJoin(clientFactory.client, this.getListedParcelsQueries()).then((response) => {
             return filterCombinedGraphData(response, ['erc721Listings'], 'id');
         });
     },

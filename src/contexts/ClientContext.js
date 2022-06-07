@@ -105,7 +105,7 @@ const ClientContextProvider = (props) => {
     const getGotchis = (address) => {
         setLoadingGotchis(true);
 
-        thegraph.getGotchisByAddress(address).then((response)=> {
+        thegraph.getGotchisByAddress(address).then((response) => {
             const wearables = [];
             const { type: gSortType, dir: gSortDir } = gotchisSorting;
             const { type: wSortType, dir: wSortDir } = warehouseSorting;
@@ -303,7 +303,7 @@ const ClientContextProvider = (props) => {
             let kinLeaders = commonUtils.basicSort(response, 'kinship');
             let expLeaders = commonUtils.basicSort(response, 'experience');
 
-            gotchis.forEach((item, index)=>{
+            gotchis.forEach((item, index) => {
                 let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
                 let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
                 let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');

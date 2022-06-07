@@ -26,7 +26,7 @@ export default function GotchiWearablesLine({ gotchi }) {
                 ) : null
             }
             {
-                wearableSlots.map((name, index)=> {
+                wearableSlots.map((name, index) => {
                     let wearable = wearables[index];
                     let rarityColor = itemUtils.getItemRarityById(wearable);
 

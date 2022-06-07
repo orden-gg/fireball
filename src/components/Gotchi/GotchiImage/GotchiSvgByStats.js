@@ -18,7 +18,7 @@ export default function GotchiSvgByStats({ gotchi, size }) {
     useEffect(() => {
         setLoadingSvg(true);
 
-        renderSvg([gotchi]).then((response)=> {
+        renderSvg([gotchi]).then((response) => {
             const svg = response[0];
             const tmp = document.createElement('div');
 
