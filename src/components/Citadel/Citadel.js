@@ -48,7 +48,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const removeSelected = () => setSelectedParcel(null);
 
     const onExportData = () => {
-        filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'client_gotchis');
+        filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
     };
 
     const updateGroup = (type, isActive) => {
@@ -91,8 +91,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
 
         setParams(newParams);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params, history, location.pathname]);
+    }, [params]);
 
     useEffect(() => {
         setTimeout(() => {

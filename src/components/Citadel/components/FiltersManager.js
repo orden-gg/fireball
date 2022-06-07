@@ -60,11 +60,11 @@ export default class FiltersManager {
     }
 
     districtFilter() {
-        const filter = this.filters.district;
-
         if (this.groups.isGroupsActive) {
             return;
         }
+
+        const filter = this.filters.district;
 
         for (const item of filter.items) {
             const district = this.scene.districts[item.value];
