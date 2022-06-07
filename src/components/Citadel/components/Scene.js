@@ -319,9 +319,10 @@ export default class CitadelScene extends Phaser.Scene {
             if (group !== undefined) {
                 if (group.name === 'parcels') {
                     this.filtersManager.updateGroups(type, group.parcels.length !== 0 && isActive);
+                    group.show(group.parcels.length !== 0 && isActive);
+                } else {
+                    group.show(isActive);
                 }
-
-                group.show(group.parcels.length !== 0 && isActive);
 
                 this.reOrderItems();
             }
