@@ -13,7 +13,7 @@ export default {
     },
 
     getUpdatedQueryParams: (queryParams, filters) => {
-        const params = {...queryParams};
+        const params = { ...queryParams };
 
         Object.entries(filters).forEach(([_, filter]) => {
             if (filter.isFilterActive) {
@@ -93,7 +93,7 @@ export default {
 
     setSelectedFilters: (filtersSetter, key, selectedValue) => {
         filtersSetter(filtersCache => {
-            const cacheCopy = {...filtersCache};
+            const cacheCopy = { ...filtersCache };
 
             if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
                 cacheCopy[key].resetFilterFn(cacheCopy[key]);
@@ -106,13 +106,13 @@ export default {
     },
 
     resetFilters: (filters, filtersSetter) => {
-        const filtersCopy = {...filters};
+        const filtersCopy = { ...filters };
 
         Object.entries(filtersCopy).forEach(([_, filter]) => {
             filter.resetFilterFn(filter);
         });
 
-        filtersSetter({...filtersCopy});
+        filtersSetter({ ...filtersCopy });
     },
 
     exportData: (items, fileName) => {

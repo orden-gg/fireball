@@ -153,7 +153,7 @@ const modifyTraits = (gotchis) => {
     let gotchisCache = [...gotchis];
 
     return gotchisCache.map((gotchi) => {
-        let gotchiCache = {...gotchi};
+        let gotchiCache = { ...gotchi };
 
         if (gotchiCache.equippedSetID && graphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
             let modifiers = graphUtils.getSetModifiers(gotchiCache.equippedSetID);

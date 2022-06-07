@@ -38,7 +38,7 @@ export default function Aavegotchi({ item }) {
                                 className={classes.gotchi}
                                 gotchi={{
                                     ...item.gotchi,
-                                    listings: [{id: item.id, priceInWei: item.priceInWei}],
+                                    listings: [{ id: item.id, priceInWei: item.priceInWei }],
                                     historicalPrices: []
                                 }}
                                 renderSvgByStats={true}

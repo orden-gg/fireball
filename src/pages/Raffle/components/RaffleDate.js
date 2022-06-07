@@ -26,7 +26,7 @@ export default function RaffleDate({ start, end }) {
 
         if (local > start && local < end) {
             setType('live');
-            setTitle(`live for ${Duration.fromObject({milliseconds: diff}).toFormat('hh:mm:ss')}`);
+            setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
         } else if (local < start) {
             setType('upcoming');
             setTitle(start.toRelative());

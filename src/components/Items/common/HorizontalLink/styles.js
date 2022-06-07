@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles';
-import {alpha} from '@mui/system';
+import { alpha } from '@mui/system';
 
 export default makeStyles(theme => ({
     linkName: {

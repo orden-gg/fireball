@@ -70,7 +70,7 @@ export default function ClientWarehouse() {
 
         history.push({
             path: location.pathname,
-            search: qs.stringify({...queryParams, sort: paramKey, dir }, {
+            search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })

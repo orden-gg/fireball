@@ -152,7 +152,7 @@ const AutopetContextProvider = (props) => {
         setTabs(data => {
             data[name].done = isApproved;
 
-            return {...data};
+            return { ...data };
         });
     };
 
@@ -202,7 +202,7 @@ const AutopetContextProvider = (props) => {
                 data.ghst.done = ghstStaked || ghstApproved;
                 data.stake.done = ghstStaked;
 
-                return {...data};
+                return { ...data };
             });
         })();
     }, [metaState]);

@@ -14,7 +14,7 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
     const classes = styles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);
-    const {filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats} = useContext(BaazaarContext);
+    const { filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats } = useContext(BaazaarContext);
 
     const getChips = () => {
         let chipsList = [];

@@ -106,7 +106,7 @@ export default function LoginButton() {
                         <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
                                 <div className={classes.loginAddressBox}>
-                                    <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} setDropdownOpen={setDropdownOpen} />
+                                    <LoginAddress address={{ name: 'Metamask', address: metaState.account[0] }} isMetamask={true} setDropdownOpen={setDropdownOpen} />
                                 </div>
                             ) : (
                                 null

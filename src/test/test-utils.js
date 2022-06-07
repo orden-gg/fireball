@@ -5,7 +5,7 @@ import theme from '../../src/themes/ghst';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
-const AllTheProviders = ({children}) => {
+const AllTheProviders = ({ children }) => {
   const history = createMemoryHistory();
 
   return (

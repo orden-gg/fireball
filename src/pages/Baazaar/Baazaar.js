@@ -36,10 +36,10 @@ export default function Baazaar() {
     // pagination
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
-    const {filteringType, exactMatch, id, name, orderingTypes,
+    const { filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, minKIN, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
-        fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
+        fomoFilter, fudFilter, rarity, collateral, selectedListingType } = useContext(BaazaarContext);
     // watch filters
     const [filtersTimer, setFiltersTimer] = useState(0);
     const [userIsTyping, setUserTypingStatus] = useState(false);
@@ -596,7 +596,7 @@ export default function Baazaar() {
                     />
             }
 
-            <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
+            <Backdrop classes={{ root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>
         </div>

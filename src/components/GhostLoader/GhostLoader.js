@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import styles from './styles';
 
-export default function GhostLoader({animate, text}) {
+export default function GhostLoader({ animate, text }) {
     const classes = styles();
     const [render, setRender] = useState(animate);
     const [title, setTitle] = useState(null);

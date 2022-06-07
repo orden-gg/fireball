@@ -28,12 +28,12 @@ sizesFilter.items = [
 
 const initialFilters = {
     size: sizesFilter,
-    district: { ...filtersData.district}
+    district: { ...filtersData.district }
 };
 
 export default function CitadelFilters({ onFiltersChange, queryParams }) {
 
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

@@ -61,7 +61,7 @@ const sortings = [
 ];
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
-    district: { ...filtersData.district}
+    district: { ...filtersData.district }
 };
 const queryParamsOrder = ['district', 'size', 'sort', 'dir'];
 
@@ -78,7 +78,7 @@ export default function ClientRealmList() {
         loadingRealm,
         setRealmView
     } = useContext(ClientContext);
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedRealm, setModifiedRealm] = useState([]);
     const [isSortingChanged, setIsSortingChanged] = useState(false);
     const [isFiltersApplied, setIsFiltersApplied] = useState(false);
@@ -152,7 +152,7 @@ export default function ClientRealmList() {
 
         history.push({
             path: location.pathname,
-            search: qs.stringify({...queryParams, sort: paramKey, dir }, {
+            search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })
@@ -184,7 +184,7 @@ export default function ClientRealmList() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = {...currentFiltersCache};
+            const cacheCopy = { ...currentFiltersCache };
 
             if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
                 cacheCopy[key].resetFilterFn(cacheCopy[key]);
@@ -197,13 +197,13 @@ export default function ClientRealmList() {
     };
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = {...currentFilters};
+        const currentFiltersCopy = { ...currentFilters };
 
         Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
             filter.resetFilterFn(filter);
         });
 
-        setCurrentFilters({...currentFiltersCopy});
+        setCurrentFilters({ ...currentFiltersCopy });
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {

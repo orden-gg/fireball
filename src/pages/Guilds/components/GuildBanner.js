@@ -48,7 +48,7 @@ export default function GuildBanner() {
         <div className={classes.guildBanner} >
             <div className={classes.guildBannerInner}>
                 <div
-                    style={{backgroundImage: `url(${getBannerUrl()})`}}
+                    style={{ backgroundImage: `url(${getBannerUrl()})` }}
                     className={classes.guildBannerBg}
                 ></div>
                 <div className={classes.guildLogo}>

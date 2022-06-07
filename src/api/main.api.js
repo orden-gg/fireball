@@ -49,7 +49,7 @@ export default {
                         return { itemId: inner[0], balance: inner[1] };
                     });
 
-                    contractResponse = {items: collection, owner: address};
+                    contractResponse = { items: collection, owner: address };
                 });
 
             return contractResponse;

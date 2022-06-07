@@ -279,13 +279,13 @@ const tableStyles = makeStyles(theme => ({
     textHighlight: {
         position: 'relative',
         zIndex: 5,
-        '&.common': {color: theme.palette.rarity.common},
-        '&.uncommon': {color: theme.palette.rarity.uncommon},
-        '&.rare': {color: theme.palette.rarity.rare},
-        '&.legendary': {color: theme.palette.rarity.legendary},
-        '&.mythical': {color: theme.palette.rarity.mythical},
-        '&.godlike': {color: theme.palette.rarity.godlike},
-        '&.drop': {color: theme.palette.customColors.light}
+        '&.common': { color: theme.palette.rarity.common },
+        '&.uncommon': { color: theme.palette.rarity.uncommon },
+        '&.rare': { color: theme.palette.rarity.rare },
+        '&.legendary': { color: theme.palette.rarity.legendary },
+        '&.mythical': { color: theme.palette.rarity.mythical },
+        '&.godlike': { color: theme.palette.rarity.godlike },
+        '&.drop': { color: theme.palette.customColors.light }
     },
     tableValue: {
         fontSize: 16,

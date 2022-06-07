@@ -80,7 +80,7 @@ export default {
         }
     },
 
-    getParcelByTypeAndValueCoords(districtId, {cx, cy}) {
+    getParcelByTypeAndValueCoords(districtId, { cx, cy }) {
         const district = parcelsData[districtId] || [];
 
         let result;

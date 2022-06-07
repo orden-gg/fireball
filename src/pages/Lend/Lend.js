@@ -89,11 +89,11 @@ const sortings = [
 ];
 
 const initialFilters = {
-    guild: {...filtersData.guild},
-    whitelistId: {...filtersData.whitelistId, divider: true},
-    period: {...filtersData.period},
-    splitBorrower: {...filtersData.splitBorrower},
-    upfrontCost: {...filtersData.upfrontCost}
+    guild: { ...filtersData.guild },
+    whitelistId: { ...filtersData.whitelistId, divider: true },
+    period: { ...filtersData.period },
+    splitBorrower: { ...filtersData.splitBorrower },
+    upfrontCost: { ...filtersData.upfrontCost }
 };
 const queryParamsOrder = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
 
@@ -109,7 +109,7 @@ export default function Lend() {
     const [dataLoading, setDataLoading] = useState(true);
     const [linksListView, setLinksListView] = useState(false);
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
 
     useEffect(() => {
         setCurrentFilters(currentFiltersCache =>
@@ -155,7 +155,7 @@ export default function Lend() {
                 const maxUpfrontCost = Math.max(...upfronCostValues);
 
                 setCurrentFilters(currentFiltersCache => {
-                    const currentFiltersCacheCopy = {...currentFiltersCache};
+                    const currentFiltersCacheCopy = { ...currentFiltersCache };
 
                     currentFiltersCacheCopy.whitelistId = {
                         ...currentFiltersCacheCopy.whitelistId,

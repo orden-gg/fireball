@@ -35,12 +35,12 @@ module.exports = {
         "react/no-unescaped-entities": "off",
         "eqeqeq": "error",
         "padding-line-between-statements": [
-          "error",
-          {
-            "blankLine": "always",
-            "prev": "*",
-            "next": "return"
-          }
+            "error",
+            {
+                "blankLine": "always",
+                "prev": "*",
+                "next": "return"
+            }
         ],
         "no-sequences": "error",
         "yoda": "error",
@@ -53,7 +53,8 @@ module.exports = {
             "exports": "never",
             "functions": "never"
         }],
-        "semi": ["error", "always", { "omitLastInOneLineBlock": true}]
+        "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
+        "object-curly-spacing": ["error", "always"]
     },
     settings: {
         react: {

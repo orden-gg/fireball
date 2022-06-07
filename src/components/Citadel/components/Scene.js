@@ -65,8 +65,8 @@ export default class CitadelScene extends Phaser.Scene {
                 kek: this.add.image(0, 0, 'kek')
             };
 
-            this.districtHighLight = new Highlight(this, {color: COLORS.district.hover, size: 1});
-            this.selected = new Highlight(this, {color: COLORS.parcels.selected, size: 2});
+            this.districtHighLight = new Highlight(this, { color: COLORS.district.hover, size: 1 });
+            this.selected = new Highlight(this, { color: COLORS.parcels.selected, size: 2 });
 
             for(const key in parcelsData) {
                 this.districts[key] = new CreateParcels(this, {

@@ -68,9 +68,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId, divider: true},
-    collateral: {...filtersData.collateral, divider: true},
-    search: {...filtersData.search}
+    hauntId: { ...filtersData.hauntId, divider: true },
+    collateral: { ...filtersData.collateral, divider: true },
+    search: { ...filtersData.search }
 };
 const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
@@ -85,7 +85,7 @@ export default function ClientLendings() {
         setLendingsSorting,
         loadingLendings
     } = useContext(ClientContext);
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedLendings, setModifiedLendings] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 

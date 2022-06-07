@@ -71,7 +71,7 @@ export default function RaffleTablee() {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{ bottom: -5, position: 'relative' }}/>
                                     ) : (
                                         <Typography
                                         variant='body1'
@@ -116,7 +116,7 @@ export default function RaffleTablee() {
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{ bottom: -5, position: 'relative' }}/>
                                     ) : (
                                         <Typography
                                             variant='body1'
@@ -158,7 +158,7 @@ export default function RaffleTablee() {
                             return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
-                                        <CircularProgress color='inherit' size={20} style={{bottom: -5, position: 'relative'}}/>
+                                        <CircularProgress color='inherit' size={20} style={{ bottom: -5, position: 'relative' }}/>
                                     ) : (
                                         <Typography
                                             variant='body1'

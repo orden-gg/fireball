@@ -66,9 +66,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId, divider: true},
-    collateral: {...filtersData.collateral, divider: true},
-    search: {...filtersData.search}
+    hauntId: { ...filtersData.hauntId, divider: true },
+    collateral: { ...filtersData.collateral, divider: true },
+    search: { ...filtersData.search }
 };
 const queryParamsOrder = ['hauntId', 'collateral', 'search', 'sort', 'dir'];
 
@@ -82,7 +82,7 @@ export default function GhostExplorer() {
     const [gotchis, setGotchis] = useState([]);
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     const getGotchies = useCallback(() => {

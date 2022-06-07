@@ -139,7 +139,7 @@ const AutopetContextProvider = (props) => {
 
     const updateProgress = (name, isApproved) => {
         setTabs(data => {
-            const duplicated = {...data};
+            const duplicated = { ...data };
             duplicated[name].done = isApproved;
 
             return duplicated;

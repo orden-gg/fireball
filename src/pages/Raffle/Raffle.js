@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import { Helmet } from 'react-helmet';
