@@ -31,7 +31,8 @@ module.exports = {
         "react/no-children-prop": "off",
         "no-prototype-builtins": "off",
         "react/display-name": "off",
-        "react/no-unescaped-entities": "off"
+        "react/no-unescaped-entities": "off",
+        "eqeqeq": "error"
     },
     settings: {
         react: {

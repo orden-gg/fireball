@@ -4,13 +4,13 @@ export default function useFullscreenStatus(elRef) {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const setFullscreen = () => {
-    if (elRef.current == null) return;
+    if (elRef.current === null) return;
     if (getBrowserFullscreenElementProp() === null) return setIsFullscreen(null);
     elRef.current
       .requestFullscreen()
       .then(() => {
         console.log(getBrowserFullscreenElementProp());
-        setIsFullscreen(document[getBrowserFullscreenElementProp()] != null);
+        setIsFullscreen(document[getBrowserFullscreenElementProp()] !== null);
       })
       .catch(() => {
         setIsFullscreen(false);
@@ -21,13 +21,13 @@ export default function useFullscreenStatus(elRef) {
     const fullscreenProp = getBrowserFullscreenElementProp();
 
     setIsFullscreen(
-      fullscreenProp != null ? document[fullscreenProp] != null : null
+      fullscreenProp !== null ? document[fullscreenProp] !== null : null
     )
   }, []);
 
   useEffect(() => {
     document.onfullscreenchange = () =>
-      setIsFullscreen(document[getBrowserFullscreenElementProp()] != null);
+      setIsFullscreen(document[getBrowserFullscreenElementProp()] !== null);
 
     return () => (document.onfullscreenchange = undefined);
   });
