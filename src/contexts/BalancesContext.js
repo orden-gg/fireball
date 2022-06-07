@@ -57,12 +57,13 @@ const BalancesContextProvider = (props) => {
     const fetchInterval = 120; // seconds
 
     useEffect(() => {
+        let getBalances;
         if (activeAddress) {
             let mounted = true;
 
             setIsBalancesLoading(true);
 
-            async function getBalances() {
+            getBalances = async function () {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
                 const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await Promise.all([
                     alchemicaApi.getFudBalance(activeAddress),

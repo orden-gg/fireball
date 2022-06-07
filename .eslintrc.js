@@ -32,7 +32,6 @@ module.exports = {
         "react/jsx-key": "off",
         "no-prototype-builtins": "off",
         "react/display-name": "off",
-        "no-inner-declarations": "off",
         "react/no-unescaped-entities": "off"
     },
     settings: {
