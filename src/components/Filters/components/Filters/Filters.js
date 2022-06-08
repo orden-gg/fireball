@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { FilterComponent } from 'data/filterTypes';
 
 import InputFilter from '../InputFilter/InputFilter';
+import CheckboxFilter from '../CheckboxFilter/CheckboxFilter';
 import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
@@ -17,7 +18,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
     const classes = styles();
 
     const renderFiltersComponents = (renderFilters) => {
-        return Object.entries(renderFilters).map(([key, renderFilter], index) => {
+        return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
             const filterProps = {
                 key,
@@ -29,6 +30,10 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:
                     componentToRender = <InputFilter {...filterProps} />;
+
+                    break;
+                case FilterComponent.Checkbox:
+                    componentToRender = <CheckboxFilter {...filterProps} />;
 
                     break;
                 case FilterComponent.MultipleAutocomplete:
@@ -53,7 +58,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
 
             return (
                 <div key={`${componentToRender.key}-component`}>
-                    <div className={classNames(classes.component, !divider && 'no-padding')}>
+                    <div className={classNames(classes.component, renderFilter.class, !divider && 'no-padding-bottom')}>
                         { componentToRender }
                     </div>
                     { divider && (

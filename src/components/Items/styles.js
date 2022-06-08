@@ -1,5 +1,6 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
+import { lighten } from '@mui/material';
 
 const styles = makeStyles(theme => ({
     soldOutLink: {
@@ -213,6 +214,8 @@ const itemStyles = makeStyles(theme => ({
         textAlign: 'center',
         minHeight: '100%',
         position: 'relative',
+        transition: 'background-color .3s ease-in-out',
+        overflow: 'hidden',
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
@@ -235,19 +238,35 @@ const itemStyles = makeStyles(theme => ({
             backgroundColor: alpha(theme.palette.rarity.drop, .1)
         },
         '&.humble': {
-            backgroundColor: alpha(theme.palette.realm.humble, .15)
+            backgroundColor: alpha(theme.palette.realm.humble, .15),
+            borderColor: theme.palette.realm.humble,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.humble, .2),
+            }
         },
         '&.reasonable': {
-            backgroundColor: alpha(theme.palette.realm.reasonable, .15)
+            backgroundColor: alpha(theme.palette.realm.reasonable, .15),
+            borderColor: theme.palette.realm.reasonable,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.reasonable, .2),
+            }
         },
         '&.spacious': {
-            backgroundColor: alpha(theme.palette.realm.spacious, .15)
+            backgroundColor: alpha(theme.palette.realm.spacious, .15),
+            borderColor: theme.palette.realm.spacious,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.spacious, .2),
+            }
         },
         '&.golden': {
             backgroundColor: alpha(theme.palette.rarity.golden, .15)
         },
         '&.partner': {
-            backgroundColor: alpha(theme.palette.realm.partner, .15)
+            backgroundColor: alpha(theme.palette.realm.partner, .15),
+            borderColor: theme.palette.realm.partner,
+            '&:hover': {
+                backgroundColor: alpha(theme.palette.realm.partner, .2),
+            }
         },
         '&.realm-generic': {
             backgroundColor: alpha('#c1a415', 0.15)
@@ -261,17 +280,54 @@ const itemStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: '32px 5px 5px',
         '& img': {
             minHeight: '30%'
         }
     },
     parcelCard: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
+        padding: '0 0 28px',
+        cursor: 'pointer',
+        border: '3px solid transparent',
+        borderRadius: 0,
+        '&:hover $parcelImageWrapper': {
+            opacity: 1,
+            '& canvas': {
+                transform: 'scale(1.2)',
+            }
+        }
+    },
+    parcelName: {
+        fontSize: 16,
+        textShadow: `1px 1px 0px ${alpha('#000', .3)}`,
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        padding: '6px 0',
+    },
+    parcelImageWrapper: {
+        opacity: .7,
+        overflow: 'hidden',
+        transition: 'opacity .3s ease-in-out',
+        '& > div': {
+            transition: 'all .3s ease-in-out',
+        }
+    },
+    parcelSize: {
+        position: 'absolute',
+        top: 3,
+        left: 8,
+        zIndex: 1,
+        '& span': {
+            fontSize: 12
+        }
     },
     itemBalanceDivider: {
         margin: '0 2px'
+    },
+    idHash: {
+        fontWeight: 600,
+        padding: '0 4px !important',
     }
 }));
 
@@ -288,10 +344,8 @@ const tooltipStyles = makeStyles(theme => ({
         position: 'absolute',
         top: 0,
         right: 0,
+        zIndex: 1,
         display: 'flex',
-        '& div:last-child': {
-            borderTopRightRadius: 4
-        },
     },
     label: {
         display: 'flex',
@@ -367,11 +421,28 @@ const tooltipStyles = makeStyles(theme => ({
         '.golden &': {
             backgroundColor: theme.palette.rarity.golden,
             color: theme.palette.secondary.main
+        },
+        '.humble &': {
+            backgroundColor: lighten(theme.palette.realm.humble, .4),
+            color: theme.palette.secondary.main
+        },
+        '.reasonable &': {
+            backgroundColor: lighten(theme.palette.realm.reasonable, .4),
+            color: theme.palette.secondary.main
+        },
+        '.spacious &': {
+            backgroundColor: lighten(theme.palette.realm.spacious, .4),
+            color: theme.palette.secondary.main
+        },
+        '.partner &': {
+            backgroundColor: lighten(theme.palette.realm.partner, .4),
+            color: theme.palette.secondary.main
         }
     },
     labelBalance: {
-        backgroundColor: alpha(theme.palette.secondary.dark, .8),
+        backgroundColor: theme.palette.secondary.dark,
         minWidth: 34,
+        fontWeight: 600
     },
     labelListing: {
         color: theme.palette.error.main,
@@ -463,16 +534,16 @@ const ERC1155InnerStyles = makeStyles(theme => ({
             color: theme.palette.rarity.godlike
         },
         '&.humble': {
-            color: theme.palette.realm.humble
+            color: lighten(theme.palette.realm.humble, .3)
         },
         '&.reasonable': {
-            color: theme.palette.realm.reasonable
+            color: lighten(theme.palette.realm.reasonable, .3)
         },
         '&.golden': {
             color: theme.palette.rarity.golden
         },
         '&.spacious': {
-            color: theme.palette.realm.spacious
+            color: lighten(theme.palette.realm.spacious, .3)
         },
         '&.partner': {
             color: theme.palette.realm.partner
@@ -494,45 +565,49 @@ const parselStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        minHeight: 40,
+        marginTop: '-40px',
+        position: 'relative',
+        padding: '8px 0',
+        transition: 'opacity .3s ease-in-out',
+        zIndex: 3
     },
-
     boost: {
         display: 'flex',
         alignItems: 'center',
-        padding: '0 4px',
+        padding: '2px 4px',
         color: theme.palette.secondary.main,
         fontSize: 14,
         fontWeight: 600,
         borderRadius: 2,
-        marginTop: 8,
+        lineHeight: 1,
+        border: '2px solid transparent',
+        margin: '0 2px',
         '& img': {
-            marginRight: 2
+            marginRight: 4
         },
         '&.fud': {
-            backgroundColor: theme.palette.alchemica.fud
+            backgroundColor: lighten(theme.palette.alchemica.fud, .3),
+            borderColor: theme.palette.alchemica.fud
         },
         '&.fomo': {
-            backgroundColor: theme.palette.alchemica.fomo
+            backgroundColor: lighten(theme.palette.alchemica.fomo, .3),
+            borderColor: theme.palette.alchemica.fomo
         },
         '&.alpha': {
-            backgroundColor: theme.palette.alchemica.alpha
+            backgroundColor: lighten(theme.palette.alchemica.alpha, .3),
+            borderColor: theme.palette.alchemica.alpha
         },
         '&.kek': {
-            backgroundColor: theme.palette.alchemica.kek
+            backgroundColor: lighten(theme.palette.alchemica.kek, .3),
+            borderColor: theme.palette.alchemica.kek
         }
-    },
-
-    callMadeIcon: {
-        position: 'absolute',
-        right: 2,
-        bottom: 2,
-        fontSize: 14,
-        color: '#fff'
     },
     parcelPriceContainer: {
         position: 'absolute',
-        right: '8px',
-        bottom: '8px'
+        right: 0,
+        bottom: 0,
+        left: 0
     },
     labelParselPrice: {
         color: theme.palette.secondary.main,
@@ -585,9 +660,10 @@ const portalStyles = makeStyles(theme => ({
         }
     },
     portalPriceContainer: {
-        position: 'absolute',
-        right: '8px',
-        bottom: '8px'
+        width: '100%'
+    //     position: 'absolute',
+    //     right: '8px',
+    //     bottom: '8px'
     },
 }));
 

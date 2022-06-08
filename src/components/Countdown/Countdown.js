@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DateTime, Duration } from 'luxon';
-
-import useInterval from 'hooks/useInterval';
 
 const interval = 1000;
 const defaultLongFormat = {
@@ -31,48 +29,61 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
     const [isDateInThePast, setIsDateInThePast] = useState(isInThePast);
     const [countdown, setCountdown] = useState('');
 
-    useInterval(() => {
-        const now = DateTime.local().toMillis();
-        let diff;
-        let formattedTimeString;
+    useEffect(() => {
+        function updateCountdown() {
+            const now = DateTime.local().toMillis();
+            let diff;
+            let formattedTimeString;
 
-        if (targetDate - now > 0) {
-            diff = targetDate - now;
+            if (targetDate - now > 0) {
+                diff = targetDate - now;
 
-            setIsDateInThePast(false);
-        } else {
-            diff = now - targetDate;
+                setIsDateInThePast(false);
+            } else {
+                diff = now - targetDate;
 
-            setIsDateInThePast(true);
-        }
-        if (shortFormat) {
-            const formatKeys = Object.keys(shortFormat);
-            const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
-            const mappedShortFormat = Object.keys(units)
-                .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
-                .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
+                setIsDateInThePast(true);
+            }
 
-            formattedTimeString = Duration.fromObject(units).toFormat(mappedShortFormat.join(' '));
-        } else if (longFormat) {
-            formattedTimeString = getLongFormattedTimeString(diff, longFormat);
-        } else {
-            formattedTimeString = getLongFormattedTimeString(diff, defaultLongFormat);
-        }
+            if (shortFormat) {
+                const formatKeys = Object.keys(shortFormat);
+                const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+                const mappedShortFormat = Object.keys(units)
+                    .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
+                    .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
 
-        if (targetDate - now > 0 ) {
-            formattedTimeString = `In ${formattedTimeString}`;
-        } else if (targetDate - now < 0) {
-            formattedTimeString = `${formattedTimeString} ago`;
-        }
+                formattedTimeString = Duration.fromObject(units).toFormat(mappedShortFormat.join(' '));
+            } else if (longFormat) {
+                formattedTimeString = getLongFormattedTimeString(diff, longFormat);
+            } else {
+                formattedTimeString = getLongFormattedTimeString(diff, defaultLongFormat);
+            }
 
-        setCountdown(formattedTimeString);
+            if (targetDate - now > 0 ) {
+                formattedTimeString = `in ${formattedTimeString}`;
+            } else if (targetDate - now < 0) {
+                formattedTimeString = `${formattedTimeString} ago`;
+            }
 
-        if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
-            if (Boolean(onEnd)) {
-                onEnd();
+            setCountdown(formattedTimeString);
+
+            if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
+                if (Boolean(onEnd)) {
+                    onEnd();
+                }
             }
         }
-    }, interval);
+
+        updateCountdown();
+
+        const timer = setInterval(() => {
+            updateCountdown();
+        }, interval);
+
+        return () => clearInterval(timer);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [targetDate]);
 
     const getLongFormattedTimeString = (diff, format) => {
         const formatKeys = Object.keys(format);

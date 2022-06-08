@@ -550,3 +550,53 @@ export const incomeQuery = (id, timestamp) => {
         }
       }`
 };
+
+// ! Gotchiverse queries
+
+export const gotchisGotchiverseQuery = (gotchis) => {
+    return `{
+        gotchis(
+            first: ${gotchis.length},
+            where: { id_in: ${JSON.stringify(gotchis)}
+        })  {
+          id
+          lastChanneledAlchemica
+        }
+      }`
+};
+
+export const parcelsGotchiverseQuery = (parcels) => {
+    return `{
+        parcels(
+            first: ${parcels.length},
+            where: { id_in: ${JSON.stringify(parcels)}
+        }) {
+          id
+          lastChanneledAlchemica
+          equippedInstallations {
+            id
+            alchemicaType
+            upgradeQueueBoost
+            deprecated
+          }
+        }
+      }`
+};
+
+export const parcelsOwnerGotchiverseQuery = (owner) => {
+    return `{
+        parcels(
+            first: 1000,
+            where: { owner: "${owner}" }
+        ) {
+          id
+          lastChanneledAlchemica
+          equippedInstallations {
+            id
+            alchemicaType
+            upgradeQueueBoost
+            deprecated
+          }
+        }
+      }`
+};

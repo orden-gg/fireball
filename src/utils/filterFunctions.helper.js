@@ -11,7 +11,9 @@ export default {
     },
 
     multipleSelectionPredicateFn: (filter, compareItem) => {
-        return filter.items.some(item => item.isSelected && item.value === compareItem[filter.key]);
+        return filter.items.some(item =>
+            item.isSelected && compareItem[filter.key] && item.value.toString() === compareItem[filter.key].toString()
+        );
     },
 
     multipleSelectionUpdateFromQueryFn: (filter, compareValue, compareKey) => {
@@ -186,5 +188,35 @@ export default {
 
     rangeSliderGetActiveFiltersCount: (filter) => {
         return filter.isFilterActive ? 1 : 0;
+    },
+
+    // Checkbox filter handlers
+    checkboxGetIsFilterValidFn: (value) => {
+        return value;
+    },
+
+    checkboxResetFilterFn: (filter) => {
+        filter.isFilterActive = false;
+        filter.value = false;
+    },
+
+    checkboxUpdateFromQueryFn: (filter, value) => {
+        filter.isFilterActive = true;
+
+        filter.value = value === 'true';
+    },
+
+    checkboxUpdateFromFilterFn: (filter, value) => {
+        filter.isFilterActive = true;
+
+        filter.value = value;
+    },
+
+    checkboxGetQueryParamsFn: (filter) => {
+        return filter.value;
+    },
+
+    checkboxGetActiveFiltersCount: (filter) => {
+        return filter.isFilterActive;
     },
 }

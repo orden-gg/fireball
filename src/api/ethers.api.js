@@ -20,6 +20,19 @@ export default {
         return ethers.utils.formatUnits(value, 0);
     },
 
+    getLastBlock(network) {
+        const provider = this.getProvider(network);
+
+        return provider.getBlock();
+    },
+
+    getFutureBlockTimestamp(currentBlock, futureBLock) {
+        const averageBlockTime = 2.2; // !TODO: need more accurate way to get average block time
+        const blocksDiff = futureBLock - currentBlock.number;
+
+        return parseInt((averageBlockTime * blocksDiff) + currentBlock.timestamp);
+    },
+
     waitForTransaction(hash, network) {
         const provider = this.getProvider(network);
 

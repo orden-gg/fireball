@@ -116,7 +116,7 @@ const DISTRICTS = Object.freeze({
 });
 const COLORS = Object.freeze({
     parcels: {
-        selected: 0xfd9af9,
+        selected: 0xffffff,
         // humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
         // reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
         // spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
