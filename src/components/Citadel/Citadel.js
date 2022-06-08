@@ -45,6 +45,21 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const findOnMap = (type, value) => game.scene.find(type, value);
 
+    const removeSelected = () => setSelectedParcel(null);
+
+    const onExportData = () => {
+        filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
+    };
+
+    const updateGroup = (type, isActive) => {
+        game.scene.updateGroup(type, isActive);
+    };
+
+    const onFiltersChange = filters => {
+        updateQueryParams(filters);
+        game.scene.filtersManager.updateFilters(filters);
+    };
+
     const buttonIsActive = type => {
         const { active } = params;
         if (typeof active === 'string') {
@@ -53,22 +68,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             return active?.some(name => name === type);
         }
     };
-
-    const removeSelected = () => setSelectedParcel(null);
-
-    const toggleGroup = (type, isActive) => game.scene.toggleGroup(type, isActive);
-
-    const onFiltersChange = filters => {
-        updateQueryParams(filters);
-        game.scene.trigger('filtersUpdate', filters);
-    };
-
-    const updateQueryParams = useCallback(filters => {
-        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
-
-        setParams(newParams);
-    }, [params, history, location.pathname]);
-
     const basicButtons = useMemo(() => {
         return realmGroups
             .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
@@ -80,12 +79,18 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         icons={group.icons}
                         tooltip={group.tooltip}
                         active={buttonIsActive(group.type) || group.active}
-                        handleClick={toggleGroup}
+                        handleClick={updateGroup}
                         key={group.type}
                     />
                 );
             });
     }, [realmGroups, mapCreated]);
+
+    const updateQueryParams = useCallback(filters => {
+        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
+
+        setParams(newParams);
+    }, [params]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -128,26 +133,27 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 arrayFormat: 'comma'
             })
         });
-
-        console.log(params);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
         if (mapCreated && realmGroups.length > 0) {
             const { active } = params;
+            const groups = realmGroups.filter(group => !commonUtils.isEmptyObject(group));
 
-            game.scene.addGroups(realmGroups.filter(group => !commonUtils.isEmptyObject(group)));
+            game.scene.addGroups(groups);
 
             if (active) {
                 if (typeof active === 'string') {
-                    game.scene.toggleGroup(active, true, true);
+                    game.scene.toggleGroup(active, true);
                 } else {
                     for (const type of active) {
-                        game.scene.toggleGroup(type, true, true);
+                        game.scene.toggleGroup(type, true);
                     }
                 }
             }
-    }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {
@@ -187,7 +193,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     tooltip='Districts grid'
                     /* eslint-disable-next-line react/jsx-key */
                     icons={[<GridOffIcon />, <GridOnIcon />]}
-                    handleClick={toggleGroup}
+                    handleClick={updateGroup}
                     active={buttonIsActive('grid')}
                 />
                 <BasicButton
@@ -195,7 +201,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                     tooltip='Guilds'
                     /* eslint-disable-next-line react/jsx-key */
                     icons={[<DeselectIcon />, <SelectAllIcon />]}
-                    handleClick={toggleGroup}
+                    handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />
                 {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
@@ -203,7 +209,11 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             </CitadelInterface>
 
             {mapCreated &&
-                <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} />
+                <CitadelFilters
+                    onFiltersChange={onFiltersChange}
+                    queryParams={params}
+                    onExportData={onExportData}
+                />
             }
 
             <FullscreenButton wrapperRef={wrapperRef} />

@@ -50,6 +50,14 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
         }
     }
 
+    get isActive() {
+        return this.settings.active;
+    }
+
+    get type() {
+        return this.settings.type;
+    }
+
     get name() {
         return 'grid';
     }

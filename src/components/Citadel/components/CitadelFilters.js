@@ -31,7 +31,7 @@ const initialFilters = {
     district: { ...filtersData.district }
 };
 
-export default function CitadelFilters({ onFiltersChange, queryParams }) {
+export default function CitadelFilters({ onFiltersChange, queryParams, onExportData }) {
 
     const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
@@ -64,6 +64,15 @@ export default function CitadelFilters({ onFiltersChange, queryParams }) {
                             onClick={onResetFilters}
                         >
                             Reset
+                        </Button>
+
+                        <Button
+                            variant='contained'
+                            color='secondary'
+                            size='small'
+                            onClick={onExportData}
+                        >
+                            Export data (.json)
                         </Button>
                     </div>
                 </div>
