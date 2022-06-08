@@ -2,18 +2,9 @@ import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
-    container: {
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
     listing: {
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2px',
+        height: 28,
         position: 'relative',
-        marginBottom: -4,
-        marginRight: -1,
         fontSize: 14,
         fontWeight: 600,
         '& p': {
@@ -23,12 +14,25 @@ const styles = makeStyles(theme => ({
     listingShadow: {
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 1,
+        height: '100%',
         filter: 'grayscale(1)',
-        color: alpha(theme.palette.common.white, .5)
+        color: alpha(theme.palette.common.white, .5),
+        background: alpha('#707070', .2),
+        paddingLeft: 12
     },
     listingLink: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 1,
+        height: '100%',
+        background: alpha(theme.palette.rarity.uncommon, .2),
+        transition: 'background-color .3s ease-in-out',
+        '&:hover': {
+            background: alpha(theme.palette.rarity.uncommon, .3)
+        }
     },
     tooltipInner: {
         display: 'flex',
@@ -43,10 +47,17 @@ const styles = makeStyles(theme => ({
         marginLeft: 2
     },
     lastPriceUp: {
-        color: theme.palette.success.light
+        color: 'greenyellow',
+        display: 'flex',
+        alignItems: 'center'
     },
     lastPriceDown: {
-        color: theme.palette.warning.main
+        color: 'orange',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    token: {
+        marginLeft: 4
     }
 }));
 

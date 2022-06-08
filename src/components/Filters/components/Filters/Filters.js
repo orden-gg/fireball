@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { FilterComponent } from 'data/filterTypes';
 
 import InputFilter from '../InputFilter/InputFilter';
+import CheckboxFilter from '../CheckboxFilter/CheckboxFilter';
 import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
@@ -30,6 +31,10 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
                     componentToRender = <InputFilter {...filterProps} />;
 
                     break;
+                case FilterComponent.Checkbox:
+                    componentToRender = <CheckboxFilter {...filterProps} />;
+
+                    break;
                 case FilterComponent.MultipleAutocomplete:
                     componentToRender = <MultiAutocompleteFilter {...filterProps} />;
 
@@ -52,7 +57,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
 
             return (
                 <div key={`${componentToRender.key}-component`}>
-                    <div className={classNames(classes.component, !divider && 'no-padding')}>
+                    <div className={classNames(classes.component, renderFilter.class, !divider && 'no-padding-bottom')}>
                         { componentToRender }
                     </div>
                     { divider && (

@@ -28,7 +28,7 @@ export default function ParcelPreview({ parcel }) {
         <div className={classes.container}>
             <div className={classes.inner}>
                 <div className={classes.image}>
-                    <ParcelImage parcel={parcel} parcelSize={300}/>
+                    <ParcelImage parcel={parcel} imageSize={300}/>
                 </div>
 
                 <div className={classes.content}>

@@ -2,7 +2,7 @@ import { Link, Tooltip } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { GhstTokenGif } from 'components/Icons/Icons';
+import { GhstTokenIcon } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 
@@ -26,24 +26,22 @@ export default function ERC721Listing({ listings, historicalPrices }) {
         <div className={classes.container}>
             <Tooltip
                 title={
-                    <>
-                        {historicalPrices.length ? (
-                            <>
-                                <p><span>Sales history:</span></p>
-                                <div className={classes.tooltipInner}>
-                                    {historicalPrices.map((price, index) => {
-                                        return <p className={classes.tooltipItem} key={index}>
-                                            {commonUtils.formatPrice(ethersApi.fromWei(price))}
-                                            <GhstTokenGif width={14} height={14} />
-                                            {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
-                                        </p>;
-                                    })}
-                                </div>
-                            </>
-                        ) : (
-                            <p><span>No history</span></p>
-                        )}
-                    </>
+                    historicalPrices.length ? (
+                        <>
+                            <p><span>Sales history:</span></p>
+                            <div className={classes.tooltipInner}>
+                                {historicalPrices.map((price, index) => {
+                                    return <p className={classes.tooltipItem} key={index}>
+                                        {commonUtils.formatPrice(ethersApi.fromWei(price))}
+                                        <GhstTokenIcon className={classes.token} width={12} height={12} />
+                                        {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
+                                    </p>;
+                                })}
+                            </div>
+                        </>
+                    ) : (
+                        <p><span>No history</span></p>
+                    )
                 }
                 classes={{ tooltip: classes.customTooltip }}
                 enterTouchDelay={0}
@@ -61,22 +59,22 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                             {!lastPrice ? (
                                 <p>{commonUtils.formatPrice(currentPrice)}</p>
                             ) : currentPrice > lastPrice ? (
-                                <>
-                                    <KeyboardArrowUpIcon color='success' fontSize='inherit' />
-                                    <p className={classes.lastPriceUp}>{commonUtils.formatPrice(currentPrice)}</p>
-                                </>
+                                <div className={classes.lastPriceUp}>
+                                    <KeyboardArrowUpIcon fontSize='inherit' />
+                                    <p>{commonUtils.formatPrice(currentPrice)}</p>
+                                </div>
                             ) : (
-                                <>
+                                <div className={classes.lastPriceDown}>
                                     <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
-                                    <p className={classes.lastPriceDown}>{commonUtils.formatPrice(currentPrice)}</p>
-                                </>
+                                    <p>{commonUtils.formatPrice(currentPrice)}</p>
+                                </div>
                             )}
-                            <GhstTokenGif width={18} height={18} />
+                            <GhstTokenIcon className={classes.token} width={14} height={14} />
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
                             <p>{commonUtils.formatPrice(lastPrice)}</p>
-                            <GhstTokenGif width={18} height={18} />
+                            <GhstTokenIcon className={classes.token} width={14} height={14} />
                         </div>
                     )}
                 </div>

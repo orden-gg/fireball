@@ -26,17 +26,21 @@ import {
     lendingsByAddressQuery,
     incomeQuery,
     getParcelOrderDirectionQuery,
+    gotchisGotchiverseQuery,
+    parcelsGotchiverseQuery,
+    parcelsOwnerGotchiverseQuery,
     realmQueryByDistrict
 } from './common/queries';
 
-const baseUrl = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
-const raffle = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-const gotchiSVGs = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
-const realm = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
-const income = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
+const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
+const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
+const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
+const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
+const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
+const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 
 // TODO: temporary lend graph
-const lend = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
+const lendAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
 
 const clientFactory = (() => {
     const createClient = (url) => {
@@ -47,12 +51,13 @@ const clientFactory = (() => {
     };
 
     return {
-        client: createClient(baseUrl),
-        raffleClient: createClient(raffle),
-        svgsClient: createClient(gotchiSVGs),
-        realmClient: createClient(realm),
-        lendClient: createClient(lend),
-        incomeClient: createClient(income)
+        client: createClient(coreAPI),
+        raffleClient: createClient(raffleAPI),
+        svgsClient: createClient(gotchiSvgAPI),
+        realmClient: createClient(realmAPI),
+        gotchiverseClient: createClient(gotchiverseAPI),
+        lendClient: createClient(lendAPI),
+        incomeClient: createClient(incomeAPI)
     };
 })();
 
@@ -510,5 +515,41 @@ export default {
 
             return combined;
         }).catch(e => console.log(e));
+    },
+
+    // ! GOTCHIVERSE
+
+    getGotchisGotchiverseInfoByIds(gotchiIds) {
+        return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds))
+            .then(res => {
+                const dataArr = res.data.gotchis;
+
+                // * gotchiverse return empty data if gotchi never channeled alchemica!
+                return gotchiIds.map((id, i) => ({
+                    id: id,
+                    lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0
+                }));
+            });
+    },
+
+    getParcelsGotchiverseInfoByIds(parcelsIds) {
+        return getGraphData(clientFactory.gotchiverseClient, parcelsGotchiverseQuery(parcelsIds))
+            .then(res => {
+                const dataArr = res.data.parcels;
+
+                // * gotchiverse return empty data if parcel was never channeled!
+                const modified = parcelsIds.map((id, i) => ({
+                    id: dataArr[i]?.id || '',
+                    lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
+                    installations: dataArr[i]?.equippedInstallations || []
+                }));
+
+                return modified;
+            });
+    },
+
+    getParcelsGotchiverseInfoByOwner(owner) {
+        return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner))
+            .then(res => res.data.parcels);
     }
 };

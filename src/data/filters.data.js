@@ -3,6 +3,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PercentIcon from '@mui/icons-material/Percent';
 
+import { DateTime } from 'luxon';
+
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data';
@@ -201,6 +203,110 @@ export const filtersData = {
                 />
             ));
         },
+        ...defaultMultiSelectionFilter
+    },
+    nextChannel: {
+        key: 'nextChannel',
+        queryParamKey: 'channeling',
+        title: 'Is channeling ready',
+        value: false,
+        componentType: FilterComponent.Checkbox,
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        predicateFn: (filter, compareItem, key) => {
+            let predicate;
+
+            if (!filter.value || !compareItem[key]) {
+                predicate = true;
+            } else {
+                predicate = DateTime.local().toSeconds() >= compareItem[key];
+            }
+
+            return predicate;
+        },
+        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
+    },
+    isUpgradeReady: {
+        key: 'isUpgradeReady',
+        queryParamKey: 'upgraded',
+        title: 'Is upgrade ready',
+        value: false,
+        componentType: FilterComponent.Checkbox,
+        isFilterActive: false,
+        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
+        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        predicateFn: (filter, compareItem, key) => {
+            return !filter.value ? !filter.value : filter.value && compareItem[key];
+        },
+        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
+    },
+    altarLevel: {
+        key: 'altarLevel',
+        queryParamKey: 'altar',
+        items: [
+            {
+                title: 'Level 1',
+                value: '1',
+                isSelected: false,
+                queryParamValue: '1'
+            },
+            {
+                title: 'Level 2',
+                value: '2',
+                isSelected: false,
+                queryParamValue: '2'
+            },
+            {
+                title: 'Level 3',
+                value: '3',
+                isSelected: false,
+                queryParamValue: '3'
+            },
+            {
+                title: 'Level 4',
+                value: '4',
+                isSelected: false,
+                queryParamValue: '4'
+            },
+            {
+                title: 'Level 5',
+                value: '5',
+                isSelected: false,
+                queryParamValue: '5'
+            },
+            {
+                title: 'Level 6',
+                value: '6',
+                isSelected: false,
+                queryParamValue: '6'
+            },
+            {
+                title: 'Level 7',
+                value: '7',
+                isSelected: false,
+                queryParamValue: '7'
+            },
+            {
+                title: 'Level 8',
+                value: '8',
+                isSelected: false,
+                queryParamValue: '8'
+            },
+            {
+                title: 'Level 9',
+                value: '9',
+                isSelected: false,
+                queryParamValue: '9'
+            }
+        ],
+        componentType: FilterComponent.MultiButtonSelection,
         ...defaultMultiSelectionFilter
     }
 };

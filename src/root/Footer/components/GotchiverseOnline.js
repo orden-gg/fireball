@@ -21,7 +21,7 @@ export default function GotchiverseOnline() {
         let mounted = true;
 
         const getOnline = (() => {
-            gotchiverseApi.getOnlineCount()
+            gotchiverseApi.getOnlineCount(true)
                 .then(gotchiverseOnline => {
                     if (mounted) {
                         setOnlineCount(gotchiverseOnline);

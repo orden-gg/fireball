@@ -18,8 +18,6 @@ import installationsUtils from 'utils/installationsUtils';
 export const ClientContext = createContext({});
 
 const ClientContextProvider = (props) => {
-    const [clientActive, setClientActive] = useState(null);
-
     const [gotchis, setGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState(true);
@@ -283,16 +281,24 @@ const ClientContextProvider = (props) => {
     const getRealm = (address) => {
         setLoadingRealm(true);
 
-        thegraph.getRealmByAddress(address).then((response) => {
-            const { type, dir } = realmSorting;
+        thegraph.getRealmByAddress(address)
+            .then(res => {
+                const { type, dir } = realmSorting;
 
-            setRealm(commonUtils.basicSort(response, type, dir));
-            setLoadingRealm(false);
-        }).catch((error) => {
-            console.log(error);
-            setRealm([]);
-            setLoadingRealm(false);
-        });
+                const modified = res.map(parcel => ({
+                    ...parcel,
+                    channeling: { loading: true },
+                    installations: { loading: true }
+                }));
+
+                setRealm(commonUtils.basicSort(modified, type, dir));
+                setLoadingRealm(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setRealm([]);
+                setLoadingRealm(false);
+            });
     };
 
     const calculateReward = () => {
@@ -323,9 +329,6 @@ const ClientContextProvider = (props) => {
 
     return (
         <ClientContext.Provider value={{
-            clientActive,
-            setClientActive,
-
             gotchis,
             gotchisSorting,
             loadingGotchis,
@@ -360,6 +363,7 @@ const ClientContextProvider = (props) => {
             setRealm,
             setRealmView,
             setRealmSorting,
+            setLoadingRealm,
 
             reward,
             rewardCalculated,

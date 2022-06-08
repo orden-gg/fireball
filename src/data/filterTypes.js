@@ -5,6 +5,7 @@ export const FilterDomainType = Object.freeze({
 
 export const FilterComponent = Object.freeze({
     Input: 'Input',
+    Checkbox: 'Checkbox',
     MultipleAutocomplete: 'MultipleAutocomplete',
     MultiButtonSelection: 'MultiButtonSelection',
     RangeSlider: 'RangeSlider',

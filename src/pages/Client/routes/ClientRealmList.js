@@ -2,6 +2,8 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
+import TimerIcon from '@mui/icons-material/Timer';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
@@ -10,10 +12,17 @@ import ContentInner from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';
 import Parcel from 'components/Items/Parcel/Parcel';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import ActionPane from 'shared/ActionPane/ActionPane';
+import installationsApi from 'api/installations.api';
+import thegraphApi from 'api/thegraph.api';
+import ethersApi from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
+import installationsUtils from 'utils/installationsUtils';
+
+import ClientRealmActions from '../components/ClientRealmActions';
+import { LoginContext } from 'contexts/LoginContext';
 
 const sortings = [
     {
@@ -29,6 +38,20 @@ const sortings = [
         paramKey: 'district',
         tooltip: 'district',
         icon: <HouseIcon fontSize='small' />
+    },
+    {
+        name: 'nextChannel',
+        key: 'nextChannel',
+        paramKey: 'nextChannel',
+        tooltip: 'next channel',
+        icon: <TimerIcon fontSize='small' />
+    },
+    {
+        name: 'altarLevel',
+        key: 'altarLevel',
+        paramKey: 'altar',
+        tooltip: 'altar level',
+        icon: <AutoGraphIcon fontSize='small' />
     },
     {
         name: 'fudBoost',
@@ -61,9 +84,20 @@ const sortings = [
 ];
 const initialFilters = {
     size: { ...filtersData.size, divider: true },
+    altarLevel: { ...filtersData.altarLevel, divider: true },
+    nextChannel: { ...filtersData.nextChannel },
+    isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
     district: { ...filtersData.district }
 };
-const queryParamsOrder = ['district', 'size', 'sort', 'dir'];
+const queryParamsOrder = [
+    initialFilters.size.queryParamKey,
+    initialFilters.altarLevel.queryParamKey,
+    initialFilters.nextChannel.queryParamKey,
+    initialFilters.isUpgradeReady.queryParamKey,
+    initialFilters.district.queryParamKey,
+    'sort',
+    'dir'
+];
 
 export default function ClientRealmList() {
     const history = useHistory();
@@ -78,10 +112,11 @@ export default function ClientRealmList() {
         loadingRealm,
         setRealmView
     } = useContext(ClientContext);
+    const { activeAddress } = useContext(LoginContext);
     const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedRealm, setModifiedRealm] = useState([]);
-    const [isSortingChanged, setIsSortingChanged] = useState(false);
-    const [isFiltersApplied, setIsFiltersApplied] = useState(false);
+    const [loadingUpgrades, setLoadingUpgrades] = useState(false);
+    const [claimableUpgrades, setClaimableUpgrades] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     useEffect(() => {
@@ -98,7 +133,7 @@ export default function ClientRealmList() {
         if (sort && dir) {
             const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
-            updateSorting(key, dir);
+            onSortingChange(key, dir);
         }
 
         return () => {
@@ -108,61 +143,44 @@ export default function ClientRealmList() {
     }, []);
 
     useEffect(() => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
-
-        if (activeFilters.length > 0) {
-            const filtersCount = filtersUtils.getActiveFiltersCount(currentFilters);
-
-            setActiveFiltersCount(filtersCount);
-            setIsFiltersApplied(true);
-        } else {
-            setActiveFiltersCount(0);
-            setIsFiltersApplied(false);
+        if (realm.length && !loadingRealm) {
+            getRealmAdditionalData();
         }
 
-        updateQueryParams(currentFilters);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loadingRealm]);
+
+    useEffect(() => {
+        filtersUtils.onFiltersUpdate(
+            currentFilters,
+            filtersUtils.getActiveFiltersCount,
+            setActiveFiltersCount,
+            updateFilterQueryParams
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
-        setModifiedRealm(modifiedGotchisCache => filtersUtils.getFilteredSortedItems({
-            items: realm,
-            itemsCache: modifiedGotchisCache,
-            filters: currentFilters,
-            isFiltersApplied,
-            isFiltersAppliedSetter: setIsFiltersApplied,
-            sorting: realmSorting,
-            isSortingChanged,
-            getFilteredItems: filtersUtils.getFilteredItems
-        }));
-    }, [currentFilters, realm, isFiltersApplied, isSortingChanged, realmSorting]);
+        const paramKey = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, realmSorting.dir);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [realmSorting]);
 
     useEffect(() => {
-        const sortedItems = commonUtils.basicSort(realm, realmSorting.type, realmSorting.dir);
-
-        setRealm([...sortedItems]);
-    }, [loadingRealm, realmSorting]);
-
-    const updateSorting = useCallback((prop, dir) => {
-        setIsSortingChanged(true);
-        setRealmSorting({ type: prop, dir });
-    }, [setRealmSorting]);
-
-    const updateSortQueryParams = useCallback((prop, dir) => {
-        const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
-
-        history.push({
-            path: location.pathname,
-            search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
+        const modifiedLendings = filtersUtils.getFilteredSortedItems({
+            items: realm,
+            filters: currentFilters,
+            sorting: realmSorting,
+            getFilteredItems: filtersUtils.getFilteredItems
         });
-    }, [queryParams, history, location.pathname]);
 
-    const onSortingChange = useCallback((prop, dir) => {
-        updateSorting(prop, dir);
-        updateSortQueryParams(prop, dir);
-    }, [updateSorting, updateSortQueryParams]);
+        setModifiedRealm(modifiedLendings);
+    }, [currentFilters, realm, realmSorting]);
+
+    const onSortingChange = useCallback((type, dir) => {
+        setRealmSorting({ type, dir });
+    }, [setRealmSorting]);
 
     const sorting = {
         sortingList: sortings,
@@ -170,55 +188,132 @@ export default function ClientRealmList() {
         onSortingChange: onSortingChange
     };
 
-    const updateQueryParams = useCallback(filters => {
+    const updateSortQueryParams = useCallback((prop, dir) => {
+        const params = { ...queryParams, sort: prop, dir };
+
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, history, location.pathname]);
+
+    const updateFilterQueryParams = useCallback(filters => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
-        history.push({
-            path: location.pathname,
-            search: qs.stringify(params, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
-        });
+        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key, selectedValue) => {
-        setCurrentFilters(currentFiltersCache => {
-            const cacheCopy = { ...currentFiltersCache };
-
-            if (!cacheCopy[key].getIsFilterValidFn(selectedValue)) {
-                cacheCopy[key].resetFilterFn(cacheCopy[key]);
-            } else {
-                cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
-            }
-
-            return cacheCopy;
-        });
+        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
     const onResetFilters = useCallback(() => {
-        const currentFiltersCopy = { ...currentFilters };
-
-        Object.entries(currentFiltersCopy).forEach(([_, filter]) => {
-            filter.resetFilterFn(filter);
-        });
-
-        setCurrentFilters({ ...currentFiltersCopy });
+        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
         filtersUtils.exportData(modifiedRealm, 'client_realm');
     }, [modifiedRealm]);
 
-    const getRealm = useCallback(() => {
-        return (isSortingChanged || isFiltersApplied) ? modifiedRealm : realm;
-    }, [isSortingChanged, isFiltersApplied, modifiedRealm, realm]);
+    const getRealmAdditionalData = useCallback(() => {
+        const parcelIds = realm.map(parcel => parcel.tokenId);
+
+        setLoadingUpgrades(true);
+
+        Promise.all([
+            getRealmInfo(activeAddress),
+            getRealmUpgradesQueue(activeAddress, parcelIds)
+        ]).then(([realmInfo, realmUpgradesQueue]) => {
+            const modifiedParcels = realm.map(parcel => {
+                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
+
+                return {
+                    ...parcel,
+                    channeling: parcelInfo,
+                    nextChannel: parcelInfo.nextChannel,
+                    altarLevel: parcelInfo.installations[0]?.level,
+                    installations: parcelInfo.installations,
+                    upgrading: isParcelUpgrading,
+                    isUpgradeReady: Boolean(isParcelUpgrading?.ready)
+                };
+            });
+
+            setRealm(modifiedParcels);
+            setLoadingUpgrades(false);
+        });
+    }, [realm, setRealm, activeAddress]);
+
+    const getRealmInfo = (owner) => {
+        return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then(res => {
+            return res.map(parcel => {
+                if (!parcel.equippedInstallations.length) {
+                    return {
+                        id: parcel.id,
+                        lastChanneled: 0,
+                        nextChannel: 0,
+                        installations: []
+                    };
+                }
+
+                const installations = parcel.equippedInstallations.map(inst => ({
+                    id: inst.id,
+                    name: installationsUtils.getNameById(inst.id),
+                    level: installationsUtils.getLevelById(inst.id),
+                    type: installationsUtils.getTypeById(inst.id)
+                }));
+
+                const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
+                const lastChanneled = Number(parcel.lastChanneledAlchemica);
+                const nextChannel = lastChanneled + cooldown;
+
+                return {
+                    id: parcel.id,
+                    lastChanneled: lastChanneled,
+                    nextChannel: Number(nextChannel),
+                    cooldown: cooldown,
+                    installations: installations
+                };
+            });
+        });
+    };
+
+    const getRealmUpgradesQueue = (owner, realmIds) => {
+        return installationsApi.getUpgradeQueueByAddress(owner).then(async res => {
+
+            const activeUpgrades = res
+                .map((queue, i) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
+                .filter(queue => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
+
+            if (activeUpgrades.length) {
+                const lastBlock = await ethersApi.getLastBlock();
+
+                const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
+                    const currentBlock = upgrade.readyBlock;
+                    const isUpgradeReady = currentBlock - lastBlock.number <= 0;
+                    const timestamp = !isUpgradeReady ?
+                        ethersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
+
+                    return {
+                        ...upgrade,
+                        timestamp: timestamp,
+                        ready: isUpgradeReady
+                    };
+                });
+
+                setClaimableUpgrades(
+                    upgradesWithTimestamps.filter(queue => queue.ready).map(queue => queue.upgradeIndex)
+                );
+
+                return upgradesWithTimestamps;
+            }
+
+            return activeUpgrades;
+        });
+    };
 
     return (
         <>
             <SortFilterPanel
                 sorting={sorting}
-                itemsLength={getRealm().length}
+                itemsLength={modifiedRealm.length}
                 placeholder={
                     <KekIcon width={20} height={20} />
                 }
@@ -232,10 +327,14 @@ export default function ClientRealmList() {
 
             <ContentInner dataLoading={loadingRealm}>
                 <ItemsLazy
-                    items={getRealm()}
+                    items={modifiedRealm}
                     component={(props) => <Parcel parcel={props} />}
                 />
             </ContentInner>
+
+            <ActionPane dataLoading={loadingRealm || loadingUpgrades}>
+                <ClientRealmActions claimableList={claimableUpgrades} />
+            </ActionPane>
         </>
     );
 }

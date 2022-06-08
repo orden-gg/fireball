@@ -9,7 +9,6 @@ export default function useFullscreenStatus(elRef) {
     elRef.current
       .requestFullscreen()
       .then(() => {
-        console.log(getBrowserFullscreenElementProp());
         setIsFullscreen(document[getBrowserFullscreenElementProp()] !== null);
       })
       .catch(() => {

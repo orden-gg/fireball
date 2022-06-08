@@ -322,10 +322,24 @@ const accountStyles = makeStyles(theme => ({
     }
 }));
 
+const actionStyles = makeStyles(() => ({
+    buttonCompleted: {
+        pointerEvents: 'none',
+        opacity: .5
+    },
+    buttonSpinner: {
+        marginLeft: 8
+    },
+    marginBottom: {
+        marginBottom: 8
+    }
+}));
+
 export {
     styles as default,
     routersStyles,
     loadRewardsStyles,
     parcelSinglePage,
-    accountStyles
+    accountStyles,
+    actionStyles
 };
