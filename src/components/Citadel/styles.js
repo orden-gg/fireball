@@ -196,7 +196,9 @@ const FilterStyles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 1
     },
     buttonsWrapper: {
-        padding: 12
+        padding: 12,
+        display: 'flex',
+        justifyContent: 'space-between'
     },
     results: {
         marginLeft: 'auto',
