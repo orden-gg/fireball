@@ -82,7 +82,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         handleClick={updateGroup}
                         key={group.type}
                     />
-                )
+                );
             });
     }, [realmGroups, mapCreated]);
 
