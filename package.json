@@ -47,7 +47,7 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "yarn lint && NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
     "build:prod": "gcloud builds submit --tag eu.gcr.io/ordengg/fireball",
     "gcloud:staging": "gcloud run deploy fireball-staging --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
     "gcloud:prod": "gcloud run deploy fireball --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
