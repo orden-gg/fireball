@@ -32,6 +32,10 @@ const styles = makeStyles(theme => ({
     placeholderInner: {
         borderRadius: 4
     },
+    placeholderWarning: {
+        color: 'orange',
+        padding: '26px 0'
+    },
     subtitle: {
         color: 'deeppink'
     },

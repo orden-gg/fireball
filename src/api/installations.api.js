@@ -28,7 +28,7 @@ export default {
 
     getUpgradeQueueByAddress(address) {
         return installationsContract.getUserUpgradeQueue(address)
-            .then(res => res.map(item => ({
+            .then(res => res[0].map(item => ({
                 readyBlock: item.readyBlock,
                 claimed: item.claimed,
                 parcelId: ethersApi.formatBigNumber(item.parcelId),

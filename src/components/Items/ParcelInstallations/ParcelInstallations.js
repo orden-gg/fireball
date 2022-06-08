@@ -28,8 +28,17 @@ export default function ParcelInstallations({ parcel }) {
         </div>
     }
 
+    if (!parcel.installations.length) {
+        return <div className={classes.container}>
+            <div className={classes.placeholderWarning}>
+                no installations
+            </div>
+        </div>
+    }
+
     return (
         <div className={classes.container}>
+            {console.log('parcel.installations', parcel.installations)}
             { parcel.installations.map((inst, index) => {
                 const metadata = installationsUtils.getMetadataById(inst.id);
 

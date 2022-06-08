@@ -33,6 +33,8 @@ export default function ClientRealmActions({ claimableList }) {
         const succesMessage = `successfully finished ${ids.length} upgrades`;
         const errorMessage = 'finishing upgrades went wrong :(';
 
+        setTransactionStatus('processing');
+
         installationsApi.finalizeUpgrades(ids)
             .then(completed => {
                 if (completed) {
@@ -98,7 +100,7 @@ export default function ClientRealmActions({ claimableList }) {
 
             <Alert severity='warning' icon={false}>
                 <AlertTitle>Use with caution!</AlertTitle>
-                Current section still under development, use only if you understand what you do!
+                Shows upgrades only if parcel owner and upgrade caller is the same address
             </Alert>
         </div>
     );

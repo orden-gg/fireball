@@ -29,6 +29,10 @@ const styles = makeStyles(theme => ({
     placeholderInner: {
         borderRadius: 4
     },
+    placeholderWarning: {
+        color: 'orange',
+        padding: '20px 0'
+    },
     inner: {
         display: 'flex',
         justifyContent: 'space-between'

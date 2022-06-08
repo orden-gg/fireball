@@ -221,8 +221,8 @@ export default function ClientRealmList() {
         setLoadingUpgrades(true);
 
         Promise.all([
-            getRealmInfo(activeAddress, realm),
-            getRealmUpgradesQueue(parcelIds),
+            getRealmInfo(activeAddress),
+            getRealmUpgradesQueue(activeAddress, parcelIds),
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map(parcel => {
                 const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
@@ -232,7 +232,7 @@ export default function ClientRealmList() {
                     ...parcel,
                     channeling: parcelInfo,
                     nextChannel: parcelInfo.nextChannel,
-                    altarLevel: parcelInfo.installations[0].level,
+                    altarLevel: parcelInfo.installations[0]?.level,
                     installations: parcelInfo.installations,
                     upgrading: isParcelUpgrading,
                     isUpgradeReady: Boolean(isParcelUpgrading?.ready)
@@ -247,12 +247,22 @@ export default function ClientRealmList() {
     const getRealmInfo = (owner) => {
         return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then(res => {
             return res.map(parcel => {
+                if (!parcel.equippedInstallations.length) {
+                    return {
+                        id: parcel.id,
+                        lastChanneled: 0,
+                        nextChannel: 0,
+                        installations: []
+                    }
+                }
+
                 const installations = parcel.equippedInstallations.map(inst => ({
                     id: inst.id,
                     name: installationsUtils.getNameById(inst.id),
                     level: installationsUtils.getLevelById(inst.id),
                     type: installationsUtils.getTypeById(inst.id)
                 }));
+
                 const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
                 const lastChanneled = Number(parcel.lastChanneledAlchemica);
                 const nextChannel = lastChanneled + cooldown;
@@ -268,8 +278,8 @@ export default function ClientRealmList() {
         })
     }
 
-    const getRealmUpgradesQueue = (realmIds) => {
-        return installationsApi.getAllUpgradeQueue().then(async res => {
+    const getRealmUpgradesQueue = (owner, realmIds) => {
+        return installationsApi.getUpgradeQueueByAddress(owner).then(async res => {
 
             const activeUpgrades = res
                 .map((queue, i) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
