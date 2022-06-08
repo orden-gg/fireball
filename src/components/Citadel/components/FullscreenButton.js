@@ -14,8 +14,12 @@ export default function FullscreenButton({ wrapperRef }) {
     const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
     const onShowFullScreen = () => {
-        isFullscreen ? document.exitFullscreen() : setIsFullscreen();
-    }
+        if (isFullscreen) {
+            document.exitFullscreen();
+        } else {
+            setIsFullscreen();
+        }
+    };
 
     if (isFullscreen === null) {
         return '';

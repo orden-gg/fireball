@@ -34,19 +34,19 @@ export default function Map() {
                     priceInWei: parcel.priceInWei,
                     __typename: 'ERC721Listing'
                 }],
-                historicalPrices: Boolean(parcel.parcel.historicalPrices) ? parcel.parcel.historicalPrices : []
-            }
+                historicalPrices: parcel.parcel.historicalPrices ? parcel.parcel.historicalPrices : []
+            };
         });
-    }
+    };
 
     useEffect(() => {
         let mounted = true;
 
         Promise.all([
-            thegraphApi.getParcelPriceByDirection({ size: 0, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 1, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 2, direction: "asc" }),
-            thegraphApi.getParcelPriceByDirection({ size: 3, direction: "asc" }),
+            thegraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 1, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 2, direction: 'asc' }),
+            thegraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
             thegraphApi.getAllListedParcels()
         ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]) => {
             if (mounted) {
@@ -56,12 +56,13 @@ export default function Map() {
                     parcels: combined,
                     type: 'listed',
                     active: false,
+                    /* eslint-disable-next-line react/jsx-key */
                     icons: [<MoneyOffIcon />, <AttachMoneyIcon />],
                     tooltip: 'Listed realm',
                     range: {
-                        humble: {min: humbleAsc, max: 500},
-                        reasonable: {min: reasonableAsc, max: 700},
-                        spacious: {min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000},
+                        humble: { min: humbleAsc, max: 500 },
+                        reasonable: { min: reasonableAsc, max: 700 },
+                        spacious: { min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000 }
                     }
                 });
             }
@@ -74,7 +75,6 @@ export default function Map() {
         });
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -90,6 +90,7 @@ export default function Map() {
                         type: 'owner',
                         active: false,
                         animate: true,
+                        /* eslint-disable-next-line react/jsx-key */
                         icons: [<VisibilityOffIcon />, <VisibilityIcon />],
                         tooltip: 'Owner realm'
                     });
@@ -106,7 +107,6 @@ export default function Map() {
         }
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeAddress]);
 
     useEffect(() => {
@@ -114,7 +114,6 @@ export default function Map() {
             setRealmGroups([listedRealm, ownerRealm]);
             setGroupsLoaded(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOwnerLoaded, isListedLoaded]);
 
     return (
@@ -125,5 +124,5 @@ export default function Map() {
                 isLoaded={groupsLoaded}
             />
         </div>
-    )
+    );
 }

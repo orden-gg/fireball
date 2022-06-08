@@ -1,4 +1,3 @@
-import React from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 import classNames from 'classnames';
@@ -31,10 +30,10 @@ export default function GotchiLending({ gotchi }) {
 
                     return <span style={{ margin: '2px 2px 0' }} key={index}>
                         {value} {key}
-                    </span>
+                    </span>;
                 })}
             </>
-        )
+        );
     };
 
     return (
@@ -89,7 +88,7 @@ export default function GotchiLending({ gotchi }) {
                             alt={tokenName}
                             key={index}
                         />
-                    )
+                    );
                 })}
             </div>
 

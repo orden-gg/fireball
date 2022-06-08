@@ -12,7 +12,7 @@ const styles = makeStyles(() => ({
         borderRadius: 4,
         padding: 5,
         '&:hover': {
-            background: alpha('#000', .4),
+            background: alpha('#000', .4)
         }
     },
     block: {
@@ -22,7 +22,7 @@ const styles = makeStyles(() => ({
         cursor: `url(${copyIcon}) 8 10, pointer`,
         transition: 'all .3s ease-in-out',
         '&:hover': {
-            background: alpha('#000', .4),
+            background: alpha('#000', .4)
         },
         '& span': {
             position: 'relative',
@@ -38,7 +38,7 @@ const styles = makeStyles(() => ({
         bottom: 2,
         fontSize: 11,
         opacity: .5,
-        transition: 'all .3s ease-in-out',
+        transition: 'all .3s ease-in-out'
     }
 }));
 

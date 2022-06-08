@@ -47,5 +47,5 @@ export default function AutopetHeader() {
                 </Alert>
             </div>
         </div>
-    )
+    );
 }

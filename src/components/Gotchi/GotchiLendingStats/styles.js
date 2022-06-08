@@ -20,7 +20,7 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-between',
         textShadow: `1px 1px 0 ${alpha('#000', .6)}`,
         '&.over': {
-            color: '#fc6565',
+            color: '#fc6565'
         }
     },
     innerIcon: {
@@ -38,7 +38,7 @@ const styles = makeStyles(theme => ({
         '& span': {
             marginRight: 2,
             '&.highlight': {
-                color: theme.palette.rarity.legendary,
+                color: theme.palette.rarity.legendary
             }
         }
     },
@@ -53,7 +53,7 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'center',
         padding: '4px 0 0',
-        fontSize: 16,
+        fontSize: 16
     },
     token: {
         display: 'flex',
@@ -79,7 +79,7 @@ const styles = makeStyles(theme => ({
         },
         '&.kek': {
             color: theme.palette.alchemica.kek
-        },
+        }
     },
     income: {
         fontWeight: 500
@@ -95,7 +95,7 @@ const styles = makeStyles(theme => ({
         width: 24,
         height: 24,
         '&:hover': {
-            backgroundColor: alpha('#000', .3),
+            backgroundColor: alpha('#000', .3)
         }
     },
     activityTop: {
@@ -117,7 +117,7 @@ const styles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         paddingLeft: 4
-    },
+    }
 }));
 
 export default styles;

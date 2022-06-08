@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const SnackbarContext = createContext({});
 
 const SnackbarContextProvider = (props) => {
-    const [isOpen, setToOpen ] = useState(false);
+    const [isOpen, setToOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [type, setType] = useState('success');
 
@@ -23,7 +23,7 @@ const SnackbarContextProvider = (props) => {
         <SnackbarContext.Provider value={{ isOpen, type, message, showSnackbar, onSnackbarClose }}>
             { props.children }
         </SnackbarContext.Provider>
-    )
-}
+    );
+};
 
 export default SnackbarContextProvider;

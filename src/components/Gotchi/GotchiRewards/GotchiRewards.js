@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -28,7 +27,7 @@ export default function GotchiRewards({ gotchi }) {
                                         </p>
                                     ) : (
                                         null
-                                    )
+                                    );
                                 })}
                             </>
                         }

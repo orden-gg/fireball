@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 import { Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
@@ -18,7 +18,7 @@ import filtersUtils from 'utils/filtersUtils';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
-import CitadelInterface from './components/CitadelInterface'
+import CitadelInterface from './components/CitadelInterface';
 import FullscreenButton from './components/FullscreenButton';
 import BasicButton from './components/BasicButton';
 import SearchForm from './components/SearchForm';
@@ -30,7 +30,7 @@ import styles, { InterfaceStyles } from './styles';
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
 export default function Citadel({ realmGroups, className, isLoaded }) {
-    const classes = { ...styles(), ...InterfaceStyles() }
+    const classes = { ...styles(), ...InterfaceStyles() };
 
     const location = useLocation();
     const history = useHistory();
@@ -53,12 +53,12 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
     const updateGroup = (type, isActive) => {
         game.scene.updateGroup(type, isActive);
-    }
+    };
 
     const onFiltersChange = filters => {
         updateQueryParams(filters);
         game.scene.filtersManager.updateFilters(filters);
-    }
+    };
 
     const buttonIsActive = type => {
         const { active } = params;
@@ -82,9 +82,8 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         handleClick={updateGroup}
                         key={group.type}
                     />
-                )
+                );
             });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     const updateQueryParams = useCallback(filters => {
@@ -108,7 +107,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 scene: new CitadelScene({ wrapperRef })
             });
         }, 100);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -121,11 +119,10 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 setParams(paramsState => {
                     paramsState[name] = params;
 
-                    return { ...paramsState }
+                    return { ...paramsState };
                 });
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [game]);
 
     useEffect(() => {
@@ -168,7 +165,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoaded, mapCreated]);
 
     useEffect(() => {
@@ -196,6 +192,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     type='grid'
                     tooltip='Districts grid'
+                    /* eslint-disable-next-line react/jsx-key */
                     icons={[<GridOffIcon />, <GridOnIcon />]}
                     handleClick={updateGroup}
                     active={buttonIsActive('grid')}
@@ -203,6 +200,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 <BasicButton
                     type='guilds'
                     tooltip='Guilds'
+                    /* eslint-disable-next-line react/jsx-key */
                     icons={[<DeselectIcon />, <SelectAllIcon />]}
                     handleClick={updateGroup}
                     active={buttonIsActive('guilds')}

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import { useContext, useEffect } from 'react';
 import { Grid, InputLabel, Select, MenuItem, FormControl, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import classNames from 'classnames';
 
@@ -29,9 +29,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [districtFilter, sizeFilter])
+    }, [districtFilter, sizeFilter]);
 
     return (
         <Grid container spacing={2} className={classes.rootContainer}>
@@ -46,7 +44,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                         label={'District'}
                                         value={districtFilter}
                                         fullWidth
-                                        size={"small"}
+                                        size={'small'}
                                         onChange={(event) => {
                                             setDistrictFilter(event.target.value);
                                         }}
@@ -54,7 +52,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                         <MenuItem value={0}>All</MenuItem>
                                         {
                                             districts.map((item, index) => {
-                                                    return <MenuItem key={index} value={item}>{item}</MenuItem>
+                                                    return <MenuItem key={index} value={item}>{item}</MenuItem>;
                                                 })
                                         }
                                     </Select>

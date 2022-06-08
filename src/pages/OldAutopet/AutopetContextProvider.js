@@ -66,7 +66,7 @@ const AutopetContextProvider = (props) => {
 
         updateProgress('connect', isConnected);
         setIsUserConnected(isConnected);
-    }
+    };
 
     const approvePet = async (approval) => {
         const succesMessage = approval ? 'Petting approved!' : 'Petting approval revoked!';
@@ -139,7 +139,7 @@ const AutopetContextProvider = (props) => {
 
     const updateProgress = (name, isApproved) => {
         setTabs(data => {
-            const duplicated = {...data};
+            const duplicated = { ...data };
             duplicated[name].done = isApproved;
 
             return duplicated;
@@ -148,18 +148,18 @@ const AutopetContextProvider = (props) => {
 
     const renderButtonNode = (state, defaultNode, approvedNode) => {
         switch (state) {
-            case 'approved' :
-                return approvedNode
+            case 'approved':
+                return approvedNode;
             case 'approving':
                 return (
                     <>
                         Approving <CircularProgress size={20} className={classes.panelButtonCitcular} />
                     </>
-                )
+                );
             default:
-                return defaultNode
+                return defaultNode;
         }
-    }
+    };
 
     useEffect(() => {
         const accounts = metaState.account;
@@ -178,7 +178,7 @@ const AutopetContextProvider = (props) => {
             if (ready === Object.keys(tabs).length) {
                 setTabs(tabsDuplicated);
             }
-        }
+        };
 
         setConnectedWallet(accounts[0]);
 
@@ -210,8 +210,6 @@ const AutopetContextProvider = (props) => {
             ++ready;
             updateTabs();
         });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     return (
@@ -238,7 +236,7 @@ const AutopetContextProvider = (props) => {
         }}>
             { props.children }
         </AutopetContext.Provider>
-    )
-}
+    );
+};
 
 export default AutopetContextProvider;

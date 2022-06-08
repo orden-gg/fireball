@@ -1,5 +1,3 @@
-
-import React from 'react';
 import classNames from 'classnames';
 
 import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
@@ -13,7 +11,7 @@ export default function RaffleItems({ tickets, type }) {
     const classes = itemsStyles();
 
     const renderItem = (item) => {
-        switch(type) {
+        switch (type) {
             case 'realm-generic':
                 return <RealmGeneric
                     realm={{
@@ -25,7 +23,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></RealmGeneric>
+                ></RealmGeneric>;
             case 'realm':
                 return <ParcelGeneric
                     parcel={{
@@ -37,7 +35,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></ParcelGeneric>
+                ></ParcelGeneric>;
             case 'portals':
                 return <PortalGeneric
                     portal={{
@@ -49,7 +47,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></PortalGeneric>
+                ></PortalGeneric>;
             case 'wearables':
                 return <Wearable
                     wearable={{
@@ -62,7 +60,7 @@ export default function RaffleItems({ tickets, type }) {
                         won: item.won,
                         quantity:item.quantity
                     }}
-                ></Wearable>
+                ></Wearable>;
             default:
                 return null;
         }
@@ -74,15 +72,16 @@ export default function RaffleItems({ tickets, type }) {
                 tickets.slice(0).reverse().map((ticket) => {
 
                     if (ticket.prizes) return ticket.prizes.map((item, i) => {
-                        let clean = tickets.some(t => t['value'] !== '');
+                        const clean = tickets.some(t => t['value'] !== '');
 
                         return <div
-                            className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean', )}
+                            className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean' )}
                             key={i}
                         >
                             {renderItem(item)}
-                        </div>
-                    })
+                        </div>;
+                    });
+
                     return null;
                 })
             }

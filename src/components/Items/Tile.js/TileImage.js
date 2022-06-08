@@ -1,5 +1,3 @@
-import React from 'react';
-
 import tilesUtils from 'utils/tilesUtils';
 
 import styles from './styles';

@@ -1,11 +1,11 @@
 import { alpha } from '@mui/system';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     container: {
         maxWidth: 1280,
         padding: 24,
-        margin: '0 auto',
+        margin: '0 auto'
     }
 }));
 
@@ -21,7 +21,7 @@ const titleStyles = makeStyles(theme => ({
         padding: 12,
         [theme.breakpoints.up('md')]: {
 
-            justifyContent: 'space-between',
+            justifyContent: 'space-between'
         }
     },
     title: {
@@ -32,9 +32,9 @@ const titleStyles = makeStyles(theme => ({
         textAlign: 'center',
         [theme.breakpoints.up('md')]: {
             margin: 0,
-            textAlign: 'left',
+            textAlign: 'left'
         }
-    },
+    }
 }));
 
 const tableStyles = makeStyles(theme => ({
@@ -95,7 +95,7 @@ const tableStyles = makeStyles(theme => ({
             '& fieldset': {
                 borderColor: 'transparent',
                 backgroundColor: alpha(theme.palette.secondary.dark, .5)
-            },
+            }
         },
         '& .MuiInputLabel-root.Mui-disabled': {
             color: alpha('#fff', .5)
@@ -108,7 +108,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.common
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.common,
+                borderColor: theme.palette.rarity.common
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.common
@@ -128,7 +128,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.uncommon
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.uncommon,
+                borderColor: theme.palette.rarity.uncommon
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.uncommon
@@ -148,7 +148,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.rare
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.rare,
+                borderColor: theme.palette.rarity.rare
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.rare
@@ -168,7 +168,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.legendary
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.legendary,
+                borderColor: theme.palette.rarity.legendary
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.legendary
@@ -188,7 +188,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.mythical
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.mythical,
+                borderColor: theme.palette.rarity.mythical
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.mythical
@@ -208,7 +208,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.rarity.godlike
             },
             '& fieldset': {
-                borderColor: theme.palette.rarity.godlike,
+                borderColor: theme.palette.rarity.godlike
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.rarity.godlike
@@ -228,7 +228,7 @@ const tableStyles = makeStyles(theme => ({
                 color: theme.palette.customColors.light
             },
             '& fieldset': {
-                borderColor: theme.palette.customColors.light,
+                borderColor: theme.palette.customColors.light
             },
             '&:hover fieldset': {
                 borderColor: theme.palette.customColors.light
@@ -279,13 +279,13 @@ const tableStyles = makeStyles(theme => ({
     textHighlight: {
         position: 'relative',
         zIndex: 5,
-        '&.common': {color: theme.palette.rarity.common},
-        '&.uncommon': {color: theme.palette.rarity.uncommon},
-        '&.rare': {color: theme.palette.rarity.rare},
-        '&.legendary': {color: theme.palette.rarity.legendary},
-        '&.mythical': {color: theme.palette.rarity.mythical},
-        '&.godlike': {color: theme.palette.rarity.godlike},
-        '&.drop': {color: theme.palette.customColors.light}
+        '&.common': { color: theme.palette.rarity.common },
+        '&.uncommon': { color: theme.palette.rarity.uncommon },
+        '&.rare': { color: theme.palette.rarity.rare },
+        '&.legendary': { color: theme.palette.rarity.legendary },
+        '&.mythical': { color: theme.palette.rarity.mythical },
+        '&.godlike': { color: theme.palette.rarity.godlike },
+        '&.drop': { color: theme.palette.customColors.light }
     },
     tableValue: {
         fontSize: 16,
@@ -317,8 +317,8 @@ const tableStyles = makeStyles(theme => ({
             opacity: 1
         },
         [theme.breakpoints.up('md')]: {
-            marginTop: -10,
-        },
+            marginTop: -10
+        }
     },
     enteredValue: {
         position: 'relative',
@@ -348,7 +348,7 @@ const tableStyles = makeStyles(theme => ({
           textTransform: 'uppercase'
         },
         [theme.breakpoints.up('md')]: {
-            textAlign: 'left',
+            textAlign: 'left'
         }
     },
     wearable: {
@@ -357,7 +357,7 @@ const tableStyles = makeStyles(theme => ({
         padding: '24px 12px 16px',
         textAlign: 'center',
         '&.common': {
-            backgroundColor: alpha(theme.palette.rarity.common, .1),
+            backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
         '&.uncommon': {
             backgroundColor: alpha(theme.palette.rarity.uncommon, .1),
@@ -396,7 +396,7 @@ const tableStyles = makeStyles(theme => ({
             }
         },
         '&.mystery': {
-            backgroundColor: alpha(theme.palette.error.light, .2),
+            backgroundColor: alpha(theme.palette.error.light, .2)
         }
     },
     itemsWrapper: {
@@ -405,7 +405,7 @@ const tableStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleCountdownStyles = makeStyles(theme => ({
+const raffleCountdownStyles = makeStyles(() => ({
     countdownWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -432,7 +432,7 @@ const raffleNavStyles = makeStyles(theme => ({
         border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
         backgroundColor: alpha(theme.palette.secondary.dark, .4),
         '&:hover': {
-            backgroundColor: theme.palette.secondary.dark,
+            backgroundColor: theme.palette.secondary.dark
         },
         '&.Mui-disabled': {
             backgroundColor: alpha(theme.palette.secondary.dark, .2),
@@ -456,7 +456,7 @@ const raffleNavStyles = makeStyles(theme => ({
                 '& $label': {
                     color: theme.palette.primary.main
                 }
-            },
+            }
         }
     },
     label: {
@@ -466,7 +466,7 @@ const raffleNavStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleDataStyles = makeStyles(theme => ({
+const raffleDataStyles = makeStyles(() => ({
     title: {
         textAlign: 'center',
         fontSize: 10,
@@ -484,7 +484,7 @@ const raffleDataStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleChanceStyles = makeStyles(theme => ({
+const raffleChanceStyles = makeStyles(() => ({
     container: {
         marginTop: '8px'
     }
@@ -519,7 +519,7 @@ const ticketStyles = makeStyles(theme => ({
     }
 }));
 
-const itemsStyles = makeStyles(theme => ({
+const itemsStyles = makeStyles(() => ({
     list: {
         display: 'grid',
         gap: 12,
@@ -537,7 +537,7 @@ const itemsStyles = makeStyles(theme => ({
             filter: 'grayscale(0) !important',
             transition: 'all .2s ease-in-out'
         }
-    },
+    }
 }));
 
 export {
@@ -550,4 +550,4 @@ export {
     tableStyles,
     itemsStyles,
     titleStyles
-}
+};

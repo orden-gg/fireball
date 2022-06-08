@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     skillpoints: {
         fontSize: 11,
         fontWeight: 400,

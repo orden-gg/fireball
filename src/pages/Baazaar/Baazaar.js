@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import thegraph from 'api/thegraph.api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import useInterval from 'hooks/useInterval';
@@ -36,16 +36,16 @@ export default function Baazaar() {
     // pagination
     const [page, setPage] = useState(1);
     const [lastValidParams, setLastValidParams] = useState({});
-    const {filteringType, exactMatch, id, name, orderingTypes,
+    const { filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, minKIN, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
-        fomoFilter, fudFilter, rarity, collateral, selectedListingType} = useContext(BaazaarContext);
+        fomoFilter, fudFilter, rarity, collateral, selectedListingType } = useContext(BaazaarContext);
     // watch filters
     const [filtersTimer, setFiltersTimer] = useState(0);
     const [userIsTyping, setUserTypingStatus] = useState(false);
 
     const forceLoadItems = () => {
-        let params = {
+        const params = {
             skip: (page - 1) * paginationConfigs.limit,
             limit: paginationConfigs.limit
         };
@@ -82,7 +82,7 @@ export default function Baazaar() {
         }
     };
 
-    const getSalesData = (params) => {
+    const getSalesData = () => {
         showBackdrop(true);
         thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
             let cacheData = [];
@@ -126,14 +126,14 @@ export default function Baazaar() {
             orderDirection: ${params.ordering ? params.ordering.split('-')[1] : defaults.defaultOrdering[1]},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
                         `sold: false,
                         ${params.rarity ? 'rarityLevel: ' + params.rarity : ''}` :
-                        `timePurchased: "0"`
+                        'timePurchased: "0"'
                 }
             })
             {
@@ -154,7 +154,7 @@ export default function Baazaar() {
                         gotchi`
                 }
             }
-        }`
+        }`;
     };
 
     const getAllItemsQueryString = (params, skip, type, order) => {
@@ -165,14 +165,14 @@ export default function Baazaar() {
             orderDirection: ${order},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ""}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : `"10000000000000000000000000"`},
+                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
                         `sold: false,
                         ${params.rarity ? 'rarityLevel: ' + params.rarity : ''}` :
-                        `timePurchased: "0"`
+                        'timePurchased: "0"'
                 }
             })
             {
@@ -226,7 +226,7 @@ export default function Baazaar() {
                     }
                 }
             }
-        }`
+        }`;
     };
 
     const getBaazaarItems = (params) => {
@@ -257,39 +257,41 @@ export default function Baazaar() {
     };
 
     const processResponse = (response) => {
-        let processedItems = [],
+        const processedItems = [],
             items = [];
 
         // combine response data
         response.forEach((item) => {
-            item.data.category.length && item.data.category.forEach((categoryItem) => {
-                if (categoryItem.gotchi) {
-                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                        processedItems.push(categoryItem.tokenId);
-                        items.push(categoryItem);
-                    }
-                } else {
-                    if (processedItems.indexOf(categoryItem.tokenId) === -1) {
-                        processedItems.push(categoryItem.tokenId);
-                        categoryItem.portal.options.forEach((option) => {
-                            items.push({
-                                ...categoryItem,
-                                gotchi: {
-                                    ...option,
-                                    tempId: option.id,
-                                    collateral: option.collateralType,
-                                    hauntId: categoryItem.hauntId,
-                                    id: option.id.split('-')[0],
-                                    kinship: '50',
-                                    modifiedNumericTraits: option.numericTraits,
-                                    level: '1',
-                                    equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                }
+            if (item.data.category.length) {
+                item.data.category.forEach((categoryItem) => {
+                    if (categoryItem.gotchi) {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            processedItems.push(categoryItem.tokenId);
+                            items.push(categoryItem);
+                        }
+                    } else {
+                        if (processedItems.indexOf(categoryItem.tokenId) === -1) {
+                            processedItems.push(categoryItem.tokenId);
+                            categoryItem.portal.options.forEach((option) => {
+                                items.push({
+                                    ...categoryItem,
+                                    gotchi: {
+                                        ...option,
+                                        tempId: option.id,
+                                        collateral: option.collateralType,
+                                        hauntId: categoryItem.hauntId,
+                                        id: option.id.split('-')[0],
+                                        kinship: '50',
+                                        modifiedNumericTraits: option.numericTraits,
+                                        level: '1',
+                                        equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                    }
+                                });
                             });
-                        });
+                        }
                     }
-                }
-            });
+                });
+            }
         });
 
         return items;
@@ -315,7 +317,7 @@ export default function Baazaar() {
         });
     };
 
-    const getAllRealmParcels = (params) => {
+    const getAllRealmParcels = () => {
         showBackdrop(true);
         localGoods = [];
         thegraph.getAllListedParcels().then((response) => {
@@ -451,12 +453,12 @@ export default function Baazaar() {
                 return false;
             }
 
-            return  (districtFilter === 0 ? true : (districtFilter + "" === item.district)) &&
+            return  (districtFilter === 0 ? true : (districtFilter + '' === item.district)) &&
                 (sizeFilter === '4' ? true : ((item.size === '3' || item.size === '2') && sizeFilter === '2' ? true : item.size === sizeFilter)) &&
                 ((parseInt(alphaFilter) === 0 || alphaFilter === '' || alphaFilter === null) ? true : parseInt(item.alphaBoost) >= parseInt(alphaFilter)) &&
                 ((parseInt(fudFilter) === 0 || fudFilter === '' || fudFilter === null) ? true : parseInt(item.fudBoost) >= parseInt(fudFilter)) &&
                 ((parseInt(kekFilter) === 0 || kekFilter === '' || kekFilter === null) ? true : parseInt(item.kekBoost) >= parseInt(kekFilter)) &&
-                ((parseInt(fomoFilter) === 0 || fomoFilter === '' || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter))
+                ((parseInt(fomoFilter) === 0 || fomoFilter === '' || fomoFilter === null) ? true : parseInt(item.fomoBoost) >= parseInt(fomoFilter));
         };
 
         filteredLocalGoods = localGoods.filter((item) => {
@@ -492,7 +494,11 @@ export default function Baazaar() {
         }
 
         if (isLocalFilteringFlow()) {
-            selectedGoodsType === listingTypes.aavegotchi ? handleFindGotchiClick() : handleFindRealmClick();
+            if (selectedGoodsType === listingTypes.aavegotchi) {
+                handleFindGotchiClick();
+            } else {
+                handleFindRealmClick();
+            }
         } else {
             forceLoadItems();
         }
@@ -537,8 +543,6 @@ export default function Baazaar() {
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortingOrder, rarity]);
 
     useEffect(() => {
@@ -556,8 +560,6 @@ export default function Baazaar() {
         setGoods([]);
         setSelectedLocalGoods([]);
         forceLoadItems();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedGoodsType, selectedListingType]);
 
     return (
@@ -594,7 +596,7 @@ export default function Baazaar() {
                     />
             }
 
-            <Backdrop classes={{root: classes.backdrop }} open={backdropIsOpen}>
+            <Backdrop classes={{ root: classes.backdrop }} open={backdropIsOpen}>
                 <CircularProgress color='primary' />
             </Backdrop>
         </div>

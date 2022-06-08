@@ -15,7 +15,7 @@ const styles = makeStyles(theme => ({
         zIndex: theme.zIndex.appBar,
         [theme.breakpoints.up('md')]: {
             padding: '2px 32px'
-        },
+        }
     },
     highlight: {
         color: theme.palette.primary.main
@@ -34,7 +34,7 @@ const styles = makeStyles(theme => ({
         color: theme.palette.text.primary,
         textDecoration: 'none',
         [theme.breakpoints.up('md')]: {
-            paddingBottom: 10,
+            paddingBottom: 10
         }
     },
     logoDesktop: {
@@ -90,7 +90,7 @@ const styles = makeStyles(theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             justifyContent: 'flex-end',
-            marginLeft: 16,
+            marginLeft: 16
         }
     },
     navLink: {
@@ -115,8 +115,8 @@ const styles = makeStyles(theme => ({
             padding: 0,
             '&.active': {
                 background: 'transparent'
-            },
-        },
+            }
+        }
     },
     navLinkBox: {
         display: 'inline-block',
@@ -145,4 +145,4 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-export default styles
+export default styles;

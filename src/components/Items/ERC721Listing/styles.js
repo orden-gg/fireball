@@ -9,7 +9,7 @@ const styles = makeStyles(theme => ({
         fontWeight: 600,
         '& p': {
             margin: 0
-        },
+        }
     },
     listingShadow: {
         display: 'flex',
@@ -31,8 +31,8 @@ const styles = makeStyles(theme => ({
         background: alpha(theme.palette.rarity.uncommon, .2),
         transition: 'background-color .3s ease-in-out',
         '&:hover': {
-            background: alpha(theme.palette.rarity.uncommon, .3),
-        },
+            background: alpha(theme.palette.rarity.uncommon, .3)
+        }
     },
     tooltipInner: {
         display: 'flex',

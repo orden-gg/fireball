@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import { useContext, useEffect, useMemo } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -16,6 +16,7 @@ export default function ClientRealmMap() {
 
         group.push({
             parcels: realm,
+            /* eslint-disable-next-line react/jsx-key */
             icons: [<VisibilityOffIcon />, <VisibilityIcon />],
             tooltip: 'Owner realm',
             type: 'owner',
@@ -28,8 +29,6 @@ export default function ClientRealmMap() {
 
     useEffect(() => {
         setRealmView('map');
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

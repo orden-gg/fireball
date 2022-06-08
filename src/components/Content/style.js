@@ -16,7 +16,7 @@ const styles = makeStyles(theme => ({
             width: 300,
             flexShrink: 0,
             marginRight: 24,
-            marginBottom: 0,
+            marginBottom: 0
         }
     },
     inner: {
@@ -48,4 +48,4 @@ const ContentInnerStyles = makeStyles(theme => ({
 export {
     styles as default,
     ContentInnerStyles
-}
+};

@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
@@ -58,7 +57,7 @@ export default function TicketHorizontal({ ticket, render }) {
 
         // image
         get image() {
-            return <TicketImage ticket={ticket} key={`${ticket.id}-image`}/>
+            return <TicketImage ticket={ticket} key={`${ticket.id}-image`}/>;
         },
 
         get name() {
@@ -69,9 +68,9 @@ export default function TicketHorizontal({ ticket, render }) {
 
         // price
         get price() {
-            return <HorizontalPrice label='Sold for ' item={ticket} key={`${ticket.id}-ticket-price`} />
+            return <HorizontalPrice label='Sold for ' item={ticket} key={`${ticket.id}-ticket-price`} />;
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') {
@@ -84,13 +83,13 @@ export default function TicketHorizontal({ ticket, render }) {
                     renderSection(item)
                 )))
             ))
-        )
+        );
     }
 
     return (
         <div className={classNames(classes.horizontalCard, ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
             {render.map(name => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

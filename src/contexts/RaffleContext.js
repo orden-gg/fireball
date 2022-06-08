@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
@@ -21,16 +21,15 @@ const RaffleContextProvider = (props) => {
     useEffect(() => {
         if (!raffleSpinner && !loadingEntered) {
             setTickets((ticketsCache) => {
-                return ticketsCache.map((ticket, i) => {
+                return ticketsCache.map((ticket) => {
                     ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
                     ticket.prizes = countWearablesChances(ticket);
+
                     return ticket;
                 });
             });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [raffleSpinner, loadingEntered])
+    }, [raffleSpinner, loadingEntered]);
 
     const getRaffleData = (raffle, raffleTickets) => {
         getRaffle(raffle);
@@ -41,7 +40,7 @@ const RaffleContextProvider = (props) => {
         setRaffleSpinner(true);
 
         thegraph.getRaffle(raffle).then((response) => {
-            let [prizes, total] = response;
+            const [prizes, total] = response;
 
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
@@ -50,6 +49,7 @@ const RaffleContextProvider = (props) => {
                     ticket.entered = total[
                         ticket.rarity === 'godlike' ? 'totalGodLike' : `total${commonUtils.capitalize(ticket.rarity)}`
                     ];
+
                     return ticket;
                 });
             });
@@ -58,21 +58,23 @@ const RaffleContextProvider = (props) => {
     };
 
     const getPrices = (raffleTickets) => {
-        let queries = raffleTickets.map((ticket) => raffleTicketPriceQuery(ticket.id));
+        const queries = raffleTickets.map((ticket) => raffleTicketPriceQuery(ticket.id));
 
         setPricesSpinner(true);
 
         thegraph.getJoinedData(queries).then((response) => {
-            let averagePrices = response.map((item)=> {
-                let prices = item.data.erc1155Listings.map((wei)=> parseInt(wei.priceInWei));
-                let average = prices.reduce((a,b) => a + b, 0) / prices.length;
-                let price = average / 10**18;
+            const averagePrices = response.map((item) => {
+                const prices = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
+                const average = prices.reduce((a,b) => a + b, 0) / prices.length;
+                const price = average / 10**18;
+
                 return price.toFixed(2);
             });
 
             setTickets((ticketsCache) => {
                 return ticketsCache.map((ticket, i) => {
                     ticket.price = averagePrices[i];
+
                     return ticket;
                 });
             });
@@ -88,18 +90,19 @@ const RaffleContextProvider = (props) => {
             thegraph.getRaffleWins(address, raffle)
         ]).then(([entered, won]) => {
             setTickets((ticketsCache) => {
-                let modified = [...ticketsCache];
+                const modified = [...ticketsCache];
 
-                entered.forEach((item, i) => {
-                    let elem = modified.length > 1 ? item.ticketId : 0;
+                entered.forEach((item) => {
+                    const elem = modified.length > 1 ? item.ticketId : 0;
 
                     modified[elem].value = item.quantity;
                     modified[elem].prizes = modified[elem].prizes.map((item) => {
-                        let index = won.findIndex(prize => prize.itemId === item.id);
+                        const index = won.findIndex(prize => prize.itemId === item.id);
+
                         return ({
                             ...item,
                             won: index !== -1 ? won[index].quantity : 0
-                        })
+                        });
                     });
 
                 });
@@ -122,22 +125,22 @@ const RaffleContextProvider = (props) => {
         const supply = raffle.endDate - DateTime.local() < 0 ? entered  : +entered + +value;
 
         return value / supply * items;
-    }
+    };
 
     const countWearablesChances = (ticket) => {
         const wearables = ticket.prizes;
 
         if (wearables) {
             wearables.forEach((wearable) => {
-                let perc = wearable.quantity * 100 / ticket.items;
-                let chance = perc * ticket.chance / 100;
+                const perc = wearable.quantity * 100 / ticket.items;
+                const chance = perc * ticket.chance / 100;
 
                 wearable.chance = chance;
-            })
+            });
         }
 
         return wearables;
-    }
+    };
 
     const getTicketsPreset = (tickets) => {
         return tickets.map((ticket) => ({
@@ -145,7 +148,7 @@ const RaffleContextProvider = (props) => {
             rarity: itemUtils.getItemRarityName(ticket.toString()),
             value: ''
         }));
-    }
+    };
 
     return (
         <RaffleContext.Provider value={{
@@ -168,7 +171,7 @@ const RaffleContextProvider = (props) => {
         }}>
             { props.children }
         </RaffleContext.Provider>
-    )
-}
+    );
+};
 
 export default RaffleContextProvider;

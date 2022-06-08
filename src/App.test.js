@@ -1,5 +1,4 @@
-import React from 'react';
-
+/* eslint-disable-next-line no-unused-vars */
 import regeneratorRuntime from 'regenerator-runtime';
 
 import { render } from './test/test-utils';

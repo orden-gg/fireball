@@ -13,7 +13,7 @@ export default function CustomModal({ children, modalOpen, setModalOpen, onModal
         if (onModalClose) {
             onModalClose();
         }
-    }
+    };
 
     return (
         <Modal
@@ -28,6 +28,6 @@ export default function CustomModal({ children, modalOpen, setModalOpen, onModal
                 </IconButton>
             </div>
         </Modal>
-    )
+    );
 
 }

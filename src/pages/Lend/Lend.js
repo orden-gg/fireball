@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button, ToggleButton } from '@mui/material';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
@@ -89,11 +89,11 @@ const sortings = [
 ];
 
 const initialFilters = {
-    guild: {...filtersData.guild},
-    whitelistId: {...filtersData.whitelistId, divider: true},
-    period: {...filtersData.period},
-    splitBorrower: {...filtersData.splitBorrower},
-    upfrontCost: {...filtersData.upfrontCost}
+    guild: { ...filtersData.guild },
+    whitelistId: { ...filtersData.whitelistId, divider: true },
+    period: { ...filtersData.period },
+    splitBorrower: { ...filtersData.splitBorrower },
+    upfrontCost: { ...filtersData.upfrontCost }
 };
 const queryParamsOrder = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
 
@@ -109,7 +109,7 @@ export default function Lend() {
     const [dataLoading, setDataLoading] = useState(true);
     const [linksListView, setLinksListView] = useState(false);
     const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
 
     useEffect(() => {
         setCurrentFilters(currentFiltersCache =>
@@ -127,7 +127,6 @@ export default function Lend() {
         return () => {
             onResetFilters();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -148,7 +147,7 @@ export default function Lend() {
                     mappedData.push({
                         ...listing,
                         guild: gotchiverseUtils.gedAddressGuild(listing.lender)
-                    })
+                    });
                 });
 
                 const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
@@ -156,7 +155,7 @@ export default function Lend() {
                 const maxUpfrontCost = Math.max(...upfronCostValues);
 
                 setCurrentFilters(currentFiltersCache => {
-                    const currentFiltersCacheCopy = {...currentFiltersCache};
+                    const currentFiltersCacheCopy = { ...currentFiltersCache };
 
                     currentFiltersCacheCopy.whitelistId = {
                         ...currentFiltersCacheCopy.whitelistId,
@@ -172,7 +171,7 @@ export default function Lend() {
                         ...currentFiltersCacheCopy.upfrontCost,
                         max: maxUpfrontCost,
                         value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
-                    }
+                    };
 
                     let filtersToReturn;
 
@@ -190,19 +189,16 @@ export default function Lend() {
         });
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         updateFilterQueryParams(currentFilters);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
     useEffect(() => {
@@ -240,7 +236,7 @@ export default function Lend() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -304,7 +300,7 @@ export default function Lend() {
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
                             {modifiedLendings.map(lend => {
-                                return <li>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
+                                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>;
                             })}
                         </ol>
                     ) : (

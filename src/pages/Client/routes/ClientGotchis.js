@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -64,9 +64,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId, divider: true},
-    collateral: {...filtersData.collateral, divider: true},
-    search: {...filtersData.search}
+    hauntId: { ...filtersData.hauntId, divider: true },
+    collateral: { ...filtersData.collateral, divider: true },
+    search: { ...filtersData.search }
 };
 const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
@@ -81,7 +81,7 @@ export default function ClientGotchis() {
         setGotchisSorting,
         loadingGotchis
     } = useContext(ClientContext);
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
@@ -102,7 +102,6 @@ export default function ClientGotchis() {
             onResetFilters();
             setGotchisSorting({ type: 'modifiedRarityScore', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -112,14 +111,12 @@ export default function ClientGotchis() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, gotchisSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gotchisSorting]);
 
     useEffect(() => {
@@ -157,7 +154,7 @@ export default function ClientGotchis() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);

@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState, useEffect } from 'react';
+import { useContext, useCallback, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import TimerIcon from '@mui/icons-material/Timer';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
@@ -68,9 +68,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId, divider: true},
-    collateral: {...filtersData.collateral, divider: true},
-    search: {...filtersData.search}
+    hauntId: { ...filtersData.hauntId, divider: true },
+    collateral: { ...filtersData.collateral, divider: true },
+    search: { ...filtersData.search }
 };
 const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
@@ -85,7 +85,7 @@ export default function ClientLendings() {
         setLendingsSorting,
         loadingLendings
     } = useContext(ClientContext);
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedLendings, setModifiedLendings] = useState([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
@@ -106,7 +106,6 @@ export default function ClientLendings() {
             onResetFilters();
             setLendingsSorting({ type: 'totalTokens', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -116,14 +115,12 @@ export default function ClientLendings() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lendingsSorting]);
 
     useEffect(() => {
@@ -161,7 +158,7 @@ export default function ClientLendings() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -215,7 +212,7 @@ export default function ClientLendings() {
                                         },
                                         {
                                             flipFront: [
-                                                'lendingStats',
+                                                'lendingStats'
                                             ]
                                         }
                                     ]

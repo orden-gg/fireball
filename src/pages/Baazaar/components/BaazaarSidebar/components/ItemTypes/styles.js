@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
     rootContainer: {
         paddingTop: 13,
         marginBottom: 25
@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
         overflowX: 'auto',
         height: 34,
         '& > *': {
-            margin: '0 5px 2px 0',
+            margin: '0 5px 2px 0'
         }
     },
     sliderContainer: {

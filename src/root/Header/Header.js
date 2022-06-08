@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Box, Toolbar, Typography, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -28,9 +28,10 @@ export default function Header() {
 
     // Close nav on outside click
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutsideNav);
+        document.addEventListener('mousedown', handleClickOutsideNav);
+
         return () => {
-            document.removeEventListener("mousedown", handleClickOutsideNav);
+            document.removeEventListener('mousedown', handleClickOutsideNav);
         };
     }, [navRef]);
 
@@ -92,5 +93,5 @@ export default function Header() {
                 </IconButton>
             </Box>
         </Toolbar>
-    )
+    );
 }

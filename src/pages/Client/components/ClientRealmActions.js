@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
@@ -48,8 +48,8 @@ export default function ClientRealmActions({ claimableList }) {
             .catch(e => {
                 console.log(e);
                 setTransactionStatus('failed');
-            })
-    }
+            });
+    };
 
     const renderButtonNode = (state) => {
         switch (state) {
@@ -77,7 +77,7 @@ export default function ClientRealmActions({ claimableList }) {
                     </>
                 );
         }
-    }
+    };
 
     return (
         <div>

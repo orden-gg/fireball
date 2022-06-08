@@ -9,5 +9,5 @@ export const FilterComponent = Object.freeze({
     MultipleAutocomplete: 'MultipleAutocomplete',
     MultiButtonSelection: 'MultiButtonSelection',
     RangeSlider: 'RangeSlider',
-    SingleAutocomplete: 'SingleAutocomplete',
+    SingleAutocomplete: 'SingleAutocomplete'
 });

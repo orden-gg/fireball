@@ -45,7 +45,7 @@ export default class DistrictsGridContainer extends Phaser.GameObjects.Container
     show(isActive) {
         this.settings.active = isActive;
 
-        for(const item of this.list) {
+        for (const item of this.list) {
             item.setAlpha(isActive ? .7 : 0);
         }
     }

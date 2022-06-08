@@ -16,5 +16,5 @@ export default function CitadelLoader({ isLoaded }) {
                 <GotchiverseGif width='100%' height='100%' />
             </div>
         </div>
-    )
+    );
 }

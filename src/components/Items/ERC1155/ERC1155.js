@@ -30,7 +30,7 @@ export default function ERC1155({ children, item, className }) {
     const [current, setCurrent] = useState(null);
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         // last sold
         thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then(response => {
@@ -38,7 +38,7 @@ export default function ERC1155({ children, item, className }) {
                 setLast(response);
 
                 if (response?.lastSale) {
-                    let date = new Date(response?.lastSale * 1000).toJSON()
+                    const date = new Date(response?.lastSale * 1000).toJSON();
                     setLastDate(date);
                 }
             }
@@ -120,7 +120,7 @@ export default function ERC1155({ children, item, className }) {
                                                             {holder}
                                                         </Link>
                                                             {index === (item.holders.length - 1) ? '' : ', '}
-                                                    </span>
+                                                    </span>;
                                                     })
                                                 }
                                             </div>
@@ -228,5 +228,5 @@ export default function ERC1155({ children, item, className }) {
                 )}
             </div>
         </div>
-    )
+    );
 }

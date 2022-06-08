@@ -43,5 +43,5 @@ export default function AutopetHeader() {
                 V1 autopet is still working but will be stopped 1st May!
             </Alert>
         </div>
-    )
+    );
 }

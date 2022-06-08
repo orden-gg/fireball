@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { DateTime, Duration } from 'luxon';
 
@@ -68,7 +68,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
             setCountdown(formattedTimeString);
 
             if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
-                if (Boolean(onEnd)) {
+                if (onEnd) {
                     onEnd();
                 }
             }
@@ -95,11 +95,11 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
             );
 
         return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
-    }
+    };
 
     const isShowUnitPredicate = (unitsKeys, units) => {
         return unitsKeys.some(unitsKey => Boolean(units[unitsKey]) && units[unitsKey] > 0);
-    }
+    };
 
     const getIsShowUnit = (key, units) => {
         let unitsKeys = [];
@@ -135,8 +135,8 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
                 break;
         }
 
-        return isShowUnitPredicate(unitsKeys, units)
-    }
+        return isShowUnitPredicate(unitsKeys, units);
+    };
 
     return (
         <>
@@ -147,5 +147,5 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
             )}
 
         </>
-    )
+    );
 }

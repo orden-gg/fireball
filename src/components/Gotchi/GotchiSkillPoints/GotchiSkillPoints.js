@@ -15,12 +15,12 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
     const [availablePoints, setAvailablePoints] = useState(true);
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         setLoadingPoints(true);
 
         mainApi.getAvailableSkillPoints(id)
-            .then((response)=> {
+            .then((response) => {
                 if (!controller.signal.aborted) {
                     setAvailablePoints(response);
                     setLoadingPoints(false);
@@ -30,8 +30,6 @@ export default function GotchiSkillPoints({ id, usedPoints }) {
             });
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (

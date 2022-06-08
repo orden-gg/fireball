@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid } from '@mui/material';
 
 import Gotchi from 'components/Gotchi/Gotchi';
@@ -39,7 +38,7 @@ export default function Aavegotchi({ item }) {
                                 className={classes.gotchi}
                                 gotchi={{
                                     ...item.gotchi,
-                                    listings: [{id: item.id, priceInWei: item.priceInWei}],
+                                    listings: [{ id: item.id, priceInWei: item.priceInWei }],
                                     historicalPrices: []
                                 }}
                                 renderSvgByStats={true}
@@ -58,7 +57,7 @@ export default function Aavegotchi({ item }) {
                                     'name',
                                     'traits',
                                     'wearablesLine',
-                                    'listing',
+                                    'listing'
                                 ]}
                             />
                     }

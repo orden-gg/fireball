@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IconButton, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -13,7 +13,7 @@ export default function SearchForm({ onSearch, type, placeholder }) {
         if (key === 'Enter') {
             onSearch(type, searchId);
         }
-    }
+    };
 
     return (
         <div className={classes.citadelSearch}>

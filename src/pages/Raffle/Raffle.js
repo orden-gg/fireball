@@ -1,8 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import { Helmet } from 'react-helmet';
-import queryString from 'query-string'
+import queryString from 'query-string';
 
 import ProfilePane from 'components/ProfilePane/ProfilePane';
 import ethersApi from 'api/ethers.api';
@@ -46,8 +46,6 @@ export default function Raffle() {
         } else {
             history.push({ path: location.pathname });
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [raffleActive]);
 
     return (

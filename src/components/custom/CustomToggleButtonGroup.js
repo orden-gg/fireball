@@ -1,4 +1,3 @@
-import React from 'react';
 import { styled, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import CustomTooltip from './CustomTooltip';
@@ -8,17 +7,17 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
       margin: theme.spacing(0.5),
       border: 0,
       '&.Mui-disabled': {
-        border: 0,
+        border: 0
       },
       '&:not(:first-of-type)': {
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: theme.shape.borderRadius
       },
       '&:first-of-type': {
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: theme.shape.borderRadius
       },
       '&.MuiToggleButton-root': {
         textTransform: 'initial',
-        padding: 0,
+        padding: 0
       },
       '& .tooltip-inner': {
           minWidth: 35,
@@ -27,7 +26,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
           alignItems: 'center',
           justifyContent: 'center'
       }
-    },
+    }
   }));
 
 export default function CustomToggleButtonGroup({ list, ...props }) {
@@ -50,7 +49,7 @@ export default function CustomToggleButtonGroup({ list, ...props }) {
                                 {item.icon ? item.icon : item.name}
                             </span>
                         </CustomTooltip>
-                    </ToggleButton>
+                    </ToggleButton>;
                 })
             }
         </StyledToggleButtonGroup>

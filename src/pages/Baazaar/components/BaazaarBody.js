@@ -1,11 +1,10 @@
-import React from 'react';
 import { Grid, Typography } from '@mui/material';
 
 import BaazaarItem from './BaazaarItem';
 import Pagination from './Pagination';
 import { baazaarBodyStyles } from '../styles';
 
-export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick, backdropIsOpen }) {
+export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick }) {
     const classes = baazaarBodyStyles();
 
     return (
@@ -14,7 +13,7 @@ export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPre
                 {
                     // eslint-disable-next-line array-callback-return
                     goods.map((item) => {
-                        return <BaazaarItem key={item.id} item={item} />
+                        return <BaazaarItem key={item.id} item={item} />;
                     })
                 }
                 <Grid className={classes.pagination} item xs={12}>

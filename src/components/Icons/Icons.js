@@ -171,7 +171,7 @@ export const GhstTokenIcon = ({ className, width, height }) => {
     return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
 };
 
-export const GltrTokenIcon = ({ className, width, height }) => {
+export const GltrTokenIcon = ({ width, height }) => {
     return <img width={width} height={height} src={gltrToken} alt='gltrToken' />;
 };
 

@@ -47,23 +47,18 @@
     "web-vitals": "^1.1.0"
   },
   "scripts": {
-    "build": "NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "yarn lint && NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
     "build:prod": "gcloud builds submit --tag eu.gcr.io/ordengg/fireball",
     "gcloud:staging": "gcloud run deploy fireball-staging --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
     "gcloud:prod": "gcloud run deploy fireball --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
     "deploy:staging": "run-s build:prod gcloud:staging",
     "deploy:prod": "run-s build:prod gcloud:prod",
-    "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3005 react-scripts start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=3005 react-scripts start && yarn lint",
     "start:prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
-    "clean": "rm -rf node_modules"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "clean": "rm -rf node_modules",
+    "lint": "eslint -c .eslintrc.json --ext .js,.jsx ."
   },
   "browserslist": {
     "production": [

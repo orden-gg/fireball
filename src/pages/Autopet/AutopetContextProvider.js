@@ -64,7 +64,7 @@ const AutopetContextProvider = (props) => {
 
         updateProgress('connect', isConnected);
         setIsUserConnected(isConnected);
-    }
+    };
 
     const approvePet = async (approval) => {
         const succesMessage = approval ? 'Petting approved!' : 'Petting approval revoked!';
@@ -119,7 +119,7 @@ const AutopetContextProvider = (props) => {
             setIsGhstApproved(ghstApproved);
             updateProgress('ghst', ghstApproved);
         }
-    }
+    };
 
     const approveStake = async (approval) => {
         const succesMessage = approval ? 'Staking approved!' : 'Unstaking approved!';
@@ -152,24 +152,24 @@ const AutopetContextProvider = (props) => {
         setTabs(data => {
             data[name].done = isApproved;
 
-            return {...data};
+            return { ...data };
         });
     };
 
     const renderButtonNode = (state, defaultNode, approvedNode) => {
         switch (state) {
-            case 'approved' :
-                return approvedNode
+            case 'approved':
+                return approvedNode;
             case 'approving':
                 return (
                     <>
                         Approving <CircularProgress size={20} className={classes.panelButtonCitcular} />
                     </>
-                )
+                );
             default:
-                return defaultNode
+                return defaultNode;
         }
-    }
+    };
 
     useEffect(() => {
         const accounts = metaState.account;
@@ -179,7 +179,7 @@ const AutopetContextProvider = (props) => {
 
         if (accounts[0] === connectedWallet || !walletConnected) {
             return;
-        };
+        }
 
         setConnectedWallet(accounts[0]);
 
@@ -202,11 +202,9 @@ const AutopetContextProvider = (props) => {
                 data.ghst.done = ghstStaked || ghstApproved;
                 data.stake.done = ghstStaked;
 
-                return {...data};
+                return { ...data };
             });
         })();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     return (
@@ -233,7 +231,7 @@ const AutopetContextProvider = (props) => {
         }}>
             { props.children }
         </AutopetContext.Provider>
-    )
-}
+    );
+};
 
 export default AutopetContextProvider;

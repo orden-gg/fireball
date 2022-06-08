@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, Grid, Slider } from '@mui/material';
 import classNames from 'classnames';
 
@@ -6,7 +6,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 
 import styles from './styles';
 
-let traitsEmojis = {
+const traitsEmojis = {
     NRG: '⚡️',
     AGG: '👹',
     SPK: '👻',

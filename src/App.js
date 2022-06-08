@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/system';
@@ -33,7 +32,7 @@ const classes = {
     wrapper: 'page-wrapper',
     noHeaderWrapper: 'no-header-page-wrapper',
     content: 'page-content'
-}
+};
 
 const Wrapper = styled('div')(() => ({
     [`&.${classes.wrapper}`]: {
@@ -47,7 +46,7 @@ const Wrapper = styled('div')(() => ({
     },
     [`& .${classes.content}`]: {
         flexGrow: 1
-    },
+    }
 }));
 
 export default function App() {
@@ -75,19 +74,19 @@ export default function App() {
 
                             <Box className={classes.content}>
                                 <Switch>
-                                    <Route exact path={`/`} component={ Main } />
-                                    <Route exact path={`/market`} component={ Baazaar } />
-                                    <Route path={`/lend`} component={ Lend } />
-                                    <Route exact path={`/explorer`} component={ GhostExplorer } />
-                                    <Route path={`/autopet`} component={ Autopet } />
-                                    <Route path={`/autopet-v1`} component={ OldAutopet } />
-                                    <Route path={`/guilds`} component={ Guilds } />
-                                    <Route path={`/client`} component={ Client } />
-                                    <Route path={`/parcel/:parcelId`} component={ ParcelPage } />
-                                    <Route path={`/raffle-calculator`} component={ Raffle } />
-                                    <Route path={`/shop`} component={ Shop } />
-                                    <Route path={`/map`} component={ Map } />
-                                    <Route exact path={`/404`} component={ NotFound } />
+                                    <Route exact path={'/'} component={ Main } />
+                                    <Route exact path={'/market'} component={ Baazaar } />
+                                    <Route path={'/lend'} component={ Lend } />
+                                    <Route exact path={'/explorer'} component={ GhostExplorer } />
+                                    <Route path={'/autopet'} component={ Autopet } />
+                                    <Route path={'/autopet-v1'} component={ OldAutopet } />
+                                    <Route path={'/guilds'} component={ Guilds } />
+                                    <Route path={'/client'} component={ Client } />
+                                    <Route path={'/parcel/:parcelId'} component={ ParcelPage } />
+                                    <Route path={'/raffle-calculator'} component={ Raffle } />
+                                    <Route path={'/shop'} component={ Shop } />
+                                    <Route path={'/map'} component={ Map } />
+                                    <Route exact path={'/404'} component={ NotFound } />
                                     <Redirect from='*' to='/404' />
                                 </Switch>
                             </Box>

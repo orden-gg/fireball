@@ -28,12 +28,12 @@ sizesFilter.items = [
 
 const initialFilters = {
     size: sizesFilter,
-    district: { ...filtersData.district},
+    district: { ...filtersData.district }
 };
 
 export default function CitadelFilters({ onFiltersChange, queryParams, onExportData }) {
 
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -41,11 +41,11 @@ export default function CitadelFilters({ onFiltersChange, queryParams, onExportD
 
     const onToglleFilterDropdown = isOpen => {
         setIsDropdownOpen(!isOpen);
-    }
+    };
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const renderFilterBody = () => {
         if (isDropdownOpen) {
@@ -76,9 +76,9 @@ export default function CitadelFilters({ onFiltersChange, queryParams, onExportD
                         </Button>
                     </div>
                 </div>
-            )
+            );
         }
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -90,7 +90,6 @@ export default function CitadelFilters({ onFiltersChange, queryParams, onExportD
         );
 
         return () => onResetFilters();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -100,7 +99,6 @@ export default function CitadelFilters({ onFiltersChange, queryParams, onExportD
             setActiveFiltersCount,
             onFiltersChange
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     return (
@@ -117,5 +115,5 @@ export default function CitadelFilters({ onFiltersChange, queryParams, onExportD
 
             { renderFilterBody() }
         </div>
-    )
+    );
 }

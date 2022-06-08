@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@mui/material';
 import { useLocation, useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
@@ -31,7 +30,7 @@ export default function RaffleNav({ user }) {
                         </Button>
 
                         {location.pathname.split('/')[2] === raffle.name && <RaffleDate start={raffle.startDate} end={raffle.endDate} />}
-                    </div>
+                    </div>;
                 })
             }
         </div>

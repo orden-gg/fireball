@@ -28,10 +28,11 @@ export default {
         try {
             return await contract.availableSkillPoints(tokenId)
                 .then((response) => {
-                    return ethersApi.formatBigNumber(response)
+                    return ethersApi.formatBigNumber(response);
                 });
         } catch (error) {
             console.log(error);
+
             return null;
         }
     },
@@ -42,17 +43,19 @@ export default {
 
             await contract.itemBalances(address.toLowerCase())
                 .then((response) => {
-                    const collection = response.map((item)=> {
-                        let inner = item.map((i) => ethersApi.formatBigNumber(i));
-                        return { itemId: inner[0], balance: inner[1] }
+                    const collection = response.map((item) => {
+                        const inner = item.map((i) => ethersApi.formatBigNumber(i));
+
+                        return { itemId: inner[0], balance: inner[1] };
                     });
 
-                    contractResponse = {items: collection, owner: address};
+                    contractResponse = { items: collection, owner: address };
                 });
 
             return contractResponse;
         } catch (error) {
             console.log(error);
+
             return [];
         }
     },
@@ -62,6 +65,7 @@ export default {
             return contract.previewAavegotchi(haunt, collateral, traits, wearables);
         } catch (error) {
             console.log(error);
+
             return null;
         }
     },
@@ -80,5 +84,5 @@ export default {
         return autopetContract.operator().then(operator => (
             contract.isPetOperatorForAll(address, operator)
         ));
-    },
-}
+    }
+};

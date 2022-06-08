@@ -51,5 +51,5 @@ export default function PetPanel({ index, dir }) {
             <PanelErrorText isShown={isStaked} children='Please unstake GHST before revoking approval' />
             <PanelErrorText isShown={!isUserConnected} children='Please connect your wallet first' />
         </div>
-    )
+    );
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import styled from '@emotion/styled'
+import { useEffect, useRef } from 'react';
+import styled from '@emotion/styled';
 
-import { VirtuosoGrid } from 'react-virtuoso'
+import { VirtuosoGrid } from 'react-virtuoso';
 
 const ListContainer = styled.div`
     display: grid;
@@ -49,7 +49,7 @@ export default function ItemsLazy({ items, component }) {
             style={{ height: '100%' }}
             totalCount={items.length}
             components={{
-                List: ListContainer,
+                List: ListContainer
             }}
             itemContent={(index) => component(items[index])}
         />

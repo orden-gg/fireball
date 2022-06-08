@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import Installation from 'components/Items/Installation/Installation';
 import Tile from 'components/Items/Tile.js/Tile';
@@ -21,9 +21,9 @@ export default function ClientInstallations() {
                     items={[...installations, ...tiles]}
                     component={props => {
                         if (props.type === 'tile') {
-                            return <Tile data={props} />
+                            return <Tile data={props} />;
                         } else {
-                            return <Installation data={props} />
+                            return <Installation data={props} />;
                         }
                     }}
                 />

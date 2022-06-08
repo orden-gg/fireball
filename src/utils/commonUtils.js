@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     formatNumber(number) {
-        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1'");
+        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
     },
 
     formatPrice(number) {
@@ -44,12 +44,13 @@ export default {
     },
 
     cutAddress(address, symbol) {
-        let splitter = symbol ? symbol : '~~'
+        const splitter = symbol ? symbol : '~~';
+
         return address.slice(0, 4) + splitter + address.slice(38);
     },
 
     getSellerShortAddress(item) {
-        let sellerAddress = item.seller;
+        const sellerAddress = item.seller;
 
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
     },
@@ -122,4 +123,4 @@ export default {
     isEmptyObject(obj) {
         return Object.keys(obj).length === 0;
     }
-}
+};

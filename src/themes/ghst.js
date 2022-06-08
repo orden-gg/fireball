@@ -56,7 +56,7 @@ const theme = createTheme({
         }
     },
     typography: {
-        fontFamily: "'Fira Code', monospace"
+        fontFamily: '\'Fira Code\', monospace'
     },
     breakpoints: {
         values: {
@@ -76,9 +76,9 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     textDecoration: 'none',
-                    color: 'inherit',
-                },
-            },
+                    color: 'inherit'
+                }
+            }
         },
         MuiCssBaseline: {
             styleOverrides: {
@@ -89,7 +89,7 @@ const theme = createTheme({
                 }
             }
         }
-    },
+    }
 });
 
 export default theme;

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 import ERC1155 from 'components/Items/ERC1155/ERC1155';
 import itemUtils from 'utils/itemUtils';
@@ -35,5 +33,5 @@ export default function Wearable({ wearable, raffleChances, tooltip, isShopItem 
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </ERC1155>
-    )
+    );
 }

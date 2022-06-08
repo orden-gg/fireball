@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import HideSourceIcon from '@mui/icons-material/HideSource';
 
@@ -40,7 +40,7 @@ export default function GotchiverseOnline() {
             mounted = false;
 
             clearInterval(interval);
-        }
+        };
     }, []);
 
     const renderOnlineTemplate = (TemplateIcon, text) => {

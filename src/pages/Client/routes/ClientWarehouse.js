@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -42,7 +42,7 @@ export default function ClientWarehouse() {
         warehouseSorting,
         setWarehouseSorting,
         loadingGotchis,
-        loadingWarehouse,
+        loadingWarehouse
     } = useContext(ClientContext);
 
     useEffect(() => {
@@ -57,14 +57,12 @@ export default function ClientWarehouse() {
         return () => {
             setWarehouseSorting({ type: 'rarityId', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         const sortedItems = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
         setWarehouse([...sortedItems]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadingWarehouse, warehouseSorting]);
 
     const updateSortQueryParams = useCallback((prop, dir) => {
@@ -72,7 +70,7 @@ export default function ClientWarehouse() {
 
         history.push({
             path: location.pathname,
-            search: qs.stringify({...queryParams, sort: paramKey, dir }, {
+            search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })

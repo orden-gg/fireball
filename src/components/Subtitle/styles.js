@@ -13,7 +13,7 @@ const styles = makeStyles(theme => ({
             right: 0,
             height: 2,
             background: theme.palette.primary.main
-        },
+        }
     },
     subtitleInner: {
         '&::before, &::after': {
@@ -24,7 +24,7 @@ const styles = makeStyles(theme => ({
             height: 10,
             transform: 'rotate(-45deg)',
             transformOrigin: '0',
-            border: `2px solid ${theme.palette.primary.main}`,
+            border: `2px solid ${theme.palette.primary.main}`
         },
         '&::before': {
             borderTop: 'none',

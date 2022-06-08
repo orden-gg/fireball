@@ -16,7 +16,7 @@ export default function Balances() {
 
     const { tokens, isBalancesLoading } = useContext(BalancesContext);
 
-    if (!Boolean(tokens.length)) {
+    if (!tokens.length) {
         return null;
     }
 

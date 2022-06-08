@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Grid, Slider, TextField, ToggleButton, ToggleButtonGroup, Tooltip } from '@mui/material';
 
 import styles from './styles';
@@ -66,7 +65,7 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
                     <Grid item xs={4}>
                         <TextField
                             type='text'
-                            variant={"standard"}
+                            variant={'standard'}
                             size={'small'}
                             fullWidth
                             value={sliderRange[0]}
@@ -76,7 +75,7 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
                     <Grid item xs={4}>
                         <TextField
                             type='text'
-                            variant={"standard"}
+                            variant={'standard'}
                             size={'small'}
                             fullWidth
                             value={sliderRange[1]}

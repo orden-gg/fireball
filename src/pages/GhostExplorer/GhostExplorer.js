@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -66,9 +66,9 @@ const sortings = [
 ];
 
 const initialFilters = {
-    hauntId: {...filtersData.hauntId, divider: true},
-    collateral: {...filtersData.collateral, divider: true},
-    search: {...filtersData.search}
+    hauntId: { ...filtersData.hauntId, divider: true },
+    collateral: { ...filtersData.collateral, divider: true },
+    search: { ...filtersData.search }
 };
 const queryParamsOrder = ['hauntId', 'collateral', 'search', 'sort', 'dir'];
 
@@ -82,7 +82,7 @@ export default function GhostExplorer() {
     const [gotchis, setGotchis] = useState([]);
     const [modifiedGotchis, setModifiedGotchis] = useState([]);
     const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
     const getGotchies = useCallback(() => {
@@ -94,7 +94,7 @@ export default function GhostExplorer() {
             if (mounted) {
                 setGotchis(response, gotchisSorting.type, gotchisSorting.dir);
             }
-        }).catch((e)=> {
+        }).catch((e) => {
             console.log(e);
         }).finally(() => setIsGotchisLoading(false));
 
@@ -117,12 +117,10 @@ export default function GhostExplorer() {
         return () => {
             onResetFilters();
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         getGotchies();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -133,14 +131,12 @@ export default function GhostExplorer() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, gotchisSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gotchisSorting]);
 
     useEffect(() => {
@@ -178,7 +174,7 @@ export default function GhostExplorer() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Backdrop, Button, Divider } from '@mui/material';
 
 import classNames from 'classnames';
@@ -25,15 +25,15 @@ export default function SortFilterPanel({
 
     const onToglleFilterDropdown = (isOpen) => {
         setIsDropdownOpen(!isOpen);
-    }
+    };
 
     const onCloseDropdown = () => {
         setIsDropdownOpen(false);
-    }
+    };
 
     const onSetSelectedFilters = (key, filtersObj) => {
         setSelectedFilters(key, filtersObj);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         setIsDropdownOpen(false);

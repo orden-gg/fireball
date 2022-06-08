@@ -31,12 +31,12 @@ const styles = makeStyles(theme => ({
 
         [theme.breakpoints.down('md')]: {
             left: theme.spacing(2),
-            top: theme.spacing(1),
+            top: theme.spacing(1)
         },
 
         [theme.breakpoints.down('sm')]: {
             left: theme.spacing(1),
-            top: theme.spacing(.5),
+            top: theme.spacing(.5)
         },
 
         '& .MuiSvgIcon-root': {
@@ -57,7 +57,7 @@ const styles = makeStyles(theme => ({
         alignItems: 'start',
         gap: 12,
         gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
-        gridAutoRows: '1fr',
+        gridAutoRows: '1fr'
     },
     listItem: {
         height: '100%'

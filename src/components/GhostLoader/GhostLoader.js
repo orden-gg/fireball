@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import styles from './styles';
 
-export default function GhostLoader({animate, text}) {
+export default function GhostLoader({ animate, text }) {
     const classes = styles();
     const [render, setRender] = useState(animate);
     const [title, setTitle] = useState(null);
@@ -67,5 +67,5 @@ export default function GhostLoader({animate, text}) {
                 </svg>
             </div>
         )
-    )
+    );
 }

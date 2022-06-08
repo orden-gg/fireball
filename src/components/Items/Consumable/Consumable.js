@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ConsumableImg from './ConsumableImg';
 import ConsumableStats from './ConsumableStats';
 import CardName from '../common/CardName/CardName';
@@ -22,5 +20,5 @@ export default function Consumable({ consumable, isShopItem }) {
             <CardName item={consumable} />
             <ConsumableStats consumable={consumable} />
         </ERC1155>
-    )
+    );
 }

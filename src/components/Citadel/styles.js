@@ -9,7 +9,7 @@ const keyframes = {
     }
 };
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     citadel: {
         position: 'absolute',
         '& canvas': {
@@ -61,7 +61,7 @@ const InterfaceStyles = makeStyles(theme => ({
     }
 }));
 
-const LoaderStyles = makeStyles(theme => ({
+const LoaderStyles = makeStyles(() => ({
     citadelLoading: {
         position: 'absolute',
         left: 0,
@@ -154,7 +154,7 @@ const FilterStyles = makeStyles(theme => ({
         background: alpha('#fff', .06),
         color: '#fff',
         '&:hover': {
-            background: alpha('#fff', .12),
+            background: alpha('#fff', .12)
         },
         '&.active': {
             background: alpha(theme.palette.primary.main, .8),
@@ -219,4 +219,4 @@ export {
     InterfaceStyles,
     InfoStyles,
     FilterStyles
-}
+};

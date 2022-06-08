@@ -20,7 +20,7 @@ const styles = makeStyles(theme => ({
         border: `2px solid ${alpha(theme.palette.primary.main, .2)}`,
         backgroundColor: alpha(theme.palette.secondary.dark, .4),
         '&:hover': {
-            backgroundColor: theme.palette.secondary.dark,
+            backgroundColor: theme.palette.secondary.dark
         },
         '&.Mui-disabled': {
             backgroundColor: alpha(theme.palette.secondary.dark, .2),
@@ -32,8 +32,8 @@ const styles = makeStyles(theme => ({
             color: theme.palette.secondary.main,
             '&.Mui-disabled': {
                 backgroundColor: alpha(theme.palette.primary.main, .1),
-                color: alpha('#fff', .2),
-            },
+                color: alpha('#fff', .2)
+            }
         }
     },
     navName: {

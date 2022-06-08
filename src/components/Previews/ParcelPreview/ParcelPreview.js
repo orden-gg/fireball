@@ -1,4 +1,3 @@
-import React from 'react';
 import { Paper } from '@mui/material';
 
 import classNames from 'classnames';
@@ -80,7 +79,7 @@ export default function ParcelPreview({ parcel }) {
                                     </div>
                                 ) : (
                                     null
-                                )
+                                );
                             })}
                         </div>
                     </div>

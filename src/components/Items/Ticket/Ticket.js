@@ -1,5 +1,3 @@
-import React from 'react';
-
 import ERC1155 from 'components/Items/ERC1155/ERC1155';
 import itemUtils from 'utils/itemUtils';
 
@@ -30,5 +28,5 @@ export default function Ticket({ ticket, isShopItem }) {
                 itemRarity={ticketRarity}
             />
         </ERC1155>
-    )
+    );
 }

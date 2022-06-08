@@ -1,4 +1,3 @@
-import React from 'react';
 import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
@@ -10,7 +9,7 @@ import styles from './styles';
 const countdownFormat = {
     days: { key: 'dd', value: 'd', showIfZero: false },
     hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false },
+    minutes: { key: 'mm', value: 'm', showIfZero: false }
 };
 
 export default function ChannelingInfo({ channeling }) {
@@ -18,14 +17,14 @@ export default function ChannelingInfo({ channeling }) {
 
     const fromTimestampToMillis = (timestamp) => {
         return DateTime.fromSeconds(timestamp).toMillis();
-    }
+    };
 
     if (channeling.lastChanneled === 0) {
         return <div className={classes.container}>
             <div className={classes.placeholderWarning}>
                 never channeled
             </div>
-        </div>
+        </div>;
     }
 
     if (channeling.loading) {
@@ -36,7 +35,7 @@ export default function ChannelingInfo({ channeling }) {
                 width='100%'
                 height={30}
             />
-        </div>
+        </div>;
     }
 
     return (
@@ -61,5 +60,5 @@ export default function ChannelingInfo({ channeling }) {
                 </div>
             </div>
         </div>
-    )
+    );
 }

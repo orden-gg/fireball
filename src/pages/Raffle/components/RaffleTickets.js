@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import ticketsApi from 'api/tickets.api';
@@ -13,13 +13,11 @@ export default function RaffleTickets({ address }) {
     const [loadingTickets, setLoadingTickets] = useState(true);
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         getTickets(controller);
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[address]);
 
     const getTickets = (controller) => {
@@ -48,10 +46,10 @@ export default function RaffleTickets({ address }) {
                         <CircularProgress color='inherit' size={20} />
                     </Grid>
                 ) : (
-                    tickets.map((ticket, i)=>{
+                    tickets.map((ticket, i) => {
                         return <Grid item xs={4} sm={true} key={i} style={{ filter: `grayscale(${ticket.balance > 0 ? 0 : 1})` }}>
                             <RaffleTicket ticket={ticket} />
-                        </Grid>
+                        </Grid>;
                     })
                 )}
             </Grid>

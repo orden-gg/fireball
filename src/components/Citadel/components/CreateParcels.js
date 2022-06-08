@@ -133,7 +133,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     }
 
     get isAnimate() {
-        return this.settings.animate
+        return this.settings.animate;
     }
 
     get isActive() {

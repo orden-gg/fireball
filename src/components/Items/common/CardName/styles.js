@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
         },
         '& p': {
             textOverflow: 'ellipsis',
-            overflow: 'hidden',
+            overflow: 'hidden'
         },
         '&.two-lined': {
             backgroundColor: alpha(theme.palette.secondary.dark, .25),
@@ -24,7 +24,7 @@ export default makeStyles(theme => ({
             justifyContent: 'center',
             transition: 'all .2s ease-in-out',
             '&:hover': {
-                backgroundColor: alpha(theme.palette.secondary.dark, .5),
+                backgroundColor: alpha(theme.palette.secondary.dark, .5)
             }
         }
     },
@@ -40,7 +40,7 @@ export default makeStyles(theme => ({
 
         '.tooltip-wearable &': { // name
             fontSize: 14
-        },
+        }
     },
     textHighlight: {
         '&.common': {
@@ -78,6 +78,6 @@ export default makeStyles(theme => ({
         },
         '&.partner': {
             color: theme.palette.realm.partner
-        },
+        }
     }
 }));

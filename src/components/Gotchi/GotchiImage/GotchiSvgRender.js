@@ -1,10 +1,10 @@
 import mainApi from 'api/main.api';
 
 const renderSvg = async (gotchies) => {
-    let svgs = [];
+    const svgs = [];
 
-    for (let key in gotchies) {
-        let cache = await mainApi.previewAavegotchi(
+    for (const key in gotchies) {
+        const cache = await mainApi.previewAavegotchi(
             parseInt(gotchies[key].hauntId),
             gotchies[key].collateral,
             gotchies[key].numericTraits,
@@ -16,14 +16,13 @@ const renderSvg = async (gotchies) => {
 
     function htmlToElement(html) {
         var template = document.createElement('template');
-        html = html.trim();
-        template.innerHTML = html;
+        template.innerHTML = html.trim();
 
         return template.content.firstChild;
     }
 
     return svgs.map((item, index) => {
-        let regex = /<style>(.*?)<\/style>/g,
+        const regex = /<style>(.*?)<\/style>/g,
             regexClass = /\.(.*?)\}/g;
 
         let svgs = item.match(regex).map((val) => {
@@ -35,6 +34,6 @@ const renderSvg = async (gotchies) => {
 
         return htmlToElement(item.replace(regex, `<style>${svgs}</style>`));
     });
-}
+};
 
 export default renderSvg;

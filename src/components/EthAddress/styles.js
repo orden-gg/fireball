@@ -1,14 +1,14 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     container: {
         display: 'inline-flex',
         alignItems: 'center'
     },
     icon: {
         marginRight: 8,
-        borderRadius: 4,
+        borderRadius: 4
     },
     link: {
         fontWeight: 500,
@@ -33,7 +33,7 @@ const styles = makeStyles(theme => ({
         borderRadius: 4,
         padding: 5,
         '&:hover': {
-            background: alpha('#000', .4),
+            background: alpha('#000', .4)
         }
     }
 }));

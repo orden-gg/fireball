@@ -1,5 +1,3 @@
-import React from 'react';
-
 import commonUtils from 'utils/commonUtils';
 
 import { raffleChanceStyles } from '../styles';

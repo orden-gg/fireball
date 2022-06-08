@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { IconButton, Link, Tooltip } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -20,14 +20,14 @@ export default function GuildSocials() {
         telegram: <TelegramIcon className={classes.guildSocialIcon} />,
         twitch: <TwitchIcon className={classes.guildSocialIcon} />,
         default: <WebIcon className={classes.guildSocialIcon} />
-    }
+    };
 
     const renderSocials = () => {
         const guild = guilds[guildId];
 
         if (guild === undefined || !guild.hasOwnProperty('socials')) {
             return null;
-        };
+        }
 
         return (
             Object.keys(guild.socials).map(key => (
@@ -48,9 +48,9 @@ export default function GuildSocials() {
                 </Tooltip>
             ))
         );
-    }
+    };
 
     return <div className={classes.guildSocials}>
         {renderSocials()}
-    </div>
+    </div>;
 }

@@ -7,11 +7,11 @@ export default {
         return {
             w: PARCEL_SIZE[size].width,
             h: PARCEL_SIZE[size].height
-        }
+        };
     },
 
     getParcelColorBySize(size) {
-        return COLORS.parcels[PARCEL_NAME[size]]
+        return COLORS.parcels[PARCEL_NAME[size]];
     },
 
     getParcelColorByName(size) {
@@ -22,7 +22,7 @@ export default {
         return {
             x: cx-CITADEL_WIDTH/2,
             y: cy-CITADEL_HEIGHT/2
-        }
+        };
     },
 
     getDistrictParams(id) {
@@ -36,7 +36,7 @@ export default {
                 y: district.y * DISTRICTS.h - CITADEL_HEIGHT / 2,
                 w: DISTRICTS.w,
                 h: DISTRICTS.h
-            }
+            };
         }
     },
 
@@ -80,7 +80,7 @@ export default {
         }
     },
 
-    getParcelByTypeAndValueCoords(districtId, {cx, cy}) {
+    getParcelByTypeAndValueCoords(districtId, { cx, cy }) {
         const district = parcelsData[districtId] || [];
 
         let result;
@@ -101,4 +101,4 @@ export default {
         return result;
     }
 
-}
+};

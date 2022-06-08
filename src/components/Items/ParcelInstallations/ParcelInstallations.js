@@ -1,4 +1,3 @@
-import React from 'react';
 import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
@@ -11,7 +10,7 @@ import styles from './styles';
 const dataFormat = {
     days: { key: 'dd', value: 'd', showIfZero: false },
     hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false },
+    minutes: { key: 'mm', value: 'm', showIfZero: false }
 };
 
 export default function ParcelInstallations({ parcel }) {
@@ -25,7 +24,7 @@ export default function ParcelInstallations({ parcel }) {
                 width='100%'
                 height={30}
             />
-        </div>
+        </div>;
     }
 
     if (!parcel.installations.length) {
@@ -33,7 +32,7 @@ export default function ParcelInstallations({ parcel }) {
             <div className={classes.placeholderWarning}>
                 no installations
             </div>
-        </div>
+        </div>;
     }
 
     return (
@@ -66,8 +65,8 @@ export default function ParcelInstallations({ parcel }) {
                             </div>
                         )}
                     </div>
-                )
+                );
             })}
         </div>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -36,7 +36,7 @@ export default function GuildBanner() {
         } catch (error) {
             return defaultBanner;
         }
-    }
+    };
 
     useEffect(() => {
         if (guildId !== null) {
@@ -48,7 +48,7 @@ export default function GuildBanner() {
         <div className={classes.guildBanner} >
             <div className={classes.guildBannerInner}>
                 <div
-                    style={{backgroundImage: `url(${getBannerUrl()})`}}
+                    style={{ backgroundImage: `url(${getBannerUrl()})` }}
                     className={classes.guildBannerBg}
                 ></div>
                 <div className={classes.guildLogo}>

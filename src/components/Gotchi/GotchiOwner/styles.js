@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     owner: {
         margin: '0 2px',
         '&:hover': {
@@ -12,7 +12,7 @@ const styles = makeStyles(theme => ({
         '.narrowed &': {
             fontSize: 12
         }
-    },
+    }
 }));
 
 export default styles;

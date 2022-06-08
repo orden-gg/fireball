@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
@@ -112,8 +112,8 @@ export default function ClientRealmList() {
         loadingRealm,
         setRealmView
     } = useContext(ClientContext);
-    const { activeAddress } = useContext(LoginContext)
-    const [currentFilters, setCurrentFilters] = useState({...initialFilters});
+    const { activeAddress } = useContext(LoginContext);
+    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
     const [modifiedRealm, setModifiedRealm] = useState([]);
     const [loadingUpgrades, setLoadingUpgrades] = useState(false);
     const [claimableUpgrades, setClaimableUpgrades] = useState([]);
@@ -121,8 +121,6 @@ export default function ClientRealmList() {
 
     useEffect(() => {
         setRealmView('list');
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -142,7 +140,6 @@ export default function ClientRealmList() {
             onResetFilters();
             setRealmSorting({ type: 'size', dir: 'desc' });
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -205,7 +202,7 @@ export default function ClientRealmList() {
 
     const onSetSelectedFilters = (key, selectedValue) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    }
+    };
 
     const onResetFilters = useCallback(() => {
         filtersUtils.resetFilters(currentFilters, setCurrentFilters);
@@ -222,7 +219,7 @@ export default function ClientRealmList() {
 
         Promise.all([
             getRealmInfo(activeAddress),
-            getRealmUpgradesQueue(activeAddress, parcelIds),
+            getRealmUpgradesQueue(activeAddress, parcelIds)
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map(parcel => {
                 const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
@@ -253,7 +250,7 @@ export default function ClientRealmList() {
                         lastChanneled: 0,
                         nextChannel: 0,
                         installations: []
-                    }
+                    };
                 }
 
                 const installations = parcel.equippedInstallations.map(inst => ({
@@ -275,8 +272,8 @@ export default function ClientRealmList() {
                     installations: installations
                 };
             });
-        })
-    }
+        });
+    };
 
     const getRealmUpgradesQueue = (owner, realmIds) => {
         return installationsApi.getUpgradeQueueByAddress(owner).then(async res => {
@@ -298,7 +295,7 @@ export default function ClientRealmList() {
                         ...upgrade,
                         timestamp: timestamp,
                         ready: isUpgradeReady
-                    }
+                    };
                 });
 
                 setClaimableUpgrades(
@@ -310,7 +307,7 @@ export default function ClientRealmList() {
 
             return activeUpgrades;
         });
-    }
+    };
 
     return (
         <>

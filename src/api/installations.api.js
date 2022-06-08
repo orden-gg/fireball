@@ -17,7 +17,7 @@ export default {
                 readyBlock: item.readyBlock,
                 claimed: item.claimed,
                 parcelId: ethersApi.formatBigNumber(item.parcelId),
-                installationId: ethersApi.formatBigNumber(item.installationId),
+                installationId: ethersApi.formatBigNumber(item.installationId)
             })))
             .catch(e => {
                 console.log(e);
@@ -32,7 +32,7 @@ export default {
                 readyBlock: item.readyBlock,
                 claimed: item.claimed,
                 parcelId: ethersApi.formatBigNumber(item.parcelId),
-                installationId: ethersApi.formatBigNumber(item.installationId),
+                installationId: ethersApi.formatBigNumber(item.installationId)
             })))
             .catch(e => {
                 console.log(e);
@@ -47,7 +47,7 @@ export default {
 
         return ethersApi.waitForTransaction(transaction.hash, 'polygon')
             .then(response => {
-                return Boolean(response.status)
+                return Boolean(response.status);
             });
-    },
-}
+    }
+};

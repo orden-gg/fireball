@@ -8,7 +8,7 @@ export default {
         try {
             return require(`../assets/images/guilds/${name}.png`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -29,11 +29,11 @@ export default {
     getRarityNameByRS(rs) {
         switch (true) {
             case rs > 580:
-                return 'godlike'
+                return 'godlike';
             case rs > 525:
-                return 'mythical'
+                return 'mythical';
             default:
-                return 'rare'
+                return 'rare';
         }
     },
 
@@ -42,6 +42,6 @@ export default {
         // 1 alpha = 4 fud
         // 1 kek = 10 fud
         return fud + fomo * 2 + alpha * 4 + kek * 10;
-    },
+    }
 
-}
+};

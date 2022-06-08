@@ -11,7 +11,7 @@ export default function ConnectPanel({ index, dir }) {
         connectState,
         approveConnect,
         renderButtonNode,
-        isUserConnected,
+        isUserConnected
      } = useContext(AutopetContext);
 
      return (
@@ -38,5 +38,5 @@ export default function ConnectPanel({ index, dir }) {
                 </Button>
             </div>
         </div>
-    )
+    );
 }

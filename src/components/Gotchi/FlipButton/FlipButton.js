@@ -1,5 +1,3 @@
-import React from 'react';
-
 import CustomTooltip from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
 

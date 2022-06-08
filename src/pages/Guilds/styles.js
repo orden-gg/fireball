@@ -17,7 +17,7 @@ const keyframes = {
             opacity: 1
         }
     }
-}
+};
 
 const styles = makeStyles(theme => ({
     guildsWrapper: {
@@ -43,11 +43,11 @@ const styles = makeStyles(theme => ({
         paddingRight: 20,
         textDecoration: 'none',
         '& span': {
-            marginRight: 4,
+            marginRight: 4
         },
         '&:hover': {
-            color: theme.palette.primary.dark,
-        },
+            color: theme.palette.primary.dark
+        }
     },
     guildsList: {
         padding: 0,
@@ -85,7 +85,7 @@ const styles = makeStyles(theme => ({
         zIndex: 1,
         [theme.breakpoints.down('md')]: {
             padding: theme.spacing(1)
-        },
+        }
     },
     guildName: {
         fontWeight: 700,
@@ -94,7 +94,7 @@ const styles = makeStyles(theme => ({
         lineHeight: 1.2,
         margin: 0,
         [theme.breakpoints.down('md')]: {
-            fontSize: 14,
+            fontSize: 14
         },
         [theme.breakpoints.down('sm')]: {
             fontSize: 12
@@ -135,7 +135,7 @@ const styles = makeStyles(theme => ({
         marginBottom: theme.spacing(1),
         [theme.breakpoints.down('md')]: {
             marginRight: theme.spacing(1)
-        },
+        }
     },
     guildInfoItemIcon: {
         width: 24,
@@ -163,7 +163,7 @@ const styles = makeStyles(theme => ({
     },
     guildWearables: {
         display: 'flex',
-        flexWrap: 'wrap',
+        flexWrap: 'wrap'
     },
     guildWearable: {
         width: 24,
@@ -179,7 +179,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const guildWearables = makeStyles(theme => ({
+const guildWearables = makeStyles(() => ({
     guildWearable: {
         minHeight: 'auto',
         position: 'relative',
@@ -237,7 +237,7 @@ const guildStyles = makeStyles(theme => ({
         },
         [theme.breakpoints.down('sm')]: {
             left: theme.spacing(1),
-            top: theme.spacing(1),
+            top: theme.spacing(1)
         },
         '& .MuiSvgIcon-root': {
             fontSize: 30,
@@ -299,7 +299,7 @@ const guildBanner = makeStyles(theme => ({
     guildBannerTop: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     guildBannerText: {
         fontSize: 14
@@ -310,7 +310,7 @@ const guildBanner = makeStyles(theme => ({
         justifyContent: 'center',
         transform: 'translateY(-10%)',
         opacity: 0,
-        animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move',
+        animation: '2s ease-out .2s forwards $show, 2s ease-out .2s forwards $move'
     },
     guildLogoImage: {
         maxHeight: 85,
@@ -420,11 +420,11 @@ const guildDetailsStyles = makeStyles(theme => ({
         margin: '0 -6px',
         [theme.breakpoints.down('md')]: {
             fontSize: 22,
-            margin: '0 -5px',
+            margin: '0 -5px'
         },
         [theme.breakpoints.down('sm')]: {
             fontSize: 18,
-            margin: '0 -4px',
+            margin: '0 -4px'
         }
     },
     detailsBody: {
@@ -511,7 +511,7 @@ const guildContentStyles = makeStyles(theme => ({
     memberGotchis: {
         gap: theme.spacing(2),
         gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
-        display: 'grid',
+        display: 'grid'
     },
     gotchi: {
         borderRadius: 4,
@@ -593,4 +593,4 @@ export {
     guildNavStyles,
     guildSocialsStyles,
     guildWearables
-}
+};

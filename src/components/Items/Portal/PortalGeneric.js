@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
@@ -45,5 +44,5 @@ export default function PortalGeneric({ portal, raffleChances }) {
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </div>
-    )
+    );
 }

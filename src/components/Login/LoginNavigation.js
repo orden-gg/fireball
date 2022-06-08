@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -64,7 +64,7 @@ export default function LoginNavigation({ address, onSubmit }) {
                                     <ArrowForwardIcon />
                                 </IconButton>
                             </InputAdornment>
-                        ),
+                        )
                     }}
                 />
             </form>

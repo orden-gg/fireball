@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
 import gotchiverseApi from 'api/gotchiverse.api';
@@ -12,7 +12,7 @@ export default function ParcelImage({ parcel, imageSize }) {
     const [imageLoading, setImageLoading] = useState(true);
 
     const processColorsMap = (map) => {
-        let cache = [];
+        const cache = [];
 
         map.forEach((item) => {
             if (!cache.length) {
@@ -20,17 +20,17 @@ export default function ParcelImage({ parcel, imageSize }) {
             }
 
             if (cache[cache.length - 1].length < 4) {
-                cache[cache.length - 1].push(item)
+                cache[cache.length - 1].push(item);
             } else {
                 cache[cache.length] = [item];
             }
-        })
+        });
 
-        let canvas = canvasRef.current;
+        const canvas = canvasRef.current;
 
         if (!canvas) return;
 
-        let context = canvas.getContext('2d');
+        const context = canvas.getContext('2d');
 
         context.globalAlpha = 1;
 
@@ -44,13 +44,13 @@ export default function ParcelImage({ parcel, imageSize }) {
 
         context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
 
-        drawParcelBorder(parcel, context)
+        drawParcelBorder(parcel, context);
     };
 
     const drawParcelBorder = (parcel, context) => {
         const size = Number(parcel.size);
 
-        switch(size) {
+        switch (size) {
             case 0:
                 return drawRect(parcel, context, 5, 5, 2);
             case 1:
@@ -62,7 +62,7 @@ export default function ParcelImage({ parcel, imageSize }) {
             default:
                 return;
         }
-    }
+    };
 
     const drawRect = (parcel, context, width, height, line) => {
         const parcelX = (imageSize - width < parcel.coordinateX ? imageSize - width : parcel.coordinateX) / 2;
@@ -87,7 +87,6 @@ export default function ParcelImage({ parcel, imageSize }) {
             });
 
         return () => mounted = false;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

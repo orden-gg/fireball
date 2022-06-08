@@ -11,14 +11,14 @@ const styles = makeStyles(theme => ({
     },
     button: {
         position: 'relative',
-        zIndex: theme.zIndex.drawer + 2,
+        zIndex: theme.zIndex.drawer + 2
     },
     buttonInner: {
         height: 34,
         display: 'flex',
         borderRadius: 4,
         cursor: 'pointer',
-        position: 'relative',
+        position: 'relative'
     },
     caption: {
         display: 'flex',
@@ -32,8 +32,8 @@ const styles = makeStyles(theme => ({
         textTransform: 'lowercase',
         transition: 'background .2s ease-in-out',
         '&:hover': {
-            background: alpha(theme.palette.primary.main, .7),
-        },
+            background: alpha(theme.palette.primary.main, .7)
+        }
     },
     captionText: {
         fontSize: 14,
@@ -48,8 +48,8 @@ const styles = makeStyles(theme => ({
         padding: '0 8px',
         borderRadius: 4,
         '&:hover': {
-            background: alpha('#000', .3),
-        },
+            background: alpha('#000', .3)
+        }
     },
     addressText: {
         fontWeight: '700'
@@ -97,7 +97,7 @@ const styles = makeStyles(theme => ({
         backgroundColor: alpha(theme.palette.primary.main, .08),
         maxWidth: 160,
         '&:hover': {
-            backgroundColor: alpha(theme.palette.primary.main, .16),
+            backgroundColor: alpha(theme.palette.primary.main, .16)
         }
     },
     loginBackdrop: {
@@ -127,10 +127,10 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-between',
         marginTop: 2,
         '&:hover': {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.background.default
         },
         '&.active': {
-            backgroundColor: alpha('#000', .3),
+            backgroundColor: alpha('#000', .3)
         },
         '&:first-of-type': {
             marginTop: 0
@@ -138,7 +138,7 @@ const styles = makeStyles(theme => ({
     },
     loginAddressBody: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'center'
     },
     loginAddressName: {
         fontSize: 16,
@@ -168,7 +168,7 @@ const styles = makeStyles(theme => ({
         cursor: 'pointer',
         transition: 'all .3s ease-in-out',
         '&:hover': {
-            backgroundColor: alpha(theme.palette.background.paper, .4),
+            backgroundColor: alpha(theme.palette.background.paper, .4)
         }
     },
     loginAddressIcons: {
@@ -195,8 +195,8 @@ const styles = makeStyles(theme => ({
     },
     blockiesIcon: {
         marginRight: 8,
-        borderRadius: 4,
-    },
+        borderRadius: 4
+    }
 }));
 
-export default styles
+export default styles;

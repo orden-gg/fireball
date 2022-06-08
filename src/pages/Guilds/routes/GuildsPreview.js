@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -24,7 +24,7 @@ export default function GuildsPreview() {
 
     const handleClick = (guild) => {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
-    }
+    };
 
     // TODO Use in the future or remove
     // const setNumber = amount => {
@@ -45,9 +45,9 @@ export default function GuildsPreview() {
                     className={classes.guildWearable}
                     tooltip='Guild wearable'
                 />
-            </>
+            </>;
         }
-    }
+    };
 
     useEffect(() => {
         setGuildId(null);

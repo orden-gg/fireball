@@ -1,12 +1,12 @@
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     container: {
         padding: 24
     },
     alert: {
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: 'center'
     }
 }));
 

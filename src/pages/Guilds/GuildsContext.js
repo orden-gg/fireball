@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import guildsData from 'data/guilds.json';
 
@@ -14,10 +14,10 @@ const getModifiedGuilds = (guilds) => {
     activeGuilds.sort((a, b) => a.name.localeCompare(b.name));
     inactiveGuilds.sort((a, b) => a.name.localeCompare(b.name));
 
-    const modifiedGuilds = ordenGuild.concat(activeGuilds).concat(inactiveGuilds)
+    const modifiedGuilds = ordenGuild.concat(activeGuilds).concat(inactiveGuilds);
 
     return modifiedGuilds;
-}
+};
 
 const GuildsContextProvider = (props) => {
     const [guilds] = useState(getModifiedGuilds([...guildsData]));
@@ -47,7 +47,7 @@ const GuildsContextProvider = (props) => {
         }}>
             { props.children }
         </GuildsContext.Provider>
-    )
-}
+    );
+};
 
 export default GuildsContextProvider;

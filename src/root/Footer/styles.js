@@ -42,7 +42,7 @@ const styles = makeStyles(theme => ({
     btnsGroup: {
         display: 'flex',
         alignItems: 'center',
-        position: 'relative',
+        position: 'relative'
     },
     btn: {
         '& + $btn': {

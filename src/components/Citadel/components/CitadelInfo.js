@@ -9,5 +9,5 @@ export default function CitadelInfo() {
                 <span className={classes.infoButton}>shift</span> + <span className={classes.infoButton}>l click</span> = multiselect
             </div>
         </div>
-    )
+    );
 }

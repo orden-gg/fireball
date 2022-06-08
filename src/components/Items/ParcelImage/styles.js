@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     image: {
         position: 'relative',
         background: alpha('#000', .1),
@@ -23,7 +23,7 @@ const styles = makeStyles(theme => ({
             maxWidth: '50%',
             maxHeight: '50%'
         }
-    },
+    }
 }));
 
 export default styles;

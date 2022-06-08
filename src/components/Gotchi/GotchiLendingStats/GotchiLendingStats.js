@@ -1,4 +1,3 @@
-import React from 'react';
 import TimerIcon from '@mui/icons-material/Timer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
@@ -41,7 +40,7 @@ export default function GotchiLendingStats({ gotchi }) {
                     fontSize='small'
                 />
             )
-        )
+        );
     };
 
     return (
@@ -121,7 +120,7 @@ export default function GotchiLendingStats({ gotchi }) {
                                 />
                                 <span>{commonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
                             </div>
-                        )
+                        );
                     })}
                 </div>
             )}

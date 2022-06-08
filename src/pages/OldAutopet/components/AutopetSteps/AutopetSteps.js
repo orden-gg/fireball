@@ -23,13 +23,13 @@ export default function AutopetSteps() {
     const classes = tabStyles();
 
     const { tabs } = useContext(AutopetContext);
-    const [ currentTab, setCurrentTab ] = useState(0);
-    const [ progress, setProgress ] = useState(0);
+    const [currentTab, setCurrentTab] = useState(0);
+    const [progress, setProgress] = useState(0);
 
     const a11yProps = (index) => {
       return {
         id: `full-width-tab-${index}`,
-        'aria-controls': `full-width-tabpanel-${index}`,
+        'aria-controls': `full-width-tabpanel-${index}`
       };
     };
 
@@ -53,7 +53,7 @@ export default function AutopetSteps() {
             (sum, key) => tabs[key].done ? 1 + sum : sum, 0
         );
 
-        setProgress(completeCount)
+        setProgress(completeCount);
     }, [tabs]);
 
     return (
@@ -119,5 +119,5 @@ export default function AutopetSteps() {
 
             </Box>
         </>
-    )
+    );
 }

@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     container: {
         background: alpha('#000', .2),
         borderTop: `2px solid ${alpha('#000', .2)}`,
@@ -9,13 +9,13 @@ const styles = makeStyles(theme => ({
     },
     installation: {
         padding: '4px 8px',
-        minHeight: 72,
+        minHeight: 72
     },
     row: {
         display: 'flex',
         alignItems: 'flex-start',
         flexWrap: 'wrap',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     upgrade: {
         flexBasis: '100% !important',

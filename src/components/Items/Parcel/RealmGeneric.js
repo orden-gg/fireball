@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
@@ -41,5 +40,5 @@ export default function RealmGeneric({ realm, raffleChances }) {
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}
         </div>
-    )
+    );
 }

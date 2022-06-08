@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -18,8 +18,8 @@ export default function CopyToClipboardBlock({ children, text, className }) {
         event.stopPropagation();
 
         toClipboard(text)
-            .then(r => setTooltipText('copied!'))
-            .catch(err => setTooltipText(defaultTooltipText));
+            .then(() => setTooltipText('copied!'))
+            .catch(() => setTooltipText(defaultTooltipText));
     };
 
     const toClipboard = async (text) => {

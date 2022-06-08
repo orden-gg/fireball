@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme } from '@emotion/react';
 
 import commonUtils from 'utils/commonUtils';
@@ -6,7 +5,7 @@ import itemUtils from 'utils/itemUtils';
 
 import { ticketStyles } from '../styles';
 
-export default function RaffleTicket({ticket}) {
+export default function RaffleTicket({ ticket }) {
     const classes = ticketStyles();
     const theme = useTheme();
 

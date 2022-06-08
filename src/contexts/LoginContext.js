@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
@@ -27,11 +27,13 @@ const LoginContextProvider = (props) => {
         setStorageActive(address);
         setActiveAddress(address);
 
-        metaState.account[0] === address ? setIsMetamaskActive(true) : setIsMetamaskActive(false);
+        const isMetamaskActive = metaState.account[0] === address;
+
+        setIsMetamaskActive(isMetamaskActive);
     };
 
     const logoutAddress = (event, address) => {
-        let filtered = storageAddresses.filter(item => item.address !== address);
+        const filtered = storageAddresses.filter(item => item.address !== address);
 
         event.stopPropagation();
 
@@ -41,8 +43,8 @@ const LoginContextProvider = (props) => {
     };
 
     const updateAddressName = (address, newName) => {
-        let storageAddressesCache = [...storageAddresses];
-        let itemForUpdate = storageAddressesCache.find((item) => item.address === address);
+        const storageAddressesCache = [...storageAddresses];
+        const itemForUpdate = storageAddressesCache.find((item) => item.address === address);
 
         itemForUpdate.name = newName;
         setStorageAddresses(storageAddressesCache);
@@ -52,6 +54,7 @@ const LoginContextProvider = (props) => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
                 await connect(ethers.providers.Web3Provider, 'any');
+
                 return true;
             } catch (error) {
                 return false;
@@ -80,7 +83,7 @@ const LoginContextProvider = (props) => {
         }}>
             { props.children }
         </LoginContext.Provider>
-    )
-}
+    );
+};
 
 export default LoginContextProvider;

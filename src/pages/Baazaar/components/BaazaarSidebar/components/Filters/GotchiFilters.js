@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Grid, Checkbox, Chip, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import classNames from 'classnames';
 
@@ -14,19 +14,19 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
     const classes = styles();
     const [chips, setChips] = useState([]);
     const [fastSearch, setFastSearch] = useState(true);
-    const {filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats} = useContext(BaazaarContext);
+    const { filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats } = useContext(BaazaarContext);
 
     const getChips = () => {
-        let chipsList = [];
+        const chipsList = [];
 
-        for (let chip in stats) {
+        for (const chip in stats) {
             if (stats.hasOwnProperty(chip)) {
                 stats[chip].forEach((item, id) => {
                     chipsList.push({
                         name: chip,
                         value: item,
                         id
-                    })
+                    });
                 });
             }
         }
@@ -51,15 +51,11 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
     };
 
     useEffect(() => {
-        setChips(getChips())
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setChips(getChips());
     }, [stats]);
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [exactMatch]);
 
     return (
@@ -126,16 +122,16 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                                     item xs={12}
                                     className={classes.stackOfChipsOuter}
                                 >
-                                    <div className={classNames(classes.stackOfChips, "custom-scroll")}>
+                                    <div className={classNames(classes.stackOfChips, 'custom-scroll')}>
                                         {
                                             chips.map((item, id) => {
                                                 return <Chip
                                                     className={classes.singleChip}
                                                     key={id}
-                                                    label={item.name + ": " + item.value[0] + " <> " + item.value[1]}
+                                                    label={item.name + ': ' + item.value[0] + ' <> ' + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}
-                                                />
+                                                />;
                                             })
                                         }
                                     </div>

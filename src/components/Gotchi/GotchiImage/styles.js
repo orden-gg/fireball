@@ -17,7 +17,7 @@ const styles = makeStyles(theme => ({
         },
         '.horizontal &': {
             margin: '0 47px'
-        },
+        }
     },
     svgWrapper: {
         position: 'relative',
@@ -40,10 +40,10 @@ const styles = makeStyles(theme => ({
         },
         '&:hover': {
             '& .gotchi-wearable:not(.wearable-bg)': {
-                opacity: 0,
+                opacity: 0
             },
             '& .gotchi-sleeves': {
-                opacity: 0,
+                opacity: 0
             },
             '& .wearable-head': {
                 transform: 'translateY(-5px) rotateZ(-45deg)'
@@ -98,13 +98,13 @@ const styles = makeStyles(theme => ({
         position: 'absolute',
         bottom: 8,
         left: 8,
-        zIndex: 5,
+        zIndex: 5
     },
     guildAvatar: {
         width: 32,
         height: 32,
         border: '2px solid #fff'
-    },
+    }
 }));
 
 export default styles;

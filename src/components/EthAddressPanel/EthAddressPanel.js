@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CircularProgress, Link } from '@mui/material';
 
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ import EthAddress from 'components/EthAddress/EthAddress.js';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
-import styles from './styles.js'
+import styles from './styles.js';
 
 export default function EthAddressPanel({ address }) {
     const classes = styles();
@@ -39,28 +39,28 @@ export default function EthAddressPanel({ address }) {
                         ghstToken: true,
                         inner: [
                             { name: 'inventory', value: data.inventory_items_estimated_price },
-                            { name: 'equipped', value: data.gotchi_items_estimated_price },
+                            { name: 'equipped', value: data.gotchi_items_estimated_price }
                         ]
                     },
                     {
                         title: 'BRS',
                         total: data.gotchies_mbrs,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_mbrs },
+                            { name: 'average', value: data.gotchies_medium_mbrs }
                         ]
                     },
                     {
                         title: 'kinship',
                         total: data.gotchies_kinship,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_kinship },
+                            { name: 'average', value: data.gotchies_medium_kinship }
                         ]
                     },
                     {
                         title: 'xp',
                         total: data.gotchies_xp,
                         inner: [
-                            { name: 'average', value: data.gotchies_medium_xp },
+                            { name: 'average', value: data.gotchies_medium_xp }
                         ]
                     }
                 ];
@@ -84,7 +84,7 @@ export default function EthAddressPanel({ address }) {
 
     const formatNumber = (number) => {
         return commonUtils.convertFloatNumberToSuffixNumber(number);
-    }
+    };
 
     return (
         <div className={classes.container}>
@@ -136,7 +136,7 @@ export default function EthAddressPanel({ address }) {
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </div>;
                         })}
                     </div>
                 )

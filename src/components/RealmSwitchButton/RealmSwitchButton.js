@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
 import { Switch } from '@mui/material';
 
@@ -24,7 +23,7 @@ export default function RealmSwitchButton({ view }) {
             pathname: url,
             search: qs.stringify(params)
         });
-    }
+    };
 
     return (
         <CustomTooltip

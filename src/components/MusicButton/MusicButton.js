@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
@@ -11,14 +11,14 @@ export default function MusicButton() {
 
     useEffect(() => {
         audio.addEventListener('ended', () => audio.play()); // autoplay on end
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        playing ? audio.play() : audio.pause();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        if (playing) {
+            audio.play();
+        } else {
+            audio.pause();
+        }
     }, [playing]);
 
     return (

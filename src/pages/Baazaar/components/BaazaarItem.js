@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Box, Button, Link, Typography } from '@mui/material';
 
 import classNames from 'classnames';

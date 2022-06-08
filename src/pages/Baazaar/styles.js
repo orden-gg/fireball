@@ -16,9 +16,9 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const baazaarBodyStyles = makeStyles(theme => ({
+const baazaarBodyStyles = makeStyles(() => ({
     baazaarBody: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     pagination: {
         display: 'flex',
@@ -143,12 +143,12 @@ const baazaarItemStyles = makeStyles(theme => ({
         letterSpacing: '.8px',
         background: alpha(theme.palette.customColors.lightGray, .24),
         '&:hover': {
-            background: alpha(theme.palette.customColors.lightGray, .14),
+            background: alpha(theme.palette.customColors.lightGray, .14)
         }
     }
 }));
 
-const paginationStyles = makeStyles(theme => ({
+const paginationStyles = makeStyles(() => ({
     wrap: {
         display: 'flex',
         marginTop: 20
@@ -164,7 +164,7 @@ const paginationStyles = makeStyles(theme => ({
     }
 }));
 
-const baazaarSortingBodyStyles = makeStyles(theme => ({
+const baazaarSortingBodyStyles = makeStyles(() => ({
     baazaarBody: {
         flexGrow: 1,
         position: 'relative'
@@ -229,7 +229,7 @@ const baazaarSortingBodyStyles = makeStyles(theme => ({
         '& .carousel-status': {
             top: -17
         }
-    },
+    }
 }));
 
 export {
@@ -238,4 +238,4 @@ export {
     baazaarItemStyles,
     paginationStyles,
     baazaarSortingBodyStyles
-}
+};

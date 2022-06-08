@@ -20,4 +20,4 @@ export default {
     getParcelInfo(parcels, ids) {
         return realmContract.getParcelsAccessRights(parcels, ids);
     }
-}
+};

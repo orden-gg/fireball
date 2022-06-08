@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { useRouteMatch, useLocation } from 'react-router';
 

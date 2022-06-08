@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Grid, FormControl, InputLabel, MenuItem, Select, TextField, ToggleButton, Tooltip, ToggleButtonGroup, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -48,7 +48,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
             setSelectedLocalGoods([]);
             setSelectedListingType(value);
         }
-    }
+    };
 
     const onSortByChange = (event, value) => {
         setSortingOrder(value);

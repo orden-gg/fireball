@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -7,24 +7,24 @@ import thegraph from 'api/thegraph.api';
 
 import styles from './styles';
 
-let regex = /<style>(.*?)<\/style>/g;
-let regexClass = /\.(.*?)\}/g;
+const regex = /<style>(.*?)<\/style>/g;
+const regexClass = /\.(.*?)\}/g;
 
 export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
     const classes = styles();
     const svgRef = useRef(null);
     const [loadingSvg, setLoadingSvg] = useState(true);
-    let svgInner = document.createElement('div');
+    const svgInner = document.createElement('div');
 
     useEffect(() => {
-        let controller = new AbortController();
+        const controller = new AbortController();
 
         setLoadingSvg(true);
 
         thegraph.getGotchiSvgById(id)
-            .then((response)=> {
+            .then((response) => {
                 if (!controller.signal.aborted) {
-                    let svgString = response.data.aavegotchis[0].svg;
+                    const svgString = response.data.aavegotchis[0].svg;
                     let svgUniqueStyles = svgString.match(regex).map((val) => {
                         return val.replace(/<\/?style>/g,'');
                     });
@@ -44,8 +44,6 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
             });
 
         return () => controller?.abort(); // cleanup on destroy
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     return (

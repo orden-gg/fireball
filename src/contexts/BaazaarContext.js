@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { listingTypes } from 'data/types';
 
@@ -20,7 +20,7 @@ const BaazaarContextProvider = (props) => {
         timeDESC: 'timeCreated-desc',
         timeASC: 'timeCreated-asc'
     });
-    const [districtFilter, setDistrictFilter] = useState(0)
+    const [districtFilter, setDistrictFilter] = useState(0);
     const [sizeFilter, setSizeFilter] = useState('4');
     const [alphaFilter, setAlphaFilter] = useState('');
     const [kekFilter, setKekFilter] = useState('');
@@ -43,7 +43,7 @@ const BaazaarContextProvider = (props) => {
     const [stats, setStats] = useState(defaultTraits);
     const [collateral, setCollateral] = useState('all');
 
-    const addStat = (stat) => {
+    const addStat = () => {
         setStats({
             ...stats,
             [selectedTraits]: [...stats[selectedTraits], sliderRange]
@@ -58,7 +58,7 @@ const BaazaarContextProvider = (props) => {
     };
 
     const removeStat = (stat) => {
-        let oldStats = [...stats[stat.name]];
+        const oldStats = [...stats[stat.name]];
 
         oldStats.splice(stat.id, 1);
 
@@ -125,7 +125,7 @@ const BaazaarContextProvider = (props) => {
         }}>
             { props.children }
         </BaazaarContext.Provider>
-    )
-}
+    );
+};
 
 export default BaazaarContextProvider;

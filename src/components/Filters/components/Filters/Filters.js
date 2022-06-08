@@ -1,4 +1,3 @@
-import React from 'react';
 import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
@@ -67,7 +66,7 @@ export default function Filters({ filters, onSetSelectedFilters, className }) {
                 </div>
             );
         });
-    }
+    };
 
     return (
         <div className={classNames(classes.wrapper, className)}>

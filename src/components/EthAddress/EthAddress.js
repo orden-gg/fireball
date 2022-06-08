@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconButton, Link } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
 
@@ -9,7 +8,7 @@ import CopyToClipboard from 'components/CopyToClipboard/CopyToClipboard.js';
 import ethersApi from 'api/ethers.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
-import styles from './styles.js'
+import styles from './styles.js';
 
 export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton }) {
     const classes = styles();

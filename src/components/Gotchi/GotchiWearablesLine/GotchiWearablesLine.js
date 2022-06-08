@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tooltip, useTheme } from '@mui/material';
 import classNames from 'classnames';
 
@@ -27,9 +26,9 @@ export default function GotchiWearablesLine({ gotchi }) {
                 ) : null
             }
             {
-                wearableSlots.map((name, index)=> {
-                    let wearable = wearables[index];
-                    let rarityColor = itemUtils.getItemRarityById(wearable);
+                wearableSlots.map((name, index) => {
+                    const wearable = wearables[index];
+                    const rarityColor = itemUtils.getItemRarityById(wearable);
 
                     return (
                         <Tooltip
@@ -56,7 +55,7 @@ export default function GotchiWearablesLine({ gotchi }) {
                                 key={index}
                             ></div>
                         </Tooltip>
-                    )
+                    );
                 })
             }
         </div>

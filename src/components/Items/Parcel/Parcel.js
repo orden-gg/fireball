@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -89,7 +89,7 @@ export default function Parcel({ parcel }) {
                             </div>
                         ) : (
                             null
-                        )
+                        );
                     })}
                 </div>
 
@@ -113,5 +113,5 @@ export default function Parcel({ parcel }) {
                 <ParcelPreview parcel={parcel} />
             </CustomModal>
         </>
-    )
+    );
 }

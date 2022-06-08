@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Slider, TextField } from '@mui/material';
 
 import styles from './styles';
@@ -19,7 +19,7 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
 
     const onSliderChange = (value) => {
         setCurrentValue(value);
-    }
+    };
 
     const onMinInputChange = useCallback(value => {
         setMinValue(value);
@@ -49,11 +49,11 @@ export default function RangeSliderFilter({ option, onSetSelectedFilters }) {
 
     const updateMinValue = (value) => {
         setMinValue(value);
-    }
+    };
 
     const updateMaxValue = (value) => {
         setMinValue(value);
-    }
+    };
 
     const onSliderChangeCommited = useCallback(value => {
         updateMinValue(value[0]);

@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
 import ethersApi from 'api/ethers.api';
 import collaterals from 'data/collaterals';
-import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data'
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data';
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
@@ -84,12 +84,13 @@ export const filtersData = {
                 <Chip
                     size='small'
                     label={option.title}
+                    key={option.title}
                     avatar={
                         <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
                     }
                     {...getTagProps({ index })}
                 />
-            ))
+            ));
         },
         ...defaultMultiSelectionFilter
     },
@@ -197,9 +198,10 @@ export const filtersData = {
                 <Chip
                     size='small'
                     label={option.title}
+                    key={option.title}
                     {...getTagProps({ index })}
                 />
-            ))
+            ));
         },
         ...defaultMultiSelectionFilter
     },
@@ -215,7 +217,7 @@ export const filtersData = {
         predicateFn: (filter, compareItem, key) => {
             let predicate;
 
-            if (!filter.value || !Boolean(compareItem[key])) {
+            if (!filter.value || !compareItem[key]) {
                 predicate = true;
             } else {
                 predicate = DateTime.local().toSeconds() >= compareItem[key];
@@ -302,9 +304,9 @@ export const filtersData = {
                 value: '9',
                 isSelected: false,
                 queryParamValue: '9'
-            },
+            }
         ],
         componentType: FilterComponent.MultiButtonSelection,
         ...defaultMultiSelectionFilter
-    },
+    }
 };

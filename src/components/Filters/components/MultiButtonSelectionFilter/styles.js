@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     wrapper: {
         display: 'flex',
         flexDirection: 'column',
@@ -26,11 +26,11 @@ const styles = makeStyles(theme => ({
         '&.selected': {
             background: alpha('#000', .4),
             '&:hover': {
-                background: alpha('#000', .3),
+                background: alpha('#000', .3)
             }
         },
         '&:hover': {
-            background: alpha('#000', .15),
+            background: alpha('#000', .15)
         }
     }
 }));

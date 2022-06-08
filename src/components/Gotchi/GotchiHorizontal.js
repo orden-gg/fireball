@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
@@ -10,7 +9,7 @@ import GotchiImage from './GotchiImage/GotchiImage';
 
 import styles from './styles';
 
-export default function GotchiHorizontal({ gotchi, item, title, className, renderSvgByStats, render }) {
+export default function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, render }) {
     const classes = styles();
 
     const gotchiSections = {
@@ -35,7 +34,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
                 <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
                     {children}
                 </div>
-            )
+            );
         },
 
         priceCell(children) {
@@ -64,7 +63,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
                     size={25}
                     key={`${gotchi.id}-level`}
                 />
-            )
+            );
         },
 
         get traits() {
@@ -74,7 +73,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
                     currentTraits={gotchi.modifiedNumericTraits}
                     key={`${gotchi.id}-numericTraits`}
                 />
-            )
+            );
         },
 
         get name() {
@@ -100,9 +99,9 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
         get price() {
             return (
                 <HorizontalPrice item={item} key={`${gotchi.id}-gotchi-price`} label='Sold for' />
-            )
+            );
         }
-    }
+    };
 
     function renderSection(value) {
         if (typeof value === 'string') {
@@ -115,7 +114,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
                     renderSection(item)
                 )))
             ))
-        )
+        );
     }
 
     return (
@@ -128,7 +127,7 @@ export default function GotchiHorizontal({ gotchi, item, title, className, rende
             )}
         >
             {render.map(name => {
-                return renderSection(name)
+                return renderSection(name);
             })}
         </div>
     );

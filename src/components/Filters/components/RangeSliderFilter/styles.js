@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     wrapper: {
         background: alpha('#000', .15),
         padding: 8,
@@ -27,12 +27,12 @@ const styles = makeStyles(theme => ({
         },
         '& input[type=number]': {
             MozAppearance: 'textfield'
-        },
+        }
     },
     title: {
         textAlign: 'center',
-        fontWeight: 500,
-    },
+        fontWeight: 500
+    }
 }));
 
 export default styles;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import classNames from 'classnames';
 import { Typography } from '@mui/material';
 
@@ -48,10 +48,10 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                         ]
                     }
                 />
-            )
+            );
         }
 
-    }
+    };
 
     return (
         <div className={classes.baazaarBody}>
@@ -128,7 +128,7 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                                 {/*{*/}
                                 {/*    (item.__typename === 'ERC721Listing' && item.category === '4') && <Parcel parcel={{...item.parcel, priceInWei: item.priceInWei, tokenId: item.tokenId, baazaarId: item.id}} isBaazaarCard={true}/>*/}
                                 {/*}*/}
-                            </div>
+                            </div>;
                         } else {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
@@ -156,11 +156,11 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
                                                     priceInWei: item.priceInWei,
                                                     __typename: 'ERC721Listing'
                                                 }],
-                                                historicalPrices: Boolean(item.parcel.historicalPrices) ? item.parcel.historicalPrices : []
+                                                historicalPrices: item.parcel.historicalPrices ? item.parcel.historicalPrices : []
                                             }}
                                         />
                                 }
-                            </div>
+                            </div>;
                         }
                     })
                 }

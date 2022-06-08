@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { CircularProgress, IconButton, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import queryString from 'query-string'
+import queryString from 'query-string';
 
 import {
     BaazarIcon,
@@ -86,13 +86,12 @@ export default function Shop() {
                 }
             }).finally(() => {
                 if (mounted) {
-                    setIsListingsLoading(false)
+                    setIsListingsLoading(false);
                 }
             });
 
             return () => mounted = false;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentAddress]);
 
     const setEmptyListings = () => {
@@ -102,13 +101,13 @@ export default function Shop() {
         setWearables([]);
         setTickets([]);
         setConsumables([]);
-    }
+    };
 
     const handleSetErc721Listings = (listings) => {
         const listedGotchis = listings
             .filter(listing => listing.category === Erc721Categories.Aavegotchi)
             .map(listing => listing.gotchi);
-        const sortedGotchis = commonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc')
+        const sortedGotchis = commonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
 
         const listedParcels = listings
             .filter(listing => listing.category === Erc1155Categories.Realm)
@@ -116,7 +115,7 @@ export default function Shop() {
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,
                 baazaarId: listing.id,
-                historicalPrices: Boolean(listing.parcel.historicalPrices) ? listing.parcel.historicalPrices : [],
+                historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
                 listings: [{
                     id: listing.id,
                     priceInWei: listing.priceInWei
@@ -133,7 +132,7 @@ export default function Shop() {
                 portal: {
                     hauntId: listing.portal.hauntId
                 },
-                historicalPrices: Boolean(listing.portal.historicalPrices) ? listing.portal.historicalPrices : [],
+                historicalPrices: listing.portal.historicalPrices ? listing.portal.historicalPrices : [],
                 listings: [{
                     id: listing.tokenId,
                     priceInWei: listing.priceInWei
@@ -144,7 +143,7 @@ export default function Shop() {
         setGotchis(sortedGotchis);
         setParcels(sortedParcels);
         setPortals(sortedPortals);
-    }
+    };
 
     const handleSetErc1155Listings = (listings) => {
         const listedWearables = listings
@@ -158,7 +157,7 @@ export default function Shop() {
             .filter(listing => listing.category === Erc1155Categories.Ticket)
             .map(listing => ({
                 ...mapWearableAndTicket(listing),
-                erc1155TypeId: listing.erc1155TypeId,
+                erc1155TypeId: listing.erc1155TypeId
             }));
         const sortedTickets = commonUtils.basicSort(listedTickets, 'rarityId', 'desc');
 
@@ -174,7 +173,7 @@ export default function Shop() {
         setWearables(sortedWearables);
         setTickets(sortedTickets);
         setConsumables(listedConsumables);
-    }
+    };
 
     const mapWearableAndTicket = (listing) => {
         return {
@@ -186,8 +185,8 @@ export default function Shop() {
             rarityId: listing.rarityLevel,
             priceInWei: listing.priceInWei,
             price: ethersApi.fromWei(listing.priceInWei)
-        }
-    }
+        };
+    };
 
     const onAddressChange = (address) => {
         setCurrentAddress(address);
@@ -195,7 +194,7 @@ export default function Shop() {
         if (ethersApi.isEthAddress(address)) {
             history.push({ path: location.pathname, search: `?address=${address}` });
         }
-    }
+    };
 
     const loaderRender = () => {
         if (isListingsLoading) {
@@ -207,7 +206,7 @@ export default function Shop() {
         } else if (isListingsEmpty && ethersApi.isEthAddress(currentAddress)) {
             return <Typography className={classes.noListings} variant='caption'>No listings here :(</Typography>;
         }
-    }
+    };
 
     return (
         <div className={classes.container}>

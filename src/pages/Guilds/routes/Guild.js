@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
 import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
@@ -33,11 +33,9 @@ export default function Guild() {
 
         if (guildId === undefined || guilds[guildId].members?.length === 0) {
             return history.push('/guilds');
-        };
+        }
 
         setGuildId(guildId);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -68,5 +66,5 @@ export default function Guild() {
                 </Box>
             </Box>
         </>
-    )
+    );
 }

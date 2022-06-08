@@ -1,4 +1,3 @@
-import React from 'react';
 import { Avatar } from '@mui/material';
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
 
@@ -56,5 +55,5 @@ export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
                 </div>
             }
         </div>
-    )
+    );
 }

@@ -34,7 +34,7 @@ const styles = makeStyles(theme => ({
         backgroundColor: alpha(theme.palette.primary.main, .2),
         fontSize: 12,
         textShadow: `1px 1px 0 ${alpha(theme.palette.secondary.main, .8)}`
-    },
+    }
 }));
 
 export default styles;

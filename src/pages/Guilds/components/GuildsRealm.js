@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -18,6 +18,7 @@ export default function GuildRealm() {
 
         groups.push({
             parcels: guildRealm,
+            /* eslint-disable-next-line react/jsx-key */
             icons: [<VisibilityOffIcon />, <VisibilityIcon />],
             tooltip: 'Owner realm',
             type: 'owner',
@@ -51,5 +52,5 @@ export default function GuildRealm() {
             realmGroups={realmGroups}
             isLoaded={isLoaded}
         />
-    )
+    );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
@@ -29,5 +29,5 @@ export default function ActionPane({ children, dataLoading, className, width }) 
                 <KeyboardArrowLeftIcon />
             </Button>
         </div>
-    )
+    );
 }

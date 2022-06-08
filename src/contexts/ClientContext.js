@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
@@ -103,17 +103,17 @@ const ClientContextProvider = (props) => {
     const getGotchis = (address) => {
         setLoadingGotchis(true);
 
-        thegraph.getGotchisByAddress(address).then((response)=> {
+        thegraph.getGotchisByAddress(address).then((response) => {
             const wearables = [];
             const { type: gSortType, dir: gSortDir } = gotchisSorting;
             const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
             response.forEach((item) => {
-                let equipped = item.equippedWearables.filter((item) => item > 0);
+                const equipped = item.equippedWearables.filter((item) => item > 0);
 
-                for(let wearable of equipped) {
-                    let index = wearables.findIndex(item => item.id === wearable);
+                for (const wearable of equipped) {
+                    const index = wearables.findIndex(item => item.id === wearable);
 
                     if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
 
@@ -135,11 +135,12 @@ const ClientContextProvider = (props) => {
 
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...wearables].reduce((items, current) => {
-                    let duplicated = items.find(item => item.id === current.id);
+                    const duplicated = items.find(item => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
+
                         return items;
                     }
 
@@ -174,8 +175,8 @@ const ClientContextProvider = (props) => {
                         lendings[i].alpha = balance.ALPHAAmount;
                         lendings[i].kek = balance.KEKAmount;
                         lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount)
-                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period)
+                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount);
+                        lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period);
                     });
 
                     setLendings(commonUtils.basicSort(lendings, type, dir));
@@ -183,7 +184,7 @@ const ClientContextProvider = (props) => {
                 });
             }
         );
-    }
+    };
 
     const getInventory = (address) => {
         setLoadingWarehouse(true);
@@ -204,11 +205,12 @@ const ClientContextProvider = (props) => {
 
             setWarehouse((existing) => commonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
-                    let duplicated = items.find(item => item.id === current.id);
+                    const duplicated = items.find(item => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
                         duplicated.holders = current.holders;
+
                         return items;
                     }
 
@@ -235,7 +237,7 @@ const ClientContextProvider = (props) => {
                     name: installationsUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
-                }
+                };
             });
 
             setInstallations(installations);
@@ -255,7 +257,7 @@ const ClientContextProvider = (props) => {
                     name: tilesUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
-                }
+                };
             });
 
             setTiles(tiles);
@@ -303,25 +305,25 @@ const ClientContextProvider = (props) => {
         setRewardCalculating(true);
 
         thegraph.getAllGotchies().then((response) => {
-            let brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
-            let kinLeaders = commonUtils.basicSort(response, 'kinship');
-            let expLeaders = commonUtils.basicSort(response, 'experience');
+            const brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
+            const kinLeaders = commonUtils.basicSort(response, 'kinship');
+            const expLeaders = commonUtils.basicSort(response, 'experience');
 
-            gotchis.forEach((item, index)=>{
-                let BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
-                let KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
-                let EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
+            gotchis.forEach((item, index) => {
+                const BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
+                const KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
+                const EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
 
                 gotchis[index] = {
                     ...item,
                     reward: BRS.reward + KIN.reward + EXP.reward,
                     rewardStats: [BRS, KIN, EXP]
-                }
+                };
             });
 
             setReward(gotchis.reduce((prev, next) => prev + next.reward, 0));
             setRewardCalculating(false);
-            setRewardCalculated(true)
+            setRewardCalculated(true);
         });
     };
 
@@ -369,11 +371,11 @@ const ClientContextProvider = (props) => {
             calculateReward,
 
             navData,
-            getClientData,
+            getClientData
         }}>
             { props.children }
         </ClientContext.Provider>
-    )
-}
+    );
+};
 
 export default ClientContextProvider;

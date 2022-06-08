@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import { DateTime, Duration } from 'luxon';
@@ -14,8 +14,6 @@ export default function RaffleDate({ start, end }) {
 
     useEffect(() => {
         renderTitle();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useInterval(() => {
@@ -28,7 +26,7 @@ export default function RaffleDate({ start, end }) {
 
         if (local > start && local < end) {
             setType('live');
-            setTitle(`live for ${Duration.fromObject({milliseconds: diff}).toFormat('hh:mm:ss')}`);
+            setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
         } else if (local < start) {
             setType('upcoming');
             setTitle(start.toRelative());

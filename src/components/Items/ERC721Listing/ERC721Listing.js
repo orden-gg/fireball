@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, Tooltip } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -18,7 +17,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
 
     if (!listings?.length && !historicalPrices?.length) {
         return null;
-    };
+    }
 
     const currentPrice = listings?.length && ethersApi.fromWei(listings[0].priceInWei);
     const lastPrice = historicalPrices?.length && ethersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
@@ -36,7 +35,7 @@ export default function ERC721Listing({ listings, historicalPrices }) {
                                         {commonUtils.formatPrice(ethersApi.fromWei(price))}
                                         <GhstTokenIcon className={classes.token} width={12} height={12} />
                                         {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
-                                    </p>
+                                    </p>;
                                 })}
                             </div>
                         </>

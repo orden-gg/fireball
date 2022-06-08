@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Backdrop, Typography } from '@mui/material';
 
 import classNames from 'classnames';
@@ -32,15 +32,13 @@ export default function LoginButton() {
         if (metaState.isAvailable) {
             (async () => {
                 try {
-                    let account = await getAccounts();
+                    const account = await getAccounts();
                     if (account.length) connectMetamask();
                 } catch (error) {
                     console.log(error);
                 }
             })();
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => { // handle metamask accounts
@@ -51,8 +49,6 @@ export default function LoginButton() {
         } else if (isMetamaskActive) { // on metamask logout
             selectActiveAddress(storageAddresses.length ? storageAddresses[0].address : '');
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     const dropdownClose = () => {
@@ -110,7 +106,7 @@ export default function LoginButton() {
                         <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
                                 <div className={classes.loginAddressBox}>
-                                    <LoginAddress address={{name: 'Metamask', address: metaState.account[0]}} isMetamask={true} setDropdownOpen={setDropdownOpen} />
+                                    <LoginAddress address={{ name: 'Metamask', address: metaState.account[0] }} isMetamask={true} setDropdownOpen={setDropdownOpen} />
                                 </div>
                             ) : (
                                 null
@@ -118,7 +114,7 @@ export default function LoginButton() {
 
                             {storageAddresses.length ? (
                                 storageAddresses.map((item, index) => {
-                                    return <LoginAddress address={item} key={index} setDropdownOpen={setDropdownOpen} />
+                                    return <LoginAddress address={item} key={index} setDropdownOpen={setDropdownOpen} />;
                                 })
                             ) : (
                                 null

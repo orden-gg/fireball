@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -21,7 +21,7 @@ export default function RaffleCountdown({ start, end }) {
             liveLabel: true
         },
         {
-            text: `Raffle ended`
+            text: 'Raffle ended'
         }
     ];
 

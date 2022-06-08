@@ -12,7 +12,7 @@ const styles = makeStyles(theme => ({
             background: theme.palette.rarity.mythical,
             color: '#000'
         }
-    },
+    }
 }));
 
 export default styles;

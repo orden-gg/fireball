@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 import styles from './styles';
@@ -21,5 +20,5 @@ export default function Subtitle({ children, margin, variant, innerBg }) {
                 </Typography>
             </Box>
         </Box>
-    )
+    );
 }

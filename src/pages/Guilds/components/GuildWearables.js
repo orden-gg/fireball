@@ -12,10 +12,10 @@ export default function GuildWearables({ tooltip, wearables, className }) {
     const renderWearableImage = (id) => (
         <WearableImage
             className={classNames(classes.guildWearable, className || null)}
-            wearable={{id: id}}
+            wearable={{ id: id }}
             key={id}
         />
-    )
+    );
 
     return (
         wearables.map(id =>

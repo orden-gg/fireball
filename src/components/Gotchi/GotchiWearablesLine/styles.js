@@ -35,7 +35,7 @@ const styles = makeStyles(theme => ({
         display: 'inline-flex',
         position: 'relative',
         backgroundColor: alpha(theme.palette.primary.main, .1),
-        borderRadius: '50%',
+        borderRadius: '50%'
     },
     gotchiSetName: {
         position: 'absolute',
@@ -46,7 +46,7 @@ const styles = makeStyles(theme => ({
         color: '#F7EC13',
         textTransform: 'uppercase',
         fontSize: 12
-    },
+    }
 }));
 
 export default styles;

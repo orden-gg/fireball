@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { BaazaarContext } from 'contexts/BaazaarContext';
@@ -55,7 +55,7 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
         const cachedRange = [...sliderRange];
 
         if (isNaN(newValue)) {
-            cachedRange[indexInRange] = 0
+            cachedRange[indexInRange] = 0;
         } else {
             cachedRange[indexInRange] = newValue;
         }
@@ -76,8 +76,6 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
 
     useEffect(() => {
         runInstantFiltering();
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [collateral, stats]);
 
     return (
@@ -99,7 +97,7 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
                             collaterals.map((coll, index) => {
                                 return <MenuItem key={index} value={coll.address}>
                                     {coll.name}
-                                </MenuItem>
+                                </MenuItem>;
                             })
                         }
                     </Select>

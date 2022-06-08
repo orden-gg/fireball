@@ -5,15 +5,15 @@ import tokens from 'data/tokens';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     calculateRewards(position, type) {
-        const BRSformula = {y: 0.94, k: 84857.04};
-        const KINformula = {y: 0.76, k: 9416.93};
-        const EXPformula = {y: 0.65, k: 2396.69};
+        const BRSformula = { y: 0.94, k: 84857.04 };
+        const KINformula = { y: 0.76, k: 9416.93 };
+        const EXPformula = { y: 0.65, k: 2396.69 };
 
         if (position > 7500 || position === -1) {
-            return {reward: 0};
+            return { reward: 0 };
         }
 
-        switch(type) {
+        switch (type) {
             case 'BRS':
                 return {
                     name: type,
@@ -33,7 +33,7 @@ export default {
                     reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
                 };
             default:
-                return {reward: 0};
+                return { reward: 0 };
         }
     },
 
@@ -47,7 +47,7 @@ export default {
         try {
             return require(`../assets/images/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -61,7 +61,7 @@ export default {
         try {
             return require(`../assets/images/tokens/${name}-token.svg`).default;
         } catch (error) {
-            return require(`../assets/images/image-placeholder.svg`).default;
+            return require('../assets/images/image-placeholder.svg').default;
         }
     },
 
@@ -80,4 +80,4 @@ export default {
     isExistingSetId(id) {
         return id <= sets.length;
     }
-}
+};

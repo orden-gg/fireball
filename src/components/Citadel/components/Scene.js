@@ -24,7 +24,7 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.selectedParcel = null;
 
-            this.settings = {}
+            this.settings = {};
             this.districts = {};
             this.groups = {};
             this.filters = {};
@@ -66,12 +66,12 @@ export default class CitadelScene extends Phaser.Scene {
                 fomo: this.add.image(0, 0, 'fomo'),
                 alpha: this.add.image(0, 0, 'alpha'),
                 kek: this.add.image(0, 0, 'kek')
-            }
+            };
 
-            this.districtHighLight = new Highlight(this, {color: COLORS.district.hover, size: 1});
-            this.selected = new Highlight(this, {color: COLORS.parcels.selected, size: 2});
+            this.districtHighLight = new Highlight(this, { color: COLORS.district.hover, size: 1 });
+            this.selected = new Highlight(this, { color: COLORS.parcels.selected, size: 2 });
 
-            for(const key in parcelsData) {
+            for (const key in parcelsData) {
                 this.districts[key] = new CreateParcels(this, {
                     parcels: parcelsData[key],
                     type: 'district',
@@ -131,6 +131,7 @@ export default class CitadelScene extends Phaser.Scene {
                 }
             });
 
+            /* eslint-disable-next-line no-unused-vars */
             this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
                 const camera = this.cameras.main;
 
@@ -242,7 +243,7 @@ export default class CitadelScene extends Phaser.Scene {
             this.reOrderItems();
 
             setTimeout(() => {
-                let { cx, cy } = this.calculateParcelCenter(parcel);
+                const { cx, cy } = this.calculateParcelCenter(parcel);
                 this.moveToCenter(cx, cy, 500);
 
                 setTimeout(() => {
@@ -418,7 +419,7 @@ export default class CitadelScene extends Phaser.Scene {
             return {
                 cx: centerX - x - w / 2,
                 cy: centerY - y - h / 2
-            }
+            };
         }
 
         setMultiselect(ids) {
@@ -426,11 +427,11 @@ export default class CitadelScene extends Phaser.Scene {
                 .map(id => citadelUtils.getParcelByTypeAndValue('tokenId', id))
                 .filter(parcel => parcel !== undefined);
 
-            if(parcels.length === 0) {
+            if (parcels.length === 0) {
                 return;
-            };
+            }
 
-            for(const parcel of parcels) {
+            for (const parcel of parcels) {
                 this.multiselect.toggleParcel(parcel);
             }
 
@@ -463,7 +464,7 @@ export default class CitadelScene extends Phaser.Scene {
             return {
                 cx: pointer.worldX-this.citadel.x,
                 cy: pointer.worldY-this.citadel.y
-            }
+            };
         }
 
         getCameraZoom(deltaY) {
@@ -501,5 +502,5 @@ export default class CitadelScene extends Phaser.Scene {
             for (let i = 0; i < handlers.length; i++) {
                 handlers[i].apply(this, [].slice.call(arguments, 1));
             }
-        };
+        }
     }

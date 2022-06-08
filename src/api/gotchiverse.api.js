@@ -1,4 +1,4 @@
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'axios-cache-adapter';
 
 const api = setup({
     baseURL: 'https://api.gotchiverse.io',
@@ -25,5 +25,5 @@ export default {
         return api.get(`/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${id},${imageSize}`, disableCache && noCacheOptions)
             .then(res => res.data)
             .catch(e => console.log(e));
-    },
-}
+    }
+};

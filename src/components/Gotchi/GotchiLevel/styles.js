@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles(() => ({
     gotchiLvl: {
         display: 'inline-flex',
         position: 'relative',
@@ -19,10 +19,10 @@ const styles = makeStyles(theme => ({
         justifyContent: 'center',
         inset: 0,
         fontSize: 13,
-        fontWeight: 500,
+        fontWeight: 500
     },
     gotchiLvlProggress: {
-        color: '#FF1CFF',
+        color: '#FF1CFF'
     }
 }));
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { RaffleContext } from 'contexts/RaffleContext';
@@ -33,14 +33,10 @@ export default function RaffleContent({ user }) {
 
             getRaffleData(currentRaffle.id, ticketsPreset);
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name]);
 
     useEffect(() => {
         if (!raffleSpinner) onAddressChange(user, raffle.id);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, raffleSpinner]);
 
     if (!raffle) return null;

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import alchemicaApi from 'api/alchemica.api';
@@ -57,12 +57,13 @@ const BalancesContextProvider = (props) => {
     const fetchInterval = 120; // seconds
 
     useEffect(() => {
+        let getBalances;
         if (activeAddress) {
             let mounted = true;
 
             setIsBalancesLoading(true);
 
-            async function getBalances() {
+            getBalances = async function () {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
                 const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await Promise.all([
                     alchemicaApi.getFudBalance(activeAddress),
@@ -136,14 +137,14 @@ const BalancesContextProvider = (props) => {
                         pricePerToken: ghstPrice.toFixed(2),
                         balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
                         swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
-                    },
+                    }
                 ];
 
                 if (mounted) {
                     setTokens(tokens);
                     setIsBalancesLoading(false);
                 }
-            }
+            };
 
             getBalances();
 
@@ -155,7 +156,7 @@ const BalancesContextProvider = (props) => {
                 mounted = false;
 
                 clearInterval(interval);
-            }
+            };
         }
     }, [activeAddress]);
 
@@ -170,7 +171,7 @@ const BalancesContextProvider = (props) => {
         const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
         return [ghst, ghstPriceToToken];
-    }
+    };
 
     const getTokenPrice = async (ghst, ghstPrice, token) => {
         const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
@@ -179,11 +180,11 @@ const BalancesContextProvider = (props) => {
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
         return tokenPrice;
-    }
+    };
 
     const generateSwapUrl = (inputToken, outputToken) => {
         return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
-    }
+    };
 
     return (
         <BalancesContext.Provider value={{
@@ -192,7 +193,7 @@ const BalancesContextProvider = (props) => {
         }}>
             { props.children }
         </BalancesContext.Provider>
-    )
-}
+    );
+};
 
 export default BalancesContextProvider;
