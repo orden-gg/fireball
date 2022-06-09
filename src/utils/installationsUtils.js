@@ -1,5 +1,4 @@
 import { ethers } from 'ethers';
-// import { installations } from 'data/installations';
 import installations from 'data/installations.json';
 import { InstallationTypes } from 'data/types';
 
