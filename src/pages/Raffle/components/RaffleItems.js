@@ -4,6 +4,8 @@ import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
 import RealmGeneric from 'components/Items/Parcel/RealmGeneric';
 import PortalGeneric from 'components/Items/Portal/PortalGeneric';
 import Wearable from 'components/Items/Wearable/Wearable';
+import Installation from 'components/Items/Installation/Installation';
+import installationsUtils from 'utils/installationsUtils';
 
 import { itemsStyles } from '../styles';
 
@@ -61,6 +63,20 @@ export default function RaffleItems({ tickets, type }) {
                         quantity:item.quantity
                     }}
                 ></Wearable>;
+            case 'installations':
+                return <Installation
+                    installation={{
+                        id: item.id,
+                        balance: item.quantity,
+                        category: 0,
+                        name: installationsUtils.getNameById(item.id)
+                    }}
+                    raffleChances={{
+                        chance: item.chance,
+                        won: item.won,
+                        quantity:item.quantity
+                    }}
+                ></Installation>;
             default:
                 return null;
         }

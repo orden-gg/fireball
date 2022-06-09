@@ -1,29 +1,42 @@
 
 import { Erc1155Categories } from 'data/types';
 
-import CardName from '../common/CardName/CardName';
-import ERC1155 from '../ERC1155/ERC1155';
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 
 import InstallationImage from './InstallationImage';
+import CardName from '../common/CardName/CardName';
+import ERC1155 from '../ERC1155/ERC1155';
+import { installationStyles } from '../styles';
 
-export default function Installation({ data }) {
+export default function Installation({ installation, raffleChances }) {
+    const classes = installationStyles();
 
     return (
         <ERC1155
             className= 'installation'
             item={{
-                id: data.id,
+                id: installation.id,
                 rarity: 'golden',
                 category: Erc1155Categories.Realm,
-                balance: data.balance
+                balance: installation.balance
             }}
         >
-            <InstallationImage data={data} />
+            {console.log('installation', installation)}
+            <InstallationImage data={installation} />
             <CardName
-                item={data}
-                itemName={data.name}
+                item={installation}
+                itemName={installation.name}
                 itemRarity='golden'
             />
+            { installation.level > 1 && (
+                <div className={classes.level}>
+                    level {installation.level}
+                </div>
+            )}
+
+            { raffleChances && (
+                <RaffleItemChance stats={raffleChances} />
+            )}
         </ERC1155>
     );
 }

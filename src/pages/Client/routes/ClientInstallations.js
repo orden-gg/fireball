@@ -23,7 +23,7 @@ export default function ClientInstallations() {
                         if (props.type === 'tile') {
                             return <Tile data={props} />;
                         } else {
-                            return <Installation data={props} />;
+                            return <Installation installation={props} />;
                         }
                     }}
                 />

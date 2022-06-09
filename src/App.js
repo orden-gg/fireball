@@ -83,7 +83,7 @@ export default function App() {
                                     <Route path={'/guilds'} component={ Guilds } />
                                     <Route path={'/client'} component={ Client } />
                                     <Route path={'/parcel/:parcelId'} component={ ParcelPage } />
-                                    <Route path={'/raffle-calculator'} component={ Raffle } />
+                                    <Route path={'/raffles'} component={ Raffle } />
                                     <Route path={'/shop'} component={ Shop } />
                                     <Route path={'/map'} component={ Map } />
                                     <Route exact path={'/404'} component={ NotFound } />

@@ -53,7 +53,7 @@ export default function Raffle() {
             <Helmet>
                 <title>
                     {
-                        `raffle calculator || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(raffleActive, '...') : ''}`
+                        `raffles || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(raffleActive, '...') : ''}`
                     }
                 </title>
             </Helmet>
