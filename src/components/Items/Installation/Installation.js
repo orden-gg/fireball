@@ -1,13 +1,14 @@
 
 import { Erc1155Categories } from 'data/types';
 
-import CardName from '../common/CardName/CardName';
-import ERC1155 from '../ERC1155/ERC1155';
+import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 
 import InstallationImage from './InstallationImage';
+import CardName from '../common/CardName/CardName';
+import ERC1155 from '../ERC1155/ERC1155';
 import { installationStyles } from '../styles';
 
-export default function Installation({ installation }) {
+export default function Installation({ installation, raffleChances }) {
     const classes = installationStyles();
 
     return (
@@ -20,6 +21,7 @@ export default function Installation({ installation }) {
                 balance: installation.balance
             }}
         >
+            {console.log('installation', installation)}
             <InstallationImage data={installation} />
             <CardName
                 item={installation}
@@ -30,6 +32,10 @@ export default function Installation({ installation }) {
                 <div className={classes.level}>
                     level {installation.level}
                 </div>
+            )}
+
+            { raffleChances && (
+                <RaffleItemChance stats={raffleChances} />
             )}
         </ERC1155>
     );

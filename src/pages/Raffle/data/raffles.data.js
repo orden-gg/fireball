@@ -56,13 +56,13 @@ const raffles = [
         icon: require('../../../assets/images/wearables/313.svg').default
     },
     {
-        id: 8,
+        id: 9,
         name: 'decorations',
-        type: 'decorations',
+        type: 'installations',
         tickets: [0, 1, 2, 3, 4, 5],
         startDate: DateTime.local(2022, 6, 9, 14, { zone: 'utc' }),
         endDate: DateTime.local(2022, 6, 12, 14, { zone: 'utc' }),
-        icon: require('../../../assets/images/wearables/313.svg').default
+        icon: require('../../../assets/images/installations/21.png').default
     }
 ];
 
