@@ -43,7 +43,7 @@ export default function ParcelInstallations({ parcel }) {
 
                 return (
                     <div className={classes.installation} key={index}>
-                        <div className={classes.subtitle}>Altar!</div>
+                        <div className={classes.subtitle}>altar</div>
 
                         <div className={classes.row}>
                             <div className={classes.inner}>lvl:<span>{metadata.level}</span></div>
