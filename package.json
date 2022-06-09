@@ -59,6 +59,7 @@
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules",
     "lint": "eslint -c .eslintrc.json --ext .js,.jsx .",
+    "lint:fix": "eslint --fix",
     "prepare": "husky install"
   },
   "husky": {
