@@ -23,7 +23,7 @@ export default function RaffleContent({ user }) {
             setRaffle(lastRaffle);
             setTickets([]);
 
-            history.push(`/raffle-calculator/${lastRaffle.name}`);
+            history.push(`/raffles/${lastRaffle.name}`);
         } else { // set current raffle data
             const currentRaffle = raffles.find((item) => item.name === name);
             const ticketsPreset = getTicketsPreset(currentRaffle.tickets);

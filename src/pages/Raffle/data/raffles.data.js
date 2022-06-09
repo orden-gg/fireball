@@ -54,6 +54,15 @@ const raffles = [
         startDate: DateTime.local(2022, 1, 26, 14, { zone: 'utc' }),
         endDate: DateTime.local(2022, 1, 29, 14, { zone: 'utc' }),
         icon: require('../../../assets/images/wearables/313.svg').default
+    },
+    {
+        id: 8,
+        name: 'decorations',
+        type: 'decorations',
+        tickets: [0, 1, 2, 3, 4, 5],
+        startDate: DateTime.local(2022, 6, 9, 14, { zone: 'utc' }),
+        endDate: DateTime.local(2022, 6, 12, 14, { zone: 'utc' }),
+        icon: require('../../../assets/images/wearables/313.svg').default
     }
 ];
 

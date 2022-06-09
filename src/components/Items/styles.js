@@ -661,9 +661,6 @@ const portalStyles = makeStyles(() => ({
     },
     portalPriceContainer: {
         width: '100%'
-    //     position: 'absolute',
-    //     right: '8px',
-    //     bottom: '8px'
     }
 }));
 
@@ -693,6 +690,17 @@ const channelingStyles = makeStyles(() => ({
     }
 }));
 
+const installationStyles = makeStyles((theme) => ({
+    level: {
+        color: theme.palette.rarity.golden,
+        background: alpha('#000', .1),
+        padding: 4,
+        borderRadius: 4,
+        margin: '4px auto 0',
+        width: '50%'
+    }
+}));
+
 export {
     styles as default,
     itemStyles,
@@ -700,5 +708,6 @@ export {
     tooltipStyles,
     parselStyles,
     portalStyles,
-    channelingStyles
+    channelingStyles,
+    installationStyles
 };

@@ -5,25 +5,32 @@ import CardName from '../common/CardName/CardName';
 import ERC1155 from '../ERC1155/ERC1155';
 
 import InstallationImage from './InstallationImage';
+import { installationStyles } from '../styles';
 
-export default function Installation({ data }) {
+export default function Installation({ installation }) {
+    const classes = installationStyles();
 
     return (
         <ERC1155
             className= 'installation'
             item={{
-                id: data.id,
+                id: installation.id,
                 rarity: 'golden',
                 category: Erc1155Categories.Realm,
-                balance: data.balance
+                balance: installation.balance
             }}
         >
-            <InstallationImage data={data} />
+            <InstallationImage data={installation} />
             <CardName
-                item={data}
-                itemName={data.name}
+                item={installation}
+                itemName={installation.name}
                 itemRarity='golden'
             />
+            { installation.level && (
+                <div className={classes.level}>
+                    level {installation.level}
+                </div>
+            )}
         </ERC1155>
     );
 }
