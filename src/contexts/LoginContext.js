@@ -22,6 +22,7 @@ const LoginContextProvider = (props) => {
     const [isMetamaskActive, setIsMetamaskActive] = useState(false);
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    console.log('pre-push test');
 
     const selectActiveAddress = (address) => {
         setStorageActive(address);

@@ -21,7 +21,7 @@ const BalancesContextProvider = (props) => {
         {
             icon: <FomoTokenIcon height={14} width={14} />,
             amount: 0,
-            balance: 0
+            balance: 0,
         },
         {
             icon: <AlphaTokenIcon height={14} width={14} />,
