@@ -26,7 +26,7 @@ export default function Installation({ installation }) {
                 itemName={installation.name}
                 itemRarity='golden'
             />
-            { installation.level && (
+            { installation.level > 1 && (
                 <div className={classes.level}>
                     level {installation.level}
                 </div>

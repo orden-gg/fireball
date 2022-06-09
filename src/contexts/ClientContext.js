@@ -233,7 +233,7 @@ const ClientContextProvider = (props) => {
                 const id = ethersApi.formatBigNumber(item.installationId._hex);
 
                 return {
-                    type: 'instalation',
+                    type: 'installation',
                     name: installationsUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id,
