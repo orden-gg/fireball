@@ -219,7 +219,7 @@ export default function ClientRealmList() {
 
         Promise.all([
             getRealmInfo(activeAddress),
-            getRealmUpgradesQueue(activeAddress, parcelIds)
+            getRealmUpgradesQueue(parcelIds)
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map(parcel => {
                 const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
@@ -275,8 +275,8 @@ export default function ClientRealmList() {
         });
     };
 
-    const getRealmUpgradesQueue = (owner, realmIds) => {
-        return installationsApi.getUpgradeQueueByAddress(owner).then(async res => {
+    const getRealmUpgradesQueue = (realmIds) => {
+        return installationsApi.getAllUpgradeQueue().then(async res => {
 
             const activeUpgrades = res
                 .map((queue, i) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
