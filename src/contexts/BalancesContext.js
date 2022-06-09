@@ -5,10 +5,10 @@ import alchemicaApi from 'api/alchemica.api';
 import ghstApi from 'api/ghst.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/constants';
 import commonUtils from 'utils/commonUtils';
+import { TokenTypes } from 'data/types';
 
 import { LoginContext } from './LoginContext';
 import { TokensPricesContext } from './TokensPricesContext';
-import { TokenTypes } from 'data/types';
 
 export const BalancesContext = createContext({});
 
