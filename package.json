@@ -61,11 +61,6 @@
     "lint": "eslint -c .eslintrc.json --ext .js,.jsx .",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-        "pre-push": "yarn lint"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",
