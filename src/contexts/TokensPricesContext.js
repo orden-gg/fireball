@@ -13,12 +13,8 @@ const TokensPricesContextProvider = (props) => {
     const fetchInterval = 120; // seconds
 
     useEffect(() => {
-        let mounted = true;
-
         const getTokensPrices = async function () {
-            if (mounted) {
-                setIsPricesLoaded(false);
-            }
+            setIsPricesLoaded(false);
 
             const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
             const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
@@ -36,17 +32,15 @@ const TokensPricesContextProvider = (props) => {
                 getTokenPrice(ghst, ghstPrice, gltrToken)
             ]);
 
-            if (mounted) {
-                setTokensPrices({
-                    [TokenTypes.Fud]: fudPrice,
-                    [TokenTypes.Fomo]: fomoPrice,
-                    [TokenTypes.Alpha]: alphaPrice,
-                    [TokenTypes.Kek]: kekPrice,
-                    [TokenTypes.Gltr]: gltrPrice,
-                    [TokenTypes.Ghst]: ghstPrice
-                });
-                setIsPricesLoaded(true);
-            }
+            setTokensPrices({
+                [TokenTypes.Fud]: fudPrice,
+                [TokenTypes.Fomo]: fomoPrice,
+                [TokenTypes.Alpha]: alphaPrice,
+                [TokenTypes.Kek]: kekPrice,
+                [TokenTypes.Gltr]: gltrPrice,
+                [TokenTypes.Ghst]: ghstPrice
+            });
+            setIsPricesLoaded(true);
         };
 
         getTokensPrices();
@@ -55,11 +49,7 @@ const TokensPricesContextProvider = (props) => {
             getTokensPrices();
         }, fetchInterval * 1000);
 
-        return () => {
-            mounted = false;
-
-            clearInterval(interval);
-        };
+        return () => clearInterval(interval);
     }, []);
 
     const getGhstAndPriceToToken = async (ghstContract, tokenContract) => {
