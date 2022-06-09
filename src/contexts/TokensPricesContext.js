@@ -10,7 +10,7 @@ const TokensPricesContextProvider = (props) => {
     const [isPricesLoaded, setIsPricesLoaded] = useState(false);
     const [tokensPrices, setTokensPrices] = useState({});
 
-    const fetchInterval = 120; // seconds
+    const fetchInterval = 300; // seconds
 
     useEffect(() => {
         const getTokensPrices = async function () {

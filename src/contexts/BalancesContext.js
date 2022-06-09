@@ -58,7 +58,7 @@ const BalancesContextProvider = (props) => {
         imgSrc: token.imgSrc
     }))]);
 
-    const fetchInterval = 120; // seconds
+    const fetchInterval = 60; // seconds
 
     useEffect(() => {
         let mounted = true;
