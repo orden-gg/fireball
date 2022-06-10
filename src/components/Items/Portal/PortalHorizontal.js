@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
 import PortalImage from './PortalImage';
-import CardName from '../common/CardName/CardName';
-import CardStats from '../common/CardStats/CardStats';
+import { CardName } from '../common/CardName/CardName';
+import { CardStats } from '../common/CardStats/CardStats';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
 import HorizontalLink from '../common/HorizontalLink/HorizontalLink';
 import styles from './../styles';

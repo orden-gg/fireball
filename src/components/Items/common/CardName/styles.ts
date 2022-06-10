@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-export default makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
@@ -29,7 +29,7 @@ export default makeStyles(theme => ({
         }
     },
     name: {
-        fontWeight: '500',
+        fontWeight: 500,
         lineHeight: '1.4',
         textTransform: 'capitalize',
         textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',

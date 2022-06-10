@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 import styles from './styles';
 

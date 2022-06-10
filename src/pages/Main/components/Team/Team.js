@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import Subtitle from 'components/Subtitle/Subtitle';
-import Gotchi from 'components/Gotchi/Gotchi';
+import { Gotchi } from 'components/Gotchi/Gotchi';
 import thegraph from 'api/thegraph.api';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 

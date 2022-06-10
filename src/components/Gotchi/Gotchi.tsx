@@ -22,7 +22,15 @@ import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
 
-export default function Gotchi({ gotchi, renderSvgByStats, render, portal, className }) {
+interface GotchiProps {
+    gotchi: any;
+    render: any;
+    renderSvgByStats?: any;
+    portal?: any;
+    className?: string;
+}
+
+export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: GotchiProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     const classes = styles();
 
@@ -45,10 +53,7 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
         flipContainer: (children) => {
             return (
                 <div
-                    className={classNames(
-                        classes.gotchiFlipContainer,
-                        isFlipped && classes.gotchiIsFlipped
-                    )}
+                    className={classNames(isFlipped && classes.gotchiIsFlipped)}
                     key={`${gotchi.id}-flipContainer`}
                 >
                     {children}
@@ -171,7 +176,6 @@ export default function Gotchi({ gotchi, renderSvgByStats, render, portal, class
                     gotchi={gotchi}
                     renderSvgByStats={renderSvgByStats}
                     portal={portal}
-                    whitelist={gotchi.whitelistId}
                     key={`${gotchi.id}-svg`}
                 />
             );

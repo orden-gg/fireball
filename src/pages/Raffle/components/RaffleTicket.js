@@ -1,4 +1,4 @@
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
@@ -18,6 +18,7 @@ export default function RaffleTicket({ ticket }) {
             />
             <p
                 className={classes.ticketTitle}
+                // TODO check is ticket.name === 'drop' really needed as we have drop in palette
                 style={{ color: ticket.name === 'drop' ? '#c1ad87' : theme.palette.rarity[ticket.name] }}
             >
                 {commonUtils.formatPrice(ticket.balance)}

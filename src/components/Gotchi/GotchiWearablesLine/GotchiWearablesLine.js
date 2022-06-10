@@ -1,7 +1,7 @@
 import { Tooltip, useTheme } from '@mui/material';
 import classNames from 'classnames';
 
-import Wearable from 'components/Items/Wearable/Wearable';
+import { Wearable } from 'components/Items/Wearable/Wearable';
 import itemUtils from 'utils/itemUtils';
 
 import { CustomTooltipStyles } from '../styles';

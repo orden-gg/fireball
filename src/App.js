@@ -19,7 +19,7 @@ import ParcelPage from './pages/Parcel/ParcelPage';
 import Autopet from './pages/Autopet/Autopet';
 import OldAutopet from './pages/OldAutopet/OldAutopet';
 import Raffle from './pages/Raffle/Raffle';
-import Shop from './pages/Shop/Shop';
+import { Shop } from './pages/Shop/Shop';
 import Map from './pages/Map/Map';
 import NotFound from './pages/NotFound/NotFound';
 import BaazaarContextProvider from './contexts/BaazaarContext';

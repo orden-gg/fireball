@@ -46,167 +46,173 @@ import ghstToken from 'assets/images/tokens/ghst-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 
+interface IconProps {
+    className?: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+}
+
 // animated
-export const GhstTokenGif = ({ width, height }) => {
+export const GhstTokenGif = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={ghstTokenGif} alt='ghst token' />;
 };
 
-export const GotchiHeartGif = ({ className, width, height }) => {
+export const GotchiHeartGif = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={gotchiHeartGif} alt='gotchi heart' />;
 };
 
-export const GotchiLoadingGif = ({ width, height }) => {
+export const GotchiLoadingGif = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={gotchiLoadingGif} alt='gotchi loading...' />;
 };
 
-export const GotchiverseGif = ({ width, height }) => {
+export const GotchiverseGif = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={gotchiverseGif} alt='gotchiverse loader' />;
 };
 
-export const H1OpenedPortalGif = ({ className, width, height }) => {
+export const H1OpenedPortalGif = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={h1OpenedPortalGif} alt='H1 opened portal' />;
 };
 
-export const RealmGif = ({ className, width, height }) => {
+export const RealmGif = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={realmGif} alt='realm' />;
 };
 
 // icons
-export const ActivityIcon = ({ width, height }) => {
+export const ActivityIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={activity} alt='activity' />;
 };
 
-export const AlphaIcon = ({ width, height }) => {
+export const AlphaIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={alpha} alt='alpha' />;
 };
 
-export const BaazarIcon = ({ className, width, height }) => {
+export const BaazarIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={baazar} alt='baazar' />;
 };
 
-export const FomoIcon = ({ width, height }) => {
+export const FomoIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={fomo} alt='fomo' />;
 };
 
-export const FudIcon = ({ className, width, height }) => {
+export const FudIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={fud} alt='fud' />;
 };
 
-export const ConsumableIcon = ({ width, height }) => {
+export const ConsumableIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={consumable} alt='consumable' />;
 };
 
-export const DiscordIcon = ({ className, width, height }) => {
+export const DiscordIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={discord} alt='discord' />;
 };
 
-export const GotchiIcon = ({ className, width, height }) => {
+export const GotchiIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={gotchi} alt='gotchi' />;
 };
 
-
-export const GotchilandIcon = ({ className, width, height }) => {
+export const GotchilandIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={gotchiland} alt='gotchiland logo' />;
 };
 
-export const LendingIcon = ({ className, width, height }) => {
-    return <Lending className={className} width={width} height={height} alt='lending' />;
+export const LendingIcon = ({ className, width, height }: IconProps) => {
+    return <Lending className={className} width={width} height={height} />;
 };
 
-export const KekIcon = ({ width, height, alt }) => {
+export const KekIcon = ({ width, height, alt }: IconProps) => {
     return <img width={width} height={height} src={kek} alt={alt ?? 'kek'} />;
 };
 
-export const GhstIcon = ({ className, width, height }) => {
+export const GhstIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={ghst} alt='ghst' />;
 };
 
-export const TwitchIcon = ({ className, width, height }) => {
+export const TwitchIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={twitch} alt='twitch' />;
 };
 
-export const RareTicketIcon = ({ width, height }) => {
+export const RareTicketIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={rareTicket} alt='ticket' />;
 };
 
-export const WarehouseIcon = ({ className, width, height }) => {
+export const WarehouseIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={warehouse} alt='warehouse' />;
 };
 
-export const GameControllerIcon = ({ width, height }) => {
+export const GameControllerIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={controller} alt='game controller' />;
 };
 
 // portals
-export const H1SealedPortalIcon = ({ className, width, height }) => {
+export const H1SealedPortalIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={h1SealedPortal} alt='H1 sealed portal' />;
 };
 
-export const H1OpenedPortalIcon = ({ className, width, height }) => {
+export const H1OpenedPortalIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={h1OpenedPortal} alt='H1 opened portal' />;
 };
 
-export const H2SealedPortalIcon = ({ className, width, height }) => {
+export const H2SealedPortalIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={h2SealedPortal} alt='H2 sealed portal' />;
 };
 
-export const H2OpenedPortalIcon = ({ className, width, height }) => {
+export const H2OpenedPortalIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={h2OpenedPortal} alt='H2 opened portal' />;
 };
 
 // tokens
-export const AlphaTokenIcon = ({ width, height }) => {
+export const AlphaTokenIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={alphaToken} alt='alpha' />;
 };
 
-export const FomoTokenIcon = ({ width, height }) => {
+export const FomoTokenIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={fomoToken} alt='fomo' />;
 };
 
-export const FudTokenIcon = ({ width, height }) => {
+export const FudTokenIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={fudToken} alt='fud' />;
 };
 
-export const GhstTokenIcon = ({ className, width, height }) => {
+export const GhstTokenIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
 };
 
-export const GltrTokenIcon = ({ width, height }) => {
+export const GltrTokenIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={gltrToken} alt='gltrToken' />;
 };
 
-export const KekTokenIcon = ({ width, height }) => {
+export const KekTokenIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={kekToken} alt='kek' />;
 };
 
-export const ListingIcon = ({ width, height }) => {
+export const ListingIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={listing} alt='listing' />;
 };
 
-export const LogoIcon = ({ className, width, height }) => {
+export const LogoIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={logo} alt='logo' />;
 };
 
-export const MobileLogoIcon = ({ className, width, height }) => {
+export const MobileLogoIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={logoMobile} alt='logo part' />;
 };
 
-export const MetamaskIcon = ({ className, width, height }) => {
+export const MetamaskIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={metamask} alt='metamask' />;
 };
 
-export const PurchaseIcon = ({ width, height }) => {
+export const PurchaseIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={purchase} alt='purchase' />;
 };
 
-export const SoldIcon = ({ width, height }) => {
+export const SoldIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={sold} alt='sold' />;
 };
 
-export const FiregemIcon = ({ className, width, height }) => {
+export const FiregemIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={firegem} alt='firegem' />;
 };
 
-export const AnvilIcon = ({ width, height }) => {
+export const AnvilIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={anvil} alt='anvil' />;
 };

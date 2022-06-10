@@ -5,8 +5,8 @@ import itemUtils from 'utils/itemUtils';
 import TicketImage from './TicketImage';
 import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
 import HorizontalLink from '../common/HorizontalLink/HorizontalLink';
-import CardName from '../common/CardName/CardName';
-import CardStats from '../common/CardStats/CardStats';
+import { CardName } from '../common/CardName/CardName';
+import { CardStats } from '../common/CardStats/CardStats';
 
 import styles from './../styles';
 

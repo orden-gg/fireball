@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     listingsTitleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -9,11 +9,9 @@ const styles = makeStyles(() => ({
     },
     listingsTitle: {
         marginLeft: '8px',
-        fontWeight: '500',
+        fontWeight: 500,
         fontSize: '1.25rem',
         lineHeight: '1.75',
         textTransform: 'uppercase'
     }
 }));
-
-export default styles;

@@ -4,8 +4,8 @@ import { Erc1155Categories } from 'data/types';
 import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 
 import InstallationImage from './InstallationImage';
-import CardName from '../common/CardName/CardName';
-import ERC1155 from '../ERC1155/ERC1155';
+import { CardName } from '../common/CardName/CardName';
+import { ERC1155 } from '../ERC1155/ERC1155';
 import { installationStyles } from '../styles';
 
 export default function Installation({ installation, raffleChances }) {
@@ -21,7 +21,6 @@ export default function Installation({ installation, raffleChances }) {
                 balance: installation.balance
             }}
         >
-            {console.log('installation', installation)}
             <InstallationImage data={installation} />
             <CardName
                 item={installation}

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';

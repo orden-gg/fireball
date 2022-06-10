@@ -1,12 +1,19 @@
 import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
-import ERC1155 from 'components/Items/ERC1155/ERC1155';
+import { ERC1155 } from 'components/Items/ERC1155/ERC1155';
 import itemUtils from 'utils/itemUtils';
 
-import CardName from '../common/CardName/CardName';
-import CardStats from '../common/CardStats/CardStats';
-import WearableImage from './WearableImage';
+import { CardName } from '../common/CardName/CardName';
+import { CardStats } from '../common/CardStats/CardStats';
+import { WearableImage } from './WearableImage';
 
-export default function Wearable({ wearable, raffleChances, tooltip, isShopItem }) {
+interface WearableProps {
+    wearable: any;
+    raffleChances?: any;
+    tooltip?: any;
+    isShopItem?: boolean;
+}
+
+export function Wearable({ wearable, raffleChances, tooltip, isShopItem }: WearableProps) {
     const rarity = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);
     const slot = itemUtils.getItemSlotById(wearable.id || wearable.erc1155TypeId);
 

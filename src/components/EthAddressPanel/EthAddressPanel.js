@@ -3,7 +3,7 @@ import { CircularProgress, Link } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons.js';
+import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
 import EthAddress from 'components/EthAddress/EthAddress.js';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';

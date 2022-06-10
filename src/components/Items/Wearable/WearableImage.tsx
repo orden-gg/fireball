@@ -4,7 +4,12 @@ import itemUtils from 'utils/itemUtils';
 
 import styles from './styles';
 
-export default function WearableImage({ wearable, className }) {
+interface WearableImageProps {
+    wearable: any;
+    className?: string;
+}
+
+export function WearableImage({ wearable, className }: WearableImageProps) {
     const classes = styles();
     const name = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
 

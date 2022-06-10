@@ -10,7 +10,7 @@ import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon }
 import ContentInner from 'components/Content/ContentInner';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
-import Gotchi from 'components/Gotchi/Gotchi';
+import { Gotchi } from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';

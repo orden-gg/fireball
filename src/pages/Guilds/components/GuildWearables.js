@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
-import WearableImage from 'components/Items/Wearable/WearableImage';
+import { WearableImage } from 'components/Items/Wearable/WearableImage';
 import itemUtils from 'utils/itemUtils';
 
 import { guildWearables } from '../styles';

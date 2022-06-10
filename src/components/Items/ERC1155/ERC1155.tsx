@@ -3,7 +3,7 @@ import { Link, Typography, Tooltip } from '@mui/material';
 import { alpha, Box } from '@mui/system';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useTheme } from '@emotion/react';
+import { useTheme } from '@mui/material';
 
 import { DateTime } from 'luxon';
 import ContentLoader from 'react-content-loader';
@@ -16,7 +16,13 @@ import commonUtils from 'utils/commonUtils';
 
 import styles, { itemStyles, tooltipStyles } from '../styles';
 
-export default function ERC1155({ children, item, className }) {
+interface ERC1155Props {
+    children: Array<JSX.Element>;
+    item: any;
+    className?: string;
+}
+
+export function ERC1155({ children, item, className }: ERC1155Props) {
     const classes = {
         ...itemStyles(),
         ...styles(),
@@ -25,9 +31,9 @@ export default function ERC1155({ children, item, className }) {
 
     const theme = useTheme();
 
-    const [last, setLast] = useState(null);
-    const [lastDate, setLastDate] = useState(null);
-    const [current, setCurrent] = useState(null);
+    const [last, setLast] = useState<any>(null);
+    const [lastDate, setLastDate] = useState<string>('');
+    const [current, setCurrent] = useState<any>(null);
 
     useEffect(() => {
         const controller = new AbortController();

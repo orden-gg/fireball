@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     'page-wrapper': {
         paddingTop: 0
     },
@@ -74,5 +74,3 @@ const styles = makeStyles(theme => ({
         fontSize: '1rem'
     }
 }));
-
-export default styles;

@@ -16,22 +16,22 @@ import {
     WarehouseIcon
 } from 'components/Icons/Icons';
 import Consumable from 'components/Items/Consumable/Consumable';
-import Gotchi from 'components/Gotchi/Gotchi';
+import { Gotchi } from 'components/Gotchi/Gotchi';
 import Parcel from 'components/Items/Parcel/Parcel';
 import Portal from 'components/Items/Portal/Portal';
 import Ticket from 'components/Items/Ticket/Ticket';
-import Wearable from 'components/Items/Wearable/Wearable';
+import { Wearable } from 'components/Items/Wearable/Wearable';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 import itemUtils from 'utils/itemUtils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
 
-import styles from './styles';
+import { styles } from './styles';
 
-import ListingTitle from './components/ListingTitle';
+import { ListingTitle } from './components/ListingTitle';
 
-export default function Shop() {
+export function Shop() {
     const classes = styles();
 
     const history = useHistory();
@@ -39,19 +39,19 @@ export default function Shop() {
 
     const params = queryString.parse(location.search);
 
-    const [isListingsLoading, setIsListingsLoading] = useState(false);
-    const [isListingsEmpty, setIsListingsEmpty] = useState(true);
-    const [currentAddress, setCurrentAddress] = useState('');
-    const [gotchis, setGotchis] = useState([]);
-    const [wearables, setWearables] = useState([]);
-    const [parcels, setParcels] = useState([]);
-    const [portals, setPortals] = useState([]);
-    const [tickets, setTickets] = useState([]);
-    const [consumables, setConsumables] = useState([]);
+    const [isListingsLoading, setIsListingsLoading] = useState<boolean>(false);
+    const [isListingsEmpty, setIsListingsEmpty] = useState<boolean>(true);
+    const [currentAddress, setCurrentAddress] = useState<string>('');
+    const [gotchis, setGotchis] = useState<any>([]);
+    const [wearables, setWearables] = useState<any>([]);
+    const [parcels, setParcels] = useState<any>([]);
+    const [portals, setPortals] = useState<any>([]);
+    const [tickets, setTickets] = useState<any>([]);
+    const [consumables, setConsumables] = useState<any>([]);
 
     useEffect(() => {
         if (ethersApi.isEthAddress(params.address)) {
-            setCurrentAddress(params.address);
+            setCurrentAddress(params.address as string);
         }
     }, [params.address, setCurrentAddress]);
 
@@ -90,7 +90,7 @@ export default function Shop() {
                 }
             });
 
-            return () => mounted = false;
+            return () => { mounted = false };
         }
     }, [currentAddress]);
 
@@ -298,7 +298,7 @@ export default function Shop() {
                 {
                     portals.map(portal =>
                         <div className={classes.listItem} key={portal.tokenId}>
-                            <Portal portal={portal} isBaazaarCard={true} isShopItem={true} />
+                            <Portal portal={portal} />
                         </div>
                     )
                 }

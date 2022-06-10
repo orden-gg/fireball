@@ -1,9 +1,93 @@
 import { createTheme } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+
+declare module '@mui/material/styles/createPalette' {
+    interface PaletteOptions {
+        rarity: {
+            common: string;
+            uncommon: string;
+            rare: string;
+            legendary: string;
+            mythical: string;
+            godlike: string;
+            drop: string;
+            golden: string;
+        };
+        realm: {
+            humble: string;
+            reasonable: string;
+            spacious: string;
+            partner: string;
+        };
+        alchemica: {
+            fud: string;
+            fomo: string;
+            alpha: string;
+            kek: string;
+            gltr: string;
+        };
+        customColors: {
+            lightGray: string;
+            grayBorder: string;
+            gray: string;
+            light: string;
+        },
+        haunts: {
+            h1: string;
+            h2: string;
+        }
+    }
+
+    interface Palette {
+        rarity: {
+            common: string;
+            uncommon: string;
+            rare: string;
+            legendary: string;
+            mythical: string;
+            godlike: string;
+            drop: string;
+            golden: string;
+        };
+        realm: {
+            humble: string;
+            reasonable: string;
+            spacious: string;
+            partner: string;
+        };
+        alchemica: {
+            fud: string;
+            fomo: string;
+            alpha: string;
+            kek: string;
+            gltr: string;
+        };
+        customColors: {
+            lightGray: string;
+            grayBorder: string;
+            gray: string;
+            light: string;
+        },
+        haunts: {
+            h1: string;
+            h2: string;
+        }
+    }
+
+    interface TypeBackground {
+        secondary: string;
+    }
+}
+
+declare module '@mui/styles/defaultTheme' {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface DefaultTheme extends Theme { }
+}
 
 const theme = createTheme({
     palette: {
         common: {
-          white: '#fff'
+            white: '#fff'
         },
         mode: 'dark',
         primary: {
@@ -65,11 +149,9 @@ const theme = createTheme({
             md: 960,
             lg: 1280,
             xl: 1640,
+            // @ts-ignore
             hd: 1920
         }
-    },
-    shape: {
-        borderRadiusSmaller: 2
     },
     components: {
         MuiLink: {

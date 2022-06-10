@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 
-import Gotchi from 'components/Gotchi/Gotchi';
+import { Gotchi } from 'components/Gotchi/Gotchi';
 
 import { baazaarSortingBodyStyles } from '../../../../styles';
 

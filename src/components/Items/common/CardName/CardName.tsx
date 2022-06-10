@@ -4,9 +4,15 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function CardName({ itemName, itemRarity, item }) {
+interface CardNameProps {
+    item: any;
+    itemName?: string;
+    itemRarity?: string;
+}
+
+export function CardName({ itemName, itemRarity, item }: CardNameProps) {
     const classes = styles();
     const name = itemName || itemUtils.getItemNameById(item.id || item.erc1155TypeId);
     const rarity = itemRarity || itemUtils.getItemRarityById(item.id || item.erc1155TypeId);
