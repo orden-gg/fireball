@@ -51,3 +51,12 @@ export const InstallationTypes = Object.freeze({
     Prerequisites: 14,
     Name: 15
 });
+
+export const TokenTypes = Object.freeze({
+    Fud: 'fud',
+    Fomo: 'fomo',
+    Alpha: 'alpha',
+    Kek: 'kek',
+    Gltr: 'gltr',
+    Ghst: 'ghst'
+});
