@@ -26,6 +26,10 @@ const styles = makeStyles(theme => ({
         textDecoration: 'none',
         borderRadius: '0 5px 5px 0',
 
+        '&.active': {
+            backgroundColor: theme.palette.background.default
+        },
+
         '&:hover': {
             backgroundColor: theme.palette.background.default,
             boxShadow: `0 0 5px 0 ${alpha(theme.palette.common.black, .5)}`,
