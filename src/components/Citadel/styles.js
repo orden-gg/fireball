@@ -144,9 +144,13 @@ const FilterStyles = makeStyles(theme => ({
     dropdownContainer: {
         position: 'absolute',
         left: theme.spacing(1),
-        top: theme.spacing(1),
+        top: theme.spacing(8),
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+
+        '&.opened': {
+            zIndex: theme.zIndex.appBar + 11
+        }
     },
     filterButton: {
         lineHeight: 1,

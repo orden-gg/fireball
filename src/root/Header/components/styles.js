@@ -4,8 +4,17 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles(theme => ({
     balancesWrapper: {
         display: 'flex',
+        alignItems: 'center'
+    },
+    balancesButton: {
+        margin: theme.spacing(0, 1)
+    },
+    balancesList: {
+        borderRadius: 5,
+        display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        backgroundColor: alpha('#212121cc', .9),
+        boxShadow: '0 0 3px 3px #212121cc'
     },
     balanceLoader: {
         width: 50,
@@ -17,7 +26,6 @@ const styles = makeStyles(theme => ({
         }
     },
     balance: {
-        minWidth: 50,
         textAlign: 'center',
         padding: '2px 6px',
         '& + $balance': {
@@ -56,9 +64,8 @@ const styles = makeStyles(theme => ({
         }
     },
     balancePrice: {
-        fontSize: 11,
         fontWeight: 500,
-        opacity: .8
+        textAlign: 'center'
     }
 }));
 

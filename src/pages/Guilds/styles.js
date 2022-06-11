@@ -23,7 +23,7 @@ const styles = makeStyles(theme => ({
     guildsWrapper: {
         position: 'relative',
         maxWidth: 1920,
-        padding: theme.spacing(2),
+        padding: theme.spacing(8, 2, 2),
         margin: 'auto',
         textAlign: 'right',
         [theme.breakpoints.down('md')]: {
