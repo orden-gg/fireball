@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { Icon } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
@@ -17,17 +17,10 @@ import styles from './styles';
 
 export default function NavPanel() {
     const classes = styles();
-    const [navOpen, setNavOpen] = useState(false);
     const location = useLocation();
-    const hamburgerRef = useRef(null);
 
     const { activeAddress } = useContext(LoginContext);
     const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
-
-    // Close nav on route change
-    useEffect(() => {
-        console.log(location);
-    }, [location]);
 
     return (
             <div className={classes.container}>

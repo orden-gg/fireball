@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import Logo from 'root/Logo/Logo';
 import NavPanel from 'root/NavPanel/NavPanel';
 import UserPanel from 'root/UserPanel/UserPanel';
-import Header from './root/Header/Header';
 import Footer from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
