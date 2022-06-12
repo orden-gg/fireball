@@ -1,6 +1,6 @@
 import { InfoStyles } from '../styles';
 
-export default function CitadelInfo() {
+export function CitadelInfo() {
     const classes = InfoStyles();
 
     return (

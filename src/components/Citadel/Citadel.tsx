@@ -22,7 +22,7 @@ import CitadelInterface from './components/CitadelInterface';
 import FullscreenButton from './components/FullscreenButton';
 import { BasicButton } from './components/BasicButton';
 import SearchForm from './components/SearchForm';
-import CitadelInfo from './components/CitadelInfo';
+import { CitadelInfo } from './components/CitadelInfo';
 import { CitadelFilters } from './components/CitadelFilters';
 
 import { styles, InterfaceStyles } from './styles';
