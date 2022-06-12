@@ -48,8 +48,8 @@ import kekToken from 'assets/images/tokens/kek-token.svg';
 
 interface IconProps {
     className?: string;
-    width?: number;
-    height?: number;
+    width?: number | string;
+    height?: number | string;
     alt?: string;
 }
 

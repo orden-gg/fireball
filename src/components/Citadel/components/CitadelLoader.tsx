@@ -4,7 +4,7 @@ import { GotchiverseGif } from 'components/Icons/Icons';
 
 import { LoaderStyles } from '../styles';
 
-export default function CitadelLoader({ isLoaded }) {
+export function CitadelLoader({ isLoaded }: { isLoaded: boolean }) {
     const classes = LoaderStyles();
 
     return (
