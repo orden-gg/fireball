@@ -13,7 +13,7 @@ import { BalancesContext } from 'contexts/BalancesContext';
 import styles from './styles';
 
 export default function Balances() {
-    const [ menuOpen, setMenuOpen ] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const classes = styles();
     const theme = useTheme();
 
@@ -21,7 +21,7 @@ export default function Balances() {
 
     const handleButtonClick = () => {
         setMenuOpen(!menuOpen);
-    }
+    };
 
     if (!tokens.length) {
         return null;

@@ -1,10 +1,6 @@
-import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const AboutStyles = makeStyles(theme => ({
-    containter: {
-
-    },
     title: {
         textAlign: 'center',
         marginBottom: theme.spacing(2)

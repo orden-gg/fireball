@@ -12,5 +12,5 @@ export default function Logo() {
             <LogoIcon className={classes.logoDesktop} width={80} height={34} />
             <MobileLogoIcon width={24} height={36} className={classes.logoMobile} />
         </NavLink>
-    )
+    );
 }

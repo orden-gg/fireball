@@ -15,5 +15,5 @@ export default function UserPanel() {
             { activeAddress && <Balances /> }
             <LoginButton />
         </div>
-    )
+    );
 }

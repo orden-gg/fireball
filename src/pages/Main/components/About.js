@@ -28,5 +28,5 @@ export default function About() {
                 a group of professional developers and e-sport players. We deployed the first version of this client in March 2021 and the code was fully open-sourced later that year.
             </Typography>
         </div>
-    )
+    );
 }

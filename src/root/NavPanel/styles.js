@@ -19,7 +19,6 @@ const styles = makeStyles(theme => ({
         display: 'flex'
     },
     navLink: {
-        display: 'block',
         color: theme.palette.common.white,
         display: 'flex',
         alignItems: 'center',
