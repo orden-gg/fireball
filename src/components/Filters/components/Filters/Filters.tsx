@@ -11,12 +11,19 @@ import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButto
 import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
 import RangeSliderFilter from '../RangeSliderFilter/RangeSliderFilter';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Filters({ filters, onSetSelectedFilters, className }) {
+interface FiltersProps {
+    filters: any;
+    onSetSelectedFilters: (key: string, selectedValue: any) => void;
+    className?: string;
+}
+
+export function Filters({ filters, onSetSelectedFilters, className }: FiltersProps) {
     const classes = styles();
 
-    const renderFiltersComponents = (renderFilters) => {
+    // TODO replace object type with appropriate one
+    const renderFiltersComponents = (renderFilters: object) => {
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
             const filterProps = {

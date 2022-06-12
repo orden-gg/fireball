@@ -17,7 +17,7 @@ import ContentWrapper from 'components/Content/ContentWrapper';
 import ContentInner from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
-import Filters from 'components/Filters/components/Filters/Filters';
+import { Filters } from 'components/Filters/components/Filters/Filters';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import ethersApi from 'api/ethers.api';

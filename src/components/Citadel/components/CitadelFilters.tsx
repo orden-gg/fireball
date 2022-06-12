@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
+import { ParsedQuery } from 'query-string';
 
-import Filters from 'components/Filters/components/Filters/Filters';
+import { Filters } from 'components/Filters/components/Filters/Filters';
 import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';
 
@@ -31,19 +32,24 @@ const initialFilters = {
     district: { ...filtersData.district }
 };
 
-export default function CitadelFilters({ onFiltersChange, queryParams, onExportData }) {
+interface CitadelFiltersProps {
+    onFiltersChange: (filters: any) => void;
+    queryParams: ParsedQuery<string>;
+    onExportData: () => void;
+}
 
-    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
-    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: CitadelFiltersProps) {
+    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
+    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
     const classes = FilterStyles();
 
-    const onToglleFilterDropdown = isOpen => {
+    const onToglleFilterDropdown = (isOpen: boolean) => {
         setIsDropdownOpen(!isOpen);
     };
 
-    const onSetSelectedFilters = (key, selectedValue) => {
+    const onSetSelectedFilters = (key: string, selectedValue: any | any[]) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
