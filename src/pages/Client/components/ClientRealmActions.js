@@ -26,7 +26,6 @@ export default function ClientRealmActions({ claimableList }) {
         const walletConnected  = accounts.length > 0;
 
         setIsUserConnected(walletConnected);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [metaState]);
 
     const onUpgradesFinish = (ids) => {

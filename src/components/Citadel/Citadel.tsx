@@ -40,16 +40,16 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
 
     const location = useLocation();
     const history = useHistory();
-    const [params, setParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
+    const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
 
     const [game, setGame] = useState<any>(null);
-    const [mapCreated, setMapCreated] = useState(false);
-    const [selectedParcel, setSelectedParcel] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
-    const gameRef = useRef(null);
-    const wrapperRef = useRef(null);
+    const [mapCreated, setMapCreated] = useState<boolean>(false);
+    const [selectedParcel, setSelectedParcel] = useState<any>(null);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const gameRef = useRef<any>(null);
+    const wrapperRef = useRef<any>(null);
 
-    const findOnMap = (type, value) => game.scene.find(type, value);
+    const findOnMap = (type: string, value: string) => game.scene.find(type, value);
 
     const removeSelected = () => setSelectedParcel(null);
 
@@ -57,17 +57,18 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
     };
 
-    const updateGroup = (type, isActive) => {
+    const updateGroup = (type: string, isActive: boolean) => {
         game.scene.updateGroup(type, isActive);
     };
 
-    const onFiltersChange = filters => {
+    const onFiltersChange = (filters: any) => {
         updateQueryParams(filters);
         game.scene.filtersManager.updateFilters(filters);
     };
 
-    const buttonIsActive = type => {
+    const buttonIsActive = (type: string) => {
         const { active } = params;
+
         if (typeof active === 'string') {
             return active === type;
         } else {
@@ -92,8 +93,8 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             });
     }, [realmGroups, mapCreated]);
 
-    const updateQueryParams = useCallback(filters => {
-        const newParams = filtersUtils.getUpdatedQueryParams(params, filters);
+    const updateQueryParams = useCallback((filters: any) => {
+        const newParams: { [key: string]: string | string[] } = filtersUtils.getUpdatedQueryParams(params, filters);
 
         setParams(newParams);
     }, [params]);
@@ -139,8 +140,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                 arrayFormat: 'comma'
             })
         });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
@@ -160,7 +159,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                 }
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {

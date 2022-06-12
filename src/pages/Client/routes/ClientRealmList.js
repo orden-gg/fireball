@@ -146,8 +146,6 @@ export default function ClientRealmList() {
         if (realm.length && !loadingRealm) {
             getRealmAdditionalData();
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loadingRealm]);
 
     useEffect(() => {
@@ -157,14 +155,12 @@ export default function ClientRealmList() {
             setActiveFiltersCount,
             updateFilterQueryParams
         );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentFilters]);
 
     useEffect(() => {
         const paramKey = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, realmSorting.dir);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmSorting]);
 
     useEffect(() => {
