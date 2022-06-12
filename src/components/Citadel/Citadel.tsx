@@ -18,7 +18,7 @@ import filtersUtils from 'utils/filtersUtils';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
-import CitadelInterface from './components/CitadelInterface';
+import { CitadelInterface } from './components/CitadelInterface';
 import FullscreenButton from './components/FullscreenButton';
 import { BasicButton } from './components/BasicButton';
 import SearchForm from './components/SearchForm';

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import { InterfaceStyles } from '../styles';
 
-export default function CitadelInterface({ children }) {
+export function CitadelInterface({ children }) {
     const classes = InterfaceStyles();
 
     return (
