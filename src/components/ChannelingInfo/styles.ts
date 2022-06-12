@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     container: {
         padding: '4px 8px',
         background: alpha('#000', .2),
@@ -44,5 +44,3 @@ const styles = makeStyles(() => ({
         color: 'orange'
     }
 }));
-
-export default styles;

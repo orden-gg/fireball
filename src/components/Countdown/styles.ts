@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     wrapper: {
         display: 'flex',
         textAlign: 'center'
@@ -35,5 +35,3 @@ const styles = makeStyles(theme => ({
         margin: '3px 0 0'
     }
 }));
-
-export default styles;

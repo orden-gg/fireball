@@ -2,9 +2,9 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import Countdown from 'components/Countdown/Countdown';
+import { Countdown } from 'components/Countdown/Countdown';
 
-import styles from './styles';
+import { styles } from './styles';
 
 const countdownFormat = {
     days: { key: 'dd', value: 'd', showIfZero: false },

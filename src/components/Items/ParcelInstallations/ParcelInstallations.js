@@ -2,7 +2,7 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import Countdown from 'components/Countdown/Countdown';
+import { Countdown } from 'components/Countdown/Countdown';
 import installationsUtils from 'utils/installationsUtils';
 
 import styles from './styles';

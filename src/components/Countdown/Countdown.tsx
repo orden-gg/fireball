@@ -12,6 +12,14 @@ const defaultLongFormat = {
     seconds: { key: 'ss', values: ['second', 'seconds'], showIfZero: false }
 };
 
+interface CountdownProps {
+    targetDate: number;
+    shortFormat?: any;
+    longFormat?: any;
+    onEnd?: () => void,
+    replacementComponent?: JSX.Element
+}
+
 /***
  * @param targetDate - luxon date in milliseconds
  * @param shortFormat - 1y 2m 3d 4h
@@ -23,7 +31,7 @@ const defaultLongFormat = {
  * @param onEnd - callback function that will trigger when current date is equal to `@targetDate`
  * @param replacementComponent - component that will be placed instead of countdown if `@targetDate` is in the past
 */
-export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacementComponent }) {
+export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacementComponent }: CountdownProps) {
     const isInThePast = targetDate < DateTime.local().toMillis();
 
     const [isDateInThePast, setIsDateInThePast] = useState(isInThePast);
@@ -90,7 +98,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
         const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
         const mappedLongFormat = Object.entries(units)
             .filter(([key]) => format[key].showIfZero || getIsShowUnit(key, units))
-            .map(([key, unit]) => `${format[key].key} ${ parseInt(unit) !== 1 ?
+            .map(([key, unit]) => `${format[key].key} ${ parseInt(unit as string) !== 1 ?
                 `'${format[key].values[1]}'` : `'${format[key].values[0]}'`}`
             );
 
@@ -102,7 +110,7 @@ export default function Countdown({ targetDate, shortFormat, longFormat, onEnd, 
     };
 
     const getIsShowUnit = (key, units) => {
-        let unitsKeys = [];
+        let unitsKeys: string[] = [];
 
         switch (key) {
             case 'years':
