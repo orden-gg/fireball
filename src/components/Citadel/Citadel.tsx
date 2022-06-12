@@ -72,7 +72,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         if (typeof active === 'string') {
             return active === type;
         } else {
-            return active!.some(name => name === type);
+            return Boolean(active?.some(name => name === type));
         }
     };
     const basicButtons = useMemo(() => {
@@ -134,7 +134,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
 
     useEffect(() => {
         history.push({
-            path: location.pathname,
+            pathname: location.pathname,
             search: qs.stringify(params, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
@@ -165,7 +165,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         if (isLoaded && mapCreated) {
             const { multiselect } = params;
 
-            if (multiselect!.length > 0) {
+            if (multiselect && multiselect.length > 0) {
                 game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
             }
         }

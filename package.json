@@ -85,6 +85,9 @@
   "devDependencies": {
     "@babel/preset-env": "7.16.5",
     "@babel/preset-react": "7.16.5",
+    "@types/query-string": "^6.3.0",
+    "@types/react-router": "^5.1.18",
+    "@types/react-router-dom": "^5.3.3",
     "husky": "^8.0.1",
     "jest": "26.6.0",
     "jest-canvas-mock": "^2.3.1",

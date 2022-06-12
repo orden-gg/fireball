@@ -69,7 +69,7 @@ export default function ClientWarehouse() {
         const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
 
         history.push({
-            path: location.pathname,
+            pathname: location.pathname,
             search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'

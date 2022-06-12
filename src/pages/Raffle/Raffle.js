@@ -42,9 +42,9 @@ export default function Raffle() {
 
     useEffect(() => {
         if (raffleActive) {
-            history.push({ path: location.pathname, search: `?address=${raffleActive}` });
+            history.push({ pathname: location.pathname, search: `?address=${raffleActive}` });
         } else {
-            history.push({ path: location.pathname });
+            history.push({ pathname: location.pathname });
         }
     }, [raffleActive]);
 

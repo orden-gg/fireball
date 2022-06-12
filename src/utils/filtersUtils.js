@@ -83,7 +83,7 @@ export default {
 
     updateQueryParams: (history, pathname, qs, queryParams, queryParamsOrder) => {
         history.push({
-            path: pathname,
+            pathname,
             search: qs.stringify(queryParams, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'

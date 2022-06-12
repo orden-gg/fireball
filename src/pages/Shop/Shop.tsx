@@ -192,7 +192,7 @@ export function Shop() {
         setCurrentAddress(address);
 
         if (ethersApi.isEthAddress(address)) {
-            history.push({ path: location.pathname, search: `?address=${address}` });
+            history.push({ pathname: location.pathname, search: `?address=${address}` });
         }
     };
 
