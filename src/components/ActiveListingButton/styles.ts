@@ -1,7 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     button: {
         display: 'inline-flex',
         alignItems: 'center',
@@ -22,5 +22,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

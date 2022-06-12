@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import EthAddress from 'components/EthAddress/EthAddress';
-import ActiveListingButton from 'components/ActiveListingButton/ActiveListingButton';
+import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';
 
 import SalesHistory from '../SalesHistory/SalesHistory';

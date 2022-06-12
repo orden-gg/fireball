@@ -3,14 +3,19 @@ import { Button } from '@mui/material';
 
 import thegraphApi from 'api/thegraph.api';
 
-import styles from './styles';
 import ethersApi from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
-export default function ActiveListingButton({ item }) {
+import { styles } from './styles';
+
+interface ActiveListingButtonProps {
+    item: any;
+}
+
+export function ActiveListingButton({ item }: ActiveListingButtonProps) {
     const classes = styles();
 
-    const [listing, setListing] = useState(null);
+    const [listing, setListing] = useState<any>(null);
     const [listingLoading, setListingLoading] = useState(true);
 
     useEffect(() => {
@@ -27,7 +32,7 @@ export default function ActiveListingButton({ item }) {
             })
             .catch(err => console.log(err));
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [item]);
 
     if (listingLoading || !listing) {
@@ -36,7 +41,6 @@ export default function ActiveListingButton({ item }) {
 
     return (
         <Button
-            className={classes.button}
             href={`https://app.aavegotchi.com/baazaar/${item.erc}/${listing.id}`}
             size='small'
             variant='contained'
