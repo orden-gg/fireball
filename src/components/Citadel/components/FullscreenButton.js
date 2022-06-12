@@ -22,7 +22,7 @@ export default function FullscreenButton({ wrapperRef }) {
     };
 
     if (isFullscreen === null) {
-        return '';
+        return <></>;
     }
 
     return (

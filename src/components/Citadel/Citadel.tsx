@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
-import CustomModal from 'components/Modal/Modal';
+import { CustomModal } from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
@@ -25,18 +25,24 @@ import SearchForm from './components/SearchForm';
 import CitadelInfo from './components/CitadelInfo';
 import CitadelFilters from './components/CitadelFilters';
 
-import styles, { InterfaceStyles } from './styles';
+import { styles, InterfaceStyles } from './styles';
 
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
-export default function Citadel({ realmGroups, className, isLoaded }) {
+interface CitadelProps {
+    realmGroups: any[];
+    className: string;
+    isLoaded: boolean;
+}
+
+export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     const classes = { ...styles(), ...InterfaceStyles() };
 
     const location = useLocation();
     const history = useHistory();
     const [params, setParams] = useState(qs.parse(location.search, { arrayFormat: 'comma' }));
 
-    const [game, setGame] = useState(null);
+    const [game, setGame] = useState<any>(null);
     const [mapCreated, setMapCreated] = useState(false);
     const [selectedParcel, setSelectedParcel] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
@@ -161,7 +167,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         if (isLoaded && mapCreated) {
             const { multiselect } = params;
 
-            if (multiselect?.length > 0) {
+            if (multiselect!.length > 0) {
                 game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
             }
         }

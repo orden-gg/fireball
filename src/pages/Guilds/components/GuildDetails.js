@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import Modal from 'components/Modal/Modal';
+import { CustomModal } from 'components/Modal/Modal';
 
 import GuildWearables from './GuildWearables';
 import { guildDetailsStyles } from '../styles';

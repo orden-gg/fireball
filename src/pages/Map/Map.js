@@ -4,7 +4,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
-import Citadel from 'components/Citadel/Citadel';
+import { Citadel } from 'components/Citadel/Citadel';
 import thegraphApi from 'api/thegraph.api';
 import { LoginContext } from 'contexts/LoginContext';
 

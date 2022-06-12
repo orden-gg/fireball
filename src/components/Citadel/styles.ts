@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 
 const keyframes = {
     drop: {
@@ -9,7 +9,7 @@ const keyframes = {
     }
 };
 
-const styles = makeStyles(() => ({
+const styles = makeStyles(() => createStyles({
     citadel: {
         position: 'absolute',
         '& canvas': {
@@ -18,7 +18,7 @@ const styles = makeStyles(() => ({
     }
 }));
 
-const InterfaceStyles = makeStyles(theme => ({
+const InterfaceStyles = makeStyles(theme => createStyles({
     citadelInterface: {
         position: 'absolute',
         right: theme.spacing(1),
@@ -61,7 +61,7 @@ const InterfaceStyles = makeStyles(theme => ({
     }
 }));
 
-const LoaderStyles = makeStyles(() => ({
+const LoaderStyles = makeStyles(() => createStyles({
     citadelLoading: {
         position: 'absolute',
         left: 0,
@@ -121,7 +121,7 @@ const LoaderStyles = makeStyles(() => ({
     '@keyframes drop': keyframes.drop
 }));
 
-const InfoStyles = makeStyles(theme => ({
+const InfoStyles = makeStyles(theme => createStyles({
     infoContainer: {
         position: 'absolute',
         left: theme.spacing(1),
@@ -140,7 +140,7 @@ const InfoStyles = makeStyles(theme => ({
     }
 }));
 
-const FilterStyles = makeStyles(theme => ({
+const FilterStyles = makeStyles(theme => createStyles({
     dropdownContainer: {
         position: 'absolute',
         left: theme.spacing(1),
@@ -214,7 +214,7 @@ const FilterStyles = makeStyles(theme => ({
 }));
 
 export {
-    styles as default,
+    styles,
     LoaderStyles,
     InterfaceStyles,
     InfoStyles,
