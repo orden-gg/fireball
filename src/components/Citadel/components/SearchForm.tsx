@@ -4,12 +4,18 @@ import SearchIcon from '@mui/icons-material/Search';
 
 import { InterfaceStyles } from '../styles';
 
-export default function SearchForm({ onSearch, type, placeholder }) {
+interface SearchFormProps {
+    onSearch: (type: any, value: string) => void;
+    type: string;
+    placeholder: string;
+}
+
+export function SearchForm({ onSearch, type, placeholder }: SearchFormProps) {
     const classes = InterfaceStyles();
 
-    const [searchId, setSearchId] = useState(null);
+    const [searchId, setSearchId] = useState<string>('');
 
-    const onKeyPress = key => {
+    const onKeyPress = (key: string) => {
         if (key === 'Enter') {
             onSearch(type, searchId);
         }
