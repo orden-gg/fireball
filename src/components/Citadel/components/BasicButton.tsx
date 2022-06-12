@@ -7,7 +7,15 @@ import CustomTooltip from 'components/custom/CustomTooltip';
 
 import { InterfaceStyles } from '../styles';
 
-export default function BasicButton({ active, type, tooltip, icons, handleClick }) {
+interface BasicButtonProps {
+    active: boolean;
+    type: string;
+    tooltip: string;
+    icons: JSX.Element[];
+    handleClick: (type: string, isActive: boolean) => void;
+}
+
+export function BasicButton({ active, type, tooltip, icons, handleClick }: BasicButtonProps) {
     const classes = InterfaceStyles();
 
     const [isActive, setIsActive] = useState(active);

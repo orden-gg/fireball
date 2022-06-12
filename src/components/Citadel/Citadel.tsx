@@ -20,7 +20,7 @@ import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
 import CitadelInterface from './components/CitadelInterface';
 import FullscreenButton from './components/FullscreenButton';
-import BasicButton from './components/BasicButton';
+import { BasicButton } from './components/BasicButton';
 import SearchForm from './components/SearchForm';
 import CitadelInfo from './components/CitadelInfo';
 import CitadelFilters from './components/CitadelFilters';
@@ -71,7 +71,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         if (typeof active === 'string') {
             return active === type;
         } else {
-            return active?.some(name => name === type);
+            return active!.some(name => name === type);
         }
     };
     const basicButtons = useMemo(() => {
