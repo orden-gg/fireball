@@ -27,7 +27,7 @@ export default function GuildsDetails({ guild }) {
                 </Button>
             </div>
 
-            <Modal
+            <CustomModal
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 className={classes.detailsModal}
@@ -61,7 +61,7 @@ export default function GuildsDetails({ guild }) {
                         )
                     }
                 </ul>
-            </Modal>
+            </CustomModal>
         </>
     );
 }
