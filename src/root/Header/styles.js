@@ -1,35 +1,27 @@
-import { alpha } from '@mui/system';
+import { alpha } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
-    toolbar: {
-        width: '100%',
-        justifyContent: 'space-between',
-        padding: '2px 14px 2px 24px',
-        background: theme.palette.background.default,
-        boxShadow: '0px 4px 16px rgba(29, 32, 37, 0.67)',
+    userPanel: {
         position: 'fixed',
-        top: 0,
-        height: 66,
-        zIndex: theme.zIndex.appBar,
-        [theme.breakpoints.up('md')]: {
-            padding: '2px 32px'
-        }
-    },
-    highlight: {
-        color: theme.palette.primary.main
-    },
-    logoText: {
-        whiteSpace: 'nowrap',
-        fontSize: '1.125rem',
-        letterSpacing: '0.04em'
-    },
+        right: theme.spacing(2),
+        top: theme.spacing(1.5),
+        zIndex: theme.zIndex.appBar + 10,
+        display: 'flex',
+        alignItems: 'center'
+    }
+}));
+
+const logoStypes = makeStyles(theme => ({
     logoWrapper: {
-        display: 'inline-flex',
+        top: theme.spacing(1.5),
+        left: theme.spacing(2),
+        position: 'fixed',
+        zIndex: theme.zIndex.appBar,
+        display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',
         marginRight: theme.spacing(1),
-        fontWeight: 700,
         color: theme.palette.text.primary,
         textDecoration: 'none',
         [theme.breakpoints.up('md')]: {
@@ -45,103 +37,79 @@ const styles = makeStyles(theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'none'
         }
-    },
-    navWrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        backgroundColor: theme.palette.secondary.dark,
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        padding: '70px 0 20px',
-        height: '100vh',
-        maxWidth: '80vw',
-        width: 400,
-        zIndex: theme.zIndex.appBar,
-        transform: 'translateX(100%)',
-        transition: 'transform .3s ease-in-out',
-        '&.opened': {
-            transform: 'translateX(0)'
-        },
-        [theme.breakpoints.up('md')]: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            backgroundColor: 'transparent',
-            position: 'static',
-            transform: 'translateX(0)',
-            height: 'unset',
-            padding: 0,
-            transition: 'none',
-            maxWidth: '100%',
-            width: '100%'
-        }
-    },
-    navigation: {
-        lineHeight: 'unset',
-        textAlign: 'center',
-        '& > *': {
-            textDecoration: 'none',
-            textTransform: 'uppercase'
-        },
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginLeft: 16
-        }
-    },
-    navLink: {
-        display: 'flex',
-        alignItems: 'center',
-        fontSize: 20,
-        color: theme.palette.common.white,
-        fontWeight: 500,
-        letterSpacing: '0.04em',
-        position: 'relative',
-        transition: '.3s',
-        padding: '16px 0',
-        '&.active': {
-            background: alpha(theme.palette.primary.main, .03)
-        },
-        '&.active, &:hover': {
-            color: theme.palette.primary.main
-        },
-        [theme.breakpoints.up('md')]: {
-            fontSize: 16,
-            margin: '0 15px',
-            padding: 0,
-            '&.active': {
-                background: 'transparent'
-            }
-        }
-    },
-    navLinkBox: {
-        display: 'inline-block',
-        position: 'relative',
-        '& span': {
-            position: 'absolute',
-            top: -12,
-            right: 2,
-            fontSize: 10,
-            color: theme.palette.primary.main,
-            textTransform: 'none'
-        }
-    },
-    navHamburger: {
-        position: 'relative',
-        zIndex: theme.zIndex.appBar,
-        marginLeft: '24px',
-        [theme.breakpoints.up('md')]: {
-            display: 'none'
-        }
-    },
-    group: {
-        display: 'flex',
-        alignItems: 'center',
-        marginLeft: 12
     }
 }));
 
-export default styles;
+const balancesStyles = makeStyles(theme => ({
+    balancesWrapper: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    balancesButton: {
+        margin: theme.spacing(0, 1)
+    },
+    balancesList: {
+        borderRadius: 5,
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: alpha('#212121cc', .9),
+        boxShadow: '0 0 3px 3px #212121cc'
+    },
+    balanceLoader: {
+        width: 50,
+        height: 20,
+        borderRadius: 4,
+        overflow: 'hidden',
+        '& + $balanceLoader': {
+            marginLeft: 6
+        }
+    },
+    balance: {
+        textAlign: 'center',
+        padding: '2px 6px',
+        '& + $balance': {
+            marginLeft: 6
+        },
+        '& p': {
+            margin: 0,
+            lineHeight: 1.2,
+            textShadow: `1px 1px 0 ${alpha('#000', .7)}`
+        }
+    },
+    balanceValue: {
+        display: 'flex',
+        alignItems: 'center',
+        fontWeight: '500',
+        '& img': {
+            marginRight: 4
+        },
+        '&.fud': {
+            color: theme.palette.alchemica.fud
+        },
+        '&.fomo': {
+            color: theme.palette.alchemica.fomo
+        },
+        '&.alpha': {
+            color: theme.palette.alchemica.alpha
+        },
+        '&.kek': {
+            color: theme.palette.alchemica.kek
+        },
+        '&.gltr': {
+            color: theme.palette.alchemica.gltr
+        },
+        '& p': {
+            opacity: .8
+        }
+    },
+    balancePrice: {
+        fontWeight: 500,
+        textAlign: 'center'
+    }
+}));
+
+export {
+    styles as default,
+    logoStypes,
+    balancesStyles
+}

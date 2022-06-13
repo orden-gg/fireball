@@ -1,8 +1,24 @@
 import { makeStyles } from '@mui/styles';
 
 const AboutStyles = makeStyles(theme => ({
+    button: {
+        width: 240,
+        margin: 'auto',
+        display: 'block'
+    },
+    modal: {
+        maxWidth: 1000,
+        padding: theme.spacing(3, 0)
+    },
+    container: {
+        maxHeight: 400,
+        overflow: 'auto',
+        padding: theme.spacing(0, 2)
+    },
     title: {
         textAlign: 'center',
+        color: theme.palette.primary.main,
+        fontWeight: 700,
         marginBottom: theme.spacing(2)
     },
     text: {
@@ -16,7 +32,7 @@ const AboutStyles = makeStyles(theme => ({
         padding: theme.spacing(0, 2)
     },
     list: {
-        backgroundColor: theme.palette.background.secondary,
+        backgroundColor: theme.palette.background.default,
         listStyle: 'none',
         padding: theme.spacing(2),
         margin: theme.spacing(1, 0)
@@ -36,11 +52,11 @@ const AboutStyles = makeStyles(theme => ({
             width: 8,
             height: 8,
             borderRadius: '50%',
-            backgroundColor: 'currentColor'
+            backgroundColor: theme.palette.primary.main
         }
     },
     link: {
-        color: 'inherit',
+        color: theme.palette.primary.main,
 
         '&:hover': {
             textDecoration: 'none'

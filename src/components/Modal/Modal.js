@@ -21,7 +21,7 @@ export default function CustomModal({ children, modalOpen, setModalOpen, onModal
             onClose={onClose}
             className={classes.wrapper}
         >
-            <div className={classNames(classes.modal, className || null)}>
+            <div className={classNames(classes.modal, className)}>
                 { children }
                 <IconButton className={classes.close} onClick={onClose}>
                     <CloseIcon  />

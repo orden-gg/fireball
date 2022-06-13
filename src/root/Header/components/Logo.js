@@ -2,10 +2,10 @@ import { NavLink } from 'react-router-dom';
 
 import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 
-import styles from './styles';
+import { logoStypes } from '../styles';
 
 export default function Logo() {
-    const classes = styles();
+    const classes = logoStypes();
 
     return (
         <NavLink className={classes.logoWrapper} to='/' >

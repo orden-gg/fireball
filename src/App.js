@@ -6,9 +6,8 @@ import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
-import Logo from 'root/Logo/Logo';
+import Header from 'root/Header/Header';
 import NavPanel from 'root/NavPanel/NavPanel';
-import UserPanel from 'root/UserPanel/UserPanel';
 import Footer from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
@@ -69,9 +68,8 @@ export default function App() {
                             </Helmet>
 
                             <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
-                                <Logo />
                                 <BalancesContextProvider>
-                                    <UserPanel />
+                                    <Header />
                                 </BalancesContextProvider>
 
                                 <NavPanel />

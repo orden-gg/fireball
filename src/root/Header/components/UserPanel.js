@@ -4,7 +4,7 @@ import Balances from 'root/Header/components/Balances';
 import LoginButton from 'components/Login/LoginButton';
 import { LoginContext } from 'contexts/LoginContext';
 
-import styles from './styles';
+import styles from '../styles';
 
 export default function UserPanel() {
     const { activeAddress } = useContext(LoginContext);
