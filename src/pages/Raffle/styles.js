@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles(theme => ({
     container: {
         maxWidth: 1280,
-        padding: theme.spacing(10, 3, 3),
+        padding: theme.spacing(8, 3, 3),
         margin: '0 auto'
     }
 }));

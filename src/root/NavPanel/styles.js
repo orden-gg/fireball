@@ -16,22 +16,52 @@ const styles = makeStyles(theme => ({
         width: 40
     },
     navItem: {
-        display: 'flex'
+        display: 'flex',
+
+        '&:first-child $navLink': {
+            borderTopRightRadius: 5
+        },
+        '&:last-child $navLink': {
+            borderBottomRightRadius: 5,
+
+            '&:before': {
+                content: 'none'
+            }
+        }
     },
     navLink: {
         color: theme.palette.common.white,
         display: 'flex',
         alignItems: 'center',
         textDecoration: 'none',
-        borderRadius: '0 5px 5px 0',
+        position: 'relative',
+
+        '&:before': {
+            content: "''",
+            position: 'absolute',
+            top: '100%',
+            left: 5,
+            right: 5,
+            height: 1,
+            backgroundColor: alpha('#fff', .08)
+        },
 
         '&.active': {
-            backgroundColor: theme.palette.background.default
+            backgroundColor: theme.palette.background.default,
+
+            '&:before': {
+                content: 'none'
+            },
         },
 
         '&:hover': {
             backgroundColor: theme.palette.background.default,
             boxShadow: `0 0 5px 0 ${alpha(theme.palette.common.black, .5)}`,
+            borderRadius: '0 5px 5px 0',
+
+            '&:before': {
+                content: 'none'
+            },
 
             '& $navItemName': {
                 display: 'block'

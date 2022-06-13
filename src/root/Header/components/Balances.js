@@ -8,20 +8,19 @@ import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
+import useLocalStorage from 'hooks/useLocalStorage';
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import { balancesStyles } from '../styles';
 
 export default function Balances() {
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useLocalStorage('visible_balances', JSON.parse(localStorage.getItem('visible_balances')) || true);
     const classes = balancesStyles();
     const theme = useTheme();
 
     const { tokens, isBalancesLoading } = useContext(BalancesContext);
 
-    const handleButtonClick = () => {
-        setMenuOpen(!menuOpen);
-    };
+    const handleButtonClick = isMenuOpen => setMenuOpen(isMenuOpen);
 
     if (!tokens.length) {
         return null;
@@ -71,7 +70,7 @@ export default function Balances() {
                 </div>
             )}
 
-            <IconButton className={classes.balancesButton} onClick={handleButtonClick}>
+            <IconButton className={classes.balancesButton} onClick={() => handleButtonClick(!menuOpen)}>
                 {menuOpen ? <MenuOpenIcon /> : <MenuIcon />}
             </IconButton>
         </div>
