@@ -11,7 +11,8 @@ interface WearableImageProps {
 
 export function WearableImage({ wearable, className }: WearableImageProps) {
     const classes = styles();
-    const name = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
+
+    const name: string = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
 
     return (
         <div className={classNames(classes.iconWrapper, className || null)}>

@@ -209,8 +209,8 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                     handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />
-                {basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}
-                {basicButtons}
+                <>{basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}</>
+                <>{basicButtons}</>
             </CitadelInterface>
 
             {mapCreated &&

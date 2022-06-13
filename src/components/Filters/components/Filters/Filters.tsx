@@ -25,13 +25,13 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
     // TODO replace object type with appropriate one
     const renderFiltersComponents = (renderFilters: Object) => {
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
-            let componentToRender;
+            let componentToRender: any;
             const filterProps = {
                 key,
                 option: renderFilter,
                 onSetSelectedFilters: onSetSelectedFilters
             };
-            const divider = filters[key].divider;
+            const divider: boolean = filters[key].divider;
 
             switch (renderFilter.componentType) {
                 case FilterComponent.Input:

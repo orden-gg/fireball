@@ -31,15 +31,16 @@ interface GotchiProps {
 }
 
 export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: GotchiProps) {
-    const [isFlipped, setIsFlipped] = useState(false);
     const classes = styles();
+
+    const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
     const flipCard = useCallback(() => {
         setIsFlipped(!isFlipped);
     }, [isFlipped]);
 
     const gotchiSections = {
-        badges: (children) => {
+        badges: (children: any) => {
             return (
                 <div
                     className={classes.gotchiBadges}
@@ -50,7 +51,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
             );
         },
 
-        flipContainer: (children) => {
+        flipContainer: (children: any) => {
             return (
                 <div
                     className={classNames(isFlipped && classes.gotchiIsFlipped)}
@@ -61,7 +62,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
             );
         },
 
-        flipBack: (children) => {
+        flipBack: (children: any) => {
             return (
                 <div
                     className={classes.gotchiFlipBack}
@@ -72,7 +73,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
             );
         },
 
-        flipFront: (children) => {
+        flipFront: (children: any) => {
             return (
                 <div
                     className={classes.gotchiFlipFront}
@@ -232,13 +233,13 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
         }
     };
 
-    function renderSection(value) {
+    function renderSection(value: any) {
         if (typeof value === 'string') return gotchiSections[value];
 
         return (
             Object.keys(value).map(key => (
                 gotchiSections[key](
-                    value[key].map(item => (
+                    value[key].map((item: any) => (
                         renderSection(item)
                     ))
                 )
@@ -256,7 +257,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
                 gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
             )}
         >
-            {render.map((name) => {
+            {render.map((name: any) => {
                 return renderSection(name);
             })}
         </div>

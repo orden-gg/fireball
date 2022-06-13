@@ -6,13 +6,9 @@ import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
-interface ActiveListingButtonProps {
-    item: any;
-}
-
-export function ActiveListingButton({ item }: ActiveListingButtonProps) {
+export function ActiveListingButton({ item }: { item: any }) {
     const [listing, setListing] = useState<any>(null);
-    const [listingLoading, setListingLoading] = useState(true);
+    const [listingLoading, setListingLoading] = useState<boolean>(true);
 
     useEffect(() => {
         let mounted = true;
@@ -20,7 +16,7 @@ export function ActiveListingButton({ item }: ActiveListingButtonProps) {
         setListingLoading(true);
 
         thegraphApi.getActiveListing(item.erc, item.id, item.type, item.category)
-            .then(res => {
+            .then((res: any) => {
                 if (mounted) {
                     setListing(res);
                     setListingLoading(false);

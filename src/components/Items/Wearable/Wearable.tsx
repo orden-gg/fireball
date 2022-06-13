@@ -14,8 +14,8 @@ interface WearableProps {
 }
 
 export function Wearable({ wearable, raffleChances, tooltip, isShopItem }: WearableProps) {
-    const rarity = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);
-    const slot = itemUtils.getItemSlotById(wearable.id || wearable.erc1155TypeId);
+    const rarity: string = itemUtils.getItemRarityById(wearable.id || wearable.erc1155TypeId);
+    const slot: string = itemUtils.getItemSlotById(wearable.id || wearable.erc1155TypeId);
 
     return (
         <ERC1155 item={{

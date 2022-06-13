@@ -65,7 +65,7 @@ export function Shop() {
             Promise.all([
                 thegraph.getErc721ListingsBySeller(currentAddress),
                 thegraph.getErc1155ListingsBySeller(currentAddress)
-            ]).then(([erc721Listings, erc1155Listings]) => {
+            ]).then(([erc721Listings, erc1155Listings]: [any, any]) => {
                 if (mounted) {
                     const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
 
@@ -103,15 +103,15 @@ export function Shop() {
         setConsumables([]);
     };
 
-    const handleSetErc721Listings = (listings) => {
-        const listedGotchis = listings
-            .filter(listing => listing.category === Erc721Categories.Aavegotchi)
-            .map(listing => listing.gotchi);
-        const sortedGotchis = commonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
+    const handleSetErc721Listings = (listings: any[]) => {
+        const listedGotchis: any[] = listings
+            .filter((listing: any) => listing.category === Erc721Categories.Aavegotchi)
+            .map((listing: any) => listing.gotchi);
+        const sortedGotchis: any[] = commonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
 
-        const listedParcels = listings
-            .filter(listing => listing.category === Erc1155Categories.Realm)
-            .map(listing => ({
+        const listedParcels: any[] = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Realm)
+            .map((listing: any) => ({
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,
                 baazaarId: listing.id,
@@ -121,11 +121,11 @@ export function Shop() {
                     priceInWei: listing.priceInWei
                 }]
             }));
-        const sortedParcels = commonUtils.basicSort(listedParcels, 'size', 'desc');
+        const sortedParcels: any[] = commonUtils.basicSort(listedParcels, 'size', 'desc');
 
-        const listedPortals = listings
-            .filter(listing => listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal)
-            .map(listing => ({
+        const listedPortals: any[] = listings
+            .filter((listing: any) => listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal)
+            .map((listing: any) => ({
                 priceInWei: listing.priceInWei,
                 category: listing.category,
                 tokenId: listing.tokenId,
@@ -138,32 +138,32 @@ export function Shop() {
                     priceInWei: listing.priceInWei
                 }]
             }));
-        const sortedPortals = commonUtils.basicSort(listedPortals, 'tokenId', 'asc');
+        const sortedPortals: any[] = commonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
         setGotchis(sortedGotchis);
         setParcels(sortedParcels);
         setPortals(sortedPortals);
     };
 
-    const handleSetErc1155Listings = (listings) => {
-        const listedWearables = listings
-            .filter(listing => listing.category === Erc1155Categories.Wearable)
-            .map(listing => ({
+    const handleSetErc1155Listings = (listings: any[]) => {
+        const listedWearables: any[] = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Wearable)
+            .map((listing: any) => ({
                 ...mapWearableAndTicket(listing)
             }));
-        const sortedWearables = commonUtils.basicSort(listedWearables, 'rarityId', 'desc');
+        const sortedWearables: any[] = commonUtils.basicSort(listedWearables, 'rarityId', 'desc');
 
-        const listedTickets = listings
-            .filter(listing => listing.category === Erc1155Categories.Ticket)
-            .map(listing => ({
+        const listedTickets: any[] = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Ticket)
+            .map((listing: any) => ({
                 ...mapWearableAndTicket(listing),
                 erc1155TypeId: listing.erc1155TypeId
             }));
-        const sortedTickets = commonUtils.basicSort(listedTickets, 'rarityId', 'desc');
+        const sortedTickets: any[] = commonUtils.basicSort(listedTickets, 'rarityId', 'desc');
 
         const listedConsumables = listings
-            .filter(listing => listing.category === Erc1155Categories.Consumable)
-            .map(listing => ({
+            .filter((listing: any) => listing.category === Erc1155Categories.Consumable)
+            .map((listing: any) => ({
                 id: parseInt(listing.erc1155TypeId, 10),
                 balance: parseInt(listing.quantity, 10),
                 listing: listing.id,
@@ -175,7 +175,7 @@ export function Shop() {
         setConsumables(listedConsumables);
     };
 
-    const mapWearableAndTicket = (listing) => {
+    const mapWearableAndTicket = (listing: any) => {
         return {
             id: parseInt(listing.erc1155TypeId, 10),
             balance: parseInt(listing.quantity, 10),
@@ -188,7 +188,7 @@ export function Shop() {
         };
     };
 
-    const onAddressChange = (address) => {
+    const onAddressChange = (address: string) => {
         setCurrentAddress(address);
 
         if (ethersApi.isEthAddress(address)) {
@@ -267,7 +267,7 @@ export function Shop() {
 
             <div className={classes.list}>
                 {
-                    wearables.map(wearable =>
+                    wearables.map((wearable: any) =>
                         <div className={classes.listItem} key={wearable.listing}>
                             <Wearable wearable={wearable} isShopItem={true} />
                         </div>
@@ -281,7 +281,7 @@ export function Shop() {
 
             <div className={classes.list}>
                 {
-                    parcels.map(parcel =>
+                    parcels.map((parcel: any) =>
                         <div className={classes.listItem} key={parcel.parcelId}>
                             <Parcel parcel={parcel} />
                         </div>
@@ -296,7 +296,7 @@ export function Shop() {
 
             <div className={classes.list}>
                 {
-                    portals.map(portal =>
+                    portals.map((portal: any) =>
                         <div className={classes.listItem} key={portal.tokenId}>
                             <Portal portal={portal} />
                         </div>
@@ -310,7 +310,7 @@ export function Shop() {
 
             <div className={classes.list}>
                 {
-                    tickets.map(ticket =>
+                    tickets.map((ticket: any) =>
                         <div className={classes.listItem} key={ticket.listing}>
                             <Ticket ticket={ticket} isShopItem={true} />
                         </div>
@@ -324,7 +324,7 @@ export function Shop() {
 
             <div className={classes.list}>
                 {
-                    consumables.map(consumable =>
+                    consumables.map((consumable: any) =>
                         <div className={classes.listItem} key={consumable.listing}>
                             <Consumable consumable={consumable} isShopItem={true} />
                         </div>

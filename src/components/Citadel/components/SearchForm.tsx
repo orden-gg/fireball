@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { InterfaceStyles } from '../styles';
 
 interface SearchFormProps {
-    onSearch: (type: any, value: string) => void;
+    onSearch: (type: string, value: string) => void;
     type: string;
     placeholder: string;
 }

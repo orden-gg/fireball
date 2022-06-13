@@ -20,7 +20,7 @@ export function BasicButton({ active, type, tooltip, icons, handleClick }: Basic
 
     const [isActive, setIsActive] = useState(active);
 
-    const switchButtonState = isActive => {
+    const switchButtonState = (isActive: boolean) => {
         setIsActive(isActive);
         handleClick(type, isActive);
     };

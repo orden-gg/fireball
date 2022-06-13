@@ -39,7 +39,7 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
         const controller = new AbortController();
 
         // last sold
-        thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then(response => {
+        thegraph.getErc1155Price(item.id, true, item.category, 'timeLastPurchased', 'desc').then((response: any) => {
             if (!controller.signal.aborted) {
                 setLast(response);
 
@@ -54,7 +54,7 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
             setCurrent(item.listing);
         } else {
             // current
-            thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then(response => {
+            thegraph.getErc1155Price(item.id, false, item.category, 'priceInWei', 'asc').then((response: any) => {
                 if (!controller.signal.aborted) {
                     setCurrent(response);
                 }
