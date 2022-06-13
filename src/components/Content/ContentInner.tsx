@@ -4,8 +4,15 @@ import classNames from 'classnames';
 
 import { ContentInnerStyles } from './style';
 
-export default function ContentInner({ children, dataLoading, offset }) {
+interface ContentInnerProps {
+    children: JSX.Element;
+    dataLoading: boolean;
+    offset?: number;
+}
+
+export function ContentInner({ children, dataLoading, offset }: ContentInnerProps) {
     const classes = ContentInnerStyles();
+
     const contentOffset = offset || 240;
 
     return (

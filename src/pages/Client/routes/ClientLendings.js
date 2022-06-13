@@ -7,7 +7,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import qs from 'query-string';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
-import ContentInner from 'components/Content/ContentInner';
+import { ContentInner } from 'components/Content/ContentInner';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';

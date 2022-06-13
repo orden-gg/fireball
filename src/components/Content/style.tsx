@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     content: {
         padding: '24px 24px 0',
         [theme.breakpoints.up('sm')]: {
@@ -31,7 +31,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const ContentInnerStyles = makeStyles(theme => ({
+export const ContentInnerStyles = makeStyles(theme => ({
     content: {
         background: theme.palette.background.paper,
         borderRadius: 4,
@@ -44,8 +44,3 @@ const ContentInnerStyles = makeStyles(theme => ({
         }
     }
 }));
-
-export {
-    styles as default,
-    ContentInnerStyles
-};

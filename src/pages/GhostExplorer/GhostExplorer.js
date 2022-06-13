@@ -9,7 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
-import ContentInner from 'components/Content/ContentInner';
+import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import GotchisLazy from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';

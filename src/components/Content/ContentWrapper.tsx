@@ -1,6 +1,6 @@
-import styles from './style';
+import { styles } from './style';
 
-export default function ContentWrapper({ children }) {
+export function ContentWrapper({ children }: { children: JSX.Element[] }) {
     const classes = styles();
 
     return (
