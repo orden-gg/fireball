@@ -4,17 +4,18 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import CustomTooltip from 'components/custom/CustomTooltip.js';
 
-import styles from './styles.js';
+import { styles } from './styles';
 
 const defaultTooltipText = <span>
     copy to <span className='highlight'>clipboard</span>
 </span>;
 
-export default function CopyToClipboard({ copy }) {
+export function CopyToClipboard({ copy }: { copy: string }) {
     const classes = styles();
-    const [tooltipText, setTooltipText] = useState(defaultTooltipText);
 
-    const copyText = (event, text) => {
+    const [tooltipText, setTooltipText] = useState<string | JSX.Element>(defaultTooltipText);
+
+    const copyText = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, text: string) => {
         event.stopPropagation();
 
         toClipboard(text)
@@ -22,7 +23,7 @@ export default function CopyToClipboard({ copy }) {
             .catch(() => setTooltipText(defaultTooltipText));
     };
 
-    const toClipboard = async (text) => {
+    const toClipboard = async (text: string) => {
         navigator.clipboard.writeText(text);
     };
 
@@ -31,7 +32,6 @@ export default function CopyToClipboard({ copy }) {
             title={tooltipText}
             placement='top'
             followCursor
-            className={classes.tooltip}
         >
             <IconButton
                 className={classes.button}

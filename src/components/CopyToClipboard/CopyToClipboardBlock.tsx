@@ -4,17 +4,24 @@ import classNames from 'classnames';
 
 import CustomTooltip from 'components/custom/CustomTooltip.js';
 
-import styles from './styles.js';
+import { styles } from './styles';
 
 const defaultTooltipText = <span>
     copy to <span className='highlight'>clipboard</span>
 </span>;
 
-export default function CopyToClipboardBlock({ children, text, className }) {
-    const classes = styles();
-    const [tooltipText, setTooltipText] = useState(defaultTooltipText);
+interface CopyToClipboardBlockProps {
+    children: JSX.Element;
+    text: string;
+    className: string;
+}
 
-    const copyText = (event, text) => {
+export function CopyToClipboardBlock({ children, text, className }: CopyToClipboardBlockProps) {
+    const classes = styles();
+
+    const [tooltipText, setTooltipText] = useState<string | JSX.Element>(defaultTooltipText);
+
+    const copyText = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, text: string) => {
         event.stopPropagation();
 
         toClipboard(text)
@@ -22,7 +29,7 @@ export default function CopyToClipboardBlock({ children, text, className }) {
             .catch(() => setTooltipText(defaultTooltipText));
     };
 
-    const toClipboard = async (text) => {
+    const toClipboard = async (text: string) => {
         navigator.clipboard.writeText(text);
     };
 
@@ -31,7 +38,6 @@ export default function CopyToClipboardBlock({ children, text, className }) {
             title={tooltipText}
             placement='top'
             followCursor
-            className={classes.tooltip}
         >
             <div
                 className={classNames(classes.block, className)}

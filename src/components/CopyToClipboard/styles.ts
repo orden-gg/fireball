@@ -1,9 +1,9 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import copyIcon from 'assets/images/icons/copy.svg';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     icon: {
         fontSize: 14
     },
@@ -41,5 +41,3 @@ const styles = makeStyles(() => ({
         transition: 'all .3s ease-in-out'
     }
 }));
-
-export default styles;

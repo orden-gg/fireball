@@ -13,7 +13,7 @@ import itemUtils from 'utils/itemUtils';
 import ParcelName from './ParcelName';
 import ParcelInstallations from '../ParcelInstallations/ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-import CopyToClipboardBlock from 'components/CopyToClipboard/CopyToClipboardBlock';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import ShineLabel from 'components/Labels/ShineLabel';
 
 export default function Parcel({ parcel }) {

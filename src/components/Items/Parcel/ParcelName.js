@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import CopyToClipboardBlock from 'components/CopyToClipboard/CopyToClipboardBlock';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
