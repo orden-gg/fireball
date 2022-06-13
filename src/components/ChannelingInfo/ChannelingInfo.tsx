@@ -2,20 +2,21 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
+import { CountdownShortFormat } from 'shared/models/contdown-short-format.model';
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';
 
-const countdownFormat = {
+const countdownFormat: CountdownShortFormat = {
     days: { key: 'dd', value: 'd', showIfZero: false },
     hours: { key: 'hh', value: 'h', showIfZero: false },
     minutes: { key: 'mm', value: 'm', showIfZero: false }
 };
 
-export default function ChannelingInfo({ channeling }) {
+export function ChannelingInfo({ channeling }: { channeling: any }) {
     const classes = styles();
 
-    const fromTimestampToMillis = (timestamp) => {
+    const fromTimestampToMillis = (timestamp: number) => {
         return DateTime.fromSeconds(timestamp).toMillis();
     };
 

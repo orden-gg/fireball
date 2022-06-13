@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
 import CustomTooltip from 'components/custom/CustomTooltip';
-import ChannelingInfo from 'components/ChannelingInfo/ChannelingInfo';
+import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
 import { CustomModal } from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';

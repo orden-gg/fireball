@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { DateTime, Duration } from 'luxon';
+import { DateTime, Duration, DurationLikeObject } from 'luxon';
+import { CountdownLongFormat, CountdownShortFormat } from 'shared/models/contdown-short-format.model';
 
-const interval = 1000;
-const defaultLongFormat = {
+const interval: number = 1000;
+const defaultLongFormat: CountdownLongFormat = {
     years: { key: 'y', values: ['year', 'years'], showIfZero: false },
     months: { key: 'MM', values: ['month', 'months'], showIfZero: false },
     days: { key: 'dd', values: ['day', 'days'], showIfZero: false },
@@ -14,8 +15,8 @@ const defaultLongFormat = {
 
 interface CountdownProps {
     targetDate: number;
-    shortFormat?: any;
-    longFormat?: any;
+    shortFormat?: CountdownShortFormat;
+    longFormat?: CountdownLongFormat;
     onEnd?: () => void,
     replacementComponent?: JSX.Element
 }
@@ -32,16 +33,16 @@ interface CountdownProps {
  * @param replacementComponent - component that will be placed instead of countdown if `@targetDate` is in the past
 */
 export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacementComponent }: CountdownProps) {
-    const isInThePast = targetDate < DateTime.local().toMillis();
+    const isInThePast: boolean = targetDate < DateTime.local().toMillis();
 
-    const [isDateInThePast, setIsDateInThePast] = useState(isInThePast);
-    const [countdown, setCountdown] = useState('');
+    const [isDateInThePast, setIsDateInThePast] = useState<boolean>(isInThePast);
+    const [countdown, setCountdown] = useState<string>('');
 
     useEffect(() => {
         function updateCountdown() {
             const now = DateTime.local().toMillis();
-            let diff;
-            let formattedTimeString;
+            let diff: number;
+            let formattedTimeString: string;
 
             if (targetDate - now > 0) {
                 diff = targetDate - now;
@@ -55,7 +56,7 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
 
             if (shortFormat) {
                 const formatKeys = Object.keys(shortFormat);
-                const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+                const units = Duration.fromMillis(diff).shiftTo(...formatKeys as any).toObject();
                 const mappedShortFormat = Object.keys(units)
                     .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
                     .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
@@ -75,7 +76,7 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
 
             setCountdown(formattedTimeString);
 
-            if (parseInt(DateTime.fromMillis(targetDate).toSeconds()) === parseInt(DateTime.fromMillis(now).toSeconds())) {
+            if (DateTime.fromMillis(targetDate).toSeconds() === DateTime.fromMillis(now).toSeconds()) {
                 if (onEnd) {
                     onEnd();
                 }
@@ -91,9 +92,9 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
         return () => clearInterval(timer);
     }, [targetDate]);
 
-    const getLongFormattedTimeString = (diff, format) => {
+    const getLongFormattedTimeString = (diff: number, format: any) => {
         const formatKeys = Object.keys(format);
-        const units = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+        const units = Duration.fromMillis(diff).shiftTo(...formatKeys as any).toObject();
         const mappedLongFormat = Object.entries(units)
             .filter(([key]) => format[key].showIfZero || getIsShowUnit(key, units))
             .map(([key, unit]) => `${format[key].key} ${ parseInt(unit as string) !== 1 ?
@@ -103,11 +104,11 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
         return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
     };
 
-    const isShowUnitPredicate = (unitsKeys, units) => {
+    const isShowUnitPredicate = (unitsKeys: string[], units: DurationLikeObject) => {
         return unitsKeys.some(unitsKey => Boolean(units[unitsKey]) && units[unitsKey] > 0);
     };
 
-    const getIsShowUnit = (key, units) => {
+    const getIsShowUnit = (key: string, units: DurationLikeObject) => {
         let unitsKeys: string[] = [];
 
         switch (key) {
