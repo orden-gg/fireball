@@ -68,11 +68,14 @@ export default function App() {
                             </Helmet>
 
                             <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
-                                <BalancesContextProvider>
-                                    <Header />
-                                </BalancesContextProvider>
-
-                                <NavPanel />
+                                { isDisplayHeader &&
+                                    <>
+                                        <BalancesContextProvider>
+                                            <Header />
+                                        </BalancesContextProvider>
+                                        <NavPanel />
+                                    </>
+                                }
 
                                 <Box className={classes.content}>
                                     <Switch>
