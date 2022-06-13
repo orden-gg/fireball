@@ -1,8 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Modal } from '@mui/material';
 
-import classNames from 'classnames';
-
 import { styles } from './styles';
 
 interface CustomModalProps {

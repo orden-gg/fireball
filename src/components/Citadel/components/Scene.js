@@ -131,7 +131,7 @@ export default class CitadelScene extends Phaser.Scene {
                 }
             });
 
-            /* eslint-disable-next-line no-unused-vars */
+            /* eslint-disable @typescript-eslint/no-unused-vars */
             this.input.on('wheel', (pointer, gameObjects, deltaX, deltaY, deltaZ) => {
                 const camera = this.cameras.main;
 

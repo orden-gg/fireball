@@ -6,15 +6,11 @@ import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
-import { styles } from './styles';
-
 interface ActiveListingButtonProps {
     item: any;
 }
 
 export function ActiveListingButton({ item }: ActiveListingButtonProps) {
-    const classes = styles();
-
     const [listing, setListing] = useState<any>(null);
     const [listingLoading, setListingLoading] = useState(true);
 

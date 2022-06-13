@@ -63,7 +63,7 @@
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules",
-    "lint": "eslint -c .eslintrc.json --ext .js,.jsx .",
+    "lint": "eslint -c .eslintrc.json --ext .js,.jsx,.ts,.tsx .",
     "prepare": "husky install"
   },
   "browserslist": {
@@ -88,6 +88,8 @@
     "@types/query-string": "^6.3.0",
     "@types/react-router": "^5.1.18",
     "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "@typescript-eslint/parser": "^5.27.1",
     "husky": "^8.0.1",
     "jest": "26.6.0",
     "jest-canvas-mock": "^2.3.1",

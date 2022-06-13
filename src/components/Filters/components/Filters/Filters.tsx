@@ -23,7 +23,7 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
     const classes = styles();
 
     // TODO replace object type with appropriate one
-    const renderFiltersComponents = (renderFilters: object) => {
+    const renderFiltersComponents = (renderFilters: Object) => {
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender;
             const filterProps = {

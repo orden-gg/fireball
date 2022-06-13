@@ -1,4 +1,4 @@
-/* eslint-disable-next-line no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import regeneratorRuntime from 'regenerator-runtime';
 
 import { render } from './test/test-utils';
