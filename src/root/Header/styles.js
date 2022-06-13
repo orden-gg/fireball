@@ -112,4 +112,4 @@ export {
     styles as default,
     logoStypes,
     balancesStyles
-}
+};

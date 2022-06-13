@@ -37,7 +37,7 @@ const styles = makeStyles(theme => ({
         position: 'relative',
 
         '&:before': {
-            content: "''",
+            content: '""',
             position: 'absolute',
             top: '100%',
             left: 5,
@@ -51,7 +51,7 @@ const styles = makeStyles(theme => ({
 
             '&:before': {
                 content: 'none'
-            },
+            }
         },
 
         '&:hover': {
