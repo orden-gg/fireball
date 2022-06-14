@@ -2,7 +2,7 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import { CountdownShortFormat } from 'shared/models/contdown-short-format.model';
+import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';

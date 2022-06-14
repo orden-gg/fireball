@@ -4,7 +4,7 @@ import { Backdrop, Button, Divider } from '@mui/material';
 import classNames from 'classnames';
 
 import { Filters } from 'components/Filters/components/Filters/Filters';
-import LazySorting from 'components/Filters/LazySorting';
+import { LazySorting } from 'components/Filters/LazySorting';
 
 import styles from './styles';
 
