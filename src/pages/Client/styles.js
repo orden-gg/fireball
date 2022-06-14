@@ -21,9 +21,12 @@ const styles = makeStyles(theme => ({
     clientCitadel: {
         position: 'fixed',
         left: 0,
-        top: 70,
+        top: 0,
         right: 0,
-        bottom: 70
+        bottom: 70,
+        '& .citadel-interface, & .citadel-filters': {
+            top: 110
+        }
     },
     customBtn: {
         padding: 6,

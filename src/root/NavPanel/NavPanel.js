@@ -46,7 +46,7 @@ export default function NavPanel() {
                             <Icon className={classes.iconBox}>
                                 <StoreIcon width={20} height={20} />
                             </Icon>
-                            <span className={classes.navItemName}>Market filter</span>
+                            <span className={classes.navItemName}>Market</span>
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
@@ -78,7 +78,7 @@ export default function NavPanel() {
                             <Icon className={classes.iconBox}>
                                 <MapIcon width={20} height={20} />
                             </Icon>
-                            <span className={classes.navItemName}>map</span>
+                            <span className={classes.navItemName}>Map</span>
                         </NavLink>
                     </div>
                 </nav>

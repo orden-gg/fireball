@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 const AboutStyles = makeStyles(theme => ({
     button: {
         width: 240,
-        margin: 'auto',
+        margin: theme.spacing(6, 'auto', 0),
         display: 'block'
     },
     modal: {
