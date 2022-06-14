@@ -8,19 +8,20 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
-import styles from './styles.js';
+import { styles } from './styles';
 
-export default function EthAddressPanel({ address }) {
+export function EthAddressPanel({ address }: { address: string }) {
     const classes = styles();
-    const [dataLoading, setDataLoading] = useState(true);
-    const [account, setAccount] = useState({});
+
+    const [dataLoading, setDataLoading] = useState<boolean>(true);
+    const [account, setAccount] = useState<any>({});
 
     useEffect(() => {
         let mounted = true;
 
         setDataLoading(true);
 
-        aavegotchilandApi.getAddressInfo(address).then((res) => {
+        aavegotchilandApi.getAddressInfo(address).then((res: any) => {
             if (mounted) {
                 const data = res.data;
                 const formatted = [
@@ -79,10 +80,10 @@ export default function EthAddressPanel({ address }) {
             }
         });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [address]);
 
-    const formatNumber = (number) => {
+    const formatNumber = (number: number) => {
         return commonUtils.convertFloatNumberToSuffixNumber(number);
     };
 
@@ -111,7 +112,7 @@ export default function EthAddressPanel({ address }) {
                             <p className={classes.noStats}>Stats not available for current address :(</p>
                         )}
 
-                        { account.map((item, i) => {
+                        { account.map((item: any, i: number) => {
                             if (item.total === 0) {
                                 return null;
                             }
