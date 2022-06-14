@@ -3,7 +3,7 @@ import { IconButton } from '@mui/material';
 
 import classNames from 'classnames';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { InterfaceStyles } from '../styles';
 

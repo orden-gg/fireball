@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { FudIcon, RealmGif } from 'components/Icons/Icons';
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import realmApi from 'api/realm.api';
 import { DAY_MILLIS } from 'data/date';
 

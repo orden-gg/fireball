@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import CustomTooltip from 'components/custom/CustomTooltip.js';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

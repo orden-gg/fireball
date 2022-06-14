@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import styles from './styles';

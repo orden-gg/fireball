@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import CustomTooltip from 'components/custom/CustomTooltip.js';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

@@ -5,7 +5,7 @@ import HideSourceIcon from '@mui/icons-material/HideSource';
 import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import gotchiverseApi from 'api/gotchiverse.api';
 
 import styles from './styles';

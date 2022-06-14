@@ -8,7 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import classNames from 'classnames';
 import Blockies from 'react-blockies';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 

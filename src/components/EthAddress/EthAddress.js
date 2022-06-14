@@ -3,7 +3,7 @@ import CallMade from '@mui/icons-material/CallMade';
 
 import Blockies from 'react-blockies';
 
-import CustomTooltip from 'components/custom/CustomTooltip.js';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
 import ethersApi from 'api/ethers.api.js';
 import commonUtils from 'utils/commonUtils.js';

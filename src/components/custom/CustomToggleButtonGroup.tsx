@@ -1,6 +1,6 @@
 import { styled, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
-import CustomTooltip from './CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     '& .MuiToggleButtonGroup-grouped': {

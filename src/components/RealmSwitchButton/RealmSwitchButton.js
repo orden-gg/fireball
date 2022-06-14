@@ -3,7 +3,7 @@ import { Switch } from '@mui/material';
 
 import qs from 'query-string';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import styles from './styles';
 

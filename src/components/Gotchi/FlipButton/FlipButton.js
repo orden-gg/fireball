@@ -1,4 +1,4 @@
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
 
 import styles from './styles';

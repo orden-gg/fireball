@@ -8,7 +8,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import ShineLabel from 'components/Labels/ShineLabel';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';

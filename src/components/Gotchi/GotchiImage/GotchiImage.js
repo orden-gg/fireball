@@ -1,7 +1,7 @@
 import { Avatar } from '@mui/material';
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
 
-import CustomTooltip from 'components/custom/CustomTooltip';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
