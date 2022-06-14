@@ -44,11 +44,11 @@ const styles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: alpha('#000', .2),
+        background: alpha('#000', .8),
         padding: '0 8px',
         borderRadius: 4,
         '&:hover': {
-            background: alpha('#000', .3)
+            background: alpha('#000', .4)
         }
     },
     addressText: {

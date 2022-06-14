@@ -6,7 +6,8 @@ import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
-import Header from './root/Header/Header';
+import Header from 'root/Header/Header';
+import NavPanel from 'root/NavPanel/NavPanel';
 import Footer from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
@@ -39,8 +40,7 @@ const Wrapper = styled('div')(() => ({
     [`&.${classes.wrapper}`]: {
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%',
-        paddingTop: 66
+        minHeight: '100%'
     },
     [`&.${classes.noHeaderWrapper}`]: {
         paddingTop: 0
@@ -69,9 +69,12 @@ export default function App() {
 
                             <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
                                 { isDisplayHeader &&
-                                    <BalancesContextProvider>
-                                        <Header />
-                                    </BalancesContextProvider>
+                                    <>
+                                        <BalancesContextProvider>
+                                            <Header />
+                                        </BalancesContextProvider>
+                                        <NavPanel />
+                                    </>
                                 }
 
                                 <Box className={classes.content}>

@@ -17,6 +17,7 @@ import discord from 'assets/images/icons/discord.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
+import guild from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
@@ -102,6 +103,10 @@ export const DiscordIcon = ({ className, width, height }) => {
 
 export const GotchiIcon = ({ className, width, height }) => {
     return <img className={className} width={width} height={height} src={gotchi} alt='gotchi' />;
+};
+
+export const GuildIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={guild} alt='guild' />;
 };
 
 

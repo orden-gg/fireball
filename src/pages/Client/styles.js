@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     container: {
-        padding: '7px 24px 0',
+        padding: '55px 24px 0',
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100%'
@@ -21,9 +21,12 @@ const styles = makeStyles(theme => ({
     clientCitadel: {
         position: 'fixed',
         left: 0,
-        top: 70,
+        top: 0,
         right: 0,
-        bottom: 70
+        bottom: 70,
+        '& .citadel-interface, & .citadel-filters': {
+            top: 110
+        }
     },
     customBtn: {
         padding: 6,

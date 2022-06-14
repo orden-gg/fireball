@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles';
 
 const styles = makeStyles(theme => ({
     content: {
-        padding: '24px 24px 0',
+        padding: '64px 24px 0',
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
             alignItems: 'flex-start'
