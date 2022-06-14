@@ -4,7 +4,7 @@ import { CircularProgress, Link } from '@mui/material';
 import classNames from 'classnames';
 
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
-import EthAddress from 'components/EthAddress/EthAddress.js';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
@@ -91,9 +91,9 @@ export default function EthAddressPanel({ address }) {
             <div className={classes.title}>
                 <EthAddress
                     address={address}
-                    icon={true}
-                    copyButton={true}
-                    polygonButton={true}
+                    isShwoIcon={true}
+                    isCopyButton={true}
+                    isPolygonButton={true}
                 />
                 <p>assets value and stats</p>
             </div>

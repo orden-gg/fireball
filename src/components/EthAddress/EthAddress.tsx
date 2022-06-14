@@ -8,9 +8,17 @@ import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
 import ethersApi from 'api/ethers.api.js';
 import commonUtils from 'utils/commonUtils.js';
 
-import styles from './styles.js';
+import { styles } from './styles';
 
-export default function EthAddress({ address, icon, clientLink, polygonButton, copyButton }) {
+interface EthAddressProps {
+    address: string;
+    isShwoIcon: boolean;
+    isClientLink?: boolean;
+    isPolygonButton?: boolean;
+    isCopyButton?: boolean;
+}
+
+export function EthAddress({ address, isShwoIcon, isClientLink, isPolygonButton, isCopyButton }: EthAddressProps) {
     const classes = styles();
 
     if (!ethersApi.isEthAddress(address)) {
@@ -19,7 +27,7 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
 
     return (
         <div className={classes.container}>
-            { icon &&
+            { isShwoIcon &&
                 <Blockies
                     seed={address.toLowerCase()}
                     size={8}
@@ -28,7 +36,7 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
                 />
             }
 
-            { clientLink ? (
+            { isClientLink ? (
                 <Link
                     href={`/client/${address}`}
                     target='_blank'
@@ -42,13 +50,13 @@ export default function EthAddress({ address, icon, clientLink, polygonButton, c
                 </span>
             )}
 
-            { copyButton &&
+            { isCopyButton &&
                 <div className={classes.button}>
                     <CopyToClipboard copy={address} />
                 </div>
             }
 
-            { polygonButton &&
+            { isPolygonButton &&
                 <div className={classes.button}>
                     <CustomTooltip
                         title={

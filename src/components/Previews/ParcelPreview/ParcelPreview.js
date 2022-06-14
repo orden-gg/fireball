@@ -3,7 +3,7 @@ import { Paper } from '@mui/material';
 import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
-import EthAddress from 'components/EthAddress/EthAddress';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';
 
@@ -37,10 +37,10 @@ export default function ParcelPreview({ parcel }) {
                             <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
                             <EthAddress
                                 address={parcel.owner?.id}
-                                icon={true}
-                                clientLink={true}
-                                polygonButton={true}
-                                copyButton={true}
+                                isShwoIcon={true}
+                                isClientLink={true}
+                                isPolygonButton={true}
+                                isCopyButton={true}
                             />
                         </div>
 

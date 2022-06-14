@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
-import EthAddress from 'components/EthAddress/EthAddress';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 
@@ -52,19 +52,19 @@ export default function SalesHistory({ id, category }) {
                             <div>
                                 <EthAddress
                                     address={item.seller}
-                                    icon={true}
-                                    clientLink={true}
-                                    polygonButton={true}
-                                    copyButton={true}
+                                    isShwoIcon={true}
+                                    isClientLink={true}
+                                    isPolygonButton={true}
+                                    isCopyButton={true}
                                 />
                             </div>
                             <div>
                                 <EthAddress
                                     address={item.buyer}
-                                    icon={true}
-                                    clientLink={true}
-                                    polygonButton={true}
-                                    copyButton={true}
+                                    isShwoIcon={true}
+                                    isClientLink={true}
+                                    isPolygonButton={true}
+                                    isCopyButton={true}
                                 />
                             </div>
                             <div>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</div>

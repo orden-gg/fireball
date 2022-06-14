@@ -4,7 +4,7 @@ import { Backdrop, Typography } from '@mui/material';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import EthAddress from 'components/EthAddress/EthAddress';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
@@ -94,7 +94,7 @@ export default function LoginButton() {
 
                     { activeAddress ? (
                         <div className={classes.address}>
-                            <EthAddress address={activeAddress} icon={true} />
+                            <EthAddress address={activeAddress} isShwoIcon={true} />
                         </div>
                     ) : (
                         null
