@@ -3,31 +3,36 @@ import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function MultiButtonSelectionFilter({ option, onSetSelectedFilters }) {
+interface MultiButtonSelectionFilterProps {
+    filter: any;
+    onSetSelectedFilters: (key: string, value: any[]) => void;
+}
+
+export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters }: MultiButtonSelectionFilterProps) {
     const classes = styles();
 
-    const [items, setItems] = useState([...option.items]);
+    const [items, setItems] = useState<any[]>([...filter.items]);
 
-    const onHandleSelectionChange = useCallback(index => {
+    const onHandleSelectionChange = useCallback((index: number) => {
         items[index].isSelected = !items[index].isSelected;
 
         setItems([...items]);
 
-        const selectedItems = items.filter(item => item.isSelected);
+        const selectedItems: any[] = items.filter(item => item.isSelected);
 
-        onSetSelectedFilters(option.key, selectedItems);
-    }, [option, onSetSelectedFilters, items]);
+        onSetSelectedFilters(filter.key, selectedItems);
+    }, [filter, onSetSelectedFilters, items]);
 
     return (
         <div className={classes.wrapper}>
-            { option.title && (
-                <span className={classes.title}>{option.title}</span>
+            { filter.title && (
+                <span className={classes.title}>{filter.title}</span>
             )}
             <div className={classes.items}>
                 {
-                    items.map((item, index) => (
+                    items.map((item: any, index: number) => (
                         <Button
                             className={classNames(classes.item, item.isSelected && 'selected' )}
                             key={item.value}

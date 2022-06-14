@@ -1,15 +1,16 @@
+import React from 'react';
 import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
 import { FilterComponent } from 'data/filterTypes';
 
-import InputFilter from '../InputFilter/InputFilter';
-import CheckboxFilter from '../CheckboxFilter/CheckboxFilter';
-import MultiAutocompleteFilter from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
-import MultiButtonSelectionFilter from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
-import SingleAutocompleteFilter from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
-import RangeSliderFilter from '../RangeSliderFilter/RangeSliderFilter';
+import { InputFilter } from '../InputFilter/InputFilter';
+import { CheckboxFilter } from '../CheckboxFilter/CheckboxFilter';
+import { MultiAutocompleteFilter } from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
+import { MultiButtonSelectionFilter } from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
+import { SingleAutocompleteFilter } from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
+import { RangeSliderFilter } from '../RangeSliderFilter/RangeSliderFilter';
 
 import { styles } from './styles';
 
@@ -25,10 +26,10 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
     // TODO replace object type with appropriate one
     const renderFiltersComponents = (renderFilters: Object) => {
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
-            let componentToRender: any;
+            let componentToRender: JSX.Element;
             const filterProps = {
                 key,
-                option: renderFilter,
+                filter: renderFilter,
                 onSetSelectedFilters: onSetSelectedFilters
             };
             const divider: boolean = filters[key].divider;
@@ -59,7 +60,7 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
 
                     break;
                 default:
-                    componentToRender = null;
+                    componentToRender = <React.Fragment key={Math.random() * Date.now()}></React.Fragment>;
             }
 
             return (

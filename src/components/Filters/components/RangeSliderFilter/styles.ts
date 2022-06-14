@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     wrapper: {
         background: alpha('#000', .15),
         padding: 8,
@@ -34,5 +34,3 @@ const styles = makeStyles(() => ({
         fontWeight: 500
     }
 }));
-
-export default styles;

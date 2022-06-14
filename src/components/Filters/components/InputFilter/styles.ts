@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     wrapper: {
         display: 'flex',
         flexDirection: 'column'
@@ -18,5 +18,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;

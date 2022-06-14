@@ -3,23 +3,28 @@ import { Checkbox } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 
-export default function CheckboxFilter({ option, onSetSelectedFilters }) {
-    const [isChecked, setIsChecked] = useState(false);
+interface CheckboxFilterProps {
+    filter: any;
+    onSetSelectedFilters: (key: string, value: boolean) => void;
+}
+
+export function CheckboxFilter({ filter, onSetSelectedFilters }: CheckboxFilterProps) {
+    const [isChecked, setIsChecked] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsChecked(option.value);
-    }, [option.value]);
+        setIsChecked(filter.value);
+    }, [filter.value]);
 
-    const onCheckboxChange = useCallback(value => {
+    const onCheckboxChange = useCallback((value: boolean) => {
         setIsChecked(value);
 
-        onSetSelectedFilters(option.key, value);
-    }, [option, onSetSelectedFilters]);
+        onSetSelectedFilters(filter.key, value);
+    }, [filter, onSetSelectedFilters]);
 
     return (
         <FormGroup>
             <FormControlLabel
-                label={option.title}
+                label={filter.title}
                 control={
                     <Checkbox
                         checked={isChecked}
