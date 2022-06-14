@@ -2,7 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
-import CustomToggleButtonGroup from 'components/custom/CustomToggleButtonGroup';
+import { CustomToggleButtonGroup } from 'components/custom/CustomToggleButtonGroup';
 
 import styles from './styles';
 
