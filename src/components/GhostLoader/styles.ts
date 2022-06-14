@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     wrapper: {
         width: 360,
         height: 360,
@@ -212,5 +212,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

@@ -1,27 +1,38 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GhostLoader({ animate, text }) {
+interface GhostLoaderProps {
+    animate: boolean;
+    text: string;
+}
+
+// TODO not usable for now, check if needed
+export function GhostLoader({ animate, text }: GhostLoaderProps) {
     const classes = styles();
-    const [render, setRender] = useState(animate);
-    const [title, setTitle] = useState(null);
+
+    const [render, setRender] = useState<boolean>(animate);
+    const [title, setTitle] = useState<string>('');
 
     useEffect(() => {
-        if (animate) setRender(true);
+        if (animate) {
+            setRender(true);
+        }
     }, [animate]);
 
     useEffect(() => {
         if (text) {
             setTimeout(() => setTitle(text), 2000);
         } else {
-            setTitle(null);
+            setTitle('');
         }
     }, [text]);
 
     const onAnimationEnd = () => {
-        if (!animate) setRender(false);
+        if (!animate) {
+            setRender(false);
+        }
     };
 
     return (
@@ -29,7 +40,7 @@ export default function GhostLoader({ animate, text }) {
             <div className={classNames(classes.wrapper, animate ? 'slideIn' : 'slideOut')} onAnimationEnd={onAnimationEnd}>
                 <div className={classNames(classes.fly, title && 'no-anim')}>
                     <div className={classNames(classes.ghost, title && 'prepare-speach')}>
-                        <div className={classes.head}>
+                        <div>
                             <div className={classNames(classes.eyes, title && 'blink')}></div>
                             <div className={classNames(classes.mouth, title && 'bla-bla')}></div>
                         </div>
