@@ -5,7 +5,12 @@ import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function RealmGeneric({ realm, raffleChances }) {
+interface RealmGenericProps {
+    realm: any;
+    raffleChances: any;
+}
+
+export function RealmGeneric({ realm, raffleChances }: RealmGenericProps) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -15,9 +20,7 @@ export default function RealmGeneric({ realm, raffleChances }) {
 
     return (
         <div className={classNames(classes.item, 'realm-generic', classes.parcelCard)}>
-
             <div className={classes.labels}>
-
                 <Tooltip
                     title='Quantity'
                     classes={{ tooltip: classes.customTooltip }}
@@ -32,8 +35,8 @@ export default function RealmGeneric({ realm, raffleChances }) {
                 </Tooltip>
             </div>
 
-            <div className={classNames(classes.nameWrapper, 'two-lined')} >
-                <Typography className={classNames(classes.name, classes.textHighlight, 'realm-generic')}>
+            <div className={'two-lined'}>
+                <Typography className={'realm-generic'}>
                     Realm
                 </Typography>
             </div>
