@@ -15,6 +15,7 @@ import CustomModal from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
+import thegraphApi from 'api/thegraph.api';
 
 import CitadelScene from './components/Scene';
 import CitadelLoader from './components/CitadelLoader';
@@ -113,7 +114,10 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         if (game?.scene) {
             game.scene.on('created', () => setMapCreated(true));
 
-            game.scene.on('parcelSelect', id => setSelectedParcel(id));
+            game.scene.on('parcelSelect', parcel =>
+                thegraphApi.getRealmById(parcel.tokenId)
+                    .then(response => setSelectedParcel(response || parcel))
+            );
 
             game.scene.on('query', ({ name, params }) => {
                 setParams(paramsState => {
