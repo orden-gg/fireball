@@ -6,7 +6,12 @@ import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
-export default function PortalGeneric({ portal, raffleChances }) {
+interface PortalGenericProps {
+    portal: any;
+    raffleChances: any;
+}
+
+export function PortalGeneric({ portal, raffleChances }: PortalGenericProps) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -17,9 +22,7 @@ export default function PortalGeneric({ portal, raffleChances }) {
 
     return (
         <div className={classNames(classes.item, classes.portalCard)}>
-
             <div className={classes.labels}>
-
                 <Tooltip
                     title='Quantity'
                     classes={{ tooltip: classes.customTooltip }}
@@ -37,7 +40,7 @@ export default function PortalGeneric({ portal, raffleChances }) {
             <img className={classes.portalImage} src={h2SealedPortal} alt="Portal" />
 
             <div style={{ marginTop: '16px' }}>
-                <Typography className={classNames(classes.name, classes.textHighlight)}>
+                <Typography>
                     H2 Portal
                 </Typography>
             </div>
