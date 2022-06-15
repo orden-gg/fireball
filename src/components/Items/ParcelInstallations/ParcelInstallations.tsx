@@ -2,18 +2,19 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
+import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 import installationsUtils from 'utils/installationsUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-const dataFormat = {
+const dataFormat: CountdownShortFormat = {
     days: { key: 'dd', value: 'd', showIfZero: false },
     hours: { key: 'hh', value: 'h', showIfZero: false },
     minutes: { key: 'mm', value: 'm', showIfZero: false }
 };
 
-export default function ParcelInstallations({ parcel }) {
+export function ParcelInstallations({ parcel }: { parcel: any }) {
     const classes = styles();
 
     if (parcel.installations.loading) {
@@ -37,9 +38,8 @@ export default function ParcelInstallations({ parcel }) {
 
     return (
         <div className={classes.container}>
-            {console.log('parcel.installations', parcel.installations)}
             { parcel.installations.map((inst, index) => {
-                const metadata = installationsUtils.getMetadataById(inst.id);
+                const metadata: any = installationsUtils.getMetadataById(inst.id);
 
                 return (
                     <div className={classes.installation} key={index}>
