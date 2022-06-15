@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Duration } from 'luxon';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
-import ViewInAppButton from 'components/ViewInAppButton/ViewInAppButton';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
