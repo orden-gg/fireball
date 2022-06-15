@@ -16,7 +16,7 @@ import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
-import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
+import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 

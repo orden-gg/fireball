@@ -6,31 +6,33 @@ import { GhstTokenIcon } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 
-import styles from './styles';
 import { CustomTooltipStyles } from '../../Gotchi/styles';
+import { styles } from './styles';
 
-export default function ERC721Listing({ listings, historicalPrices }) {
-    const classes = {
-        ...styles(),
-        ...CustomTooltipStyles()
-    };
+interface ERC721ListingProps {
+    listings: any[];
+    historicalPrices: any[];
+}
+
+export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps) {
+    const classes = { ...styles(), ...CustomTooltipStyles() };
 
     if (!listings?.length && !historicalPrices?.length) {
         return null;
     }
 
-    const currentPrice = listings?.length && ethersApi.fromWei(listings[0].priceInWei);
-    const lastPrice = historicalPrices?.length && ethersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
+    const currentPrice: any = listings?.length && ethersApi.fromWei(listings[0].priceInWei);
+    const lastPrice: any = historicalPrices?.length && ethersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
 
     return (
-        <div className={classes.container}>
+        <div>
             <Tooltip
                 title={
                     historicalPrices.length ? (
                         <>
                             <p><span>Sales history:</span></p>
                             <div className={classes.tooltipInner}>
-                                {historicalPrices.map((price, index) => {
+                                {historicalPrices.map((price: any, index: number) => {
                                     return <p className={classes.tooltipItem} key={index}>
                                         {commonUtils.formatPrice(ethersApi.fromWei(price))}
                                         <GhstTokenIcon className={classes.token} width={12} height={12} />

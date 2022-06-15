@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     listing: {
         height: 28,
         position: 'relative',
@@ -60,5 +60,3 @@ const styles = makeStyles(theme => ({
         marginLeft: 4
     }
 }));
-
-export default styles;

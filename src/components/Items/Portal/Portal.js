@@ -3,7 +3,7 @@ import CallMade from '@mui/icons-material/CallMade';
 
 import classNames from 'classnames';
 
-import ERC721Listing from 'components/Items/ERC721Listing/ERC721Listing';
+import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 
 import PortalImage from './PortalImage';
 import { CardName } from '../common/CardName/CardName';
