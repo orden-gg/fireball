@@ -2,7 +2,7 @@ import { Paper } from '@mui/material';
 
 import classNames from 'classnames';
 
-import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
+import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';

@@ -4,17 +4,23 @@ import { GotchiverseGif } from 'components/Icons/Icons';
 import gotchiverseApi from 'api/gotchiverse.api';
 import { COLORS } from 'data/citadel.data';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function ParcelImage({ parcel, imageSize }) {
+interface ParcelImageProps {
+    parcel: any;
+    imageSize: number;
+}
+
+export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
     const classes = styles();
+
     const canvasRef = useRef(null);
-    const [imageLoading, setImageLoading] = useState(true);
+    const [imageLoading, setImageLoading] = useState<boolean>(true);
 
     const processColorsMap = (map) => {
-        const cache = [];
+        const cache: any = [];
 
-        map.forEach((item) => {
+        map.forEach((item: any) => {
             if (!cache.length) {
                 cache[0] = [];
             }
@@ -26,11 +32,11 @@ export default function ParcelImage({ parcel, imageSize }) {
             }
         });
 
-        const canvas = canvasRef.current;
+        const canvas: any = canvasRef.current;
 
         if (!canvas) return;
 
-        const context = canvas.getContext('2d');
+        const context: any = canvas.getContext('2d');
 
         context.globalAlpha = 1;
 
@@ -47,7 +53,7 @@ export default function ParcelImage({ parcel, imageSize }) {
         drawParcelBorder(parcel, context);
     };
 
-    const drawParcelBorder = (parcel, context) => {
+    const drawParcelBorder = (parcel: any, context: any) => {
         const size = Number(parcel.size);
 
         switch (size) {
@@ -64,9 +70,9 @@ export default function ParcelImage({ parcel, imageSize }) {
         }
     };
 
-    const drawRect = (parcel, context, width, height, line) => {
-        const parcelX = (imageSize - width < parcel.coordinateX ? imageSize - width : parcel.coordinateX) / 2;
-        const parcelY = (imageSize - height < parcel.coordinateY ? imageSize - height : parcel.coordinateY) / 2;
+    const drawRect = (parcel: any, context: any, width: any, height: any, line: any) => {
+        const parcelX: number = (imageSize - width < parcel.coordinateX ? imageSize - width : parcel.coordinateX) / 2;
+        const parcelY: number = (imageSize - height < parcel.coordinateY ? imageSize - height : parcel.coordinateY) / 2;
 
         context.lineWidth = line;
         context.rect(parcelX, parcelY, width, height);
@@ -79,14 +85,14 @@ export default function ParcelImage({ parcel, imageSize }) {
         setImageLoading(true);
 
         gotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
-            .then(res => {
+            .then((res: any) => {
                 if (mounted) {
                     setImageLoading(false);
                     processColorsMap(res);
                 }
             });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, []);
 
     return (

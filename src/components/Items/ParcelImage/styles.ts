@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     image: {
         position: 'relative',
         background: alpha('#000', .1),
@@ -25,5 +25,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;
