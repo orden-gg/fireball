@@ -9,7 +9,7 @@ import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
 import { CustomModal } from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
-import ShineLabel from 'components/Labels/ShineLabel';
+import { ShineLabel } from 'components/Labels/ShineLabel';
 import itemUtils from 'utils/itemUtils';
 
 import { ParcelName } from './ParcelName';

@@ -1,6 +1,6 @@
-import styles from './styles.js';
+import { styles } from './styles';
 
-export default function ShineLabel({ text }) {
+export function ShineLabel({ text }: { text: string }) {
     const classes = styles();
 
     return (

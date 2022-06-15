@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import ShineLabel from 'components/Labels/ShineLabel';
+import { ShineLabel } from 'components/Labels/ShineLabel';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';

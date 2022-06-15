@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     labelWrapper: {
         color: theme.palette.rarity.legendary,
         fontSize: 15,
@@ -31,5 +31,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;
