@@ -2,9 +2,9 @@ import { Link } from '@mui/material';
 
 import commonUtils from 'utils/commonUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiOwner({ gotchi }) {
+export function GotchiOwner({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     return (

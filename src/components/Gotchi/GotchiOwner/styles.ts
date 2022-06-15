@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     owner: {
         margin: '0 2px',
         '&:hover': {
@@ -14,5 +14,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;
