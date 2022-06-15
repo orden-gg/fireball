@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-export default makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     tileImageBox: {
         paddingBottom: '50%',
         position: 'relative',

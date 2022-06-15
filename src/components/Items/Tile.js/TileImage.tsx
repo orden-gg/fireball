@@ -1,11 +1,12 @@
 import tilesUtils from 'utils/tilesUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function TileImage({ data }) {
+export function TileImage({ id }: { id: string }) {
     const classes = styles();
-    const name = tilesUtils.getNameById(data.id);
-    const src = tilesUtils.getImageById(data.id);
+
+    const name: string = tilesUtils.getNameById(id);
+    const src: any = tilesUtils.getImageById(id);
 
     return (
         <div className={classes.tileImageBox}>
