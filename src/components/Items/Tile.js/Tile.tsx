@@ -5,7 +5,7 @@ import { ERC1155 } from '../ERC1155/ERC1155';
 
 import { TileImage } from './TileImage';
 
-export default function Tile({ data }) {
+export function Tile({ data }: { data: any }) {
 
     return (
         <ERC1155
@@ -17,7 +17,7 @@ export default function Tile({ data }) {
                 balance: data.balance
             }}
         >
-            <TileImage data={data} />
+            <TileImage id={data.id} />
             <CardName
                 item={data}
                 itemName={data.name}
