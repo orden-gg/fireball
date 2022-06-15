@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import PageNav from 'components/PageNav/PageNav';
+import { PageNav } from 'components/PageNav/PageNav';
 import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
 

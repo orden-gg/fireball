@@ -5,10 +5,17 @@ import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function PageNav({ links, beforeContent, afterContent }) {
+interface PageNavProps {
+    links: any[];
+    beforeContent?: JSX.Element;
+    afterContent?: JSX.Element;
+}
+
+export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     const classes = styles();
+
     const match = useRouteMatch();
     const theme = useTheme();
 
@@ -18,7 +25,7 @@ export default function PageNav({ links, beforeContent, afterContent }) {
         <div className={classes.container}>
             {beforeContent}
             {
-                data.map((link, index) => {
+                data.map((link: any, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
                             <Button

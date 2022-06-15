@@ -1,7 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     container: {
         display: 'flex',
         alignItems: 'center',
@@ -61,5 +61,3 @@ const styles = makeStyles(theme => ({
         height: 14
     }
 }));
-
-export default styles;

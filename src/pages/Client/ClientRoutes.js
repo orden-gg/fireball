@@ -6,7 +6,7 @@ import { Redirect, NavLink } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
 
-import PageNav from 'components/PageNav/PageNav';
+import { PageNav } from 'components/PageNav/PageNav';
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { LoginContext } from 'contexts/LoginContext';
