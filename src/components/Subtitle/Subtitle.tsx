@@ -1,8 +1,15 @@
 import { Box, Typography } from '@mui/material';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Subtitle({ children, margin, variant, innerBg }) {
+interface SubtitleProps {
+    children: JSX.Element;
+    margin: string;
+    variant: any;
+    innerBg: string;
+}
+
+export function Subtitle({ children, margin, variant, innerBg }: SubtitleProps) {
     const classes = styles();
 
     return (

@@ -1,7 +1,7 @@
 
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     subtitle: {
         textAlign: 'center',
         position: 'relative',
@@ -43,5 +43,3 @@ const styles = makeStyles(theme => ({
         padding: '4px 16px'
     }
 }));
-
-export default styles;
