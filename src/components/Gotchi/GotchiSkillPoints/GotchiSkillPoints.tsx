@@ -4,15 +4,14 @@ import { Tooltip } from '@mui/material';
 import mainApi from 'api/main.api';
 
 import { CustomTooltipStyles } from '../styles';
-import styles from './styles';
 
-export default function GotchiSkillPoints({ id, usedPoints }) {
-    const classes = {
-        ...styles(),
-        ...CustomTooltipStyles()
-    };
-    const [loadingPoints, setLoadingPoints] = useState(true);
-    const [availablePoints, setAvailablePoints] = useState(true);
+import { styles } from './styles';
+
+export function GotchiSkillPoints({ id, usedPoints }: { id: string, usedPoints: string }) {
+    const classes = { ...styles(), ...CustomTooltipStyles() };
+
+    const [loadingPoints, setLoadingPoints] = useState<boolean>(true);
+    const [availablePoints, setAvailablePoints] = useState<number>(0);
 
     useEffect(() => {
         const controller = new AbortController();

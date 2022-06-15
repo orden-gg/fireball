@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     skillpoints: {
         fontSize: 11,
         fontWeight: 400,
@@ -14,5 +14,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;
