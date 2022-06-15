@@ -5,7 +5,7 @@ import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function ParcelName({ parcel }) {
+export function ParcelName({ parcel }: { parcel: any }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -13,11 +13,11 @@ export default function ParcelName({ parcel }) {
         ...parselStyles()
     };
 
-    const size = itemUtils.getParcelSize(parcel.size);
+    const size: any = itemUtils.getParcelSize(parcel.size);
 
     return (
         <CopyToClipboardBlock text={parcel.parcelHash}>
-            <div className={classNames(classes.parcelName, classes.textHighlight, size)}>
+            <div className={classNames(classes.parcelName, size)}>
                 {parcel.parcelHash}
             </div>
         </CopyToClipboardBlock>

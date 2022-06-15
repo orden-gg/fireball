@@ -12,7 +12,7 @@ import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import ShineLabel from 'components/Labels/ShineLabel';
 import itemUtils from 'utils/itemUtils';
 
-import ParcelName from './ParcelName';
+import { ParcelName } from './ParcelName';
 import ParcelInstallations from '../ParcelInstallations/ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
