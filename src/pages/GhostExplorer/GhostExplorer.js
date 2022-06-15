@@ -13,7 +13,7 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
-import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import thegraph from 'api/thegraph.api';
 import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';

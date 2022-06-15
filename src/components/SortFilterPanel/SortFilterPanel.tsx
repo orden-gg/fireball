@@ -4,11 +4,23 @@ import { Backdrop, Button, Divider } from '@mui/material';
 import classNames from 'classnames';
 
 import { Filters } from 'components/Filters/components/Filters/Filters';
-import { LazySorting } from 'components/Filters/LazySorting';
+import { LazySorting, LazySortingProps } from 'components/Filters/LazySorting';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function SortFilterPanel({
+interface SortFilterPanelProps {
+    sorting: LazySortingProps;
+    itemsLength: number;
+    placeholder: string;
+    filters: any;
+    setSelectedFilters: (key: string, values: any) => void;
+    resetFilters: () => void;
+    exportData: () => void;
+    isShowFilters?: boolean;
+    filtersCount?: number;
+}
+
+export function SortFilterPanel({
     sorting,
     itemsLength,
     placeholder,
@@ -18,29 +30,29 @@ export default function SortFilterPanel({
     resetFilters,
     filtersCount,
     exportData
-}) {
+}: SortFilterPanelProps) {
     const classes = styles();
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
-    const onToglleFilterDropdown = (isOpen) => {
+    const onToglleFilterDropdown = (isOpen: boolean): void => {
         setIsDropdownOpen(!isOpen);
     };
 
-    const onCloseDropdown = () => {
+    const onCloseDropdown = (): void => {
         setIsDropdownOpen(false);
     };
 
-    const onSetSelectedFilters = (key, filtersObj) => {
+    const onSetSelectedFilters = (key: string, filtersObj: any): void => {
         setSelectedFilters(key, filtersObj);
     };
 
-    const onResetFilters = useCallback(() => {
+    const onResetFilters = useCallback((): void => {
         setIsDropdownOpen(false);
         resetFilters();
     }, [setIsDropdownOpen, resetFilters]);
 
-    const onExportData = useCallback(() => {
+    const onExportData = useCallback((): void => {
         exportData();
     }, [exportData]);
 

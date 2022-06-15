@@ -22,7 +22,7 @@ const directions: SortingListItem[] = [
     }
 ];
 
-interface LazySortingProps {
+export interface LazySortingProps {
     sortingList: SortingListItem[];
     sortingDefaults: Sorting;
     onSortingChange: (sortBy: string, sortDir: string) => void;

@@ -8,7 +8,7 @@ import qs from 'query-string';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
 import commonUtils from 'utils/commonUtils';

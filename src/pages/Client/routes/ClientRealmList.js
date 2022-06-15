@@ -11,7 +11,7 @@ import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import ActionPane from 'shared/ActionPane/ActionPane';
 import installationsApi from 'api/installations.api';
 import thegraphApi from 'api/thegraph.api';
