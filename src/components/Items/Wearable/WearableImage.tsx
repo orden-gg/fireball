@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
 interface WearableImageProps {
     wearable: any;

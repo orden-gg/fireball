@@ -9,7 +9,7 @@ import { PortalHorizontal } from 'components/Items/Portal/PortalHorizontal';
 import { Ticket } from 'components/Items/Ticket/Ticket';
 import { TicketHorizontal } from 'components/Items/Ticket/TicketHorizontal';
 import { Wearable } from 'components/Items/Wearable/Wearable';
-import WearableHorizontal from 'components/Items/Wearable/WearableHorizontal';
+import { WearableHorizontal } from 'components/Items/Wearable/WearableHorizontal';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
 

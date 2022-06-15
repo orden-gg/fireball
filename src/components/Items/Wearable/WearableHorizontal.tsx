@@ -6,14 +6,19 @@ import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
 import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
-import styles from './../styles';
+import styles from '../styles';
 
-export default function WearableHorizontal({ wearable, render }) {
+interface WearableHorizontalProps {
+    wearable: any;
+    render: any;
+}
+
+export function WearableHorizontal({ wearable, render }: WearableHorizontalProps) {
     const classes = styles();
 
     const gotchiSections = {
         // image
-        imageCell(children) {
+        imageCell(children: any) {
             return (
                 <div className={classes.wearableImageCell}>
                     {children}
@@ -22,7 +27,7 @@ export default function WearableHorizontal({ wearable, render }) {
         },
 
         // body
-        statsCell(children) {
+        statsCell(children: any) {
             return (
                 <div className={classes.wearableStatsCell} key={`${wearable.id}-statsCell`}>
                     {children}
@@ -30,7 +35,7 @@ export default function WearableHorizontal({ wearable, render }) {
             );
         },
 
-        priceCell(children) {
+        priceCell(children: any) {
             return (
                 <div key={`${wearable.id}-priceCell`} className={classes.wearablePriceCell}>
                     {children}
@@ -65,14 +70,14 @@ export default function WearableHorizontal({ wearable, render }) {
         }
     };
 
-    function renderSection(value) {
+    function renderSection(value: any) {
         if (typeof value === 'string') {
             return gotchiSections[value];
         }
 
         return (
             Object.keys(value).map(key => (
-                gotchiSections[key](value[key].map(item => (
+                gotchiSections[key](value[key].map((item: any) => (
                     renderSection(item)
                 )))
             ))
@@ -82,7 +87,7 @@ export default function WearableHorizontal({ wearable, render }) {
     return (
         <div className={classNames(classes.horizontalCard, itemUtils.getItemRarityById(wearable.erc1155TypeId))}>
             {wearable.rarity}
-            {render.map(name => {
+            {render.map((name: any) => {
                 return renderSection(name);
             })}
         </div>
