@@ -1,9 +1,9 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import mapSvg from 'assets/images/icons/map.svg';
 import listSvg from 'assets/images/icons/list.svg';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     button: {
         position: 'absolute',
         top: 80,
@@ -48,5 +48,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;

@@ -5,9 +5,9 @@ import qs from 'query-string';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function RealmSwitchButton({ view }) {
+export function RealmSwitchButton({ view }) {
     const classes = styles();
 
     const match = useRouteMatch();
@@ -29,6 +29,7 @@ export default function RealmSwitchButton({ view }) {
         <CustomTooltip
             title={`Switch to ${view === 'map' ? 'list' : 'map'}`}
             enterTouchDelay={0}
+            placement={'bottom'}
         >
             <Switch
                 className={classes.button}

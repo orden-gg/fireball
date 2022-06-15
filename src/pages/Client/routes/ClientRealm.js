@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import { useRouteMatch, useLocation } from 'react-router';
 
-import RealmSwitchButton from 'components/RealmSwitchButton/RealmSwitchButton';
+import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
 
 import ClientRealmMap from './ClientRealmMap';
