@@ -1,8 +1,8 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { lighten } from '@mui/material';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     soldOutLink: {
         color: theme.palette.primary.main,
         fontWeight: 600
@@ -206,7 +206,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const itemStyles = makeStyles(theme => ({
+export const itemStyles = makeStyles(theme => createStyles({
     item: {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: theme.palette.secondary.dark,
@@ -331,7 +331,7 @@ const itemStyles = makeStyles(theme => ({
     }
 }));
 
-const tooltipStyles = makeStyles(theme => ({
+export const tooltipStyles = makeStyles(theme => createStyles({
     tooltip: {
         padding: '16px 12px 12px',
         backgroundColor: 'transparent'
@@ -450,7 +450,7 @@ const tooltipStyles = makeStyles(theme => ({
     }
 }));
 
-const ERC1155InnerStyles = makeStyles(theme => ({
+export const ERC1155InnerStyles = makeStyles(theme => createStyles({
     iconWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -502,7 +502,7 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         }
     },
     name: {
-        fontWeight: '500',
+        fontWeight: 500,
         lineHeight: '1.4',
         textTransform: 'capitalize',
         textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
@@ -553,14 +553,14 @@ const ERC1155InnerStyles = makeStyles(theme => ({
         }
     },
     stats: {
-        fontWeight: '500',
+        fontWeight: 500,
         '.tooltip-wearable &': { // stats
             fontSize: 13
         }
     }
 }));
 
-const parselStyles = makeStyles(theme => ({
+export const parselStyles = makeStyles(theme => createStyles({
     boosts: {
         display: 'flex',
         alignItems: 'center',
@@ -614,11 +614,11 @@ const parselStyles = makeStyles(theme => ({
         '.humble &': {
             backgroundColor: theme.palette.realm.humble
         },
-        '.resonable &': {
-            backgroundColor: theme.palette.realm.resonable
+        '.reasonable &': {
+            backgroundColor: theme.palette.realm.reasonable
         },
-        '.specions &': {
-            backgroundColor: theme.palette.realm.specions
+        '.spacious &': {
+            backgroundColor: theme.palette.realm.spacious
         }
     },
     labelSlot: {
@@ -650,7 +650,7 @@ const parselStyles = makeStyles(theme => ({
     }
 }));
 
-const portalStyles = makeStyles(() => ({
+export const portalStyles = makeStyles(() => createStyles({
     portalImage: {
         width: 100,
         maxWidth: 100,
@@ -664,7 +664,7 @@ const portalStyles = makeStyles(() => ({
     }
 }));
 
-const channelingStyles = makeStyles(() => ({
+export const channelingStyles = makeStyles(() => createStyles({
     container: {
         position: 'absolute',
         bottom: 4,
@@ -690,7 +690,7 @@ const channelingStyles = makeStyles(() => ({
     }
 }));
 
-const installationStyles = makeStyles((theme) => ({
+export const installationStyles = makeStyles(theme => createStyles({
     level: {
         color: theme.palette.rarity.golden,
         background: alpha('#000', .1),
@@ -700,14 +700,3 @@ const installationStyles = makeStyles((theme) => ({
         width: '50%'
     }
 }));
-
-export {
-    styles as default,
-    itemStyles,
-    ERC1155InnerStyles,
-    tooltipStyles,
-    parselStyles,
-    portalStyles,
-    channelingStyles,
-    installationStyles
-};

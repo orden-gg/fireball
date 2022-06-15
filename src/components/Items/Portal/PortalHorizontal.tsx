@@ -5,7 +5,7 @@ import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
 import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
-import styles from '../styles';
+import { styles } from '../styles';
 
 interface PortalHorizontalprops {
     portal: any;

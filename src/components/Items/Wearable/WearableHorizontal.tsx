@@ -6,7 +6,7 @@ import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
 import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
-import styles from '../styles';
+import { styles } from '../styles';
 
 interface WearableHorizontalProps {
     wearable: any;

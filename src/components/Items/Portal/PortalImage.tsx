@@ -3,13 +3,10 @@ import React from 'react';
 import { H1OpenedPortalIcon, H1SealedPortalIcon, H2OpenedPortalIcon, H2SealedPortalIcon } from 'components/Icons/Icons';
 import { Erc721Categories } from 'data/types';
 
-import styles, { portalStyles } from '../styles';
+import { styles, portalStyles } from '../styles';
 
 export function PortalImage({ portal }) {
-    const classes = {
-        ...styles(),
-        ...portalStyles()
-    };
+    const classes = { ...styles(), ...portalStyles() };
 
     const renderPortalImage = (portal: any) => {
         let portalIcon: any;

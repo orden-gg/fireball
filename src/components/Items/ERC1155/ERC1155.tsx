@@ -14,7 +14,7 @@ import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 
-import styles, { itemStyles, tooltipStyles } from '../styles';
+import { styles, itemStyles, tooltipStyles } from '../styles';
 
 interface ERC1155Props {
     children: Array<JSX.Element>;
