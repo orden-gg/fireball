@@ -116,8 +116,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
             game.scene.on('parcelSelect', parcel =>
                 thegraphApi.getRealmById(parcel.tokenId)
-                    .then(response => setSelectedParcel(response))
-                    .catch(() => setSelectedParcel(parcel))
+                    .then(response => setSelectedParcel(response || parcel))
             );
 
             game.scene.on('query', ({ name, params }) => {
