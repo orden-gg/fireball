@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 
-import TicketImage from './TicketImage';
+import { TicketImage } from './TicketImage';
 import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
 import { CardName } from '../common/CardName/CardName';

@@ -1,7 +1,7 @@
 import { ERC1155 } from 'components/Items/ERC1155/ERC1155';
 import itemUtils from 'utils/itemUtils';
 
-import TicketImage from './TicketImage';
+import { TicketImage } from './TicketImage';
 import { CardName } from '../common/CardName/CardName';
 
 interface TicketProps {
