@@ -7,7 +7,7 @@ interface CustomModalProps {
     children: JSX.Element;
     modalOpen: boolean;
     setModalOpen: (isOpen: boolean) => void;
-    onModalClose: () => void;
+    onModalClose?: () => void;
 }
 
 export function CustomModal({ children, modalOpen, setModalOpen, onModalClose }: CustomModalProps) {

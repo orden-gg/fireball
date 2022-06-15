@@ -3,20 +3,20 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
 import { CustomModal } from 'components/Modal/Modal';
 import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
+import ShineLabel from 'components/Labels/ShineLabel';
 import itemUtils from 'utils/itemUtils';
 
 import ParcelName from './ParcelName';
 import ParcelInstallations from '../ParcelInstallations/ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
-import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
-import ShineLabel from 'components/Labels/ShineLabel';
 
-export default function Parcel({ parcel }) {
+export function Parcel({ parcel }: { parcel: any }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -24,9 +24,9 @@ export default function Parcel({ parcel }) {
         ...parselStyles()
     };
 
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const size = itemUtils.getParcelSize(parcel.size);
+    const size: any = itemUtils.getParcelSize(parcel.size);
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -78,7 +78,7 @@ export default function Parcel({ parcel }) {
                 </div>
 
                 <div className={classes.boosts}>
-                    {Object.entries(boosts).map((boost, i) => {
+                    {Object.entries(boosts).map((boost: any, i: number) => {
                         const key = boost[0];
                         const value = boost[1];
 

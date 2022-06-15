@@ -17,7 +17,7 @@ import {
 } from 'components/Icons/Icons';
 import { Consumable } from 'components/Items/Consumable/Consumable';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import Parcel from 'components/Items/Parcel/Parcel';
+import { Parcel } from 'components/Items/Parcel/Parcel';
 import Portal from 'components/Items/Portal/Portal';
 import Ticket from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';

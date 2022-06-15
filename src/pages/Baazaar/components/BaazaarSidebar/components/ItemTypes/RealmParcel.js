@@ -1,4 +1,4 @@
-import Parcel from 'components/Items/Parcel/Parcel';
+import { Parcel } from 'components/Items/Parcel/Parcel';
 
 export default function RealmParcel({ item }) {
     return (

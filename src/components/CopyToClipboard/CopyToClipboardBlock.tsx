@@ -11,7 +11,7 @@ const defaultTooltipText = <span>
 </span>;
 
 interface CopyToClipboardBlockProps {
-    children: JSX.Element;
+    children: JSX.Element | JSX.Element[];
     text: string;
     className: string;
 }
