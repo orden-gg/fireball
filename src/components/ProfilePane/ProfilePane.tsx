@@ -1,13 +1,15 @@
 import { Typography } from '@mui/material';
+
 import classNames from 'classnames';
 
 import ethersApi from 'api/ethers.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function ProfilePane({ address }) {
+export function ProfilePane({ address }: { address: string }) {
     const classes = styles();
-    const isValid = ethersApi.isEthAddress(address);
+
+    const isValid: boolean = ethersApi.isEthAddress(address);
 
     return (
         <div className={classes.container}>

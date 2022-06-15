@@ -4,7 +4,7 @@ import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 
 import { Helmet } from 'react-helmet';
 import queryString from 'query-string';
 
-import ProfilePane from 'components/ProfilePane/ProfilePane';
+import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import ethersApi from 'api/ethers.api';
 import { LoginContext } from 'contexts/LoginContext';
 import RaffleContextProvider from 'contexts/RaffleContext';
