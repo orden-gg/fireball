@@ -9,7 +9,7 @@ import { styles } from './styles';
 interface CardNameProps {
     item: any;
     itemName?: string;
-    itemRarity?: string;
+    itemRarity?: any;
 }
 
 export function CardName({ itemName, itemRarity, item }: CardNameProps) {

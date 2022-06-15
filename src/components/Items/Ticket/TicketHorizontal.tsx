@@ -8,14 +8,19 @@ import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
 import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
 
-import styles from './../styles';
+import styles from '../styles';
 
-export default function TicketHorizontal({ ticket, render }) {
+interface TicketHorizontalProps {
+    ticket: any;
+    render: any;
+}
+
+export function TicketHorizontal({ ticket, render }: TicketHorizontalProps) {
     const classes = styles();
 
     const gotchiSections = {
         // image
-        imageCell(children) {
+        imageCell(children: any) {
             return (
                 <div className={classes.ticketImageCell}>
                     {children}
@@ -23,7 +28,7 @@ export default function TicketHorizontal({ ticket, render }) {
             );
         },
 
-        infoCell(children) {
+        infoCell(children: any) {
             return (
                 <div className={classes.ticketInfoCell} key={`${ticket.id}-infoCell`}>
                     {children}
@@ -31,7 +36,7 @@ export default function TicketHorizontal({ ticket, render }) {
             );
         },
 
-        priceCell(children) {
+        priceCell(children: any) {
             return (
                 <div key={`${ticket.id}-priceCell`} className={classes.ticketPriceCell}>
                     {children}
@@ -72,14 +77,14 @@ export default function TicketHorizontal({ ticket, render }) {
         }
     };
 
-    function renderSection(value) {
+    function renderSection(value: any) {
         if (typeof value === 'string') {
             return gotchiSections[value];
         }
 
         return (
             Object.keys(value).map(key => (
-                gotchiSections[key](value[key].map(item => (
+                gotchiSections[key](value[key].map((item: any) => (
                     renderSection(item)
                 )))
             ))
@@ -88,7 +93,7 @@ export default function TicketHorizontal({ ticket, render }) {
 
     return (
         <div className={classNames(classes.horizontalCard, ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
-            {render.map(name => {
+            {render.map((name: any) => {
                 return renderSection(name);
             })}
         </div>
