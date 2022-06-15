@@ -9,13 +9,18 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function SalesHistory({ id, category }) {
+interface SalesHistoryProps {
+    id: string;
+    category: number;
+}
+
+export function SalesHistory({ id, category }: SalesHistoryProps) {
     const classes = styles();
 
-    const [history, setHistory] = useState(null);
-    const [historyLoading, setHistoryLoading] = useState(true);
+    const [history, setHistory] = useState<any[]>([]);
+    const [historyLoading, setHistoryLoading] = useState<boolean>(true);
 
     useEffect(() => {
         let mounted = true;
@@ -23,7 +28,7 @@ export default function SalesHistory({ id, category }) {
         setHistoryLoading(true);
 
         thegraphApi.getErc721SalesHistory(id, category)
-            .then(res => {
+            .then((res: any) => {
                 if (mounted) {
                     setHistory(res);
                     setHistoryLoading(false);
@@ -31,7 +36,7 @@ export default function SalesHistory({ id, category }) {
             })
             .catch(err => console.log(err));
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [id, category]);
 
     return (

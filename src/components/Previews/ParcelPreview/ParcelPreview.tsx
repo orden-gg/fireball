@@ -7,7 +7,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';
 
-import SalesHistory from '../SalesHistory/SalesHistory';
+import { SalesHistory } from '../SalesHistory/SalesHistory';
 
 import { styles } from './styles';
 
