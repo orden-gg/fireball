@@ -4,8 +4,13 @@ import itemUtils from 'utils/itemUtils';
 import TicketImage from './TicketImage';
 import { CardName } from '../common/CardName/CardName';
 
-export default function Ticket({ ticket, isShopItem }) {
-    const ticketRarity = ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId);
+interface TicketProps {
+    ticket: any;
+    isShopItem: boolean;
+}
+
+export function Ticket({ ticket, isShopItem }: TicketProps) {
+    const ticketRarity: any = ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId);
 
     return (
         <ERC1155 item={{

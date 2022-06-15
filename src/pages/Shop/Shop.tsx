@@ -19,7 +19,7 @@ import { Consumable } from 'components/Items/Consumable/Consumable';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { Portal } from 'components/Items/Portal/Portal';
-import Ticket from 'components/Items/Ticket/Ticket';
+import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';

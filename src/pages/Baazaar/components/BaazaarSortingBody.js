@@ -6,7 +6,7 @@ import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { Portal } from 'components/Items/Portal/Portal';
 import { PortalHorizontal } from 'components/Items/Portal/PortalHorizontal';
-import Ticket from 'components/Items/Ticket/Ticket';
+import { Ticket } from 'components/Items/Ticket/Ticket';
 import TicketHorizontal from 'components/Items/Ticket/TicketHorizontal';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import WearableHorizontal from 'components/Items/Wearable/WearableHorizontal';
