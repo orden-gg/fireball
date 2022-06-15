@@ -6,7 +6,12 @@ import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export default function ParcelGeneric({ parcel, raffleChances }) {
+interface ParcelGenericProps {
+    parcel: any;
+    raffleChances: any;
+}
+
+export function ParcelGeneric({ parcel, raffleChances }: ParcelGenericProps) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -14,7 +19,7 @@ export default function ParcelGeneric({ parcel, raffleChances }) {
         ...parselStyles()
     };
 
-    const size = itemUtils.getParcelSize(parcel.size);
+    const size: any = itemUtils.getParcelSize(parcel.size);
 
     return (
         <div className={classNames(classes.item, size, classes.parcelCard)}>
@@ -35,8 +40,8 @@ export default function ParcelGeneric({ parcel, raffleChances }) {
                 </Tooltip>
             </div>
 
-            <div className={classNames(classes.nameWrapper, 'two-lined')} >
-                <Typography className={classNames(classes.name, classes.textHighlight, size)}>
+            <div className={'two-lined'} >
+                <Typography className={size}>
                     {size}
                 </Typography>
             </div>
