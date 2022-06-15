@@ -14,29 +14,38 @@ import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiLendingStats({ gotchi }) {
+export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
-    const timeDiff = DateTime.local() - DateTime.fromSeconds(gotchi.endTime);
-    const lastClaimed = parseInt(gotchi.lastClaimed) > 0 ? DateTime.fromSeconds(parseInt(gotchi.lastClaimed)) : 0;
+    /**
+        @const timeDiff - seconds
+     */
+    const timeDiff: number = DateTime.local().toSeconds() - gotchi.endTime;
+    /**
+        @const lastClaimed - milliseconds
+     */
+    const lastClaimed: number = parseInt(gotchi.lastClaimed) > 0 ? parseInt(gotchi.lastClaimed) : 0;
 
-    const renderActivity = (lastActivity) => {
+    /**
+     * @param lastActivity - milliseconds
+    */
+    const renderActivity = (lastActivity: number) => {
         return (
-            DateTime.local() - lastActivity > DAY_MILLIS ? (
+            DateTime.local().toMillis() - lastActivity > DAY_MILLIS ? (
                 <KeyboardDoubleArrowDownIcon
-                    className={classNames(classes.activityIcon, classes.activityBad)}
+                    className={classes.activityBad}
                     fontSize='small'
                 />
-            ) : DateTime.local() - lastActivity > HALF_DAY_MILLIS ? (
+            ) : DateTime.local().toMillis() - lastActivity > HALF_DAY_MILLIS ? (
                 <KeyboardControlKeyIcon
-                    className={classNames(classes.activityIcon, classes.activityModerate)}
+                    className={classes.activityModerate}
                     fontSize='small'
                 />
             ) : (
                 <KeyboardDoubleArrowUpIcon
-                    className={classNames(classes.activityIcon, classes.activityTop)}
+                    className={classes.activityTop}
                     fontSize='small'
                 />
             )
@@ -44,7 +53,7 @@ export default function GotchiLendingStats({ gotchi }) {
     };
 
     return (
-        <div className={classes.container}>
+        <div>
             <div className={classNames(classes.section, classes.head)}>
                 <div className={classNames(classes.inner, timeDiff > 0 && 'over')}>
                     {timeDiff > 0 ? (
@@ -108,7 +117,7 @@ export default function GotchiLendingStats({ gotchi }) {
 
             {gotchi.tokensToShare.length > 0 && (
                 <div className={classNames(classes.section, classes.tokens)}>
-                    {gotchi.tokensToShare.map((token, index) => {
+                    {gotchi.tokensToShare.map((token: any, index: number) => {
                         const tokenName = graphUtils.getTokenName(token);
 
                         return (
@@ -134,7 +143,7 @@ export default function GotchiLendingStats({ gotchi }) {
                     <CustomTooltip
                         title={
                             <span>
-                                last claimed: <span className='highlight'>{lastClaimed > 0 ? lastClaimed.toRelative() : 'never'}</span>
+                                last claimed: <span className='highlight'>{lastClaimed > 0 ? DateTime.fromSeconds(lastClaimed).toRelative() : 'never'}</span>
                             </span>
                         }
                         placement='top'

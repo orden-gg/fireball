@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     section: {
         '& + $section': {
             marginTop: 4
@@ -119,5 +119,3 @@ const styles = makeStyles(theme => ({
         paddingLeft: 4
     }
 }));
-
-export default styles;
