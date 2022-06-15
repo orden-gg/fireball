@@ -7,13 +7,13 @@ import { GotchiTraits } from './GotchiTraits/GotchiTraits';
 import HorizontalPrice from '../Items/common/HorizontalPrice/HorizontalPrice';
 import { GotchiImage } from './GotchiImage/GotchiImage';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, render }) {
+export function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, render }) {
     const classes = styles();
 
     const gotchiSections = {
-        badges(children) {
+        badges(children: any) {
             return (
                 <div className={classes.gotchiBadges} key={`${gotchi.id}-badges`}>
                     {children}
@@ -21,7 +21,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
             );
         },
 
-        imageCell(children) {
+        imageCell(children: any) {
             return (
                 <div className={classes.gotchiImageCell} key={`${gotchi.id}-imageCell`}>
                     {children}
@@ -29,7 +29,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
             );
         },
 
-        traitsCell(children) {
+        traitsCell(children: any) {
             return (
                 <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
                     {children}
@@ -37,7 +37,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
             );
         },
 
-        priceCell(children) {
+        priceCell(children: any) {
             return (
                 <div key={`${gotchi.id}-priceCell`} className={classes.gotchiPriceCell}>
                     {children}
@@ -60,7 +60,6 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                     level={gotchi.level}
                     toNextLevel={gotchi.toNextLevel}
                     experience={gotchi.experience}
-                    size={25}
                     key={`${gotchi.id}-level`}
                 />
             );
@@ -103,7 +102,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
         }
     };
 
-    function renderSection(value) {
+    function renderSection(value: any) {
         if (typeof value === 'string') {
             return gotchiSections[value];
         }
@@ -126,7 +125,7 @@ export default function GotchiHorizontal({ gotchi, item, className, renderSvgByS
                 'horizontal'
             )}
         >
-            {render.map(name => {
+            {render.map((name: any) => {
                 return renderSection(name);
             })}
         </div>

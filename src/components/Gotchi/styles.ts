@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     gotchi: {
         display: 'flex',
         flexDirection: 'column',
@@ -100,7 +100,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const CustomTooltipStyles = makeStyles(theme => ({
+export const CustomTooltipStyles = makeStyles(theme => createStyles({
     customTooltip: {
         backgroundColor: theme.palette.secondary.dark,
         marginBottom: 8,
@@ -112,8 +112,3 @@ const CustomTooltipStyles = makeStyles(theme => ({
         }
     }
 }));
-
-export {
-    styles as default,
-    CustomTooltipStyles
-};

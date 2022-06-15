@@ -2,7 +2,7 @@ import { GotchiHeartGif } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 
-export default function GotchiKinship({ gotchi }: { gotchi: any }) {
+export function GotchiKinship({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     return (

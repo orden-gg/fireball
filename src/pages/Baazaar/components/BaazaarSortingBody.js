@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import classNames from 'classnames';
 import { Typography } from '@mui/material';
 
-import GotchiHorizontal from 'components/Gotchi/GotchiHorizontal';
+import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import Parcel from 'components/Items/Parcel/Parcel';
 import Portal from 'components/Items/Portal/Portal';
 import PortalHorizontal from 'components/Items/Portal/PortalHorizontal';

@@ -12,7 +12,7 @@ import { styles } from './styles';
 interface GotchiImageProps {
     gotchi: any;
     renderSvgByStats: any;
-    portal: any;
+    portal?: any;
 }
 
 export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImageProps) {
