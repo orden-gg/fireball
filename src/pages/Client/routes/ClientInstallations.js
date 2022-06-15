@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Installation } from 'components/Items/Installation/Installation';
 import { Tile } from 'components/Items/Tile.js/Tile';
 import { ContentInner } from 'components/Content/ContentInner';
-import ItemsLazy from 'components/Lazy/ItemsLazy';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
 export default function ClientInstallations() {

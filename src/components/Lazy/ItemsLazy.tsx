@@ -14,8 +14,13 @@ const NoContent = styled.div`
     padding: 24px;
 `;
 
-export default function ItemsLazy({ items, component }) {
-    const gridRef = useRef(null);
+interface ItemsLazyProps {
+    items: any[];
+    component: (props: any) => JSX.Element;
+}
+
+export function ItemsLazy({ items, component }: ItemsLazyProps) {
+    const gridRef = useRef<any>(null);
 
     useEffect(() => {
         if (items.length) {
@@ -49,7 +54,7 @@ export default function ItemsLazy({ items, component }) {
             style={{ height: '100%' }}
             totalCount={items.length}
             components={{
-                List: ListContainer
+                List: ListContainer as any
             }}
             itemContent={(index) => component(items[index])}
         />
