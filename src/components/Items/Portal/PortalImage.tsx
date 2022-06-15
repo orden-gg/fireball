@@ -5,14 +5,14 @@ import { Erc721Categories } from 'data/types';
 
 import styles, { portalStyles } from '../styles';
 
-export default function PortalImage({ portal }) {
+export function PortalImage({ portal }) {
     const classes = {
         ...styles(),
         ...portalStyles()
     };
 
-    const renderPortalImage = (portal) => {
-        let portalIcon;
+    const renderPortalImage = (portal: any) => {
+        let portalIcon: any;
 
         if (portal.portal.hauntId === '1') {
             portalIcon = portal.category === Erc721Categories.ClosedPortal ?
