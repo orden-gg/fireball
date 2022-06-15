@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     gotchiTraits: {
         position: 'relative',
         display: 'flex',
@@ -52,8 +52,6 @@ const styles = makeStyles(theme => ({
     },
     defaultVal: {
         color: '#000',
-        fontWeight: '500'
+        fontWeight: 500
     }
 }));
-
-export default styles;
