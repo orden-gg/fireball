@@ -11,16 +11,16 @@ import { SnackbarContext } from 'contexts/SnackbarContext';
 import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 
 import GotchiverseOnline from './components/GotchiverseOnline';
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Footer() {
+export function Footer() {
     const classes = styles();
     const {
         isOpen,
         type,
         message,
         onSnackbarClose
-    } = useContext(SnackbarContext);
+    } = useContext<any>(SnackbarContext);
 
     return (
         <Box className={classes.footerWrapper}>

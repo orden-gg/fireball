@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     footerWrapper: {
         backgroundColor: theme.palette.secondary.dark,
         padding: '5px 24px',
@@ -79,5 +79,3 @@ const styles = makeStyles(theme => ({
         height: 20
     }
 }));
-
-export default styles;
