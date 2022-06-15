@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     container: {
         background: alpha('#000', .2),
         padding: 12,
@@ -15,7 +15,7 @@ const styles = makeStyles(theme => ({
         }
     },
     content: {
-        flexGrow: '1',
+        flexGrow: 1,
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             flexDirection: 'column',
@@ -64,7 +64,7 @@ const styles = makeStyles(theme => ({
         marginRight: 4
     },
     name: {
-        fontWeight: '500',
+        fontWeight: 500,
         fontSize: 24,
         margin: '0 0 4px',
         textTransform: 'capitalize',
@@ -78,7 +78,7 @@ const styles = makeStyles(theme => ({
         marginTop: 12
     },
     salesTitle: {
-        fontWeight: '500',
+        fontWeight: 500,
         fontSize: 20,
         margin: '0 0 8px'
     },
@@ -131,5 +131,3 @@ const styles = makeStyles(theme => ({
         marginTop: 12
     }
 }));
-
-export default styles;

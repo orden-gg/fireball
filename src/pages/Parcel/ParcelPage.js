@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
-import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraphApi from 'api/thegraph.api';
 
 import styles from './styles';

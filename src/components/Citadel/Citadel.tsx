@@ -12,7 +12,7 @@ import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
 import { CustomModal } from 'components/Modal/Modal';
-import ParcelPreview from 'components/Previews/ParcelPreview/ParcelPreview';
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import commonUtils from 'utils/commonUtils';
 import filtersUtils from 'utils/filtersUtils';
 

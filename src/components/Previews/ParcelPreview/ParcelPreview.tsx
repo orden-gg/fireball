@@ -8,19 +8,20 @@ import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListin
 import itemUtils from 'utils/itemUtils';
 
 import SalesHistory from '../SalesHistory/SalesHistory';
-import styles from './styles';
 
-export default function ParcelPreview({ parcel }) {
+import { styles } from './styles';
+
+export function ParcelPreview({ parcel }: { parcel: any }) {
     const classes = styles();
 
-    const boosts = [
+    const boosts: Array<{ name: string; value: any }> = [
         { name: 'fud', value: parcel.fudBoost },
         { name: 'fomo', value: parcel.fomoBoost },
         { name: 'alpha', value: parcel.alphaBoost },
         { name: 'kek', value: parcel.kekBoost }
     ];
 
-    const modifyName = (hash) => {
+    const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
     };
 
@@ -32,7 +33,7 @@ export default function ParcelPreview({ parcel }) {
                 </div>
 
                 <div className={classes.content}>
-                    <div className={classes.contentInner}>
+                    <div>
                         <div className={classes.contentTop}>
                             <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
                             <EthAddress
@@ -72,7 +73,7 @@ export default function ParcelPreview({ parcel }) {
                                             alt={boost.name}
                                             width={32}
                                         />
-                                        <div className={classes.boostInner}>
+                                        <div>
                                             <h5>{totalBoost}</h5>
                                             <p>{boost.value}pts  x {multiplierValue}</p>
                                         </div>
