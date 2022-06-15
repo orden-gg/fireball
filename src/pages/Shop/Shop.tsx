@@ -15,7 +15,7 @@ import {
     RareTicketIcon,
     WarehouseIcon
 } from 'components/Icons/Icons';
-import Consumable from 'components/Items/Consumable/Consumable';
+import { Consumable } from 'components/Items/Consumable/Consumable';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import Parcel from 'components/Items/Parcel/Parcel';
 import Portal from 'components/Items/Portal/Portal';
