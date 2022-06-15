@@ -9,9 +9,9 @@ import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
 import LoginNavigation from './LoginNavigation';
-import LoginAddress from './LoginAddress';
+import { LoginAddress } from './LoginAddress';
 
-import styles from './styles';
+import { styles } from './styles';
 
 export default function LoginButton() {
     const classes = styles();

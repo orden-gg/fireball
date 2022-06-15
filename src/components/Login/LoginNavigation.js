@@ -9,7 +9,7 @@ import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 import ethersApi from 'api/ethers.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
 export default function LoginNavigation({ address, onSubmit }) {
     const classes = styles();

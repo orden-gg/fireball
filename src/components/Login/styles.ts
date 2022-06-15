@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     loginNavigation: {
         display: 'flex',
         alignItems: 'flex-start',
@@ -37,7 +37,7 @@ const styles = makeStyles(theme => ({
     },
     captionText: {
         fontSize: 14,
-        fontWeight: '600',
+        fontWeight: 600,
         margin: 0
     },
     address: {
@@ -52,7 +52,7 @@ const styles = makeStyles(theme => ({
         }
     },
     addressText: {
-        fontWeight: '700'
+        fontWeight: 700
     },
     buttonDropdown: {
         position: 'absolute',
@@ -142,7 +142,7 @@ const styles = makeStyles(theme => ({
     },
     loginAddressName: {
         fontSize: 16,
-        fontWeight: '500',
+        fontWeight: 500,
         '&.Mui-disabled::before': {
             borderColor: 'transparent'
         },
@@ -160,7 +160,7 @@ const styles = makeStyles(theme => ({
     },
     loginAddressAddress: {
         fontSize: '14px',
-        fontWeight: '700',
+        fontWeight: 700,
         marginLeft: '4px',
         backgroundColor: theme.palette.background.paper,
         padding: '4px 6px',
@@ -198,5 +198,3 @@ const styles = makeStyles(theme => ({
         borderRadius: 4
     }
 }));
-
-export default styles;

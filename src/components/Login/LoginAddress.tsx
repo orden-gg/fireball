@@ -12,22 +12,37 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { LoginContext } from 'contexts/LoginContext';
 import commonUtils from 'utils/commonUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function LoginAddress({ address, isMetamask }) {
+interface Address {
+    name: string;
+    address: string;
+}
+
+interface LoginAddressProps {
+    address: Address;
+    isMetamask: boolean;
+}
+
+export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
     const classes = styles();
-    const [editMode, setEditMode] = useState(false);
-    const [name, setName] = useState(address.name);
-    const [copyTooltipText, setCopyTooltipText] = useState('Copy address');
-    const nameRef = useRef();
-    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress, setDropdownOpen } = useContext(LoginContext);
+
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [name, setName] = useState<string>(address.name);
+    const [copyTooltipText, setCopyTooltipText] = useState<string>('Copy address');
+    const nameRef = useRef<any>();
+    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress, setDropdownOpen } = useContext<any>(LoginContext);
 
     useEffect(() => { // focus input on edit button click
-        if (editMode) nameRef.current.focus();
+        if (editMode) {
+            nameRef.current.focus();
+        }
     }, [editMode]);
 
     useEffect(() => {
-        if (address) setName(address.name);
+        if (address) {
+            setName(address.name);
+        }
     }, [address]);
 
     const onAddressClick = () => {
@@ -35,15 +50,15 @@ export default function LoginAddress({ address, isMetamask }) {
         selectActiveAddress(address.address);
     };
 
-    const isActive = (current) => {
+    const isActive = (current: Address) => {
         return current.address === activeAddress;
     };
 
-    const onNameChange = (value) => {
+    const onNameChange = (value: string) => {
         setName(value);
     };
 
-    const confirmNewAddress = (event) => {
+    const confirmNewAddress = (event: any) => {
         event.stopPropagation();
 
         if (name.length > 0) {
@@ -53,14 +68,14 @@ export default function LoginAddress({ address, isMetamask }) {
         }
     };
 
-    const editAddress = (event) => {
+    const editAddress = (event: any) => {
         event.stopPropagation();
 
         setEditMode(true);
         nameRef.current.focus();
     };
 
-    const copyAddress = (event) => {
+    const copyAddress = (event: any) => {
         event.stopPropagation();
         copyToClipboard();
     };
@@ -102,7 +117,7 @@ export default function LoginAddress({ address, isMetamask }) {
                                 <InputAdornment position='end'>
                                     {editMode ? (
                                         <IconButton type='submit' color='success' size='small' onClick={(event) => confirmNewAddress(event)} disabled={name.length === 0}>
-                                            <CheckIcon fontSize='8px' />
+                                            <CheckIcon fontSize={'8px' as any} />
                                         </IconButton>
                                     ) : (
                                         null
@@ -128,7 +143,7 @@ export default function LoginAddress({ address, isMetamask }) {
             <Box className={classes.loginAddressIcons}>
                 {!isMetamask ? (
                     <>
-                        <CustomTooltip title='Edit name' placement='top' followCursor className={classes.tooltip}>
+                        <CustomTooltip title='Edit name' placement='top' followCursor>
                             <IconButton size='small' onClick={(event) => editAddress(event)}>
                                 <EditIcon fontSize='small' />
                             </IconButton>
