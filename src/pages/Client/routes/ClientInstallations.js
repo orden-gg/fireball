@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import Installation from 'components/Items/Installation/Installation';
+import { Installation } from 'components/Items/Installation/Installation';
 import Tile from 'components/Items/Tile.js/Tile';
 import { ContentInner } from 'components/Content/ContentInner';
 import ItemsLazy from 'components/Lazy/ItemsLazy';

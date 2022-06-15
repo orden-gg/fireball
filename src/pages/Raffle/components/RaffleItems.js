@@ -4,7 +4,7 @@ import ParcelGeneric from 'components/Items/Parcel/ParcelGeneric';
 import RealmGeneric from 'components/Items/Parcel/RealmGeneric';
 import PortalGeneric from 'components/Items/Portal/PortalGeneric';
 import { Wearable } from 'components/Items/Wearable/Wearable';
-import Installation from 'components/Items/Installation/Installation';
+import { Installation } from 'components/Items/Installation/Installation';
 import installationsUtils from 'utils/installationsUtils';
 
 import { itemsStyles } from '../styles';
