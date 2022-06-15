@@ -5,16 +5,15 @@ import { Wearable } from 'components/Items/Wearable/Wearable';
 import itemUtils from 'utils/itemUtils';
 
 import { CustomTooltipStyles } from '../styles';
-import styles from './styles';
 
-export default function GotchiWearablesLine({ gotchi }) {
-    const classes = {
-        ...styles(),
-        ...CustomTooltipStyles()
-    };
+import { styles } from './styles';
+
+export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
+    const classes = { ...styles(), ...CustomTooltipStyles() };
+
     const theme = useTheme();
     const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
-    const wearables = gotchi.equippedWearables;
+    const wearables: any = gotchi.equippedWearables;
 
     return (
         <div className={classes.gotchiWLineWrapper}>
@@ -27,8 +26,8 @@ export default function GotchiWearablesLine({ gotchi }) {
             }
             {
                 wearableSlots.map((name, index) => {
-                    const wearable = wearables[index];
-                    const rarityColor = itemUtils.getItemRarityById(wearable);
+                    const wearable: any = wearables[index];
+                    const rarityColor: string = itemUtils.getItemRarityById(wearable);
 
                     return (
                         <Tooltip

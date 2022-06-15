@@ -11,7 +11,7 @@ import { GotchiRewards } from './GotchiRewards/GotchiRewards';
 import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
 import { GotchiTraits } from './GotchiTraits/GotchiTraits';
-import GotchiWearablesLine from './GotchiWearablesLine/GotchiWearablesLine';
+import { GotchiWearablesLine } from './GotchiWearablesLine/GotchiWearablesLine';
 import { GotchiRs } from './GotchiRs/GotchiRs';
 import GotchiKinship from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
