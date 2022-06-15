@@ -5,15 +5,21 @@ import classNames from 'classnames';
 import { GotchiLoadingGif } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
 const regex = /<style>(.*?)<\/style>/g;
 const regexClass = /\.(.*?)\}/g;
 
-export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
+interface GotchiSvgProps {
+    id: string;
+    size: string;
+}
+
+export function GotchiSvg({ id, size }: GotchiSvgProps) {
     const classes = styles();
-    const svgRef = useRef(null);
-    const [loadingSvg, setLoadingSvg] = useState(true);
+
+    const svgRef = useRef<HTMLDivElement | null>(null);
+    const [loadingSvg, setLoadingSvg] = useState<boolean>(true);
     const svgInner = document.createElement('div');
 
     useEffect(() => {
@@ -22,10 +28,10 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
         setLoadingSvg(true);
 
         thegraph.getGotchiSvgById(id)
-            .then((response) => {
+            .then((response: any) => {
                 if (!controller.signal.aborted) {
-                    const svgString = response.data.aavegotchis[0].svg;
-                    let svgUniqueStyles = svgString.match(regex).map((val) => {
+                    const svgString: any = response.data.aavegotchis[0].svg;
+                    let svgUniqueStyles: any = svgString.match(regex).map((val: any) => {
                         return val.replace(/<\/?style>/g,'');
                     });
 
@@ -36,8 +42,11 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
                     svgInner.innerHTML = svgString.replace(regex, `<style>${svgUniqueStyles}</style>`);
 
                     setLoadingSvg(false);
-                    svgRef.current.innerHTML = '';
-                    svgRef.current.appendChild(svgInner);
+
+                    if (svgRef?.current) {
+                        svgRef.current.innerHTML = '';
+                        svgRef.current.appendChild(svgInner);
+                    }
                 }
             }).catch((error) => {
                 console.log(error);
@@ -47,12 +56,12 @@ export default function GotchiSvg({ id, size, hideWearables, hideBg }) {
     }, [id]);
 
     return (
-        <div className={classNames(classes.svgWrapper, hideWearables && 'hide-wearables', hideBg && 'hide-bg' )} style={{ width: size }}>
+        <div className={classes.svgWrapper} style={{ width: size }}>
             {loadingSvg ? (
                 <GotchiLoadingGif width='100%' />
             ) : (
                 <div
-                    className={classNames(classes.svgImage, `gotchi-${id}`)}
+                    className={classNames(`gotchi-${id}`)}
                     ref={svgRef}
                 ></div>
             )}

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { GotchiLoadingGif } from 'components/Icons/Icons';
 
 import renderSvg from './GotchiSvgRender';
-import styles from './styles';
+import { styles } from './styles';
 
 const regex = /<style>(.*?)<\/style>/g;
 const regexClass = /\.(.*?)\}/g;

@@ -6,10 +6,16 @@ import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import GotchiSvgByStats from './GotchiSvgByStats';
-import GotchiSvg from './GotchiSvg';
-import styles from './styles';
+import { GotchiSvg } from './GotchiSvg';
+import { styles } from './styles';
 
-export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
+interface GotchiImageProps {
+    gotchi: any;
+    renderSvgByStats: any;
+    portal: any;
+}
+
+export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImageProps) {
     const classes = styles();
 
     return (
@@ -33,10 +39,7 @@ export default function GotchiImage({ gotchi, renderSvgByStats, portal }) {
             }
             {
                 gotchi.whitelistId && <div className={classes.whitelist}>
-                    <PlaylistAddCheckOutlinedIcon
-                        className={classes.icon}
-                        fontSize='small'
-                    />
+                    <PlaylistAddCheckOutlinedIcon fontSize='small'/>
                     {gotchi.whitelistId}
                 </div>
             }
