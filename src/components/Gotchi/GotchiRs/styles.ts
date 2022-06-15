@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     gotchiRsWrapper: {
         fontSize: 13,
         margin: '0 2px'
@@ -9,5 +9,3 @@ const styles = makeStyles(() => ({
         fontWeight: 600
     }
 }));
-
-export default styles;
