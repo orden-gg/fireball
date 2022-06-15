@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     gotchiKinship: {
         fontSize: 13,
         display: 'flex',
@@ -12,5 +12,3 @@ const styles = makeStyles(() => ({
         marginRight: 2
     }
 }));
-
-export default styles;
