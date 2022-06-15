@@ -1,7 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-export default makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     linkName: {
         display: 'block',
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
