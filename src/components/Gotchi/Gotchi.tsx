@@ -7,7 +7,7 @@ import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
 import { GotchiName } from './GotchiName/GotchiName';
 import { GotchiImage } from './GotchiImage/GotchiImage';
-import GotchiRewards from './GotchiRewards/GotchiRewards';
+import { GotchiRewards } from './GotchiRewards/GotchiRewards';
 import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import GotchiSkillPoints from './GotchiSkillPoints/GotchiSkillPoints';
 import GotchiTraits from './GotchiTraits/GotchiTraits';

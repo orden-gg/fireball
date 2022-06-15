@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     rankBox: {
         position: 'absolute',
         bottom: 0,
@@ -36,5 +36,3 @@ const styles = makeStyles(theme => ({
         textShadow: `1px 1px 0 ${alpha(theme.palette.secondary.main, .8)}`
     }
 }));
-
-export default styles;

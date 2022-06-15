@@ -4,9 +4,9 @@ import { Box } from '@mui/system';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import commonUtils from 'utils/commonUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiRewards({ gotchi }) {
+export function GotchiRewards({ gotchi }: { gotchi }) {
     const classes = styles();
 
     return (
@@ -16,7 +16,7 @@ export default function GotchiRewards({ gotchi }) {
                     <Tooltip
                         title={
                             <>
-                                {gotchi.rewardStats.map((item, index) => {
+                                {gotchi.rewardStats.map((item: any, index: number) => {
                                     return item.reward !== 0 ? (
                                         <p key={index}>
                                             {item.name}[<span>{item.position}</span>] -
@@ -31,13 +31,12 @@ export default function GotchiRewards({ gotchi }) {
                                 })}
                             </>
                         }
-                        classes={{ tooltip: classes.customTooltip }}
                         enterTouchDelay={0}
                         placement='top'
                         followCursor
                     >
                         <Box className={classes.rankRewardAmount}>
-                            🏆<Typography className={classes.rankRewardAmountNumber}>{commonUtils.formatPrice(gotchi.reward)}</Typography>🏆
+                            🏆<Typography>{commonUtils.formatPrice(gotchi.reward)}</Typography>🏆
                         </Box>
                     </Tooltip>
 
