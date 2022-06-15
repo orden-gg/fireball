@@ -5,13 +5,18 @@ import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
 import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
-import styles from './../styles';
+import styles from '../styles';
 
-export default function PortalHorizontal({ portal, render }) {
+interface PortalHorizontalprops {
+    portal: any;
+    render: any;
+}
+
+export function PortalHorizontal({ portal, render }: PortalHorizontalprops) {
     const classes = styles();
 
     const gotchiSections = {
-        imageCell(children) {
+        imageCell(children: any) {
             return (
                 <div className={classes.portalImageCell}>
                     {children}
@@ -19,7 +24,7 @@ export default function PortalHorizontal({ portal, render }) {
             );
         },
 
-        infoCell(children) {
+        infoCell(children: any) {
             return (
                 <div className={classes.portalInfoCell} key={`${portal.id}-portal-infoCell`}>
                     {children}
@@ -27,7 +32,7 @@ export default function PortalHorizontal({ portal, render }) {
             );
         },
 
-        priceCell(children) {
+        priceCell(children: any) {
             return (
                 <div key={`${portal.id}-priceCell`} className={classes.portalPriceCell}>
                     {children}
@@ -64,14 +69,14 @@ export default function PortalHorizontal({ portal, render }) {
         }
     };
 
-    function renderSection(value) {
+    function renderSection(value: any) {
         if (typeof value === 'string') {
             return gotchiSections[value];
         }
 
         return (
             Object.keys(value).map(key => (
-                gotchiSections[key](value[key].map(item => (
+                gotchiSections[key](value[key].map((item: any) => (
                     renderSection(item)
                 )))
             ))
@@ -80,7 +85,7 @@ export default function PortalHorizontal({ portal, render }) {
 
     return (
         <div className={classNames(classes.horizontalCard, `haunt${portal.portal.hauntId}`)}>
-            {render.map(name => {
+            {render.map((name: any) => {
                 return renderSection(name);
             })}
         </div>
