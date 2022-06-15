@@ -21,7 +21,7 @@ interface Address {
 
 interface LoginAddressProps {
     address: Address;
-    isMetamask: boolean;
+    isMetamask?: boolean;
 }
 
 export function LoginAddress({ address, isMetamask }: LoginAddressProps) {

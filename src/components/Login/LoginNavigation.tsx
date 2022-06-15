@@ -11,25 +11,31 @@ import ethersApi from 'api/ethers.api';
 
 import { styles } from './styles';
 
-export default function LoginNavigation({ address, onSubmit }) {
-    const classes = styles();
-    const { metaState } = useMetamask();
-    const { connectMetamask, setIsMetamaskActive } = useContext(LoginContext);
+interface LoginNavigationProps {
+    onSubmit: (value: string) => void;
+    address?: string;
+}
 
-    const [formValue, setFormValue] = useState(address ? address : '');
-    const [isFormSabmitted, setIsFormSubmitted] = useState(address ? true : false);
+export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
+    const classes = styles();
+
+    const { metaState } = useMetamask();
+    const { connectMetamask, setIsMetamaskActive } = useContext<any>(LoginContext);
+
+    const [formValue, setFormValue] = useState<string>(address ? address : '');
+    const [isFormSabmitted, setIsFormSubmitted] = useState<boolean>(address ? true : false);
 
     const onMetamaskClick = () => {
-        connectMetamask().then((connected) => {
+        connectMetamask().then((connected: boolean) => {
             if (connected) setIsMetamaskActive(true);
         });
     };
 
-    const isFormValid = (addr) => {
+    const isFormValid = (addr: string) => {
         return isFormSabmitted && !ethersApi.isEthAddress(addr);
     };
 
-    const onFormSubmit = useCallback((event) => {
+    const onFormSubmit = useCallback((event: any) => {
         event.preventDefault();
 
         const formatted = formValue.toLowerCase();

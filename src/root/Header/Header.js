@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import LoginButton from 'components/Login/LoginButton';
+import { LoginButton } from 'components/Login/LoginButton';
 import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 

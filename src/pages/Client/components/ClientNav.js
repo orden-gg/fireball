@@ -2,7 +2,7 @@ import { useCallback, useContext } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
 
-import LoginNavigation from 'components/Login/LoginNavigation';
+import { LoginNavigation } from 'components/Login/LoginNavigation';
 import { LoginContext } from 'contexts/LoginContext';
 
 import styles, { accountStyles } from '../styles';
