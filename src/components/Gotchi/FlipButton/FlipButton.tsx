@@ -1,9 +1,9 @@
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function FlipButton({ flipCard }) {
+export function FlipButton({ onFlipCard }: { onFlipCard: () => void }) {
     const classes = styles();
 
     return (
@@ -15,7 +15,7 @@ export default function FlipButton({ flipCard }) {
         >
             <div className={classes.flipButtonWrapper}>
                 <button
-                    onClick={() => flipCard()}
+                    onClick={() => onFlipCard()}
                     className={classes.flipButton}
                 >
                     <FiregemIcon className={classes.flipButtonIcon} width={15} height={15} />

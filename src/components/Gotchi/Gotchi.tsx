@@ -17,7 +17,7 @@ import GotchiKinship from './GotchiKinship/GotchiKinship';
 import GotchiLending from './GotchiLending/GotchiLending';
 import GotchiLendingStats from './GotchiLendingStats/GotchiLendingStats';
 import ERC721Listing from '../Items/ERC721Listing/ERC721Listing';
-import FlipButton from './FlipButton/FlipButton';
+import { FlipButton } from './FlipButton/FlipButton';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import styles from './styles';
@@ -229,7 +229,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
         },
 
         get flipButton() {
-            return <FlipButton key={`${gotchi.id}-flipButton`} flipCard={flipCard} />;
+            return <FlipButton key={`${gotchi.id}-flipButton`} onFlipCard={flipCard} />;
         }
     };
 
