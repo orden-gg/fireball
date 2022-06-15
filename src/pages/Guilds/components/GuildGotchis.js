@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import GotchisLazy from 'components/Lazy/GotchisLazy';
+import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import thegraphApi from 'api/thegraph.api';
 
 import { GuildsContext } from '../GuildsContext';

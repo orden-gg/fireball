@@ -10,7 +10,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import qs from 'query-string';
 
 import { ContentInner } from 'components/Content/ContentInner';
-import GotchisLazy from 'components/Lazy/GotchisLazy';
+import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import SortFilterPanel from 'components/SortFilterPanel/SortFilterPanel';

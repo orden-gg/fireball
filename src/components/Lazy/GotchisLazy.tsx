@@ -14,8 +14,13 @@ const NoContent = styled.div`
     padding: 24px;
 `;
 
-export default function GotchisLazy({ items, renderItem }) {
-    const gridRef = useRef(null);
+interface GotchisLazyProps {
+    items: any[];
+    renderItem: (id: number | string) => JSX.Element;
+}
+
+export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
+    const gridRef = useRef<any>(null);
 
     useEffect(() => {
         if (items.length) {
@@ -47,7 +52,7 @@ export default function GotchisLazy({ items, renderItem }) {
             style={{ height: '100%' }}
             totalCount={items.length}
             components={{
-                List: ListContainer
+                List: ListContainer as any
             }}
             itemContent={index => renderItem(index)}
         />
