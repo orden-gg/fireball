@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-export default makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     priceRoot: {
         '& img': {
             width: 25

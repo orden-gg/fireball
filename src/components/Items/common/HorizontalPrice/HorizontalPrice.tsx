@@ -1,9 +1,14 @@
 import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function HorizontalPrice({ item, label }) {
+interface HorizontalPriceProps {
+    item: any;
+    label: string;
+}
+
+export function HorizontalPrice({ item, label }: HorizontalPriceProps) {
     const classes = styles();
 
     return (

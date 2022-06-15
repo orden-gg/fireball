@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import itemUtils from 'utils/itemUtils';
 import { WearableImage } from './WearableImage';
-import HorizontalPrice from '../common/HorizontalPrice/HorizontalPrice';
+import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
 import { CardName } from '../common/CardName/CardName';
 import { CardStats } from '../common/CardStats/CardStats';
