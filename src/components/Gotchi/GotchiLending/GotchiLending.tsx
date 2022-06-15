@@ -9,20 +9,20 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 import graphUtils from 'utils/graphUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiLending({ gotchi }) {
+export function GotchiLending({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
-    const periodToMillis = gotchi.period * 1000;
+    const periodToMillis: number = gotchi.period * 1000;
     const periodObject = Duration.fromMillis(periodToMillis).shiftTo('years', 'months', 'days', 'hours').normalize().toObject();
 
     const renderPeriod = () => {
         return (
             <>
                 {Object.entries(periodObject).map((period, index) => {
-                    const value = period[1];
-                    const key = value > 1 ? period[0] : period[0].slice(0, -1);
+                    const value: any = period[1];
+                    const key: string = value > 1 ? period[0] : period[0].slice(0, -1);
 
                     if (value === 0) {
                         return null;
@@ -37,7 +37,7 @@ export default function GotchiLending({ gotchi }) {
     };
 
     return (
-        <div className={classes.container}>
+        <div>
             <div className={classNames(classes.section, classes.head)}>
                 <div className={classes.inner}>
                     <AccessTimeIcon className={classes.innerIcon} fontSize='small' />
@@ -77,7 +77,7 @@ export default function GotchiLending({ gotchi }) {
             </div>
 
             <div className={classNames(classes.section, classes.tokens)}>
-                {gotchi.tokensToShare.map((token, index) => {
+                {gotchi.tokensToShare.map((token: any, index: number) => {
                     const tokenName = graphUtils.getTokenName(token);
 
                     return (
