@@ -6,7 +6,7 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 import classNames from 'classnames';
 
-import MusicButton from 'components/MusicButton/MusicButton';
+import { MusicButton } from 'components/MusicButton/MusicButton';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 

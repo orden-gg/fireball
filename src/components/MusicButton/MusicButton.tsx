@@ -5,9 +5,9 @@ import MusicOffIcon from '@mui/icons-material/MusicOff';
 
 import song from 'assets/music/halloween.mp3';
 
-export default function MusicButton() {
-    const [playing, setPlaying] = useState(false);
-    const [audio] = useState(new Audio(song));
+export function MusicButton() {
+    const [playing, setPlaying] = useState<boolean>(false);
+    const [audio] = useState<HTMLAudioElement>(new Audio(song));
 
     useEffect(() => {
         audio.addEventListener('ended', () => audio.play()); // autoplay on end
