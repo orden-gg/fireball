@@ -1,26 +1,31 @@
 import React from 'react';
 import { CircularProgress, Tooltip } from '@mui/material';
 
-import styles from './styles';
 import { CustomTooltipStyles } from '../styles';
 
-const expFormula = (lvl) => {
+import { styles } from './styles';
+
+const expFormula = (lvl: number) => {
     return lvl * lvl / 0.02;
 };  // Based on https://wiki.aavegotchi.com/en/xp
 
-export default function GotchiLevel({ level, toNextLevel, experience }) {
-    const classes = {
-        ...styles(),
-        ...CustomTooltipStyles()
-    };
-    const diff = expFormula(level) - expFormula(level-1);
-    const percentageFormula = 100 - Math.floor(toNextLevel * 100 / diff);
+interface GotchiLevelProps {
+    level: string;
+    toNextLevel: string;
+    experience: string;
+}
+
+export function GotchiLevel({ level, toNextLevel, experience }: GotchiLevelProps) {
+    const classes = { ...styles(), ...CustomTooltipStyles() };
+
+    const diff = expFormula(Number(level)) - expFormula(Number(level) - 1);
+    const percentageFormula = 100 - Math.floor(Number(toNextLevel) * 100 / diff);
 
     return (
         <Tooltip
             title={
                 <React.Fragment>
-                    <p>[<span>{experience}</span> XP] lvl <span>{+level + 1}</span> in <span>{toNextLevel}</span> XP</p>
+                    <p>[<span>{experience}</span> XP] lvl <span>{Number(level) + 1}</span> in <span>{toNextLevel}</span> XP</p>
                 </React.Fragment>
             }
             classes={{ tooltip: classes.customTooltip }}
