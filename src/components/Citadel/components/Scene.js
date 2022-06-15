@@ -248,7 +248,7 @@ export default class CitadelScene extends Phaser.Scene {
 
                 setTimeout(() => {
                     this.zoomTo(1.1, 500, () => {
-                        this.trigger('parcelSelect', parcel.tokenId);
+                        this.trigger('parcelSelect', parcel);
                     });
                 }, 0);
             }, 50);
