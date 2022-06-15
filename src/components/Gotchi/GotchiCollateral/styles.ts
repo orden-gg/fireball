@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     gotchiCollateral: {
         width: 20,
         height: 23,
@@ -17,5 +17,3 @@ const styles = makeStyles(() => ({
         }
     }
 }));
-
-export default styles;

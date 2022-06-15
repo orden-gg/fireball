@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import classNames from 'classnames';
 
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
-import GotchiCollateral from './GotchiCollateral/GotchiCollateral';
+import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import GotchiOwner from './GotchiOwner/GotchiOwner';
 import GotchiName from './GotchiName/GotchiName';
 import GotchiImage from './GotchiImage/GotchiImage';

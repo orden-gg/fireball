@@ -3,14 +3,13 @@ import { Tooltip } from '@mui/material';
 import graphUtils from 'utils/graphUtils';
 
 import { CustomTooltipStyles } from '../styles';
-import styles from './styles';
 
-export default function GotchiCollateral({ gotchi }) {
-    const classes = {
-        ...CustomTooltipStyles(),
-        ...styles()
-    };
-    const collateral = graphUtils.getCollateralName(gotchi.collateral);
+import { styles } from './styles';
+
+export function GotchiCollateral({ gotchi }: { gotchi: any }) {
+    const classes = { ...CustomTooltipStyles(), ...styles() };
+
+    const collateral: string = graphUtils.getCollateralName(gotchi.collateral);
 
     return (
         <Tooltip
