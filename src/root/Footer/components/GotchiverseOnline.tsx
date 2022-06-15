@@ -8,12 +8,13 @@ import ContentLoader from 'react-content-loader';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import gotchiverseApi from 'api/gotchiverse.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiverseOnline() {
+export function GotchiverseOnline() {
     const classes = styles();
-    const [isOnlineLoading, setIsOnlineLoading] = useState(true);
-    const [onlineCount, setOnlineCount] = useState(0);
+
+    const [isOnlineLoading, setIsOnlineLoading] = useState<boolean>(true);
+    const [onlineCount, setOnlineCount] = useState<number>(0);
 
     const fetchInterval = 25; // seconds
 
@@ -43,7 +44,7 @@ export default function GotchiverseOnline() {
         };
     }, []);
 
-    const renderOnlineTemplate = (TemplateIcon, text) => {
+    const renderOnlineTemplate = (TemplateIcon: any, text: string | number): JSX.Element => {
         return (
             <>
                 <TemplateIcon className={classes.icon}/>

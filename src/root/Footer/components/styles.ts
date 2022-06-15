@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     container: {
         display: 'flex',
         alignItems: 'center',
@@ -25,5 +25,3 @@ const styles = makeStyles(theme => ({
         borderRadius: 4
     }
 }));
-
-export default styles;

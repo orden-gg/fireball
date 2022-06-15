@@ -10,7 +10,7 @@ import { MusicButton } from 'components/MusicButton/MusicButton';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 
-import GotchiverseOnline from './components/GotchiverseOnline';
+import { GotchiverseOnline } from './components/GotchiverseOnline';
 import { styles } from './styles';
 
 export function Footer() {
