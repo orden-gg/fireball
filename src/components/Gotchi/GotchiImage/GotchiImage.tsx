@@ -5,7 +5,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 
-import GotchiSvgByStats from './GotchiSvgByStats';
+import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { GotchiSvg } from './GotchiSvg';
 import { styles } from './styles';
 

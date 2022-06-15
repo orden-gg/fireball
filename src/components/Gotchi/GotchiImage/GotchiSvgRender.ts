@@ -1,10 +1,10 @@
 import mainApi from 'api/main.api';
 
-const renderSvg = async (gotchies) => {
-    const svgs = [];
+export const renderSvg = async (gotchies) => {
+    const svgs: any[] = [];
 
     for (const key in gotchies) {
-        const cache = await mainApi.previewAavegotchi(
+        const cache: any = await mainApi.previewAavegotchi(
             parseInt(gotchies[key].hauntId),
             gotchies[key].collateral,
             gotchies[key].numericTraits,
@@ -14,8 +14,8 @@ const renderSvg = async (gotchies) => {
         svgs.push(cache);
     }
 
-    function htmlToElement(html) {
-        var template = document.createElement('template');
+    function htmlToElement(html: any) {
+        const template: any = document.createElement('template');
         template.innerHTML = html.trim();
 
         return template.content.firstChild;
@@ -25,15 +25,14 @@ const renderSvg = async (gotchies) => {
         const regex = /<style>(.*?)<\/style>/g,
             regexClass = /\.(.*?)\}/g;
 
-        let svgs = item.match(regex).map((val) => {
+        let svgs: any[] = item.match(regex).map((val: any) => {
             return val.replace(/<\/?style>/g,'');
-            });
-            svgs = svgs[0].match(regexClass).map((styleBlock) => {
+        });
+
+        svgs = svgs[0].match(regexClass).map((styleBlock: any) => {
             return `.gotchi-svg-${gotchies[index].id} ${styleBlock}`;
-            }).join('');
+        }).join('');
 
         return htmlToElement(item.replace(regex, `<style>${svgs}</style>`));
     });
 };
-
-export default renderSvg;
