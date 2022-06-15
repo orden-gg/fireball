@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 
-import Section from 'components/Section/Section';
+import { Section } from 'components/Section/Section';
 
 import Portals from './components/Portals/Portals';
 import Team from './components/Team/Team';

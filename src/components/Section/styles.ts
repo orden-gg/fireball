@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     section: {
         padding: '50px 0',
         [theme.breakpoints.up('md')]: {
@@ -8,5 +8,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

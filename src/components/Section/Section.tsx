@@ -1,8 +1,13 @@
 import { Container, Grid } from '@mui/material';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Section({ children, backgroundColor }) {
+interface SectionProps {
+    children: JSX.Element;
+    backgroundColor: string;
+}
+
+export function Section({ children, backgroundColor }: SectionProps) {
     const classes = styles();
 
     return (
