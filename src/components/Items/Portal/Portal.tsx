@@ -9,7 +9,7 @@ import PortalImage from './PortalImage';
 import { CardName } from '../common/CardName/CardName';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';
 
-export default function Portal({ portal }) {
+export function Portal({ portal }: { portal: any }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -47,10 +47,10 @@ export default function Portal({ portal }) {
                 }
                 target='_blank'
                 underline='none'
-                className={classNames(classes.nameWrapper, 'two-lined')}
+                className={'two-lined'}
             >
                 <CardName itemName={`Portal ${portal.tokenId}`} itemRarity={'none'} item={portal} />
-                <CallMade className={classes.callMadeIcon} />
+                <CallMade />
             </Link>
 
             <div className={classes.portalPriceContainer}>

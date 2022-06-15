@@ -4,7 +4,7 @@ import { Typography } from '@mui/material';
 
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import Portal from 'components/Items/Portal/Portal';
+import { Portal } from 'components/Items/Portal/Portal';
 import PortalHorizontal from 'components/Items/Portal/PortalHorizontal';
 import Ticket from 'components/Items/Ticket/Ticket';
 import TicketHorizontal from 'components/Items/Ticket/TicketHorizontal';
