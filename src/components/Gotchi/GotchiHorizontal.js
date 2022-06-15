@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
-import GotchiName from './GotchiName/GotchiName';
+import { GotchiName } from './GotchiName/GotchiName';
 import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import GotchiTraits from './GotchiTraits/GotchiTraits';
 import HorizontalPrice from '../Items/common/HorizontalPrice/HorizontalPrice';

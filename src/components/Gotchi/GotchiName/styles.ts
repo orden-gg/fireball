@@ -1,13 +1,13 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     gotchiName: {
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
         color: theme.palette.text.primary,
-        fontWeight: '500',
+        fontWeight: 500,
         position: 'relative',
         transition: 'all .2s ease-in-out',
         padding: 7,
@@ -56,5 +56,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

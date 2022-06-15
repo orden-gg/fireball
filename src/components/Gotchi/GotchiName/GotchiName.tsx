@@ -1,8 +1,8 @@
 import { Link } from '@mui/material';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function GotchiName({ gotchi }) {
+export function GotchiName({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     return (
