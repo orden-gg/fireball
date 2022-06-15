@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
 import gotchiverseApi from 'api/gotchiverse.api';
+import citadelUtils from 'utils/citadelUtils';
 import { COLORS } from 'data/citadel.data';
 
 import styles from './styles';
@@ -10,36 +11,26 @@ export default function ParcelImage({ parcel, imageSize }) {
     const classes = styles();
     const canvasRef = useRef(null);
     const [imageLoading, setImageLoading] = useState(true);
+    const [imageMap, setImageMap] = useState([]);
 
-    const processColorsMap = (map) => {
-        const cache = [];
-
-        map.forEach((item) => {
-            if (!cache.length) {
-                cache[0] = [];
-            }
-
-            if (cache[cache.length - 1].length < 4) {
-                cache[cache.length - 1].push(item);
-            } else {
-                cache[cache.length] = [item];
-            }
-        });
-
+    const processColorsMap = () => {
+        const colorsSize = imageMap.length/4;
         const canvas = canvasRef.current;
-
-        if (!canvas) return;
-
         const context = canvas.getContext('2d');
 
         context.globalAlpha = 1;
 
-        for (let x = 0; x < imageSize; x++) {
-            for (let y = 0; y < imageSize; y++) {
-                context.beginPath();
-                context.fillStyle = `rgba(${cache[x*imageSize+y].join(',')})`;
-                context.fillRect(y,x, x+1,y+1);
-            }
+        for (let i = 0; i < colorsSize; i++) {
+            const id = i * 4;
+            const [x, y] = [Math.floor(i / imageSize), i % imageSize];
+
+            context.beginPath();
+            context.fillStyle = `rgb(
+                ${imageMap[id]},
+                ${imageMap[id + 1]},
+                ${imageMap[id + 2]}
+            )`;
+            context.fillRect(y, x, x + 1, y + 1);
         }
 
         context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
@@ -48,20 +39,9 @@ export default function ParcelImage({ parcel, imageSize }) {
     };
 
     const drawParcelBorder = (parcel, context) => {
-        const size = Number(parcel.size);
+        const { w, h } = citadelUtils.getParcelSize(parcel.size);
 
-        switch (size) {
-            case 0:
-                return drawRect(parcel, context, 5, 5, 2);
-            case 1:
-                return drawRect(parcel, context, 10, 10, 2);
-            case 2:
-                return drawRect(parcel, context, 16, 32, 2);
-            case 3:
-                return drawRect(parcel, context, 32, 16, 2);
-            default:
-                return;
-        }
+        return drawRect(parcel, context, w / 2 + 2, h / 2 + 2, 2);
     };
 
     const drawRect = (parcel, context, width, height, line) => {
@@ -78,16 +58,23 @@ export default function ParcelImage({ parcel, imageSize }) {
 
         setImageLoading(true);
 
-        gotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
-            .then(res => {
-                if (mounted) {
-                    setImageLoading(false);
-                    processColorsMap(res);
-                }
-            });
+        gotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true).then(response => {
+            if (mounted) {
+                setImageMap(response);
+            }
+        })
+        .catch(error => console.log(error))
+        .finally(() => setImageLoading(false));
 
         return () => mounted = false;
     }, []);
+
+    useEffect(() => {
+        if (imageMap.length > 0 && !imageLoading) {
+            processColorsMap();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imageMap, imageLoading]);
 
     return (
         <div
