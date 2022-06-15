@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
@@ -7,21 +8,20 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import realmApi from 'api/realm.api';
 import { DAY_MILLIS } from 'data/date';
 
-import styles from './styles';
-import ContentLoader from 'react-content-loader';
+import { styles } from './styles';
 
-export default function GotchiChanelling({ gotchiId }) {
+export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     const classes = styles();
 
-    const [lastChanneling, setLastChanneling] = useState();
-    const [lastChannelingLoading, setLastChanellingLoading] = useState(true);
+    const [lastChanneling, setLastChanneling] = useState<number>(0);
+    const [lastChannelingLoading, setLastChanellingLoading] = useState<boolean>(true);
 
     useEffect(() => {
         let mounted = true;
 
         setLastChanellingLoading(true);
 
-        realmApi.getGotchiLastChanneled(gotchiId).then(res => {
+        realmApi.getGotchiLastChanneled(gotchiId).then((res: any) => {
             if (mounted) {
                 setLastChanneling(res * 1000);
             }
@@ -31,15 +31,15 @@ export default function GotchiChanelling({ gotchiId }) {
             }
         });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [gotchiId]);
 
-    const atLeastOneTimeChanneled = (date) => {
+    const atLeastOneTimeChanneled = (date: number) => {
         return date > 0;
     };
 
-    const moreThan24hours = (date) => {
-        const dateDiff = DateTime.local() - DateTime.fromMillis(date);
+    const moreThan24hours = (date: number) => {
+        const dateDiff = DateTime.local().toMillis() - date;
 
         return dateDiff > DAY_MILLIS;
     };

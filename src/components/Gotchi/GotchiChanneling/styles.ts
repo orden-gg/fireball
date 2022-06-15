@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     container: {
         margin: '8px 0',
         background: alpha('#000', .2),
@@ -24,5 +24,3 @@ const styles = makeStyles(() => ({
         borderRadius: 4
     }
 }));
-
-export default styles;
