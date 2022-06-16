@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
 
-import PanelErrorText from './PanelErrorText';
+import { PanelErrorText } from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
