@@ -6,13 +6,10 @@ import ethersApi from 'api/ethers.api';
 import { ClientNav } from '../components/ClientNav';
 import styles, { accountStyles } from '../styles';
 
-export default function ClientAccount() {
-    const classes = {
-        ...styles(),
-        ...accountStyles()
-    };
+export function ClientAccount() {
+    const classes = { ...styles(), ...accountStyles() };
 
-    const { account } = useParams();
+    const { account } = useParams<{ account: string }>();
 
     return (
         <div className={classes.accountContainer}>

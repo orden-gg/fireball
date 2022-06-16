@@ -13,7 +13,7 @@ import { LoginContext } from 'contexts/LoginContext';
 import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 
-import ClientAccount from './routes/ClientAccount';
+import { ClientAccount } from './routes/ClientAccount';
 import ClientGotchis from './routes/ClientGotchis';
 import ClientLendings from './routes/ClientLendings';
 import ClientInstallations from './routes/ClientInstallations';
