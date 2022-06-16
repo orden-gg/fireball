@@ -5,11 +5,12 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 
 import styles from './styles';
 
-export default function Id({ runFilterWatcher }) {
+export function Id({ runFilterWatcher }: { runFilterWatcher: () => void }) {
     const classes = styles();
-    const { id, setId } = useContext(BaazaarContext);
 
-    const onIdChange = (event) => {
+    const { id, setId } = useContext<any>(BaazaarContext);
+
+    const onIdChange = (event: any): void => {
         setId(event.target.value);
         runFilterWatcher();
     };
