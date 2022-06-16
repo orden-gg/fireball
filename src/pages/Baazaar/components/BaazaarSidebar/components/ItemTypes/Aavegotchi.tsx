@@ -4,7 +4,7 @@ import { Gotchi } from 'components/Gotchi/Gotchi';
 
 import { baazaarSortingBodyStyles } from '../../../../styles';
 
-export default function Aavegotchi({ item }) {
+export function Aavegotchi({ item }: { item: any }) {
     const classes = baazaarSortingBodyStyles();
 
     return (
@@ -14,7 +14,6 @@ export default function Aavegotchi({ item }) {
                     {
                         item.gotchi.__typename === 'Aavegotchi' ?
                             <Gotchi
-                                className={classes.gotchi}
                                 gotchi={item.gotchi}
                                 render={[
                                     {
@@ -35,7 +34,6 @@ export default function Aavegotchi({ item }) {
                             /> :
                             <Gotchi
                                 key={item.gotchi.id}
-                                className={classes.gotchi}
                                 gotchi={{
                                     ...item.gotchi,
                                     listings: [{ id: item.id, priceInWei: item.priceInWei }],

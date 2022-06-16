@@ -14,7 +14,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
 
 import Pagination from './Pagination';
-import Aavegotchi from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
+import { Aavegotchi } from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
 
 import { baazaarSortingBodyStyles } from '../styles';
 
