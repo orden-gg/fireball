@@ -5,9 +5,15 @@ import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-export default function StakePanel({ index, dir }) {
+interface StakePanelProps {
+    index: number;
+    dir: string;
+}
+
+export function StakePanel({ index, dir }: StakePanelProps) {
     const classes = tabStyles();
-    const [availableStake, setAvailableStake] = useState(false);
+
+    const [availableStake, setAvailableStake] = useState<boolean>(false);
     const {
         stakeState,
         approveStake,
@@ -15,7 +21,7 @@ export default function StakePanel({ index, dir }) {
         renderButtonNode,
         isGhstApproved,
         isPetApproved
-    } = useContext(AutopetContext);
+    } = useContext<any>(AutopetContext);
 
     useEffect(() => {
         setAvailableStake(isGhstApproved && isPetApproved);

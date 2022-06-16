@@ -14,7 +14,7 @@ import { GotchiIcon } from 'components/Icons/Icons';
 
 import PetPanel from './PetPanel';
 import GhstPanel from './GhstPanel';
-import StakePanel from './StakePanel';
+import { StakePanel } from './StakePanel';
 import ConnectPanel from './ConnectPanel';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
