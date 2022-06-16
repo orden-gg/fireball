@@ -18,11 +18,20 @@ import { Aavegotchi } from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
 
 import { baazaarSortingBodyStyles } from '../styles';
 
-export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrevPageClick }) {
-    const classes = baazaarSortingBodyStyles();
-    const { selectedGoodsType } = useContext(BaazaarContext);
+interface BaazaarSortingBodyProps {
+    goods: any[];
+    page: number;
+    limit: number;
+    onNextPageClick: () => void;
+    onPrevPageClick: () => void;
+}
 
-    const renderGotchi = (item) => {
+export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrevPageClick }: BaazaarSortingBodyProps) {
+    const classes = baazaarSortingBodyStyles();
+
+    const { selectedGoodsType } = useContext<any>(BaazaarContext);
+
+    const renderGotchi = (item: any) => {
         if (item.__typename === 'ERC721Listing' && item.category === '3') {
             return (
                 <GotchiHorizontal
@@ -58,11 +67,11 @@ export default function BaazaarSortingBody({ goods, page, limit, onNextPageClick
             <div className={classNames(classes.baazaarListItems, selectedGoodsType === listingTypes.activity ? 'horizontal' : '')}>
                 {
                     // eslint-disable-next-line array-callback-return
-                    goods.map((item, index) => {
+                    goods.map((item: any, index: number) => {
                         if (selectedGoodsType === listingTypes.activity) {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
-                                    renderGotchi(item, selectedGoodsType === listingTypes.activity)
+                                    renderGotchi(item)
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (

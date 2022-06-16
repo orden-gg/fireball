@@ -11,7 +11,7 @@ import { styles } from './styles';
 
 interface GotchiImageProps {
     gotchi: any;
-    renderSvgByStats: any;
+    renderSvgByStats?: any;
     portal?: any;
 }
 

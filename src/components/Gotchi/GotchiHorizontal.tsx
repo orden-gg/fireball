@@ -9,7 +9,13 @@ import { GotchiImage } from './GotchiImage/GotchiImage';
 
 import { styles } from './styles';
 
-export function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, render }) {
+interface GotchiHorizontalProps {
+    gotchi: any;
+    render: any;
+    item?: any;
+}
+
+export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps) {
     const classes = styles();
 
     const gotchiSections = {
@@ -88,7 +94,6 @@ export function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, re
             return (
                 <GotchiImage
                     gotchi={gotchi}
-                    renderSvgByStats={renderSvgByStats}
                     key={`${gotchi.id}-svg`}
                 />
             );
@@ -121,7 +126,6 @@ export function GotchiHorizontal({ gotchi, item, className, renderSvgByStats, re
             classNames(
                 classes.gotchi,
                 `haunt${gotchi.hauntId}`,
-                className,
                 'horizontal'
             )}
         >

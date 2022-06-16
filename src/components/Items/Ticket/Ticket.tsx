@@ -6,10 +6,10 @@ import { CardName } from '../common/CardName/CardName';
 
 interface TicketProps {
     ticket: any;
-    isShopItem: boolean;
+    isShopItem?: boolean;
 }
 
-export function Ticket({ ticket, isShopItem }: TicketProps) {
+export function Ticket({ ticket, isShopItem = false }: TicketProps) {
     const ticketRarity: any = ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId);
 
     return (
