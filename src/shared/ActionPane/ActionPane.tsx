@@ -4,17 +4,23 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 
 import classNames from 'classnames';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function ActionPane({ children, dataLoading, className, width }) {
+interface ActionPaneProps {
+    children: JSX.Element;
+    dataLoading: boolean;
+}
+
+export function ActionPane({ children, dataLoading }: ActionPaneProps) {
     const classes = styles();
 
-    const [paneOpened, setPaneOpened] = useState(false);
-    const paneSize = width ? width : '300';
+    const [paneOpened, setPaneOpened] = useState<boolean>(false);
+
+    const paneSize: string = '300';
 
     return (
         <div
-            className={classNames(classes.pane, className, dataLoading && 'loading', paneOpened && 'opened')}
+            className={classNames(classes.pane, dataLoading && 'loading', paneOpened && 'opened')}
             style={{ width: `${paneSize}px`, right: `-${paneSize}px` }}
         >
             {children}

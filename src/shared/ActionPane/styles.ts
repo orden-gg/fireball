@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     pane: {
         position: 'fixed',
         top: '50%',
@@ -39,5 +39,3 @@ const styles = makeStyles(theme => ({
         minHeight: 60
     }
 }));
-
-export default styles;
