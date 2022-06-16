@@ -1,8 +1,8 @@
 
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     autopetWrapper: {
         padding: theme.spacing(3),
         maxWidth: 1400,
@@ -10,7 +10,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const headerStyles = makeStyles(theme => ({
+export const headerStyles = makeStyles(theme => createStyles({
     autopetTitle: {
         textAlign: 'center',
         fontSize: 40,
@@ -72,7 +72,7 @@ const headerStyles = makeStyles(theme => ({
     }
 }));
 
-const tabStyles = makeStyles(theme => ({
+export const tabStyles = makeStyles(theme => createStyles({
     autopetComplete: {
         fontWeight: 500,
         margin: theme.spacing(1, 0),
@@ -156,7 +156,7 @@ const tabStyles = makeStyles(theme => ({
 
 }));
 
-const infoStyles = makeStyles(theme => ({
+export const infoStyles = makeStyles(theme => createStyles({
     autopetInfo: {
         display: 'flex',
         justifyContent: 'center',
@@ -206,10 +206,3 @@ const infoStyles = makeStyles(theme => ({
         bottom: theme.spacing(.5)
     }
 }));
-
-export {
-    styles as default,
-    headerStyles,
-    tabStyles,
-    infoStyles
-};

@@ -16,7 +16,7 @@ import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';
 import Client from './pages/Client/Client';
 import ParcelPage from './pages/Parcel/ParcelPage';
-import Autopet from './pages/Autopet/Autopet';
+import { Autopet } from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
 import { Shop } from './pages/Shop/Shop';
 import Map from './pages/Map/Map';
