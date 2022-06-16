@@ -2,7 +2,25 @@ import { Box, Button, Grid, Slider, TextField, ToggleButton, ToggleButtonGroup, 
 
 import styles from './styles';
 
-export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderRange, onSliderChange, onRangeChange, sliderIsValid, onAddTraitClick }) {
+interface AdvancedSearchProps {
+    selectedTraits: any;
+    onTraitsChange: (event: any, value: any) => void;
+    sliderRange: any;
+    onSliderChange: (value: any) => void;
+    onRangeChange: (event: any, value: number) => void;
+    sliderIsValid: boolean;
+    onAddTraitClick: () => void;
+}
+
+export function AdvancedSearch({
+    selectedTraits,
+    onTraitsChange,
+    sliderRange,
+    onSliderChange,
+    onRangeChange,
+    sliderIsValid,
+    onAddTraitClick
+}: AdvancedSearchProps) {
     const classes = styles();
 
     return (
@@ -19,32 +37,32 @@ export default function AdvancedSearch({ selectedTraits, onTraitsChange, sliderR
                 >
                     <ToggleButton className={classes.toggleItem} value={'NRG'} aria-label='modified rarity score'>
                         <Tooltip title='NRG' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>⚡</span></Box>
+                            <Box component='span'><span>⚡</span></Box>
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={'AGG'} aria-label='modified rarity score'>
                         <Tooltip title='AGG' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>👹</span></Box>
+                            <Box component='span'><span>👹</span></Box>
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={'SPK'} aria-label='modified rarity score'>
                         <Tooltip title='SPK' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>👻</span></Box>
+                            <Box component='span'><span>👻</span></Box>
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={'BRN'} aria-label='modified rarity score'>
                         <Tooltip title='BRN' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>🧠</span></Box>
+                            <Box component='span'><span>🧠</span></Box>
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={'EYS'} aria-label='modified rarity score'>
                         <Tooltip title='EYS' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>👀</span></Box>
+                            <Box component='span'><span>👀</span></Box>
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={'EYC'} aria-label='modified rarity score'>
                         <Tooltip title='EYC' placement='top' followCursor>
-                            <Box className={classes.filtersInner} component='span'><span>👁</span></Box>
+                            <Box component='span'><span>👁</span></Box>
                         </Tooltip>
                     </ToggleButton>
                 </ToggleButtonGroup>

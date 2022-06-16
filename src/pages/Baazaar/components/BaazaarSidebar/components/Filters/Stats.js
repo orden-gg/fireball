@@ -4,7 +4,7 @@ import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, ToggleButto
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import collaterals from 'data/collaterals';
 
-import AdvancedSearch from './AdvancedSearch';
+import { AdvancedSearch } from './AdvancedSearch';
 import FastSearch from './FastSearch';
 
 import styles from './styles';
