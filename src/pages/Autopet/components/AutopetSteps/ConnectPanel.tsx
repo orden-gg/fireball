@@ -5,14 +5,17 @@ import { Button, Typography } from '@mui/material';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-export default function ConnectPanel({ index, dir }) {
+import { AutopetPanelProps } from './models/autopet-panel-props.model';
+
+export function ConnectPanel({ index, dir }: AutopetPanelProps) {
     const classes = tabStyles();
+
     const {
         connectState,
         approveConnect,
         renderButtonNode,
         isUserConnected
-     } = useContext(AutopetContext);
+     } = useContext<any>(AutopetContext);
 
      return (
         <div
