@@ -9,7 +9,7 @@ import commonUtils from 'utils/commonUtils';
 
 import { baazaarItemStyles } from '../styles';
 
-export default function BaazaarItem({ item }) {
+export function BaazaarItem({ item }: { item: any }) {
     const classes = baazaarItemStyles();
 
     return (

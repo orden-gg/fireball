@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 
-import BaazaarItem from './BaazaarItem';
+import { BaazaarItem } from './BaazaarItem';
 import Pagination from './Pagination';
 import { baazaarBodyStyles } from '../styles';
 
