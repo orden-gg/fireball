@@ -1,7 +1,7 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/system';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     sidebar: {
         padding: 24,
         borderRadius: 8,
@@ -125,5 +125,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

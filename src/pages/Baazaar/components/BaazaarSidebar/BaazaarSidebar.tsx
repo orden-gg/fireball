@@ -24,17 +24,26 @@ import { listingTypes } from 'data/types';
 
 import { GotchiFilters } from './components/Filters/GotchiFilters';
 import { RealmFilters } from './components/Filters/RealmFilters';
-import styles from './styles';
 
-export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage }) {
+import { styles } from './styles';
+
+interface BaazaarSidebarProps {
+    runFilterWatcher: () => void;
+    runInstantFiltering: () => void;
+    setSelectedLocalGoods: (value: any[]) => void;
+    setPage: (value:number) => void;
+}
+
+export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage }: BaazaarSidebarProps) {
     const classes = styles();
-    const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder, selectedListingType, setSelectedListingType } = useContext(BaazaarContext);
 
-    const onRarityChange = (event) => {
+    const { setSortingOrder, selectedGoodsType, setSelectedGoodsType, priceFrom, setPriceFrom, priceTo, setPriceTo, rarity, setRarity, sortingOrder, selectedListingType, setSelectedListingType } = useContext<any>(BaazaarContext);
+
+    const onRarityChange = (event: any): void => {
         setRarity(event.target.value);
     };
 
-    const onTypeChange = (event, value) => {
+    const onTypeChange = (event: any, value: any): void => {
         if (value && selectedGoodsType !== value) {
             setPage(1);
             setSelectedLocalGoods([]);
@@ -42,7 +51,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
         }
     };
 
-    const onListingTypeChange = (event, value) => {
+    const onListingTypeChange = (event: any, value: any): void => {
         if (value && selectedGoodsType !== value) {
             setPage(1);
             setSelectedLocalGoods([]);
@@ -50,21 +59,21 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
         }
     };
 
-    const onSortByChange = (event, value) => {
+    const onSortByChange = (event: any, value: any): void => {
         setSortingOrder(value);
     };
 
-    const onPriceFromChange = (event) => {
+    const onPriceFromChange = (event: any): void => {
         setPriceFrom(event.target.value);
         runFilterWatcher();
     };
 
-    const onPriceToChange = (event) => {
+    const onPriceToChange = (event: any): void => {
         setPriceTo(event.target.value);
         runFilterWatcher();
     };
 
-    const checkContainerVisibility = (visibleContainers) => {
+    const checkContainerVisibility = (visibleContainers: any): any => {
         return visibleContainers.indexOf(selectedGoodsType) !== -1;
     };
 
@@ -93,12 +102,12 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.wearable} aria-label='modified rarity score'>
                         <Tooltip title='Wearables' placement='top' followCursor>
-                            <WarehouseIcon widht={16} height={16} />
+                            <WarehouseIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.consumable} aria-label='modified rarity score'>
                         <Tooltip title='Consumables' placement='top' followCursor>
-                            <ConsumableIcon widht={16} height={16} />
+                            <ConsumableIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
                     <ToggleButton className={classes.toggleItem} value={listingTypes.tickets} aria-label='modified rarity score'>
@@ -323,7 +332,7 @@ export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, 
                         <ToggleButton className={classes.toggleItem} value={listingTypes.consumable} aria-label='modified rarity score'>
                             <Tooltip title='Consumables' placement='top' followCursor>
                                 <>
-                                    <ConsumableIcon widht={16} height={16} />
+                                    <ConsumableIcon width={16} height={16} />
                                     <Typography variant='caption'>Consumables</Typography>
                                 </>
                             </Tooltip>
