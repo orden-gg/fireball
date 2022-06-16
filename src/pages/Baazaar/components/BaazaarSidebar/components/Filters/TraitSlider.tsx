@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { BaazaarContext } from 'contexts/BaazaarContext';
 
-import styles from './styles';
+import { styles } from './styles';
 
 const traitsEmojis = {
     NRG: '⚡️',

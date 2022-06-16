@@ -7,7 +7,7 @@ import collaterals from 'data/collaterals';
 import { AdvancedSearch } from './AdvancedSearch';
 import { FastSearch } from './FastSearch';
 
-import styles from './styles';
+import { styles } from './styles';
 
 interface StatsProps {
     runFilterWatcher: () => void;

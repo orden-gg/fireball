@@ -9,7 +9,7 @@ import { Id } from './Id';
 import { Name } from './Name';
 import { Stats } from './Stats';
 
-import styles from './styles';
+import { styles } from './styles';
 
 interface GotchiFiltersProps {
     runFilterWatcher: () => void;

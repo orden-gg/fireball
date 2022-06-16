@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { fomo, fud, kek, alpha } from 'data/icons';
 
-import styles from './styles';
+import { styles } from './styles';
 
 const districts: number[] = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
 

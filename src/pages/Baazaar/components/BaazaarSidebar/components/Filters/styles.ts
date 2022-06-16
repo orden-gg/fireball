@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     rootContainer: {
         paddingTop: 0
     },
@@ -94,5 +94,3 @@ const styles = makeStyles(theme => ({
         paddingTop: '0px'
     }
 }));
-
-export default styles;

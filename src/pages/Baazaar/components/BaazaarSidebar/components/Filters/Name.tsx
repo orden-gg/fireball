@@ -3,7 +3,7 @@ import { TextField } from '@mui/material';
 
 import { BaazaarContext } from 'contexts/BaazaarContext';
 
-import styles from './styles';
+import { styles } from './styles';
 
 export function Name({ runFilterWatcher }: { runFilterWatcher: () => void }) {
     const classes = styles();
