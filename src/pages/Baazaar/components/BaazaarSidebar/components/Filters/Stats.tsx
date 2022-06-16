@@ -9,8 +9,16 @@ import { FastSearch } from './FastSearch';
 
 import styles from './styles';
 
-export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering }) {
+interface StatsProps {
+    runFilterWatcher: () => void;
+    fastSearch: boolean;
+    setFastSearch: (value: boolean) => void;
+    runInstantFiltering: () => void;
+}
+
+export function Stats({ runFilterWatcher, fastSearch, setFastSearch, runInstantFiltering }: StatsProps) {
     const classes = styles();
+
     const {
         minBRS,
         setMinBRS,
@@ -25,34 +33,34 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
         clearAllStats,
         collateral,
         setCollateral
-    } = useContext(BaazaarContext);
+    } = useContext<any>(BaazaarContext);
     const [sliderIsValid, setSliderToValid] = useState(true);
 
-    const onMinBRSChange = (event) => {
+    const onMinBRSChange = (event: any): void => {
         setMinBRS(event.target.value);
         runFilterWatcher();
     };
 
-    const onMinKINChange = (event) => {
+    const onMinKINChange = (event: any): void => {
         setMinKIN(event.target.value);
         runFilterWatcher();
     };
 
-    const onTraitsChange = (event, value) => {
+    const onTraitsChange = (event: any, value: any): void => {
         setSelectedTraits(value);
     };
 
-    const onAddTraitClick = () => {
+    const onAddTraitClick = (): void => {
         addStat();
     };
 
-    const onSliderChange = (event) => {
+    const onSliderChange = (event: any): void => {
         setSliderRange(event.target.value);
     };
 
-    const onRangeChange = (event, indexInRange) => {
+    const onRangeChange = (event: any, indexInRange: any) => {
         const newValue = parseInt(event.target.value);
-        const cachedRange = [...sliderRange];
+        const cachedRange: any[] = [...sliderRange];
 
         if (isNaN(newValue)) {
             cachedRange[indexInRange] = 0;
@@ -68,7 +76,7 @@ export default function Stats({ runFilterWatcher, fastSearch, setFastSearch, run
         setSliderRange(cachedRange);
     };
 
-    const handleSearchTypeChange = () => {
+    const handleSearchTypeChange = (): void => {
         setFastSearch(!fastSearch);
         clearAllStats();
         runFilterWatcher();

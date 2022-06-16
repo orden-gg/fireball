@@ -5,9 +5,10 @@ import classNames from 'classnames';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { baazaarFilteringTypes } from 'data/types';
 
-import Stats from './Stats';
-import { Name } from './Name';
 import { Id } from './Id';
+import { Name } from './Name';
+import { Stats } from './Stats';
+
 import styles from './styles';
 
 interface GotchiFiltersProps {
