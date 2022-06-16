@@ -6,7 +6,7 @@ import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
-import Header from './root/Header/Header';
+import { Header } from './root/Header/Header';
 import { Footer } from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';

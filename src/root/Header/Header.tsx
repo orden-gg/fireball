@@ -9,17 +9,18 @@ import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
 import { Balances } from './components/Balances';
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Header() {
+export function Header() {
     const classes = styles();
-    const [navOpen, setNavOpen] = useState(false);
-    const location = useLocation();
-    const navRef = useRef(null);
-    const hamburgerRef = useRef(null);
 
-    const { activeAddress } = useContext(LoginContext);
-    const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
+    const [navOpen, setNavOpen] = useState<boolean>(false);
+    const location = useLocation();
+    const navRef = useRef<any>(null);
+    const hamburgerRef = useRef<any>(null);
+
+    const { activeAddress } = useContext<any>(LoginContext);
+    const clientLink: string = activeAddress ? `/client/${activeAddress}` : 'client';
 
     // Close nav on route change
     useEffect(() => {
@@ -35,7 +36,7 @@ export default function Header() {
         };
     }, [navRef]);
 
-    const handleClickOutsideNav = (event) => {
+    const handleClickOutsideNav = (event: MouseEvent): void => {
         if (navRef.current && !navRef.current.contains(event.target) && !hamburgerRef.current.contains(event.target)) {
             setNavOpen(false);
         }
