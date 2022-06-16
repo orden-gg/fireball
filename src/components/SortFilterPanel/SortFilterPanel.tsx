@@ -11,7 +11,7 @@ import { styles } from './styles';
 interface SortFilterPanelProps {
     sorting: LazySortingProps;
     itemsLength: number;
-    placeholder: string;
+    placeholder: JSX.Element;
     filters: any;
     setSelectedFilters: (key: string, values: any) => void;
     resetFilters: () => void;

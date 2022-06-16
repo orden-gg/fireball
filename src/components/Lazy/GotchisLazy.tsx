@@ -37,7 +37,7 @@ export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
     };
 
     if (!items) {
-        return;
+        return <></>;
     }
 
     if (items.length === 0) {

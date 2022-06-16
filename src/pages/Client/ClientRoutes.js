@@ -14,7 +14,7 @@ import ethersApi from 'api/ethers.api';
 import commonUtils from 'utils/commonUtils';
 
 import { ClientAccount } from './routes/ClientAccount';
-import ClientGotchis from './routes/ClientGotchis';
+import { ClientGotchis } from './routes/ClientGotchis';
 import ClientLendings from './routes/ClientLendings';
 import ClientInstallations from './routes/ClientInstallations';
 import ClientWarehouse from './routes/ClientWarehouse';
