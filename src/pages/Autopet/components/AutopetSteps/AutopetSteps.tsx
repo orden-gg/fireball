@@ -19,31 +19,31 @@ import { ConnectPanel } from './ConnectPanel';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-export default function AutopetSteps() {
+export function AutopetSteps() {
     const classes = tabStyles();
 
-    const { tabs } = useContext(AutopetContext);
-    const [currentTab, setCurrentTab] = useState(0);
-    const [progress, setProgress] = useState(0);
+    const { tabs } = useContext<any>(AutopetContext);
+    const [currentTab, setCurrentTab] = useState<number>(0);
+    const [progress, setProgress] = useState<number>(0);
 
-    const a11yProps = (index) => {
+    const a11yProps = (index: number): any => {
       return {
         id: `full-width-tab-${index}`,
         'aria-controls': `full-width-tabpanel-${index}`
       };
     };
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: number): void => {
         setCurrentTab(newValue);
     };
 
-    const handleChangeIndex = (index) => {
+    const handleChangeIndex = (index: number): void => {
         setCurrentTab(index);
     };
 
     useEffect(() => {
-        const keys = Object.keys(tabs);
-        const completeCount = keys.reduce(
+        const keys: string[] = Object.keys(tabs);
+        const completeCount: number = keys.reduce(
             (sum, key) => tabs[key].done ? 1 + sum : sum, 0
         );
 
