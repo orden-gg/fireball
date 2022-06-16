@@ -4,7 +4,15 @@ import BaazaarItem from './BaazaarItem';
 import Pagination from './Pagination';
 import { baazaarBodyStyles } from '../styles';
 
-export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick }) {
+interface BaazaarBodyProps {
+    goods: any[];
+    page: number;
+    limit: number;
+    onNextPageClick: () => void;
+    onPrevPageClick: () => void;
+}
+
+export function BaazaarBody({ goods, page, limit, onNextPageClick, onPrevPageClick }: BaazaarBodyProps) {
     const classes = baazaarBodyStyles();
 
     return (
@@ -12,7 +20,7 @@ export default function BaazaarBody({ goods, page, limit, onNextPageClick, onPre
             <Grid container spacing={3}>
                 {
                     // eslint-disable-next-line array-callback-return
-                    goods.map((item) => {
+                    goods.map((item: any) => {
                         return <BaazaarItem key={item.id} item={item} />;
                     })
                 }

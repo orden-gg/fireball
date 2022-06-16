@@ -5,7 +5,7 @@ import useInterval from 'hooks/useInterval';
 import { listingTypes } from 'data/types';
 import { baazaarFilteringTypes } from 'data/types';
 
-import BaazaarBody from './components/BaazaarBody';
+import { BaazaarBody } from './components/BaazaarBody';
 import BaazaarSortingBody from './components/BaazaarSortingBody';
 import { BaazaarSidebar } from './components/BaazaarSidebar/BaazaarSidebar';
 import { getQueries } from './baazaarQueryBuilder';
