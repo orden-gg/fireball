@@ -6,7 +6,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 import { baazaarFilteringTypes } from 'data/types';
 
 import Stats from './Stats';
-import Name from './Name';
+import { Name } from './Name';
 import { Id } from './Id';
 import styles from './styles';
 
