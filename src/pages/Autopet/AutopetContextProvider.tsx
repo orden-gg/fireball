@@ -13,21 +13,21 @@ import { tabStyles } from './styles';
 
 export const AutopetContext = createContext({});
 
-const AutopetContextProvider = (props) => {
-    const [ghstState, setGhstState] = useState('approve');
-    const [petState, setPetState] = useState('approve');
-    const [stakeState, setStakeState] = useState('approve');
-    const [connectState, setConnectState] = useState('approve');
-
-    const [isPetApproved, setIsPetApproved] = useState(false);
-    const [isStaked, setIsStaked] = useState(false);
-    const [isGhstApproved, setIsGhstApproved] = useState(false);
-    const [isUserConnected, setIsUserConnected] = useState(false);
-    const [connectedWallet, setConnectedWallet] = useState('');
-
+export const AutopetContextProvider = (props: any) => {
     const classes = tabStyles();
 
-    const [tabs, setTabs] = useState({
+    const [ghstState, setGhstState] = useState<string>('approve');
+    const [petState, setPetState] = useState<string>('approve');
+    const [stakeState, setStakeState] = useState<string>('approve');
+    const [connectState, setConnectState] = useState<string>('approve');
+
+    const [isPetApproved, setIsPetApproved] = useState<boolean>(false);
+    const [isStaked, setIsStaked] = useState<boolean>(false);
+    const [isGhstApproved, setIsGhstApproved] = useState<boolean>(false);
+    const [isUserConnected, setIsUserConnected] = useState<boolean>(false);
+    const [connectedWallet, setConnectedWallet] = useState<string>('');
+
+    const [tabs, setTabs] = useState<any>({
         connect: {
             text: 'Connect wallet',
             done: false
@@ -46,15 +46,15 @@ const AutopetContextProvider = (props) => {
         }
     });
 
-    const { showSnackbar } = useContext(SnackbarContext);
-    const { connectMetamask } = useContext(LoginContext);
+    const { showSnackbar } = useContext<any>(SnackbarContext);
+    const { connectMetamask } = useContext<any>(LoginContext);
 
     const { metaState } = useMetamask();
 
-    const approveConnect = async () => {
+    const approveConnect = async (): Promise<void> => {
         setConnectState('approving');
 
-        const isConnected = await connectMetamask();
+        const isConnected: boolean = await connectMetamask();
 
         setConnectState('approve');
 
@@ -66,14 +66,14 @@ const AutopetContextProvider = (props) => {
         setIsUserConnected(isConnected);
     };
 
-    const approvePet = async (approval) => {
-        const succesMessage = approval ? 'Petting approved!' : 'Petting approval revoked!';
-        const errorMessage = approval ? 'Petting approval failed!' : 'Revoking petting approval failed!';
+    const approvePet = async (approval: boolean): Promise<void> => {
+        const succesMessage: string = approval ? 'Petting approved!' : 'Petting approval revoked!';
+        const errorMessage: string = approval ? 'Petting approval failed!' : 'Revoking petting approval failed!';
 
         setPetState('approving');
 
         try {
-            const isApproved = await mainApi.approvePet(approval);
+            const isApproved: boolean = await mainApi.approvePet(approval);
 
             if (isApproved) {
                 setIsPetApproved(approval);
@@ -89,9 +89,9 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const approveGhst = async (approval) => {
-        const succesMessage = approval ? 'GHST approved!' : 'GHST approval revoked!';
-        const errorMessage = approval ? 'GHST approval failed!' : 'Revoking GHST approval failed!';
+    const approveGhst = async (approval: boolean): Promise<void> => {
+        const succesMessage: string = approval ? 'GHST approved!' : 'GHST approval revoked!';
+        const errorMessage: string = approval ? 'GHST approval failed!' : 'Revoking GHST approval failed!';
 
         setGhstState('approving');
 
@@ -112,8 +112,8 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const checkGhstSpend = async () => {
-        const ghstApproved = await ghstApi.isGhstApproved(connectedWallet);
+    const checkGhstSpend = async (): Promise<void> => {
+        const ghstApproved: boolean = await ghstApi.isGhstApproved(connectedWallet);
 
         if (!ghstApproved) {
             setIsGhstApproved(ghstApproved);
@@ -121,9 +121,9 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const approveStake = async (approval) => {
-        const succesMessage = approval ? 'Staking approved!' : 'Unstaking approved!';
-        const errorMessage = approval ? 'Staking failed!' : 'Unstaking failed!';
+    const approveStake = async (approval: boolean) => {
+        const succesMessage: string = approval ? 'Staking approved!' : 'Unstaking approved!';
+        const errorMessage: string = approval ? 'Staking failed!' : 'Unstaking failed!';
 
         setStakeState('approving');
 
@@ -148,15 +148,15 @@ const AutopetContextProvider = (props) => {
         }
     };
 
-    const updateProgress = (name, isApproved) => {
-        setTabs(data => {
+    const updateProgress = (name: string, isApproved: boolean) => {
+        setTabs((data: any) => {
             data[name].done = isApproved;
 
             return { ...data };
         });
     };
 
-    const renderButtonNode = (state, defaultNode, approvedNode) => {
+    const renderButtonNode = (state: string, defaultNode: any, approvedNode: any): any => {
         switch (state) {
             case 'approved':
                 return approvedNode;
@@ -172,8 +172,8 @@ const AutopetContextProvider = (props) => {
     };
 
     useEffect(() => {
-        const accounts = metaState.account;
-        const walletConnected  = accounts.length > 0;
+        const accounts: any[] = metaState.account;
+        const walletConnected: boolean  = accounts.length > 0;
 
         setIsUserConnected(walletConnected);
 
@@ -184,19 +184,19 @@ const AutopetContextProvider = (props) => {
         setConnectedWallet(accounts[0]);
 
         (async function loadData() {
-            const [petApproved, ghstApproved, users] = await Promise.all([
+            const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
                 mainApi.isPetApproved(accounts[0]),
                 ghstApi.isGhstApproved(accounts[0]),
                 autopetApi.getUsers()
             ]);
-            const ghstStaked = users.some(address => (
+            const ghstStaked: boolean = users.some((address: string) => (
                 accounts[0].toLowerCase() === address.toLowerCase()
             ));
 
             setIsPetApproved(petApproved);
             setIsGhstApproved(ghstStaked || ghstApproved);
             setIsStaked(ghstStaked);
-            setTabs(data => {
+            setTabs((data: any) => {
                 data.connect.done = walletConnected;
                 data.pet.done = petApproved;
                 data.ghst.done = ghstStaked || ghstApproved;
@@ -233,5 +233,3 @@ const AutopetContextProvider = (props) => {
         </AutopetContext.Provider>
     );
 };
-
-export default AutopetContextProvider;
