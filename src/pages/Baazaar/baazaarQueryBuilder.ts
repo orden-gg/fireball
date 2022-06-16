@@ -1,8 +1,7 @@
 import { listingTypes } from 'data/types';
 
-export const getQueries = (selectedGoodsType, listingType) => {
-
-    const getQuery = (params, selectedGoodsType, listingType) => {
+export const getQueries = (selectedGoodsType: any, listingType: any): string[] => {
+    const getQuery = (params: any, selectedGoodsType: any, listingType: any): string => {
         return `{
             ${params.ercType}(
                 first: 1000,
@@ -22,8 +21,8 @@ export const getQueries = (selectedGoodsType, listingType) => {
         }`;
     };
 
-    const queries = [];
-    let params;
+    const queries: string[] = [];
+    let params: any;
 
     if (listingType === listingTypes.all) {
         [
@@ -34,7 +33,7 @@ export const getQueries = (selectedGoodsType, listingType) => {
             listingTypes.consumable,
             listingTypes.tickets,
             listingTypes.realm
-        ].forEach((item) => {
+        ].forEach((item: string) => {
             params = getParamsForSelectedType(selectedGoodsType, item);
             queries.push(getQuery(params, selectedGoodsType, item));
         });
@@ -46,22 +45,22 @@ export const getQueries = (selectedGoodsType, listingType) => {
     return queries;
 };
 
-const getParamsForSelectedType = (selectedGoodsType, listingType) => {
-    const getErcTypeFor1155Listing = (selectedGoodsType) => {
+const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any => {
+    const getErcTypeFor1155Listing = (selectedGoodsType: any): any => {
         return [listingTypes.activity,
             listingTypes.sold,
             listingTypes.purchased
         ].indexOf(selectedGoodsType) === -1 ? 'erc1155Listings' : 'erc1155Purchases';
     };
 
-    const getParamsForErc1155Listing = (params, params2) => {
+    const getParamsForErc1155Listing = (params: any, params2: any): any => {
         return [listingTypes.activity,
             listingTypes.sold,
             listingTypes.purchased
         ].indexOf(selectedGoodsType) === -1 ? params : params2;
     };
 
-    const map = {
+    const map: any = {
         [listingTypes.closedPortal]: {
             ercType: 'erc721Listings',
             category: '0',
@@ -316,15 +315,15 @@ const getParamsForSelectedType = (selectedGoodsType, listingType) => {
     return map[listingType];
 };
 
-const getWhereParams = (selectedGoodsType, listingType) => {
-    const getCorrectOrdering = (param, param1) => {
+const getWhereParams = (selectedGoodsType: any, listingType: any): any => {
+    const getCorrectOrdering = (param: any, param1: any): any => {
         return [listingTypes.wearable,
             listingTypes.consumable,
             listingTypes.tickets
         ].indexOf(listingType) === -1 ? param : param1;
     };
 
-    const map = {
+    const map: any = {
         [listingTypes.activity]: [
             getCorrectOrdering('timePurchased_gt: 0', '')
         ],
@@ -342,15 +341,15 @@ const getWhereParams = (selectedGoodsType, listingType) => {
     return map[selectedGoodsType];
 };
 
-const getOrderParams = (selectedGoodsType, listingType) => {
-    const getCorrectOrdering = (orderBy) => {
+const getOrderParams = (selectedGoodsType: any, listingType: any): any => {
+    const getCorrectOrdering = (orderBy: any): any => {
         return [listingTypes.wearable,
             listingTypes.consumable,
             listingTypes.tickets
         ].indexOf(listingType) === -1 ? orderBy : 'timeLastPurchased';
     };
 
-    const map = {
+    const map: any = {
         [listingTypes.activity]: [
             `orderBy: ${getCorrectOrdering('timePurchased')}`, 'orderDirection: desc'
         ],
