@@ -8,22 +8,22 @@ import ContentLoader from 'react-content-loader';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { BalancesContext } from 'contexts/BalancesContext';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Balances() {
+export function Balances() {
     const classes = styles();
     const theme = useTheme();
 
-    const { tokens, isBalancesLoading } = useContext(BalancesContext);
+    const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
 
     if (!tokens.length) {
-        return null;
+        return <></>;
     }
 
     return (
         <div className={classes.balancesWrapper}>
             {
-                tokens.map((token, index) =>
+                tokens.map((token: any, index: number) =>
                     ( isBalancesLoading ?
                         <ContentLoader
                             speed={2}

@@ -8,7 +8,7 @@ import { LoginButton } from 'components/Login/LoginButton';
 import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
-import Balances from './components/Balances';
+import { Balances } from './components/Balances';
 import styles from './styles';
 
 export default function Header() {

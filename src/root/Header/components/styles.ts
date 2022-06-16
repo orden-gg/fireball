@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     balancesWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -32,7 +32,7 @@ const styles = makeStyles(theme => ({
     balanceValue: {
         display: 'flex',
         alignItems: 'center',
-        fontWeight: '500',
+        fontWeight: 500,
         '& img': {
             marginRight: 4
         },
@@ -61,5 +61,3 @@ const styles = makeStyles(theme => ({
         opacity: .8
     }
 }));
-
-export default styles;
