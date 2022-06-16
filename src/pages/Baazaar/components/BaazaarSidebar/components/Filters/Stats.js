@@ -5,7 +5,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 import collaterals from 'data/collaterals';
 
 import { AdvancedSearch } from './AdvancedSearch';
-import FastSearch from './FastSearch';
+import { FastSearch } from './FastSearch';
 
 import styles from './styles';
 
