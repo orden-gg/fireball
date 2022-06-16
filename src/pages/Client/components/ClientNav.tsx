@@ -7,18 +7,15 @@ import { LoginContext } from 'contexts/LoginContext';
 
 import styles, { accountStyles } from '../styles';
 
-export default function ClientNav() {
-    const classes = {
-        ...styles(),
-        ...accountStyles()
-    };
+export function ClientNav() {
+    const classes = { ...styles(), ...accountStyles() };
 
     const history = useHistory();
-    const { account } = useParams();
+    const { account } = useParams<{ account: string }>();
 
-    const { setActiveAddress } = useContext(LoginContext);
+    const { setActiveAddress } = useContext<any>(LoginContext);
 
-    const onAddressSubmit = useCallback((address) => {
+    const onAddressSubmit = useCallback((address: string) => {
         history.push({ pathname: `/client/${address}` });
         setActiveAddress(address);
     }, [history, setActiveAddress]);

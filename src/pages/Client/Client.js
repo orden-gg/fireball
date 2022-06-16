@@ -3,7 +3,7 @@ import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
 import Helmet from 'react-helmet';
 
 import ClientRoutes from './ClientRoutes';
-import ClientNav from './components/ClientNav';
+import { ClientNav } from './components/ClientNav';
 import styles from './styles';
 
 export default function Client() {
