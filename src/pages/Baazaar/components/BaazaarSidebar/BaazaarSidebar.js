@@ -23,7 +23,7 @@ import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
 
 import { GotchiFilters } from './components/Filters/GotchiFilters';
-import RealmFilters from './components/Filters/RealmFilters';
+import { RealmFilters } from './components/Filters/RealmFilters';
 import styles from './styles';
 
 export default function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelectedLocalGoods, setPage }) {

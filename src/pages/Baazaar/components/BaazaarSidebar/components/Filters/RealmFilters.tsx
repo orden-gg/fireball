@@ -7,9 +7,14 @@ import { fomo, fud, kek, alpha } from 'data/icons';
 
 import styles from './styles';
 
-const districts = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
+const districts: number[] = [1,2,3,4,5,14,15,16,17,18,19,20,21,22,39,40,41,42,43];
 
-export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) {
+interface RealmFiltersProps {
+    runFilterWatcher: () => void;
+    runInstantFiltering: () => void;
+}
+
+export function RealmFilters({ runFilterWatcher, runInstantFiltering }: RealmFiltersProps) {
     const classes = styles();
 
     const {
@@ -25,7 +30,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
         setFomoFilter,
         fudFilter,
         setFudFilter
-    } = useContext(BaazaarContext);
+    } = useContext<any>(BaazaarContext);
 
     useEffect(() => {
         runInstantFiltering();
@@ -62,7 +67,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                 <ToggleButtonGroup
                                     value={sizeFilter}
                                     exclusive
-                                    onChange={(event) => {
+                                    onChange={(event: any) => {
                                         setSizeFilter(event.target.value);
                                     }}
                                     color='primary'
@@ -97,7 +102,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                     size={'small'}
                                     label={<span className='booster'><img src={fud} alt='fud' /> min</span>}
                                     value={fudFilter}
-                                    onChange={(event) => {
+                                    onChange={(event: any) => {
                                         if (event.target.value && event.target.value >= 0) {
                                             setFudFilter(event.target.value);
                                         } else {
@@ -116,7 +121,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                     size={'small'}
                                     label={<span className='booster'><img src={fomo} alt='fomo' /> min</span>}
                                     value={fomoFilter}
-                                    onChange={(event) => {
+                                    onChange={(event: any) => {
                                         if (event.target.value && event.target.value >= 0) {
                                             setFomoFilter(event.target.value);
                                         } else {
@@ -135,7 +140,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                     size={'small'}
                                     label={<span className='booster'><img src={alpha} alt='alpha' /> min</span>}
                                     value={alphaFilter}
-                                    onChange={(event) => {
+                                    onChange={(event: any) => {
                                         if (event.target.value && event.target.value >= 0) {
                                             setAlphaFilter(event.target.value);
                                         } else {
@@ -154,7 +159,7 @@ export default function RealmFilters({ runFilterWatcher, runInstantFiltering }) 
                                     size={'small'}
                                     label={<span className='booster'><img src={kek} alt='kek' /> min</span>}
                                     value={kekFilter}
-                                    onChange={(event) => {
+                                    onChange={(event: any) => {
                                         if (event.target.value && event.target.value >= 0) {
                                             setKekFilter(event.target.value);
                                         } else {
