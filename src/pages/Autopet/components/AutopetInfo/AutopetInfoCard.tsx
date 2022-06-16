@@ -3,7 +3,12 @@ import classNames from 'classnames';
 
 import { infoStyles } from '../../styles';
 
-export default function AutopetInfoCard({ name, count }) {
+interface AutopetInfoCardProps {
+    name: string;
+    count: any;
+}
+
+export function AutopetInfoCard({ name, count }: AutopetInfoCardProps) {
     const classes = infoStyles();
 
     return (

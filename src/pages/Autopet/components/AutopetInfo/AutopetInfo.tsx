@@ -10,7 +10,7 @@ import autopetApi from 'api/autopet.api';
 import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 
-import AutopetInfoCard from './AutopetInfoCard';
+import { AutopetInfoCard } from './AutopetInfoCard';
 import { infoStyles } from '../../styles';
 
 
@@ -70,7 +70,7 @@ export function AutopetInfo() {
             <AutopetInfoCard
                 name='Fee'
                 count={
-                    fee !== null ? (
+                    fee !== '' ? (
                         <>
                             {fee}
                             <GhstTokenGif width={48} height={48} />
@@ -88,7 +88,7 @@ export function AutopetInfo() {
             <AutopetInfoCard
                 name='Staked'
                 count={
-                    totalStaked !== null ? (
+                    totalStaked !== '' ? (
                         <>
                             {totalStaked}
                             <GhstTokenGif width={48} height={48} />
