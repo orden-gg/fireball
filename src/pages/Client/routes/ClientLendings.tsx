@@ -6,6 +6,7 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import qs from 'query-string';
 
+import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
@@ -15,7 +16,7 @@ import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';
 
-const sortings = [
+const sortings: SortingListItem[] = [
     {
         name: 'endTime',
         key: 'endTime',
@@ -67,14 +68,14 @@ const sortings = [
     }
 ];
 
-const initialFilters = {
+const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
     collateral: { ...filtersData.collateral, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
-export default function ClientLendings() {
+export function ClientLendings() {
     const history = useHistory();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
@@ -84,20 +85,20 @@ export default function ClientLendings() {
         lendingsSorting,
         setLendingsSorting,
         loadingLendings
-    } = useContext(ClientContext);
-    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
-    const [modifiedLendings, setModifiedLendings] = useState([]);
-    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+    } = useContext<any>(ClientContext);
+    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
+    const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
-        setCurrentFilters(currentFiltersCache =>
+        setCurrentFilters((currentFiltersCache: any) =>
             filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
-        const { sort, dir } = queryParams;
+        const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             onSortingChange(key, dir);
         }
@@ -118,7 +119,7 @@ export default function ClientLendings() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
     }, [lendingsSorting]);
@@ -134,29 +135,29 @@ export default function ClientLendings() {
         setModifiedLendings(modifiedLendings);
     }, [currentFilters, lendings, lendingsSorting]);
 
-    const onSortingChange = useCallback((type, dir) => {
+    const onSortingChange = useCallback((type: string, dir: string) => {
         setLendingsSorting({ type, dir });
     }, [setLendingsSorting]);
 
-    const sorting = {
+    const sorting: any = {
         sortingList: sortings,
         sortingDefaults: lendingsSorting,
         onSortingChange: onSortingChange
     };
 
-    const updateSortQueryParams = useCallback((prop, dir) => {
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const updateFilterQueryParams = useCallback(filters => {
+    const updateFilterQueryParams = useCallback((filters: any) => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = (key, selectedValue) => {
+    const onSetSelectedFilters = (key: string, selectedValue: any) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
