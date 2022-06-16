@@ -10,32 +10,33 @@ import installationsApi from 'api/installations.api';
 
 import { actionStyles } from '../styles';
 
-export default function ClientRealmActions({ claimableList }) {
+export function ClientRealmActions({ claimableList }: { claimableList: any[] }) {
     const classes = actionStyles();
-    const [isUserConnected, setIsUserConnected] = useState(false);
-    const [transactionStatus, setTransactionStatus] = useState('default');
+
+    const [isUserConnected, setIsUserConnected] = useState<boolean>(false);
+    const [transactionStatus, setTransactionStatus] = useState<string>('default');
 
     const { metaState } = useMetamask();
-    const { showSnackbar } = useContext(SnackbarContext);
+    const { showSnackbar } = useContext<any>(SnackbarContext);
 
-    const isTransactionProcessing = transactionStatus === 'processing';
-    const isTransactionCompleted = transactionStatus === 'completed';
+    const isTransactionProcessing: boolean = transactionStatus === 'processing';
+    const isTransactionCompleted: boolean = transactionStatus === 'completed';
 
     useEffect(() => {
-        const accounts = metaState.account;
-        const walletConnected  = accounts.length > 0;
+        const accounts: any[] = metaState.account;
+        const walletConnected: boolean  = accounts.length > 0;
 
         setIsUserConnected(walletConnected);
     }, [metaState]);
 
-    const onUpgradesFinish = (ids) => {
-        const succesMessage = `successfully finished ${ids.length} upgrades`;
-        const errorMessage = 'finishing upgrades went wrong :(';
+    const onUpgradesFinish = (ids: any[]): void => {
+        const succesMessage: string = `successfully finished ${ids.length} upgrades`;
+        const errorMessage: string = 'finishing upgrades went wrong :(';
 
         setTransactionStatus('processing');
 
         installationsApi.finalizeUpgrades(ids)
-            .then(completed => {
+            .then((completed: boolean) => {
                 if (completed) {
                     showSnackbar('success', succesMessage);
                     setTransactionStatus('completed');
@@ -44,17 +45,18 @@ export default function ClientRealmActions({ claimableList }) {
                     setTransactionStatus('failed');
                 }
             })
-            .catch(e => {
+            .catch((e: any) => {
                 console.log(e);
                 setTransactionStatus('failed');
             });
     };
 
-    const renderButtonNode = (state) => {
+    const renderButtonNode = (state: string): JSX.Element => {
         switch (state) {
             case 'completed':
                 return (
                     <>
+                        {/*@ts-ignore */}
                         Completed! <CheckIcon size='small' />
                     </>
                 );

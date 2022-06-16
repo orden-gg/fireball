@@ -21,7 +21,7 @@ import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';
 import installationsUtils from 'utils/installationsUtils';
 
-import ClientRealmActions from '../components/ClientRealmActions';
+import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
 
 const sortings = [
