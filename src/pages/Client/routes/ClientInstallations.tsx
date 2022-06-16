@@ -6,20 +6,20 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { ClientContext } from 'contexts/ClientContext';
 
-export default function ClientInstallations() {
+export function ClientInstallations() {
     const {
         tiles,
         loadingTiles,
         installations,
         loadingInstallations
-    } = useContext(ClientContext);
+    } = useContext<any>(ClientContext);
 
     return (
         <>
             <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={200}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
-                    component={props => {
+                    component={(props: any) => {
                         if (props.type === 'tile') {
                             return <Tile data={props} />;
                         } else {

@@ -37,7 +37,7 @@ export function ItemsLazy({ items, component }: ItemsLazyProps) {
     };
 
     if (!items) {
-        return;
+        return <></>;
     }
 
     if (items.length === 0) {

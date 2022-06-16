@@ -15,8 +15,8 @@ import commonUtils from 'utils/commonUtils';
 
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
+import { ClientInstallations } from './routes/ClientInstallations';
 import ClientLendings from './routes/ClientLendings';
-import ClientInstallations from './routes/ClientInstallations';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
 import ClientRealm from './routes/ClientRealm';
