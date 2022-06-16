@@ -10,22 +10,28 @@ import Name from './Name';
 import Id from './Id';
 import styles from './styles';
 
-export default function GotchiFilters({ runFilterWatcher, runInstantFiltering }) {
-    const classes = styles();
-    const [chips, setChips] = useState([]);
-    const [fastSearch, setFastSearch] = useState(true);
-    const { filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats } = useContext(BaazaarContext);
+interface GotchiFiltersProps {
+    runFilterWatcher: () => void;
+    runInstantFiltering: () => void;
+}
 
-    const getChips = () => {
-        const chipsList = [];
+export function GotchiFilters({ runFilterWatcher, runInstantFiltering }: GotchiFiltersProps) {
+    const classes = styles();
+
+    const [chips, setChips] = useState<any[]>([]);
+    const [fastSearch, setFastSearch] = useState<boolean>(true);
+    const { filteringType, setFilteringType, exactMatch, setExactMatch, stats, removeStat, clearAllStats } = useContext<any>(BaazaarContext);
+
+    const getChips = (): any[] => {
+        const chipsList: any[] = [];
 
         for (const chip in stats) {
             if (stats.hasOwnProperty(chip)) {
-                stats[chip].forEach((item, id) => {
+                stats[chip].forEach((item: any, index: number) => {
                     chipsList.push({
                         name: chip,
                         value: item,
-                        id
+                        index
                     });
                 });
             }
@@ -34,18 +40,18 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
         return chipsList;
     };
 
-    const onFilteringTypeChange = (event, value) => {
+    const onFilteringTypeChange = (event: any, value: any): void => {
         setFilteringType(value);
         clearAllStats();
         runFilterWatcher();
     };
 
-    const onExactMatchChange = () => {
+    const onExactMatchChange = (): void => {
         setExactMatch(!exactMatch);
         runFilterWatcher();
     };
 
-    const onChipDelete = (event) => {
+    const onChipDelete = (event: any): void => {
         removeStat(event);
         runFilterWatcher();
     };
@@ -124,10 +130,10 @@ export default function GotchiFilters({ runFilterWatcher, runInstantFiltering })
                                 >
                                     <div className={classNames(classes.stackOfChips, 'custom-scroll')}>
                                         {
-                                            chips.map((item, id) => {
+                                            chips.map((item: any, index: number) => {
                                                 return <Chip
                                                     className={classes.singleChip}
-                                                    key={id}
+                                                    key={index}
                                                     label={item.name + ': ' + item.value[0] + ' <> ' + item.value[1]}
                                                     variant="outlined"
                                                     onDelete={() => onChipDelete(item)}

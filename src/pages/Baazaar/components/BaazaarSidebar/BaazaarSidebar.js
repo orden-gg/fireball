@@ -22,7 +22,7 @@ import {
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { listingTypes } from 'data/types';
 
-import GotchiFilters from './components/Filters/GotchiFilters';
+import { GotchiFilters } from './components/Filters/GotchiFilters';
 import RealmFilters from './components/Filters/RealmFilters';
 import styles from './styles';
 
