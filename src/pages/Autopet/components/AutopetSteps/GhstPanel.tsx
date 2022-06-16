@@ -5,15 +5,19 @@ import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-export default function GhstPanel({ index, dir }) {
+import { AutopetPanelProps } from './models/autopet-panel-props.model';
+
+export function GhstPanel({ index, dir }: AutopetPanelProps) {
     const classes = tabStyles();
+
     const {
-        ghstState, approveGhst,
+        ghstState,
+        approveGhst,
         renderButtonNode,
         isGhstApproved,
         isStaked,
         isUserConnected
-     } = useContext(AutopetContext);
+     } = useContext<any>(AutopetContext);
 
     return (
         <div
