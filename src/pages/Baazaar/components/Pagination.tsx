@@ -2,7 +2,15 @@ import { Box, Button } from '@mui/material';
 
 import { paginationStyles } from '../styles';
 
-export default function Pagination({ page, prevPageVisibility, nextPageVisibility, onNextPageClick, onPrevPageClick }) {
+interface PaginationProps {
+    page: number;
+    prevPageVisibility: boolean;
+    nextPageVisibility: boolean;
+    onNextPageClick: () => void;
+    onPrevPageClick: () => void;
+}
+
+export function Pagination({ page, prevPageVisibility, nextPageVisibility, onNextPageClick, onPrevPageClick }: PaginationProps) {
     const classes = paginationStyles();
 
     return (
