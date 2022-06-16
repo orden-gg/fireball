@@ -9,11 +9,11 @@ import { BaazaarBody } from './components/BaazaarBody';
 import { BaazaarSortingBody } from './components/BaazaarSortingBody';
 import { BaazaarSidebar } from './components/BaazaarSidebar/BaazaarSidebar';
 import { getQueries } from './baazaarQueryBuilder';
-import styles from './styles';
+import { styles } from './styles';
 import ethersApi from 'api/ethers.api';
 import { Backdrop, CircularProgress } from '@mui/material';
 
-var paginationConfigs = {
+var paginationConfigs: any = {
         gotchiLimit: 60,
         limit: 24,
         noLimit: 1000
@@ -23,29 +23,30 @@ var paginationConfigs = {
         defaultOrdering: 'timeCreated-desc'
     };
 
-let localGoods = [],
-    filteredLocalGoods = [];
+let localGoods: any[] = [];
+let filteredLocalGoods: any[] = [];
 
-export default function Baazaar() {
+// TODO component is to large to check every prop for types on initial migration. Should be checked afterwards
+export function Baazaar() {
     const classes = styles();
     // server pagination
-    const [goods, setGoods] = useState([]);
+    const [goods, setGoods] = useState<any>([]);
     // local pagination
-    const [selectedLocalGoods, setSelectedLocalGoods] = useState([]);
-    const [backdropIsOpen, showBackdrop] = useState(false);
+    const [selectedLocalGoods, setSelectedLocalGoods] = useState<any>([]);
+    const [backdropIsOpen, showBackdrop] = useState<any>(false);
     // pagination
-    const [page, setPage] = useState(1);
-    const [lastValidParams, setLastValidParams] = useState({});
+    const [page, setPage] = useState<any>(1);
+    const [lastValidParams, setLastValidParams] = useState<any>({});
     const { filteringType, exactMatch, id, name, orderingTypes,
         sortingOrder, minBRS, minKIN, stats, selectedGoodsType, priceFrom,
         priceTo, districtFilter, sizeFilter, alphaFilter, kekFilter,
-        fomoFilter, fudFilter, rarity, collateral, selectedListingType } = useContext(BaazaarContext);
+        fomoFilter, fudFilter, rarity, collateral, selectedListingType } = useContext<any>(BaazaarContext);
     // watch filters
-    const [filtersTimer, setFiltersTimer] = useState(0);
-    const [userIsTyping, setUserTypingStatus] = useState(false);
+    const [filtersTimer, setFiltersTimer] = useState<any>(0);
+    const [userIsTyping, setUserTypingStatus] = useState<any>(false);
 
     const forceLoadItems = () => {
-        const params = {
+        const params: any = {
             skip: (page - 1) * paginationConfigs.limit,
             limit: paginationConfigs.limit
         };
@@ -57,7 +58,7 @@ export default function Baazaar() {
         }  else if (checkContainerVisibility([listingTypes.realm])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
-            getAllRealmParcels(params);
+            getAllRealmParcels();
         } else if (checkContainerVisibility([
             listingTypes.closedPortal,
             listingTypes.wearable,
@@ -78,14 +79,14 @@ export default function Baazaar() {
             listingTypes.sold,
             listingTypes.purchased
         ])) {
-            getSalesData(params);
+            getSalesData();
         }
     };
 
     const getSalesData = () => {
         showBackdrop(true);
         thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
-            let cacheData = [];
+            let cacheData: any[] = [];
             response.forEach( item => {
                 cacheData = [...cacheData, ...(item.data.erc721Listings || item.data.erc1155Purchases || item.data.erc1155Listings)];
             });
@@ -98,7 +99,7 @@ export default function Baazaar() {
         });
     };
 
-    const getShownActivityItems = (newPage) => {
+    const getShownActivityItems = (newPage?: any) => {
         const itemsStart = ((newPage || page) - 1) * paginationConfigs.gotchiLimit;
         const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.gotchiLimit);
         setSelectedLocalGoods(newSelectedGoods);
@@ -257,8 +258,8 @@ export default function Baazaar() {
     };
 
     const processResponse = (response) => {
-        const processedItems = [],
-            items = [];
+        const processedItems: any[] = [];
+        const items: any[] = [];
 
         // combine response data
         response.forEach((item) => {
@@ -466,7 +467,7 @@ export default function Baazaar() {
         });
     };
 
-    const getShownItems = (newPage) => {
+    const getShownItems = (newPage?: any) => {
         const itemsStart = ((newPage || page) - 1) * paginationConfigs.gotchiLimit;
         const newSelectedGoods = filteredLocalGoods.slice(itemsStart, itemsStart + paginationConfigs.gotchiLimit);
         setSelectedLocalGoods(newSelectedGoods);
@@ -581,7 +582,6 @@ export default function Baazaar() {
                         goods={goods}
                         page={page}
                         limit={paginationConfigs.limit}
-                        paginationIsVisible={true}
                         onNextPageClick={onNextPageClick}
                         onPrevPageClick={onPrevPageClick}
                     />
@@ -589,10 +589,8 @@ export default function Baazaar() {
                         goods={selectedLocalGoods}
                         page={page}
                         limit={paginationConfigs.gotchiLimit}
-                        paginationIsVisible={true}
                         onNextPageClick={onLocalNextPageClick}
                         onPrevPageClick={onLocalPrevPageClick}
-                        backdropIsOpen={backdropIsOpen}
                     />
             }
 

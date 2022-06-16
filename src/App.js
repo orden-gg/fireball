@@ -10,7 +10,7 @@ import { Header } from './root/Header/Header';
 import { Footer } from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
-import Baazaar from './pages/Baazaar/Baazaar';
+import { Baazaar } from './pages/Baazaar/Baazaar';
 import Lend from 'pages/Lend/Lend';
 import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
 import Guilds from './pages/Guilds/Guilds';

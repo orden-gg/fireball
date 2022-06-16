@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     baazaar: {
         padding: 24,
         [theme.breakpoints.up('sm')]: {
@@ -16,7 +16,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const baazaarBodyStyles = makeStyles(() => ({
+export const baazaarBodyStyles = makeStyles(() => createStyles({
     baazaarBody: {
         flexGrow: 1
     },
@@ -37,7 +37,7 @@ const baazaarBodyStyles = makeStyles(() => ({
     }
 }));
 
-const baazaarItemStyles = makeStyles(theme => ({
+export const baazaarItemStyles = makeStyles(theme => createStyles({
     baazaarItem: {
         background: theme.palette.background.paper,
         borderWidth: 2,
@@ -148,7 +148,7 @@ const baazaarItemStyles = makeStyles(theme => ({
     }
 }));
 
-const paginationStyles = makeStyles(() => ({
+export const paginationStyles = makeStyles(() => createStyles({
     wrap: {
         display: 'flex',
         marginTop: 20
@@ -164,7 +164,7 @@ const paginationStyles = makeStyles(() => ({
     }
 }));
 
-const baazaarSortingBodyStyles = makeStyles(() => ({
+export const baazaarSortingBodyStyles = makeStyles(() => createStyles({
     baazaarBody: {
         flexGrow: 1,
         position: 'relative'
@@ -231,11 +231,3 @@ const baazaarSortingBodyStyles = makeStyles(() => ({
         }
     }
 }));
-
-export {
-    styles as default,
-    baazaarBodyStyles,
-    baazaarItemStyles,
-    paginationStyles,
-    baazaarSortingBodyStyles
-};
