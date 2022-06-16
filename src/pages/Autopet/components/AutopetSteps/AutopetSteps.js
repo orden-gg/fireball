@@ -12,7 +12,7 @@ import classNames from 'classnames';
 
 import { GotchiIcon } from 'components/Icons/Icons';
 
-import PetPanel from './PetPanel';
+import { PetPanel } from './PetPanel';
 import GhstPanel from './GhstPanel';
 import { StakePanel } from './StakePanel';
 import ConnectPanel from './ConnectPanel';

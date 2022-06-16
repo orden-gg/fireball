@@ -5,8 +5,11 @@ import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-export default function PetPanel({ index, dir }) {
+import { AutopetPanelProps } from './models/autopet-panel-props.model';
+
+export function PetPanel({ index, dir }: AutopetPanelProps) {
     const classes = tabStyles();
+
     const {
         petState,
         isPetApproved,
@@ -14,7 +17,7 @@ export default function PetPanel({ index, dir }) {
         isStaked,
         isUserConnected,
         renderButtonNode
-     } = useContext(AutopetContext);
+     } = useContext<any>(AutopetContext);
 
     return (
         <div

@@ -5,12 +5,9 @@ import PanelErrorText from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
 
-interface StakePanelProps {
-    index: number;
-    dir: string;
-}
+import { AutopetPanelProps } from './models/autopet-panel-props.model';
 
-export function StakePanel({ index, dir }: StakePanelProps) {
+export function StakePanel({ index, dir }: AutopetPanelProps) {
     const classes = tabStyles();
 
     const [availableStake, setAvailableStake] = useState<boolean>(false);
