@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 
-import TraitSlider from './TraitSlider';
+import { TraitSlider } from './TraitSlider';
 
 export function FastSearch({ runFilterWatcher }: { runFilterWatcher: () => void }) {
     return (

@@ -15,18 +15,24 @@ const traitsEmojis = {
     EYC: '👁'
 };
 
-export default function TraitSlider({ type, runFilterWatcher }) {
-    const classes = styles();
-    const [sliderRange, setSliderRange] = useState([-20, 120]);
-    const { changeSingleStat } = useContext(BaazaarContext);
+interface TraitSliderProps {
+    type: any;
+    runFilterWatcher: () => void;
+}
 
-    const onSliderChange = (event, value) => {
+export function TraitSlider({ type, runFilterWatcher }: TraitSliderProps) {
+    const classes = styles();
+
+    const [sliderRange, setSliderRange] = useState<number[]>([-20, 120]);
+    const { changeSingleStat } = useContext<any>(BaazaarContext);
+
+    const onSliderChange = (event: any, value: any): void => {
         setSliderRange(value);
         changeSingleStat(type, value);
         executeFilterWatching();
     };
 
-    const executeFilterWatching = () => {
+    const executeFilterWatching = (): void => {
         runFilterWatcher();
     };
 
