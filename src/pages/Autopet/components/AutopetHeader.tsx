@@ -1,15 +1,14 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 
 import { AUTOPET_CONTRACT } from 'api/common/constants';
 
 import { headerStyles } from '../styles';
 
-export default function AutopetHeader() {
+export function AutopetHeader() {
     const classes = headerStyles();
 
     return (
-        <div className={classes.autopetHeader}>
+        <div>
             <h1 className={classes.autopetTitle}>Trustless Autopet</h1>
 
             <div className={classes.autopetTerms}>
