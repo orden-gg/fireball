@@ -1,9 +1,14 @@
-import tiles from 'data/tiles';
+import tiles from 'data/tiles.json';
+import { TileTypes } from 'data/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getNameById(id) {
-        return tiles[id]?.name || '';
+        if (!tiles[id]) {
+            return 'Unknown';
+        }
+
+        return tiles[id][TileTypes.Name];
     },
 
     getImageById(id) {
