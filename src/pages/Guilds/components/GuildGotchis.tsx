@@ -8,10 +8,10 @@ import thegraphApi from 'api/thegraph.api';
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
-export default function GuildGotchis() {
+export function GuildGotchis() {
     const classes = guildContentStyles();
 
-    const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext(GuildsContext);
+    const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext<any>(GuildsContext);
 
     const [isGotchisLoading, setIsGotchisLoading] = useState(false);
 
@@ -30,7 +30,7 @@ export default function GuildGotchis() {
             }
         }).finally(() => setIsGotchisLoading(false));
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [guilds, guildId, setGuildGotchis]);
 
     return (

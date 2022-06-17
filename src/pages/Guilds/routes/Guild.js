@@ -8,8 +8,8 @@ import commonUtils from 'utils/commonUtils';
 
 import { GuildBanner } from '../components/GuildBanner';
 import { GuildsDetails } from '../components/GuildDetails';
+import { GuildGotchis } from '../components/GuildGotchis';
 import GuildNav from '../components/GuildNav';
-import GuildGotchis from '../components/GuildGotchis';
 import GuildLendings from '../components/GuildLendings';
 import GuildsRealm from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
