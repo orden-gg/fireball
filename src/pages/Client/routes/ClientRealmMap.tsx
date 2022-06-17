@@ -7,12 +7,12 @@ import { ClientContext } from 'contexts/ClientContext';
 
 import styles from '../styles';
 
-export default function ClientRealmMap() {
-    const { realm, setRealmView, loadingRealm } = useContext(ClientContext);
+export function ClientRealmMap() {
+    const { realm, setRealmView, loadingRealm } = useContext<any>(ClientContext);
     const classes = styles();
 
     const realmGroups = useMemo(() => {
-        const group = [];
+        const group: any[] = [];
 
         group.push({
             parcels: realm,

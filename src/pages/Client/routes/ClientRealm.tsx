@@ -5,7 +5,7 @@ import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButto
 import { ClientContext } from 'contexts/ClientContext';
 
 import { ClientRealmList } from './ClientRealmList';
-import ClientRealmMap from './ClientRealmMap';
+import { ClientRealmMap } from './ClientRealmMap';
 
 export function ClientRealm() {
     const location = useLocation();
