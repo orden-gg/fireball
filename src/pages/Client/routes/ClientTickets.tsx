@@ -6,15 +6,15 @@ import { ClientContext } from 'contexts/ClientContext';
 
 import { routersStyles } from '../styles';
 
-export default function ClientTickets() {
+export function ClientTickets() {
     const classes = routersStyles();
-    const { tickets, loadingTickets } = useContext(ClientContext);
+    const { tickets, loadingTickets } = useContext<any>(ClientContext);
 
     return (
         <ContentInner dataLoading={loadingTickets} offset={208}>
             <div className={classes.list}>
                 {
-                    tickets.map((ticket, i) => {
+                    tickets.map((ticket: any, i: number) => {
                         return <div className={classes.listItem} key={i}>
                             <Ticket ticket={ticket} />
                         </div>;

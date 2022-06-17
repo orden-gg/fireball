@@ -18,8 +18,8 @@ import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientLendings } from './routes/ClientLendings';
 import ClientWarehouse from './routes/ClientWarehouse';
-import ClientTickets from './routes/ClientTickets';
 import { ClientRealm } from './routes/ClientRealm';
+import { ClientTickets } from './routes/ClientTickets';
 
 import styles from './styles';
 
