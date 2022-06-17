@@ -13,16 +13,15 @@ import { GuildWearables } from '../components/GuildWearables';
 import { GuildsContext } from '../GuildsContext';
 import { styles } from '../styles';
 
-export default function GuildsPreview() {
+export function GuildsPreview() {
     const classes = styles();
-    const {
-        guilds,
-        setGuildId
-    } = useContext(GuildsContext);
+
     const match = useRouteMatch();
     const history = useHistory();
 
-    const handleClick = (guild) => {
+    const { guilds, setGuildId } = useContext<any>(GuildsContext);
+
+    const handleClick = (guild: any): void => {
         history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
     };
 
@@ -35,9 +34,8 @@ export default function GuildsPreview() {
     //     }
     // }
 
-    const renderWaerables = guild => {
+    const renderWaerables = (guild: any): JSX.Element => {
         if (guild.hasOwnProperty('wearables')) {
-
             return <>
                 <Divider className={classes.divider} />
                 <GuildWearables
@@ -46,6 +44,8 @@ export default function GuildsPreview() {
                     tooltip='Guild wearable'
                 />
             </>;
+        } else {
+            return <></>;
         }
     };
 
@@ -66,12 +66,12 @@ export default function GuildsPreview() {
             </a>
             <ul className={classes.guildsList}>
                 {
-                    guilds.map((guild, id) => (
+                    guilds.map((guild: any, index: number) => (
                         <Button
                             className={classes.guildButton}
                             disabled={!guild.members?.length}
-                            key={id}
-                            onClick={() => {handleClick(guild)}}
+                            key={index}
+                            onClick={() => { handleClick(guild) }}
                         >
                             <div className={classes.guildLogo}>
                                 <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
