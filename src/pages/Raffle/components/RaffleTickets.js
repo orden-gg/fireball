@@ -3,7 +3,7 @@ import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import ticketsApi from 'api/tickets.api';
 
-import RaffleTicket from './RaffleTicket';
+import { RaffleTicket } from './RaffleTicket';
 import { tableStyles } from '../styles';
 
 export default function RaffleTickets({ address }) {

@@ -5,8 +5,9 @@ import itemUtils from 'utils/itemUtils';
 
 import { ticketStyles } from '../styles';
 
-export default function RaffleTicket({ ticket }) {
+export function RaffleTicket({ ticket }: { ticket: any }) {
     const classes = ticketStyles();
+
     const theme = useTheme();
 
     return (
