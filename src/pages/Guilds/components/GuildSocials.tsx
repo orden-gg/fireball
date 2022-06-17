@@ -10,10 +10,12 @@ import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
 import { guildSocialsStyles } from '../styles';
 
-export default function GuildSocials() {
+export function GuildSocials() {
     const classes = guildSocialsStyles();
-    const { guildId, guilds } = useContext(GuildsContext);
-    const socials = {
+
+    const { guildId, guilds } = useContext<any>(GuildsContext);
+
+    const socials: any = {
         facebook: <FacebookIcon className={classes.guildSocialIcon} />,
         twitter: <TwitterIcon className={classes.guildSocialIcon} />,
         discord: <DiscordIcon className={classes.guildSocialIcon} />,
@@ -22,11 +24,11 @@ export default function GuildSocials() {
         default: <WebIcon className={classes.guildSocialIcon} />
     };
 
-    const renderSocials = () => {
-        const guild = guilds[guildId];
+    const renderSocials = (): JSX.Element | JSX.Element[] => {
+        const guild: any = guilds[guildId];
 
         if (guild === undefined || !guild.hasOwnProperty('socials')) {
-            return null;
+            return <></>;
         }
 
         return (

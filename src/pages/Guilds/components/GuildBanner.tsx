@@ -8,7 +8,7 @@ import commonUtils from 'utils/commonUtils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
 import { GuildLogo } from './GuildLogo';
-import GuildSocials from './GuildSocials';
+import { GuildSocials } from './GuildSocials';
 import { guildBanner } from '../styles';
 
 export function GuildBanner() {
