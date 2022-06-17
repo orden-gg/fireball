@@ -2,7 +2,12 @@ import classNames from 'classnames';
 
 import { ReactComponent as Placeholder } from 'assets/images/icons/ghst.svg';
 
-export default function GuildLogo({ logo, className }) {
+interface GuildLogoProps {
+    logo: string;
+    className: string;
+}
+
+export function GuildLogo({ logo, className }: GuildLogoProps) {
     try {
         const logoUrl = require(`assets/images/guilds/${logo}`).default;
 

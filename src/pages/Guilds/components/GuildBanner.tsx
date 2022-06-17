@@ -7,7 +7,7 @@ import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import commonUtils from 'utils/commonUtils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
-import GuildLogo from './GuildLogo';
+import { GuildLogo } from './GuildLogo';
 import GuildSocials from './GuildSocials';
 import { guildBanner } from '../styles';
 
