@@ -6,15 +6,12 @@ import { GuildsContext } from 'pages/Guilds/GuildsContext';
 
 import { guildNavStyles } from '../styles';
 
-export default function GuildNav() {
+export function GuildNav() {
     const classes = guildNavStyles();
-    const {
-        guildGotchis,
-        guildLendings,
-        guildRealm
-    } = useContext(GuildsContext);
 
-    const navData = [
+    const { guildGotchis, guildLendings, guildRealm } = useContext<any>(GuildsContext);
+
+    const navData: any = [
         {
             name: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
