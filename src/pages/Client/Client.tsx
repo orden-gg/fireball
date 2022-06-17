@@ -6,8 +6,9 @@ import ClientRoutes from './ClientRoutes';
 import { ClientNav } from './components/ClientNav';
 import styles from './styles';
 
-export default function Client() {
+export function Client() {
     const classes = styles();
+
     const match = useRouteMatch();
 
     return (
