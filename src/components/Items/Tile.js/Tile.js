@@ -5,22 +5,22 @@ import ERC1155 from '../ERC1155/ERC1155';
 
 import TileImage from './TileImage';
 
-export default function Tile({ data }) {
-
+export default function Tile({ tile }) {
     return (
         <ERC1155
             className='tile'
             item={{
-                id: data.id,
+                id: tile.id,
                 rarity: 'golden',
                 category: Erc1155Categories.Tile,
-                balance: data.balance
+                balance: tile.balance
             }}
         >
-            <TileImage data={data} />
+            <TileImage id={tile.id} />
+
             <CardName
-                item={data}
-                itemName={data.name}
+                item={tile}
+                itemName={tile.name}
                 itemRarity='golden'
             />
         </ERC1155>
