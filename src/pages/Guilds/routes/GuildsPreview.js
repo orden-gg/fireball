@@ -9,7 +9,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import commonUtils from 'utils/commonUtils';
 
 import GuildLogo from '../components/GuildLogo';
-import GuildWearables from '../components/GuildWearables';
+import { GuildWearables } from '../components/GuildWearables';
 import { GuildsContext } from '../GuildsContext';
 import styles from '../styles';
 

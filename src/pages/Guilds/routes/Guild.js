@@ -7,7 +7,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import commonUtils from 'utils/commonUtils';
 
 import { GuildBanner } from '../components/GuildBanner';
-import GuildsDetails from '../components/GuildDetails';
+import { GuildsDetails } from '../components/GuildDetails';
 import GuildNav from '../components/GuildNav';
 import GuildGotchis from '../components/GuildGotchis';
 import GuildLendings from '../components/GuildLendings';

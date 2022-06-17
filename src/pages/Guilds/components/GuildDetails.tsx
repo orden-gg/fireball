@@ -3,16 +3,16 @@ import { Button, Typography } from '@mui/material';
 
 import { CustomModal } from 'components/Modal/Modal';
 
-import GuildWearables from './GuildWearables';
+import { GuildWearables } from './GuildWearables';
 import { guildDetailsStyles } from '../styles';
 
-export default function GuildsDetails({ guild }) {
+export function GuildsDetails({ guild }: { guild: any }) {
     const classes = guildDetailsStyles();
 
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     if (!guild?.description?.length && !guild?.wearables.length) {
-        return null;
+        return <></>;
     }
 
     return (
@@ -30,11 +30,10 @@ export default function GuildsDetails({ guild }) {
             <CustomModal
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
-                className={classes.detailsModal}
             >
                  <ul className={classes.detailsList}>
                      {
-                        guild.description?.map((item, index) => (
+                        guild.description?.map((item: any, index: number) => (
                             <li className={classes.detailsItem} key={index}>
                                 <p className={classes.detailTitle}>{item.title}</p>
                                 <div className={classes.detailBody}>

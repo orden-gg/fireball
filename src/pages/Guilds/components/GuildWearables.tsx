@@ -6,10 +6,16 @@ import itemUtils from 'utils/itemUtils';
 
 import { guildWearables } from '../styles';
 
-export default function GuildWearables({ tooltip, wearables, className }) {
+interface GuildWearablesProps {
+    wearables: any;
+    className: string;
+    tooltip?: string;
+}
+
+export function GuildWearables({ wearables, className, tooltip }: GuildWearablesProps) {
     const classes = guildWearables();
 
-    const renderWearableImage = (id) => (
+    const renderWearableImage = (id: string): JSX.Element => (
         <WearableImage
             className={classNames(classes.guildWearable, className || null)}
             wearable={{ id: id }}
@@ -18,7 +24,7 @@ export default function GuildWearables({ tooltip, wearables, className }) {
     );
 
     return (
-        wearables.map(id =>
+        wearables.map((id: any) =>
             tooltip !== undefined ? (
                 <CustomTooltip
                     title={itemUtils.getItemNameById(id)}
