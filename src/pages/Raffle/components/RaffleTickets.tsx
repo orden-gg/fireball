@@ -6,11 +6,11 @@ import ticketsApi from 'api/tickets.api';
 import { RaffleTicket } from './RaffleTicket';
 import { tableStyles } from '../styles';
 
-export default function RaffleTickets({ address }) {
+export function RaffleTickets({ address }: { address: string }) {
     const classes = tableStyles();
 
-    const [tickets, setTickets] = useState([]);
-    const [loadingTickets, setLoadingTickets] = useState(true);
+    const [tickets, setTickets] = useState<any[]>([]);
+    const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -20,10 +20,10 @@ export default function RaffleTickets({ address }) {
         return () => controller?.abort(); // cleanup on destroy
     },[address]);
 
-    const getTickets = (controller) => {
+    const getTickets = (controller: AbortController): void => {
         setLoadingTickets(true);
 
-        ticketsApi.getTicketsByAddress(address).then((response) => {
+        ticketsApi.getTicketsByAddress(address).then((response: any) => {
             if (!controller.signal.aborted) {
                 setTickets(response);
                 setLoadingTickets(false);
@@ -46,7 +46,7 @@ export default function RaffleTickets({ address }) {
                         <CircularProgress color='inherit' size={20} />
                     </Grid>
                 ) : (
-                    tickets.map((ticket, i) => {
+                    tickets.map((ticket: any, i: number) => {
                         return <Grid item xs={4} sm={true} key={i} style={{ filter: `grayscale(${ticket.balance > 0 ? 0 : 1})` }}>
                             <RaffleTicket ticket={ticket} />
                         </Grid>;
