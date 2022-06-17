@@ -4,8 +4,8 @@ import { Redirect, Route, Switch, useLocation, useRouteMatch } from 'react-route
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
 
+import { ClientRealmList } from './ClientRealmList';
 import ClientRealmMap from './ClientRealmMap';
-import ClientRealmList from './ClientRealmList';
 
 export function ClientRealm() {
     const location = useLocation();

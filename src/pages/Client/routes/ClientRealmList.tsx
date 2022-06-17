@@ -7,6 +7,7 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
+import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -24,7 +25,7 @@ import installationsUtils from 'utils/installationsUtils';
 import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
 
-const sortings = [
+const sortings: SortingListItem[] = [
     {
         name: 'size',
         key: 'size',
@@ -82,14 +83,14 @@ const sortings = [
         icon: <KekIcon height={18} width={18} />
     }
 ];
-const initialFilters = {
+const initialFilters: any = {
     size: { ...filtersData.size, divider: true },
     altarLevel: { ...filtersData.altarLevel, divider: true },
     nextChannel: { ...filtersData.nextChannel },
     isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
     district: { ...filtersData.district }
 };
-const queryParamsOrder = [
+const queryParamsOrder: string[] = [
     initialFilters.size.queryParamKey,
     initialFilters.altarLevel.queryParamKey,
     initialFilters.nextChannel.queryParamKey,
@@ -99,7 +100,7 @@ const queryParamsOrder = [
     'dir'
 ];
 
-export default function ClientRealmList() {
+export function ClientRealmList() {
     const history = useHistory();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
@@ -111,27 +112,27 @@ export default function ClientRealmList() {
         setRealmSorting,
         loadingRealm,
         setRealmView
-    } = useContext(ClientContext);
-    const { activeAddress } = useContext(LoginContext);
-    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
-    const [modifiedRealm, setModifiedRealm] = useState([]);
-    const [loadingUpgrades, setLoadingUpgrades] = useState(false);
-    const [claimableUpgrades, setClaimableUpgrades] = useState([]);
-    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+    } = useContext<any>(ClientContext);
+    const { activeAddress } = useContext<any>(LoginContext);
+    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [modifiedRealm, setModifiedRealm] = useState<any[]>([]);
+    const [loadingUpgrades, setLoadingUpgrades] = useState<boolean>(false);
+    const [claimableUpgrades, setClaimableUpgrades] = useState<any[]>([]);
+    const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
         setRealmView('list');
     }, []);
 
     useEffect(() => {
-        setCurrentFilters(currentFiltersCache =>
+        setCurrentFilters((currentFiltersCache: any) =>
             filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
-        const { sort, dir } = queryParams;
+        const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             onSortingChange(key, dir);
         }
@@ -158,7 +159,7 @@ export default function ClientRealmList() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
+        const paramKey: any = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, realmSorting.dir);
     }, [realmSorting]);
@@ -174,29 +175,29 @@ export default function ClientRealmList() {
         setModifiedRealm(modifiedLendings);
     }, [currentFilters, realm, realmSorting]);
 
-    const onSortingChange = useCallback((type, dir) => {
+    const onSortingChange = useCallback((type: string, dir: string) => {
         setRealmSorting({ type, dir });
     }, [setRealmSorting]);
 
-    const sorting = {
+    const sorting: any = {
         sortingList: sortings,
         sortingDefaults: realmSorting,
         onSortingChange: onSortingChange
     };
 
-    const updateSortQueryParams = useCallback((prop, dir) => {
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const updateFilterQueryParams = useCallback(filters => {
-        const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
+    const updateFilterQueryParams = useCallback((filters: any) => {
+        const params: any = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = (key, selectedValue) => {
+    const onSetSelectedFilters = (key: string, selectedValue: any) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
@@ -209,17 +210,17 @@ export default function ClientRealmList() {
     }, [modifiedRealm]);
 
     const getRealmAdditionalData = useCallback(() => {
-        const parcelIds = realm.map(parcel => parcel.tokenId);
+        const parcelIds: any[] = realm.map((parcel: any) => parcel.tokenId);
 
         setLoadingUpgrades(true);
 
         Promise.all([
             getRealmInfo(activeAddress),
             getRealmUpgradesQueue(activeAddress, parcelIds)
-        ]).then(([realmInfo, realmUpgradesQueue]) => {
-            const modifiedParcels = realm.map(parcel => {
-                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
-                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
+        ]).then(([realmInfo, realmUpgradesQueue]: [any, any]) => {
+            const modifiedParcels = realm.map((parcel: any) => {
+                const isParcelUpgrading: any = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo: any = realmInfo.find((info: any) => info.id === parcel.tokenId);
 
                 return {
                     ...parcel,
@@ -237,9 +238,9 @@ export default function ClientRealmList() {
         });
     }, [realm, setRealm, activeAddress]);
 
-    const getRealmInfo = (owner) => {
-        return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then(res => {
-            return res.map(parcel => {
+    const getRealmInfo = (owner: any): Promise<any> => {
+        return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then((res: any) => {
+            return res.map((parcel: any) => {
                 if (!parcel.equippedInstallations.length) {
                     return {
                         id: parcel.id,
@@ -249,7 +250,7 @@ export default function ClientRealmList() {
                     };
                 }
 
-                const installations = parcel.equippedInstallations.map(inst => ({
+                const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
                     id: inst.id,
                     name: installationsUtils.getNameById(inst.id),
                     level: installationsUtils.getLevelById(inst.id),
@@ -271,18 +272,18 @@ export default function ClientRealmList() {
         });
     };
 
-    const getRealmUpgradesQueue = (owner, realmIds) => {
-        return installationsApi.getUpgradeQueueByAddress(owner).then(async res => {
+    const getRealmUpgradesQueue = (owner: any, realmIds: any) => {
+        return installationsApi.getUpgradeQueueByAddress(owner).then(async (res: any) => {
 
             const activeUpgrades = res
-                .map((queue, i) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
-                .filter(queue => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
+                .map((queue: any, i: number) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
+                .filter((queue: any) => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
                 const lastBlock = await ethersApi.getLastBlock();
 
-                const upgradesWithTimestamps = activeUpgrades.map(upgrade => {
-                    const currentBlock = upgrade.readyBlock;
+                const upgradesWithTimestamps: any[] = activeUpgrades.map((upgrade: any) => {
+                    const currentBlock: any = upgrade.readyBlock;
                     const isUpgradeReady = currentBlock - lastBlock.number <= 0;
                     const timestamp = !isUpgradeReady ?
                         ethersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
