@@ -15,33 +15,30 @@ import { GuildsRealm } from '../components/GuildsRealm';
 import { GuildsContext } from '../GuildsContext';
 import { guildStyles } from '../styles';
 
-export default function Guild() {
-    const params = useParams();
+export function Guild() {
     const classes = guildStyles();
+
+    const params = useParams<{ name: string }>();
     const history = useHistory();
     const match = useRouteMatch();
-    const {
-        guilds,
-        guildId,
-        setGuildId
-    } = useContext(GuildsContext);
+
+    const { guilds, guildId, setGuildId } = useContext<any>(GuildsContext);
 
     useEffect(() => {
-        const guildId = guilds.findIndex(guild => (
+        const guildId: any = guilds.findIndex((guild: any) => (
             commonUtils.stringToKey(guild.name) === params.name
         ));
 
         if (guildId === undefined || guilds[guildId].members?.length === 0) {
-            return history.push('/guilds');
+            history.push('/guilds');
+        } else {
+            setGuildId(guildId);
         }
-
-        setGuildId(guildId);
     }, []);
 
     return (
         <>
             <Box className={classes.guildWrapper}>
-
                 <div className={classes.guildSidebar}>
                     <GuildBanner />
                     {<GuildsDetails guild={guilds[guildId]} />}
@@ -49,7 +46,7 @@ export default function Guild() {
                     <Tooltip
                         title='Back to guilds'
                     >
-                        <IconButton className={classes.backButton} onClick={ () => {history.push('/guilds')}} >
+                        <IconButton className={classes.backButton} onClick={ () => { history.push('/guilds')} } >
                             <ArrowBackIcon />
                         </IconButton>
                     </Tooltip>

@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
 const keyframes = {
     move: {
@@ -19,7 +19,7 @@ const keyframes = {
     }
 };
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     guildsWrapper: {
         position: 'relative',
         maxWidth: 1920,
@@ -179,7 +179,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const guildWearables = makeStyles(() => ({
+export const guildWearables = makeStyles(theme => createStyles({
     guildWearable: {
         minHeight: 'auto',
         position: 'relative',
@@ -194,7 +194,7 @@ const guildWearables = makeStyles(() => ({
     }
 }));
 
-const guildStyles = makeStyles(theme => ({
+export const guildStyles = makeStyles(theme => createStyles({
     guildWrapper: {
         position: 'relative',
         display: 'flex',
@@ -221,7 +221,7 @@ const guildStyles = makeStyles(theme => ({
         }
     },
     guildContent: {
-        flexGrow: '1',
+        flexGrow: 1,
         display: 'flex',
         flexDirection: 'column'
     },
@@ -255,7 +255,7 @@ const guildStyles = makeStyles(theme => ({
     }
 }));
 
-const guildBanner = makeStyles(theme => ({
+export const guildBanner = makeStyles(theme => createStyles({
     guildBanner: {
         minHeight: '30%',
         display: 'flex',
@@ -360,7 +360,7 @@ const guildBanner = makeStyles(theme => ({
     '@keyframes move': keyframes.move
 }));
 
-const guildSocialsStyles = makeStyles(theme => ({
+export const guildSocialsStyles = makeStyles(theme => createStyles({
     guildSocials: {
         position: 'absolute',
         left: 0,
@@ -390,7 +390,7 @@ const guildSocialsStyles = makeStyles(theme => ({
     }
 }));
 
-const guildDetailsStyles = makeStyles(theme => ({
+export const guildDetailsStyles = makeStyles(theme => createStyles({
     detailsButton: {
         [theme.breakpoints.down('sm')]: {
             fontSize: 12,
@@ -494,7 +494,7 @@ const guildDetailsStyles = makeStyles(theme => ({
     '@keyframes show': keyframes.show
 }));
 
-const guildContentStyles = makeStyles(theme => ({
+export const guildContentStyles = makeStyles(theme => createStyles({
     guildGotchis: {
         height: '100%',
         paddingLeft: theme.spacing(2),
@@ -565,7 +565,7 @@ const guildContentStyles = makeStyles(theme => ({
     }
 }));
 
-const guildNavStyles = makeStyles(theme => ({
+export const guildNavStyles = makeStyles(theme => createStyles({
     guildNav: {
         display: 'flex',
         alignItems: 'center',
@@ -583,14 +583,3 @@ const guildNavStyles = makeStyles(theme => ({
         }
     }
 }));
-
-export {
-    styles as default,
-    guildStyles,
-    guildBanner,
-    guildDetailsStyles,
-    guildContentStyles,
-    guildNavStyles,
-    guildSocialsStyles,
-    guildWearables
-};

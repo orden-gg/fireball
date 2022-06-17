@@ -11,7 +11,7 @@ import commonUtils from 'utils/commonUtils';
 import { GuildLogo } from '../components/GuildLogo';
 import { GuildWearables } from '../components/GuildWearables';
 import { GuildsContext } from '../GuildsContext';
-import styles from '../styles';
+import { styles } from '../styles';
 
 export default function GuildsPreview() {
     const classes = styles();
