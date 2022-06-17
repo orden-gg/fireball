@@ -19,7 +19,7 @@ import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientLendings } from './routes/ClientLendings';
 import ClientWarehouse from './routes/ClientWarehouse';
 import ClientTickets from './routes/ClientTickets';
-import ClientRealm from './routes/ClientRealm';
+import { ClientRealm } from './routes/ClientRealm';
 
 import styles from './styles';
 
