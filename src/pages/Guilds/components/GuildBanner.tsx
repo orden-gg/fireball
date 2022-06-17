@@ -11,16 +11,17 @@ import GuildLogo from './GuildLogo';
 import GuildSocials from './GuildSocials';
 import { guildBanner } from '../styles';
 
-export default function GuildBanner() {
+export function GuildBanner() {
     const classes = guildBanner();
+
     const history = useHistory();
 
-    const { guildId, setGuildId, guilds } = useContext(GuildsContext);
+    const { guildId, setGuildId, guilds } = useContext<any>(GuildsContext);
 
-    const [guild, setGuild] = useState({});
+    const [guild, setGuild] = useState<any>({});
 
-    const onGuildChange = useCallback((currentGuildId) => {
-        const nextGuild = guilds[currentGuildId];
+    const onGuildChange = useCallback((currentGuildId: any) => {
+        const nextGuild: any = guilds[currentGuildId];
 
         if (nextGuild === undefined || nextGuild.members?.length === 0) {
             return;
@@ -30,7 +31,7 @@ export default function GuildBanner() {
         setGuildId(currentGuildId);
     }, [guilds, history, setGuildId]);
 
-    const getBannerUrl = () => {
+    const getBannerUrl = (): string => {
         try {
             return require(`assets/images/guilds/${guild.banner}`).default;
         } catch (error) {
