@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router';
 
-import GuildsContextProvider from 'pages/Guilds/GuildsContext';
+import { GuildsContextProvider } from './GuildsContext';
 
 import { Guild } from './routes/Guild';
 import { GuildsPreview } from './routes/GuildsPreview';
