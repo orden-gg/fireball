@@ -1,7 +1,7 @@
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 import itemUtils from 'utils/itemUtils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';

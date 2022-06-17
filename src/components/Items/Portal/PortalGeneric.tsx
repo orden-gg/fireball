@@ -1,7 +1,7 @@
 import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles, portalStyles } from '../styles';

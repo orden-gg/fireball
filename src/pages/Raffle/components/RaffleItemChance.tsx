@@ -2,7 +2,8 @@ import commonUtils from 'utils/commonUtils';
 
 import { raffleChanceStyles } from '../styles';
 
-export default function RaffleItemChance({ stats }) {
+// TODO this component should be moved to shared
+export function RaffleItemChance({ stats }: { stats: any }) {
     const classes = raffleChanceStyles();
 
     return (

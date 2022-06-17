@@ -1,7 +1,7 @@
 
 import { Erc1155Categories } from 'data/types';
 
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 
 import { InstallationImage } from './InstallationImage';
 import { CardName } from '../common/CardName/CardName';

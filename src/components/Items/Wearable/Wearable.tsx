@@ -1,4 +1,4 @@
-import RaffleItemChance from 'pages/Raffle/components/RaffleItemChance';
+import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 import { ERC1155 } from 'components/Items/ERC1155/ERC1155';
 import itemUtils from 'utils/itemUtils';
 
