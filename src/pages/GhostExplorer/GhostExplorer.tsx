@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
+import { CustomParsedQuery, Sorting, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
@@ -18,9 +19,9 @@ import thegraph from 'api/thegraph.api';
 import { filtersData } from 'data/filters.data';
 import filtersUtils from 'utils/filtersUtils';
 
-import styles from './styles';
+import { styles } from './styles';
 
-const sortings = [
+const sortings: SortingListItem[] = [
     {
         name: 'id',
         key: 'id',
@@ -65,25 +66,26 @@ const sortings = [
     }
 ];
 
-const initialFilters = {
+const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
     collateral: { ...filtersData.collateral, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder = ['hauntId', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['hauntId', 'collateral', 'search', 'sort', 'dir'];
 
-export default function GhostExplorer() {
+export function GhostExplorer() {
     const classes = styles();
+
     const history = useHistory();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-    const [isGotchisLoading, setIsGotchisLoading] = useState(false);
-    const [gotchis, setGotchis] = useState([]);
-    const [modifiedGotchis, setModifiedGotchis] = useState([]);
-    const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
-    const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+    const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
+    const [gotchis, setGotchis] = useState<any[]>([]);
+    const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
+    const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
+    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     const getGotchies = useCallback(() => {
         let mounted = true;
@@ -92,7 +94,7 @@ export default function GhostExplorer() {
 
         thegraph.getAllGotchies().then(response => {
             if (mounted) {
-                setGotchis(response, gotchisSorting.type, gotchisSorting.dir);
+                setGotchis(response);
             }
         }).catch((e) => {
             console.log(e);
@@ -102,14 +104,14 @@ export default function GhostExplorer() {
     }, [gotchisSorting]);
 
     useEffect(() => {
-        setCurrentFilters(currentFiltersCache =>
+        setCurrentFilters((currentFiltersCache: any) =>
             filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
-        const { sort, dir } = queryParams;
+        const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             onSortingChange(key, dir);
         }
@@ -134,7 +136,7 @@ export default function GhostExplorer() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
+        const paramKey: any = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, gotchisSorting.dir);
     }, [gotchisSorting]);
@@ -150,29 +152,29 @@ export default function GhostExplorer() {
         setModifiedGotchis(modifiedGotchis);
     }, [currentFilters, gotchis, gotchisSorting]);
 
-    const onSortingChange = useCallback((type, dir) => {
+    const onSortingChange = useCallback((type: string, dir: string) => {
         setGotchisSorting({ type, dir });
     }, [setGotchisSorting]);
 
-    const sorting = {
+    const sorting: any = {
         sortingList: sortings,
         sortingDefaults: gotchisSorting,
         onSortingChange: onSortingChange
     };
 
-    const updateSortQueryParams = useCallback((prop, dir) => {
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const updateFilterQueryParams = useCallback(filters => {
+    const updateFilterQueryParams = useCallback((filters: any) => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = (key, selectedValue) => {
+    const onSetSelectedFilters = (key: string, selectedValue: any) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 

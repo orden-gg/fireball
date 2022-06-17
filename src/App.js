@@ -11,10 +11,10 @@ import { Footer } from './root/Footer/Footer';
 
 import Main from './pages/Main/Main';
 import { Baazaar } from './pages/Baazaar/Baazaar';
-import Lend from 'pages/Lend/Lend';
-import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
-import Guilds from './pages/Guilds/Guilds';
 import { Client } from './pages/Client/Client';
+import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
+import Lend from 'pages/Lend/Lend';
+import Guilds from './pages/Guilds/Guilds';
 import ParcelPage from './pages/Parcel/ParcelPage';
 import { Autopet } from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
