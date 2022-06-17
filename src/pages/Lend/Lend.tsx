@@ -13,6 +13,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import { CustomParsedQuery, Sorting, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
@@ -27,9 +28,9 @@ import filtersUtils from 'utils/filtersUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import { filtersData } from 'data/filters.data';
 
-import styles from './styles';
+import { styles } from './styles';
 
-const sortings = [
+const sortings: SortingListItem[] = [
     {
         name: 'id',
         key: 'id',
@@ -88,38 +89,38 @@ const sortings = [
     }
 ];
 
-const initialFilters = {
+const initialFilters: any = {
     guild: { ...filtersData.guild },
     whitelistId: { ...filtersData.whitelistId, divider: true },
     period: { ...filtersData.period },
     splitBorrower: { ...filtersData.splitBorrower },
     upfrontCost: { ...filtersData.upfrontCost }
 };
-const queryParamsOrder = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
 
-export default function Lend() {
+export function Lend() {
     const classes = styles();
 
     const history = useHistory();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-    const [modifiedLendings, setModifiedLendings] = useState([]);
-    const [lendings, setLendings] = useState([]);
-    const [dataLoading, setDataLoading] = useState(true);
-    const [linksListView, setLinksListView] = useState(false);
-    const [lendingsSorting, setLendingsSorting] = useState({ type: 'timeCreated', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState({ ...initialFilters });
+    const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
+    const [lendings, setLendings] = useState<any[]>([]);
+    const [dataLoading, setDataLoading] = useState<boolean>(true);
+    const [linksListView, setLinksListView] = useState<boolean>(false);
+    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'timeCreated', dir: 'desc' });
+    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
 
     useEffect(() => {
-        setCurrentFilters(currentFiltersCache =>
+        setCurrentFilters((currentFiltersCache: any) =>
             filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
-        const { sort, dir } = queryParams;
+        const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             onSortingChange(key, dir);
         }
@@ -136,10 +137,10 @@ export default function Lend() {
 
         thegraphApi.getLendings().then(response => {
             if (mounted) {
-                const whitelistData = [];
-                const mappedData = [];
+                const whitelistData: any[] = [];
+                const mappedData: any[] = [];
 
-                response.forEach(listing => {
+                response.forEach((listing: any) => {
                     if (listing.whitelistId) {
                         whitelistData.push(listing.whitelistId);
                     }
@@ -150,11 +151,11 @@ export default function Lend() {
                     });
                 });
 
-                const sortedWhitelist = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
-                const upfronCostValues = mappedData.map(item => ethersApi.fromWei(item.upfrontCost));
-                const maxUpfrontCost = Math.max(...upfronCostValues);
+                const sortedWhitelist: any[] = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+                const upfronCostValues: number[] = mappedData.map(item => ethersApi.fromWei(item.upfrontCost));
+                const maxUpfrontCost: number = Math.max(...upfronCostValues);
 
-                setCurrentFilters(currentFiltersCache => {
+                setCurrentFilters((currentFiltersCache: any) => {
                     const currentFiltersCacheCopy = { ...currentFiltersCache };
 
                     currentFiltersCacheCopy.whitelistId = {
@@ -173,7 +174,7 @@ export default function Lend() {
                         value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
                     };
 
-                    let filtersToReturn;
+                    let filtersToReturn: any;
 
                     if (Object.keys(queryParams).length > 0) {
                         filtersToReturn = filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
@@ -188,7 +189,7 @@ export default function Lend() {
             }
         });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, []);
 
     useEffect(() => {
@@ -196,7 +197,7 @@ export default function Lend() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
     }, [lendingsSorting]);
@@ -212,29 +213,29 @@ export default function Lend() {
         setModifiedLendings(modifiedLendings);
     }, [currentFilters, lendings, lendingsSorting]);
 
-    const onSortingChange = useCallback((type, dir) => {
+    const onSortingChange = useCallback((type: string, dir: string) => {
         setLendingsSorting({ type, dir });
     }, [setLendingsSorting]);
 
-    const sorting = {
+    const sorting: any = {
         sortingList: sortings,
         sortingDefaults: lendingsSorting,
         onSortingChange: onSortingChange
     };
 
-    const updateSortQueryParams = useCallback((prop, dir) => {
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const updateFilterQueryParams = useCallback(filters => {
+    const updateFilterQueryParams = useCallback((filters: any) => {
         const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
 
         filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
-    const onSetSelectedFilters = (key, selectedValue) => {
+    const onSetSelectedFilters = (key: string, selectedValue: any) => {
         filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
