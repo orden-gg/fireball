@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     mapWrapper: {
         position: 'relative',
         height: 'calc(100vh - 140px)'
@@ -11,5 +11,3 @@ const styles = makeStyles(theme => ({
         }
     }
 }));
-
-export default styles;

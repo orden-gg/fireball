@@ -8,22 +8,22 @@ import { Citadel } from 'components/Citadel/Citadel';
 import thegraphApi from 'api/thegraph.api';
 import { LoginContext } from 'contexts/LoginContext';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Map() {
+export function Map() {
     const classes = styles();
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress } = useContext<any>(LoginContext);
 
-    const [listedRealm, setListedRealm] = useState({});
-    const [isListedLoaded, setIsListedLoaded] = useState(false);
-    const [ownerRealm, setOwnerRealm] = useState({});
-    const [isOwnerLoaded, setIsOwnerLoaded] = useState(false);
-    const [realmGroups, setRealmGroups] = useState([]);
-    const [groupsLoaded, setGroupsLoaded] = useState(false);
+    const [listedRealm, setListedRealm] = useState<any>({});
+    const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
+    const [ownerRealm, setOwnerRealm] = useState<any>({});
+    const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
+    const [realmGroups, setRealmGroups] = useState<any[]>([]);
+    const [groupsLoaded, setGroupsLoaded] = useState<boolean>(false);
 
-    const combineParcels = listedParcels => {
-        return listedParcels.map(parcel => {
+    const combineParcels = (listedParcels: any[]): any => {
+        return listedParcels.map((parcel: any) => {
             return {
                 ...parcel.parcel,
                 priceInWei: parcel.priceInWei,
@@ -48,9 +48,9 @@ export default function Map() {
             thegraphApi.getParcelPriceByDirection({ size: 2, direction: 'asc' }),
             thegraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
             thegraphApi.getAllListedParcels()
-        ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]) => {
+        ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]: [any, any, any, any, any]) => {
             if (mounted) {
-                const combined = combineParcels(listedParcels);
+                const combined: any = combineParcels(listedParcels);
 
                 setListedRealm({
                     parcels: combined,
@@ -74,7 +74,7 @@ export default function Map() {
             }
         });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, []);
 
     useEffect(() => {
@@ -83,7 +83,7 @@ export default function Map() {
         setIsOwnerLoaded(false);
 
         if (activeAddress) {
-            thegraphApi.getRealmByAddress(activeAddress).then(ownerRealm => {
+            thegraphApi.getRealmByAddress(activeAddress).then((ownerRealm: any) => {
                 if (mounted) {
                     setOwnerRealm({
                         parcels: ownerRealm,
@@ -106,7 +106,7 @@ export default function Map() {
             setIsOwnerLoaded(true);
         }
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [activeAddress]);
 
     useEffect(() => {
