@@ -8,13 +8,15 @@ import thegraphApi from 'api/thegraph.api';
 
 import { guildContentStyles } from '../styles';
 
-export default function GuildRealm() {
+export function GuildsRealm() {
     const classes = guildContentStyles();
-    const { guilds, guildId, guildRealm, setGuildRealm } = useContext(GuildsContext);
-    const [isLoaded, setIsLoaded] = useState(false);
+
+    const { guilds, guildId, guildRealm, setGuildRealm } = useContext<any>(GuildsContext);
+
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
     const realmGroups = useMemo(() => {
-        const groups = [];
+        const groups: any[] = [];
 
         groups.push({
             parcels: guildRealm,
@@ -43,7 +45,7 @@ export default function GuildRealm() {
             }
         });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [guilds, guildId, setGuildRealm]);
 
     return (
