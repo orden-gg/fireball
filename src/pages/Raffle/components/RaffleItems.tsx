@@ -9,10 +9,15 @@ import installationsUtils from 'utils/installationsUtils';
 
 import { itemsStyles } from '../styles';
 
-export default function RaffleItems({ tickets, type }) {
+interface RaffleItemsProps {
+    tickets: any;
+    type: string;
+}
+
+export function RaffleItems({ tickets, type }: RaffleItemsProps) {
     const classes = itemsStyles();
 
-    const renderItem = (item) => {
+    const renderItem = (item: any): JSX.Element => {
         switch (type) {
             case 'realm-generic':
                 return <RealmGeneric
@@ -78,7 +83,7 @@ export default function RaffleItems({ tickets, type }) {
                     }}
                 ></Installation>;
             default:
-                return null;
+                return <></>;
         }
     };
 
@@ -98,7 +103,7 @@ export default function RaffleItems({ tickets, type }) {
                         </div>;
                     });
 
-                    return null;
+                    return <></>;
                 })
             }
         </div>
