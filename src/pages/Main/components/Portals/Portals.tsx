@@ -9,14 +9,15 @@ import thegraph from 'api/thegraph.api';
 import commonUtils from 'utils/commonUtils';
 
 import { portalsQuery } from './queries';
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Portals() {
+export function Portals() {
     const classes = styles();
-    const [dataSpinner, setDataSpinner] = useState(true);
-    const [openedPortals, setOpenedPortals] = useState(0);
-    const [gotchiClaimed, setGotchiClaimed] = useState(0);
-    const [eegg, setEegg] = useState(false);
+
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [openedPortals, setOpenedPortals] = useState<number>(0);
+    const [gotchiClaimed, setGotchiClaimed] = useState<number>(0);
+    const [eegg, setEegg] = useState<boolean>(false);
 
     const portalsAmount = 25000;
 
@@ -24,25 +25,26 @@ export default function Portals() {
         getGraphData();
     }, []);
 
-    const getGraphData = () => {
-        setDataSpinner(true);
+    const getGraphData = (): void => {
+        setIsLoading(true);
+
         thegraph.getData(portalsQuery)
-            .then((response) => {
+            .then((response: any) => {
                 setOpenedPortals(response.data.statistic.portalsOpened);
                 setGotchiClaimed(response.data.statistic.aavegotchisClaimed);
-                setDataSpinner(false);
+                setIsLoading(false);
             });
     };
 
-    const getSealedPortals = () => {
+    const getSealedPortals = (): string => {
         return commonUtils.formatNumber(portalsAmount - openedPortals);
     };
 
-    const getOpenedPortalsPercentage = () => {
+    const getOpenedPortalsPercentage = (): string => {
         return (openedPortals / portalsAmount * 100).toFixed(2);
     };
 
-    function onPortalClick() {
+    function onPortalClick(): void {
         setEegg(!eegg);
     }
 
@@ -54,8 +56,8 @@ export default function Portals() {
         >
             <Grid className={classes.portalsColumn} item xs={12} md={4}>
                 <Box className={classes.portalsDescr}>
-                    {dataSpinner ? (
-                        <CircularProgress component='span' className={classes.highlight} size={22}/>
+                    { isLoading ? (
+                        <CircularProgress className={classes.highlight} size={22}/>
                     ) : (
                         <Box component='span' className={classes.highlight}>
                             { eegg ? getSealedPortals() : `${getOpenedPortalsPercentage()}%` }
@@ -77,8 +79,8 @@ export default function Portals() {
             </Grid>
             <Grid item xs={12} md={4}>
                 <Box className={classes.portalsDescr}>
-                    {dataSpinner ? (
-                        <CircularProgress component='span' className={classes.highlight} size={22}/>
+                    {isLoading ? (
+                        <CircularProgress className={classes.highlight} size={22}/>
                     ) : (
                         <Box component='span' className={classes.highlight}>
                             {commonUtils.formatNumber(gotchiClaimed)}

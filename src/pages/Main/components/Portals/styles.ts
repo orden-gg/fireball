@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     portalsColumn: {
         marginBottom: 30,
         [theme.breakpoints.up('md')]: {
@@ -47,5 +47,3 @@ const styles = makeStyles(theme => ({
         color: theme.palette.primary.main
     }
 }));
-
-export default styles;
