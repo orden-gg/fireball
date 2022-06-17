@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useLocation, useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
-import RaffleDate from './RaffleDate';
+import { RaffleDate } from './RaffleDate';
 import raffles from '../data/raffles.data';
 import { raffleNavStyles } from '../styles';
 

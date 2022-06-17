@@ -7,10 +7,21 @@ import useInterval from 'hooks/useInterval';
 
 import { raffleDataStyles } from '../styles';
 
-export default function RaffleDate({ start, end }) {
-    const [type, setType] = useState(null);
-    const [title, setTitle] = useState(null);
+interface RaffleDateProps {
+    start: number;
+    end: number;
+}
+
+/**
+ *
+ * @param start - either could be milliseconds or seconds, currently rely on seconds
+ * @param end - either could be milliseconds or seconds, currently rely on seconds
+ */
+export function RaffleDate({ start, end }) {
     const classes = raffleDataStyles();
+
+    const [type, setType] = useState<any>(null);
+    const [title, setTitle] = useState<any>(null);
 
     useEffect(() => {
         renderTitle();
@@ -20,9 +31,9 @@ export default function RaffleDate({ start, end }) {
         renderTitle();
     }, 1000);
 
-    const renderTitle = () => {
-        const local = DateTime.local();
-        const diff = end - local;
+    const renderTitle = (): void => {
+        const local: number = DateTime.local().toSeconds();
+        const diff: number = end - local;
 
         if (local > start && local < end) {
             setType('live');
@@ -36,7 +47,9 @@ export default function RaffleDate({ start, end }) {
         }
     };
 
-    if (!title) return null;
+    if (!title) {
+        <></>;
+    };
 
     return (
         <div className={classNames(classes.title, type)}>
