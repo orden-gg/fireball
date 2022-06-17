@@ -8,10 +8,10 @@ import thegraphApi from 'api/thegraph.api';
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
-export default function GuildLendings() {
+export function GuildLendings() {
     const classes = guildContentStyles();
 
-    const { guildId, guilds, guildLendings, setGuildLendings } = useContext(GuildsContext);
+    const { guildId, guilds, guildLendings, setGuildLendings } = useContext<any>(GuildsContext);
 
     const [isLendingsLoading, setIsLendingsLoading] = useState(false);
 
@@ -24,17 +24,17 @@ export default function GuildLendings() {
 
         setIsLendingsLoading(true);
 
-        const promises = guilds[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
+        const promises: any[] = guilds[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
 
-        Promise.all(promises).then(responses => {
+        Promise.all(promises).then((responses: any[]) => {
             if (mounted) {
-                const lendings = responses.reduce((result, current) => result.concat(current), []);
+                const lendings: any = responses.reduce((result, current) => result.concat(current), []);
 
                 setGuildLendings(lendings);
             }
         }).finally(() => setIsLendingsLoading(false));
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [guilds, guildId, setGuildLendings]);
 
     return (
