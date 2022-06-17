@@ -5,7 +5,7 @@ import GuildsContextProvider from 'pages/Guilds/GuildsContext';
 import { Guild } from './routes/Guild';
 import { GuildsPreview } from './routes/GuildsPreview';
 
-export default function Guilds() {
+export function Guilds() {
     const match = useRouteMatch();
 
     return (
