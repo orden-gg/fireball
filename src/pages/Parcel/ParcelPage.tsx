@@ -5,15 +5,15 @@ import { Alert, Backdrop, CircularProgress } from '@mui/material';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import thegraphApi from 'api/thegraph.api';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function ParcelPage() {
+export function ParcelPage() {
     const classes = styles();
 
-    const [parcel, setParcel] = useState(null);
-    const [parcelLoading, setParcelLoading] = useState(true);
+    const [parcel, setParcel] = useState<any>(null);
+    const [parcelLoading, setParcelLoading] = useState<boolean>(true);
 
-    const { parcelId } = useParams();
+    const { parcelId } = useParams<{ parcelId: string }>();
 
     useEffect(() => {
         let mounted = true;
@@ -21,7 +21,7 @@ export default function ParcelPage() {
         setParcelLoading(true);
 
         thegraphApi.getRealmById(parcelId)
-            .then(res => {
+            .then((res: any) => {
                 if (mounted) {
                     setParcel(res);
                 }
@@ -33,13 +33,13 @@ export default function ParcelPage() {
                 }
             });
 
-        return () => mounted = false;
+        return () => { mounted = false };
     }, [parcelId]);
 
     return (
         <div className={classes.container}>
             { parcelLoading ? (
-                <Backdrop className={classes.backdrop} open={parcelLoading}>
+                <Backdrop open={parcelLoading}>
                     <CircularProgress color='primary' />
                 </Backdrop>
             ) : (
