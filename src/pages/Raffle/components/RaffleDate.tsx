@@ -17,7 +17,7 @@ interface RaffleDateProps {
  * @param start - either could be milliseconds or seconds, currently rely on seconds
  * @param end - either could be milliseconds or seconds, currently rely on seconds
  */
-export function RaffleDate({ start, end }) {
+export function RaffleDate({ start, end }: RaffleDateProps) {
     const classes = raffleDataStyles();
 
     const [type, setType] = useState<any>(null);
@@ -40,16 +40,16 @@ export function RaffleDate({ start, end }) {
             setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
         } else if (local < start) {
             setType('upcoming');
-            setTitle(start.toRelative());
+            setTitle(DateTime.fromSeconds(start).toRelative());
         } else {
             setType('ended');
-            setTitle(`ended ${end.toRelative()}`);
+            setTitle(`ended ${DateTime.fromSeconds(end).toRelative()}`);
         }
     };
 
     if (!title) {
         <></>;
-    };
+    }
 
     return (
         <div className={classNames(classes.title, type)}>
