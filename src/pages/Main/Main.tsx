@@ -5,7 +5,7 @@ import { Section } from 'components/Section/Section';
 import Portals from './components/Portals/Portals';
 import Team from './components/Team/Team';
 
-export default function Main() {
+export function Main() {
     return (
         <Grid container>
             <Section backgroundColor='rgba(33, 36, 41, .2)'>

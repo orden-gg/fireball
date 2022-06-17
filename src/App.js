@@ -9,12 +9,12 @@ import classNames from 'classnames';
 import { Header } from './root/Header/Header';
 import { Footer } from './root/Footer/Footer';
 
-import Main from './pages/Main/Main';
 import { Baazaar } from './pages/Baazaar/Baazaar';
 import { Client } from './pages/Client/Client';
 import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
 import { Guilds } from './pages/Guilds/Guilds';
 import { Lend } from 'pages/Lend/Lend';
+import { Main } from './pages/Main/Main';
 import ParcelPage from './pages/Parcel/ParcelPage';
 import { Autopet } from './pages/Autopet/Autopet';
 import Raffle from './pages/Raffle/Raffle';
