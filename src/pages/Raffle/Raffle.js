@@ -11,7 +11,7 @@ import RaffleContextProvider from 'contexts/RaffleContext';
 import commonUtils from 'utils/commonUtils';
 
 import RaffleContent from './routes/RaffleContent';
-import RaffleNav from './components/RaffleNav';
+import { RaffleNav } from './components/RaffleNav';
 import RaffleTickets from './components/RaffleTickets';
 import raffles from './data/raffles.data';
 import styles from './styles';

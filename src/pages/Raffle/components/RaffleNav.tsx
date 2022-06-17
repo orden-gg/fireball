@@ -6,15 +6,16 @@ import { RaffleDate } from './RaffleDate';
 import raffles from '../data/raffles.data';
 import { raffleNavStyles } from '../styles';
 
-export default function RaffleNav({ user }) {
-    const match = useRouteMatch();
+export function RaffleNav({ user }: { user: any }) {
     const classes = raffleNavStyles();
+
+    const match = useRouteMatch();
     const location = useLocation();
 
     return (
         <div className={classes.container}>
             {
-                raffles.map((raffle, index) => {
+                raffles.map((raffle: any, index: number) => {
                     return <div key={index} className={classes.buttonContainer}>
                         <Button
                             startIcon={
