@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     mainTitle: {
         textAlign: 'center',
         fontSize: 28,
@@ -38,5 +38,3 @@ const styles = makeStyles(theme => ({
         fontWeight: 500
     }
 }));
-
-export default styles;

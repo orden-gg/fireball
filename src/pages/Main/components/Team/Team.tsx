@@ -2,32 +2,31 @@ import { useEffect, useState } from 'react';
 import { Avatar, CircularProgress, Grid, Link } from '@mui/material';
 import { Box } from '@mui/system';
 
-import classNames from 'classnames';
-
 import { Subtitle } from 'components/Subtitle/Subtitle';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import thegraph from 'api/thegraph.api';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
-import styles from './styles';
+import { styles } from './styles';
 
-const gotchisIds = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
+const gotchisIds: number[] = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
 
-export default function Team() {
+export function Team() {
     const classes = styles();
-    const [dataSpinner, setDataSpinner] = useState(true);
-    const [members, setMembers] = useState([]);
+
+    const [isLoading, setisLoading] = useState<boolean>(true);
+    const [members, setMembers] = useState<any[]>([]);
 
     useEffect(() => {
-        thegraph.getGotchiesByIds(gotchisIds).then((response) => {
-            const formattedArray = [];
+        thegraph.getGotchiesByIds(gotchisIds).then((response: any) => {
+            const formattedArray: any[] = [];
 
             response.forEach((gotchi) => {
                 formattedArray.push(gotchi.data.aavegotchi);
             });
 
             setMembers(formattedArray);
-            setDataSpinner(false);
+            setisLoading(false);
         }).catch((error) => console.log(error));
     }, []);
 
@@ -42,12 +41,12 @@ export default function Team() {
             </Grid>
 
             <div className={classes.teamWrapper}>
-                {dataSpinner ? (
-                    <CircularProgress component='span' color='primary' size={22}/>
+                {isLoading ? (
+                    <CircularProgress color='primary' size={22}/>
                 ) : (
                     <>
                         {
-                            members.map((gotchi, index) =>
+                            members.map((gotchi: any, index: number) =>
                                 <Gotchi
                                     className='narrowed team'
                                     gotchi={gotchi}
@@ -59,10 +58,10 @@ export default function Team() {
                         <Link
                             href='https://discord.gg/orden'
                             target='_blank'
-                            className={classNames(classes.teamMember, classes.teamUser)}
+                            className={classes.teamUser}
                             underline='none'
                         >
-                            <p className={classes.aavegotchiName} variant='h3'>You!</p>
+                            <p className={classes.aavegotchiName}>You!</p>
                             <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
                         </Link>
                     </>

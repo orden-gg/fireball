@@ -3,7 +3,7 @@ import { Box, Typography } from '@mui/material';
 import { styles } from './styles';
 
 interface SubtitleProps {
-    children: JSX.Element;
+    children: JSX.Element | string;
     margin: string;
     variant: any;
     innerBg: string;
