@@ -12,10 +12,10 @@ interface SortFilterPanelProps {
     sorting: LazySortingProps;
     itemsLength: number;
     placeholder: JSX.Element;
-    filters: any;
-    setSelectedFilters: (key: string, values: any) => void;
-    resetFilters: () => void;
-    exportData: () => void;
+    filters?: any;
+    setSelectedFilters?: (key: string, values: any) => void;
+    resetFilters?: () => void;
+    exportData?: () => void;
     isShowFilters?: boolean;
     filtersCount?: number;
 }
@@ -44,16 +44,23 @@ export function SortFilterPanel({
     };
 
     const onSetSelectedFilters = (key: string, filtersObj: any): void => {
-        setSelectedFilters(key, filtersObj);
+        if (setSelectedFilters) {
+            setSelectedFilters(key, filtersObj);
+        }
     };
 
     const onResetFilters = useCallback((): void => {
         setIsDropdownOpen(false);
-        resetFilters();
+
+        if (resetFilters) {
+            resetFilters();
+        }
     }, [setIsDropdownOpen, resetFilters]);
 
     const onExportData = useCallback((): void => {
-        exportData();
+        if (exportData) {
+            exportData();
+        }
     }, [exportData]);
 
     return (

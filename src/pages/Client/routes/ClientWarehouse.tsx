@@ -5,6 +5,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 import qs from 'query-string';
 
+import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -13,7 +14,7 @@ import { Wearable } from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
 import commonUtils from 'utils/commonUtils';
 
-const sortings = [
+const sortings: SortingListItem[] = [
     {
         name: 'rarity',
         key: 'rarityId',
@@ -29,9 +30,9 @@ const sortings = [
         icon: <FormatListNumberedIcon fontSize='small' />
     }
 ];
-const queryParamsOrder = ['sort', 'dir'];
+const queryParamsOrder: string[] = ['sort', 'dir'];
 
-export default function ClientWarehouse() {
+export function ClientWarehouse() {
     const history = useHistory();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
@@ -43,13 +44,13 @@ export default function ClientWarehouse() {
         setWarehouseSorting,
         loadingGotchis,
         loadingWarehouse
-    } = useContext(ClientContext);
+    } = useContext<any>(ClientContext);
 
     useEffect(() => {
-        const { sort, dir } = queryParams;
+        const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             setWarehouseSorting({ type: key, dir });
         }
@@ -60,12 +61,12 @@ export default function ClientWarehouse() {
     }, []);
 
     useEffect(() => {
-        const sortedItems = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
+        const sortedItems: any[] = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
         setWarehouse([...sortedItems]);
     }, [loadingWarehouse, warehouseSorting]);
 
-    const updateSortQueryParams = useCallback((prop, dir) => {
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
 
         history.push({
@@ -77,12 +78,12 @@ export default function ClientWarehouse() {
         });
     }, [queryParams, history, location.pathname]);
 
-    const onSortingChange = useCallback((prop, dir) => {
+    const onSortingChange = useCallback((prop: string, dir: string) => {
         setWarehouseSorting({ type: prop, dir });
         updateSortQueryParams(prop, dir);
     }, [setWarehouseSorting, updateSortQueryParams]);
 
-    const sorting = {
+    const sorting: any = {
         sortingList: sortings,
         sortingDefaults: warehouseSorting,
         onSortingChange: onSortingChange

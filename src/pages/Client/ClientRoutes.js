@@ -17,9 +17,9 @@ import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientLendings } from './routes/ClientLendings';
-import ClientWarehouse from './routes/ClientWarehouse';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
+import { ClientWarehouse } from './routes/ClientWarehouse';
 
 import styles from './styles';
 
