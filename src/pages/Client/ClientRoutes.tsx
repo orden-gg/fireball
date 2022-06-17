@@ -21,25 +21,26 @@ import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
 
-import styles from './styles';
+import { styles } from './styles';
 
-const queryParamsOrder = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
-export default function ClientRoutes() {
+export function ClientRoutes() {
     const classes = styles();
+
     const match = useRouteMatch();
     const history = useHistory();
     const location = useLocation();
 
     const subroute = location.pathname.split('/')[3];
 
-    const { account } = useParams();
+    const { account } = useParams<{ account: string }>();
     const queryParams = queryString.parse(location.search);
 
-    const { activeAddress, setActiveAddress } = useContext(LoginContext);
-    const { getClientData, navData } = useContext(ClientContext);
+    const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
+    const { getClientData, navData } = useContext<any>(ClientContext);
 
-    const [isActiveAddressSet, setIsActiveAddressSet] = useState(false);
+    const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
     useEffect(() => {
         if (ethersApi.isEthAddress(account)) {
@@ -68,7 +69,7 @@ export default function ClientRoutes() {
     }, [activeAddress]);
 
     return (
-        <div className={classes.routes}>
+        <div>
             <Helmet>
                 <title>
                     { account ? (

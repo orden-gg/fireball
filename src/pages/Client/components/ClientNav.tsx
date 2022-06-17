@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { LoginNavigation } from 'components/Login/LoginNavigation';
 import { LoginContext } from 'contexts/LoginContext';
 
-import styles, { accountStyles } from '../styles';
+import { accountStyles, styles } from '../styles';
 
 export function ClientNav() {
     const classes = { ...styles(), ...accountStyles() };

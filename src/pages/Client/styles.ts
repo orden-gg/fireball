@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     container: {
         padding: '7px 24px 0',
         display: 'flex',
@@ -46,7 +46,7 @@ const styles = makeStyles(theme => ({
     }
 }));
 
-const routersStyles = makeStyles(theme => ({
+export const routersStyles = makeStyles(theme => createStyles({
     list: {
         display: 'grid',
         alignItems: 'start',
@@ -98,7 +98,7 @@ const routersStyles = makeStyles(theme => ({
     }
 }));
 
-const loadRewardsStyles = makeStyles(theme => ({
+export const loadRewardsStyles = makeStyles(theme => createStyles({
     loadWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -138,7 +138,7 @@ const loadRewardsStyles = makeStyles(theme => ({
     }
 }));
 
-const parcelSinglePage = makeStyles(theme => ({
+export const parcelSinglePage = makeStyles(theme => createStyles({
     nameWrapper: {
         whiteSpace: 'nowrap',
         position: 'relative',
@@ -164,7 +164,7 @@ const parcelSinglePage = makeStyles(theme => ({
         }
     },
     name: {
-        fontWeight: '500',
+        fontWeight: 500,
         lineHeight: '1.4',
         textTransform: 'capitalize',
         textShadow: `${theme.palette.secondary.dark} 2px 2px 0px',
@@ -299,7 +299,7 @@ const parcelSinglePage = makeStyles(theme => ({
     }
 }));
 
-const accountStyles = makeStyles(theme => ({
+export const accountStyles = makeStyles(theme => createStyles({
     accountContainer: {
         marginBottom: 20
     },
@@ -322,7 +322,7 @@ const accountStyles = makeStyles(theme => ({
     }
 }));
 
-const actionStyles = makeStyles(() => ({
+export const actionStyles = makeStyles(() => createStyles({
     buttonCompleted: {
         pointerEvents: 'none',
         opacity: .5
@@ -334,12 +334,3 @@ const actionStyles = makeStyles(() => ({
         marginBottom: 8
     }
 }));
-
-export {
-    styles as default,
-    routersStyles,
-    loadRewardsStyles,
-    parcelSinglePage,
-    accountStyles,
-    actionStyles
-};

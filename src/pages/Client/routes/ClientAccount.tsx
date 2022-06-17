@@ -4,7 +4,7 @@ import { EthAddressPanel } from 'components/EthAddressPanel/EthAddressPanel';
 import ethersApi from 'api/ethers.api';
 
 import { ClientNav } from '../components/ClientNav';
-import styles, { accountStyles } from '../styles';
+import { styles, accountStyles } from '../styles';
 
 export function ClientAccount() {
     const classes = { ...styles(), ...accountStyles() };

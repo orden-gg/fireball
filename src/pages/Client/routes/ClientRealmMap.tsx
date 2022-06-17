@@ -5,7 +5,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Citadel } from 'components/Citadel/Citadel';
 import { ClientContext } from 'contexts/ClientContext';
 
-import styles from '../styles';
+import { styles } from '../styles';
 
 export function ClientRealmMap() {
     const { realm, setRealmView, loadingRealm } = useContext<any>(ClientContext);
