@@ -13,16 +13,16 @@ import commonUtils from 'utils/commonUtils';
 
 import { tableStyles } from '../styles';
 
-export default function RaffleTablee() {
+export function RaffleTable() {
     const classes = tableStyles();
 
-    const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext(RaffleContext);
+    const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext<any>(RaffleContext);
 
-    const handleInputChange = (event, i) => {
+    const handleInputChange = (event: any, i: number) => {
         const newValue = event.target.value > 0 ? +event.target.value : '';
 
-        setTickets((ticketsCache) => {
-            const modified = [...ticketsCache];
+        setTickets((ticketsCache: any[]) => {
+            const modified: any[] = [...ticketsCache];
             modified[i].value = newValue;
             modified[i].chance = countChances(newValue, modified[i].entered, modified[i].items);
             modified[i].prizes = countWearablesChances(modified[i]);
@@ -48,7 +48,7 @@ export default function RaffleTablee() {
                                         variant='outlined'
                                         value={ticket.value}
                                         fullWidth
-                                        disabled={raffle.endDate - DateTime.local() < 0}
+                                        disabled={raffle.endDate - DateTime.local().toSeconds() < 0} // TODO check in the next Raffle is toSeconds ok
                                         className={classNames(classes.input, ticket.rarity)}
                                         label={commonUtils.capitalize(ticket.rarity)}
                                         onChange={(event) => handleInputChange(event, i)}
@@ -109,8 +109,9 @@ export default function RaffleTablee() {
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
-                        tickets.map((ticket, i) => {
-                            const totalEntered = raffle.endDate - DateTime.local() < 0 ? ticket.entered : +ticket.entered + +ticket.value;
+                        tickets.map((ticket: any, i: number) => {
+                             // TODO check in the next Raffle is toSeconds ok
+                            const totalEntered = raffle.endDate - DateTime.local().toSeconds() < 0 ? ticket.entered : +ticket.entered + +ticket.value;
 
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
                                 <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
@@ -154,7 +155,7 @@ export default function RaffleTablee() {
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
-                        tickets.map((ticket, i) => {
+                        tickets.map((ticket: any, i: number) => {
                             return <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
@@ -196,7 +197,7 @@ export default function RaffleTablee() {
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
-                        tickets.map((ticket, i) => {
+                        tickets.map((ticket: any, i: number) => {
                             return <Grid item xs={4} sm={true} key={i}>
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity)}>
                                     {pricesSpinner ? (
@@ -239,7 +240,7 @@ export default function RaffleTablee() {
 
                 <Grid container item spacing={1} xs={12} md={8} lg={9}>
                     {
-                        tickets.map((ticket, i) => {
+                        tickets.map((ticket: any, i: number) => {
                             return <Grid item xs={4} sm={true} key={i} style={{ paddingLeft: 0 }}>
                                 <Box maxWidth={200} margin='auto' className={classNames(classes.chance, ticket.rarity, ticket.chance !== 0 ? 'highlighted' : '')}>
                                     <Typography

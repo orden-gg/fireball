@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router';
 
 import { RaffleContext } from 'contexts/RaffleContext';
 
-import RaffleTable from '../components/RaffleTable';
+import { RaffleTable } from '../components/RaffleTable';
 import { RaffleItems } from '../components/RaffleItems';
 import raffles from '../data/raffles.data';
 import { titleStyles } from '../styles';
