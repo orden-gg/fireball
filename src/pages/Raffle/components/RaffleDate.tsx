@@ -8,8 +8,8 @@ import useInterval from 'hooks/useInterval';
 import { raffleDataStyles } from '../styles';
 
 interface RaffleDateProps {
-    start: number;
-    end: number;
+    start: DateTime;
+    end: DateTime;
 }
 
 /**
@@ -32,18 +32,18 @@ export function RaffleDate({ start, end }: RaffleDateProps) {
     }, 1000);
 
     const renderTitle = (): void => {
-        const local: number = DateTime.local().toSeconds();
-        const diff: number = end - local;
+        const local = DateTime.local().toSeconds();
+        const diff = end.toSeconds() - local;
 
-        if (local > start && local < end) {
+        if (local > start.toSeconds() && local < end.toSeconds()) {
             setType('live');
             setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
-        } else if (local < start) {
+        } else if (local < start.toSeconds()) {
             setType('upcoming');
-            setTitle(DateTime.fromSeconds(start).toRelative());
+            setTitle(start.toRelative());
         } else {
             setType('ended');
-            setTitle(`ended ${DateTime.fromSeconds(end).toRelative()}`);
+            setTitle(`ended ${end.toRelative()}`);
         }
     };
 

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import classNames from 'classnames';
 
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
@@ -90,20 +92,21 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
     return (
         <div className={classes.list}>
             {
-                tickets.slice(0).reverse().map((ticket) => {
+                tickets.slice(0).reverse().map((ticket: any, ticketIndex: number) => {
+                    if (ticket.prizes) {
+                        return ticket.prizes.map((item: any, i: number) => {
+                            const clean = tickets.some((t: any) => t['value'] !== '');
 
-                    if (ticket.prizes) return ticket.prizes.map((item, i) => {
-                        const clean = tickets.some(t => t['value'] !== '');
-
-                        return <div
-                            className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean' )}
-                            key={i}
-                        >
-                            {renderItem(item)}
-                        </div>;
-                    });
-
-                    return <></>;
+                            return <div
+                                className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean' )}
+                                key={i}
+                            >
+                                {renderItem(item)}
+                            </div>;
+                        });
+                    } else {
+                        return <React.Fragment key={ticketIndex}></React.Fragment>;
+                    }
                 })
             }
         </div>
