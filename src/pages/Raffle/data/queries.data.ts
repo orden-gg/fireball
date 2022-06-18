@@ -1,4 +1,4 @@
-export const raffleTicketPriceQuery = (id) => {
+export const raffleTicketPriceQuery = (id: string): string => {
     return `{
         erc1155Listings (
             first: 5,
@@ -17,7 +17,8 @@ export const raffleTicketPriceQuery = (id) => {
     }`;
 };
 
-export const rafflePortalsPriceQuery = () => {
+// TODO check if needed
+export const rafflePortalsPriceQuery = (): string => {
     return `{
         erc721Listings (
             first: 15,
@@ -36,7 +37,8 @@ export const rafflePortalsPriceQuery = () => {
     }`;
 };
 
-export const raffleTotalQuery = (id) => {
+// TODO check if needed
+export const raffleTotalQuery = (id: string): string => {
     return `{
         total(id: ${id}) {
             totalCommon
@@ -51,7 +53,8 @@ export const raffleTotalQuery = (id) => {
     }`;
 };
 
-export const raffle5TotalEnteredQuery = () => {
+// TODO check if needed
+export const raffle5TotalEnteredQuery = (): string => {
     return `{
         total(id: 4) {
             totalDrop
@@ -59,7 +62,8 @@ export const raffle5TotalEnteredQuery = () => {
     }`;
 };
 
-export const raffle6TotalEnteredQuery = () => {
+// TODO check if needed
+export const raffle6TotalEnteredQuery = (): string => {
     return `{
         total(id: 5) {
             totalCommon
