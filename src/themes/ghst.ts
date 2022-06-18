@@ -84,7 +84,7 @@ declare module '@mui/styles/defaultTheme' {
     interface DefaultTheme extends Theme { }
 }
 
-const theme = createTheme({
+export const theme = createTheme({
     palette: {
         common: {
             white: '#fff'
@@ -173,5 +173,3 @@ const theme = createTheme({
         }
     }
 });
-
-export default theme;

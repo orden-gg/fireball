@@ -9,7 +9,7 @@ import { MetamaskStateProvider } from 'use-metamask';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import { ThemeProvider } from '@emotion/react';
 
-import theme from './themes/ghst';
+import { theme } from './themes/ghst';
 import './index.css';
 
 ReactDOM.render(
