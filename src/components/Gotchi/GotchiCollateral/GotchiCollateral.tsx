@@ -1,6 +1,6 @@
 import { Tooltip } from '@mui/material';
 
-import graphUtils from 'utils/graphUtils';
+import { GraphUtils } from 'utils';
 
 import { CustomTooltipStyles } from '../styles';
 
@@ -9,7 +9,7 @@ import { styles } from './styles';
 export function GotchiCollateral({ gotchi }: { gotchi: any }) {
     const classes = { ...CustomTooltipStyles(), ...styles() };
 
-    const collateral: string = graphUtils.getCollateralName(gotchi.collateral);
+    const collateral: string = GraphUtils.getCollateralName(gotchi.collateral);
 
     return (
         <Tooltip
@@ -21,7 +21,7 @@ export function GotchiCollateral({ gotchi }: { gotchi: any }) {
         >
             <div className={classes.gotchiCollateral}>
                 <img
-                    src={graphUtils.getCollateralImg(collateral)}
+                    src={GraphUtils.getCollateralImg(collateral)}
                     width={25}
                     alt={collateral}
                 />

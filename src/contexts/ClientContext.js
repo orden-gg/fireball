@@ -8,8 +8,7 @@ import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
-import { CommonUtils, GotchiverseUtils } from 'utils';
-import graphUtils from 'utils/graphUtils';
+import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
 import itemUtils from 'utils/itemUtils';
 import tilesUtils from 'utils/tilesUtils';
 import installationsUtils from 'utils/installationsUtils';
@@ -310,9 +309,9 @@ const ClientContextProvider = (props) => {
             const expLeaders = CommonUtils.basicSort(response, 'experience');
 
             gotchis.forEach((item, index) => {
-                const BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
-                const KIN = graphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
-                const EXP = graphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
+                const BRS = GraphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
+                const KIN = GraphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
+                const EXP = GraphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
 
                 gotchis[index] = {
                     ...item,

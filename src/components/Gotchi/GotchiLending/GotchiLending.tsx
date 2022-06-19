@@ -6,8 +6,7 @@ import { Duration } from 'luxon';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import ethersApi from 'api/ethers.api';
-import { CommonUtils } from 'utils';
-import graphUtils from 'utils/graphUtils';
+import { CommonUtils, GraphUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -78,12 +77,12 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
 
             <div className={classNames(classes.section, classes.tokens)}>
                 {gotchi.tokensToShare.map((token: any, index: number) => {
-                    const tokenName = graphUtils.getTokenName(token);
+                    const tokenName = GraphUtils.getTokenName(token);
 
                     return (
                         <img
                             className={classes.token}
-                            src={graphUtils.getTokenImg(tokenName)}
+                            src={GraphUtils.getTokenImg(tokenName)}
                             width={32}
                             alt={tokenName}
                             key={index}

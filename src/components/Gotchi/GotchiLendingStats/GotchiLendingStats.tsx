@@ -10,8 +10,7 @@ import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import { CommonUtils } from 'utils';
-import graphUtils from 'utils/graphUtils';
+import { CommonUtils, GraphUtils } from 'utils';
 import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';
 
 import { styles } from './styles';
@@ -118,12 +117,12 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
             {gotchi.tokensToShare.length > 0 && (
                 <div className={classNames(classes.section, classes.tokens)}>
                     {gotchi.tokensToShare.map((token: any, index: number) => {
-                        const tokenName = graphUtils.getTokenName(token);
+                        const tokenName = GraphUtils.getTokenName(token);
 
                         return (
                             <div className={classNames(classes.token, tokenName)} key={index}>
                                 <img
-                                    src={graphUtils.getTokenImg(tokenName)}
+                                    src={GraphUtils.getTokenImg(tokenName)}
                                     width={14}
                                     alt={tokenName}
                                 />
