@@ -13,7 +13,7 @@ import qs from 'query-string';
 
 import { CustomModal } from 'components/Modal/Modal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import filtersUtils from 'utils/filtersUtils';
 
 import CitadelScene from './components/Scene';
@@ -77,7 +77,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     };
     const basicButtons = useMemo(() => {
         return realmGroups
-            .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
+            .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
             .map(group => {
 
                 return (
@@ -145,7 +145,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     useEffect(() => {
         if (mapCreated && realmGroups.length > 0) {
             const { active } = params;
-            const groups = realmGroups.filter(group => !commonUtils.isEmptyObject(group));
+            const groups = realmGroups.filter(group => !CommonUtils.isEmptyObject(group));
 
             game.scene.addGroups(groups);
 

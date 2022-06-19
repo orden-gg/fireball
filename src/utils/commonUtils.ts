@@ -1,18 +1,19 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    formatNumber(number) {
-        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
-    },
+export class CommonUtils {
+    public static formatNumber(number: number): string {
+        return number.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
+    }
 
-    formatPrice(number) {
-        return number % 1 === 0 ? this.formatNumberWithCommas(number) : number < 100 ? Number(number).toFixed(2) : this.formatNumberWithCommas(number.toFixed(0));
-    },
+    public static formatPrice(number: number | string): string {
+        return Number(number) % 1 === 0 ?
+            this.formatNumberWithCommas(number) : number < 100 ?
+            Number(number).toFixed(2) : this.formatNumberWithCommas(Number(number).toFixed(0));
+    }
 
-    capitalize(string) {
+    public static capitalize(string: any): any {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    },
+    }
 
-    trimPriceToThreeDecimal(price) {
+    public static trimPriceToThreeDecimal(price: any): any {
         if (price % 1 === 0) {
             return price;
         } else {
@@ -24,50 +25,50 @@ export default {
 
             return parseFloat(cachedPrice);
         }
-    },
+    }
 
-    formatNumberWithCommas(number) {
+    public static formatNumberWithCommas(number: any): any {
         const options = {
             minimumFractionDigits: 0,
             maximumFractionDigits: 3
         };
 
         return Number(number).toLocaleString('en', options);
-    },
+    }
 
-    formatChance(chance, items) {
+    public static formatChance(chance: any, items: any): any {
         const percentage = (chance * 100).toFixed(1);
 
         return chance > items ? `x${items}` :
             chance > 1 ? `x${chance.toFixed(2)}` :
             chance > 0 ? `${percentage}% for 1` : 0;
-    },
+    }
 
-    cutAddress(address, symbol) {
+    public static cutAddress(address: any, symbol?: any): any {
         const splitter = symbol ? symbol : '~~';
 
         return address.slice(0, 4) + splitter + address.slice(38);
-    },
+    }
 
-    getSellerShortAddress(item) {
+    public static getSellerShortAddress(item: any): any {
         const sellerAddress = item.seller;
 
         return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(sellerAddress.length - 4, sellerAddress.length)}`;
-    },
+    }
 
-    sortByDirection(array, sortDir) {
+    public static sortByDirection(array: any, sortDir: any): any {
         return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
-    },
+    }
 
-    basicSort(array, sortType, sortDir) {
+    public static basicSort(array: any, sortType: any, sortDir: any): any {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
-    },
+    }
 
-    checkArrayForDuplicates(array) {
+    public static checkArrayForDuplicates(array: any): any {
         return new Set(array).size !== array.length;
-    },
+    }
 
-    convertFloatNumberToSuffixNumber(number) {
+    public static convertFloatNumberToSuffixNumber(number: any): any {
         if (number < 100) {
             return Number(number.toFixed(2));
         }
@@ -114,13 +115,13 @@ export default {
         }
 
         return convertedNumber;
-    },
+    }
 
-    stringToKey(string) {
+    public static stringToKey(string: any): any {
         return string.replace(/’| /g, '').replace(/ /g, '').toLowerCase();
-    },
+    }
 
-    isEmptyObject(obj) {
+    public static isEmptyObject(obj: any): any {
         return Object.keys(obj).length === 0;
     }
 };

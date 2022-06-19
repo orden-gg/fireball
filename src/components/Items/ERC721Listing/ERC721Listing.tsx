@@ -4,7 +4,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { CustomTooltipStyles } from '../../Gotchi/styles';
 import { styles } from './styles';
@@ -34,7 +34,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                             <div className={classes.tooltipInner}>
                                 {historicalPrices.map((price: any, index: number) => {
                                     return <p className={classes.tooltipItem} key={index}>
-                                        {commonUtils.formatPrice(ethersApi.fromWei(price))}
+                                        {CommonUtils.formatPrice(ethersApi.fromWei(price))}
                                         <GhstTokenIcon className={classes.token} width={12} height={12} />
                                         {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
                                     </p>;
@@ -59,23 +59,23 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                             className={classes.listingLink}
                         >
                             {!lastPrice ? (
-                                <p>{commonUtils.formatPrice(currentPrice)}</p>
+                                <p>{CommonUtils.formatPrice(currentPrice)}</p>
                             ) : currentPrice > lastPrice ? (
                                 <div className={classes.lastPriceUp}>
                                     <KeyboardArrowUpIcon fontSize='inherit' />
-                                    <p>{commonUtils.formatPrice(currentPrice)}</p>
+                                    <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                 </div>
                             ) : (
                                 <div className={classes.lastPriceDown}>
                                     <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
-                                    <p>{commonUtils.formatPrice(currentPrice)}</p>
+                                    <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                 </div>
                             )}
                             <GhstTokenIcon className={classes.token} width={14} height={14} />
                         </Link>
                     ) : (
                         <div className={classes.listingShadow}>
-                            <p>{commonUtils.formatPrice(lastPrice)}</p>
+                            <p>{CommonUtils.formatPrice(lastPrice)}</p>
                             <GhstTokenIcon className={classes.token} width={14} height={14} />
                         </div>
                     )}

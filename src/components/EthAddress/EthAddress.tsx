@@ -6,7 +6,7 @@ import Blockies from 'react-blockies';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
 import ethersApi from 'api/ethers.api.js';
-import commonUtils from 'utils/commonUtils.js';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -42,11 +42,11 @@ export function EthAddress({ address, isShwoIcon, isClientLink, isPolygonButton,
                     target='_blank'
                     className={classes.link}
                 >
-                    {commonUtils.cutAddress(address, '..')}
+                    {CommonUtils.cutAddress(address, '..')}
                 </Link>
             ) : (
                 <span className={classes.text}>
-                    {commonUtils.cutAddress(address, '..')}
+                    {CommonUtils.cutAddress(address, '..')}
                 </span>
             )}
 

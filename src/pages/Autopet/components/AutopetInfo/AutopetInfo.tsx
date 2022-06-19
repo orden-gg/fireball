@@ -8,7 +8,7 @@ import { GhstTokenGif } from 'components/Icons/Icons';
 import { AUTOPET_CONTRACT } from 'api/common/constants';
 import autopetApi from 'api/autopet.api';
 import thegraph from 'api/thegraph.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { AutopetInfoCard } from './AutopetInfoCard';
 import { infoStyles } from '../../styles';
@@ -26,24 +26,24 @@ export function AutopetInfo() {
     useEffect(() => {
         autopetApi.getUsers().then((users: any) => {
             thegraph.getGotchisByAddresses(users).then((gotchis: any) => {
-                setTotalGotchis(commonUtils.formatPrice(gotchis.length));
+                setTotalGotchis(CommonUtils.formatPrice(gotchis.length));
             });
 
-            setTotalUsers(commonUtils.formatPrice(users.length));
+            setTotalUsers(CommonUtils.formatPrice(users.length));
         });
 
         autopetApi.getFee().then((fee: number) => {
-            setFee(commonUtils.formatPrice(fee));
+            setFee(CommonUtils.formatPrice(fee));
         });
 
         autopetApi.getFrens().then((frens: number) => {
-            setFrens(commonUtils.formatPrice(frens));
+            setFrens(CommonUtils.formatPrice(frens));
         });
     }, []);
 
     useEffect(() => {
         if (totalUsers !== '' && fee !== '') {
-            setTotalStaked(commonUtils.formatPrice(Number(totalUsers) * Number(fee)));
+            setTotalStaked(CommonUtils.formatPrice(Number(totalUsers) * Number(fee)));
         }
     }, [totalUsers, fee]);
 

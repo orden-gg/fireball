@@ -4,7 +4,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { GuildBanner } from '../components/GuildBanner';
 import { GuildsDetails } from '../components/GuildDetails';
@@ -26,7 +26,7 @@ export function Guild() {
 
     useEffect(() => {
         const guildId: any = guilds.findIndex((guild: any) => (
-            commonUtils.stringToKey(guild.name) === params.name
+            CommonUtils.stringToKey(guild.name) === params.name
         ));
 
         if (guildId === undefined || guilds[guildId].members?.length === 0) {

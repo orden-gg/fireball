@@ -2,7 +2,7 @@ import { Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -21,7 +21,7 @@ export function GotchiRewards({ gotchi }: { gotchi }) {
                                         <p key={index}>
                                             {item.name}[<span>{item.position}</span>] -
                                             <span className={classes.rankReward}>
-                                                {commonUtils.formatPrice(item.reward)}
+                                                {CommonUtils.formatPrice(item.reward)}
                                                 <GhstTokenGif width={14} height={14} />
                                             </span>
                                         </p>
@@ -36,7 +36,7 @@ export function GotchiRewards({ gotchi }: { gotchi }) {
                         followCursor
                     >
                         <Box className={classes.rankRewardAmount}>
-                            🏆<Typography>{commonUtils.formatPrice(gotchi.reward)}</Typography>🏆
+                            🏆<Typography>{CommonUtils.formatPrice(gotchi.reward)}</Typography>🏆
                         </Box>
                     </Tooltip>
 

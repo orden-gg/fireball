@@ -23,7 +23,7 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import ethersApi from 'api/ethers.api';
 import thegraphApi from 'api/thegraph.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import filtersUtils from 'utils/filtersUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import { filtersData } from 'data/filters.data';
@@ -151,7 +151,7 @@ export function Lend() {
                     });
                 });
 
-                const sortedWhitelist: any[] = commonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+                const sortedWhitelist: any[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
                 const upfronCostValues: number[] = mappedData.map(item => ethersApi.fromWei(item.upfrontCost));
                 const maxUpfrontCost: number = Math.max(...upfronCostValues);
 

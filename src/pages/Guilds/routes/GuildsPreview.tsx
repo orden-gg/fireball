@@ -6,7 +6,7 @@ import { Button, Divider } from '@mui/material';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { GuildLogo } from '../components/GuildLogo';
 import { GuildWearables } from '../components/GuildWearables';
@@ -22,7 +22,7 @@ export function GuildsPreview() {
     const { guilds, setGuildId } = useContext<any>(GuildsContext);
 
     const handleClick = (guild: any): void => {
-        history.push(`${match.url}/${commonUtils.stringToKey(guild.name)}`);
+        history.push(`${match.url}/${CommonUtils.stringToKey(guild.name)}`);
     };
 
     // TODO Use in the future or remove

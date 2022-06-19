@@ -11,7 +11,7 @@ import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { LoginContext } from 'contexts/LoginContext';
 import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
@@ -73,7 +73,7 @@ export function ClientRoutes() {
             <Helmet>
                 <title>
                     { account ? (
-                        `${commonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
+                        `${CommonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
                     ) : (
                         'client'
                     )}

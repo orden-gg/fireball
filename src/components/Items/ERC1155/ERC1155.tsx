@@ -12,7 +12,7 @@ import classNames from 'classnames';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { styles, itemStyles, tooltipStyles } from '../styles';
 
@@ -85,7 +85,7 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
                                         <Typography variant='subtitle2'>
                                             {
                                                 last.price === 0 && !item.priceInWei ? '???' :
-                                                commonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
+                                                CommonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : ethersApi.fromWei(item.priceInWei))
                                             }
                                         </Typography>
                                         <GhstTokenGif width={18} height={18} />
@@ -174,7 +174,7 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
                                             underline='none'
                                             className={classes.soldOutLink}
                                         >
-                                            {commonUtils.formatPrice(last.price)}
+                                            {CommonUtils.formatPrice(last.price)}
                                         </Link> [{DateTime.fromISO(lastDate).toRelative()}]
                                     </Typography>
                                 )}
@@ -199,20 +199,20 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
                                 >
                                     {current.price === last.price ? (
                                         <Typography className={classes.lastPrice} variant='subtitle2'>
-                                            {commonUtils.formatPrice(current.price)}
+                                            {CommonUtils.formatPrice(current.price)}
                                         </Typography>
                                     ) : current.price > last.price ? (
                                         <>
                                             <KeyboardArrowUpIcon color='success' fontSize='inherit' />
                                             <Typography className={classes.lastPriceUp} variant='subtitle2'>
-                                                {commonUtils.formatPrice(current.price)}
+                                                {CommonUtils.formatPrice(current.price)}
                                             </Typography>
                                         </>
                                     ) : (
                                         <>
                                             <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
                                             <Typography className={classes.lastPriceDown} variant='subtitle2'>
-                                                {commonUtils.formatPrice(current.price)}
+                                                {CommonUtils.formatPrice(current.price)}
                                             </Typography>
                                         </>
                                     )}

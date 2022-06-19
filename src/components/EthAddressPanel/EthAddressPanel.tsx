@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import aavegotchilandApi from 'api/aavegotchiland.api.js';
-import commonUtils from 'utils/commonUtils.js';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -84,7 +84,7 @@ export function EthAddressPanel({ address }: { address: string }) {
     }, [address]);
 
     const formatNumber = (number: number) => {
-        return commonUtils.convertFloatNumberToSuffixNumber(number);
+        return CommonUtils.convertFloatNumberToSuffixNumber(number);
     };
 
     return (
@@ -104,7 +104,7 @@ export function EthAddressPanel({ address }: { address: string }) {
                     <CircularProgress size={32} />
                 </div>
             ) : (
-                commonUtils.isEmptyObject(account) || account.error ? (
+                CommonUtils.isEmptyObject(account) || account.error ? (
                     <p className={classes.placeholder}>Data not arrived :(</p>
                 ) : (
                     <div className={classes.panels}>

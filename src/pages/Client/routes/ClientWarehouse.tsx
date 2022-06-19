@@ -12,7 +12,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
     {
@@ -61,7 +61,7 @@ export function ClientWarehouse() {
     }, []);
 
     useEffect(() => {
-        const sortedItems: any[] = commonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
+        const sortedItems: any[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
         setWarehouse([...sortedItems]);
     }, [loadingWarehouse, warehouseSorting]);

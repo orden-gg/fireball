@@ -4,7 +4,7 @@ import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
 import { GuildLogo } from './GuildLogo';
@@ -27,7 +27,7 @@ export function GuildBanner() {
             return;
         }
 
-        history.push(`/guilds/${commonUtils.stringToKey(nextGuild.name)}`);
+        history.push(`/guilds/${CommonUtils.stringToKey(nextGuild.name)}`);
         setGuildId(currentGuildId);
     }, [guilds, history, setGuildId]);
 

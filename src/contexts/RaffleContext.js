@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import itemUtils from 'utils/itemUtils';
 
 export const RaffleContext = createContext({});
@@ -47,7 +47,7 @@ const RaffleContextProvider = (props) => {
                     ticket.items = prizes[i].items;
                     ticket.prizes = prizes[i].prizes;
                     ticket.entered = total[
-                        ticket.rarity === 'godlike' ? 'totalGodLike' : `total${commonUtils.capitalize(ticket.rarity)}`
+                        ticket.rarity === 'godlike' ? 'totalGodLike' : `total${CommonUtils.capitalize(ticket.rarity)}`
                     ];
 
                     return ticket;

@@ -10,7 +10,7 @@ import Blockies from 'react-blockies';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { LoginContext } from 'contexts/LoginContext';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -135,7 +135,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
                         onClick={(event) => copyAddress(event)}
                         onMouseLeave={() => setCopyTooltipText('Copy address')}
                     >
-                        {commonUtils.cutAddress(address.address, '..')}
+                        {CommonUtils.cutAddress(address.address, '..')}
                     </Typography>
                 </CustomTooltip>
             </Box>

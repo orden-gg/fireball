@@ -11,7 +11,7 @@ import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defa
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
 import filterHelpers from 'utils/filterFunctions.helper';
 
@@ -74,10 +74,10 @@ export const filtersData = {
         items: guilds
             .filter(guild => guild.members.length > 0)
             .map(guild => ({
-                title: commonUtils.stringToKey(guild.name),
-                value: commonUtils.stringToKey(guild.name),
+                title: CommonUtils.stringToKey(guild.name),
+                value: CommonUtils.stringToKey(guild.name),
                 isSelected: false,
-                queryParamValue: commonUtils.stringToKey(guild.name)
+                queryParamValue: CommonUtils.stringToKey(guild.name)
             })),
         renderTagsFn: (tagValue, getTagProps) => {
             return tagValue.map((option, index) => (

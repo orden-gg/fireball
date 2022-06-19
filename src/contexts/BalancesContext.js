@@ -5,7 +5,7 @@ import alchemicaApi from 'api/alchemica.api';
 import ghstApi from 'api/ghst.api';
 import quickSwapApi from 'api/quickswap.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/constants';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { LoginContext } from './LoginContext';
 
@@ -93,49 +93,49 @@ const BalancesContextProvider = (props) => {
                     {
                         key: 'fud',
                         icon: <FudTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(fudAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(fudAmount),
                         pricePerToken: fudPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(fudPrice * fudAmount),
                         swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'fomo',
                         icon: <FomoTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(fomoAmount),
                         pricePerToken: fomoPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(fomoPrice * fomoAmount),
                         swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'alpha',
                         icon: <AlphaTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(alphaAmount),
                         pricePerToken: alphaPrice.toFixed(3),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(alphaPrice * alphaAmount),
                         swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'kek',
                         icon: <KekTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(kekAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(kekAmount),
                         pricePerToken: kekPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(kekPrice * kekAmount),
                         swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'gltr',
                         icon: <GltrTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(gltrAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(gltrAmount),
                         pricePerToken: gltrPrice.toFixed(5),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(gltrPrice * gltrAmount),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(gltrPrice * gltrAmount),
                         swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
                     },
                     {
                         key: 'ghst',
                         icon: <GhstTokenIcon height={14} width={14} />,
-                        amount: commonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
+                        amount: CommonUtils.convertFloatNumberToSuffixNumber(gshtAmount),
                         pricePerToken: ghstPrice.toFixed(2),
-                        balance: commonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
+                        balance: CommonUtils.convertFloatNumberToSuffixNumber(ghstBalance),
                         swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
                     }
                 ];

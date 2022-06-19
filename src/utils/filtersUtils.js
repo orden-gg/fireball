@@ -1,4 +1,4 @@
-import commonUtils from './commonUtils';
+import { CommonUtils } from './commonUtils';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -59,9 +59,9 @@ export default {
 
         if (activeFilters.length > 0) {
             modifiedItems = getFilteredItems(filters, items);
-            modifiedItems = commonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
+            modifiedItems = CommonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
         } else {
-            modifiedItems = commonUtils.basicSort(items, sorting.type, sorting.dir);
+            modifiedItems = CommonUtils.basicSort(items, sorting.type, sorting.dir);
         }
 
         return modifiedItems;

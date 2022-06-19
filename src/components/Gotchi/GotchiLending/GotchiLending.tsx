@@ -6,7 +6,7 @@ import { Duration } from 'luxon';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import graphUtils from 'utils/graphUtils';
 
 import { styles } from './styles';
@@ -45,7 +45,7 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
                 </div>
                 <div className={classes.inner}>
                     <GhstTokenIcon className={classes.innerIcon} width={18} height={18} />
-                    {commonUtils.formatPrice(ethersApi.fromWei(gotchi.upfrontCost))}
+                    {CommonUtils.formatPrice(ethersApi.fromWei(gotchi.upfrontCost))}
                 </div>
             </div>
 

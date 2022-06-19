@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { portalsQuery } from './queries';
 import { styles } from './styles';
@@ -37,7 +37,7 @@ export function Portals() {
     };
 
     const getSealedPortals = (): string => {
-        return commonUtils.formatNumber(portalsAmount - openedPortals);
+        return CommonUtils.formatNumber(portalsAmount - openedPortals);
     };
 
     const getOpenedPortalsPercentage = (): string => {
@@ -64,7 +64,7 @@ export function Portals() {
                         </Box>
                     )}
                     <Box component='span'>
-                        { eegg ? `/${commonUtils.formatNumber(portalsAmount)} are sealed!` : ' portals are opened!' }
+                        { eegg ? `/${CommonUtils.formatNumber(portalsAmount)} are sealed!` : ' portals are opened!' }
                     </Box>
                 </Box>
             </Grid>
@@ -83,7 +83,7 @@ export function Portals() {
                         <CircularProgress className={classes.highlight} size={22}/>
                     ) : (
                         <Box component='span' className={classes.highlight}>
-                            {commonUtils.formatNumber(gotchiClaimed)}
+                            {CommonUtils.formatNumber(gotchiClaimed)}
                         </Box>
                     )}
                     <Box component='span'> gotchis are summoned </Box>

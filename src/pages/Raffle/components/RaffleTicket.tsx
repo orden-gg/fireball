@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material';
 
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import itemUtils from 'utils/itemUtils';
 
 import { ticketStyles } from '../styles';
@@ -22,7 +22,7 @@ export function RaffleTicket({ ticket }: { ticket: any }) {
                 // TODO check is ticket.name === 'drop' really needed as we have drop in palette
                 style={{ color: ticket.name === 'drop' ? '#c1ad87' : theme.palette.rarity[ticket.name] }}
             >
-                {commonUtils.formatPrice(ticket.balance)}
+                {CommonUtils.formatPrice(ticket.balance)}
             </p>
         </div>
     );

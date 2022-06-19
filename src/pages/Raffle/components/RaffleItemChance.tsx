@@ -1,4 +1,4 @@
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { raffleChanceStyles } from '../styles';
 
@@ -12,7 +12,7 @@ export function RaffleItemChance({ stats }: { stats: any }) {
                 stats.chance ? (
                     <div>
                         chance: <span style={{ color: 'yellow' }}>
-                            {commonUtils.formatChance(stats.chance, stats.quantity)}
+                            {CommonUtils.formatChance(stats.chance, stats.quantity)}
                         </span>
                     </div>
                 ) : (

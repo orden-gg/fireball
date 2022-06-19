@@ -8,7 +8,7 @@ import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
 import gotchiverseUtils from 'utils/gotchiverseUtils';
@@ -133,7 +133,7 @@ const ClientContextProvider = (props) => {
                 }
             });
 
-            setWarehouse((existing) => commonUtils.basicSort(
+            setWarehouse((existing) => CommonUtils.basicSort(
                 [...existing, ...wearables].reduce((items, current) => {
                     const duplicated = items.find(item => item.id === current.id);
 
@@ -147,7 +147,7 @@ const ClientContextProvider = (props) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
-            setGotchis(commonUtils.basicSort(response, gSortType, gSortDir));
+            setGotchis(CommonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
         }).catch((error) => {
             console.log(error);
@@ -179,7 +179,7 @@ const ClientContextProvider = (props) => {
                         lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period);
                     });
 
-                    setLendings(commonUtils.basicSort(lendings, type, dir));
+                    setLendings(CommonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
                 });
             }
@@ -203,7 +203,7 @@ const ClientContextProvider = (props) => {
                 });
             });
 
-            setWarehouse((existing) => commonUtils.basicSort(
+            setWarehouse((existing) => CommonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
                     const duplicated = items.find(item => item.id === current.id);
 
@@ -292,7 +292,7 @@ const ClientContextProvider = (props) => {
                     installations: { loading: true }
                 }));
 
-                setRealm(commonUtils.basicSort(modified, type, dir));
+                setRealm(CommonUtils.basicSort(modified, type, dir));
                 setLoadingRealm(false);
             })
             .catch((error) => {
@@ -306,9 +306,9 @@ const ClientContextProvider = (props) => {
         setRewardCalculating(true);
 
         thegraph.getAllGotchies().then((response) => {
-            const brsLeaders = commonUtils.basicSort(response, 'modifiedRarityScore');
-            const kinLeaders = commonUtils.basicSort(response, 'kinship');
-            const expLeaders = commonUtils.basicSort(response, 'experience');
+            const brsLeaders = CommonUtils.basicSort(response, 'modifiedRarityScore');
+            const kinLeaders = CommonUtils.basicSort(response, 'kinship');
+            const expLeaders = CommonUtils.basicSort(response, 'experience');
 
             gotchis.forEach((item, index) => {
                 const BRS = graphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');

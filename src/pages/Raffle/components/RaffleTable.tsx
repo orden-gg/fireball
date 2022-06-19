@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { RaffleContext } from 'contexts/RaffleContext';
 import itemUtils from 'utils/itemUtils';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { tableStyles } from '../styles';
 
@@ -50,7 +50,7 @@ export function RaffleTable() {
                                         fullWidth
                                         disabled={raffle.endDate - DateTime.local().toSeconds() < 0} // TODO check in the next Raffle is toSeconds ok
                                         className={classNames(classes.input, ticket.rarity)}
-                                        label={commonUtils.capitalize(ticket.rarity)}
+                                        label={CommonUtils.capitalize(ticket.rarity)}
                                         onChange={(event) => handleInputChange(event, i)}
                                     />
                                 </Box>
@@ -78,7 +78,7 @@ export function RaffleTable() {
                                         align='center'
                                         className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
                                     >
-                                        {commonUtils.formatPrice(ticket.items)}
+                                        {CommonUtils.formatPrice(ticket.items)}
                                     </Typography>
                                     )}
                                 </Box>
@@ -124,7 +124,7 @@ export function RaffleTable() {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatPrice(totalEntered)}
+                                            {CommonUtils.formatPrice(totalEntered)}
                                         </Typography>
                                     )}
                                 </Box>
@@ -166,7 +166,7 @@ export function RaffleTable() {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatPrice(ticket.entered * itemUtils.getTicketFrensPrice(ticket.rarity))}
+                                            {CommonUtils.formatPrice(ticket.entered * itemUtils.getTicketFrensPrice(ticket.rarity))}
                                         </Typography>
                                     )}
                                 </Box>
@@ -208,7 +208,7 @@ export function RaffleTable() {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {commonUtils.formatPrice(ticket.value > 0 ? ticket.price * ticket.value : ticket.price)}
+                                            {CommonUtils.formatPrice(ticket.value > 0 ? ticket.price * ticket.value : ticket.price)}
                                             <GhstTokenGif width={26} height={26} />
                                         </Typography>
                                     )}
@@ -248,7 +248,7 @@ export function RaffleTable() {
                                         align='center'
                                         className={classNames(classes.textHighlight, ticket.rarity, classes.tableValue)}
                                     >
-                                        {ticket.chance ? commonUtils.formatChance(ticket.chance, ticket.items) : 0}
+                                        {ticket.chance ? CommonUtils.formatChance(ticket.chance, ticket.items) : 0}
                                     </Typography>
                                 </Box>
                             </Grid>;

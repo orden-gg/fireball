@@ -1,6 +1,6 @@
 import guilds from 'data/guilds.json';
 
-import commonUtils from './commonUtils';
+import { CommonUtils } from './commonUtils';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -17,11 +17,11 @@ export default {
             guild.members.some((member) => member.toLowerCase() === address.toLowerCase())
         )[0];
 
-        return guild ? commonUtils.stringToKey(guild.name) : undefined;
+        return guild ? CommonUtils.stringToKey(guild.name) : undefined;
     },
 
     getGuildName(key) {
-        const index = guilds.findIndex(guild => commonUtils.stringToKey(guild.name) === key);
+        const index = guilds.findIndex(guild => CommonUtils.stringToKey(guild.name) === key);
 
         return guilds[index]?.name;
     },

@@ -10,7 +10,7 @@ import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import ethersApi from 'api/ethers.api';
 import { LoginContext } from 'contexts/LoginContext';
 import RaffleContextProvider from 'contexts/RaffleContext';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { RaffleContent } from './routes/RaffleContent';
 import { RaffleNav } from './components/RaffleNav';
@@ -56,7 +56,7 @@ export function Raffle() {
             <Helmet>
                 <title>
                     {
-                        `raffles || ${location.pathname.split('/')[2]} || ${raffleActive ? commonUtils.cutAddress(raffleActive, '...') : ''}`
+                        `raffles || ${location.pathname.split('/')[2]} || ${raffleActive ? CommonUtils.cutAddress(raffleActive, '...') : ''}`
                     }
                 </title>
             </Helmet>

@@ -1,6 +1,6 @@
 import { Link } from '@mui/material';
 
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -13,7 +13,7 @@ export function GotchiOwner({ gotchi }: { gotchi: any }) {
             href={`/client/?address=${gotchi.owner.id}`}
             target='_blank'
         >
-            <p>{commonUtils.cutAddress(gotchi.owner.id)}</p>
+            <p>{CommonUtils.cutAddress(gotchi.owner.id)}</p>
         </Link>
     );
 }

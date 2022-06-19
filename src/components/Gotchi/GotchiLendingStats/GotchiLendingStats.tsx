@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 import graphUtils from 'utils/graphUtils';
 import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';
 
@@ -106,9 +106,9 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                     >
                         <div className={classes.inner}>
                             <GroupWorkIcon className={classes.innerIcon} fontSize='small' />
-                            {commonUtils.convertFloatNumberToSuffixNumber(gotchi.totalTokens)}
+                            {CommonUtils.convertFloatNumberToSuffixNumber(gotchi.totalTokens)}
                             <span className={classes.alchemicaPower}>
-                                ({commonUtils.convertFloatNumberToSuffixNumber(gotchi.income)})
+                                ({CommonUtils.convertFloatNumberToSuffixNumber(gotchi.income)})
                             </span>
                         </div>
                     </CustomTooltip>
@@ -127,7 +127,7 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                                     width={14}
                                     alt={tokenName}
                                 />
-                                <span>{commonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
+                                <span>{CommonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
                             </div>
                         );
                     })}
@@ -136,7 +136,7 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
 
             <div className={classNames(classes.section, classes.bottom)}>
                 <div className={classes.inner}>
-                    <ShineLabel text={commonUtils.cutAddress(gotchi.borrower, '..')} />
+                    <ShineLabel text={CommonUtils.cutAddress(gotchi.borrower, '..')} />
                 </div>
 
                 <div className={classes.inner}>

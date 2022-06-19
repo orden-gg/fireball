@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
 import itemUtils from 'utils/itemUtils';
-import commonUtils from 'utils/commonUtils';
+import { CommonUtils } from 'utils';
 
 import { baazaarItemStyles } from '../styles';
 
@@ -57,7 +57,7 @@ export function BaazaarItem({ item }: { item: any }) {
                             target={'_blank'}
                             underline='none'
                         >
-                            { commonUtils.getSellerShortAddress(item) }
+                            { CommonUtils.getSellerShortAddress(item) }
                         </Link>
                         </Typography>
                     </Grid>
@@ -72,7 +72,7 @@ export function BaazaarItem({ item }: { item: any }) {
                             <Box className={classes.priceImg}><GhstTokenIcon width={18} height={18} /></Box>
                             <Box className={classes.priceText}>
                                 {
-                                    commonUtils.formatNumberWithCommas(commonUtils.trimPriceToThreeDecimal(ethersApi.fromWei(item.priceInWei)))
+                                    CommonUtils.formatNumberWithCommas(CommonUtils.trimPriceToThreeDecimal(ethersApi.fromWei(item.priceInWei)))
                                 }
                             </Box>
                         </Typography>
