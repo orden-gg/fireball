@@ -1,32 +1,35 @@
 import { useContext, useEffect, useState } from 'react';
-import { Box } from '@mui/material';
 import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
 import { Helmet } from 'react-helmet';
+import { Box } from '@mui/material';
+
 import queryString from 'query-string';
 
+import { CustomParsedQuery } from 'shared/models';
 import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import ethersApi from 'api/ethers.api';
 import { LoginContext } from 'contexts/LoginContext';
 import RaffleContextProvider from 'contexts/RaffleContext';
 import commonUtils from 'utils/commonUtils';
 
-import RaffleContent from './routes/RaffleContent';
+import { RaffleContent } from './routes/RaffleContent';
 import { RaffleNav } from './components/RaffleNav';
 import { RaffleTickets } from './components/RaffleTickets';
 import { raffles } from './data/raffles.data';
-import styles from './styles';
+import { styles } from './styles';
 
-export default function Raffle() {
+export function Raffle() {
     const classes = styles();
+
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();
-    const params = queryString.parse(location.search);
+    const params = queryString.parse(location.search) as CustomParsedQuery;
     const lastRaffle = raffles[raffles.length - 1];
 
-    const [raffleActive, setRaffleActive] = useState(null);
+    const [raffleActive, setRaffleActive] = useState<string>('');
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress } = useContext<any>(LoginContext);
 
     useEffect(() => {
         if (activeAddress) {

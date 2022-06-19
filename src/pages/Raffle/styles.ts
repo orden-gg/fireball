@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(() => ({
+export const styles = makeStyles(() => createStyles({
     container: {
         maxWidth: 1280,
         padding: 24,
@@ -9,7 +9,7 @@ const styles = makeStyles(() => ({
     }
 }));
 
-const titleStyles = makeStyles(theme => ({
+export const titleStyles = makeStyles(theme => createStyles({
     titleWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -37,7 +37,7 @@ const titleStyles = makeStyles(theme => ({
     }
 }));
 
-const tableStyles = makeStyles(theme => ({
+export const tableStyles = makeStyles(theme => createStyles({
     row: {
         marginBottom: 32,
         minHeight: 55,
@@ -405,7 +405,7 @@ const tableStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleCountdownStyles = makeStyles(() => ({
+export const raffleCountdownStyles = makeStyles(() => createStyles({
     countdownWrapper: {
         display: 'flex',
         alignItems: 'center',
@@ -413,7 +413,7 @@ const raffleCountdownStyles = makeStyles(() => ({
     }
 }));
 
-const raffleNavStyles = makeStyles(theme => ({
+export const raffleNavStyles = makeStyles(theme => createStyles({
     container: {
         padding: '12px 0',
         display: 'flex',
@@ -466,7 +466,7 @@ const raffleNavStyles = makeStyles(theme => ({
     }
 }));
 
-const raffleDataStyles = makeStyles(() => ({
+export const raffleDataStyles = makeStyles(() => createStyles({
     title: {
         textAlign: 'center',
         fontSize: 10,
@@ -484,13 +484,13 @@ const raffleDataStyles = makeStyles(() => ({
     }
 }));
 
-const raffleChanceStyles = makeStyles(() => ({
+export const raffleChanceStyles = makeStyles(() => createStyles({
     container: {
         marginTop: '8px'
     }
 }));
 
-const ticketStyles = makeStyles(theme => ({
+export const ticketStyles = makeStyles(theme => createStyles({
     ticket: {
         textAlign: 'center',
         position: 'relative'
@@ -519,7 +519,7 @@ const ticketStyles = makeStyles(theme => ({
     }
 }));
 
-const itemsStyles = makeStyles(() => ({
+export const itemsStyles = makeStyles(() => createStyles({
     list: {
         display: 'grid',
         gap: 12,
@@ -539,15 +539,3 @@ const itemsStyles = makeStyles(() => ({
         }
     }
 }));
-
-export {
-    styles as default,
-    raffleCountdownStyles,
-    raffleNavStyles,
-    raffleDataStyles,
-    raffleChanceStyles,
-    ticketStyles,
-    tableStyles,
-    itemsStyles,
-    titleStyles
-};

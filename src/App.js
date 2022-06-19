@@ -19,7 +19,7 @@ import { Main } from './pages/Main/Main';
 import { Map } from './pages/Map/Map';
 import { NotFound } from './pages/NotFound/NotFound';
 import { ParcelPage } from './pages/Parcel/ParcelPage';
-import Raffle from './pages/Raffle/Raffle';
+import { Raffle } from './pages/Raffle/Raffle';
 import { Shop } from './pages/Shop/Shop';
 import BaazaarContextProvider from './contexts/BaazaarContext';
 import BalancesContextProvider from 'contexts/BalancesContext';
