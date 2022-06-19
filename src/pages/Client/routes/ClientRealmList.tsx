@@ -19,7 +19,7 @@ import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import filtersUtils from 'utils/filtersUtils';
+import { FilterUtils } from 'utils';
 import installationsUtils from 'utils/installationsUtils';
 
 import { ClientRealmActions } from '../components/ClientRealmActions';
@@ -126,7 +126,7 @@ export function ClientRealmList() {
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
         const { sort, dir } = queryParams as CustomParsedQuery;
@@ -150,9 +150,9 @@ export function ClientRealmList() {
     }, [loadingRealm]);
 
     useEffect(() => {
-        filtersUtils.onFiltersUpdate(
+        FilterUtils.onFiltersUpdate(
             currentFilters,
-            filtersUtils.getActiveFiltersCount,
+            FilterUtils.getActiveFiltersCount,
             setActiveFiltersCount,
             updateFilterQueryParams
         );
@@ -165,11 +165,11 @@ export function ClientRealmList() {
     }, [realmSorting]);
 
     useEffect(() => {
-        const modifiedLendings = filtersUtils.getFilteredSortedItems({
+        const modifiedLendings = FilterUtils.getFilteredSortedItems({
             items: realm,
             filters: currentFilters,
             sorting: realmSorting,
-            getFilteredItems: filtersUtils.getFilteredItems
+            getFilteredItems: FilterUtils.getFilteredItems
         });
 
         setModifiedRealm(modifiedLendings);
@@ -188,25 +188,25 @@ export function ClientRealmList() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
-        const params: any = filtersUtils.getUpdatedQueryParams(queryParams, filters);
+        const params: any = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
-        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
     const onResetFilters = useCallback(() => {
-        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
+        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
-        filtersUtils.exportData(modifiedRealm, 'client_realm');
+        FilterUtils.exportData(modifiedRealm, 'client_realm');
     }, [modifiedRealm]);
 
     const getRealmAdditionalData = useCallback(() => {

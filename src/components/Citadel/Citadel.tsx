@@ -13,8 +13,7 @@ import qs from 'query-string';
 
 import { CustomModal } from 'components/Modal/Modal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import { CommonUtils } from 'utils';
-import filtersUtils from 'utils/filtersUtils';
+import { CommonUtils, FilterUtils } from 'utils';
 
 import CitadelScene from './components/Scene';
 import { CitadelLoader } from './components/CitadelLoader';
@@ -54,7 +53,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     const removeSelected = () => setSelectedParcel(null);
 
     const onExportData = () => {
-        filtersUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
+        FilterUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
     };
 
     const updateGroup = (type: string, isActive: boolean) => {
@@ -94,7 +93,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     }, [realmGroups, mapCreated]);
 
     const updateQueryParams = useCallback((filters: any) => {
-        const newParams: { [key: string]: string | string[] } = filtersUtils.getUpdatedQueryParams(params, filters);
+        const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
 
         setParams(newParams);
     }, [params]);

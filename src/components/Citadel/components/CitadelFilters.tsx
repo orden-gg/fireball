@@ -6,7 +6,7 @@ import { ParsedQuery } from 'query-string';
 
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { filtersData } from 'data/filters.data';
-import filtersUtils from 'utils/filtersUtils';
+import { FilterUtils } from 'utils';
 
 import { FilterStyles } from '../styles';
 
@@ -50,7 +50,7 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
     };
 
     const onSetSelectedFilters = (key: string, selectedValue: any | any[]) => {
-        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
     const renderFilterBody = () => {
@@ -87,21 +87,21 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
     };
 
     const onResetFilters = useCallback(() => {
-        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
+        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     useEffect(() => {
         setCurrentFilters(currentFiltersCache =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
         return () => onResetFilters();
     }, []);
 
     useEffect(() => {
-        filtersUtils.onFiltersUpdate(
+        FilterUtils.onFiltersUpdate(
             currentFilters,
-            filtersUtils.getActiveFiltersCount,
+            FilterUtils.getActiveFiltersCount,
             setActiveFiltersCount,
             onFiltersChange
         );

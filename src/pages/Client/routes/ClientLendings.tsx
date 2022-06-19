@@ -14,7 +14,7 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import filtersUtils from 'utils/filtersUtils';
+import { FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
     {
@@ -92,7 +92,7 @@ export function ClientLendings() {
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
         const { sort, dir } = queryParams as CustomParsedQuery;
@@ -110,9 +110,9 @@ export function ClientLendings() {
     }, []);
 
     useEffect(() => {
-        filtersUtils.onFiltersUpdate(
+        FilterUtils.onFiltersUpdate(
             currentFilters,
-            filtersUtils.getActiveFiltersCount,
+            FilterUtils.getActiveFiltersCount,
             setActiveFiltersCount,
             updateFilterQueryParams
         );
@@ -125,11 +125,11 @@ export function ClientLendings() {
     }, [lendingsSorting]);
 
     useEffect(() => {
-        const modifiedLendings = filtersUtils.getFilteredSortedItems({
+        const modifiedLendings = FilterUtils.getFilteredSortedItems({
             items: lendings,
             filters: currentFilters,
             sorting: lendingsSorting,
-            getFilteredItems: filtersUtils.getFilteredItems
+            getFilteredItems: FilterUtils.getFilteredItems
         });
 
         setModifiedLendings(modifiedLendings);
@@ -148,25 +148,25 @@ export function ClientLendings() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
-        const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
+        const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
-        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
     const onResetFilters = useCallback(() => {
-        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
+        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
-        filtersUtils.exportData(modifiedLendings, 'client_lendings');
+        FilterUtils.exportData(modifiedLendings, 'client_lendings');
     }, [modifiedLendings]);
 
     return (

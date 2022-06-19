@@ -1,8 +1,9 @@
 import { CommonUtils } from './commonUtils';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    getUpdateFiltersFromQueryParams: (queryParams, filters) => {
+
+// TODO replace Object in all
+export class FilterUtils {
+    public static getUpdateFiltersFromQueryParams(queryParams: any, filters: Object): any {
         Object.entries(filters).forEach(([_, filter]) => {
             if (queryParams[filter.queryParamKey]) {
                 filter.updateFromQueryFn(filter, queryParams[filter.queryParamKey], 'queryParamValue');
@@ -10,9 +11,9 @@ export default {
         });
 
         return filters;
-    },
+    }
 
-    getUpdatedQueryParams: (queryParams, filters) => {
+    public static getUpdatedQueryParams(queryParams: any, filters: Object): any {
         const params = { ...queryParams };
 
         Object.entries(filters).forEach(([_, filter]) => {
@@ -24,9 +25,9 @@ export default {
         });
 
         return params;
-    },
+    }
 
-    getActiveFiltersCount: (filters) => {
+    public static getActiveFiltersCount(filters: Object): any {
         let count = 0;
         const activeFilters = Object.entries(filters).filter(([_, filter]) => filter.isFilterActive);
 
@@ -37,25 +38,25 @@ export default {
         }
 
         return count;
-    },
+    }
 
-    getFilteredItems: (filters, items) => {
-        return items.filter(item =>
+    public static getFilteredItems(filters: Object, items: any): any {
+        return items.filter((item: any) =>
             Object.entries(filters).every(([key, filter]) =>
                 filter.isFilterActive ? filter.predicateFn(filter, item, key) : true
             )
         );
-    },
+    }
 
-    getFilteredSortedItems: ({
+    public static getFilteredSortedItems({
         items,
         filters,
         sorting,
         getFilteredItems
-    }) => {
+    }: { items: any, filters: Object, sorting: any, getFilteredItems: any }): any {
         const activeFilters = Object.entries(filters)
             .filter(([_, fitler]) => fitler.isFilterActive);
-        let modifiedItems;
+        let modifiedItems: any;
 
         if (activeFilters.length > 0) {
             modifiedItems = getFilteredItems(filters, items);
@@ -65,10 +66,10 @@ export default {
         }
 
         return modifiedItems;
-    },
+    }
 
-    onFiltersUpdate: (currentFilters, getActiveFiltersCount, activeFiltersCountSetter, callBack) => {
-        const activeFilters = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
+    public static onFiltersUpdate(currentFilters: Object, getActiveFiltersCount: any, activeFiltersCountSetter: any, callBack: any): any {
+        const activeFilters: any = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
 
         if (activeFilters.length > 0) {
             const filtersCount = getActiveFiltersCount(currentFilters);
@@ -79,20 +80,20 @@ export default {
         }
 
         callBack(currentFilters);
-    },
+    }
 
-    updateQueryParams: (history, pathname, qs, queryParams, queryParamsOrder) => {
+    public static updateQueryParams(history: any, pathname: any, qs: any, queryParams: any, queryParamsOrder: any): any {
         history.push({
             pathname,
             search: qs.stringify(queryParams, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+                sort: (a: any, b: any) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })
         });
-    },
+    }
 
-    setSelectedFilters: (filtersSetter, key, selectedValue) => {
-        filtersSetter(filtersCache => {
+    public static setSelectedFilters(filtersSetter: any, key: any, selectedValue: any): any {
+        filtersSetter((filtersCache: any) => {
             const cacheCopy = { ...filtersCache };
 
             if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
@@ -103,19 +104,19 @@ export default {
 
             return cacheCopy;
         });
-    },
+    }
 
-    resetFilters: (filters, filtersSetter) => {
+    public static resetFilters(filters: any, filtersSetter: any) {
         const filtersCopy = { ...filters };
 
-        Object.entries(filtersCopy).forEach(([_, filter]) => {
+        Object.entries(filtersCopy).forEach(([_, filter]: [any, any]) => {
             filter.resetFilterFn(filter);
         });
 
         filtersSetter({ ...filtersCopy });
-    },
+    }
 
-    exportData: (items, fileName) => {
+    public static exportData(items: any, fileName: any): any {
         const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify([...items]))}`;
         const link = document.createElement('a');
 

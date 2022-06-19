@@ -17,7 +17,7 @@ import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import thegraph from 'api/thegraph.api';
 import { filtersData } from 'data/filters.data';
-import filtersUtils from 'utils/filtersUtils';
+import { FilterUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -105,7 +105,7 @@ export function GhostExplorer() {
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
-            filtersUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
 
         const { sort, dir } = queryParams as CustomParsedQuery;
@@ -127,9 +127,9 @@ export function GhostExplorer() {
 
 
     useEffect(() => {
-        filtersUtils.onFiltersUpdate(
+        FilterUtils.onFiltersUpdate(
             currentFilters,
-            filtersUtils.getActiveFiltersCount,
+            FilterUtils.getActiveFiltersCount,
             setActiveFiltersCount,
             updateFilterQueryParams
         );
@@ -142,11 +142,11 @@ export function GhostExplorer() {
     }, [gotchisSorting]);
 
     useEffect(() => {
-        const modifiedGotchis = filtersUtils.getFilteredSortedItems({
+        const modifiedGotchis = FilterUtils.getFilteredSortedItems({
             items: gotchis,
             filters: currentFilters,
             sorting: gotchisSorting,
-            getFilteredItems: filtersUtils.getFilteredItems
+            getFilteredItems: FilterUtils.getFilteredItems
         });
 
         setModifiedGotchis(modifiedGotchis);
@@ -165,25 +165,25 @@ export function GhostExplorer() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
-        const params = filtersUtils.getUpdatedQueryParams(queryParams, filters);
+        const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        filtersUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
+        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, history, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
-        filtersUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
     };
 
     const onResetFilters = useCallback(() => {
-        filtersUtils.resetFilters(currentFilters, setCurrentFilters);
+        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
-        filtersUtils.exportData(modifiedGotchis, 'explorer');
+        FilterUtils.exportData(modifiedGotchis, 'explorer');
     }, [modifiedGotchis]);
 
     return (
