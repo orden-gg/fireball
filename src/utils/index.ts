@@ -4,3 +4,4 @@ export * from './gotchiverse.utils';
 export * from './graph.utils';
 export * from './installations.utils';
 export * from './item.utils';
+export * from './tiles.utils';

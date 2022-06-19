@@ -1,16 +1,15 @@
 import tiles from 'data/tiles';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    getNameById(id) {
+export class TilesUtils {
+    public static getNameById(id: any): any {
         return tiles[id]?.name || '';
-    },
+    }
 
-    getImageById(id) {
+    public static getImageById(id: any): any {
         try {
             return require(`../assets/images/tiles/${id}.png`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
     }
-};
+}

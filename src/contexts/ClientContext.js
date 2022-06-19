@@ -8,9 +8,7 @@ import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
-import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils } from 'utils';
-import { ItemUtils } from 'utils';
-import tilesUtils from 'utils/tilesUtils';
+import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 export const ClientContext = createContext({});
 
@@ -252,7 +250,7 @@ const ClientContextProvider = (props) => {
 
                 return {
                     type: 'tile',
-                    name: tilesUtils.getNameById(id),
+                    name: TilesUtils.getNameById(id),
                     balance: ethersApi.formatBigNumber(item.balance._hex),
                     id: id
                 };
