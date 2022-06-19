@@ -1,6 +1,6 @@
 export class CommonUtils {
-    public static formatNumber(number: number): string {
-        return number.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
+    public static formatNumber(number: number | string): string {
+        return Number(number).toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1\'');
     }
 
     public static formatPrice(number: number | string): string {
