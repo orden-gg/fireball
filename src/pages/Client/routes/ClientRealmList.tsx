@@ -19,8 +19,7 @@ import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import { FilterUtils } from 'utils';
-import installationsUtils from 'utils/installationsUtils';
+import { FilterUtils, InstallationsUtils } from 'utils';
 
 import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
@@ -252,12 +251,12 @@ export function ClientRealmList() {
 
                 const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
                     id: inst.id,
-                    name: installationsUtils.getNameById(inst.id),
-                    level: installationsUtils.getLevelById(inst.id),
-                    type: installationsUtils.getTypeById(inst.id)
+                    name: InstallationsUtils.getNameById(inst.id),
+                    level: InstallationsUtils.getLevelById(inst.id),
+                    type: InstallationsUtils.getTypeById(inst.id)
                 }));
 
-                const cooldown = installationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
+                const cooldown = InstallationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
                 const lastChanneled = Number(parcel.lastChanneledAlchemica);
                 const nextChannel = lastChanneled + cooldown;
 

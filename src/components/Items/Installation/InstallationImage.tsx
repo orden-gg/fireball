@@ -1,12 +1,12 @@
-import installationsUtils from 'utils/installationsUtils';
+import { InstallationsUtils } from 'utils';
 
 import { styles } from './styles';
 
 export function InstallationImage({ id }: { id: string }) {
     const classes = styles();
 
-    const name: string = installationsUtils.getNameById(id) as string;
-    const src: string = installationsUtils.getImageById(id);
+    const name: string = InstallationsUtils.getNameById(id) as string;
+    const src: string = InstallationsUtils.getImageById(id);
 
     return (
         <div className={classes.installationImageBox}>

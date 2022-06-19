@@ -1,10 +1,8 @@
-import { ethers } from 'ethers';
 import installations from 'data/installations.json';
 import { InstallationTypes } from 'data/types';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    getMetadataById(id) {
+export class InstallationsUtils {
+    public static getMetadataById(id: any): any {
         return {
             name: this.getNameById(id),
             type: this.getTypeById(id),
@@ -12,45 +10,46 @@ export default {
             spillRadius: this.getSpillRadiusById(id),
             spillRate: this.getSpillRateById(id),
             craftTime: this.getCraftTimeById(id),
-            alchemicaCost: this.getAlchemicaCostById(id),
+            // alchemicaCost: this.getAlchemicaCostById(id), // TODO check if needed and fix
             cooldown: this.getCooldownByLevel(this.getLevelById(id))
         };
-    },
+    }
 
-    getNameById(id) {
+    public static getNameById(id: any): any {
         return installations[id][InstallationTypes.Name];
-    },
+    }
 
-    getLevelById(id) {
+    public static getLevelById(id: any): any {
         return installations[id][InstallationTypes.Level];
-    },
+    }
 
-    getImageById(id) {
+    public static getImageById(id: any): any {
         try {
             return require(`../assets/images/installations/${id}.png`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getSpillRadiusById(id) {
+    public static getSpillRadiusById(id: any): any {
         return installations[id][InstallationTypes.SpillRadius];
-    },
+    }
 
-    getSpillRateById(id) {
+    public static getSpillRateById(id: any): any {
         return installations[id][InstallationTypes.SpillRate];
-    },
+    }
 
-    getCraftTimeById(id) {
+    public static getCraftTimeById(id: any): any {
         return installations[id][InstallationTypes.CraftTime];
-    },
+    }
 
-    getAlchemicaCostById(id) {
-        return installations[id][InstallationTypes.AlchemicaCost]
-            .map(token => Number(ethers.utils.formatUnits(token.hex)));
-    },
+    // TODO check if needed and fix
+    // public static getAlchemicaCostById(id: any): any {
+    //     return installations[id][InstallationTypes.AlchemicaCost]
+    //         .map(token => Number(ethers.utils.formatUnits(token.hex)));
+    // }
 
-    getTypeById(id) {
+    public static getTypeById(id: any): any {
         switch (installations[id][InstallationTypes.Type]) {
             case 0:
                 return 'altar';
@@ -69,9 +68,9 @@ export default {
             default:
                 return 'unknown';
         }
-    },
+    }
 
-    getCooldownByLevel(lvl, units) {
+    public static getCooldownByLevel(lvl: any, units?: any): any {
         const multiplier = units === 'milis' ? 3600000 : units === 'seconds' ? 3600 : 1;
 
         switch (lvl) {
@@ -97,4 +96,4 @@ export default {
                 return 0;
         }
     }
-};
+}

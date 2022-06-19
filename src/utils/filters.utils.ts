@@ -1,4 +1,4 @@
-import { CommonUtils } from './commonUtils';
+import { CommonUtils } from './common.utils';
 
 
 // TODO replace Object in all

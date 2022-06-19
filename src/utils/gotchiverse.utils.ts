@@ -1,6 +1,6 @@
 import guilds from 'data/guilds.json';
 
-import { CommonUtils } from './commonUtils';
+import { CommonUtils } from './common.utils';
 
 export class GotchiverseUtils {
     public static getGuildImg(name: any): any {

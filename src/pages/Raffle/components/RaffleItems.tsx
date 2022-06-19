@@ -7,7 +7,7 @@ import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
 import { PortalGeneric } from 'components/Items/Portal/PortalGeneric';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { Installation } from 'components/Items/Installation/Installation';
-import installationsUtils from 'utils/installationsUtils';
+import { InstallationsUtils } from 'utils';
 
 import { itemsStyles } from '../styles';
 
@@ -76,7 +76,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                         id: item.id,
                         balance: item.quantity,
                         category: 0,
-                        name: installationsUtils.getNameById(item.id)
+                        name: InstallationsUtils.getNameById(item.id)
                     }}
                     raffleChances={{
                         chance: item.chance,

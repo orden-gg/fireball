@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 
 import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
-import installationsUtils from 'utils/installationsUtils';
+import { InstallationsUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -38,8 +38,8 @@ export function ParcelInstallations({ parcel }: { parcel: any }) {
 
     return (
         <div className={classes.container}>
-            { parcel.installations.map((inst, index) => {
-                const metadata: any = installationsUtils.getMetadataById(inst.id);
+            { parcel.installations.map((inst: any, index: number) => {
+                const metadata: any = InstallationsUtils.getMetadataById(inst.id);
 
                 return (
                     <div className={classes.installation} key={index}>
