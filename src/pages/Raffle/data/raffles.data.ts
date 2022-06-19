@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
 
-const raffles = [
+import { RafflesData } from '../models/raffles-data.model';
+
+export const raffles: RafflesData[] = [
     {
         id: 3,
         name: 'wearables-4',
@@ -65,5 +67,3 @@ const raffles = [
         icon: require('../../../assets/images/installations/21.png').default
     }
 ];
-
-export default raffles;

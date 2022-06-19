@@ -5,7 +5,7 @@ import { RaffleContext } from 'contexts/RaffleContext';
 
 import { RaffleTable } from '../components/RaffleTable';
 import { RaffleItems } from '../components/RaffleItems';
-import raffles from '../data/raffles.data';
+import { raffles } from '../data/raffles.data';
 import { titleStyles } from '../styles';
 
 export default function RaffleContent({ user }) {
