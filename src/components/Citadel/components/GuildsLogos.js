@@ -79,7 +79,6 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
         const startFrom = this.getStartFrom(first, second);
         const { x: x1, y: y1 } = citadelUtils.getParcelCoords(first.coordinateX, first.coordinateY);
         const { x: x2, y: y2 } = citadelUtils.getParcelCoords(second.coordinateX, second.coordinateY);
-        console.log('typeof parcel.size', typeof first.size)
         const { w: w1, h: h1 } = citadelUtils.getParcelSize(first.size);
         const { w: w2, h: h2 } = citadelUtils.getParcelSize(second.size);
         const w = Math.abs(x1 - x2);

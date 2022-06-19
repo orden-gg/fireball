@@ -51,7 +51,7 @@ export function RaffleContent({ user }) {
 
     if (!raffle) {
         return <></>;
-    };
+    }
 
     return (
         <div>
