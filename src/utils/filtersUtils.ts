@@ -124,4 +124,4 @@ export class FilterUtils {
         link.download = `${fileName}_${Date.now()}.json`;
         link.click();
     }
-};
+}

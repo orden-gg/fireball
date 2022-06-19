@@ -11,8 +11,7 @@ import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defa
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
-import { CommonUtils } from 'utils';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
+import { CommonUtils, GotchiverseUtils } from 'utils';
 import filterHelpers from 'utils/filterFunctions.helper';
 
 export const filtersData = {
@@ -86,7 +85,7 @@ export const filtersData = {
                     label={option.title}
                     key={option.title}
                     avatar={
-                        <Avatar src={gotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
+                        <Avatar src={GotchiverseUtils.getGuildImg(option.title)} alt={option.title} />
                     }
                     {...getTagProps({ index })}
                 />

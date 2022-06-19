@@ -2,6 +2,8 @@ import { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
+import { GotchiverseUtils } from 'utils';
+
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
@@ -18,7 +20,6 @@ import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 
 import { styles } from './styles';
 
@@ -254,7 +255,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
                 `haunt${gotchi.hauntId}`,
                 'vertical',
                 className,
-                gotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
+                GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
             )}
         >
             {render.map((name: any) => {

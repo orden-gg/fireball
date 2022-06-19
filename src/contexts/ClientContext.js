@@ -8,10 +8,9 @@ import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
-import { CommonUtils } from 'utils';
+import { CommonUtils, GotchiverseUtils } from 'utils';
 import graphUtils from 'utils/graphUtils';
 import itemUtils from 'utils/itemUtils';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
 import tilesUtils from 'utils/tilesUtils';
 import installationsUtils from 'utils/installationsUtils';
 
@@ -175,7 +174,7 @@ const ClientContextProvider = (props) => {
                         lendings[i].alpha = balance.ALPHAAmount;
                         lendings[i].kek = balance.KEKAmount;
                         lendings[i].totalTokens = balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                        lendings[i].income = gotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount);
+                        lendings[i].income = GotchiverseUtils.countAlchemicaEfficency(balance.FUDAmount, balance.FOMOAmount, balance.ALPHAAmount, balance.KEKAmount);
                         lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period);
                     });
 

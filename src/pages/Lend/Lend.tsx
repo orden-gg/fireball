@@ -23,9 +23,7 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import ethersApi from 'api/ethers.api';
 import thegraphApi from 'api/thegraph.api';
-import { CommonUtils } from 'utils';
-import { FilterUtils } from 'utils';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
+import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
 
 import { styles } from './styles';
@@ -147,7 +145,7 @@ export function Lend() {
 
                     mappedData.push({
                         ...listing,
-                        guild: gotchiverseUtils.gedAddressGuild(listing.lender)
+                        guild: GotchiverseUtils.gedAddressGuild(listing.lender)
                     });
                 });
 

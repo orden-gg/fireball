@@ -3,7 +3,7 @@ import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOu
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import itemUtils from 'utils/itemUtils';
-import gotchiverseUtils from 'utils/gotchiverseUtils';
+import { GotchiverseUtils } from 'utils';
 
 import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { GotchiSvg } from './GotchiSvg';
@@ -46,13 +46,13 @@ export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImagePro
             {
                 gotchi.guild && <div className={classes.guild}>
                     <CustomTooltip
-                        title={gotchiverseUtils.getGuildName(gotchi.guild)}
+                        title={GotchiverseUtils.getGuildName(gotchi.guild)}
                         placement='top'
                         followCursor
                     >
                         <Avatar
                             className={classes.guildAvatar}
-                            src={gotchiverseUtils.getGuildImg(gotchi.guild)}
+                            src={GotchiverseUtils.getGuildImg(gotchi.guild)}
                         />
                     </CustomTooltip>
                 </div>

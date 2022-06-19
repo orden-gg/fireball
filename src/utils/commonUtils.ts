@@ -124,4 +124,4 @@ export class CommonUtils {
     public static isEmptyObject(obj: any): any {
         return Object.keys(obj).length === 0;
     }
-};
+}
