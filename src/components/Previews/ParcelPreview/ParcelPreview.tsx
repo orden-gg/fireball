@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 
@@ -56,20 +56,20 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>size:</span>
-                                {itemUtils.getParcelSize(parcel.size)}
-                                ({itemUtils.getParcelDimmentions(parcel.size)})
+                                {ItemUtils.getParcelSize(parcel.size)}
+                                ({ItemUtils.getParcelDimmentions(parcel.size)})
                             </Paper>
                         </div>
 
                         <div className={classes.boosts}>
                             { boosts.map((boost, i) => {
-                                const multiplierValue = itemUtils.getAlchemicaMultiplier(boost.name);
+                                const multiplierValue = ItemUtils.getAlchemicaMultiplier(boost.name);
                                 const totalBoost = boost.value * multiplierValue;
 
                                 return boost.value > 0 ? (
                                     <div className={classNames(classes.boost, boost.name)} key={i}>
                                         <img
-                                            src={itemUtils.getAlchemicaTokenImg(boost.name)}
+                                            src={ItemUtils.getAlchemicaTokenImg(boost.name)}
                                             alt={boost.name}
                                             width={32}
                                         />

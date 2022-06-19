@@ -1,7 +1,6 @@
 import { useTheme } from '@mui/material';
 
-import { CommonUtils } from 'utils';
-import itemUtils from 'utils/itemUtils';
+import { CommonUtils, ItemUtils } from 'utils';
 
 import { ticketStyles } from '../styles';
 
@@ -14,7 +13,7 @@ export function RaffleTicket({ ticket }: { ticket: any }) {
         <div className={classes.ticket}>
             <img
                 className={classes.ticketImg}
-                src={itemUtils.getTicketImg(ticket.name)}
+                src={ItemUtils.getTicketImg(ticket.name)}
                 alt={`${ticket.name} ticket`}
             />
             <p

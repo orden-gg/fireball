@@ -1,6 +1,6 @@
 
 import ethersApi from './ethers.api';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { TICKETS_CONTRACT } from './common/constants';
 import { TICKETS_ABI } from 'data/abi/tickets.abi';
@@ -25,7 +25,7 @@ export default {
                 return response.forEach((item, index) => {
                     responseArray.push({
                         balance: parseInt(ethersApi.formatBigNumber(item)),
-                        name: itemUtils.getItemRarityName(index.toString()),
+                        name: ItemUtils.getItemRarityName(index.toString()),
                         id: index
                     });
                 });

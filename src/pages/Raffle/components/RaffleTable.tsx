@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { RaffleContext } from 'contexts/RaffleContext';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 import { CommonUtils } from 'utils';
 
 import { tableStyles } from '../styles';
@@ -114,7 +114,7 @@ export function RaffleTable() {
                             const totalEntered = raffle.endDate - DateTime.local().toSeconds() < 0 ? ticket.entered : +ticket.entered + +ticket.value;
 
                             return <Grid item xs={4} sm={true} key={i} className={classes.ticketBg}>
-                                <img src={itemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
+                                <img src={ItemUtils.getTicketImg(ticket.rarity)} alt={'ticket-' + ticket.rarity} />
                                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity, classes.ticketVisual)}>
                                     {raffleSpinner ? (
                                         <CircularProgress color='inherit' size={20} style={{ bottom: -5, position: 'relative' }}/>
@@ -166,7 +166,7 @@ export function RaffleTable() {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {CommonUtils.formatPrice(ticket.entered * itemUtils.getTicketFrensPrice(ticket.rarity))}
+                                            {CommonUtils.formatPrice(ticket.entered * ItemUtils.getTicketFrensPrice(ticket.rarity))}
                                         </Typography>
                                     )}
                                 </Box>

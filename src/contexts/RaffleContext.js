@@ -4,8 +4,7 @@ import { DateTime } from 'luxon';
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
-import { CommonUtils } from 'utils';
-import itemUtils from 'utils/itemUtils';
+import { CommonUtils, ItemUtils } from 'utils';
 
 export const RaffleContext = createContext({});
 
@@ -145,7 +144,7 @@ const RaffleContextProvider = (props) => {
     const getTicketsPreset = (tickets) => {
         return tickets.map((ticket) => ({
             id: ticket,
-            rarity: itemUtils.getItemRarityName(ticket.toString()),
+            rarity: ItemUtils.getItemRarityName(ticket.toString()),
             value: ''
         }));
     };

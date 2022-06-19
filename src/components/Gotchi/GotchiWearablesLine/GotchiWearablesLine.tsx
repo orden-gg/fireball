@@ -2,7 +2,7 @@ import { Tooltip, useTheme } from '@mui/material';
 import classNames from 'classnames';
 
 import { Wearable } from 'components/Items/Wearable/Wearable';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { CustomTooltipStyles } from '../styles';
 
@@ -27,7 +27,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
             {
                 wearableSlots.map((name, index) => {
                     const wearable: any = wearables[index];
-                    const rarityColor: string = itemUtils.getItemRarityById(wearable);
+                    const rarityColor: string = ItemUtils.getItemRarityById(wearable);
 
                     return (
                         <Tooltip

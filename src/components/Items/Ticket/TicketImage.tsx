@@ -1,11 +1,11 @@
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 export function TicketImage({ ticket }: { ticket: any }) {
     return (
         <div>
             <img
-                src={itemUtils.getTicketImg(ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId))}
-                alt={ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)}
+                src={ItemUtils.getTicketImg(ticket.name || ItemUtils.getItemRarityName(ticket.erc1155TypeId))}
+                alt={ticket.name || ItemUtils.getItemRarityName(ticket.erc1155TypeId)}
             />
         </div>
     );

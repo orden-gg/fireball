@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { traitsKeys } from 'data/gotchi.data';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -25,11 +25,11 @@ export function GotchiTraits({ traits, currentTraits }: GotchiTraitsProps) {
         <div className={classes.gotchiTraits}>
             {
                 traits.map((traitVal: any, index: number) => {
-                    const traitKey: any = itemUtils.getTraitIconByName(traitsKeys[index]);
+                    const traitKey: any = ItemUtils.getTraitIconByName(traitsKeys[index]);
 
                     return (
                         <div
-                            className={classNames(classes.gotchiTrait, itemUtils.getRarityByTrait(currentTraits[index]))}
+                            className={classNames(classes.gotchiTrait, ItemUtils.getRarityByTrait(currentTraits[index]))}
                             key={index}
                         >
                             <img alt='trait icon' src={traitKey} className={classes.gotchiTraitIcon} />

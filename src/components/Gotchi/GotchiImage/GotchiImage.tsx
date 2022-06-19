@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 import { GotchiverseUtils } from 'utils';
 
 import { GotchiSvgByStats } from './GotchiSvgByStats';
@@ -24,7 +24,7 @@ export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImagePro
             {portal ? (
                 <img
                     className={classes.gotchiSvgPortal}
-                    src={itemUtils.getPortalImg(gotchi.hauntId)}
+                    src={ItemUtils.getPortalImg(gotchi.hauntId)}
                     alt={`haunt-${gotchi.hauntId}-portal`}
                     width='100%' />
             ) : (

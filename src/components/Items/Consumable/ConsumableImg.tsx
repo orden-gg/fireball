@@ -1,10 +1,10 @@
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 export function ConsumableImg({ consumable }: { consumable: any }) {
     return (
         <div>
             <img
-                src={itemUtils.getWearableImg(consumable.id || consumable.erc1155TypeId)}
+                src={ItemUtils.getWearableImg(consumable.id || consumable.erc1155TypeId)}
                 alt='consumable'
             />
         </div>

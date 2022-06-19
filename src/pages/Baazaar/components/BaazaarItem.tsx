@@ -4,8 +4,7 @@ import classNames from 'classnames';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import ethersApi from 'api/ethers.api';
-import itemUtils from 'utils/itemUtils';
-import { CommonUtils } from 'utils';
+import { CommonUtils, ItemUtils } from 'utils';
 
 import { baazaarItemStyles } from '../styles';
 
@@ -14,35 +13,35 @@ export function BaazaarItem({ item }: { item: any }) {
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.listing_id}>
-            <Box className={classNames(classes.baazaarItem, itemUtils.getBaazaarItemRarityName(item))}>
+            <Box className={classNames(classes.baazaarItem, ItemUtils.getBaazaarItemRarityName(item))}>
                 <Grid container>
                     <Grid item xs={12}>
                         <Typography
-                            className={classNames(classes.itemRarity, itemUtils.getBaazaarItemRarityName(item))}
+                            className={classNames(classes.itemRarity, ItemUtils.getBaazaarItemRarityName(item))}
                             variant={'caption'}
                         >
-                            {itemUtils.getBaazaarItemRarityName(item)}
+                            {ItemUtils.getBaazaarItemRarityName(item)}
                         </Typography>
                     </Grid>
                     {
-                        (itemUtils.getItemType(item) === 'wearable' ||
-                        itemUtils.getItemType(item) === 'consumable') && <Grid item xs={12}>
+                        (ItemUtils.getItemType(item) === 'wearable' ||
+                        ItemUtils.getItemType(item) === 'consumable') && <Grid item xs={12}>
                             <Typography
                                 className={classes.itemName}
                                 variant={'caption'}
                             >
-                                {itemUtils.getItemNameById(item.erc1155TypeId)}
+                                {ItemUtils.getItemNameById(item.erc1155TypeId)}
                             </Typography>
                         </Grid>
                     }
                     {
-                        (itemUtils.getItemType(item) === 'wearable' ||
-                            itemUtils.getItemType(item) === 'consumable') && <Grid item xs={12}>
+                        (ItemUtils.getItemType(item) === 'wearable' ||
+                            ItemUtils.getItemType(item) === 'consumable') && <Grid item xs={12}>
                             <Typography
                                 className={classes.itemStats}
                                 variant={'caption'}
                             >
-                                {itemUtils.getItemStatsById(item.erc1155TypeId)}
+                                {ItemUtils.getItemStatsById(item.erc1155TypeId)}
                             </Typography>
                         </Grid>
                     }
@@ -62,7 +61,7 @@ export function BaazaarItem({ item }: { item: any }) {
                         </Typography>
                     </Grid>
                     <Grid className={classes.itemImg} item xs={12}>
-                        <img src={itemUtils.getItemImg(item)} alt={item.id} />
+                        <img src={ItemUtils.getItemImg(item)} alt={item.id} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography
@@ -80,7 +79,7 @@ export function BaazaarItem({ item }: { item: any }) {
                     <Grid item xs={12} className={classes.goToShopWrap}>
                         <Button
                             className={classes.goToShop}
-                            href={itemUtils.getItemUrl(item)}
+                            href={ItemUtils.getItemUrl(item)}
                             color={'secondary'}
                             variant={'contained'}
                             target={'_blank'}

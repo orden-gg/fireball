@@ -9,7 +9,7 @@ import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import ethersApi from 'api/ethers.api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils } from 'utils';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 import tilesUtils from 'utils/tilesUtils';
 
 export const ClientContext = createContext({});
@@ -118,8 +118,8 @@ const ClientContextProvider = (props) => {
                         wearables.push({
                             id: wearable,
                             balance: 1,
-                            rarity: itemUtils.getItemRarityById(wearable),
-                            rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(wearable)),
+                            rarity: ItemUtils.getItemRarityById(wearable),
+                            rarityId: ItemUtils.getItemRarityId(ItemUtils.getItemRarityById(wearable)),
                             holders: [item.id],
                             category: 0
                         });
@@ -193,8 +193,8 @@ const ClientContextProvider = (props) => {
             response.items.forEach((item) => {
                 modified.push({
                     id: +item.itemId,
-                    rarity: itemUtils.getItemRarityById(item.itemId),
-                    rarityId: itemUtils.getItemRarityId(itemUtils.getItemRarityById(item.itemId)),
+                    rarity: ItemUtils.getItemRarityById(item.itemId),
+                    rarityId: ItemUtils.getItemRarityId(ItemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
                     category: item.itemId >= 126 && item.itemId <= 129 ? 2 : 0 // TODO: temporary solution to determine if item is consumable or not
                 });

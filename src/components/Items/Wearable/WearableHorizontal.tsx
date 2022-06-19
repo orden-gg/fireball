@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 import { WearableImage } from './WearableImage';
 import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
 import { HorizontalLink } from '../common/HorizontalLink/HorizontalLink';
@@ -85,7 +85,7 @@ export function WearableHorizontal({ wearable, render }: WearableHorizontalProps
     }
 
     return (
-        <div className={classNames(classes.horizontalCard, itemUtils.getItemRarityById(wearable.erc1155TypeId))}>
+        <div className={classNames(classes.horizontalCard, ItemUtils.getItemRarityById(wearable.erc1155TypeId))}>
             {wearable.rarity}
             {render.map((name: any) => {
                 return renderSection(name);

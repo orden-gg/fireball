@@ -23,8 +23,7 @@ import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import ethersApi from 'api/ethers.api';
 import thegraph from 'api/thegraph.api';
-import { CommonUtils } from 'utils';
-import itemUtils from 'utils/itemUtils';
+import { CommonUtils, ItemUtils } from 'utils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
 
 import { styles } from './styles';
@@ -181,7 +180,7 @@ export function Shop() {
             balance: parseInt(listing.quantity, 10),
             category: 0,
             listing: listing.id,
-            rarity: itemUtils.getItemRarityById(listing.erc1155TypeId),
+            rarity: ItemUtils.getItemRarityById(listing.erc1155TypeId),
             rarityId: listing.rarityLevel,
             priceInWei: listing.priceInWei,
             price: ethersApi.fromWei(listing.priceInWei)

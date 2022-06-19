@@ -10,7 +10,7 @@ import { CustomModal } from 'components/Modal/Modal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
@@ -26,7 +26,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const size: any = itemUtils.getParcelSize(parcel.size);
+    const size: any = ItemUtils.getParcelSize(parcel.size);
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -66,7 +66,7 @@ export function Parcel({ parcel }: { parcel: any }) {
                 </div>
 
                 <div className={classes.parcelSize}>
-                    <ShineLabel text={itemUtils.getParcelDimmentions(parcel.size)} />
+                    <ShineLabel text={ItemUtils.getParcelDimmentions(parcel.size)} />
                 </div>
 
                 <div className={classes.parcelImageWrapper}>
@@ -84,7 +84,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                         return value > 0 ? (
                             <div className={classNames(classes.boost, key)} key={i}>
-                                <img src={itemUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                <img src={ItemUtils.getAlchemicaImg(key)} alt={key} width={13} />
                                 {value}
                             </div>
                         ) : (

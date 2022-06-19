@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
@@ -13,7 +13,7 @@ export function ParcelName({ parcel }: { parcel: any }) {
         ...parselStyles()
     };
 
-    const size: any = itemUtils.getParcelSize(parcel.size);
+    const size: any = ItemUtils.getParcelSize(parcel.size);
 
     return (
         <CopyToClipboardBlock text={parcel.parcelHash}>

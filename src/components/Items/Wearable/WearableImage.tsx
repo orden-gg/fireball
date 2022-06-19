@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -12,12 +12,12 @@ interface WearableImageProps {
 export function WearableImage({ wearable, className }: WearableImageProps) {
     const classes = styles();
 
-    const name: string = itemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
+    const name: string = ItemUtils.getItemNameById(wearable.id || wearable.erc1155TypeId);
 
     return (
         <div className={classNames(classes.iconWrapper, className || null)}>
             <img
-                src={itemUtils.getWearableImg(wearable.id || wearable.erc1155TypeId)}
+                src={ItemUtils.getWearableImg(wearable.id || wearable.erc1155TypeId)}
                 alt={name}
                 className={classes.icon}
             />

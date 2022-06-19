@@ -1,29 +1,28 @@
 import { items } from '../data/items';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    getItemNameById(id) {
+export class ItemUtils {
+    public static getItemNameById(id: any): any {
         return items[id]?.name || '';
-    },
+    }
 
-    getItemRarityById(id) {
+    public static getItemRarityById(id: any): any {
         return items[id]?.rarity || '';
-    },
+    }
 
-    getItemTypeById(id) {
+    public static getItemTypeById(id: any): any {
         return items[id]?.type || '';
-    },
+    }
 
-    getItemStatsById(id) {
+    public static getItemStatsById(id: any): any {
         return items[id]?.stats || '';
-    },
+    }
 
-    getItemSlotById(id) {
+    public static getItemSlotById(id: any): any {
         return items[id]?.slot || '';
-    },
+    }
 
-    getEmojiStatsById(id) {
-        let stats = items[id]?.stats;
+    public static getEmojiStatsById(id: any): any {
+        let stats: any = items[id]?.stats;
         const emojis = { 'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁' };
 
         if (!stats) return null;
@@ -37,10 +36,10 @@ export default {
         });
 
         return stats;
-    },
+    }
 
-    getItemType(item) {
-        const itemMap = {
+    public static getItemType(item: any): any {
+        const itemMap: any = {
             'ERC721Listing': {
                 '0': () => {
                     return 'closed_portal';
@@ -80,17 +79,17 @@ export default {
         };
 
         return itemMap[item.__typename][item.category]();
-    },
+    }
 
-    getBaazaarItemRarityName(item) {
+    public static getBaazaarItemRarityName(item: any): any {
         if (item.__typename === 'ERC1155Listing') {
             return this.getItemRarityName(item.rarityLevel);
         } else {
             return null;
         }
-    },
+    }
 
-    getItemRarityName(id) {
+    public static getItemRarityName(id: any): any {
         switch (id) {
             case '0':
                 return 'common';
@@ -109,9 +108,9 @@ export default {
             default:
                 return null;
         }
-    },
+    }
 
-    getItemRarityId(rarity) {
+    public static getItemRarityId(rarity: any): any {
         switch (rarity) {
             case 'common':
                 return '0';
@@ -128,13 +127,13 @@ export default {
             default:
                 return '-1';
         }
-    },
+    }
 
-    getTraitIconByName(trait) {
+    public static getTraitIconByName(trait: any): any {
         return require(`../assets/images/traits/${trait}.png`).default;
-    },
+    }
 
-    getRarityByTrait(trait) {
+    public static getRarityByTrait(trait: any): any {
         switch (true) {
             case trait >= 100 || trait <= -1:
                 return 'godlike';
@@ -145,10 +144,10 @@ export default {
             default:
                 return 'common';
         }
-    },
+    }
 
-    getItemImg(item) {
-        const typeMap = {
+    public static getItemImg(item: any): any {
+        const typeMap: any = {
             wearable: () => returnWearable(),
             closed_portal: () => {
                 return require('../assets/images/portals/h1-sealed.svg').default;
@@ -163,7 +162,7 @@ export default {
             ticket: () => returnTicket.call(this)
         };
 
-        function returnWearable() {
+        function returnWearable(): any {
             try {
                 return require(`../assets/images/wearables/${item.erc1155TypeId}.svg`).default;
             } catch (error) {
@@ -171,42 +170,42 @@ export default {
             }
         }
 
-        function returnTicket() {
+        function returnTicket(): any {
             try {
-                return require(`../assets/images/tickets/${this.getBaazaarItemRarityName(item)}.svg`).default;
+                return require(`../assets/images/tickets/${ItemUtils.getBaazaarItemRarityName(item)}.svg`).default;
             } catch (error) {
                 return require('../assets/images/image-placeholder.svg').default;
             }
         }
 
         return typeMap[this.getItemType(item)]();
-    },
+    }
 
-    getPortalImg(hauntId) {
+    public static getPortalImg(hauntId: any): any {
         try {
             return require(`../assets/images/portals/h${hauntId}-opened.svg`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getWearableImg(id) {
+    public static getWearableImg(id: any): any {
         try {
             return require(`../assets/images/wearables/${id}.svg`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getTicketImg(name) {
+    public static getTicketImg(name: any): any {
         try {
             return require(`../assets/images/tickets/${name}.svg`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getItemUrl(item) {
+    public static getItemUrl(item: any): any {
         try {
             return `https://app.aavegotchi.com/baazaar/${item.__typename === 'ERC1155Listing' ? 'erc1155' : 'erc721'}/${item.id}`;
         } catch (error) {
@@ -214,9 +213,9 @@ export default {
 
             return 'https://app.aavegotchi.com/baazaar';
         }
-    },
+    }
 
-    getTicketFrensPrice(rarity) {
+    public static getTicketFrensPrice(rarity: any): any {
         switch (rarity) {
             case 'common':
                 return 50;
@@ -235,9 +234,9 @@ export default {
             default:
                 return 0;
         }
-    },
+    }
 
-    getSlotCaption(name) {
+    public static getSlotCaption(name: any): any {
         switch (name) {
             case 'body':
                 return 'b';
@@ -256,9 +255,9 @@ export default {
             default:
                 return name;
         }
-    },
+    }
 
-    getParcelSize(id) {
+    public static getParcelSize(id: any): any {
         switch (id) {
             case '0':
                 return 'humble';
@@ -275,9 +274,9 @@ export default {
             default:
                 return '';
         }
-    },
+    }
 
-    getParcelDimmentions(id) {
+    public static getParcelDimmentions(id: any): any {
         switch (id) {
             case '0':
                 return '8x8';
@@ -294,25 +293,25 @@ export default {
             default:
                 return '';
         }
-    },
+    }
 
-    getAlchemicaImg(name) {
+    public static getAlchemicaImg(name: any): any {
         try {
             return require(`../assets/images/icons/${name}.svg`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getAlchemicaTokenImg(name) {
+    public static getAlchemicaTokenImg(name: any): any {
         try {
             return require(`../assets/images/tokens/${name}-token.svg`).default;
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    },
+    }
 
-    getAlchemicaMultiplier(name) {
+    public static getAlchemicaMultiplier(name: any): any {
         switch (name) {
             case 'fud':
                 return 1000;
@@ -326,4 +325,4 @@ export default {
                 return 1;
         }
     }
-};
+}

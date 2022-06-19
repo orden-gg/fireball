@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import itemUtils from 'utils/itemUtils';
+import { ItemUtils } from 'utils';
 
 import { TicketImage } from './TicketImage';
 import { HorizontalPrice } from '../common/HorizontalPrice/HorizontalPrice';
@@ -53,8 +53,8 @@ export function TicketHorizontal({ ticket, render }: TicketHorizontalProps) {
         get cardName() {
             return (
                 <CardName
-                    itemName={`${ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
-                    itemRarity={itemUtils.getItemRarityName(ticket.erc1155TypeId)}
+                    itemName={`${ticket.name || ItemUtils.getItemRarityName(ticket.erc1155TypeId)} ticket`}
+                    itemRarity={ItemUtils.getItemRarityName(ticket.erc1155TypeId)}
                     item={ticket}
                 />
             );
@@ -92,7 +92,7 @@ export function TicketHorizontal({ ticket, render }: TicketHorizontalProps) {
     }
 
     return (
-        <div className={classNames(classes.horizontalCard, ticket.name || itemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
+        <div className={classNames(classes.horizontalCard, ticket.name || ItemUtils.getItemRarityName(ticket.erc1155TypeId) )}>
             {render.map((name: any) => {
                 return renderSection(name);
             })}
