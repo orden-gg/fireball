@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
-import installationsApi from 'api/installations.api';
+import { finalizeUpgrades } from 'api/installations.api';
 
 import { actionStyles } from '../styles';
 
@@ -35,7 +35,7 @@ export function ClientRealmActions({ claimableList }: { claimableList: any[] }) 
 
         setTransactionStatus('processing');
 
-        installationsApi.finalizeUpgrades(ids)
+        finalizeUpgrades(ids)
             .then((completed: boolean) => {
                 if (completed) {
                     showSnackbar('success', succesMessage);

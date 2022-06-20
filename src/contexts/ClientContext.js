@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
 import mainApi from 'api/main.api';
-import installationsApi from 'api/installations.api';
+import { getInstallationsByAddress } from 'api/installations.api';
 import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
@@ -223,7 +223,7 @@ const ClientContextProvider = (props) => {
     const getInstallations = (address) => {
         setLoadingInstallations(true);
 
-        installationsApi.getInstallationsByAddress(address).then(response => {
+        getInstallationsByAddress(address).then(response => {
             const installations = response.map(item => {
                 const id = formatBigNumber(item.installationId._hex);
 

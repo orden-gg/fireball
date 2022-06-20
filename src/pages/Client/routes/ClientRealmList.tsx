@@ -14,7 +14,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ActionPane } from 'shared/ActionPane/ActionPane';
-import installationsApi from 'api/installations.api';
+import { getUpgradeQueueByAddress } from 'api/installations.api';
 import thegraphApi from 'api/thegraph.api';
 import { getLastBlock, getFutureBlockTimestamp } from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
@@ -272,7 +272,7 @@ export function ClientRealmList() {
     };
 
     const getRealmUpgradesQueue = (owner: any, realmIds: any) => {
-        return installationsApi.getUpgradeQueueByAddress(owner).then(async (res: any) => {
+        return getUpgradeQueueByAddress(owner).then(async (res: any) => {
 
             const activeUpgrades = res
                 .map((queue: any, i: number) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
