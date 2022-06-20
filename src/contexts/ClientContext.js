@@ -5,7 +5,7 @@ import thegraph from 'api/thegraph.api';
 import { getInventoryByAddress } from 'api/main.api';
 import { getInstallationsByAddress } from 'api/installations.api';
 import tilesApi from 'api/tiles.api';
-import ticketsApi from 'api/tickets.api';
+import { getTicketsByAddress } from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import { formatBigNumber } from 'api/ethers.api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
@@ -264,7 +264,7 @@ const ClientContextProvider = (props) => {
     const getTickets = (address) => {
         setLoadingTickets(true);
 
-        ticketsApi.getTicketsByAddress(address).then((response) => {
+        getTicketsByAddress(address).then((response) => {
             const modified = response.filter((item) => item.balance > 0);
 
             setTickets(modified);
