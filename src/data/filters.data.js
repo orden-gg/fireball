@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
 import ethersApi from 'api/ethers.api';
 import { collaterals } from 'data/collaterals.data';
-import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defaultFilters.data';
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';

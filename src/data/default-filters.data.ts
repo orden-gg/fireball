@@ -1,6 +1,6 @@
 import { FiltersHelper } from 'utils';
 
-const defaultMultiSelectionFilter = {
+export const defaultMultiSelectionFilter: any = {
     isFilterActive: false,
     getIsFilterValidFn: FiltersHelper.multipleSelectionGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.multipleSelectionResetFilterFn,
@@ -11,7 +11,7 @@ const defaultMultiSelectionFilter = {
     getActiveFiltersCountFn: FiltersHelper.multipleSelectionGetActiveFiltersCount
 };
 
-const defaultRangeSliderFilter = {
+export const defaultRangeSliderFilter = {
     isFilterActive: false,
     getIsFilterValidFn: FiltersHelper.rangeSliderGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.rangeSliderResetFilterFn,
@@ -21,5 +21,3 @@ const defaultRangeSliderFilter = {
     getQueryParamsFn: FiltersHelper.rangeSliderGetQueryParamsFn,
     getActiveFiltersCountFn: FiltersHelper.rangeSliderGetActiveFiltersCount
 };
-
-export { defaultMultiSelectionFilter, defaultRangeSliderFilter };
