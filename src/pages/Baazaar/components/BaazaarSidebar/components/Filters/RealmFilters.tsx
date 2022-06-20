@@ -3,7 +3,7 @@ import { Grid, InputLabel, Select, MenuItem, FormControl, TextField, ToggleButto
 import classNames from 'classnames';
 
 import { BaazaarContext } from 'contexts/BaazaarContext';
-import { fomo, fud, kek, alpha } from 'data/icons';
+import { fomo, fud, kek, alpha } from 'data/icons.data';
 
 import { styles } from './styles';
 
