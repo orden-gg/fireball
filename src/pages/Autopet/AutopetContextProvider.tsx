@@ -5,7 +5,7 @@ import { useMetamask } from 'use-metamask';
 
 import { getUsers, subscribe } from 'api/autopet.api';
 import { approveGhst, isGhstApproved as isGhstApprovedApi } from 'api/ghst.api';
-import mainApi from 'api/main.api';
+import { approvePet as approvePetApi, isPetApproved as isPetApprovedApi } from 'api/main.api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { LoginContext } from 'contexts/LoginContext';
 
@@ -73,7 +73,7 @@ export const AutopetContextProvider = (props: any) => {
         setPetState('approving');
 
         try {
-            const isApproved: boolean = await mainApi.approvePet(approval);
+            const isApproved: boolean = await approvePetApi(approval);
 
             if (isApproved) {
                 setIsPetApproved(approval);
@@ -185,7 +185,7 @@ export const AutopetContextProvider = (props: any) => {
 
         (async function loadData() {
             const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
-                mainApi.isPetApproved(accounts[0]),
+                isPetApprovedApi(accounts[0]),
                 isGhstApprovedApi(accounts[0]),
                 getUsers()
             ]);

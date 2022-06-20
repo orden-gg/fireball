@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tooltip } from '@mui/material';
 
-import mainApi from 'api/main.api';
+import { getAvailableSkillPoints } from 'api/main.api';
 
 import { CustomTooltipStyles } from '../styles';
 
@@ -18,8 +18,8 @@ export function GotchiSkillPoints({ id, usedPoints }: { id: string, usedPoints: 
 
         setLoadingPoints(true);
 
-        mainApi.getAvailableSkillPoints(id)
-            .then((response) => {
+        getAvailableSkillPoints(id)
+            .then((response: any) => {
                 if (!controller.signal.aborted) {
                     setAvailablePoints(response);
                     setLoadingPoints(false);

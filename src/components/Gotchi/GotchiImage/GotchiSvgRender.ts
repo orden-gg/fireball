@@ -1,10 +1,10 @@
-import mainApi from 'api/main.api';
+import { previewAavegotchi } from 'api/main.api';
 
 export const renderSvg = async (gotchies) => {
     const svgs: any[] = [];
 
     for (const key in gotchies) {
-        const cache: any = await mainApi.previewAavegotchi(
+        const cache: any = await previewAavegotchi(
             parseInt(gotchies[key].hauntId),
             gotchies[key].collateral,
             gotchies[key].numericTraits,

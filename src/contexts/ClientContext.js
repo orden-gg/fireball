@@ -2,7 +2,7 @@ import { createContext, useState } from 'react';
 
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import thegraph from 'api/thegraph.api';
-import mainApi from 'api/main.api';
+import { getInventoryByAddress } from 'api/main.api';
 import { getInstallationsByAddress } from 'api/installations.api';
 import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
@@ -184,7 +184,7 @@ const ClientContextProvider = (props) => {
     const getInventory = (address) => {
         setLoadingWarehouse(true);
 
-        mainApi.getInventoryByAddress(address).then((response) => {
+        getInventoryByAddress(address).then((response) => {
             const modified = [];
             const { type, dir } = warehouseSorting;
 
