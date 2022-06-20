@@ -1,3 +1,4 @@
+export * from './citadel.utils';
 export * from './common.utils';
 export * from './filters.utils';
 export * from './gotchiverse.utils';

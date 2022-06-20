@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 
 import ethersApi from 'api/ethers.api';
-import citadelUtils from 'utils/citadelUtils';
+import { CitadelUtils } from 'utils';
 import { COLORS } from 'data/citadel.data';
 
 export default class CreateParcels extends Phaser.GameObjects.Graphics {
@@ -56,8 +56,8 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     }
 
     drawParcel(parcel, color) {
-        const { x, y } = citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
-        const { w, h } = citadelUtils.getParcelSize(parcel.size);
+        const { x, y } = CitadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
+        const { w, h } = CitadelUtils.getParcelSize(parcel.size);
 
         this.fillStyle(color, this.scene.filtersManager.parcelsFades[parcel.size]);
         this.fillRect(x, y, w, h);
@@ -72,7 +72,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
 
     getParcelColorBySize(parcel) {
         if (this.settings.hasOwnProperty('range')) {
-            const range = this.settings.range[citadelUtils.getParcelColorByName(parcel.size)];
+            const range = this.settings.range[CitadelUtils.getParcelColorByName(parcel.size)];
             const percentage = this.getParcentage(range, ethersApi.fromWei(parcel.priceInWei));
             const [from, to] = this.valueToColor(
                 COLORS.parcels[this.settings.type][0],
@@ -85,7 +85,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
                 percentage > 100 ? 100 : percentage
             );
         } else {
-            return citadelUtils.getParcelColorBySize(parcel.size)[parcel.use];
+            return CitadelUtils.getParcelColorBySize(parcel.size)[parcel.use];
         }
     }
 

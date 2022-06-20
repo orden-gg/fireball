@@ -1,10 +1,11 @@
 import Phaser from 'phaser';
 
 import { COLORS } from 'data/citadel.data';
-import citadelUtils from 'utils/citadelUtils';
+import { CitadelUtils } from 'utils';
+
 export default class DistrictNumber extends Phaser.GameObjects.Text {
     constructor(scene, id) {
-        const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+        const { x, y, w, h } = CitadelUtils.getDistrictParams(id);
         const [offsetX, offsetY] = [w / 2, h / 2];
 
         super(scene);

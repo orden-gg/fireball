@@ -14,7 +14,7 @@ import CreateParcels from './CreateParcels';
 import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import FiltersManager from './FiltersManager';
-import citadelUtils from 'utils/citadelUtils';
+import { CitadelUtils } from 'utils';
 
 export default class CitadelScene extends Phaser.Scene {
         constructor({ wrapperRef }) {
@@ -157,7 +157,7 @@ export default class CitadelScene extends Phaser.Scene {
                     return;
                 }
 
-                const parcel = citadelUtils.getParcelByTypeAndValueCoords(
+                const parcel = CitadelUtils.getParcelByTypeAndValueCoords(
                     parseInt(this.settings.district),
                     this.getCursorFromCenter(pointer)
                 );
@@ -177,12 +177,12 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.input.on('pointermove', pointer => {
                 const { cx, cy } = this.getCursorFromCenter(pointer);
-                const id = citadelUtils.getDistrictIdByCoords(cx, cy);
+                const id = CitadelUtils.getDistrictIdByCoords(cx, cy);
 
                 this.cursorFromCenter = null;
 
                 if (id !== this.settings.district) {
-                    const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+                    const { x, y, w, h } = CitadelUtils.getDistrictParams(id);
 
                     this.trigger('districtHover', id, this.settings.district);
                     this.settings.district = id;
@@ -234,8 +234,8 @@ export default class CitadelScene extends Phaser.Scene {
 
             this.selectedParcel = parcel;
 
-            const { x, y } = citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
-            const { w, h } = citadelUtils.getParcelSize(parcel.size);
+            const { x, y } = CitadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);
+            const { w, h } = CitadelUtils.getParcelSize(parcel.size);
 
             this.selected.update(x, y, w, h);
             this.citadel.add(this.selected);
@@ -374,7 +374,7 @@ export default class CitadelScene extends Phaser.Scene {
         }
 
         zoomToDistrict(id) {
-            const { x, y, w, h } = citadelUtils.getDistrictParams(id);
+            const { x, y, w, h } = CitadelUtils.getDistrictParams(id);
             const { cx, cy } = this.calculateCenter({ x, y, w, h });
 
             if (isNaN(cx) || isNaN(cy)) {
@@ -406,8 +406,8 @@ export default class CitadelScene extends Phaser.Scene {
 
         calculateParcelCenter(parcel) {
             const params = {
-                ...citadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY),
-                ...citadelUtils.getParcelSize(parcel.size)
+                ...CitadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY),
+                ...CitadelUtils.getParcelSize(parcel.size)
             };
 
             return this.calculateCenter(params);
@@ -424,7 +424,7 @@ export default class CitadelScene extends Phaser.Scene {
 
         setMultiselect(ids) {
             const parcels = ids
-                .map(id => citadelUtils.getParcelByTypeAndValue('tokenId', id))
+                .map(id => CitadelUtils.getParcelByTypeAndValue('tokenId', id))
                 .filter(parcel => parcel !== undefined);
 
             if (parcels.length === 0) {
@@ -454,9 +454,9 @@ export default class CitadelScene extends Phaser.Scene {
             if (typeof value === 'object') {
                 return value;
             } else if (isNaN(parseInt(value))) {
-                return citadelUtils.getParcelByTypeAndValue('parcelHash', citadelUtils.getParcedName(value));
+                return CitadelUtils.getParcelByTypeAndValue('parcelHash', CitadelUtils.getParcedName(value));
             } else {
-                return citadelUtils.getParcelByTypeAndValue('tokenId', value);
+                return CitadelUtils.getParcelByTypeAndValue('tokenId', value);
             }
         }
 

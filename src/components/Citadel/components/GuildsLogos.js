@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import citadelUtils from 'utils/citadelUtils';
+import { CitadelUtils } from 'utils';
 import guilds from 'data/guilds.json';
 import { COLORS } from 'data/citadel.data';
 
@@ -29,8 +29,8 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
     addLogos(guild) {
         for (const [first, second] of guild.home) {
             const { x, y, w, h } = this.calculateData(
-                citadelUtils.getParcelByTypeAndValue('tokenId', `${first}`),
-                citadelUtils.getParcelByTypeAndValue('tokenId', `${second}`)
+                CitadelUtils.getParcelByTypeAndValue('tokenId', `${first}`),
+                CitadelUtils.getParcelByTypeAndValue('tokenId', `${second}`)
             );
             const logo = this.scene.add.image(x + w / 2, y + h / 2, guild.name);
             const scale = this.getImageScale(w, h, logo.width, logo.height);
@@ -77,10 +77,10 @@ export default class GuildsLogos extends Phaser.GameObjects.Container {
 
     calculateData(first, second) {
         const startFrom = this.getStartFrom(first, second);
-        const { x: x1, y: y1 } = citadelUtils.getParcelCoords(first.coordinateX, first.coordinateY);
-        const { x: x2, y: y2 } = citadelUtils.getParcelCoords(second.coordinateX, second.coordinateY);
-        const { w: w1, h: h1 } = citadelUtils.getParcelSize(first.size);
-        const { w: w2, h: h2 } = citadelUtils.getParcelSize(second.size);
+        const { x: x1, y: y1 } = CitadelUtils.getParcelCoords(first.coordinateX, first.coordinateY);
+        const { x: x2, y: y2 } = CitadelUtils.getParcelCoords(second.coordinateX, second.coordinateY);
+        const { w: w1, h: h1 } = CitadelUtils.getParcelSize(first.size);
+        const { w: w2, h: h2 } = CitadelUtils.getParcelSize(second.size);
         const w = Math.abs(x1 - x2);
         const h = Math.abs(y1 - y2);
         let data;
