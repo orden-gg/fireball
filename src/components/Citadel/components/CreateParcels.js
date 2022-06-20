@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 import { CitadelUtils } from 'utils';
 import { COLORS } from 'data/citadel.data';
 
@@ -73,7 +73,7 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
     getParcelColorBySize(parcel) {
         if (this.settings.hasOwnProperty('range')) {
             const range = this.settings.range[CitadelUtils.getParcelColorByName(parcel.size)];
-            const percentage = this.getParcentage(range, ethersApi.fromWei(parcel.priceInWei));
+            const percentage = this.getParcentage(range, fromWei(parcel.priceInWei));
             const [from, to] = this.valueToColor(
                 COLORS.parcels[this.settings.type][0],
                 COLORS.parcels[this.settings.type][1]

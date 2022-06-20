@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 
 import thegraphApi from 'api/thegraph.api';
 
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
 export function ActiveListingButton({ item }: { item: any }) {
@@ -38,7 +38,7 @@ export function ActiveListingButton({ item }: { item: any }) {
             variant='contained'
             target='_blank'
         >
-            {ethersApi.fromWei(listing.priceInWei)}
+            {fromWei(listing.priceInWei)}
             <GhstTokenIcon height={16} width={16} />
         </Button>
     );

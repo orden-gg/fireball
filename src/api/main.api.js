@@ -1,9 +1,9 @@
-import ethersApi from './ethers.api';
+import { formatBigNumber, makeContract, makeContractWithSigner, waitForTransaction } from './ethers.api';
 
 import { MAIN_CONTRACT, AUTOPET_OPERATOR } from './common/api.constants';
 import { MAIN_ABI } from 'data/abi/main.abi';
 
-const contract = ethersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
+const contract = makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -12,10 +12,10 @@ export default {
     },
 
     async approvePet(isApproved) {
-        const writeContract = ethersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
+        const writeContract = makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
         const transaction = await writeContract.setPetOperatorForAll(AUTOPET_OPERATOR, isApproved);
 
-        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+        return waitForTransaction(transaction.hash, 'polygon').then(response => (
             Boolean(response.status)
         ));
     },
@@ -24,7 +24,7 @@ export default {
         try {
             return await contract.availableSkillPoints(tokenId)
                 .then((response) => {
-                    return ethersApi.formatBigNumber(response);
+                    return formatBigNumber(response);
                 });
         } catch (error) {
             console.log(error);
@@ -40,7 +40,7 @@ export default {
             await contract.itemBalances(address.toLowerCase())
                 .then((response) => {
                     const collection = response.map((item) => {
-                        const inner = item.map((i) => ethersApi.formatBigNumber(i));
+                        const inner = item.map((i) => formatBigNumber(i));
 
                         return { itemId: inner[0], balance: inner[1] };
                     });

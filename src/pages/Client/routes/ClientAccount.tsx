@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 
 import { EthAddressPanel } from 'components/EthAddressPanel/EthAddressPanel';
-import ethersApi from 'api/ethers.api';
+import { isEthAddress } from 'api/ethers.api';
 
 import { ClientNav } from '../components/ClientNav';
 import { styles, accountStyles } from '../styles';
@@ -15,7 +15,7 @@ export function ClientAccount() {
         <div className={classes.accountContainer}>
             <ClientNav />
 
-            { ethersApi.isEthAddress(account) && (
+            { isEthAddress(account) && (
                 <div className={classes.accountPanel}>
                     <EthAddressPanel address={account} />
                 </div>

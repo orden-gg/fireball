@@ -1,9 +1,9 @@
 import { REALM_ABI } from 'data/abi/realm.abi';
 
 import { REALM_CONTRACT } from './common/api.constants';
-import ethersApi from './ethers.api';
+import { makeContract } from './ethers.api';
 
-const realmContract = ethersApi.makeContract(REALM_CONTRACT, REALM_ABI, 'polygon');
+const realmContract = makeContract(REALM_CONTRACT, REALM_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

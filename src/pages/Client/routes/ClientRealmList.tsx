@@ -16,7 +16,7 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ActionPane } from 'shared/ActionPane/ActionPane';
 import installationsApi from 'api/installations.api';
 import thegraphApi from 'api/thegraph.api';
-import ethersApi from 'api/ethers.api';
+import { getLastBlock, getFutureBlockTimestamp } from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils, InstallationsUtils } from 'utils';
@@ -279,13 +279,13 @@ export function ClientRealmList() {
                 .filter((queue: any) => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
-                const lastBlock = await ethersApi.getLastBlock();
+                const lastBlock = await getLastBlock();
 
                 const upgradesWithTimestamps: any[] = activeUpgrades.map((upgrade: any) => {
                     const currentBlock: any = upgrade.readyBlock;
                     const isUpgradeReady = currentBlock - lastBlock.number <= 0;
                     const timestamp = !isUpgradeReady ?
-                        ethersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
+                        getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
 
                     return {
                         ...upgrade,

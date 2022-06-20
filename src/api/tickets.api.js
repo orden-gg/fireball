@@ -1,11 +1,11 @@
 
-import ethersApi from './ethers.api';
+import { formatBigNumber, makeContract } from './ethers.api';
 import { ItemUtils } from 'utils';
 
 import { TICKETS_CONTRACT } from './common/api.constants';
 import { TICKETS_ABI } from 'data/abi/tickets.abi';
 
-const contract = ethersApi.makeContract(TICKETS_CONTRACT, TICKETS_ABI, 'polygon');
+const contract = makeContract(TICKETS_CONTRACT, TICKETS_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -24,7 +24,7 @@ export default {
             ]).then((response) => {
                 return response.forEach((item, index) => {
                     responseArray.push({
-                        balance: parseInt(ethersApi.formatBigNumber(item)),
+                        balance: parseInt(formatBigNumber(item)),
                         name: ItemUtils.getItemRarityName(index.toString()),
                         id: index
                     });

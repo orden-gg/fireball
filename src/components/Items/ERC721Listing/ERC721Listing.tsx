@@ -3,7 +3,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 import { CommonUtils } from 'utils';
 
 import { CustomTooltipStyles } from '../../Gotchi/styles';
@@ -21,8 +21,8 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
         return null;
     }
 
-    const currentPrice: any = listings?.length && ethersApi.fromWei(listings[0].priceInWei);
-    const lastPrice: any = historicalPrices?.length && ethersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
+    const currentPrice: any = listings?.length && fromWei(listings[0].priceInWei);
+    const lastPrice: any = historicalPrices?.length && fromWei(historicalPrices[historicalPrices.length - 1]);
 
     return (
         <div>
@@ -34,7 +34,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                             <div className={classes.tooltipInner}>
                                 {historicalPrices.map((price: any, index: number) => {
                                     return <p className={classes.tooltipItem} key={index}>
-                                        {CommonUtils.formatPrice(ethersApi.fromWei(price))}
+                                        {CommonUtils.formatPrice(fromWei(price))}
                                         <GhstTokenIcon className={classes.token} width={12} height={12} />
                                         {index !== historicalPrices.length - 1 && <span className={classes.tooltipDivider}>{'->'}</span>}
                                     </p>;

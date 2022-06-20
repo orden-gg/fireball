@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-import ethersApi from './ethers.api';
+import { fromWei } from './ethers.api';
 import { GraphUtils } from 'utils';
 
 import {
@@ -246,7 +246,7 @@ export default {
 
             return {
                 listing: erc1155[0]?.id || null,
-                price: erc1155[0]?.priceInWei ? +ethersApi.fromWei(erc1155[0].priceInWei) : 0,
+                price: erc1155[0]?.priceInWei ? +fromWei(erc1155[0].priceInWei) : 0,
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
@@ -405,7 +405,7 @@ export default {
 
     getParcelPriceByDirection(data) {
         return this.getData(getParcelOrderDirectionQuery(data)).then(response => {
-            return ethersApi.fromWei(response.data.erc721Listings[0].priceInWei);
+            return fromWei(response.data.erc721Listings[0].priceInWei);
         });
     },
 
@@ -504,9 +504,9 @@ export default {
                     }
 
                     acc[key] = acc[key] ? (
-                        acc[key] + ethersApi.fromWei(x[key].toString())
+                        acc[key] + fromWei(x[key].toString())
                     ) : (
-                        ethersApi.fromWei(x[key].toString())
+                        fromWei(x[key].toString())
                     );
                 }
 

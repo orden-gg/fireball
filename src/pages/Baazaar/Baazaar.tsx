@@ -10,7 +10,7 @@ import { BaazaarSortingBody } from './components/BaazaarSortingBody';
 import { BaazaarSidebar } from './components/BaazaarSidebar/BaazaarSidebar';
 import { getQueries } from './baazaarQueryBuilder';
 import { styles } from './styles';
-import ethersApi from 'api/ethers.api';
+import { fromWei, toWei } from 'api/ethers.api';
 import { Backdrop, CircularProgress } from '@mui/material';
 
 var paginationConfigs: any = {
@@ -127,8 +127,8 @@ export function Baazaar() {
             orderDirection: ${params.ordering ? params.ordering.split('-')[1] : defaults.defaultOrdering[1]},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
+                ${params.from ? `priceInWei_gte: "${toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (params.type ? params.type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -166,8 +166,8 @@ export function Baazaar() {
             orderDirection: ${order},
             where: {
                 cancelled: false,
-                ${params.from ? `priceInWei_gte: "${ethersApi.toWei(params.from)}",` : ''}
-                priceInWei_lt: ${params.to ? `"${ethersApi.toWei(params.to)}"` : '"10000000000000000000000000"'},
+                ${params.from ? `priceInWei_gte: "${toWei(params.from)}",` : ''}
+                priceInWei_lt: ${params.to ? `"${toWei(params.to)}"` : '"10000000000000000000000000"'},
                 ${'category: ' + (type ? type.split('-')[1] : defaults.defaultGoodsType.split('-')[1]) + ','}
                 ${
                     (params.type ? params.type.split('-')[0] : defaults.defaultGoodsType.split('-')[0]) === 'erc1155Listings' ?
@@ -371,9 +371,9 @@ export function Baazaar() {
     const sortLocalGotchis = () => {
         filteredLocalGoods.sort((a, b) => {
             if (sortingOrder === orderingTypes.priceASC) {
-                return ethersApi.fromWei(a.priceInWei) - ethersApi.fromWei(b.priceInWei);
+                return fromWei(a.priceInWei) - fromWei(b.priceInWei);
             } else if (sortingOrder === orderingTypes.priceDESC) {
-                return ethersApi.fromWei(b.priceInWei) - ethersApi.fromWei(a.priceInWei);
+                return fromWei(b.priceInWei) - fromWei(a.priceInWei);
             } else if (sortingOrder === orderingTypes.timeASC) {
                 return parseInt(a.timeCreated) - parseInt(b.timeCreated);
             } else {
@@ -390,7 +390,7 @@ export function Baazaar() {
             const gotchiTraits = gotchi.numericTraits;
             let hasDifference = false;
 
-            if ((!priceFrom ? false : ethersApi.fromWei(item.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : ethersApi.fromWei(item.priceInWei) > parseFloat(priceTo))) {
+            if ((!priceFrom ? false : fromWei(item.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : fromWei(item.priceInWei) > parseFloat(priceTo))) {
                 return false;
             }
 
@@ -450,7 +450,7 @@ export function Baazaar() {
         const filterSingleRealm = (parcelItem) => {
             const item = parcelItem.parcel;
 
-            if ((!priceFrom ? false : ethersApi.fromWei(parcelItem.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : ethersApi.fromWei(parcelItem.priceInWei) > parseFloat(priceTo))) {
+            if ((!priceFrom ? false : fromWei(parcelItem.priceInWei) < parseFloat(priceFrom)) || (!priceTo ? false : fromWei(parcelItem.priceInWei) > parseFloat(priceTo))) {
                 return false;
             }
 

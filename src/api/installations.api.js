@@ -1,9 +1,9 @@
 import { INSTALLATIONS_ABI } from 'data/abi/installations.abi';
 
 import { INSTALLATION_CONTRACT } from './common/api.constants';
-import ethersApi from './ethers.api';
+import { formatBigNumber, makeContract, makeContractWithSigner, waitForTransaction } from './ethers.api';
 
-const installationsContract = ethersApi.makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');
+const installationsContract = makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -16,8 +16,8 @@ export default {
             .then(res => res.map(item => ({
                 readyBlock: item.readyBlock,
                 claimed: item.claimed,
-                parcelId: ethersApi.formatBigNumber(item.parcelId),
-                installationId: ethersApi.formatBigNumber(item.installationId)
+                parcelId: formatBigNumber(item.parcelId),
+                installationId: formatBigNumber(item.installationId)
             })))
             .catch(e => {
                 console.log(e);
@@ -31,8 +31,8 @@ export default {
             .then(res => res[0].map(item => ({
                 readyBlock: item.readyBlock,
                 claimed: item.claimed,
-                parcelId: ethersApi.formatBigNumber(item.parcelId),
-                installationId: ethersApi.formatBigNumber(item.installationId)
+                parcelId: formatBigNumber(item.parcelId),
+                installationId: formatBigNumber(item.installationId)
             })))
             .catch(e => {
                 console.log(e);
@@ -42,10 +42,10 @@ export default {
     },
 
     async finalizeUpgrades(ids) {
-        const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+        const contractWithSigner = makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
         const transaction = await contractWithSigner.finalizeUpgrades(ids);
 
-        return ethersApi.waitForTransaction(transaction.hash, 'polygon')
+        return waitForTransaction(transaction.hash, 'polygon')
             .then(response => {
                 return Boolean(response.status);
             });

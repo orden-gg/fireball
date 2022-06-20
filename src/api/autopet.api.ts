@@ -1,19 +1,19 @@
-import ethersApi from './ethers.api';
+import { makeContract, makeContractWithSigner, waitForTransaction } from './ethers.api';
 
 import { AUTOPET_CONTRACT } from './common/api.constants';
 import { AUTOPET_ABI } from 'data/abi/autopet.abi';
 import { ethers } from 'ethers';
 
-const contract = ethersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
+const contract = makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
 
 export const subscribe = async (isApproved: any): Promise<boolean> => {
-    const writeContract = ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
+    const writeContract = makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
     const transaction: any = isApproved ?
         await writeContract.subscribe() :
         await writeContract.unsubscribe();
 
-    return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+    return waitForTransaction(transaction.hash, 'polygon').then(response => (
         Boolean(response.status)
     ));
 

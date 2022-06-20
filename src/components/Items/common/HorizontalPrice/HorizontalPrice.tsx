@@ -1,5 +1,5 @@
 import { GhstTokenGif } from 'components/Icons/Icons';
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 
 import { styles } from './styles';
 
@@ -16,7 +16,7 @@ export function HorizontalPrice({ item, label }: HorizontalPriceProps) {
             {label || ''}
             <GhstTokenGif width={25} height={25} />
             {
-                ethersApi.fromWei(item.priceInWei)
+                fromWei(item.priceInWei)
             }
         </div>
     );

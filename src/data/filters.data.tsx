@@ -5,7 +5,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 import { DateTime } from 'luxon';
 
-import ethersApi from 'api/ethers.api';
+import { toWei } from 'api/ethers.api';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import { DISTRICTS } from 'data/citadel.data';
@@ -142,7 +142,7 @@ export const filtersData = {
         max: 100,
         value: [0, 100],
         valueMapperFn: (value: any): any => {
-            return value.map((val: any) => ethersApi.toWei(val));
+            return value.map((val: any) => toWei(val));
         },
         ...defaultRangeSliderFilter
     },

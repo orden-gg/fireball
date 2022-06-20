@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import thegraphApi from 'api/thegraph.api';
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 
 import { styles } from './styles';
 
@@ -74,7 +74,7 @@ export function SalesHistory({ id, category }: SalesHistoryProps) {
                             </div>
                             <div>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</div>
                             <div className={classes.cell}>
-                                {ethersApi.fromWei(item.priceInWei)}
+                                {fromWei(item.priceInWei)}
                                 <GhstTokenIcon height={15} width={15} />
                             </div>
                         </div>

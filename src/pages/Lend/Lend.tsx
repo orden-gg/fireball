@@ -21,7 +21,7 @@ import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import ethersApi from 'api/ethers.api';
+import { fromWei } from 'api/ethers.api';
 import thegraphApi from 'api/thegraph.api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
@@ -150,7 +150,7 @@ export function Lend() {
                 });
 
                 const sortedWhitelist: any[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
-                const upfronCostValues: number[] = mappedData.map(item => ethersApi.fromWei(item.upfrontCost));
+                const upfronCostValues: number[] = mappedData.map(item => fromWei(item.upfrontCost));
                 const maxUpfrontCost: number = Math.max(...upfronCostValues);
 
                 setCurrentFilters((currentFiltersCache: any) => {

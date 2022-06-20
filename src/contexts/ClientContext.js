@@ -7,7 +7,7 @@ import installationsApi from 'api/installations.api';
 import tilesApi from 'api/tiles.api';
 import ticketsApi from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
-import ethersApi from 'api/ethers.api';
+import { formatBigNumber } from 'api/ethers.api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 export const ClientContext = createContext({});
@@ -225,12 +225,12 @@ const ClientContextProvider = (props) => {
 
         installationsApi.getInstallationsByAddress(address).then(response => {
             const installations = response.map(item => {
-                const id = ethersApi.formatBigNumber(item.installationId._hex);
+                const id = formatBigNumber(item.installationId._hex);
 
                 return {
                     type: 'installation',
                     name: InstallationsUtils.getNameById(id),
-                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    balance: formatBigNumber(item.balance._hex),
                     id: id,
                     level: InstallationsUtils.getLevelById(id)
                 };
@@ -246,12 +246,12 @@ const ClientContextProvider = (props) => {
 
         tilesApi.getTilesByAddress(address).then(response => {
             const tiles = response.map(item => {
-                const id = ethersApi.formatBigNumber(item.tileId._hex);
+                const id = formatBigNumber(item.tileId._hex);
 
                 return {
                     type: 'tile',
                     name: TilesUtils.getNameById(id),
-                    balance: ethersApi.formatBigNumber(item.balance._hex),
+                    balance: formatBigNumber(item.balance._hex),
                     id: id
                 };
             });

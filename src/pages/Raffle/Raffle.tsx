@@ -7,7 +7,7 @@ import queryString from 'query-string';
 
 import { CustomParsedQuery } from 'shared/models';
 import { ProfilePane } from 'components/ProfilePane/ProfilePane';
-import ethersApi from 'api/ethers.api';
+import { isEthAddress } from 'api/ethers.api';
 import { LoginContext } from 'contexts/LoginContext';
 import RaffleContextProvider from 'contexts/RaffleContext';
 import { CommonUtils } from 'utils';
@@ -69,7 +69,7 @@ export function Raffle() {
 
             <RaffleNav user={raffleActive} />
 
-            {ethersApi.isEthAddress(raffleActive) ? (
+            {isEthAddress(raffleActive) ? (
                 <RaffleTickets address={raffleActive} />
             ) : (
                 null
