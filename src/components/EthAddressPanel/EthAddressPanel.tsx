@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import aavegotchilandApi from 'api/aavegotchiland.api.js';
+import { getAddressInfo } from 'api/aavegotchiland.api';
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
@@ -21,7 +21,7 @@ export function EthAddressPanel({ address }: { address: string }) {
 
         setDataLoading(true);
 
-        aavegotchilandApi.getAddressInfo(address).then((res: any) => {
+        getAddressInfo(address).then((res: any) => {
             if (mounted) {
                 const data = res.data;
                 const formatted = [

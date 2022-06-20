@@ -13,9 +13,6 @@ const noCacheOptions = {
     cache: { maxAge: 0 }
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    getAddressInfo(address, disableCache) {
-        return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
-    }
+export const getAddressInfo = (address: any, disableCache?: any): Promise<any> => {
+    return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
 };
