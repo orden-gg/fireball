@@ -9,7 +9,7 @@ import ethersApi from 'api/ethers.api';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import { DISTRICTS } from 'data/citadel.data';
-import { FilterComponent } from 'data/filterTypes';
+import { FilterComponent } from 'data/filter-types.data';
 import guilds from 'data/guilds.json';
 import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 
