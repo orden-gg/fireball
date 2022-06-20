@@ -1,3 +1,4 @@
+// TODO create enums instead
 export const listingTypes = {
     closedPortal: 'erc721Listings-0',
     openedPortal: 'erc721Listings-2',
