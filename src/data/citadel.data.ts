@@ -1,6 +1,6 @@
-const CITADEL_WIDTH = 9504;
-const CITADEL_HEIGHT = 6336;
-const PARCEL_SIZE = Object.freeze({
+export const CITADEL_WIDTH: number = 9504;
+export const CITADEL_HEIGHT: number = 6336;
+export const PARCEL_SIZE: any = Object.freeze({
     0: {
         width: 8,
         height: 8
@@ -26,7 +26,7 @@ const PARCEL_SIZE = Object.freeze({
         height: 64
     }
 });
-const PARCEL_NAME = Object.freeze({
+export const PARCEL_NAME: any = Object.freeze({
     0: 'humble',
     1: 'reasonable',
     2: 'spacious',
@@ -34,7 +34,7 @@ const PARCEL_NAME = Object.freeze({
     4: 'paartners',
     5: 'guardian'
 });
-const DISTRICTS = Object.freeze({
+export const DISTRICTS: any = Object.freeze({
     length: 49,
     w: CITADEL_WIDTH/9,
     h: CITADEL_HEIGHT/6,
@@ -114,9 +114,10 @@ const DISTRICTS = Object.freeze({
     },
     numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
 });
-const COLORS = Object.freeze({
+export const COLORS: any = Object.freeze({
     parcels: {
         selected: 0xffffff,
+        // TODO remove commented code if not needed
         // humble: {sell: 0x2500c2, raffle: 0x4c75c5, void: 0x000f49},
         // reasonable: {sell: 0x016f52, raffle: 0x00a191, void: 0x002e2b},
         // spacious: {sell: 0x340055, raffle: 0x5100a2, void: 0x22003f},
@@ -130,6 +131,7 @@ const COLORS = Object.freeze({
         listed: [0x78b5fe, 0x002758],
         multiselect: [0xffffff, 0xfd9af9]
     },
+    // TODO remove commented code if not needed
     // grid: 0xfd9af9,
     grid: 0xffffff,
     logo: { back: 0x000000, border: 0xfd9af9 },
@@ -137,6 +139,7 @@ const COLORS = Object.freeze({
         hover: 0xffffff
     },
     alchemica: {
+        // TODO remove commented code if not needed
         // fud: 0x01ff00,
         // fomo: 0xfe1d02,
         // alpha: 0x01ffff,
@@ -147,12 +150,3 @@ const COLORS = Object.freeze({
         kek: 0xfb95fa
     }
 });
-
-export {
-    CITADEL_WIDTH,
-    CITADEL_HEIGHT,
-    PARCEL_SIZE,
-    PARCEL_NAME,
-    DISTRICTS,
-    COLORS
-};
