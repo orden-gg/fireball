@@ -1,6 +1,6 @@
 import { collaterals } from 'data/collaterals.data';
 import { sets } from 'data/sets.data';
-import tokens from 'data/tokens';
+import { tokens } from 'data/tokens.data';
 
 export class GraphUtils {
     public static calculateRewards(position: any, type: any): any {

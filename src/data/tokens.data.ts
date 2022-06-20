@@ -1,6 +1,6 @@
 import { GHST_CONTRACT, FUD_CONTRACT, KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT } from 'api/common/constants';
 
-const tokens = [
+export const tokens = [
     {
         name: 'ghst',
         address: GHST_CONTRACT
@@ -22,5 +22,3 @@ const tokens = [
         address: KEK_CONTRACT
     }
 ];
-
-export default tokens;
