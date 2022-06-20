@@ -1,4 +1,4 @@
-export const sets = [
+export const sets: any = [
     ['Infantry', [], [1, 2, 3], [1, 0, 1, 0, 0]],
     ['Trooper', [], [4, 5, 6], [2, 0, 1, 0, 0]],
     ['Sergeant', [], [7, 8, 9], [3, 0, 2, 0, 0]],
@@ -145,5 +145,3 @@ export const sets = [
     ['Vacation Geisha', [], [115, 304, 243, 302], [4, 0, -2, 0, 0]],
     ['Tooth Fairy', [], [306, 307, 308, 93], [4, 0, 0, -2, 0]]
 ];
-
-export default sets;

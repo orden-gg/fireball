@@ -1,5 +1,5 @@
 import { collaterals } from 'data/collaterals.data';
-import sets from 'data/sets';
+import { sets } from 'data/sets.data';
 import tokens from 'data/tokens';
 
 export class GraphUtils {
