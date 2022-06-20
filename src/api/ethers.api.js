@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { POLYGON_RPC, RINKEBY_RPC } from './common/constants';
+import { POLYGON_RPC, RINKEBY_RPC } from './common/api.constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

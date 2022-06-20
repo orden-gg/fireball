@@ -1,4 +1,4 @@
-import { GHST_CONTRACT, FUD_CONTRACT, KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT } from 'api/common/constants';
+import { GHST_CONTRACT, FUD_CONTRACT, KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT } from 'api/common/api.constants';
 
 export const tokens = [
     {

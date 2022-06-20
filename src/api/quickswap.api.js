@@ -1,7 +1,7 @@
 import * as quickSwap from 'quickswap-sdk';
 
 import ethersApi from './ethers.api';
-import { POLYGON_CHAIN_ID } from './common/constants';
+import { POLYGON_CHAIN_ID } from './common/api.constants';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

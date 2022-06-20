@@ -1,6 +1,6 @@
 import ethersApi from './ethers.api';
 
-import { AUTOPET_CONTRACT } from './common/constants';
+import { AUTOPET_CONTRACT } from './common/api.constants';
 import { AUTOPET_ABI } from 'data/abi/autopet.abi';
 import { ethers } from 'ethers';
 

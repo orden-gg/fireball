@@ -1,6 +1,6 @@
 import { TILES_ABI } from 'data/abi/tiles.abi';
 
-import { TILES_CONTRACT } from './common/constants';
+import { TILES_CONTRACT } from './common/api.constants';
 import ethersApi from './ethers.api';
 
 const tilesContract = ethersApi.makeContract(TILES_CONTRACT, TILES_ABI, 'polygon');

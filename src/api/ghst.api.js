@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 import ethersApi from './ethers.api';
 
-import { OLD_AUTOPET_CONTRACT, AUTOPET_CONTRACT, GHST_CONTRACT } from './common/constants';
+import { OLD_AUTOPET_CONTRACT, AUTOPET_CONTRACT, GHST_CONTRACT } from './common/api.constants';
 import { GHST_ABI } from 'data/abi/ghst.abi';
 
 const contract = ethersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');

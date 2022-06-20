@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import ethersApi from './ethers.api';
 
 import { KEK_ABI, ALPHA_ABI, FOMO_ABI, FUD_ABI, GLTR_ABI } from 'data/abi/alchemica.abi';
-import { KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GLTR_CONTRACT } from './common/constants';
+import { KEK_CONTRACT, ALPHA_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GLTR_CONTRACT } from './common/api.constants';
 
 const akekContract = ethersApi.makeContract(KEK_CONTRACT, KEK_ABI, 'polygon');
 const alphaContract = ethersApi.makeContract(ALPHA_CONTRACT, ALPHA_ABI, 'polygon');

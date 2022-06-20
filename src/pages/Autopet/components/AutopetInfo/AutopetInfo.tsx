@@ -5,7 +5,7 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 import classNames from 'classnames';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
-import { AUTOPET_CONTRACT } from 'api/common/constants';
+import { AUTOPET_CONTRACT } from 'api/common/api.constants';
 import autopetApi from 'api/autopet.api';
 import thegraph from 'api/thegraph.api';
 import { CommonUtils } from 'utils';

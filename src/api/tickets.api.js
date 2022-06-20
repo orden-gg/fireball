@@ -2,7 +2,7 @@
 import ethersApi from './ethers.api';
 import { ItemUtils } from 'utils';
 
-import { TICKETS_CONTRACT } from './common/constants';
+import { TICKETS_CONTRACT } from './common/api.constants';
 import { TICKETS_ABI } from 'data/abi/tickets.abi';
 
 const contract = ethersApi.makeContract(TICKETS_CONTRACT, TICKETS_ABI, 'polygon');
