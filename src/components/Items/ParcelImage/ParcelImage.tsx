@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
-import gotchiverseApi from 'api/gotchiverse.api';
+import { getParcelImage } from 'api/gotchiverse.api';
 import { COLORS } from 'data/citadel.data';
 
 import { styles } from './styles';
@@ -84,7 +84,7 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
 
         setImageLoading(true);
 
-        gotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
+        getParcelImage(parcel.parcelId, imageSize, true)
             .then((res: any) => {
                 if (mounted) {
                     setImageLoading(false);
