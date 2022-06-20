@@ -4,7 +4,7 @@ import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'c
 import thegraph from 'api/thegraph.api';
 import { getInventoryByAddress } from 'api/main.api';
 import { getInstallationsByAddress } from 'api/installations.api';
-import tilesApi from 'api/tiles.api';
+import { getTilesByAddress } from 'api/tiles.api';
 import { getTicketsByAddress } from 'api/tickets.api';
 import thegraphApi from 'api/thegraph.api';
 import { formatBigNumber } from 'api/ethers.api';
@@ -244,7 +244,7 @@ const ClientContextProvider = (props) => {
     const getTiles = (address) => {
         setLoadingTiles(true);
 
-        tilesApi.getTilesByAddress(address).then(response => {
+        getTilesByAddress(address).then(response => {
             const tiles = response.map(item => {
                 const id = formatBigNumber(item.tileId._hex);
 

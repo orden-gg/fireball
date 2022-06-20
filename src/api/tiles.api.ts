@@ -5,9 +5,6 @@ import { makeContract } from './ethers.api';
 
 const tilesContract = makeContract(TILES_CONTRACT, TILES_ABI, 'polygon');
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-     getTilesByAddress(address) {
-        return tilesContract.tilesBalances(address);
-    }
+export const getTilesByAddress = (address: any): any => {
+    return tilesContract.tilesBalances(address);
 };
