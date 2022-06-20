@@ -12,7 +12,7 @@ export function GhstPanel({ index, dir }: AutopetPanelProps) {
 
     const {
         ghstState,
-        approveGhst,
+        onApproveGhst,
         renderButtonNode,
         isGhstApproved,
         isStaked,
@@ -40,7 +40,7 @@ export function GhstPanel({ index, dir }: AutopetPanelProps) {
                     fullWidth
                     size='large'
                     className={classes.panelButton}
-                    onClick={() => { approveGhst(!isGhstApproved) }}
+                    onClick={() => { onApproveGhst(!isGhstApproved) }}
                 >
                     {renderButtonNode(
                         ghstState,

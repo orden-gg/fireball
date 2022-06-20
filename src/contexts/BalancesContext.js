@@ -8,7 +8,7 @@ import {
     getGltrBalance,
     getKekBalance
 } from 'api/alchemica.api';
-import ghstApi from 'api/ghst.api';
+import { getBalanceOf } from 'api/ghst.api';
 import quickSwapApi from 'api/quickswap.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
 import { CommonUtils } from 'utils';
@@ -77,7 +77,7 @@ const BalancesContextProvider = (props) => {
                     getAlphaBalance(activeAddress),
                     getKekBalance(activeAddress),
                     getGltrBalance(activeAddress),
-                    ghstApi.getBalanceOf(activeAddress)
+                    getBalanceOf(activeAddress)
                 ]);
                 const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
                     quickSwapApi.getTokenData(FUD_CONTRACT),

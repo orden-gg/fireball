@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material';
 import { useMetamask } from 'use-metamask';
 
 import { getUsers, subscribe } from 'api/autopet.api';
-import ghstApi from 'api/ghst.api';
+import { approveGhst, isGhstApproved as isGhstApprovedApi } from 'api/ghst.api';
 import mainApi from 'api/main.api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { LoginContext } from 'contexts/LoginContext';
@@ -89,14 +89,14 @@ export const AutopetContextProvider = (props: any) => {
         }
     };
 
-    const approveGhst = async (approval: boolean): Promise<void> => {
+    const onApproveGhst = async (approval: boolean): Promise<void> => {
         const succesMessage: string = approval ? 'GHST approved!' : 'GHST approval revoked!';
         const errorMessage: string = approval ? 'GHST approval failed!' : 'Revoking GHST approval failed!';
 
         setGhstState('approving');
 
         try {
-            const isApproved = await ghstApi.approveGhst(approval);
+            const isApproved = await approveGhst(approval);
 
             if (isApproved) {
                 setIsGhstApproved(approval);
@@ -113,7 +113,7 @@ export const AutopetContextProvider = (props: any) => {
     };
 
     const checkGhstSpend = async (): Promise<void> => {
-        const ghstApproved: boolean = await ghstApi.isGhstApproved(connectedWallet);
+        const ghstApproved: boolean = await isGhstApprovedApi(connectedWallet);
 
         if (!ghstApproved) {
             setIsGhstApproved(ghstApproved);
@@ -186,7 +186,7 @@ export const AutopetContextProvider = (props: any) => {
         (async function loadData() {
             const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
                 mainApi.isPetApproved(accounts[0]),
-                ghstApi.isGhstApproved(accounts[0]),
+                isGhstApprovedApi(accounts[0]),
                 getUsers()
             ]);
             const ghstStaked: boolean = users.some((address: string) => (
@@ -223,7 +223,7 @@ export const AutopetContextProvider = (props: any) => {
             tabs,
 
             // functions
-            approveGhst,
+            onApproveGhst,
             approvePet,
             approveStake,
             approveConnect,
