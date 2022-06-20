@@ -11,8 +11,7 @@ import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/defa
 import { DISTRICTS } from 'data/citadel.data';
 import { FilterComponent } from 'data/filterTypes';
 import guilds from 'data/guilds.json';
-import { CommonUtils, GotchiverseUtils } from 'utils';
-import filterHelpers from 'utils/filterFunctions.helper';
+import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 
 export const filtersData = {
     hauntId: {
@@ -57,13 +56,13 @@ export const filtersData = {
         placeholder: 'name or id',
         value: '',
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.inputGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.inputResetFilterFn,
-        predicateFn: filterHelpers.inputPredicateFn,
-        updateFromQueryFn: filterHelpers.inputUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.inputUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.inputGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.inputGetActiveFiltersCount
+        getIsFilterValidFn: FiltersHelper.inputGetIsFilterValidFn,
+        resetFilterFn: FiltersHelper.inputResetFilterFn,
+        predicateFn: FiltersHelper.inputPredicateFn,
+        updateFromQueryFn: FiltersHelper.inputUpdateFromQueryFn,
+        updateFromFilterFn: FiltersHelper.inputUpdateFromFilterFn,
+        getQueryParamsFn: FiltersHelper.inputGetQueryParamsFn,
+        getActiveFiltersCountFn: FiltersHelper.inputGetActiveFiltersCount
     },
     guild: {
         key: 'guild',
@@ -100,13 +99,13 @@ export const filtersData = {
         title: 'Whitelist',
         items: [],
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.singleSelectionGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.singleSelectionResetFilterFn,
-        predicateFn: filterHelpers.singleSelectionPredicateFn,
-        updateFromQueryFn: filterHelpers.singleSelectionUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.singleSelectionUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.singleSelectionGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.singleSelectionGetActiveFiltersCount
+        getIsFilterValidFn: FiltersHelper.singleSelectionGetIsFilterValidFn,
+        resetFilterFn: FiltersHelper.singleSelectionResetFilterFn,
+        predicateFn: FiltersHelper.singleSelectionPredicateFn,
+        updateFromQueryFn: FiltersHelper.singleSelectionUpdateFromQueryFn,
+        updateFromFilterFn: FiltersHelper.singleSelectionUpdateFromFilterFn,
+        getQueryParamsFn: FiltersHelper.singleSelectionGetQueryParamsFn,
+        getActiveFiltersCountFn: FiltersHelper.singleSelectionGetActiveFiltersCount
     },
     period: {
         key: 'period',
@@ -211,8 +210,8 @@ export const filtersData = {
         value: false,
         componentType: FilterComponent.Checkbox,
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+        resetFilterFn: FiltersHelper.checkboxResetFilterFn,
         predicateFn: (filter, compareItem, key) => {
             let predicate;
 
@@ -224,10 +223,10 @@ export const filtersData = {
 
             return predicate;
         },
-        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
+        updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
     },
     isUpgradeReady: {
         key: 'isUpgradeReady',
@@ -236,15 +235,15 @@ export const filtersData = {
         value: false,
         componentType: FilterComponent.Checkbox,
         isFilterActive: false,
-        getIsFilterValidFn: filterHelpers.checkboxGetIsFilterValidFn,
-        resetFilterFn: filterHelpers.checkboxResetFilterFn,
+        getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+        resetFilterFn: FiltersHelper.checkboxResetFilterFn,
         predicateFn: (filter, compareItem, key) => {
             return !filter.value ? !filter.value : filter.value && compareItem[key];
         },
-        updateFromQueryFn: filterHelpers.checkboxUpdateFromQueryFn,
-        updateFromFilterFn: filterHelpers.checkboxUpdateFromFilterFn,
-        getQueryParamsFn: filterHelpers.checkboxGetQueryParamsFn,
-        getActiveFiltersCountFn: filterHelpers.checkboxGetActiveFiltersCount
+        updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+        updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+        getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+        getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
     },
     altarLevel: {
         key: 'altarLevel',
