@@ -1,4 +1,4 @@
-const TILE_ABI = [
+export const TILES_ABI = [
     {
         inputs: [
             { internalType: 'address', name: '_owner', type: 'address' },
@@ -416,5 +416,3 @@ const TILE_ABI = [
         type: 'event'
     }
 ];
-
-export default TILE_ABI;
