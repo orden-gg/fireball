@@ -1,4 +1,4 @@
-const collaterals = [
+export const collaterals: any[] = [
     // haunt 1
     {
         name: 'maWETH',
@@ -67,5 +67,3 @@ const collaterals = [
         address: '0x1a13f4ca1d028320a707d99520abfefca3998b7f'
     }
 ];
-
-export default collaterals;

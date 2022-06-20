@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { BaazaarContext } from 'contexts/BaazaarContext';
-import collaterals from 'data/collaterals';
+import { collaterals } from 'data/collaterals.data';
 
 import { AdvancedSearch } from './AdvancedSearch';
 import { FastSearch } from './FastSearch';

@@ -1,4 +1,4 @@
-import collaterals from 'data/collaterals';
+import { collaterals } from 'data/collaterals.data';
 import sets from 'data/sets';
 import tokens from 'data/tokens';
 
