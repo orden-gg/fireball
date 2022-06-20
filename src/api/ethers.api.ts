@@ -51,7 +51,7 @@ export const makeContractWithSigner = (contract: any, abi: any): any => {
     return new ethers.Contract(contract, abi, signer);
 };
 
-export const getProvider = (network: any): any => {
+export const getProvider = (network?: any): any => {
     switch (network) {
         case 'test':
             return new ethers.providers.JsonRpcProvider(RINKEBY_RPC);

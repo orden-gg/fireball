@@ -9,7 +9,7 @@ import {
     getKekBalance
 } from 'api/alchemica.api';
 import { getBalanceOf } from 'api/ghst.api';
-import quickSwapApi from 'api/quickswap.api';
+import { getPairData, getTokenData, getTokenRouteByPair } from 'api/quickswap.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
 import { CommonUtils } from 'utils';
 
@@ -80,11 +80,11 @@ const BalancesContextProvider = (props) => {
                     getBalanceOf(activeAddress)
                 ]);
                 const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
-                    quickSwapApi.getTokenData(FUD_CONTRACT),
-                    quickSwapApi.getTokenData(FOMO_CONTRACT),
-                    quickSwapApi.getTokenData(ALPHA_CONTRACT),
-                    quickSwapApi.getTokenData(KEK_CONTRACT),
-                    quickSwapApi.getTokenData(GLTR_CONTRACT)
+                    getTokenData(FUD_CONTRACT),
+                    getTokenData(FOMO_CONTRACT),
+                    getTokenData(ALPHA_CONTRACT),
+                    getTokenData(KEK_CONTRACT),
+                    getTokenData(GLTR_CONTRACT)
                 ]);
                 const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
                     getTokenPrice(ghst, ghstPrice, fudToken),
@@ -168,20 +168,20 @@ const BalancesContextProvider = (props) => {
 
     const getGhstAndPriceToToken = async (ghstContract, tokenContract) => {
         const [ghst, token] = await Promise.all([
-            quickSwapApi.getTokenData(ghstContract),
-            quickSwapApi.getTokenData(tokenContract)
+            getTokenData(ghstContract),
+            getTokenData(tokenContract)
         ]);
 
-        const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
-        const ghstTokenRoute = quickSwapApi.getTokenRouteByPair(ghst, ghstTokenPair);
+        const ghstTokenPair = await getPairData(ghst, token);
+        const ghstTokenRoute = getTokenRouteByPair(ghst, ghstTokenPair);
         const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
         return [ghst, ghstPriceToToken];
     };
 
     const getTokenPrice = async (ghst, ghstPrice, token) => {
-        const ghstTokenPair = await quickSwapApi.getPairData(ghst, token);
-        const ghstTokenRoute = quickSwapApi.getTokenRouteByPair(token, ghstTokenPair);
+        const ghstTokenPair = await getPairData(ghst, token);
+        const ghstTokenRoute = getTokenRouteByPair(token, ghstTokenPair);
         const tokenToGhstPrice = Number(ghstTokenRoute.midPrice.toSignificant(6));
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 
