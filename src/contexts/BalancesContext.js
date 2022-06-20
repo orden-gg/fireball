@@ -1,7 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
-import alchemicaApi from 'api/alchemica.api';
+import {
+    getAlphaBalance,
+    getFomoBalance,
+    getFudBalance,
+    getGltrBalance,
+    getKekBalance
+} from 'api/alchemica.api';
 import ghstApi from 'api/ghst.api';
 import quickSwapApi from 'api/quickswap.api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
@@ -66,11 +72,11 @@ const BalancesContextProvider = (props) => {
             getBalances = async function () {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
                 const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await Promise.all([
-                    alchemicaApi.getFudBalance(activeAddress),
-                    alchemicaApi.getFomoBalance(activeAddress),
-                    alchemicaApi.getAlphaBalance(activeAddress),
-                    alchemicaApi.getKekBalance(activeAddress),
-                    alchemicaApi.getGltrBalance(activeAddress),
+                    getFudBalance(activeAddress),
+                    getFomoBalance(activeAddress),
+                    getAlphaBalance(activeAddress),
+                    getKekBalance(activeAddress),
+                    getGltrBalance(activeAddress),
                     ghstApi.getBalanceOf(activeAddress)
                 ]);
                 const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
