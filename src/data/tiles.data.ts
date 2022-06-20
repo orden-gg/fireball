@@ -1,4 +1,4 @@
-const tiles = {
+export const tiles = {
     1: {
         'name': 'LE Golden Tile - Gotchiverse'
     },
@@ -9,5 +9,3 @@ const tiles = {
         'name': 'LE Golden Tile - Gotchi'
     }
 };
-
-export default tiles;

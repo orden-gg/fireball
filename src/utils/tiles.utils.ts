@@ -1,4 +1,4 @@
-import tiles from 'data/tiles';
+import { tiles } from 'data/tiles.data';
 
 export class TilesUtils {
     public static getNameById(id: any): any {
