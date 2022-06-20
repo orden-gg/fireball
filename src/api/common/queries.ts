@@ -1,4 +1,4 @@
-export const gotchiesQuery = (skip, orderDir, hauntId) => {
+export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
     return `{
         aavegotchis(
           first: 1000,
@@ -39,7 +39,7 @@ export const gotchiesQuery = (skip, orderDir, hauntId) => {
     }`;
 };
 
-export const gotchiByIdQuery = (id) => {
+export const gotchiByIdQuery = (id: any): any => {
   return `{
     aavegotchi(id: ${id}) {
       id
@@ -54,7 +54,7 @@ export const gotchiByIdQuery = (id) => {
   }`;
 };
 
-export const userQuery = (id, skip) => {
+export const userQuery = (id: any, skip: any): any => {
     return `{
         user(id: "${id}") {
           id
@@ -92,7 +92,7 @@ export const userQuery = (id, skip) => {
     }`;
 };
 
-export const svgQuery = (id) => {
+export const svgQuery = (id: any): any => {
     return `{
         aavegotchis(where: {id: ${id}}) {
           id
@@ -101,7 +101,7 @@ export const svgQuery = (id) => {
       }`;
 };
 
-export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
+export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, orderDireciton: any): any => {
   return `{
       erc1155Listings (
           first: 1,
@@ -121,7 +121,7 @@ export const erc1155Query = (id, sold, category, orderBy, orderDireciton) => {
   }`;
 };
 
-export const erc721ListingsBySeller = (seller) => {
+export const erc721ListingsBySeller = (seller: any): any => {
     return `{
         erc721Listings(
             where: {
@@ -191,7 +191,7 @@ export const erc721ListingsBySeller = (seller) => {
     }`;
 };
 
-export const erc1155ListingsBySeller = (seller) => {
+export const erc1155ListingsBySeller = (seller: any): any => {
     return `{
         erc1155Listings(
             where: {
@@ -211,7 +211,7 @@ export const erc1155ListingsBySeller = (seller) => {
     }`;
 };
 
-export const realmQuery = (address, skip) => {
+export const realmQuery = (address: any, skip: any): any => {
     return `{
       parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
         tokenId
@@ -235,7 +235,7 @@ export const realmQuery = (address, skip) => {
     }`;
 };
 
-export const realmQueryByDistrict = (skip, district) => {
+export const realmQueryByDistrict = (skip: any, district: any): any => {
     return `{
       parcels(first: 1000, skip: ${skip}, where: { district: ${district}}) {
         tokenId
@@ -260,7 +260,7 @@ export const realmQueryByDistrict = (skip, district) => {
     }`;
 };
 
-export const parselQuery = (id) => {
+export const parselQuery = (id: any): any => {
   return `{
     parcel( id: ${id}) {
       tokenId
@@ -284,7 +284,7 @@ export const parselQuery = (id) => {
   }`;
 };
 
-export const activeListingQeury = (erc, id, type, category) => {
+export const activeListingQeury = (erc: any, id: any, type: any, category: any): any => {
     return `{
         ${erc}Listings(
                 where: {
@@ -300,7 +300,7 @@ export const activeListingQeury = (erc, id, type, category) => {
         }`;
 };
 
-export const erc721SalesHistory = (id, category) => {
+export const erc721SalesHistory = (id: any, category: any): any => {
     return `{
         erc721Listings(
             where:{
@@ -319,7 +319,7 @@ export const erc721SalesHistory = (id, category) => {
     }`;
 };
 
-export const getParcelOrderDirectionQuery = data => {
+export const getParcelOrderDirectionQuery = (data: any): any => {
     return `{
         erc721Listings(
             first: 1,
@@ -339,7 +339,7 @@ export const getParcelOrderDirectionQuery = data => {
     }`;
   };
 
-export const auctionQuery = (id) => {
+export const auctionQuery = (id: any): any => {
     return `{
       auctions(first: 1, where: { id: "${id}" }) {
         id
@@ -348,7 +348,7 @@ export const auctionQuery = (id) => {
     }`;
 };
 
-export const listedParcelsQuery = (skip, orderDir, size) => {
+export const listedParcelsQuery = (skip: any, orderDir: any, size: any): any => {
     return `{
         erc721Listings(
             first: 1000,
@@ -396,7 +396,7 @@ export const listedParcelsQuery = (skip, orderDir, size) => {
     }`;
 };
 
-export const raffleQuery = (id) => {
+export const raffleQuery = (id: any): any => {
   return `{
     raffles(where: {id: "${id}" }) {
       ticketPools {
@@ -419,7 +419,7 @@ export const raffleQuery = (id) => {
   }`;
 };
 
-export const raffleEntrantsQuery = (address) => {
+export const raffleEntrantsQuery = (address: any): any => {
     return `{
       raffleEntrants(where: { address: "${address}" }) {
         id
@@ -432,7 +432,7 @@ export const raffleEntrantsQuery = (address) => {
     }`;
 };
 
-export const raffleWinsQuery = (address) => {
+export const raffleWinsQuery = (address: any): any => {
     return `{
       raffleWinners(where: { address: "${address}" }) {
         id
@@ -447,7 +447,7 @@ export const raffleWinsQuery = (address) => {
     }`;
 };
 
-export const lendingsQuery = (skip, orderDir) => {
+export const lendingsQuery = (skip: any, orderDir: any): any => {
     return `{
       gotchiLendings(
           first: 1000,
@@ -484,7 +484,7 @@ export const lendingsQuery = (skip, orderDir) => {
     }`;
 };
 
-export const lendingsByAddressQuery = (address, skip) => {
+export const lendingsByAddressQuery = (address: any, skip: any): any => {
     return `{
       gotchiLendings(
         first: 1000,
@@ -533,7 +533,7 @@ export const lendingsByAddressQuery = (address, skip) => {
     }`;
 };
 
-export const incomeQuery = (id, timestamp) => {
+export const incomeQuery = (id: any, timestamp: any): any => {
     return `{
         vortexClaims(
             first: 1000,
@@ -553,7 +553,7 @@ export const incomeQuery = (id, timestamp) => {
 
 // ! Gotchiverse queries
 
-export const gotchisGotchiverseQuery = (gotchis) => {
+export const gotchisGotchiverseQuery = (gotchis: any): any => {
     return `{
         gotchis(
             first: ${gotchis.length},
@@ -565,7 +565,7 @@ export const gotchisGotchiverseQuery = (gotchis) => {
       }`;
 };
 
-export const parcelsGotchiverseQuery = (parcels) => {
+export const parcelsGotchiverseQuery = (parcels: any): any => {
     return `{
         parcels(
             first: ${parcels.length},
@@ -583,7 +583,7 @@ export const parcelsGotchiverseQuery = (parcels) => {
       }`;
 };
 
-export const parcelsOwnerGotchiverseQuery = (owner) => {
+export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
     return `{
         parcels(
             first: 1000,
