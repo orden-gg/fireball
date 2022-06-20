@@ -37,7 +37,7 @@ export const filtersData = {
     collateral: {
         key: 'collateral',
         queryParamKey: 'collateral',
-        items: collaterals.map(collateral => ({
+        items: collaterals.map((collateral: any) => ({
             title: collateral.name,
             value: collateral.address,
             isSelected: false,
@@ -70,15 +70,15 @@ export const filtersData = {
         componentType: FilterComponent.MultipleAutocomplete,
         title: 'Guilds',
         items: guilds
-            .filter(guild => guild.members.length > 0)
-            .map(guild => ({
+            .filter((guild: any) => guild.members.length > 0)
+            .map((guild: any) => ({
                 title: CommonUtils.stringToKey(guild.name),
                 value: CommonUtils.stringToKey(guild.name),
                 isSelected: false,
                 queryParamValue: CommonUtils.stringToKey(guild.name)
             })),
-        renderTagsFn: (tagValue, getTagProps) => {
-            return tagValue.map((option, index) => (
+        renderTagsFn(tagValue: any, getTagProps: any) {
+            return tagValue.map((option: any, index: number) => (
                 <Chip
                     size='small'
                     label={option.title}
@@ -116,9 +116,8 @@ export const filtersData = {
         min: 0,
         max: 720,
         value: [0, 720],
-        isFilterActive: false,
-        valueMapperFn: (value) => {
-            return value.map(val => val * 60 * 60);
+        valueMapperFn: (value: any): any => {
+            return value.map((val: any) => val * 60 * 60);
         },
         ...defaultRangeSliderFilter
     },
@@ -142,8 +141,8 @@ export const filtersData = {
         min: 0,
         max: 100,
         value: [0, 100],
-        valueMapperFn: (value) => {
-            return value.map(val => ethersApi.toWei(val));
+        valueMapperFn: (value: any): any => {
+            return value.map((val: any) => ethersApi.toWei(val));
         },
         ...defaultRangeSliderFilter
     },
@@ -184,15 +183,15 @@ export const filtersData = {
         queryParamKey: 'district',
         title: 'District',
         items: DISTRICTS.numbers
-            .map(district => ({
+            .map((district: any) => ({
                 title: `${district}`,
                 value: `${district}`,
                 isSelected: false,
                 queryParamValue: `${district}`
             })),
         componentType: FilterComponent.MultipleAutocomplete,
-        renderTagsFn: (tagValue, getTagProps) => {
-            return tagValue.map((option, index) => (
+        renderTagsFn: (tagValue: any, getTagProps: any): any => {
+            return tagValue.map((option: any, index: number) => (
                 <Chip
                     size='small'
                     label={option.title}
@@ -212,8 +211,8 @@ export const filtersData = {
         isFilterActive: false,
         getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
         resetFilterFn: FiltersHelper.checkboxResetFilterFn,
-        predicateFn: (filter, compareItem, key) => {
-            let predicate;
+        predicateFn: (filter: any, compareItem: any, key: any): any => {
+            let predicate: any;
 
             if (!filter.value || !compareItem[key]) {
                 predicate = true;
@@ -237,7 +236,7 @@ export const filtersData = {
         isFilterActive: false,
         getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
         resetFilterFn: FiltersHelper.checkboxResetFilterFn,
-        predicateFn: (filter, compareItem, key) => {
+        predicateFn: (filter: any, compareItem: any, key: any) => {
             return !filter.value ? !filter.value : filter.value && compareItem[key];
         },
         updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
