@@ -1,4 +1,4 @@
-export const paramsToUrlString = (params) => {
+export const paramsToUrlString = (params: any): any => {
     let str = '';
 
     for (const key in params) {
