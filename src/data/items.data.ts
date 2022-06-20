@@ -1,4 +1,4 @@
-export const items = {
+export const items: any = {
     1: {
         'name': 'Camo Hat',
         'rarity': 'common',

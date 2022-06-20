@@ -1,4 +1,4 @@
-import { items } from '../data/items';
+import { items } from '../data/items.data';
 
 export class ItemUtils {
     public static getItemNameById(id: any): any {
