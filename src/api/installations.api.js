@@ -1,4 +1,4 @@
-import INSTALLATIONS_ABI from 'data/abi/installations.abi';
+import { INSTALLATIONS_ABI } from 'data/abi/installations.abi';
 
 import { INSTALLATION_CONTRACT } from './common/constants';
 import ethersApi from './ethers.api';

@@ -1,4 +1,4 @@
-const INSTALLATIONS_ABI = [
+export const INSTALLATIONS_ABI = [
     {
       'anonymous': false,
       'inputs': [
@@ -2079,5 +2079,3 @@ const INSTALLATIONS_ABI = [
       'type': 'function'
     }
   ];
-
-export default INSTALLATIONS_ABI;
