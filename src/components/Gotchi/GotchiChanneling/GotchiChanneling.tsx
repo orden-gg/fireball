@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { FudIcon, RealmGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import realmApi from 'api/realm.api';
-import { DAY_MILLIS } from 'data/date';
+import { DAY_MILLIS } from 'data/date.data';
 
 import { styles } from './styles';
 

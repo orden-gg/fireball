@@ -11,7 +11,7 @@ import { DateTime } from 'luxon';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ShineLabel } from 'components/Labels/ShineLabel';
 import { CommonUtils, GraphUtils } from 'utils';
-import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date';
+import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date.data';
 
 import { styles } from './styles';
 
