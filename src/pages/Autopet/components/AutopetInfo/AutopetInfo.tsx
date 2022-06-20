@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { AUTOPET_CONTRACT } from 'api/common/api.constants';
-import autopetApi from 'api/autopet.api';
+import { getFee, getFrens, getUsers } from 'api/autopet.api';
 import thegraph from 'api/thegraph.api';
 import { CommonUtils } from 'utils';
 
@@ -24,7 +24,7 @@ export function AutopetInfo() {
     const [totalUsers, setTotalUsers] = useState<string>('');
 
     useEffect(() => {
-        autopetApi.getUsers().then((users: any) => {
+        getUsers().then((users: any) => {
             thegraph.getGotchisByAddresses(users).then((gotchis: any) => {
                 setTotalGotchis(CommonUtils.formatPrice(gotchis.length));
             });
@@ -32,11 +32,11 @@ export function AutopetInfo() {
             setTotalUsers(CommonUtils.formatPrice(users.length));
         });
 
-        autopetApi.getFee().then((fee: number) => {
+        getFee().then((fee: number) => {
             setFee(CommonUtils.formatPrice(fee));
         });
 
-        autopetApi.getFrens().then((frens: number) => {
+        getFrens().then((frens: number) => {
             setFrens(CommonUtils.formatPrice(frens));
         });
     }, []);

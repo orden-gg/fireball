@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 
 import { useMetamask } from 'use-metamask';
 
-import autopetApi from 'api/autopet.api';
+import { getUsers, subscribe } from 'api/autopet.api';
 import ghstApi from 'api/ghst.api';
 import mainApi from 'api/main.api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
@@ -128,7 +128,7 @@ export const AutopetContextProvider = (props: any) => {
         setStakeState('approving');
 
         try {
-            const isApproved = Boolean(await autopetApi.subscribe(approval));
+            const isApproved = Boolean(await subscribe(approval));
 
             if (isApproved) {
                 setIsStaked(approval);
@@ -187,7 +187,7 @@ export const AutopetContextProvider = (props: any) => {
             const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
                 mainApi.isPetApproved(accounts[0]),
                 ghstApi.isGhstApproved(accounts[0]),
-                autopetApi.getUsers()
+                getUsers()
             ]);
             const ghstStaked: boolean = users.some((address: string) => (
                 accounts[0].toLowerCase() === address.toLowerCase()
