@@ -62,4 +62,4 @@ export const previewAavegotchi = async (haunt: any, collateral: any, traits: any
 
         return null;
     }
-}
+};
