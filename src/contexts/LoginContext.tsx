@@ -3,7 +3,7 @@ import { createContext, useState } from 'react';
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
-import useLocalStorage from 'hooks/useLocalStorage';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 export const LoginContext = createContext({});
 
