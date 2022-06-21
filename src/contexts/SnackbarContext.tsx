@@ -2,18 +2,18 @@ import { createContext, useState } from 'react';
 
 export const SnackbarContext = createContext({});
 
-const SnackbarContextProvider = (props) => {
-    const [isOpen, setToOpen] = useState(false);
-    const [message, setMessage] = useState('');
-    const [type, setType] = useState('success');
+export const SnackbarContextProvider = (props: any) => {
+    const [isOpen, setToOpen] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
+    const [type, setType] = useState<string>('success');
 
-    const showSnackbar = (type, message) => {
+    const showSnackbar = (type: string, message: string): void => {
         setType(type);
         setMessage(message);
         setToOpen(true);
     };
 
-    const onSnackbarClose = () => {
+    const onSnackbarClose = (): void => {
         setType(type);
         setMessage('');
         setToOpen(false);
@@ -25,5 +25,3 @@ const SnackbarContextProvider = (props) => {
         </SnackbarContext.Provider>
     );
 };
-
-export default SnackbarContextProvider;
