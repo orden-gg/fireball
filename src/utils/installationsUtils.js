@@ -1,5 +1,4 @@
-import { ethers } from 'ethers';
-import installations from 'data/installations.json';
+import installations from 'data/installations.data';
 import { InstallationTypes } from 'data/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -46,8 +45,7 @@ export default {
     },
 
     getAlchemicaCostById(id) {
-        return installations[id][InstallationTypes.AlchemicaCost]
-            .map(token => Number(ethers.utils.formatUnits(token.hex)));
+        return installations[id][InstallationTypes.AlchemicaCost];
     },
 
     getTypeById(id) {

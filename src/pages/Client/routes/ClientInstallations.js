@@ -16,12 +16,12 @@ export default function ClientInstallations() {
 
     return (
         <>
-            <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={200}>
+            <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={182}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
                     component={props => {
                         if (props.type === 'tile') {
-                            return <Tile data={props} />;
+                            return <Tile tile={props} />;
                         } else {
                             return <Installation installation={props} />;
                         }
