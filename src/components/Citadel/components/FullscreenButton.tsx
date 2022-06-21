@@ -4,11 +4,11 @@ import { IconButton } from '@mui/material';
 import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import useFullscreenStatus from 'hooks/useFullscreenStatus';
+import { useFullscreenStatus } from 'hooks/useFullscreenStatus';
 
 import { InterfaceStyles } from '../styles';
 
-export default function FullscreenButton({ wrapperRef }) {
+export function FullscreenButton({ wrapperRef }: { wrapperRef: any }) {
     const classes = InterfaceStyles();
 
     const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
