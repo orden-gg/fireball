@@ -9,7 +9,7 @@ import { CustomParsedQuery } from 'shared/models';
 import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import { EthersApi } from 'api';
 import { LoginContext } from 'contexts/LoginContext';
-import RaffleContextProvider from 'contexts/RaffleContext';
+import { RaffleContextProvider } from 'contexts/RaffleContext';
 import { CommonUtils } from 'utils';
 
 import { RaffleContent } from './routes/RaffleContent';
