@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
 
@@ -20,7 +20,7 @@ export function ParcelPage() {
 
         setParcelLoading(true);
 
-        thegraphApi.getRealmById(parcelId)
+        TheGraphApi.getRealmById(parcelId)
             .then((res: any) => {
                 if (mounted) {
                     setParcel(res);

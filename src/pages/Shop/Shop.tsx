@@ -22,7 +22,7 @@ import { Portal } from 'components/Items/Portal/Portal';
 import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { fromWei, isEthAddress } from 'api/ethers.api';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
 
@@ -62,8 +62,8 @@ export function Shop() {
             setIsListingsLoading(true);
 
             Promise.all([
-                thegraph.getErc721ListingsBySeller(currentAddress),
-                thegraph.getErc1155ListingsBySeller(currentAddress)
+                TheGraphApi.getErc721ListingsBySeller(currentAddress),
+                TheGraphApi.getErc1155ListingsBySeller(currentAddress)
             ]).then(([erc721Listings, erc1155Listings]: [any, any]) => {
                 if (mounted) {
                     const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;

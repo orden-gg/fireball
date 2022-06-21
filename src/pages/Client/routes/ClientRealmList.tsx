@@ -15,7 +15,7 @@ import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ActionPane } from 'shared/ActionPane/ActionPane';
 import { getUpgradeQueueByAddress } from 'api/installations.api';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { getLastBlock, getFutureBlockTimestamp } from 'api/ethers.api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
@@ -238,7 +238,7 @@ export function ClientRealmList() {
     }, [realm, setRealm, activeAddress]);
 
     const getRealmInfo = (owner: any): Promise<any> => {
-        return thegraphApi.getParcelsGotchiverseInfoByOwner(owner).then((res: any) => {
+        return TheGraphApi.getParcelsGotchiverseInfoByOwner(owner).then((res: any) => {
             return res.map((parcel: any) => {
                 if (!parcel.equippedInstallations.length) {
                     return {

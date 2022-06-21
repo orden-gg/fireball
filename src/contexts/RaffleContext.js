@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
 import { isEthAddress } from 'api/ethers.api';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
 
 export const RaffleContext = createContext({});
@@ -38,7 +38,7 @@ const RaffleContextProvider = (props) => {
     const getRaffle = (raffle) => {
         setRaffleSpinner(true);
 
-        thegraph.getRaffle(raffle).then((response) => {
+        TheGraphApi.getRaffle(raffle).then((response) => {
             const [prizes, total] = response;
 
             setTickets((ticketsCache) => {
@@ -61,7 +61,7 @@ const RaffleContextProvider = (props) => {
 
         setPricesSpinner(true);
 
-        thegraph.getJoinedData(queries).then((response) => {
+        TheGraphApi.getJoinedData(queries).then((response) => {
             const averagePrices = response.map((item) => {
                 const prices = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
                 const average = prices.reduce((a,b) => a + b, 0) / prices.length;
@@ -85,8 +85,8 @@ const RaffleContextProvider = (props) => {
         setLoadingEntered(true);
 
         Promise.all([
-            thegraph.getRaffleEntered(address, raffle),
-            thegraph.getRaffleWins(address, raffle)
+            TheGraphApi.getRaffleEntered(address, raffle),
+            TheGraphApi.getRaffleWins(address, raffle)
         ]).then(([entered, won]) => {
             setTickets((ticketsCache) => {
                 const modified = [...ticketsCache];

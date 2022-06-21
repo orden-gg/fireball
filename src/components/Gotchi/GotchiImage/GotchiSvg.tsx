@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import { GotchiLoadingGif } from 'components/Icons/Icons';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
 
@@ -27,7 +27,7 @@ export function GotchiSvg({ id, size }: GotchiSvgProps) {
 
         setLoadingSvg(true);
 
-        thegraph.getGotchiSvgById(id)
+        TheGraphApi.getGotchiSvgById(id)
             .then((response: any) => {
                 if (!controller.signal.aborted) {
                     const svgString: any = response.data.aavegotchis[0].svg;

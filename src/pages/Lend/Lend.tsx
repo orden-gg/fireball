@@ -22,7 +22,7 @@ import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { fromWei } from 'api/ethers.api';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
 
@@ -133,7 +133,7 @@ export function Lend() {
 
         setDataLoading(true);
 
-        thegraphApi.getLendings().then(response => {
+        TheGraphApi.getLendings().then(response => {
             if (mounted) {
                 const whitelistData: any[] = [];
                 const mappedData: any[] = [];

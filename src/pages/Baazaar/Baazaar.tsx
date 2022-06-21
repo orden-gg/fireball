@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import thegraph from 'api/thegraph.api';
+
+import { TheGraphApi } from 'api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import useInterval from 'hooks/useInterval';
 import { listingTypes } from 'data/types';
@@ -85,7 +86,7 @@ export function Baazaar() {
 
     const getSalesData = () => {
         showBackdrop(true);
-        thegraph.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
+        TheGraphApi.getJoinedData(getQueries(selectedGoodsType, selectedListingType)).then((response) => {
             let cacheData: any[] = [];
             response.forEach( item => {
                 cacheData = [...cacheData, ...(item.data.erc721Listings || item.data.erc1155Purchases || item.data.erc1155Listings)];
@@ -232,7 +233,7 @@ export function Baazaar() {
 
     const getBaazaarItems = (params) => {
         showBackdrop(true);
-        thegraph.getData(getGraphQueryString(params)).then((response) => {
+        TheGraphApi.getData(getGraphQueryString(params)).then((response) => {
             setGoods(response.data.category);
             showBackdrop(false);
         }).catch(() => {
@@ -301,9 +302,9 @@ export function Baazaar() {
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
-        thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
+        TheGraphApi.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
             localGoods = [...localGoods, ...processResponse(response)];
-            thegraph.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
+            TheGraphApi.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
                 localGoods = [...localGoods, ...processResponse(response)];
                 // start render
                 filterLocalGotchis();
@@ -321,7 +322,7 @@ export function Baazaar() {
     const getAllRealmParcels = () => {
         showBackdrop(true);
         localGoods = [];
-        thegraph.getAllListedParcels().then((response) => {
+        TheGraphApi.getAllListedParcels().then((response) => {
             // start render
             localGoods = [...localGoods, ...response];
             filterLocalRealms();

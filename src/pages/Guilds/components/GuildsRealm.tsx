@@ -4,7 +4,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { Citadel } from 'components/Citadel/Citadel';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { guildContentStyles } from '../styles';
 
@@ -38,7 +38,7 @@ export function GuildsRealm() {
             return;
         }
 
-        thegraphApi.getRealmByAddresses(guilds[guildId].members).then(realm => {
+        TheGraphApi.getRealmByAddresses(guilds[guildId].members).then(realm => {
             if (mounted) {
                 setGuildRealm(realm);
                 setIsLoaded(true);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { fromWei } from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
@@ -15,7 +15,7 @@ export function ActiveListingButton({ item }: { item: any }) {
 
         setListingLoading(true);
 
-        thegraphApi.getActiveListing(item.erc, item.id, item.type, item.category)
+        TheGraphApi.getActiveListing(item.erc, item.id, item.type, item.category)
             .then((res: any) => {
                 if (mounted) {
                     setListing(res);

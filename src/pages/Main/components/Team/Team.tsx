@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 import { Subtitle } from 'components/Subtitle/Subtitle';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import { styles } from './styles';
@@ -18,7 +18,7 @@ export function Team() {
     const [members, setMembers] = useState<any[]>([]);
 
     useEffect(() => {
-        thegraph.getGotchiesByIds(gotchisIds).then((response: any) => {
+        TheGraphApi.getGotchiesByIds(gotchisIds).then((response: any) => {
             const formattedArray: any[] = [];
 
             response.forEach((gotchi) => {

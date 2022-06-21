@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
@@ -24,7 +24,7 @@ export function GuildLendings() {
 
         setIsLendingsLoading(true);
 
-        const promises: any[] = guilds[guildId].members.map(address => thegraphApi.getLendingsByAddress(address));
+        const promises: any[] = guilds[guildId].members.map(address => TheGraphApi.getLendingsByAddress(address));
 
         Promise.all(promises).then((responses: any[]) => {
             if (mounted) {

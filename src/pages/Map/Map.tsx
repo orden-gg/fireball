@@ -5,7 +5,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
 import { Citadel } from 'components/Citadel/Citadel';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api/thegraph.api';
 import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from './styles';
@@ -43,11 +43,11 @@ export function Map() {
         let mounted = true;
 
         Promise.all([
-            thegraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
-            thegraphApi.getParcelPriceByDirection({ size: 1, direction: 'asc' }),
-            thegraphApi.getParcelPriceByDirection({ size: 2, direction: 'asc' }),
-            thegraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
-            thegraphApi.getAllListedParcels()
+            TheGraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
+            TheGraphApi.getParcelPriceByDirection({ size: 1, direction: 'asc' }),
+            TheGraphApi.getParcelPriceByDirection({ size: 2, direction: 'asc' }),
+            TheGraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
+            TheGraphApi.getAllListedParcels()
         ]).then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]: [any, any, any, any, any]) => {
             if (mounted) {
                 const combined: any = combineParcels(listedParcels);
@@ -83,7 +83,7 @@ export function Map() {
         setIsOwnerLoaded(false);
 
         if (activeAddress) {
-            thegraphApi.getRealmByAddress(activeAddress).then((ownerRealm: any) => {
+            TheGraphApi.getRealmByAddress(activeAddress).then((ownerRealm: any) => {
                 if (mounted) {
                     setOwnerRealm({
                         parcels: ownerRealm,

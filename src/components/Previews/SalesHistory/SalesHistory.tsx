@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { fromWei } from 'api/ethers.api';
 
 import { styles } from './styles';
@@ -27,7 +27,7 @@ export function SalesHistory({ id, category }: SalesHistoryProps) {
 
         setHistoryLoading(true);
 
-        thegraphApi.getErc721SalesHistory(id, category)
+        TheGraphApi.getErc721SalesHistory(id, category)
             .then((res: any) => {
                 if (mounted) {
                     setHistory(res);

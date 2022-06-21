@@ -5,7 +5,7 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 import classNames from 'classnames';
 
 import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api/thegraph.api';
 import { CommonUtils } from 'utils';
 
 import { portalsQuery } from './queries';
@@ -28,7 +28,7 @@ export function Portals() {
     const getGraphData = (): void => {
         setIsLoading(true);
 
-        thegraph.getData(portalsQuery)
+        TheGraphApi.getData(portalsQuery)
             .then((response: any) => {
                 setOpenedPortals(response.data.statistic.portalsOpened);
                 setGotchiClaimed(response.data.statistic.aavegotchisClaimed);

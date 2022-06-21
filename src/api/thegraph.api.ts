@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
@@ -43,7 +43,7 @@ const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiinco
 const lendAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
 
 const clientFactory = (() => {
-    const createClient = (url) => {
+    const createClient = (url: string): ApolloClient<NormalizedCacheObject> => {
         return new ApolloClient({
             link: new HttpLink({ uri: url, fetch }),
             cache: new InMemoryCache()
@@ -62,7 +62,7 @@ const clientFactory = (() => {
 })();
 
 // single query requests
-const getGraphData = async (client, query) => {
+const getGraphData = async (client: any, query: string): Promise<any> => {
     try {
         return await client.query({
             query: gql`${query}`
@@ -75,12 +75,12 @@ const getGraphData = async (client, query) => {
 };
 
 // multi query requests
-const graphJoin = async (client, queries) => {
+const graphJoin = async (client: any, queries: any[]): Promise<any> => {
     try {
         return await new Promise((resolve) => {
             const queriesCounter = queries.length;
-            let requestCounter = 0;
-            const responseArray = [];
+            let requestCounter: number = 0;
+            const responseArray: any[] = [];
 
             for (let i = 0; i < queriesCounter; i++) {
                 raiseCounter();
@@ -117,13 +117,13 @@ const graphJoin = async (client, queries) => {
 };
 
 // filtering of combined graph data from duplicates
-const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
-    let responseArray = [];
+const filterCombinedGraphData = (response: any, datasetRoute: any, uniqueIdentifier: any): any[] => {
+    let responseArray: any[] = [];
 
-    const getProperChild = (item, route) => {
+    const getProperChild = (item: any, route: any): any => {
         const routeCache = [...route];
 
-        const getNestedChild = (item, routeCache) => {
+        const getNestedChild = (item: any, routeCache: any): any => {
             const current = routeCache[0];
 
             if (routeCache.length > 1) {
@@ -143,7 +143,7 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
     }
 
     return responseArray.reduce((unique, item) => {
-        const index = unique.findIndex(el => el[uniqueIdentifier] === item[uniqueIdentifier]);
+        const index: number = unique.findIndex((el: any) => el[uniqueIdentifier] === item[uniqueIdentifier]);
 
         if (index === -1) {
             unique.push(item);
@@ -154,8 +154,8 @@ const filterCombinedGraphData = (response, datasetRoute, uniqueIdentifier) => {
 };
 
 // NOTE: Temporary solution to resolve subgraph issue with withSetsNumericTraits data (it's not correct)
-const modifyTraits = (gotchis) => {
-    const gotchisCache = [...gotchis];
+const modifyTraits = (gotchis: any): any => {
+    const gotchisCache: any[] = [...gotchis];
 
     return gotchisCache.map((gotchi) => {
         const gotchiCache = { ...gotchi };
@@ -174,32 +174,30 @@ const modifyTraits = (gotchis) => {
     });
 };
 
-
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
-    async getData(query) {
+export class TheGraphApi {
+    public static async getData(query: any): Promise<any> {
         return await getGraphData(clientFactory.client, query);
-    },
+    }
 
-    async getJoinedData(queries) {
+    public static async getJoinedData(queries: any): Promise<any> {
         return await graphJoin(clientFactory.client, queries);
-    },
+    }
 
-    async getAllGotchies() {
-        return await graphJoin(clientFactory.client, this.getGotchiQueries()).then((response) => {
+    public static async getAllGotchies(): Promise<any> {
+        return await graphJoin(clientFactory.client, TheGraphApi.getGotchiQueries()).then((response) => {
             const filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
             return modifyTraits(filteredArray);
         });
-    },
+    }
 
-    getGotchiesByIds(ids) {
-        return this.getJoinedData([...ids.map(id => gotchiByIdQuery(id))]);
-    },
+    public static getGotchiesByIds(ids: number[]): Promise<any> {
+        return TheGraphApi.getJoinedData([...ids.map(id => gotchiByIdQuery(id))]);
+    }
 
-    getGotchiQueries() {
+    private static getGotchiQueries(): any[] {
         const maxPossibleSkips = 6; // TODO: 12000 limitation per haunt
-        const queries = [];
+        const queries: any[] = [];
 
         for (let i = 0; i < maxPossibleSkips; i++) {
             queries.push(gotchiesQuery(i*1000, 'asc', 1));
@@ -209,40 +207,42 @@ export default {
         }
 
         return queries;
-    },
+    }
 
-    async getGotchisByAddress(address) {
-        function getQueries() {
-            const queries = [];
+    public static async getGotchisByAddress(address: string): Promise<any> {
+        const getQueries = () => {
+            const queries: any = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(userQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;
-        }
+        };
 
         return await graphJoin(clientFactory.client, getQueries()).then((response) => {
-            if (!response[0].data.user) return []; // terminate if thegraph has no data about address
+            if (!response[0].data.user) {
+                return []; // terminate if thegraph has no data about address
+            }
 
-            const filteredArray = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
 
             return modifyTraits(filteredArray);
 
         });
-    },
+    }
 
-    getGotchisByAddresses(addresses) {
-        const promises = addresses.map(address => this.getGotchisByAddress(address));
+    public static getGotchisByAddresses(addresses: string[]): Promise<any[]> {
+        const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getGotchisByAddress(address));
 
-        return Promise.all(promises).then(response =>
+        return Promise.all(promises).then((response: any[]) =>
             response.reduce((result, current) => result.concat(current), [])
         );
-    },
+    }
 
-    async getErc1155Price(id, sold, category, orderBy, orderDireciton) {
-        return await this.getData(erc1155Query(id, sold, category, orderBy, orderDireciton)).then((response) => {
-            const erc1155 = response.data.erc1155Listings;
+    public static async getErc1155Price(id: any, sold: any, category: any, orderBy: any, orderDireciton: any): Promise<any> {
+        return await TheGraphApi.getData(erc1155Query(id, sold, category, orderBy, orderDireciton)).then((response: any) => {
+            const erc1155: any = response.data.erc1155Listings;
 
             return {
                 listing: erc1155[0]?.id || null,
@@ -250,31 +250,31 @@ export default {
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
-    },
+    }
 
-    async getErc721ListingsBySeller(seller) {
-        return await this.getData(erc721ListingsBySeller(seller))
-            .then(response => response.data.erc721Listings)
-            .catch(error => console.log(error));
-    },
+    public static async getErc721ListingsBySeller(seller: any): Promise<any> {
+        return await TheGraphApi.getData(erc721ListingsBySeller(seller))
+            .then((response: any) => response.data.erc721Listings)
+            .catch((error: any) => console.log(error));
+    }
 
-    async getErc1155ListingsBySeller(seller) {
-        return await this.getData(erc1155ListingsBySeller(seller))
-            .then(response => response.data.erc1155Listings)
-            .catch(error => console.log(error));
-    },
+    public static async getErc1155ListingsBySeller(seller: any): Promise<any> {
+        return await TheGraphApi.getData(erc1155ListingsBySeller(seller))
+            .then((response: any) => response.data.erc1155Listings)
+            .catch((error: any) => console.log(error));
+    }
 
-    async getRaffleData(query) {
+    private static async getRaffleData(query: string): Promise<any> {
         return await getGraphData(clientFactory.raffleClient, query);
-    },
+    }
 
-    async getRaffle(id) {
-        return await this.getRaffleData(raffleQuery(id)).then((response) => {
-            const data = [];
-            const total = response.data.raffles[0].stats;
-            const prizes = response.data.raffles[0].ticketPools;
+    public static async getRaffle(id: string): Promise<any> {
+        return await TheGraphApi.getRaffleData(raffleQuery(id)).then((response) => {
+            const data: any[] = [];
+            const total: any = response.data.raffles[0].stats;
+            const prizes: any = response.data.raffles[0].ticketPools;
 
-            prizes.forEach((pool) => {
+            prizes.forEach((pool: any) => {
                 data.push({
                     id: pool.id,
                     items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),
@@ -287,17 +287,17 @@ export default {
 
             return [data, total];
         });
-    },
+    }
 
-    async getRaffleEntered(address, raffle) {
-        return await this.getRaffleData(raffleEntrantsQuery(address.toLowerCase())).then((response) => {
-            const data = [];
-            const received = JSON.parse(JSON.stringify(response.data.raffleEntrants));
+    public static async getRaffleEntered(address: string, raffle: any): Promise<any> {
+        return await TheGraphApi.getRaffleData(raffleEntrantsQuery(address.toLowerCase())).then((response: any) => {
+            const data: any[] = [];
+            const received: any = JSON.parse(JSON.stringify(response.data.raffleEntrants));
 
-            const filtered = received.filter((item) => +item.raffle.id === raffle);
+            const filtered: any[] = received.filter((item: any) => +item.raffle.id === raffle);
 
-            const merged = filtered.reduce((items, current) => {
-                const duplicated = items.find(item => item.ticketId === current.ticketId);
+            const merged: any = filtered.reduce((items, current) => {
+                const duplicated: any = items.find((item: any) => item.ticketId === current.ticketId);
 
                 if (duplicated) {
                     duplicated.quantity = +duplicated.quantity + +current.quantity;
@@ -308,7 +308,7 @@ export default {
                 return items.concat(current);
             }, []);
 
-            merged.forEach((item) => {
+            merged.forEach((item: any) => {
                 data.push({
                     ticketId: item.ticketId,
                     quantity: item.quantity
@@ -317,16 +317,16 @@ export default {
 
             return data;
         });
-    },
+    }
 
-    async getRaffleWins(address, raffle) {
-        return await this.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response) => {
-            const data = [];
+    public static async getRaffleWins(address: string, raffle: any): Promise<any> {
+        return await TheGraphApi.getRaffleData(raffleWinsQuery(address.toLowerCase())).then((response: any) => {
+            const data: any[] = [];
 
-            const received = JSON.parse(JSON.stringify(response.data.raffleWinners));
-            const filtered = received.filter((item) => +item.raffle.id === raffle);
+            const received: any = JSON.parse(JSON.stringify(response.data.raffleWinners));
+            const filtered : any= received.filter((item: any) => +item.raffle.id === raffle);
 
-            filtered.forEach((item) => {
+            filtered.forEach((item: any) => {
                 data.push({
                     itemId: (item.item.id).substring(2),
                     quantity: item.quantity
@@ -335,19 +335,19 @@ export default {
 
             return data;
         });
-    },
+    }
 
-    async getGotchiSvgById(id) {
+    public static async getGotchiSvgById(id: any): Promise<any> {
         return await getGraphData(clientFactory.svgsClient, svgQuery(id));
-    },
+    }
 
-    async getRealmData(query) {
+    private static async getRealmData(query: any): Promise<any> {
         return await getGraphData(clientFactory.realmClient, query);
-    },
+    }
 
-    async getRealmByAddress(address) {
+    public static async getRealmByAddress(address: string): Promise<any> {
         function getQueries() {
-            const queries = [];
+            const queries: any[] = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(realmQuery(address.toLowerCase(), i * 1000));
@@ -359,19 +359,20 @@ export default {
         return await graphJoin(clientFactory.client, getQueries()).then((response) => {
             return filterCombinedGraphData(response, ['parcels'], 'tokenId');
         });
-    },
+    }
 
-    getRealmByAddresses(addresses) {
-        const promises = addresses.map(address => this.getRealmByAddress(address));
+    public static getRealmByAddresses(addresses: string[]): Promise<any[]> {
+        const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getRealmByAddress(address));
 
-        return Promise.all(promises).then(response =>
-            response.reduce((result, current) => result.concat(current), [])
+        return Promise.all(promises).then((response: any) =>
+            response.reduce((result: any, current: any) => result.concat(current), [])
         );
-    },
+    }
 
-    async getRealmByDistrict(district) {
+    // TODO check if needed
+    public static async getRealmByDistrict(district: any): Promise<any> {
         function getQueries() {
-            const queries = [];
+            const queries: any[] = [];
 
             for (let i = 0; i < 5; i++) {
                 queries.push(realmQueryByDistrict(i * 1000, district));
@@ -380,56 +381,57 @@ export default {
             return queries;
         }
 
-        return await graphJoin(clientFactory.client, getQueries()).then(response => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             return filterCombinedGraphData(response, ['parcels'], 'tokenId');
         });
-    },
+    }
 
-    async getRealmById(id) {
-        return await this.getData(parselQuery(id)).then((response) => {
+    public static async getRealmById(id: string): Promise<any> {
+        return await TheGraphApi.getData(parselQuery(id)).then((response: any) => {
             return response.data.parcel;
         });
-    },
+    }
 
-    async getErc721SalesHistory(id, category) {
-        return await this.getData(erc721SalesHistory(id, category)).then((response) => {
+    public static async getErc721SalesHistory(id: string, category: any): Promise<any> {
+        return await TheGraphApi.getData(erc721SalesHistory(id, category)).then((response: any) => {
             return response.data.erc721Listings;
         });
-    },
+    }
 
-    async getActiveListing(erc, id, type, category) {
-        return await this.getData(activeListingQeury(erc, id, type, category)).then((response) => {
+    public static async getActiveListing(erc: any, id: string, type: any, category: any): Promise<any> {
+        return await TheGraphApi.getData(activeListingQeury(erc, id, type, category)).then((response: any) => {
             return response.data.erc721Listings[0];
         });
-    },
+    }
 
-    getParcelPriceByDirection(data) {
-        return this.getData(getParcelOrderDirectionQuery(data)).then(response => {
+    public static getParcelPriceByDirection(data: any): Promise<any> {
+        return TheGraphApi.getData(getParcelOrderDirectionQuery(data)).then((response: any) => {
             return fromWei(response.data.erc721Listings[0].priceInWei);
         });
-    },
+    }
 
-    async getRealmAuctionPrice(id) {
-        return await this.getRealmData(auctionQuery(id)).then((response) => {
-            const erc721 = response.data.auctions;
+    // TODO check if needed
+    public static async getRealmAuctionPrice(id: string): Promise<any> {
+        return await TheGraphApi.getRealmData(auctionQuery(id)).then((response: any) => {
+            const erc721: any = response.data.auctions;
 
             return {
                 price: erc721[0]?.highestBid / 10**18 || 0
             };
         });
-    },
+    }
 
-    async getAllListedParcels() {
-        return await graphJoin(clientFactory.client, this.getListedParcelsQueries()).then((response) => {
+    public static async getAllListedParcels(): Promise<any> {
+        return await graphJoin(clientFactory.client, TheGraphApi.getListedParcelsQueries()).then((response: any) => {
             return filterCombinedGraphData(response, ['erc721Listings'], 'id');
         });
-    },
+    }
 
-    getListedParcelsQueries() {
-        const sizes = [0,1,2,3];
-        const queries = [];
+    private static getListedParcelsQueries() {
+        const sizes: number[] = [0,1,2,3];
+        const queries: any[] = [];
 
-        sizes.forEach((size ) => {
+        sizes.forEach(size => {
             for (let i = 0; i < 5; i++) {
                 queries.push(listedParcelsQuery(i*1000, 'asc', size));
                 queries.push(listedParcelsQuery(i*1000, 'desc', size));
@@ -437,11 +439,11 @@ export default {
         });
 
         return queries;
-    },
+    }
 
-    async getLendings() {
+    public static async getLendings(): Promise<any> {
         function getQueries() {
-            const queries = [];
+            const queries: any[] = [];
 
             for (let i = 0; i < 6; i++) {
                 queries.push(lendingsQuery(i * 1000, 'asc'));
@@ -451,8 +453,8 @@ export default {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
-            const filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+            const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
                 lendingId: item.id
@@ -460,11 +462,11 @@ export default {
 
             return filteredArray;
         }).catch(e => console.log(e));
-    },
+    }
 
-    async getLendingsByAddress(address) {
+    public static async getLendingsByAddress(address: string): Promise<any> {
         function getQueries() {
-            const queries = [];
+            const queries: any[] = [];
 
             for (let i = 0; i < 1; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000));
@@ -473,8 +475,8 @@ export default {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response) => {
-            const filteredArray = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map(item => ({
+        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+            const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
                 lendingId: item.id
@@ -482,11 +484,11 @@ export default {
 
             return filteredArray;
         });
-    },
+    }
 
-    async getIncomeById(id, timestamp) {
-        return await getGraphData(clientFactory.incomeClient, incomeQuery(id, timestamp)).then((response) => {
-            const data = response.data.vortexClaims;
+    public static async getIncomeById(id: string, timestamp: any): Promise<any> {
+        return await getGraphData(clientFactory.incomeClient, incomeQuery(id, timestamp)).then((response: any) => {
+            const data: any = response.data.vortexClaims;
 
             if (!data.length) { // return 0 income if there are no records
                 return {
@@ -497,7 +499,7 @@ export default {
                 };
             }
 
-            const combined = data.reduce((acc, x) => {
+            const combined: any = data.reduce((acc: any, x: any) => {
                 for (const key in x) {
                     if (key === 'gotchiId' || key === '__typename') {
                         break;
@@ -515,13 +517,14 @@ export default {
 
             return combined;
         }).catch(e => console.log(e));
-    },
+    }
 
     // ! GOTCHIVERSE
 
-    getGotchisGotchiverseInfoByIds(gotchiIds) {
+    // TODO check if needed
+    public static getGotchisGotchiverseInfoByIds(gotchiIds: string[]): Promise<any> {
         return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds))
-            .then(res => {
+            .then((res: any) => {
                 const dataArr = res.data.gotchis;
 
                 // * gotchiverse return empty data if gotchi never channeled alchemica!
@@ -530,15 +533,16 @@ export default {
                     lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0
                 }));
             });
-    },
+    }
 
-    getParcelsGotchiverseInfoByIds(parcelsIds) {
+    // TODO check if needed
+    public static getParcelsGotchiverseInfoByIds(parcelsIds: any[]): Promise<any> {
         return getGraphData(clientFactory.gotchiverseClient, parcelsGotchiverseQuery(parcelsIds))
-            .then(res => {
-                const dataArr = res.data.parcels;
+            .then((res: any) => {
+                const dataArr: any = res.data.parcels;
 
                 // * gotchiverse return empty data if parcel was never channeled!
-                const modified = parcelsIds.map((id, i) => ({
+                const modified: any = parcelsIds.map((id: any, i: number) => ({
                     id: dataArr[i]?.id || '',
                     lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
                     installations: dataArr[i]?.equippedInstallations || []
@@ -546,10 +550,10 @@ export default {
 
                 return modified;
             });
-    },
-
-    getParcelsGotchiverseInfoByOwner(owner) {
-        return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner))
-            .then(res => res.data.parcels);
     }
-};
+
+    public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
+        return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner))
+            .then((res: any) => res.data.parcels);
+    }
+}

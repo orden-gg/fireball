@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import thegraphApi from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
@@ -24,7 +24,7 @@ export function GuildGotchis() {
 
         setIsGotchisLoading(true);
 
-        thegraphApi.getGotchisByAddresses(guilds[guildId].members).then(gotchis => {
+        TheGraphApi.getGotchisByAddresses(guilds[guildId].members).then(gotchis => {
             if (mounted) {
                 setGuildGotchis(gotchis);
             }

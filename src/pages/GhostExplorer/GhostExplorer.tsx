@@ -15,7 +15,7 @@ import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
 
@@ -92,7 +92,7 @@ export function GhostExplorer() {
 
         setIsGotchisLoading(true);
 
-        thegraph.getAllGotchies().then(response => {
+        TheGraphApi.getAllGotchies().then(response => {
             if (mounted) {
                 setGotchis(response);
             }

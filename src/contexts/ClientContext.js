@@ -1,12 +1,11 @@
 import { createContext, useState } from 'react';
 
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
-import thegraph from 'api/thegraph.api';
+import { TheGraphApi } from 'api';
 import { getInventoryByAddress } from 'api/main.api';
 import { getInstallationsByAddress } from 'api/installations.api';
 import { getTilesByAddress } from 'api/tiles.api';
 import { getTicketsByAddress } from 'api/tickets.api';
-import thegraphApi from 'api/thegraph.api';
 import { formatBigNumber } from 'api/ethers.api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
@@ -98,7 +97,7 @@ const ClientContextProvider = (props) => {
     const getGotchis = (address) => {
         setLoadingGotchis(true);
 
-        thegraph.getGotchisByAddress(address).then((response) => {
+        TheGraphApi.getGotchisByAddress(address).then((response) => {
             const wearables = [];
             const { type: gSortType, dir: gSortDir } = gotchisSorting;
             const { type: wSortType, dir: wSortDir } = warehouseSorting;
@@ -154,13 +153,13 @@ const ClientContextProvider = (props) => {
     const getLendings = (address) => {
         setLoadingLendings(true);
 
-        thegraph.getLendingsByAddress(address)
+        TheGraphApi.getLendingsByAddress(address)
             .then(lendings => {
                 const balancesRequest = [];
                 const { type, dir } = lendingsSorting;
 
                 for (let i = 0; i < lendings.length; i++) {
-                    balancesRequest.push(thegraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
+                    balancesRequest.push(TheGraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
                 }
 
                 Promise.all(balancesRequest).then(balances => {
@@ -277,7 +276,7 @@ const ClientContextProvider = (props) => {
     const getRealm = (address) => {
         setLoadingRealm(true);
 
-        thegraph.getRealmByAddress(address)
+        TheGraphApi.getRealmByAddress(address)
             .then(res => {
                 const { type, dir } = realmSorting;
 
@@ -300,7 +299,7 @@ const ClientContextProvider = (props) => {
     const calculateReward = () => {
         setRewardCalculating(true);
 
-        thegraph.getAllGotchies().then((response) => {
+        TheGraphApi.getAllGotchies().then((response) => {
             const brsLeaders = CommonUtils.basicSort(response, 'modifiedRarityScore');
             const kinLeaders = CommonUtils.basicSort(response, 'kinship');
             const expLeaders = CommonUtils.basicSort(response, 'experience');
