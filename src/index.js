@@ -1,13 +1,13 @@
 import ReactDOM from 'react-dom';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
+import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
+import { ThemeProvider } from '@emotion/react';
 
 import { MetamaskStateProvider } from 'use-metamask';
 
-import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
-import { ThemeProvider } from '@emotion/react';
+import App from './App';
+import { reportWebVitals } from './reportWebVitals';
 
 import { theme } from './themes/ghst';
 import './index.css';
