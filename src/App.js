@@ -24,7 +24,7 @@ import { Shop } from './pages/Shop/Shop';
 import { BaazaarContextProvider } from './contexts/BaazaarContext';
 import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { ClientContextProvider } from './contexts/ClientContext';
-import LoginContextProvider from './contexts/LoginContext';
+import { LoginContextProvider } from './contexts/LoginContext';
 import SnackbarContextProvider from './contexts/SnackbarContext';
 
 const classes = {
