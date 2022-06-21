@@ -1,43 +1,44 @@
 import { createContext, useState } from 'react';
 
+import { Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 export const ClientContext = createContext({});
 
-const ClientContextProvider = (props) => {
-    const [gotchis, setGotchis] = useState([]);
-    const [gotchisSorting, setGotchisSorting] = useState({ type: 'modifiedRarityScore', dir: 'desc' });
-    const [loadingGotchis, setLoadingGotchis] = useState(true);
+export const ClientContextProvider = (props: any) => {
+    const [gotchis, setGotchis] = useState<any[]>([]);
+    const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
+    const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
 
-    const [lendings, setLendings] = useState([]);
-    const [lendingsSorting, setLendingsSorting] = useState({ type: 'totalTokens', dir: 'desc' });
-    const [loadingLendings, setLoadingLendings] = useState(true);
+    const [lendings, setLendings] = useState<any[]>([]);
+    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'totalTokens', dir: 'desc' });
+    const [loadingLendings, setLoadingLendings] = useState<boolean>(true);
 
-    const [warehouse, setWarehouse] = useState([]);
-    const [warehouseSorting, setWarehouseSorting] = useState({ type: 'rarityId', dir: 'desc' });
-    const [loadingWarehouse, setLoadingWarehouse] = useState(false);
+    const [warehouse, setWarehouse] = useState<any[]>([]);
+    const [warehouseSorting, setWarehouseSorting] = useState<Sorting>({ type: 'rarityId', dir: 'desc' });
+    const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(false);
 
-    const [installations, setInstallations] = useState([]);
-    const [loadingInstallations, setLoadingInstallations] = useState(true);
+    const [installations, setInstallations] = useState<any[]>([]);
+    const [loadingInstallations, setLoadingInstallations] = useState<boolean>(true);
 
-    const [tiles, setTiles] = useState([]);
-    const [loadingTiles, setLoadingTiles] = useState(true);
+    const [tiles, setTiles] = useState<any[]>([]);
+    const [loadingTiles, setLoadingTiles] = useState<boolean>(true);
 
-    const [tickets, setTickets] = useState([]);
-    const [loadingTickets, setLoadingTickets] = useState(true);
+    const [tickets, setTickets] = useState<any[]>([]);
+    const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
 
-    const [realm, setRealm] = useState([]);
-    const [realmSorting, setRealmSorting] = useState({ type: 'size', dir: 'desc' });
-    const [loadingRealm, setLoadingRealm] = useState(true);
+    const [realm, setRealm] = useState<any[]>([]);
+    const [realmSorting, setRealmSorting] = useState<Sorting>({ type: 'size', dir: 'desc' });
+    const [loadingRealm, setLoadingRealm] = useState<boolean>(true);
 
-    const [reward, setReward] = useState(null);
-    const [rewardCalculating, setRewardCalculating] = useState(false);
-    const [rewardCalculated, setRewardCalculated] = useState(false);
-    const [realmView, setRealmView] = useState('list');
+    const [reward, setReward] = useState<any>(null);
+    const [rewardCalculating, setRewardCalculating] = useState<boolean>(false);
+    const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
+    const [realmView, setRealmView] = useState<string>('list');
 
-    const navData = [
+    const navData: any[] = [
         {
             name: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
@@ -76,7 +77,7 @@ const ClientContextProvider = (props) => {
         }
     ];
 
-    const getClientData = (address) => {
+    const getClientData = (address: string): void => {
         getGotchis(address);
         getLendings(address);
         getInventory(address);
@@ -89,20 +90,20 @@ const ClientContextProvider = (props) => {
         setWarehouse([]);
     };
 
-    const getGotchis = (address) => {
+    const getGotchis = (address: string): void => {
         setLoadingGotchis(true);
 
         TheGraphApi.getGotchisByAddress(address).then((response) => {
-            const wearables = [];
+            const wearables: any[] = [];
             const { type: gSortType, dir: gSortDir } = gotchisSorting;
             const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
-            response.forEach((item) => {
-                const equipped = item.equippedWearables.filter((item) => item > 0);
+            response.forEach((item: any) => {
+                const equipped: any = item.equippedWearables.filter((item: any) => item > 0);
 
                 for (const wearable of equipped) {
-                    const index = wearables.findIndex(item => item.id === wearable);
+                    const index: number = wearables.findIndex(item => item.id === wearable);
 
                     if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
 
@@ -122,9 +123,9 @@ const ClientContextProvider = (props) => {
                 }
             });
 
-            setWarehouse((existing) => CommonUtils.basicSort(
-                [...existing, ...wearables].reduce((items, current) => {
-                    const duplicated = items.find(item => item.id === current.id);
+            setWarehouse((existing: any[]) => CommonUtils.basicSort(
+                [...existing, ...wearables].reduce((items: any[], current: any) => {
+                    const duplicated: any = items.find((item: any) => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -138,27 +139,27 @@ const ClientContextProvider = (props) => {
 
             setGotchis(CommonUtils.basicSort(response, gSortType, gSortDir));
             setLoadingGotchis(false);
-        }).catch((error) => {
+        }).catch((error: any) => {
             console.log(error);
             setGotchis([]);
             setLoadingGotchis(false);
         });
     };
 
-    const getLendings = (address) => {
+    const getLendings = (address: string): void => {
         setLoadingLendings(true);
 
         TheGraphApi.getLendingsByAddress(address)
-            .then(lendings => {
-                const balancesRequest = [];
+            .then((lendings: any[]) => {
+                const balancesRequest: any[] = [];
                 const { type, dir } = lendingsSorting;
 
                 for (let i = 0; i < lendings.length; i++) {
                     balancesRequest.push(TheGraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
                 }
 
-                Promise.all(balancesRequest).then(balances => {
-                    balances.forEach((balance, i) => {
+                Promise.all(balancesRequest).then((balances: any[]) => {
+                    balances.forEach((balance: any, i: number) => {
                         lendings[i].fud = balance.FUDAmount;
                         lendings[i].fomo = balance.FOMOAmount;
                         lendings[i].alpha = balance.ALPHAAmount;
@@ -175,14 +176,14 @@ const ClientContextProvider = (props) => {
         );
     };
 
-    const getInventory = (address) => {
+    const getInventory = (address: string): void => {
         setLoadingWarehouse(true);
 
-        MainApi.getInventoryByAddress(address).then((response) => {
-            const modified = [];
+        MainApi.getInventoryByAddress(address).then((response: any) => {
+            const modified: any[] = [];
             const { type, dir } = warehouseSorting;
 
-            response.items.forEach((item) => {
+            response.items.forEach((item: any) => {
                 modified.push({
                     id: +item.itemId,
                     rarity: ItemUtils.getItemRarityById(item.itemId),
@@ -192,9 +193,9 @@ const ClientContextProvider = (props) => {
                 });
             });
 
-            setWarehouse((existing) => CommonUtils.basicSort(
+            setWarehouse((existing: any[]) => CommonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
-                    const duplicated = items.find(item => item.id === current.id);
+                    const duplicated = items.find((item: any) => item.id === current.id);
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -214,12 +215,12 @@ const ClientContextProvider = (props) => {
         });
     };
 
-    const getInstallations = (address) => {
+    const getInstallations = (address: string): void => {
         setLoadingInstallations(true);
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
-            const installations = response.map(item => {
-                const id = EthersApi.formatBigNumber(item.installationId._hex);
+            const installations: any[] = response.map((item: any) => {
+                const id: any = EthersApi.formatBigNumber(item.installationId._hex);
 
                 return {
                     type: 'installation',
@@ -235,12 +236,12 @@ const ClientContextProvider = (props) => {
         });
     };
 
-    const getTiles = (address) => {
+    const getTiles = (address: string): void => {
         setLoadingTiles(true);
 
-        TilesApi.getTilesByAddress(address).then(response => {
-            const tiles = response.map(item => {
-                const id = EthersApi.formatBigNumber(item.tileId._hex);
+        TilesApi.getTilesByAddress(address).then((response: any) => {
+            const tiles: any[] = response.map((item: any) => {
+                const id: any = EthersApi.formatBigNumber(item.tileId._hex);
 
                 return {
                     type: 'tile',
@@ -255,11 +256,11 @@ const ClientContextProvider = (props) => {
         });
     };
 
-    const getTickets = (address) => {
+    const getTickets = (address: string): void => {
         setLoadingTickets(true);
 
-        TicketsApi.getTicketsByAddress(address).then((response) => {
-            const modified = response.filter((item) => item.balance > 0);
+        TicketsApi.getTicketsByAddress(address).then((response: any) => {
+            const modified = response.filter((item: any) => item.balance > 0);
 
             setTickets(modified);
             setLoadingTickets(false);
@@ -268,14 +269,14 @@ const ClientContextProvider = (props) => {
         });
     };
 
-    const getRealm = (address) => {
+    const getRealm = (address: string): void => {
         setLoadingRealm(true);
 
         TheGraphApi.getRealmByAddress(address)
-            .then(res => {
+            .then((res: any) => {
                 const { type, dir } = realmSorting;
 
-                const modified = res.map(parcel => ({
+                const modified: any[] = res.map((parcel: any) => ({
                     ...parcel,
                     channeling: { loading: true },
                     installations: { loading: true }
@@ -294,15 +295,15 @@ const ClientContextProvider = (props) => {
     const calculateReward = () => {
         setRewardCalculating(true);
 
-        TheGraphApi.getAllGotchies().then((response) => {
-            const brsLeaders = CommonUtils.basicSort(response, 'modifiedRarityScore');
-            const kinLeaders = CommonUtils.basicSort(response, 'kinship');
-            const expLeaders = CommonUtils.basicSort(response, 'experience');
+        TheGraphApi.getAllGotchies().then((response: any) => {
+            const brsLeaders: any[] = CommonUtils.basicSort(response, 'modifiedRarityScore');
+            const kinLeaders: any[] = CommonUtils.basicSort(response, 'kinship');
+            const expLeaders: any[] = CommonUtils.basicSort(response, 'experience');
 
-            gotchis.forEach((item, index) => {
-                const BRS = GraphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
-                const KIN = GraphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
-                const EXP = GraphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
+            gotchis.forEach((item: any, index: number) => {
+                const BRS: any = GraphUtils.calculateRewards(brsLeaders.findIndex(x => x.id === item.id), 'BRS');
+                const KIN: any = GraphUtils.calculateRewards(kinLeaders.findIndex(x => x.id === item.id), 'KIN');
+                const EXP: any = GraphUtils.calculateRewards(expLeaders.findIndex(x => x.id === item.id), 'EXP');
 
                 gotchis[index] = {
                     ...item,
@@ -311,7 +312,7 @@ const ClientContextProvider = (props) => {
                 };
             });
 
-            setReward(gotchis.reduce((prev, next) => prev + next.reward, 0));
+            setReward(gotchis.reduce((prev: any, next: any) => prev + next.reward, 0));
             setRewardCalculating(false);
             setRewardCalculated(true);
         });
@@ -367,5 +368,3 @@ const ClientContextProvider = (props) => {
         </ClientContext.Provider>
     );
 };
-
-export default ClientContextProvider;
