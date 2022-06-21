@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 
 import { EthersApi, TheGraphApi } from 'api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
-import useInterval from 'hooks/useInterval';
+import { useInterval } from 'hooks/useInterval';
 import { listingTypes } from 'data/types';
 import { baazaarFilteringTypes } from 'data/types';
 
