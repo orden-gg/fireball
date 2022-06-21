@@ -1,10 +1,11 @@
+// @ts-nocheck
 import Phaser from 'phaser';
 
 import { CitadelUtils } from 'utils';
 import guilds from 'data/guilds.json';
 import { COLORS } from 'data/citadel.data';
 
-export default class GuildsLogos extends Phaser.GameObjects.Container {
+export class GuildsLogos extends Phaser.GameObjects.Container {
     constructor(scene, settings) {
         super(scene);
         scene.add.existing(this);
