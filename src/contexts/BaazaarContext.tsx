@@ -4,7 +4,7 @@ import { listingTypes } from 'data/types';
 
 export const BaazaarContext = createContext({});
 
-const defaultTraits = {
+const defaultTraits: any = {
     'NRG': [],
     'AGG': [],
     'SPK': [],
@@ -13,52 +13,52 @@ const defaultTraits = {
     'EYC': []
 };
 
-const BaazaarContextProvider = (props) => {
-    const [orderingTypes] = useState({
+export const BaazaarContextProvider = (props: any) => {
+    const [orderingTypes] = useState<any>({
         priceASC: 'priceInWei-asc',
         priceDESC: 'priceInWei-desc',
         timeDESC: 'timeCreated-desc',
         timeASC: 'timeCreated-asc'
     });
-    const [districtFilter, setDistrictFilter] = useState(0);
-    const [sizeFilter, setSizeFilter] = useState('4');
-    const [alphaFilter, setAlphaFilter] = useState('');
-    const [kekFilter, setKekFilter] = useState('');
-    const [fomoFilter, setFomoFilter] = useState('');
-    const [fudFilter, setFudFilter] = useState('');
-    const [sortingOrder, setSortingOrder] = useState(orderingTypes.timeDESC);
-    const [selectedGoodsType, setSelectedGoodsType] = useState(listingTypes.aavegotchi);
-    const [selectedListingType, setSelectedListingType] = useState(listingTypes.all);
-    const [filteringType, setFilteringType] = useState('stats');
-    const [name, setName] = useState(null);
-    const [id, setId] = useState(null);
-    const [exactMatch, setExactMatch] = useState(true);
-    const [minBRS, setMinBRS] = useState(null);
-    const [minKIN, setMinKIN] = useState(null);
-    const [selectedTraits, setSelectedTraits] = useState('NRG');
-    const [sliderRange, setSliderRange] = useState([-20, 120]);
-    const [priceFrom, setPriceFrom] = useState('');
-    const [priceTo, setPriceTo] = useState('');
-    const [rarity, setRarity] = useState('');
+    const [districtFilter, setDistrictFilter] = useState<number>(0);
+    const [sizeFilter, setSizeFilter] = useState<string>('4');
+    const [alphaFilter, setAlphaFilter] = useState<string>('');
+    const [kekFilter, setKekFilter] = useState<string>('');
+    const [fomoFilter, setFomoFilter] = useState<string>('');
+    const [fudFilter, setFudFilter] = useState<string>('');
+    const [sortingOrder, setSortingOrder] = useState<any>(orderingTypes.timeDESC);
+    const [selectedGoodsType, setSelectedGoodsType] = useState<any>(listingTypes.aavegotchi);
+    const [selectedListingType, setSelectedListingType] = useState<any>(listingTypes.all);
+    const [filteringType, setFilteringType] = useState<string>('stats');
+    const [name, setName] = useState<any>(null);
+    const [id, setId] = useState<any>(null);
+    const [exactMatch, setExactMatch] = useState<any>(true);
+    const [minBRS, setMinBRS] = useState<any>(null);
+    const [minKIN, setMinKIN] = useState<any>(null);
+    const [selectedTraits, setSelectedTraits] = useState<string>('NRG');
+    const [sliderRange, setSliderRange] = useState<any>([-20, 120]);
+    const [priceFrom, setPriceFrom] = useState<string>('');
+    const [priceTo, setPriceTo] = useState<string>('');
+    const [rarity, setRarity] = useState<string>('');
     const [stats, setStats] = useState(defaultTraits);
-    const [collateral, setCollateral] = useState('all');
+    const [collateral, setCollateral] = useState<string>('all');
 
-    const addStat = () => {
+    const addStat = (): void => {
         setStats({
             ...stats,
             [selectedTraits]: [...stats[selectedTraits], sliderRange]
         });
     };
 
-    const changeSingleStat = (trait, newStats) => {
+    const changeSingleStat = (trait: any, newStats: any): void => {
         setStats({
             ...stats,
             [trait]: [newStats]
         });
     };
 
-    const removeStat = (stat) => {
-        const oldStats = [...stats[stat.name]];
+    const removeStat = (stat: any): void => {
+        const oldStats: any[] = [...stats[stat.name]];
 
         oldStats.splice(stat.id, 1);
 
@@ -68,7 +68,7 @@ const BaazaarContextProvider = (props) => {
         });
     };
 
-    const clearAllStats = () => {
+    const clearAllStats = (): void => {
         setStats(defaultTraits);
     };
 
@@ -127,5 +127,3 @@ const BaazaarContextProvider = (props) => {
         </BaazaarContext.Provider>
     );
 };
-
-export default BaazaarContextProvider;
