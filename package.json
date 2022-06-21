@@ -58,7 +58,7 @@
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules",
-    "lint": "eslint -c .eslintrc.json --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint -c .eslintrc.json --ext .ts,.tsx .",
     "prepare": "husky install"
   },
   "browserslist": {
