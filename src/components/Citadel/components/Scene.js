@@ -13,7 +13,7 @@ import { Highlight } from './Highlight';
 import { CreateParcels } from './CreateParcels';
 import { DistrictsGridContainer } from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
-import FiltersManager from './FiltersManager';
+import { FiltersManager } from './FiltersManager';
 import { CitadelUtils } from 'utils';
 
 export default class CitadelScene extends Phaser.Scene {

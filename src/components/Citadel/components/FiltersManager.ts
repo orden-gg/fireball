@@ -1,4 +1,5 @@
-export default class FiltersManager {
+// @ts-nocheck
+export class FiltersManager {
     constructor(scene) {
         this.scene = scene;
 
