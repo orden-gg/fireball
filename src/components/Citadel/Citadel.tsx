@@ -15,7 +15,7 @@ import { CustomModal } from 'components/Modal/Modal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { CommonUtils, FilterUtils } from 'utils';
 
-import CitadelScene from './components/Scene';
+import { CitadelScene } from './components/Scene';
 import { CitadelLoader } from './components/CitadelLoader';
 import { CitadelInterface } from './components/CitadelInterface';
 import { FullscreenButton } from './components/FullscreenButton';
