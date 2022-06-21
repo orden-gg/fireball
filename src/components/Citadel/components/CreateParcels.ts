@@ -1,10 +1,11 @@
+// @ts-nocheck
 import Phaser from 'phaser';
 
 import { EthersApi } from 'api';
 import { CitadelUtils } from 'utils';
 import { COLORS } from 'data/citadel.data';
 
-export default class CreateParcels extends Phaser.GameObjects.Graphics {
+export class CreateParcels extends Phaser.GameObjects.Graphics {
     constructor(scene, settings) {
         super(scene);
 
@@ -140,10 +141,12 @@ export default class CreateParcels extends Phaser.GameObjects.Graphics {
         return this.settings.active;
     }
 
+    // @ts-ignore
     get name() {
         return 'parcels';
     }
 
+    // @ts-ignore
     get type() {
         return this.settings.type;
     }

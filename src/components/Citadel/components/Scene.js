@@ -10,7 +10,7 @@ import alpha from 'assets/images/citadel/alpha.png';
 import kek from 'assets/images/citadel/kek.png';
 
 import { Highlight } from './Highlight';
-import CreateParcels from './CreateParcels';
+import { CreateParcels } from './CreateParcels';
 import DistrictsGridContainer from './DistrictsGridContainer';
 import GuildsLogos from './GuildsLogos';
 import FiltersManager from './FiltersManager';
