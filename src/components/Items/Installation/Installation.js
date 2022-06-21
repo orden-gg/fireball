@@ -21,7 +21,6 @@ export default function Installation({ installation, raffleChances }) {
                 balance: installation.balance
             }}
         >
-            {console.log('installation', installation)}
             <InstallationImage data={installation} />
             <CardName
                 item={installation}

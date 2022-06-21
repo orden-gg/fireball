@@ -52,6 +52,17 @@ export const InstallationTypes = Object.freeze({
     Name: 15
 });
 
+export const InstallationTypeNames = Object.freeze({
+    Altar: 'altar',
+    Harvester: 'harvester',
+    Reservoir: 'reservoir',
+    GotchiLodge: 'gotchi lodge',
+    Wall: 'wall',
+    NFTDisplay: 'NFT display',
+    BuildqueueBooster: 'buildqueue booster',
+    Decoration: 'decoration'
+});
+
 export const TileTypes = Object.freeze({
     Width: 0,
     Height: 1,

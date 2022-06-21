@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles(() => ({
     container: {
         margin: '8px 0',
-        background: alpha('#000', .2),
+        background: alpha('#000', .1),
         borderRadius: 4,
         display: 'flex',
         alignItems: 'center',

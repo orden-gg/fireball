@@ -609,6 +609,9 @@ const parselStyles = makeStyles(theme => ({
         bottom: 0,
         left: 0
     },
+    parcelInstallations: {
+        padding: '4px 8px 8px'
+    },
     labelParselPrice: {
         color: theme.palette.secondary.main,
         '.humble &': {

@@ -100,7 +100,7 @@ export default function ClientRealmActions({ claimableList }) {
 
             <Alert severity='warning' icon={false}>
                 <AlertTitle>Use with caution!</AlertTitle>
-                Shows upgrades only if parcel owner and upgrade caller is the same address
+                Could not display upgrades since getAllUpgradeQueue contract function sometimes doesn't work
             </Alert>
         </div>
     );

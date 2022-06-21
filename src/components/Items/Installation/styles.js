@@ -11,7 +11,7 @@ export default makeStyles(theme => ({
         top: 0,
         left: '50%',
         transform: 'translateX(-50%)',
-        maxWidth: '80%',
+        maxWidth: '100%',
         maxHeight: '100%'
     }
 }));

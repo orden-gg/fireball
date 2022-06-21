@@ -20,10 +20,16 @@ export default function ParcelPage() {
 
         setParcelLoading(true);
 
-        thegraphApi.getRealmById(parcelId)
-            .then(res => {
-                if (mounted) {
-                    setParcel(res);
+        Promise.all([
+            thegraphApi.getRealmById(parcelId),
+            thegraphApi.getParcelsGotchiverseInfoByIds([parcelId])
+        ])
+            .then(([parcel, info]) => {
+                if (mounted && parcel) {
+                    setParcel({
+                        ...parcel,
+                        installations: info[0].installations
+                    });
                 }
             })
             .catch((err) => console.log(err))

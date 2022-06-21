@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Divider } from '@mui/material';
+import { Backdrop, CircularProgress, Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
 import DeselectIcon from '@mui/icons-material/Deselect';
@@ -41,6 +41,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
     const [mapCreated, setMapCreated] = useState(false);
     const [selectedParcel, setSelectedParcel] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [parcelLoading, setParcelLoading] = useState(false);
     const gameRef = useRef(null);
     const wrapperRef = useRef(null);
 
@@ -114,10 +115,23 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         if (game?.scene) {
             game.scene.on('created', () => setMapCreated(true));
 
-            game.scene.on('parcelSelect', parcel =>
-                thegraphApi.getRealmById(parcel.tokenId)
-                    .then(response => setSelectedParcel(response || parcel))
-            );
+            game.scene.on('parcelSelect', parcel => {
+                setParcelLoading(true);
+
+                Promise.all([
+                    thegraphApi.getRealmById(parcel.tokenId),
+                    thegraphApi.getParcelsGotchiverseInfoByIds([parcel.tokenId])
+                ])
+                    .then(([parcelRealm, info]) => {
+                        const combinedParcel = {
+                            ...parcelRealm,
+                            installations: info[0].installations
+                        };
+
+                        setParcelLoading(false);
+                        setSelectedParcel(parcelRealm ? combinedParcel : parcel);
+                    });
+            });
 
             game.scene.on('query', ({ name, params }) => {
                 setParams(paramsState => {
@@ -234,6 +248,12 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
             </CustomModal>
 
             <CitadelLoader isLoaded={isLoaded && mapCreated} />
+
+            { parcelLoading && (
+                <Backdrop className={classes.backdrop} open={parcelLoading}>
+                    <CircularProgress color='primary' />
+                </Backdrop>
+            )}
         </div>
     );
 }
