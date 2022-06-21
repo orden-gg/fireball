@@ -1,9 +1,10 @@
+// @ts-nocheck
 import Phaser from 'phaser';
 
 import { DISTRICTS, COLORS } from 'data/citadel.data';
-
 import { CITADEL_WIDTH, CITADEL_HEIGHT } from 'data/citadel.data';
-export default class DistrictsGrid extends Phaser.GameObjects.Graphics {
+
+export  class DistrictsGrid extends Phaser.GameObjects.Graphics {
     constructor(scene) {
         super(scene);
         scene.add.existing(this);
