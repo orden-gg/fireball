@@ -6,7 +6,7 @@ import { ThemeProvider } from '@emotion/react';
 
 import { MetamaskStateProvider } from 'use-metamask';
 
-import App from './App';
+import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
 
 import { theme } from './themes/ghst';

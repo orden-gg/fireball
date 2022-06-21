@@ -48,7 +48,7 @@ const Wrapper = styled('div')(() => ({
     }
 }));
 
-export default function App() {
+export function App() {
     const location = useLocation();
     // TODO find a better way how to handle hide/show header/footer
     const isDisplayHeader = location.pathname !== '/shop';
