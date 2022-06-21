@@ -1,6 +1,10 @@
 import Phaser from 'phaser';
-export default class Highlight extends Phaser.GameObjects.Rectangle {
-    constructor(scene, settings) {
+
+export class Highlight extends Phaser.GameObjects.Rectangle {
+    settings: any;
+
+    constructor(scene: any, settings: any) {
+        // @ts-ignore
         super(scene);
 
         scene.add.existing(this);
@@ -14,13 +18,13 @@ export default class Highlight extends Phaser.GameObjects.Rectangle {
         scene.on('zoom', () => this.updateStroke());
     }
 
-    update(x, y, w, h) {
+    update(x: any, y: any, w: any, h: any): void {
         this.setSize(w, h);
         this.setPosition(x, y);
         this.setAlpha(1);
     }
 
-    updateStroke() {
+    updateStroke(): void {
         this.setStrokeStyle(this.settings.size/this.scene.cameras.main.zoom, this.settings.color);
     }
 }
