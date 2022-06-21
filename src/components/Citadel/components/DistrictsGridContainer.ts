@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Phaser from 'phaser';
 
 import { COLORS, DISTRICTS } from 'data/citadel.data';
@@ -5,7 +6,7 @@ import { COLORS, DISTRICTS } from 'data/citadel.data';
 import { DistrictsGrid } from './DistrictsGrid';
 import { DistrictNumber } from './DistrictNumber';
 
-export default class DistrictsGridContainer extends Phaser.GameObjects.Container {
+export class DistrictsGridContainer extends Phaser.GameObjects.Container {
     constructor(scene, settings) {
         super(scene);
         scene.add.existing(this);
