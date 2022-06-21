@@ -1,5 +1,5 @@
 import installations from 'data/installations.data';
-import { InstallationTypes } from 'data/types';
+import { InstallationTypeNames, InstallationTypes } from 'data/types';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -51,19 +51,21 @@ export default {
     getTypeById(id) {
         switch (installations[id][InstallationTypes.Type]) {
             case 0:
-                return 'altar';
+                return InstallationTypeNames.Altar;
             case 1:
-                return 'harvester';
+                return InstallationTypeNames.Harvester;
             case 2:
-                return 'reservoir';
+                return InstallationTypeNames.Reservoir;
             case 3:
-                return 'gotchi lodge';
+                return InstallationTypeNames.GotchiLodge;
             case 4:
-                return 'wall';
+                return InstallationTypeNames.Wall;
             case 5:
-                return 'NFT display';
+                return InstallationTypeNames.NFTDisplay;
             case 6:
-                return 'buildqueue booster';
+                return InstallationTypeNames.BuildqueueBooster;
+            case 7:
+                return InstallationTypeNames.Decoration;
             default:
                 return 'unknown';
         }

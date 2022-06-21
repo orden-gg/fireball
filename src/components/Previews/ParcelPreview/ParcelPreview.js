@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import ParcelImage from 'components/Items/ParcelImage/ParcelImage';
 import EthAddress from 'components/EthAddress/EthAddress';
+import ParcelInstallations from 'components/Items/ParcelInstallations/ParcelInstallations';
 import ActiveListingButton from 'components/ActiveListingButton/ActiveListingButton';
 import itemUtils from 'utils/itemUtils';
 
@@ -82,6 +83,12 @@ export default function ParcelPreview({ parcel }) {
                                 );
                             })}
                         </div>
+
+                        { parcel.installations?.length > 0 && (
+                            <div className={classes.installations}>
+                                <ParcelInstallations parcel={parcel} size={80} />
+                            </div>
+                        )}
                     </div>
 
                     <div className={classes.listing}>

@@ -100,7 +100,9 @@ export default function Parcel({ parcel }) {
                 )}
 
                 { parcel.installations && (
-                    <ParcelInstallations parcel={parcel} />
+                    <div className={classes.parcelInstallations}>
+                        <ParcelInstallations parcel={parcel} />
+                    </div>
                 )}
 
                 <div className={classes.parcelPriceContainer}>

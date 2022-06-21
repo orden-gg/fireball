@@ -11,7 +11,8 @@ const styles = makeStyles(theme => ({
     },
     inner: {
         [theme.breakpoints.up('md')]: {
-            display: 'flex'
+            display: 'flex',
+            alignItems: 'flex-start'
         }
     },
     content: {
@@ -19,7 +20,8 @@ const styles = makeStyles(theme => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignSelf: 'stretch'
         }
     },
     contentTop: {
@@ -85,6 +87,9 @@ const styles = makeStyles(theme => ({
     boosts: {
         display: 'flex',
         justifyContent: 'center',
+        '& + $installations': {
+            marginTop: 4
+        },
         [theme.breakpoints.up('md')]: {
             justifyContent: 'flex-start'
         }
@@ -96,7 +101,7 @@ const styles = makeStyles(theme => ({
         marginRight: 8,
         textShadow: '1px 1px 0 black',
         textAlign: 'center',
-
+        minWidth: 80,
         '& h5': {
             fontWeight: 500,
             fontSize: 16,
@@ -129,6 +134,9 @@ const styles = makeStyles(theme => ({
     listing: {
         textAlign: 'right',
         marginTop: 12
+    },
+    installations: {
+        width: '100%'
     }
 }));
 
