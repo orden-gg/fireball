@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 import { FudIcon, RealmGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { getGotchiLastChanneled } from 'api/realm.api';
+import { RealmApi } from 'api';
 import { DAY_MILLIS } from 'data/date.data';
 
 import { styles } from './styles';
@@ -21,7 +21,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
 
         setLastChanellingLoading(true);
 
-        getGotchiLastChanneled(gotchiId).then((res: any) => {
+        RealmApi.getGotchiLastChanneled(gotchiId).then((res: any) => {
             if (mounted) {
                 setLastChanneling(res * 1000);
             }

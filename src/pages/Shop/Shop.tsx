@@ -21,8 +21,7 @@ import { Parcel } from 'components/Items/Parcel/Parcel';
 import { Portal } from 'components/Items/Portal/Portal';
 import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
-import { fromWei, isEthAddress } from 'api/ethers.api';
-import { TheGraphApi } from 'api';
+import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
 import { Erc721Categories, Erc1155Categories } from 'data/types';
 
@@ -49,13 +48,13 @@ export function Shop() {
     const [consumables, setConsumables] = useState<any>([]);
 
     useEffect(() => {
-        if (isEthAddress(params.address)) {
+        if (EthersApi.isEthAddress(params.address)) {
             setCurrentAddress(params.address as string);
         }
     }, [params.address, setCurrentAddress]);
 
     useEffect(() => {
-        if (isEthAddress(currentAddress)) {
+        if (EthersApi.isEthAddress(currentAddress)) {
             let mounted = true;
 
             setEmptyListings();
@@ -166,7 +165,7 @@ export function Shop() {
                 id: parseInt(listing.erc1155TypeId, 10),
                 balance: parseInt(listing.quantity, 10),
                 listing: listing.id,
-                price: fromWei(listing.priceInWei)
+                price: EthersApi.fromWei(listing.priceInWei)
             }));
 
         setWearables(sortedWearables);
@@ -183,14 +182,14 @@ export function Shop() {
             rarity: ItemUtils.getItemRarityById(listing.erc1155TypeId),
             rarityId: listing.rarityLevel,
             priceInWei: listing.priceInWei,
-            price: fromWei(listing.priceInWei)
+            price: EthersApi.fromWei(listing.priceInWei)
         };
     };
 
     const onAddressChange = (address: string) => {
         setCurrentAddress(address);
 
-        if (isEthAddress(address)) {
+        if (EthersApi.isEthAddress(address)) {
             history.push({ pathname: location.pathname, search: `?address=${address}` });
         }
     };
@@ -202,7 +201,7 @@ export function Shop() {
                     <CircularProgress color='primary' />
                 </div>
             );
-        } else if (isListingsEmpty && isEthAddress(currentAddress)) {
+        } else if (isListingsEmpty && EthersApi.isEthAddress(currentAddress)) {
             return <Typography className={classes.noListings} variant='caption'>No listings here :(</Typography>;
         }
     };

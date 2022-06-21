@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
-import { TheGraphApi } from 'api';
+import { EthersApi, TheGraphApi } from 'api';
 
-import { fromWei } from 'api/ethers.api';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
 export function ActiveListingButton({ item }: { item: any }) {
@@ -38,7 +37,7 @@ export function ActiveListingButton({ item }: { item: any }) {
             variant='contained'
             target='_blank'
         >
-            {fromWei(listing.priceInWei)}
+            {EthersApi.fromWei(listing.priceInWei)}
             <GhstTokenIcon height={16} width={16} />
         </Button>
     );

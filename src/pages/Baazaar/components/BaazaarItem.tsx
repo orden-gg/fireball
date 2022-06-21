@@ -3,7 +3,7 @@ import { Grid, Box, Button, Link, Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
-import { fromWei } from 'api/ethers.api';
+import { EthersApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
 
 import { baazaarItemStyles } from '../styles';
@@ -71,7 +71,7 @@ export function BaazaarItem({ item }: { item: any }) {
                             <Box className={classes.priceImg}><GhstTokenIcon width={18} height={18} /></Box>
                             <Box className={classes.priceText}>
                                 {
-                                    CommonUtils.formatNumberWithCommas(CommonUtils.trimPriceToThreeDecimal(fromWei(item.priceInWei)))
+                                    CommonUtils.formatNumberWithCommas(CommonUtils.trimPriceToThreeDecimal(EthersApi.fromWei(item.priceInWei)))
                                 }
                             </Box>
                         </Typography>

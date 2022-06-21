@@ -14,9 +14,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ActionPane } from 'shared/ActionPane/ActionPane';
-import { getUpgradeQueueByAddress } from 'api/installations.api';
-import { TheGraphApi } from 'api';
-import { getLastBlock, getFutureBlockTimestamp } from 'api/ethers.api';
+import { EthersApi, InstallationsApi, TheGraphApi } from 'api';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils, InstallationsUtils } from 'utils';
@@ -272,20 +270,20 @@ export function ClientRealmList() {
     };
 
     const getRealmUpgradesQueue = (owner: any, realmIds: any) => {
-        return getUpgradeQueueByAddress(owner).then(async (res: any) => {
+        return InstallationsApi.getUpgradeQueueByAddress(owner).then(async (res: any) => {
 
             const activeUpgrades = res
                 .map((queue: any, i: number) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
                 .filter((queue: any) => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
 
             if (activeUpgrades.length) {
-                const lastBlock = await getLastBlock();
+                const lastBlock = await EthersApi.getLastBlock();
 
                 const upgradesWithTimestamps: any[] = activeUpgrades.map((upgrade: any) => {
                     const currentBlock: any = upgrade.readyBlock;
                     const isUpgradeReady = currentBlock - lastBlock.number <= 0;
                     const timestamp = !isUpgradeReady ?
-                        getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
+                    EthersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
 
                     return {
                         ...upgrade,

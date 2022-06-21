@@ -10,7 +10,7 @@ import ContentLoader from 'react-content-loader';
 import classNames from 'classnames';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
-import { fromWei } from 'api/ethers.api';
+import { EthersApi } from 'api';
 import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -85,7 +85,7 @@ export function ERC1155({ children, item, className }: ERC1155Props) {
                                         <Typography variant='subtitle2'>
                                             {
                                                 last.price === 0 && !item.priceInWei ? '???' :
-                                                CommonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : fromWei(item.priceInWei))
+                                                CommonUtils.formatPrice((last.price && item.balance) ? (last.price * item.balance) : EthersApi.fromWei(item.priceInWei))
                                             }
                                         </Typography>
                                         <GhstTokenGif width={18} height={18} />

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { getOnlineCount } from 'api/gotchiverse.api';
+import { GotchiverseApi } from 'api';
 
 import { styles } from './styles';
 
@@ -22,7 +22,7 @@ export function GotchiverseOnline() {
         let mounted = true;
 
         const getOnline = (() => {
-            getOnlineCount(true)
+            GotchiverseApi.getOnlineCount(true)
                 .then(gotchiverseOnline => {
                     if (mounted) {
                         setOnlineCount(gotchiverseOnline);

@@ -10,7 +10,7 @@ import { PageNav } from 'components/PageNav/PageNav';
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { LoginContext } from 'contexts/LoginContext';
-import { isEthAddress } from 'api/ethers.api';
+import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { ClientAccount } from './routes/ClientAccount';
@@ -43,7 +43,7 @@ export function ClientRoutes() {
     const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
     useEffect(() => {
-        if (isEthAddress(account)) {
+        if (EthersApi.isEthAddress(account)) {
             setActiveAddress(account);
         }
     }, []);
@@ -80,7 +80,7 @@ export function ClientRoutes() {
                 </title>
             </Helmet>
 
-            { isEthAddress(account) && (
+            { EthersApi.isEthAddress(account) && (
                 <div className={classes.routesNav}>
                     <PageNav
                         links={navData}

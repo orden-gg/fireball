@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
-import { getTicketsByAddress } from 'api/tickets.api';
+import { TicketsApi } from 'api';
 
 import { RaffleTicket } from './RaffleTicket';
 import { tableStyles } from '../styles';
@@ -23,7 +23,7 @@ export function RaffleTickets({ address }: { address: string }) {
     const getTickets = (controller: AbortController): void => {
         setLoadingTickets(true);
 
-        getTicketsByAddress(address).then((response: any) => {
+        TicketsApi.getTicketsByAddress(address).then((response: any) => {
             if (!controller.signal.aborted) {
                 setTickets(response);
                 setLoadingTickets(false);

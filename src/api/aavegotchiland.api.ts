@@ -13,6 +13,8 @@ const noCacheOptions = {
     cache: { maxAge: 0 }
 };
 
-export const getAddressInfo = (address: any, disableCache?: any): Promise<any> => {
-    return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
-};
+export class AavegothilandApi {
+    public static getAddressInfo(address: any, disableCache?: any): Promise<any> {
+        return api.get(`/address_info?address=${address}`, disableCache && noCacheOptions);
+    }
+}

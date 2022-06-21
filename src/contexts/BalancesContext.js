@@ -1,15 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
-import {
-    getAlphaBalance,
-    getFomoBalance,
-    getFudBalance,
-    getGltrBalance,
-    getKekBalance
-} from 'api/alchemica.api';
-import { getBalanceOf } from 'api/ghst.api';
-import { getPairData, getTokenData, getTokenRouteByPair } from 'api/quickswap.api';
+import { AlchemicaApi, GhstApi, QuickswapApi } from 'api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
 import { CommonUtils } from 'utils';
 
@@ -72,19 +64,19 @@ const BalancesContextProvider = (props) => {
             getBalances = async function () {
                 const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
                 const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await Promise.all([
-                    getFudBalance(activeAddress),
-                    getFomoBalance(activeAddress),
-                    getAlphaBalance(activeAddress),
-                    getKekBalance(activeAddress),
-                    getGltrBalance(activeAddress),
-                    getBalanceOf(activeAddress)
+                    AlchemicaApi.getFudBalance(activeAddress),
+                    AlchemicaApi.getFomoBalance(activeAddress),
+                    AlchemicaApi.getAlphaBalance(activeAddress),
+                    AlchemicaApi.getKekBalance(activeAddress),
+                    AlchemicaApi.getGltrBalance(activeAddress),
+                    GhstApi.getBalanceOf(activeAddress)
                 ]);
                 const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
-                    getTokenData(FUD_CONTRACT),
-                    getTokenData(FOMO_CONTRACT),
-                    getTokenData(ALPHA_CONTRACT),
-                    getTokenData(KEK_CONTRACT),
-                    getTokenData(GLTR_CONTRACT)
+                    QuickswapApi.getTokenData(FUD_CONTRACT),
+                    QuickswapApi.getTokenData(FOMO_CONTRACT),
+                    QuickswapApi.getTokenData(ALPHA_CONTRACT),
+                    QuickswapApi.getTokenData(KEK_CONTRACT),
+                    QuickswapApi.getTokenData(GLTR_CONTRACT)
                 ]);
                 const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
                     getTokenPrice(ghst, ghstPrice, fudToken),
@@ -168,20 +160,20 @@ const BalancesContextProvider = (props) => {
 
     const getGhstAndPriceToToken = async (ghstContract, tokenContract) => {
         const [ghst, token] = await Promise.all([
-            getTokenData(ghstContract),
-            getTokenData(tokenContract)
+            QuickswapApi.getTokenData(ghstContract),
+            QuickswapApi.getTokenData(tokenContract)
         ]);
 
-        const ghstTokenPair = await getPairData(ghst, token);
-        const ghstTokenRoute = getTokenRouteByPair(ghst, ghstTokenPair);
+        const ghstTokenPair = await QuickswapApi.getPairData(ghst, token);
+        const ghstTokenRoute = QuickswapApi.getTokenRouteByPair(ghst, ghstTokenPair);
         const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
         return [ghst, ghstPriceToToken];
     };
 
     const getTokenPrice = async (ghst, ghstPrice, token) => {
-        const ghstTokenPair = await getPairData(ghst, token);
-        const ghstTokenRoute = getTokenRouteByPair(token, ghstTokenPair);
+        const ghstTokenPair = await QuickswapApi.getPairData(ghst, token);
+        const ghstTokenRoute = QuickswapApi.getTokenRouteByPair(token, ghstTokenPair);
         const tokenToGhstPrice = Number(ghstTokenRoute.midPrice.toSignificant(6));
         const tokenPrice = ghstPrice * tokenToGhstPrice;
 

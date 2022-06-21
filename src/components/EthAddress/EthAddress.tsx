@@ -5,7 +5,7 @@ import Blockies from 'react-blockies';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
-import { isEthAddress } from 'api/ethers.api';
+import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
@@ -21,7 +21,7 @@ interface EthAddressProps {
 export function EthAddress({ address, isShwoIcon, isClientLink, isPolygonButton, isCopyButton }: EthAddressProps) {
     const classes = styles();
 
-    if (!isEthAddress(address)) {
+    if (!EthersApi.isEthAddress(address)) {
         return null;
     }
 

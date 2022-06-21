@@ -13,14 +13,16 @@ const noCacheOptions = {
     cache: { maxAge: 0 }
 };
 
-export const getOnlineCount = (disableCache: any): Promise<any> => {
-    return api.get('/users/online', disableCache && noCacheOptions)
-        .then(res => res.data.count)
-        .catch(e => console.log(e));
-};
+export class GotchiverseApi {
+    public static getOnlineCount(disableCache: any): Promise<any> {
+        return api.get('/users/online', disableCache && noCacheOptions)
+            .then(res => res.data.count)
+            .catch(e => console.log(e));
+    }
 
-export const getParcelImage = (id: any, imageSize: any, disableCache: any): Promise<any> => {
-    return api.get(`/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${id},${imageSize}`, disableCache && noCacheOptions)
-        .then(res => res.data)
-        .catch(e => console.log(e));
-};
+    public static getParcelImage(id: any, imageSize: any, disableCache: any): Promise<any> {
+        return api.get(`/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${id},${imageSize}`, disableCache && noCacheOptions)
+            .then(res => res.data)
+            .catch(e => console.log(e));
+    }
+}

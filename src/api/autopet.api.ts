@@ -1,47 +1,38 @@
-import { makeContract, makeContractWithSigner, waitForTransaction } from './ethers.api';
+import { EthersApi } from './ethers.api';
 
 import { AUTOPET_CONTRACT } from './common/api.constants';
 import { AUTOPET_ABI } from 'data/abi/autopet.abi';
 import { ethers } from 'ethers';
 
-const contract = makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
+const contract = EthersApi.makeContract(AUTOPET_CONTRACT, AUTOPET_ABI, 'polygon');
 
-export const subscribe = async (isApproved: any): Promise<boolean> => {
-    const writeContract = makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
+export class AutopetApi {
+    public static async subscribe(isApproved: any): Promise<boolean> {
+        const writeContract = EthersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
 
-    const transaction: any = isApproved ?
-        await writeContract.subscribe() :
-        await writeContract.unsubscribe();
+        const transaction: any = isApproved ?
+            await writeContract.subscribe() :
+            await writeContract.unsubscribe();
 
-    return waitForTransaction(transaction.hash, 'polygon').then(response => (
-        Boolean(response.status)
-    ));
+        return EthersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
 
-};
+    }
 
-// TODO check if needed, probably not
-// export const unsubscribe = async () => {
-//     const writeContract = ethersApi.makeContractWithSigner(AUTOPET_CONTRACT, AUTOPET_ABI);
+    public static getUsers(): Promise<any> {
+        return contract.allUsers();
+    }
 
-//     const transaction = await writeContract.unsubscribe();
+    public static getFee(): Promise<any> {
+        return contract.fee().then((fee: any) => (
+            parseInt(ethers.utils.formatUnits(fee._hex))
+        ));
+    }
 
-//     const response = await getTransactionStatus(transaction.hash);
-
-//     return response.status;
-// };
-
-export const getUsers = (): Promise<any> => {
-    return contract.allUsers();
-};
-
-export const getFee = (): Promise<any> => {
-    return contract.fee().then((fee: any) => (
-        parseInt(ethers.utils.formatUnits(fee._hex))
-    ));
-};
-
-export const getFrens = (): Promise<any> => {
-    return contract.frens().then((frens: any) => (
-        parseInt(ethers.utils.formatUnits(frens._hex))
-    ));
-};
+    public static getFrens(): Promise<any> {
+        return contract.frens().then((frens: any) => (
+            parseInt(ethers.utils.formatUnits(frens._hex))
+        ));
+    }
+}

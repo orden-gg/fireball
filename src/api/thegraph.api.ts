@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject } from '@a
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-import { fromWei } from './ethers.api';
+import { EthersApi } from './ethers.api';
 import { GraphUtils } from 'utils';
 
 import {
@@ -246,7 +246,7 @@ export class TheGraphApi {
 
             return {
                 listing: erc1155[0]?.id || null,
-                price: erc1155[0]?.priceInWei ? +fromWei(erc1155[0].priceInWei) : 0,
+                price: erc1155[0]?.priceInWei ? +EthersApi.fromWei(erc1155[0].priceInWei) : 0,
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
@@ -406,7 +406,7 @@ export class TheGraphApi {
 
     public static getParcelPriceByDirection(data: any): Promise<any> {
         return TheGraphApi.getData(getParcelOrderDirectionQuery(data)).then((response: any) => {
-            return fromWei(response.data.erc721Listings[0].priceInWei);
+            return EthersApi.fromWei(response.data.erc721Listings[0].priceInWei);
         });
     }
 
@@ -506,9 +506,9 @@ export class TheGraphApi {
                     }
 
                     acc[key] = acc[key] ? (
-                        acc[key] + fromWei(x[key].toString())
+                        acc[key] + EthersApi.fromWei(x[key].toString())
                     ) : (
-                        fromWei(x[key].toString())
+                        EthersApi.fromWei(x[key].toString())
                     );
                 }
 

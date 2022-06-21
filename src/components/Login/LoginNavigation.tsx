@@ -7,7 +7,7 @@ import { useMetamask } from 'use-metamask';
 
 import { MetamaskIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-import { isEthAddress } from 'api/ethers.api';
+import { EthersApi } from 'api';
 
 import { styles } from './styles';
 
@@ -32,7 +32,7 @@ export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
     };
 
     const isFormValid = (addr: string) => {
-        return isFormSabmitted && !isEthAddress(addr);
+        return isFormSabmitted && !EthersApi.isEthAddress(addr);
     };
 
     const onFormSubmit = useCallback((event: any) => {
@@ -40,7 +40,7 @@ export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
 
         const formatted = formValue.toLowerCase();
 
-        if (isEthAddress(formatted)) {
+        if (EthersApi.isEthAddress(formatted)) {
             onSubmit(formatted);
         }
 

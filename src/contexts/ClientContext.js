@@ -1,12 +1,7 @@
 import { createContext, useState } from 'react';
 
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
-import { TheGraphApi } from 'api';
-import { getInventoryByAddress } from 'api/main.api';
-import { getInstallationsByAddress } from 'api/installations.api';
-import { getTilesByAddress } from 'api/tiles.api';
-import { getTicketsByAddress } from 'api/tickets.api';
-import { formatBigNumber } from 'api/ethers.api';
+import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 export const ClientContext = createContext({});
@@ -183,7 +178,7 @@ const ClientContextProvider = (props) => {
     const getInventory = (address) => {
         setLoadingWarehouse(true);
 
-        getInventoryByAddress(address).then((response) => {
+        MainApi.getInventoryByAddress(address).then((response) => {
             const modified = [];
             const { type, dir } = warehouseSorting;
 
@@ -222,14 +217,14 @@ const ClientContextProvider = (props) => {
     const getInstallations = (address) => {
         setLoadingInstallations(true);
 
-        getInstallationsByAddress(address).then(response => {
+        InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations = response.map(item => {
-                const id = formatBigNumber(item.installationId._hex);
+                const id = EthersApi.formatBigNumber(item.installationId._hex);
 
                 return {
                     type: 'installation',
                     name: InstallationsUtils.getNameById(id),
-                    balance: formatBigNumber(item.balance._hex),
+                    balance: EthersApi.formatBigNumber(item.balance._hex),
                     id: id,
                     level: InstallationsUtils.getLevelById(id)
                 };
@@ -243,14 +238,14 @@ const ClientContextProvider = (props) => {
     const getTiles = (address) => {
         setLoadingTiles(true);
 
-        getTilesByAddress(address).then(response => {
+        TilesApi.getTilesByAddress(address).then(response => {
             const tiles = response.map(item => {
-                const id = formatBigNumber(item.tileId._hex);
+                const id = EthersApi.formatBigNumber(item.tileId._hex);
 
                 return {
                     type: 'tile',
                     name: TilesUtils.getNameById(id),
-                    balance: formatBigNumber(item.balance._hex),
+                    balance: EthersApi.formatBigNumber(item.balance._hex),
                     id: id
                 };
             });
@@ -263,7 +258,7 @@ const ClientContextProvider = (props) => {
     const getTickets = (address) => {
         setLoadingTickets(true);
 
-        getTicketsByAddress(address).then((response) => {
+        TicketsApi.getTicketsByAddress(address).then((response) => {
             const modified = response.filter((item) => item.balance > 0);
 
             setTickets(modified);

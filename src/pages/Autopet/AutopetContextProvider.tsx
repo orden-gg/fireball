@@ -3,9 +3,7 @@ import { CircularProgress } from '@mui/material';
 
 import { useMetamask } from 'use-metamask';
 
-import { getUsers, subscribe } from 'api/autopet.api';
-import { approveGhst, isGhstApproved as isGhstApprovedApi } from 'api/ghst.api';
-import { approvePet as approvePetApi, isPetApproved as isPetApprovedApi } from 'api/main.api';
+import { AutopetApi, GhstApi, MainApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { LoginContext } from 'contexts/LoginContext';
 
@@ -73,7 +71,7 @@ export const AutopetContextProvider = (props: any) => {
         setPetState('approving');
 
         try {
-            const isApproved: boolean = await approvePetApi(approval);
+            const isApproved: boolean = await MainApi.approvePet(approval);
 
             if (isApproved) {
                 setIsPetApproved(approval);
@@ -96,7 +94,7 @@ export const AutopetContextProvider = (props: any) => {
         setGhstState('approving');
 
         try {
-            const isApproved = await approveGhst(approval);
+            const isApproved = await GhstApi.approveGhst(approval);
 
             if (isApproved) {
                 setIsGhstApproved(approval);
@@ -113,7 +111,7 @@ export const AutopetContextProvider = (props: any) => {
     };
 
     const checkGhstSpend = async (): Promise<void> => {
-        const ghstApproved: boolean = await isGhstApprovedApi(connectedWallet);
+        const ghstApproved: boolean = await GhstApi.isGhstApproved(connectedWallet);
 
         if (!ghstApproved) {
             setIsGhstApproved(ghstApproved);
@@ -128,7 +126,7 @@ export const AutopetContextProvider = (props: any) => {
         setStakeState('approving');
 
         try {
-            const isApproved = Boolean(await subscribe(approval));
+            const isApproved = Boolean(await AutopetApi.subscribe(approval));
 
             if (isApproved) {
                 setIsStaked(approval);
@@ -185,9 +183,9 @@ export const AutopetContextProvider = (props: any) => {
 
         (async function loadData() {
             const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
-                isPetApprovedApi(accounts[0]),
-                isGhstApprovedApi(accounts[0]),
-                getUsers()
+                MainApi.isPetApproved(accounts[0]),
+                GhstApi.isGhstApproved(accounts[0]),
+                AutopetApi.getUsers()
             ]);
             const ghstStaked: boolean = users.some((address: string) => (
                 accounts[0].toLowerCase() === address.toLowerCase()
