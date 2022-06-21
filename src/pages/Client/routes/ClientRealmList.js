@@ -231,7 +231,7 @@ export default function ClientRealmList() {
                     ...parcel,
                     channeling: parcelInfo,
                     nextChannel: parcelInfo.nextChannel,
-                    altarLevel:  altar.level,
+                    altarLevel: altar.level,
                     installations: parcelInfo.installations,
                     upgrading: isParcelUpgrading,
                     isUpgradeReady: Boolean(isParcelUpgrading?.ready)
