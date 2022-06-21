@@ -67,7 +67,7 @@ const styles = makeStyles(theme => ({
     },
     placeholderWarning: {
         color: 'orange',
-        padding: '26px 0'
+        width: '100%'
     },
     subtitle: {
         color: 'deeppink'
