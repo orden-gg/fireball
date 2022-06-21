@@ -57,11 +57,10 @@ export const InstallationTypeNames = Object.freeze({
     Harvester: 'harvester',
     Reservoir: 'reservoir',
     GotchiLodge: 'gotchi lodge',
-    Harvester: 'harvester',
     Wall: 'wall',
     NFTDisplay: 'NFT display',
     BuildqueueBooster: 'buildqueue booster',
-    Decoration: 'decoration',
+    Decoration: 'decoration'
 });
 
 export const TileTypes = Object.freeze({

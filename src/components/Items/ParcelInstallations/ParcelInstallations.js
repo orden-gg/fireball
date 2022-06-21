@@ -7,11 +7,11 @@ import styles from './styles';
 import InstallationImage from '../Installation/InstallationImage';
 import CustomTooltip from 'components/custom/CustomTooltip';
 
-const dataFormat = {
-    days: { key: 'dd', value: 'd', showIfZero: false },
-    hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false }
-};
+// const dataFormat = {
+//     days: { key: 'dd', value: 'd', showIfZero: false },
+//     hours: { key: 'hh', value: 'h', showIfZero: false },
+//     minutes: { key: 'mm', value: 'm', showIfZero: false }
+// };
 
 export default function ParcelInstallations({ parcel, size }) {
     const classes = styles();

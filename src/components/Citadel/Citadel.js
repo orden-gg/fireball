@@ -130,7 +130,7 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
 
                         setParcelLoading(false);
                         setSelectedParcel(parcelRealm ? combinedParcel : parcel);
-                    })
+                    });
             });
 
             game.scene.on('query', ({ name, params }) => {
