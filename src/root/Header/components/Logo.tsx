@@ -4,7 +4,7 @@ import { LogoIcon, MobileLogoIcon } from 'components/Icons/Icons';
 
 import { logoStypes } from '../styles';
 
-export default function Logo() {
+export function Logo() {
     const classes = logoStypes();
 
     return (
