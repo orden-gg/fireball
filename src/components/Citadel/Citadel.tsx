@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
-import { CustomModal } from 'components/Modal/Modal';
+import { CustomModal } from 'components/CustomModal/CustomModal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils } from 'utils';

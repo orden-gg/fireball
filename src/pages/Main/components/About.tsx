@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
 
-import { CustomModal } from 'components/Modal/Modal';
+import { CustomModal } from 'components/CustomModal/CustomModal';
 
 import { styles } from '../styles';
 
