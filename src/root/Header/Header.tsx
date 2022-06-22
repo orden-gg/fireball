@@ -1,5 +1,5 @@
 import { Logo } from './components/Logo';
-import UserPanel from './components/UserPanel';
+import { UserPanel } from './components/UserPanel';
 
 export function Header() {
 

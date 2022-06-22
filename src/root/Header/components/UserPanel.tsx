@@ -6,10 +6,10 @@ import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from '../styles';
 
-export default function UserPanel() {
+export function UserPanel() {
     const classes = styles();
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress } = useContext<any>(LoginContext);
 
     return (
         <div className={classes.userPanel}>
