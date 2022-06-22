@@ -1,6 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Modal } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { styles } from './styles';
 
 interface CustomModalProps {
@@ -8,9 +10,10 @@ interface CustomModalProps {
     modalOpen: boolean;
     setModalOpen: (isOpen: boolean) => void;
     onModalClose?: () => void;
+    className?: string;
 }
 
-export function CustomModal({ children, modalOpen, setModalOpen, onModalClose }: CustomModalProps) {
+export function CustomModal({ children, modalOpen, setModalOpen, onModalClose, className }: CustomModalProps) {
     const classes = styles();
 
     const onClose = () => {
@@ -27,7 +30,7 @@ export function CustomModal({ children, modalOpen, setModalOpen, onModalClose }:
             onClose={onClose}
             className={classes.wrapper}
         >
-            <div className={classes.modal}>
+            <div className={classNames(classes.modal, className)}>
                 { children }
                 <IconButton className={classes.close} onClick={onClose}>
                     <CloseIcon  />

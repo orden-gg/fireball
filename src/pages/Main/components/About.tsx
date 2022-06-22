@@ -23,7 +23,7 @@ export function About() {
                 onClick={() => handleButtonClick(!isOpened)}
             >About fireball.gg</Button>
 
-            <CustomModal setModalOpen={setIsOpened} modalOpen={isOpened}>
+            <CustomModal setModalOpen={setIsOpened} modalOpen={isOpened} className={classes.modal}>
                 <div className={classes.container}>
                     <Typography variant='h4' className={classes.title}>About fireball.gg</Typography>
 
