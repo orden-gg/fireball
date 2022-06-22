@@ -12,10 +12,12 @@ import { BalancesContext } from 'contexts/BalancesContext';
 
 import { balancesStyles } from '../styles';
 
-export default function Balances() {
-    const [menuOpen, setMenuOpen] = useLocalStorage('visible_balances', JSON.parse(localStorage.getItem('visible_balances') as any) || true);
+// TODO add types
+export function Balances() {
     const classes = balancesStyles();
     const theme = useTheme();
+
+    const [menuOpen, setMenuOpen] = useLocalStorage('visible_balances', JSON.parse(localStorage.getItem('visible_balances') as any) || true);
 
     const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
 

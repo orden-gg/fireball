@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import Balances from 'root/Header/components/Balances';
+import { Balances } from 'root/Header/components/Balances';
 import { LoginButton } from 'components/Login/LoginButton';
 import { LoginContext } from 'contexts/LoginContext';
 
