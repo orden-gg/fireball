@@ -5,7 +5,11 @@ import { EthersApi, TheGraphApi } from 'api';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 
+import { styles } from './styles';
+
 export function ActiveListingButton({ item }: { item: any }) {
+    const classes = styles();
+
     const [listing, setListing] = useState<any>(null);
     const [listingLoading, setListingLoading] = useState<boolean>(true);
 
@@ -32,6 +36,7 @@ export function ActiveListingButton({ item }: { item: any }) {
 
     return (
         <Button
+            className={classes.button}
             href={`https://app.aavegotchi.com/baazaar/${item.erc}/${listing.id}`}
             size='small'
             variant='contained'
