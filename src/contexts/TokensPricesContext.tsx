@@ -6,7 +6,8 @@ import { TokenTypes } from 'data/types';
 
 export const TokensPricesContext = createContext({});
 
-const TokensPricesContextProvider = (props) => {
+// TODO add types
+export const TokensPricesContextProvider = (props) => {
     const [isPricesLoaded, setIsPricesLoaded] = useState(false);
     const [tokensPrices, setTokensPrices] = useState({});
 
@@ -83,5 +84,3 @@ const TokensPricesContextProvider = (props) => {
         </TokensPricesContext.Provider>
     );
 };
-
-export default TokensPricesContextProvider;

@@ -27,7 +27,7 @@ import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { ClientContextProvider } from './contexts/ClientContext';
 import { LoginContextProvider } from './contexts/LoginContext';
 import { SnackbarContextProvider } from './contexts/SnackbarContext';
-import TokensPricesContextProvider from 'contexts/TokensPricesContext';
+import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
 
 const classes = {
     wrapper: 'page-wrapper',
