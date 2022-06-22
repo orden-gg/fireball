@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import { Footer } from './root/Footer/Footer';
 import { Header } from './root/Header/Header';
-import NavPanel from 'root/NavPanel/NavPanel';
+import { NavPanel } from 'root/NavPanel/NavPanel';
 
 import { Autopet } from './pages/Autopet/Autopet';
 import { Baazaar } from './pages/Baazaar/Baazaar';

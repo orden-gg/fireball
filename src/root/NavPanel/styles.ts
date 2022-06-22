@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const styles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     container: {
         position: 'fixed',
         top: '50%',
@@ -81,5 +81,3 @@ const styles = makeStyles(theme => ({
         display: 'none'
     }
 }));
-
-export default styles;

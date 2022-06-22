@@ -13,20 +13,21 @@ import { LoginContext } from 'contexts/LoginContext';
 
 import classNames from 'classnames';
 
-import styles from './styles';
+import { styles } from './styles';
 
-export default function NavPanel() {
+export function NavPanel() {
     const classes = styles();
+
     const location = useLocation();
 
-    const { activeAddress } = useContext(LoginContext);
+    const { activeAddress } = useContext<any>(LoginContext);
     const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
 
     return (
             <div className={classes.container}>
                 <nav className={classes.navigation}>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === clientLink)} to={clientLink}>
+                        <NavLink className={classNames(classes.navLink)} to={clientLink}>
                             <Icon className={classes.iconBox}>
                                 <PersonIcon width={20} height={20} />
                             </Icon>
@@ -34,7 +35,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/lend')} to='/lend'>
+                        <NavLink className={classNames(classes.navLink)} to='/lend'>
                             <Icon className={classes.iconBox}>
                                 <LendingIcon width={20} height={20} />
                             </Icon>
@@ -42,7 +43,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/market')} to='/market'>
+                        <NavLink className={classNames(classes.navLink)} to='/market'>
                             <Icon className={classes.iconBox}>
                                 <StoreIcon width={20} height={20} />
                             </Icon>
@@ -50,7 +51,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/autopet')} to='/autopet'>
+                        <NavLink className={classNames(classes.navLink)} to='/autopet'>
                             <Icon className={classes.iconBox}>
                                 <AutorenewIcon width={20} height={20} />
                             </Icon>
@@ -58,7 +59,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/guilds')} to='/guilds'>
+                        <NavLink className={classNames(classes.navLink)} to='/guilds'>
                             <Icon className={classes.iconBox}>
                                 <GuildIcon width={20} height={20} />
                             </Icon>
@@ -66,7 +67,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/raffles')} to='/raffles'>
+                        <NavLink className={classNames(classes.navLink)} to='/raffles'>
                             <Icon className={classes.iconBox}>
                                 <ConfirmationNumberIcon width={20} height={20} />
                             </Icon>
@@ -74,7 +75,7 @@ export default function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink, location.href === '/map')} to='/map'>
+                        <NavLink className={classNames(classes.navLink)} to='/map'>
                             <Icon className={classes.iconBox}>
                                 <MapIcon width={20} height={20} />
                             </Icon>
