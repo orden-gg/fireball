@@ -1,24 +1,21 @@
 import { useContext } from 'react';
+import { NavLink } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
-import { NavLink, useLocation } from 'react-router-dom';
 
+import classNames from 'classnames';
 
 import { GuildIcon, LendingIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
-
-import classNames from 'classnames';
 
 import { styles } from './styles';
 
 export function NavPanel() {
     const classes = styles();
-
-    const location = useLocation();
 
     const { activeAddress } = useContext<any>(LoginContext);
     const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
