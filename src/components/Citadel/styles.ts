@@ -21,7 +21,7 @@ const styles = makeStyles(() => createStyles({
 const InterfaceStyles = makeStyles(theme => createStyles({
     citadelInterface: {
         position: 'absolute',
-        right: theme.spacing(1),
+        right: theme.spacing(2),
         top: theme.spacing(11),
         display: 'flex',
         flexDirection: 'column',
@@ -143,18 +143,22 @@ const InfoStyles = makeStyles(theme => createStyles({
 const FilterStyles = makeStyles(theme => createStyles({
     dropdownContainer: {
         position: 'absolute',
-        left: theme.spacing(1),
-        top: theme.spacing(1),
+        left: theme.spacing(2),
+        top: theme.spacing(8),
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+
+        '&.opened': {
+            zIndex: theme.zIndex.appBar + 11
+        }
     },
     filterButton: {
         lineHeight: 1,
         padding: '9px 16px',
-        background: alpha('#fff', .06),
+        background: alpha('#fff', .3),
         color: '#fff',
         '&:hover': {
-            background: alpha('#fff', .12)
+            background: alpha('#fff', .4)
         },
         '&.active': {
             background: alpha(theme.palette.primary.main, .8),

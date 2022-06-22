@@ -108,7 +108,7 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
     }, [currentFilters]);
 
     return (
-        <div className={classNames(classes.dropdownContainer, isDropdownOpen && 'opened')}>
+        <div className={classNames(classes.dropdownContainer, 'citadel-filters', isDropdownOpen && 'opened')}>
             <Button
                 className={classNames(classes.filterButton, isDropdownOpen && 'active' )}
                 color='primary'

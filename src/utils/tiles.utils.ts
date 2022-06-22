@@ -1,8 +1,9 @@
-import { tiles } from 'data/tiles.data';
+import tiles from 'data/tiles.data.json';
+import { TileTypes } from 'data/types';
 
 export class TilesUtils {
     public static getNameById(id: any): any {
-        return tiles[id]?.name || '';
+        return tiles[id] && tiles[id][TileTypes.Name];
     }
 
     public static getImageById(id: any): any {

@@ -1,10 +1,10 @@
 import { alpha } from '@mui/system';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(() => createStyles({
+export const styles = makeStyles((theme) => createStyles({
     container: {
         maxWidth: 1280,
-        padding: 24,
+        padding: theme.spacing(8, 3, 3),
         margin: '0 auto'
     }
 }));

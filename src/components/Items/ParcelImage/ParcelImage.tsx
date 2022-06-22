@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { GotchiverseGif } from 'components/Icons/Icons';
 import { GotchiverseApi } from 'api';
+import { CitadelUtils } from 'utils';
 import { COLORS } from 'data/citadel.data';
 
 import { styles } from './styles';
@@ -14,38 +15,28 @@ interface ParcelImageProps {
 export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
     const classes = styles();
 
-    const canvasRef = useRef(null);
-    const [imageLoading, setImageLoading] = useState<boolean>(true);
+    const canvasRef = useRef<any>(null);
+    const [imageLoading, setImageLoading] = useState(true);
+    const [imageMap, setImageMap] = useState([]);
 
-    const processColorsMap = (map) => {
-        const cache: any = [];
-
-        map.forEach((item: any) => {
-            if (!cache.length) {
-                cache[0] = [];
-            }
-
-            if (cache[cache.length - 1].length < 4) {
-                cache[cache.length - 1].push(item);
-            } else {
-                cache[cache.length] = [item];
-            }
-        });
-
+    const processColorsMap = () => {
+        const colorsSize: number = imageMap.length / 4;
         const canvas: any = canvasRef.current;
-
-        if (!canvas) return;
-
         const context: any = canvas.getContext('2d');
 
         context.globalAlpha = 1;
 
-        for (let x = 0; x < imageSize; x++) {
-            for (let y = 0; y < imageSize; y++) {
-                context.beginPath();
-                context.fillStyle = `rgba(${cache[x*imageSize+y].join(',')})`;
-                context.fillRect(y,x, x+1,y+1);
-            }
+        for (let i = 0; i < colorsSize; i++) {
+            const id = i * 4;
+            const [x, y] = [Math.floor(i / imageSize), i % imageSize];
+
+            context.beginPath();
+            context.fillStyle = `rgb(
+                ${imageMap[id]},
+                ${imageMap[id + 1]},
+                ${imageMap[id + 2]}
+            )`;
+            context.fillRect(y, x, x + 1, y + 1);
         }
 
         context.strokeStyle = `#${COLORS.parcels.selected.toString(16)}`;
@@ -53,21 +44,10 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
         drawParcelBorder(parcel, context);
     };
 
-    const drawParcelBorder = (parcel: any, context: any) => {
-        const size = Number(parcel.size);
+    const drawParcelBorder = (parcel: any, context: any): any => {
+        const { w, h } = CitadelUtils.getParcelSize(parcel.size);
 
-        switch (size) {
-            case 0:
-                return drawRect(parcel, context, 5, 5, 2);
-            case 1:
-                return drawRect(parcel, context, 10, 10, 2);
-            case 2:
-                return drawRect(parcel, context, 16, 32, 2);
-            case 3:
-                return drawRect(parcel, context, 32, 16, 2);
-            default:
-                return;
-        }
+        return drawRect(parcel, context, w / 2 + 2, h / 2 + 2, 2);
     };
 
     const drawRect = (parcel: any, context: any, width: any, height: any, line: any) => {
@@ -84,16 +64,23 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
 
         setImageLoading(true);
 
-        GotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
-            .then((res: any) => {
-                if (mounted) {
-                    setImageLoading(false);
-                    processColorsMap(res);
-                }
-            });
+        GotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true).then(response => {
+            if (mounted) {
+                setImageMap(response);
+            }
+        })
+        .catch(error => console.log(error))
+        .finally(() => setImageLoading(false));
 
         return () => { mounted = false };
     }, []);
+
+    useEffect(() => {
+        if (imageMap.length > 0 && !imageLoading) {
+            processColorsMap();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [imageMap, imageLoading]);
 
     return (
         <div

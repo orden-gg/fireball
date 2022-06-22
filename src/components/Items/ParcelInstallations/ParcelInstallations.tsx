@@ -1,20 +1,19 @@
 import { Skeleton } from '@mui/material';
 
-import { DateTime } from 'luxon';
-
-import { CountdownShortFormat } from 'shared/models';
-import { Countdown } from 'components/Countdown/Countdown';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { InstallationsUtils } from 'utils';
+import { InstallationTypeNames } from 'data/types';
 
+import { InstallationImage } from '../Installation/InstallationImage';
 import { styles } from './styles';
 
-const dataFormat: CountdownShortFormat = {
-    days: { key: 'dd', value: 'd', showIfZero: false },
-    hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false }
-};
+// const dataFormat = {
+//     days: { key: 'dd', value: 'd', showIfZero: false },
+//     hours: { key: 'hh', value: 'h', showIfZero: false },
+//     minutes: { key: 'mm', value: 'm', showIfZero: false }
+// };
 
-export function ParcelInstallations({ parcel }: { parcel: any }) {
+export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any }) {
     const classes = styles();
 
     if (parcel.installations.loading) {
@@ -38,20 +37,55 @@ export function ParcelInstallations({ parcel }: { parcel: any }) {
 
     return (
         <div className={classes.container}>
-            { parcel.installations.map((inst: any, index: number) => {
-                const metadata: any = InstallationsUtils.getMetadataById(inst.id);
+
+            { parcel.installations.map((installation: any, index: number) => {
+                const metadata = InstallationsUtils.getMetadataById(installation.id);
+                const isAltar = metadata.type === InstallationTypeNames.Altar;
 
                 return (
-                    <div className={classes.installation} key={index}>
-                        <div className={classes.subtitle}>Altar!</div>
+                    <div
+                        className={classes.installation}
+                        style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+                        key={index}
+                    >
+                        { isAltar && (
+                            <div className={classes.installationLevel}>
+                                {metadata.level}
+                            </div>
+                        )}
 
-                        <div className={classes.row}>
-                            <div className={classes.inner}>lvl:<span>{metadata.level}</span></div>
-                            <div className={classes.inner}>cd:<span>{metadata.cooldown}h</span></div>
-                            <div className={classes.inner}>rate:<span>{100 - (metadata.spillRate / 100)}%</span></div>
-                        </div>
+                        <CustomTooltip
+                            title={
+                                <div>
+                                    <div className={classes.inner}>
+                                        {metadata.type}: <span>{metadata.name}</span>
+                                    </div>
 
-                        { parcel.upgrading && (
+                                    { isAltar && (
+                                        <div className={classes.row}>
+                                            <div className={classes.inner}>
+                                                lvl: <span>{metadata.level}</span>
+                                            </div>
+                                            <div className={classes.inner}>
+                                                cd: <span>{metadata.cooldown}h</span>
+                                            </div>
+                                            <div className={classes.inner}>
+                                                rate: <span>{100 - (metadata.spillRate / 100)}%</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            }
+                            placement='top'
+                            arrow={true}
+                        >
+                            <div className={classes.installationImage}>
+                                <InstallationImage id={installation.id} />
+                            </div>
+                        </CustomTooltip>
+
+
+                        {/* { parcel.upgrading && (
                             <div className={classes.upgrade}>
                                 <span>upg:</span>
 
@@ -63,7 +97,7 @@ export function ParcelInstallations({ parcel }: { parcel: any }) {
                                     />
                                 </div>
                             </div>
-                        )}
+                        )} */}
                     </div>
                 );
             })}

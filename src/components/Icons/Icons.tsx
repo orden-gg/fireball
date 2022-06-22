@@ -11,12 +11,14 @@ import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
+import channel from 'assets/images/icons/channel.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import controller from 'assets/images/wearables/204.svg';
 import discord from 'assets/images/icons/discord.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
+import guild from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
@@ -99,6 +101,10 @@ export const FudIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={fud} alt='fud' />;
 };
 
+export const ChannelIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={channel} alt='channel' />;
+};
+
 export const ConsumableIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={consumable} alt='consumable' />;
 };
@@ -109,6 +115,10 @@ export const DiscordIcon = ({ className, width, height }: IconProps) => {
 
 export const GotchiIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={gotchi} alt='gotchi' />;
+};
+
+export const GuildIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={guild} alt='guild' />;
 };
 
 export const GotchilandIcon = ({ className, width, height }: IconProps) => {

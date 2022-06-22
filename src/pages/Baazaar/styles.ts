@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
     baazaar: {
-        padding: 24,
+        padding: theme.spacing(8, 3, 3),
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
             alignItems: 'stretch'

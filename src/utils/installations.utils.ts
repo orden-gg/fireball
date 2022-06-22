@@ -1,17 +1,17 @@
-import installations from 'data/installations.json';
-import { InstallationTypes } from 'data/types';
+import installations from 'data/installations.data.json';
+import { InstallationTypeNames, InstallationTypes } from 'data/types';
 
 export class InstallationsUtils {
     public static getMetadataById(id: any): any {
         return {
-            name: this.getNameById(id),
-            type: this.getTypeById(id),
-            level: this.getLevelById(id),
-            spillRadius: this.getSpillRadiusById(id),
-            spillRate: this.getSpillRateById(id),
-            craftTime: this.getCraftTimeById(id),
-            // alchemicaCost: this.getAlchemicaCostById(id), // TODO check if needed and fix
-            cooldown: this.getCooldownByLevel(this.getLevelById(id))
+            name: InstallationsUtils.getNameById(id),
+            type: InstallationsUtils.getTypeById(id),
+            level: InstallationsUtils.getLevelById(id),
+            spillRadius: InstallationsUtils.getSpillRadiusById(id),
+            spillRate: InstallationsUtils.getSpillRateById(id),
+            craftTime: InstallationsUtils.getCraftTimeById(id),
+            alchemicaCost: InstallationsUtils.getAlchemicaCostById(id), // TODO check if needed and fix
+            cooldown: InstallationsUtils.getCooldownByLevel(InstallationsUtils.getLevelById(id))
         };
     }
 
@@ -43,28 +43,28 @@ export class InstallationsUtils {
         return installations[id][InstallationTypes.CraftTime];
     }
 
-    // TODO check if needed and fix
-    // public static getAlchemicaCostById(id: any): any {
-    //     return installations[id][InstallationTypes.AlchemicaCost]
-    //         .map(token => Number(ethers.utils.formatUnits(token.hex)));
-    // }
+    public static getAlchemicaCostById(id: any): any {
+        return installations[id][InstallationTypes.AlchemicaCost];
+    }
 
     public static getTypeById(id: any): any {
         switch (installations[id][InstallationTypes.Type]) {
             case 0:
-                return 'altar';
+                return InstallationTypeNames.Altar;
             case 1:
-                return 'harvester';
+                return InstallationTypeNames.Harvester;
             case 2:
-                return 'reservoir';
+                return InstallationTypeNames.Reservoir;
             case 3:
-                return 'gotchi lodge';
+                return InstallationTypeNames.GotchiLodge;
             case 4:
-                return 'wall';
+                return InstallationTypeNames.Wall;
             case 5:
-                return 'NFT display';
+                return InstallationTypeNames.NFTDisplay;
             case 6:
-                return 'buildqueue booster';
+                return InstallationTypeNames.BuildqueueBooster;
+            case 7:
+                return InstallationTypeNames.Decoration;
             default:
                 return 'unknown';
         }

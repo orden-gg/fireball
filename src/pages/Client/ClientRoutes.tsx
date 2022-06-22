@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 import { Route, Switch, useRouteMatch, useHistory, useParams, useLocation } from 'react-router';
 import { Redirect, NavLink } from 'react-router-dom';
@@ -7,6 +7,7 @@ import Helmet from 'react-helmet';
 import queryString from 'query-string';
 
 import { PageNav } from 'components/PageNav/PageNav';
+import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { LoginContext } from 'contexts/LoginContext';
@@ -38,7 +39,7 @@ export function ClientRoutes() {
     const queryParams = queryString.parse(location.search);
 
     const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
-    const { getClientData, navData } = useContext<any>(ClientContext);
+    const { getClientData, navData, realmView } = useContext<any>(ClientContext);
 
     const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -96,13 +97,16 @@ export function ClientRoutes() {
                             </Button>
                         )}
                         afterContent={(
-                            <Button
-                                href={`/shop?address=${account}`}
-                                target='_blank'
-                                className={classes.customBtn}
-                            >
-                                <BaazarIcon width={24} height={24} />
-                            </Button>
+                            <React.Fragment>
+                                <Button
+                                    href={`/shop?address=${account}`}
+                                    target='_blank'
+                                    className={classes.customBtn}
+                                >
+                                    <BaazarIcon width={24} height={24} />
+                                </Button>
+                                <RealmSwitchButton view={realmView} />
+                            </React.Fragment>
                         )}
                     ></PageNav>
                 </div>

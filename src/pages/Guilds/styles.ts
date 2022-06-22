@@ -23,11 +23,11 @@ export const styles = makeStyles(theme => createStyles({
     guildsWrapper: {
         position: 'relative',
         maxWidth: 1920,
-        padding: theme.spacing(2),
+        padding: theme.spacing(7, 2, 2),
         margin: 'auto',
         textAlign: 'right',
         [theme.breakpoints.down('md')]: {
-            padding: theme.spacing(1.5)
+            padding: theme.spacing(5, 1.5, 1.5)
         },
         [theme.breakpoints.down('sm')]: {
             padding: theme.spacing(1)
@@ -57,7 +57,8 @@ export const styles = makeStyles(theme => createStyles({
         marginTop: theme.spacing(4),
         [theme.breakpoints.down('md')]: {
             gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))',
-            gridGap: theme.spacing(2)
+            gridGap: theme.spacing(2),
+            marginTop: theme.spacing(2)
         },
         [theme.breakpoints.down('sm')]: {
             gridTemplateColumns: 'repeat(auto-fill, minmax(200px,1fr))',
@@ -198,7 +199,7 @@ export const guildStyles = makeStyles(theme => createStyles({
     guildWrapper: {
         position: 'relative',
         display: 'flex',
-        minHeight: 'calc(100vh - 140px)',
+        minHeight: 'calc(100vh - 74px)',
         backgroundColor: theme.palette.background.secondary,
         [theme.breakpoints.down('sm')]: {
             display: 'block'
@@ -223,21 +224,25 @@ export const guildStyles = makeStyles(theme => createStyles({
     guildContent: {
         flexGrow: 1,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        paddingTop: theme.spacing(5),
+        [theme.breakpoints.down('sm')]: {
+            paddingTop: theme.spacing(1)
+        }
     },
     backButton: {
         position: 'absolute',
         left: '100%',
-        top: theme.spacing(2.4),
+        top: theme.spacing(1),
         marginLeft: theme.spacing(1),
         zIndex: 4,
         [theme.breakpoints.down('md')]: {
-            width: 25,
-            height: 25
+            width: 33,
+            height: 33,
+            top: theme.spacing(2)
         },
         [theme.breakpoints.down('sm')]: {
-            left: theme.spacing(1),
-            top: theme.spacing(1)
+            display: 'none'
         },
         '& .MuiSvgIcon-root': {
             fontSize: 30,
@@ -413,7 +418,8 @@ export const guildDetailsStyles = makeStyles(theme => createStyles({
         }
     },
     detailsModal: {
-        width: 800
+        width: 800,
+        padding: theme.spacing(2)
     },
     detailsArrow: {
         fontSize: 24,

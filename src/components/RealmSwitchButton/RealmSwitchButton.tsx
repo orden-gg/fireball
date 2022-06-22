@@ -17,13 +17,17 @@ export function RealmSwitchButton({ view }) {
 
     const updateView = () => {
         const path = view === 'list' ? 'map' : 'list';
-        const url = `${match.url}/${path}`;
+        const url = `${match.url}/realm/${path}`;
 
         history.push({
             pathname: url,
             search: qs.stringify(params)
         });
     };
+
+    if (location.pathname?.split('/').slice(-1)[0] !== view) {
+        return null;
+    }
 
     return (
         <CustomTooltip

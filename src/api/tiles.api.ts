@@ -1,4 +1,4 @@
-import { TILES_ABI } from 'data/abi/tiles.abi';
+import TILES_ABI from 'data/abi/tiles.abi.json';
 
 import { TILES_CONTRACT } from './common/api.constants';
 import { EthersApi } from './ethers.api';

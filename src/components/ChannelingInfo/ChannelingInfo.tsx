@@ -41,7 +41,7 @@ export function ChannelingInfo({ channeling }: { channeling: any }) {
 
     return (
         <div className={classes.container}>
-            <div className={classes.title}>Channeling!</div>
+            <div className={classes.title}>channeling</div>
 
             <div className={classes.inner}>
                 last:

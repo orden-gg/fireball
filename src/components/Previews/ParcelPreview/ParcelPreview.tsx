@@ -2,9 +2,10 @@ import { Paper } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
-import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
+import { EthAddress } from 'components/EthAddress/EthAddress';
+import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
+import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ItemUtils } from 'utils';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
@@ -83,6 +84,12 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                                 );
                             })}
                         </div>
+
+                        { parcel.installations?.length > 0 && (
+                            <div className={classes.installations}>
+                                <ParcelInstallations parcel={parcel} size={80} />
+                            </div>
+                        )}
                     </div>
 
                     <div className={classes.listing}>

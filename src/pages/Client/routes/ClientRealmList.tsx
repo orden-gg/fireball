@@ -16,8 +16,9 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ActionPane } from 'shared/ActionPane/ActionPane';
 import { EthersApi, InstallationsApi, TheGraphApi } from 'api';
 import { ClientContext } from 'contexts/ClientContext';
-import { filtersData } from 'data/filters.data';
 import { FilterUtils, InstallationsUtils } from 'utils';
+import { filtersData } from 'data/filters.data';
+import { InstallationTypeNames } from 'data/types';
 
 import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
@@ -213,17 +214,18 @@ export function ClientRealmList() {
 
         Promise.all([
             getRealmInfo(activeAddress),
-            getRealmUpgradesQueue(activeAddress, parcelIds)
-        ]).then(([realmInfo, realmUpgradesQueue]: [any, any]) => {
-            const modifiedParcels = realm.map((parcel: any) => {
-                const isParcelUpgrading: any = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
-                const parcelInfo: any = realmInfo.find((info: any) => info.id === parcel.tokenId);
+            getRealmUpgradesQueue(parcelIds)
+        ]).then(([realmInfo, realmUpgradesQueue]) => {
+            const modifiedParcels = realm.map(parcel => {
+                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
+                const altar = parcelInfo.installations.find(installation => installation.type === InstallationTypeNames.Altar);
 
                 return {
                     ...parcel,
                     channeling: parcelInfo,
                     nextChannel: parcelInfo.nextChannel,
-                    altarLevel: parcelInfo.installations[0]?.level,
+                    altarLevel: altar ? altar.level : 0,
                     installations: parcelInfo.installations,
                     upgrading: isParcelUpgrading,
                     isUpgradeReady: Boolean(isParcelUpgrading?.ready)
@@ -254,7 +256,8 @@ export function ClientRealmList() {
                     type: InstallationsUtils.getTypeById(inst.id)
                 }));
 
-                const cooldown = InstallationsUtils.getCooldownByLevel(installations[0].level, 'seconds'); // TODO: select installation by altar type
+                const altar = installations.find(installation => installation.type === InstallationTypeNames.Altar);
+                const cooldown = InstallationsUtils.getCooldownByLevel(altar.level, 'seconds');
                 const lastChanneled = Number(parcel.lastChanneledAlchemica);
                 const nextChannel = lastChanneled + cooldown;
 
@@ -269,8 +272,8 @@ export function ClientRealmList() {
         });
     };
 
-    const getRealmUpgradesQueue = (owner: any, realmIds: any) => {
-        return InstallationsApi.getUpgradeQueueByAddress(owner).then(async (res: any) => {
+    const getRealmUpgradesQueue = (realmIds: string[]): any => {
+        return InstallationsApi.getAllUpgradeQueue().then(async res => {
 
             const activeUpgrades = res
                 .map((queue: any, i: number) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)

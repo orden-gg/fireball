@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Divider } from '@mui/material';
+import { Backdrop, CircularProgress, Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
 import DeselectIcon from '@mui/icons-material/Deselect';
@@ -13,6 +13,7 @@ import qs from 'query-string';
 
 import { CustomModal } from 'components/Modal/Modal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils } from 'utils';
 
 import { CitadelScene } from './components/Scene';
@@ -45,6 +46,8 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     const [mapCreated, setMapCreated] = useState<boolean>(false);
     const [selectedParcel, setSelectedParcel] = useState<any>(null);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [parcelLoading, setParcelLoading] = useState<boolean>(false);
+
     const gameRef = useRef<any>(null);
     const wrapperRef = useRef<any>(null);
 
@@ -119,7 +122,23 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         if (game?.scene) {
             game.scene.on('created', () => setMapCreated(true));
 
-            game.scene.on('parcelSelect', id => setSelectedParcel(id));
+            game.scene.on('parcelSelect', parcel => {
+                setParcelLoading(true);
+
+                Promise.all([
+                    TheGraphApi.getRealmById(parcel.tokenId),
+                    TheGraphApi.getParcelsGotchiverseInfoByIds([parcel.tokenId])
+                ])
+                    .then(([parcelRealm, info]) => {
+                        const combinedParcel = {
+                            ...parcelRealm,
+                            installations: info[0].installations
+                        };
+
+                        setParcelLoading(false);
+                        setSelectedParcel(parcelRealm ? combinedParcel : parcel);
+                    });
+            });
 
             game.scene.on('query', ({ name, params }) => {
                 setParams(paramsState => {
@@ -233,6 +252,12 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             </CustomModal>
 
             <CitadelLoader isLoaded={isLoaded && mapCreated} />
+
+            { parcelLoading && (
+                <Backdrop open={parcelLoading}>
+                    <CircularProgress color='primary' />
+                </Backdrop>
+            )}
         </div>
     );
 }

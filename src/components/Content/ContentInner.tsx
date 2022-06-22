@@ -13,7 +13,7 @@ interface ContentInnerProps {
 export function ContentInner({ children, dataLoading, offset }: ContentInnerProps) {
     const classes = ContentInnerStyles();
 
-    const contentOffset = offset || 240;
+    const contentOffset = offset || 218;
 
     return (
         <div

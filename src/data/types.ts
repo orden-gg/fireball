@@ -52,3 +52,33 @@ export const InstallationTypes = Object.freeze({
     Prerequisites: 14,
     Name: 15
 });
+
+export const InstallationTypeNames = Object.freeze({
+    Altar: 'altar',
+    Harvester: 'harvester',
+    Reservoir: 'reservoir',
+    GotchiLodge: 'gotchi lodge',
+    Wall: 'wall',
+    NFTDisplay: 'NFT display',
+    BuildqueueBooster: 'buildqueue booster',
+    Decoration: 'decoration'
+});
+
+export const TileTypes = Object.freeze({
+    Width: 0,
+    Height: 1,
+    Deprecated: 2,
+    Type: 3,
+    CraftTime: 4,
+    AlchemicaCost: 5,
+    Name: 6
+});
+
+export const TokenTypes = Object.freeze({
+    Fud: 'fud',
+    Fomo: 'fomo',
+    Alpha: 'alpha',
+    Kek: 'kek',
+    Gltr: 'gltr',
+    Ghst: 'ghst'
+});

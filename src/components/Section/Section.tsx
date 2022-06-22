@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 import { styles } from './styles';
 
 interface SectionProps {
-    children: JSX.Element;
+    children: JSX.Element | JSX.Element[];
     backgroundColor: string;
 }
 

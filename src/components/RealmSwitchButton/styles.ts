@@ -3,11 +3,11 @@ import { createStyles, makeStyles } from '@mui/styles';
 import mapSvg from 'assets/images/icons/map.svg';
 import listSvg from 'assets/images/icons/list.svg';
 
-export const styles = makeStyles(() => createStyles({
+export const styles = makeStyles((theme) => createStyles({
     button: {
         position: 'absolute',
-        top: 80,
-        right: 4,
+        top: theme.spacing(1),
+        left: '100%',
         width: 62,
         height: 34,
         padding: 7,
