@@ -1,6 +1,6 @@
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 
-const AboutStyles = makeStyles(theme => ({
+export const styles = makeStyles(theme => createStyles({
     button: {
         width: 240,
         margin: theme.spacing(6, 'auto', 0),
@@ -63,5 +63,3 @@ const AboutStyles = makeStyles(theme => ({
         }
     }
 }));
-
-export default AboutStyles;

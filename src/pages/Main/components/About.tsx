@@ -3,14 +3,16 @@ import { useState } from 'react';
 
 import { CustomModal } from 'components/Modal/Modal';
 
-import AboutStyles from '../styles';
+import { styles } from '../styles';
 
+export function About() {
+    const classes = styles();
 
-export default function About() {
-    const [isOpened, setIsOpened] = useState(false);
-    const classes = AboutStyles();
+    const [isOpened, setIsOpened] = useState<boolean>(false);
 
-    const handleButtonClick = isModalOpen => setIsOpened(isModalOpen);
+    const handleButtonClick = (isModalOpen: boolean): void => {
+        setIsOpened(isModalOpen);
+    };
 
     return (
         <>
@@ -21,7 +23,7 @@ export default function About() {
                 onClick={() => handleButtonClick(!isOpened)}
             >About fireball.gg</Button>
 
-            <CustomModal className={classes.modal} setModalOpen={setIsOpened} modalOpen={isOpened}>
+            <CustomModal setModalOpen={setIsOpened} modalOpen={isOpened}>
                 <div className={classes.container}>
                     <Typography variant='h4' className={classes.title}>About fireball.gg</Typography>
 

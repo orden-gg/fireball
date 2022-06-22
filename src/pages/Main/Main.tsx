@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 
+import { About } from './components/About';
 import { Section } from 'components/Section/Section';
-import About from './components/About';
 
 import { Portals } from './components/Portals/Portals';
 import { Team } from './components/Team/Team';
