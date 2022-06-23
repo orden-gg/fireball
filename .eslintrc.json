@@ -11,7 +11,7 @@
         "plugin:react/recommended",
         "plugin:react-hooks/recommended"
     ],
-    "parser": "babel-eslint", // Uses babel-eslint transforms.
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -20,7 +20,8 @@
         "sourceType": "module" // Allows for the use of imports
     },
     "plugins": [
-        "import"
+        "import",
+        "@typescript-eslint"
     ],
     "root": true, // For configuration cascading.
     "rules": {
@@ -28,7 +29,9 @@
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
         "react-hooks/exhaustive-deps": "off",
-        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+        // TODO remove this rule after integration to TS
+        "no-unused-vars": ["off"],
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "react/no-children-prop": "off",
         "no-prototype-builtins": "off",
         "react/display-name": "off",
@@ -67,5 +70,9 @@
         "react": {
             "version": "detect" // Detect react version
         }
+    },
+    "globals": {
+        "React": true,
+        "JSX": true
     }
 }
