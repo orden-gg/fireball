@@ -57,19 +57,21 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
         game.scene.updateGroup(type, isActive);
     };
 
-    const onFiltersChange = filters => {
+    const onFiltersChange = (filters) => {
         updateQueryParams(filters);
         game.scene.filtersManager.updateFilters(filters);
     };
 
-    const buttonIsActive = type => {
+    const buttonIsActive = (type) => {
         const { active } = params;
+
         if (typeof active === 'string') {
             return active === type;
         } else {
             return active?.some(name => name === type);
         }
     };
+
     const basicButtons = useMemo(() => {
         return realmGroups
             .filter(group => !commonUtils.isEmptyObject(group) && group.parcels?.length > 0)
@@ -151,8 +153,6 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                 arrayFormat: 'comma'
             })
         });
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params]);
 
     useEffect(() => {
@@ -170,9 +170,16 @@ export default function Citadel({ realmGroups, className, isLoaded }) {
                         game.scene.toggleGroup(type, true);
                     }
                 }
+            } else {
+                const activeGroups = groups.filter(group => group.active);
+                activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
+
+                setParams(paramsCache => ({
+                    ...paramsCache,
+                    active: activeGroups.map(group => group.type)
+                }));
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [realmGroups, mapCreated]);
 
     useEffect(() => {
