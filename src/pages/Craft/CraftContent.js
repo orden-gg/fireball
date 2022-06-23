@@ -28,11 +28,11 @@ export default function CraftContent() {
 
     useEffect(() => {
         const filteredTiles = tilesData.map((data, index) =>
-            ({...tilesUtils.getMetadataById(index), id: index, category: 'tile'})
+            ({ ...tilesUtils.getMetadataById(index), id: index, category: 'tile' })
         ).filter(item => !item.deprecated);
 
         const filteredInstallations = installationsData.map((data, index) =>
-            ({...installationsUtils.getMetadataById(index), id: index, category: 'installation'})
+            ({ ...installationsUtils.getMetadataById(index), id: index, category: 'installation' })
         ).filter(item => !item.deprecated && item.level === 1);
 
         setItems(filteredInstallations.concat(filteredTiles));
@@ -55,5 +55,5 @@ export default function CraftContent() {
                 <Backdrop open={isItemSelected} onClick={() => setSelectedItem(false)} className={classes.backdrop} />
             </div>
         </>
-    )
+    );
 }

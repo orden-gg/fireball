@@ -7,7 +7,7 @@ const styles = makeStyles(theme => ({
         height: 'calc(100vh - 74px)',
         [theme.breakpoints.down('md')]: {
             maxWidth: '100%',
-            overflow: 'hidden',
+            overflow: 'hidden'
         }
     },
     body: {
@@ -17,7 +17,7 @@ const styles = makeStyles(theme => ({
         margin: theme.spacing(2, 0),
         [theme.breakpoints.down('md')]: {
             minWidth: '100%',
-            transition: 'margin .3s ease-out',
+            transition: 'margin .3s ease-out'
         }
     },
     isSwiped: {

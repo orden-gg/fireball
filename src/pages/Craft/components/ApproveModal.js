@@ -33,33 +33,38 @@ export default function ApproveModal({ setIsModalOpen }) {
         const operator = getContract();
         const tokenName = Object.keys(TokenTypes)[activeIndex];
 
-        let response;
-
         setIsTokenApproving(true);
 
         try {
-            response = await alchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator);
+            const response = await alchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator);
+
+            setTokenApprovals(currentApprovals => {
+                currentApprovals[category][activeIndex] = response;
+
+                return { ...currentApprovals };
+            });
+
+            if (response) {
+                showSnackbar('success', `${tokenName} approved!`);
+            } else {
+                showSnackbar('error', `${tokenName} approve failed :( Please try again`);
+            }
         } catch (error) {
-            return setIsTokenApproving(false);
+            setIsTokenApproving(false);
         }
-
-        setTokenApprovals(currentApprovals => {
-            currentApprovals[category][activeIndex] = response;
-
-            return {...currentApprovals}
-        });
-
-        response ?
-            showSnackbar('success', `${tokenName} approved!`) :
-            showSnackbar('error', `${tokenName} approve failed :( Please try again`);
-
-        tokensApprovals[category].every(isApproved => isApproved) ? setIsModalOpen(false) : setIsTokenApproving(false);
     };
 
     useEffect(() => {
+        const isSomeNotApproved = tokensApprovals[category].some(isApproved => !isApproved);
         setActiveIndex(
             tokensApprovals[category || 'tiles'].findIndex(isApproved => !isApproved)
         );
+
+        if (isSomeNotApproved) {
+            setIsTokenApproving(false);
+        } else {
+            setIsModalOpen(false);
+        }
     }, [tokensApprovals]);
 
     return (
@@ -89,5 +94,5 @@ export default function ApproveModal({ setIsModalOpen }) {
                 disabled={isTokenApproving}
             >Approve {isTokenApproving && <CircularProgress size={20} className={classes.progress} />}</Button>
         </div>
-    )
+    );
 }

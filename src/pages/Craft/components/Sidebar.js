@@ -52,7 +52,7 @@ export default function Sidebar() {
         } else {
             setCraftAmount(value);
         }
-    }
+    };
 
     const amountChange = amount => setCraftAmount(craftAmount+amount);
 
@@ -81,21 +81,23 @@ export default function Sidebar() {
 
             setIsCrafting(false);
 
-            response ?
-                showSnackbar('success', `${amount} ${selectedItem.name} crafted!`) :
-                showSnackbar('error', `Craft failed! :( Please try again`);
+            if (response) {
+                showSnackbar('success', `${amount} ${selectedItem.name} crafted!`);
+            } else {
+                showSnackbar('error', 'Craft failed! :( Please try again');
+            }
         }
-    }
+    };
 
     const renderSelectedItem = () => {
         if (isItemSelected) {
             return category === 'tile' ?
                 <Tile tile={selectedItem} /> :
-                <Installation installation={selectedItem} />
+                <Installation installation={selectedItem} />;
         } else {
             return '';
         }
-    }
+    };
 
     useEffect(() => {
         setCraftAmount(maxCraftAmount > 0 ? 1 : maxCraftAmount);
@@ -133,7 +135,7 @@ export default function Sidebar() {
                                     disabled={craftAmount === maxCraftAmount || !isItemSelected || isCrafting}
                                 ><AddIcon /></IconButton>
                             </InputAdornment>
-                        ),
+                        )
                     }}
                 />
             </div>
@@ -164,5 +166,5 @@ export default function Sidebar() {
             </CustomModal>
 
         </div>
-    )
+    );
 }

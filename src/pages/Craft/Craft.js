@@ -10,5 +10,5 @@ export default function Craft() {
                 <CraftContent />
             </CraftContextProvider>
         </BalancesContextProvider>
-    )
+    );
 }

@@ -2,20 +2,12 @@ import { createContext, useEffect, useState, useContext } from 'react';
 
 import { useMetamask } from 'use-metamask';
 
-import { KekTokenIcon, AlphaTokenIcon, FomoTokenIcon, FudTokenIcon } from 'components/Icons/Icons';
 import { BalancesContext } from 'contexts/BalancesContext';
 import alchemicaApi from 'api/alchemica.api';
 import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'api/common/constants';
 import commonUtils from 'utils/commonUtils';
 
 export const CraftContext = createContext({});
-
-const tokenIcons = [
-    <FudTokenIcon width={'100%'} />,
-    <FomoTokenIcon width={'100%'} />,
-    <AlphaTokenIcon width={'100%'} />,
-    <KekTokenIcon width={'100%'} />
-];
 
 const CraftContextProvider = props => {
     const [isWalletConnected, setIsWalletConnected] = useState(false);
@@ -29,14 +21,14 @@ const CraftContextProvider = props => {
     const [category, setCategory] = useState('installation');
     const [maxCraftAmount, setMaxCraftAmount] = useState(1);
 
-    const { tokens } = useContext(BalancesContext)
+    const { tokens } = useContext(BalancesContext);
     const { getAccounts, metaState } = useMetamask();
 
     const setWalletAddress = async () => {
         const accounts = await getAccounts();
 
         setAccountAddress(accounts[0]);
-    }
+    };
 
     useEffect(() => {
         if (metaState.isConnected && !isWalletConnected) {
@@ -45,8 +37,6 @@ const CraftContextProvider = props => {
         } else if (!metaState.isConnected) {
             setIsWalletConnected(false);
         }
-
-        console.log(metaState);
     }, [metaState]);
 
     useEffect(() => {
@@ -70,7 +60,7 @@ const CraftContextProvider = props => {
                     installation: installationApprovals
                 });
             }
-        })()
+        })();
     }, [accountAddress]);
 
     useEffect(() => {
@@ -103,8 +93,6 @@ const CraftContextProvider = props => {
 
     return (
         <CraftContext.Provider value={{
-            tokenIcons,
-
             isWalletConnected,
             tokens,
             isAlchemicaApproved,
@@ -117,7 +105,7 @@ const CraftContextProvider = props => {
             setTokenApprovals,
             setCategory,
             setSelectedItem,
-            setIsWalletConnected,
+            setIsWalletConnected
         }}>
             { props.children }
         </CraftContext.Provider>

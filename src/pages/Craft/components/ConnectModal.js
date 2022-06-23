@@ -19,10 +19,12 @@ export default function ConnectModal() {
 
         setIsWalletConnecting(false);
 
-        response ?
-            showSnackbar('success', 'Wallet connected!') :
-            showSnackbar('error', 'Wallet connect failed :(')
-    }
+        if (response) {
+            showSnackbar('success', 'Wallet connected!');
+        } else {
+            showSnackbar('error', 'Wallet connect failed :(');
+        }
+    };
 
     return (
         <div className={classes.content}>
@@ -37,5 +39,5 @@ export default function ConnectModal() {
                 Connect {isWalletConnecting && <CircularProgress size={20} className={classes.progress} />}
             </Button>
         </div>
-    )
+    );
 }

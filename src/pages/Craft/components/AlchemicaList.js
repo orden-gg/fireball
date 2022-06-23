@@ -28,9 +28,9 @@ export default function AlchemicaCost({ cost = [], amount }) {
                             <span className={classes.tokenIcon}>{token.icon}</span>
                             <p className={classes.tokenSum}>{tokenSum}</p>
                         </li>
-                    )
+                    );
                 })
             }
         </ul>
-    )
+    );
 }

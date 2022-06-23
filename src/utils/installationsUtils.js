@@ -14,7 +14,7 @@ export default {
             alchemicaCost: this.getAlchemicaCostById(id),
             cooldown: this.getCooldownByLevel(this.getLevelById(id)),
             deprecated: this.getDeprecatedById(id)
-        }
+        };
     },
 
     getNameById(id) {

@@ -16,7 +16,7 @@ export default function CraftItem({ data }) {
     const handleItemClick = () => {
         setCategory(data.category || 'installation');
         setSelectedItem(current =>  current !== data ? data : {});
-    }
+    };
 
     return (
         <div
@@ -31,5 +31,5 @@ export default function CraftItem({ data }) {
         >
             {data.category === 'tile' ? <Tile tile={data} /> : <Installation installation={data} />}
         </div>
-    )
+    );
 }
