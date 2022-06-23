@@ -24,7 +24,7 @@ export function Raffle() {
     const match = useRouteMatch();
     const location = useLocation();
     const history = useHistory();
-    const params = queryString.parse(location.search) as CustomParsedQuery;
+    const queryParams = queryString.parse(location.search) as CustomParsedQuery;
     const lastRaffle = raffles[raffles.length - 1];
 
     const [raffleActive, setRaffleActive] = useState<string>('');
@@ -38,16 +38,22 @@ export function Raffle() {
     }, [activeAddress]);
 
     useEffect(() => {
-        if (params.address) {
-            setRaffleActive(params.address);
+        if (queryParams.address) {
+            setRaffleActive(queryParams.address);
         }
-    }, [params.address]);
+    }, [queryParams.address]);
 
     useEffect(() => {
-        if (raffleActive) {
-            history.push({ pathname: location.pathname, search: `?address=${raffleActive}` });
-        } else {
-            history.push({ pathname: location.pathname });
+        const currentSubroute = location.pathname.split('/')[2];
+        const currentRaffle = raffles.find(raffle => raffle.name === currentSubroute);
+
+        if (raffleActive && currentRaffle) {
+            queryParams.address = raffleActive;
+
+            history.push({
+                pathname: `${match.path}/${currentRaffle.name}`,
+                search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
+            });
         }
     }, [raffleActive]);
 
@@ -80,7 +86,7 @@ export function Raffle() {
                     <Route path={`${match.path}/:name`}>
                         <RaffleContent user={raffleActive} />
                     </Route>
-                    <Redirect from={match.path} to={`${match.path}/${lastRaffle.name}`} />
+                    <Redirect from='*' to={`${match.path}/${lastRaffle.name}`} />
                 </Switch>
             </RaffleContextProvider>
         </Box>
