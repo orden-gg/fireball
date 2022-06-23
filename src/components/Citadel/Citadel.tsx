@@ -77,6 +77,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             return Boolean(active?.some(name => name === type));
         }
     };
+
     const basicButtons = useMemo(() => {
         return realmGroups
             .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
@@ -175,6 +176,14 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                         game.scene.toggleGroup(type, true);
                     }
                 }
+            } else {
+                const activeGroups = groups.filter(group => group.active);
+                activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
+
+                setParams(paramsCache => ({
+                    ...paramsCache,
+                    active: activeGroups.map(group => group.type)
+                }));
             }
         }
     }, [realmGroups, mapCreated]);
