@@ -6,6 +6,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
 import { NavLink, useLocation } from 'react-router-dom';
+import GavelIcon from '@mui/icons-material/Gavel';
 
 
 import { GuildIcon, LendingIcon } from 'components/Icons/Icons';
@@ -77,6 +78,14 @@ export default function NavPanel() {
                         <NavLink className={classNames(classes.navLink, location.href === '/map')} to='/map'>
                             <Icon className={classes.iconBox}>
                                 <MapIcon width={20} height={20} />
+                            </Icon>
+                            <span className={classes.navItemName}>Map</span>
+                        </NavLink>
+                    </div>
+                    <div className={classes.navItem}>
+                        <NavLink className={classNames(classes.navLink, location.href === '/craft')} to='/craft'>
+                            <Icon className={classes.iconBox}>
+                                <GavelIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Map</span>
                         </NavLink>

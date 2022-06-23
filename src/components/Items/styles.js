@@ -36,6 +36,9 @@ const styles = makeStyles(theme => ({
         justifyContent: 'space-between',
         '& div:last-child': {
             borderBottomRightRadius: 4
+        },
+        '.craft-item &': {
+            display: 'none'
         }
     },
     equippedTitle: {
@@ -216,6 +219,12 @@ const itemStyles = makeStyles(theme => ({
         position: 'relative',
         transition: 'background-color .3s ease-in-out',
         overflow: 'hidden',
+        '.craft-item &': {
+            maxHeight: '100%',
+            [theme.breakpoints.down('lg')]: {
+                padding: theme.spacing(2, 1)
+            }
+        },
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
         },

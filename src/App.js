@@ -8,26 +8,27 @@ import classNames from 'classnames';
 
 import Header from 'root/Header/Header';
 import NavPanel from 'root/NavPanel/NavPanel';
-import Footer from './root/Footer/Footer';
+import Footer from 'root/Footer/Footer';
 
-import Main from './pages/Main/Main';
-import Baazaar from './pages/Baazaar/Baazaar';
+import Main from 'pages/Main/Main';
+import Baazaar from 'pages/Baazaar/Baazaar';
 import Lend from 'pages/Lend/Lend';
-import GhostExplorer from './pages/GhostExplorer/GhostExplorer';
-import Guilds from './pages/Guilds/Guilds';
-import Client from './pages/Client/Client';
-import ParcelPage from './pages/Parcel/ParcelPage';
-import Autopet from './pages/Autopet/Autopet';
-import OldAutopet from './pages/OldAutopet/OldAutopet';
-import Raffle from './pages/Raffle/Raffle';
-import Shop from './pages/Shop/Shop';
-import Map from './pages/Map/Map';
-import NotFound from './pages/NotFound/NotFound';
-import BaazaarContextProvider from './contexts/BaazaarContext';
+import GhostExplorer from 'pages/GhostExplorer/GhostExplorer';
+import Guilds from 'pages/Guilds/Guilds';
+import Client from 'pages/Client/Client';
+import ParcelPage from 'pages/Parcel/ParcelPage';
+import Autopet from 'pages/Autopet/Autopet';
+import OldAutopet from 'pages/OldAutopet/OldAutopet';
+import Raffle from 'pages/Raffle/Raffle';
+import Shop from 'pages/Shop/Shop';
+import Map from 'pages/Map/Map';
+import Craft from 'pages/Craft/Craft';
+import NotFound from 'pages/NotFound/NotFound';
+import BaazaarContextProvider from 'contexts/BaazaarContext';
 import BalancesContextProvider from 'contexts/BalancesContext';
-import ClientContextProvider from './contexts/ClientContext';
-import LoginContextProvider from './contexts/LoginContext';
-import SnackbarContextProvider from './contexts/SnackbarContext';
+import ClientContextProvider from 'contexts/ClientContext';
+import LoginContextProvider from 'contexts/LoginContext';
+import SnackbarContextProvider from 'contexts/SnackbarContext';
 import TokensPricesContextProvider from 'contexts/TokensPricesContext';
 
 const classes = {
@@ -91,6 +92,7 @@ export default function App() {
                                         <Route path={'/raffles'} component={ Raffle } />
                                         <Route path={'/shop'} component={ Shop } />
                                         <Route path={'/map'} component={ Map } />
+                                        <Route path={'/craft'} component={ Craft } />
                                         <Route exact path={'/404'} component={ NotFound } />
                                         <Redirect from='*' to='/404' />
                                     </Switch>

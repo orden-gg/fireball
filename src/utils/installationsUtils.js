@@ -12,7 +12,8 @@ export default {
             spillRate: this.getSpillRateById(id),
             craftTime: this.getCraftTimeById(id),
             alchemicaCost: this.getAlchemicaCostById(id),
-            cooldown: this.getCooldownByLevel(this.getLevelById(id))
+            cooldown: this.getCooldownByLevel(this.getLevelById(id)),
+            deprecated: this.getDeprecatedById(id)
         };
     },
 
@@ -96,5 +97,9 @@ export default {
             default:
                 return 0;
         }
+    },
+
+    getDeprecatedById(id) {
+        return installations[id][InstallationTypes.Deprecated];
     }
 };

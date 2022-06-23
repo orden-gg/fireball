@@ -9,6 +9,7 @@ import ContentLoader from 'react-content-loader';
 
 import CustomTooltip from 'components/custom/CustomTooltip';
 import useLocalStorage from 'hooks/useLocalStorage';
+import commonUtils from 'utils/commonUtils';
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import { balancesStyles } from '../styles';
@@ -60,7 +61,7 @@ export default function Balances() {
                                     <Link className={classes.balance} href={token.swapUrl} target='_blank'>
                                         <div className={classNames(classes.balanceValue, token.key)}>
                                             { token.icon }
-                                            <p>{token.amount}</p>
+                                            <p>{commonUtils.convertFloatNumberToSuffixNumber(token.amount)}</p>
                                         </div>
                                     </Link>
                                 </CustomTooltip>

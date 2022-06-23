@@ -17,16 +17,88 @@ export default {
         return akekContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 
+    isKekApproved(address, contractAddress) {
+        return akekContract.allowance(address, contractAddress).then(allowance =>
+            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+        );
+    },
+
+    async approveKek(operator) {
+        const contract = ethersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
+        const transaction = await contract.approve(
+            operator,
+            ethers.utils.parseUnits('999999999')
+        );
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
+    },
+
     getAlphaBalance(address) {
         return alphaContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
+    },
+
+    isAlphaApproved(address, contractAddress) {
+        return alphaContract.allowance(address, contractAddress).then(allowance =>
+            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+        );
+    },
+
+    async approveAlpha(operator) {
+        const contract = ethersApi.makeContractWithSigner(ALPHA_CONTRACT, ALPHA_ABI);
+        const transaction = await contract.approve(
+            operator,
+            ethers.utils.parseUnits('999999999')
+        );
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
     },
 
     getFomoBalance(address) {
         return fomoContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
     },
 
+    isFomoApproved(address, contractAddress) {
+        return fomoContract.allowance(address, contractAddress).then(allowance =>
+            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+        );
+    },
+
+    async approveFomo(operator) {
+        const contract = ethersApi.makeContractWithSigner(FOMO_CONTRACT, FOMO_ABI);
+        const transaction = await contract.approve(
+            operator,
+            ethers.utils.parseUnits('999999999')
+        );
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
+    },
+
     getFudBalance(address) {
         return fudContract.balanceOf(address).then(response => Number(ethers.utils.formatUnits(response._hex)));
+    },
+
+    isFudApproved(address, contractAddress) {
+        return fudContract.allowance(address, contractAddress).then(allowance =>
+            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+        );
+    },
+
+    async approveFud(operator) {
+        const contract = ethersApi.makeContractWithSigner(FUD_CONTRACT, FUD_ABI);
+        const transaction = await contract.approve(
+            operator,
+            ethers.utils.parseUnits('999999999')
+        );
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (
+            Boolean(response.status)
+        ));
     },
 
     getGltrBalance(address) {

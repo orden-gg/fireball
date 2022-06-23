@@ -165,16 +165,16 @@ export const H2OpenedPortalIcon = ({ className, width, height }) => {
 };
 
 // tokens
-export const AlphaTokenIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={alphaToken} alt='alpha' />;
+export const AlphaTokenIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={alphaToken} alt='alpha' />;
 };
 
-export const FomoTokenIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={fomoToken} alt='fomo' />;
+export const FomoTokenIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={fomoToken} alt='fomo' />;
 };
 
-export const FudTokenIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={fudToken} alt='fud' />;
+export const FudTokenIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={fudToken} alt='fud' />;
 };
 
 export const GhstTokenIcon = ({ className, width, height }) => {
@@ -185,8 +185,8 @@ export const GltrTokenIcon = ({ width, height }) => {
     return <img width={width} height={height} src={gltrToken} alt='gltrToken' />;
 };
 
-export const KekTokenIcon = ({ width, height }) => {
-    return <img width={width} height={height} src={kekToken} alt='kek' />;
+export const KekTokenIcon = ({ className, width, height }) => {
+    return <img className={className} width={width} height={height} src={kekToken} alt='kek' />;
 };
 
 export const ListingIcon = ({ width, height }) => {

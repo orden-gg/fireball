@@ -49,5 +49,15 @@ export default {
             .then(response => {
                 return Boolean(response.status);
             });
+    },
+
+    async craftInstallations(ids, glts) {
+        const contractWithSigner = ethersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+        const transaction = await contractWithSigner.craftInstallations(ids, glts);
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon')
+            .then(response => {
+                return Boolean(response.status);
+            });
     }
 };

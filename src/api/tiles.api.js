@@ -9,5 +9,15 @@ const tilesContract = ethersApi.makeContract(TILES_CONTRACT, TILES_ABI, 'polygon
 export default {
      getTilesByAddress(address) {
         return tilesContract.tilesBalances(address);
+    },
+
+    async craftTiles(ids) {
+        const contractWithSigner = ethersApi.makeContractWithSigner(TILES_CONTRACT, TILES_ABI);
+        const transaction = await contractWithSigner.craftTiles(ids);
+
+        return ethersApi.waitForTransaction(transaction.hash, 'polygon')
+            .then(response => {
+                return Boolean(response.status);
+            });
     }
 };
