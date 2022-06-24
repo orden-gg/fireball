@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import classNames from 'classnames';
 
 import CustomModal from 'components/Modal/Modal';
-import Tile from 'components/Items/Tile/Tile';
+import Tile from 'components/Items/Tile.js/Tile';
 import Installation from 'components/Items/Installation/Installation';
 import commonUtils from 'utils/commonUtils';
 import installationsApi from 'api/installations.api';

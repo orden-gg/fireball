@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import classNames from 'classnames';
 
 import Installation from 'components/Items/Installation/Installation';
-import Tile from 'components/Items/Tile/Tile';
+import Tile from 'components/Items/Tile.js/Tile';
 
 import { CraftContext } from '../CraftContext';
 
