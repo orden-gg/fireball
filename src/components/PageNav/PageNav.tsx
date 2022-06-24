@@ -31,7 +31,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                                 startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
-                                to={`${link.name}`}
+                                to={link.name}
                             >
                                 <span className={classes.navName}>{link.name}</span>
                                 { link.loading ? (

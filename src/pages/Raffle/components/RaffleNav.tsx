@@ -22,7 +22,7 @@ export function RaffleNav({ user }: { user: any }) {
                             }
                             component={NavLink}
                             className={classes.button}
-                            to={{ pathname: `${raffle.name}`, search: `?address=${user}` }}
+                            to={{ pathname: raffle.name, search: `?address=${user}` }}
                         >
                             {raffle.name.replace(/-/g, ' ')}
                         </Button>

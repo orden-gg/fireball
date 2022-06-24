@@ -17,11 +17,10 @@ export function RealmSwitchButton({ view }) {
 
     const updateView = () => {
         const path = view === 'list' ? 'map' : 'list';
-        const url = `${path}`;
 
         setRealmView(path);
 
-        navigate(`${location.pathname}/realm/${url}`, { state: {} });
+        navigate(`${location.pathname}/realm/${path}`, { state: {} });
     };
 
     if (location.pathname?.split('/').slice(-1)[0] !== view) {

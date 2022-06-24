@@ -50,7 +50,7 @@ export function Raffle() {
             queryParams.address = raffleActive;
 
             navigate({
-                pathname: `${currentRaffle.name}`,
+                pathname: currentRaffle.name,
                 search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
             });
         }
@@ -83,7 +83,7 @@ export function Raffle() {
             <RaffleContextProvider>
                 <Routes>
                     <Route path=':name' element={<RaffleContent user={raffleActive} />} />
-                    <Route path='*' element={<Navigate to={`${lastRaffle.name}`} replace /> } />
+                    <Route path='*' element={<Navigate to={lastRaffle.name} replace /> } />
                 </Routes>
             </RaffleContextProvider>
         </Box>

@@ -14,7 +14,7 @@ export function ClientRealm() {
             <Routes>
                 <Route path='list' element={<ClientRealmList />} />
                 <Route path='map' element={<ClientRealmMap />} />
-                <Route path='*' element={<Navigate to={`${realmView}`} replace />} />
+                <Route path='*' element={<Navigate to={realmView} replace />} />
             </Routes>
         </>
     );

@@ -86,7 +86,7 @@ export function ClientRoutes() {
                         links={navData}
                         beforeContent={(
                             <Button
-                                to={`${account}`}
+                                to={account as string}
                                 className={classes.customBtn}
                                 component={NavLink}
                             >
