@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useHistory, useRouteMatch } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/system';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Divider } from '@mui/material';
@@ -16,13 +16,12 @@ import { styles } from '../styles';
 export function GuildsPreview() {
     const classes = styles();
 
-    const match = useRouteMatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { guilds, setGuildId } = useContext<any>(GuildsContext);
 
     const handleClick = (guild: any): void => {
-        history.push(`${match.url}/${CommonUtils.stringToKey(guild.name)}`);
+        navigate(`${CommonUtils.stringToKey(guild.name)}`);
     };
 
     // TODO Use in the future or remove

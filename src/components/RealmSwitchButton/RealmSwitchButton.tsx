@@ -1,32 +1,31 @@
-import { useRouteMatch, useLocation, useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Switch } from '@mui/material';
 
-import qs from 'query-string';
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { ClientContext } from 'contexts/ClientContext';
 
 import { styles } from './styles';
 
 export function RealmSwitchButton({ view }) {
     const classes = styles();
 
-    const match = useRouteMatch();
     const location = useLocation();
-    const history = useHistory();
-    const params = qs.parse(location.search);
+    const navigate = useNavigate();
+
+    const { setRealmView } = useContext<any>(ClientContext);
 
     const updateView = () => {
         const path = view === 'list' ? 'map' : 'list';
-        const url = `${match.url}/realm/${path}`;
+        const url = `${path}`;
 
-        history.push({
-            pathname: url,
-            search: qs.stringify(params)
-        });
+        setRealmView(path);
+
+        navigate(`${location.pathname}/realm/${url}`, { state: {} });
     };
 
     if (location.pathname?.split('/').slice(-1)[0] !== view) {
-        return null;
+        return <></>;
     }
 
     return (

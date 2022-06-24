@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CircularProgress, IconButton, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -32,7 +31,7 @@ import { ListingTitle } from './components/ListingTitle';
 export function Shop() {
     const classes = styles();
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
 
     const params = queryString.parse(location.search);
@@ -190,7 +189,7 @@ export function Shop() {
         setCurrentAddress(address);
 
         if (EthersApi.isEthAddress(address)) {
-            history.push({ pathname: location.pathname, search: `?address=${address}` });
+            navigate({ pathname: location.pathname, search: `?address=${address}` });
         }
     };
 
@@ -208,7 +207,7 @@ export function Shop() {
 
     return (
         <div className={classes.container}>
-            <IconButton className={classes.backButton} onClick={() => { history.push('/') }} >
+            <IconButton className={classes.backButton} onClick={() => { navigate('/') }} >
                 <ArrowBackIcon />
             </IconButton>
 

@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { useRouteMatch } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
@@ -16,7 +15,6 @@ interface PageNavProps {
 export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     const classes = styles();
 
-    const match = useRouteMatch();
     const theme = useTheme();
 
     const data = useMemo(() => links, [links]);
@@ -33,10 +31,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                                 startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
-                                activeClassName='active'
-                                to={{
-                                    pathname: `${match.url}/${link.name}`
-                                }}
+                                to={`${link.name}`}
                             >
                                 <span className={classes.navName}>{link.name}</span>
                                 { link.loading ? (

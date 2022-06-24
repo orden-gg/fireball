@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
-import { useLocation, useRouteMatch } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { RaffleDate } from './RaffleDate';
 import { RafflesData } from '../models/raffles-data.model';
@@ -10,7 +9,6 @@ import { raffleNavStyles } from '../styles';
 export function RaffleNav({ user }: { user: any }) {
     const classes = raffleNavStyles();
 
-    const match = useRouteMatch();
     const location = useLocation();
 
     return (
@@ -24,8 +22,7 @@ export function RaffleNav({ user }: { user: any }) {
                             }
                             component={NavLink}
                             className={classes.button}
-                            activeClassName='active'
-                            to={{ pathname: `${match.url}/${raffle.name}`, search: `?address=${user}` }}
+                            to={{ pathname: `${raffle.name}`, search: `?address=${user}` }}
                         >
                             {raffle.name.replace(/-/g, ' ')}
                         </Button>

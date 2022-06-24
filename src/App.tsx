@@ -1,5 +1,4 @@
-import { Route, Switch, Redirect } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { Box } from '@mui/system';
 
@@ -77,21 +76,21 @@ export function App() {
                                 }
 
                                 <Box className={classes.content}>
-                                    <Switch>
-                                        <Route exact path={'/'} component={ Main } />
-                                        <Route exact path={'/market'} component={ Baazaar } />
-                                        <Route path={'/lend'} component={ Lend } />
-                                        <Route exact path={'/explorer'} component={ GhostExplorer } />
-                                        <Route path={'/autopet'} component={ Autopet } />
-                                        <Route path={'/guilds'} component={ Guilds } />
-                                        <Route path={'/client'} component={ Client } />
-                                        <Route path={'/parcel/:parcelId'} component={ ParcelPage } />
-                                        <Route path={'/raffles'} component={ Raffle } />
-                                        <Route path={'/shop'} component={ Shop } />
-                                        <Route path={'/map'} component={ Map } />
-                                        <Route exact path={'/404'} component={ NotFound } />
-                                        <Redirect from='*' to='/404' />
-                                    </Switch>
+                                    <Routes>
+                                        <Route path='' element={<Main />} />
+                                        <Route path='market' element={<Baazaar />} />
+                                        <Route path='lend' element={<Lend />} />
+                                        <Route path='explorer' element={<GhostExplorer />} />
+                                        <Route path='autopet' element={<Autopet />} />
+                                        <Route path='guilds/*' element={<Guilds />} />
+                                        <Route path='client/*' element={<Client />} />
+                                        <Route path='parcel/:parcelId' element={<ParcelPage />} />
+                                        <Route path='raffles/*' element={<Raffle />} />
+                                        <Route path='shop' element={<Shop />} />
+                                        <Route path='map' element={<Map />} />
+                                        <Route path='404' element={<NotFound />} />
+                                        <Route path='*' element={<Navigate to='404' replace />}></Route>
+                                    </Routes>
                                 </Box>
 
                                 { isDisplayFooter && <Footer /> }

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { RaffleContext } from 'contexts/RaffleContext';
 
@@ -9,7 +9,7 @@ import { RafflesData } from '../models/raffles-data.model';
 import { raffles } from '../data/raffles.data';
 
 export function RaffleContent({ user }) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { name } = useParams<{ name: string }>();
 
     const {
@@ -31,7 +31,7 @@ export function RaffleContent({ user }) {
             setRaffle(lastRaffle);
             setTickets([]);
 
-            history.push(`/raffles/${lastRaffle.name}`);
+            navigate(`/raffles/${lastRaffle.name}`);
         } else { // set current raffle data
             const currentRaffle = raffles.find((item) => item.name === name);
             const ticketsPreset = getTicketsPreset(currentRaffle?.tickets);
