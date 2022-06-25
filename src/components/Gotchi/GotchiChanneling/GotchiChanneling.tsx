@@ -3,12 +3,20 @@ import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
-import { ChannelIcon } from 'components/Icons/Icons';
+import { CountdownShortFormat } from 'shared/models';
+import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
+import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { RealmApi } from 'api';
 import { DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'data/date.data';
 
 import { styles } from './styles';
+
+const countdownFormat: CountdownShortFormat = {
+    days: { key: 'dd', value: 'd', showIfZero: false },
+    hours: { key: 'hh', value: 'h', showIfZero: false },
+    minutes: { key: 'mm', value: 'm', showIfZero: false }
+};
 
 export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     const classes = styles();
@@ -80,7 +88,19 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
                 <CustomTooltip
                     title={
                         atLeastOneTimeChanneled(lastChanneling) ? (
-                            <span>last channeling: <span className='highlight'>{DateTime.fromMillis(lastChanneling).toRelative()}</span></span>
+                            <div className={classes.tooltipRow}>
+                                <span>
+                                    <Countdown
+                                        targetDate={lastChanneling}
+                                        shortFormat={countdownFormat}
+                                    />
+                                </span>
+                                {'('}
+                                <div style={{ color: chanelledBeforeCd(lastChanneling) ? 'lime' : 'orange' }}>
+                                    { chanelledBeforeCd(lastChanneling) ? 'ready' : 'cooldown' }
+                                </div>
+                                {')'}
+                            </div>
                         ) : (
                             <span><span className='highlight'>never</span> channeled!</span>
                         )
@@ -90,7 +110,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
                 >
                     <div>
                         { chanelledBeforeCd(lastChanneling) ? (
-                            <ChannelIcon height={20} width={20} />
+                            <ChannelActiveIcon className={classes.activeIcon} height={20} width={20} />
                         ) : (
                             <ChannelIcon className={classes.unactiveIcon} height={20} width={20} />
                         )}
