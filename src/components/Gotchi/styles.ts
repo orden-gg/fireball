@@ -42,7 +42,7 @@ export const styles = makeStyles(theme => createStyles({
             borderColor: theme.palette.rarity.godlike
         },
         '&.lended': {
-            filter: 'grayscale(.75)'
+            filter: 'grayscale(.85)'
         }
     },
     gotchiBadges: {
