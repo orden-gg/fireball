@@ -5,11 +5,11 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 import { DateTime } from 'luxon';
 
+import { FilterComponent } from 'shared/constants';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import { DISTRICTS } from 'data/citadel.data';
-import { FilterComponent } from 'data/filter-types.data';
 import guilds from 'data/guilds.json';
 import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 

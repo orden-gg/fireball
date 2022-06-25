@@ -3,7 +3,7 @@ import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { FilterComponent } from 'data/filter-types.data';
+import { FilterComponent } from 'shared/constants';
 
 import { InputFilter } from '../InputFilter/InputFilter';
 import { CheckboxFilter } from '../CheckboxFilter/CheckboxFilter';
