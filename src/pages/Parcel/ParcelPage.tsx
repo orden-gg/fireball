@@ -21,7 +21,7 @@ export function ParcelPage() {
         setParcelLoading(true);
 
         Promise.all([
-            TheGraphApi.getRealmById(parcelId),
+            TheGraphApi.getRealmById(parcelId as string),
             TheGraphApi.getParcelsGotchiverseInfoByIds([parcelId])
         ])
             .then(([parcel, info]) => {

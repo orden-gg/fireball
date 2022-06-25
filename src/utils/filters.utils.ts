@@ -82,8 +82,8 @@ export class FilterUtils {
         callBack(currentFilters);
     }
 
-    public static updateQueryParams(history: any, pathname: any, qs: any, queryParams: any, queryParamsOrder: any): any {
-        history.push({
+    public static updateQueryParams(navigate: any, pathname: any, qs: any, queryParams: any, queryParamsOrder: any): any {
+        navigate({
             pathname,
             search: qs.stringify(queryParams, {
                 sort: (a: any, b: any) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),

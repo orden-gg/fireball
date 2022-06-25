@@ -1,5 +1,5 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import TimerIcon from '@mui/icons-material/Timer';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -76,7 +76,7 @@ const initialFilters: any = {
 const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
@@ -148,14 +148,14 @@ export function ClientLendings() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
         const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);

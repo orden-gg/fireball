@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect, useRouteMatch } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
 
@@ -9,19 +9,16 @@ import { styles } from './styles';
 export function Client() {
     const classes = styles();
 
-    const match = useRouteMatch();
-
     return (
         <div className={classes.container}>
             <Helmet>
                 <title>client</title>
             </Helmet>
 
-            <Switch>
-                <Route exact path={`${match.path}/`} component={ ClientNav } />
-                <Route path={`${match.path}/:account`} component={ ClientRoutes } />
-                <Redirect from={match.path} to={match.path} />
-            </Switch>
+            <Routes>
+                <Route path='' element={<ClientNav />} />
+                <Route path=':account/*' element={<ClientRoutes />} />
+            </Routes>
         </div>
     );
 }

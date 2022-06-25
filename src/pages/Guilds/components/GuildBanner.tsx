@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
@@ -14,7 +14,7 @@ import { guildBanner } from '../styles';
 export function GuildBanner() {
     const classes = guildBanner();
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { guildId, setGuildId, guilds } = useContext<any>(GuildsContext);
 
@@ -27,9 +27,9 @@ export function GuildBanner() {
             return;
         }
 
-        history.push(`/guilds/${CommonUtils.stringToKey(nextGuild.name)}`);
+        navigate(`/guilds/${CommonUtils.stringToKey(nextGuild.name)}`);
         setGuildId(currentGuildId);
-    }, [guilds, history, setGuildId]);
+    }, [guilds, navigate, setGuildId]);
 
     const getBannerUrl = (): string => {
         try {

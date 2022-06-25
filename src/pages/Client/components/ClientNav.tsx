@@ -1,6 +1,5 @@
 import { useCallback, useContext } from 'react';
-import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { LoginNavigation } from 'components/Login/LoginNavigation';
 import { LoginContext } from 'contexts/LoginContext';
@@ -10,15 +9,15 @@ import { accountStyles, styles } from '../styles';
 export function ClientNav() {
     const classes = { ...styles(), ...accountStyles() };
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const { account } = useParams<{ account: string }>();
 
     const { setActiveAddress } = useContext<any>(LoginContext);
 
     const onAddressSubmit = useCallback((address: string) => {
-        history.push({ pathname: `/client/${address}` });
+        navigate({ pathname: `/client/${address}` });
         setActiveAddress(address);
-    }, [history, setActiveAddress]);
+    }, [navigate, setActiveAddress]);
 
     return (
         <div className={classes.loginNav}>
