@@ -205,7 +205,7 @@ export function ClientGotchis() {
                                 'listing',
                                 'rewards'
                             ]}
-                            lendingHighlight={true}
+                            isHighlightLending={true}
                         />
                     )}
                 />

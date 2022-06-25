@@ -28,11 +28,11 @@ interface GotchiProps {
     render: any;
     renderSvgByStats?: any;
     portal?: any;
-    lendingHighlight?: boolean;
+    isHighlightLending?: boolean;
     className?: string;
 }
 
-export function Gotchi({ gotchi, renderSvgByStats, render, portal, lendingHighlight = false, className }: GotchiProps) {
+export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLending, className }: GotchiProps) {
     const classes = styles();
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
@@ -257,7 +257,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, lendingHighli
                 'vertical',
                 className,
                 GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
-                gotchi.lending && lendingHighlight && 'lended'
+                gotchi.lending && isHighlightLending && 'lended'
             )}
         >
             {render.map((name: any) => {

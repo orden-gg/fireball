@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Skeleton } from '@mui/material';
 
-import { AlchemicaList } from 'shared/models/alchemica-list.model';
+import { AlchemicaList } from 'shared/models';
 import { TokensPricesContext } from 'contexts/TokensPricesContext';
 import { TokenTypes } from 'data/types';
 import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
@@ -9,7 +9,7 @@ import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
 import { styles } from './styles';
 
 const altarsLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const tokens = [
+const tokens: string[] = [
     TokenTypes.Fud,
     TokenTypes.Fomo,
     TokenTypes.Alpha,
@@ -23,7 +23,7 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
 
     const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 
-    const renderTotalChannelingPrice = (alchemica: AlchemicaList) => {
+    const renderTotalChannelingPrice = (alchemica: AlchemicaList): JSX.Element => {
         const total = alchemica.map((item, index) => item * tokensPrices[tokens[index]]);
 
         return <span className={classes.totalPrice}>
@@ -41,10 +41,10 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
                 channeling boost: <span>x{channelingBoots}</span>
             </div>
 
-            { altarsLevels.map((level, i) => {
+            { altarsLevels.map((level, altarIndex) => {
                 const channelingRate = GotchiverseUtils.countGotchiChannelingRate(level, channelingBoots);
 
-                return <div className={classes.altar} key={i}>
+                return <div className={classes.altar} key={altarIndex}>
                     <div className={classes.row}>
                         <span className={classes.rowTitle}>level {level} altar</span>
                         <div>
@@ -62,15 +62,15 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
                     </div>
 
                     <div className={classes.tokensList}>
-                        { tokens.map((token, j) => (
-                            <div className={classes.token} key={j}>
+                        { tokens.map((token, tokenIndex) => (
+                            <div className={classes.token} key={tokenIndex}>
                                 <img
                                     className={classes.tokenIcon}
                                     src={GraphUtils.getTokenImg(token)}
                                     width={12}
                                     alt={token}
                                 />
-                                { CommonUtils.convertFloatNumberToSuffixNumber(channelingRate[j]) }
+                                { CommonUtils.convertFloatNumberToSuffixNumber(channelingRate[tokenIndex]) }
                             </div>
                         ))}
                     </div>
