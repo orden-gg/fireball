@@ -1,17 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
+import { Backdrop, CircularProgress } from '@mui/material';
 
+import { BaazaarFilteringTypes, ListingTypes } from 'shared/constants';
 import { EthersApi, TheGraphApi } from 'api';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { useInterval } from 'hooks/useInterval';
-import { listingTypes } from 'data/types';
-import { baazaarFilteringTypes } from 'data/types';
 
 import { BaazaarBody } from './components/BaazaarBody';
 import { BaazaarSortingBody } from './components/BaazaarSortingBody';
 import { BaazaarSidebar } from './components/BaazaarSidebar/BaazaarSidebar';
 import { getQueries } from './baazaarQueryBuilder';
 import { styles } from './styles';
-import { Backdrop, CircularProgress } from '@mui/material';
 
 var paginationConfigs: any = {
         gotchiLimit: 60,
@@ -19,7 +18,7 @@ var paginationConfigs: any = {
         noLimit: 1000
     },
     defaults = {
-        defaultGoodsType: listingTypes.aavegotchi,
+        defaultGoodsType: ListingTypes.aavegotchi,
         defaultOrdering: 'timeCreated-desc'
     };
 
@@ -51,19 +50,19 @@ export function Baazaar() {
             limit: paginationConfigs.limit
         };
 
-        if (checkContainerVisibility([listingTypes.aavegotchi])) {
+        if (checkContainerVisibility([ListingTypes.aavegotchi])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllBaazaarItems(params);
-        }  else if (checkContainerVisibility([listingTypes.realm])) {
+        }  else if (checkContainerVisibility([ListingTypes.realm])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllRealmParcels();
         } else if (checkContainerVisibility([
-            listingTypes.closedPortal,
-            listingTypes.wearable,
-            listingTypes.consumable,
-            listingTypes.tickets
+            ListingTypes.closedPortal,
+            ListingTypes.wearable,
+            ListingTypes.consumable,
+            ListingTypes.tickets
         ])) {
             params.from = priceFrom;
             params.to = priceTo;
@@ -74,10 +73,10 @@ export function Baazaar() {
             setLastValidParams(params);
             getBaazaarItems(params);
         } else if (checkContainerVisibility([
-            listingTypes.activity,
-            listingTypes.listing,
-            listingTypes.sold,
-            listingTypes.purchased
+            ListingTypes.activity,
+            ListingTypes.listing,
+            ListingTypes.sold,
+            ListingTypes.purchased
         ])) {
             getSalesData();
         }
@@ -108,9 +107,9 @@ export function Baazaar() {
     const sortAllActivityItems = () => {
         filteredLocalGoods.sort((a, b) => {
             if ([
-                listingTypes.activity,
-                listingTypes.sold,
-                listingTypes.purchased
+                ListingTypes.activity,
+                ListingTypes.sold,
+                ListingTypes.purchased
             ].indexOf(selectedGoodsType) !== -1) {
                 return parseInt(b.timePurchased || b.timeLastPurchased) - parseInt(a.timePurchased || a.timeLastPurchased);
             } else {
@@ -301,9 +300,9 @@ export function Baazaar() {
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
-        TheGraphApi.getJoinedData(makeQueriesForCategory(params, listingTypes.aavegotchi)).then((response) => {
+        TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.aavegotchi)).then((response) => {
             localGoods = [...localGoods, ...processResponse(response)];
-            TheGraphApi.getJoinedData(makeQueriesForCategory(params, listingTypes.openedPortal)).then((response) => {
+            TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.openedPortal)).then((response) => {
                 localGoods = [...localGoods, ...processResponse(response)];
                 // start render
                 filterLocalGotchis();
@@ -398,7 +397,7 @@ export function Baazaar() {
                 return false;
             }
 
-            if (filteringType === baazaarFilteringTypes.name) {
+            if (filteringType === BaazaarFilteringTypes.name) {
                 if (!gotchi.name) return false;
                 if (!name) return true;
 
@@ -407,7 +406,7 @@ export function Baazaar() {
                 } else {
                     return gotchi.name.toLowerCase().split(name.toLowerCase()).length > 1;
                 }
-            } else if (filteringType === baazaarFilteringTypes.id) {
+            } else if (filteringType === BaazaarFilteringTypes.id) {
                 if (!id) return true;
 
                 if (exactMatch) {
@@ -415,7 +414,7 @@ export function Baazaar() {
                 } else {
                     return gotchi.id.split(id).length > 1;
                 }
-            } else if (filteringType === baazaarFilteringTypes.stats) {
+            } else if (filteringType === BaazaarFilteringTypes.stats) {
                 if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS) || parseInt(gotchi.kinship) <= parseInt(minKIN)) {
                     return false;
                 }
@@ -495,7 +494,7 @@ export function Baazaar() {
         }
 
         if (isLocalFilteringFlow()) {
-            if (selectedGoodsType === listingTypes.aavegotchi) {
+            if (selectedGoodsType === ListingTypes.aavegotchi) {
                 handleFindGotchiClick();
             } else {
                 handleFindRealmClick();
@@ -517,12 +516,12 @@ export function Baazaar() {
         const firstItemFromLocalGoods = localGoods[0];
         const localGoodsHasGotchiItem = firstItemFromLocalGoods.gotchi;
 
-        return (selectedGoodsType === listingTypes.aavegotchi && localGoodsHasGotchiItem) ||
-            (selectedGoodsType === listingTypes.realm && !localGoodsHasGotchiItem);
+        return (selectedGoodsType === ListingTypes.aavegotchi && localGoodsHasGotchiItem) ||
+            (selectedGoodsType === ListingTypes.realm && !localGoodsHasGotchiItem);
     };
 
     const isLocalFilteringFlow = () => {
-        if ([listingTypes.aavegotchi, listingTypes.realm].indexOf(selectedGoodsType) !== -1) {
+        if ([ListingTypes.aavegotchi, ListingTypes.realm].indexOf(selectedGoodsType) !== -1) {
             return true;
         }
     };
@@ -548,10 +547,10 @@ export function Baazaar() {
 
     useEffect(() => {
         if ([
-            listingTypes.activity,
-            listingTypes.listing,
-            listingTypes.sold,
-            listingTypes.purchased
+            ListingTypes.activity,
+            ListingTypes.listing,
+            ListingTypes.sold,
+            ListingTypes.purchased
         ].indexOf(selectedGoodsType) !== -1) {
             paginationConfigs.gotchiLimit = 240;
         } else {
@@ -573,10 +572,10 @@ export function Baazaar() {
             />
             {
                 checkContainerVisibility([
-                    listingTypes.closedPortal,
-                    listingTypes.wearable,
-                    listingTypes.consumable,
-                    listingTypes.tickets
+                    ListingTypes.closedPortal,
+                    ListingTypes.wearable,
+                    ListingTypes.consumable,
+                    ListingTypes.tickets
                 ]) ?
                     <BaazaarBody
                         goods={goods}

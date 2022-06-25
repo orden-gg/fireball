@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { TokenTypes } from 'shared/constants';
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { AlchemicaApi, GhstApi } from 'api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
 import { CommonUtils } from 'utils';
-import { TokenTypes } from 'data/types';
 
 import { LoginContext } from './LoginContext';
 import { TokensPricesContext } from './TokensPricesContext';

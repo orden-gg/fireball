@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { Grid, Checkbox, Chip, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import classNames from 'classnames';
 
+import { BaazaarFilteringTypes } from 'shared/constants';
 import { BaazaarContext } from 'contexts/BaazaarContext';
-import { baazaarFilteringTypes } from 'data/types';
 
 import { Id } from './Id';
 import { Name } from './Name';
@@ -79,20 +79,20 @@ export function GotchiFilters({ runFilterWatcher, runInstantFiltering }: GotchiF
                             fullWidth
                             size={'small'}
                         >
-                            <ToggleButton className={classes.toggleItem} value={baazaarFilteringTypes.stats} aria-label='modified rarity score'>
+                            <ToggleButton className={classes.toggleItem} value={BaazaarFilteringTypes.stats} aria-label='modified rarity score'>
                                 Stats
                             </ToggleButton>
-                            <ToggleButton className={classes.toggleItem} value={baazaarFilteringTypes.name} aria-label='modified rarity score'>
+                            <ToggleButton className={classes.toggleItem} value={BaazaarFilteringTypes.name} aria-label='modified rarity score'>
                                 Name
                             </ToggleButton>
-                            <ToggleButton className={classes.toggleItem} value={baazaarFilteringTypes.id} aria-label='modified rarity score'>
+                            <ToggleButton className={classes.toggleItem} value={BaazaarFilteringTypes.id} aria-label='modified rarity score'>
                                 Id
                             </ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                     <Grid item xs={12}>
                         {
-                            filteringType === baazaarFilteringTypes.stats && <Stats
+                            filteringType === BaazaarFilteringTypes.stats && <Stats
                                 fastSearch={fastSearch}
                                 setFastSearch={setFastSearch}
                                 runFilterWatcher={runFilterWatcher}
@@ -100,14 +100,14 @@ export function GotchiFilters({ runFilterWatcher, runInstantFiltering }: GotchiF
                             />
                         }
                         {
-                            (filteringType === baazaarFilteringTypes.name || filteringType === baazaarFilteringTypes.id) &&
+                            (filteringType === BaazaarFilteringTypes.name || filteringType === BaazaarFilteringTypes.id) &&
                             <Grid container spacing={2}>
                                 <Grid item xs={7}>
                                     {
-                                        filteringType === baazaarFilteringTypes.name && <Name runFilterWatcher={runFilterWatcher} />
+                                        filteringType === BaazaarFilteringTypes.name && <Name runFilterWatcher={runFilterWatcher} />
                                     }
                                     {
-                                        filteringType === baazaarFilteringTypes.id && <Id runFilterWatcher={runFilterWatcher} />
+                                        filteringType === BaazaarFilteringTypes.id && <Id runFilterWatcher={runFilterWatcher} />
                                     }
                                 </Grid>
                                 <Grid item xs={5}>
@@ -123,7 +123,7 @@ export function GotchiFilters({ runFilterWatcher, runInstantFiltering }: GotchiF
                         }
                     </Grid>
                     {
-                        (!fastSearch && !!chips.length && filteringType === baazaarFilteringTypes.stats) && <Grid item xs={12}>
+                        (!fastSearch && !!chips.length && filteringType === BaazaarFilteringTypes.stats) && <Grid item xs={12}>
                             <Grid container spacing={2}>
                                 <Grid
                                     item xs={12}

@@ -1,5 +1,5 @@
 import tiles from 'data/tiles.data.json';
-import { TileTypes } from 'data/types';
+import { TileTypes } from 'shared/constants';
 
 export class TilesUtils {
     public static getNameById(id: any): any {
