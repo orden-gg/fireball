@@ -40,6 +40,9 @@ export const styles = makeStyles(theme => createStyles({
         },
         '&.godlike': {
             borderColor: theme.palette.rarity.godlike
+        },
+        '&.lended': {
+            filter: 'grayscale(.75)'
         }
     },
     gotchiBadges: {

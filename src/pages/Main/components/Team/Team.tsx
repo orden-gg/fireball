@@ -44,7 +44,7 @@ export function Team() {
                 {isLoading ? (
                     <CircularProgress color='primary' size={22}/>
                 ) : (
-                    <>
+                    <div className={classes.gotchisWrapper}>
                         {
                             members.map((gotchi: any, index: number) =>
                                 <Gotchi
@@ -64,7 +64,7 @@ export function Team() {
                             <p className={classes.aavegotchiName}>You!</p>
                             <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
                         </Link>
-                    </>
+                    </div>
                 )}
             </div>
         </Box>

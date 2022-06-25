@@ -35,6 +35,10 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
           owner {
             id
           }
+          originalOwner {
+            id
+          }
+          lending
         }
     }`;
 };
@@ -58,7 +62,7 @@ export const userQuery = (id: any, skip: any): any => {
     return `{
         user(id: "${id}") {
           id
-          gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
+          gotchisOriginalOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
             id
             name
             numericTraits
@@ -87,6 +91,7 @@ export const userQuery = (id: any, skip: any): any => {
             owner {
               id
             }
+            lending
           }
         }
     }`;
