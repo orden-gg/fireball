@@ -225,7 +225,7 @@ export class TheGraphApi {
                 return []; // terminate if thegraph has no data about address
             }
 
-            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOriginalOwned'], 'id');
 
             return modifyTraits(filteredArray);
 

@@ -255,7 +255,8 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, className }: 
                 `haunt${gotchi.hauntId}`,
                 'vertical',
                 className,
-                GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
+                GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
+                gotchi.lending && 'lended'
             )}
         >
             {render.map((name: any) => {
