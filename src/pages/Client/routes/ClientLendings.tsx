@@ -1,5 +1,6 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimerIcon from '@mui/icons-material/Timer';
 import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -17,6 +18,13 @@ import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
+    {
+        name: 'kin',
+        key: 'kinship',
+        paramKey: 'kin',
+        tooltip: 'kinship',
+        icon: <FavoriteBorderIcon fontSize='small' />
+    },
     {
         name: 'endTime',
         key: 'endTime',
