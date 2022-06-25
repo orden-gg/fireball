@@ -20,7 +20,7 @@ export const styles = makeStyles(() => createStyles({
         height: 28,
         padding: 4,
         borderRadius: 4,
-        background: alpha('#000', .2),
+        background: alpha('#000', .2)
     },
     unactiveIcon: {
         filter: 'grayscale(1)'
