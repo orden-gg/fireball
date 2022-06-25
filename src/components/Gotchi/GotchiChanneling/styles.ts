@@ -15,8 +15,21 @@ export const styles = makeStyles(() => createStyles({
             display: 'block'
         }
     },
+    activeIcon: {
+        width: 28,
+        height: 28,
+        padding: 4,
+        borderRadius: 4,
+        background: alpha('#000', .2)
+    },
     unactiveIcon: {
         filter: 'grayscale(1)'
+    },
+    tooltipRow: {
+        display: 'flex',
+        '& span': {
+            marginRight: 8
+        }
     },
     placeholder: {
         width: 28,

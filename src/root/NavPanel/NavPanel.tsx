@@ -6,6 +6,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import classNames from 'classnames';
 
@@ -77,6 +78,14 @@ export function NavPanel() {
                                 <MapIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Map</span>
+                        </NavLink>
+                    </div>
+                    <div className={classes.navItem}>
+                        <NavLink className={classNames(classes.navLink)} to='/explorer'>
+                            <Icon className={classes.iconBox}>
+                                <TravelExploreIcon width={20} height={20} />
+                            </Icon>
+                            <span className={classes.navItemName}>Aavegotchi explorer</span>
                         </NavLink>
                     </div>
                 </nav>
