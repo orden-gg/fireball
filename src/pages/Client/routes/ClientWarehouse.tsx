@@ -54,10 +54,6 @@ export function ClientWarehouse() {
 
             setWarehouseSorting({ type: key, dir });
         }
-
-        return () => {
-            setWarehouseSorting({ type: 'rarityId', dir: 'desc' });
-        };
     }, []);
 
     useEffect(() => {
