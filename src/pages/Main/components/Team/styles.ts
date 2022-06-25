@@ -9,9 +9,16 @@ export const styles = makeStyles(theme => createStyles({
         }
     },
     teamWrapper: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 180
+    },
+    gotchisWrapper: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))',
-        gridGap: theme.spacing(.5)
+        gridGap: theme.spacing(.5),
+        width: '100%'
     },
     teamUser: {
         padding: '0 5px 5px'
