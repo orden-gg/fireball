@@ -1,6 +1,4 @@
-
-
-export enum FilterComponent {
+export enum FilterComponentType {
     Input = 'Input',
     Checkbox = 'Checkbox',
     MultipleAutocomplete = 'MultipleAutocomplete',

@@ -5,7 +5,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 import { DateTime } from 'luxon';
 
-import { FilterComponent } from 'shared/constants';
+import { FilterComponentType } from 'shared/constants';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
@@ -31,7 +31,7 @@ export const filtersData = {
                 queryParamValue: '2'
             }
         ],
-        componentType: FilterComponent.MultiButtonSelection,
+        componentType: FilterComponentType.MultiButtonSelection,
         ...defaultMultiSelectionFilter
     },
     collateral: {
@@ -43,7 +43,7 @@ export const filtersData = {
             isSelected: false,
             queryParamValue: collateral.name.toLowerCase()
         })),
-        componentType: FilterComponent.MultiButtonSelection,
+        componentType: FilterComponentType.MultiButtonSelection,
         ...defaultMultiSelectionFilter
     },
     search: {
@@ -51,7 +51,7 @@ export const filtersData = {
         queryParamKey: 'search',
         isMultipleKeys: true,
         keys: ['id', 'name'],
-        componentType: FilterComponent.Input,
+        componentType: FilterComponentType.Input,
         title: 'Search',
         placeholder: 'name or id',
         value: '',
@@ -67,7 +67,7 @@ export const filtersData = {
     guild: {
         key: 'guild',
         queryParamKey: 'guild',
-        componentType: FilterComponent.MultipleAutocomplete,
+        componentType: FilterComponentType.MultipleAutocomplete,
         title: 'Guilds',
         items: guilds
             .filter((guild: any) => guild.members.length > 0)
@@ -95,7 +95,7 @@ export const filtersData = {
     whitelistId: {
         key: 'whitelistId',
         queryParamKey: 'whitelistId',
-        componentType: FilterComponent.SingleAutocomplete,
+        componentType: FilterComponentType.SingleAutocomplete,
         title: 'Whitelist',
         items: [],
         isFilterActive: false,
@@ -112,7 +112,7 @@ export const filtersData = {
         queryParamKey: 'period',
         title: 'rental period (hours)',
         icon: <AccessTimeIcon fontSize='small' />,
-        componentType: FilterComponent.RangeSlider,
+        componentType: FilterComponentType.RangeSlider,
         min: 0,
         max: 720,
         value: [0, 720],
@@ -126,7 +126,7 @@ export const filtersData = {
         queryParamKey: 'borrower',
         title: 'borrower revenue (%)',
         icon: <PercentIcon fontSize='small' />,
-        componentType: FilterComponent.RangeSlider,
+        componentType: FilterComponentType.RangeSlider,
         min: 0,
         max: 100,
         value: [0, 100],
@@ -137,7 +137,7 @@ export const filtersData = {
         queryParamKey: 'upfront',
         title: 'upfront cost (ghst)',
         icon: <AttachMoneyIcon fontSize='small' />,
-        componentType: FilterComponent.RangeSlider,
+        componentType: FilterComponentType.RangeSlider,
         min: 0,
         max: 100,
         value: [0, 100],
@@ -175,7 +175,7 @@ export const filtersData = {
                 queryParamValue: '3'
             }
         ],
-        componentType: FilterComponent.MultiButtonSelection,
+        componentType: FilterComponentType.MultiButtonSelection,
         ...defaultMultiSelectionFilter
     },
     district: {
@@ -189,7 +189,7 @@ export const filtersData = {
                 isSelected: false,
                 queryParamValue: `${district}`
             })),
-        componentType: FilterComponent.MultipleAutocomplete,
+        componentType: FilterComponentType.MultipleAutocomplete,
         renderTagsFn: (tagValue: any, getTagProps: any): any => {
             return tagValue.map((option: any, index: number) => (
                 <Chip
@@ -207,7 +207,7 @@ export const filtersData = {
         queryParamKey: 'channeling',
         title: 'Is channeling ready',
         value: false,
-        componentType: FilterComponent.Checkbox,
+        componentType: FilterComponentType.Checkbox,
         isFilterActive: false,
         getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
         resetFilterFn: FiltersHelper.checkboxResetFilterFn,
@@ -232,7 +232,7 @@ export const filtersData = {
         queryParamKey: 'upgraded',
         title: 'Is upgrade ready',
         value: false,
-        componentType: FilterComponent.Checkbox,
+        componentType: FilterComponentType.Checkbox,
         isFilterActive: false,
         getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
         resetFilterFn: FiltersHelper.checkboxResetFilterFn,
@@ -303,7 +303,7 @@ export const filtersData = {
                 queryParamValue: '9'
             }
         ],
-        componentType: FilterComponent.MultiButtonSelection,
+        componentType: FilterComponentType.MultiButtonSelection,
         ...defaultMultiSelectionFilter
     }
 };

@@ -3,7 +3,7 @@ import { Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { FilterComponent } from 'shared/constants';
+import { FilterComponentType } from 'shared/constants';
 
 import { InputFilter } from '../InputFilter/InputFilter';
 import { CheckboxFilter } from '../CheckboxFilter/CheckboxFilter';
@@ -35,27 +35,27 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
             const divider: boolean = filters[key].divider;
 
             switch (renderFilter.componentType) {
-                case FilterComponent.Input:
+                case FilterComponentType.Input:
                     componentToRender = <InputFilter {...filterProps} />;
 
                     break;
-                case FilterComponent.Checkbox:
+                case FilterComponentType.Checkbox:
                     componentToRender = <CheckboxFilter {...filterProps} />;
 
                     break;
-                case FilterComponent.MultipleAutocomplete:
+                case FilterComponentType.MultipleAutocomplete:
                     componentToRender = <MultiAutocompleteFilter {...filterProps} />;
 
                     break;
-                case FilterComponent.MultiButtonSelection:
+                case FilterComponentType.MultiButtonSelection:
                     componentToRender = <MultiButtonSelectionFilter {...filterProps} />;
 
                     break;
-                case FilterComponent.SingleAutocomplete:
+                case FilterComponentType.SingleAutocomplete:
                     componentToRender = <SingleAutocompleteFilter {...filterProps} />;
 
                     break;
-                case FilterComponent.RangeSlider:
+                case FilterComponentType.RangeSlider:
                     componentToRender = <RangeSliderFilter {...filterProps} />;
 
                     break;
