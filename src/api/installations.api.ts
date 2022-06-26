@@ -1,6 +1,7 @@
 import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 
-import { INSTALLATION_CONTRACT } from './common/api.constants';
+import { INSTALLATION_CONTRACT } from 'shared/constants';
+
 import { EthersApi } from './ethers.api';
 
 const installationsContract = EthersApi.makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');

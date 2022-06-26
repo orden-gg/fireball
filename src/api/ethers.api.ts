@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
-import { POLYGON_RPC, RINKEBY_RPC } from './common/api.constants';
+
+import { POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
     public static isEthAddress(address: any): any {

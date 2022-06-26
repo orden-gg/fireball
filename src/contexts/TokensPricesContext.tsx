@@ -1,8 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { TokenTypes } from 'shared/constants';
+import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT, TokenTypes } from 'shared/constants';
 import { QuickswapApi } from 'api';
-import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'api/common/api.constants';
 
 export const TokensPricesContext = createContext({});
 
