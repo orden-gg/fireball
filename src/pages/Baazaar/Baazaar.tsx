@@ -18,7 +18,7 @@ var paginationConfigs: any = {
         noLimit: 1000
     },
     defaults = {
-        defaultGoodsType: ListingTypes.aavegotchi,
+        defaultGoodsType: ListingTypes.Aavegotchi,
         defaultOrdering: 'timeCreated-desc'
     };
 
@@ -50,19 +50,19 @@ export function Baazaar() {
             limit: paginationConfigs.limit
         };
 
-        if (checkContainerVisibility([ListingTypes.aavegotchi])) {
+        if (checkContainerVisibility([ListingTypes.Aavegotchi])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllBaazaarItems(params);
-        }  else if (checkContainerVisibility([ListingTypes.realm])) {
+        }  else if (checkContainerVisibility([ListingTypes.Realm])) {
             params['limit'] = paginationConfigs.noLimit;
             setLastValidParams(params);
             getAllRealmParcels();
         } else if (checkContainerVisibility([
-            ListingTypes.closedPortal,
-            ListingTypes.wearable,
-            ListingTypes.consumable,
-            ListingTypes.tickets
+            ListingTypes.ClosedPortal,
+            ListingTypes.Wearable,
+            ListingTypes.Consumable,
+            ListingTypes.Tickets
         ])) {
             params.from = priceFrom;
             params.to = priceTo;
@@ -73,10 +73,10 @@ export function Baazaar() {
             setLastValidParams(params);
             getBaazaarItems(params);
         } else if (checkContainerVisibility([
-            ListingTypes.activity,
-            ListingTypes.listing,
-            ListingTypes.sold,
-            ListingTypes.purchased
+            ListingTypes.Activity,
+            ListingTypes.Listing,
+            ListingTypes.Sold,
+            ListingTypes.Purchased
         ])) {
             getSalesData();
         }
@@ -107,9 +107,9 @@ export function Baazaar() {
     const sortAllActivityItems = () => {
         filteredLocalGoods.sort((a, b) => {
             if ([
-                ListingTypes.activity,
-                ListingTypes.sold,
-                ListingTypes.purchased
+                ListingTypes.Activity,
+                ListingTypes.Sold,
+                ListingTypes.Purchased
             ].indexOf(selectedGoodsType) !== -1) {
                 return parseInt(b.timePurchased || b.timeLastPurchased) - parseInt(a.timePurchased || a.timeLastPurchased);
             } else {
@@ -300,9 +300,9 @@ export function Baazaar() {
     const getAllBaazaarItems = (params) => {
         showBackdrop(true);
         localGoods = [];
-        TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.aavegotchi)).then((response) => {
+        TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.Aavegotchi)).then((response) => {
             localGoods = [...localGoods, ...processResponse(response)];
-            TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.openedPortal)).then((response) => {
+            TheGraphApi.getJoinedData(makeQueriesForCategory(params, ListingTypes.OpenedPortal)).then((response) => {
                 localGoods = [...localGoods, ...processResponse(response)];
                 // start render
                 filterLocalGotchis();
@@ -397,7 +397,7 @@ export function Baazaar() {
                 return false;
             }
 
-            if (filteringType === BaazaarFilteringTypes.name) {
+            if (filteringType === BaazaarFilteringTypes.Name) {
                 if (!gotchi.name) return false;
                 if (!name) return true;
 
@@ -406,7 +406,7 @@ export function Baazaar() {
                 } else {
                     return gotchi.name.toLowerCase().split(name.toLowerCase()).length > 1;
                 }
-            } else if (filteringType === BaazaarFilteringTypes.id) {
+            } else if (filteringType === BaazaarFilteringTypes.Id) {
                 if (!id) return true;
 
                 if (exactMatch) {
@@ -414,7 +414,7 @@ export function Baazaar() {
                 } else {
                     return gotchi.id.split(id).length > 1;
                 }
-            } else if (filteringType === BaazaarFilteringTypes.stats) {
+            } else if (filteringType === BaazaarFilteringTypes.Stats) {
                 if (parseInt(gotchi.baseRarityScore) <= parseInt(minBRS) || parseInt(gotchi.kinship) <= parseInt(minKIN)) {
                     return false;
                 }
@@ -494,7 +494,7 @@ export function Baazaar() {
         }
 
         if (isLocalFilteringFlow()) {
-            if (selectedGoodsType === ListingTypes.aavegotchi) {
+            if (selectedGoodsType === ListingTypes.Aavegotchi) {
                 handleFindGotchiClick();
             } else {
                 handleFindRealmClick();
@@ -516,12 +516,12 @@ export function Baazaar() {
         const firstItemFromLocalGoods = localGoods[0];
         const localGoodsHasGotchiItem = firstItemFromLocalGoods.gotchi;
 
-        return (selectedGoodsType === ListingTypes.aavegotchi && localGoodsHasGotchiItem) ||
-            (selectedGoodsType === ListingTypes.realm && !localGoodsHasGotchiItem);
+        return (selectedGoodsType === ListingTypes.Aavegotchi && localGoodsHasGotchiItem) ||
+            (selectedGoodsType === ListingTypes.Realm && !localGoodsHasGotchiItem);
     };
 
     const isLocalFilteringFlow = () => {
-        if ([ListingTypes.aavegotchi, ListingTypes.realm].indexOf(selectedGoodsType) !== -1) {
+        if ([ListingTypes.Aavegotchi, ListingTypes.Realm].indexOf(selectedGoodsType) !== -1) {
             return true;
         }
     };
@@ -547,10 +547,10 @@ export function Baazaar() {
 
     useEffect(() => {
         if ([
-            ListingTypes.activity,
-            ListingTypes.listing,
-            ListingTypes.sold,
-            ListingTypes.purchased
+            ListingTypes.Activity,
+            ListingTypes.Listing,
+            ListingTypes.Sold,
+            ListingTypes.Purchased
         ].indexOf(selectedGoodsType) !== -1) {
             paginationConfigs.gotchiLimit = 240;
         } else {
@@ -572,10 +572,10 @@ export function Baazaar() {
             />
             {
                 checkContainerVisibility([
-                    ListingTypes.closedPortal,
-                    ListingTypes.wearable,
-                    ListingTypes.consumable,
-                    ListingTypes.tickets
+                    ListingTypes.ClosedPortal,
+                    ListingTypes.Wearable,
+                    ListingTypes.Consumable,
+                    ListingTypes.Tickets
                 ]) ?
                     <BaazaarBody
                         goods={goods}

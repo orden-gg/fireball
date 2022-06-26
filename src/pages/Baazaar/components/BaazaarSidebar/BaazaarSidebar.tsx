@@ -90,32 +90,32 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                     size={'small'}
                     className={classes.mainToggleTop}
                 >
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.aavegotchi} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Aavegotchi} aria-label='modified rarity score'>
                         <Tooltip title='Aavegotchi' placement='top' followCursor>
                             <GotchiIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.closedPortal} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.ClosedPortal} aria-label='modified rarity score'>
                         <Tooltip title='Closed portals' placement='top' followCursor>
                             <H1SealedPortalIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.wearable} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Wearable} aria-label='modified rarity score'>
                         <Tooltip title='Wearables' placement='top' followCursor>
                             <WarehouseIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.consumable} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Consumable} aria-label='modified rarity score'>
                         <Tooltip title='Consumables' placement='top' followCursor>
                             <ConsumableIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.tickets} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Tickets} aria-label='modified rarity score'>
                         <Tooltip title='Tickets' placement='top' followCursor>
                             <RareTicketIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.realm} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Realm} aria-label='modified rarity score'>
                         <Tooltip title='Realm' placement='top' followCursor>
                             <KekIcon width={16} height={16} alt='realm' />
                         </Tooltip>
@@ -131,22 +131,22 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                     size={'small'}
                     className={classes.mainToggleBottom}
                 >
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.activity} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Activity} aria-label='modified rarity score'>
                         <Tooltip title='Activity' placement='top' followCursor>
                             <ActivityIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.listing} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Listing} aria-label='modified rarity score'>
                         <Tooltip title='Listing' placement='top' followCursor>
                             <ListingIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.sold} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Sold} aria-label='modified rarity score'>
                         <Tooltip title='Sold' placement='top' followCursor>
                             <SoldIcon width={16} height={16} />
                         </Tooltip>
                     </ToggleButton>
-                    <ToggleButton className={classes.toggleItem} value={ListingTypes.purchased} aria-label='modified rarity score'>
+                    <ToggleButton className={classes.toggleItem} value={ListingTypes.Purchased} aria-label='modified rarity score'>
                         <Tooltip title='Purchased' placement='top' followCursor>
                             <PurchaseIcon width={16} height={16} />
                         </Tooltip>
@@ -155,12 +155,12 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             </div>
             {
                 checkContainerVisibility([
-                    ListingTypes.aavegotchi,
-                    ListingTypes.closedPortal,
-                    ListingTypes.wearable,
-                    ListingTypes.consumable,
-                    ListingTypes.tickets,
-                    ListingTypes.realm
+                    ListingTypes.Aavegotchi,
+                    ListingTypes.ClosedPortal,
+                    ListingTypes.Wearable,
+                    ListingTypes.Consumable,
+                    ListingTypes.Tickets,
+                    ListingTypes.Realm
                 ]) && <div className={classes.sidebarSection}>
                     <ToggleButtonGroup
                         value={sortingOrder}
@@ -192,12 +192,12 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             }
             {
                 checkContainerVisibility([
-                    ListingTypes.aavegotchi,
-                    ListingTypes.closedPortal,
-                    ListingTypes.wearable,
-                    ListingTypes.consumable,
-                    ListingTypes.tickets,
-                    ListingTypes.realm
+                    ListingTypes.Aavegotchi,
+                    ListingTypes.ClosedPortal,
+                    ListingTypes.Wearable,
+                    ListingTypes.Consumable,
+                    ListingTypes.Tickets,
+                    ListingTypes.Realm
                 ]) && <div className={classes.sidebarSection}>
                     <Grid container spacing={2}>
                         <Grid item xs={5}>
@@ -230,9 +230,9 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             }
             {
                 checkContainerVisibility([
-                    ListingTypes.wearable,
-                    ListingTypes.consumable,
-                    ListingTypes.tickets
+                    ListingTypes.Wearable,
+                    ListingTypes.Consumable,
+                    ListingTypes.Tickets
                 ]) && <div className={classes.sidebarSection}>
                     <FormControl variant='outlined' className={classes.formControl}>
                         <InputLabel>Rarity</InputLabel>
@@ -255,7 +255,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             }
             {
                 checkContainerVisibility([
-                    ListingTypes.aavegotchi
+                    ListingTypes.Aavegotchi
                 ]) && <div className={classes.sidebarSection}>
                     <GotchiFilters
                         runFilterWatcher={runFilterWatcher}
@@ -265,7 +265,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             }
             {
                 checkContainerVisibility([
-                    ListingTypes.realm
+                    ListingTypes.Realm
                 ]) && <RealmFilters
                     runFilterWatcher={runFilterWatcher}
                     runInstantFiltering={runInstantFiltering}
@@ -273,10 +273,10 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
             }
             {
                 checkContainerVisibility([
-                    ListingTypes.activity,
-                    ListingTypes.sold,
-                    ListingTypes.listing,
-                    ListingTypes.purchased
+                    ListingTypes.Activity,
+                    ListingTypes.Sold,
+                    ListingTypes.Listing,
+                    ListingTypes.Purchased
                 ]) && <div>
                     <ToggleButtonGroup
                         value={selectedListingType}
@@ -289,7 +289,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                         orientation='vertical'
                         className={classes.verticalToggle}
                     >
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.all} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.All} aria-label='modified rarity score'>
                             <Tooltip title='All items' placement='top' followCursor>
                                 <>
                                     <BaazarIcon width={16} height={16} />
@@ -297,7 +297,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.aavegotchi} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.Aavegotchi} aria-label='modified rarity score'>
                             <Tooltip title='Aavegotchi' placement='top' followCursor>
                                 <>
                                     <GotchiIcon width={16} height={16} />
@@ -305,7 +305,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.closedPortal} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.ClosedPortal} aria-label='modified rarity score'>
                             <Tooltip title='Sealed portals' placement='top' followCursor>
                                 <>
                                     <H1SealedPortalIcon width={16} height={16} />
@@ -313,7 +313,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.openedPortal} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.OpenedPortal} aria-label='modified rarity score'>
                             <Tooltip title='Opened portals' placement='top' followCursor>
                                 <>
                                     <H1OpenedPortalIcon width={16} height={16} />
@@ -321,7 +321,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.wearable} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.Wearable} aria-label='modified rarity score'>
                             <Tooltip title='Wearables' placement='top' followCursor>
                                 <>
                                     <WarehouseIcon width={16} height={16} />
@@ -329,7 +329,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.consumable} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.Consumable} aria-label='modified rarity score'>
                             <Tooltip title='Consumables' placement='top' followCursor>
                                 <>
                                     <ConsumableIcon width={16} height={16} />
@@ -337,7 +337,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.tickets} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.Tickets} aria-label='modified rarity score'>
                             <Tooltip title='Tickets' placement='top' followCursor>
                                 <>
                                     <RareTicketIcon width={16} height={16} />
@@ -345,7 +345,7 @@ export function BaazaarSidebar({ runFilterWatcher, runInstantFiltering, setSelec
                                 </>
                             </Tooltip>
                         </ToggleButton>
-                        <ToggleButton className={classes.toggleItem} value={ListingTypes.realm} aria-label='modified rarity score'>
+                        <ToggleButton className={classes.toggleItem} value={ListingTypes.Realm} aria-label='modified rarity score'>
                             <Tooltip title='Realm' placement='top' followCursor>
                                 <>
                                     <KekIcon width={16} height={16} alt='realm' />

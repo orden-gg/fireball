@@ -27,8 +27,8 @@ export const BaazaarContextProvider = (props: any) => {
     const [fomoFilter, setFomoFilter] = useState<string>('');
     const [fudFilter, setFudFilter] = useState<string>('');
     const [sortingOrder, setSortingOrder] = useState<any>(orderingTypes.timeDESC);
-    const [selectedGoodsType, setSelectedGoodsType] = useState<any>(ListingTypes.aavegotchi);
-    const [selectedListingType, setSelectedListingType] = useState<any>(ListingTypes.all);
+    const [selectedGoodsType, setSelectedGoodsType] = useState<any>(ListingTypes.Aavegotchi);
+    const [selectedListingType, setSelectedListingType] = useState<any>(ListingTypes.All);
     const [filteringType, setFilteringType] = useState<string>('stats');
     const [name, setName] = useState<any>(null);
     const [id, setId] = useState<any>(null);

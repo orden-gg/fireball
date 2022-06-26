@@ -64,11 +64,11 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
 
     return (
         <div className={classes.baazaarBody}>
-            <div className={classNames(classes.baazaarListItems, selectedGoodsType === ListingTypes.activity ? 'horizontal' : '')}>
+            <div className={classNames(classes.baazaarListItems, selectedGoodsType === ListingTypes.Activity ? 'horizontal' : '')}>
                 {
                     // eslint-disable-next-line array-callback-return
                     goods.map((item: any, index: number) => {
-                        if (selectedGoodsType === ListingTypes.activity) {
+                        if (selectedGoodsType === ListingTypes.Activity) {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
                                     renderGotchi(item)
@@ -141,7 +141,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                         } else {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
-                                    (selectedGoodsType === ListingTypes.aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
+                                    (selectedGoodsType === ListingTypes.Aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && <Portal portal={item} />

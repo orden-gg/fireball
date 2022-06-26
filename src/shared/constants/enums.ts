@@ -1,22 +1,22 @@
 export enum ListingTypes {
-    closedPortal = 'erc721Listings-0',
-    openedPortal = 'erc721Listings-2',
-    aavegotchi = 'erc721Listings-3',
-    wearable = 'erc1155Listings-0',
-    consumable = 'erc1155Listings-2',
-    tickets = 'erc1155Listings-3',
-    realm = 'erc721Listings-4',
-    all = 'all',
-    activity = 'activity',
-    listing = 'listing',
-    sold = 'sold',
-    purchased = 'purchased'
+    ClosedPortal = 'erc721Listings-0',
+    OpenedPortal = 'erc721Listings-2',
+    Aavegotchi = 'erc721Listings-3',
+    Wearable = 'erc1155Listings-0',
+    Consumable = 'erc1155Listings-2',
+    Tickets = 'erc1155Listings-3',
+    Realm = 'erc721Listings-4',
+    All = 'all',
+    Activity = 'activity',
+    Listing = 'listing',
+    Sold = 'sold',
+    Purchased = 'purchased'
 }
 
 export enum BaazaarFilteringTypes {
-    name = 'name',
-    id = 'id',
-    stats = 'stats'
+    Name = 'name',
+    Id = 'id',
+    Stats = 'stats'
 }
 
 export enum Erc721Categories {
