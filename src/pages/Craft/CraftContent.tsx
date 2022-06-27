@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useMemo } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Backdrop } from '@mui/material';
 
 import classNames from 'classnames';
@@ -26,7 +26,7 @@ export function CraftContent() {
     const handleBackdropClick = () => {
         setIsItemSelected(false);
         setSelectedItem({});
-    }
+    };
 
     useEffect(() => {
         const filteredTiles = tilesData.map((data, index) =>
