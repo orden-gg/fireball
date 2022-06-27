@@ -13,11 +13,14 @@ import { itemStyles } from '../styles';
 export function CraftItem({ data }: { data: any }) {
     const classes = itemStyles();
 
-    const { selectedItem, setSelectedItem, setCategory } = useContext<any>(CraftContext);
+    const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
 
     const handleItemClick = () => {
+        const isSelected = selectedItem !== data;
+
         setCategory(data.category || 'installation');
-        setSelectedItem(current =>  current !== data ? data : {});
+        setIsItemSelected(isSelected);
+        setSelectedItem(isSelected ? data : {});
     };
 
     return (

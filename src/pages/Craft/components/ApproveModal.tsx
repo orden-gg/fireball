@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Button, CircularProgress, Typography } from '@mui/material';
 
 import classNames from 'classnames';
@@ -15,7 +15,7 @@ import { modalStyles } from '../styles';
 // TODO add types
 export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boolean) => void }) {
     const [isTokenApproving, setIsTokenApproving] = useState(false);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
     const { showSnackbar } = useContext<any>(SnackbarContext);
     const {
         tokens,
@@ -25,8 +25,6 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
     } = useContext<any>(CraftContext);
 
     const classes = modalStyles();
-
-    const alchemicaTokens = useMemo(() => [...tokens].splice(0, 4), [tokens]);
 
     const getContract = () => category === 'tile' ? TILES_CONTRACT : INSTALLATION_CONTRACT;
 
@@ -73,7 +71,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
             <Typography variant='h5' className={classes.title}>Please approve spend before craft</Typography>
             <div className={classes.alchemica}>
                 {
-                    alchemicaTokens.map((token, index) =>
+                    [...tokens].splice(0, 4).map((token, index) =>
                         <span
                             key={index}
                             className={classNames(

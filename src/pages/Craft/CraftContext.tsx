@@ -11,16 +11,17 @@ export const CraftContext = createContext({});
 
 // TODO add types
 export const CraftContextProvider = (props: any) => {
-    const [isWalletConnected, setIsWalletConnected] = useState(false);
-    const [accountAddress, setAccountAddress] = useState('');
-    const [tokensApprovals, setTokenApprovals] = useState<any>({
+    const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+    const [accountAddress, setAccountAddress] = useState<string>('');
+    const [tokensApprovals, setTokenApprovals] = useState<object>({
         tile: [],
         installation: []
     });
-    const [isAlchemicaApproved, setIsAlchemicaApproved] = useState(false);
+    const [isAlchemicaApproved, setIsAlchemicaApproved] = useState<boolean>(false);
     const [selectedItem, setSelectedItem] = useState<any>({});
-    const [category, setCategory] = useState('installation');
-    const [maxCraftAmount, setMaxCraftAmount] = useState(1);
+    const [isItemSelected, setIsItemSelected] = useState<boolean>(false);
+    const [category, setCategory] = useState<string>('installation');
+    const [maxCraftAmount, setMaxCraftAmount] = useState<number>(1);
 
     const { tokens } = useContext<any>(BalancesContext);
     const { getAccounts, metaState } = useMetamask();
@@ -65,9 +66,7 @@ export const CraftContextProvider = (props: any) => {
     }, [accountAddress]);
 
     useEffect(() => {
-        const isSelected = !CommonUtils.isEmptyObject(selectedItem);
-
-        if (isSelected) {
+        if (isItemSelected) {
             setMaxCraftAmount(() => {
                 const isFreeItem = selectedItem.alchemicaCost.every(cost => cost === 0);
 
@@ -96,17 +95,18 @@ export const CraftContextProvider = (props: any) => {
         <CraftContext.Provider value={{
             isWalletConnected,
             tokens,
-            isAlchemicaApproved,
             tokensApprovals,
-
+            isAlchemicaApproved,
             selectedItem,
+            isItemSelected,
             category,
             maxCraftAmount,
 
+            setIsWalletConnected,
             setTokenApprovals,
             setCategory,
             setSelectedItem,
-            setIsWalletConnected
+            setIsItemSelected
         }}>
             { props.children }
         </CraftContext.Provider>

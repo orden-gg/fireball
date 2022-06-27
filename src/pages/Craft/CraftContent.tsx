@@ -7,7 +7,7 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import installationsData from 'data/installations.data.json';
 import tilesData from 'data/tiles.data.json';
-import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
+import { InstallationsUtils, TilesUtils } from 'utils';
 
 import { CraftItem } from './components/CraftItem';
 import { Sidebar } from './components/Sidebar';
@@ -21,9 +21,12 @@ export function CraftContent() {
 
     const [items, setItems] = useState<any[]>([]);
 
-    const { selectedItem, setSelectedItem } = useContext<any>(CraftContext);
+    const { setSelectedItem, isItemSelected, setIsItemSelected } = useContext<any>(CraftContext);
 
-    const isItemSelected = useMemo(() => !CommonUtils.isEmptyObject(selectedItem), [selectedItem]);
+    const handleBackdropClick = () => {
+        setIsItemSelected(false);
+        setSelectedItem({});
+    }
 
     useEffect(() => {
         const filteredTiles = tilesData.map((data, index) =>
@@ -51,7 +54,7 @@ export function CraftContent() {
                     />
                 </ContentInner>
                 <Sidebar />
-                <Backdrop open={isItemSelected} onClick={() => setSelectedItem(false)} className={classes.backdrop} />
+                <Backdrop open={isItemSelected} onClick={handleBackdropClick} className={classes.backdrop} />
             </div>
         </>
     );

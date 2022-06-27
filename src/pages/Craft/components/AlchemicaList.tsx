@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 
 import classNames from 'classnames';
 
@@ -17,12 +17,10 @@ export function AlchemicaList({ cost = [], amount }: AlchemicaCostProps) {
 
     const { tokens, isWalletConnected } = useContext<any>(CraftContext);
 
-    const alchemicaTokens = useMemo(() => [...tokens].splice(0, 4), [tokens]);
-
     return (
         <ul className={classes.alchemicaList}>
             {
-                alchemicaTokens.map((token, index) => {
+                [...tokens].splice(0, 4).map((token: any, index) => {
                     const tokenSum = cost[index] * amount || 0;
 
                     return (

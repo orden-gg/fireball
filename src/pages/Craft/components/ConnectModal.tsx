@@ -10,7 +10,7 @@ import { modalStyles } from '../styles';
 export function ConnectModal() {
     const classes = modalStyles();
 
-    const [isWalletConnecting, setIsWalletConnecting] = useState(false);
+    const [isWalletConnecting, setIsWalletConnecting] = useState<boolean>(false);
     const { connectMetamask } = useContext<any>(LoginContext);
     const { showSnackbar } = useContext<any>(SnackbarContext);
 

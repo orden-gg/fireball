@@ -8,7 +8,6 @@ import classNames from 'classnames';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { Tile } from 'components/Items/Tile.js/Tile';
 import { Installation } from 'components/Items/Installation/Installation';
-import { CommonUtils } from 'utils';
 import { InstallationsApi, TilesApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -24,25 +23,23 @@ export function Sidebar() {
     const classes = sidebarStyles();
 
     const [craftAmount, setCraftAmount] = useState<any>(0);
-    const [isCrafting, setIsCrafting] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isCrafting, setIsCrafting] = useState<boolean>(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { showSnackbar } = useContext<any>(SnackbarContext);
     const {
-        maxCraftAmount,
-        selectedItem,
-        category,
         isWalletConnected,
-        isAlchemicaApproved
+        isAlchemicaApproved,
+        selectedItem,
+        isItemSelected,
+        category,
+        maxCraftAmount
     } = useContext<any>(CraftContext);
 
-    const isItemSelected = useMemo(() =>
-        !CommonUtils.isEmptyObject(selectedItem)
-    , [selectedItem]);
     const isCraftDisabled = useMemo(() =>
         !maxCraftAmount || !craftAmount || !isItemSelected
     , [maxCraftAmount, craftAmount, isItemSelected]);
 
-    const inputChange = event => {
+    const inputChange = (event: any) => {
         const value = parseInt(event.target.value) || 0;
 
         if (maxCraftAmount < value) {
@@ -54,7 +51,7 @@ export function Sidebar() {
         }
     };
 
-    const amountChange = (amount) => setCraftAmount(craftAmount + amount);
+    const amountChange = (amount: number) => setCraftAmount(craftAmount + amount);
 
     const onCraftItems = async () => {
         if (!isWalletConnected || !isAlchemicaApproved) {
