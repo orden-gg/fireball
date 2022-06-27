@@ -101,7 +101,6 @@ export function ClientGotchis() {
 
         return () => {
             onResetFilters();
-            setGotchisSorting({ type: 'modifiedRarityScore', dir: 'desc' });
         };
     }, []);
 

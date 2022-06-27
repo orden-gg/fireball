@@ -137,7 +137,6 @@ export function ClientRealmList() {
 
         return () => {
             onResetFilters();
-            setRealmSorting({ type: 'size', dir: 'desc' });
         };
     }, []);
 

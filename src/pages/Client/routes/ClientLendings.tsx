@@ -113,7 +113,6 @@ export function ClientLendings() {
 
         return () => {
             onResetFilters();
-            setLendingsSorting({ type: 'totalTokens', dir: 'desc' });
         };
     }, []);
 
