@@ -4,7 +4,7 @@ import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
 
-import { InstallationTypes } from '../types.js';
+import { InstallationTypes } from 'shared/enums';
 import { INSTALLATION_CONTRACT } from '../../api/common/constants.js';
 
 const INSTALLATION_ABI = JSON.parse(fs.readFileSync('src/data/abi/installations.abi.json'));

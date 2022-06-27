@@ -1,6 +1,6 @@
 import { Alert, AlertTitle, Typography } from '@mui/material';
 
-import { AUTOPET_CONTRACT } from 'api/common/api.constants';
+import { AUTOPET_CONTRACT } from 'shared/constants';
 
 import { headerStyles } from '../styles';
 

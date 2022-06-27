@@ -5,6 +5,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import queryString from 'query-string';
 
+import { Erc1155Categories, Erc721Categories } from 'shared/constants';
 import {
     BaazarIcon,
     ConsumableIcon,
@@ -22,7 +23,6 @@ import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
-import { Erc721Categories, Erc1155Categories } from 'data/types';
 
 import { styles } from './styles';
 

@@ -1,4 +1,4 @@
-export const collaterals: any[] = [
+export const collaterals: { name: string; address: string }[] = [
     // haunt 1
     {
         name: 'maWETH',

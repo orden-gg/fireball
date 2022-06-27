@@ -1,8 +1,8 @@
 import { Skeleton } from '@mui/material';
 
+import { InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { InstallationsUtils } from 'utils';
-import { InstallationTypeNames } from 'data/types';
 
 import { InstallationImage } from '../Installation/InstallationImage';
 import { styles } from './styles';

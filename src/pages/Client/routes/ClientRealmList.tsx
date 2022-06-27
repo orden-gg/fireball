@@ -7,6 +7,7 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
+import { InstallationTypeNames } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -18,7 +19,6 @@ import { EthersApi, InstallationsApi, TheGraphApi } from 'api';
 import { ClientContext } from 'contexts/ClientContext';
 import { FilterUtils, InstallationsUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
-import { InstallationTypeNames } from 'data/types';
 
 import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
@@ -217,9 +217,9 @@ export function ClientRealmList() {
             getRealmUpgradesQueue(parcelIds)
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map(parcel => {
-                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
-                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
-                const altar = parcelInfo.installations.find(installation => installation.type === InstallationTypeNames.Altar);
+                const isParcelUpgrading = realmUpgradesQueue.find((upgrade: any) => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
+                const altar = parcelInfo.installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
 
                 return {
                     ...parcel,

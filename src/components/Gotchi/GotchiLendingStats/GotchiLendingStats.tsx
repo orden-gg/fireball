@@ -8,10 +8,10 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { DAY_MILLIS, HALF_DAY_MILLIS } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ShineLabel } from 'components/Labels/ShineLabel';
 import { CommonUtils, GraphUtils } from 'utils';
-import { DAY_MILLIS, HALF_DAY_MILLIS } from 'data/date.data';
 
 import { styles } from './styles';
 
