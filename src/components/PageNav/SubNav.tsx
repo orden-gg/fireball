@@ -5,9 +5,11 @@ import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { PageNavLink } from 'shared/models';
+
 import { styles } from './styles';
 
-export function SubNav({ links }: { links: any }) {
+export function SubNav({ links }: { links: PageNavLink[] }) {
     const classes = styles();
 
     const theme = useTheme();
@@ -15,17 +17,17 @@ export function SubNav({ links }: { links: any }) {
     return (
         <>
             {
-                links.map((subLink: any, index: number) => {
+                links.map((subLink: PageNavLink, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
                             <Button
-                                disabled={subLink.items === 0}
+                                disabled={subLink.count === 0}
                                 component={NavLink}
                                 className={classNames(classes.button, classes.subButton)}
-                                to={subLink.route}
+                                to={subLink.path}
                             >
                                 <span className={classes.navName}>{subLink.name}</span>
-                                { subLink.loading ? (
+                                { subLink.isLoading ? (
                                     <ContentLoader
                                         speed={2}
                                         viewBox='0 0 28 14'
@@ -36,7 +38,7 @@ export function SubNav({ links }: { links: any }) {
                                         <rect x='0' y='0' width='28' height='14' />
                                     </ContentLoader>
                                 ) : (
-                                    <span className={classes.label}>[{subLink.items}]</span>
+                                    <span className={classes.label}>[{subLink.count}]</span>
                                 )}
                             </Button>
                         </div>

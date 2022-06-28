@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react';
 
-import { Sorting } from 'shared/models';
+import { PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
@@ -44,65 +44,65 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
 
-    const navData: any[] = [
+    const navData: PageNavLink[] = [
         {
             name: 'gotchis',
-            route: 'gotchis',
+            path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            loading: loadingGotchis,
-            items: gotchis.length,
+            isLoading: loadingGotchis,
+            count: gotchis.length,
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
                 {
                     name: 'owned',
-                    route: 'gotchis/owned',
+                    path: 'gotchis/owned',
                     icon: <GotchiIcon width={24} height={24} />,
-                    loading: loadingGotchis,
-                    items: gotchis.length
+                    isLoading: loadingGotchis,
+                    count: gotchis.length
                 },
                 {
                     name: 'lendings',
-                    route: 'gotchis/lended',
+                    path: 'gotchis/lended',
                     icon: <GotchiIcon width={24} height={24} />,
-                    loading: loadingLendings,
-                    items: lendings.length
+                    isLoading: loadingLendings,
+                    count: lendings.length
                 },
                 {
                     name: 'borrowed',
-                    route: 'gotchis/borrowed',
+                    path: 'gotchis/borrowed',
                     icon: <LendingIcon width={24} height={24} />,
-                    loading: loadingBorrowed,
-                    items: borrowed.length
+                    isLoading: loadingBorrowed,
+                    count: borrowed.length
                 }
             ]} />
         },
         {
             name: 'warehouse',
-            route: 'warehouse',
+            path: 'warehouse',
             icon: <WarehouseIcon width={24} height={24} />,
-            loading: loadingWarehouse,
-            items: warehouse.length
+            isLoading: loadingWarehouse,
+            count: warehouse.length
         },
         {
             name: 'installations',
-            route: 'installations',
+            path: 'installations',
             icon: <AnvilIcon width={24} height={24} />,
-            loading: loadingInstallations || loadingTiles,
-            items: installations.length + tiles.length
+            isLoading: loadingInstallations || loadingTiles,
+            count: installations.length + tiles.length
         },
         {
             name: 'tickets',
-            route: 'tickets',
+            path: 'tickets',
             icon: <RareTicketIcon width={24} height={24} />,
-            loading: loadingTickets,
-            items: tickets.length
+            isLoading: loadingTickets,
+            count: tickets.length
         },
         {
             name: 'realm',
-            route: 'realm',
+            path: 'realm',
             icon: <KekIcon width={24} height={24} alt='realm' />,
-            loading: loadingRealm,
-            items: realm.length
+            isLoading: loadingRealm,
+            count: realm.length
         }
     ];
 

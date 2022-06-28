@@ -4,10 +4,12 @@ import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 
+import { PageNavLink } from 'shared/models';
+
 import { styles } from './styles';
 
 interface PageNavProps {
-    links: any[];
+    links: PageNavLink[];
     beforeContent?: JSX.Element;
     afterContent?: JSX.Element;
 }
@@ -24,24 +26,24 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
         <div className={classes.container}>
             {beforeContent}
             {
-                data.map((link: any, index: number) => {
+                data.map((link: PageNavLink, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
-                            { link.isShowSubRoutes && link.route === subroute &&
+                            { link.isShowSubRoutes && link.path === subroute &&
                                 <div className={classes.subNav}>
                                     {link.subNavComponent}
                                 </div>
                             }
 
                             <Button
-                                disabled={link.items === 0}
+                                disabled={link.count === 0}
                                 startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
-                                to={link.route}
+                                to={link.path}
                             >
                                 <span className={classes.navName}>{link.name}</span>
-                                { link.loading ? (
+                                { link.isLoading ? (
                                     <ContentLoader
                                         speed={2}
                                         viewBox='0 0 28 14'
@@ -52,7 +54,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                                         <rect x='0' y='0' width='28' height='14' />
                                     </ContentLoader>
                                 ) : (
-                                    <span className={classes.label}>[{link.items}]</span>
+                                    <span className={classes.label}>[{link.count}]</span>
                                 )}
                             </Button>
                         </div>
