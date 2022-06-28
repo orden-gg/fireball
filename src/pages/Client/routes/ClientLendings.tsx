@@ -92,13 +92,16 @@ export function ClientLendings() {
         lendings,
         lendingsSorting,
         setLendingsSorting,
-        loadingLendings
+        loadingLendings,
+        setGotchiView
     } = useContext<any>(ClientContext);
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
+        setGotchiView('lended');
+
         setCurrentFilters((currentFiltersCache: any) =>
             FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
