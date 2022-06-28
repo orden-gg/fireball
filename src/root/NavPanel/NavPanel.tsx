@@ -86,7 +86,7 @@ export function NavPanel() {
                             <Icon className={classes.iconBox}>
                                 <GavelIcon width={20} height={20} />
                             </Icon>
-                            <span className={classes.navItemName}>Map</span>
+                            <span className={classes.navItemName}>Craft</span>
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
