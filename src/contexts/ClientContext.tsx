@@ -2,6 +2,7 @@ import { createContext, useState } from 'react';
 
 import { Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
+import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
@@ -45,42 +46,59 @@ export const ClientContextProvider = (props: any) => {
     const navData: any[] = [
         {
             name: 'gotchis',
+            route: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
             loading: loadingGotchis,
-            items: gotchis.length
-        },
-        {
-            name: 'lendings',
-            icon: <GotchiIcon width={24} height={24} />,
-            loading: loadingLendings,
-            items: lendings.length
-        },
-        {
-            name: 'borrowed',
-            icon: <LendingIcon width={24} height={24} />,
-            loading: loadingBorrowed,
-            items: borrowed.length
+            items: gotchis.length,
+            isShowSubRoutes: true,
+            subNavComponent: <SubNav links={[
+                {
+                    name: 'owned',
+                    route: 'gotchis/owned',
+                    icon: <GotchiIcon width={24} height={24} />,
+                    loading: loadingGotchis,
+                    items: gotchis.length
+                },
+                {
+                    name: 'lendings',
+                    route: 'gotchis/lended',
+                    icon: <GotchiIcon width={24} height={24} />,
+                    loading: loadingLendings,
+                    items: lendings.length
+                },
+                {
+                    name: 'borrowed',
+                    route: 'gotchis/borrowed',
+                    icon: <LendingIcon width={24} height={24} />,
+                    loading: loadingBorrowed,
+                    items: borrowed.length
+                }
+            ]} />
         },
         {
             name: 'warehouse',
+            route: 'warehouse',
             icon: <WarehouseIcon width={24} height={24} />,
             loading: loadingWarehouse,
             items: warehouse.length
         },
         {
             name: 'installations',
+            route: 'installations',
             icon: <AnvilIcon width={24} height={24} />,
             loading: loadingInstallations || loadingTiles,
             items: installations.length + tiles.length
         },
         {
             name: 'tickets',
+            route: 'tickets',
             icon: <RareTicketIcon width={24} height={24} />,
             loading: loadingTickets,
             items: tickets.length
         },
         {
             name: 'realm',
+            route: 'realm',
             icon: <KekIcon width={24} height={24} alt='realm' />,
             loading: loadingRealm,
             items: realm.length

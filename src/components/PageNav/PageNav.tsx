@@ -14,8 +14,9 @@ interface PageNavProps {
 
 export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     const classes = styles();
-
     const theme = useTheme();
+
+    const subroute = location.pathname.split('/')[3];
 
     const data = useMemo(() => links, [links]);
 
@@ -26,12 +27,18 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                 data.map((link: any, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
+                            { link.isShowSubRoutes && link.route === subroute &&
+                                <div className={classes.subNav}>
+                                    {link.subNavComponent}
+                                </div>
+                            }
+
                             <Button
                                 disabled={link.items === 0}
                                 startIcon={link.icon}
                                 component={NavLink}
                                 className={classes.button}
-                                to={link.name}
+                                to={link.route}
                             >
                                 <span className={classes.navName}>{link.name}</span>
                                 { link.loading ? (

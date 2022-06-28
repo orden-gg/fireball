@@ -13,6 +13,13 @@ export const styles = makeStyles(theme => createStyles({
         margin: 4,
         position: 'relative'
     },
+    subNav: {
+        position: 'absolute',
+        bottom: '100%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex'
+    },
     button: {
         paddingRight: 12,
         paddingLeft: 12,
@@ -35,6 +42,11 @@ export const styles = makeStyles(theme => createStyles({
                 color: alpha('#fff', .2)
             }
         }
+    },
+    subButton: {
+        padding: '4px',
+        lineHeight: 1.2,
+        textTransform: 'lowercase'
     },
     navName: {
         marginRight: 8,

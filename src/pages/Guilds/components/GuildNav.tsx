@@ -14,18 +14,21 @@ export function GuildNav() {
     const navData: any = [
         {
             name: 'gotchis',
+            route: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
             loading: false,
             items: guildGotchis.length || '...'
         },
         {
             name: 'lendings',
+            route: 'lendings',
             icon: <LendingIcon width={24} height={24} />,
             loading: false,
             items: guildLendings.length || '...'
         },
         {
             name: 'realm',
+            route: 'realm',
             icon: <KekIcon width={24} height={24} />,
             loading: false,
             items: guildRealm.length || '...'
