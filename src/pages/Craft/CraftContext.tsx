@@ -25,7 +25,7 @@ export const CraftContextProvider = (props: any) => {
     const { tokens } = useContext<any>(BalancesContext);
     const { getAccounts, metaState } = useMetamask();
 
-    const setWalletAddress = async () => {
+    const setWalletAddress = async (): Promise<void> => {
         const accounts = await getAccounts();
 
         setAccountAddress(accounts[0]);
@@ -41,7 +41,7 @@ export const CraftContextProvider = (props: any) => {
     }, [metaState]);
 
     useEffect(() => {
-        (async () => {
+        (async (): Promise<void> => {
             if (isWalletConnected) {
                 const installationApprovals = await Promise.all([
                     AlchemicaApi.isFudApproved(accountAddress, INSTALLATION_CONTRACT),
@@ -66,13 +66,13 @@ export const CraftContextProvider = (props: any) => {
 
     useEffect(() => {
         if (isItemSelected) {
-            setMaxCraftAmount(() => {
-                const isFreeItem = selectedItem.alchemicaCost.every(cost => cost === 0);
+            setMaxCraftAmount((): number => {
+                const isFreeItem: boolean = selectedItem.alchemicaCost.every(cost => cost === 0);
 
                 if (isFreeItem) {
                     return 200;
                 } else {
-                    const maxCraftAmount = Math.min(
+                    const maxCraftAmount: number = Math.min(
                         ...selectedItem.alchemicaCost.map((price, index) =>
                             Math.floor(tokens[index].amount / price)
                         )

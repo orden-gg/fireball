@@ -17,11 +17,11 @@ export function ConnectModal() {
     const connectWallet = async () => {
         setIsWalletConnecting(true);
 
-        const response = await connectMetamask();
+        const isConnected: boolean = await connectMetamask();
 
         setIsWalletConnecting(false);
 
-        if (response) {
+        if (isConnected) {
             showSnackbar('success', 'Wallet connected!');
         } else {
             showSnackbar('error', 'Wallet connect failed :(');

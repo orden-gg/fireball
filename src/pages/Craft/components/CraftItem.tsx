@@ -16,7 +16,7 @@ export function CraftItem({ data }: { data: any }) {
     const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
 
     const handleItemClick = () => {
-        const isSelected = selectedItem !== data;
+        const isSelected: boolean = selectedItem !== data;
 
         setCategory(data.category || 'installation');
         setIsItemSelected(isSelected);

@@ -35,7 +35,7 @@ export function Sidebar() {
         maxCraftAmount
     } = useContext<any>(CraftContext);
 
-    const isCraftDisabled = useMemo(() =>
+    const isCraftDisabled: boolean = useMemo(() =>
         !maxCraftAmount || !craftAmount || !isItemSelected
     , [maxCraftAmount, craftAmount, isItemSelected]);
 
@@ -53,7 +53,7 @@ export function Sidebar() {
 
     const amountChange = (amount: number) => setCraftAmount(craftAmount + amount);
 
-    const onCraftItems = async () => {
+    const onCraftItems = async (): Promise<any> => {
         if (!isWalletConnected || !isAlchemicaApproved) {
             setIsModalOpen(true);
         } else {
@@ -86,7 +86,7 @@ export function Sidebar() {
         }
     };
 
-    const renderSelectedItem = () => {
+    const renderSelectedItem = (): any => {
         if (isItemSelected) {
             return category === 'tile' ?
                 <Tile tile={selectedItem} /> :

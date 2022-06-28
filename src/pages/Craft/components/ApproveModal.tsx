@@ -13,7 +13,9 @@ import { modalStyles } from '../styles';
 
 // TODO add types
 export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boolean) => void }) {
-    const [isTokenApproving, setIsTokenApproving] = useState(false);
+    const classes = modalStyles();
+
+    const [isTokenApproving, setIsTokenApproving] = useState<boolean>(false);
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const { showSnackbar } = useContext<any>(SnackbarContext);
     const {
@@ -23,26 +25,23 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
         setTokenApprovals
     } = useContext<any>(CraftContext);
 
-    const classes = modalStyles();
 
-    const getContract = () => category === 'tile' ? TILES_CONTRACT : INSTALLATION_CONTRACT;
-
-    const approveAlchemicaSpend = async () => {
-        const operator = getContract();
-        const tokenName = Object.keys(TokenTypes)[activeIndex];
+    const approveAlchemicaSpend = async (): Promise<void> => {
+        const operator: string = category === 'tile' ? TILES_CONTRACT : INSTALLATION_CONTRACT;
+        const tokenName: string = Object.keys(TokenTypes)[activeIndex];
 
         setIsTokenApproving(true);
 
         try {
-            const response = await AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator);
+            const isApproved: boolean = await AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator);
 
             setTokenApprovals(currentApprovals => {
-                currentApprovals[category][activeIndex] = response;
+                currentApprovals[category][activeIndex] = isApproved;
 
                 return { ...currentApprovals };
             });
 
-            if (response) {
+            if (isApproved) {
                 showSnackbar('success', `${tokenName} approved!`);
             } else {
                 showSnackbar('error', `${tokenName} approve failed :( Please try again`);
@@ -53,7 +52,8 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
     };
 
     useEffect(() => {
-        const isSomeNotApproved = tokensApprovals[category].some(isApproved => !isApproved);
+        const isSomeNotApproved: boolean = tokensApprovals[category].some(isApproved => !isApproved);
+
         setActiveIndex(
             tokensApprovals[category || 'tiles'].findIndex(isApproved => !isApproved)
         );

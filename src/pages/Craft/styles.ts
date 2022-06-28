@@ -29,6 +29,9 @@ export const styles = makeStyles(theme => createStyles({
         [theme.breakpoints.up('md')]: {
             display: 'none'
         }
+    },
+    loader: {
+        margin: 'auto'
     }
 }));
 
