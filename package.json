@@ -49,7 +49,7 @@
   },
   "scripts": {
     "build": "yarn lint && NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
-    "build:prod": "gcloud builds submit --tag eu.gcr.io/ordengg/fireball",
+    "build:prod": "gcloud builds submit --tag eu.gcr.io/ordengg/fireball --timeout=1200s",
     "gcloud:staging": "gcloud run deploy fireball-staging --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
     "gcloud:prod": "gcloud run deploy fireball --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
     "deploy:staging": "run-s build:prod gcloud:staging",

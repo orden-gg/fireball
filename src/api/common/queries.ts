@@ -538,6 +538,54 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
     }`;
 };
 
+export const borrowedByAddressQuery = (address: any, skip: any): any => {
+    return `{
+      gotchiLendings(
+        first: 1000,
+        skip: ${skip},
+        where:{
+            borrower: "${address}",
+            cancelled: false,
+            completed: false
+        }
+      ) {
+        id
+        timeCreated
+        timeAgreed
+        rentDuration
+        upfrontCost
+        period
+        lastClaimed
+        completed
+        gotchi {
+            id
+            name
+            collateral
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+            escrow
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            withSetsRarityScore
+            equippedWearables
+            possibleSets
+            equippedSetID
+            equippedSetName
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
+      }
+    }`;
+};
+
 export const incomeQuery = (id: any, timestamp: any): any => {
     return `{
         vortexClaims(

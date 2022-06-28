@@ -260,6 +260,9 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                 gotchi.lending && isHighlightLending && 'lended'
             )}
         >
+            { gotchi.lending && isHighlightLending && (
+                <div className={classes.statusBadge}>Lended</div>
+            )}
             {render.map((name: any) => {
                 return renderSection(name);
             })}
