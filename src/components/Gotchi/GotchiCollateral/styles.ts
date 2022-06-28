@@ -2,7 +2,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() => createStyles({
     gotchiCollateral: {
-        width: 20,
+        width: 23,
         height: 23,
         display: 'flex',
         alignContent: 'center',
@@ -12,8 +12,6 @@ export const styles = makeStyles(() => createStyles({
             display: 'block',
             maxHeight: '100%',
             maxWidth: '100%'
-        },
-        '.vertical &': {
         }
     }
 }));

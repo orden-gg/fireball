@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import classNames from 'classnames';
 import { Typography } from '@mui/material';
 
+import { ListingTypes } from 'shared/constants';
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { Portal } from 'components/Items/Portal/Portal';
@@ -11,7 +12,6 @@ import { TicketHorizontal } from 'components/Items/Ticket/TicketHorizontal';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { WearableHorizontal } from 'components/Items/Wearable/WearableHorizontal';
 import { BaazaarContext } from 'contexts/BaazaarContext';
-import { listingTypes } from 'data/types';
 
 import { Pagination } from './Pagination';
 import { Aavegotchi } from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
@@ -64,11 +64,11 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
 
     return (
         <div className={classes.baazaarBody}>
-            <div className={classNames(classes.baazaarListItems, selectedGoodsType === listingTypes.activity ? 'horizontal' : '')}>
+            <div className={classNames(classes.baazaarListItems, selectedGoodsType === ListingTypes.Activity ? 'horizontal' : '')}>
                 {
                     // eslint-disable-next-line array-callback-return
                     goods.map((item: any, index: number) => {
-                        if (selectedGoodsType === listingTypes.activity) {
+                        if (selectedGoodsType === ListingTypes.Activity) {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
                                     renderGotchi(item)
@@ -141,7 +141,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                         } else {
                             return <div key={index} className={classes.baazaarListItem}>
                                 {
-                                    (selectedGoodsType === listingTypes.aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
+                                    (selectedGoodsType === ListingTypes.Aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && <Portal portal={item} />

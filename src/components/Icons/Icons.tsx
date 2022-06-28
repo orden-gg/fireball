@@ -12,6 +12,7 @@ import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import channel from 'assets/images/icons/channel.svg';
+import channelActive from 'assets/images/icons/channel-active.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import controller from 'assets/images/wearables/204.svg';
 import discord from 'assets/images/icons/discord.svg';
@@ -103,6 +104,10 @@ export const FudIcon = ({ className, width, height }: IconProps) => {
 
 export const ChannelIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={channel} alt='channel' />;
+};
+
+export const ChannelActiveIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={channelActive} alt='channel active' />;
 };
 
 export const ConsumableIcon = ({ width, height }: IconProps) => {

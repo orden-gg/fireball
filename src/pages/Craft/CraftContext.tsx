@@ -4,7 +4,7 @@ import { useMetamask } from 'use-metamask';
 
 import { BalancesContext } from 'contexts/BalancesContext';
 import { AlchemicaApi } from 'api';
-import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'api/common/api.constants';
+import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 
 export const CraftContext = createContext({});
 

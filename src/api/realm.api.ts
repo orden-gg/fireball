@@ -1,6 +1,6 @@
 import { REALM_ABI } from 'data/abi/realm.abi';
 
-import { REALM_CONTRACT } from './common/api.constants';
+import { REALM_CONTRACT } from 'shared/constants';
 import { EthersApi } from './ethers.api';
 
 const realmContract = EthersApi.makeContract(REALM_CONTRACT, REALM_ABI, 'polygon');

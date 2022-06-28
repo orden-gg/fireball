@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
@@ -33,7 +33,7 @@ const sortings: SortingListItem[] = [
 const queryParamsOrder: string[] = ['sort', 'dir'];
 
 export function ClientWarehouse() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
@@ -54,10 +54,6 @@ export function ClientWarehouse() {
 
             setWarehouseSorting({ type: key, dir });
         }
-
-        return () => {
-            setWarehouseSorting({ type: 'rarityId', dir: 'desc' });
-        };
     }, []);
 
     useEffect(() => {
@@ -69,14 +65,14 @@ export function ClientWarehouse() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
 
-        history.push({
+        navigate({
             pathname: location.pathname,
             search: qs.stringify({ ...queryParams, sort: paramKey, dir }, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
                 arrayFormat: 'comma'
             })
         });
-    }, [queryParams, history, location.pathname]);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSortingChange = useCallback((prop: string, dir: string) => {
         setWarehouseSorting({ type: prop, dir });

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
@@ -76,7 +76,7 @@ const queryParamsOrder: string[] = ['hauntId', 'collateral', 'search', 'sort', '
 export function GhostExplorer() {
     const classes = styles();
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
@@ -165,14 +165,14 @@ export function GhostExplorer() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
         const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);

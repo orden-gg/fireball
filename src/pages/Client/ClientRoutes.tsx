@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import { Route, Switch, useRouteMatch, useHistory, useParams, useLocation } from 'react-router';
-import { Redirect, NavLink } from 'react-router-dom';
+import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
@@ -15,6 +14,7 @@ import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { ClientAccount } from './routes/ClientAccount';
+import { ClientBorrowed } from './routes/ClientBorrowed';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientLendings } from './routes/ClientLendings';
@@ -29,8 +29,7 @@ const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'di
 export function ClientRoutes() {
     const classes = styles();
 
-    const match = useRouteMatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
 
     const subroute = location.pathname.split('/')[3];
@@ -54,7 +53,7 @@ export function ClientRoutes() {
             if (activeAddress !== account && !isActiveAddressSet) {
                 setActiveAddress(account);
             } else {
-                history.push({
+                navigate({
                     pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,
                     search: queryString.stringify(queryParams, {
                         sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
@@ -62,6 +61,7 @@ export function ClientRoutes() {
                         encode: false
                     })
                 });
+
                 getClientData(activeAddress);
             }
 
@@ -87,11 +87,9 @@ export function ClientRoutes() {
                         links={navData}
                         beforeContent={(
                             <Button
-                                to={`/client/${account}`}
+                                to={account as string}
                                 className={classes.customBtn}
                                 component={NavLink}
-                                activeClassName='active'
-                                exact
                             >
                                 <GameControllerIcon width={24} height={24} />
                             </Button>
@@ -112,16 +110,17 @@ export function ClientRoutes() {
                 </div>
             )}
 
-            <Switch>
-                <Route exact path={`${match.path}/`} component={ ClientAccount } />
-                <Route path={`${match.path}/gotchis`} component={ ClientGotchis } />
-                <Route path={`${match.path}/lendings`} component={ ClientLendings } />
-                <Route path={`${match.path}/installations`} component={ ClientInstallations } />
-                <Route path={`${match.path}/warehouse`} component={ ClientWarehouse } />
-                <Route path={`${match.path}/tickets`} component={ ClientTickets } />
-                <Route path={`${match.path}/realm`} component={ ClientRealm } />
-                <Redirect from='*' to={`/client/${account}`} />
-            </Switch>
+            <Routes>
+                <Route path='' element={<ClientAccount />} />
+                <Route path='gotchis' element={<ClientGotchis />} />
+                <Route path='lendings' element={<ClientLendings />} />
+                <Route path='borrowed' element={<ClientBorrowed />} />
+                <Route path='installations' element={<ClientInstallations />} />
+                <Route path='warehouse' element={<ClientWarehouse />} />
+                <Route path='tickets' element={<ClientTickets />} />
+                <Route path='realm/*' element={<ClientRealm />} />
+                <Route path='*' element={<Navigate to='' replace />} />
+            </Routes>
         </div>
     );
 }

@@ -35,6 +35,10 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
           owner {
             id
           }
+          originalOwner {
+            id
+          }
+          lending
         }
     }`;
 };
@@ -58,7 +62,7 @@ export const userQuery = (id: any, skip: any): any => {
     return `{
         user(id: "${id}") {
           id
-          gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
+          gotchisOriginalOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
             id
             name
             numericTraits
@@ -87,6 +91,7 @@ export const userQuery = (id: any, skip: any): any => {
             owner {
               id
             }
+            lending
           }
         }
     }`;
@@ -492,6 +497,54 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
         where:{
             lender: "${address}",
             borrower_not: "0x0000000000000000000000000000000000000000",
+            cancelled: false,
+            completed: false
+        }
+      ) {
+        id
+        timeCreated
+        timeAgreed
+        rentDuration
+        upfrontCost
+        period
+        lastClaimed
+        completed
+        gotchi {
+            id
+            name
+            collateral
+            kinship
+            hauntId
+            baseRarityScore
+            modifiedRarityScore
+            escrow
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            withSetsRarityScore
+            equippedWearables
+            possibleSets
+            equippedSetID
+            equippedSetName
+        }
+        lender
+        borrower
+        whitelistId
+        tokensToShare
+        splitOther
+        splitBorrower
+        splitOwner
+      }
+    }`;
+};
+
+export const borrowedByAddressQuery = (address: any, skip: any): any => {
+    return `{
+      gotchiLendings(
+        first: 1000,
+        skip: ${skip},
+        where:{
+            borrower: "${address}",
             cancelled: false,
             completed: false
         }

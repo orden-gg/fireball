@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Backdrop, CircularProgress, Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import GridOffIcon from '@mui/icons-material/GridOff';
@@ -39,7 +39,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     const classes = { ...styles(), ...InterfaceStyles() };
 
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
 
     const [game, setGame] = useState<any>(null);
@@ -77,6 +77,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             return Boolean(active?.some(name => name === type));
         }
     };
+
     const basicButtons = useMemo(() => {
         return realmGroups
             .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
@@ -151,7 +152,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     }, [game]);
 
     useEffect(() => {
-        history.push({
+        navigate({
             pathname: location.pathname,
             search: qs.stringify(params, {
                 sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
@@ -175,6 +176,14 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                         game.scene.toggleGroup(type, true);
                     }
                 }
+            } else {
+                const activeGroups = groups.filter(group => group.active);
+                activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
+
+                setParams(paramsCache => ({
+                    ...paramsCache,
+                    active: activeGroups.map(group => group.type)
+                }));
             }
         }
     }, [realmGroups, mapCreated]);

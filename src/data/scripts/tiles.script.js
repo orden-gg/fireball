@@ -4,8 +4,8 @@ import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
 
-import { TileTypes } from '../types.js';
-import { TILES_CONTRACT } from '../../api/common/constants.js';
+import { TileTypes } from 'shared/enums';
+import {  } from '../../api/common/constants.js';
 
 const TILES_ABI = JSON.parse(fs.readFileSync('src/data/abi/tiles.abi.json'));
 

@@ -24,6 +24,7 @@ import {
     parselQuery,
     lendingsQuery,
     lendingsByAddressQuery,
+    borrowedByAddressQuery,
     incomeQuery,
     getParcelOrderDirectionQuery,
     gotchisGotchiverseQuery,
@@ -225,7 +226,7 @@ export class TheGraphApi {
                 return []; // terminate if thegraph has no data about address
             }
 
-            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOriginalOwned'], 'id');
 
             return modifyTraits(filteredArray);
 
@@ -470,6 +471,28 @@ export class TheGraphApi {
 
             for (let i = 0; i < 1; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000));
+            }
+
+            return queries;
+        }
+
+        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+            const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
+                ...item,
+                ...item.gotchi,
+                lendingId: item.id
+            }));
+
+            return filteredArray;
+        });
+    }
+
+    public static async getBorrowedByAddress(address: string): Promise<any> {
+        function getQueries() {
+            const queries: any[] = [];
+
+            for (let i = 0; i < 1; i++) {
+                queries.push(borrowedByAddressQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;

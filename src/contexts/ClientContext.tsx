@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 
 import { Sorting } from 'shared/models';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
@@ -15,6 +15,10 @@ export const ClientContextProvider = (props: any) => {
     const [lendings, setLendings] = useState<any[]>([]);
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'totalTokens', dir: 'desc' });
     const [loadingLendings, setLoadingLendings] = useState<boolean>(true);
+
+    const [borrowed, setBorrowed] = useState<any[]>([]);
+    const [borrowedSorting, setBorrowedSorting] = useState<Sorting>({ type: 'kinship', dir: 'desc' });
+    const [loadingBorrowed, setLoadingBorrowed] = useState<boolean>(true);
 
     const [warehouse, setWarehouse] = useState<any[]>([]);
     const [warehouseSorting, setWarehouseSorting] = useState<Sorting>({ type: 'rarityId', dir: 'desc' });
@@ -52,6 +56,12 @@ export const ClientContextProvider = (props: any) => {
             items: lendings.length
         },
         {
+            name: 'borrowed',
+            icon: <LendingIcon width={24} height={24} />,
+            loading: loadingBorrowed,
+            items: borrowed.length
+        },
+        {
             name: 'warehouse',
             icon: <WarehouseIcon width={24} height={24} />,
             loading: loadingWarehouse,
@@ -80,6 +90,7 @@ export const ClientContextProvider = (props: any) => {
     const getClientData = (address: string): void => {
         getGotchis(address);
         getLendings(address);
+        getBorrowed(address);
         getInventory(address);
         getTickets(address);
         getRealm(address);
@@ -172,6 +183,19 @@ export const ClientContextProvider = (props: any) => {
                     setLendings(CommonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
                 });
+            }
+        );
+    };
+
+    const getBorrowed = (address: string): void => {
+        setLoadingBorrowed(true);
+
+        TheGraphApi.getBorrowedByAddress(address)
+            .then((borrowed: any[]) => {
+                const { type, dir } = borrowedSorting;
+
+                setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
+                setLoadingBorrowed(false);
             }
         );
     };
@@ -331,6 +355,12 @@ export const ClientContextProvider = (props: any) => {
             loadingLendings,
             setLendings,
             setLendingsSorting,
+
+            borrowed,
+            borrowedSorting,
+            loadingBorrowed,
+            setBorrowed,
+            setBorrowedSorting,
 
             warehouse,
             warehouseSorting,

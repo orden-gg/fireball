@@ -1,4 +1,4 @@
-import { Erc1155Categories } from 'data/types';
+import { Erc1155Categories } from 'shared/constants';
 
 import { CardName } from '../common/CardName/CardName';
 import { ERC1155 } from '../ERC1155/ERC1155';

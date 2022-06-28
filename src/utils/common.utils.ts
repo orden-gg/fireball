@@ -124,4 +124,8 @@ export class CommonUtils {
     public static isEmptyObject(obj: any): any {
         return Object.keys(obj).length === 0;
     }
+
+    public static summArray(array: number[]): number {
+        return array.reduce((a, b) => a + b, 0);
+    }
 }

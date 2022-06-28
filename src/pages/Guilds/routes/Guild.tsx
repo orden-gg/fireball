@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { Redirect, Route, Switch, useHistory, useParams, useRouteMatch } from 'react-router';
+import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -19,8 +19,7 @@ export function Guild() {
     const classes = guildStyles();
 
     const params = useParams<{ name: string }>();
-    const history = useHistory();
-    const match = useRouteMatch();
+    const navigate = useNavigate();
 
     const { guilds, guildId, setGuildId } = useContext<any>(GuildsContext);
 
@@ -30,7 +29,7 @@ export function Guild() {
         ));
 
         if (guildId === undefined || guilds[guildId].members?.length === 0) {
-            history.push('/guilds');
+            navigate('/guilds');
         } else {
             setGuildId(guildId);
         }
@@ -46,7 +45,7 @@ export function Guild() {
                     <Tooltip
                         title='Back to guilds'
                     >
-                        <IconButton className={classes.backButton} onClick={ () => { history.push('/guilds')} } >
+                        <IconButton className={classes.backButton} onClick={ () => { navigate('/guilds')} } >
                             <ArrowBackIcon />
                         </IconButton>
                     </Tooltip>
@@ -54,12 +53,12 @@ export function Guild() {
 
                 <Box className={classes.guildContent}>
                     <GuildNav />
-                    <Switch>
-                        <Route path={`${match.path}/gotchis`} component={GuildGotchis} />
-                        <Route path={`${match.path}/lendings`} component={GuildLendings} />
-                        <Route path={`${match.path}/realm`} component={ GuildsRealm } />
-                        <Redirect from={match.path} to={`${match.path}/gotchis`} />
-                    </Switch>
+                    <Routes>
+                        <Route path='gotchis' element={<GuildGotchis />} />
+                        <Route path='lendings' element={<GuildLendings />} />
+                        <Route path='realm' element={ <GuildsRealm /> } />
+                        <Route path='*' element={<Navigate to='gotchis' replace />} />
+                    </Routes>
                 </Box>
             </Box>
         </>

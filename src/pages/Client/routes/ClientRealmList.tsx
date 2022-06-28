@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -7,6 +7,7 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
+import { InstallationTypeNames } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -18,7 +19,6 @@ import { EthersApi, InstallationsApi, TheGraphApi } from 'api';
 import { ClientContext } from 'contexts/ClientContext';
 import { FilterUtils, InstallationsUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
-import { InstallationTypeNames } from 'data/types';
 
 import { ClientRealmActions } from '../components/ClientRealmActions';
 import { LoginContext } from 'contexts/LoginContext';
@@ -99,7 +99,7 @@ const queryParamsOrder: string[] = [
 ];
 
 export function ClientRealmList() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
@@ -137,7 +137,6 @@ export function ClientRealmList() {
 
         return () => {
             onResetFilters();
-            setRealmSorting({ type: 'size', dir: 'desc' });
         };
     }, []);
 
@@ -186,14 +185,14 @@ export function ClientRealmList() {
     const updateSortQueryParams = useCallback((prop: string, dir: string) => {
         const params = { ...queryParams, sort: prop, dir };
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
         const params: any = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        FilterUtils.updateQueryParams(history, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, history, location.pathname]);
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
@@ -217,9 +216,9 @@ export function ClientRealmList() {
             getRealmUpgradesQueue(parcelIds)
         ]).then(([realmInfo, realmUpgradesQueue]) => {
             const modifiedParcels = realm.map(parcel => {
-                const isParcelUpgrading = realmUpgradesQueue.find(upgrade => upgrade.parcelId === parcel.tokenId);
-                const parcelInfo = realmInfo.find(info => info.id === parcel.tokenId);
-                const altar = parcelInfo.installations.find(installation => installation.type === InstallationTypeNames.Altar);
+                const isParcelUpgrading = realmUpgradesQueue.find((upgrade: any) => upgrade.parcelId === parcel.tokenId);
+                const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
+                const altar = parcelInfo.installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
 
                 return {
                     ...parcel,

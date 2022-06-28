@@ -1,4 +1,4 @@
-import { listingTypes } from 'data/types';
+import { ListingTypes } from 'shared/constants';
 
 export const getQueries = (selectedGoodsType: any, listingType: any): string[] => {
     const getQuery = (params: any, selectedGoodsType: any, listingType: any): string => {
@@ -24,15 +24,15 @@ export const getQueries = (selectedGoodsType: any, listingType: any): string[] =
     const queries: string[] = [];
     let params: any;
 
-    if (listingType === listingTypes.all) {
+    if (listingType === ListingTypes.All) {
         [
-            listingTypes.closedPortal,
-            listingTypes.openedPortal,
-            listingTypes.aavegotchi,
-            listingTypes.wearable,
-            listingTypes.consumable,
-            listingTypes.tickets,
-            listingTypes.realm
+            ListingTypes.ClosedPortal,
+            ListingTypes.OpenedPortal,
+            ListingTypes.Aavegotchi,
+            ListingTypes.Wearable,
+            ListingTypes.Consumable,
+            ListingTypes.Tickets,
+            ListingTypes.Realm
         ].forEach((item: string) => {
             params = getParamsForSelectedType(selectedGoodsType, item);
             queries.push(getQuery(params, selectedGoodsType, item));
@@ -47,21 +47,21 @@ export const getQueries = (selectedGoodsType: any, listingType: any): string[] =
 
 const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any => {
     const getErcTypeFor1155Listing = (selectedGoodsType: any): any => {
-        return [listingTypes.activity,
-            listingTypes.sold,
-            listingTypes.purchased
+        return [ListingTypes.Activity,
+            ListingTypes.Sold,
+            ListingTypes.Purchased
         ].indexOf(selectedGoodsType) === -1 ? 'erc1155Listings' : 'erc1155Purchases';
     };
 
     const getParamsForErc1155Listing = (params: any, params2: any): any => {
-        return [listingTypes.activity,
-            listingTypes.sold,
-            listingTypes.purchased
+        return [ListingTypes.Activity,
+            ListingTypes.Sold,
+            ListingTypes.Purchased
         ].indexOf(selectedGoodsType) === -1 ? params : params2;
     };
 
     const map: any = {
-        [listingTypes.closedPortal]: {
+        [ListingTypes.ClosedPortal]: {
             ercType: 'erc721Listings',
             category: '0',
             params: `
@@ -106,7 +106,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                     numericTraits
                 }`
         },
-        [listingTypes.openedPortal]: {
+        [ListingTypes.OpenedPortal]: {
             ercType: 'erc721Listings',
             category: '2',
             params: `
@@ -151,7 +151,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                     numericTraits
                 }`
         },
-        [listingTypes.aavegotchi]: {
+        [ListingTypes.Aavegotchi]: {
             ercType: 'erc721Listings',
             category: '3',
             params: `
@@ -196,7 +196,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                     numericTraits
                 }`
         },
-        [listingTypes.wearable]: {
+        [ListingTypes.Wearable]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
             category: '0',
             params: getParamsForErc1155Listing(`
@@ -219,7 +219,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                 seller
                 `)
         },
-        [listingTypes.consumable]: {
+        [ListingTypes.Consumable]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
             category: '2',
             params: getParamsForErc1155Listing(`
@@ -242,7 +242,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                 seller
                 `)
         },
-        [listingTypes.tickets]: {
+        [ListingTypes.Tickets]: {
             ercType: getErcTypeFor1155Listing(selectedGoodsType),
             category: '3',
             params: getParamsForErc1155Listing(`
@@ -265,7 +265,7 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
                 seller
                 `)
         },
-        [listingTypes.realm]: {
+        [ListingTypes.Realm]: {
             ercType: 'erc721Listings',
             category: '4',
             params: `
@@ -317,23 +317,23 @@ const getParamsForSelectedType = (selectedGoodsType: any, listingType: any): any
 
 const getWhereParams = (selectedGoodsType: any, listingType: any): any => {
     const getCorrectOrdering = (param: any, param1: any): any => {
-        return [listingTypes.wearable,
-            listingTypes.consumable,
-            listingTypes.tickets
+        return [ListingTypes.Wearable,
+            ListingTypes.Consumable,
+            ListingTypes.Tickets
         ].indexOf(listingType) === -1 ? param : param1;
     };
 
     const map: any = {
-        [listingTypes.activity]: [
+        [ListingTypes.Activity]: [
             getCorrectOrdering('timePurchased_gt: 0', '')
         ],
-        [listingTypes.listing]: [
+        [ListingTypes.Listing]: [
             'seller: "0x0BcDc503f78BFf5Dc7B867C6740226d9621117b1"', 'cancelled: false', getCorrectOrdering('timePurchased: 0', 'sold: false')
         ],
-        [listingTypes.sold]: [
+        [ListingTypes.Sold]: [
             'seller: "0x0BcDc503f78BFf5Dc7B867C6740226d9621117b1"', getCorrectOrdering('timePurchased_gt: 0', '')
         ],
-        [listingTypes.purchased]: [
+        [ListingTypes.Purchased]: [
             'buyer: "0x0BcDc503f78BFf5Dc7B867C6740226d9621117b1"', getCorrectOrdering('timePurchased_gt: 0', '')
         ]
     };
@@ -343,23 +343,23 @@ const getWhereParams = (selectedGoodsType: any, listingType: any): any => {
 
 const getOrderParams = (selectedGoodsType: any, listingType: any): any => {
     const getCorrectOrdering = (orderBy: any): any => {
-        return [listingTypes.wearable,
-            listingTypes.consumable,
-            listingTypes.tickets
+        return [ListingTypes.Wearable,
+            ListingTypes.Consumable,
+            ListingTypes.Tickets
         ].indexOf(listingType) === -1 ? orderBy : 'timeLastPurchased';
     };
 
     const map: any = {
-        [listingTypes.activity]: [
+        [ListingTypes.Activity]: [
             `orderBy: ${getCorrectOrdering('timePurchased')}`, 'orderDirection: desc'
         ],
-        [listingTypes.listing]: [
+        [ListingTypes.Listing]: [
             `orderBy: ${getCorrectOrdering('timeCreated')}`, 'orderDirection: desc'
         ],
-        [listingTypes.sold]: [
+        [ListingTypes.Sold]: [
             `orderBy: ${getCorrectOrdering('timeCreated')}`, 'orderDirection: desc'
         ],
-        [listingTypes.purchased]: [
+        [ListingTypes.Purchased]: [
             `orderBy: ${getCorrectOrdering('timeCreated')}`, 'orderDirection: desc'
         ]
     };

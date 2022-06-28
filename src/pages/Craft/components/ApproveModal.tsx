@@ -3,9 +3,8 @@ import { Button, CircularProgress, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'api/common/api.constants';
+import { INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
 import { AlchemicaApi } from 'api';
-import { TokenTypes } from 'data/types';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { CraftContext } from '../CraftContext';

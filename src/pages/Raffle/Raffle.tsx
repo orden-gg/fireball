@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Route, Switch, Redirect, useRouteMatch, useHistory, useLocation } from 'react-router';
+import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Box } from '@mui/material';
 
@@ -21,9 +21,8 @@ import { styles } from './styles';
 export function Raffle() {
     const classes = styles();
 
-    const match = useRouteMatch();
     const location = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const queryParams = queryString.parse(location.search) as CustomParsedQuery;
     const lastRaffle = raffles[raffles.length - 1];
 
@@ -50,8 +49,8 @@ export function Raffle() {
         if (raffleActive && currentRaffle) {
             queryParams.address = raffleActive;
 
-            history.push({
-                pathname: `${match.path}/${currentRaffle.name}`,
+            navigate({
+                pathname: currentRaffle.name,
                 search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
             });
         }
@@ -82,12 +81,10 @@ export function Raffle() {
             )}
 
             <RaffleContextProvider>
-                <Switch>
-                    <Route path={`${match.path}/:name`}>
-                        <RaffleContent user={raffleActive} />
-                    </Route>
-                    <Redirect from='*' to={`${match.path}/${lastRaffle.name}`} />
-                </Switch>
+                <Routes>
+                    <Route path=':name' element={<RaffleContent user={raffleActive} />} />
+                    <Route path='*' element={<Navigate to={lastRaffle.name} replace /> } />
+                </Routes>
             </RaffleContextProvider>
         </Box>
     );

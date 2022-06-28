@@ -1,7 +1,7 @@
 import React from 'react';
 
+import { Erc721Categories } from 'shared/constants';
 import { H1OpenedPortalIcon, H1SealedPortalIcon, H2OpenedPortalIcon, H2SealedPortalIcon } from 'components/Icons/Icons';
-import { Erc721Categories } from 'data/types';
 
 import { styles, portalStyles } from '../styles';
 

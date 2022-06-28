@@ -1,5 +1,5 @@
+import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
 import installations from 'data/installations.data.json';
-import { InstallationTypeNames, InstallationTypes } from 'data/types';
 
 export class InstallationsUtils {
     public static getMetadataById(id: any): any {
@@ -48,7 +48,7 @@ export class InstallationsUtils {
         return installations[id][InstallationTypes.AlchemicaCost];
     }
 
-    public static getTypeById(id: any): any {
+    public static getTypeById(id: any): string {
         switch (installations[id][InstallationTypes.Type]) {
             case 0:
                 return InstallationTypeNames.Altar;

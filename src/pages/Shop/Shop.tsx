@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CircularProgress, IconButton, TextField, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import queryString from 'query-string';
 
+import { Erc1155Categories, Erc721Categories } from 'shared/constants';
 import {
     BaazarIcon,
     ConsumableIcon,
@@ -23,7 +23,6 @@ import { Ticket } from 'components/Items/Ticket/Ticket';
 import { Wearable } from 'components/Items/Wearable/Wearable';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
-import { Erc721Categories, Erc1155Categories } from 'data/types';
 
 import { styles } from './styles';
 
@@ -32,7 +31,7 @@ import { ListingTitle } from './components/ListingTitle';
 export function Shop() {
     const classes = styles();
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
 
     const params = queryString.parse(location.search);
@@ -190,7 +189,7 @@ export function Shop() {
         setCurrentAddress(address);
 
         if (EthersApi.isEthAddress(address)) {
-            history.push({ pathname: location.pathname, search: `?address=${address}` });
+            navigate({ pathname: location.pathname, search: `?address=${address}` });
         }
     };
 
@@ -208,7 +207,7 @@ export function Shop() {
 
     return (
         <div className={classes.container}>
-            <IconButton className={classes.backButton} onClick={() => { history.push('/') }} >
+            <IconButton className={classes.backButton} onClick={() => { navigate('/') }} >
                 <ArrowBackIcon />
             </IconButton>
 

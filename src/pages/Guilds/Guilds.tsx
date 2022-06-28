@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { GuildsContextProvider } from './GuildsContext';
 
@@ -6,15 +6,13 @@ import { Guild } from './routes/Guild';
 import { GuildsPreview } from './routes/GuildsPreview';
 
 export function Guilds() {
-    const match = useRouteMatch();
-
     return (
         <GuildsContextProvider>
-            <Switch>
-                <Route exact path={`${match.path}/`} component={GuildsPreview} />
-                <Route path={`${match.path}/:name`} component={Guild} />
-                <Redirect from={match.path} to={match.path} />
-            </Switch>
+            <Routes>
+                <Route path='' element={<GuildsPreview />} />
+                <Route path=':name/*' element={<Guild />} />
+                <Route path='*' element={<Navigate to='' replace />} />
+            </Routes>
         </GuildsContextProvider>
     );
 }

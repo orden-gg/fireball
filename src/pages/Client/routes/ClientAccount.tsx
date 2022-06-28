@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 import { EthAddressPanel } from 'components/EthAddressPanel/EthAddressPanel';
 import { EthersApi } from 'api';
@@ -17,7 +17,7 @@ export function ClientAccount() {
 
             { EthersApi.isEthAddress(account) && (
                 <div className={classes.accountPanel}>
-                    <EthAddressPanel address={account} />
+                    <EthAddressPanel address={account as string} />
                 </div>
             )}
         </div>

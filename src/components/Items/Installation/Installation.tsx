@@ -1,6 +1,4 @@
-
-import { Erc1155Categories } from 'data/types';
-
+import { Erc1155Categories } from 'shared/constants';
 import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 
 import { InstallationImage } from './InstallationImage';
