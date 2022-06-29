@@ -52,7 +52,7 @@ export function Craftbar() {
 
     const amountChange = (amount: number) => {
         setCraftAmount(craftAmount + amount);
-    }
+    };
 
     const onCraftItems = () => {
         if (!isWalletConnected || !isAlchemicaApproved) {

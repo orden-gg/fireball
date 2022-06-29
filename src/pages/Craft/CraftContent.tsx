@@ -31,7 +31,7 @@ export function CraftContent() {
         const promises: any[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
 
         Promise.all(promises).then(([installations, tiles]: any[]) => {
-            const filteredInstallations = installations.map((data, index) =>({
+            const filteredInstallations = installations.map((data, index) => ({
                 ...InstallationsUtils.getMetadataById(index),
                 id: index,
                 category: 'installation',

@@ -20,9 +20,9 @@ export function ConnectModal() {
         connectMetamask()
             .then((isConnected: boolean) => {
                 if (isConnected) {
-                    showSnackbar('success', 'Wallet connected!')
+                    showSnackbar('success', 'Wallet connected!');
                 } else {
-                    showSnackbar('error', 'Wallet connect failed :( please reload page and try again')
+                    showSnackbar('error', 'Wallet connect failed :( please reload page and try again');
                 }
             })
             .catch(error => console.log(error))
