@@ -7,12 +7,12 @@ import { CountdownLongFormat, CountdownShortFormat } from 'shared/models';
 
 const interval: number = 1000;
 const defaultLongFormat: CountdownLongFormat = {
-    years: { key: CountdownFormatNonZeroType.Y, values: ['year', 'years'], showIfZero: false },
-    months: { key: CountdownFormatNonZeroType.MM, values: ['month', 'months'], showIfZero: false },
-    days: { key: CountdownFormatNonZeroType.D, values: ['day', 'days'], showIfZero: false },
-    hours: { key: CountdownFormatNonZeroType.H, values: ['hour', 'hours'], showIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, values: ['minute', 'minutes'], showIfZero: false },
-    seconds: { key: CountdownFormatNonZeroType.S, values: ['second', 'seconds'], showIfZero: false }
+    years: { key: CountdownFormatNonZeroType.Y, values: ['year', 'years'], isShown: true, shownIfZero: false },
+    months: { key: CountdownFormatNonZeroType.MM, values: ['month', 'months'], isShown: true, shownIfZero: false },
+    days: { key: CountdownFormatNonZeroType.D, values: ['day', 'days'], isShown: true, shownIfZero: false },
+    hours: { key: CountdownFormatNonZeroType.H, values: ['hour', 'hours'], isShown: true, shownIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, values: ['minute', 'minutes'], isShown: true, shownIfZero: false },
+    seconds: { key: CountdownFormatNonZeroType.S, values: ['second', 'seconds'], isShown: true, shownIfZero: false }
 };
 
 interface CountdownProps {
@@ -24,12 +24,12 @@ interface CountdownProps {
 }
 
 /***
- * @param targetDate - luxon date in milliseconds
+ * @param targetDate - date in milliseconds
  * @param shortFormat - 1y 2m 3d 4h
  * @param longFormat - 1 year 2 months 3 days 4 hours
  *
  * If unit has to be shown if it's zero and previous units are also equal
- * to zero - eg. 00 days 00 hours 21 minutes, set `@showIfZero` in formats configs to `true`
+ * to zero - eg. 00 days 00 hours 21 minutes, set `@shownIfZero` in formats configs to `true`
  *
  * @param onEnd - callback function that will trigger when current date is equal to `@targetDate`
  * @param replacementComponent - component that will be placed instead of countdown if `@targetDate` is in the past
@@ -60,7 +60,7 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
                 const formatKeys = Object.keys(shortFormat) as (keyof DurationLikeObject)[];
                 const units: DurationObjectUnits = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
                 const mappedShortFormat: string[] = Object.keys(units)
-                    .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
+                    .filter(key => getUnit(shortFormat, key, units))
                     .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
 
                 formattedTimeString = Duration.fromObject(units).toFormat(mappedShortFormat.join(' '));
@@ -98,12 +98,24 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
         const formatKeys = Object.keys(format) as (keyof DurationLikeObject)[];
         const units: DurationObjectUnits = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
         const mappedLongFormat: string[] = Object.entries(units)
-            .filter(([key]) => format[key].showIfZero || getIsShowUnit(key, units))
+            .filter(([key]) => getUnit(format, key, units))
             .map(([key, unit]) => `${format[key].key} ${ parseInt(unit as string) !== 1 ?
                 `'${format[key].values[1]}'` : `'${format[key].values[0]}'`}`
             );
 
         return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
+    };
+
+    const getUnit = (format: CountdownShortFormat | CountdownLongFormat, key: string, units: DurationObjectUnits): boolean => {
+        if (format[key].isShown && (format[key].shownIfZero || getIsShowUnit(key, units))) {
+            return true;
+        }
+
+        if (!format[key].isShown && format[key].showIfParentIsZero && !getIsShowUnit(format[key].parentKey, units)) {
+            return getIsShowUnit(key, units);
+        }
+
+        return false;
     };
 
     const isShowUnitPredicate = (unitsKeys: string[], units: DurationLikeObject): boolean => {

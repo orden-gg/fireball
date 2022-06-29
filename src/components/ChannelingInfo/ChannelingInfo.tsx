@@ -9,9 +9,9 @@ import { Countdown } from 'components/Countdown/Countdown';
 import { styles } from './styles';
 
 const countdownFormat: CountdownShortFormat = {
-    days: { key: CountdownFormatNonZeroType.D, value: 'd', showIfZero: false },
-    hours: { key: CountdownFormatNonZeroType.H, value: 'h', showIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', showIfZero: false }
+    days: { key: CountdownFormatNonZeroType.D, value: 'd', isShown: true, shownIfZero: false },
+    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
 };
 
 export function ChannelingInfo({ channeling }: { channeling: any }) {

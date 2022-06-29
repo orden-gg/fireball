@@ -2,7 +2,10 @@ import { CountdownFormatNonZeroType } from 'shared/constants';
 
 export interface DefaultFormatOption {
     key: CountdownFormatNonZeroType;
-    showIfZero: boolean;
+    isShown: boolean;
+    shownIfZero: boolean;
+    showIfParentIsZero?: boolean;
+    parentKey?: string;
 }
 
 export interface CountdownShortFormatOption extends DefaultFormatOption {
