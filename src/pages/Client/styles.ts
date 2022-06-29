@@ -15,7 +15,7 @@ export const styles = makeStyles(theme => createStyles({
     },
     routesNav: {
         display: 'flex',
-        overflow: 'auto',
+        overflow: 'initial',
         marginBottom: 4
     },
     clientCitadel: {

@@ -1,49 +1,33 @@
-import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { PageNavLink } from 'shared/models';
 
 import { styles } from './styles';
 
-interface PageNavProps {
-    links: PageNavLink[];
-    beforeContent?: JSX.Element;
-    afterContent?: JSX.Element;
-}
-
-export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
+export function SubNav({ links }: { links: PageNavLink[] }) {
     const classes = styles();
+
     const theme = useTheme();
 
-    const subroute = location.pathname.split('/')[3];
-
-    const data = useMemo(() => links, [links]);
-
     return (
-        <div className={classes.container}>
-            {beforeContent}
+        <>
             {
-                data.map((link: PageNavLink, index: number) => {
+                links.map((subLink: PageNavLink, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
-                            { link.isShowSubRoutes && link.path === subroute &&
-                                <div className={classes.subNav}>
-                                    {link.subNavComponent}
-                                </div>
-                            }
-
                             <Button
-                                disabled={link.count === 0}
-                                startIcon={link.icon}
+                                disabled={subLink.count === 0}
                                 component={NavLink}
-                                className={classes.button}
-                                to={link.path}
+                                className={classNames(classes.button, classes.subButton)}
+                                to={subLink.path}
                             >
-                                <span className={classes.navName}>{link.name}</span>
-                                { link.isLoading ? (
+                                <span className={classes.navName}>{subLink.name}</span>
+                                { subLink.isLoading ? (
                                     <ContentLoader
                                         speed={2}
                                         viewBox='0 0 28 14'
@@ -54,14 +38,13 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                                         <rect x='0' y='0' width='28' height='14' />
                                     </ContentLoader>
                                 ) : (
-                                    <span className={classes.label}>[{link.count}]</span>
+                                    <span className={classes.label}>[{subLink.count}]</span>
                                 )}
                             </Button>
                         </div>
                     );
                 })
             }
-            {afterContent}
-        </div>
+        </>
     );
 }

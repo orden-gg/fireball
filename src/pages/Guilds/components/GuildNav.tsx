@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 
+import { PageNavLink } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
@@ -11,24 +12,27 @@ export function GuildNav() {
 
     const { guildGotchis, guildLendings, guildRealm } = useContext<any>(GuildsContext);
 
-    const navData: any = [
+    const navData: PageNavLink[] = [
         {
             name: 'gotchis',
+            path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            loading: false,
-            items: guildGotchis.length || '...'
+            isLoading: false,
+            count: guildGotchis.length || '...'
         },
         {
             name: 'lendings',
+            path: 'lendings',
             icon: <LendingIcon width={24} height={24} />,
-            loading: false,
-            items: guildLendings.length || '...'
+            isLoading: false,
+            count: guildLendings.length || '...'
         },
         {
             name: 'realm',
+            path: 'realm',
             icon: <KekIcon width={24} height={24} />,
-            loading: false,
-            items: guildRealm.length || '...'
+            isLoading: false,
+            count: guildRealm.length || '...'
         }
     ];
 

@@ -1,7 +1,8 @@
 import { createContext, useState } from 'react';
 
-import { Sorting } from 'shared/models';
+import { PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
+import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
@@ -11,6 +12,7 @@ export const ClientContextProvider = (props: any) => {
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
+    const [gotchiView, setGotchiView] = useState<string>('owned');
 
     const [lendings, setLendings] = useState<any[]>([]);
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'totalTokens', dir: 'desc' });
@@ -42,48 +44,65 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
 
-    const navData: any[] = [
+    const navData: PageNavLink[] = [
         {
             name: 'gotchis',
+            path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            loading: loadingGotchis,
-            items: gotchis.length
-        },
-        {
-            name: 'lendings',
-            icon: <GotchiIcon width={24} height={24} />,
-            loading: loadingLendings,
-            items: lendings.length
-        },
-        {
-            name: 'borrowed',
-            icon: <LendingIcon width={24} height={24} />,
-            loading: loadingBorrowed,
-            items: borrowed.length
+            isLoading: loadingGotchis,
+            count: gotchis.length,
+            isShowSubRoutes: true,
+            subNavComponent: <SubNav links={[
+                {
+                    name: 'owned',
+                    path: 'gotchis/owned',
+                    icon: <GotchiIcon width={24} height={24} />,
+                    isLoading: loadingGotchis,
+                    count: gotchis.length
+                },
+                {
+                    name: 'lendings',
+                    path: 'gotchis/lended',
+                    icon: <GotchiIcon width={24} height={24} />,
+                    isLoading: loadingLendings,
+                    count: lendings.length
+                },
+                {
+                    name: 'borrowed',
+                    path: 'gotchis/borrowed',
+                    icon: <LendingIcon width={24} height={24} />,
+                    isLoading: loadingBorrowed,
+                    count: borrowed.length
+                }
+            ]} />
         },
         {
             name: 'warehouse',
+            path: 'warehouse',
             icon: <WarehouseIcon width={24} height={24} />,
-            loading: loadingWarehouse,
-            items: warehouse.length
+            isLoading: loadingWarehouse,
+            count: warehouse.length
         },
         {
             name: 'installations',
+            path: 'installations',
             icon: <AnvilIcon width={24} height={24} />,
-            loading: loadingInstallations || loadingTiles,
-            items: installations.length + tiles.length
+            isLoading: loadingInstallations || loadingTiles,
+            count: installations.length + tiles.length
         },
         {
             name: 'tickets',
+            path: 'tickets',
             icon: <RareTicketIcon width={24} height={24} />,
-            loading: loadingTickets,
-            items: tickets.length
+            isLoading: loadingTickets,
+            count: tickets.length
         },
         {
             name: 'realm',
+            path: 'realm',
             icon: <KekIcon width={24} height={24} alt='realm' />,
-            loading: loadingRealm,
-            items: realm.length
+            isLoading: loadingRealm,
+            count: realm.length
         }
     ];
 
@@ -349,6 +368,8 @@ export const ClientContextProvider = (props: any) => {
             loadingGotchis,
             setGotchis,
             setGotchisSorting,
+            gotchiView,
+            setGotchiView,
 
             lendings,
             lendingsSorting,

@@ -1,23 +1,46 @@
-import { useContext, useCallback, useState, useEffect } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimerIcon from '@mui/icons-material/Timer';
-import GroupWorkIcon from '@mui/icons-material/GroupWork';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import ScienceIcon from '@mui/icons-material/Science';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
+    {
+        name: 'id',
+        key: 'id',
+        paramKey: 'id',
+        tooltip: 'gotchi id',
+        icon: <Grid3x3Icon fontSize='small' />
+    },
+    {
+        name: 'mrs',
+        key: 'modifiedRarityScore',
+        paramKey: 'mrs',
+        tooltip: 'rarity score',
+        icon: <EmojiEventsOutlinedIcon fontSize='small' />
+    },
+    {
+        name: 'brs',
+        key: 'baseRarityScore',
+        paramKey: 'brs',
+        tooltip: 'base rarity score',
+        icon: <FormatListNumberedIcon fontSize='small' />
+    },
     {
         name: 'kin',
         key: 'kinship',
@@ -26,53 +49,18 @@ const sortings: SortingListItem[] = [
         icon: <FavoriteBorderIcon fontSize='small' />
     },
     {
-        name: 'endTime',
-        key: 'endTime',
-        paramKey: 'endTime',
-        tooltip: 'end time',
-        icon: <TimerIcon fontSize='small' />
+        name: 'experience',
+        key: 'experience',
+        paramKey: 'exp',
+        tooltip: 'experience',
+        icon: <ScienceIcon fontSize='small' />
     },
     {
-        name: 'income',
-        key: 'income',
-        paramKey: 'income',
-        tooltip: 'alchemica power',
-        icon: <LocalFireDepartmentIcon fontSize='small' />
-    },
-    {
-        name: 'total',
-        key: 'totalTokens',
-        paramKey: 'total',
-        tooltip: 'total alchemica',
-        icon: <GroupWorkIcon fontSize='small' />
-    },
-    {
-        name: 'fud',
-        key: 'fud',
-        paramKey: 'fud',
-        tooltip: 'fud',
-        icon: <FudTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'fomo',
-        key: 'fomo',
-        paramKey: 'fomo',
-        tooltip: 'fomo',
-        icon: <FomoTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'alpha',
-        key: 'alpha',
-        paramKey: 'alpha',
-        tooltip: 'alpha',
-        icon: <AlphaTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'kek',
-        key: 'kek',
-        paramKey: 'kek',
-        tooltip: 'kek',
-        icon: <KekTokenIcon height={18} width={18} />
+        name: 'age',
+        key: 'createdAt',
+        paramKey: 'age',
+        tooltip: 'age',
+        icon: <CalendarMonthIcon fontSize='small' />
     }
 ];
 
@@ -83,24 +71,24 @@ const initialFilters: any = {
 };
 const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
 
-export function ClientLendings() {
+export function ClientOwned() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
     const {
-        lendings,
-        lendingsSorting,
-        setLendingsSorting,
-        loadingLendings,
+        gotchis,
+        gotchisSorting,
+        setGotchisSorting,
+        loadingGotchis,
         setGotchiView
     } = useContext<any>(ClientContext);
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-    const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
+    const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
-        setGotchiView('lended');
+        setGotchiView('owned');
 
         setCurrentFilters((currentFiltersCache: any) =>
             FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
@@ -129,29 +117,29 @@ export function ClientLendings() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+        const paramKey: any = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
 
-        updateSortQueryParams(paramKey, lendingsSorting.dir);
-    }, [lendingsSorting]);
+        updateSortQueryParams(paramKey, gotchisSorting.dir);
+    }, [gotchisSorting]);
 
     useEffect(() => {
-        const modifiedLendings = FilterUtils.getFilteredSortedItems({
-            items: lendings,
+        const modifiedGotchis = FilterUtils.getFilteredSortedItems({
+            items: gotchis,
             filters: currentFilters,
-            sorting: lendingsSorting,
+            sorting: gotchisSorting,
             getFilteredItems: FilterUtils.getFilteredItems
         });
 
-        setModifiedLendings(modifiedLendings);
-    }, [currentFilters, lendings, lendingsSorting]);
+        setModifiedGotchis(modifiedGotchis);
+    }, [currentFilters, gotchis, gotchisSorting]);
 
     const onSortingChange = useCallback((type: string, dir: string) => {
-        setLendingsSorting({ type, dir });
-    }, [setLendingsSorting]);
+        setGotchisSorting({ type, dir });
+    }, [setGotchisSorting]);
 
     const sorting: any = {
         sortingList: sortings,
-        sortingDefaults: lendingsSorting,
+        sortingDefaults: gotchisSorting,
         onSortingChange: onSortingChange
     };
 
@@ -162,7 +150,7 @@ export function ClientLendings() {
     }, [queryParams, navigate, location.pathname]);
 
     const updateFilterQueryParams = useCallback((filters: any) => {
-        const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
+        const params: string[] = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
         FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
     }, [queryParams, navigate, location.pathname]);
@@ -176,14 +164,14 @@ export function ClientLendings() {
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
-        FilterUtils.exportData(modifiedLendings, 'client_lendings');
-    }, [modifiedLendings]);
+        FilterUtils.exportData(modifiedGotchis, 'client_gotchis');
+    }, [modifiedGotchis]);
 
     return (
         <>
             <SortFilterPanel
                 sorting={sorting}
-                itemsLength={modifiedLendings.length}
+                itemsLength={modifiedGotchis.length}
                 placeholder={
                     <GotchiIcon width={20} height={20} />
                 }
@@ -195,41 +183,31 @@ export function ClientLendings() {
                 filtersCount={activeFiltersCount}
             />
 
-            <ContentInner dataLoading={loadingLendings}>
+            <ContentInner dataLoading={loadingGotchis}>
                 <GotchisLazy
-                    items={modifiedLendings}
+                    items={modifiedGotchis}
                     renderItem={id => (
                         <Gotchi
-                            gotchi={modifiedLendings[id]}
+                            gotchi={modifiedGotchis[id]}
                             render={[
                                 {
                                     badges: [
                                         'collateral',
                                         'rs',
-                                        'kinship'
+                                        'skillpoints',
+                                        'kinship',
+                                        'level'
                                     ]
                                 },
                                 'svg',
                                 'name',
-                                {
-                                    flipContainer: [
-                                        {
-                                            flipBack: [
-                                                'traits',
-                                                'channeling',
-                                                'wearablesLine',
-                                                'listing'
-                                            ]
-                                        },
-                                        {
-                                            flipFront: [
-                                                'lendingStats'
-                                            ]
-                                        }
-                                    ]
-                                },
-                                'flipButton'
+                                'traits',
+                                'channeling',
+                                'wearablesLine',
+                                'listing',
+                                'rewards'
                             ]}
+                            isHighlightLending={true}
                         />
                     )}
                 />
