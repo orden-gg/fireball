@@ -18,8 +18,7 @@ import { CraftContext } from '../CraftContext';
 
 import { sidebarStyles } from '../styles';
 
-// TODO add types and rename to Craft or smth
-export function Sidebar() {
+export function Craftbar() {
     const classes = sidebarStyles();
 
     const [craftAmount, setCraftAmount] = useState<any>(0);
@@ -39,8 +38,8 @@ export function Sidebar() {
         !maxCraftAmount || !craftAmount || !isItemSelected
     , [maxCraftAmount, craftAmount, isItemSelected]);
 
-    const inputChange = (event: any) => {
-        const value = parseInt(event.target.value) || 0;
+    const inputChange = (event: any): void => {
+        const value: number = parseInt(event.target.value) || 0;
 
         if (maxCraftAmount < value) {
             setCraftAmount(maxCraftAmount);
@@ -51,48 +50,43 @@ export function Sidebar() {
         }
     };
 
-    const amountChange = (amount: number) => setCraftAmount(craftAmount + amount);
+    const amountChange = (amount: number) => {
+        setCraftAmount(craftAmount + amount);
+    }
 
-    const onCraftItems = async (): Promise<any> => {
+    const onCraftItems = () => {
         if (!isWalletConnected || !isAlchemicaApproved) {
             setIsModalOpen(true);
         } else {
-            const amount = parseInt(craftAmount);
-            const items = Array(amount).fill(selectedItem.id);
+            const amount: number = parseInt(craftAmount);
+            const items: any[] = Array(amount).fill(selectedItem.id);
+            const gltrs: any[] = Array(amount).fill(0);
+            const promise: Promise<any> = category === 'tile' ?
+                TilesApi.craftTiles(items) :
+                InstallationsApi.craftInstallations(items, gltrs);
 
-            let response;
 
             setIsCrafting(true);
 
-            try {
-                if (category === 'tile') {
-                    response = await TilesApi.craftTiles(items);
+            promise.then((isCrafted: boolean) => {
+                if (isCrafted) {
+                    showSnackbar('success', `${amount} ${selectedItem.name} crafted!`);
                 } else {
-                    const glts = Array(amount).fill(0);
-
-                    response = await InstallationsApi.craftInstallations(items, glts);
+                    showSnackbar('error', 'Craft failed! :( Please try again');
                 }
-            } catch (error) {
-                return setIsCrafting(false);
-            }
-
-            setIsCrafting(false);
-
-            if (response) {
-                showSnackbar('success', `${amount} ${selectedItem.name} crafted!`);
-            } else {
-                showSnackbar('error', 'Craft failed! :( Please try again');
-            }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setIsCrafting(false));
         }
     };
 
-    const renderSelectedItem = (): any => {
+    const renderSelectedItem = (): JSX.Element => {
         if (isItemSelected) {
             return category === 'tile' ?
                 <Tile tile={selectedItem} /> :
                 <Installation installation={selectedItem} />;
         } else {
-            return '';
+            return <></>;
         }
     };
 

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { ethers } from 'ethers';
 
-import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 import { InstallationTypes, INSTALLATION_CONTRACT } from 'shared/constants';
+import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 
 import { EthersApi } from './ethers.api';
 
@@ -54,9 +54,9 @@ export class InstallationsApi {
             });
     }
 
-    public static async craftInstallations(ids: string[], glts: number[]): Promise<any> {
+    public static async craftInstallations(ids: string[], gltrs: number[]): Promise<any> {
         const contractWithSigner: any = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
-        const transaction: any = await contractWithSigner.craftInstallations(ids, glts);
+        const transaction: any = await contractWithSigner.craftInstallations(ids, gltrs);
 
         return EthersApi.waitForTransaction(transaction.hash, 'polygon')
             .then((response: any) => {
@@ -64,7 +64,7 @@ export class InstallationsApi {
             });
     }
 
-    public static getAllInstallations() {
+    public static getAllInstallations(): Promise<any> {
         return installationsContract.getInstallationTypes([]).then((response: any) => {
             const modified = _.cloneDeep(response);
 
@@ -82,6 +82,6 @@ export class InstallationsApi {
 
             return modified;
         })
-        .catch(error => console.log('❌', error, '❌'));
+        .catch(error => console.log(error));
     }
 }

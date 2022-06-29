@@ -2,13 +2,12 @@ import { createContext, useEffect, useState, useContext } from 'react';
 
 import { useMetamask } from 'use-metamask';
 
+import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 import { BalancesContext } from 'contexts/BalancesContext';
 import { AlchemicaApi } from 'api';
-import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 
 export const CraftContext = createContext({});
 
-// TODO add types
 export const CraftContextProvider = (props: any) => {
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
     const [accountAddress, setAccountAddress] = useState<string>('');
@@ -41,7 +40,7 @@ export const CraftContextProvider = (props: any) => {
     }, [metaState]);
 
     useEffect(() => {
-        (async (): Promise<void> => {
+        (async () => {
             if (isWalletConnected) {
                 const installationApprovals = await Promise.all([
                     AlchemicaApi.isFudApproved(accountAddress, INSTALLATION_CONTRACT),
@@ -66,21 +65,14 @@ export const CraftContextProvider = (props: any) => {
 
     useEffect(() => {
         if (isItemSelected) {
-            setMaxCraftAmount((): number => {
-                const isFreeItem: boolean = selectedItem.alchemicaCost.every(cost => cost === 0);
+            const isFreeItem: boolean = selectedItem.alchemicaCost.every(cost => cost === 0);
+            const maxCraftAmount: number = Math.min(
+                ...selectedItem.alchemicaCost.map((price, index) =>
+                    Math.floor(tokens[index].amount / price)
+                )
+            ) || 0;
 
-                if (isFreeItem) {
-                    return 200;
-                } else {
-                    const maxCraftAmount: number = Math.min(
-                        ...selectedItem.alchemicaCost.map((price, index) =>
-                            Math.floor(tokens[index].amount / price)
-                        )
-                    ) || 0;
-
-                    return maxCraftAmount <= 200 ? maxCraftAmount : 200;
-                }
-            });
+            setMaxCraftAmount(maxCraftAmount > 200 || isFreeItem ? 200 : maxCraftAmount);
         }
     }, [selectedItem, tokens]);
 

@@ -14,18 +14,19 @@ export function ConnectModal() {
     const { connectMetamask } = useContext<any>(LoginContext);
     const { showSnackbar } = useContext<any>(SnackbarContext);
 
-    const connectWallet = async () => {
+    const connectWallet = (): void => {
         setIsWalletConnecting(true);
 
-        const isConnected: boolean = await connectMetamask();
-
-        setIsWalletConnecting(false);
-
-        if (isConnected) {
-            showSnackbar('success', 'Wallet connected!');
-        } else {
-            showSnackbar('error', 'Wallet connect failed :(');
-        }
+        connectMetamask()
+            .then((isConnected: boolean) => {
+                if (isConnected) {
+                    showSnackbar('success', 'Wallet connected!')
+                } else {
+                    showSnackbar('error', 'Wallet connect failed :( please reload page and try again')
+                }
+            })
+            .catch(error => console.log(error))
+            .finally(() => setIsWalletConnecting(false));
     };
 
     return (

@@ -3,18 +3,18 @@ import { Backdrop, CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { InstallationTypes, TileTypes } from 'shared/constants';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { InstallationsApi, TilesApi } from 'api';
 import { InstallationsUtils, TilesUtils } from 'utils';
 
 import { CraftItem } from './components/CraftItem';
-import { Sidebar } from './components/Sidebar';
+import { Craftbar } from './components/Craftbar';
 import { CraftContext } from './CraftContext';
 
 import { styles } from './styles';
-import { InstallationsApi, TilesApi } from 'api';
 
-// TODO add types
 export function CraftContent() {
     const classes = styles();
 
@@ -22,7 +22,7 @@ export function CraftContent() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { setSelectedItem, isItemSelected, setIsItemSelected } = useContext<any>(CraftContext);
 
-    const handleBackdropClick = () => {
+    const handleBackdropClick = (): void => {
         setIsItemSelected(false);
         setSelectedItem({});
     };
@@ -30,13 +30,20 @@ export function CraftContent() {
     useEffect(() => {
         const promises: any[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
 
-        Promise.all(promises).then(([installations, tiles]) => {
-            const filteredInstallations = installations.map((data, index) =>
-                ({ ...InstallationsUtils.getMetadataById(index), id: index, category: 'installation' })
-            ).filter(item => !item.deprecated && item.level === 1);
-            const filteredTiles = tiles.map((data, index) =>
-                ({ ...TilesUtils.getMetadataById(index), id: index, category: 'tile' })
-            ).filter(item => !item.deprecated);
+        Promise.all(promises).then(([installations, tiles]: any[]) => {
+            const filteredInstallations = installations.map((data, index) =>({
+                ...InstallationsUtils.getMetadataById(index),
+                id: index,
+                category: 'installation',
+                deprecated: data[InstallationTypes.Deprecated]
+            })).filter(item => !item.deprecated && item.level === 1);
+
+            const filteredTiles = tiles.map((data, index) => ({
+                ...TilesUtils.getMetadataById(index),
+                id: index,
+                category: 'tile',
+                deprecated: data[TileTypes.Deprecated]
+            })).filter(item => !item.deprecated);
 
             setItems(filteredInstallations.concat(filteredTiles));
         }).finally(() => setIsLoading(false));
@@ -59,7 +66,7 @@ export function CraftContent() {
                         ) : <CircularProgress className={classes.loader} />
                     }
                 </ContentInner>
-                <Sidebar />
+                <Craftbar />
                 <Backdrop open={isItemSelected} onClick={handleBackdropClick} className={classes.backdrop} />
             </div>
         </>

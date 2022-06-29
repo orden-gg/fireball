@@ -11,6 +11,8 @@ const fomoContract = EthersApi.makeContract(FOMO_CONTRACT, FOMO_ABI, 'polygon');
 const fudContract = EthersApi.makeContract(FUD_CONTRACT, FUD_ABI, 'polygon');
 const gltrContract = EthersApi.makeContract(GLTR_CONTRACT, GLTR_ABI, 'polygon');
 
+const minSpendAmount: number = 10000;
+const toSpendAmount: string = '999999999';
 export class AlchemicaApi {
     public static getFudBalance(address: string): Promise<number> {
         return fudContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
@@ -18,7 +20,7 @@ export class AlchemicaApi {
 
     public static isFudApproved(address: string, contractAddress: string): Promise<boolean> {
         return fudContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+            Number(ethers.utils.formatUnits(allowance._hex)) > minSpendAmount
         );
     }
 
@@ -26,7 +28,7 @@ export class AlchemicaApi {
         const contract: any = EthersApi.makeContractWithSigner(FUD_CONTRACT, FUD_ABI);
         const transaction: any = await contract.approve(
             operator,
-            ethers.utils.parseUnits('999999999')
+            ethers.utils.parseUnits(toSpendAmount)
         );
 
         return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => (
@@ -40,7 +42,7 @@ export class AlchemicaApi {
 
     public static isFomoApproved(address: string, contractAddress: string): Promise<boolean> {
         return fomoContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+            Number(ethers.utils.formatUnits(allowance._hex)) > minSpendAmount
         );
     }
 
@@ -48,7 +50,7 @@ export class AlchemicaApi {
         const contract: any = EthersApi.makeContractWithSigner(FOMO_CONTRACT, FOMO_ABI);
         const transaction: any = await contract.approve(
             operator,
-            ethers.utils.parseUnits('999999999')
+            ethers.utils.parseUnits(toSpendAmount)
         );
 
         return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => (
@@ -62,7 +64,7 @@ export class AlchemicaApi {
 
     public static isAlphaApproved(address: string, contractAddress: string): Promise<boolean> {
         return alphaContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+            Number(ethers.utils.formatUnits(allowance._hex)) > minSpendAmount
         );
     }
 
@@ -70,7 +72,7 @@ export class AlchemicaApi {
         const contract: any = EthersApi.makeContractWithSigner(ALPHA_CONTRACT, ALPHA_ABI);
         const transaction: any = await contract.approve(
             operator,
-            ethers.utils.parseUnits('999999999')
+            ethers.utils.parseUnits(toSpendAmount)
         );
 
         return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => (
@@ -84,7 +86,7 @@ export class AlchemicaApi {
 
     public static isKekApproved(address: string, contractAddress: string): Promise<any> {
         return akekContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > 10000
+            Number(ethers.utils.formatUnits(allowance._hex)) > minSpendAmount
         );
     }
 
@@ -92,7 +94,7 @@ export class AlchemicaApi {
         const contract: any = EthersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
         const transaction: any = await contract.approve(
             operator,
-            ethers.utils.parseUnits('999999999')
+            ethers.utils.parseUnits(toSpendAmount)
         );
 
         return EthersApi.waitForTransaction(transaction.hash, 'polygon').then(response => (

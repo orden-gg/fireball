@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 
 import classNames from 'classnames';
 
@@ -15,13 +15,13 @@ export function CraftItem({ data }: { data: any }) {
 
     const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
 
-    const handleItemClick = () => {
+    const handleItemClick = useCallback(() => {
         const isSelected: boolean = selectedItem !== data;
 
         setCategory(data.category || 'installation');
         setIsItemSelected(isSelected);
         setSelectedItem(isSelected ? data : {});
-    };
+    }, [data]);
 
     return (
         <div

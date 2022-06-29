@@ -25,38 +25,32 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
         setTokenApprovals
     } = useContext<any>(CraftContext);
 
-
-    const approveAlchemicaSpend = async (): Promise<void> => {
+    const approveAlchemicaSpend = (): void => {
         const operator: string = category === 'tile' ? TILES_CONTRACT : INSTALLATION_CONTRACT;
         const tokenName: string = Object.keys(TokenTypes)[activeIndex];
 
         setIsTokenApproving(true);
 
-        try {
-            const isApproved: boolean = await AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator);
-
-            setTokenApprovals(currentApprovals => {
-                currentApprovals[category][activeIndex] = isApproved;
-
-                return { ...currentApprovals };
-            });
-
+        AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator).then((isApproved: boolean) => {
             if (isApproved) {
+                setTokenApprovals(currentApprovals => {
+                    currentApprovals[category][activeIndex] = isApproved;
+
+                    return { ...currentApprovals };
+                });
                 showSnackbar('success', `${tokenName} approved!`);
             } else {
                 showSnackbar('error', `${tokenName} approve failed :( Please try again`);
             }
-        } catch (error) {
-            setIsTokenApproving(false);
-        }
+        }).finally(() => setIsTokenApproving(false));
+
     };
 
     useEffect(() => {
-        const isSomeNotApproved: boolean = tokensApprovals[category].some(isApproved => !isApproved);
+        const isSomeNotApproved: boolean = tokensApprovals[category].some((isApproved: boolean) => !isApproved);
+        const activeIndex: number = tokensApprovals[category || 'tiles'].findIndex((isApproved: boolean) => !isApproved);
 
-        setActiveIndex(
-            tokensApprovals[category || 'tiles'].findIndex(isApproved => !isApproved)
-        );
+        setActiveIndex(activeIndex);
 
         if (isSomeNotApproved) {
             setIsTokenApproving(false);
@@ -70,7 +64,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
             <Typography variant='h5' className={classes.title}>Please approve spend before craft</Typography>
             <div className={classes.alchemica}>
                 {
-                    [...tokens].splice(0, 4).map((token, index) =>
+                    [...tokens].splice(0, 4).map((token: any, index: number) =>
                         <span
                             key={index}
                             className={classNames(
