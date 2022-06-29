@@ -4,10 +4,13 @@ import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
 
-import { InstallationTypes } from 'shared/enums';
-import { INSTALLATION_CONTRACT } from '../../api/common/constants.js';
+// @ts-ignore
+import { INSTALLATION_CONTRACT } from '../../shared/constants/api.constants.ts';
+// @ts-ignore
+import { InstallationTypes } from '../../shared/constants/enums.ts';
 
-const INSTALLATION_ABI = JSON.parse(fs.readFileSync('src/data/abi/installations.abi.json'));
+const abiFile = fs.readFileSync('src/data/abi/installations.abi.json');
+const INSTALLATION_ABI = JSON.parse(abiFile.toString());
 
 const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/${process.env.POLYGON_PROVIDER_API_KEY}`);
 const installationsContract = new ethers.Contract(INSTALLATION_CONTRACT, INSTALLATION_ABI, provider);
@@ -15,7 +18,7 @@ const installationsContract = new ethers.Contract(INSTALLATION_CONTRACT, INSTALL
 console.log('⏳ retrieving data from blockhain ⌛');
 
 installationsContract.getInstallationTypes([])
-    .then(res => {
+    .then((res: any): void => {
         const modified = _.cloneDeep(res);
 
         res.forEach((installation, index) => {
