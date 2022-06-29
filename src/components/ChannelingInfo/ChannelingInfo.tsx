@@ -2,15 +2,16 @@ import { Skeleton } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
+import { CountdownFormatNonZeroType } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';
 
 const countdownFormat: CountdownShortFormat = {
-    days: { key: 'dd', value: 'd', showIfZero: false },
-    hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false }
+    days: { key: CountdownFormatNonZeroType.D, value: 'd', showIfZero: false },
+    hours: { key: CountdownFormatNonZeroType.H, value: 'h', showIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', showIfZero: false }
 };
 
 export function ChannelingInfo({ channeling }: { channeling: any }) {

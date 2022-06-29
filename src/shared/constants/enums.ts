@@ -81,3 +81,12 @@ export enum TokenTypes {
     Gltr = 'gltr',
     Ghst = 'ghst'
 }
+
+export enum CountdownFormatNonZeroType {
+    Y = 'y',
+    MM = 'M',
+    D = 'd',
+    H = 'h',
+    M = 'm',
+    S = 's'
+}

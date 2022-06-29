@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
 
-import { DateTime, Duration, DurationLikeObject } from 'luxon';
-import { CountdownLongFormat, CountdownShortFormat } from 'shared/models/contdown-short-format.model';
+import { DateTime, Duration, DurationLikeObject, DurationObjectUnits } from 'luxon';
+
+import { CountdownFormatNonZeroType } from 'shared/constants';
+import { CountdownLongFormat, CountdownShortFormat } from 'shared/models';
 
 const interval: number = 1000;
 const defaultLongFormat: CountdownLongFormat = {
-    years: { key: 'y', values: ['year', 'years'], showIfZero: false },
-    months: { key: 'MM', values: ['month', 'months'], showIfZero: false },
-    days: { key: 'dd', values: ['day', 'days'], showIfZero: false },
-    hours: { key: 'hh', values: ['hour', 'hours'], showIfZero: false },
-    minutes: { key: 'mm', values: ['minute', 'minutes'], showIfZero: false },
-    seconds: { key: 'ss', values: ['second', 'seconds'], showIfZero: false }
+    years: { key: CountdownFormatNonZeroType.Y, values: ['year', 'years'], showIfZero: false },
+    months: { key: CountdownFormatNonZeroType.MM, values: ['month', 'months'], showIfZero: false },
+    days: { key: CountdownFormatNonZeroType.D, values: ['day', 'days'], showIfZero: false },
+    hours: { key: CountdownFormatNonZeroType.H, values: ['hour', 'hours'], showIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, values: ['minute', 'minutes'], showIfZero: false },
+    seconds: { key: CountdownFormatNonZeroType.S, values: ['second', 'seconds'], showIfZero: false }
 };
 
 interface CountdownProps {
     targetDate: number;
     shortFormat?: CountdownShortFormat;
     longFormat?: CountdownLongFormat;
-    onEnd?: () => void,
-    replacementComponent?: JSX.Element
+    onEnd?: () => void;
+    replacementComponent?: JSX.Element;
 }
 
 /***
@@ -40,7 +42,7 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
 
     useEffect(() => {
         function updateCountdown() {
-            const now = DateTime.local().toMillis();
+            const now: number = DateTime.local().toMillis();
             let diff: number;
             let formattedTimeString: string;
 
@@ -55,9 +57,9 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
             }
 
             if (shortFormat) {
-                const formatKeys = Object.keys(shortFormat);
-                const units = Duration.fromMillis(diff).shiftTo(...formatKeys as any).toObject();
-                const mappedShortFormat = Object.keys(units)
+                const formatKeys = Object.keys(shortFormat) as (keyof DurationLikeObject)[];
+                const units: DurationObjectUnits = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+                const mappedShortFormat: string[] = Object.keys(units)
                     .filter(key => shortFormat[key].showIfZero || getIsShowUnit(key, units))
                     .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
 
@@ -92,10 +94,10 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
         return () => clearInterval(timer);
     }, [targetDate]);
 
-    const getLongFormattedTimeString = (diff: number, format: any) => {
-        const formatKeys = Object.keys(format);
-        const units = Duration.fromMillis(diff).shiftTo(...formatKeys as any).toObject();
-        const mappedLongFormat = Object.entries(units)
+    const getLongFormattedTimeString = (diff: number, format: CountdownLongFormat): string => {
+        const formatKeys = Object.keys(format) as (keyof DurationLikeObject)[];
+        const units: DurationObjectUnits = Duration.fromMillis(diff).shiftTo(...formatKeys).toObject();
+        const mappedLongFormat: string[] = Object.entries(units)
             .filter(([key]) => format[key].showIfZero || getIsShowUnit(key, units))
             .map(([key, unit]) => `${format[key].key} ${ parseInt(unit as string) !== 1 ?
                 `'${format[key].values[1]}'` : `'${format[key].values[0]}'`}`
@@ -104,11 +106,11 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
         return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
     };
 
-    const isShowUnitPredicate = (unitsKeys: string[], units: DurationLikeObject) => {
+    const isShowUnitPredicate = (unitsKeys: string[], units: DurationLikeObject): boolean => {
         return unitsKeys.some(unitsKey => Boolean(units[unitsKey]) && units[unitsKey] > 0);
     };
 
-    const getIsShowUnit = (key: string, units: DurationLikeObject) => {
+    const getIsShowUnit = (key: string, units: DurationLikeObject): boolean => {
         let unitsKeys: string[] = [];
 
         switch (key) {
@@ -152,7 +154,6 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
             ): (
                 replacementComponent
             )}
-
         </>
     );
 }

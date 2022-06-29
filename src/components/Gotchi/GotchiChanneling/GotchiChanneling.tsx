@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
-import { DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'shared/constants';
+import { CountdownFormatNonZeroType, DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
 import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
 import { Countdown } from 'components/Countdown/Countdown';
@@ -13,9 +13,9 @@ import { RealmApi } from 'api';
 import { styles } from './styles';
 
 const countdownFormat: CountdownShortFormat = {
-    days: { key: 'dd', value: 'd', showIfZero: false },
-    hours: { key: 'hh', value: 'h', showIfZero: false },
-    minutes: { key: 'mm', value: 'm', showIfZero: false }
+    days: { key: CountdownFormatNonZeroType.D, value: 'd', showIfZero: false },
+    hours: { key: CountdownFormatNonZeroType.H, value: 'h', showIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', showIfZero: false }
 };
 
 export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {

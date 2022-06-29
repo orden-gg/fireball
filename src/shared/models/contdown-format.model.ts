@@ -1,5 +1,7 @@
+import { CountdownFormatNonZeroType } from 'shared/constants';
+
 export interface DefaultFormatOption {
-    key: string;
+    key: CountdownFormatNonZeroType;
     showIfZero: boolean;
 }
 
