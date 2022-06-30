@@ -19,7 +19,7 @@ export function AlchemicaPrice({ alchemica }: { alchemica: any[] }) {
         return alchemica.reduce((prev: number, current: number, index: number) =>
             prev + current * tokensPrices[tokens[index]]
         , 0);
-    }, [isPricesLoaded]);
+    }, [isPricesLoaded, alchemica]);
 
     useEffect(() => {
         if (isPricesLoaded) {
@@ -27,7 +27,7 @@ export function AlchemicaPrice({ alchemica }: { alchemica: any[] }) {
 
             setItemPrice(price !== 0 ? price.toFixed(2) : 0);
         }
-    }, [isPricesLoaded]);
+    }, [isPricesLoaded, alchemica]);
 
     return (
         <>
