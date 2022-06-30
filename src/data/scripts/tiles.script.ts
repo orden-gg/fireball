@@ -18,7 +18,7 @@ const tilesContract = new ethers.Contract(TILES_CONTRACT, TILES_ABI, provider);
 console.log('⏳ retrieving data from blockhain ⌛');
 
 tilesContract.getTileTypes([])
-    .then((res: any): void => {
+    .then((res: any) => {
         const modified = _.cloneDeep(res);
 
         res.forEach((tile, index) => {

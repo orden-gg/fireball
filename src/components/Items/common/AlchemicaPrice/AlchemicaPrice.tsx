@@ -35,7 +35,7 @@ export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
         <>
             <div className={classes.alchemica}>
                 {
-                    alchemica.map((amount: number, index: number ) => {
+                    alchemica.map((amount: number, index: number) => {
                         const Icon = icons[index];
 
                         return <div className={classes.token} key={index}>

@@ -18,7 +18,7 @@ const installationsContract = new ethers.Contract(INSTALLATION_CONTRACT, INSTALL
 console.log('⏳ retrieving data from blockhain ⌛');
 
 installationsContract.getInstallationTypes([])
-    .then((res: any): void => {
+    .then((res: any) => {
         const modified = _.cloneDeep(res);
 
         res.forEach((installation, index) => {

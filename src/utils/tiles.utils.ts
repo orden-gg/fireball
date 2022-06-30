@@ -1,8 +1,9 @@
 import tiles from 'data/tiles.data.json';
 import { TileTypes } from 'shared/constants';
+import { TileItem } from 'shared/models';
 
 export class TilesUtils {
-    public static getMetadataById(id: any): any {
+    public static getMetadataById(id: any): TileItem {
         return {
             name: this.getNameById(id),
             alchemicaCost: TilesUtils.getAlchemicaCostById(id),

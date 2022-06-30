@@ -39,7 +39,7 @@ export function CraftContent() {
         const promises: any[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
 
         Promise.all(promises).then(([installations, tiles]: any[]) => {
-            const filteredInstallations = installations.map((data: any[], index: number) => ({
+            const filteredInstallations: any[] = installations.map((data: any[], index: number) => ({
                 ...InstallationsUtils.getMetadataById(index),
                 id: index,
                 category: 'installation',
@@ -49,7 +49,7 @@ export function CraftContent() {
                 !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
             );
 
-            const filteredTiles = tiles.map((data: any[], index: number) => ({
+            const filteredTiles: any[] = tiles.map((data: any[], index: number) => ({
                 ...TilesUtils.getMetadataById(index),
                 id: index,
                 category: 'tile',
