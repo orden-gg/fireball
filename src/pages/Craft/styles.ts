@@ -211,21 +211,13 @@ export const itemStyles = makeStyles(theme => createStyles({
         left: 0,
         top: 0,
         display: 'flex',
-        justifyContent: 'space-between'
-    },
-    daiPrice: {
-        backgroundColor: alpha('#000', .4),
-        padding: theme.spacing(0, .5),
-        minWidth: 30,
-        textAlign: 'center',
-        fontWeight: 500,
-        color: theme.palette.rarity.legendary
+        justifyContent: 'flex-end'
     },
     type: {
         padding: theme.spacing(0, .5),
         backgroundColor: alpha('#000', .4),
         fontWeight: 500,
-        color: theme.palette.rarity.legendary
+        color: theme.palette.rarity.golden
     }
 }));
 

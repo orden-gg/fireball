@@ -4,7 +4,6 @@ export const styles = makeStyles(theme => createStyles({
     alchemica: {
         display: 'flex',
         marginTop: 'auto',
-        marginBottom: theme.spacing(-1)
     },
     token: {
         flexBasis: '25%',
@@ -25,5 +24,15 @@ export const styles = makeStyles(theme => createStyles({
         textShadow: '0 -2px 8px #000',
         color: theme.palette.common.white,
         fontWeight: 600
+    },
+    daiPrice: {
+        textAlign: 'center',
+        fontWeight: 500,
+        color: theme.palette.common.white,
+        fontSize: 12,
+        margin: theme.spacing(0, 0, -1),
+        '& span': {
+            color: theme.palette.rarity.golden
+        }
     }
 }));
