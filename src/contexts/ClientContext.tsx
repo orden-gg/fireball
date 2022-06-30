@@ -50,7 +50,7 @@ export const ClientContextProvider = (props: any) => {
             path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
             isLoading: loadingGotchis,
-            count: gotchis.length,
+            count: gotchis.length + borrowed.length,
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
                 {
