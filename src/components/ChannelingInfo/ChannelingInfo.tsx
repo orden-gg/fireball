@@ -9,9 +9,32 @@ import { Countdown } from 'components/Countdown/Countdown';
 import { styles } from './styles';
 
 const countdownFormat: CountdownShortFormat = {
-    days: { key: CountdownFormatNonZeroType.D, value: 'd', isShown: true, shownIfZero: false },
-    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
+    days: {
+        key: CountdownFormatNonZeroType.D,
+        value: 'd',
+        isShown: true,
+        shownIfZero: false
+    },
+    hours: {
+        key: CountdownFormatNonZeroType.H,
+        value: 'h',
+        isShown: true,
+        shownIfZero: false
+    },
+    minutes: {
+        key: CountdownFormatNonZeroType.M,
+        value: 'm',
+        isShown: true,
+        shownIfZero: false
+    },
+    seconds: {
+        key: CountdownFormatNonZeroType.S,
+        value: 's',
+        isShown: false,
+        shownIfZero: false,
+        showIfParentIsZero: true,
+        parentKey: 'minutes'
+    }
 };
 
 export function ChannelingInfo({ channeling }: { channeling: any }) {
