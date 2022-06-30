@@ -8,9 +8,9 @@ import { InstallationImage } from '../Installation/InstallationImage';
 import { styles } from './styles';
 
 // const dataFormat = {
-//     days: { key: 'dd', value: 'd', showIfZero: false },
-//     hours: { key: 'hh', value: 'h', showIfZero: false },
-//     minutes: { key: 'mm', value: 'm', showIfZero: false }
+//     days: { key: 'dd', value: 'd', shownIfZero: false },
+//     hours: { key: 'hh', value: 'h', shownIfZero: false },
+//     minutes: { key: 'mm', value: 'm', shownIfZero: false }
 // };
 
 export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any }) {
