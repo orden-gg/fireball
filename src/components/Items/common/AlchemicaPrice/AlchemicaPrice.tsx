@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
