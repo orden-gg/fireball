@@ -21,7 +21,7 @@ import { sidebarStyles } from '../styles';
 export function Craftbar() {
     const classes = sidebarStyles();
 
-    const [craftAmount, setCraftAmount] = useState<any>(0);
+    const [craftAmount, setCraftAmount] = useState<number>(0);
     const [isCrafting, setIsCrafting] = useState<boolean>(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { showSnackbar } = useContext<any>(SnackbarContext);
@@ -58,9 +58,9 @@ export function Craftbar() {
         if (!isWalletConnected || !isAlchemicaApproved) {
             setIsModalOpen(true);
         } else {
-            const amount: number = parseInt(craftAmount);
-            const items: any[] = Array(amount).fill(selectedItem.id);
-            const gltrs: any[] = Array(amount).fill(0);
+            const amount: number = craftAmount;
+            const items: number[] = Array(amount).fill(selectedItem.id);
+            const gltrs: number[] = Array(amount).fill(0);
             const promise: Promise<any> = category === 'tile' ?
                 TilesApi.craftTiles(items) :
                 InstallationsApi.craftInstallations(items, gltrs);

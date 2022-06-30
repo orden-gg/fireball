@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, useContext } from 'react';
+import { createContext, useEffect, useState, useContext, useCallback } from 'react';
 
 import { useMetamask } from 'use-metamask';
 
@@ -30,6 +30,16 @@ export const CraftContextProvider = (props: any) => {
         setAccountAddress(accounts[0]);
     };
 
+    const getMaxCraftAmount = useCallback((): number => {
+        const isFreeItem: boolean = selectedItem.alchemicaCost.every((cost: number) => cost === 0);
+        const amounts: number[] = selectedItem.alchemicaCost.map((price, index) =>
+            Math.floor(tokens[index].amount / price)
+        );
+        const minAmount = Math.min(...amounts) || 0;
+
+        return minAmount > 200 || isFreeItem ? 200 : minAmount;
+    }, [selectedItem, tokens])
+
     useEffect(() => {
         if (metaState.isConnected && !isWalletConnected) {
             setIsWalletConnected(true);
@@ -42,13 +52,13 @@ export const CraftContextProvider = (props: any) => {
     useEffect(() => {
         (async () => {
             if (isWalletConnected) {
-                const installationApprovals = await Promise.all([
+                const installationApprovals: boolean[] = await Promise.all([
                     AlchemicaApi.isFudApproved(accountAddress, INSTALLATION_CONTRACT),
                     AlchemicaApi.isFomoApproved(accountAddress, INSTALLATION_CONTRACT),
                     AlchemicaApi.isAlphaApproved(accountAddress, INSTALLATION_CONTRACT),
                     AlchemicaApi.isKekApproved(accountAddress, INSTALLATION_CONTRACT)
                 ]);
-                const tileApprovals = await Promise.all([
+                const tileApprovals: boolean[] = await Promise.all([
                     AlchemicaApi.isFudApproved(accountAddress, TILES_CONTRACT),
                     AlchemicaApi.isFomoApproved(accountAddress, TILES_CONTRACT),
                     AlchemicaApi.isAlphaApproved(accountAddress, TILES_CONTRACT),
@@ -65,14 +75,9 @@ export const CraftContextProvider = (props: any) => {
 
     useEffect(() => {
         if (isItemSelected) {
-            const isFreeItem: boolean = selectedItem.alchemicaCost.every(cost => cost === 0);
-            const maxCraftAmount: number = Math.min(
-                ...selectedItem.alchemicaCost.map((price, index) =>
-                    Math.floor(tokens[index].amount / price)
-                )
-            ) || 0;
+            const maxCraftAmount: number = getMaxCraftAmount();
 
-            setMaxCraftAmount(maxCraftAmount > 200 || isFreeItem ? 200 : maxCraftAmount);
+            setMaxCraftAmount(maxCraftAmount);
         }
     }, [selectedItem, tokens]);
 

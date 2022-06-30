@@ -54,7 +54,7 @@ export class InstallationsApi {
             });
     }
 
-    public static async craftInstallations(ids: string[], gltrs: number[]): Promise<any> {
+    public static async craftInstallations(ids: number[], gltrs: number[]): Promise<any> {
         const contractWithSigner: any = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
         const transaction: any = await contractWithSigner.craftInstallations(ids, gltrs);
 

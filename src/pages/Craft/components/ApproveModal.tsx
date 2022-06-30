@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Button, CircularProgress, Typography } from '@mui/material';
 
+import _ from 'lodash';
 import classNames from 'classnames';
 
 import { INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
@@ -34,9 +35,11 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
         AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator).then((isApproved: boolean) => {
             if (isApproved) {
                 setTokenApprovals(currentApprovals => {
-                    currentApprovals[category][activeIndex] = isApproved;
+                    const modified = _.cloneDeep(currentApprovals);
 
-                    return { ...currentApprovals };
+                    modified[category][activeIndex] = isApproved;
+
+                    return modified;
                 });
                 showSnackbar('success', `${tokenName} approved!`);
             } else {

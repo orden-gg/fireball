@@ -13,7 +13,7 @@ export class TilesApi {
         return tilesContract.tilesBalances(address);
     }
 
-    public static async craftTiles(ids: string[]): Promise<any> {
+    public static async craftTiles(ids: number[]): Promise<any> {
         const contractWithSigner: any = EthersApi.makeContractWithSigner(TILES_CONTRACT, TILES_ABI);
         const transaction: any = await contractWithSigner.craftTiles(ids);
 
