@@ -40,7 +40,7 @@ export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
 
                         return <div className={classes.token} key={index}>
                             <Icon className={classes.tokenIcon} width={20} height={20} />
-                            <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(alchemica[index])}</span>
+                            <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(amount)}</span>
                         </div>;
                     })
                 }
