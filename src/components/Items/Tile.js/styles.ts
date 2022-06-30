@@ -15,3 +15,10 @@ export const styles = makeStyles(theme => createStyles({
         maxHeight: '100%'
     }
 }));
+
+export const tileStyles = makeStyles(theme => createStyles({
+    tile: {
+        display: 'flex',
+        flexDirection: 'column'
+    }
+}));

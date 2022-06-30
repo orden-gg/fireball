@@ -222,7 +222,7 @@ export const itemStyles = makeStyles(theme => createStyles({
         '.craft-item &': {
             maxHeight: '100%',
             [theme.breakpoints.down('lg')]: {
-                padding: theme.spacing(2, 1)
+                padding: theme.spacing(3, 1, 2)
             }
         },
         '&.common': {
@@ -703,6 +703,10 @@ export const channelingStyles = makeStyles(() => createStyles({
 }));
 
 export const installationStyles = makeStyles(theme => createStyles({
+    installation: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     level: {
         color: theme.palette.rarity.golden,
         background: alpha('#000', .1),

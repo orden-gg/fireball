@@ -7,7 +7,8 @@ export class TilesUtils {
             name: this.getNameById(id),
             alchemicaCost: TilesUtils.getAlchemicaCostById(id),
             craftTime: TilesUtils.getCraftTimeById(id),
-            deprecated: TilesUtils.getDeprecatedById(id)
+            deprecated: TilesUtils.getDeprecatedById(id),
+            type: 'tile'
         };
     }
 

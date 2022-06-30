@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
+import Switch from '@mui/material/Switch';
 
 import classNames from 'classnames';
 
@@ -18,13 +19,20 @@ import { styles } from './styles';
 export function CraftContent() {
     const classes = styles();
 
-    const [items, setItems] = useState<any[]>([]);
+    const [craftableItems, setCraftableItems] = useState<any[]>([]);
+    const [deprecatedItems, setDeprecatedItems] = useState<any[]>([]);
+    const [isActiveShown, setIsActiveShown] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { setSelectedItem, isItemSelected, setIsItemSelected } = useContext<any>(CraftContext);
 
-    const handleBackdropClick = (): void => {
+    const removeSelectedItem = (): void => {
         setIsItemSelected(false);
         setSelectedItem({});
+    };
+
+    const onItemsChange = (): void => {
+        removeSelectedItem();
+        setIsActiveShown(!isActiveShown);
     };
 
     useEffect(() => {
@@ -36,16 +44,27 @@ export function CraftContent() {
                 id: index,
                 category: 'installation',
                 deprecated: data[InstallationTypes.Deprecated]
-            })).filter(item => !item.deprecated && item.level === 1);
+            })).filter(item =>
+                item.level === 1 &&
+                !(item.deprecated && !item.alchemicaCost.some(amount => amount > 0))
+            );
 
             const filteredTiles = tiles.map((data, index) => ({
                 ...TilesUtils.getMetadataById(index),
                 id: index,
                 category: 'tile',
                 deprecated: data[TileTypes.Deprecated]
-            })).filter(item => !item.deprecated);
+            })).filter(item =>
+                !(item.deprecated && !item.alchemicaCost.some(amount => amount > 0))
+            );
 
-            setItems(filteredInstallations.concat(filteredTiles));
+            const [active, deprecated]: any[] = [
+                filteredInstallations.concat(filteredTiles).filter(item => !item.deprecated),
+                filteredInstallations.concat(filteredTiles).filter(item => item.deprecated)
+            ];
+
+            setCraftableItems(active);
+            setDeprecatedItems(deprecated);
         }).finally(() => setIsLoading(false));
     }, []);
 
@@ -57,17 +76,23 @@ export function CraftContent() {
                     dataLoading={false}
                     offset={154}
                 >
-                    {
-                        !isLoading ? (
-                            <ItemsLazy
-                                items={items}
-                                component={props => <CraftItem data={props} />}
-                            />
-                        ) : <CircularProgress className={classes.loader} />
-                    }
+                    <>
+                        <div className={classes.header}>
+                            {isActiveShown ? `Available (${craftableItems.length})` : `Deprecated (${deprecatedItems.length})`}
+                            <Switch  onChange={onItemsChange} className={classes.switch} />
+                        </div>
+                        {
+                            !isLoading ? (
+                                <ItemsLazy
+                                    items={isActiveShown ? craftableItems : deprecatedItems}
+                                    component={props => <CraftItem data={props} />}
+                                />
+                            ) : <CircularProgress className={classes.loader} />
+                        }
+                    </>
                 </ContentInner>
                 <Craftbar />
-                <Backdrop open={isItemSelected} onClick={handleBackdropClick} className={classes.backdrop} />
+                <Backdrop open={isItemSelected} onClick={removeSelectedItem} className={classes.backdrop} />
             </div>
         </>
     );

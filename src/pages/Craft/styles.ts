@@ -1,4 +1,5 @@
 import { createStyles, makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
 export const styles = makeStyles(theme => createStyles({
     container: {
@@ -10,9 +11,18 @@ export const styles = makeStyles(theme => createStyles({
             overflow: 'hidden'
         }
     },
+    header: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        padding: theme.spacing(2, 0)
+    },
+    switch: {
+        margin: theme.spacing(-1.5, -1, -1.5, 0)
+    },
     body: {
         flexGrow: 1,
-        padding: theme.spacing(2),
+        padding: theme.spacing(0, 2, 2),
         minHeight: 'auto',
         margin: theme.spacing(2, 0),
         [theme.breakpoints.down('md')]: {
@@ -184,10 +194,38 @@ export const itemStyles = makeStyles(theme => createStyles({
         height: '100%',
         position: 'relative',
         border: '1px solid transparent',
-        borderRadius: 5
+        borderRadius: 5,
+        overflow: 'hidden',
+        cursor: 'pointer'
+    },
+    deprecated: {
+        cursor: 'default',
+        opacity: .7
     },
     selected: {
-        borderColor: theme.palette.success.light
+        borderColor: theme.palette.primary.light
+    },
+    itemHeader: {
+        position: 'absolute',
+        right: 0,
+        left: 0,
+        top: 0,
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+    daiPrice: {
+        backgroundColor: alpha('#000', .4),
+        padding: theme.spacing(0, .5),
+        minWidth: 30,
+        textAlign: 'center',
+        fontWeight: 500,
+        color: theme.palette.rarity.legendary
+    },
+    type: {
+        padding: theme.spacing(0, .5),
+        backgroundColor: alpha('#000', .4),
+        fontWeight: 500,
+        color: theme.palette.rarity.legendary
     }
 }));
 
