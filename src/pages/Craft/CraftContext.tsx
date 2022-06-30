@@ -38,7 +38,7 @@ export const CraftContextProvider = (props: any) => {
         const minAmount = Math.min(...amounts) || 0;
 
         return minAmount > 200 || isFreeItem ? 200 : minAmount;
-    }, [selectedItem, tokens])
+    }, [selectedItem, tokens]);
 
     useEffect(() => {
         if (metaState.isConnected && !isWalletConnected) {
