@@ -65,7 +65,6 @@ export function Craftbar() {
                 TilesApi.craftTiles(items) :
                 InstallationsApi.craftInstallations(items, gltrs);
 
-
             setIsCrafting(true);
 
             promise.then((isCrafted: boolean) => {
@@ -138,7 +137,12 @@ export function Craftbar() {
                 className={classes.button}
                 onClick={onCraftItems}
                 disabled={isCraftDisabled && isWalletConnected || isCrafting}
-            >Craft {isCrafting && <CircularProgress size={20} className={classes.progress} />}</Button>
+            >
+                Craft
+                {isCrafting &&
+                    <CircularProgress size={20} className={classes.progress} />
+                }
+            </Button>
 
             <CustomModal
                 modalOpen={isModalOpen && !isWalletConnected}

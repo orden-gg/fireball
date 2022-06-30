@@ -6,7 +6,6 @@ import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { modalStyles } from '../styles';
 
-// TODO add types
 export function ConnectModal() {
     const classes = modalStyles();
 

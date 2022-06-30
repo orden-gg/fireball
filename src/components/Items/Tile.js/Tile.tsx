@@ -9,7 +9,12 @@ import { ERC1155 } from '../ERC1155/ERC1155';
 import { TileImage } from './TileImage';
 import { tileStyles } from './styles';
 
-export function Tile({ tile, showPrice }: { tile: any, showPrice?: any }) {
+interface TileProps {
+    tile: any;
+    showPrice?: any
+}
+
+export function Tile({ tile, showPrice }: TileProps) {
     const classes = tileStyles();
 
     return (

@@ -9,13 +9,12 @@ import { CraftContext } from '../CraftContext';
 
 import { itemStyles } from '../styles';
 
-// TODO add types
 export function CraftItem({ data }: { data: any }) {
     const classes = itemStyles();
 
     const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
 
-    const handleItemClick = useCallback(() => {
+    const handleItemClick = useCallback((): void => {
         if (!data.deprecated) {
             const isSelected: boolean = selectedItem !== data;
 

@@ -89,7 +89,7 @@ export function App() {
                                         <Route path='raffles/*' element={<Raffle />} />
                                         <Route path='shop' element={<Shop />} />
                                         <Route path='map' element={<Map />} />
-                                        <Route path={'craft'} element={<Craft />} />
+                                        <Route path='craft' element={<Craft />} />
                                         <Route path='404' element={<NotFound />} />
                                         <Route path='*' element={<Navigate to='404' replace />}></Route>
                                     </Routes>
