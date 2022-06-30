@@ -12,7 +12,6 @@ import { CraftContext } from '../CraftContext';
 
 import { modalStyles } from '../styles';
 
-// TODO add types
 export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boolean) => void }) {
     const classes = modalStyles();
 

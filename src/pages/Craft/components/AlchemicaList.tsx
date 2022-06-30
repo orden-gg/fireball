@@ -11,7 +11,6 @@ interface AlchemicaCostProps {
     amount: any;
 }
 
-// TODO add types
 export function AlchemicaList({ cost = [], amount }: AlchemicaCostProps) {
     const classes = sidebarStyles();
 
