@@ -17,7 +17,7 @@ export function CraftItem({ data }: { data: any }) {
 
     const [itemPrice, setItemPrice] = useState(0);
     const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
-    const { tokensPrices, isPricesLoaded } = useContext<any>(TokensPricesContext)
+    const { tokensPrices, isPricesLoaded } = useContext<any>(TokensPricesContext);
 
     const handleItemClick = useCallback(() => {
         if (!data.deprecated) {
@@ -32,9 +32,9 @@ export function CraftItem({ data }: { data: any }) {
     const getItemPrice = useCallback(()  => {
         const tokens = Object.values(TokenTypes);
 
-        return data.alchemicaCost.reduce((prev: number, current: number, index: number) => {
-            return prev + current * tokensPrices[tokens[index]]
-        }, 0);
+        return data.alchemicaCost.reduce((prev: number, current: number, index: number) =>
+            prev + current * tokensPrices[tokens[index]]
+        , 0);
     }, [isPricesLoaded]);
 
     useEffect(() => {

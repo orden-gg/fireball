@@ -16,9 +16,9 @@ export function AlchemicaPrice({ alchemica }: { alchemica: any[] }) {
                     return <div className={classes.token} key={index}>
                         <Icon className={classes.tokenIcon} width={20} height={20} />
                         <span className={classes.amount}>{alchemica[index]}</span>
-                    </div>
+                    </div>;
                 })
             }
         </div>
-    )
+    );
 }

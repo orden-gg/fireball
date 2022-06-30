@@ -16,7 +16,7 @@ export const styles = makeStyles(theme => createStyles({
     }
 }));
 
-export const tileStyles = makeStyles(theme => createStyles({
+export const tileStyles = makeStyles(() => createStyles({
     tile: {
         display: 'flex',
         flexDirection: 'column'
