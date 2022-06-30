@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext } from 'react';
 
 import classNames from 'classnames';
 

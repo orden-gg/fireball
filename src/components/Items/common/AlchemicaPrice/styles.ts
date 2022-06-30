@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const styles = makeStyles(theme => createStyles({
     alchemica: {
         display: 'flex',
-        marginTop: 'auto',
+        marginTop: 'auto'
     },
     token: {
         flexBasis: '25%',
