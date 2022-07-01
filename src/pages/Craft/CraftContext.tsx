@@ -11,7 +11,7 @@ export const CraftContext = createContext({});
 export const CraftContextProvider = (props: any) => {
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
     const [accountAddress, setAccountAddress] = useState<string>('');
-    const [tokensApprovals, setTokenApprovals] = useState<object>({
+    const [tokensApprovals, setTokenApprovals] = useState<any>({
         tile: [],
         installation: []
     });
@@ -52,23 +52,23 @@ export const CraftContextProvider = (props: any) => {
     useEffect(() => {
         if (isWalletConnected) {
             (async () => {
-                    const installationApprovals: boolean[] = await Promise.all([
-                        AlchemicaApi.isFudApproved(accountAddress, INSTALLATION_CONTRACT),
-                        AlchemicaApi.isFomoApproved(accountAddress, INSTALLATION_CONTRACT),
-                        AlchemicaApi.isAlphaApproved(accountAddress, INSTALLATION_CONTRACT),
-                        AlchemicaApi.isKekApproved(accountAddress, INSTALLATION_CONTRACT)
-                    ]);
-                    const tileApprovals: boolean[] = await Promise.all([
-                        AlchemicaApi.isFudApproved(accountAddress, TILES_CONTRACT),
-                        AlchemicaApi.isFomoApproved(accountAddress, TILES_CONTRACT),
-                        AlchemicaApi.isAlphaApproved(accountAddress, TILES_CONTRACT),
-                        AlchemicaApi.isKekApproved(accountAddress, TILES_CONTRACT)
-                    ]);
+                const installationApprovals: boolean[] = await Promise.all([
+                    AlchemicaApi.isFudApproved(accountAddress, INSTALLATION_CONTRACT),
+                    AlchemicaApi.isFomoApproved(accountAddress, INSTALLATION_CONTRACT),
+                    AlchemicaApi.isAlphaApproved(accountAddress, INSTALLATION_CONTRACT),
+                    AlchemicaApi.isKekApproved(accountAddress, INSTALLATION_CONTRACT)
+                ]);
+                const tileApprovals: boolean[] = await Promise.all([
+                    AlchemicaApi.isFudApproved(accountAddress, TILES_CONTRACT),
+                    AlchemicaApi.isFomoApproved(accountAddress, TILES_CONTRACT),
+                    AlchemicaApi.isAlphaApproved(accountAddress, TILES_CONTRACT),
+                    AlchemicaApi.isKekApproved(accountAddress, TILES_CONTRACT)
+                ]);
 
-                    setTokenApprovals({
-                        tile: tileApprovals,
-                        installation: installationApprovals
-                    });
+                setTokenApprovals({
+                    tile: tileApprovals,
+                    installation: installationApprovals
+                });
             })();
         }
     }, [accountAddress]);

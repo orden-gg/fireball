@@ -33,7 +33,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
 
         AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator).then((isApproved: boolean) => {
             if (isApproved) {
-                setTokenApprovals((currentApprovals: boolean[]) => {
+                setTokenApprovals((currentApprovals: any[]) => {
                     const modified = _.cloneDeep(currentApprovals);
 
                     modified[category][activeIndex] = isApproved;
