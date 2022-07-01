@@ -1,5 +1,9 @@
+import { styles } from './styles';
+
 export function NotFound() {
+    const classes = styles();
+
     return (
-        <div>Page not found</div>
+        <div className={classes.container}>Page not found</div>
     );
 }
