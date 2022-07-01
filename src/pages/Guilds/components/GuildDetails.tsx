@@ -30,6 +30,7 @@ export function GuildsDetails({ guild }: { guild: any }) {
             <CustomModal
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
+                className={classes.modal}
             >
                  <ul className={classes.detailsList}>
                      {
