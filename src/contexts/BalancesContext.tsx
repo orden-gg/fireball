@@ -54,7 +54,7 @@ export const BalancesContextProvider = (props: any) => {
     const [tokens, setTokens] = useState<any[]>([...initialTokensValues.map(token => ({
         amount: token.amount,
         balance: token.balance,
-        imgSrc: token.icon
+        icon: token.icon
     }))]);
 
     const fetchInterval = 60; // seconds
@@ -107,7 +107,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Fud,
                     icon: <FudTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Fud]),
+                    amount: amounts[TokenTypes.Fud],
                     pricePerToken: tokensPrices[TokenTypes.Fud].toFixed(3),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Fud] * amounts[TokenTypes.Fud]),
                     swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
@@ -115,7 +115,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Fomo,
                     icon: <FomoTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Fomo]),
+                    amount: amounts[TokenTypes.Fomo],
                     pricePerToken: tokensPrices[TokenTypes.Fomo].toFixed(3),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Fomo] * amounts[TokenTypes.Fomo]),
                     swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
@@ -123,7 +123,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Alpha,
                     icon: <AlphaTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Alpha]),
+                    amount: amounts[TokenTypes.Alpha],
                     pricePerToken: tokensPrices[TokenTypes.Alpha].toFixed(3),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Alpha] * amounts[TokenTypes.Alpha]),
                     swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
@@ -131,7 +131,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Kek,
                     icon: <KekTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Kek]),
+                    amount: amounts[TokenTypes.Kek],
                     pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(2),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Kek] * amounts[TokenTypes.Kek]),
                     swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
@@ -139,7 +139,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Gltr,
                     icon: <GltrTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Gltr]),
+                    amount: amounts[TokenTypes.Gltr],
                     pricePerToken: tokensPrices[TokenTypes.Gltr].toFixed(5),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Gltr] * amounts[TokenTypes.Gltr]),
                     swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
@@ -147,7 +147,7 @@ export const BalancesContextProvider = (props: any) => {
                 {
                     key: TokenTypes.Ghst,
                     icon: <GhstTokenIcon height={14} width={14} />,
-                    amount: CommonUtils.convertFloatNumberToSuffixNumber(amounts[TokenTypes.Ghst]),
+                    amount: amounts[TokenTypes.Ghst],
                     pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(2),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]),
                     swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)

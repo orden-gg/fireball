@@ -1,6 +1,9 @@
+import classNames from 'classnames';
+
 import { Erc1155Categories } from 'shared/constants';
 import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 
+import { AlchemicaPrice } from '../common/AlchemicaPrice/AlchemicaPrice';
 import { InstallationImage } from './InstallationImage';
 import { CardName } from '../common/CardName/CardName';
 import { ERC1155 } from '../ERC1155/ERC1155';
@@ -9,14 +12,15 @@ import { installationStyles } from '../styles';
 interface InstallationProps {
     installation: any;
     raffleChances?: any;
+    showPrice?: boolean
 }
 
-export function Installation({ installation, raffleChances }: InstallationProps) {
+export function Installation({ installation, raffleChances, showPrice }: InstallationProps) {
     const classes = installationStyles();
 
     return (
         <ERC1155
-            className= 'installation'
+            className={classNames(classes.installation, 'installation')}
             item={{
                 id: installation.id,
                 rarity: 'golden',
@@ -35,6 +39,10 @@ export function Installation({ installation, raffleChances }: InstallationProps)
                     level {installation.level}
                 </div>
             )}
+
+            { showPrice &&
+                <AlchemicaPrice alchemica={installation.alchemicaCost} />
+            }
 
             { raffleChances && (
                 <RaffleItemChance stats={raffleChances} />

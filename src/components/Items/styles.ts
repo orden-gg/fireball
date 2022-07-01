@@ -36,6 +36,9 @@ export const styles = makeStyles(theme => createStyles({
         justifyContent: 'space-between',
         '& div:last-child': {
             borderBottomRightRadius: 4
+        },
+        '.craft-item &': {
+            display: 'none'
         }
     },
     equippedTitle: {
@@ -216,6 +219,12 @@ export const itemStyles = makeStyles(theme => createStyles({
         position: 'relative',
         transition: 'background-color .3s ease-in-out',
         overflow: 'hidden',
+        '.craft-item &': {
+            maxHeight: '100%',
+            [theme.breakpoints.down('lg')]: {
+                padding: theme.spacing(3, 1, 2)
+            }
+        },
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1)
         },
@@ -694,6 +703,10 @@ export const channelingStyles = makeStyles(() => createStyles({
 }));
 
 export const installationStyles = makeStyles(theme => createStyles({
+    installation: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     level: {
         color: theme.palette.rarity.golden,
         background: alpha('#000', .1),

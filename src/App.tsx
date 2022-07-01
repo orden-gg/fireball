@@ -12,6 +12,7 @@ import { NavPanel } from 'root/NavPanel/NavPanel';
 import { Autopet } from './pages/Autopet/Autopet';
 import { Baazaar } from './pages/Baazaar/Baazaar';
 import { Client } from './pages/Client/Client';
+import { Craft } from 'pages/Craft/Craft';
 import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
 import { Guilds } from './pages/Guilds/Guilds';
 import { Lend } from 'pages/Lend/Lend';
@@ -88,6 +89,7 @@ export function App() {
                                         <Route path='raffles/*' element={<Raffle />} />
                                         <Route path='shop' element={<Shop />} />
                                         <Route path='map' element={<Map />} />
+                                        <Route path='craft' element={<Craft />} />
                                         <Route path='404' element={<NotFound />} />
                                         <Route path='*' element={<Navigate to='404' replace />}></Route>
                                     </Routes>

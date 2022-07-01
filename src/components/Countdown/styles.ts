@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
+// TODO drop it
 export const styles = makeStyles(theme => createStyles({
     wrapper: {
         display: 'flex',

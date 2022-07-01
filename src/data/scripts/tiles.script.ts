@@ -4,10 +4,13 @@ import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
 
-import { TileTypes } from 'shared/enums';
-import { TILES_CONTRACT } from '../../api/common/constants.js';
+// @ts-ignore
+import { TILES_CONTRACT } from '../../shared/constants/api.constants.ts';
+// @ts-ignore
+import { TileTypes } from '../../shared/constants/enums.ts';
 
-const TILES_ABI = JSON.parse(fs.readFileSync('src/data/abi/tiles.abi.json'));
+const abiFile = fs.readFileSync('src/data/abi/tiles.abi.json');
+const TILES_ABI = JSON.parse(abiFile.toString());
 
 const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mainnet.infura.io/v3/${process.env.POLYGON_PROVIDER_API_KEY}`);
 const tilesContract = new ethers.Contract(TILES_CONTRACT, TILES_ABI, provider);
@@ -15,7 +18,7 @@ const tilesContract = new ethers.Contract(TILES_CONTRACT, TILES_ABI, provider);
 console.log('⏳ retrieving data from blockhain ⌛');
 
 tilesContract.getTileTypes([])
-    .then(res => {
+    .then((res: any) => {
         const modified = _.cloneDeep(res);
 
         res.forEach((tile, index) => {

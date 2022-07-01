@@ -1,8 +1,10 @@
 import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
 import installations from 'data/installations.data.json';
 
+import { InstallationItem } from 'shared/models';
+
 export class InstallationsUtils {
-    public static getMetadataById(id: any): any {
+    public static getMetadataById(id: any): InstallationItem {
         return {
             name: InstallationsUtils.getNameById(id),
             type: InstallationsUtils.getTypeById(id),
@@ -10,8 +12,9 @@ export class InstallationsUtils {
             spillRadius: InstallationsUtils.getSpillRadiusById(id),
             spillRate: InstallationsUtils.getSpillRateById(id),
             craftTime: InstallationsUtils.getCraftTimeById(id),
-            alchemicaCost: InstallationsUtils.getAlchemicaCostById(id), // TODO check if needed and fix
-            cooldown: InstallationsUtils.getCooldownByLevel(InstallationsUtils.getLevelById(id))
+            alchemicaCost: InstallationsUtils.getAlchemicaCostById(id),
+            cooldown: InstallationsUtils.getCooldownByLevel(InstallationsUtils.getLevelById(id)),
+            deprecated: InstallationsUtils.getDeprecatedById(id)
         };
     }
 
@@ -95,5 +98,9 @@ export class InstallationsUtils {
             default:
                 return 0;
         }
+    }
+
+    public static getDeprecatedById(id: any): any {
+        return installations[id][InstallationTypes.Deprecated];
     }
 }

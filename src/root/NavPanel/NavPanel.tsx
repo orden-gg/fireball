@@ -6,6 +6,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
+import GavelIcon from '@mui/icons-material/Gavel';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import classNames from 'classnames';
@@ -25,7 +26,7 @@ export function NavPanel() {
             <div className={classes.container}>
                 <nav className={classes.navigation}>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to={clientLink}>
+                        <NavLink className={classes.navLink} to={clientLink}>
                             <Icon className={classes.iconBox}>
                                 <PersonIcon width={20} height={20} />
                             </Icon>
@@ -33,7 +34,7 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/lend'>
+                        <NavLink className={classes.navLink} to='/lend'>
                             <Icon className={classes.iconBox}>
                                 <LendingIcon width={20} height={20} />
                             </Icon>
@@ -41,7 +42,7 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/market'>
+                        <NavLink className={classes.navLink} to='/market'>
                             <Icon className={classes.iconBox}>
                                 <StoreIcon width={20} height={20} />
                             </Icon>
@@ -49,7 +50,7 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/autopet'>
+                        <NavLink className={classes.navLink} to='/autopet'>
                             <Icon className={classes.iconBox}>
                                 <AutorenewIcon width={20} height={20} />
                             </Icon>
@@ -57,7 +58,7 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/guilds'>
+                        <NavLink className={classes.navLink} to='/guilds'>
                             <Icon className={classes.iconBox}>
                                 <GuildIcon width={20} height={20} />
                             </Icon>
@@ -65,7 +66,7 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/raffles'>
+                        <NavLink className={classes.navLink} to='/raffles'>
                             <Icon className={classes.iconBox}>
                                 <ConfirmationNumberIcon width={20} height={20} />
                             </Icon>
@@ -73,11 +74,19 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classNames(classes.navLink)} to='/map'>
+                        <NavLink className={classes.navLink} to='/map'>
                             <Icon className={classes.iconBox}>
                                 <MapIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Map</span>
+                        </NavLink>
+                    </div>
+                    <div className={classes.navItem}>
+                        <NavLink className={classes.navLink} to='/craft'>
+                            <Icon className={classes.iconBox}>
+                                <GavelIcon width={20} height={20} />
+                            </Icon>
+                            <span className={classes.navItemName}>Craft</span>
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>

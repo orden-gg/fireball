@@ -1,14 +1,25 @@
+import classNames from 'classnames';
+
 import { Erc1155Categories } from 'shared/constants';
 
+import { AlchemicaPrice } from '../common/AlchemicaPrice/AlchemicaPrice';
 import { CardName } from '../common/CardName/CardName';
 import { ERC1155 } from '../ERC1155/ERC1155';
 
 import { TileImage } from './TileImage';
+import { tileStyles } from './styles';
 
-export function Tile({ tile }: { tile: any }) {
+interface TileProps {
+    tile: any;
+    showPrice?: any
+}
+
+export function Tile({ tile, showPrice }: TileProps) {
+    const classes = tileStyles();
+
     return (
         <ERC1155
-            className='tile'
+            className={classNames(classes.tile, 'tile')}
             item={{
                 id: tile.id,
                 rarity: 'golden',
@@ -23,6 +34,10 @@ export function Tile({ tile }: { tile: any }) {
                 itemName={tile.name}
                 itemRarity='golden'
             />
+
+            { showPrice &&
+                <AlchemicaPrice alchemica={tile.alchemicaCost} />
+            }
         </ERC1155>
     );
 }

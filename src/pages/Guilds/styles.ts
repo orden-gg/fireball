@@ -497,6 +497,10 @@ export const guildDetailsStyles = makeStyles(theme => createStyles({
         height: 20,
         margin: theme.spacing(1)
     },
+    modal: {
+        maxWidth: 1000,
+        padding: 12
+    },
     '@keyframes show': keyframes.show
 }));
 

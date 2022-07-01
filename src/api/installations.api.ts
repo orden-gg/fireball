@@ -1,6 +1,8 @@
-import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
+import _ from 'lodash';
+import { ethers } from 'ethers';
 
-import { INSTALLATION_CONTRACT } from 'shared/constants';
+import { InstallationTypes, INSTALLATION_CONTRACT } from 'shared/constants';
+import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 
 import { EthersApi } from './ethers.api';
 
@@ -50,5 +52,36 @@ export class InstallationsApi {
             .then((response: any) => {
                 return Boolean(response.status);
             });
+    }
+
+    public static async craftInstallations(ids: number[], gltrs: number[]): Promise<any> {
+        const contractWithSigner: any = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+        const transaction: any = await contractWithSigner.craftInstallations(ids, gltrs);
+
+        return EthersApi.waitForTransaction(transaction.hash, 'polygon')
+            .then((response: any) => {
+                return Boolean(response.status);
+            });
+    }
+
+    public static getAllInstallations(): Promise<any> {
+        return installationsContract.getInstallationTypes([]).then((response: any) => {
+            const modified = _.cloneDeep(response);
+
+            response.forEach((installation, index) => {
+                // ! Modify BigNumber`s => number`s
+                modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map(alchemica => {
+                    return parseInt(ethers.utils.formatUnits(alchemica));
+                });
+                modified[index][InstallationTypes.HarvestRate] = parseInt(ethers.utils.formatUnits(installation.harvestRate));
+                modified[index][InstallationTypes.Capacity] = parseInt(ethers.utils.formatUnits(installation.capacity));
+                modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map(alchemica => {
+                    return parseInt(ethers.utils.formatUnits(alchemica));
+                });
+            });
+
+            return modified;
+        })
+        .catch(error => console.log(error));
     }
 }
