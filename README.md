@@ -13,7 +13,22 @@
 [![](https://img.shields.io/badge/🔥.gg-production-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball.gg/)
 [![](https://img.shields.io/badge/🔥.gg-staging-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball-staging-ilsbc366ba-ew.a.run.app/)
 
-[fireball.gg](http://fireball.gg) is a public good client for [gotchiverse](https://gotchiverse.io/), completely open & free to use!
+[fireball.gg](http://fireball.gg) client-first game constructor builded on top of [https://github.com/aavegotchi/aavegotchi-contracts](aavegotchi) protocol. Completley open license for experiments, pet projects or any small in-game enterprises. We build this project to explore how in-game data can be efficiently & fairly represented. 
+
+fireball-gg strategy is involve hackers, data visulizers and coding students to explore game in early stages: fork a client, (maybe) change pages according to your or your guilds needs, dive deeper. 
+
+The project received few major updates in H1 2022 and with upcoming 0.5 we will kick-off something for people who are working on this game client 😜😜
+
+
+### 📦 goods inside 📦
+
+* aavegotchi assets explorerer    
+* gotchiverse map with unique features
+* cards sub-framework 
+* URL/assets state sub-framework
+* graph integration
+* aavegotchi craft contract integration 
+
 
 ### local deployment (ubuntu & macos)
 
