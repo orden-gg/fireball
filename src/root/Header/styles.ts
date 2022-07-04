@@ -12,7 +12,25 @@ export const styles = makeStyles(theme => createStyles({
     }
 }));
 
-export const logoStypes = makeStyles(theme => createStyles({
+export const dataReloadStyles = makeStyles(theme => createStyles({
+    dataReloadWrapper: {
+        top: theme.spacing(2),
+        left: theme.spacing(14),
+        position: 'fixed',
+        zIndex: theme.zIndex.appBar,
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        marginRight: theme.spacing(1),
+        color: theme.palette.text.primary,
+        textDecoration: 'none',
+        [theme.breakpoints.up('md')]: {
+            paddingBottom: 10
+        }
+    }
+}));
+
+export const logoStyles = makeStyles(theme => createStyles({
     logoWrapper: {
         top: theme.spacing(1.5),
         left: theme.spacing(2),

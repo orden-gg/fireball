@@ -5,10 +5,12 @@ import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation }
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
 
+import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
+import { DataReloadContext } from 'contexts/DataReloadContext';
 import { LoginContext } from 'contexts/LoginContext';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
@@ -37,6 +39,7 @@ export function ClientRoutes() {
 
     const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
     const { getClientData, navData, realmView } = useContext<any>(ClientContext);
+    const { reloadConfig } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -60,12 +63,18 @@ export function ClientRoutes() {
                     })
                 });
 
-                getClientData(activeAddress);
+                getClientData(activeAddress, true);
             }
 
             setIsActiveAddressSet(true);
         }
     }, [activeAddress]);
+
+    useEffect(() => {
+        if (activeAddress && reloadConfig.client.lastUpdated !== 0) {
+            getClientData(activeAddress);
+        }
+    }, [reloadConfig.client.lastUpdated]);
 
     return (
         <div>

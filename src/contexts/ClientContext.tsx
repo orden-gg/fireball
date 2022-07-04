@@ -106,22 +106,24 @@ export const ClientContextProvider = (props: any) => {
         }
     ];
 
-    const getClientData = (address: string): void => {
-        getGotchis(address);
-        getLendings(address);
-        getBorrowed(address);
-        getInventory(address);
-        getTickets(address);
-        getRealm(address);
-        getInstallations(address);
-        getTiles(address);
+    const getClientData = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        getGotchis(address, shouldUpdateIsLoading);
+        getLendings(address, shouldUpdateIsLoading);
+        getBorrowed(address, shouldUpdateIsLoading);
+        getInventory(address, shouldUpdateIsLoading);
+        getTickets(address, shouldUpdateIsLoading);
+        getRealm(address, shouldUpdateIsLoading);
+        getInstallations(address, shouldUpdateIsLoading);
+        getTiles(address, shouldUpdateIsLoading);
 
         // reset
         setWarehouse([]);
     };
 
-    const getGotchis = (address: string): void => {
-        setLoadingGotchis(true);
+    const getGotchis = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingGotchis(true);
+        }
 
         TheGraphApi.getGotchisByAddress(address).then((response) => {
             const wearables: any[] = [];
@@ -176,8 +178,10 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getLendings = (address: string): void => {
-        setLoadingLendings(true);
+    const getLendings = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingLendings(true);
+        }
 
         TheGraphApi.getLendingsByAddress(address)
             .then((lendings: any[]) => {
@@ -206,8 +210,10 @@ export const ClientContextProvider = (props: any) => {
         );
     };
 
-    const getBorrowed = (address: string): void => {
-        setLoadingBorrowed(true);
+    const getBorrowed = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingBorrowed(true);
+        }
 
         TheGraphApi.getBorrowedByAddress(address)
             .then((borrowed: any[]) => {
@@ -219,8 +225,10 @@ export const ClientContextProvider = (props: any) => {
         );
     };
 
-    const getInventory = (address: string): void => {
-        setLoadingWarehouse(true);
+    const getInventory = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingWarehouse(true);
+        }
 
         MainApi.getInventoryByAddress(address).then((response: any) => {
             const modified: any[] = [];
@@ -258,8 +266,10 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getInstallations = (address: string): void => {
-        setLoadingInstallations(true);
+    const getInstallations = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingInstallations(true);
+        }
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations: any[] = response.map((item: any) => {
@@ -279,8 +289,10 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getTiles = (address: string): void => {
-        setLoadingTiles(true);
+    const getTiles = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingTiles(true);
+        }
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response.map((item: any) => {
@@ -299,8 +311,10 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getTickets = (address: string): void => {
-        setLoadingTickets(true);
+    const getTickets = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingTickets(true);
+        }
 
         TicketsApi.getTicketsByAddress(address).then((response: any) => {
             const modified = response.filter((item: any) => item.balance > 0);
@@ -312,8 +326,10 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getRealm = (address: string): void => {
-        setLoadingRealm(true);
+    const getRealm = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        if (shouldUpdateIsLoading) {
+            setLoadingRealm(true);
+        }
 
         TheGraphApi.getRealmByAddress(address)
             .then((res: any) => {
@@ -335,6 +351,7 @@ export const ClientContextProvider = (props: any) => {
             });
     };
 
+    // TODO check if needed
     const calculateReward = () => {
         setRewardCalculating(true);
 
