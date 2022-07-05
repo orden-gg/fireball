@@ -476,7 +476,9 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
             kinship
             hauntId
             baseRarityScore
-            modifiedRarityScore
+            modifiedRarityScore,
+            toNextLevel
+            level
         }
         lender
         borrower
@@ -526,6 +528,8 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
             possibleSets
             equippedSetID
             equippedSetName
+            toNextLevel
+            level
         }
         lender
         borrower
@@ -574,6 +578,8 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
             possibleSets
             equippedSetID
             equippedSetName
+            toNextLevel
+            level
         }
         lender
         borrower

@@ -19,9 +19,14 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
     const classes = styles();
 
     const gotchiSections = {
-        badges(children: any) {
+        wrapper: (children: any, className?: any) => {
             return (
-                <div className={classes.gotchiBadges} key={`${gotchi.id}-badges`}>
+                <div
+                    className={
+                        typeof className === 'string' ? classes[className] : className
+                    }
+                    key={`${gotchi.id}-header`}
+                >
                     {children}
                 </div>
             );
@@ -110,15 +115,14 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
     function renderSection(value: any) {
         if (typeof value === 'string') {
             return gotchiSections[value];
-        }
-
-        return (
-            Object.keys(value).map(key => (
-                gotchiSections[key](value[key].map( item => (
+        } else {
+            return gotchiSections.wrapper(
+                value.items.map((item: any) => (
                     renderSection(item)
-                )))
-            ))
-        );
+                )),
+                value.className
+            )
+        }
     }
 
     return (

@@ -18,8 +18,10 @@ import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
+import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
+import { WhitelistId } from './WhitelistId/WhitelistId';
 
 import { styles } from './styles';
 
@@ -42,11 +44,16 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     }, [isFlipped]);
 
     const gotchiSections = {
-        badges: (children: any) => {
+        wrapper: (children: any, className?: any) => {
+            console.log(classes[className]);
+
             return (
                 <div
-                    className={classes.gotchiBadges}
-                    key={`${gotchi.id}-badges`}
+                    className={
+                        className &&
+                        className.split('-')[0] === 'makeStyles' ? className : classes[className]
+                    }
+                    key={`${gotchi.id}-${className}`}
                 >
                     {children}
                 </div>
@@ -84,6 +91,30 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     {children}
                 </div>
             );
+        },
+
+        get channeling() {
+            return (
+                <GotchiChanelling
+                    gotchiId={gotchi.id}
+                    key={`${gotchi.id}-channeling`}
+                />
+            );
+        },
+
+        get guild() {
+            return gotchi.guild && (
+                <GuildIcon
+                    guild={gotchi.guild}
+                    key={`${gotchi.id}-guildIcon`}
+                />
+            );
+        },
+
+        get whitelistId() {
+            return gotchi.whitelistId && (
+                <WhitelistId whitelistId={gotchi.whitelistId} />
+            )
         },
 
         get rs() {
@@ -212,14 +243,6 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
             );
         },
 
-        get channeling() {
-            return (
-                <GotchiChanelling
-                    gotchiId={gotchi.id}
-                    key={`${gotchi.id}-channeling`}
-                />
-            );
-        },
 
         get rewards() {
             return (
@@ -236,17 +259,16 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     };
 
     function renderSection(value: any) {
-        if (typeof value === 'string') return gotchiSections[value];
-
-        return (
-            Object.keys(value).map(key => (
-                gotchiSections[key](
-                    value[key].map((item: any) => (
-                        renderSection(item)
-                    ))
-                )
-            ))
-        );
+        if (typeof value === 'string') {
+            return gotchiSections[value];
+        } else {
+            return gotchiSections.wrapper(
+                value.items.map((item: any) => (
+                    renderSection(item)
+                )),
+                value.className
+            )
+        }
     }
 
     return (
@@ -257,7 +279,8 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                 'vertical',
                 className,
                 GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
-                gotchi.lending && isHighlightLending && 'lended'
+                gotchi.lending && isHighlightLending && 'lended',
+                isFlipped && classes.gotchiIsFlipped
             )}
         >
             { gotchi.lending && isHighlightLending && (

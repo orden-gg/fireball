@@ -3,6 +3,7 @@ import { Skeleton } from '@mui/material';
 
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
+import { GotchiHeartGif } from 'components/Icons/Icons';
 import { TokensPricesContext } from 'contexts/TokensPricesContext';
 import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
 
@@ -38,44 +39,52 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
     return (
         <div className={classes.container}>
             <div className={classes.containerRow}>
-                channeling boost: <span>x{channelingBoots}</span>
+
+                <GotchiHeartGif
+                    className={classes.gotchiKinshipIcon}
+                    width={12}
+                    height={12}
+                />
+                {kinship}
             </div>
 
-            { altarsLevels.map((level, altarIndex) => {
-                const channelingRate = GotchiverseUtils.countGotchiChannelingRate(level, channelingBoots);
+            <div>
+                { altarsLevels.map((level, altarIndex) => {
+                    const channelingRate = GotchiverseUtils.countGotchiChannelingRate(level, channelingBoots);
 
-                return <div className={classes.altar} key={altarIndex}>
-                    <div className={classes.row}>
-                        <span className={classes.rowTitle}>level {level} altar</span>
-                        <div>
-                            { isPricesLoaded ? (
-                                renderTotalChannelingPrice(channelingRate)
-                            ) : (
-                                <Skeleton
-                                    className={classes.placeholder}
-                                    variant='rectangular'
-                                    width={50}
-                                    height={16}
-                                />
-                            )}
-                        </div>
-                    </div>
-
-                    <div className={classes.tokensList}>
-                        { tokens.map((token, tokenIndex) => (
-                            <div className={classes.token} key={tokenIndex}>
-                                <img
-                                    className={classes.tokenIcon}
-                                    src={GraphUtils.getTokenImg(token)}
-                                    width={12}
-                                    alt={token}
-                                />
-                                { CommonUtils.convertFloatNumberToSuffixNumber(channelingRate[tokenIndex]) }
+                    return <div className={classes.altar} key={altarIndex}>
+                        <div className={classes.row}>
+                            <span className={classes.rowTitle}>{level} lvl altar</span>
+                            <div>
+                                { isPricesLoaded ? (
+                                    renderTotalChannelingPrice(channelingRate)
+                                ) : (
+                                    <Skeleton
+                                        className={classes.placeholder}
+                                        variant='rectangular'
+                                        width={50}
+                                        height={16}
+                                    />
+                                )}
                             </div>
-                        ))}
-                    </div>
-                </div>;
-            })}
+                        </div>
+
+                        <div className={classes.tokensList}>
+                            { tokens.map((token, tokenIndex) => (
+                                <div className={classes.token} key={tokenIndex}>
+                                    <img
+                                        className={classes.tokenIcon}
+                                        src={GraphUtils.getTokenImg(token)}
+                                        width={12}
+                                        alt={token}
+                                    />
+                                    { CommonUtils.convertFloatNumberToSuffixNumber(channelingRate[tokenIndex]) }
+                                </div>
+                            ))}
+                        </div>
+                    </div>;
+                })}
+            </div>
         </div>
     );
 }

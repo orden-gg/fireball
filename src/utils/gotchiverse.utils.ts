@@ -33,8 +33,10 @@ export class GotchiverseUtils {
                 return 'godlike';
             case rs > 525:
                 return 'mythical';
-            default:
+            case rs > 459:
                 return 'rare';
+            default:
+                return 'common';
         }
     }
 

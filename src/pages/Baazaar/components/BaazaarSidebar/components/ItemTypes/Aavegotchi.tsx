@@ -17,15 +17,23 @@ export function Aavegotchi({ item }: { item: any }) {
                                 gotchi={item.gotchi}
                                 render={[
                                     {
-                                        badges: [
+                                        className: 'gotchiHeader',
+                                        items: [
                                             'collateral',
-                                            'rs',
-                                            'skillpoints',
                                             'kinship',
                                             'level'
                                         ]
                                     },
-                                    'svg',
+                                    {
+                                        className: 'imageContainer',
+                                        items: [
+                                            'svg',
+                                            {
+                                                className: 'rsContainer',
+                                                items: ['rs', 'skillpoints']
+                                            }
+                                        ]
+                                    },
                                     'name',
                                     'traits',
                                     'wearablesLine',
@@ -43,15 +51,23 @@ export function Aavegotchi({ item }: { item: any }) {
                                 portal={true}
                                 render={[
                                     {
-                                        badges: [
+                                        className: 'gotchiHeader',
+                                        items: [
                                             'collateral',
-                                            'rs',
-                                            'skillpoints',
                                             'kinship',
                                             'level'
                                         ]
                                     },
-                                    'svg',
+                                    {
+                                        className: 'imageContainer',
+                                        items: [
+                                            'svg',
+                                            {
+                                                className: 'rsContainer',
+                                                items: ['rs', 'skillpoints']
+                                            }
+                                        ]
+                                    },
                                     'name',
                                     'traits',
                                     'wearablesLine',
