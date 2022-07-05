@@ -10,5 +10,5 @@ export function WhitelistId({ whitelistId }) {
             <PlaylistAddCheckOutlinedIcon fontSize='small'/>
             {whitelistId}
         </div>
-    )
+    );
 }

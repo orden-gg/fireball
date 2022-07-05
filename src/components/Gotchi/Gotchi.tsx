@@ -114,7 +114,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         get whitelistId() {
             return gotchi.whitelistId && (
                 <WhitelistId whitelistId={gotchi.whitelistId} />
-            )
+            );
         },
 
         get rs() {
@@ -267,7 +267,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     renderSection(item)
                 )),
                 value.className
-            )
+            );
         }
     }
 

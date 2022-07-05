@@ -121,7 +121,7 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
                     renderSection(item)
                 )),
                 value.className
-            )
+            );
         }
     }
 

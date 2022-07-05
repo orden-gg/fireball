@@ -20,5 +20,5 @@ export function GuildIcon({ guild }) {
                 />
             </CustomTooltip>
         </div>
-    )
+    );
 }
