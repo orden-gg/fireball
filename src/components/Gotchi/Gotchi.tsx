@@ -47,7 +47,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         wrapper: (children: any, className?: any) => {
             return (
                 <div
-                    className={className && className}
+                    className={className && classes[className]}
                     key={`${gotchi.id}-${className}`}
                 >
                     {children}
