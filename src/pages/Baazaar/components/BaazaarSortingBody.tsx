@@ -40,19 +40,23 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                     render={
                         [
                             {
-                                imageCell: [
+                                className: 'gotchiImageCell',
+                                items: [
                                     {
-                                        badges: ['collateral', 'level']
+                                        className: 'gotchiHeader',
+                                        items: ['collateral', 'level']
                                     },
                                     'svg',
                                     'name'
                                 ]
                             },
                             {
-                                traitsCell: ['traits']
+                                className: 'gotchiTraitsCell',
+                                items: ['traits']
                             },
                             {
-                                priceCell: ['price']
+                                className: 'gotchiPriceCell',
+                                items: ['price']
                             }
                         ]
                     }

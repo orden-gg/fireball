@@ -3,6 +3,7 @@ import guilds from 'data/guilds.json';
 
 import { CommonUtils } from './common.utils';
 import { InstallationsUtils } from './installations.utils';
+import { RarityScoreNumber, RarityTypes } from 'shared/constants';
 
 export class GotchiverseUtils {
     public static getGuildImg(name: any): any {
@@ -29,12 +30,14 @@ export class GotchiverseUtils {
 
     public static getRarityNameByRS(rs: any): string {
         switch (true) {
-            case rs > 580:
-                return 'godlike';
-            case rs > 525:
-                return 'mythical';
+            case rs >= RarityScoreNumber.Godlike:
+                return RarityTypes.Godlike;
+            case rs >= RarityScoreNumber.Mythical:
+                return RarityTypes.Mythical;
+            case rs >= RarityScoreNumber.Rare:
+                return RarityTypes.Rare;
             default:
-                return 'rare';
+                return RarityTypes.Common;
         }
     }
 

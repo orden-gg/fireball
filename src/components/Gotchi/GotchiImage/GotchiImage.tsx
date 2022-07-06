@@ -1,9 +1,4 @@
-import { Avatar } from '@mui/material';
-import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOutlined';
-
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ItemUtils } from 'utils';
-import { GotchiverseUtils } from 'utils';
 
 import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { GotchiSvg } from './GotchiSvg';
@@ -36,26 +31,6 @@ export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImagePro
                 ) : (
                     <GotchiSvg id={gotchi.id} size='100%' />
                 )
-            }
-            {
-                gotchi.whitelistId && <div className={classes.whitelist}>
-                    <PlaylistAddCheckOutlinedIcon fontSize='small'/>
-                    {gotchi.whitelistId}
-                </div>
-            }
-            {
-                gotchi.guild && <div className={classes.guild}>
-                    <CustomTooltip
-                        title={GotchiverseUtils.getGuildName(gotchi.guild)}
-                        placement='top'
-                        followCursor
-                    >
-                        <Avatar
-                            className={classes.guildAvatar}
-                            src={GotchiverseUtils.getGuildImg(gotchi.guild)}
-                        />
-                    </CustomTooltip>
-                </div>
             }
         </div>
     );

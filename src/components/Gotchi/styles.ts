@@ -30,7 +30,11 @@ export const styles = makeStyles(theme => createStyles({
         },
         '&.horizontal': {
             display: 'flex',
+            flexDirection: 'unset',
             padding: theme.spacing(0, 1)
+        },
+        '&.common': {
+            borderColor: theme.palette.rarity.common
         },
         '&.rare': {
             borderColor: theme.palette.rarity.rare
@@ -68,7 +72,7 @@ export const styles = makeStyles(theme => createStyles({
         pointerEvents: 'none',
         transition: 'opacity .3s ease-in-out'
     },
-    gotchiBadges: {
+    gotchiHeader: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -88,6 +92,28 @@ export const styles = makeStyles(theme => createStyles({
     },
     gotchiInnerSection: {
         marginTop: 8
+    },
+    imageContainer: {
+        position: 'relative'
+    },
+    rsContainer: {
+        position: 'absolute',
+        left: 0,
+        top: 6,
+        padding: '0 2px',
+        zIndex: 1,
+        display: 'flex',
+        backgroundColor: alpha('#000', .5)
+    },
+    imageFooter: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1
     },
     // Horizontal
     gotchiImageCell: {
@@ -109,9 +135,12 @@ export const styles = makeStyles(theme => createStyles({
         margin: theme.spacing(3, 1),
         flex: '1 1 auto'
     },
-    gotchiIsFlipped: {
+    gotchiFlipContainer: {
         position: 'relative',
         margin: 'auto 0'
+    },
+    gotchiIsFlipped: {
+        display: 'flex'
     },
     gotchiFlipBack: {
         display: 'none',

@@ -210,15 +210,23 @@ export function GhostExplorer() {
                             gotchi={modifiedGotchis[id]}
                             render = {[
                                 {
-                                    badges: [
+                                    className: 'gotchiHeader',
+                                    items: [
                                         'collateral',
-                                        'rs',
-                                        'skillpoints',
                                         'kinship',
                                         'level'
                                     ]
                                 },
-                                'svg',
+                                {
+                                    className: 'imageContainer',
+                                    items: [
+                                        'svg',
+                                        {
+                                            className: 'rsContainer',
+                                            items: ['rs', 'skillpoints']
+                                        }
+                                    ]
+                                },
                                 'name',
                                 'traits',
                                 'wearablesLine',
