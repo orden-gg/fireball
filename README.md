@@ -31,7 +31,7 @@ The project received few major updates in H1 2022 and with upcoming 0.5 we will 
 1. install docker for your platform, you can use either [docker desktop](https://docs.docker.com/desktop/)
 2. clone this repo and build the docker image from a repos root folder: `docker build -t image_local_name .`
 3. run image locally `docker run -dp 8080:8080 local_name`
-4. cliemnt should be accesable on [localhost:8080](http://localhost:8080/)
+4. client should be accesable on [localhost:8080](http://localhost:8080/)
 
 ### local deployment
 
