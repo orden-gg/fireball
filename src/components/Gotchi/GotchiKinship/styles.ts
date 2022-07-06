@@ -20,11 +20,11 @@ export const styles = makeStyles(theme => createStyles({
         alignItems: 'center',
         fontWeight: 500,
         cursor: 'default',
-        padding: '2px 4px',
+        padding: '2px 24px',
         color: '#fff',
         position: 'relative',
-        marginTop: -12,
-        minWidth: 50,
+        marginTop: -11,
+        minWidth: 70,
         justifyContent: 'center',
         '.common &': {
             textShadow: `0 0 3px ${darken(theme.palette.rarity.common, .7)}`
@@ -41,14 +41,19 @@ export const styles = makeStyles(theme => createStyles({
         '&:hover': {
             background: alpha('#000', .1)
         },
-        '&:before': {
+        '&:before, &:after': {
             content: '""',
-            width: '150%',
             height: 0,
-            borderLeft: '12px solid transparent',
-            borderRight: '12px solid transparent',
-            borderTop: '23px solid transparent',
-            position: 'absolute',
+            borderTop: '26px solid transparent',
+            borderLeft: '10px solid transparent',
+            borderRight: '10px solid transparent',
+            position: 'absolute'
+
+        },
+        '&:before': {
+            width: 'calc(100% + 8px)',
+            borderLeftWidth: 12,
+            borderRightWidth: 12,
             top: 0,
             '.common &': {
                 borderTopColor: theme.palette.rarity.common
@@ -63,10 +68,28 @@ export const styles = makeStyles(theme => createStyles({
                 borderTopColor: theme.palette.rarity.godlike
             }
         },
+        '&:after': {
+            width: '100%',
+            borderTopWidth: 23,
+            top: 0,
+            '.common &': {
+                borderTopColor: darken(theme.palette.rarity.common, .2)
+            },
+            '.rare &': {
+                borderTopColor: darken(theme.palette.rarity.rare, .2)
+            },
+            '.mythical &': {
+                borderTopColor: darken(theme.palette.rarity.mythical, .2)
+            },
+            '.godlike &': {
+                borderTopColor: darken(theme.palette.rarity.godlike, .2)
+            }
+        },
         '& span': {
             position: 'relative',
             display: 'flex',
-            alignItems: 'center'
+            alignItems: 'center',
+            zIndex: 1
         }
     },
     gotchiKinshipIcon: {
