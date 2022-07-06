@@ -91,7 +91,7 @@ export enum CountdownFormatNonZeroType {
     S = 's'
 }
 
-export enum DataReloadPageType {
+export enum DataReloadType {
     Client = 'client',
     Lend = 'lend',
     Map = 'map',

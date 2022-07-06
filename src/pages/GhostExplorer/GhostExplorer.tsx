@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
+import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -88,7 +89,7 @@ export function GhostExplorer() {
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
-    const { reloadConfig } = useContext<DataReloadContextState>(DataReloadContext);
+    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -103,8 +104,11 @@ export function GhostExplorer() {
             onSortingChange(key, dir);
         }
 
+        setActiveReloadType(DataReloadType.Explorer);
+
         return () => {
             onResetFilters();
+            setActiveReloadType(null);
         };
     }, []);
 
@@ -153,6 +157,8 @@ export function GhostExplorer() {
     }, [currentFilters, gotchis, gotchisSorting]);
 
     const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (isMounted && shouldUpdateIsLoading) {
             setIsGotchisLoading(true);
         }
@@ -165,6 +171,7 @@ export function GhostExplorer() {
             console.log(e);
         }).finally(() => {
             setIsGotchisLoading(false);
+            setIsReloadDisabled(false);
         });
     };
 

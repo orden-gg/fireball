@@ -5,6 +5,7 @@ import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation }
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
 
+import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
@@ -39,7 +40,7 @@ export function ClientRoutes() {
 
     const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
     const { getClientData, navData, realmView } = useContext<any>(ClientContext);
-    const { reloadConfig } = useContext<DataReloadContextState>(DataReloadContext);
+    const { reloadConfig, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -47,6 +48,12 @@ export function ClientRoutes() {
         if (EthersApi.isEthAddress(account)) {
             setActiveAddress(account);
         }
+
+        setActiveReloadType(DataReloadType.Client);
+
+        return () => {
+            setActiveReloadType(null);
+        };
     }, []);
 
     useEffect(() => {

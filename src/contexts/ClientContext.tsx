@@ -1,10 +1,12 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
-import { PageNavLink, Sorting } from 'shared/models';
+import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+
+import { DataReloadContext } from './DataReloadContext';
 
 export const ClientContext = createContext({});
 
@@ -43,6 +45,8 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculating, setRewardCalculating] = useState<boolean>(false);
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
+
+    const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
     const navData: PageNavLink[] = [
         {
@@ -121,6 +125,8 @@ export const ClientContextProvider = (props: any) => {
     };
 
     const getGotchis = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingGotchis(true);
         }
@@ -169,16 +175,20 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
+            // setGotchis(CommonUtils.basicSort(response.slice(Math.floor(Math.random() * 50), Math.floor((Math.random() + 2) * 50)), gSortType, gSortDir));
             setGotchis(CommonUtils.basicSort(response, gSortType, gSortDir));
-            setLoadingGotchis(false);
         }).catch((error: any) => {
             console.log(error);
             setGotchis([]);
+        }).finally(() => {
             setLoadingGotchis(false);
+            setIsReloadDisabled(false);
         });
     };
 
     const getLendings = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingLendings(true);
         }
@@ -205,12 +215,15 @@ export const ClientContextProvider = (props: any) => {
 
                     setLendings(CommonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
+                    setIsReloadDisabled(false);
                 });
             }
         );
     };
 
     const getBorrowed = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingBorrowed(true);
         }
@@ -221,11 +234,14 @@ export const ClientContextProvider = (props: any) => {
 
                 setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
                 setLoadingBorrowed(false);
+                setIsReloadDisabled(false);
             }
         );
     };
 
     const getInventory = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingWarehouse(true);
         }
@@ -257,16 +273,19 @@ export const ClientContextProvider = (props: any) => {
 
                     return items.concat(current);
                 }, []), type, dir));
-            setLoadingWarehouse(false);
 
         }).catch((error) => {
             console.log(error);
             setWarehouse([]);
+        }).finally(() => {
             setLoadingWarehouse(false);
+            setIsReloadDisabled(false);
         });
     };
 
     const getInstallations = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingInstallations(true);
         }
@@ -286,10 +305,13 @@ export const ClientContextProvider = (props: any) => {
 
             setInstallations(installations);
             setLoadingInstallations(false);
+            setIsReloadDisabled(false);
         });
     };
 
     const getTiles = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingTiles(true);
         }
@@ -308,10 +330,13 @@ export const ClientContextProvider = (props: any) => {
 
             setTiles(tiles);
             setLoadingTiles(false);
+            setIsReloadDisabled(false);
         });
     };
 
     const getTickets = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingTickets(true);
         }
@@ -320,13 +345,17 @@ export const ClientContextProvider = (props: any) => {
             const modified = response.filter((item: any) => item.balance > 0);
 
             setTickets(modified);
-            setLoadingTickets(false);
         }).catch((error) => {
             console.log(error);
+        }).finally(() => {
+            setLoadingTickets(false);
+            setIsReloadDisabled(false);
         });
     };
 
     const getRealm = (address: string, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (shouldUpdateIsLoading) {
             setLoadingRealm(true);
         }
@@ -348,6 +377,7 @@ export const ClientContextProvider = (props: any) => {
                 console.log(error);
                 setRealm([]);
                 setLoadingRealm(false);
+                setIsReloadDisabled(false);
             });
     };
 

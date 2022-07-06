@@ -13,6 +13,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -110,7 +111,7 @@ export function Lend() {
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
 
-    const { reloadConfig } = useContext<DataReloadContextState>(DataReloadContext);
+    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -125,8 +126,11 @@ export function Lend() {
             onSortingChange(key, dir);
         }
 
+        setActiveReloadType(DataReloadType.Lend);
+
         return () => {
             onResetFilters();
+            setActiveReloadType(null);
         };
     }, []);
 
@@ -170,6 +174,8 @@ export function Lend() {
     }, [currentFilters, lendings, lendingsSorting]);
 
     const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (isMounted && shouldUpdateIsLoading) {
             setIsDataLoading(true);
         }
@@ -225,6 +231,7 @@ export function Lend() {
                 });
                 setLendings(mappedData);
                 setIsDataLoading(false);
+                setIsReloadDisabled(false);
             }
         });
     };

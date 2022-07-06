@@ -6,6 +6,7 @@ import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
 import _ from 'lodash';
 
+import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { Citadel } from 'components/Citadel/Citadel';
@@ -18,7 +19,7 @@ export function Map() {
     const classes = styles();
 
     const { activeAddress } = useContext<any>(LoginContext);
-    const { reloadConfig } = useContext<DataReloadContextState>(DataReloadContext);
+    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
     const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -29,7 +30,13 @@ export function Map() {
 
         onLoadListedParcels(isMounted, true);
 
-        return () => { isMounted = false };
+        setActiveReloadType(DataReloadType.Explorer);
+
+        return () => {
+            isMounted = false;
+
+            setActiveReloadType(null);
+        };
     }, []);
 
     useEffect(() => {
@@ -52,6 +59,8 @@ export function Map() {
     }, [reloadConfig.map.lastUpdated]);
 
     const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
         if (isMounted && shouldUpdateIsLoading) {
             setIsListedLoaded(false);
         }
@@ -93,6 +102,7 @@ export function Map() {
         .finally(() => {
             if (isMounted) {
                 setIsListedLoaded(true);
+                setIsReloadDisabled(false);
             }
         });
     };

@@ -27,6 +27,39 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         [theme.breakpoints.up('md')]: {
             paddingBottom: 10
         }
+    },
+    liveReloadDropdownContainer: {
+        height: 40,
+        display: 'flex',
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: theme.zIndex.drawer + 3
+    },
+    liveReloadDropdown: {
+        position: 'absolute',
+        top: '100%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        minWidth: 100,
+        background: theme.palette.background.paper,
+        borderRadius: '0 4px 4px 4px',
+        cursor: 'default',
+        overflow: 'hidden',
+        '.opened &': {
+            display: 'block'
+        }
+    },
+    selectContainer: {
+        width: '100%',
+        padding: 12,
+        '& .MuiSelect-root': {
+            width: '100%'
+        }
+    },
+    buttonsWrapper: {
+        padding: 12,
+        display: 'flex',
+        justifyContent: 'space-between'
     }
 }));
 

@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject } from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
@@ -43,11 +43,23 @@ const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiinco
 // TODO: temporary lend graph
 const lendAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
 
+const defaultOptions: DefaultOptions = {
+    watchQuery: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'ignore'
+    },
+    query: {
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'all'
+    }
+};
+
 const clientFactory = (() => {
     const createClient = (url: string): ApolloClient<NormalizedCacheObject> => {
         return new ApolloClient({
             link: new HttpLink({ uri: url, fetch }),
-            cache: new InMemoryCache()
+            cache: new InMemoryCache(),
+            defaultOptions: defaultOptions
         });
     };
 

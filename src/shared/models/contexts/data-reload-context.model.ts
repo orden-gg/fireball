@@ -1,8 +1,17 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { DataReloadType } from './data-reload-type.model';
+import { DataReloadType } from 'shared/constants';
+
+import { DataReloadConfig } from './data-reload.model';
 
 export interface DataReloadContextState {
-    reloadConfig: DataReloadType;
-    setReloadConfig: Dispatch<SetStateAction<DataReloadType>>;
+    reloadConfig: DataReloadConfig;
+    setReloadConfig: Dispatch<SetStateAction<DataReloadConfig>>;
+    setActiveReloadType: Dispatch<SetStateAction<DataReloadType | null>>;
+    reloadInterval: number;
+    setReloadInterval: Dispatch<SetStateAction<number>>;
+    isLiveReloadActive: boolean;
+    setIsLiveReloadActive: Dispatch<SetStateAction<boolean>>;
+    isReloadDisabled: boolean;
+    setIsReloadDisabled: Dispatch<SetStateAction<boolean>>;
 }
