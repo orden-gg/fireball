@@ -3,4 +3,4 @@ export const RarityScoreNumber = {
     Godlike: 580,
     Mythical: 525,
     Rare: 449
-}
+};
