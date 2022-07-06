@@ -22,7 +22,7 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
         wrapper: (children: any, className?: any) => {
             return (
                 <div
-                    className={classes[className]}
+                    className={className && classes[className]}
                     key={`${gotchi.id}-${className}`}
                 >
                     {children}
