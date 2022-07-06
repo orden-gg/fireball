@@ -20,7 +20,7 @@ export const styles = makeStyles(theme => createStyles({
         alignItems: 'center',
         fontWeight: 500,
         cursor: 'default',
-        padding: '2px 24px',
+        padding: '2px 16px',
         color: '#fff',
         position: 'relative',
         marginTop: -11,
