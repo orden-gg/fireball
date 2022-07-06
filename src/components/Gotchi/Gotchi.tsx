@@ -47,7 +47,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         wrapper: (children: any, className?: any) => {
             return (
                 <div
-                    className={className && classes[className]}
+                    className={classes[className]}
                     key={`${gotchi.id}-${className}`}
                 >
                     {children}
@@ -67,7 +67,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         get guild() {
             return gotchi.guild && (
                 <GuildIcon
-                    guild={gotchi.guild}
+                    guildName={gotchi.guild}
                     key={`${gotchi.id}-guildIcon`}
                 />
             );
