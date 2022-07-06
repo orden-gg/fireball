@@ -22,35 +22,9 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
         wrapper: (children: any, className?: any) => {
             return (
                 <div
-                    className={
-                        typeof className === 'string' ? classes[className] : className
-                    }
-                    key={`${gotchi.id}-header`}
+                    className={className && className}
+                    key={`${gotchi.id}-${className}`}
                 >
-                    {children}
-                </div>
-            );
-        },
-
-        imageCell(children: any) {
-            return (
-                <div className={classes.gotchiImageCell} key={`${gotchi.id}-imageCell`}>
-                    {children}
-                </div>
-            );
-        },
-
-        traitsCell(children: any) {
-            return (
-                <div key={`${gotchi.id}-traitsCell`} className={classes.gotchiTraitsCell}>
-                    {children}
-                </div>
-            );
-        },
-
-        priceCell(children: any) {
-            return (
-                <div key={`${gotchi.id}-priceCell`} className={classes.gotchiPriceCell}>
                     {children}
                 </div>
             );

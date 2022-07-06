@@ -90,3 +90,12 @@ export enum CountdownFormatNonZeroType {
     M = 'm',
     S = 's'
 }
+
+export enum RarityTypes {
+    Godlike = 'godlike',
+    Mythical = 'mythical',
+    Rare = 'rare',
+    Uncommon = 'uncommon',
+    Common = 'common'
+}
+

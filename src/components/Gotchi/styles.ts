@@ -30,6 +30,7 @@ export const styles = makeStyles(theme => createStyles({
         },
         '&.horizontal': {
             display: 'flex',
+            flexDirection: 'unset',
             padding: theme.spacing(0, 1)
         },
         '&.common': {

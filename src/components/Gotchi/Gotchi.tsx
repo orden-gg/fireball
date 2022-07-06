@@ -45,48 +45,10 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
     const gotchiSections = {
         wrapper: (children: any, className?: any) => {
-            console.log(classes[className]);
-
             return (
                 <div
-                    className={
-                        className &&
-                        className.split('-')[0] === 'makeStyles' ? className : classes[className]
-                    }
+                    className={className && className}
                     key={`${gotchi.id}-${className}`}
-                >
-                    {children}
-                </div>
-            );
-        },
-
-        flipContainer: (children: any) => {
-            return (
-                <div
-                    className={classNames(isFlipped && classes.gotchiIsFlipped)}
-                    key={`${gotchi.id}-flipContainer`}
-                >
-                    {children}
-                </div>
-            );
-        },
-
-        flipBack: (children: any) => {
-            return (
-                <div
-                    className={classes.gotchiFlipBack}
-                    key={`${gotchi.id}-flipBack`}
-                >
-                    {children}
-                </div>
-            );
-        },
-
-        flipFront: (children: any) => {
-            return (
-                <div
-                    className={classes.gotchiFlipFront}
-                    key={`${gotchi.id}-flipFront`}
                 >
                     {children}
                 </div>

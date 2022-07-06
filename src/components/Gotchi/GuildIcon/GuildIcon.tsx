@@ -2,9 +2,10 @@ import { Avatar } from '@mui/material';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GotchiverseUtils } from 'utils';
+
 import { styles } from './styles';
 
-export function GuildIcon({ guild }) {
+export function GuildIcon({ guild }: { guild: string }) {
     const classes = styles();
 
     return (

@@ -2,7 +2,7 @@ import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOu
 
 import { styles } from './styles';
 
-export function WhitelistId({ whitelistId }) {
+export function WhitelistId({ whitelistId }: { whitelistId: number }) {
     const classes = styles();
 
     return (
