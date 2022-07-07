@@ -175,7 +175,6 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
-            // setGotchis(CommonUtils.basicSort(response.slice(Math.floor(Math.random() * 50), Math.floor((Math.random() + 2) * 50)), gSortType, gSortDir));
             setGotchis(CommonUtils.basicSort(response, gSortType, gSortDir));
         }).catch((error: any) => {
             console.log(error);
