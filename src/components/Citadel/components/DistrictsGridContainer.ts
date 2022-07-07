@@ -2,7 +2,9 @@
 import Phaser from 'phaser';
 
 import { COLORS, DISTRICTS } from 'data/citadel.data';
+import { CitadelUtils } from 'utils';
 
+import { Highlight } from './Highlight';
 import { DistrictsGrid } from './DistrictsGrid';
 import { DistrictNumber } from './DistrictNumber';
 
@@ -13,24 +15,51 @@ export class DistrictsGridContainer extends Phaser.GameObjects.Container {
 
         this.settings = settings;
 
+        this.TIMEOUT_SECONDS = 25;
+
         this.numbers = this.createGridNumbers(scene);
 
+        this.districtHighLight = new Highlight(scene, { color: COLORS.district.hover, size: 1 });
+
         this.add(new DistrictsGrid(scene));
+        this.add(this.districtHighLight);
         this.add(Object.entries(this.numbers).map(([, number]) => number));
 
         this.show(settings.active);
 
-        scene.on('districtHover', (current, previous) => {
+        scene.on('districtHover', (currentId, previousId) => {
+            const current = this.numbers[currentId];
+            const previous = this.numbers[previousId];
+
             if (previous !== undefined) {
-                this.numbers[previous].setColor(`#${COLORS.grid.toString(16)}`);
-                this.numbers[previous].setAlpha(this.settings.active ? .7 : 0);
+                previous.setColor(`#${COLORS.grid.toString(16)}`);
+                previous.setAlpha(this.settings.active ? .7 : 0);
             }
 
             if (current !== undefined) {
-                this.numbers[current].setColor(`#${COLORS.district.hover.toString(16)}`);
-                this.numbers[current].setAlpha(.7);
+                const { x, y, w, h } = CitadelUtils.getDistrictParams(currentId);
+
+                current.setColor(`#${COLORS.district.hover.toString(16)}`);
+                current.setAlpha(.7);
+
+                this.districtHighLight.update(x, y, w, h);
+
+                this.addTimeout(current);
             }
         });
+    }
+
+    addTimeout(current) {
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+            this.timeout = null;
+        }
+
+        if (!this.settings.active) {
+            this.timeout = setTimeout(() => {
+                current.setAlpha(0);
+            }, this.TIMEOUT_SECONDS * 1000);
+        }
     }
 
     createGridNumbers(scene) {
