@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CircularProgress, Link } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { DataReloadContextState } from 'shared/models';
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { DataReloadContext } from 'contexts/DataReloadContext';
 import { AavegothilandApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -16,13 +18,35 @@ export function EthAddressPanel({ address }: { address: string }) {
     const [dataLoading, setDataLoading] = useState<boolean>(true);
     const [account, setAccount] = useState<any>({});
 
-    useEffect(() => {
-        let mounted = true;
+    const { reloadConfig, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
-        setDataLoading(true);
+    useEffect(() => {
+        let isMounted = true;
+
+        onGetAddressInfo(address, isMounted, true);
+
+        return () => { isMounted = false };
+    }, [address]);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        if (reloadConfig.client.lastUpdated !== 0) {
+            onGetAddressInfo(address, isMounted);
+        }
+
+        return () => { isMounted = false };
+    }, [reloadConfig.client.lastUpdated]);
+
+    const onGetAddressInfo = (address: string, isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+        setIsReloadDisabled(true);
+
+        if (shouldUpdateIsLoading) {
+            setDataLoading(true);
+        }
 
         AavegothilandApi.getAddressInfo(address).then((res: any) => {
-            if (mounted) {
+            if (isMounted) {
                 const data = res.data;
                 const formatted = [
                     {
@@ -71,17 +95,16 @@ export function EthAddressPanel({ address }: { address: string }) {
         }).catch((error) => {
             console.log(error);
 
-            if (mounted) {
+            if (isMounted) {
                 setAccount({});
             }
         }).finally(() => {
-            if (mounted) {
+            if (isMounted) {
                 setDataLoading(false);
+                setIsReloadDisabled(false);
             }
         });
-
-        return () => { mounted = false };
-    }, [address]);
+    };
 
     const formatNumber = (number: number) => {
         return CommonUtils.convertFloatNumberToSuffixNumber(number);
