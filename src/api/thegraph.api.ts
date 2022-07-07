@@ -258,8 +258,9 @@ export class TheGraphApi {
 
     public static getGotchisByAddresses(addresses: string[]): Promise<any[]> {
         const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getGotchisByAddress(address));
+        const ownedPromises: Promise<any>[] = addresses.map(address => TheGraphApi.getOwnedGotchis(address));
 
-        return Promise.all(promises).then((response: any[]) =>
+        return Promise.all(promises.concat(ownedPromises)).then((response: any[]) =>
             response.reduce((result, current) => result.concat(current), [])
         );
     }
