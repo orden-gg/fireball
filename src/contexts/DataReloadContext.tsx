@@ -1,9 +1,10 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
 import { DataReloadType } from 'shared/constants';
 import { DataReloadConfig, DataReloadContextState } from 'shared/models';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 const initialState: DataReloadContextState = {
     reloadConfig: {
@@ -28,8 +29,6 @@ const initialState: DataReloadContextState = {
     setActiveReloadType: () => {},
     reloadInterval: 0,
     setReloadInterval: () => {},
-    isLiveReloadActive: false,
-    setIsLiveReloadActive: () => {},
     isReloadDisabled: false,
     setIsReloadDisabled: () => {}
 };
@@ -39,8 +38,10 @@ export const DataReloadContext = createContext<DataReloadContextState>(initialSt
 export const DataReloadContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
     const [reloadConfig, setReloadConfig] = useState<DataReloadConfig>(initialState.reloadConfig);
     const [activeReloadType, setActiveReloadType] = useState<DataReloadType | null>(null);
-    const [reloadInterval, setReloadInterval] = useState<number>(initialState.reloadInterval);
-    const [isLiveReloadActive, setIsLiveReloadActive] = useState<boolean>(initialState.isLiveReloadActive);
+    const [reloadInterval, setReloadInterval]: [number, Dispatch<SetStateAction<number>>] = useLocalStorage(
+        'RELOAD_INTERVAL',
+        Number(JSON.parse(localStorage.getItem('RELOAD_INTERVAL') as any)) || initialState.reloadInterval
+    );
     const [isReloadDisabled, setIsReloadDisabled] = useState<boolean>(initialState.isReloadDisabled);
 
     useEffect(() => {
@@ -74,8 +75,6 @@ export const DataReloadContextProvider = ({ children }: { children: JSX.Element 
             setActiveReloadType,
             reloadInterval,
             setReloadInterval,
-            isLiveReloadActive,
-            setIsLiveReloadActive,
             isReloadDisabled,
             setIsReloadDisabled
         }}>

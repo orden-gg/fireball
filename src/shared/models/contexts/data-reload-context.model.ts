@@ -10,8 +10,6 @@ export interface DataReloadContextState {
     setActiveReloadType: Dispatch<SetStateAction<DataReloadType | null>>;
     reloadInterval: number;
     setReloadInterval: Dispatch<SetStateAction<number>>;
-    isLiveReloadActive: boolean;
-    setIsLiveReloadActive: Dispatch<SetStateAction<boolean>>;
     isReloadDisabled: boolean;
     setIsReloadDisabled: Dispatch<SetStateAction<boolean>>;
 }

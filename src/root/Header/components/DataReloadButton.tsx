@@ -24,8 +24,6 @@ export function DataReloadButton() {
         setReloadConfig,
         reloadInterval,
         setReloadInterval,
-        isLiveReloadActive,
-        setIsLiveReloadActive,
         isReloadDisabled
     } = useContext<DataReloadContextState>(DataReloadContext);
 
@@ -87,14 +85,12 @@ export function DataReloadButton() {
 
     const onActivateLiveReload = (interval: number | string): void => {
         setReloadInterval(Number(interval));
-        setIsLiveReloadActive(true);
         setIsDropdownOpen(false);
     };
 
     const onDeactivateLiveReload = (): void => {
         setInterval('');
         setReloadInterval(0);
-        setIsLiveReloadActive(false);
         setIsDropdownOpen(false);
     };
 
@@ -166,7 +162,7 @@ export function DataReloadButton() {
                                 variant='contained'
                                 color='warning'
                                 size='small'
-                                disabled={!isLiveReloadActive}
+                                disabled={!reloadInterval}
                                 onClick={onDeactivateLiveReload}
                             >
                                 Deactivate
