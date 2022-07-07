@@ -12,6 +12,9 @@ export const styles = makeStyles(theme => createStyles({
         cursor: 'pointer',
         position: 'relative',
         marginTop: theme.spacing(.5),
+        '.common &': {
+            backgroundColor: theme.palette.rarity.common
+        },
         '.rare &': {
             backgroundColor: theme.palette.rarity.rare
         },

@@ -335,12 +335,27 @@ export function Lend() {
                                     gotchi={modifiedLendings[id]}
                                     render={[
                                         {
-                                            badges: [
-                                                'rs',
-                                                'kinship'
+                                            className: 'gotchiHeader',
+                                            items: [
+                                                'collateral',
+                                                'kinship',
+                                                'level'
                                             ]
                                         },
-                                        'svg',
+                                        {
+                                            className: 'imageContainer',
+                                            items: [
+                                                'svg',
+                                                {
+                                                    className: 'rsContainer',
+                                                    items: ['rs']
+                                                },
+                                                {
+                                                    className: 'imageFooter',
+                                                    items: ['guild', 'whitelistId']
+                                                }
+                                            ]
+                                        },
                                         'name',
                                         'lending',
                                         'channeling'

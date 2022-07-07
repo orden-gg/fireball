@@ -203,18 +203,30 @@ export function ClientLendings() {
                             gotchi={modifiedLendings[id]}
                             render={[
                                 {
-                                    badges: [
+                                    className: 'gotchiHeader',
+                                    items: [
                                         'collateral',
-                                        'rs',
-                                        'kinship'
+                                        'kinship',
+                                        'level'
                                     ]
                                 },
-                                'svg',
+                                {
+                                    className: 'imageContainer',
+                                    items: [
+                                        'svg',
+                                        {
+                                            className: 'rsContainer',
+                                            items: ['rs']
+                                        }
+                                    ]
+                                },
                                 'name',
                                 {
-                                    flipContainer: [
+                                    className: 'gotchiFlipContainer',
+                                    items: [
                                         {
-                                            flipBack: [
+                                            className: 'gotchiFlipBack',
+                                            items: [
                                                 'traits',
                                                 'channeling',
                                                 'wearablesLine',
@@ -222,9 +234,8 @@ export function ClientLendings() {
                                             ]
                                         },
                                         {
-                                            flipFront: [
-                                                'lendingStats'
-                                            ]
+                                            className: 'gotchiFlipFront',
+                                            items: ['lendingStats']
                                         }
                                     ]
                                 },

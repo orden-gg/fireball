@@ -91,6 +91,14 @@ export enum CountdownFormatNonZeroType {
     S = 's'
 }
 
+export enum RarityTypes {
+    Godlike = 'godlike',
+    Mythical = 'mythical',
+    Rare = 'rare',
+    Uncommon = 'uncommon',
+    Common = 'common'
+}
+
 export enum DataReloadType {
     Client = 'client',
     Lend = 'lend',

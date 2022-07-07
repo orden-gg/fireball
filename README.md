@@ -13,9 +13,29 @@
 [![](https://img.shields.io/badge/🔥.gg-production-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball.gg/)
 [![](https://img.shields.io/badge/🔥.gg-staging-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball-staging-ilsbc366ba-ew.a.run.app/)
 
-[fireball.gg](http://fireball.gg) is a public good client for [gotchiverse](https://gotchiverse.io/), completely open & free to use!
+[fireball.gg](http://fireball.gg) client for [aavegotchi](https://github.com/aavegotchi/aavegotchi-contracts) web3 game protocol. Completley open license for experiments, pet projects or any small in-game enterprises. We build this project to explore how in-game data can be efficiently & fairly represented. If you are a hackers, data visulizers or coding students and want to explore game in early stages: fork a client, (maybe) change pages according to your or your guilds needs, dive deeper.
 
-### local deployment (ubuntu & macos)
+The project received few major updates in H1 2022 and with upcoming 0.5 we will kick-off something for people who are working on this game client 😜
+
+### 📦 goods inside
+
+* aavegotchi assets explorerer
+* gotchiverse map with unique features
+* cards sub-framework
+* URL/assets state sub-framework
+* graph integration
+* aavegotchi craft contract integration
+
+### local docker deployment (easiest way)
+
+1. install docker for your platform, you can use either [docker desktop](https://docs.docker.com/desktop/)
+2. clone this repo and build the docker image from a repos root folder: `docker build -t image_local_name .`
+3. run image locally `docker run -dp 8080:8080 local_name`
+4. client should be accesable on [localhost:8080](http://localhost:8080/)
+
+### local deployment
+
+For ubuntu & macos only.
 
 1. make sure you have Node version `17.x`. TIP: use [nvm](https://github.com/nvm-sh/nvm) for node versions managing
     1. `nvm install 17` - node `17.x` installation

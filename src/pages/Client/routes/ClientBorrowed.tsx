@@ -191,13 +191,23 @@ export function ClientBorrowed() {
                             gotchi={modifiedGotchis[id]}
                             render={[
                                 {
-                                    badges: [
+                                    className: 'gotchiHeader',
+                                    items: [
                                         'collateral',
-                                        'rs',
-                                        'kinship'
+                                        'kinship',
+                                        'level'
                                     ]
                                 },
-                                'svg',
+                                {
+                                    className: 'imageContainer',
+                                    items: [
+                                        'svg',
+                                        {
+                                            className: 'rsContainer',
+                                            items: ['rs']
+                                        }
+                                    ]
+                                },
                                 'name',
                                 'lending',
                                 'channeling',
