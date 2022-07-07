@@ -23,7 +23,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
     return (
         <>
             {
-                listings.length || historicalPrices.length ? (
+                listings?.length || historicalPrices?.length ? (
                     <Tooltip
                         title={
                             historicalPrices.length ? (
