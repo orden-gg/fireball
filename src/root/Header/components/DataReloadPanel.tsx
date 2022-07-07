@@ -13,7 +13,7 @@ import { DataReloadContext } from 'contexts/DataReloadContext';
 
 import { dataReloadStyles } from '../styles';
 
-export function DataReloadButton() {
+export function DataReloadPanel() {
     const classes = dataReloadStyles();
 
     const { pathname } = useLocation();
