@@ -123,13 +123,17 @@ export const ClientContextProvider = (props: any) => {
     const getGotchis = (address: string): void => {
         setLoadingGotchis(true);
 
-        TheGraphApi.getGotchisByAddress(address).then((response) => {
+        Promise.all([
+            TheGraphApi.getGotchisByAddress(address),
+            TheGraphApi.getOwnedGotchis(address)
+        ]).then((response: [any[], any[]]) => {
+            const allGotchis = response[0].concat(response[1]);
             const wearables: any[] = [];
             const { type: gSortType, dir: gSortDir } = gotchisSorting;
             const { type: wSortType, dir: wSortDir } = warehouseSorting;
 
             // collect all equipped wearables
-            response.forEach((item: any) => {
+            allGotchis.forEach((item: any) => {
                 const equipped: any = item.equippedWearables.filter((item: any) => item > 0);
 
                 for (const wearable of equipped) {
@@ -167,11 +171,12 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat(current);
                 }, []), wSortType, wSortDir));
 
-            setGotchis(CommonUtils.basicSort(response, gSortType, gSortDir));
-            setLoadingGotchis(false);
+            setGotchis(CommonUtils.basicSort(allGotchis, gSortType, gSortDir));
+
         }).catch((error: any) => {
             console.log(error);
             setGotchis([]);
+        }).finally(() => {
             setLoadingGotchis(false);
         });
     };
