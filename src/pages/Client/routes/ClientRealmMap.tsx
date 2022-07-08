@@ -32,10 +32,11 @@ export function ClientRealmMap() {
     }, []);
 
     return (
-        <Citadel
-            className={classes.clientCitadel}
-            realmGroups={realmGroups}
-            isLoaded={!loadingRealm}
-        />
+        <div className={classes.clientCitadel}>
+            <Citadel
+                realmGroups={realmGroups}
+                isLoaded={!loadingRealm}
+            />
+        </div>
     );
 }

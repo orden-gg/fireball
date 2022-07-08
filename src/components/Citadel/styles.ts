@@ -10,6 +10,10 @@ const keyframes = {
 };
 
 const styles = makeStyles(() => createStyles({
+    citadelWrapper: {
+        height: '100%',
+        position: 'relative'
+    },
     citadel: {
         position: 'absolute',
         '& canvas': {

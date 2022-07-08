@@ -547,8 +547,6 @@ export const guildContentStyles = makeStyles(theme => createStyles({
         paddingBottom: theme.spacing(2)
     },
     guildCitadel: {
-        height: '100%',
-        position: 'relative',
         maxWidth: '100%',
         margin: theme.spacing(0, 2),
         zIndex: 2,
