@@ -28,6 +28,7 @@ export class DistrictNumber extends Phaser.GameObjects.Text {
 
         this.setStyle({
             fontSize: this.fontSize,
+            fontFamily: 'Fira Code ,monospace',
             color: `#${COLORS.grid.toString(16)}`
         });
 
@@ -37,7 +38,7 @@ export class DistrictNumber extends Phaser.GameObjects.Text {
     }
 
     updateScale() {
-        this.setScale(1 / this.scene.cameras.main.zoom);
+        this.setScale(.5 / this.scene.cameras.main.zoom);
 
         const size = this.scale * this.fontSize;
 

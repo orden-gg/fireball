@@ -31,7 +31,7 @@ const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multisel
 
 interface CitadelProps {
     realmGroups: any[];
-    className: string;
+    className?: string;
     isLoaded: boolean;
 }
 
@@ -205,7 +205,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     }, [selectedParcel]);
 
     return (
-        <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
+        <div ref={wrapperRef} className={classNames(classes.citadelWrapper, className, 'citadel-wrapper')}>
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
             <CitadelInterface>

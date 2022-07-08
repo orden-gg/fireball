@@ -133,10 +133,10 @@ export const COLORS: any = Object.freeze({
     },
     // TODO remove commented code if not needed
     // grid: 0xfd9af9,
-    grid: 0xffffff,
+    grid: 0xababab,
     logo: { back: 0x000000, border: 0xfd9af9 },
     district: {
-        hover: 0xffffff
+        hover: 0xababab
     },
     alchemica: {
         // TODO remove commented code if not needed
