@@ -20,7 +20,7 @@ import discord from 'assets/images/icons/discord.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
-import guild from 'assets/images/icons/guild.svg';
+import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
@@ -129,7 +129,7 @@ export const GotchiIcon = ({ className, width, height }: IconProps) => {
 };
 
 export const GuildIcon = ({ className, width, height }: IconProps) => {
-    return <img className={className} width={width} height={height} src={guild} alt='guild' />;
+    return <Guild className={className} width={width} height={height} />;
 };
 
 export const GotchilandIcon = ({ className, width, height }: IconProps) => {

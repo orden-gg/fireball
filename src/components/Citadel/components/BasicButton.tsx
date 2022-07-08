@@ -11,11 +11,11 @@ interface BasicButtonProps {
     active: boolean;
     type: string;
     tooltip: string;
-    icons: JSX.Element[];
+    icon: JSX.Element;
     handleClick: (type: string, isActive: boolean) => void;
 }
 
-export function BasicButton({ active, type, tooltip, icons, handleClick }: BasicButtonProps) {
+export function BasicButton({ active, type, tooltip, icon, handleClick }: BasicButtonProps) {
     const classes = InterfaceStyles();
 
     const [isActive, setIsActive] = useState(active);
@@ -35,7 +35,7 @@ export function BasicButton({ active, type, tooltip, icons, handleClick }: Basic
                 onClick={() => switchButtonState(!isActive)}
                 className={classNames(classes.citadelInterfaceButton, isActive && 'active')}
             >
-                {icons[isActive ? 0 : 1]}
+                {icon}
             </IconButton>
         </CustomTooltip>
     );
