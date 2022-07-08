@@ -2,6 +2,14 @@ import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
+    leftSide: {
+        position: 'fixed',
+        top: theme.spacing(1.5),
+        left: theme.spacing(2),
+        zIndex: theme.zIndex.appBar,
+        display: 'flex',
+        alignItems: 'center'
+    },
     userPanel: {
         position: 'fixed',
         right: theme.spacing(2),
@@ -14,61 +22,99 @@ export const styles = makeStyles(theme => createStyles({
 
 export const dataReloadStyles = makeStyles(theme => createStyles({
     dataReloadWrapper: {
-        top: theme.spacing(2),
-        left: theme.spacing(14),
-        position: 'fixed',
-        zIndex: theme.zIndex.appBar,
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        marginRight: theme.spacing(1),
-        color: theme.palette.text.primary,
-        textDecoration: 'none',
-        [theme.breakpoints.up('md')]: {
-            paddingBottom: 10
-        }
+        position: 'relative',
+        marginLeft: theme.spacing(2)
     },
-    liveReloadDropdownContainer: {
-        height: 40,
+    topButtonsGroup: {
         display: 'flex',
         alignItems: 'center',
-        position: 'relative',
-        zIndex: theme.zIndex.drawer + 3
+        justifyContent: 'center',
+        borderRadius: 8,
+        backgroundColor: alpha(theme.palette.background.secondary, .6),
+        overflow: 'hidden',
+        '&.opened': {
+            borderRadius: '8px 8px 0 0',
+            borderBottomColor: 'transparent'
+        }
+    },
+    divider: {
+        height: 20,
+        margin: -1
+    },
+    mainButton: {
+        padding: theme.spacing(.4, 1),
+        borderRadius: 0,
+        minWidth: 'auto',
+        color: theme.palette.text.primary,
+        border: `1px solid transparent`,
+        transition: 'none',
+        borderBottom: 'none',
+        '&.opened, &:hover': {
+            backgroundColor: theme.palette.background.paper,
+
+        },
+        '&.opened': {
+            borderRadius: '8px 8px 0 0',
+            borderColor: alpha(theme.palette.text.primary, .1),
+            posotion: 'relative',
+            zIndex: 1
+        },
+        '&.active': {
+            color: theme.palette.primary.main
+        }
     },
     liveReloadDropdown: {
         position: 'absolute',
         top: '100%',
-        left: '50%',
-        transform: 'translateX(-50%)',
+        left: 0,
+        marginTop: -1,
         minWidth: 100,
         background: theme.palette.background.paper,
-        borderRadius: '0 4px 4px 4px',
+        borderRadius: '4px',
         cursor: 'default',
         overflow: 'hidden',
+        padding: theme.spacing(1.5),
+        border: `1px solid ${alpha(theme.palette.text.primary, .1)}`,
         '.opened &': {
             display: 'block'
         }
     },
+    dropdownTitle: {
+        margin: theme.spacing(0, 0, .2, .5),
+        fontSize: 12
+    },
     selectContainer: {
         width: '100%',
-        padding: 12,
         '& .MuiSelect-root': {
             width: '100%'
         }
     },
     buttonsWrapper: {
-        padding: 12,
         display: 'flex',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        margin: theme.spacing(1.5, -.5, 0)
+    },
+    dropdownButton: {
+        margin: theme.spacing(0, .5)
+    },
+    tooltip: {
+        textAlign: 'center'
+    },
+    tooltipTitle: {
+        marginBottom: theme.spacing(.2),
+        display: 'block'
+    },
+    tooltipRow: {
+        display: 'flex'
+    },
+    countdown: {
+        marginLeft: theme.spacing(1),
+        color: theme.palette.primary.main
     }
 }));
 
 export const logoStyles = makeStyles(theme => createStyles({
     logoWrapper: {
-        top: theme.spacing(1.5),
-        left: theme.spacing(2),
-        position: 'fixed',
-        zIndex: theme.zIndex.appBar,
         display: 'flex',
         alignItems: 'flex-end',
         justifyContent: 'center',

@@ -1,17 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Button, IconButton, MenuItem, Select } from '@mui/material';
+import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
+import UpdateIcon from '@mui/icons-material/Update';
 
 import _ from 'lodash';
 
-import { DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
-import { DataReloadContextState, DataReloadConfig, LastUpdate } from 'shared/models';
+import { CountdownFormatNonZeroType, DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
+import { DataReloadContextState, DataReloadConfig, LastUpdate, CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 
 import { dataReloadStyles } from '../styles';
+import classNames from 'classnames';
+
+const countdownFormat: CountdownShortFormat = {
+    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false },
+    seconds: { key: CountdownFormatNonZeroType.S, value: 's', isShown: true, shownIfZero: false }
+};
 
 export function DataReloadPanel() {
     const classes = dataReloadStyles();
@@ -28,7 +36,7 @@ export function DataReloadPanel() {
     } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-    const [interval, setInterval] = useState<number | string>(reloadInterval || '');
+    const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
     const [lastUpdate, setLastUpdate] = useState<LastUpdate>({
         client: 0,
         explorer: 0,
@@ -89,7 +97,7 @@ export function DataReloadPanel() {
     };
 
     const onDeactivateLiveReload = (): void => {
-        setInterval('');
+        // setInterval(DATA_RELOAD_INTERVALS.FiveMins);
         setReloadInterval(0);
         setIsDropdownOpen(false);
     };
@@ -105,81 +113,121 @@ export function DataReloadPanel() {
     const getReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
 
-        return <span> Last fetch: <Countdown targetDate={lastUpdated} /></span>;
+        return (
+            <div className={classes.tooltip}>
+                <span className={classes.tooltipTitle}>Fetch data</span>
+                <span className={classes.tooltipRow}>Last: <span className={classes.countdown}><Countdown shortFormat={countdownFormat} targetDate={lastUpdated} /></span></span>
+            </div>
+        );
     };
 
     const getLiveReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
         const nextUpdate: JSX.Element = reloadInterval ?
-            <Countdown targetDate={lastUpdated + reloadInterval} /> :
-            <>unknown</>;
+            <Countdown shortFormat={countdownFormat} targetDate={lastUpdated + reloadInterval} /> :
+            <>unset</>;
 
-        return <>
-            <div>Last fetch: <Countdown targetDate={lastUpdated} /></div>
-            <div>Next fetch: {nextUpdate}</div>
-        </>;
+        return (
+            <div className={classes.tooltip}>
+                <span className={classes.tooltipRow}>Next fetch: <span className={classes.countdown}>{nextUpdate}</span></span>
+            </div>
+        );
     };
+
+    const renderAutoButton = () => {
+        return (
+            <Button
+                className={
+                    classNames(classes.mainButton, isDropdownOpen && 'opened', reloadInterval && 'active')
+                }
+                onClick={() => onOpenLiveReloadDropdown(isDropdownOpen)}
+            >
+                <UpdateIcon />
+            </Button>
+        )
+    }
 
     return (
         <div className={classes.dataReloadWrapper}>
-            <CustomTooltip
-                title={getReloadTooltip(lastUpdate)}
-                enterTouchDelay={0}
-                placement='bottom'
-            >
-                <Button disabled={isReloadDisabled} onClick={() => onHandleDataReload(currentRoute)}>Reload</Button>
-            </CustomTooltip>
 
-            <div className={classes.liveReloadDropdownContainer}>
+            <div className={classNames(classes.topButtonsGroup, isDropdownOpen && 'opened')}>
                 <CustomTooltip
-                    title={getLiveReloadTooltip(lastUpdate)}
+                    title={getReloadTooltip(lastUpdate)}
                     enterTouchDelay={0}
                     placement='bottom'
+                    arrow={true}
                 >
-                    <IconButton onClick={() => onOpenLiveReloadDropdown(isDropdownOpen)}>
+                    <Button
+                        disabled={isReloadDisabled}
+                        onClick={() => onHandleDataReload(currentRoute)}
+                        className={classes.mainButton}
+                    >
                         <CachedIcon />
-                    </IconButton>
+                    </Button>
                 </CustomTooltip>
 
-                { isDropdownOpen &&
-                    <div className={classes.liveReloadDropdown}>
-                        <div className={classes.selectContainer}>
-                            <Select
-                                labelId='demo-simple-select-label'
-                                id='demo-simple-select'
-                                value={interval}
-                                label='Interval'
-                                onChange={onHandleIntervalChange}
-                            >
-                                <MenuItem value={DATA_RELOAD_INTERVALS.FiveMins}>5 (minutes)</MenuItem>
-                                <MenuItem value={DATA_RELOAD_INTERVALS.TenMins}>10 (minutes)</MenuItem>
-                                <MenuItem value={DATA_RELOAD_INTERVALS.FifteenMins}>15 (minutes)</MenuItem>
-                            </Select>
-                        </div>
+                <Divider orientation="vertical" className={classes.divider} />
 
-                        <div className={classes.buttonsWrapper}>
-                            <Button
-                                variant='contained'
-                                color='warning'
-                                size='small'
-                                disabled={!reloadInterval}
-                                onClick={onDeactivateLiveReload}
-                            >
-                                Deactivate
-                            </Button>
-                            <Button
-                                variant='contained'
-                                color='secondary'
-                                size='small'
-                                disabled={!interval || isReloadDisabled}
-                                onClick={() => onActivateLiveReload(interval)}
-                            >
-                                Activate
-                            </Button>
-                        </div>
-                    </div>
+                {
+                    isDropdownOpen ? (
+                        renderAutoButton()
+                    ) : (
+                        <CustomTooltip
+                            title={getLiveReloadTooltip(lastUpdate)}
+                            enterTouchDelay={0}
+                            placement='bottom'
+                            arrow={true}
+                        >
+                            {renderAutoButton()}
+                        </CustomTooltip>
+                    )
                 }
             </div>
+
+            <Backdrop open={isDropdownOpen} onClick={() => setIsDropdownOpen(false)} />
+
+            { isDropdownOpen &&
+                <div className={classes.liveReloadDropdown}>
+                    <Typography className={classes.dropdownTitle}>Fetch interval</Typography>
+                    <div className={classes.selectContainer}>
+                        <Select
+                            labelId='demo-simple-select-label'
+                            id='demo-simple-select'
+                            value={interval}
+                            displayEmpty
+                            onChange={onHandleIntervalChange}
+                            size='small'
+                        >
+                            <MenuItem value={DATA_RELOAD_INTERVALS.FiveMins}>5 (minutes)</MenuItem>
+                            <MenuItem value={DATA_RELOAD_INTERVALS.TenMins}>10 (minutes)</MenuItem>
+                            <MenuItem value={DATA_RELOAD_INTERVALS.FifteenMins}>15 (minutes)</MenuItem>
+                        </Select>
+                    </div>
+
+                    <div className={classes.buttonsWrapper}>
+                        <Button
+                            variant='contained'
+                            color='warning'
+                            size='small'
+                            disabled={!reloadInterval}
+                            onClick={onDeactivateLiveReload}
+                            className={classes.dropdownButton}
+                        >
+                            Deactivate
+                        </Button>
+                        <Button
+                            variant='contained'
+                            color='secondary'
+                            size='small'
+                            disabled={!interval || isReloadDisabled}
+                            onClick={() => onActivateLiveReload(interval)}
+                            className={classes.dropdownButton}
+                        >
+                            Activate
+                        </Button>
+                    </div>
+                </div>
+            }
         </div>
     );
 }
