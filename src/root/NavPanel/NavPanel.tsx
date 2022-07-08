@@ -10,7 +10,7 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import classNames from 'classnames';
 
-import { GuildIcon, LandIcon, CraftIcon } from 'components/Icons/Icons';
+import { GuildIcon, LendingIcon, CraftIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from './styles';
@@ -35,7 +35,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/lend'>
                             <Icon className={classes.iconBox}>
-                                <LandIcon width={20} height={20} />
+                                <LendingIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Lend</span>
                         </NavLink>
