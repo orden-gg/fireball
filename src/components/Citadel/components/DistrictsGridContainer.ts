@@ -34,6 +34,7 @@ export class DistrictsGridContainer extends Phaser.GameObjects.Container {
             if (previous !== undefined) {
                 previous.setColor(`#${COLORS.grid.toString(16)}`);
                 previous.setAlpha(this.settings.active ? .7 : 0);
+                this.districtHighLight.setAlpha(0);
             }
 
             if (current !== undefined) {
