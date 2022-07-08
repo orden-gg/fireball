@@ -1,6 +1,5 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import { Citadel } from 'components/Citadel/Citadel';
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
@@ -21,7 +20,7 @@ export function GuildsRealm() {
         groups.push({
             parcels: guildRealm,
             /* eslint-disable-next-line react/jsx-key */
-            icons: [<VisibilityOffIcon />, <VisibilityIcon />],
+            icon: <VisibilityIcon />,
             tooltip: 'Owner realm',
             type: 'owner',
             active: true,
