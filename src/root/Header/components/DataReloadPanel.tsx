@@ -63,23 +63,8 @@ export function DataReloadPanel() {
     }, [reloadConfig, currentRoute]);
 
     const onHandleDataReload = (path: string): void => {
-        switch (path) {
-            case DataReloadType.Client:
-                setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, DataReloadType.Client));
-
-                break;
-            case DataReloadType.Explorer:
-                setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, DataReloadType.Explorer));
-
-                break;
-            case DataReloadType.Lend:
-                setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, DataReloadType.Lend));
-
-                break;
-            case DataReloadType.Map:
-                setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, DataReloadType.Map));
-
-                break;
+        if (Object.values(DataReloadType).includes(path as DataReloadType)) {
+            setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, path as DataReloadType));
         }
     };
 
@@ -97,7 +82,6 @@ export function DataReloadPanel() {
     };
 
     const onDeactivateLiveReload = (): void => {
-        // setInterval(DATA_RELOAD_INTERVALS.FiveMins);
         setReloadInterval(0);
         setIsDropdownOpen(false);
     };
@@ -134,7 +118,7 @@ export function DataReloadPanel() {
         );
     };
 
-    const renderAutoButton = () => {
+    const renderAutoButton = (): JSX.Element => {
         return (
             <Button
                 className={
