@@ -129,7 +129,7 @@ export const GotchiIcon = ({ className, width, height }: IconProps) => {
 };
 
 export const GuildIcon = ({ className, width, height }: IconProps) => {
-    return <Guild className={className} width={width || 24} height={height || 24} />;
+    return <Guild className={className} width={width} height={height} />;
 };
 
 export const GotchilandIcon = ({ className, width, height }: IconProps) => {

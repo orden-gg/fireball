@@ -231,7 +231,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                     type='guilds'
                     tooltip='Guilds'
                     /* eslint-disable-next-line react/jsx-key */
-                    icon={<GuildIcon />}
+                    icon={<GuildIcon width={24} height={24} />}
                     handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />
