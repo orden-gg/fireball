@@ -6,12 +6,11 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import MapIcon from '@mui/icons-material/Map';
-import GavelIcon from '@mui/icons-material/Gavel';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import classNames from 'classnames';
 
-import { GuildIcon, LendingIcon } from 'components/Icons/Icons';
+import { GuildIcon, LendIcon, CraftIcon } from 'components/Icons/Icons';
 import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from './styles';
@@ -36,7 +35,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/lend'>
                             <Icon className={classes.iconBox}>
-                                <LendingIcon width={20} height={20} />
+                                <LendIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Lend</span>
                         </NavLink>
@@ -84,7 +83,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/craft'>
                             <Icon className={classes.iconBox}>
-                                <GavelIcon width={20} height={20} />
+                                <CraftIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Craft</span>
                         </NavLink>
