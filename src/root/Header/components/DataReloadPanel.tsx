@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
-import CachedIcon from '@mui/icons-material/Cached';
 import UpdateIcon from '@mui/icons-material/Update';
 
+import classNames from 'classnames';
 import _ from 'lodash';
 
 import { CountdownFormatNonZeroType, DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
@@ -11,9 +11,9 @@ import { DataReloadContextState, DataReloadConfig, LastUpdate, CountdownShortFor
 import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { DataReloadContext } from 'contexts/DataReloadContext';
+import { ReloadIcon } from 'components/Icons/Icons';
 
 import { dataReloadStyles } from '../styles';
-import classNames from 'classnames';
 
 const countdownFormat: CountdownShortFormat = {
     hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
@@ -162,7 +162,7 @@ export function DataReloadPanel() {
                         onClick={() => onHandleDataReload(currentRoute)}
                         className={classes.mainButton}
                     >
-                        <CachedIcon />
+                        <ReloadIcon />
                     </Button>
                 </CustomTooltip>
 
