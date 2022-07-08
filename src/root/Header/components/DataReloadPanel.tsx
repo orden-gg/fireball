@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
@@ -144,8 +144,8 @@ export function DataReloadPanel() {
             >
                 <UpdateIcon />
             </Button>
-        )
-    }
+        );
+    };
 
     return (
         <div className={classes.dataReloadWrapper}>

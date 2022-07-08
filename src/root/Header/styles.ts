@@ -46,11 +46,11 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         borderRadius: 0,
         minWidth: 'auto',
         color: theme.palette.text.primary,
-        border: `1px solid transparent`,
+        border: '1px solid transparent',
         transition: 'none',
         borderBottom: 'none',
         '&.opened, &:hover': {
-            backgroundColor: theme.palette.background.paper,
+            backgroundColor: theme.palette.background.paper
 
         },
         '&.opened': {
