@@ -27,7 +27,7 @@ import ghst from 'assets/images/icons/ghst.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
 import logoMobile from 'assets/images/icons/logo-mobile.svg';
-import lend from 'assets/images/icons/lend.svg';
+import land from 'assets/images/icons/land.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
@@ -140,8 +140,8 @@ export const LendingIcon = ({ className, width, height }: IconProps) => {
     return <Lending className={className} width={width} height={height} />;
 };
 
-export const LendIcon = ({ width, height }: IconProps) => {
-    return <img width={width} height={height} src={lend} alt='lend' />;
+export const LandIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={land} alt='land' />;
 };
 
 export const KekIcon = ({ width, height, alt }: IconProps) => {
