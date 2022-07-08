@@ -61,6 +61,9 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         },
         '&.active': {
             color: theme.palette.primary.main
+        },
+        '&.is-loading': {
+            animation: '1s $rotate ease-in-out infinite'
         }
     },
     liveReloadDropdown: {
@@ -110,6 +113,11 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
     countdown: {
         marginLeft: theme.spacing(1),
         color: theme.palette.primary.main
+    },
+    '@keyframes rotate':  {
+        '100%': {
+            transform: 'rotate(360deg)'
+        }
     }
 }));
 

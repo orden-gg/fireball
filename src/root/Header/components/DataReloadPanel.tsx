@@ -144,7 +144,7 @@ export function DataReloadPanel() {
                     <Button
                         disabled={isReloadDisabled}
                         onClick={() => onHandleDataReload(currentRoute)}
-                        className={classes.mainButton}
+                        className={classNames(classes.mainButton, isReloadDisabled && 'is-loading')}
                     >
                         <ReloadIcon />
                     </Button>
