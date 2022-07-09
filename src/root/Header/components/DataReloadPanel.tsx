@@ -16,9 +16,9 @@ import { ReloadIcon } from 'components/Icons/Icons';
 import { dataReloadStyles } from '../styles';
 
 const countdownFormat: CountdownShortFormat = {
-    hours: { key: CountdownFormatNonZeroType.H, value: ':', isShown: true, shownIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, value: ':', isShown: true, shownIfZero: false },
-    seconds: { key: CountdownFormatNonZeroType.S, value: '', isShown: true, shownIfZero: false }
+    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false },
+    seconds: { key: CountdownFormatNonZeroType.S, value: 's', isShown: true, shownIfZero: false }
 };
 
 export function DataReloadPanel() {
@@ -100,7 +100,9 @@ export function DataReloadPanel() {
         return (
             <div className={classes.tooltip}>
                 <span className={classes.tooltipTitle}>Fetch data</span>
-                <span className={classes.tooltipRow}>Last: <span className={classes.countdown}><Countdown shortFormat={countdownFormat} targetDate={lastUpdated} /></span></span>
+                <span className={classes.tooltipRow}>Last: <span className={classes.countdown}>
+                    <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} valueSeparator={':'} isShowAdditionalText={false} />
+                </span></span>
             </div>
         );
     };
@@ -108,8 +110,12 @@ export function DataReloadPanel() {
     const getLiveReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
         const nextUpdate: JSX.Element = reloadInterval ?
-            <Countdown shortFormat={countdownFormat} targetDate={lastUpdated + reloadInterval} /> :
-            <></>;
+            <Countdown
+                shortFormat={countdownFormat}
+                targetDate={lastUpdated + reloadInterval}
+                valueSeparator={':'}
+                isShowAdditionalText={false}
+            /> : <></>;
 
         return <span className={classes.interval}>{nextUpdate}</span>;
     };

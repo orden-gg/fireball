@@ -14,11 +14,14 @@ const defaultLongFormat: CountdownLongFormat = {
     minutes: { key: CountdownFormatNonZeroType.M, values: ['minute', 'minutes'], isShown: true, shownIfZero: false },
     seconds: { key: CountdownFormatNonZeroType.S, values: ['second', 'seconds'], isShown: true, shownIfZero: false }
 };
+const defaultValueSeparator: string = ' ';
 
 interface CountdownProps {
     targetDate: number;
     shortFormat?: CountdownShortFormat;
     longFormat?: CountdownLongFormat;
+    isShowAdditionalText?: boolean;
+    valueSeparator?: string;
     onEnd?: () => void;
     replacementComponent?: JSX.Element;
 }
@@ -31,10 +34,20 @@ interface CountdownProps {
  * If unit has to be shown if it's zero and previous units are also equal
  * to zero - eg. 00 days 00 hours 21 minutes, set `@shownIfZero` in formats configs to `true`
  *
+ * @param isShowAdditionalText - by default is `true`, will show `in` and `ago` if date is in the past or future representatively`
+ * @param valueSeparator - by default is ` ``
  * @param onEnd - callback function that will trigger when current date is equal to `@targetDate`
  * @param replacementComponent - component that will be placed instead of countdown if `@targetDate` is in the past
 */
-export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacementComponent }: CountdownProps) {
+export function Countdown({
+    targetDate,
+    shortFormat,
+    longFormat,
+    onEnd,
+    replacementComponent,
+    isShowAdditionalText = true,
+    valueSeparator
+}: CountdownProps) {
     const isInThePast: boolean = targetDate < DateTime.local().toMillis();
 
     const [isDateInThePast, setIsDateInThePast] = useState<boolean>(isInThePast);
@@ -63,7 +76,8 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
                     .filter(key => getUnit(shortFormat, key, units))
                     .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
 
-                formattedTimeString = Duration.fromObject(units).toFormat(mappedShortFormat.join(' '));
+                formattedTimeString = Duration.fromObject(units)
+                    .toFormat(mappedShortFormat.join(valueSeparator ? valueSeparator : defaultValueSeparator));
             } else if (longFormat) {
                 formattedTimeString = getLongFormattedTimeString(diff, longFormat);
             } else {
@@ -71,9 +85,13 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
             }
 
             if (targetDate - now > 0 ) {
-                formattedTimeString = `in ${formattedTimeString}`;
+                if (isShowAdditionalText) {
+                    formattedTimeString = `in ${formattedTimeString}`;
+                }
             } else if (targetDate - now < 0) {
-                formattedTimeString = `${formattedTimeString} ago`;
+                if (isShowAdditionalText) {
+                    formattedTimeString = `${formattedTimeString} ago`;
+                }
             }
 
             setCountdown(formattedTimeString);
@@ -103,7 +121,7 @@ export function Countdown({ targetDate, shortFormat, longFormat, onEnd, replacem
                 `'${format[key].values[1]}'` : `'${format[key].values[0]}'`}`
             );
 
-        return Duration.fromObject(units).toFormat(mappedLongFormat.join(' '));
+        return Duration.fromObject(units).toFormat(mappedLongFormat.join(valueSeparator ? valueSeparator : defaultValueSeparator));
     };
 
     const getUnit = (format: CountdownShortFormat | CountdownLongFormat, key: string, units: DurationObjectUnits): boolean => {
