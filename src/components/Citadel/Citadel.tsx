@@ -2,9 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Backdrop, CircularProgress, Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
-import GridOffIcon from '@mui/icons-material/GridOff';
-import DeselectIcon from '@mui/icons-material/Deselect';
-import SelectAllIcon from '@mui/icons-material/SelectAll';
+
 
 import Phaser from 'phaser';
 import classNames from 'classnames';
@@ -12,6 +10,7 @@ import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
+import { GuildIcon } from 'components/Icons/Icons';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils } from 'utils';
@@ -31,7 +30,7 @@ const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multisel
 
 interface CitadelProps {
     realmGroups: any[];
-    className: string;
+    className?: string;
     isLoaded: boolean;
 }
 
@@ -86,7 +85,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                 return (
                     <BasicButton
                         type={group.type}
-                        icons={group.icons}
+                        icon={group.icon}
                         tooltip={group.tooltip}
                         active={buttonIsActive(group.type) || group.active}
                         handleClick={updateGroup}
@@ -205,7 +204,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     }, [selectedParcel]);
 
     return (
-        <div ref={wrapperRef} className={classNames(className, 'citadel-wrapper')}>
+        <div ref={wrapperRef} className={classNames(classes.citadelWrapper, className, 'citadel-wrapper')}>
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
             <CitadelInterface>
@@ -224,7 +223,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                     type='grid'
                     tooltip='Districts grid'
                     /* eslint-disable-next-line react/jsx-key */
-                    icons={[<GridOffIcon />, <GridOnIcon />]}
+                    icon={<GridOnIcon />}
                     handleClick={updateGroup}
                     active={buttonIsActive('grid')}
                 />
@@ -232,7 +231,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                     type='guilds'
                     tooltip='Guilds'
                     /* eslint-disable-next-line react/jsx-key */
-                    icons={[<DeselectIcon />, <SelectAllIcon />]}
+                    icon={<GuildIcon width={24} height={24} />}
                     handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />

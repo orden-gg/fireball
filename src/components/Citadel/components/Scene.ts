@@ -69,7 +69,6 @@ export class CitadelScene extends Phaser.Scene {
             kek: this.add.image(0, 0, 'kek')
         };
 
-        this.districtHighLight = new Highlight(this, { color: COLORS.district.hover, size: 1 });
         this.selected = new Highlight(this, { color: COLORS.parcels.selected, size: 2 });
 
         for (const key in parcelsData) {
@@ -105,7 +104,7 @@ export class CitadelScene extends Phaser.Scene {
             active: true,
             animate: true
         });
-        this.citadel.add([this.groups.guilds, this.groups.grid, this.districtHighLight, this.multiselect, this.selected]);
+        this.citadel.add([this.groups.guilds, this.groups.grid, this.multiselect, this.selected]);
 
         this.trigger('created');
 
@@ -183,12 +182,9 @@ export class CitadelScene extends Phaser.Scene {
             this.cursorFromCenter = null;
 
             if (id !== this.settings.district) {
-                const { x, y, w, h } = CitadelUtils.getDistrictParams(id);
 
                 this.trigger('districtHover', id, this.settings.district);
                 this.settings.district = id;
-
-                this.districtHighLight.update(x, y, w, h);
             }
         });
     }
@@ -224,7 +220,7 @@ export class CitadelScene extends Phaser.Scene {
         return image;
     }
 
-    addSelectedParcel(value) {
+    addSelectedParcel(value, isZoom) {
         const parcel = this.getParcel(value);
 
         if (parcel === undefined) {
@@ -245,13 +241,9 @@ export class CitadelScene extends Phaser.Scene {
 
         setTimeout(() => {
             const { cx, cy } = this.calculateParcelCenter(parcel);
-            this.moveToCenter(cx, cy, 500);
 
-            setTimeout(() => {
-                this.zoomTo(1.1, 500, () => {
-                    this.trigger('parcelSelect', parcel);
-                });
-            }, 0);
+            this.moveToCenter(cx, cy, 500);
+            this.trigger('parcelSelect', parcel);
         }, 50);
     }
 
@@ -384,7 +376,6 @@ export class CitadelScene extends Phaser.Scene {
 
         this.moveToCenter(cx , cy, 500);
         this.zoomTo(this.getZoomBySize(w, h) * .9, 500);
-        this.districtHighLight.update(x, y, w, h);
         this.trigger('districtHover', id, this.settings.district);
         this.settings.district = id;
     }
@@ -394,7 +385,6 @@ export class CitadelScene extends Phaser.Scene {
         this.citadel.bringToTop(this.selected);
         this.citadel.bringToTop(this.groups.guilds);
         this.citadel.bringToTop(this.groups.grid);
-        this.citadel.bringToTop(this.districtHighLight);
     }
 
     find(type, value) {

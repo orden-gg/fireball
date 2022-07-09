@@ -15,6 +15,7 @@ import {
     erc721SalesHistory,
     erc1155ListingsBySeller,
     userQuery,
+    userOwnedGotchisQuery,
     realmQuery,
     auctionQuery,
     raffleQuery,
@@ -222,6 +223,28 @@ export class TheGraphApi {
         return queries;
     }
 
+    public static getOwnedGotchis(address: string): Promise<any> {
+        const getQueries = () => {
+            const queries: any = [];
+
+            for (let i = 0; i < 5; i++) {
+                queries.push(userOwnedGotchisQuery(address.toLowerCase(), i * 1000));
+            }
+
+            return queries;
+        };
+
+        return graphJoin(clientFactory.client, getQueries()).then((response) => {
+            if (!response[0].data.user) {
+                return []; // terminate if thegraph has no data about address
+            }
+
+            const filteredArray: any[] = filterCombinedGraphData(response, ['user', 'gotchisOwned'], 'id');
+
+            return modifyTraits(filteredArray);
+        });
+    }
+
     public static async getGotchisByAddress(address: string): Promise<any> {
         const getQueries = () => {
             const queries: any = [];
@@ -247,8 +270,9 @@ export class TheGraphApi {
 
     public static getGotchisByAddresses(addresses: string[]): Promise<any[]> {
         const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getGotchisByAddress(address));
+        const ownedPromises: Promise<any>[] = addresses.map(address => TheGraphApi.getOwnedGotchis(address));
 
-        return Promise.all(promises).then((response: any[]) =>
+        return Promise.all(promises.concat(ownedPromises)).then((response: any[]) =>
             response.reduce((result, current) => result.concat(current), [])
         );
     }

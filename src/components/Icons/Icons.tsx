@@ -15,17 +15,20 @@ import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import controller from 'assets/images/wearables/204.svg';
+import craft from 'assets/images/icons/craft.svg';
 import discord from 'assets/images/icons/discord.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
-import guild from 'assets/images/icons/guild.svg';
+import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import ghst from 'assets/images/icons/ghst.svg';
 import kek from 'assets/images/icons/kek.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
 import logoMobile from 'assets/images/icons/logo-mobile.svg';
+import land from 'assets/images/icons/land.svg';
+import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
@@ -34,7 +37,6 @@ import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
-import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 
 // portals
 import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
@@ -115,6 +117,10 @@ export const ConsumableIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={consumable} alt='consumable' />;
 };
 
+export const CraftIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={craft} alt='craft' />;
+};
+
 export const DiscordIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={discord} alt='discord' />;
 };
@@ -124,7 +130,7 @@ export const GotchiIcon = ({ className, width, height }: IconProps) => {
 };
 
 export const GuildIcon = ({ className, width, height }: IconProps) => {
-    return <img className={className} width={width} height={height} src={guild} alt='guild' />;
+    return <Guild className={className} width={width} height={height} />;
 };
 
 export const GotchilandIcon = ({ className, width, height }: IconProps) => {
@@ -133,6 +139,10 @@ export const GotchilandIcon = ({ className, width, height }: IconProps) => {
 
 export const LendingIcon = ({ className, width, height }: IconProps) => {
     return <Lending className={className} width={width} height={height} />;
+};
+
+export const LandIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={land} alt='land' />;
 };
 
 export const KekIcon = ({ width, height, alt }: IconProps) => {

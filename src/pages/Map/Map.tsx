@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 
 import _ from 'lodash';
 
@@ -80,7 +78,7 @@ export function Map() {
                     type: 'listed',
                     active: false,
                     /* eslint-disable-next-line react/jsx-key */
-                    icons: [<MoneyOffIcon />, <AttachMoneyIcon />],
+                    icon: <AttachMoneyIcon />,
                     tooltip: 'Listed realm',
                     range: {
                         humble: { min: humbleAsc, max: 500 },
@@ -121,7 +119,7 @@ export function Map() {
                         active: false,
                         animate: true,
                         /* eslint-disable-next-line react/jsx-key */
-                        icons: [<VisibilityOffIcon />, <VisibilityIcon />],
+                        icon: <VisibilityIcon />,
                         tooltip: 'Owner realm'
                     };
 

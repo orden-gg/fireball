@@ -97,6 +97,45 @@ export const userQuery = (id: any, skip: any): any => {
     }`;
 };
 
+export const userOwnedGotchisQuery = (address: string, skip: number): string => {
+    return `{
+        user(id: "${address}") {
+          id
+          gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3, originalOwner: null}) {
+            id
+            name
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            baseRarityScore
+            modifiedRarityScore
+            withSetsRarityScore
+            kinship
+            equippedWearables
+            experience
+            level
+            toNextLevel
+            collateral
+            hauntId
+            createdAt
+            possibleSets
+            equippedSetID
+            equippedSetName
+            usedSkillPoints
+            listings(where:{cancelled: false, timePurchased: 0}) {
+              id
+              priceInWei
+            }
+            historicalPrices
+            owner {
+              id
+            }
+            lending
+          }
+        }
+    }`;
+};
+
 export const svgQuery = (id: any): any => {
     return `{
         aavegotchis(where: {id: ${id}}) {
