@@ -156,12 +156,9 @@ export function GhostExplorer() {
         setModifiedGotchis(modifiedGotchis);
     }, [currentFilters, gotchis, gotchisSorting]);
 
-    const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+    const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (isMounted && shouldUpdateIsLoading) {
-            setIsGotchisLoading(true);
-        }
+        setIsGotchisLoading(shouldUpdateIsLoading);
 
         TheGraphApi.getAllGotchies().then((response: any[]) => {
             if (isMounted) {

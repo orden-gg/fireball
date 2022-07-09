@@ -173,12 +173,9 @@ export function Lend() {
         setModifiedLendings(modifiedLendings);
     }, [currentFilters, lendings, lendingsSorting]);
 
-    const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+    const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (isMounted && shouldUpdateIsLoading) {
-            setIsDataLoading(true);
-        }
+        setIsDataLoading(shouldUpdateIsLoading);
 
         TheGraphApi.getLendings().then((response: any) => {
             if (isMounted) {

@@ -7,21 +7,15 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
-import { InstallationTypeNames } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { ActionPane } from 'shared/ActionPane/ActionPane';
-import { EthersApi, InstallationsApi, TheGraphApi } from 'api';
 import { ClientContext } from 'contexts/ClientContext';
-import { FilterUtils, InstallationsUtils } from 'utils';
+import { FilterUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
-
-import { ClientRealmActions } from '../components/ClientRealmActions';
-import { LoginContext } from 'contexts/LoginContext';
 
 const sortings: SortingListItem[] = [
     {
@@ -105,17 +99,13 @@ export function ClientRealmList() {
 
     const {
         realm,
-        setRealm,
         realmSorting,
         setRealmSorting,
         loadingRealm,
         setRealmView
     } = useContext<any>(ClientContext);
-    const { activeAddress } = useContext<any>(LoginContext);
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [modifiedRealm, setModifiedRealm] = useState<any[]>([]);
-    const [loadingUpgrades, setLoadingUpgrades] = useState<boolean>(false);
-    const [claimableUpgrades, setClaimableUpgrades] = useState<any[]>([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
@@ -139,12 +129,6 @@ export function ClientRealmList() {
             onResetFilters();
         };
     }, []);
-
-    useEffect(() => {
-        if (realm.length && !loadingRealm) {
-            getRealmAdditionalData();
-        }
-    }, [loadingRealm]);
 
     useEffect(() => {
         FilterUtils.onFiltersUpdate(
@@ -206,105 +190,6 @@ export function ClientRealmList() {
         FilterUtils.exportData(modifiedRealm, 'client_realm');
     }, [modifiedRealm]);
 
-    const getRealmAdditionalData = useCallback(() => {
-        const parcelIds: any[] = realm.map((parcel: any) => parcel.tokenId);
-
-        setLoadingUpgrades(true);
-
-        Promise.all([
-            getRealmInfo(activeAddress),
-            getRealmUpgradesQueue(parcelIds)
-        ]).then(([realmInfo, realmUpgradesQueue]) => {
-            const modifiedParcels = realm.map(parcel => {
-                const isParcelUpgrading = realmUpgradesQueue.find((upgrade: any) => upgrade.parcelId === parcel.tokenId);
-                const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
-                const altar = parcelInfo.installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-
-                return {
-                    ...parcel,
-                    channeling: parcelInfo,
-                    nextChannel: parcelInfo.nextChannel,
-                    altarLevel: altar ? altar.level : 0,
-                    installations: parcelInfo.installations,
-                    upgrading: isParcelUpgrading,
-                    isUpgradeReady: Boolean(isParcelUpgrading?.ready)
-                };
-            });
-
-            setRealm(modifiedParcels);
-            setLoadingUpgrades(false);
-        });
-    }, [realm, setRealm, activeAddress]);
-
-    const getRealmInfo = (owner: any): Promise<any> => {
-        return TheGraphApi.getParcelsGotchiverseInfoByOwner(owner).then((res: any) => {
-            return res.map((parcel: any) => {
-                if (!parcel.equippedInstallations.length) {
-                    return {
-                        id: parcel.id,
-                        lastChanneled: 0,
-                        nextChannel: 0,
-                        installations: []
-                    };
-                }
-
-                const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
-                    id: inst.id,
-                    name: InstallationsUtils.getNameById(inst.id),
-                    level: InstallationsUtils.getLevelById(inst.id),
-                    type: InstallationsUtils.getTypeById(inst.id)
-                }));
-
-                const altar = installations.find(installation => installation.type === InstallationTypeNames.Altar);
-                const cooldown = InstallationsUtils.getCooldownByLevel(altar.level, 'seconds');
-                const lastChanneled = Number(parcel.lastChanneledAlchemica);
-                const nextChannel = lastChanneled + cooldown;
-
-                return {
-                    id: parcel.id,
-                    lastChanneled: lastChanneled,
-                    nextChannel: Number(nextChannel),
-                    cooldown: cooldown,
-                    installations: installations
-                };
-            });
-        });
-    };
-
-    const getRealmUpgradesQueue = (realmIds: string[]): any => {
-        return InstallationsApi.getAllUpgradeQueue().then(async res => {
-
-            const activeUpgrades = res
-                .map((queue: any, i: number) => ({ ...queue, upgradeIndex: i })) // add indexes (needed for onUpgradesFinish function)
-                .filter((queue: any) => realmIds.some(id => id === queue.parcelId && !queue.claimed)); // get only unclaimed upgrades
-
-            if (activeUpgrades.length) {
-                const lastBlock = await EthersApi.getLastBlock();
-
-                const upgradesWithTimestamps: any[] = activeUpgrades.map((upgrade: any) => {
-                    const currentBlock: any = upgrade.readyBlock;
-                    const isUpgradeReady = currentBlock - lastBlock.number <= 0;
-                    const timestamp = !isUpgradeReady ?
-                    EthersApi.getFutureBlockTimestamp(lastBlock, currentBlock) : lastBlock.timestamp;
-
-                    return {
-                        ...upgrade,
-                        timestamp: timestamp,
-                        ready: isUpgradeReady
-                    };
-                });
-
-                setClaimableUpgrades(
-                    upgradesWithTimestamps.filter(queue => queue.ready).map(queue => queue.upgradeIndex)
-                );
-
-                return upgradesWithTimestamps;
-            }
-
-            return activeUpgrades;
-        });
-    };
-
     return (
         <>
             <SortFilterPanel
@@ -327,10 +212,6 @@ export function ClientRealmList() {
                     component={(props) => <Parcel parcel={props} />}
                 />
             </ContentInner>
-
-            <ActionPane dataLoading={loadingRealm || loadingUpgrades}>
-                <ClientRealmActions claimableList={claimableUpgrades} />
-            </ActionPane>
         </>
     );
 }

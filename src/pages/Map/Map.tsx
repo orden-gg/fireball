@@ -56,12 +56,9 @@ export function Map() {
         }
     }, [reloadConfig.map.lastUpdated]);
 
-    const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+    const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (isMounted && shouldUpdateIsLoading) {
-            setIsListedLoaded(false);
-        }
+        setIsListedLoaded(shouldUpdateIsLoading);
 
         Promise.all([
             TheGraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
@@ -105,10 +102,8 @@ export function Map() {
         });
     };
 
-    const onLoadOwnerParcels = (isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
-        if (shouldUpdateIsLoading) {
-            setIsOwnerLoaded(false);
-        }
+    const onLoadOwnerParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
+        setIsOwnerLoaded(shouldUpdateIsLoading);
 
         if (activeAddress) {
             TheGraphApi.getRealmByAddress(activeAddress).then((ownerRealm: any) => {

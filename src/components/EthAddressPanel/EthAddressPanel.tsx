@@ -38,12 +38,9 @@ export function EthAddressPanel({ address }: { address: string }) {
         return () => { isMounted = false };
     }, [reloadConfig.client.lastUpdated]);
 
-    const onGetAddressInfo = (address: string, isMounted: boolean, shouldUpdateIsLoading?: boolean): void => {
+    const onGetAddressInfo = (address: string, isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setDataLoading(true);
-        }
+        setDataLoading(shouldUpdateIsLoading);
 
         AavegothilandApi.getAddressInfo(address).then((res: any) => {
             if (isMounted) {

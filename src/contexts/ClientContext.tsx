@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
+import { InstallationTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
@@ -110,7 +111,7 @@ export const ClientContextProvider = (props: any) => {
         }
     ];
 
-    const getClientData = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         getGotchis(address, shouldUpdateIsLoading);
         getLendings(address, shouldUpdateIsLoading);
         getBorrowed(address, shouldUpdateIsLoading);
@@ -124,12 +125,9 @@ export const ClientContextProvider = (props: any) => {
         setWarehouse([]);
     };
 
-    const getGotchis = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingGotchis(true);
-        }
+        setLoadingGotchis(shouldUpdateIsLoading);
 
         Promise.all([
             TheGraphApi.getGotchisByAddress(address),
@@ -190,12 +188,9 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getLendings = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingLendings(true);
-        }
+        setLoadingLendings(shouldUpdateIsLoading);
 
         TheGraphApi.getLendingsByAddress(address)
             .then((lendings: any[]) => {
@@ -225,12 +220,9 @@ export const ClientContextProvider = (props: any) => {
         );
     };
 
-    const getBorrowed = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingBorrowed(true);
-        }
+        setLoadingBorrowed(shouldUpdateIsLoading);
 
         TheGraphApi.getBorrowedByAddress(address)
             .then((borrowed: any[]) => {
@@ -243,12 +235,9 @@ export const ClientContextProvider = (props: any) => {
         );
     };
 
-    const getInventory = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingWarehouse(true);
-        }
+        setLoadingWarehouse(shouldUpdateIsLoading);
 
         MainApi.getInventoryByAddress(address).then((response: any) => {
             const modified: any[] = [];
@@ -287,12 +276,9 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getInstallations = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingInstallations(true);
-        }
+        setLoadingInstallations(shouldUpdateIsLoading);
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations: any[] = response.map((item: any) => {
@@ -313,12 +299,9 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getTiles = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingTiles(true);
-        }
+        setLoadingTiles(shouldUpdateIsLoading);
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response.map((item: any) => {
@@ -338,12 +321,9 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getTickets = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-
-        if (shouldUpdateIsLoading) {
-            setLoadingTickets(true);
-        }
+        setLoadingTickets(shouldUpdateIsLoading);
 
         TicketsApi.getTicketsByAddress(address).then((response: any) => {
             const modified = response.filter((item: any) => item.balance > 0);
@@ -357,32 +337,72 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getRealm = (address: string, shouldUpdateIsLoading?: boolean): void => {
+    const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
+        setLoadingRealm(shouldUpdateIsLoading);
 
-        if (shouldUpdateIsLoading) {
-            setLoadingRealm(true);
-        }
+        Promise.all([
+            TheGraphApi.getRealmByAddress(address),
+            TheGraphApi.getParcelsGotchiverseInfoByOwner(address)
+        ]).then((response => {
+            const realm: any[] = response[0];
+            const realmInfo: any[] = getModifiedParcelInfo(response[1]);
 
-        TheGraphApi.getRealmByAddress(address)
-            .then((res: any) => {
-                const { type, dir } = realmSorting;
+            const modifiedParcels = realm.map((parcel: any) => {
+                const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
+                const altar = parcelInfo?.installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
 
-                const modified: any[] = res.map((parcel: any) => ({
+                return {
                     ...parcel,
-                    channeling: { loading: true },
-                    installations: { loading: true }
-                }));
-
-                setRealm(CommonUtils.basicSort(modified, type, dir));
-                setLoadingRealm(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setRealm([]);
-                setLoadingRealm(false);
-                setIsReloadDisabled(false);
+                    channeling: parcelInfo,
+                    nextChannel: parcelInfo?.nextChannel,
+                    altarLevel: altar ? altar.level : 0,
+                    installations: parcelInfo?.installations
+                };
             });
+
+            setRealm(modifiedParcels);
+        })).catch((error) => {
+            console.log(error);
+
+            setRealm([]);
+        }).finally(() => {
+            setLoadingRealm(false);
+            setIsReloadDisabled(false);
+        });
+    };
+
+    const getModifiedParcelInfo = (parcelinfo: any[]): any[] => {
+        return parcelinfo.map((parcel: any) => {
+            if (!parcel.equippedInstallations.length) {
+                return {
+                    id: parcel.id,
+                    lastChanneled: 0,
+                    nextChannel: 0,
+                    installations: []
+                };
+            }
+
+            const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
+                id: inst.id,
+                name: InstallationsUtils.getNameById(inst.id),
+                level: InstallationsUtils.getLevelById(inst.id),
+                type: InstallationsUtils.getTypeById(inst.id)
+            }));
+
+            const altar = installations.find(installation => installation.type === InstallationTypeNames.Altar);
+            const cooldown = InstallationsUtils.getCooldownByLevel(altar.level, 'seconds');
+            const lastChanneled = Number(parcel.lastChanneledAlchemica);
+            const nextChannel = lastChanneled + cooldown;
+
+            return {
+                id: parcel.id,
+                lastChanneled: lastChanneled,
+                nextChannel: Number(nextChannel),
+                cooldown: cooldown,
+                installations: installations
+            };
+        });
     };
 
     // TODO check if needed

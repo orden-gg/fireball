@@ -47,9 +47,7 @@ export const DataReloadContextProvider = ({ children }: { children: JSX.Element 
     useEffect(() => {
         let interval: NodeJS.Timer;
 
-        if (activeReloadType && reloadInterval) {
-            setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, activeReloadType));
-
+        if (activeReloadType && reloadInterval && !isReloadDisabled) {
             interval = setInterval(() => {
                 if (reloadInterval !== 0 && (reloadConfig[activeReloadType].lastUpdated + reloadInterval) <= Date.now()) {
                     setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, activeReloadType));
