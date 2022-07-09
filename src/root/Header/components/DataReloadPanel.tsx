@@ -137,13 +137,15 @@ export function DataReloadPanel() {
                     placement='bottom'
                     arrow={true}
                 >
-                    <Button
-                        disabled={isReloadDisabled}
-                        onClick={() => onHandleDataReload(currentRoute)}
-                        className={classNames(classes.mainButton, isReloadDisabled && 'is-loading')}
-                    >
-                        <ReloadIcon width={22} height={22} />
-                    </Button>
+                    <span>
+                        <Button
+                            disabled={isReloadDisabled}
+                            onClick={() => onHandleDataReload(currentRoute)}
+                            className={classNames(classes.mainButton, isReloadDisabled && 'is-loading')}
+                        >
+                            <ReloadIcon width={22} height={22} />
+                        </Button>
+                    </span>
                 </CustomTooltip>
 
                 <Divider orientation="vertical" className={classes.divider} />
