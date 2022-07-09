@@ -16,9 +16,9 @@ import { ReloadIcon } from 'components/Icons/Icons';
 import { dataReloadStyles } from '../styles';
 
 const countdownFormat: CountdownShortFormat = {
-    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false },
-    seconds: { key: CountdownFormatNonZeroType.S, value: 's', isShown: true, shownIfZero: false }
+    hours: { key: CountdownFormatNonZeroType.H, value: ':', isShown: true, shownIfZero: false },
+    minutes: { key: CountdownFormatNonZeroType.M, value: ':', isShown: true, shownIfZero: false },
+    seconds: { key: CountdownFormatNonZeroType.S, value: '', isShown: true, shownIfZero: false }
 };
 
 export function DataReloadPanel() {
@@ -109,13 +109,9 @@ export function DataReloadPanel() {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
         const nextUpdate: JSX.Element = reloadInterval ?
             <Countdown shortFormat={countdownFormat} targetDate={lastUpdated + reloadInterval} /> :
-            <>unset</>;
+            <></>;
 
-        return (
-            <div className={classes.tooltip}>
-                <span className={classes.tooltipRow}>Next fetch: <span className={classes.countdown}>{nextUpdate}</span></span>
-            </div>
-        );
+        return <span className={classes.interval}>{nextUpdate}</span>;
     };
 
     const renderAutoButton = (): JSX.Element => {
@@ -146,7 +142,7 @@ export function DataReloadPanel() {
                         onClick={() => onHandleDataReload(currentRoute)}
                         className={classNames(classes.mainButton, isReloadDisabled && 'is-loading')}
                     >
-                        <ReloadIcon />
+                        <ReloadIcon width={22} height={22} />
                     </Button>
                 </CustomTooltip>
 
@@ -157,7 +153,8 @@ export function DataReloadPanel() {
                         renderAutoButton()
                     ) : (
                         <CustomTooltip
-                            title={getLiveReloadTooltip(lastUpdate)}
+                            title='Fetch data interval'
+                            // getLiveReloadTooltip(lastUpdate)
                             enterTouchDelay={0}
                             placement='bottom'
                             arrow={true}
@@ -166,6 +163,7 @@ export function DataReloadPanel() {
                         </CustomTooltip>
                     )
                 }
+                {getLiveReloadTooltip(lastUpdate)}
             </div>
 
             <Backdrop open={isDropdownOpen} onClick={() => setIsDropdownOpen(false)} />

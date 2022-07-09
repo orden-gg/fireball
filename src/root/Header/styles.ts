@@ -30,7 +30,7 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 8,
-        backgroundColor: alpha(theme.palette.background.secondary, .6),
+        backgroundColor: alpha(theme.palette.background.secondary, .8),
         overflow: 'hidden',
         '&.opened': {
             borderRadius: '8px 8px 0 0',
@@ -62,8 +62,12 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         '&.active': {
             color: theme.palette.primary.main
         },
-        '&.is-loading': {
+        '&.is-loading svg': {
             animation: '1s $rotate ease-in-out infinite'
+        },
+        '& .MuiSvgIcon-root': {
+            width: 22,
+            height: 22
         }
     },
     liveReloadDropdown: {
@@ -113,6 +117,18 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
     countdown: {
         marginLeft: theme.spacing(1),
         color: theme.palette.primary.main
+    },
+    interval: {
+        position: 'absolute',
+        top: theme.spacing(1),
+        left: '100%',
+        marginLeft: theme.spacing(1),
+        whiteSpace: 'nowrap',
+        backgroundColor: alpha(theme.palette.background.secondary, .8),
+        boxShadow: `0 0 3px 3px ${alpha(theme.palette.background.secondary, .8)}`,
+        lineHeight: 1.1,
+        padding: '0 4px',
+        borderRadius: 5
     },
     '@keyframes rotate':  {
         '100%': {
