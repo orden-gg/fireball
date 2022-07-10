@@ -6,7 +6,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { CountdownFormatNonZeroType, DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
+import { CountdownFormatNonZeroType, CountdownFormatZeroType, DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
 import { DataReloadContextState, DataReloadConfig, LastUpdate, CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -19,6 +19,11 @@ const countdownFormat: CountdownShortFormat = {
     hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
     minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false },
     seconds: { key: CountdownFormatNonZeroType.S, value: 's', isShown: true, shownIfZero: false }
+};
+
+const liveCountdownFormat: CountdownShortFormat = {
+    minutes: { key: CountdownFormatZeroType.M, value: '', isShown: true, shownIfZero: true },
+    seconds: { key: CountdownFormatZeroType.S, value: '', isShown: true, shownIfZero: false }
 };
 
 export function DataReloadPanel() {
@@ -101,7 +106,7 @@ export function DataReloadPanel() {
             <div className={classes.tooltip}>
                 <span className={classes.tooltipTitle}>Fetch data</span>
                 <span className={classes.tooltipRow}>Last: <span className={classes.countdown}>
-                    <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} valueSeparator={':'} isShowAdditionalText={false} />
+                    <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} />
                 </span></span>
             </div>
         );
@@ -111,7 +116,7 @@ export function DataReloadPanel() {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
         const nextUpdate: JSX.Element = reloadInterval ?
             <Countdown
-                shortFormat={countdownFormat}
+                shortFormat={liveCountdownFormat}
                 targetDate={lastUpdated + reloadInterval}
                 valueSeparator={':'}
                 isShowAdditionalText={false}

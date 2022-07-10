@@ -91,6 +91,15 @@ export enum CountdownFormatNonZeroType {
     S = 's'
 }
 
+export enum CountdownFormatZeroType {
+    Y = 'yy',
+    MM = 'MM',
+    D = 'dd',
+    H = 'hh',
+    M = 'mm',
+    S = 'ss'
+}
+
 export enum RarityTypes {
     Godlike = 'godlike',
     Mythical = 'mythical',
