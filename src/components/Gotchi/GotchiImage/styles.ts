@@ -80,6 +80,9 @@ export const styles = makeStyles(theme => createStyles({
         textTransform: 'uppercase',
         position: 'absolute',
         right: 5,
-        top: 5
+        top: 5,
+        '.team &': {
+            display: 'none'
+        }
     }
 }));

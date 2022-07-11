@@ -45,7 +45,9 @@ const Wrapper = styled('div')(() => ({
         paddingTop: 0
     },
     [`& .${classes.content}`]: {
-        flexGrow: 1
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column'
     }
 }));
 

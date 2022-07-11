@@ -21,7 +21,8 @@ export const styles = makeStyles(theme => createStyles({
         width: '100%'
     },
     teamUser: {
-        padding: '0 5px 5px'
+        padding: '0 5px 5px',
+        position: 'relative'
     },
     aavegotchiAvatar: {
         marginTop: 5,
@@ -42,6 +43,7 @@ export const styles = makeStyles(theme => createStyles({
         padding: 5,
         margin: 0,
         color: theme.palette.primary.main,
-        fontWeight: 500
+        fontWeight: 500,
+        textShadow: '0 0 2px #000'
     }
 }));

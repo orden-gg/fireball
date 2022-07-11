@@ -22,6 +22,7 @@ const keyframes = {
 export const styles = makeStyles(theme => createStyles({
     guildsWrapper: {
         position: 'relative',
+        width: '100%',
         maxWidth: 1920,
         padding: theme.spacing(7, 2, 2),
         margin: 'auto',

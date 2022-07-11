@@ -9,7 +9,7 @@ import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import { styles } from './styles';
 
-const gotchisIds: number[] = [4285, 8005, 4282, 23470, 13998, 5127, 3672];
+const gotchisIds: number[] = [4285, 8005, 4282, 23470, 13998, 5127, 3672, 7993, 17759];
 
 export function Team() {
     const classes = styles();
