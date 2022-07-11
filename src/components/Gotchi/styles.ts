@@ -46,10 +46,8 @@ export const styles = makeStyles(theme => createStyles({
             borderColor: theme.palette.rarity.godlike
         },
         '&.lended': {
-            filter: 'grayscale(.4)',
             overflow: 'hidden',
             '&:hover': {
-                filter: 'grayscale(0)',
                 '& $statusBadge': {
                     opacity: 0
                 }
@@ -60,11 +58,10 @@ export const styles = makeStyles(theme => createStyles({
         position: 'absolute',
         bottom: 15,
         right: -30,
-        background: alpha(theme.palette.primary.main, .6),
+        background: alpha(theme.palette.primary.main, .3),
         color: alpha(theme.palette.secondary.main, .8),
         fontWeight: 600,
-        // opacity: .75,
-        padding: 4,
+        padding: 2,
         zIndex: 5,
         width: 120,
         transform: 'rotate(-45deg)',

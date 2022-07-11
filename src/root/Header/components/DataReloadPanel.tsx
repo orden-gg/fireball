@@ -115,14 +115,16 @@ export function DataReloadPanel() {
     const getLiveReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
         const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
         const nextUpdate: JSX.Element = reloadInterval ?
-            <Countdown
-                shortFormat={liveCountdownFormat}
-                targetDate={lastUpdated + reloadInterval}
-                valueSeparator={':'}
-                isShowAdditionalText={false}
-            /> : <></>;
+            <span className={classes.interval}>
+                <Countdown
+                    shortFormat={liveCountdownFormat}
+                    targetDate={lastUpdated + reloadInterval}
+                    valueSeparator={':'}
+                    isShowAdditionalText={false}
+                />
+            </span> : <></>;
 
-        return <span className={classes.interval}>{nextUpdate}</span>;
+        return nextUpdate;
     };
 
     const renderAutoButton = (): JSX.Element => {
