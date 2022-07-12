@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
 import UpdateIcon from '@mui/icons-material/Update';
 
 import classNames from 'classnames';
-import _ from 'lodash';
 
 import { CountdownFormatNonZeroType, CountdownFormatZeroType, DataReloadType, DATA_RELOAD_INTERVALS } from 'shared/constants';
-import { DataReloadContextState, DataReloadConfig, LastUpdate, CountdownShortFormat } from 'shared/models';
+import { DataReloadContextState, CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { DataReloadContext } from 'contexts/DataReloadContext';
@@ -33,43 +32,20 @@ export function DataReloadPanel() {
     const currentRoute: string = pathname.split('/')[1];
 
     const {
-        reloadConfig,
-        setReloadConfig,
+        lastUpdated,
+        setLastManuallyUpdated,
         reloadInterval,
         setReloadInterval,
+        reloadIntervalCountdown,
         isReloadDisabled
     } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
     const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
-    const [lastUpdate, setLastUpdate] = useState<LastUpdate>({
-        client: 0,
-        explorer: 0,
-        lend: 0,
-        map: 0
-    });
-
-    useEffect(() => {
-        const reloadType: DataReloadType = currentRoute as DataReloadType;
-
-        if (Object.values(DataReloadType).includes(reloadType)) {
-            setLastUpdate((lastUpdateCache: LastUpdate) => {
-                const lastUpdateCacheCopy = _.cloneDeep(lastUpdateCache);
-
-                if (reloadConfig[reloadType].lastUpdated === 0) {
-                    lastUpdateCacheCopy[reloadType] = Date.now();
-                } else {
-                    lastUpdateCacheCopy[reloadType] = reloadConfig[reloadType].lastUpdated;
-                }
-
-                return lastUpdateCacheCopy;
-            });
-        }
-    }, [reloadConfig, currentRoute]);
 
     const onHandleDataReload = (path: string): void => {
         if (Object.values(DataReloadType).includes(path as DataReloadType)) {
-            setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, path as DataReloadType));
+            setLastManuallyUpdated(Date.now());
         }
     };
 
@@ -91,40 +67,42 @@ export function DataReloadPanel() {
         setIsDropdownOpen(false);
     };
 
-    const getUpdatedConfig = (configCache: DataReloadConfig, propToUpdate: DataReloadType): DataReloadConfig => {
-        const configCopy: DataReloadConfig = _.cloneDeep(configCache);
+    const getReloadTooltip = useCallback((lastUpdated: number): JSX.Element => {
+        let countdownText: JSX.Element;
 
-        configCopy[propToUpdate].lastUpdated = Date.now();
-
-        return configCopy;
-    };
-
-    const getReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
-        const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
+        if (lastUpdated === 0) {
+            countdownText = <span>fetching...</span>;
+        } else {
+            countdownText = <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} />;
+        }
 
         return (
             <div className={classes.tooltip}>
                 <span className={classes.tooltipTitle}>Fetch data</span>
                 <span className={classes.tooltipRow}>Last: <span className={classes.countdown}>
-                    <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} />
+                    {countdownText}
                 </span></span>
             </div>
         );
-    };
+    }, [lastUpdated]);
 
-    const getLiveReloadTooltip = (lastUpdate: LastUpdate): JSX.Element => {
-        const lastUpdated: number = lastUpdate[currentRoute as DataReloadType];
-        const nextUpdate: JSX.Element = reloadInterval ?
-            <span className={classes.interval}>
+    const getLiveReloadTooltip = (intervalCountdown: number): JSX.Element => {
+        let countdown: JSX.Element;
+
+        if (intervalCountdown) {
+            countdown = <span className={classes.interval}>
                 <Countdown
                     shortFormat={liveCountdownFormat}
-                    targetDate={lastUpdated + reloadInterval}
+                    targetDate={intervalCountdown}
                     valueSeparator={':'}
                     isShowAdditionalText={false}
                 />
-            </span> : <></>;
+            </span>;
+        } else {
+            countdown = <></>;
+        }
 
-        return nextUpdate;
+        return countdown;
     };
 
     const renderAutoButton = (): JSX.Element => {
@@ -145,7 +123,7 @@ export function DataReloadPanel() {
 
             <div className={classNames(classes.topButtonsGroup, isDropdownOpen && 'opened')}>
                 <CustomTooltip
-                    title={getReloadTooltip(lastUpdate)}
+                    title={getReloadTooltip(lastUpdated)}
                     enterTouchDelay={0}
                     placement='bottom'
                     arrow={true}
@@ -169,7 +147,6 @@ export function DataReloadPanel() {
                     ) : (
                         <CustomTooltip
                             title='Fetch data interval'
-                            // getLiveReloadTooltip(lastUpdate)
                             enterTouchDelay={0}
                             placement='bottom'
                             arrow={true}
@@ -178,7 +155,7 @@ export function DataReloadPanel() {
                         </CustomTooltip>
                     )
                 }
-                {getLiveReloadTooltip(lastUpdate)}
+                {getLiveReloadTooltip(reloadIntervalCountdown)}
             </div>
 
             <Backdrop open={isDropdownOpen} onClick={() => setIsDropdownOpen(false)} />

@@ -39,8 +39,8 @@ export function ClientRoutes() {
     const queryParams = queryString.parse(location.search);
 
     const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
-    const { getClientData, navData, realmView } = useContext<any>(ClientContext);
-    const { reloadConfig, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
+    const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
+    const { lastManuallyUpdated, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -53,6 +53,7 @@ export function ClientRoutes() {
 
         return () => {
             setActiveReloadType(null);
+            setCanBeUpdated(false);
         };
     }, []);
 
@@ -78,10 +79,10 @@ export function ClientRoutes() {
     }, [activeAddress]);
 
     useEffect(() => {
-        if (activeAddress && reloadConfig.client.lastUpdated !== 0) {
+        if (activeAddress && lastManuallyUpdated !== 0 && canBeUpdated) {
             getClientData(activeAddress);
         }
-    }, [reloadConfig.client.lastUpdated]);
+    }, [lastManuallyUpdated]);
 
     return (
         <div>

@@ -110,8 +110,14 @@ export function Lend() {
     const [linksListView, setLinksListView] = useState<boolean>(false);
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const {
+        lastManuallyUpdated,
+        setLastUpdated,
+        setActiveReloadType,
+        setIsReloadDisabled
+    } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -137,7 +143,7 @@ export function Lend() {
     useEffect(() => {
         let isMounted = true;
 
-        onGetLendings(isMounted, false);
+        onGetLendings(isMounted, true);
 
         return () => { isMounted = false };
     }, []);
@@ -145,12 +151,12 @@ export function Lend() {
     useEffect(() => {
         let isMounted = true;
 
-        if (reloadConfig.lend.lastUpdated !== 0) {
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
             onGetLendings(isMounted);
         }
 
         return () => { isMounted = false };
-    }, [reloadConfig.lend.lastUpdated]);
+    }, [lastManuallyUpdated]);
 
     useEffect(() => {
         updateFilterQueryParams(currentFilters);
@@ -229,6 +235,8 @@ export function Lend() {
                 setLendings(mappedData);
                 setIsDataLoading(false);
                 setIsReloadDisabled(false);
+                setLastUpdated(Date.now());
+                setCanBeUpdated(true);
             }
         });
     };

@@ -17,18 +17,24 @@ export function Map() {
     const classes = styles();
 
     const { activeAddress } = useContext<any>(LoginContext);
-    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const {
+        lastManuallyUpdated,
+        setLastUpdated,
+        setActiveReloadType,
+        setIsReloadDisabled
+    } = useContext<DataReloadContextState>(DataReloadContext);
 
     const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
     const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
     const [realmGroups, setRealmGroups] = useState<any[]>([]);
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
     useEffect(() => {
         let isMounted = true;
 
         onLoadListedParcels(isMounted, true);
 
-        setActiveReloadType(DataReloadType.Explorer);
+        setActiveReloadType(DataReloadType.Map);
 
         return () => {
             isMounted = false;
@@ -46,7 +52,7 @@ export function Map() {
     }, [activeAddress]);
 
     useEffect(() => {
-        if (reloadConfig.map.lastUpdated !== 0) {
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
             let isMounted = true;
 
             onLoadListedParcels(isMounted);
@@ -54,11 +60,11 @@ export function Map() {
 
             return () => { isMounted = false };
         }
-    }, [reloadConfig.map.lastUpdated]);
+    }, [lastManuallyUpdated]);
 
     const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
         setIsReloadDisabled(true);
-        setIsListedLoaded(shouldUpdateIsLoading);
+        setIsListedLoaded(!shouldUpdateIsLoading);
 
         Promise.all([
             TheGraphApi.getParcelPriceByDirection({ size: 0, direction: 'asc' }),
@@ -98,12 +104,14 @@ export function Map() {
             if (isMounted) {
                 setIsListedLoaded(true);
                 setIsReloadDisabled(false);
+                setLastUpdated(Date.now());
+                setCanBeUpdated(true);
             }
         });
     };
 
     const onLoadOwnerParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-        setIsOwnerLoaded(shouldUpdateIsLoading);
+        setIsOwnerLoaded(!shouldUpdateIsLoading);
 
         if (activeAddress) {
             TheGraphApi.getRealmByAddress(activeAddress).then((ownerRealm: any) => {

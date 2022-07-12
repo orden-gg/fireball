@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { DataReloadContextState } from 'shared/models';
 import { GhstTokenIcon, GotchilandIcon } from 'components/Icons/Icons';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { ClientContext } from 'contexts/ClientContext';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { AavegothilandApi } from 'api';
 import { CommonUtils } from 'utils';
@@ -18,7 +19,8 @@ export function EthAddressPanel({ address }: { address: string }) {
     const [dataLoading, setDataLoading] = useState<boolean>(true);
     const [account, setAccount] = useState<any>({});
 
-    const { reloadConfig, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const { lastManuallyUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const { setLoadedStates, canBeUpdated } = useContext<any>(ClientContext);
 
     useEffect(() => {
         let isMounted = true;
@@ -31,16 +33,16 @@ export function EthAddressPanel({ address }: { address: string }) {
     useEffect(() => {
         let isMounted = true;
 
-        if (reloadConfig.client.lastUpdated !== 0) {
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
             onGetAddressInfo(address, isMounted);
         }
 
         return () => { isMounted = false };
-    }, [reloadConfig.client.lastUpdated]);
+    }, [lastManuallyUpdated]);
 
     const onGetAddressInfo = (address: string, isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setDataLoading(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isAccountInfoLoaded: false }));
 
         AavegothilandApi.getAddressInfo(address).then((res: any) => {
             if (isMounted) {
@@ -99,6 +101,7 @@ export function EthAddressPanel({ address }: { address: string }) {
             if (isMounted) {
                 setDataLoading(false);
                 setIsReloadDisabled(false);
+                setLoadedStates(statesCache => ({ ...statesCache, isAccountInfoLoaded: true }));
             }
         });
     };

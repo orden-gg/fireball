@@ -88,8 +88,14 @@ export function GhostExplorer() {
     const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-    const { reloadConfig, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const {
+        lastManuallyUpdated,
+        setLastUpdated,
+        setActiveReloadType,
+        setIsReloadDisabled
+    } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -121,14 +127,14 @@ export function GhostExplorer() {
     }, []);
 
     useEffect(() => {
-        if (reloadConfig.explorer.lastUpdated !== 0) {
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
             let isMounted = true;
 
             onGetGotchies(isMounted);
 
             return () => { isMounted = false };
         }
-    }, [reloadConfig.explorer.lastUpdated]);
+    }, [lastManuallyUpdated]);
 
     useEffect(() => {
         FilterUtils.onFiltersUpdate(
@@ -169,6 +175,8 @@ export function GhostExplorer() {
         }).finally(() => {
             setIsGotchisLoading(false);
             setIsReloadDisabled(false);
+            setLastUpdated(Date.now());
+            setCanBeUpdated(true);
         });
     };
 

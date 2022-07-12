@@ -1,34 +1,19 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import _ from 'lodash';
-
 import { DataReloadType } from 'shared/constants';
-import { DataReloadConfig, DataReloadContextState } from 'shared/models';
+import { DataReloadContextState } from 'shared/models';
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
 const initialState: DataReloadContextState = {
-    reloadConfig: {
-        client: {
-            type: DataReloadType.Client,
-            lastUpdated: 0
-        },
-        explorer: {
-            type: DataReloadType.Explorer,
-            lastUpdated: 0
-        },
-        lend: {
-            type: DataReloadType.Lend,
-            lastUpdated: 0
-        },
-        map: {
-            type: DataReloadType.Map,
-            lastUpdated: 0
-        }
-    },
-    setReloadConfig: () => {},
+    lastUpdated: 0,
+    setLastUpdated: () => {},
+    lastManuallyUpdated: 0,
+    setLastManuallyUpdated: () => {},
     setActiveReloadType: () => {},
     reloadInterval: 0,
     setReloadInterval: () => {},
+    reloadIntervalCountdown: 0,
+    setReloadIntervalCountdown: () => {},
     isReloadDisabled: false,
     setIsReloadDisabled: () => {}
 };
@@ -36,43 +21,60 @@ const initialState: DataReloadContextState = {
 export const DataReloadContext = createContext<DataReloadContextState>(initialState);
 
 export const DataReloadContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
-    const [reloadConfig, setReloadConfig] = useState<DataReloadConfig>(initialState.reloadConfig);
+    const [lastUpdated, setLastUpdated] = useState<number>(initialState.lastUpdated);
+    const [lastManuallyUpdated, setLastManuallyUpdated] = useState<number>(initialState.lastUpdated);
     const [activeReloadType, setActiveReloadType] = useState<DataReloadType | null>(null);
     const [reloadInterval, setReloadInterval]: [number, Dispatch<SetStateAction<number>>] = useLocalStorage(
         'RELOAD_INTERVAL',
         Number(JSON.parse(localStorage.getItem('RELOAD_INTERVAL') as any)) || initialState.reloadInterval
-    );
+        );
+    const [reloadIntervalCountdown, setReloadIntervalCountdown] = useState<number>(initialState.reloadIntervalCountdown);
     const [isReloadDisabled, setIsReloadDisabled] = useState<boolean>(initialState.isReloadDisabled);
+    const [customInterval, setCustomInterval] = useState<NodeJS.Timer>();
 
     useEffect(() => {
-        let interval: NodeJS.Timer;
-
-        if (activeReloadType && reloadInterval && !isReloadDisabled) {
-            interval = setInterval(() => {
-                if (reloadInterval !== 0 && (reloadConfig[activeReloadType].lastUpdated + reloadInterval) <= Date.now()) {
-                    setReloadConfig((configCache: DataReloadConfig) => getUpdatedConfig(configCache, activeReloadType));
-                }
-            }, reloadInterval);
+        if (activeReloadType || lastManuallyUpdated) {
+            clearInterval(customInterval);
         }
 
-        return () => { clearInterval(interval) };
-    }, [activeReloadType, reloadInterval]);
+        if (reloadInterval) {
+            clearInterval(customInterval);
+            setReloadIntervalCountdown(Date.now() + reloadInterval);
 
-    const getUpdatedConfig = (configCache: DataReloadConfig, propToUpdate: DataReloadType): DataReloadConfig => {
-        const configCopy: DataReloadConfig = _.cloneDeep(configCache);
+            setCustomInterval(setInterval(() => {
+                setReloadIntervalCountdown(Date.now() + reloadInterval);
 
-        configCopy[propToUpdate].lastUpdated = Date.now();
+                if ((lastManuallyUpdated + reloadInterval) <= Date.now()) {
+                    setLastManuallyUpdated(Date.now());
+                }
+            }, reloadInterval));
+        } else {
+            setReloadIntervalCountdown(0);
+        }
 
-        return configCopy;
-    };
+        return () => { clearInterval(customInterval) };
+    }, [lastManuallyUpdated, reloadInterval, activeReloadType]);
+
+    useEffect(() => {
+        setLastUpdated(0);
+        setLastManuallyUpdated(0);
+
+        if (reloadInterval) {
+            setReloadIntervalCountdown(Date.now() + reloadInterval);
+        }
+    }, [activeReloadType]);
 
     return (
         <DataReloadContext.Provider value={{
-            reloadConfig,
-            setReloadConfig,
+            lastUpdated,
+            setLastUpdated,
+            lastManuallyUpdated,
+            setLastManuallyUpdated,
             setActiveReloadType,
             reloadInterval,
             setReloadInterval,
+            reloadIntervalCountdown,
+            setReloadIntervalCountdown,
             isReloadDisabled,
             setIsReloadDisabled
         }}>

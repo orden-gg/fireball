@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { InstallationTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
@@ -8,6 +8,18 @@ import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
+
+const loadedDefaultStates: { [key: string]: boolean } = {
+    isAccountInfoLoaded: false,
+    isGotchisLoaded: false,
+    isLendingsLoaded: false,
+    isBorrowedLoaded: false,
+    isInventoryLoaded: false,
+    isTicketsLoaded: false,
+    isRealmLoaded: false,
+    isInstallationsLoaded: false,
+    isTilesLoaded: false
+};
 
 export const ClientContext = createContext({});
 
@@ -47,14 +59,17 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
 
-    const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
+    const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
+
+    const { setLastUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
     const navData: PageNavLink[] = [
         {
             name: 'gotchis',
             path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            isLoading: loadingGotchis,
+            isLoading: loadingGotchis || loadingLendings || loadingBorrowed,
             count: gotchis.length + borrowed.length,
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
@@ -111,6 +126,19 @@ export const ClientContextProvider = (props: any) => {
         }
     ];
 
+    useEffect(() => {
+        const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
+
+        if (isAllLoaded) {
+            setLastUpdated(Date.now());
+            setIsReloadDisabled(false);
+            setCanBeUpdated(true);
+        } else {
+            setIsReloadDisabled(true);
+            setCanBeUpdated(false);
+        }
+    }, [loadedStates]);
+
     const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         getGotchis(address, shouldUpdateIsLoading);
         getLendings(address, shouldUpdateIsLoading);
@@ -126,8 +154,8 @@ export const ClientContextProvider = (props: any) => {
     };
 
     const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingGotchis(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: false }));
 
         Promise.all([
             TheGraphApi.getGotchisByAddress(address),
@@ -184,13 +212,13 @@ export const ClientContextProvider = (props: any) => {
             setGotchis([]);
         }).finally(() => {
             setLoadingGotchis(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: true }));
         });
     };
 
     const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingLendings(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: false }));
 
         TheGraphApi.getLendingsByAddress(address)
             .then((lendings: any[]) => {
@@ -214,15 +242,15 @@ export const ClientContextProvider = (props: any) => {
 
                     setLendings(CommonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
-                    setIsReloadDisabled(false);
+                    setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
                 });
             }
         );
     };
 
     const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingBorrowed(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: false }));
 
         TheGraphApi.getBorrowedByAddress(address)
             .then((borrowed: any[]) => {
@@ -230,14 +258,14 @@ export const ClientContextProvider = (props: any) => {
 
                 setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
                 setLoadingBorrowed(false);
-                setIsReloadDisabled(false);
+                setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: true }));
             }
         );
     };
 
     const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingWarehouse(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: false }));
 
         MainApi.getInventoryByAddress(address).then((response: any) => {
             const modified: any[] = [];
@@ -272,13 +300,13 @@ export const ClientContextProvider = (props: any) => {
             setWarehouse([]);
         }).finally(() => {
             setLoadingWarehouse(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: true }));
         });
     };
 
     const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingInstallations(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: false }));
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations: any[] = response.map((item: any) => {
@@ -295,13 +323,13 @@ export const ClientContextProvider = (props: any) => {
 
             setInstallations(installations);
             setLoadingInstallations(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: true }));
         });
     };
 
     const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingTiles(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: false }));
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response.map((item: any) => {
@@ -317,13 +345,13 @@ export const ClientContextProvider = (props: any) => {
 
             setTiles(tiles);
             setLoadingTiles(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: true }));
         });
     };
 
     const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingTickets(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: false }));
 
         TicketsApi.getTicketsByAddress(address).then((response: any) => {
             const modified = response.filter((item: any) => item.balance > 0);
@@ -333,13 +361,13 @@ export const ClientContextProvider = (props: any) => {
             console.log(error);
         }).finally(() => {
             setLoadingTickets(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: true }));
         });
     };
 
     const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
         setLoadingRealm(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: false }));
 
         Promise.all([
             TheGraphApi.getRealmByAddress(address),
@@ -368,7 +396,7 @@ export const ClientContextProvider = (props: any) => {
             setRealm([]);
         }).finally(() => {
             setLoadingRealm(false);
-            setIsReloadDisabled(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: true }));
         });
     };
 
@@ -484,7 +512,11 @@ export const ClientContextProvider = (props: any) => {
             calculateReward,
 
             navData,
-            getClientData
+            getClientData,
+
+            canBeUpdated,
+            setCanBeUpdated,
+            setLoadedStates
         }}>
             { props.children }
         </ClientContext.Provider>
