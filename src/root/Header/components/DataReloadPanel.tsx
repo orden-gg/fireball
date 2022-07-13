@@ -146,7 +146,7 @@ export function DataReloadPanel() {
                         renderAutoButton()
                     ) : (
                         <CustomTooltip
-                            title='Fetch data interval'
+                            title='Auto fetch'
                             enterTouchDelay={0}
                             placement='bottom'
                             arrow={true}

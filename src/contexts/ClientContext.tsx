@@ -10,7 +10,6 @@ import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtil
 import { DataReloadContext } from './DataReloadContext';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
-    isAccountInfoLoaded: false,
     isGotchisLoaded: false,
     isLendingsLoaded: false,
     isBorrowedLoaded: false,
