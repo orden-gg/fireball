@@ -1,6 +1,7 @@
 import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
+import { MAX_GOTCHIS_IN_ROW } from 'shared/constants';
 import bg from 'assets/images/main-background/background.png';
 import flower2 from 'assets/images/main-background/flower2.png';
 import midgroundFar from 'assets/images/main-background/midground-far.png';
@@ -162,26 +163,30 @@ export const bgStyles = makeStyles(theme => createStyles({
         justifyContent: 'space-around'
     },
     gotchisRow3: {
-        paddingBottom: '15.5%',
+        paddingBottom: '16%',
         left: '25%',
         right: '25%',
         '& $gotchi': {
-            transform: 'scale(.7)'
+            transform: 'scale(.8)',
+            width: `${100/MAX_GOTCHIS_IN_ROW[2]}%`
         }
     },
     gotchisRow2: {
         paddingBottom: '9.5%',
-        left: '15%',
-        right: '15%',
+        left: '3%',
+        right: '3%',
         '& $gotchi': {
-            transform: 'scale(.8)'
+            transform: 'scale(.8)',
+            width: `${100/MAX_GOTCHIS_IN_ROW[1]}%`
         }
     },
     gotchisRow1: {
-        bottom: 0
+        bottom: 0,
+        '& $gotchi': {
+            width: `${100/MAX_GOTCHIS_IN_ROW[0]}%`
+        }
     },
     gotchi: {
-        width: '12.5%',
         position: 'relative',
         zIndex: 1,
         '.active &': {

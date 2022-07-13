@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import { TheGraphApi } from 'api';
 
+import { GOTCHI_IDS, MAX_ROWS, MAX_GOTCHIS_IN_ROW } from 'shared/constants';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 import { Section } from 'components/Section/Section';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -16,10 +17,6 @@ import { About } from './components/About';
 import { Team } from './components/Team';
 
 import { styles, bgStyles, teamStyles } from './styles';
-
-const gotchisIds: number[] = [4285, 8005, 4282, 23470, 13998, 5127, 3672, 7993, 17759];
-const maxRows = 3;
-const maxGotchisInRow = 8;
 
 export function Main() {
     const classes = {
@@ -70,17 +67,17 @@ export function Main() {
     };
 
     const getAvailableRowIndex = (array: any[]): number => {
-        let rowIndex = CommonUtils.generateRandomIntegerInRange(0, maxRows-1);
+        let rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
 
-        while (array[rowIndex].length >= maxGotchisInRow) {
-            rowIndex = CommonUtils.generateRandomIntegerInRange(0, maxRows-1);
+        while (array[rowIndex].length >= MAX_GOTCHIS_IN_ROW[rowIndex]) {
+            rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
         }
 
         return rowIndex;
     };
 
     useEffect(() => {
-        TheGraphApi.getGotchiesByIds(gotchisIds).then((response: any) => {
+        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
             const separatedGotchis: any[] = [
                 [], [], []
             ];
