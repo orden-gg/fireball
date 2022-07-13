@@ -75,7 +75,10 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
         get whitelistId() {
             return gotchi.whitelistId && (
-                <WhitelistId whitelistId={gotchi.whitelistId} />
+                <WhitelistId
+                    whitelistId={gotchi.whitelistId}
+                    key={`${gotchi.whitelistId}-whitelistId`}
+                />
             );
         },
 

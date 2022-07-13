@@ -1,4 +1,3 @@
-export * from './aavegotchiland.api';
 export * from './alchemica.api';
 export * from './autopet.api';
 export * from './ethers.api';

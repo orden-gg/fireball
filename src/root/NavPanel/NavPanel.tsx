@@ -35,7 +35,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/lend'>
                             <Icon className={classes.iconBox}>
-                                <LendingIcon width={20} height={20} />
+                                <LendingIcon width={22} height={22} />
                             </Icon>
                             <span className={classes.navItemName}>Lend</span>
                         </NavLink>
@@ -59,7 +59,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/guilds'>
                             <Icon className={classes.iconBox}>
-                                <GuildIcon width={20} height={20} />
+                                <GuildIcon width={24} height={24} />
                             </Icon>
                             <span className={classes.navItemName}>Guilds</span>
                         </NavLink>
@@ -83,7 +83,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/craft'>
                             <Icon className={classes.iconBox}>
-                                <CraftIcon width={20} height={20} />
+                                <CraftIcon width={24} height={24} />
                             </Icon>
                             <span className={classes.navItemName}>Craft</span>
                         </NavLink>

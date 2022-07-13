@@ -44,14 +44,6 @@ export function ChannelingInfo({ channeling }: { channeling: any }) {
         return DateTime.fromSeconds(timestamp).toMillis();
     };
 
-    if (channeling.lastChanneled === 0) {
-        return <div className={classes.container}>
-            <div className={classes.placeholderWarning}>
-                never channeled
-            </div>
-        </div>;
-    }
-
     if (channeling.loading) {
         return <div className={classes.placeholder}>
             <Skeleton
@@ -60,6 +52,14 @@ export function ChannelingInfo({ channeling }: { channeling: any }) {
                 width='100%'
                 height={30}
             />
+        </div>;
+    }
+
+    if (channeling.lastChanneled === 0) {
+        return <div className={classes.container}>
+            <div className={classes.placeholderWarning}>
+                never channeled
+            </div>
         </div>;
     }
 

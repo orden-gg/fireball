@@ -73,16 +73,16 @@ export const styles = makeStyles(theme => createStyles({
             borderTopWidth: 23,
             top: 0,
             '.common &': {
-                borderTopColor: darken(theme.palette.rarity.common, .2)
+                borderTopColor: darken(theme.palette.rarity.common, .3)
             },
             '.rare &': {
-                borderTopColor: darken(theme.palette.rarity.rare, .2)
+                borderTopColor: darken(theme.palette.rarity.rare, .3)
             },
             '.mythical &': {
-                borderTopColor: darken(theme.palette.rarity.mythical, .2)
+                borderTopColor: darken(theme.palette.rarity.mythical, .3)
             },
             '.godlike &': {
-                borderTopColor: darken(theme.palette.rarity.godlike, .2)
+                borderTopColor: darken(theme.palette.rarity.godlike, .3)
             }
         },
         '& span': {

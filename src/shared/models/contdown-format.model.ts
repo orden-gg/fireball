@@ -1,7 +1,7 @@
-import { CountdownFormatNonZeroType } from 'shared/constants';
+import { CountdownFormatNonZeroType, CountdownFormatZeroType } from 'shared/constants';
 
 export interface DefaultFormatOption {
-    key: CountdownFormatNonZeroType;
+    key: CountdownFormatNonZeroType | CountdownFormatZeroType;
     isShown: boolean;
     shownIfZero: boolean;
     showIfParentIsZero?: boolean;

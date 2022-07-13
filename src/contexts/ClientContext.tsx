@@ -1,10 +1,24 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-import { PageNavLink, Sorting } from 'shared/models';
+import { InstallationTypeNames } from 'shared/constants';
+import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+
+import { DataReloadContext } from './DataReloadContext';
+
+const loadedDefaultStates: { [key: string]: boolean } = {
+    isGotchisLoaded: false,
+    isLendingsLoaded: false,
+    isBorrowedLoaded: false,
+    isInventoryLoaded: false,
+    isTicketsLoaded: false,
+    isRealmLoaded: false,
+    isInstallationsLoaded: false,
+    isTilesLoaded: false
+};
 
 export const ClientContext = createContext({});
 
@@ -44,12 +58,17 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
 
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
+    const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
+
+    const { setLastUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+
     const navData: PageNavLink[] = [
         {
             name: 'gotchis',
             path: 'gotchis',
             icon: <GotchiIcon width={24} height={24} />,
-            isLoading: loadingGotchis,
+            isLoading: loadingGotchis || loadingLendings || loadingBorrowed,
             count: gotchis.length + borrowed.length,
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
@@ -106,22 +125,36 @@ export const ClientContextProvider = (props: any) => {
         }
     ];
 
-    const getClientData = (address: string): void => {
-        getGotchis(address);
-        getLendings(address);
-        getBorrowed(address);
-        getInventory(address);
-        getTickets(address);
-        getRealm(address);
-        getInstallations(address);
-        getTiles(address);
+    useEffect(() => {
+        const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
+
+        if (isAllLoaded) {
+            setLastUpdated(Date.now());
+            setIsReloadDisabled(false);
+            setCanBeUpdated(true);
+        } else {
+            setIsReloadDisabled(true);
+            setCanBeUpdated(false);
+        }
+    }, [loadedStates]);
+
+    const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        getGotchis(address, shouldUpdateIsLoading);
+        getLendings(address, shouldUpdateIsLoading);
+        getBorrowed(address, shouldUpdateIsLoading);
+        getInventory(address, shouldUpdateIsLoading);
+        getTickets(address, shouldUpdateIsLoading);
+        getRealm(address, shouldUpdateIsLoading);
+        getInstallations(address, shouldUpdateIsLoading);
+        getTiles(address, shouldUpdateIsLoading);
 
         // reset
         setWarehouse([]);
     };
 
-    const getGotchis = (address: string): void => {
-        setLoadingGotchis(true);
+    const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingGotchis(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: false }));
 
         Promise.all([
             TheGraphApi.getGotchisByAddress(address),
@@ -178,11 +211,13 @@ export const ClientContextProvider = (props: any) => {
             setGotchis([]);
         }).finally(() => {
             setLoadingGotchis(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: true }));
         });
     };
 
-    const getLendings = (address: string): void => {
-        setLoadingLendings(true);
+    const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingLendings(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: false }));
 
         TheGraphApi.getLendingsByAddress(address)
             .then((lendings: any[]) => {
@@ -206,13 +241,15 @@ export const ClientContextProvider = (props: any) => {
 
                     setLendings(CommonUtils.basicSort(lendings, type, dir));
                     setLoadingLendings(false);
+                    setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
                 });
             }
         );
     };
 
-    const getBorrowed = (address: string): void => {
-        setLoadingBorrowed(true);
+    const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingBorrowed(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: false }));
 
         TheGraphApi.getBorrowedByAddress(address)
             .then((borrowed: any[]) => {
@@ -220,12 +257,14 @@ export const ClientContextProvider = (props: any) => {
 
                 setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
                 setLoadingBorrowed(false);
+                setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: true }));
             }
         );
     };
 
-    const getInventory = (address: string): void => {
-        setLoadingWarehouse(true);
+    const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingWarehouse(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: false }));
 
         MainApi.getInventoryByAddress(address).then((response: any) => {
             const modified: any[] = [];
@@ -254,17 +293,19 @@ export const ClientContextProvider = (props: any) => {
 
                     return items.concat(current);
                 }, []), type, dir));
-            setLoadingWarehouse(false);
 
         }).catch((error) => {
             console.log(error);
             setWarehouse([]);
+        }).finally(() => {
             setLoadingWarehouse(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: true }));
         });
     };
 
-    const getInstallations = (address: string): void => {
-        setLoadingInstallations(true);
+    const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingInstallations(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: false }));
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations: any[] = response.map((item: any) => {
@@ -281,11 +322,13 @@ export const ClientContextProvider = (props: any) => {
 
             setInstallations(installations);
             setLoadingInstallations(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: true }));
         });
     };
 
-    const getTiles = (address: string): void => {
-        setLoadingTiles(true);
+    const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingTiles(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: false }));
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response.map((item: any) => {
@@ -301,45 +344,95 @@ export const ClientContextProvider = (props: any) => {
 
             setTiles(tiles);
             setLoadingTiles(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: true }));
         });
     };
 
-    const getTickets = (address: string): void => {
-        setLoadingTickets(true);
+    const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingTickets(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: false }));
 
         TicketsApi.getTicketsByAddress(address).then((response: any) => {
             const modified = response.filter((item: any) => item.balance > 0);
 
             setTickets(modified);
-            setLoadingTickets(false);
         }).catch((error) => {
             console.log(error);
+        }).finally(() => {
+            setLoadingTickets(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: true }));
         });
     };
 
-    const getRealm = (address: string): void => {
-        setLoadingRealm(true);
+    const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        setLoadingRealm(shouldUpdateIsLoading);
+        setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: false }));
 
-        TheGraphApi.getRealmByAddress(address)
-            .then((res: any) => {
-                const { type, dir } = realmSorting;
+        Promise.all([
+            TheGraphApi.getRealmByAddress(address),
+            TheGraphApi.getParcelsGotchiverseInfoByOwner(address)
+        ]).then((response => {
+            const realm: any[] = response[0];
+            const realmInfo: any[] = getModifiedParcelInfo(response[1]);
 
-                const modified: any[] = res.map((parcel: any) => ({
+            const modifiedParcels = realm.map((parcel: any) => {
+                const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
+                const altar = parcelInfo?.installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+
+                return {
                     ...parcel,
-                    channeling: { loading: true },
-                    installations: { loading: true }
-                }));
-
-                setRealm(CommonUtils.basicSort(modified, type, dir));
-                setLoadingRealm(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setRealm([]);
-                setLoadingRealm(false);
+                    channeling: parcelInfo,
+                    nextChannel: parcelInfo?.nextChannel,
+                    altarLevel: altar ? altar.level : 0,
+                    installations: parcelInfo?.installations
+                };
             });
+
+            setRealm(modifiedParcels);
+        })).catch((error) => {
+            console.log(error);
+
+            setRealm([]);
+        }).finally(() => {
+            setLoadingRealm(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: true }));
+        });
     };
 
+    const getModifiedParcelInfo = (parcelinfo: any[]): any[] => {
+        return parcelinfo.map((parcel: any) => {
+            if (!parcel.equippedInstallations.length) {
+                return {
+                    id: parcel.id,
+                    lastChanneled: 0,
+                    nextChannel: 0,
+                    installations: []
+                };
+            }
+
+            const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
+                id: inst.id,
+                name: InstallationsUtils.getNameById(inst.id),
+                level: InstallationsUtils.getLevelById(inst.id),
+                type: InstallationsUtils.getTypeById(inst.id)
+            }));
+
+            const altar = installations.find(installation => installation.type === InstallationTypeNames.Altar);
+            const cooldown = InstallationsUtils.getCooldownByLevel(altar.level, 'seconds');
+            const lastChanneled = Number(parcel.lastChanneledAlchemica);
+            const nextChannel = lastChanneled + cooldown;
+
+            return {
+                id: parcel.id,
+                lastChanneled: lastChanneled,
+                nextChannel: Number(nextChannel),
+                cooldown: cooldown,
+                installations: installations
+            };
+        });
+    };
+
+    // TODO check if needed
     const calculateReward = () => {
         setRewardCalculating(true);
 
@@ -418,7 +511,11 @@ export const ClientContextProvider = (props: any) => {
             calculateReward,
 
             navData,
-            getClientData
+            getClientData,
+
+            canBeUpdated,
+            setCanBeUpdated,
+            setLoadedStates
         }}>
             { props.children }
         </ClientContext.Provider>
