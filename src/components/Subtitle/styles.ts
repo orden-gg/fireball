@@ -1,45 +1,30 @@
 
+import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
     subtitle: {
-        textAlign: 'center',
-        position: 'relative',
-        '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: '50%',
-            left: 0,
-            right: 0,
-            height: 2,
-            background: theme.palette.primary.main
-        }
-    },
-    subtitleInner: {
-        '&::before, &::after': {
-            content: '""',
-            position: 'absolute',
-            top: '50%',
-            width: 10,
-            height: 10,
-            transform: 'rotate(-45deg)',
-            transformOrigin: '0',
-            border: `2px solid ${theme.palette.primary.main}`
-        },
-        '&::before': {
-            borderTop: 'none',
-            borderLeft: 'none',
-            right: '100%'
-        },
-        '&::after': {
-            borderBottom: 'none',
-            borderRight: 'none',
-            left: '100%'
-        }
+        textAlign: 'center'
     },
     subtitleText: {
+        // textShadow: `0 0 5px ${theme.palette.background.secondary}`,
         display: 'inline-block',
         position: 'relative',
-        padding: '4px 16px'
+        padding: '4px 16px',
+        '&::before': {
+            content: '""',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: '50%',
+            height: 8,
+            marginTop: -4,
+            borderRadius: 5,
+            backgroundColor: alpha(theme.palette.primary.main, .9),
+            boxShadow: `0 0 30px 20px ${theme.palette.primary.main}`,
+        },
+        '& span': {
+            position: 'relative'
+        }
     }
 }));

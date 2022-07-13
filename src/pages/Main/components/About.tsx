@@ -3,10 +3,10 @@ import { useState } from 'react';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
 
-import { styles } from '../styles';
+import { modalStyles } from '../styles';
 
 export function About() {
-    const classes = styles();
+    const classes = modalStyles();
 
     const [isOpened, setIsOpened] = useState<boolean>(false);
 
@@ -19,7 +19,6 @@ export function About() {
             <Button
                 className={classes.button}
                 variant="contained"
-                size='large'
                 onClick={() => handleButtonClick(!isOpened)}
             >About fireball.gg</Button>
 
