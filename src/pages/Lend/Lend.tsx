@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, ToggleButton } from '@mui/material';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
@@ -13,7 +13,8 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { CustomParsedQuery, Sorting, SortingListItem } from 'shared/models';
+import { DataReloadType } from 'shared/constants';
+import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
@@ -21,6 +22,7 @@ import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
+import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
@@ -104,10 +106,18 @@ export function Lend() {
 
     const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
     const [lendings, setLendings] = useState<any[]>([]);
-    const [dataLoading, setDataLoading] = useState<boolean>(true);
+    const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
     const [linksListView, setLinksListView] = useState<boolean>(false);
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
+
+    const {
+        lastManuallyUpdated,
+        setLastUpdated,
+        setActiveReloadType,
+        setIsReloadDisabled
+    } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -122,18 +132,59 @@ export function Lend() {
             onSortingChange(key, dir);
         }
 
+        setActiveReloadType(DataReloadType.Lend);
+
         return () => {
             onResetFilters();
+            setActiveReloadType(null);
         };
     }, []);
 
     useEffect(() => {
-        let mounted = true;
+        let isMounted = true;
 
-        setDataLoading(true);
+        onGetLendings(isMounted, true);
 
-        TheGraphApi.getLendings().then(response => {
-            if (mounted) {
+        return () => { isMounted = false };
+    }, []);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
+            onGetLendings(isMounted);
+        }
+
+        return () => { isMounted = false };
+    }, [lastManuallyUpdated]);
+
+    useEffect(() => {
+        updateFilterQueryParams(currentFilters);
+    }, [currentFilters]);
+
+    useEffect(() => {
+        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+
+        updateSortQueryParams(paramKey, lendingsSorting.dir);
+    }, [lendingsSorting]);
+
+    useEffect(() => {
+        const modifiedLendings = FilterUtils.getFilteredSortedItems({
+            items: lendings,
+            filters: currentFilters,
+            sorting: lendingsSorting,
+            getFilteredItems: FilterUtils.getFilteredItems
+        });
+
+        setModifiedLendings(modifiedLendings);
+    }, [currentFilters, lendings, lendingsSorting]);
+
+    const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
+        setIsReloadDisabled(true);
+        setIsDataLoading(shouldUpdateIsLoading);
+
+        TheGraphApi.getLendings().then((response: any) => {
+            if (isMounted) {
                 const whitelistData: any[] = [];
                 const mappedData: any[] = [];
 
@@ -182,33 +233,13 @@ export function Lend() {
                     return filtersToReturn;
                 });
                 setLendings(mappedData);
-                setDataLoading(false);
+                setIsDataLoading(false);
+                setIsReloadDisabled(false);
+                setLastUpdated(Date.now());
+                setCanBeUpdated(true);
             }
         });
-
-        return () => { mounted = false };
-    }, []);
-
-    useEffect(() => {
-        updateFilterQueryParams(currentFilters);
-    }, [currentFilters]);
-
-    useEffect(() => {
-        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
-
-        updateSortQueryParams(paramKey, lendingsSorting.dir);
-    }, [lendingsSorting]);
-
-    useEffect(() => {
-        const modifiedLendings = FilterUtils.getFilteredSortedItems({
-            items: lendings,
-            filters: currentFilters,
-            sorting: lendingsSorting,
-            getFilteredItems: FilterUtils.getFilteredItems
-        });
-
-        setModifiedLendings(modifiedLendings);
-    }, [currentFilters, lendings, lendingsSorting]);
+    };
 
     const onSortingChange = useCallback((type: string, dir: string) => {
         setLendingsSorting({ type, dir });
@@ -293,7 +324,7 @@ export function Lend() {
                     List
                 </ToggleButton>
 
-                <ContentInner dataLoading={dataLoading}>
+                <ContentInner dataLoading={isDataLoading}>
                     {/* // !temporary code (hidden feature) */}
                     { linksListView ? (
                         <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>

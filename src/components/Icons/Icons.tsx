@@ -22,8 +22,8 @@ import fud from 'assets/images/icons/fud.svg';
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
-import kek from 'assets/images/icons/kek.svg';
 import ghst from 'assets/images/icons/ghst.svg';
+import kek from 'assets/images/icons/kek.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
 import logoMobile from 'assets/images/icons/logo-mobile.svg';
@@ -31,6 +31,7 @@ import land from 'assets/images/icons/land.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
+import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
@@ -228,6 +229,10 @@ export const MetamaskIcon = ({ className, width, height }: IconProps) => {
 
 export const PurchaseIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={purchase} alt='purchase' />;
+};
+
+export const ReloadIcon = ({ width, height }: IconProps) => {
+    return <Reload width={width || 24} height={height || 24} />;
 };
 
 export const SoldIcon = ({ width, height }: IconProps) => {

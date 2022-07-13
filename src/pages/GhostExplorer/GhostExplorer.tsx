@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -9,12 +9,14 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, Sorting, SortingListItem } from 'shared/models';
+import { DataReloadType } from 'shared/constants';
+import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { DataReloadContext } from 'contexts/DataReloadContext';
 import { TheGraphApi } from 'api';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
@@ -86,22 +88,14 @@ export function GhostExplorer() {
     const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
+    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-    const getGotchies = useCallback(() => {
-        let mounted = true;
-
-        setIsGotchisLoading(true);
-
-        TheGraphApi.getAllGotchies().then(response => {
-            if (mounted) {
-                setGotchis(response);
-            }
-        }).catch((e) => {
-            console.log(e);
-        }).finally(() => setIsGotchisLoading(false));
-
-        return () => mounted = false;
-    }, [gotchisSorting]);
+    const {
+        lastManuallyUpdated,
+        setLastUpdated,
+        setActiveReloadType,
+        setIsReloadDisabled
+    } = useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -116,15 +110,31 @@ export function GhostExplorer() {
             onSortingChange(key, dir);
         }
 
+        setActiveReloadType(DataReloadType.Explorer);
+
         return () => {
             onResetFilters();
+            setActiveReloadType(null);
         };
     }, []);
 
     useEffect(() => {
-        getGotchies();
+        let isMounted = true;
+
+        onGetGotchies(isMounted, true);
+
+        return () => { isMounted = false };
     }, []);
 
+    useEffect(() => {
+        if (lastManuallyUpdated !== 0 && canBeUpdated) {
+            let isMounted = true;
+
+            onGetGotchies(isMounted);
+
+            return () => { isMounted = false };
+        }
+    }, [lastManuallyUpdated]);
 
     useEffect(() => {
         FilterUtils.onFiltersUpdate(
@@ -151,6 +161,24 @@ export function GhostExplorer() {
 
         setModifiedGotchis(modifiedGotchis);
     }, [currentFilters, gotchis, gotchisSorting]);
+
+    const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
+        setIsReloadDisabled(true);
+        setIsGotchisLoading(shouldUpdateIsLoading);
+
+        TheGraphApi.getAllGotchies().then((response: any[]) => {
+            if (isMounted) {
+                setGotchis(response);
+            }
+        }).catch((e) => {
+            console.log(e);
+        }).finally(() => {
+            setIsGotchisLoading(false);
+            setIsReloadDisabled(false);
+            setLastUpdated(Date.now());
+            setCanBeUpdated(true);
+        });
+    };
 
     const onSortingChange = useCallback((type: string, dir: string) => {
         setGotchisSorting({ type, dir });
