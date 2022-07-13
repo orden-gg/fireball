@@ -21,7 +21,7 @@ export const styles = makeStyles(theme => createStyles({
             marginTop: -4,
             borderRadius: 5,
             backgroundColor: alpha(theme.palette.primary.main, .9),
-            boxShadow: `0 0 30px 20px ${theme.palette.primary.main}`,
+            boxShadow: `0 0 30px 20px ${theme.palette.primary.main}`
         },
         '& span': {
             position: 'relative'

@@ -74,7 +74,7 @@ export function Main() {
 
         while (array[rowIndex].length >= maxGotchisInRow) {
             rowIndex = CommonUtils.generateRandomIntegerInRange(0, maxRows-1);
-        };
+        }
 
         return rowIndex;
     };
@@ -85,9 +85,9 @@ export function Main() {
                 [], [], []
             ];
 
-            for(let item of response) {
+            for (const item of response) {
                 separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(item.data.aavegotchi);
-            };
+            }
 
             setTeam(_.flatten(separatedGotchis));
 
@@ -116,7 +116,7 @@ export function Main() {
             </div>
 
             <div className={classes.title}>
-                <Subtitle variant='h4' innerBg='rgb(39, 42, 48)'>
+                <Subtitle variant='h4'>
                     ordenGG DAO
                 </Subtitle>
             </div>

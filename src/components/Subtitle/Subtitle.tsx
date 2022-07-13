@@ -5,10 +5,9 @@ import { styles } from './styles';
 interface SubtitleProps {
     children: JSX.Element | string;
     variant: any;
-    innerBg: string;
 }
 
-export function Subtitle({ children, variant, innerBg }: SubtitleProps) {
+export function Subtitle({ children, variant }: SubtitleProps) {
     const classes = styles();
 
     return (
