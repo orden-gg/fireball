@@ -39,24 +39,28 @@ export function CraftContent() {
         const promises: any[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
 
         Promise.all(promises).then(([installations, tiles]: any[]) => {
-            const filteredInstallations: any[] = installations.map((data: any[], index: number) => ({
-                ...InstallationsUtils.getMetadataById(index),
-                id: index,
-                category: 'installation',
-                deprecated: data[InstallationTypes.Deprecated]
-            })).filter((item: any) =>
-                item.level === 1 &&
-                !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
-            );
+            const filteredInstallations: any[] = installations
+                .filter((item: any, index: number) => InstallationsUtils.getIsInstallationExist(index))
+                .map((data: any[], index: number) => ({
+                    ...InstallationsUtils.getMetadataById(index),
+                    id: index,
+                    category: 'installation',
+                    deprecated: data[InstallationTypes.Deprecated]
+                })).filter((item: any) =>
+                    item.level === 1 &&
+                    !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
+                );
 
-            const filteredTiles: any[] = tiles.map((data: any[], index: number) => ({
-                ...TilesUtils.getMetadataById(index),
-                id: index,
-                category: 'tile',
-                deprecated: data[TileTypes.Deprecated]
-            })).filter((item: any) =>
-                !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
-            );
+            const filteredTiles: any[] = tiles
+                .filter((item: any, index: number) => TilesUtils.getIsTileExist(index))
+                .map((data: any[], index: number) => ({
+                    ...TilesUtils.getMetadataById(index),
+                    id: index,
+                    category: 'tile',
+                    deprecated: data[TileTypes.Deprecated]
+                })).filter((item: any) =>
+                    !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
+                );
 
             const [active, deprecated]: any[] = [
                 filteredInstallations.concat(filteredTiles).filter(item => !item.deprecated),
