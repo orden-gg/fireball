@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Avatar, Link, useMediaQuery, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
-import _ from 'lodash';
 
 import { TheGraphApi } from 'api';
 
@@ -48,7 +47,7 @@ export function Main() {
             zIndex: Math.floor(Math.abs(left)),
             transform: `scale(${LAST_GOTCHI_SCALE + scale})`
         };
-    }
+    };
 
     useEffect(() => {
         TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
@@ -78,11 +77,11 @@ export function Main() {
                                 <div
                                     className={classes.gotchiBox}
                                     style={getGotchiStyles(index)}
+                                    key={index}
                                 >
                                     <Gotchi
                                         className={classNames(classes.gotchi, 'narrowed team')}
                                         gotchi={gotchi}
-                                        key={index}
                                         render={['name', 'svg']}
                                     />
                                 </div>
