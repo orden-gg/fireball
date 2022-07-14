@@ -105,7 +105,11 @@ export const bgStyles = makeStyles(theme => createStyles({
         transform: 'translateX(-50%)',
         background: `url(${bg}) center`,
         backgroundSize: 'cover',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        [theme.breakpoints.down('md')]: {
+            position: 'fixed'
+        }
+
     },
     bgPart: {
         position: 'absolute',
@@ -182,7 +186,7 @@ export const bgStyles = makeStyles(theme => createStyles({
         }
     },
     gotchisRow1: {
-        bottom: 0,
+        bottom: '2%',
         '& $gotchi': {
             width: `${100/MAX_GOTCHIS_IN_ROW[0]}%`
         }

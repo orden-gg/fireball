@@ -55,8 +55,8 @@ const Wrapper = styled('div')(() => ({
 export function App() {
     const location = useLocation();
     // TODO find a better way how to handle hide/show header/footer
-    const isDisplayHeader = location.pathname !== '/shop';
-    const isDisplayFooter = location.pathname !== '/shop';
+    const isHeaderHidden = location.pathname === '/shop';
+    const isFooterHidden = location.pathname === '/shop' || location.pathname === '/';
 
     return (
         <LoginContextProvider>
@@ -70,8 +70,8 @@ export function App() {
                                     <title>fireball.gg gotchiverse client</title>
                                 </Helmet>
 
-                                <Wrapper className={classNames(classes.wrapper, !isDisplayHeader && classes.noHeaderWrapper)}>
-                                    { isDisplayHeader &&
+                                <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
+                                    { !isHeaderHidden &&
                                         <>
                                             <BalancesContextProvider>
                                                 <Header />
@@ -99,7 +99,7 @@ export function App() {
                                         </Routes>
                                     </Box>
 
-                                    { isDisplayFooter && <Footer /> }
+                                    { !isFooterHidden && <Footer /> }
                                 </Wrapper>
 
                             </ClientContextProvider>
