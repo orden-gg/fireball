@@ -118,18 +118,6 @@ export const dataReloadStyles = makeStyles(theme => createStyles({
         marginLeft: theme.spacing(1),
         color: theme.palette.primary.main
     },
-    interval: {
-        position: 'absolute',
-        top: theme.spacing(1),
-        left: '100%',
-        marginLeft: theme.spacing(1),
-        whiteSpace: 'nowrap',
-        backgroundColor: alpha(theme.palette.background.secondary, .8),
-        boxShadow: `0 0 3px 3px ${alpha(theme.palette.background.secondary, .8)}`,
-        lineHeight: 1.1,
-        padding: '0 4px',
-        borderRadius: 5
-    },
     '@keyframes rotate':  {
         '100%': {
             transform: 'rotate(360deg)'

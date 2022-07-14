@@ -180,7 +180,7 @@ export function Countdown({
     return (
         <>
             { !(isDateInThePast && replacementComponent) ? (
-                <div>{countdown}</div>
+                <span>{countdown}</span>
             ): (
                 replacementComponent
             )}
