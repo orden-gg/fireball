@@ -1,7 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-import { MAX_GOTCHIS_IN_ROW } from 'shared/constants';
 import bg from 'assets/images/main-background/background.png';
 import flower2 from 'assets/images/main-background/flower2.png';
 import midgroundFar from 'assets/images/main-background/midground-far.png';
@@ -31,7 +30,7 @@ export const styles = makeStyles(theme => createStyles({
 export const modalStyles = makeStyles(theme => createStyles({
     button: {
         width: 200,
-        margin: theme.spacing(0, 'auto', 3),
+        margin: theme.spacing('auto', 'auto', 3),
         display: 'block',
         color: '#fff',
         backgroundColor: alpha(theme.palette.primary.main, .8),
@@ -159,44 +158,23 @@ export const bgStyles = makeStyles(theme => createStyles({
     foreground: {
         backgroundImage: `url(${foreground})`
     },
-    gotchisRow: {
+    gotchisSemicircle: {
         position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        justifyContent: 'space-around'
-    },
-    gotchisRow3: {
-        paddingBottom: '16%',
-        left: '25%',
-        right: '25%',
-        '& $gotchi': {
-            transform: 'scale(.8)',
-            width: `${100/MAX_GOTCHIS_IN_ROW[2]}%`
-        }
-    },
-    gotchisRow2: {
-        paddingBottom: '9.5%',
-        left: '3%',
-        right: '3%',
-        '& $gotchi': {
-            transform: 'scale(.8)',
-            width: `${100/MAX_GOTCHIS_IN_ROW[1]}%`
-        }
-    },
-    gotchisRow1: {
-        bottom: '2%',
-        '& $gotchi': {
-            width: `${100/MAX_GOTCHIS_IN_ROW[0]}%`
-        }
-    },
-    gotchi: {
-        position: 'relative',
         zIndex: 1,
-        '.active &': {
+        left: '46.2%',
+        bottom: 0,
+        width: '80%',
+        paddingBottom: '22%',
+        '&.active': {
             animation: '5s $show forwards'
         }
+    },
+    gotchiBox: {
+        position: 'absolute',
+        width: '10%'
+    },
+    gotchi: {
+        position: 'relative'
     },
     '@keyframes flower': {
         '0%, 22%, 49%, 62%, 81%, 100%': {
@@ -222,24 +200,12 @@ export const bgStyles = makeStyles(theme => createStyles({
 }));
 
 export const teamStyles = makeStyles(theme => createStyles({
-    mainTitle: {
-        textAlign: 'center',
-        fontSize: 28,
-        [theme.breakpoints.up('md')]: {
-            fontSize: 34
-        }
-    },
-    teamWrapper: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 180
-    },
     gotchisWrapper: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill,minmax(150px,1fr))',
         gridGap: theme.spacing(.5),
-        width: '100%'
+        width: '100%',
+        marginTop: theme.spacing(5)
     },
     teamUser: {
         padding: '0 5px 5px',
@@ -249,6 +215,7 @@ export const teamStyles = makeStyles(theme => createStyles({
         width: '100%',
         paddingBottom: '100%',
         position: 'relative',
+        filter: 'sepia(0.6)',
         '& > img': {
             position: 'absolute',
             left: '1%',

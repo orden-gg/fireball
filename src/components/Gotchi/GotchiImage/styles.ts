@@ -38,6 +38,9 @@ export const styles = makeStyles(theme => createStyles({
         '&.hide-bg .gotchi-wearable.wearable-bg': {
             display: 'none'
         },
+        '.team &': {
+            filter: 'sepia(0.6)'
+        },
         '&:hover': {
             '& .gotchi-wearable:not(.wearable-bg)': {
                 opacity: 0

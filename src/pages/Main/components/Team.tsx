@@ -10,28 +10,26 @@ export function Team({ team }) {
 
     return (
         <Box>
-            <div className={classes.teamWrapper}>
-                <div className={classes.gotchisWrapper}>
-                    {
-                        team.map((gotchi: any, index: number) =>
-                            <Gotchi
-                                className='narrowed team'
-                                gotchi={gotchi}
-                                key={index}
-                                render={['name', 'svg']}
-                            />
-                        )
-                    }
-                    <Link
-                        href='https://discord.gg/orden'
-                        target='_blank'
-                        className={classes.teamUser}
-                        underline='none'
-                    >
-                        <p className={classes.aavegotchiName}>You!</p>
-                        <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
-                    </Link>
-                </div>
+            <div className={classes.gotchisWrapper}>
+                {
+                    team.map((gotchi: any, index: number) =>
+                        <Gotchi
+                            className='narrowed team'
+                            gotchi={gotchi}
+                            key={index}
+                            render={['name', 'svg']}
+                        />
+                    )
+                }
+                <Link
+                    href='https://discord.gg/orden'
+                    target='_blank'
+                    className={classes.teamUser}
+                    underline='none'
+                >
+                    <p className={classes.aavegotchiName}>You!</p>
+                    <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
+                </Link>
             </div>
         </Box>
     );
