@@ -18,6 +18,10 @@ export class InstallationsUtils {
         };
     }
 
+    public static getIsInstallationExist(id: number): boolean {
+        return Boolean(installations[id]);
+    }
+
     public static getNameById(id: any): any {
         return installations[id][InstallationTypes.Name];
     }

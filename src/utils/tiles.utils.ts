@@ -13,6 +13,10 @@ export class TilesUtils {
         };
     }
 
+    public static getIsTileExist(id: number): boolean {
+        return Boolean(tiles[id]);
+    }
+
     public static getNameById(id: any): any {
         return tiles[id] && tiles[id][TileTypes.Name];
     }
