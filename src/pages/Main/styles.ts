@@ -104,7 +104,8 @@ export const bgStyles = makeStyles(theme => createStyles({
         bottom: 0,
         transform: 'translateX(-50%)',
         background: `url(${bg}) center`,
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        overflow: 'hidden'
     },
     bgPart: {
         position: 'absolute',
