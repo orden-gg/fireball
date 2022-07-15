@@ -1,5 +1,4 @@
 import { Avatar, Link } from '@mui/material';
-import { Box } from '@mui/system';
 
 import { teamStyles } from '../styles';
 import { Gotchi } from 'components/Gotchi/Gotchi';

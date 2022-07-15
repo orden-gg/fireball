@@ -10,7 +10,6 @@ import { GOTCHI_IDS, MAX_ROWS, MAX_GOTCHIS_IN_ROW } from 'shared/constants';
 import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 import { Section } from 'components/Section/Section';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import { Subtitle } from 'components/Subtitle/Subtitle';
 import { CommonUtils } from 'utils';
 
 import { About } from './components/About';
