@@ -48,7 +48,7 @@ export function Main() {
                             membersInRow[row].map((gotchi: any, index) =>
                                 gotchi.name !== 'user' ? (
                                     <Gotchi
-                                        className={classNames('narrowed team', classes.gotchi)}
+                                        className={classNames('narrowed team hide-bg', classes.gotchi)}
                                         gotchi={gotchi}
                                         key={index}
                                         render={['name', 'svg']}

@@ -12,7 +12,7 @@ export function Team({ team }) {
             {
                 team.map((gotchi: any, index: number) =>
                     <Gotchi
-                        className='narrowed team'
+                        className='narrowed team hide-bg'
                         gotchi={gotchi}
                         key={index}
                         render={['name', 'svg']}

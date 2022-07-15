@@ -35,7 +35,7 @@ export const styles = makeStyles(theme => createStyles({
         '&.hide-wearables .gotchi-wearable:not(.wearable-bg), &.hide-wearables .gotchi-sleeves': {
             display: 'none'
         },
-        '&.hide-bg .gotchi-wearable.wearable-bg': {
+        '.hide-bg & .gotchi-wearable.wearable-bg': {
             display: 'none'
         },
         '.team &': {
