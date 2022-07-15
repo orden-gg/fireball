@@ -17,6 +17,7 @@ import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
 import { Guilds } from './pages/Guilds/Guilds';
 import { Lend } from 'pages/Lend/Lend';
 import { Main } from './pages/Main/Main';
+import { Main2 } from './pages/Main2/Main2';
 import { Map } from './pages/Map/Map';
 import { NotFound } from './pages/NotFound/NotFound';
 import { ParcelPage } from './pages/Parcel/ParcelPage';
@@ -83,6 +84,7 @@ export function App() {
                                     <Box className={classes.content}>
                                         <Routes>
                                             <Route path='' element={<Main />} />
+                                            <Route path='main2' element={<Main2 />} />
                                             <Route path='market' element={<Baazaar />} />
                                             <Route path='lend' element={<Lend />} />
                                             <Route path='explorer' element={<GhostExplorer />} />

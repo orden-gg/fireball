@@ -30,5 +30,5 @@ export function Team({ team }) {
                 <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
             </Link>
         </div>
-);
+    );
 }
