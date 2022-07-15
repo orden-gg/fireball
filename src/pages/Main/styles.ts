@@ -32,15 +32,14 @@ export const aboutStyles = makeStyles(theme => createStyles({
     imageBox: {
         width: '6.2%',
         maxWidth: 180,
-        minWidth: 100,
-        paddingBottom: '1%',
+        paddingBottom: '7%',
+        position: 'relative',
         margin: theme.spacing('auto', 'auto', 0)
     },
     image: {
         width: '100%',
         display: 'block',
-        cursor: 'pointer',
-        position: 'relative'
+        cursor: 'pointer'
     },
     button: {
         width: 200,

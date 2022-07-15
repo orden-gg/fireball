@@ -7,7 +7,6 @@ export const styles = makeStyles(theme => createStyles({
         textAlign: 'center'
     },
     subtitleText: {
-        // textShadow: `0 0 5px ${theme.palette.background.secondary}`,
         display: 'inline-block',
         position: 'relative',
         padding: '4px 16px',

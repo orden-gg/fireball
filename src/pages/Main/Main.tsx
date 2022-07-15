@@ -3,11 +3,11 @@ import { useMediaQuery, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 import _ from 'lodash';
-import { TheGraphApi } from 'api';
 
 import { GOTCHI_IDS, LAST_GOTCHI_SCALE, START_ANGLE, H_D, V_D, MAX_GOTCHIS_IN_ROW, MAX_ROWS, EASTER_EGG_VIEW_CHANCE } from 'shared/constants';
 import { Section } from 'components/Section/Section';
 import { Gotchi } from 'components/Gotchi/Gotchi';
+import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { About } from './components/About';
