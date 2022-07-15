@@ -86,11 +86,11 @@ export function DataReloadPanel() {
         );
     }, [lastUpdated]);
 
-    const getLiveReloadTooltip = (intervalCountdown: number): JSX.Element => {
+    const getLiveReloadCountdown = (intervalCountdown: number): JSX.Element => {
         let countdown: JSX.Element;
 
         if (intervalCountdown) {
-            countdown = <span className={classes.interval}>
+            countdown = <span>
                 <Countdown
                     shortFormat={liveCountdownFormat}
                     targetDate={intervalCountdown}
@@ -99,7 +99,7 @@ export function DataReloadPanel() {
                 />
             </span>;
         } else {
-            countdown = <></>;
+            countdown = <span>unset</span>;
         }
 
         return countdown;
@@ -155,14 +155,13 @@ export function DataReloadPanel() {
                         </CustomTooltip>
                     )
                 }
-                {getLiveReloadTooltip(reloadIntervalCountdown)}
             </div>
 
             <Backdrop open={isDropdownOpen} onClick={() => setIsDropdownOpen(false)} />
 
             { isDropdownOpen &&
                 <div className={classes.liveReloadDropdown}>
-                    <Typography className={classes.dropdownTitle}>Fetch interval</Typography>
+                    <Typography className={classes.dropdownTitle}>Fetch interval: {getLiveReloadCountdown(reloadIntervalCountdown)}</Typography>
                     <div className={classes.selectContainer}>
                         <Select
                             labelId='demo-simple-select-label'
@@ -172,6 +171,7 @@ export function DataReloadPanel() {
                             onChange={onHandleIntervalChange}
                             size='small'
                         >
+                            <MenuItem value={DATA_RELOAD_INTERVALS.TwoMins}>2 (minutes)</MenuItem>
                             <MenuItem value={DATA_RELOAD_INTERVALS.FiveMins}>5 (minutes)</MenuItem>
                             <MenuItem value={DATA_RELOAD_INTERVALS.TenMins}>10 (minutes)</MenuItem>
                             <MenuItem value={DATA_RELOAD_INTERVALS.FifteenMins}>15 (minutes)</MenuItem>
