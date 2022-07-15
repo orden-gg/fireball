@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Avatar, Link, useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 import _ from 'lodash';
