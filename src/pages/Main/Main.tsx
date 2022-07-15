@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react';
 import { Avatar, Link, useMediaQuery, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
-
+import _ from 'lodash';
 import { TheGraphApi } from 'api';
 
-import { GOTCHI_IDS, LAST_GOTCHI_SCALE, START_ANGLE, H_D, V_D } from 'shared/constants';
-import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
+import { GOTCHI_IDS, LAST_GOTCHI_SCALE, START_ANGLE, H_D, V_D, MAX_GOTCHIS_IN_ROW, MAX_ROWS, EASTER_EGG_VIEW_CHANCE } from 'shared/constants';
 import { Section } from 'components/Section/Section';
 import { Gotchi } from 'components/Gotchi/Gotchi';
+import { CommonUtils } from 'utils';
 
 import { About } from './components/About';
 import { Team } from './components/Team';
+import { User } from './components/User';
 
 import { styles, bgStyles, teamStyles } from './styles';
 interface GotchiStyles {
@@ -29,8 +30,43 @@ export function Main() {
     };
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
+    const [membersInRow, setMembersInRow] = useState<any[]>([]);
     const [isLoaded, setIsloaded] = useState<boolean>(false);
     const [team, setTeam] = useState<any[]>([]);
+    const [isRowsView, setIsRowsView] = useState<boolean>(true);
+
+    const renderGotchisRow = (row: number) : JSX.Element => {
+        if (isRowsView) {
+            return (
+                <div className={classNames(
+                        classes.gotchisRow, classes[`gotchisRow${row+1}`],
+                        isLoaded && 'active'
+                    )}
+                >
+                    {
+                        isLoaded && matches ? (
+                            membersInRow[row].map((gotchi: any, index) =>
+                                gotchi.name !== 'user' ? (
+                                    <Gotchi
+                                        className={classNames('narrowed team', classes.gotchi)}
+                                        gotchi={gotchi}
+                                        key={index}
+                                        render={['name', 'svg']}
+                                    />
+                                ) : (
+                                    <User key={index} />
+                                )
+                            )
+                        ) : (
+                            <></>
+                        )
+                    }
+                </div>
+            );
+        } else {
+            return <></>;
+        }
+    };
 
     const getGotchiStyles = (id: number): GotchiStyles => {
         const angle: number = START_ANGLE / 2 + START_ANGLE * id;
@@ -49,14 +85,50 @@ export function Main() {
         };
     };
 
-    useEffect(() => {
-        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
-            const gotchis = response.map(item => item.data.aavegotchi);
+    const getAvailableRowIndex = (array: any[]): number => {
+        let rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
 
-            setTeam(gotchis);
+        while (array[rowIndex].length >= MAX_GOTCHIS_IN_ROW[rowIndex]) {
+            rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
+        }
+
+        return rowIndex;
+    };
+
+    useEffect(() => {
+        const isRowsView = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
+        let isMounted = true;
+
+        setIsRowsView(isRowsView);
+
+        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
+            if (isMounted) {
+                const gotchis = response.map(item => item.data.aavegotchi);
+
+                if (isRowsView) {
+                    const modifiedGotchis = _.cloneDeep(gotchis);
+                    const separatedGotchis: any[] = [
+                        [], [], []
+                    ];
+
+                    for (const gotchi of modifiedGotchis) {
+                        separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
+                    }
+
+                    separatedGotchis[getAvailableRowIndex(separatedGotchis)].push({
+                        name: 'user'
+                    });
+
+                    setMembersInRow(separatedGotchis);
+                }
+
+                setTeam(gotchis);
+            }
         })
         .catch((error) => console.log(error)).
         finally(() => setIsloaded(true));
+
+        return () => { isMounted = false };
     }, []);
 
     return (
@@ -64,13 +136,16 @@ export function Main() {
             <div className={classes.homeBg}>
                 <div className={classNames(classes.flower2, classes.bgPart)}></div>
                 <div className={classNames(classes.flower1, classes.bgPart)}></div>
+                {renderGotchisRow(2)}
                 <div className={classNames(classes.midgroundFar, classes.bgPart)}></div>
                 <div className={classNames(classes.smokeMid, classes.bgPart)}></div>
                 <div className={classNames(classes.midgroundClose, classes.bgPart)}></div>
+                {renderGotchisRow(1)}
                 <div className={classNames(classes.smokeClose, classes.bgPart)}></div>
                 <div className={classNames(classes.foreground, classes.bgPart)}></div>
+                {renderGotchisRow(0)}
                 {
-                    isLoaded && matches &&
+                    isLoaded && matches && !isRowsView &&
                     <div className={classNames(classes.gotchisSemicircle, 'active')}>
                         {
                             team.map((gotchi: any, index: number) =>
@@ -91,27 +166,19 @@ export function Main() {
                             className={classes.gotchiBox}
                             style={getGotchiStyles(GOTCHI_IDS.length+1)}
                         >
-                            <Link
-                                href='https://discord.gg/orden'
-                                target='_blank'
-                                className={classes.teamUser}
-                                underline='none'
-                            >
-                                <p className={classes.aavegotchiName}>You!</p>
-                                <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
-                            </Link>
+                            <User />
                         </div>
                     </div>
                 }
             </div>
             {
-                team.length > 0 && !matches ? (
+                team.length > 0 && !matches && (
                     <Section backgroundColor='rgb(39, 42, 48)'>
                         <Team team={team} />
                     </Section>
-                ) : <></>
+                )
             }
-            <About />
+            <About isRowsView={isRowsView} matches={matches} />
         </div>
     );
 }
