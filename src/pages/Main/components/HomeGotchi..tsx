@@ -11,7 +11,7 @@ export function HomeGotchi({ gotchi }: { gotchi: any }) {
 
     return (
         <Link
-            href={`/client/${gotchi.originalOwner.id || gotchi.owner.id}/gotchis`}
+            href={`/client/${gotchi.originalOwner?.id || gotchi.owner.id}/gotchis`}
             target='_blank'
             className={classNames(classes.homeGotchi, 'team')}>
             <div className={classes.gotchiName}><span>{gotchi.name}</span></div>
