@@ -6,7 +6,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { aboutStyles } from '../styles';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-import fire from 'assets/images/installations/52.png';
+import fire from 'assets/images/installations/52.gif';
 
 export function About({ isRowsView, matches }: { isRowsView: boolean, matches: boolean }) {
     const classes = aboutStyles();
