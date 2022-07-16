@@ -3,10 +3,13 @@ import { useState } from 'react';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
 
-import { styles } from '../styles';
+import { aboutStyles } from '../styles';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-export function About() {
-    const classes = styles();
+import fire from 'assets/images/installations/52.gif';
+
+export function About({ isRowsView, matches }: { isRowsView: boolean, matches: boolean }) {
+    const classes = aboutStyles();
 
     const [isOpened, setIsOpened] = useState<boolean>(false);
 
@@ -16,12 +19,30 @@ export function About() {
 
     return (
         <>
-            <Button
-                className={classes.button}
-                variant="contained"
-                size='large'
-                onClick={() => handleButtonClick(!isOpened)}
-            >About fireball.gg</Button>
+            {
+                isRowsView || !matches ? (
+                    <Button
+                        className={classes.button}
+                        variant="contained"
+                        onClick={() => handleButtonClick(!isOpened)}
+                    >About fireball.gg</Button>
+                ) : (
+                    <CustomTooltip
+                        placement='top'
+                        title='About fireball.gg'
+                        arrow={true}
+                    >
+                        <div className={classes.imageBox}>
+                            <img
+                                alt='fire'
+                                className={classes.image}
+                                onClick={() => handleButtonClick(!isOpened)}
+                                src={fire}
+                            />
+                        </div>
+                    </CustomTooltip>
+                )
+            }
 
             <CustomModal setModalOpen={setIsOpened} modalOpen={isOpened} className={classes.modal}>
                 <div className={classes.container}>

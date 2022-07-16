@@ -16,12 +16,6 @@ export const styles = makeStyles(theme => createStyles({
             textDecoration: 'none',
             backgroundColor: alpha(theme.palette.secondary.dark, .6)
         },
-        '.team &': {
-            textShadow: '0 0 2px #000',
-            '&:hover p': {
-                overflow: 'visible'
-            }
-        },
         '.narrowed &': {
             background: 'none',
             padding: 5,
@@ -40,11 +34,7 @@ export const styles = makeStyles(theme => createStyles({
         }
     },
     gotchiId: {
-        color: '#00FFFF',
-
-        '.team &': {
-            display: 'none'
-        }
+        color: '#00FFFF'
     },
     callMadeIcon: {
         position: 'absolute',

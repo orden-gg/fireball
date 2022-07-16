@@ -35,8 +35,15 @@ export const styles = makeStyles(theme => createStyles({
         '&.hide-wearables .gotchi-wearable:not(.wearable-bg), &.hide-wearables .gotchi-sleeves': {
             display: 'none'
         },
-        '&.hide-bg .gotchi-wearable.wearable-bg': {
+        '.hide-bg & .gotchi-wearable.wearable-bg': {
             display: 'none'
+        },
+        '.team &': {
+            filter: 'sepia(0.6)',
+            transition: '.3s'
+        },
+        '.team:hover &': {
+            filter: 'none'
         },
         '&:hover': {
             '& .gotchi-wearable:not(.wearable-bg)': {
@@ -66,6 +73,35 @@ export const styles = makeStyles(theme => createStyles({
             '& .wearable-pet': {
                 transform: 'translateY(5px)'
             }
+        },
+        '.team &:hover': {
+            '& .gotchi-wearable:not(.wearable-bg)': {
+                opacity: 1
+            },
+            '& .gotchi-sleeves': {
+                opacity: 1
+            },
+            '& .wearable-head': {
+                transform: 'none'
+            },
+            '& .wearable-eyes': {
+                transform: 'none'
+            },
+            '& .wearable-face': {
+                transform: 'none'
+            },
+            '& .wearable-body': {
+                transform: 'none'
+            },
+            '& .wearable-hand-right': {
+                transform: 'none'
+            },
+            '& .wearable-hand-left': {
+                transform: 'none'
+            },
+            '& .wearable-pet': {
+                transform: 'none'
+            }
         }
     },
     gotchiSvgPortal: {
@@ -80,6 +116,9 @@ export const styles = makeStyles(theme => createStyles({
         textTransform: 'uppercase',
         position: 'absolute',
         right: 5,
-        top: 5
+        top: 5,
+        '.team &': {
+            display: 'none'
+        }
     }
 }));

@@ -6,6 +6,7 @@ export const styles = makeStyles(theme => createStyles({
         backgroundColor: theme.palette.secondary.dark,
         padding: '5px 24px',
         width: '100%',
+        zIndex: 1,
         [theme.breakpoints.up('md')]: {
             padding: '5px 32px'
         }

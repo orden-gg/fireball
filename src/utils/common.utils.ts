@@ -128,4 +128,8 @@ export class CommonUtils {
     public static summArray(array: number[]): number {
         return array.reduce((a, b) => a + b, 0);
     }
+
+    public static generateRandomIntegerInRange(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 }
