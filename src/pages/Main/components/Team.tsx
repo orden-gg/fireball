@@ -1,8 +1,7 @@
-import { Avatar, Link } from '@mui/material';
+import { User } from './User';
+import { HomeGotchi } from './HomeGotchi.';
 
 import { teamStyles } from '../styles';
-import { Gotchi } from 'components/Gotchi/Gotchi';
-import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 export function Team({ team }) {
     const classes = teamStyles();
@@ -11,23 +10,10 @@ export function Team({ team }) {
         <div className={classes.gotchisWrapper}>
             {
                 team.map((gotchi: any, index: number) =>
-                    <Gotchi
-                        className='narrowed team hide-bg'
-                        gotchi={gotchi}
-                        key={index}
-                        render={['name', 'svg']}
-                    />
+                    <HomeGotchi gotchi={gotchi} />
                 )
             }
-            <Link
-                href='https://discord.gg/orden'
-                target='_blank'
-                className={classes.teamUser}
-                underline='none'
-            >
-                <p className={classes.aavegotchiName}>You!</p>
-                <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
-            </Link>
+            <User />
         </div>
 );
 }

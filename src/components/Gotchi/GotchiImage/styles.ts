@@ -39,7 +39,11 @@ export const styles = makeStyles(theme => createStyles({
             display: 'none'
         },
         '.team &': {
-            filter: 'sepia(0.6)'
+            filter: 'sepia(0.6)',
+            transition: '.3s'
+        },
+        '.team:hover &': {
+            filter: 'none'
         },
         '&:hover': {
             '& .gotchi-wearable:not(.wearable-bg)': {
@@ -68,6 +72,35 @@ export const styles = makeStyles(theme => createStyles({
             },
             '& .wearable-pet': {
                 transform: 'translateY(5px)'
+            }
+        },
+        '.team &:hover': {
+            '& .gotchi-wearable:not(.wearable-bg)': {
+                opacity: 1
+            },
+            '& .gotchi-sleeves': {
+                opacity: 1
+            },
+            '& .wearable-head': {
+                transform: 'none'
+            },
+            '& .wearable-eyes': {
+                transform: 'none'
+            },
+            '& .wearable-face': {
+                transform: 'none'
+            },
+            '& .wearable-body': {
+                transform: 'none'
+            },
+            '& .wearable-hand-right': {
+                transform: 'none'
+            },
+            '& .wearable-hand-left': {
+                transform: 'none'
+            },
+            '& .wearable-pet': {
+                transform: 'none'
             }
         }
     },

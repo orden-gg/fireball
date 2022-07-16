@@ -6,13 +6,13 @@ import _ from 'lodash';
 
 import { GOTCHI_IDS, LAST_GOTCHI_SCALE, START_ANGLE, H_D, V_D, MAX_GOTCHIS_IN_ROW, MAX_ROWS, EASTER_EGG_VIEW_CHANCE } from 'shared/constants';
 import { Section } from 'components/Section/Section';
-import { Gotchi } from 'components/Gotchi/Gotchi';
 import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { About } from './components/About';
 import { Team } from './components/Team';
 import { User } from './components/User';
+import { HomeGotchi } from './components/HomeGotchi.';
 
 import { styles, bgStyles, teamStyles } from './styles';
 interface GotchiStyles {
@@ -35,6 +35,42 @@ export function Main() {
     const [team, setTeam] = useState<any[]>([]);
     const [isRowsView, setIsRowsView] = useState<boolean>(true);
 
+    useEffect(() => {
+        const isRowsView = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
+        let isMounted = true;
+
+        setIsRowsView(isRowsView);
+
+        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
+            if (isMounted) {
+                const gotchis = response.map(item => item.data.aavegotchi);
+
+                if (isRowsView) {
+                    const modifiedGotchis = _.cloneDeep(gotchis);
+                    const separatedGotchis: any[] = [
+                        [], [], []
+                    ];
+
+                    for (const gotchi of modifiedGotchis) {
+                        separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
+                    }
+
+                    separatedGotchis[getAvailableRowIndex(separatedGotchis)].push({
+                        name: 'user'
+                    });
+
+                    setMembersInRow(separatedGotchis);
+                }
+
+                setTeam(gotchis);
+            }
+        })
+        .catch((error) => console.log(error)).
+        finally(() => setIsloaded(true));
+
+        return () => { isMounted = false };
+    }, []);
+
     const renderGotchisRow = (row: number) : JSX.Element => {
         if (isRowsView) {
             return (
@@ -47,12 +83,7 @@ export function Main() {
                         isLoaded && matches ? (
                             membersInRow[row].map((gotchi: any, index) =>
                                 gotchi.name !== 'user' ? (
-                                    <Gotchi
-                                        className={classNames('narrowed team hide-bg', classes.gotchi)}
-                                        gotchi={gotchi}
-                                        key={index}
-                                        render={['name', 'svg']}
-                                    />
+                                    <HomeGotchi gotchi={gotchi} />
                                 ) : (
                                     <User key={index} />
                                 )
@@ -95,42 +126,6 @@ export function Main() {
         return rowIndex;
     };
 
-    useEffect(() => {
-        const isRowsView = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
-        let isMounted = true;
-
-        setIsRowsView(isRowsView);
-
-        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
-            if (isMounted) {
-                const gotchis = response.map(item => item.data.aavegotchi);
-
-                if (isRowsView) {
-                    const modifiedGotchis = _.cloneDeep(gotchis);
-                    const separatedGotchis: any[] = [
-                        [], [], []
-                    ];
-
-                    for (const gotchi of modifiedGotchis) {
-                        separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
-                    }
-
-                    separatedGotchis[getAvailableRowIndex(separatedGotchis)].push({
-                        name: 'user'
-                    });
-
-                    setMembersInRow(separatedGotchis);
-                }
-
-                setTeam(gotchis);
-            }
-        })
-        .catch((error) => console.log(error)).
-        finally(() => setIsloaded(true));
-
-        return () => { isMounted = false };
-    }, []);
-
     return (
         <div className={classes.content}>
             <div className={classes.homeBg}>
@@ -154,11 +149,7 @@ export function Main() {
                                     style={getGotchiStyles(index)}
                                     key={index}
                                 >
-                                    <Gotchi
-                                        className={classNames(classes.gotchi, 'narrowed team')}
-                                        gotchi={gotchi}
-                                        render={['name', 'svg']}
-                                    />
+                                    <HomeGotchi gotchi={gotchi} />
                                 </div>
                             )
                         }

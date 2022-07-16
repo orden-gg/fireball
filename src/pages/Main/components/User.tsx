@@ -12,10 +12,10 @@ export function User() {
     return <Link
         href='https://discord.gg/orden'
         target='_blank'
-        className={classNames(classes.teamUser, classes.gotchi)}
+        className={classNames(classes.homeGotchi)}
         underline='none'
     >
-        <p className={classes.aavegotchiName}>You!</p>
-        <Avatar className={classes.aavegotchiAvatar} variant='square' src={ hopeUp } />
+        <p className={classes.gotchiName}><span>You!</span></p>
+        <Avatar className={classes.gotchiAvatar} variant='square' src={ hopeUp } />
     </Link>;
 }

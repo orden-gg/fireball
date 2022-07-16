@@ -130,7 +130,6 @@ export const bgStyles = makeStyles(theme => createStyles({
         paddingBottom: '56%',
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        zIndex: 1,
         pointerEvents: 'none',
         [theme.breakpoints.down('md')]: {
             height: '100%',
@@ -194,38 +193,13 @@ export const teamStyles = makeStyles(theme => createStyles({
         width: '100%',
         marginTop: theme.spacing(5)
     },
-    teamUser: {
-        padding: '0 5px 5px',
-        position: 'relative'
-    },
-    aavegotchiAvatar: {
-        width: '100%',
-        paddingBottom: '100%',
-        position: 'relative',
-        filter: 'sepia(0.6)',
-        '& > img': {
-            position: 'absolute',
-            left: '1%',
-            top: '1%',
-            width: '98%',
-            height: '98%'
-        }
-    },
-    aavegotchiName: {
-        fontSize: 15,
-        textAlign: 'center',
-        padding: 5,
-        margin: 0,
-        color: theme.palette.primary.main,
-        fontWeight: 500,
-        textShadow: '0 0 2px #000'
-    },
     gotchisRow: {
         position: 'absolute',
+        height: 1,
         bottom: 0,
         display: 'flex',
         justifyContent: 'space-around',
-        zIndex: 1,
+        'alignItems': 'flex-end',
         '&.active': {
             animation: '5s $show forwards'
         }
@@ -234,7 +208,7 @@ export const teamStyles = makeStyles(theme => createStyles({
         paddingBottom: '16%',
         left: '28%',
         right: '28%',
-        '& $gotchi': {
+        '& $homeGotchi': {
             transform: 'scale(.8)',
             width: `${100/MAX_GOTCHIS_IN_ROW[2]}%`
         }
@@ -243,7 +217,7 @@ export const teamStyles = makeStyles(theme => createStyles({
         paddingBottom: '9.5%',
         left: '5%',
         right: '5%',
-        '& $gotchi': {
+        '& $homeGotchi': {
             transform: 'scale(.8)',
             width: `${100/MAX_GOTCHIS_IN_ROW[1]}%`
         }
@@ -252,7 +226,7 @@ export const teamStyles = makeStyles(theme => createStyles({
         left: 0,
         right: 0,
         bottom: '4%',
-        '& $gotchi': {
+        '& $homeGotchi': {
             width: `${100/MAX_GOTCHIS_IN_ROW[0]}%`
         }
     },
@@ -271,8 +245,53 @@ export const teamStyles = makeStyles(theme => createStyles({
         position: 'absolute',
         width: '10%'
     },
-    gotchi: {
-        position: 'relative'
+    homeGotchi: {
+        padding: '0 5px 5px',
+        position: 'relative',
+        zIndex: 1,
+        cursor: 'pointer',
+        '&:hover': {
+            '& $gotchiName span': {
+                overflow: 'visible'
+            },
+            '& $gotchiAvatar': {
+                filter: 'none'
+            }
+        }
+    },
+
+    gotchiAvatar: {
+        width: '100%',
+        paddingBottom: '100%',
+        position: 'relative',
+        filter: 'sepia(0.6)',
+        transition: '.3s',
+        marginTop: 5,
+        '& > img': {
+            position: 'absolute',
+            left: '1%',
+            top: '1%',
+            width: '98%',
+            height: '98%'
+        }
+    },
+    gotchiName: {
+        display: 'flex',
+        justifyContent: 'center',
+        color: theme.palette.text.primary,
+        fontWeight: 500,
+        position: 'relative',
+        transition: 'all .2s ease-in-out',
+        padding: 5,
+        fontSize: 14,
+        margin: 0,
+        textShadow: '0 0 2px #000',
+        '& span': {
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            margin: 0
+        }
     },
     '@keyframes show': {
         '0%': {
