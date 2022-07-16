@@ -15,7 +15,7 @@
 
 [fireball.gg](http://fireball.gg) client for [aavegotchi](https://github.com/aavegotchi/aavegotchi-contracts) web3 game protocol. The goal of this project is to embrace value bulding for open on-chain games.
 
-Completley open license for experiments, pet projects or any small in-game enterprises. We build this project to explore how in-game data can be efficiently & fairly represented. If you are a hackers, data visulizers or coding students and want to explore game in early stages: fork a client, (maybe) change pages according to your or your guilds needs, dive deeper.
+This game framework has completley open license for experiments, pet projects or any small in-game enterprises. We build this project to explore how in-game data can be efficiently & fairly represented. If you are a hackers, data visulizers or coding students and want to explore game in early stages: fork a client, (maybe) change pages according to your or your guilds needs, dive deeper.
 
 ### 📦 goods inside
 
