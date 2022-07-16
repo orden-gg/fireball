@@ -10,7 +10,7 @@ export function Team({ team }) {
         <div className={classes.gotchisWrapper}>
             {
                 team.map((gotchi: any, index: number) =>
-                    <HomeGotchi gotchi={gotchi} />
+                    <HomeGotchi gotchi={gotchi} key={index} />
                 )
             }
             <User />

@@ -54,6 +54,9 @@ export const gotchiByIdQuery = (id: any): any => {
       owner {
         id
       }
+      originalOwner {
+        id
+      }
     }
   }`;
 };

@@ -83,7 +83,7 @@ export function Main() {
                         isLoaded && matches ? (
                             membersInRow[row].map((gotchi: any, index) =>
                                 gotchi.name !== 'user' ? (
-                                    <HomeGotchi gotchi={gotchi} />
+                                    <HomeGotchi gotchi={gotchi} key={index} />
                                 ) : (
                                     <User key={index} />
                                 )
@@ -149,7 +149,7 @@ export function Main() {
                                     style={getGotchiStyles(index)}
                                     key={index}
                                 >
-                                    <HomeGotchi gotchi={gotchi} />
+                                    <HomeGotchi gotchi={gotchi} key={index} />
                                 </div>
                             )
                         }
