@@ -16,6 +16,6 @@ export function User() {
         underline='none'
     >
         <p className={classes.gotchiName}><span>You!</span></p>
-        <Avatar className={classes.gotchiAvatar} variant='square' src={ hopeUp } />
+        <Avatar className={classes.gotchiAvatar} variant='square' src={hopeUp} />
     </Link>;
 }

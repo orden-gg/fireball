@@ -8,7 +8,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import fire from 'assets/images/installations/52.png';
 
-export function About({ isRowsView, matches }) {
+export function About({ isRowsView, matches }: { isRowsView: boolean, matches: boolean }) {
     const classes = aboutStyles();
 
     const [isOpened, setIsOpened] = useState<boolean>(false);

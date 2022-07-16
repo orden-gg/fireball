@@ -15,12 +15,6 @@ import { User } from './components/User';
 import { HomeGotchi } from './components/HomeGotchi.';
 
 import { styles, bgStyles, teamStyles } from './styles';
-interface GotchiStyles {
-    left: string;
-    bottom: string;
-    zIndex: number;
-    transform: string;
-}
 
 export function Main() {
     const classes = {
@@ -28,6 +22,7 @@ export function Main() {
         ...styles(),
         ...teamStyles()
     };
+
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('md'));
     const [membersInRow, setMembersInRow] = useState<any[]>([]);
@@ -36,17 +31,17 @@ export function Main() {
     const [isRowsView, setIsRowsView] = useState<boolean>(true);
 
     useEffect(() => {
-        const isRowsView = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
-        let isMounted = true;
+        const isRowsView: boolean = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
+        let isMounted: boolean = true;
 
         setIsRowsView(isRowsView);
 
         TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
             if (isMounted) {
-                const gotchis = response.map(item => item.data.aavegotchi);
+                const gotchis: any[] = response.map(item => item.data.aavegotchi);
 
                 if (isRowsView) {
-                    const modifiedGotchis = _.cloneDeep(gotchis);
+                    const modifiedGotchis: any[] = _.cloneDeep(gotchis);
                     const separatedGotchis: any[] = [
                         [], [], []
                     ];
@@ -65,14 +60,16 @@ export function Main() {
                 setTeam(gotchis);
             }
         })
-        .catch((error) => console.log(error)).
-        finally(() => setIsloaded(true));
+        .catch((error) => console.log(error))
+        .finally(() => setIsloaded(true));
 
         return () => { isMounted = false };
     }, []);
 
     const renderGotchisRow = (row: number) : JSX.Element => {
-        if (isRowsView) {
+        const isShowRow: boolean = isLoaded && matches && isRowsView;
+
+        if (isShowRow) {
             return (
                 <div className={classNames(
                         classes.gotchisRow, classes[`gotchisRow${row+1}`],
@@ -80,16 +77,12 @@ export function Main() {
                     )}
                 >
                     {
-                        isLoaded && matches ? (
-                            membersInRow[row].map((gotchi: any, index) =>
-                                gotchi.name !== 'user' ? (
-                                    <HomeGotchi gotchi={gotchi} key={index} />
-                                ) : (
-                                    <User key={index} />
-                                )
+                        membersInRow[row].map((gotchi: any, index) =>
+                            gotchi.name !== 'user' ? (
+                                <HomeGotchi gotchi={gotchi} key={index} />
+                            ) : (
+                                <User key={index} />
                             )
-                        ) : (
-                            <></>
                         )
                     }
                 </div>
@@ -99,7 +92,12 @@ export function Main() {
         }
     };
 
-    const getGotchiStyles = (id: number): GotchiStyles => {
+    const getGotchiStyles = (id: number): {
+        left: string;
+        bottom: string;
+        zIndex: number;
+        transform: string;
+    } => {
         const angle: number = START_ANGLE / 2 + START_ANGLE * id;
         const s: number = Math.sin(angle);
         const c: number = Math.cos(angle);

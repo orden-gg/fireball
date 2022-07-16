@@ -3,7 +3,7 @@ import { HomeGotchi } from './HomeGotchi.';
 
 import { teamStyles } from '../styles';
 
-export function Team({ team }) {
+export function Team({ team }: { team: any[] }) {
     const classes = teamStyles();
 
     return (
