@@ -5,6 +5,8 @@ import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation }
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { getActiveAddress, setActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
@@ -12,7 +14,6 @@ import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButto
 import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { DataReloadContext } from 'contexts/DataReloadContext';
-import { LoginContext } from 'contexts/LoginContext';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -38,7 +39,9 @@ export function ClientRoutes() {
     const { account } = useParams<{ account: string }>();
     const queryParams = queryString.parse(location.search);
 
-    const { activeAddress, setActiveAddress } = useContext<any>(LoginContext);
+    const dispatch = useAppDispatch();
+    const activeAddress = useAppSelector(getActiveAddress);
+
     const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
     const { lastManuallyUpdated, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
@@ -46,7 +49,7 @@ export function ClientRoutes() {
 
     useEffect(() => {
         if (EthersApi.isEthAddress(account)) {
-            setActiveAddress(account);
+            dispatch(setActiveAddress(account));
         }
 
         setActiveReloadType(DataReloadType.Client);
@@ -60,7 +63,7 @@ export function ClientRoutes() {
     useEffect(() => {
         if (activeAddress) {
             if (activeAddress !== account && !isActiveAddressSet) {
-                setActiveAddress(account);
+                dispatch(setActiveAddress(account));
             } else {
                 navigate({
                     pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,

@@ -1,12 +1,12 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+import { ethers } from 'ethers';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
 import { MetamaskIcon } from 'components/Icons/Icons';
-import { LoginContext } from 'contexts/LoginContext';
 import { EthersApi } from 'api';
 
 import { styles } from './styles';
@@ -19,19 +19,24 @@ interface LoginNavigationProps {
 export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
     const classes = styles();
 
-    const { metaState } = useMetamask();
-    const { connectMetamask, setIsMetamaskActive } = useContext<any>(LoginContext);
+    const { metaState, connect } = useMetamask();
 
     const [formValue, setFormValue] = useState<string>(address ? address : '');
     const [isFormSabmitted, setIsFormSubmitted] = useState<boolean>(address ? true : false);
 
-    const onMetamaskClick = () => {
-        connectMetamask().then((connected: boolean) => {
-            if (connected) setIsMetamaskActive(true);
-        });
+    const onMetamaskClick = async () => {
+        if (metaState.isAvailable && !metaState.isConnected) {
+            try {
+                await connect(ethers.providers.Web3Provider, 'any');
+
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
     };
 
-    const isFormValid = (addr: string) => {
+    const isFormValid = (addr: string): boolean => {
         return isFormSabmitted && !EthersApi.isEthAddress(addr);
     };
 

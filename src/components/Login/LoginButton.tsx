@@ -1,12 +1,15 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Backdrop, Typography } from '@mui/material';
 
+import { ethers } from 'ethers';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { addAddress, getActiveAddress, getIsDropdownOpen, getLoggedAddress, selectActiveAddress, toggleLoginDropdown } from 'core/store/login';
+import { LoginAddress as LoginAddressModel } from 'shared/models';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { LoginNavigation } from './LoginNavigation';
 import { LoginAddress } from './LoginAddress';
@@ -16,25 +19,22 @@ import { styles } from './styles';
 export function LoginButton() {
     const classes = styles();
 
-    const { getAccounts, metaState } = useMetamask();
+    const { connect, getAccounts, metaState } = useMetamask();
 
-    const {
-        activeAddress,
-        selectActiveAddress,
-        storageAddresses,
-        setStorageAddresses,
-        connectMetamask,
-        isMetamaskActive,
-        dropdownOpen,
-        setDropdownOpen
-    } = useContext<any>(LoginContext);
+    const dispatch = useAppDispatch();
+    const activeAddress = useAppSelector(getActiveAddress);
+    const storeLoggedAddress = useAppSelector(getLoggedAddress);
+    const isDropdownOpen = useAppSelector(getIsDropdownOpen);
 
     useEffect(() => { // connect metamask on load
         if (metaState.isAvailable) {
             (async () => {
                 try {
-                    const account = await getAccounts();
-                    if (account.length) connectMetamask();
+                    const accounts: string[] = await getAccounts();
+
+                    if (accounts.length) {
+                        connectMetamask();
+                    }
                 } catch (error) {
                     console.log(error);
                 }
@@ -44,45 +44,55 @@ export function LoginButton() {
 
     useEffect(() => { // handle metamask accounts
         if (metaState.account[0]) {
-            if (metaState.account[0] === activeAddress || isMetamaskActive || !activeAddress.length) {
-                selectActiveAddress(metaState.account[0]);
+            if (metaState.account[0] === activeAddress || !activeAddress?.length) {
+                dispatch(selectActiveAddress(metaState.account[0]));
             }
-        } else if (isMetamaskActive) { // on metamask logout
-            selectActiveAddress(storageAddresses.length ? storageAddresses[0].address : '');
+        } else if (metaState.account[0] === activeAddress) { // on metamask logout
+            dispatch(selectActiveAddress(storeLoggedAddress.length ? storeLoggedAddress[0].address : ''));
         }
     }, [metaState]);
 
-    const dropdownClose = () => {
-        setDropdownOpen(false);
+    const connectMetamask = async (): Promise<any> => {
+        if (metaState.isAvailable && !metaState.isConnected) {
+            try {
+                await connect(ethers.providers.Web3Provider, 'any');
+
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
     };
 
-    const dropdownToggle = () => {
-        setDropdownOpen(!dropdownOpen);
+    const onCloseDropdown = (): void => {
+        dispatch(toggleLoginDropdown(false));
     };
 
-    const onAddressSubmit = (address: string) => {
-        const duplicated: any = storageAddresses.find((item: any) => item.address === address);
+    const onToggleDropdown = (): void => {
+        dispatch(toggleLoginDropdown(!isDropdownOpen));
+    };
 
-        dropdownClose();
-        selectActiveAddress(address);
+    const onAddressSubmit = (address: string): void => {
+        const duplicated: LoginAddressModel | undefined = storeLoggedAddress.find((item: any) => item.address === address);
+
+        onCloseDropdown();
+
+        dispatch(selectActiveAddress(address));
 
         if (!duplicated) {
-            setStorageAddresses([
-                {
-                    name: address.slice(0, 6),
-                    address: address
-                },
-                ...storageAddresses
-            ]);
+            dispatch(addAddress({
+                address,
+                name: address.slice(0, 6)
+            }));
         }
     };
 
     return (
         <>
-            <div className={classNames(classes.button, dropdownOpen ? 'opened' : 'closed')}>
-                <div className={classes.buttonInner} onClick={dropdownToggle}>
+            <div className={classNames(classes.button, isDropdownOpen ? 'opened' : 'closed')}>
+                <div className={classes.buttonInner} onClick={onToggleDropdown}>
                     { activeAddress ? (
-                        isMetamaskActive &&
+                        metaState.account[0] === activeAddress &&
                             <div className={classes.buttonIcon}>
                                 <MetamaskIcon width={14} height={14} />
                             </div>
@@ -101,7 +111,7 @@ export function LoginButton() {
                     )}
                 </div>
 
-                { dropdownOpen ? (
+                { isDropdownOpen ? (
                     <div className={classNames(classes.buttonDropdown, metaState.account[0] && 'offset-top' )}>
                         <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
@@ -112,8 +122,8 @@ export function LoginButton() {
                                 null
                             )}
 
-                            {storageAddresses.length ? (
-                                storageAddresses.map((item: any, index: number) => {
+                            {storeLoggedAddress.length ? (
+                                storeLoggedAddress.map((item: any, index: number) => {
                                     return <LoginAddress address={item} key={index} />;
                                 })
                             ) : (
@@ -129,8 +139,8 @@ export function LoginButton() {
 
             <Backdrop
                 sx={{ }}
-                open={dropdownOpen}
-                onClick={dropdownClose}
+                open={isDropdownOpen}
+                onClick={onCloseDropdown}
                 className={classes.loginBackdrop}
             ></Backdrop>
         </>
