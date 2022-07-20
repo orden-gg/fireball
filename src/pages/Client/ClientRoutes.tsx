@@ -33,7 +33,7 @@ export function ClientRoutes() {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const subroute = location.pathname.split('/')[3];
+    const subroute = location.pathname.split('/').slice(3).join('/');
 
     const { account } = useParams<{ account: string }>();
     const queryParams = queryString.parse(location.search);
@@ -118,7 +118,7 @@ export function ClientRoutes() {
                                 >
                                     <BaazarIcon width={24} height={24} />
                                 </Button>
-                                <RealmSwitchButton view={realmView} />
+                                <RealmSwitchButton view={realmView} navigate={navigate} />
                             </React.Fragment>
                         )}
                     ></PageNav>

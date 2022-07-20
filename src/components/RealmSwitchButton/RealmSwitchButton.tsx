@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigateFunction, useLocation } from 'react-router-dom';
 import { Switch } from '@mui/material';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -7,11 +7,10 @@ import { ClientContext } from 'contexts/ClientContext';
 
 import { styles } from './styles';
 
-export function RealmSwitchButton({ view }) {
+export function RealmSwitchButton({ view, navigate }: { view: string; navigate: NavigateFunction }) {
     const classes = styles();
 
     const location = useLocation();
-    const navigate = useNavigate();
 
     const { setRealmView } = useContext<any>(ClientContext);
 
@@ -20,7 +19,7 @@ export function RealmSwitchButton({ view }) {
 
         setRealmView(path);
 
-        navigate(`${location.pathname}/realm/${path}`, { state: {} });
+        navigate(`realm/${path}`);
     };
 
     if (location.pathname?.split('/').slice(-1)[0] !== view) {
