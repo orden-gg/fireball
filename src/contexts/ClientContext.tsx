@@ -338,7 +338,6 @@ export const ClientContextProvider = (props: any) => {
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response
-
                 .filter((item: any) => {
                     const id: any = EthersApi.formatBigNumber(item.tileId._hex);
 
