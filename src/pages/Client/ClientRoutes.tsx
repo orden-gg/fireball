@@ -118,7 +118,7 @@ export function ClientRoutes() {
                                 >
                                     <BaazarIcon width={24} height={24} />
                                 </Button>
-                                <RealmSwitchButton view={realmView} navigate={navigate} />
+                                { subroute.includes('realm') && <RealmSwitchButton view={realmView} navigate={navigate} /> }
                             </React.Fragment>
                         )}
                     ></PageNav>
