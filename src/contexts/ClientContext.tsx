@@ -308,17 +308,23 @@ export const ClientContextProvider = (props: any) => {
         setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: false }));
 
         InstallationsApi.getInstallationsByAddress(address).then(response => {
-            const installations: any[] = response.map((item: any) => {
-                const id: any = EthersApi.formatBigNumber(item.installationId._hex);
+            const installations: any[] = response
+                .filter((item: any) => {
+                    const id: any = EthersApi.formatBigNumber(item.installationId._hex);
 
-                return {
-                    type: 'installation',
-                    name: InstallationsUtils.getNameById(id),
-                    balance: EthersApi.formatBigNumber(item.balance._hex),
-                    id: id,
-                    level: InstallationsUtils.getLevelById(id)
-                };
-            });
+                    return InstallationsUtils.getIsInstallationExist(id);
+                })
+                .map((item: any) => {
+                    const id: any = EthersApi.formatBigNumber(item.installationId._hex);
+
+                    return {
+                        type: 'installation',
+                        name: InstallationsUtils.getNameById(id),
+                        balance: EthersApi.formatBigNumber(item.balance._hex),
+                        id: id,
+                        level: InstallationsUtils.getLevelById(id)
+                    };
+                });
 
             setInstallations(installations);
             setLoadingInstallations(false);
@@ -331,16 +337,22 @@ export const ClientContextProvider = (props: any) => {
         setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: false }));
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
-            const tiles: any[] = response.map((item: any) => {
-                const id: any = EthersApi.formatBigNumber(item.tileId._hex);
+            const tiles: any[] = response
+                .filter((item: any) => {
+                    const id: any = EthersApi.formatBigNumber(item.tileId._hex);
 
-                return {
-                    type: 'tile',
-                    name: TilesUtils.getNameById(id),
-                    balance: EthersApi.formatBigNumber(item.balance._hex),
-                    id: id
-                };
-            });
+                    return TilesUtils.getIsTileExist(id);
+                })
+                .map((item: any) => {
+                    const id: any = EthersApi.formatBigNumber(item.tileId._hex);
+
+                    return {
+                        type: 'tile',
+                        name: TilesUtils.getNameById(id),
+                        balance: EthersApi.formatBigNumber(item.balance._hex),
+                        id: id
+                    };
+                });
 
             setTiles(tiles);
             setLoadingTiles(false);

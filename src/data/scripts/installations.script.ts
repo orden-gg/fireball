@@ -22,6 +22,11 @@ installationsContract.getInstallationTypes([])
         const modified = _.cloneDeep(res);
 
         res.forEach((installation, index) => {
+            const name = modified[index][InstallationTypes.Name];
+
+            // Remove level from name
+            modified[index][InstallationTypes.Name] = name.replace(/level [1-9]/gi, '');
+
             // ! Modify BigNumber`s => number`s
             modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map(alchemica => {
                 return parseInt(ethers.utils.formatUnits(alchemica));
@@ -31,6 +36,7 @@ installationsContract.getInstallationTypes([])
             modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map(alchemica => {
                 return parseInt(ethers.utils.formatUnits(alchemica));
             });
+
         });
 
         fs.writeFileSync('src/data/installations.data.json', JSON.stringify(modified), 'utf-8');
