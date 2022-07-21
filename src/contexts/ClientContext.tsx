@@ -26,7 +26,6 @@ export const ClientContextProvider = (props: any) => {
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
-    const [gotchiView, setGotchiView] = useState<string>('owned');
 
     const [lendings, setLendings] = useState<any[]>([]);
     const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'totalTokens', dir: 'desc' });
@@ -478,8 +477,6 @@ export const ClientContextProvider = (props: any) => {
             loadingGotchis,
             setGotchis,
             setGotchisSorting,
-            gotchiView,
-            setGotchiView,
 
             lendings,
             lendingsSorting,
