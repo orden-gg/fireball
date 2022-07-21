@@ -89,7 +89,7 @@ export function LoginButton() {
 
     return (
         <>
-            <div className={classNames(classes.button, isDropdownOpen ? 'opened' : 'closed')}>
+            <div className={classNames(classes.button, isDropdownOpen && 'opened')}>
                 <div className={classes.buttonInner} onClick={onToggleDropdown}>
                     { activeAddress ? (
                         metaState.account[0] === activeAddress &&
@@ -138,7 +138,6 @@ export function LoginButton() {
             </div>
 
             <Backdrop
-                sx={{ }}
                 open={isDropdownOpen}
                 onClick={onCloseDropdown}
                 className={classes.loginBackdrop}
