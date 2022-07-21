@@ -48,7 +48,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         }
     }, [address]);
 
-    const onAddressClick = () => {
+    const onAddressClick = (): void => {
         dispatch(toggleLoginDropdown(false));
         dispatch(setActiveAddress(address.address));
     };
@@ -57,11 +57,11 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         return current.address === activeAddress;
     };
 
-    const onNameChange = (value: string) => {
+    const onNameChange = (value: string): void => {
         setName(value);
     };
 
-    const confirmNewAddress = (event: any) => {
+    const confirmNewAddress = (event: any): void => {
         event.stopPropagation();
 
         if (name.length > 0) {
@@ -73,19 +73,19 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         }
     };
 
-    const editAddress = (event: any) => {
+    const editAddress = (event: any): void => {
         event.stopPropagation();
 
         setEditMode(true);
         nameRef.current.focus();
     };
 
-    const copyAddress = (event: any) => {
+    const copyAddress = (event: any): void => {
         event.stopPropagation();
         copyToClipboard();
     };
 
-    const copyToClipboard = async () => {
+    const copyToClipboard = async (): Promise<void> => {
         try {
             await navigator.clipboard.writeText(address.address);
             setCopyTooltipText('Copied!');
