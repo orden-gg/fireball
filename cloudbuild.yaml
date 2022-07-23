@@ -1,4 +1,5 @@
 steps:
+# build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: [
             'build',
@@ -6,6 +7,20 @@ steps:
             '.'
         ]
   timeout: 900s
+# push the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA']
+# deploy the container image
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'fireball-staging'
+  - '--image'
+  - 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA'
+  - '--region'
+  - 'europe-west1'
+images: 
+- 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA'
 options:
   machineType: 'N1_HIGHCPU_8'  
-images: ['gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA']
