@@ -40,7 +40,7 @@ export const aboutStyles = makeStyles(theme => createStyles({
         width: '100%',
         display: 'block',
         cursor: 'pointer',
-        opacity: .8,
+        opacity: .75,
         transition: '.3s',
         '&:hover': {
             opacity: 1
