@@ -1,0 +1,11 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+            'build',
+            '-t', 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA',
+            '.'
+        ]
+  timeout: 900s
+options:
+  machineType: 'N1_HIGHCPU_8'  
+images: ['gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA']
