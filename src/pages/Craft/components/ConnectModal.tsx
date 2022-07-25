@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react';
 import { Button, CircularProgress, Typography } from '@mui/material';
 
-import { LoginContext } from 'contexts/LoginContext';
+import { ethers } from 'ethers';
+import { useMetamask } from 'use-metamask';
+
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { modalStyles } from '../styles';
@@ -9,8 +11,9 @@ import { modalStyles } from '../styles';
 export function ConnectModal() {
     const classes = modalStyles();
 
+    const { metaState, connect } = useMetamask();
+
     const [isWalletConnecting, setIsWalletConnecting] = useState<boolean>(false);
-    const { connectMetamask } = useContext<any>(LoginContext);
     const { showSnackbar } = useContext<any>(SnackbarContext);
 
     const connectWallet = (): void => {
@@ -26,6 +29,18 @@ export function ConnectModal() {
             })
             .catch(error => console.log(error))
             .finally(() => setIsWalletConnecting(false));
+    };
+
+    const connectMetamask = async (): Promise<any> => {
+        if (metaState.isAvailable && !metaState.isConnected) {
+            try {
+                await connect(ethers.providers.Web3Provider, 'any');
+
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
     };
 
     return (
