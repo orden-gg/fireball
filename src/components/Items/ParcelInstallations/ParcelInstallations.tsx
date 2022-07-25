@@ -2,7 +2,6 @@ import { Skeleton } from '@mui/material';
 
 import { InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { EthersApi } from 'api';
 import { InstallationsUtils } from 'utils';
 
 import { InstallationImage } from '../Installation/InstallationImage';
