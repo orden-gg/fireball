@@ -2,6 +2,7 @@ import { Skeleton } from '@mui/material';
 
 import { InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { EthersApi } from 'api';
 import { InstallationsUtils } from 'utils';
 
 import { InstallationImage } from '../Installation/InstallationImage';
@@ -37,8 +38,11 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
 
     return (
         <div className={classes.container}>
-
-            { parcel.installations.map((installation: any, index: number) => {
+            { parcel.installations
+            .filter((installation: any) =>
+                InstallationsUtils.getIsInstallationExist(installation.id)
+            )
+            .map((installation: any, index: number) => {
                 const metadata = InstallationsUtils.getMetadataById(installation.id);
                 const isAltar = metadata.type === InstallationTypeNames.Altar;
 
