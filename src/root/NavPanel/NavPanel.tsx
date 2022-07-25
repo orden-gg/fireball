@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
@@ -10,15 +9,17 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 import classNames from 'classnames';
 
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 import { GuildIcon, LendingIcon, CraftIcon } from 'components/Icons/Icons';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from './styles';
 
 export function NavPanel() {
     const classes = styles();
 
-    const { activeAddress } = useContext<any>(LoginContext);
+    const activeAddress = useAppSelector(getActiveAddress);
+
     const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
 
     return (

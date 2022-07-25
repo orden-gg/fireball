@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
 import { AutopetApi, GhstApi, MainApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { tabStyles } from './styles';
 
@@ -13,6 +13,8 @@ export const AutopetContext = createContext({});
 
 export const AutopetContextProvider = (props: any) => {
     const classes = tabStyles();
+
+    const { metaState, connect } = useMetamask();
 
     const [ghstState, setGhstState] = useState<string>('approve');
     const [petState, setPetState] = useState<string>('approve');
@@ -45,9 +47,6 @@ export const AutopetContextProvider = (props: any) => {
     });
 
     const { showSnackbar } = useContext<any>(SnackbarContext);
-    const { connectMetamask } = useContext<any>(LoginContext);
-
-    const { metaState } = useMetamask();
 
     const approveConnect = async (): Promise<void> => {
         setConnectState('approving');
@@ -62,6 +61,18 @@ export const AutopetContextProvider = (props: any) => {
 
         updateProgress('connect', isConnected);
         setIsUserConnected(isConnected);
+    };
+
+    const connectMetamask = async (): Promise<any> => {
+        if (metaState.isAvailable && !metaState.isConnected) {
+            try {
+                await connect(ethers.providers.Web3Provider, 'any');
+
+                return true;
+            } catch (error) {
+                return false;
+            }
+        }
     };
 
     const approvePet = async (approval: boolean): Promise<void> => {

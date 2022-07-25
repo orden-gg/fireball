@@ -1,8 +1,9 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useAppDispatch } from 'core/store/hooks';
+import { setActiveAddress } from 'core/store/login';
 import { LoginNavigation } from 'components/Login/LoginNavigation';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { accountStyles, styles } from '../styles';
 
@@ -12,12 +13,12 @@ export function ClientNav() {
     const navigate = useNavigate();
     const { account } = useParams<{ account: string }>();
 
-    const { setActiveAddress } = useContext<any>(LoginContext);
+    const dispatch = useAppDispatch();
 
     const onAddressSubmit = useCallback((address: string) => {
         navigate({ pathname: `/client/${address}` });
-        setActiveAddress(address);
-    }, [navigate, setActiveAddress]);
+        dispatch(setActiveAddress(address));
+    }, [navigate]);
 
     return (
         <div className={classes.loginNav}>

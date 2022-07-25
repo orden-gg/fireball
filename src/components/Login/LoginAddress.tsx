@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormControl, IconButton, Input, InputAdornment, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import CheckIcon from '@mui/icons-material/Check';
@@ -8,8 +8,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import classNames from 'classnames';
 import Blockies from 'react-blockies';
 
+import { getActiveAddress, removeAddress, setActiveAddress, toggleLoginDropdown, updateAddressName } from 'core/store/login';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { LoginContext } from 'contexts/LoginContext';
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
@@ -27,11 +28,13 @@ interface LoginAddressProps {
 export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
     const classes = styles();
 
+    const dispatch = useAppDispatch();
+    const activeAddress = useAppSelector(getActiveAddress);
+
     const [editMode, setEditMode] = useState<boolean>(false);
     const [name, setName] = useState<string>(address.name);
     const [copyTooltipText, setCopyTooltipText] = useState<string>('Copy address');
     const nameRef = useRef<any>();
-    const { activeAddress, selectActiveAddress, updateAddressName, logoutAddress, setDropdownOpen } = useContext<any>(LoginContext);
 
     useEffect(() => { // focus input on edit button click
         if (editMode) {
@@ -45,48 +48,56 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         }
     }, [address]);
 
-    const onAddressClick = () => {
-        setDropdownOpen(false);
-        selectActiveAddress(address.address);
+    const onAddressClick = (): void => {
+        dispatch(toggleLoginDropdown(false));
+        dispatch(setActiveAddress(address.address));
     };
 
-    const isActive = (current: Address) => {
+    const isActive = (current: Address): boolean => {
         return current.address === activeAddress;
     };
 
-    const onNameChange = (value: string) => {
+    const onNameChange = (value: string): void => {
         setName(value);
     };
 
-    const confirmNewAddress = (event: any) => {
+    const confirmNewAddress = (event: any): void => {
         event.stopPropagation();
 
         if (name.length > 0) {
             setEditMode(false);
 
-            if (name !== address.name) updateAddressName(address.address, name);
+            if (name !== address.name) {
+                dispatch(updateAddressName(address.address, name));
+            }
         }
     };
 
-    const editAddress = (event: any) => {
+    const editAddress = (event: any): void => {
         event.stopPropagation();
 
         setEditMode(true);
         nameRef.current.focus();
     };
 
-    const copyAddress = (event: any) => {
+    const copyAddress = (event: any): void => {
         event.stopPropagation();
         copyToClipboard();
     };
 
-    const copyToClipboard = async () => {
+    const copyToClipboard = async (): Promise<void> => {
         try {
             await navigator.clipboard.writeText(address.address);
             setCopyTooltipText('Copied!');
         } catch (err) {
             setCopyTooltipText('Copy address');
         }
+    };
+
+    const onAddressLogout = (event: any, address: string): void => {
+        event.stopPropagation();
+
+        dispatch(removeAddress(address));
     };
 
     return (
@@ -150,7 +161,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
                         </CustomTooltip>
 
                         <CustomTooltip title='Logout' placement='top' followCursor>
-                            <IconButton size='small' color='warning' onClick={(event) => logoutAddress(event, address.address)}>
+                            <IconButton size='small' color='warning' onClick={(event) => onAddressLogout(event, address.address)}>
                                 <LogoutIcon fontSize='small' />
                             </IconButton>
                         </CustomTooltip>
