@@ -80,16 +80,13 @@ export function ClientOwned() {
         gotchis,
         gotchisSorting,
         setGotchisSorting,
-        loadingGotchis,
-        setGotchiView
+        loadingGotchis
     } = useContext<any>(ClientContext);
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
     useEffect(() => {
-        setGotchiView('owned');
-
         setCurrentFilters((currentFiltersCache: any) =>
             FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
         );
