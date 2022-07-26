@@ -101,7 +101,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                 { parcel.installations && (
                     <div className={classes.parcelInstallations}>
-                        <ParcelInstallations parcel={parcel} />
+                        <ParcelInstallations parcel={parcel} className={classes.installations} />
                     </div>
                 )}
 
