@@ -15,7 +15,7 @@ import { totalPriceStyles } from '../styles';
 interface CardTotalPriceProps {
     id: number;
     balance: number;
-    category: number;
+    category: string;
     priceInWei: string;
     className?: string;
 }
@@ -69,8 +69,8 @@ export function CardTotalPrice({ id, balance, category, priceInWei, className }:
                 <ContentLoader
                     speed={2}
                     viewBox='0 0 70 27'
-                    backgroundColor={alpha(theme.palette.rarity[rarity], .6)}
-                    foregroundColor={alpha(theme.palette.rarity[rarity], .2)}
+                    backgroundColor={alpha(theme.palette.common.black, .4)}
+                    foregroundColor={alpha(theme.palette.common.black, .1)}
 
                     className={classes.totalValueLoader}
                 >

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface CardItemProps {
-    children: Array<JSX.Element>;
+    children: Array<JSX.Element> | JSX.Element;
     className?: string;
     type: string;
 }

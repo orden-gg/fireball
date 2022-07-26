@@ -21,9 +21,9 @@ export class ItemUtils {
         return items[id]?.slot || '';
     }
 
-    public static getStatsById(id: number, category: number): any {
+    public static getStatsById(id: number, category: string): any {
         const stats: string = items[id]?.stats;
-        const isWearable: boolean = category === Number(Erc1155Categories.Wearable);
+        const isWearable: boolean = category === Erc1155Categories.Wearable;
 
         if (isWearable) {
             let result = {};

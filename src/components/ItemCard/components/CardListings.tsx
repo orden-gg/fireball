@@ -11,13 +11,13 @@ import { DateTime } from 'luxon';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { TheGraphApi } from 'api';
-import { CommonUtils, ItemUtils } from 'utils';
+import { CommonUtils } from 'utils';
 
 import { listingsStyles } from '../styles';
 
 interface CardListingsProps {
     id: number;
-    category: number;
+    category: string;
     className?: string;
 }
 
@@ -51,7 +51,7 @@ export function CardListings({ id, category, className }: CardListingsProps) {
         });
 
         return () => { mounted = false };
-    }, [id]);
+    }, [id, category]);
 
     return <>
         {current && lastSold ? (

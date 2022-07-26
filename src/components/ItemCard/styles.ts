@@ -8,6 +8,8 @@ export const styles = makeStyles(theme => createStyles({
         alignItems: 'center',
         flexDirection: 'column',
         height: '100%',
+        borderRadius: 5,
+        overflow: 'hidden',
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .1),
             color: theme.palette.rarity.common
@@ -120,7 +122,8 @@ export const totalPriceStyles = makeStyles(theme => createStyles({
     },
     totalValueLoader: {
         width: 70,
-        height: 27
+        height: 27,
+        backgroundColor: 'currentcolor'
     }
 }));
 
@@ -179,7 +182,7 @@ export const bodyStyles = makeStyles(theme => createStyles({
 
 export const imageStyles = makeStyles(theme => createStyles({
     imageWrapper: {
-        paddingBottom: '50%',
+        paddingBottom: '45%',
         width: '65%',
         margin: theme.spacing(3, 'auto', 1),
         position: 'relative'
@@ -202,6 +205,8 @@ export const nameStyles = makeStyles(theme => createStyles({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         overflow: 'hidden',
+        maxWidth: '100%',
+        padding: theme.spacing(0, 1),
         textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
                     ${theme.palette.secondary.main} -1px -1px 0px,
                     ${theme.palette.secondary.main} 1px -1px 0px,

@@ -105,8 +105,9 @@ export function ClientWarehouse() {
             <ContentInner dataLoading={loadingWarehouse || loadingGotchis}>
                 <ItemsLazy
                     items={warehouse}
-                    component={(props) => {
+                    component={(props: any) => {
                         const id = props.id || props.erc1155TypeId;
+                        const balance = props.balance || props.quentity;
 
                         return <ItemCard type={props.rarity}>
                             <CardInner>
@@ -116,10 +117,7 @@ export function ClientWarehouse() {
                                     category={props.category}
                                     priceInWei={props.priceInWei}
                                 />
-                                <CardBalance
-                                    balance={props.balance || props.quentity}
-                                    holders={props.holders}
-                                />
+                                <CardBalance balance={balance} holders={props.holders} />
                             </CardInner>
                             <CardBody>
                                 <CardImage id={id} />

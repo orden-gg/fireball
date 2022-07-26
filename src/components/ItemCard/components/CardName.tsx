@@ -19,7 +19,7 @@ export function CardName({ id, children, className }: CardNameProps) {
 
     return (
         <Typography className={classNames(className, classes.name)}>
-            {children || name}
+            <span>{children || name}</span>
         </Typography>
     );
 };

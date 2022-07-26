@@ -8,7 +8,7 @@ import { balanceStyles } from '../styles';
 
 interface CardBalanceProps {
     balance: number;
-    holders: string[];
+    holders?: string[];
     className?: string;
 }
 
@@ -16,7 +16,7 @@ export function CardBalance({ balance, holders, className }: CardBalanceProps) {
     const classes = balanceStyles();
 
     return (
-        balance ? <div className={classNames(className, classes.balance)}>
+        <div className={classNames(className, classes.balance)}>
             {holders?.length ? (
                 <CustomTooltip
                     title={
@@ -46,6 +46,6 @@ export function CardBalance({ balance, holders, className }: CardBalanceProps) {
             ) : (
                 balance
             )}
-        </div> : <></>
+        </div>
     )
 };

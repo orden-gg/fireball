@@ -1,7 +1,7 @@
 import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
+import { InstallationItem } from 'shared/models';
 import installations from 'data/installations.data.json';
 
-import { InstallationItem } from 'shared/models';
 
 export class InstallationsUtils {
     public static getMetadataById(id: any): InstallationItem {
@@ -106,5 +106,17 @@ export class InstallationsUtils {
 
     public static getDeprecatedById(id: any): any {
         return installations[id][InstallationTypes.Deprecated];
+    }
+
+    public static getRarityById(id: number): string {
+        const isDecoration: boolean = this.getTypeById(id) === InstallationTypeNames.Decoration;
+
+        if (isDecoration) {
+            const name: string = this.getNameById(id);
+
+            return name.split(' ')[0].toLowerCase();
+        } else {
+            return 'golden';
+        }
     }
 }

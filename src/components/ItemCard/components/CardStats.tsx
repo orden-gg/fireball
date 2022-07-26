@@ -7,14 +7,14 @@ import { statsStyles } from '../styles';
 
 interface CardStatsProps {
     id: number;
-    category: number;
+    category: string;
     className?: string;
 }
 
 export function CardStats({ id, category, className }: CardStatsProps) {
     const classes = statsStyles();
 
-    const isWearable: boolean = category === Number(Erc1155Categories.Wearable);
+    const isWearable: boolean = category === Erc1155Categories.Wearable;
     const stats: any = ItemUtils.getStatsById(id, category);
 
     return (

@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 
-import { Installation } from 'components/Items/Installation/Installation';
-import { Tile } from 'components/Items/Tile.js/Tile';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { CardBalance, CardBody, CardImage, CardInner, CardListings, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function ClientInstallations() {
@@ -19,13 +18,26 @@ export function ClientInstallations() {
             <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={182}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
-                    component={(props: any) => {
-                        if (props.type === 'tile') {
-                            return <Tile tile={props} />;
-                        } else {
-                            return <Installation installation={props} />;
-                        }
-                    }}
+                    component={({ id, name, category, balance, priceInWei, rarity }: any) =>
+                        <ItemCard type={rarity || 'golden'}>
+                            <CardInner>
+                                <CardTotalPrice
+                                    id={id}
+                                    balance={balance}
+                                    category={category}
+                                    priceInWei={priceInWei}
+                                />
+                                <CardBalance balance={balance} />
+                            </CardInner>
+                            <CardBody>
+                                <CardImage id={id} category={category} />
+                                <CardName>{name}</CardName>
+                            </CardBody>
+                            <CardInner>
+                                <CardListings id={id} category={category} />
+                            </CardInner>
+                        </ItemCard>
+                    }
                 />
             </ContentInner>
         </>
