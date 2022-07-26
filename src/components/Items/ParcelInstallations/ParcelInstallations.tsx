@@ -43,7 +43,7 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
             )
             .map((installation: any, index: number) => {
                 const metadata = InstallationsUtils.getMetadataById(installation.id);
-                const isAltar = metadata.type === InstallationTypeNames.Altar;
+                const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
                 return (
                     <div
@@ -51,11 +51,11 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
                         style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
                         key={index}
                     >
-                        { isAltar && (
-                            <div className={classes.installationLevel}>
-                                {metadata.level}
-                            </div>
-                        )}
+                        <div className={classes.installationLevel}>
+                            {metadata.level}
+                        </div>
+
+                        {console.log(metadata)}
 
                         <CustomTooltip
                             title={
@@ -64,7 +64,7 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
                                         {metadata.type}: <span>{metadata.name}</span>
                                     </div>
 
-                                    { isAltar && (
+                                    { !isDecoration && (
                                         <div className={classes.row}>
                                             <div className={classes.inner}>
                                                 lvl: <span>{metadata.level}</span>
