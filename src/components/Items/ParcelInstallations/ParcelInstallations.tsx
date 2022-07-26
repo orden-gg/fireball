@@ -1,5 +1,7 @@
 import { Skeleton } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { InstallationsUtils } from 'utils';
@@ -13,7 +15,13 @@ import { styles } from './styles';
 //     minutes: { key: 'mm', value: 'm', shownIfZero: false }
 // };
 
-export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any }) {
+interface ParcelInstallationsProps {
+    parcel: any;
+    size?: any;
+    className?: string
+}
+
+export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
     const classes = styles();
 
     if (parcel.installations.loading) {
@@ -36,7 +44,7 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
     }
 
     return (
-        <div className={classes.container}>
+        <div className={classNames(classes.container, className)}>
             { parcel.installations
             .filter((installation: any) =>
                 InstallationsUtils.getIsInstallationExist(installation.id)
