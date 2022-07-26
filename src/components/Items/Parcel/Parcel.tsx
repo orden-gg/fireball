@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
+import { ParcelAlchemica } from 'shared/models';
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -16,7 +17,7 @@ import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export function Parcel({ parcel }: { parcel: any }) {
+export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelAlchemica }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -26,7 +27,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const size: any = ItemUtils.getParcelSize(parcel.size);
+    const parcelSize: string = ItemUtils.getParcelSize(parcel.size);
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -38,7 +39,7 @@ export function Parcel({ parcel }: { parcel: any }) {
     return (
         <>
             <div
-                className={classNames(classes.item, size, classes.parcelCard)}
+                className={classNames(classes.item, parcelSize, classes.parcelCard)}
                 onClick={() => setModalOpen(true)}
             >
                 <div className={classes.labels}>
@@ -112,7 +113,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-                <ParcelPreview parcel={parcel} />
+                <ParcelPreview parcel={parcel} alchemica={alchemica} />
             </CustomModal>
         </>
     );

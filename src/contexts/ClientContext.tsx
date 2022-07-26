@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { useAppDispatch } from 'core/store/hooks';
+import { loadRealmAlchemica } from 'core/store/realm-alchemica';
 import { InstallationTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
@@ -23,6 +25,8 @@ const loadedDefaultStates: { [key: string]: boolean } = {
 export const ClientContext = createContext({});
 
 export const ClientContextProvider = (props: any) => {
+    const dispatch = useAppDispatch();
+
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
@@ -385,6 +389,9 @@ export const ClientContextProvider = (props: any) => {
         ]).then((response => {
             const realm: any[] = response[0];
             const realmInfo: any[] = getModifiedParcelInfo(response[1]);
+            const parcelIds = realm.map(parcel => Number(parcel.tokenId));
+
+            dispatch(loadRealmAlchemica(parcelIds));
 
             const modifiedParcels = realm.map((parcel: any) => {
                 const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);

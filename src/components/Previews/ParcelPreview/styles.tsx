@@ -75,6 +75,15 @@ export const styles = makeStyles(theme => createStyles({
             marginRight: 8
         }
     },
+    survey: {
+        textAlign: 'center',
+        marginTop: 12
+    },
+    surveyTitle: {
+        fontWeight: 500,
+        fontSize: 20,
+        margin: '0 0 8px'
+    },
     sales: {
         textAlign: 'center',
         marginTop: 12

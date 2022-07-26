@@ -1,3 +1,10 @@
+export enum AlchemicaTypes {
+    Fud = 'fud',
+    Fomo = 'fomo',
+    Alpha = 'alpha',
+    Kek = 'kek'
+}
+
 export enum ListingTypes {
     ClosedPortal = 'erc721Listings-0',
     OpenedPortal = 'erc721Listings-2',

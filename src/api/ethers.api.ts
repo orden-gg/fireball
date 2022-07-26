@@ -20,6 +20,10 @@ export class EthersApi {
         return ethers.utils.formatUnits(value, 0);
     }
 
+    public static hexToNumber(hex: string): number {
+        return Number(ethers.utils.formatUnits(hex));
+    }
+
     public static async getLastBlock(network?: any): Promise<any> {
         const provider: any = EthersApi.getProvider(network);
         const blockNumber: any = await provider.getBlockNumber();

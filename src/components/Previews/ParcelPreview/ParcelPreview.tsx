@@ -2,6 +2,8 @@ import { Paper } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { AlchemicaTypes } from 'shared/constants';
+import { ParcelAlchemica } from 'shared/models';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
@@ -12,7 +14,7 @@ import { SalesHistory } from '../SalesHistory/SalesHistory';
 
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel }: { parcel: any }) {
+export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica?: ParcelAlchemica }) {
     const classes = styles();
 
     const boosts: Array<{ name: string; value: any }> = [
@@ -25,6 +27,8 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
     };
+
+    const isSurveyed = alchemica && Object.keys(alchemica).some(key => alchemica[key] !== 0);
 
     return (
         <div className={classes.container}>
@@ -103,6 +107,29 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         />
                     </div>
                 </div>
+            </div>
+
+            <div className={classes.survey}>
+                <h5 className={classes.surveyTitle}>Survey</h5>
+                { isSurveyed ? (
+                    <div>
+                        <div>
+                            <span>{[AlchemicaTypes.Fud]}:</span><span>{alchemica[AlchemicaTypes.Fud]}</span>
+                        </div>
+                        <div>
+                            <span>{[AlchemicaTypes.Fomo]}:</span><span>{alchemica[AlchemicaTypes.Fomo]}</span>
+                        </div>
+                        <div>
+                            <span>{[AlchemicaTypes.Alpha]}:</span><span>{alchemica[AlchemicaTypes.Alpha]}</span>
+                        </div>
+                        <div>
+                            <span>{[AlchemicaTypes.Kek]}:</span><span>{alchemica[AlchemicaTypes.Kek]}</span>
+                        </div>
+                    </div>
+                ) : (
+                    <div>not surveyed</div>
+                )
+                }
             </div>
 
             { parcel.timesTraded > 0 && (

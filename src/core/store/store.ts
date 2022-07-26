@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { realmAlchemicaReducer } from './realm-alchemica';
 
 import { loginReducer } from './login';
 
 export const store = configureStore({
     reducer: {
-        login: loginReducer
+        login: loginReducer,
+        realmAlchemica: realmAlchemicaReducer
     }
 });
 
