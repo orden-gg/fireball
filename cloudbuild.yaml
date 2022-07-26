@@ -20,7 +20,7 @@ steps:
   - 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA'
   - '--region'
   - 'europe-west1'
-images: 
+images:
 - 'gcr.io/ordengg/github.com/orden-gg/fireball:$COMMIT_SHA'
 options:
-  machineType: 'N1_HIGHCPU_8'  
+  machineType: 'N1_HIGHCPU_8'

@@ -1,4 +1,4 @@
-export const GOTCHI_IDS: number[] = [15571, 15560, 16559, 22324, 15243, 6908, 3672, 7993, 17759];
+export const GOTCHI_IDS: number[] = [4751, 7788, 4282, 23470, 13998, 5127, 3672, 7993, 17759];
 export const LAST_GOTCHI_SCALE: number = 0.5;
 export const START_ANGLE: number =  Math.PI / (GOTCHI_IDS.length + 1);
 export const H_D: number = 100;
