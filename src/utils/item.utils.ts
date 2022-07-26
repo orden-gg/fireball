@@ -1,12 +1,12 @@
+import { Erc1155Categories, TRAITS_KEYS } from 'shared/constants';
 import { items } from '../data/items.data';
-
 export class ItemUtils {
     public static getItemNameById(id: any): any {
         return items[id]?.name || '';
     }
 
-    public static getItemRarityById(id: any): any {
-        return items[id]?.rarity || '';
+    public static getItemRarityById(id: any): string {
+        return items[id]?.rarity || 'common';
     }
 
     public static getItemTypeById(id: any): any {
@@ -21,8 +21,27 @@ export class ItemUtils {
         return items[id]?.slot || '';
     }
 
+    public static getStatsById(id: number, category: number): any {
+        const stats: string = items[id]?.stats;
+        const isWearable: boolean = category === Number(Erc1155Categories.Wearable);
+
+        if (isWearable) {
+            let result = {};
+
+            for(const stat of stats.split(',')) {
+                const [key, value]: string[] = stat.trim().split(' ');
+                result[key] = value;
+            };
+
+            return result;
+        } else {
+            return stats;
+        }
+    }
+
     public static getEmojiStatsById(id: any): any {
         let stats: any = items[id]?.stats;
+
         const emojis = { 'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁' };
 
         if (!stats) return null;

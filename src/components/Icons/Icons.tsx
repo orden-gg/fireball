@@ -52,6 +52,14 @@ import ghstToken from 'assets/images/tokens/ghst-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 
+// traits
+import aggression from 'assets/images/traits/agg.png';
+import brain from 'assets/images/traits/brn.png';
+import eyeColor from 'assets/images/traits/eyc.png';
+import eyeShape from 'assets/images/traits/eys.png';
+import energy from 'assets/images/traits/nrg.png';
+import spookiness from 'assets/images/traits/spk.png';
+
 interface IconProps {
     className?: string;
     width?: number | string;
@@ -245,4 +253,29 @@ export const FiregemIcon = ({ className, width, height }: IconProps) => {
 
 export const AnvilIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={anvil} alt='anvil' />;
+};
+
+// traits
+export const AggressionIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={aggression} alt='aggression' />;
+};
+
+export const BrainIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={brain} alt='brain' />;
+};
+
+export const EyeColorIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={eyeColor} alt='eye color' />;
+};
+
+export const EyeShapeIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={eyeShape} alt='eye shape' />;
+};
+
+export const EnergyIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={energy} alt='energy' />;
+};
+
+export const SpookinessIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={spookiness} alt='spookiness' />;
 };
