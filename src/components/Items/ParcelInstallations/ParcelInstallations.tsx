@@ -55,8 +55,6 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
                             {metadata.level}
                         </div>
 
-                        {console.log(metadata)}
-
                         <CustomTooltip
                             title={
                                 <div>
