@@ -8,7 +8,7 @@ export const styles = makeStyles(theme => createStyles({
     },
     installationImage: {
         position: 'absolute',
-        top: 0,
+        bottom: 0,
         left: '50%',
         transform: 'translateX(-50%)',
         maxWidth: '100%',

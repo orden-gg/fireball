@@ -1,5 +1,7 @@
 import { Skeleton } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { InstallationsUtils } from 'utils';
@@ -13,7 +15,13 @@ import { styles } from './styles';
 //     minutes: { key: 'mm', value: 'm', shownIfZero: false }
 // };
 
-export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any }) {
+interface ParcelInstallationsProps {
+    parcel: any;
+    size?: any;
+    className?: string
+}
+
+export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
     const classes = styles();
 
     if (parcel.installations.loading) {
@@ -36,11 +44,14 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
     }
 
     return (
-        <div className={classes.container}>
-
-            { parcel.installations.map((installation: any, index: number) => {
+        <div className={classNames(classes.container, className)}>
+            { parcel.installations
+            .filter((installation: any) =>
+                InstallationsUtils.getIsInstallationExist(installation.id)
+            )
+            .map((installation: any, index: number) => {
                 const metadata = InstallationsUtils.getMetadataById(installation.id);
-                const isAltar = metadata.type === InstallationTypeNames.Altar;
+                const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
                 return (
                     <div
@@ -48,11 +59,9 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
                         style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
                         key={index}
                     >
-                        { isAltar && (
-                            <div className={classes.installationLevel}>
-                                {metadata.level}
-                            </div>
-                        )}
+                        <div className={classes.installationLevel}>
+                            {metadata.level}
+                        </div>
 
                         <CustomTooltip
                             title={
@@ -61,7 +70,7 @@ export function ParcelInstallations({ parcel, size }: { parcel: any, size?: any 
                                         {metadata.type}: <span>{metadata.name}</span>
                                     </div>
 
-                                    { isAltar && (
+                                    { !isDecoration && (
                                         <div className={classes.row}>
                                             <div className={classes.inner}>
                                                 lvl: <span>{metadata.level}</span>
