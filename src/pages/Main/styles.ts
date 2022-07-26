@@ -39,7 +39,12 @@ export const aboutStyles = makeStyles(theme => createStyles({
     image: {
         width: '100%',
         display: 'block',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        opacity: .75,
+        transition: '.3s',
+        '&:hover': {
+            opacity: 1
+        }
     },
     button: {
         width: 200,
