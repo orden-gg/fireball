@@ -5,9 +5,9 @@ import AddIcon from '@mui/icons-material/Add';
 
 import classNames from 'classnames';
 
+import { Erc1155Categories } from 'shared/constants';
+import { CardBody, CardImage, CardName, CardSlot, ItemCard } from 'components/ItemCard';
 import { CustomModal } from 'components/CustomModal/CustomModal';
-import { Tile } from 'components/Items/Tile.js/Tile';
-import { Installation } from 'components/Items/Installation/Installation';
 import { InstallationsApi, TilesApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -81,9 +81,15 @@ export function Craftbar() {
 
     const renderSelectedItem = (): JSX.Element => {
         if (isItemSelected) {
-            return category === 'tile' ?
-                <Tile tile={selectedItem} /> :
-                <Installation installation={selectedItem} />;
+            const categoryId = category === 'tile' ? Erc1155Categories.Tile : Erc1155Categories.Realm;
+
+            return <ItemCard type='golden' id={selectedItem.id} category={categoryId}>
+                <CardBody>
+                    <CardSlot>{selectedItem.type}</CardSlot>
+                    <CardImage id={selectedItem.id} category={categoryId} />
+                    <CardName id={selectedItem.id} />
+                </CardBody>
+            </ItemCard>
         } else {
             return <></>;
         }

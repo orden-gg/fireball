@@ -275,7 +275,9 @@ export const ClientContextProvider = (props: any) => {
                     rarity: ItemUtils.getItemRarityById(item.itemId),
                     rarityId: ItemUtils.getItemRarityId(ItemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
-                    category: item.itemId >= 126 && item.itemId <= 129 ? 2 : 0 // TODO: temporary solution to determine if item is consumable or not
+                    category: item.itemId >= 126 && item.itemId <= 129 ?
+                        Erc1155Categories.Consumable :
+                        Erc1155Categories.Wearable // TODO: temporary solution to determine if item is consumable or not
                 });
             });
 
@@ -350,6 +352,7 @@ export const ClientContextProvider = (props: any) => {
                         name: TilesUtils.getNameById(id),
                         balance: EthersApi.formatBigNumber(item.balance._hex),
                         id: id,
+                        rarity: 'golden',
                         category: Erc1155Categories.Tile
                     };
                 });

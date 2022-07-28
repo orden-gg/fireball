@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { Erc1155Categories } from 'shared/constants';
 import { ContentInner } from 'components/Content/ContentInner';
-import { CardBalance, CardBody, CardImage, CardInner, CardListings, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { ClientContext } from 'contexts/ClientContext';
 
 import { routersStyles } from '../styles';
@@ -15,25 +15,23 @@ export function ClientTickets() {
         <ContentInner dataLoading={loadingTickets} offset={208}>
             <div className={classes.list}>
                 {
-                    tickets.map(({ name, balance, id, priceInWei }: any, i: number) =>
-                        <div className={classes.listItem} key={i}>
-                            <ItemCard type={name}>
-                                <CardInner>
+                    tickets.map((ticket: any, index: number) =>
+                        <div className={classes.listItem} key={index}>
+                            <ItemCard type={ticket.name} category={Erc1155Categories.Ticket} id={ticket.id}>
+                                <CardHeader>
                                     <CardTotalPrice
-                                        id={id}
-                                        balance={balance}
-                                        category={Erc1155Categories.Ticket}
-                                        priceInWei={priceInWei}
+                                        balance={ticket.balance}
+                                        priceInWei={ticket.priceInWei}
                                     />
-                                    <CardBalance balance={balance} />
-                                </CardInner>
+                                    <CardBalance balance={ticket.balance} />
+                                </CardHeader>
                                 <CardBody>
-                                    <CardImage id={id} category={Erc1155Categories.Ticket} />
-                                    <CardName>{name}</CardName>
+                                    <CardImage id={ticket.id} category={Erc1155Categories.Ticket} />
+                                    <CardName>{ticket.name}</CardName>
                                 </CardBody>
-                                <CardInner>
-                                    <CardListings id={id} category={Erc1155Categories.Ticket} />
-                                </CardInner>
+                                <CardFooter>
+                                    <CardListing />
+                                </CardFooter>
                             </ItemCard>
                         </div>
                     )

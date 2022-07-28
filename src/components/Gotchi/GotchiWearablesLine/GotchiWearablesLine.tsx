@@ -1,15 +1,15 @@
-import { Tooltip, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 
-import { Wearable } from 'components/Items/Wearable/Wearable';
+import { Erc1155Categories } from 'shared/constants';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { CardBody, CardFooter, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard';
 import { ItemUtils } from 'utils';
-
-import { CustomTooltipStyles } from '../styles';
 
 import { styles } from './styles';
 
 export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
-    const classes = { ...styles(), ...CustomTooltipStyles() };
+    const classes = styles();
 
     const theme = useTheme();
     const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
@@ -26,15 +26,26 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
             }
             {
                 wearableSlots.map((name, index) => {
-                    const wearable: any = wearables[index];
-                    const rarityColor: string = ItemUtils.getItemRarityById(wearable);
+                    const id: number = wearables[index];
+                    const category: string = Erc1155Categories.Wearable;
+                    const rarityColor: string = ItemUtils.getItemRarityById(id);
 
                     return (
-                        <Tooltip
+                        <CustomTooltip
                             title={
-                                wearable !== 0 ? (
+                                id !== 0 ? (
                                     <div className={classNames(classes.gotchiWTooltipTitle, 'tooltip-wearable')}>
-                                        <Wearable wearable={{ id: wearable, category: 0 }} tooltip={true} />
+                                        <ItemCard type={rarityColor} id={id} category={category}>
+                                            <CardBody>
+                                                <CardSlot id={id} />
+                                                <CardImage className={classes.cardImage} id={id} category={category} />
+                                                <CardName className={classes.cardName} id={id} />
+                                                <CardStats className={classes.cardStats} id={id} category={category} />
+                                            </CardBody>
+                                            <CardFooter className={classes.cardFoter}>
+                                                <CardListing />
+                                            </CardFooter>
+                                        </ItemCard>
                                     </div>
                                 ) : (
                                     <span>
@@ -43,7 +54,6 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                                     </span>
                                 )
                             }
-                            classes={{ tooltip: classes.customTooltip }}
                             enterTouchDelay={0}
                             placement='top'
                             key={index}
@@ -53,7 +63,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                                 style={{ backgroundColor: theme.palette.rarity[rarityColor] }}
                                 key={index}
                             ></div>
-                        </Tooltip>
+                        </CustomTooltip>
                     );
                 })
             }

@@ -1,4 +1,4 @@
-import { Erc1155Categories, TRAITS_KEYS } from 'shared/constants';
+import { Erc1155Categories, RarityTypes } from 'shared/constants';
 import { items } from '../data/items.data';
 export class ItemUtils {
     public static getItemNameById(id: any): any {
@@ -6,7 +6,7 @@ export class ItemUtils {
     }
 
     public static getItemRarityById(id: any): string {
-        return items[id]?.rarity || 'common';
+        return items[id]?.rarity || RarityTypes.Common;
     }
 
     public static getItemTypeById(id: any): any {
@@ -28,7 +28,7 @@ export class ItemUtils {
         if (isWearable) {
             let result = {};
 
-            for(const stat of stats.split(',')) {
+            for (const stat of stats.split(',')) {
                 const [key, value]: string[] = stat.trim().split(' ');
                 result[key] = value;
             };
@@ -111,19 +111,19 @@ export class ItemUtils {
     public static getItemRarityName(id: any): any {
         switch (id) {
             case '0':
-                return 'common';
+                return RarityTypes.Common;
             case '1':
-                return 'uncommon';
+                return RarityTypes.Uncommon;
             case '2':
-                return 'rare';
+                return RarityTypes.Rare;
             case '3':
-                return 'legendary';
+                return RarityTypes.Legendary;
             case '4':
-                return 'mythical';
+                return RarityTypes.Mythical;
             case '5':
-                return 'godlike';
+                return RarityTypes.Godlike;
             case '6':
-                return 'drop';
+                return RarityTypes.Drop;
             default:
                 return null;
         }
@@ -131,17 +131,17 @@ export class ItemUtils {
 
     public static getItemRarityId(rarity: any): any {
         switch (rarity) {
-            case 'common':
+            case RarityTypes.Common:
                 return '0';
-            case 'uncommon':
+            case RarityTypes.Uncommon:
                 return '1';
-            case 'rare':
+            case RarityTypes.Rare:
                 return '2';
-            case 'legendary':
+            case RarityTypes.Legendary:
                 return '3';
-            case 'mythical':
+            case RarityTypes.Mythical:
                 return '4';
-            case 'godlike':
+            case RarityTypes.Godlike:
                 return '5';
             default:
                 return '-1';
@@ -155,13 +155,13 @@ export class ItemUtils {
     public static getRarityByTrait(trait: any): any {
         switch (true) {
             case trait >= 100 || trait <= -1:
-                return 'godlike';
+                return RarityTypes.Godlike;
             case trait >= 98 || trait <= 1:
-                return 'mythical';
+                return RarityTypes.Mythical;
             case trait >= 90 || trait <= 9:
-                return 'rare';
+                return RarityTypes.Rare;
             default:
-                return 'common';
+                return RarityTypes.Common;
         }
     }
 
@@ -236,19 +236,19 @@ export class ItemUtils {
 
     public static getTicketFrensPrice(rarity: any): any {
         switch (rarity) {
-            case 'common':
+            case RarityTypes.Common:
                 return 50;
-            case 'uncommon':
+            case RarityTypes.Uncommon:
                 return 250;
-            case 'rare':
+            case RarityTypes.Rare:
                 return 500;
-            case 'legendary':
+            case RarityTypes.Legendary:
                 return 2500;
-            case 'mythical':
+            case RarityTypes.Mythical:
                 return 10000;
-            case 'godlike':
+            case RarityTypes.Godlike:
                 return 50000;
-            case 'drop':
+            case RarityTypes.Drop:
                 return 10000;
             default:
                 return 0;

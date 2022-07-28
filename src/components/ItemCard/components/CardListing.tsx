@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import ContentLoader from 'react-content-loader';
 import { alpha, Link, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -10,75 +10,49 @@ import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
-import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
+import { CardContext } from '../CardContext';
 import { listingsStyles } from '../styles';
 
 interface CardListingsProps {
-    id: number;
-    category: string;
     className?: string;
+    listings?: any;
+    historicalPrices?: any
 }
 
-export function CardListings({ id, category, className }: CardListingsProps) {
+export function CardListing({ className }: CardListingsProps) {
     const classes = listingsStyles();
 
     const theme = useTheme();
 
-    const [lastSold, setLastSold] = useState<any>({});
-    const [current, setCurrent] = useState<any>({});
-    const [lastDate, setLastDate] = useState<any>({});
-
-    useEffect(() => {
-        let mounted: boolean = true;
-
-        TheGraphApi.getErc1155Price(id, true, category, 'timeLastPurchased', 'desc').then((response: any) => {
-            if (mounted) {
-                setLastSold(response);
-
-                if (response.lastSale) {
-                    const date = new Date(response.lastSale * 1000).toJSON();
-                    setLastDate(date);
-                }
-            }
-        });
-
-        TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then((response: any) => {
-            if (mounted) {
-                setCurrent(response);
-            }
-        });
-
-        return () => { mounted = false };
-    }, [id, category]);
+    const { lastSold, current, lastDate } = useContext<any>(CardContext);
 
     return <>
-        {current && lastSold ? (
+        {!CommonUtils.isEmptyObject(current) && !CommonUtils.isEmptyObject(lastSold) ? (
             <CustomTooltip
                 title={
                     <>
-                        {lastSold.price === 0 ? (
-                            <p className={classes.noSales}>No sales</p>
-                        ) : (
+                        {lastSold.price > 0 ? (
                             <Typography variant='caption'>
                                 Sold for <Link
                                     href={`https://app.aavegotchi.com/baazaar/erc1155/${lastSold.listing}`}
                                     target='_blank'
-                                    underline='none'
                                     className={classes.soldOutLink}
                                 >
                                     {CommonUtils.formatPrice(lastSold.price)}
                                 </Link> [{DateTime.fromISO(lastDate).toRelative()}]
                             </Typography>
+                        ) : (
+                            <p className={classes.noSales}>No sales</p>
                         )}
                     </>
                 }
                 placement='top'
             >
                 {current.price === 0 ? (
-                    <div className={classNames(classes.listings, 'error', className)}>
-                        No listings
+                    <div className={classNames(classes.listings, className)}>
+                        <Typography variant='subtitle2' className={classes.error}>No listings</Typography>
                     </div>
                 ) : (
                     <Link
@@ -105,19 +79,19 @@ export function CardListings({ id, category, className }: CardListingsProps) {
                                 </Typography>
                             </>
                         )}
-                        <GhstTokenGif width={18} height={18} />
+                        <GhstTokenGif width={18} height={18} className={classes.coin} />
                     </Link>
                 )}
             </CustomTooltip>
         ) : (
             <ContentLoader
                 speed={2}
-                viewBox='0 0 70 27'
+                viewBox='0 0 60 25'
                 backgroundColor={alpha(theme.palette.secondary.dark, .5)}
                 foregroundColor={alpha(theme.palette.secondary.main, .5)}
                 className={classes.listingsLoader}
             >
-                <rect x='0' y='0' width='70' height='27' />
+                <rect x='0' y='0' width='60' height='25' />
             </ContentLoader>
         )}
     </>

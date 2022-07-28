@@ -1,17 +1,18 @@
 import { useContext } from 'react';
+import { CallMade } from '@mui/icons-material';
+import { Link, Typography } from '@mui/material';
+
 import classNames from 'classnames';
-import { Typography } from '@mui/material';
 
 import { ListingTypes } from 'shared/constants';
+import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import { Portal } from 'components/Items/Portal/Portal';
 import { PortalHorizontal } from 'components/Items/Portal/PortalHorizontal';
-import { Ticket } from 'components/Items/Ticket/Ticket';
 import { TicketHorizontal } from 'components/Items/Ticket/TicketHorizontal';
-import { Wearable } from 'components/Items/Wearable/Wearable';
 import { WearableHorizontal } from 'components/Items/Wearable/WearableHorizontal';
 import { BaazaarContext } from 'contexts/BaazaarContext';
+import { ItemUtils } from 'utils';
 
 import { Pagination } from './Pagination';
 import { Aavegotchi } from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
@@ -148,13 +149,67 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                     (selectedGoodsType === ListingTypes.Aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
                                 }
                                 {
-                                    (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && <Portal portal={item} />
+                                    (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && (
+                                        <ItemCard type={`haunt${item.portal.hauntId}`} id={item.id} category={item.category}>
+                                            <CardBody>
+                                                <CardSlot>{`Haunt ${item.portal.hauntId}`}</CardSlot>
+                                                <CardPortalImage category={item.category} hauntId={item.portal.hauntId} />
+                                                <CardName>
+                                                    <Link
+                                                        href={
+                                                            `https://app.aavegotchi.com/portal/${item.tokenId}`
+                                                        }
+                                                        target='_blank'
+                                                    >
+                                                        {`Portal ${item.tokenId}`}
+                                                        <CallMade fontSize={'inherit'} />
+                                                    </Link>
+                                                </CardName>
+                                            </CardBody>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
-                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && <Wearable wearable={item} />
+                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
+                                        <ItemCard id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                            <CardHeader>
+                                                <CardTotalPrice
+                                                    balance={item.quantity}
+                                                    priceInWei={item.priceInWei}
+                                                />
+                                                <CardBalance balance={item.quantity} holders={item.holders} />
+                                            </CardHeader>
+                                            <CardBody>
+                                                <CardSlot id={item.erc1155TypeId} />
+                                                <CardImage id={item.erc1155TypeId} />
+                                                <CardName id={item.erc1155TypeId} />
+                                                <CardStats id={item.erc1155TypeId} category={item.category} />
+                                            </CardBody>
+                                            <CardFooter>
+                                                <CardListing />
+                                            </CardFooter>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
-                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && <Ticket ticket={item} />
+                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && (
+                                        <ItemCard type={ItemUtils.getItemRarityName(item.erc1155TypeId)} category={item.category} id={item.erc1155TypeId}>
+                                            <CardHeader>
+                                                <CardTotalPrice
+                                                    balance={item.quantity}
+                                                    priceInWei={item.priceInWei}
+                                                />
+                                                <CardBalance balance={item.quantity} />
+                                            </CardHeader>
+                                            <CardBody>
+                                                <CardImage id={item.erc1155TypeId} category={item.category} />
+                                                <CardName>{item.name}</CardName>
+                                            </CardBody>
+                                            <CardFooter>
+                                                <CardListing />
+                                            </CardFooter>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && item.category === '4') &&

@@ -46,5 +46,25 @@ export const styles = makeStyles(theme => createStyles({
         color: '#F7EC13',
         textTransform: 'uppercase',
         fontSize: 12
+    },
+    cardName: {
+        '.tooltip-wearable &': {
+            fontSize: 12
+        }
+    },
+    cardStats: {
+        '.tooltip-wearable &': {
+            fontSize: 14
+        }
+    },
+    cardImage: {
+        '.tooltip-wearable &': {
+            paddingBottom: '35%'
+        }
+    },
+    cardFoter: {
+        '.tooltip-wearable &': {
+            marginTop: 0
+        }
     }
 }));

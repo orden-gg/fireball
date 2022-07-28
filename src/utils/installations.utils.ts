@@ -1,4 +1,4 @@
-import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
+import { InstallationTypeNames, InstallationTypes, RarityTypes } from 'shared/constants';
 import { InstallationItem } from 'shared/models';
 import installations from 'data/installations.data.json';
 
@@ -109,12 +109,11 @@ export class InstallationsUtils {
     }
 
     public static getRarityById(id: number): string {
-        const isDecoration: boolean = this.getTypeById(id) === InstallationTypeNames.Decoration;
+        const name: string = this.getNameById(id).split(' ')[0].toLowerCase();
+        const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
 
-        if (isDecoration) {
-            const name: string = this.getNameById(id);
-
-            return name.split(' ')[0].toLowerCase();
+        if (isRarity) {
+            return name;
         } else {
             return 'golden';
         }

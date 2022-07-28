@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import ContentLoader from 'react-content-loader';
 import { alpha } from '@mui/material';
 import { useTheme } from '@mui/material';
@@ -7,38 +7,24 @@ import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
-import { EthersApi, TheGraphApi } from 'api';
-import { CommonUtils, ItemUtils } from 'utils';
+import { EthersApi, } from 'api';
+import { CommonUtils } from 'utils';
+
+import { CardContext } from '../CardContext';
 
 import { totalPriceStyles } from '../styles';
 
 interface CardTotalPriceProps {
-    id: number;
     balance: number;
-    category: string;
     priceInWei: string;
     className?: string;
 }
 
-export function CardTotalPrice({ id, balance, category, priceInWei, className }: CardTotalPriceProps) {
+export function CardTotalPrice({ balance, priceInWei, className }: CardTotalPriceProps) {
     const classes = totalPriceStyles();
     const theme = useTheme();
 
-    const [lastSold, setLastSold] = useState<any>(null);
-
-    const rarity: string = ItemUtils.getItemRarityById(id);
-
-    useEffect(() => {
-        let mounted: boolean = true;
-
-        TheGraphApi.getErc1155Price(id, true, category, 'timeLastPurchased', 'desc').then((response: any) => {
-            if (mounted) {
-                setLastSold(response);
-            }
-        });
-
-        return () => { mounted = false };
-    }, [id]);
+    const { lastSold } = useContext<any>(CardContext);
 
     const renderNode = (): string => {
         if (lastSold.price !== 0 || priceInWei) {
@@ -54,7 +40,7 @@ export function CardTotalPrice({ id, balance, category, priceInWei, className }:
 
     return (
         <>
-            {lastSold ? (
+            {!CommonUtils.isEmptyObject(lastSold) ? (
                 <CustomTooltip
                     title='Total value'
                     placement='top'
@@ -68,13 +54,13 @@ export function CardTotalPrice({ id, balance, category, priceInWei, className }:
             ) : (
                 <ContentLoader
                     speed={2}
-                    viewBox='0 0 70 27'
-                    backgroundColor={alpha(theme.palette.common.black, .4)}
-                    foregroundColor={alpha(theme.palette.common.black, .1)}
+                    viewBox='0 0 60 26'
+                    backgroundColor={alpha(theme.palette.common.black, .1)}
+                    foregroundColor={alpha(theme.palette.common.black, .4)}
 
                     className={classes.totalValueLoader}
                 >
-                    <rect x='0' y='0' width='70' height='27' />
+                    <rect x='0' y='0' width='60' height='26' />
                 </ContentLoader>
             )}
         </>

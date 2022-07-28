@@ -4,22 +4,19 @@ import { ItemUtils } from 'utils';
 import { slotStyles } from '../styles';
 
 interface CardSlotProps {
-    id: number;
+    id?: number;
+    children?: any;
     className?: string;
 }
 
-export function CardSlot({ id, className }: CardSlotProps) {
+export function CardSlot({ id, children, className }: CardSlotProps) {
     const classes = slotStyles();
 
     const slot = ItemUtils.getItemSlotById(id);
 
-    if (slot.length != 0) {
-        return (
-            <div className={classNames(className, classes.slot)}>
-                [{slot === 'right hand' ? 'r hand' : slot}]
-            </div>
-        )
-    } else {
-        return <></>;
-    }
+    return (
+        <div className={classNames(className, classes.slot)}>
+            [{children || (slot === 'right hand' ? 'r hand' : slot)}]
+        </div>
+    )
 }

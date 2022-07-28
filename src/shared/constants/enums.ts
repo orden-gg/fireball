@@ -103,9 +103,11 @@ export enum CountdownFormatZeroType {
 export enum RarityTypes {
     Godlike = 'godlike',
     Mythical = 'mythical',
+    Legendary = 'legendary',
     Rare = 'rare',
     Uncommon = 'uncommon',
-    Common = 'common'
+    Common = 'common',
+    Drop = 'drop'
 }
 
 export enum DataReloadType {

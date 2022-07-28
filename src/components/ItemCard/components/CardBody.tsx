@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { bodyStyles } from '../styles';
 
 interface CardBodyProps {
-    children: Array<JSX.Element>;
+    children: Array<JSX.Element> | JSX.Element;
     className?: string;
 }
 

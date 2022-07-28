@@ -1,10 +1,13 @@
 export { ItemCard } from './ItemCard';
-export { CardInner } from './components/CardInner';
+export { CardHeader } from './components/CardHeader';
 export { CardTotalPrice } from './components/CardTotalPrice';
 export { CardBalance } from './components/CardBalance';
 export { CardBody } from './components/CardBody';
 export { CardImage } from './components/CardImage';
+export { CardPortalImage } from './components/CardPortalImage';
 export { CardName } from './components/CardName';
 export { CardStats } from './components/CardStats';
 export { CardSlot } from './components/CardSlot';
-export { CardListings } from './components/CardListings';
+export { CardFooter } from './components/CardFooter';
+export { CardListing } from './components/CardListing';
+export { CardERC721Listing } from './components/CardERC721Listing';

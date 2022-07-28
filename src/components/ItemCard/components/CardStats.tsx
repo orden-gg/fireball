@@ -24,7 +24,7 @@ export function CardStats({ id, category, className }: CardStatsProps) {
                     Object.entries(stats).map(([key, value]) => {
                         const Icon = TRAITS_ICONS[key.toLowerCase()];
 
-                        return <span className={classes.stat}>
+                        return <span className={classes.stat} key={key}>
                             <Icon width={20} height={20} />
                             {value}
                         </span>

@@ -68,8 +68,8 @@ interface IconProps {
 }
 
 // animated
-export const GhstTokenGif = ({ width, height }: IconProps) => {
-    return <img width={width} height={height} src={ghstTokenGif} alt='ghst token' />;
+export const GhstTokenGif = ({ width, height, className }: IconProps) => {
+    return <img className={className} width={width} height={height} src={ghstTokenGif} alt='ghst token' />;
 };
 
 export const GotchiHeartGif = ({ className, width, height }: IconProps) => {

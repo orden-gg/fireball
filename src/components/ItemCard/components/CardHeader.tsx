@@ -6,11 +6,11 @@ interface CardHeaderProps {
     className?: string;
 }
 
-export function CardInner({ className, children }: CardHeaderProps) {
+export function CardHeader({ className, children }: CardHeaderProps) {
     const classes = innerStyles();
 
     return (
-        <div className={classNames(className, classes.inner)}>
+        <div className={classNames(className, classes.inner, classes.header)}>
             {children}
         </div>
     )

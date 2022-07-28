@@ -6,14 +6,16 @@ import { raffleChanceStyles } from '../styles';
 export function RaffleItemChance({ stats }: { stats: any }) {
     const classes = raffleChanceStyles();
 
+    if (!stats.won && !stats.chance) {
+        return <></>
+    }
+
     return (
         <div className={classes.container}>
             {
                 stats.chance ? (
-                    <div>
-                        chance: <span style={{ color: 'yellow' }}>
-                            {CommonUtils.formatChance(stats.chance, stats.quantity)}
-                        </span>
+                    <div className={classes.itemChance}>
+                        <span className={classes.label}>chance:</span>{CommonUtils.formatChance(stats.chance, stats.quantity)}
                     </div>
                 ) : (
                     null
@@ -22,8 +24,8 @@ export function RaffleItemChance({ stats }: { stats: any }) {
 
             {
                 stats.won ? (
-                    <div style={{ marginLeft: '12px' }}>
-                        won: <span style={{ color: '#1de91d' }}>{stats.won}</span>
+                    <div className={classes.itemWon}>
+                        <span className={classes.label}>won:</span>{stats.won}
                     </div>
                 ) : (
                     null

@@ -7,6 +7,21 @@ import queryString from 'query-string';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
 import {
+    CardBalance,
+    CardBody,
+    CardERC721Listing,
+    CardFooter,
+    CardHeader,
+    CardImage,
+    CardListing,
+    CardName,
+    CardPortalImage,
+    CardSlot,
+    CardStats,
+    CardTotalPrice,
+    ItemCard
+} from 'components/ItemCard';
+import {
     BaazarIcon,
     ConsumableIcon,
     GotchiIcon,
@@ -15,12 +30,8 @@ import {
     RareTicketIcon,
     WarehouseIcon
 } from 'components/Icons/Icons';
-import { Consumable } from 'components/Items/Consumable/Consumable';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import { Portal } from 'components/Items/Portal/Portal';
-import { Ticket } from 'components/Items/Ticket/Ticket';
-import { Wearable } from 'components/Items/Wearable/Wearable';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, ItemUtils } from 'utils';
 
@@ -133,7 +144,8 @@ export function Shop() {
                 listings: [{
                     id: listing.tokenId,
                     priceInWei: listing.priceInWei
-                }]
+                }],
+                activeListing: listing.portal.activeListing
             }));
         const sortedPortals: any[] = CommonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
@@ -146,7 +158,8 @@ export function Shop() {
         const listedWearables: any[] = listings
             .filter((listing: any) => listing.category === Erc1155Categories.Wearable)
             .map((listing: any) => ({
-                ...mapWearableAndTicket(listing)
+                ...mapWearableAndTicket(listing),
+                category: listing.category
             }));
         const sortedWearables: any[] = CommonUtils.basicSort(listedWearables, 'rarityId', 'desc');
 
@@ -154,7 +167,8 @@ export function Shop() {
             .filter((listing: any) => listing.category === Erc1155Categories.Ticket)
             .map((listing: any) => ({
                 ...mapWearableAndTicket(listing),
-                erc1155TypeId: listing.erc1155TypeId
+                erc1155TypeId: listing.erc1155TypeId,
+                category: listing.category
             }));
         const sortedTickets: any[] = CommonUtils.basicSort(listedTickets, 'rarityId', 'desc');
 
@@ -164,7 +178,8 @@ export function Shop() {
                 id: parseInt(listing.erc1155TypeId, 10),
                 balance: parseInt(listing.quantity, 10),
                 listing: listing.id,
-                price: EthersApi.fromWei(listing.priceInWei)
+                price: EthersApi.fromWei(listing.priceInWei),
+                category: listing.category
             }));
 
         setWearables(sortedWearables);
@@ -176,7 +191,7 @@ export function Shop() {
         return {
             id: parseInt(listing.erc1155TypeId, 10),
             balance: parseInt(listing.quantity, 10),
-            category: 0,
+            category: listing.category,
             listing: listing.id,
             rarity: ItemUtils.getItemRarityById(listing.erc1155TypeId),
             rarityId: listing.rarityLevel,
@@ -274,7 +289,24 @@ export function Shop() {
                 {
                     wearables.map((wearable: any) =>
                         <div className={classes.listItem} key={wearable.listing}>
-                            <Wearable wearable={wearable} isShopItem={true} />
+                            <ItemCard type={wearable.rarity} id={wearable.id} category={wearable.category}>
+                                <CardHeader>
+                                    <CardTotalPrice
+                                        balance={wearable.balance}
+                                        priceInWei={wearable.priceInWei}
+                                    />
+                                    <CardBalance balance={wearable.balance} holders={wearable.holders} />
+                                </CardHeader>
+                                <CardBody>
+                                    <CardSlot id={wearable.id} />
+                                    <CardImage id={wearable.id} />
+                                    <CardName id={wearable.id} />
+                                    <CardStats id={wearable.id} category={wearable.category} />
+                                </CardBody>
+                                <CardFooter>
+                                    <CardListing />
+                                </CardFooter>
+                            </ItemCard>
                         </div>
                     )
                 }
@@ -303,7 +335,20 @@ export function Shop() {
                 {
                     portals.map((portal: any) =>
                         <div className={classes.listItem} key={portal.tokenId}>
-                            <Portal portal={portal} />
+                            <ItemCard type={`haunt${portal.portal.hauntId}`} id={portal.id} category={portal.category}>
+                                <CardBody>
+                                    <CardSlot>{`Haunt ${portal.portal.hauntId}`}</CardSlot>
+                                    <CardPortalImage category={portal.category} hauntId={portal.portal.hauntId} />
+                                    <CardName>{`Portal ${portal.tokenId}`}</CardName>
+                                </CardBody>
+                                <CardFooter>
+                                    <CardERC721Listing
+                                        activeListing={portal.activeListing}
+                                        listings={portal.listings}
+                                        historicalPrices={portal.historicalPrices}
+                                    />
+                                </CardFooter>
+                            </ItemCard>
                         </div>
                     )
                 }
@@ -317,7 +362,22 @@ export function Shop() {
                 {
                     tickets.map((ticket: any) =>
                         <div className={classes.listItem} key={ticket.listing}>
-                            <Ticket ticket={ticket} isShopItem={true} />
+                            <ItemCard type={ticket.rarity} id={ticket.id} category={ticket.category}>
+                                <CardHeader>
+                                    <CardTotalPrice
+                                        balance={ticket.balance}
+                                        priceInWei={ticket.priceInWei}
+                                    />
+                                    <CardBalance balance={ticket.balance} holders={ticket.holders} />
+                                </CardHeader>
+                                <CardBody>
+                                    <CardImage id={ticket.id} />
+                                    <CardName id={ticket.id} />
+                                </CardBody>
+                                <CardFooter>
+                                    <CardListing />
+                                </CardFooter>
+                            </ItemCard>
                         </div>
                     )
                 }
@@ -331,7 +391,22 @@ export function Shop() {
                 {
                     consumables.map((consumable: any) =>
                         <div className={classes.listItem} key={consumable.listing}>
-                            <Consumable consumable={consumable} isShopItem={true} />
+                            <ItemCard type={consumable.rarity} id={consumable.id} category={consumable.category}>
+                                <CardHeader>
+                                    <CardTotalPrice
+                                        balance={consumable.balance}
+                                        priceInWei={consumable.priceInWei}
+                                    />
+                                    <CardBalance balance={consumable.balance} holders={consumable.holders} />
+                                </CardHeader>
+                                <CardBody>
+                                    <CardImage id={consumable.id} />
+                                    <CardName id={consumable.id} />
+                                </CardBody>
+                                <CardFooter>
+                                    <CardListing />
+                                </CardFooter>
+                            </ItemCard>
                         </div>
                     )
                 }

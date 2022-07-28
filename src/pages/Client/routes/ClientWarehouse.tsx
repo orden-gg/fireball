@@ -6,12 +6,11 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { ItemCard, CardBody, CardImage, CardName, CardStats, CardSlot, CardTotalPrice, CardBalance, CardInner, CardListings } from 'components/ItemCard';
+import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { Wearable } from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
 import { CommonUtils } from 'utils';
 
@@ -105,32 +104,27 @@ export function ClientWarehouse() {
             <ContentInner dataLoading={loadingWarehouse || loadingGotchis}>
                 <ItemsLazy
                     items={warehouse}
-                    component={(props: any) => {
-                        const id = props.id || props.erc1155TypeId;
-                        const balance = props.balance || props.quentity;
-
-                        return <ItemCard type={props.rarity}>
-                            <CardInner>
+                    component={(wearable: any) =>
+                        <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
+                            <CardHeader>
                                 <CardTotalPrice
-                                    id={id}
-                                    balance={props.balance}
-                                    category={props.category}
-                                    priceInWei={props.priceInWei}
+                                    balance={wearable.balance}
+                                    priceInWei={wearable.priceInWei}
                                 />
-                                <CardBalance balance={balance} holders={props.holders} />
-                            </CardInner>
+                                <CardBalance balance={wearable.balance} holders={wearable.holders} />
+                            </CardHeader>
                             <CardBody>
-                                <CardImage id={id} />
-                                <CardName id={id} />
-                                <CardStats id={id} category={props.category} />
-                                <CardSlot id={id} />
+                                <CardSlot id={wearable.id} />
+                                <CardImage id={wearable.id} />
+                                <CardName id={wearable.id} />
+                                <CardStats id={wearable.id} category={wearable.category} />
                             </CardBody>
-                            <CardInner>
-                                <CardListings id={id} category={props.category} />
-                            </CardInner>
+                            <CardFooter>
+                                <CardListing />
+                            </CardFooter>
                         </ItemCard>
                     }
-                }/>
+                />
             </ContentInner>
         </>
     );

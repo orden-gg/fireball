@@ -233,6 +233,7 @@ export const erc721ListingsBySeller = (seller: any): any => {
             portal {
                 hauntId
                 historicalPrices
+                activeListing
             }
         }
     }`;
