@@ -32,14 +32,10 @@ const sortings: SortingListItem[] = [
 ];
 const queryParamsOrder: string[] = ['sort', 'dir'];
 
-import { styles }  from '../styles';
-
 export function ClientWarehouse() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
-
-    const classes = styles();
 
     const {
         warehouse,

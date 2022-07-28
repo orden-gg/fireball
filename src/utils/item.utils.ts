@@ -26,12 +26,12 @@ export class ItemUtils {
         const isWearable: boolean = category === Erc1155Categories.Wearable;
 
         if (isWearable) {
-            let result = {};
+            const result = {};
 
             for (const stat of stats.split(',')) {
                 const [key, value]: string[] = stat.trim().split(' ');
                 result[key] = value;
-            };
+            }
 
             return result;
         } else {

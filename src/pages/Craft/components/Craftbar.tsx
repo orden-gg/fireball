@@ -89,7 +89,7 @@ export function Craftbar() {
                     <CardImage id={selectedItem.id} category={categoryId} />
                     <CardName id={selectedItem.id} />
                 </CardBody>
-            </ItemCard>
+            </ItemCard>;
         } else {
             return <></>;
         }

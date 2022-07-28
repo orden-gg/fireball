@@ -47,5 +47,5 @@ export function CardBalance({ balance, holders, className }: CardBalanceProps) {
                 balance
             )}
         </div>
-    )
-};
+    );
+}

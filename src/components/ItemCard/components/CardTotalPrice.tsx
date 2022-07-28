@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
-import { EthersApi, } from 'api';
+import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
 import { CardContext } from '../CardContext';
@@ -64,5 +64,5 @@ export function CardTotalPrice({ balance, priceInWei, className }: CardTotalPric
                 </ContentLoader>
             )}
         </>
-    )
+    );
 }

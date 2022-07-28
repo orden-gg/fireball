@@ -1,18 +1,14 @@
-import ContentLoader from 'react-content-loader';
-import { alpha, Link, Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
-import { CardContext } from '../CardContext';
 import { listingsStyles } from '../styles';
 
 interface CardERC721ListingProps {

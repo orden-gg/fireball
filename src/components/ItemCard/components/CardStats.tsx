@@ -27,7 +27,7 @@ export function CardStats({ id, category, className }: CardStatsProps) {
                         return <span className={classes.stat} key={key}>
                             <Icon width={20} height={20} />
                             {value}
-                        </span>
+                        </span>;
                     })
                 ) : (
                     <span className={classes.stat}>{stats}</span>

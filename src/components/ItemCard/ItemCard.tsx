@@ -19,11 +19,11 @@ const CardInner = ({ children, id, category }): JSX.Element => {
     useEffect(() => {
         if (id && category) {
             loadData(id, category);
-        };
+        }
     }, []);
 
     return children;
-}
+};
 
 export function ItemCard({ children, type, id, category, className }: CardItemProps) {
     const classes = styles();
@@ -34,5 +34,5 @@ export function ItemCard({ children, type, id, category, className }: CardItemPr
                 <CardInner id={id} category={category}>{children}</CardInner>
             </div>
         </CardContextProvider>
-    )
+    );
 }

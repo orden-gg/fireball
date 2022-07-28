@@ -18,5 +18,5 @@ export function CardSlot({ id, children, className }: CardSlotProps) {
         <div className={classNames(className, classes.slot)}>
             [{children || (slot === 'right hand' ? 'r hand' : slot)}]
         </div>
-    )
+    );
 }

@@ -13,5 +13,5 @@ export function CardFooter({ className, children }: CardFooterProps) {
         <div className={classNames(className, classes.inner, classes.footer)}>
             {children}
         </div>
-    )
+    );
 }

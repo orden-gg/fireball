@@ -23,7 +23,7 @@ export function CardPortalImage({ category, hauntId, className }: CardPortalImag
             PortalIcon = category === Erc721Categories.ClosedPortal ? H2SealedPortalIcon : H2OpenedPortalIcon;
         }
 
-        return <PortalIcon className={classes.image} width='100%' height='100%' />
+        return <PortalIcon className={classes.image} width='100%' height='100%' />;
     };
 
     return (

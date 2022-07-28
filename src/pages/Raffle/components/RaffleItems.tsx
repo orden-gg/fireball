@@ -3,10 +3,9 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
-import { CardBalance, CardBody, CardERC721Listing, CardFooter, CardHeader, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
-import { PortalGeneric } from 'components/Items/Portal/PortalGeneric';
 import { InstallationsUtils, ItemUtils } from 'utils';
 
 import { itemsStyles } from '../styles';
@@ -47,20 +46,20 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                     }}
                 ></ParcelGeneric>;
             case 'portals':
-                return <ItemCard type={`haunt2`}>
+                return <ItemCard type='haunt2'>
                     <CardHeader>
                         <CardBalance balance={item.quantity} />
                     </CardHeader>
                     <CardBody>
                         <CardPortalImage category={Erc721Categories.ClosedPortal} hauntId='2' />
-                        <CardName>{`H2 Portal`}</CardName>
+                        <CardName>H2 Portal</CardName>
                         <RaffleItemChance stats={{
                             chance: item.chance,
                             won: item.won,
                             quantity:item.quantity
                         }} />
                     </CardBody>
-                </ItemCard>
+                </ItemCard>;
             case 'wearables':
                 return <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getItemRarityById(item.id)}>
                     <CardHeader>
@@ -106,7 +105,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                     <CardFooter>
                         <CardListing />
                     </CardFooter>
-                </ItemCard>
+                </ItemCard>;
             default:
                 return <></>;
         }

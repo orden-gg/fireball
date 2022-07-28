@@ -9,7 +9,7 @@ export const TRAITS_ICONS: any = {
     eys: EyeShapeIcon,
     nrg: EnergyIcon,
     spk: SpookinessIcon
-}
+};
 
 export const RarityScoreNumber = {
     Godlike: 580,

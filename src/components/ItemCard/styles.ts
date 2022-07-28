@@ -54,7 +54,7 @@ export const styles = makeStyles(theme => createStyles({
         '&.haunt2': {
             backgroundColor: alpha(theme.palette.haunts.h2, .15),
             color: lighten(theme.palette.haunts.h2, .2)
-        },
+        }
     }
 }));
 
@@ -98,7 +98,7 @@ export const balanceStyles = makeStyles(theme => createStyles({
     },
     itemBalanceDivider: {
         margin: '0 2px'
-    },
+    }
 }));
 
 export const totalPriceStyles = makeStyles(theme => createStyles({
@@ -173,7 +173,7 @@ export const listingsStyles = makeStyles(theme => createStyles({
         display: 'flex',
         alignItems: 'center',
         '& + &:before': {
-            content: "'->'",
+            content: '"->"',
             display: 'inline-block',
             margin: theme.spacing(0, .5, 0, .25),
             color: theme.palette.primary.main

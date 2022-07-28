@@ -22,4 +22,4 @@ export function CardName({ id, children, className }: CardNameProps) {
             <span>{children || name}</span>
         </Typography>
     );
-};
+}

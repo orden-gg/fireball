@@ -13,5 +13,5 @@ export function CardHeader({ className, children }: CardHeaderProps) {
         <div className={classNames(className, classes.inner, classes.header)}>
             {children}
         </div>
-    )
+    );
 }

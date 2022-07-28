@@ -24,7 +24,7 @@ export const CardContextProvider = (props: any) => {
         TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then((response: any) => {
             setCurrent(response);
         });
-    }
+    };
 
     return (
         <CardContext.Provider value={{

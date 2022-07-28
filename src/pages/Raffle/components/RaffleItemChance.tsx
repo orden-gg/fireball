@@ -7,7 +7,7 @@ export function RaffleItemChance({ stats }: { stats: any }) {
     const classes = raffleChanceStyles();
 
     if (!stats.won && !stats.chance) {
-        return <></>
+        return <></>;
     }
 
     return (

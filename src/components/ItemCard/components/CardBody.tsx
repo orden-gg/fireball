@@ -14,5 +14,5 @@ export function CardBody({ children, className }: CardBodyProps) {
         <div className={classNames(classes.body, className)}>
             {children}
         </div>
-    )
+    );
 }

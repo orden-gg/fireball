@@ -94,5 +94,5 @@ export function CardListing({ className }: CardListingsProps) {
                 <rect x='0' y='0' width='60' height='25' />
             </ContentLoader>
         )}
-    </>
-};
+    </>;
+}
