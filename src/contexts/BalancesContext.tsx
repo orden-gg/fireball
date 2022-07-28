@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 import { TokenTypes } from 'shared/constants';
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { AlchemicaApi, GhstApi } from 'api';
 import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
 
-import { LoginContext } from './LoginContext';
 import { TokensPricesContext } from './TokensPricesContext';
 
 export const BalancesContext = createContext({});
@@ -45,7 +46,8 @@ export const BalancesContextProvider = (props: any) => {
         }
     ];
 
-    const { activeAddress } = useContext<any>(LoginContext);
+    const activeAddress = useAppSelector(getActiveAddress);
+
     const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
 
     const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
@@ -61,8 +63,8 @@ export const BalancesContextProvider = (props: any) => {
 
     useEffect(() => {
         let mounted = true;
-        let getAmounts;
-        let interval;
+        let getAmounts: any;
+        let interval: NodeJS.Timer;
 
         if (activeAddress) {
             getAmounts = async function () {

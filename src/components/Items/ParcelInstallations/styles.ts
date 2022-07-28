@@ -5,6 +5,7 @@ export const styles = makeStyles((theme) => createStyles({
     container: {
         display: 'flex',
         justifyContent: 'center',
+        flexWrap: 'wrap',
         overflowX: 'auto',
         paddingTop: 4,
         [theme.breakpoints.up('md')]: {
@@ -14,9 +15,7 @@ export const styles = makeStyles((theme) => createStyles({
     installation: {
         flexShrink: 0,
         position: 'relative',
-        '& + $installation': {
-            marginLeft: 8
-        }
+        margin: theme.spacing(0, 1, 1, 0)
     },
     installationImage: {
         height: '100%',

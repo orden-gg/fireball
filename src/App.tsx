@@ -26,7 +26,6 @@ import { BaazaarContextProvider } from './contexts/BaazaarContext';
 import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { ClientContextProvider } from './contexts/ClientContext';
 import { DataReloadContextProvider } from 'contexts/DataReloadContext';
-import { LoginContextProvider } from './contexts/LoginContext';
 import { SnackbarContextProvider } from './contexts/SnackbarContext';
 import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
 
@@ -59,54 +58,52 @@ export function App() {
     const isFooterHidden = location.pathname === '/shop' || location.pathname === '/';
 
     return (
-        <LoginContextProvider>
-            <SnackbarContextProvider>
-                <DataReloadContextProvider>
-                    <BaazaarContextProvider>
-                        <TokensPricesContextProvider>
-                            <ClientContextProvider>
+        <SnackbarContextProvider>
+            <DataReloadContextProvider>
+                <BaazaarContextProvider>
+                    <TokensPricesContextProvider>
+                        <ClientContextProvider>
 
-                                <Helmet>
-                                    <title>fireball.gg gotchiverse client</title>
-                                </Helmet>
+                            <Helmet>
+                                <title>fireball.gg gotchiverse client</title>
+                            </Helmet>
 
-                                <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
-                                    { !isHeaderHidden &&
-                                        <>
-                                            <BalancesContextProvider>
-                                                <Header />
-                                            </BalancesContextProvider>
-                                            <NavPanel />
-                                        </>
-                                    }
+                            <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
+                                { !isHeaderHidden &&
+                                    <>
+                                        <BalancesContextProvider>
+                                            <Header />
+                                        </BalancesContextProvider>
+                                        <NavPanel />
+                                    </>
+                                }
 
-                                    <Box className={classes.content}>
-                                        <Routes>
-                                            <Route path='' element={<Main />} />
-                                            <Route path='market' element={<Baazaar />} />
-                                            <Route path='lend' element={<Lend />} />
-                                            <Route path='explorer' element={<GhostExplorer />} />
-                                            <Route path='autopet' element={<Autopet />} />
-                                            <Route path='guilds/*' element={<Guilds />} />
-                                            <Route path='client/*' element={<Client />} />
-                                            <Route path='craft' element={<Craft />} />
-                                            <Route path='parcel/:parcelId' element={<ParcelPage />} />
-                                            <Route path='raffles/*' element={<Raffle />} />
-                                            <Route path='shop' element={<Shop />} />
-                                            <Route path='map' element={<Map />} />
-                                            <Route path='404' element={<NotFound />} />
-                                            <Route path='*' element={<Navigate to='404' replace />}></Route>
-                                        </Routes>
-                                    </Box>
+                                <Box className={classes.content}>
+                                    <Routes>
+                                        <Route path='' element={<Main />} />
+                                        <Route path='market' element={<Baazaar />} />
+                                        <Route path='lend' element={<Lend />} />
+                                        <Route path='explorer' element={<GhostExplorer />} />
+                                        <Route path='autopet' element={<Autopet />} />
+                                        <Route path='guilds/*' element={<Guilds />} />
+                                        <Route path='client/*' element={<Client />} />
+                                        <Route path='craft' element={<Craft />} />
+                                        <Route path='parcel/:parcelId' element={<ParcelPage />} />
+                                        <Route path='raffles/*' element={<Raffle />} />
+                                        <Route path='shop' element={<Shop />} />
+                                        <Route path='map' element={<Map />} />
+                                        <Route path='404' element={<NotFound />} />
+                                        <Route path='*' element={<Navigate to='404' replace />}></Route>
+                                    </Routes>
+                                </Box>
 
-                                    { !isFooterHidden && <Footer /> }
-                                </Wrapper>
+                                { !isFooterHidden && <Footer /> }
+                            </Wrapper>
 
-                            </ClientContextProvider>
-                        </TokensPricesContextProvider>
-                    </BaazaarContextProvider>
-                </DataReloadContextProvider>
-            </SnackbarContextProvider>
-        </LoginContextProvider>
+                        </ClientContextProvider>
+                    </TokensPricesContextProvider>
+                </BaazaarContextProvider>
+            </DataReloadContextProvider>
+        </SnackbarContextProvider>
     );
 }

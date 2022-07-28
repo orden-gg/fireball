@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 import { ThemeProvider } from '@emotion/react';
@@ -8,6 +9,7 @@ import { MetamaskStateProvider } from 'use-metamask';
 
 import { App } from './App';
 import { reportWebVitals } from './reportWebVitals';
+import { store } from './core/store/store';
 
 import { theme } from './themes/ghst';
 import './index.css';
@@ -18,7 +20,9 @@ ReactDOM.render(
             <MuiThemeProvider theme={theme}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <App/>
+                    <Provider store={store}>
+                        <App/>
+                    </Provider>
                 </ThemeProvider>
             </MuiThemeProvider>
         </MetamaskStateProvider>

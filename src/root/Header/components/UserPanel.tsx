@@ -1,15 +1,14 @@
-import { useContext } from 'react';
-
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 import { Balances } from 'root/Header/components/Balances';
 import { LoginButton } from 'components/Login/LoginButton';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from '../styles';
 
 export function UserPanel() {
     const classes = styles();
 
-    const { activeAddress } = useContext<any>(LoginContext);
+    const activeAddress = useAppSelector(getActiveAddress);
 
     return (
         <div className={classes.userPanel}>

@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Box } from '@mui/material';
 
 import queryString from 'query-string';
 
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 import { CustomParsedQuery } from 'shared/models';
 import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import { EthersApi } from 'api';
-import { LoginContext } from 'contexts/LoginContext';
 import { RaffleContextProvider } from 'contexts/RaffleContext';
 import { CommonUtils } from 'utils';
 
@@ -26,9 +27,9 @@ export function Raffle() {
     const queryParams = queryString.parse(location.search) as CustomParsedQuery;
     const lastRaffle = raffles[raffles.length - 1];
 
-    const [raffleActive, setRaffleActive] = useState<string>('');
+    const activeAddress = useAppSelector(getActiveAddress);
 
-    const { activeAddress } = useContext<any>(LoginContext);
+    const [raffleActive, setRaffleActive] = useState<string>('');
 
     useEffect(() => {
         if (activeAddress) {

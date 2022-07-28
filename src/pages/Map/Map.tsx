@@ -4,19 +4,21 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import _ from 'lodash';
 
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { Citadel } from 'components/Citadel/Citadel';
 import { TheGraphApi } from 'api/thegraph.api';
-import { LoginContext } from 'contexts/LoginContext';
 
 import { styles } from './styles';
 
 export function Map() {
     const classes = styles();
 
-    const { activeAddress } = useContext<any>(LoginContext);
+    const activeAddress = useAppSelector(getActiveAddress);
+
     const {
         lastManuallyUpdated,
         setLastUpdated,
