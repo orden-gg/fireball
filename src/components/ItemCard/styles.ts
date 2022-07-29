@@ -81,7 +81,7 @@ export const innerStyles = makeStyles(theme => createStyles({
         minWidth: 250,
         display: 'flex',
         flexDirection: 'column',
-        backgroundColor: alpha(theme.palette.common.black, .05),
+        backgroundColor: alpha(theme.palette.common.black, .05)
     },
     statsCell: {
         display: 'flex',

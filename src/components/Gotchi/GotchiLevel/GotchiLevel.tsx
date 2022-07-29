@@ -16,7 +16,7 @@ interface GotchiLevelProps {
 }
 
 export function GotchiLevel({ level, toNextLevel, experience }: GotchiLevelProps) {
-    const classes = styles()
+    const classes = styles();
 
     const diff = expFormula(Number(level)) - expFormula(Number(level) - 1);
     const percentageFormula = 100 - Math.floor(Number(toNextLevel) * 100 / diff);

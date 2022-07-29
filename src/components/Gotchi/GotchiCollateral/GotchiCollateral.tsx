@@ -5,7 +5,7 @@ import { GraphUtils } from 'utils';
 import { styles } from './styles';
 
 export function GotchiCollateral({ gotchi }: { gotchi: any }) {
-    const classes = styles()
+    const classes = styles();
 
     const collateral: string = GraphUtils.getCollateralName(gotchi.collateral);
 
