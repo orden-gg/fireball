@@ -1,15 +1,15 @@
 import classNames from 'classnames';
 
-import { groupStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardGroupProps {
-    children: Array<JSX.Element> | JSX.Element;
-    className?: string;
     name: string
+    children: JSX.Element | JSX.Element[];
+    className?: string;
 }
 
 export function CardGroup({ children, className, name }: CardGroupProps) {
-    const classes = groupStyles();
+    const classes = styles();
 
     return (
         <div className={classNames(classes[name], className)}>

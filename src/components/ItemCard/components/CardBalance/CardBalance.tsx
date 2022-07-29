@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-import { balanceStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardBalanceProps {
     balance: number;
@@ -13,7 +13,7 @@ interface CardBalanceProps {
 }
 
 export function CardBalance({ balance, holders, className }: CardBalanceProps) {
-    const classes = balanceStyles();
+    const classes = styles();
 
     return (
         <div className={classNames(className, classes.balance)}>

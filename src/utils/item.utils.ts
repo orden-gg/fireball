@@ -1,5 +1,8 @@
-import { Erc1155Categories, RarityTypes } from 'shared/constants';
+import { RarityTypes } from 'shared/constants';
+import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
+
 import { items } from '../data/items.data';
+
 export class ItemUtils {
     public static getItemNameById(id: any): any {
         return items[id]?.name || '';
@@ -21,22 +24,29 @@ export class ItemUtils {
         return items[id]?.slot || '';
     }
 
-    public static getStatsById(id: number, category: string): any {
+    public static getTraitIconByKey(key: string): any {
+        const TRAITS_ICONS: any = {
+            agg: AggressionIcon,
+            brn: BrainIcon,
+            eyc: EyeColorIcon,
+            eys: EyeShapeIcon,
+            nrg: EnergyIcon,
+            spk: SpookinessIcon
+        };
+
+        return TRAITS_ICONS[key];
+    }
+
+    public static getWearableStatsById(id: number): any {
         const stats: string = items[id]?.stats;
-        const isWearable: boolean = category === Erc1155Categories.Wearable;
+        const result = {};
 
-        if (isWearable) {
-            const result = {};
-
-            for (const stat of stats.split(',')) {
-                const [key, value]: string[] = stat.trim().split(' ');
-                result[key] = value;
-            }
-
-            return result;
-        } else {
-            return stats;
+        for (const stat of stats.split(',')) {
+            const [key, value]: string[] = stat.trim().split(' ');
+            result[key] = value;
         }
+
+        return result;
     }
 
     public static getEmojiStatsById(id: any): any {

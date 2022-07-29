@@ -5,7 +5,19 @@ import { Link, Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { Erc1155Categories, ListingTypes } from 'shared/constants';
-import { CardBalance, CardImage, CardGroup, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard, ItemCardHorizontal } from 'components/ItemCard';
+import {
+    CardBalance,
+    CardImage,
+    CardGroup,
+    CardListing,
+    CardName,
+    CardPortalImage,
+    CardSlot,
+    CardStats,
+    CardTotalPrice,
+    ItemCard,
+    ItemCardHorizontal
+} from 'components/ItemCard/components';
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { HorizontalLink } from 'components/Items/common/HorizontalLink/HorizontalLink';

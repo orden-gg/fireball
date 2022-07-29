@@ -10,9 +10,9 @@ import { GhstTokenGif } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
-import { CardContext } from '../CardContext';
+import { CardContext } from '../../context/CardContext';
 
-import { totalPriceStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardTotalPriceProps {
     balance: number;
@@ -21,7 +21,7 @@ interface CardTotalPriceProps {
 }
 
 export function CardTotalPrice({ balance, priceInWei, className }: CardTotalPriceProps) {
-    const classes = totalPriceStyles();
+    const classes = styles();
     const theme = useTheme();
 
     const { lastSold } = useContext<any>(CardContext);

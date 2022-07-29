@@ -9,7 +9,7 @@ import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
-import { listingsStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardERC721ListingProps {
     listings: any[];
@@ -19,7 +19,7 @@ interface CardERC721ListingProps {
 }
 
 export function CardERC721Listing({ listings, historicalPrices, activeListing, className }: CardERC721ListingProps) {
-    const classes = listingsStyles();
+    const classes = styles();
 
     const currentPrice: number = listings?.length && EthersApi.fromWei(listings[0].priceInWei) || 0;
     const lastPrice: any = historicalPrices?.length && EthersApi.fromWei(historicalPrices[historicalPrices.length - 1]);

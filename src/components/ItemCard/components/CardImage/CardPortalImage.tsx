@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Erc721Categories } from 'shared/constants';
 import { H1OpenedPortalIcon, H1SealedPortalIcon, H2OpenedPortalIcon, H2SealedPortalIcon } from 'components/Icons/Icons';
 
-import { imageStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardPortalImageProps {
     category: string;
@@ -12,7 +12,7 @@ interface CardPortalImageProps {
 }
 
 export function CardPortalImage({ category, hauntId, className }: CardPortalImageProps) {
-    const classes = imageStyles();
+    const classes = styles();
 
     const renderPortalImage = () => {
         let PortalIcon: any;

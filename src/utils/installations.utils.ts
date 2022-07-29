@@ -109,7 +109,7 @@ export class InstallationsUtils {
     }
 
     public static getRarityById(id: number): string {
-        const name: string = this.getNameById(id).split(' ')[0].toLowerCase();
+        const name: string = InstallationsUtils.getNameById(id).split(' ')[0].toLowerCase();
         const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
 
         if (isRarity) {

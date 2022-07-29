@@ -12,8 +12,9 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CommonUtils } from 'utils';
 
-import { CardContext } from '../CardContext';
-import { listingsStyles } from '../styles';
+import { CardContext } from '../../context/CardContext';
+
+import { styles } from './styles';
 
 interface CardListingsProps {
     className?: string;
@@ -22,7 +23,7 @@ interface CardListingsProps {
 }
 
 export function CardListing({ className }: CardListingsProps) {
-    const classes = listingsStyles();
+    const classes = styles();
 
     const theme = useTheme();
 

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Erc1155Categories } from 'shared/constants';
 import { InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
-import { imageStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardImageProps {
     id: number;
@@ -14,7 +14,7 @@ interface CardImageProps {
 }
 
 export function CardImage({ id, category, className }: CardImageProps) {
-    const classes = imageStyles();
+    const classes = styles();
     const [src, setSrc] = useState<string>('');
     const [name, setName] = useState<string>('');
 

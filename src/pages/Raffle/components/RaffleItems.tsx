@@ -3,13 +3,25 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import {
+    CardBalance,
+    CardGroup,
+    CardImage,
+    CardListing,
+    CardName,
+    CardPortalImage,
+    CardSlot,
+    CardStats,
+    CardTotalPrice,
+    ItemCard
+} from 'components/ItemCard/components';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
 import { InstallationsUtils, ItemUtils } from 'utils';
 
-import { itemsStyles } from '../styles';
 import { RaffleItemChance } from './RaffleItemChance';
+
+import { itemsStyles } from '../styles';
 
 interface RaffleItemsProps {
     tickets: any;

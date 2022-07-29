@@ -1,9 +1,10 @@
 import { useTheme } from '@mui/material';
+
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard';
+import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard/components';
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';

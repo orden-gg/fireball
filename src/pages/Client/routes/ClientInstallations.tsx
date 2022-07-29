@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard/components';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function ClientInstallations() {

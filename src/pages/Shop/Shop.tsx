@@ -18,7 +18,7 @@ import {
     CardStats,
     CardTotalPrice,
     ItemCard
-} from 'components/ItemCard';
+} from 'components/ItemCard/components';
 import {
     BaazarIcon,
     ConsumableIcon,

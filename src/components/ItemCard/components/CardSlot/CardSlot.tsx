@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { ItemUtils } from 'utils';
-import { slotStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardSlotProps {
     id?: number;
@@ -10,7 +10,7 @@ interface CardSlotProps {
 }
 
 export function CardSlot({ id, children, className }: CardSlotProps) {
-    const classes = slotStyles();
+    const classes = styles();
 
     const slot = ItemUtils.getItemSlotById(id);
 

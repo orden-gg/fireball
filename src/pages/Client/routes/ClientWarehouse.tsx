@@ -6,7 +6,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard/components';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { ItemUtils } from 'utils';
 
-import { nameStyles } from '../styles';
+import { styles } from './styles';
 
 interface CardNameProps {
     id?: number;
@@ -13,7 +13,7 @@ interface CardNameProps {
 }
 
 export function CardName({ id, children, className }: CardNameProps) {
-    const classes = nameStyles();
+    const classes = styles();
 
     const name: string = ItemUtils.getItemNameById(id);
 
