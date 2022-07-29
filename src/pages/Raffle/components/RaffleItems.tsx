@@ -3,7 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
-import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
 import { InstallationsUtils, ItemUtils } from 'utils';
@@ -47,10 +47,10 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                 ></ParcelGeneric>;
             case 'portals':
                 return <ItemCard type='haunt2'>
-                    <CardHeader>
+                    <CardGroup name='header'>
                         <CardBalance balance={item.quantity} />
-                    </CardHeader>
-                    <CardBody>
+                    </CardGroup>
+                    <CardGroup name='body'>
                         <CardPortalImage category={Erc721Categories.ClosedPortal} hauntId='2' />
                         <CardName>H2 Portal</CardName>
                         <RaffleItemChance stats={{
@@ -58,18 +58,18 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                             won: item.won,
                             quantity:item.quantity
                         }} />
-                    </CardBody>
+                    </CardGroup>
                 </ItemCard>;
             case 'wearables':
                 return <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getItemRarityById(item.id)}>
-                    <CardHeader>
+                    <CardGroup name='header'>
                         <CardTotalPrice
                             balance={item.quantity}
                             priceInWei={item.priceInWei}
                         />
                         <CardBalance balance={item.quantity} />
-                    </CardHeader>
-                    <CardBody>
+                    </CardGroup>
+                    <CardGroup name='body'>
                         <CardSlot id={item.id} />
                         <CardImage id={item.id} />
                         <CardName id={item.id} />
@@ -79,21 +79,21 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                             won: item.won,
                             quantity:item.quantity
                         }} />
-                    </CardBody>
-                    <CardFooter>
+                    </CardGroup>
+                    <CardGroup name='footer'>
                         <CardListing />
-                    </CardFooter>
+                    </CardGroup>
                 </ItemCard>;
             case 'installations':
                 return <ItemCard id={item.id} category={Erc1155Categories.Realm} type={InstallationsUtils.getRarityById(item.id)}>
-                    <CardHeader>
+                    <CardGroup name='header'>
                         <CardTotalPrice
                             balance={item.quantity}
                             priceInWei={item.priceInWei}
                         />
                         <CardBalance balance={item.quantity} />
-                    </CardHeader>
-                    <CardBody>
+                    </CardGroup>
+                    <CardGroup name='body'>
                         <CardImage id={item.id} category={Erc1155Categories.Realm} />
                         <CardName id={item.id} />
                         <RaffleItemChance stats={{
@@ -101,10 +101,10 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                             won: item.won,
                             quantity:item.quantity
                         }} />
-                    </CardBody>
-                    <CardFooter>
+                    </CardGroup>
+                    <CardGroup name='footer'>
                         <CardListing />
-                    </CardFooter>
+                    </CardGroup>
                 </ItemCard>;
             default:
                 return <></>;

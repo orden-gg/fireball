@@ -64,11 +64,20 @@ export const styles = makeStyles(theme => createStyles({
     }
 }));
 
-export const innerStyles = makeStyles(theme => createStyles({
+export const groupStyles = makeStyles(theme => createStyles({
     header: {
         display: 'flex',
         justifyContent: 'flex-end',
         margin: theme.spacing(-1, -1, 0, 0)
+    },
+    body: {
+        margin: theme.spacing(.25, 0),
+        position: 'relative',
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
     },
     footer: {
         display: 'flex',
@@ -210,18 +219,6 @@ export const listingsStyles = makeStyles(theme => createStyles({
     },
     token: {
         margin: theme.spacing(0, .5)
-    }
-}));
-
-export const bodyStyles = makeStyles(theme => createStyles({
-    body: {
-        margin: theme.spacing(.25, 0),
-        position: 'relative',
-        flex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column'
     }
 }));
 

@@ -6,7 +6,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -102,22 +102,22 @@ export function ClientWarehouse() {
                     items={warehouse}
                     component={(wearable: any) =>
                         <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
-                            <CardHeader>
+                            <CardGroup name='header'>
                                 <CardTotalPrice
                                     balance={wearable.balance}
                                     priceInWei={wearable.priceInWei}
                                 />
                                 <CardBalance balance={wearable.balance} holders={wearable.holders} />
-                            </CardHeader>
-                            <CardBody>
+                            </CardGroup>
+                            <CardGroup name='body'>
                                 <CardSlot id={wearable.id} />
                                 <CardImage id={wearable.id} />
                                 <CardName id={wearable.id} />
                                 <CardStats id={wearable.id} category={wearable.category} />
-                            </CardBody>
-                            <CardFooter>
+                            </CardGroup>
+                            <CardGroup name='footer'>
                                 <CardListing />
-                            </CardFooter>
+                            </CardGroup>
                         </ItemCard>
                     }
                 />

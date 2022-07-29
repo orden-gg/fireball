@@ -3,7 +3,7 @@ import { useCallback, useContext } from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
-import { CardBody, CardImage, CardName, CardSlot, ItemCard } from 'components/ItemCard';
+import { CardGroup, CardImage, CardName, CardSlot, ItemCard } from 'components/ItemCard';
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
 import { CraftContext } from '../CraftContext';
@@ -40,12 +40,12 @@ export function CraftItem({ data }: { data: any }) {
             onClick={handleItemClick}
         >
             <ItemCard type='golden' id={data.id} category={category}>
-                <CardBody>
+                <CardGroup name='body'>
                     <CardSlot>{data.type}</CardSlot>
                     <CardImage id={data.id} category={category} />
                     <CardName className={classes.itemName} id={data.id} />
                     <AlchemicaPrice alchemica={data.alchemicaCost} />
-                </CardBody>
+                </CardGroup>
             </ItemCard>
         </div>
     );

@@ -5,7 +5,7 @@ import { Link, Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { Erc1155Categories, ListingTypes } from 'shared/constants';
-import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardGroup, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard, ItemCardHorizontal } from 'components/ItemCard';
+import { CardBalance, CardImage, CardGroup, CardListing, CardName, CardPortalImage, CardSlot, CardStats, CardTotalPrice, ItemCard, ItemCardHorizontal } from 'components/ItemCard';
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { HorizontalLink } from 'components/Items/common/HorizontalLink/HorizontalLink';
@@ -141,7 +141,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                 {
                                     (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && (
                                         <ItemCard type={`haunt${item.portal.hauntId}`} id={item.id} category={item.category}>
-                                            <CardBody>
+                                            <CardGroup name='body'>
                                                 <CardSlot>{`Haunt ${item.portal.hauntId}`}</CardSlot>
                                                 <CardPortalImage category={item.category} hauntId={item.portal.hauntId} />
                                                 <CardName>
@@ -155,49 +155,49 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                                         <CallMade fontSize={'inherit'} />
                                                     </Link>
                                                 </CardName>
-                                            </CardBody>
+                                            </CardGroup>
                                         </ItemCard>
                                     )
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
                                         <ItemCard id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
-                                            <CardHeader>
+                                            <CardGroup name='header'>
                                                 <CardTotalPrice
                                                     balance={item.quantity}
                                                     priceInWei={item.priceInWei}
                                                 />
                                                 <CardBalance balance={item.quantity} holders={item.holders} />
-                                            </CardHeader>
-                                            <CardBody>
+                                            </CardGroup>
+                                            <CardGroup name='body'>
                                                 <CardSlot id={item.erc1155TypeId} />
                                                 <CardImage id={item.erc1155TypeId} />
                                                 <CardName id={item.erc1155TypeId} />
                                                 <CardStats id={item.erc1155TypeId} category={item.category} />
-                                            </CardBody>
-                                            <CardFooter>
+                                            </CardGroup>
+                                            <CardGroup name='footer'>
                                                 <CardListing />
-                                            </CardFooter>
+                                            </CardGroup>
                                         </ItemCard>
                                     )
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && (
                                         <ItemCard type={ItemUtils.getItemRarityName(item.erc1155TypeId)} category={item.category} id={item.erc1155TypeId}>
-                                            <CardHeader>
+                                            <CardGroup name='header'>
                                                 <CardTotalPrice
                                                     balance={item.quantity}
                                                     priceInWei={item.priceInWei}
                                                 />
                                                 <CardBalance balance={item.quantity} />
-                                            </CardHeader>
-                                            <CardBody>
+                                            </CardGroup>
+                                            <CardGroup name='body'>
                                                 <CardImage id={item.erc1155TypeId} category={item.category} />
                                                 <CardName>{item.name}</CardName>
-                                            </CardBody>
-                                            <CardFooter>
+                                            </CardGroup>
+                                            <CardGroup name='footer'>
                                                 <CardListing />
-                                            </CardFooter>
+                                            </CardGroup>
                                         </ItemCard>
                                     )
                                 }

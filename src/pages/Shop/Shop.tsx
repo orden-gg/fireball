@@ -8,10 +8,8 @@ import queryString from 'query-string';
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
 import {
     CardBalance,
-    CardBody,
     CardERC721Listing,
-    CardFooter,
-    CardHeader,
+    CardGroup,
     CardImage,
     CardListing,
     CardName,
@@ -290,22 +288,22 @@ export function Shop() {
                     wearables.map((wearable: any) =>
                         <div className={classes.listItem} key={wearable.listing}>
                             <ItemCard type={wearable.rarity} id={wearable.id} category={wearable.category}>
-                                <CardHeader>
+                                <CardGroup name='header'>
                                     <CardTotalPrice
                                         balance={wearable.balance}
                                         priceInWei={wearable.priceInWei}
                                     />
                                     <CardBalance balance={wearable.balance} holders={wearable.holders} />
-                                </CardHeader>
-                                <CardBody>
+                                </CardGroup>
+                                <CardGroup name='body'>
                                     <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName id={wearable.id} />
                                     <CardStats id={wearable.id} category={wearable.category} />
-                                </CardBody>
-                                <CardFooter>
+                                </CardGroup>
+                                <CardGroup name='footer'>
                                     <CardListing />
-                                </CardFooter>
+                                </CardGroup>
                             </ItemCard>
                         </div>
                     )
@@ -336,18 +334,18 @@ export function Shop() {
                     portals.map((portal: any) =>
                         <div className={classes.listItem} key={portal.tokenId}>
                             <ItemCard type={`haunt${portal.portal.hauntId}`} id={portal.id} category={portal.category}>
-                                <CardBody>
+                                <CardGroup name='body'>
                                     <CardSlot>{`Haunt ${portal.portal.hauntId}`}</CardSlot>
                                     <CardPortalImage category={portal.category} hauntId={portal.portal.hauntId} />
                                     <CardName>{`Portal ${portal.tokenId}`}</CardName>
-                                </CardBody>
-                                <CardFooter>
+                                </CardGroup>
+                                <CardGroup name='footer'>
                                     <CardERC721Listing
                                         activeListing={portal.activeListing}
                                         listings={portal.listings}
                                         historicalPrices={portal.historicalPrices}
                                     />
-                                </CardFooter>
+                                </CardGroup>
                             </ItemCard>
                         </div>
                     )
@@ -363,20 +361,20 @@ export function Shop() {
                     tickets.map((ticket: any) =>
                         <div className={classes.listItem} key={ticket.listing}>
                             <ItemCard type={ticket.rarity} id={ticket.id} category={ticket.category}>
-                                <CardHeader>
+                                <CardGroup name='header'>
                                     <CardTotalPrice
                                         balance={ticket.balance}
                                         priceInWei={ticket.priceInWei}
                                     />
                                     <CardBalance balance={ticket.balance} holders={ticket.holders} />
-                                </CardHeader>
-                                <CardBody>
+                                </CardGroup>
+                                <CardGroup name='body'>
                                     <CardImage id={ticket.id} />
                                     <CardName id={ticket.id} />
-                                </CardBody>
-                                <CardFooter>
+                                </CardGroup>
+                                <CardGroup name='footer'>
                                     <CardListing />
-                                </CardFooter>
+                                </CardGroup>
                             </ItemCard>
                         </div>
                     )
@@ -392,20 +390,20 @@ export function Shop() {
                     consumables.map((consumable: any) =>
                         <div className={classes.listItem} key={consumable.listing}>
                             <ItemCard type={consumable.rarity} id={consumable.id} category={consumable.category}>
-                                <CardHeader>
+                                <CardGroup name='header'>
                                     <CardTotalPrice
                                         balance={consumable.balance}
                                         priceInWei={consumable.priceInWei}
                                     />
                                     <CardBalance balance={consumable.balance} holders={consumable.holders} />
-                                </CardHeader>
-                                <CardBody>
+                                </CardGroup>
+                                <CardGroup name='body'>
                                     <CardImage id={consumable.id} />
                                     <CardName id={consumable.id} />
-                                </CardBody>
-                                <CardFooter>
+                                </CardGroup>
+                                <CardGroup name='footer'>
                                     <CardListing />
-                                </CardFooter>
+                                </CardGroup>
                             </ItemCard>
                         </div>
                     )

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { CardBody, CardFooter, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard';
+import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard';
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
@@ -36,15 +36,15 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                                 id !== 0 ? (
                                     <div className={classNames(classes.gotchiWTooltipTitle, 'tooltip-wearable')}>
                                         <ItemCard type={rarityColor} id={id} category={category}>
-                                            <CardBody>
+                                            <CardGroup name='body'>
                                                 <CardSlot id={id} />
                                                 <CardImage className={classes.cardImage} id={id} category={category} />
                                                 <CardName className={classes.cardName} id={id} />
                                                 <CardStats className={classes.cardStats} id={id} category={category} />
-                                            </CardBody>
-                                            <CardFooter className={classes.cardFoter}>
+                                            </CardGroup>
+                                            <CardGroup name='footer' className={classes.cardFoter}>
                                                 <CardListing />
-                                            </CardFooter>
+                                            </CardGroup>
                                         </ItemCard>
                                     </div>
                                 ) : (

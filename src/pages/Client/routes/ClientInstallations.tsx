@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { CardBalance, CardBody, CardFooter, CardHeader, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function ClientInstallations() {
@@ -20,20 +20,20 @@ export function ClientInstallations() {
                     items={[...installations, ...tiles]}
                     component={(installation: any) =>
                         <ItemCard id={installation.id} category={installation.category} type={installation.rarity || 'drop'}>
-                            <CardHeader>
+                            <CardGroup name='header'>
                                 <CardTotalPrice
                                     balance={installation.balance}
                                     priceInWei={installation.priceInWei}
                                 />
                                 <CardBalance balance={installation.balance} />
-                            </CardHeader>
-                            <CardBody>
+                            </CardGroup>
+                            <CardGroup name='body'>
                                 <CardImage id={installation.id} category={installation.category} />
                                 <CardName>{installation.name}</CardName>
-                            </CardBody>
-                            <CardFooter>
+                            </CardGroup>
+                            <CardGroup name='footer'>
                                 <CardListing />
-                            </CardFooter>
+                            </CardGroup>
                         </ItemCard>
                     }
                 />
