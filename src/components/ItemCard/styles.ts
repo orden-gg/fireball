@@ -5,12 +5,6 @@ import { alpha } from '@mui/system';
 export const styles = makeStyles(theme => createStyles({
     card: {
         display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        height: '100%',
-        borderRadius: 5,
-        padding: theme.spacing(1),
-        overflow: 'hidden',
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .15),
             color: theme.palette.rarity.common
@@ -55,19 +49,54 @@ export const styles = makeStyles(theme => createStyles({
             backgroundColor: alpha(theme.palette.haunts.h2, .15),
             color: lighten(theme.palette.haunts.h2, .2)
         }
+    },
+    cardVertical: {
+        justifyContent: 'center',
+        flexDirection: 'column',
+        height: '100%',
+        borderRadius: 5,
+        padding: theme.spacing(1),
+        overflow: 'hidden'
+    },
+    cardHorizontal: {
+        minHeight: 200,
+        padding: theme.spacing(0, 1)
     }
 }));
 
 export const innerStyles = makeStyles(theme => createStyles({
-    inner: {
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
     header: {
+        display: 'flex',
+        justifyContent: 'flex-end',
         margin: theme.spacing(-1, -1, 0, 0)
     },
     footer: {
+        display: 'flex',
+        justifyContent: 'flex-end',
         margin: theme.spacing(1, -1, -1, 0)
+    },
+    imageCell: {
+        margin: theme.spacing(0, 1),
+        maxWidth: 250,
+        minWidth: 250,
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: alpha(theme.palette.common.black, .05),
+    },
+    statsCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        alignItems: 'flex-start',
+        margin: theme.spacing(2, 1),
+        width: 320
+    },
+    priceCell: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        margin: theme.spacing(3, 1),
+        flex: '1 1 auto'
     }
 }));
 

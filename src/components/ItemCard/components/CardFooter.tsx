@@ -10,7 +10,7 @@ export function CardFooter({ className, children }: CardFooterProps) {
     const classes = innerStyles();
 
     return (
-        <div className={classNames(className, classes.inner, classes.footer)}>
+        <div className={classNames(classes.footer, className)}>
             {children}
         </div>
     );

@@ -1,16 +1,18 @@
 import classNames from 'classnames';
+
 import { innerStyles } from '../styles';
 
-interface CardHeaderProps {
+interface CardBodyProps {
     children: Array<JSX.Element> | JSX.Element;
     className?: string;
+    name: string
 }
 
-export function CardHeader({ className, children }: CardHeaderProps) {
+export function CardGroup({ children, className, name }: CardBodyProps) {
     const classes = innerStyles();
 
     return (
-        <div className={classNames(classes.header, className)}>
+        <div className={classNames(classes[name], className)}>
             {children}
         </div>
     );

@@ -129,6 +129,7 @@ export const styles = makeStyles(theme => createStyles({
     gotchiPriceCell: {
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         margin: theme.spacing(3, 1),
         flex: '1 1 auto'
     },
@@ -148,19 +149,6 @@ export const styles = makeStyles(theme => createStyles({
     gotchiFlipFront: {
         '$gotchiIsFlipped &': {
             display: 'none'
-        }
-    }
-}));
-
-export const CustomTooltipStyles = makeStyles(theme => createStyles({
-    customTooltip: {
-        backgroundColor: theme.palette.secondary.dark,
-        marginBottom: 8,
-        '& p': {
-            margin: 0
-        },
-        '& span': {
-            color: theme.palette.primary.main
         }
     }
 }));

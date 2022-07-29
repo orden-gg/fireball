@@ -2,12 +2,12 @@ import { Skeleton } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { InstallationTypeNames } from 'shared/constants';
+import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { InstallationsUtils } from 'utils';
 
-import { InstallationImage } from '../Installation/InstallationImage';
 import { styles } from './styles';
+import { CardImage } from 'components/ItemCard';
 
 // const dataFormat = {
 //     days: { key: 'dd', value: 'd', shownIfZero: false },
@@ -88,9 +88,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                             placement='top'
                             arrow={true}
                         >
-                            <div className={classes.installationImage}>
-                                <InstallationImage id={installation.id} />
-                            </div>
+                            <CardImage id={installation.id} category={Erc1155Categories.Realm} className={classes.installationImage} />
                         </CustomTooltip>
 
 

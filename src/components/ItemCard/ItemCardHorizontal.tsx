@@ -25,12 +25,12 @@ const CardInner = ({ children, id, category }): JSX.Element => {
     return children;
 };
 
-export function ItemCard({ children, type, id, category, className }: CardItemProps) {
+export function ItemCardHorizontal({ children, type, id, category, className }: CardItemProps) {
     const classes = styles();
 
     return (
         <CardContextProvider>
-            <div className={classNames(type, classes.card, classes.cardVertical, className)}>
+            <div className={classNames(type, classes.card, classes.cardHorizontal, className)}>
                 <CardInner id={id} category={category}>{children}</CardInner>
             </div>
         </CardContextProvider>
