@@ -1,5 +1,4 @@
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-
 import { GraphUtils } from 'utils';
 
 import { styles } from './styles';
