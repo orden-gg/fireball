@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface CardGroupProps {
-    name: string
+    name: string;
     children: JSX.Element | JSX.Element[];
     className?: string;
 }

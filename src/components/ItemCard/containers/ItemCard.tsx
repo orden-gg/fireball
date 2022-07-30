@@ -6,11 +6,12 @@ import { CardContext, CardContextProvider } from '../context/CardContext';
 
 import { styles } from './styles';
 
-interface ItemCardInnerProps {
+interface CardInnerProps {
     children: JSX.Element | JSX.Element[];
     id?: string | number;
     category?: string | number;
 }
+
 interface ItemCardProps {
     type: string;
     children: JSX.Element | JSX.Element[];
@@ -19,7 +20,7 @@ interface ItemCardProps {
     className?: string;
 }
 
-const CardInner = ({ children, id, category }: ItemCardInnerProps): JSX.Element => {
+const CardInner = ({ children, id, category }: CardInnerProps): JSX.Element => {
     const { loadData } = useContext<any>(CardContext);
 
     useEffect(() => {

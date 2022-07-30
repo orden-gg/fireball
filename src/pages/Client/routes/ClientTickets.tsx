@@ -2,7 +2,8 @@ import { useContext } from 'react';
 
 import { Erc1155Categories } from 'shared/constants';
 import { ContentInner } from 'components/Content/ContentInner';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice, ItemCard } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice } from 'components/ItemCard/components';
 import { ClientContext } from 'contexts/ClientContext';
 
 import { routersStyles } from '../styles';

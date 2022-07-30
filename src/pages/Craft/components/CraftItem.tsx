@@ -3,7 +3,8 @@ import { useCallback, useContext } from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
-import { CardGroup, CardImage, CardName, CardSlot, ItemCard } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
 import { CraftContext } from '../CraftContext';

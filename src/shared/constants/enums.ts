@@ -116,3 +116,8 @@ export enum DataReloadType {
     Map = 'map',
     Explorer = 'explorer'
 }
+
+export enum HauntIds {
+    Haunt1 = '1',
+    Haunt2 = '2'
+}

@@ -4,7 +4,8 @@ import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, ItemCard } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';

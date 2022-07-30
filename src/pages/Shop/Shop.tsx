@@ -6,6 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import queryString from 'query-string';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
+import { ItemCard } from 'components/ItemCard/containers';
 import {
     CardBalance,
     CardERC721Listing,
@@ -16,8 +17,7 @@ import {
     CardPortalImage,
     CardSlot,
     CardStats,
-    CardTotalPrice,
-    ItemCard
+    CardTotalPrice
 } from 'components/ItemCard/components';
 import {
     BaazarIcon,

@@ -1,5 +1,3 @@
-export { ItemCard } from '../containers/ItemCard';
-export { ItemCardHorizontal } from '../containers/ItemCardHorizontal';
 export { CardTotalPrice } from './CardTotalPrice/CardTotalPrice';
 export { CardBalance } from './CardBalance/CardBalance';
 export { CardGroup } from './CardGroup/CardGroup';

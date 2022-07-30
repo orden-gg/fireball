@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { ItemUtils } from 'utils';
+
 import { styles } from './styles';
 
 interface CardSlotProps {

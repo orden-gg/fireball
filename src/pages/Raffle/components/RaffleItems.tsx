@@ -3,6 +3,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories, Erc721Categories } from 'shared/constants';
+import { ItemCard } from 'components/ItemCard/containers';
 import {
     CardBalance,
     CardGroup,
@@ -12,8 +13,7 @@ import {
     CardPortalImage,
     CardSlot,
     CardStats,
-    CardTotalPrice,
-    ItemCard
+    CardTotalPrice
 } from 'components/ItemCard/components';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';

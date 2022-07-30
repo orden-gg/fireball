@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
-import { Trait } from 'shared/models/trait.model';
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
@@ -16,7 +15,7 @@ export function CardStats({ id, category, className }: CardStatsProps) {
     const classes = styles();
 
     const isWearable: boolean = category === Erc1155Categories.Wearable;
-    const stats: string | Array<Trait> = isWearable ?
+    const stats: string | Array<{name: string}> = isWearable ?
         ItemUtils.getWearableStatsById(id) :
         ItemUtils.getItemTypeById(id);
 

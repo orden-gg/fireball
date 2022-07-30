@@ -15,6 +15,7 @@ interface CardImageProps {
 
 export function CardImage({ id, category, className }: CardImageProps) {
     const classes = styles();
+
     const [src, setSrc] = useState<string>('');
     const [name, setName] = useState<string>('');
 

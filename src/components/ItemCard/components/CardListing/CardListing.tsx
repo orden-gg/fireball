@@ -18,8 +18,6 @@ import { styles } from './styles';
 
 interface CardListingsProps {
     className?: string;
-    listings?: any;
-    historicalPrices?: any
 }
 
 export function CardListing({ className }: CardListingsProps) {
