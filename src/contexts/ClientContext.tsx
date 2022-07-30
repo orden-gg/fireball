@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { InstallationTypeNames } from 'shared/constants';
+import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
@@ -180,7 +180,7 @@ export const ClientContextProvider = (props: any) => {
                             rarity: ItemUtils.getItemRarityById(wearable),
                             rarityId: ItemUtils.getItemRarityId(ItemUtils.getItemRarityById(wearable)),
                             holders: [item.id],
-                            category: 0
+                            category: Erc1155Categories.Wearable
                         });
                     } else {
                         wearables[index].balance += 1;
@@ -275,7 +275,9 @@ export const ClientContextProvider = (props: any) => {
                     rarity: ItemUtils.getItemRarityById(item.itemId),
                     rarityId: ItemUtils.getItemRarityId(ItemUtils.getItemRarityById(item.itemId)),
                     balance: +item.balance,
-                    category: item.itemId >= 126 && item.itemId <= 129 ? 2 : 0 // TODO: temporary solution to determine if item is consumable or not
+                    category: item.itemId >= 126 && item.itemId <= 129 ?
+                        Erc1155Categories.Consumable :
+                        Erc1155Categories.Wearable // TODO: temporary solution to determine if item is consumable or not
                 });
             });
 
@@ -317,11 +319,12 @@ export const ClientContextProvider = (props: any) => {
                     const id: any = EthersApi.formatBigNumber(item.installationId._hex);
 
                     return {
-                        type: 'installation',
                         name: InstallationsUtils.getNameById(id),
                         balance: EthersApi.formatBigNumber(item.balance._hex),
                         id: id,
-                        level: InstallationsUtils.getLevelById(id)
+                        level: InstallationsUtils.getLevelById(id),
+                        category: Erc1155Categories.Realm,
+                        rarity: InstallationsUtils.getRarityById(id)
                     };
                 });
 
@@ -346,10 +349,11 @@ export const ClientContextProvider = (props: any) => {
                     const id: any = EthersApi.formatBigNumber(item.tileId._hex);
 
                     return {
-                        type: 'tile',
                         name: TilesUtils.getNameById(id),
                         balance: EthersApi.formatBigNumber(item.balance._hex),
-                        id: id
+                        id: id,
+                        rarity: 'golden',
+                        category: Erc1155Categories.Tile
                     };
                 });
 

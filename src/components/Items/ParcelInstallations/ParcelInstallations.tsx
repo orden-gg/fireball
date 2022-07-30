@@ -2,12 +2,12 @@ import { Skeleton } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { InstallationTypeNames } from 'shared/constants';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
 import { InstallationsUtils } from 'utils';
 
-import { InstallationImage } from '../Installation/InstallationImage';
 import { styles } from './styles';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { CardImage } from 'components/ItemCard/components';
 
 // const dataFormat = {
 //     days: { key: 'dd', value: 'd', shownIfZero: false },
@@ -54,60 +54,56 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                 const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
                 return (
-                    <div
-                        className={classes.installation}
-                        style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+                    <CustomTooltip
+                        title={
+                            <div>
+                                <div className={classes.inner}>
+                                    {metadata.type}: <span>{metadata.name}</span>
+                                </div>
+
+                                { !isDecoration && (
+                                    <div className={classes.row}>
+                                        <div className={classes.inner}>
+                                            lvl: <span>{metadata.level}</span>
+                                        </div>
+                                        <div className={classes.inner}>
+                                            cd: <span>{metadata.cooldown}h</span>
+                                        </div>
+                                        <div className={classes.inner}>
+                                            rate: <span>{100 - (metadata.spillRate / 100)}%</span>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        }
+                        placement='top'
+                        arrow={true}
                         key={index}
                     >
-                        <div className={classes.installationLevel}>
-                            {metadata.level}
-                        </div>
-
-                        <CustomTooltip
-                            title={
-                                <div>
-                                    <div className={classes.inner}>
-                                        {metadata.type}: <span>{metadata.name}</span>
-                                    </div>
-
-                                    { !isDecoration && (
-                                        <div className={classes.row}>
-                                            <div className={classes.inner}>
-                                                lvl: <span>{metadata.level}</span>
-                                            </div>
-                                            <div className={classes.inner}>
-                                                cd: <span>{metadata.cooldown}h</span>
-                                            </div>
-                                            <div className={classes.inner}>
-                                                rate: <span>{100 - (metadata.spillRate / 100)}%</span>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            }
-                            placement='top'
-                            arrow={true}
+                        <div
+                            className={classes.installation}
+                            style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
                         >
-                            <div className={classes.installationImage}>
-                                <InstallationImage id={installation.id} />
+                            <div className={classes.installationLevel}>
+                                {metadata.level}
                             </div>
-                        </CustomTooltip>
+                            <CardImage id={installation.id} category={Erc1155Categories.Realm} className={classes.installationImage} />
+                        </div>
+                    </CustomTooltip>
 
+                    /* { parcel.upgrading && (
+                        <div className={classes.upgrade}>
+                            <span>upg:</span>
 
-                        {/* { parcel.upgrading && (
-                            <div className={classes.upgrade}>
-                                <span>upg:</span>
-
-                                <div className={classes.countdown}>
-                                    <Countdown
-                                        targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
-                                        shortFormat={dataFormat}
-                                        replacementComponent={<span className={classes.ready}>Ready!</span>}
-                                    />
-                                </div>
+                            <div className={classes.countdown}>
+                                <Countdown
+                                    targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
+                                    shortFormat={dataFormat}
+                                    replacementComponent={<span className={classes.ready}>Ready!</span>}
+                                />
                             </div>
-                        )} */}
-                    </div>
+                        </div>
+                    )} */
                 );
             })}
         </div>

@@ -2,8 +2,10 @@ import { useCallback, useContext } from 'react';
 
 import classNames from 'classnames';
 
-import { Installation } from 'components/Items/Installation/Installation';
-import { Tile } from 'components/Items/Tile.js/Tile';
+import { Erc1155Categories } from 'shared/constants';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
+import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
 import { CraftContext } from '../CraftContext';
 
@@ -11,6 +13,8 @@ import { itemStyles } from '../styles';
 
 export function CraftItem({ data }: { data: any }) {
     const classes = itemStyles();
+
+    const category: string = data.category === 'tile' ? Erc1155Categories.Tile : Erc1155Categories.Realm;
 
     const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
 
@@ -36,10 +40,14 @@ export function CraftItem({ data }: { data: any }) {
             }
             onClick={handleItemClick}
         >
-            <div className={classes.itemHeader}>
-                <div className={classes.type}>{data.type}</div>
-            </div>
-            {data.category === 'tile' ? <Tile tile={data} showPrice={true} /> : <Installation installation={data} showPrice={true} />}
+            <ItemCard type='golden' id={data.id} category={category}>
+                <CardGroup name='body'>
+                    <CardSlot>{data.type}</CardSlot>
+                    <CardImage id={data.id} category={category} />
+                    <CardName className={classes.itemName} id={data.id} />
+                    <AlchemicaPrice alchemica={data.alchemicaCost} />
+                </CardGroup>
+            </ItemCard>
         </div>
     );
 }

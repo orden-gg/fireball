@@ -186,6 +186,11 @@ export const baazaarSortingBodyStyles = makeStyles(() => createStyles({
             maxWidth: 850
         }
     },
+    horizontalImage: {
+        '$baazaarListItem &': {
+            margin: 'auto'
+        }
+    },
     pagination: {
         display: 'flex',
         alignContent: 'center',

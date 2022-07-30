@@ -1,17 +1,28 @@
 import { useContext } from 'react';
-import classNames from 'classnames';
-import { Typography } from '@mui/material';
+import { CallMade } from '@mui/icons-material';
+import { Link, Typography } from '@mui/material';
 
-import { ListingTypes } from 'shared/constants';
+import classNames from 'classnames';
+
+import { Erc1155Categories, ListingTypes } from 'shared/constants';
+import { ItemCard, ItemCardHorizontal } from 'components/ItemCard/containers';
+import {
+    CardBalance,
+    CardImage,
+    CardGroup,
+    CardListing,
+    CardName,
+    CardPortalImage,
+    CardSlot,
+    CardStats,
+    CardTotalPrice
+} from 'components/ItemCard/components';
 import { GotchiHorizontal } from 'components/Gotchi/GotchiHorizontal';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import { Portal } from 'components/Items/Portal/Portal';
-import { PortalHorizontal } from 'components/Items/Portal/PortalHorizontal';
-import { Ticket } from 'components/Items/Ticket/Ticket';
-import { TicketHorizontal } from 'components/Items/Ticket/TicketHorizontal';
-import { Wearable } from 'components/Items/Wearable/Wearable';
-import { WearableHorizontal } from 'components/Items/Wearable/WearableHorizontal';
+import { HorizontalLink } from 'components/Items/common/HorizontalLink/HorizontalLink';
+import { HorizontalPrice } from 'components/Items/common/HorizontalPrice/HorizontalPrice';
 import { BaazaarContext } from 'contexts/BaazaarContext';
+import { ItemUtils } from 'utils';
 
 import { Pagination } from './Pagination';
 import { Aavegotchi } from './BaazaarSidebar/components/ItemTypes/Aavegotchi';
@@ -79,68 +90,59 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
-                                        <WearableHorizontal
-                                            wearable={item}
-                                            render={
-                                                [
-                                                    {
-                                                        imageCell: ['image', 'name']
-                                                    },
-                                                    {
-                                                        statsCell: ['cardName', 'cardStats']
-                                                    },
-                                                    {
-                                                        priceCell: ['price']
-                                                    }
-                                                ]
-                                            }
-                                        />
+                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                            <CardGroup name='imageCell'>
+                                                <CardImage id={item.erc1155TypeId} className={classes.horizontalImage} />
+                                                <HorizontalLink item={item} url={'https://aavegotchi.com/baazaar/erc1155/'} />
+                                            </CardGroup>
+                                            <CardGroup name='statsCell'>
+                                                <CardName id={item.erc1155TypeId} />
+                                                <CardStats id={item.erc1155TypeId} category={item.category} />
+                                            </CardGroup>
+                                            <CardGroup name='priceCell'>
+                                                <HorizontalPrice label='Sold for ' item={item} />
+                                            </CardGroup>
+                                        </ItemCardHorizontal>
                                     )
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && (
-                                        <PortalHorizontal
-                                            portal={item}
-                                            render={
-                                                [
-                                                    {
-                                                        imageCell: ['image', 'name']
-                                                    },
-                                                    {
-                                                        infoCell: ['cardName', 'cardStats']
-                                                    },
-                                                    {
-                                                        priceCell: ['price']
-                                                    }
-                                                ]
-                                            }
-                                        />
+                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                            <CardGroup name='imageCell'>
+                                            <CardPortalImage category={item.category} hauntId={item.portal.hauntId} className={classes.horizontalImage} />
+                                                <HorizontalLink item={item} url={'https://aavegotchi.com/baazaar/erc1155/'} />
+                                            </CardGroup>
+                                            <CardGroup name='statsCell'>
+                                                <CardName>{`Portal ${item.tokenId}`}</CardName>
+                                                <span>Haunt: {item.portal.hauntId}</span>
+                                            </CardGroup>
+                                            <CardGroup name='priceCell'>
+                                                <HorizontalPrice label='Sold for ' item={item} />
+                                            </CardGroup>
+                                        </ItemCardHorizontal>
                                     )
                                 }
 
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && (
-                                        <TicketHorizontal
-                                            ticket={item}
-                                            render={
-                                                [
-                                                    {
-                                                        imageCell: ['image', 'name']
-                                                    },
-                                                    {
-                                                        infoCell: ['cardName', 'cardStats']
-                                                    },
-                                                    {
-                                                        priceCell: ['price']
-                                                    }
-                                                ]
-                                            }
-                                        />
+                                        <ItemCardHorizontal type={ItemUtils.getItemRarityName(item.erc1155TypeId)} category={item.category} id={item.erc1155TypeId}>
+                                            <CardGroup name='imageCell'>
+                                                <CardImage id={item.erc1155TypeId} category={Erc1155Categories.Ticket} className={classes.horizontalImage} />
+                                                <HorizontalLink item={item} url={'https://aavegotchi.com/baazaar/erc1155/'} />
+                                            </CardGroup>
+                                            <CardGroup name='statsCell'>
+                                                <CardName>{`${ItemUtils.getItemRarityName(item.erc1155TypeId)} ticket`}</CardName>
+                                                <span>Quantity: {item.quantity}</span>
+                                            </CardGroup>
+                                            <CardGroup name='priceCell'>
+                                                <HorizontalPrice label='Sold for ' item={item} />
+                                            </CardGroup>
+                                        </ItemCardHorizontal>
                                     )
                                 }
-                                {/*{*/}
-                                {/*    (item.__typename === 'ERC721Listing' && item.category === '4') && <Parcel parcel={{...item.parcel, priceInWei: item.priceInWei, tokenId: item.tokenId, baazaarId: item.id}} isBaazaarCard={true}/>*/}
-                                {/*}*/}
+                                {
+                                //    (item.__typename === 'ERC721Listing' && item.category === '4') && <Parcel parcel={{...item.parcel, priceInWei: item.priceInWei, tokenId: item.tokenId, baazaarId: item.id}} />
+                                }
                             </div>;
                         } else {
                             return <div key={index} className={classes.baazaarListItem}>
@@ -148,13 +150,67 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                     (selectedGoodsType === ListingTypes.Aavegotchi && item.gotchi) && <Aavegotchi item={item}/>
                                 }
                                 {
-                                    (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && <Portal portal={item} />
+                                    (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && (
+                                        <ItemCard type={`haunt${item.portal.hauntId}`} id={item.id} category={item.category}>
+                                            <CardGroup name='body'>
+                                                <CardSlot>{`Haunt ${item.portal.hauntId}`}</CardSlot>
+                                                <CardPortalImage category={item.category} hauntId={item.portal.hauntId} />
+                                                <CardName>
+                                                    <Link
+                                                        href={
+                                                            `https://app.aavegotchi.com/portal/${item.tokenId}`
+                                                        }
+                                                        target='_blank'
+                                                    >
+                                                        {`Portal ${item.tokenId}`}
+                                                        <CallMade fontSize={'inherit'} />
+                                                    </Link>
+                                                </CardName>
+                                            </CardGroup>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
-                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && <Wearable wearable={item} />
+                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
+                                        <ItemCard id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                            <CardGroup name='header'>
+                                                <CardTotalPrice
+                                                    balance={item.quantity}
+                                                    priceInWei={item.priceInWei}
+                                                />
+                                                <CardBalance balance={item.quantity} holders={item.holders} />
+                                            </CardGroup>
+                                            <CardGroup name='body'>
+                                                <CardSlot id={item.erc1155TypeId} />
+                                                <CardImage id={item.erc1155TypeId} />
+                                                <CardName id={item.erc1155TypeId} />
+                                                <CardStats id={item.erc1155TypeId} category={item.category} />
+                                            </CardGroup>
+                                            <CardGroup name='footer'>
+                                                <CardListing />
+                                            </CardGroup>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
-                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && <Ticket ticket={item} />
+                                    ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && item.category === '3') && (
+                                        <ItemCard type={ItemUtils.getItemRarityName(item.erc1155TypeId)} category={item.category} id={item.erc1155TypeId}>
+                                            <CardGroup name='header'>
+                                                <CardTotalPrice
+                                                    balance={item.quantity}
+                                                    priceInWei={item.priceInWei}
+                                                />
+                                                <CardBalance balance={item.quantity} />
+                                            </CardGroup>
+                                            <CardGroup name='body'>
+                                                <CardImage id={item.erc1155TypeId} category={item.category} />
+                                                <CardName>{item.name}</CardName>
+                                            </CardGroup>
+                                            <CardGroup name='footer'>
+                                                <CardListing />
+                                            </CardGroup>
+                                        </ItemCard>
+                                    )
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && item.category === '4') &&

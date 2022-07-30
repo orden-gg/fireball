@@ -1,20 +1,16 @@
-import { Tooltip } from '@mui/material';
-
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GraphUtils } from 'utils';
-
-import { CustomTooltipStyles } from '../styles';
 
 import { styles } from './styles';
 
 export function GotchiCollateral({ gotchi }: { gotchi: any }) {
-    const classes = { ...CustomTooltipStyles(), ...styles() };
+    const classes = styles();
 
     const collateral: string = GraphUtils.getCollateralName(gotchi.collateral);
 
     return (
-        <Tooltip
+        <CustomTooltip
             title={collateral}
-            classes={{ tooltip: classes.customTooltip }}
             enterTouchDelay={0}
             placement='top'
             followCursor
@@ -26,6 +22,6 @@ export function GotchiCollateral({ gotchi }: { gotchi: any }) {
                     alt={collateral}
                 />
             </div>
-        </Tooltip>
+        </CustomTooltip>
     );
 }

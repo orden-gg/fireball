@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Tooltip } from '@mui/material';
 
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { MainApi } from 'api';
-
-import { CustomTooltipStyles } from '../styles';
 
 import { styles } from './styles';
 
 export function GotchiSkillPoints({ id, usedPoints }: { id: string, usedPoints: string }) {
-    const classes = { ...styles(), ...CustomTooltipStyles() };
+    const classes = styles();
 
     const [loadingPoints, setLoadingPoints] = useState<boolean>(true);
     const [availablePoints, setAvailablePoints] = useState<number>(0);
@@ -34,13 +32,12 @@ export function GotchiSkillPoints({ id, usedPoints }: { id: string, usedPoints: 
     return (
         <>
             {!loadingPoints ? (
-                <Tooltip
+                <CustomTooltip
                     title={
                         <React.Fragment>
                             <p>available<span>/</span>used <span>skillpoints</span></p>
                         </React.Fragment>
                     }
-                    classes={{ tooltip: classes.customTooltip }}
                     enterTouchDelay={0}
                     placement='top'
                     followCursor
@@ -52,7 +49,7 @@ export function GotchiSkillPoints({ id, usedPoints }: { id: string, usedPoints: 
                         /
                         <span>{usedPoints}</span>
                     </div>
-                </Tooltip>
+                </CustomTooltip>
             ) : (
                 <div className={classes.skillpoints}>
                     <span>...</span>

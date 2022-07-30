@@ -18,12 +18,11 @@ export const styles = makeStyles((theme) => createStyles({
         margin: theme.spacing(0, 1, 1, 0)
     },
     installationImage: {
-        height: '100%',
-        background: alpha('#000', .2),
-        borderRadius: 4,
-        overflow: 'hidden',
-        '& > div': {
-            paddingBottom: '100%',
+        '$installation &': {
+            height: '100%',
+            width: '100%',
+            background: alpha('#000', .2),
+            borderRadius: 4,
             margin: 0
         }
     },

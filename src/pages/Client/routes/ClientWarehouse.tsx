@@ -6,11 +6,12 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice } from 'components/ItemCard/components';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { Wearable } from 'components/Items/Wearable/Wearable';
 import { ClientContext } from 'contexts/ClientContext';
 import { CommonUtils } from 'utils';
 
@@ -45,6 +46,8 @@ export function ClientWarehouse() {
         loadingGotchis,
         loadingWarehouse
     } = useContext<any>(ClientContext);
+
+
 
     useEffect(() => {
         const { sort, dir } = queryParams as CustomParsedQuery;
@@ -98,7 +101,26 @@ export function ClientWarehouse() {
             <ContentInner dataLoading={loadingWarehouse || loadingGotchis}>
                 <ItemsLazy
                     items={warehouse}
-                    component={(props) => <Wearable wearable={props} />}
+                    component={(wearable: any) =>
+                        <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
+                            <CardGroup name='header'>
+                                <CardTotalPrice
+                                    balance={wearable.balance}
+                                    priceInWei={wearable.priceInWei}
+                                />
+                                <CardBalance balance={wearable.balance} holders={wearable.holders} />
+                            </CardGroup>
+                            <CardGroup name='body'>
+                                <CardSlot id={wearable.id} />
+                                <CardImage id={wearable.id} />
+                                <CardName id={wearable.id} />
+                                <CardStats id={wearable.id} category={wearable.category} />
+                            </CardGroup>
+                            <CardGroup name='footer'>
+                                <CardListing />
+                            </CardGroup>
+                        </ItemCard>
+                    }
                 />
             </ContentInner>
         </>

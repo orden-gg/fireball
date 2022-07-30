@@ -1,5 +1,4 @@
 import { createStyles, makeStyles } from '@mui/styles';
-import { alpha } from '@mui/system';
 
 export const styles = makeStyles(theme => createStyles({
     container: {
@@ -202,22 +201,14 @@ export const itemStyles = makeStyles(theme => createStyles({
         cursor: 'default',
         opacity: .7
     },
+    itemName: {
+        '.craft-item &': {
+            overflow: 'visible',
+            whiteSpace: 'pre-wrap'
+        }
+    },
     selected: {
         borderColor: theme.palette.primary.light
-    },
-    itemHeader: {
-        position: 'absolute',
-        right: 0,
-        left: 0,
-        top: 0,
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
-    type: {
-        padding: theme.spacing(0, .5),
-        backgroundColor: alpha('#000', .4),
-        fontWeight: 500,
-        color: theme.palette.rarity.golden
     }
 }));
 

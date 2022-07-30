@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 
-import { Installation } from 'components/Items/Installation/Installation';
-import { Tile } from 'components/Items/Tile.js/Tile';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice } from 'components/ItemCard/components';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function ClientInstallations() {
@@ -19,13 +19,24 @@ export function ClientInstallations() {
             <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={182}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
-                    component={(props: any) => {
-                        if (props.type === 'tile') {
-                            return <Tile tile={props} />;
-                        } else {
-                            return <Installation installation={props} />;
-                        }
-                    }}
+                    component={(installation: any) =>
+                        <ItemCard id={installation.id} category={installation.category} type={installation.rarity || 'drop'}>
+                            <CardGroup name='header'>
+                                <CardTotalPrice
+                                    balance={installation.balance}
+                                    priceInWei={installation.priceInWei}
+                                />
+                                <CardBalance balance={installation.balance} />
+                            </CardGroup>
+                            <CardGroup name='body'>
+                                <CardImage id={installation.id} category={installation.category} />
+                                <CardName>{installation.name}</CardName>
+                            </CardGroup>
+                            <CardGroup name='footer'>
+                                <CardListing />
+                            </CardGroup>
+                        </ItemCard>
+                    }
                 />
             </ContentInner>
         </>

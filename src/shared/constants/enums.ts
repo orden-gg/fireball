@@ -103,9 +103,11 @@ export enum CountdownFormatZeroType {
 export enum RarityTypes {
     Godlike = 'godlike',
     Mythical = 'mythical',
+    Legendary = 'legendary',
     Rare = 'rare',
     Uncommon = 'uncommon',
-    Common = 'common'
+    Common = 'common',
+    Drop = 'drop'
 }
 
 export enum DataReloadType {
@@ -113,4 +115,9 @@ export enum DataReloadType {
     Lend = 'lend',
     Map = 'map',
     Explorer = 'explorer'
+}
+
+export enum HauntIds {
+    Haunt1 = '1',
+    Haunt2 = '2'
 }

@@ -1,7 +1,7 @@
-import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
+import { InstallationTypeNames, InstallationTypes, RarityTypes } from 'shared/constants';
+import { InstallationItem } from 'shared/models';
 import installations from 'data/installations.data.json';
 
-import { InstallationItem } from 'shared/models';
 
 export class InstallationsUtils {
     public static getMetadataById(id: any): InstallationItem {
@@ -106,5 +106,16 @@ export class InstallationsUtils {
 
     public static getDeprecatedById(id: any): any {
         return installations[id][InstallationTypes.Deprecated];
+    }
+
+    public static getRarityById(id: number): string {
+        const name: string = InstallationsUtils.getNameById(id).split(' ')[0].toLowerCase();
+        const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
+
+        if (isRarity) {
+            return name;
+        } else {
+            return 'golden';
+        }
     }
 }
