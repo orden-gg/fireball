@@ -265,14 +265,13 @@ export function ClientLendings() {
                                             className: 'gotchiFlipBack',
                                             items: [
                                                 'traits',
-                                                'channeling',
                                                 'wearablesLine',
                                                 'listing'
                                             ]
                                         },
                                         {
                                             className: 'gotchiFlipFront',
-                                            items: ['lendingStats']
+                                            items: ['lendingStats', 'channeling']
                                         }
                                     ]
                                 },

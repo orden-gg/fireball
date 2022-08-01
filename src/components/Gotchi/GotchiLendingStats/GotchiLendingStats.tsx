@@ -92,7 +92,7 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                 </div>
             </div>
 
-            <div className={classNames(classes.section, classes.tokensStats)}>
+            {/* <div className={classNames(classes.section, classes.tokensStats)}>
                 <div className={classNames(classes.inner, classes.income)}>
                     <CustomTooltip
                         title={
@@ -131,7 +131,7 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                         );
                     })}
                 </div>
-            )}
+            )} */}
 
             <div className={classNames(classes.section, classes.bottom)}>
                 <div className={classes.inner}>
