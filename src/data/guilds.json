@@ -871,7 +871,9 @@
           "0x8628d73d3f950abde99739ef34b6cfa10394f579",
           "0x4edb4161d16c89b71aec027930a943c3d4cf0777",
           "0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138",
-          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8"
+          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8",
+          "0x1052aFD68DaDd4165dC300836F65656C6ED574Ac",
+          "0xf0ecf448c3817bd9bfc2d0d0dc41ef568367506b"
         ],
         "description": [
             { "title": "Description", "text": "District 7 degens who work and chill together." },
@@ -879,7 +881,7 @@
             { "title": "Point of Contact", "text": "FuzzCuzz#6071 | Dunc Idaho#8289" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.gg/k4wumxSK" }
+        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.com/invite/F4DXSCctNW" }
     },
     {
         "name": "Hodler Sqvad",
