@@ -150,17 +150,14 @@
             "0x2bD7716Ce2c43B9c0D58982F5BAC67633bf2E7dC",
             "0x122f08C08432983277F5c1e750a481cddAbFD708",
             "0x6f48134d8BDEB954aD97525Cf0ADB9Ad446260B1",
-            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777"
+            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777",
+            "0x8B200F4c81c54d9014B4cDA3F16501069FA20Ab9"
         ],
         "description": [
-            { "title": "Description", "text": "OG Aair Gotchi Guild. Ballers and Scholars only." },
+            { "title": "Description", "text": "GOTCHI JAM! HEADQUARTERS" },
             {
-                "title": "Baller Requirements",
-                "text": "At least 1 Aavegotchi with full Aair Gotchi wearable set; join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and submit wallet 0x address holding Aair Gotchi in the #baller-roster channel."
-            },
-            {
-                "title": "Scholar Requirements",
-                "text": "Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]"
+                "title": "Requirement",
+                "text": "Join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and say hello!."
             },
             { "title": "Point of Contact", "text": "humbledbagger#1337" }
         ],
