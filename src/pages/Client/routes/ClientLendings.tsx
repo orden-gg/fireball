@@ -78,10 +78,9 @@ const sortings: SortingListItem[] = [
 
 const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
-    collateral: { ...filtersData.collateral, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
     const navigate = useNavigate();
