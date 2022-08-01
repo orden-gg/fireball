@@ -28,7 +28,7 @@ export const ClientContextProvider = (props: any) => {
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
 
     const [lendings, setLendings] = useState<any[]>([]);
-    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'totalTokens', dir: 'desc' });
+    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'kinship', dir: 'desc' });
     const [loadingLendings, setLoadingLendings] = useState<boolean>(true);
 
     const [borrowed, setBorrowed] = useState<any[]>([]);

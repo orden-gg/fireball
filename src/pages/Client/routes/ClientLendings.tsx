@@ -2,13 +2,12 @@ import { useContext, useCallback, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimerIcon from '@mui/icons-material/Timer';
-import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
+import { GotchiIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
@@ -38,42 +37,43 @@ const sortings: SortingListItem[] = [
         paramKey: 'income',
         tooltip: 'alchemica power',
         icon: <LocalFireDepartmentIcon fontSize='small' />
-    },
-    {
-        name: 'total',
-        key: 'totalTokens',
-        paramKey: 'total',
-        tooltip: 'total alchemica',
-        icon: <GroupWorkIcon fontSize='small' />
-    },
-    {
-        name: 'fud',
-        key: 'fud',
-        paramKey: 'fud',
-        tooltip: 'fud',
-        icon: <FudTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'fomo',
-        key: 'fomo',
-        paramKey: 'fomo',
-        tooltip: 'fomo',
-        icon: <FomoTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'alpha',
-        key: 'alpha',
-        paramKey: 'alpha',
-        tooltip: 'alpha',
-        icon: <AlphaTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'kek',
-        key: 'kek',
-        paramKey: 'kek',
-        tooltip: 'kek',
-        icon: <KekTokenIcon height={18} width={18} />
     }
+    // TODO that code will be reused in the future, but if you see this please check with @dudendy if it's still needed :)
+    // {
+    //     name: 'total',
+    //     key: 'totalTokens',
+    //     paramKey: 'total',
+    //     tooltip: 'total alchemica',
+    //     icon: <GroupWorkIcon fontSize='small' />
+    // },
+    // {
+    //     name: 'fud',
+    //     key: 'fud',
+    //     paramKey: 'fud',
+    //     tooltip: 'fud',
+    //     icon: <FudTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'fomo',
+    //     key: 'fomo',
+    //     paramKey: 'fomo',
+    //     tooltip: 'fomo',
+    //     icon: <FomoTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'alpha',
+    //     key: 'alpha',
+    //     paramKey: 'alpha',
+    //     tooltip: 'alpha',
+    //     icon: <AlphaTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'kek',
+    //     key: 'kek',
+    //     paramKey: 'kek',
+    //     tooltip: 'kek',
+    //     icon: <KekTokenIcon height={18} width={18} />
+    // }
 ];
 
 const initialFilters: any = {
