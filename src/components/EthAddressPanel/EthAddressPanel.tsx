@@ -11,7 +11,7 @@ export function EthAddressPanel({ address }: { address: string }) {
             <div className={classes.title}>
                 <EthAddress
                     address={address}
-                    isShwoIcon={true}
+                    isShowIcon={true}
                     isCopyButton={true}
                     isPolygonButton={true}
                 />

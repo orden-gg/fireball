@@ -57,7 +57,7 @@ export function SalesHistory({ id, category }: SalesHistoryProps) {
                             <div>
                                 <EthAddress
                                     address={item.seller}
-                                    isShwoIcon={true}
+                                    isShowIcon={true}
                                     isClientLink={true}
                                     isPolygonButton={true}
                                     isCopyButton={true}
@@ -66,7 +66,7 @@ export function SalesHistory({ id, category }: SalesHistoryProps) {
                             <div>
                                 <EthAddress
                                     address={item.buyer}
-                                    isShwoIcon={true}
+                                    isShowIcon={true}
                                     isClientLink={true}
                                     isPolygonButton={true}
                                     isCopyButton={true}
