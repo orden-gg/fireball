@@ -15,7 +15,7 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import { FilterUtils } from 'utils';
+import { CommonUtils, FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
     {
@@ -78,9 +78,10 @@ const sortings: SortingListItem[] = [
 
 const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
+    whitelistId: { ...filtersData.whitelistId, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'whitelistId', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
     const navigate = useNavigate();
@@ -114,6 +115,42 @@ export function ClientLendings() {
             onResetFilters();
         };
     }, []);
+
+    useEffect(() => {
+        if (lendings.length > 0) {
+            const whitelistData: string[] = [];
+
+            for (let i = 0; i < lendings.length; i++) {
+                whitelistData.push(lendings[i].whitelistId);
+            }
+
+            const sortedWhitelist: string[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+
+            setCurrentFilters((currentFiltersCache: any) => {
+                const currentFiltersCacheCopy = { ...currentFiltersCache };
+
+                currentFiltersCacheCopy.whitelistId = {
+                    ...currentFiltersCacheCopy.whitelistId,
+                    items: sortedWhitelist.map((whitelist: string) => ({
+                        title: whitelist,
+                        value: whitelist,
+                        queryParamValue: whitelist,
+                        isSelected: false
+                    }))
+                };
+
+                let filtersToReturn: any;
+
+                if (Object.keys(queryParams).length > 0) {
+                    filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                } else {
+                    filtersToReturn = currentFiltersCacheCopy;
+                }
+
+                return filtersToReturn;
+            });
+        }
+    }, [lendings]);
 
     useEffect(() => {
         FilterUtils.onFiltersUpdate(
@@ -213,6 +250,10 @@ export function ClientLendings() {
                                         {
                                             className: 'rsContainer',
                                             items: ['rs']
+                                        },
+                                        {
+                                            className: 'imageFooter',
+                                            items: ['whitelistId']
                                         }
                                     ]
                                 },
