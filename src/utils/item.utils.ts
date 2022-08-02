@@ -9,7 +9,7 @@ export class ItemUtils {
     }
 
     public static getItemRarityById(id: any): string {
-        return items[id]?.rarity || RarityTypes.Common;
+        return items[id]?.rarity || '';
     }
 
     public static getItemTypeById(id: any): any {
