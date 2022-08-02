@@ -941,5 +941,24 @@
             "twitter": "https://twitter.com/doubletop_io",
             "telegram": "https://t.me/doubletop_chat"
         }
+    },{
+        "name": "Tec Viva",
+        "logo": "tecviva.png",
+        "members": [],
+        "description": [
+            {
+                "title": "Description",
+                "text": "placeholder"
+            },
+            {
+                "title": "Description 2",
+                "text": "placeholder"
+            }
+        ],
+        "banner": "tecviva-banner.png",
+        "socials": {
+            "twitter": "",
+            "telegram": ""
+        }
     }
 ]
