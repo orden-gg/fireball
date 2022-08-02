@@ -1,17 +1,10 @@
 import TimerIcon from '@mui/icons-material/Timer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import GroupWorkIcon from '@mui/icons-material/GroupWork';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardControlKeyIcon from '@mui/icons-material/KeyboardControlKey';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { DAY_MILLIS, HALF_DAY_MILLIS } from 'shared/constants';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { ShineLabel } from 'components/Labels/ShineLabel';
-import { CommonUtils, GraphUtils } from 'utils';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 
 import { styles } from './styles';
 
@@ -22,34 +15,6 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
         @const timeDiff - seconds
      */
     const timeDiff: number = DateTime.local().toSeconds() - gotchi.endTime;
-    /**
-        @const lastClaimed - milliseconds
-     */
-    const lastClaimed: number = parseInt(gotchi.lastClaimed) > 0 ? parseInt(gotchi.lastClaimed) : 0;
-
-    /**
-     * @param lastActivity - milliseconds
-    */
-    const renderActivity = (lastActivity: number) => {
-        return (
-            DateTime.local().toMillis() - lastActivity > DAY_MILLIS ? (
-                <KeyboardDoubleArrowDownIcon
-                    className={classes.activityBad}
-                    fontSize='small'
-                />
-            ) : DateTime.local().toMillis() - lastActivity > HALF_DAY_MILLIS ? (
-                <KeyboardControlKeyIcon
-                    className={classes.activityModerate}
-                    fontSize='small'
-                />
-            ) : (
-                <KeyboardDoubleArrowUpIcon
-                    className={classes.activityTop}
-                    fontSize='small'
-                />
-            )
-        );
-    };
 
     return (
         <div>
@@ -92,7 +57,8 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                 </div>
             </div>
 
-            <div className={classNames(classes.section, classes.tokensStats)}>
+            {/* // TODO that code will be reused in the future, but if you see this please check with @dudendy if it's still needed :)
+                <div className={classNames(classes.section, classes.tokensStats)}>
                 <div className={classNames(classes.inner, classes.income)}>
                     <CustomTooltip
                         title={
@@ -131,27 +97,17 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                         );
                     })}
                 </div>
-            )}
+            )} */}
 
             <div className={classNames(classes.section, classes.bottom)}>
                 <div className={classes.inner}>
-                    <ShineLabel text={CommonUtils.cutAddress(gotchi.borrower, '..')} />
-                </div>
-
-                <div className={classes.inner}>
-                    <CustomTooltip
-                        title={
-                            <span>
-                                last claimed: <span className='highlight'>{lastClaimed > 0 ? DateTime.fromSeconds(lastClaimed).toRelative() : 'never'}</span>
-                            </span>
-                        }
-                        placement='top'
-                        followCursor
-                    >
-                        <div className={classNames(classes.inner, classes.activity)}>
-                            {renderActivity(lastClaimed)}
-                        </div>
-                    </CustomTooltip>
+                    <EthAddress
+                        address={gotchi.borrower}
+                        isShowIcon={true}
+                        isClientLink={true}
+                        isCopyButton={true}
+                        isPolygonButton={true}
+                    />
                 </div>
             </div>
         </div>

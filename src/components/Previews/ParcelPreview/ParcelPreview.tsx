@@ -39,7 +39,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
                             <EthAddress
                                 address={parcel.owner?.id}
-                                isShwoIcon={true}
+                                isShowIcon={true}
                                 isClientLink={true}
                                 isPolygonButton={true}
                                 isCopyButton={true}
