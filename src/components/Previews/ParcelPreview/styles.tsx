@@ -75,10 +75,6 @@ export const styles = makeStyles(theme => createStyles({
             marginRight: 8
         }
     },
-    sales: {
-        textAlign: 'center',
-        marginTop: 12
-    },
     salesTitle: {
         fontWeight: 500,
         fontSize: 20,
