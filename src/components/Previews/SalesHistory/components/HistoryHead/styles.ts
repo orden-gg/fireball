@@ -1,4 +1,3 @@
-import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const historyHeadStyles = makeStyles(theme => createStyles({

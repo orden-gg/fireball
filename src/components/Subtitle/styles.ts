@@ -1,5 +1,4 @@
 
-import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
@@ -14,7 +13,7 @@ export const styles = makeStyles(theme => createStyles({
             right: 0,
             height: 2,
             background: theme.palette.primary.main
-        },
+        }
     },
     subtitleInner: {
         '&::before, &::after': {
@@ -25,7 +24,7 @@ export const styles = makeStyles(theme => createStyles({
             height: 10,
             transform: 'rotate(-45deg)',
             transformOrigin: '0',
-            border: `2px solid ${theme.palette.primary.main}`,
+            border: `2px solid ${theme.palette.primary.main}`
         },
         '&::before': {
             borderTop: 'none',
@@ -41,6 +40,6 @@ export const styles = makeStyles(theme => createStyles({
     subtitleText: {
         position: 'relative',
         display: 'inline-block',
-        padding: '4px 16px',
+        padding: '4px 16px'
     }
 }));

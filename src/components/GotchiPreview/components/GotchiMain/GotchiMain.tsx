@@ -21,7 +21,7 @@ interface GotchiMainProps {
 }
 
 export function GotchiMain({ gotchi, className }: GotchiMainProps) {
-    const classes = {...gotchiMainStyles(), ...gotchiPreviewStyles()};
+    const classes = { ...gotchiMainStyles(), ...gotchiPreviewStyles() };
 
     const [view, setView] = useState<{ id: number, name: string}>({
         id: 0,
@@ -29,20 +29,21 @@ export function GotchiMain({ gotchi, className }: GotchiMainProps) {
     });
 
     const changeView = (id: number): void => {
+        const maxSideIndex: number = GOTCHI_SIDES.length - 1;
+
         let sideId: number = id;
-        let maxSideIndex: number = GOTCHI_SIDES.length - 1;
 
         if (id > maxSideIndex) {
             sideId = 0;
         } else if (id < 0) {
             sideId = maxSideIndex;
-        };
+        }
 
         setView({
             id: sideId,
             name: GOTCHI_SIDES[sideId]
         });
-    }
+    };
 
     return (
         <div className={classNames(classes.gotchiMain, className)}>

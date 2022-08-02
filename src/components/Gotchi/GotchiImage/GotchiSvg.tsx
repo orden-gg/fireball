@@ -49,7 +49,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
                 console.log(error);
             });
 
-        return () => { mounted = false } // cleanup on destroy
+        return () => { mounted = false };
     }, [id]);
 
     const createSvg = (svg: any): string => {
@@ -67,7 +67,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
     return (
         <div className={classes.svgWrapper} style={{ width: size }}>
             {!loadingSvg ? (
-                <div className={classNames(`gotchi-${id}`)} dangerouslySetInnerHTML={{__html: svgs[view]}}></div>
+                <div className={classNames(`gotchi-${id}`)} dangerouslySetInnerHTML={{ __html: svgs[view] }}></div>
             ) : (
                 <GotchiLoadingGif width='100%' />
             )}

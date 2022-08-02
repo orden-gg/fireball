@@ -14,5 +14,5 @@ export function HistoryRow({ children, className }: HistoryRowProps) {
 
     return <div className={classNames(classes.row, className)}>
         {children}
-    </div>
+    </div>;
 }

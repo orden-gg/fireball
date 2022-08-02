@@ -14,5 +14,5 @@ export function HistoryHead({ children, className }: HistoryHeadProps) {
 
     return <div className={classNames(classes.head, className)}>
         {children}
-    </div>
+    </div>;
 }

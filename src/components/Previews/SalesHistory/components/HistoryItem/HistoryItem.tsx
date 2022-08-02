@@ -12,5 +12,5 @@ interface HistoryItemProps {
 export function HistoryItem({ children, className }: HistoryItemProps) {
     const classes = historyItemStyles();
 
-    return <div className={classNames(classes.item, className)}>{children}</div>
+    return <div className={classNames(classes.item, className)}>{children}</div>;
 }

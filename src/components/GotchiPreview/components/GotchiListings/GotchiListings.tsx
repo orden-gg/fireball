@@ -22,7 +22,7 @@ interface GotchiListingsProps {
 }
 
 export function GotchiListings({ salesHistory, historyLoaded, className }: GotchiListingsProps) {
-    const classes = {...gotchiListingsStyles(), ...gotchiPreviewStyles()};
+    const classes = { ...gotchiListingsStyles(), ...gotchiPreviewStyles() };
 
     const convertTime = (time: string): string => {
         return DateTime.fromSeconds(parseInt(time)).toRelative() as string;
@@ -37,7 +37,7 @@ export function GotchiListings({ salesHistory, historyLoaded, className }: Gotch
 
                 return <ItemCard type={rarity} className={classes.wearable} key={index}>
                     <CardImage className={classes.image} category={Erc1155Categories.Wearable} id={id} />
-                </ItemCard>
+                </ItemCard>;
             })
         ) : (
             <>No wearables</>

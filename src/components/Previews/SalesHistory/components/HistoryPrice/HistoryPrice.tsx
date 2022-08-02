@@ -17,5 +17,5 @@ export function HistoryPrice({ children, price, className }: HistoryPriceeProps)
 
     return <div className={classNames(classes.price, className)}>
         {children || <>{price} <GhstTokenIcon height={15} width={15} /></>}
-    </div>
+    </div>;
 }

@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GotchiUtils } from 'utils';
 
@@ -29,5 +27,5 @@ export function GotchiLevel({ experience, level, toNextLevel }: GotchiLevelProps
                 <p className={classes.xpAmount}>{totalLevelXp-toNextLevel}/{totalLevelXp}</p>
             </div>
         </CustomTooltip>
-    )
+    );
 }
