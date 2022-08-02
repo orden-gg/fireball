@@ -10,40 +10,20 @@ export const gotchiListingsStyles = makeStyles(theme => createStyles({
     list: {
         marginTop: theme.spacing(2)
     },
-    listing: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 2,
-        padding: theme.spacing(1, .5),
-        backgroundColor: theme.palette.background.default,
-        minHeight: 50
-    },
-    price: {
-        flexBasis: '25%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: theme.spacing(0, .5)
-    },
-    icon: {
-        margin: theme.spacing(0, 1)
-    },
-    time: {
-        flexBasis: '25%',
-        padding: theme.spacing(0, .5)
+    salesHeader: {
+        marginTop: theme.spacing(2)
     },
     wearables: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        flexBasis: 536
+        flexBasis: 400
     },
     wearable: {
         borderRadius: 5,
         border: '1px solid',
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         padding: theme.spacing(.5),
         margin: theme.spacing(0, .5)
     },

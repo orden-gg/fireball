@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const historyRowStyles = makeStyles(() => createStyles({
+export const historyRowStyles = makeStyles(theme => createStyles({
     row: {
         display: 'flex',
         alignItems: 'center',
@@ -9,6 +9,7 @@ export const historyRowStyles = makeStyles(() => createStyles({
         borderRadius: 4,
         background: alpha('#000', .15),
         marginTop: 4,
-        padding: '8px 0'
+        minHeight: 42,
+        padding: theme.spacing(.5, 0)
     }
 }));
