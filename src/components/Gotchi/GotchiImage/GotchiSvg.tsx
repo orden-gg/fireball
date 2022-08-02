@@ -14,7 +14,7 @@ const regexClass = /\.(.*?)\}/g;
 interface GotchiSvgProps {
     id: string;
     size: string;
-    view: string;
+    view?: string;
 }
 
 export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) {
