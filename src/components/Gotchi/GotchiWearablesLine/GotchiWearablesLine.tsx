@@ -2,10 +2,10 @@ import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { Erc1155Categories } from 'shared/constants';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
 import { ItemCard } from 'components/ItemCard/containers';
 import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
@@ -14,7 +14,6 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     const theme = useTheme();
-    const wearableSlots = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet'];
     const wearables: any = gotchi.equippedWearables;
 
     return (
@@ -27,7 +26,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                 ) : null
             }
             {
-                wearableSlots.map((name, index) => {
+                WEARABLE_SLOTS.map((name, index) => {
                     const id: number = wearables[index];
                     const category: string = Erc1155Categories.Wearable;
                     const rarityColor: string = ItemUtils.getItemRarityById(id);

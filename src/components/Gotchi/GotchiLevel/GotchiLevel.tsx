@@ -2,12 +2,9 @@ import React from 'react';
 import { CircularProgress } from '@mui/material';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { GotchiUtils } from 'utils';
 
 import { styles } from './styles';
-
-const expFormula = (lvl: number) => {
-    return lvl * lvl / 0.02;
-};  // Based on https://wiki.aavegotchi.com/en/xp
 
 interface GotchiLevelProps {
     level: string;
@@ -18,8 +15,7 @@ interface GotchiLevelProps {
 export function GotchiLevel({ level, toNextLevel, experience }: GotchiLevelProps) {
     const classes = styles();
 
-    const diff = expFormula(Number(level)) - expFormula(Number(level) - 1);
-    const percentageFormula = 100 - Math.floor(Number(toNextLevel) * 100 / diff);
+    const percentageFormula: number = GotchiUtils.getGotchiLevelPercentage(Number(level), Number(toNextLevel));
 
     return (
         <CustomTooltip
