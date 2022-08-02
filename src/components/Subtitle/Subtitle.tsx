@@ -1,25 +1,32 @@
 import { Box, Typography } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { styles } from './styles';
 
 interface SubtitleProps {
     children: JSX.Element | string;
     variant: any;
+    innerBg?: string;
+    className?: string;
 }
 
-export function Subtitle({ children, variant }: SubtitleProps) {
+export function Subtitle({ children, variant, innerBg, className }: SubtitleProps) {
     const classes = styles();
 
     return (
         <Box
-            className={classes.subtitle}
+            className={classNames(classes.subtitle, className)}
         >
-            <Typography
-                className={classes.subtitleText}
-                variant={variant ? variant : 'h6'}
-            >
-                <span>{children}</span>
-            </Typography>
+            <div className={classes.subtitleInner}>
+                <Typography
+                    className={classes.subtitleText}
+                    bgcolor={innerBg ? innerBg : 'background.default'}
+                    variant={variant ? variant : 'h6'}
+                >
+                {children}
+                </Typography>
+            </div>
         </Box>
     );
 }
