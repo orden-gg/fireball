@@ -127,40 +127,43 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                     </div>
                 </div>
             </div>
-
-            <SalesHistory historyLoaded={historyLoaded}>
-                <h5 className={classes.salesTitle}>Sales History</h5>
-                <HistoryHead>
-                    <HistoryItem>seller</HistoryItem>
-                    <HistoryItem>buyer</HistoryItem>
-                    <HistoryItem>time</HistoryItem>
-                    <HistoryItem>price</HistoryItem>
-                </HistoryHead>
-                {history.map((item, index) => (
-                    <HistoryRow key={index}>
-                        <HistoryItem>
-                            <EthAddress
-                                address={item.seller}
-                                isShwoIcon={true}
-                                isClientLink={true}
-                                isPolygonButton={true}
-                                isCopyButton={true}
-                            />
-                        </HistoryItem>
-                        <HistoryItem>
-                            <EthAddress
-                                address={item.buyer}
-                                isShwoIcon={true}
-                                isClientLink={true}
-                                isPolygonButton={true}
-                                isCopyButton={true}
-                            />
-                        </HistoryItem>
-                        <HistoryItem>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative() as string}</HistoryItem>
-                        <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
-                    </HistoryRow>
-                ))}
-            </SalesHistory>
+            { parcel.timesTraded > 0 &&
+                <>
+                    <h5 className={classes.salesTitle}>Sales History</h5>
+                    <SalesHistory historyLoaded={historyLoaded}>
+                        <HistoryHead>
+                            <HistoryItem>seller</HistoryItem>
+                            <HistoryItem>buyer</HistoryItem>
+                            <HistoryItem>time</HistoryItem>
+                            <HistoryItem>price</HistoryItem>
+                        </HistoryHead>
+                        {history.map((item, index) => (
+                            <HistoryRow key={index}>
+                                <HistoryItem>
+                                    <EthAddress
+                                        address={item.seller}
+                                        isShwoIcon={true}
+                                        isClientLink={true}
+                                        isPolygonButton={true}
+                                        isCopyButton={true}
+                                    />
+                                </HistoryItem>
+                                <HistoryItem>
+                                    <EthAddress
+                                        address={item.buyer}
+                                        isShwoIcon={true}
+                                        isClientLink={true}
+                                        isPolygonButton={true}
+                                        isCopyButton={true}
+                                    />
+                                </HistoryItem>
+                                <HistoryItem>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative() as string}</HistoryItem>
+                                <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
+                            </HistoryRow>
+                        ))}
+                    </SalesHistory>
+                </>
+            }
         </div>
     );
 }
