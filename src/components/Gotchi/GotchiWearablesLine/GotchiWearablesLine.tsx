@@ -14,7 +14,8 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     const theme = useTheme();
-    const wearables: any = gotchi.equippedWearables;
+    const wearables: number[] = gotchi.equippedWearables;
+    const slots: string[] = [...WEARABLE_SLOTS].splice(0, WEARABLE_SLOTS.length-1);
 
     return (
         <div className={classes.gotchiWLineWrapper}>
@@ -26,7 +27,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                 ) : null
             }
             {
-                WEARABLE_SLOTS.map((name, index) => {
+                slots.map((name, index) => {
                     const id: number = wearables[index];
                     const category: string = Erc1155Categories.Wearable;
                     const rarityColor: string = ItemUtils.getItemRarityById(id);
