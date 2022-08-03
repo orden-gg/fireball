@@ -44,7 +44,7 @@ export function CraftItem({ data }: { data: any }) {
                 <CardGroup name='body'>
                     <CardSlot>{data.type}</CardSlot>
                     <CardImage id={data.id} category={category} />
-                    <CardName className={classes.itemName} id={data.id} />
+                    <CardName className={classes.itemName}>{data.name}</CardName>
                     <AlchemicaPrice alchemica={data.alchemicaCost} />
                 </CardGroup>
             </ItemCard>

@@ -104,7 +104,7 @@ export function LoginButton() {
 
                     { activeAddress ? (
                         <div className={classes.address}>
-                            <EthAddress address={activeAddress} isShwoIcon={true} />
+                            <EthAddress address={activeAddress} isShowIcon={true} />
                         </div>
                     ) : (
                         null

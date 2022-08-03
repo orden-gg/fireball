@@ -88,7 +88,7 @@
         "name": "BlackPool’s Aapegotchis",
         "logo": "blackpoolsaapegotchis.png",
         "members": [
-            "0x93468adecdccd18131ce1fd8caeed68fb3de43e7",
+            "0xb9d72519f9F9ec41a657C57c5A59a32737Ae6636",
             "0xc31372db84e456193e72a162928539c8f5999ff6",
             "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
             "0x9ff84B91998dF96A6587DB8dDe8D4E47518107d6",
@@ -128,7 +128,7 @@
                 "text": "Comfortably settled in the depths of District 15, the Aapegotchis are pacifists and very frenly. They love to collect Alchemicas together, help their frens from other Districts, spook the lickquidators away and plan on conquering the Moon one day. However, be careful not to bully them. Whether you're experienced or a newbie and feel seasoned to join and help grow the Aapegotchis, you are welcome to assemble under the BlackPool flag!"
             },
             { "title": "Requirement", "text": "Wear any item from the Aastronaut set and/or the Citaadel Knight set." },
-            { "title": "Point of Contact", "text": "Hazelstar#7954" }
+            { "title": "Point of Contact", "text": "Albist#7220" }
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/BlackpoolHQ", "discord": "https://discord.gg/ddUyu4F4pp" },
@@ -150,17 +150,14 @@
             "0x2bD7716Ce2c43B9c0D58982F5BAC67633bf2E7dC",
             "0x122f08C08432983277F5c1e750a481cddAbFD708",
             "0x6f48134d8BDEB954aD97525Cf0ADB9Ad446260B1",
-            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777"
+            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777",
+            "0x8B200F4c81c54d9014B4cDA3F16501069FA20Ab9"
         ],
         "description": [
-            { "title": "Description", "text": "OG Aair Gotchi Guild. Ballers and Scholars only." },
+            { "title": "Description", "text": "GOTCHI JAM! HEADQUARTERS" },
             {
-                "title": "Baller Requirements",
-                "text": "At least 1 Aavegotchi with full Aair Gotchi wearable set; join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and submit wallet 0x address holding Aair Gotchi in the #baller-roster channel."
-            },
-            {
-                "title": "Scholar Requirements",
-                "text": "Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]"
+                "title": "Requirement",
+                "text": "Join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and say hello!."
             },
             { "title": "Point of Contact", "text": "humbledbagger#1337" }
         ],
@@ -871,7 +868,9 @@
           "0x8628d73d3f950abde99739ef34b6cfa10394f579",
           "0x4edb4161d16c89b71aec027930a943c3d4cf0777",
           "0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138",
-          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8"
+          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8",
+          "0x1052aFD68DaDd4165dC300836F65656C6ED574Ac",
+          "0xf0ecf448c3817bd9bfc2d0d0dc41ef568367506b"
         ],
         "description": [
             { "title": "Description", "text": "District 7 degens who work and chill together." },
@@ -879,7 +878,7 @@
             { "title": "Point of Contact", "text": "FuzzCuzz#6071 | Dunc Idaho#8289" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.gg/k4wumxSK" }
+        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.com/invite/F4DXSCctNW" }
     },
     {
         "name": "Hodler Sqvad",
@@ -941,6 +940,25 @@
         "socials": {
             "twitter": "https://twitter.com/doubletop_io",
             "telegram": "https://t.me/doubletop_chat"
+        }
+    },{
+        "name": "Tec Viva",
+        "logo": "tecviva.png",
+        "members": [],
+        "description": [
+            {
+                "title": "Description",
+                "text": "placeholder"
+            },
+            {
+                "title": "Description 2",
+                "text": "placeholder"
+            }
+        ],
+        "banner": "tecviva-banner.png",
+        "socials": {
+            "twitter": "",
+            "telegram": ""
         }
     }
 ]
