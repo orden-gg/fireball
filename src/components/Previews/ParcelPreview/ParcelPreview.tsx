@@ -142,7 +142,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                                 <HistoryItem>
                                     <EthAddress
                                         address={item.seller}
-                                        isShwoIcon={true}
+                                        isShowIcon={true}
                                         isClientLink={true}
                                         isPolygonButton={true}
                                         isCopyButton={true}
@@ -151,7 +151,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                                 <HistoryItem>
                                     <EthAddress
                                         address={item.buyer}
-                                        isShwoIcon={true}
+                                        isShowIcon={true}
                                         isClientLink={true}
                                         isPolygonButton={true}
                                         isCopyButton={true}
