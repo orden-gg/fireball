@@ -11,6 +11,7 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
         }
     },
     wearable: {
+        border: `1px solid ${theme.palette.background.paper}`,
         position: 'absolute',
         left: 0,
         top: 0,
@@ -25,6 +26,13 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
         },
         '.l-hand &': {
             transform: 'scaleX(-1)'
+        }
+    },
+    placeholder: {
+        boxShadow: `inset 0 0 20px 10px ${theme.palette.secondary.dark}`,
+        '& $image': {
+            filter: 'grayscale(1)',
+            opacity: .15
         }
     }
 }));

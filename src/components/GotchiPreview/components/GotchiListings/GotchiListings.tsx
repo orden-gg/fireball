@@ -14,6 +14,7 @@ import { gotchiPreviewStyles } from 'components/GotchiPreview/styles';
 import { EthersApi } from 'api';
 
 import { gotchiListingsStyles } from './styles';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 
 interface GotchiListingsProps {
     historyLoaded: boolean;
@@ -50,14 +51,32 @@ export function GotchiListings({ salesHistory, historyLoaded, className }: Gotch
                <Subtitle className={classes.titleText} innerBg='background.default' variant='h4'>Sales History</Subtitle>
             </div>
             <HistoryHead className={classes.salesHeader}>
-                <HistoryItem>price</HistoryItem>
-                <HistoryItem>time</HistoryItem>
+                <HistoryItem className={classes.address}>seller</HistoryItem>
+                <HistoryItem className={classes.address}>buyer</HistoryItem>
+                <HistoryItem className={classes.price}>price</HistoryItem>
+                <HistoryItem className={classes.date}>time</HistoryItem>
                 <HistoryItem className={classes.wearables}>wearables</HistoryItem>
             </HistoryHead>
             {salesHistory.map((listing, index) => (
                 <HistoryRow key={index}>
-                    <HistoryPrice price={EthersApi.fromWei(listing.priceInWei)} />
-                    <HistoryItem>{convertTime(listing.timePurchased)}</HistoryItem>
+                    <HistoryItem className={classes.address}>
+                        <EthAddress
+                            address={listing.seller}
+                            isShwoIcon={true}
+                            isCopyButton={true}
+                            isPolygonButton={true}
+                        />
+                    </HistoryItem>
+                    <HistoryItem className={classes.address}>
+                        <EthAddress
+                            address={listing.buyer}
+                            isShwoIcon={true}
+                            isCopyButton={true}
+                            isPolygonButton={true}
+                        />
+                    </HistoryItem>
+                    <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
+                    <HistoryItem className={classes.date}>{convertTime(listing.timePurchased)}</HistoryItem>
                     <div className={classes.wearables}>{renderWearables(listing.equippedWearables)}</div>
                 </HistoryRow>
             ))}

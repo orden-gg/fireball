@@ -13,19 +13,28 @@ export const gotchiListingsStyles = makeStyles(theme => createStyles({
     salesHeader: {
         marginTop: theme.spacing(2)
     },
+    price: {
+        flexBasis: '10%'
+    },
+    date: {
+        flexBasis: '15%'
+    },
+    address: {
+        flexBasis: 200
+    },
     wearables: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        flexBasis: 400
+        flexBasis: 450
     },
     wearable: {
         borderRadius: 5,
         border: '1px solid',
-        width: 40,
-        height: 40,
+        width: 42,
+        height: 42,
         padding: theme.spacing(.5),
-        margin: theme.spacing(0, .5)
+        margin: theme.spacing(.5)
     },
     image: {
         width: '100%',

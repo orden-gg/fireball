@@ -1,5 +1,6 @@
 export const TRAITS_KEYS: string[] = ['nrg', 'agg', 'spk', 'brn', 'eys', 'eyc'];
 export const WEARABLE_SLOTS: string[] = ['Body', 'Face', 'Eyes', 'Head', 'R Hand', 'L Hand', 'Pet', 'Background'];
+export const DEFAULT_WEAREBLE_IDS: number[] = [67, 117, 146, 293, 64, 296, 151, 210];
 export const RarityScoreNumber = {
     Godlike: 580,
     Mythical: 525,

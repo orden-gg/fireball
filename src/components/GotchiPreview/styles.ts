@@ -10,5 +10,5 @@ export const gotchiPreviewStyles = makeStyles(theme => createStyles({
         '& span': {
             color: theme.palette.primary.main
         }
-    },
+    }
 }));

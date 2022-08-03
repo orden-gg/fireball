@@ -21,6 +21,31 @@ export const gotchiMainStyles = makeStyles(theme => createStyles({
         flex: 1,
         margin: '0 2.5% 5%'
     },
+    gotchiSvg: {
+        position: 'relative'
+    },
+    side: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: '25%',
+        zIndex: 1,
+        '&:hover': {
+            borderBottom: `3px solid ${theme.palette.primary.main}`
+        }
+    },
+    svgSide: {
+        left: 0
+    },
+    rightSide: {
+        left: '25%'
+    },
+    backSide: {
+        left: '50%'
+    },
+    leftSide: {
+        left: '75%'
+    },
     wearables: {
         width: '20%'
     },

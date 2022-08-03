@@ -1,4 +1,4 @@
-export const sets: any = [
+export const wearableSets: any = [
     ['Infantry', [], [1, 2, 3], [1, 0, 1, 0, 0]],
     ['Trooper', [], [4, 5, 6], [2, 0, 1, 0, 0]],
     ['Sergeant', [], [7, 8, 9], [3, 0, 2, 0, 0]],

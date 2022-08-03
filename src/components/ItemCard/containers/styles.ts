@@ -5,6 +5,10 @@ import { alpha } from '@mui/system';
 export const styles = makeStyles(theme => createStyles({
     card: {
         display: 'flex',
+        '&.default': {
+            color: theme.palette.common.white,
+            backgroundColor: theme.palette.background.secondary
+        },
         '&.common': {
             backgroundColor: alpha(theme.palette.rarity.common, .15),
             color: theme.palette.rarity.common

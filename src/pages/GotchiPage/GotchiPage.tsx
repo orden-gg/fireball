@@ -8,9 +8,10 @@ import { GotchiListings } from 'components/GotchiPreview/components/GotchiListin
 import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
+// import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
 export function GotchiPage() {
-    const classes = styles()
+    const classes = styles();
 
     const routeParams = useParams();
 
@@ -18,8 +19,6 @@ export function GotchiPage() {
     const [gotchi, setGotchi] = useState<any>({});
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [saleshistory, setSaleshistory] = useState<SalesHistoryModel[]>([]);
-
-    console.log(gotchi);
 
     useEffect(() => {
         const id = Number(routeParams.gotchiId);
@@ -45,8 +44,9 @@ export function GotchiPage() {
         {gotchiLoaded &&
             <>
                 <GotchiMain gotchi={gotchi} />
+                {/* <GotchiFitSets gotchi={gotchi} /> */}
                 {gotchi.timesTraded > 0 && <GotchiListings historyLoaded={historyLoaded} salesHistory={saleshistory} />}
             </>
         }
-    </div>
+    </div>;
 }
