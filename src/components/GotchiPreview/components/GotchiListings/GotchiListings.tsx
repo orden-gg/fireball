@@ -62,7 +62,7 @@ export function GotchiListings({ salesHistory, historyLoaded, className }: Gotch
                     <HistoryItem className={classes.address}>
                         <EthAddress
                             address={listing.seller}
-                            isShwoIcon={true}
+                            isShowIcon={true}
                             isCopyButton={true}
                             isPolygonButton={true}
                         />
@@ -70,7 +70,7 @@ export function GotchiListings({ salesHistory, historyLoaded, className }: Gotch
                     <HistoryItem className={classes.address}>
                         <EthAddress
                             address={listing.buyer}
-                            isShwoIcon={true}
+                            isShowIcon={true}
                             isCopyButton={true}
                             isPolygonButton={true}
                         />
