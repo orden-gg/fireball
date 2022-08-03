@@ -942,23 +942,39 @@
             "telegram": "https://t.me/doubletop_chat"
         }
     },{
-        "name": "Tec Viva",
+        "name": "TEC Viva Gotchi Guild",
         "logo": "tecviva.png",
-        "members": [],
+        "members": [
+            "0xEb7989a7C04b70cEA2bef6C2160ab7AFCa2A0d98",
+            "0xa322f14c4e9628F5934420a6098a01e7C999e657",
+        ],
+            
         "description": [
             {
                 "title": "Description",
-                "text": "placeholder"
+                "text": "Description", "text": "Guild for community strategy development on Game Play, Economics, Stats, and Technology. This is a community-based decentralized initiative with motivations to establish a network of information exchange, scholarships, and a TEC Viva DAO of Aavegotchi gamers. Spanish channels available.""
             },
             {
-                "title": "Description 2",
-                "text": "placeholder"
+                "title": "Point of Contact",
+                "text": "Tec Viva | TecViva#7652"
             }
+            {
+                "title": "Requirements",
+                "text": "No requirements to join guild. See Discord for governance and scholarship requirements."
+            }
+            
+            
         ],
         "banner": "tecviva-banner.png",
+        "wearables": [""],
         "socials": {
-            "twitter": "",
-            "telegram": ""
-        }
-    }
+            "twitter": "https://twitter.com/TECGotchi",
+            "discord": "https://discord.gg/Bsn2RPaE",
+    "home": [
+            [""]
+              
+        ]
+
+    },
+
 ]
