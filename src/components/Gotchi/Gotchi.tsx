@@ -24,6 +24,8 @@ import { FlipButton } from './FlipButton/FlipButton';
 import { WhitelistId } from './WhitelistId/WhitelistId';
 
 import { styles } from './styles';
+import { CustomModal } from 'components/CustomModal/CustomModal';
+import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
 
 interface GotchiProps {
     gotchi: any;
@@ -38,6 +40,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     const classes = styles();
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
+    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
     const flipCard = useCallback(() => {
         setIsFlipped(!isFlipped);
@@ -171,12 +174,15 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
         get svg() {
             return (
-                <GotchiImage
-                    gotchi={gotchi}
-                    renderSvgByStats={renderSvgByStats}
-                    portal={portal}
+                <div
                     key={`${gotchi.id}-svg`}
-                />
+                    onClick={() => setIsPreviewOpen(true)}>
+                    <GotchiImage
+                        gotchi={gotchi}
+                        renderSvgByStats={renderSvgByStats}
+                        portal={portal}
+                    />
+                </div>
             );
         },
 
@@ -254,6 +260,9 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
             {render.map((name: any) => {
                 return renderSection(name);
             })}
+            <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
+                <GotchiPreviewModal gotchi={gotchi} />
+            </CustomModal>
         </div>
     );
 }

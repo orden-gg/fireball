@@ -6,11 +6,11 @@ export const styles = makeStyles(theme => createStyles({
         display: 'flex',
         justifyContent: 'center',
         overflow: 'auto',
-        padding: '10px'
+        padding: theme.spacing(2, 1)
     },
     modal: {
         outline: 'none',
-        margin: 'auto',
+        margin: 'auto 0',
         position: 'relative',
         backgroundColor: theme.palette.background.secondary,
         border: `3px solid ${alpha('#000', .5)}`
@@ -18,7 +18,13 @@ export const styles = makeStyles(theme => createStyles({
     close: {
         cursor: 'pointer',
         position: 'absolute',
-        right: 0,
-        bottom: '100%'
+        right: -20,
+        top: -15,
+        borderRadius: 20,
+        backgroundColor: theme.palette.background.secondary,
+        boxShadow: `inset 0 0 0 2px ${alpha('#000', .5)}`,
+        '&:hover': {
+            backgroundColor: theme.palette.background.default
+        }
     }
 }));

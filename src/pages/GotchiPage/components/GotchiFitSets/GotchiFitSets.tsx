@@ -1,13 +1,14 @@
-// import { Erc1155Categories } from 'shared/constants';
-// import { CardImage } from 'components/ItemCard/components';
-import { wearableSets } from 'data/wearableSets.data';
 import { useEffect, useState } from 'react';
+
+import { Erc1155Categories } from 'shared/constants';
+import { CardImage } from 'components/ItemCard/components';
+import { wearableSets } from 'data/wearableSets.data';
 
 interface GotchiFitSetsProps {
     gotchi : any;
     className?: string;
 }
-
+// This is test component, please avoid commenting it, or tell me, i'll move it out of project :)
 export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
     const [availableSets, setAvailableSets] = useState<any[]>([]);
 
@@ -35,7 +36,7 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
     return <div className={className}>
         {availableSets.map((set: any[], index: number) => {
             return <span key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
-                {/* {set[2].map((id: number) => <CardImage id={id} category={Erc1155Categories.Wearable} />)} */}
+                {set[2].map((id: number) => <CardImage id={id} key={id} category={Erc1155Categories.Wearable} />)}
                 <div>{[...set[3]].splice(1,4).join('/')}</div>
                 <div>{[...gotchi.numericTraits].splice(0, 4).join('/')}</div>
                 <div>{set[0]}</div>

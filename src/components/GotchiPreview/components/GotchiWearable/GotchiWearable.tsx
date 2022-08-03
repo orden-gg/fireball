@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 
 import { DEFAULT_WEAREBLE_IDS, Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
-import { CardImage } from 'components/ItemCard/components';
+import { CardImage, CardName } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemUtils } from 'utils';
 
 import { gotchiWearableStyles } from './styles';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 interface GotchiWearableProps {
     wearables: number[];
@@ -23,13 +24,25 @@ export function GotchiWearable({ wearables, slotId }: GotchiWearableProps) {
         <div className={classNames(classes.wearableCell, name.toLowerCase().replace(' ', '-'))}>
             {
                 id !== 0 ? (
-                    <ItemCard type={rarity} className={classes.wearable}>
-                        <CardImage id={id} category={Erc1155Categories.Wearable} className={classes.image} />
-                    </ItemCard>
+                    <CustomTooltip
+                        title={
+                            <CardName id={id} />
+                        }
+                        followCursor
+                        placement='top'
+                    >
+                        <div className={classes.wearableBox}>
+                            <ItemCard type={rarity} className={classes.wearable}>
+                                <CardImage id={id} category={Erc1155Categories.Wearable} className={classes.image} />
+                            </ItemCard>
+                        </div>
+                    </CustomTooltip>
                 ) : (
-                    <ItemCard type='default' className={classNames(classes.wearable, classes.placeholder)}>
-                        <CardImage id={DEFAULT_WEAREBLE_IDS[slotId]} category={Erc1155Categories.Wearable} className={classes.image} />
-                    </ItemCard>
+                    <div className={classes.wearableBox}>
+                        <ItemCard type='default' className={classNames(classes.wearable, classes.placeholder)}>
+                            <CardImage id={DEFAULT_WEAREBLE_IDS[slotId]} category={Erc1155Categories.Wearable} className={classes.image} />
+                        </ItemCard>
+                    </div>
                 )
             }
         </div>

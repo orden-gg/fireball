@@ -110,6 +110,7 @@ export const userQuery = (id: any, skip: any): any => {
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -149,6 +150,7 @@ export const userOwnedGotchisQuery = (address: string, skip: number): string => 
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei

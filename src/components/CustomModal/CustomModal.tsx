@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Modal } from '@mui/material';
 
@@ -6,7 +7,7 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface CustomModalProps {
-    children: JSX.Element;
+    children: ReactNode;
     modalOpen: boolean;
     setModalOpen: (isOpen: boolean) => void;
     onModalClose?: () => void;

@@ -10,11 +10,15 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
             marginTop: '10%'
         }
     },
-    wearable: {
-        border: `1px solid ${theme.palette.background.paper}`,
+    wearableBox: {
         position: 'absolute',
         left: 0,
         top: 0,
+        width: '100%',
+        height: '100%'
+    },
+    wearable: {
+        border: '1px solid',
         width: '100%',
         height: '100%',
         padding: theme.spacing(.5)
@@ -29,6 +33,7 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
         }
     },
     placeholder: {
+        borderColor: theme.palette.background.paper,
         boxShadow: `inset 0 0 20px 10px ${theme.palette.secondary.dark}`,
         '& $image': {
             filter: 'grayscale(1)',

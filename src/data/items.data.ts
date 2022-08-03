@@ -1205,7 +1205,7 @@ export const items: any = {
     },
     210: {
         'name': 'Background',
-        'rarity': 'legendary',
+        'rarity': 'mythical',
         'type': 'haunt-1-background',
         'slot': 'background'
     },
