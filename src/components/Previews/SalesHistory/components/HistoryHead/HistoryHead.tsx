@@ -1,11 +1,9 @@
-import { ReactNode } from 'react';
-
 import classNames from 'classnames';
 
 import { historyHeadStyles } from './styles';
 
 interface HistoryHeadProps {
-    children: ReactNode;
+    children: JSX.Element[];
     className?: string;
 }
 

@@ -1,11 +1,9 @@
-import { ReactNode } from 'react';
-
 import classNames from 'classnames';
 
 import { historyRowStyles } from './styles';
 
 interface HistoryRowProps {
-    children: ReactNode;
+    children: JSX.Element[];
     className?: string;
 }
 

@@ -60,8 +60,8 @@ export function GotchiPage() {
                                     <HistoryItem className={classes.date}>time</HistoryItem>
                                     <HistoryItem className={classes.wearables}>wearables</HistoryItem>
                                 </HistoryHead>
-                                {
-                                    salesHistory.map((listing: SalesHistoryModel, index: number) => (
+                                <>
+                                    {salesHistory.map((listing: SalesHistoryModel, index: number) => (
                                         <HistoryRow key={index}>
                                             <HistoryItem className={classes.address}>
                                                 <EthAddress
@@ -81,12 +81,12 @@ export function GotchiPage() {
                                             </HistoryItem>
                                             <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
                                             <HistoryItem className={classes.date}>
-                                                {DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}
+                                                <>{DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}</>
                                             </HistoryItem>
                                             <HistoryWearables className={classes.wearables} wearables={listing.equippedWearables} />
                                         </HistoryRow>
-                                    ))
-                                }
+                                    ))}
+                                </>
                             </SalesHistory>
                         )
                     }

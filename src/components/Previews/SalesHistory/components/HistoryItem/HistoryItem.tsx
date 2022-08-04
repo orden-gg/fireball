@@ -1,11 +1,9 @@
-import { ReactNode } from 'react';
-
 import classNames from 'classnames';
 
 import { historyItemStyles } from './styles';
 
 interface HistoryItemProps {
-    children: ReactNode;
+    children: JSX.Element | string;
     className?: string;
 }
 

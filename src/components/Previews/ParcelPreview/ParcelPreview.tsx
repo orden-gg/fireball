@@ -141,30 +141,35 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             <HistoryItem>time</HistoryItem>
                             <HistoryItem>price</HistoryItem>
                         </HistoryHead>
-                        {history.map((item, index) => (
-                            <HistoryRow key={index}>
-                                <HistoryItem>
-                                    <EthAddress
-                                        address={item.seller}
-                                        isShowIcon={true}
-                                        isClientLink={true}
-                                        isPolygonButton={true}
-                                        isCopyButton={true}
-                                    />
-                                </HistoryItem>
-                                <HistoryItem>
-                                    <EthAddress
-                                        address={item.buyer}
-                                        isShowIcon={true}
-                                        isClientLink={true}
-                                        isPolygonButton={true}
-                                        isCopyButton={true}
-                                    />
-                                </HistoryItem>
-                                <HistoryItem>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</HistoryItem>
-                                <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
-                            </HistoryRow>
-                        ))}
+
+                        <>
+                            {history.map((item, index) => (
+                                <HistoryRow key={index}>
+                                    <HistoryItem>
+                                        <EthAddress
+                                            address={item.seller}
+                                            isShowIcon={true}
+                                            isClientLink={true}
+                                            isPolygonButton={true}
+                                            isCopyButton={true}
+                                        />
+                                    </HistoryItem>
+                                    <HistoryItem>
+                                        <EthAddress
+                                            address={item.buyer}
+                                            isShowIcon={true}
+                                            isClientLink={true}
+                                            isPolygonButton={true}
+                                            isCopyButton={true}
+                                        />
+                                    </HistoryItem>
+                                    <HistoryItem>
+                                        <>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</>
+                                    </HistoryItem>
+                                    <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
+                                </HistoryRow>
+                            ))}
+                        </>
                     </SalesHistory>
                 </>
             }

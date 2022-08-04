@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
@@ -6,8 +5,8 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface SalesHistoryProps {
+    children: JSX.Element[];
     historyLoaded: boolean;
-    children: ReactNode;
     className?: string;
 }
 
