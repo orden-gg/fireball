@@ -951,7 +951,7 @@
         "description": [
             {
                 "title": "Description",
-                "text": "Guild for community strategy development on Game Play, Economics, Stats, and Technology. This is a community-based decentralized initiative with motivations to establish a network of information exchange, scholarships, and a TEC Viva DAO of Aavegotchi gamers. Spanish channels available.""
+                "text": "Guild for community strategy development on Game Play, Economics, Stats, and Technology. This is a community-based decentralized initiative with motivations to establish a network of information exchange, scholarships, and a TEC Viva DAO of Aavegotchi gamers. Spanish channels available."
             },
             {
                 "title": "Point of Contact",
@@ -967,7 +967,5 @@
             "twitter": "https://twitter.com/TECGotchi",
             "discord": "https://discord.gg/Bsn2RPaE",
         }
-
-    },
-
+    }
 ]
