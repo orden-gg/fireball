@@ -24,7 +24,7 @@ export function GotchiLevel({ experience, level, toNextLevel }: GotchiLevelProps
         >
             <div className={classes.levelBar}>
                 <div className={classes.levelProgress} style={{ width: `${xpProgress}%` }}></div>
-                <p className={classes.xpAmount}>{totalLevelXp-toNextLevel}/{totalLevelXp}</p>
+                <p className={classes.xpAmount}>{totalLevelXp - toNextLevel}xp</p>
                 <span className={classes.level}>{level} lvl</span>
             </div>
         </CustomTooltip>

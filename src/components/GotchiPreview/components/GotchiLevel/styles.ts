@@ -15,6 +15,7 @@ export const gotchiLevelStyles = makeStyles(theme => createStyles({
         backgroundColor: theme.palette.rarity.mythical
     },
     xpAmount: {
+        textTransform: 'uppercase',
         textAlign: 'center',
         position: 'relative',
         margin: 0,
@@ -26,7 +27,7 @@ export const gotchiLevelStyles = makeStyles(theme => createStyles({
         position: 'absolute',
         top: 0,
         bottom: 0,
-        right: theme.spacing(1),
+        left: theme.spacing(1),
         display: 'flex',
         alignItems: 'center',
         fontSize: 12,

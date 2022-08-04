@@ -22,18 +22,21 @@ export const gotchiImageStyles = makeStyles(theme => createStyles({
         left: 0,
         bottom: 0,
         zIndex: 1,
-        width: '25%',
+        width: '20%',
         height: 3,
         transition: 'left .3s',
         backgroundColor: theme.palette.primary.main,
-        '&.right': {
-            left: '25%'
+        '&.view1': {
+            left: '20%'
         },
-        '&.back': {
-            left: '50%'
+        '&.view2': {
+            left: '40%'
         },
-        '&.left': {
-            left: '75%'
+        '&.view3': {
+            left: '60%'
+        },
+        '&.view4': {
+            left: '80%'
         }
     }
 }));

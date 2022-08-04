@@ -21,12 +21,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
     const classes = styles();
 
     const [loadingSvg, setLoadingSvg] = useState<boolean>(true);
-    const [svgs, setSvgs] = useState<{
-        svg?: string,
-        right?: string,
-        back?: string,
-        left?: string
-    }>({});
+    const [svgs, setSvgs] = useState<any>({});
 
     useEffect(() => {
         let mounted = true;
