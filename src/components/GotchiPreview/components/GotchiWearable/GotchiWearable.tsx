@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import { DEFAULT_WEAREBLE_IDS, Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
 import { CardImage, CardName } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ItemUtils } from 'utils';
 
 import { gotchiWearableStyles } from './styles';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 interface GotchiWearableProps {
     wearables: number[];
@@ -16,9 +16,9 @@ interface GotchiWearableProps {
 export function GotchiWearable({ wearables, slotId }: GotchiWearableProps) {
     const classes = gotchiWearableStyles();
 
-    const name = WEARABLE_SLOTS[slotId];
-    const id = wearables[slotId];
-    const rarity = ItemUtils.getItemRarityById(id);
+    const name: string = WEARABLE_SLOTS[slotId];
+    const id: number = wearables[slotId];
+    const rarity: string = ItemUtils.getItemRarityById(id);
 
     return (
         <div className={classNames(classes.wearableCell, name.toLowerCase().replace(' ', '-'))}>

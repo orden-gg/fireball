@@ -6,7 +6,7 @@ export class GotchiUtils {
     public static getLevelXpByLevel(level: number): number {
         const [currentXp, previousXp]: number[] = [
             GotchiUtils.getTotalXpByLevel(level),
-            GotchiUtils.getTotalXpByLevel(level-1)
+            GotchiUtils.getTotalXpByLevel(level - 1)
         ];
 
         return currentXp - previousXp;

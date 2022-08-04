@@ -434,9 +434,9 @@ export class TheGraphApi {
         });
     }
 
-    public static async getErc721SalesHistory(id: number, category: string): Promise<any> {
+    public static async getErc721SalesHistory(id: number, category: string): Promise<SalesHistoryModel[]> {
         return await TheGraphApi.getData(erc721SalesHistory(id, category)).then((response: any) => {
-            return response.data.erc721Listings as SalesHistoryModel[];
+            return response.data.erc721Listings;
         });
     }
 

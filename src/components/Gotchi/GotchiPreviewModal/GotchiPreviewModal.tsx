@@ -41,7 +41,7 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
                     <HistoryItem className={classes.date}>time</HistoryItem>
                     <HistoryItem className={classes.wearables}>wearables</HistoryItem>
                 </HistoryHead>
-                {salesHistory.map((listing, index) => (
+                {salesHistory.map((listing: SalesHistoryModel, index: number) => (
                     <HistoryRow key={index}>
                         <HistoryItem className={classes.address}>
                             <EthAddress

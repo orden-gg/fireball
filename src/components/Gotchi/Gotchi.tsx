@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
+import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GotchiverseUtils } from 'utils';
 
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
@@ -18,14 +19,13 @@ import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
+import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
 import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
 import { WhitelistId } from './WhitelistId/WhitelistId';
 
 import { styles } from './styles';
-import { CustomModal } from 'components/CustomModal/CustomModal';
-import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
 
 interface GotchiProps {
     gotchi: any;
@@ -176,7 +176,8 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
             return (
                 <div
                     key={`${gotchi.id}-svg`}
-                    onClick={() => setIsPreviewOpen(true)}>
+                    onClick={() => setIsPreviewOpen(true)}
+                >
                     <GotchiImage
                         gotchi={gotchi}
                         renderSvgByStats={renderSvgByStats}

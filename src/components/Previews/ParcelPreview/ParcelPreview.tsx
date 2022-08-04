@@ -37,10 +37,14 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
             .then((res: any) => {
                 if (mounted) {
                     setHistory(res);
-                    setHistoryLoaded(true);
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .finally(() => {
+                if (mounted) {
+                    setHistoryLoaded(true);
+                }
+            });
 
         return () => { mounted = false };
     }, [parcel.tokenId]);
@@ -157,7 +161,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                                         isCopyButton={true}
                                     />
                                 </HistoryItem>
-                                <HistoryItem>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative() as string}</HistoryItem>
+                                <HistoryItem>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</HistoryItem>
                                 <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
                             </HistoryRow>
                         ))}

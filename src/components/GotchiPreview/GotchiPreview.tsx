@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import { WearableTypes } from 'shared/constants';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiTraits } from 'components/Gotchi/GotchiTraits/GotchiTraits';
-
 import { GotchiWearable } from './components/GotchiWearable/GotchiWearable';
 import { GotchiImage } from './components/GotchiImage/GotchiImage';
 import { GotchiLevel } from './components/GotchiLevel/GotchiLevel';
+import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
 
 import { gotchiPreviewStyles } from './styles';
-import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
+
 interface GotchiPreviewProps {
     gotchi: any;
     className?: string;

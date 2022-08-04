@@ -12,7 +12,7 @@ interface GotchiLevelProps {
 export function GotchiLevel({ experience, level, toNextLevel }: GotchiLevelProps) {
     const classes = gotchiLevelStyles();
 
-    const xpProgress = GotchiUtils.getGotchiLevelPercentage(level, toNextLevel);
+    const xpProgress: number = GotchiUtils.getGotchiLevelPercentage(level, toNextLevel);
     const totalLevelXp: number = GotchiUtils.getLevelXpByLevel(level);
 
     return (

@@ -21,7 +21,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
     const classes = styles();
 
     const [loadingSvg, setLoadingSvg] = useState<boolean>(true);
-    const [svgs, setSvgs] = useState<any>({});
+    const [svgs, setSvgs] = useState<{ svg: string, right: string, back: string, left: string } | null>(null);
 
     useEffect(() => {
         let mounted = true;
@@ -47,22 +47,28 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
         return () => { mounted = false };
     }, [id]);
 
-    const createSvg = (svg: any): string => {
-        let svgUniqueStyles: any = svg.match(regex).map((val: any) => {
-            return val.replace(/<\/?style>/g,'');
-        });
+    const createSvg = (svg: string): string => {
+        const regExpMatchArr: RegExpMatchArray | null = svg.match(regex);
 
-        svgUniqueStyles = svgUniqueStyles[0].match(regexClass).map((styleBlock: string) => {
-            return `.gotchi-${id} ${styleBlock}`;
-        }).join('');
+        if (regExpMatchArr) {
+            const svgStyles: string = regExpMatchArr[0];
 
-        return svg.replace(regex, `<style>${svgUniqueStyles}</style>`);
+            svgStyles.replace(/<\/?style>/g,'');
+
+            const svgUniqueStyles = svgStyles.match(regexClass)?.map((styleBlock: string) => {
+                return `.gotchi-${id} ${styleBlock}`;
+            }).join('');
+
+            return svg.replace(regex, `<style>${svgUniqueStyles}</style>`);
+        } else {
+            return '';
+        }
     };
 
     return (
         <div className={classes.svgWrapper} style={{ width: size }}>
             {!loadingSvg ? (
-                <div className={classNames(`gotchi-${id}`)} dangerouslySetInnerHTML={{ __html: svgs[view] }}></div>
+                <div className={classNames(`gotchi-${id}`)} dangerouslySetInnerHTML={{ __html: svgs && svgs[view] }}></div>
             ) : (
                 <GotchiLoadingGif width='100%' />
             )}
