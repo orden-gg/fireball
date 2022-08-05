@@ -46,12 +46,13 @@ export const styles = makeStyles(theme => createStyles({
         width: 21
     },
     mainVal: {
+        color: '#000',
         fontWeight: 600,
         margin: 0,
         whiteSpace: 'nowrap'
     },
     defaultVal: {
-        color: '#000',
+        color: '#fff',
         fontWeight: 500
     }
 }));
