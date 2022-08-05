@@ -147,3 +147,14 @@ export enum HauntIds {
     Haunt1 = '1',
     Haunt2 = '2'
 }
+
+export enum WearableTypes {
+    Body = 0,
+    Face = 1,
+    Eyes = 2,
+    Head = 3,
+    LHand = 4,
+    RHand = 5,
+    Pet = 6,
+    Background = 7
+}

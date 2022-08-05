@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
+import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GotchiverseUtils } from 'utils';
 
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
@@ -18,6 +19,7 @@ import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
+import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
 import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
@@ -38,6 +40,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     const classes = styles();
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
+    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
     const flipCard = useCallback(() => {
         setIsFlipped(!isFlipped);
@@ -171,12 +174,16 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
         get svg() {
             return (
-                <GotchiImage
-                    gotchi={gotchi}
-                    renderSvgByStats={renderSvgByStats}
-                    portal={portal}
+                <div
                     key={`${gotchi.id}-svg`}
-                />
+                    onClick={() => setIsPreviewOpen(true)}
+                >
+                    <GotchiImage
+                        gotchi={gotchi}
+                        renderSvgByStats={renderSvgByStats}
+                        portal={portal}
+                    />
+                </div>
             );
         },
 
@@ -254,6 +261,9 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
             {render.map((name: any) => {
                 return renderSection(name);
             })}
+            <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
+                <GotchiPreviewModal gotchi={gotchi} />
+            </CustomModal>
         </div>
     );
 }

@@ -1203,6 +1203,12 @@ export const items: any = {
         'type': 'aavegotchi-x-venly-wearables',
         'slot': 'face'
     },
+    210: {
+        'name': 'Background',
+        'rarity': 'mythical',
+        'type': 'haunt-1-background',
+        'slot': 'background'
+    },
     211: {
         'name': 'Guy Fawkes Mask',
         'rarity': 'common',

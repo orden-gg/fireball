@@ -75,14 +75,11 @@ export const styles = makeStyles(theme => createStyles({
             marginRight: 8
         }
     },
-    sales: {
-        textAlign: 'center',
-        marginTop: 12
-    },
     salesTitle: {
         fontWeight: 500,
         fontSize: 20,
-        margin: '0 0 8px'
+        margin: theme.spacing(1.5, 0, 1),
+        textAlign: 'center'
     },
     boosts: {
         display: 'flex',

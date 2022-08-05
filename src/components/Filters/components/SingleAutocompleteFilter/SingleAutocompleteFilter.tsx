@@ -37,7 +37,7 @@ export function SingleAutocompleteFilter({ filter, onSetSelectedFilters }: Singl
             disablePortal
             value={currentValue}
             getOptionLabel={option => option.title || ''}
-            isOptionEqualToValue={(option, value) => option.isSelected === value.isSelected}
+            isOptionEqualToValue={(option, value) => option.isSelected === value.isSelected || true}
             options={filter.items}
             disabled={filter.items.length === 0}
             onChange={onHandleChange}

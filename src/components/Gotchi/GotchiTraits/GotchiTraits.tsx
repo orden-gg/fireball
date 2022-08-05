@@ -8,9 +8,10 @@ import { styles } from './styles';
 interface GotchiTraitsProps {
     traits: any;
     currentTraits: any;
+    className?: string;
 }
 
-export function GotchiTraits({ traits, currentTraits }: GotchiTraitsProps) {
+export function GotchiTraits({ traits, currentTraits, className }: GotchiTraitsProps) {
     const classes = styles();
 
     const renderDefaultTrait = (trait: any, index: number) => {
@@ -22,7 +23,7 @@ export function GotchiTraits({ traits, currentTraits }: GotchiTraitsProps) {
     };
 
     return (
-        <div className={classes.gotchiTraits}>
+        <div className={classNames(classes.gotchiTraits, className)}>
             {
                 traits.map((traitVal: any, index: number) => {
                     const traitKey: any = ItemUtils.getTraitIconByName(TRAITS_KEYS[index]);

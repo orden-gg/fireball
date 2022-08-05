@@ -1,19 +1,27 @@
+import { useEffect, useState } from 'react';
 import { Paper } from '@mui/material';
 
+import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
+import { Erc1155Categories } from 'shared/constants';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
+import { EthersApi, TheGraphApi } from 'api';
 import { ItemUtils } from 'utils';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
+import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 
 import { styles } from './styles';
 
 export function ParcelPreview({ parcel }: { parcel: any }) {
     const classes = styles();
+
+    const [history, setHistory] = useState<any[]>([]);
+    const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
 
     const boosts: Array<{ name: string; value: any }> = [
         { name: 'fud', value: parcel.fudBoost },
@@ -21,6 +29,25 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
         { name: 'alpha', value: parcel.alphaBoost },
         { name: 'kek', value: parcel.kekBoost }
     ];
+
+    useEffect(() => {
+        let mounted = true;
+
+        TheGraphApi.getErc721SalesHistory(Number(parcel.tokenId), Erc1155Categories.Realm)
+            .then((res: any) => {
+                if (mounted) {
+                    setHistory(res);
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => {
+                if (mounted) {
+                    setHistoryLoaded(true);
+                }
+            });
+
+        return () => { mounted = false };
+    }, [parcel.tokenId]);
 
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
@@ -39,7 +66,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             <h5 className={classes.name}>{modifyName(parcel.parcelHash)}</h5>
                             <EthAddress
                                 address={parcel.owner?.id}
-                                isShwoIcon={true}
+                                isShowIcon={true}
                                 isClientLink={true}
                                 isPolygonButton={true}
                                 isCopyButton={true}
@@ -104,13 +131,48 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                     </div>
                 </div>
             </div>
-
-            { parcel.timesTraded > 0 && (
-                <div className={classes.sales}>
+            { parcel.timesTraded > 0 &&
+                <>
                     <h5 className={classes.salesTitle}>Sales History</h5>
-                    <SalesHistory id={parcel.tokenId} category={4} />
-                </div>
-            )}
+                    <SalesHistory historyLoaded={historyLoaded}>
+                        <HistoryHead>
+                            <HistoryItem>seller</HistoryItem>
+                            <HistoryItem>buyer</HistoryItem>
+                            <HistoryItem>time</HistoryItem>
+                            <HistoryItem>price</HistoryItem>
+                        </HistoryHead>
+
+                        <>
+                            {history.map((item, index) => (
+                                <HistoryRow key={index}>
+                                    <HistoryItem>
+                                        <EthAddress
+                                            address={item.seller}
+                                            isShowIcon={true}
+                                            isClientLink={true}
+                                            isPolygonButton={true}
+                                            isCopyButton={true}
+                                        />
+                                    </HistoryItem>
+                                    <HistoryItem>
+                                        <EthAddress
+                                            address={item.buyer}
+                                            isShowIcon={true}
+                                            isClientLink={true}
+                                            isPolygonButton={true}
+                                            isCopyButton={true}
+                                        />
+                                    </HistoryItem>
+                                    <HistoryItem>
+                                        <>{DateTime.fromSeconds(parseInt(item.timePurchased)).toRelative()}</>
+                                    </HistoryItem>
+                                    <HistoryPrice price={EthersApi.fromWei(item.priceInWei)} />
+                                </HistoryRow>
+                            ))}
+                        </>
+                    </SalesHistory>
+                </>
+            }
         </div>
     );
 }

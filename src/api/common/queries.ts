@@ -44,21 +44,45 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
 };
 
 export const gotchiByIdQuery = (id: any): any => {
-  return `{
-    aavegotchi(id: ${id}) {
-      id
-      hauntId
-      name
-      numericTraits
-      equippedWearables
-      owner {
-        id
-      }
-      originalOwner {
-        id
-      }
-    }
-  }`;
+    return `{
+        aavegotchi(id: ${id}) {
+            id
+            name
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            baseRarityScore
+            modifiedRarityScore
+            withSetsRarityScore
+            kinship
+            toNextLevel
+            level
+            experience
+            equippedWearables
+            collateral
+            hauntId
+            createdAt
+            possibleSets
+            equippedSetID
+            equippedSetName
+            usedSkillPoints
+            minimumStake
+            stakedAmount
+            timesTraded
+            listings(where:{cancelled: false, timePurchased: 0}) {
+                id
+                priceInWei
+            }
+            historicalPrices
+            owner {
+                id
+            }
+            originalOwner {
+                id
+            }
+            lending
+        }
+    }`;
 };
 
 export const userQuery = (id: any, skip: any): any => {
@@ -86,6 +110,7 @@ export const userQuery = (id: any, skip: any): any => {
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -125,6 +150,7 @@ export const userOwnedGotchisQuery = (address: string, skip: number): string => 
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -144,6 +170,9 @@ export const svgQuery = (id: any): any => {
         aavegotchis(where: {id: ${id}}) {
           id
           svg
+          right
+          back
+          left
         }
       }`;
 };
@@ -348,7 +377,7 @@ export const activeListingQeury = (erc: any, id: any, type: any, category: any):
         }`;
 };
 
-export const erc721SalesHistory = (id: any, category: any): any => {
+export const erc721SalesHistory = (id: number, category: string): any => {
     return `{
         erc721Listings(
             where:{
@@ -363,6 +392,7 @@ export const erc721SalesHistory = (id: any, category: any): any => {
             seller
             timePurchased
             priceInWei
+            equippedWearables
         }
     }`;
 };
