@@ -40,6 +40,9 @@ export const styles = makeStyles(theme => createStyles({
         },
         '.horizontal &': {
             margin: theme.spacing(.5, 0)
+        },
+        '&:hover $defaultVal': {
+            display: 'inline-block'
         }
     },
     gotchiTraitIcon: {
@@ -52,6 +55,7 @@ export const styles = makeStyles(theme => createStyles({
         whiteSpace: 'nowrap'
     },
     defaultVal: {
+        display: 'none',
         color: '#fff',
         fontWeight: 500
     }
