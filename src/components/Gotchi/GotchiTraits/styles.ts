@@ -38,18 +38,23 @@ export const styles = makeStyles(theme => createStyles({
         },
         '.horizontal &': {
             margin: theme.spacing(.5, 0)
+        },
+        '&:hover $defaultVal': {
+            display: 'inline-block'
         }
     },
     gotchiTraitIcon: {
         width: 21
     },
     mainVal: {
+        color: '#000',
         fontWeight: 600,
         margin: 0,
         whiteSpace: 'nowrap'
     },
     defaultVal: {
-        color: '#000',
+        display: 'none',
+        color: '#fff',
         fontWeight: 500
     }
 }));
