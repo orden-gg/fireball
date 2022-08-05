@@ -1,5 +1,5 @@
 import { collaterals } from 'data/collaterals.data';
-import { sets } from 'data/sets.data';
+import { wearableSets } from 'data/wearableSets.data';
 import { tokens } from 'data/tokens.data';
 
 export class GraphUtils {
@@ -65,18 +65,18 @@ export class GraphUtils {
     }
 
     public static getSetName(id: any): any {
-        return sets[id][0] || '';
+        return wearableSets[id][0] || '';
     }
 
     public static getSetWearables(id: any): any {
-        return sets[id][2] || '';
+        return wearableSets[id][2] || '';
     }
 
     public static getSetModifiers(id: any): any {
-        return sets[id][3] || '';
+        return wearableSets[id][3] || '';
     }
 
     public static isExistingSetId(id: any): any {
-        return id <= sets.length;
+        return id <= wearableSets.length;
     }
 }

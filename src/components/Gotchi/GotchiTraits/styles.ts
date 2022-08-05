@@ -16,6 +16,7 @@ export const styles = makeStyles(theme => createStyles({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '2px 3px 2px 2px',
+        margin: '1px 0',
         minHeight: 26,
         '&.common': {
             backgroundColor: theme.palette.rarity.common
@@ -34,9 +35,6 @@ export const styles = makeStyles(theme => createStyles({
         },
         '&.godlike': {
             backgroundColor: theme.palette.rarity.godlike
-        },
-        '.vertical &': {
-            margin: '1px 0'
         },
         '.horizontal &': {
             margin: theme.spacing(.5, 0)

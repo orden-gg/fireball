@@ -14,6 +14,7 @@ import { Baazaar } from './pages/Baazaar/Baazaar';
 import { Client } from './pages/Client/Client';
 import { Craft } from 'pages/Craft/Craft';
 import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
+import { GotchiPage } from './pages/GotchiPage/GotchiPage';
 import { Guilds } from './pages/Guilds/Guilds';
 import { Lend } from 'pages/Lend/Lend';
 import { Main } from './pages/Main/Main';
@@ -92,6 +93,7 @@ export function App() {
                                         <Route path='raffles/*' element={<Raffle />} />
                                         <Route path='shop' element={<Shop />} />
                                         <Route path='map' element={<Map />} />
+                                        <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
                                         <Route path='404' element={<NotFound />} />
                                         <Route path='*' element={<Navigate to='404' replace />}></Route>
                                     </Routes>

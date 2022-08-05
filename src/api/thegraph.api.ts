@@ -2,9 +2,10 @@ import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOp
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-import { EthersApi } from './ethers.api';
+import { SalesHistoryModel } from 'shared/models';
 import { GraphUtils } from 'utils';
 
+import { EthersApi } from './ethers.api';
 import {
     gotchiByIdQuery,
     gotchiesQuery,
@@ -203,6 +204,10 @@ export class TheGraphApi {
 
             return modifyTraits(filteredArray);
         });
+    }
+
+    public static getGotchiById(id: number): Promise<any> {
+        return this.getData(gotchiByIdQuery(id));
     }
 
     public static getGotchiesByIds(ids: number[]): Promise<any> {
@@ -429,7 +434,7 @@ export class TheGraphApi {
         });
     }
 
-    public static async getErc721SalesHistory(id: string, category: any): Promise<any> {
+    public static async getErc721SalesHistory(id: number, category: string): Promise<SalesHistoryModel[]> {
         return await TheGraphApi.getData(erc721SalesHistory(id, category)).then((response: any) => {
             return response.data.erc721Listings;
         });
