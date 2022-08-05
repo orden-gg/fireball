@@ -27,7 +27,7 @@ export function GuildWearables({ wearables, className, tooltip }: GuildWearables
         wearables.map((id: any) =>
             tooltip !== undefined ? (
                 <CustomTooltip
-                    title={ItemUtils.getItemNameById(id)}
+                    title={ItemUtils.getNameById(id)}
                     followCursor
                     placement='top'
                     key={id}

@@ -1,11 +1,60 @@
-import { RarityTypes } from 'shared/constants';
+import { ItemTypes, RarityTypes } from 'shared/constants';
 import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
 
 import { items } from '../data/items.data';
 
+import data from '../data/items.data.json';
+
 export class ItemUtils {
-    public static getItemNameById(id: any): any {
-        return items[id]?.name || '';
+    // public static getItemNameById(id: any): any {
+    //     return items[id]?.name || '';
+    // }
+
+    public static getNameById(id: number | string): string {
+        return data[id][ItemTypes.Name];
+    }
+
+    public static getDescriptionById(id: number | string): string {
+        return data[id][ItemTypes.Description];
+    }
+
+    public static getAuthorById(id: number | string): string {
+        return data[id][ItemTypes.Author];
+    }
+
+    public static getTraitModifiersById(id: number | string): number[] {
+        return data[id][ItemTypes.TraitModifiers];
+    }
+
+    public static getSlotPositionsById(id: number | string): boolean[] {
+        return data[id][ItemTypes.SlotPositions];
+    }
+
+    public static getTotalQuantityById(id: number | string): number {
+        return data[id][ItemTypes.TotalQuantity];
+    }
+
+    public static getRarityScoreModifierById(id: number | string): number {
+        return data[id][ItemTypes.RarityScoreModifier];
+    }
+
+    public static getRarityNameByRarityScoreModifier(id: number | string): string {
+        switch (data[id][ItemTypes.RarityScoreModifier]) {
+            case 1:
+                return RarityTypes.Common;
+            case 2:
+                return RarityTypes.Uncommon;
+            case 5:
+                return RarityTypes.Rare;
+            case 10:
+                return RarityTypes.Legendary;
+            case 20:
+                return RarityTypes.Mythical;
+            case 50:
+                return RarityTypes.Godlike;
+            default:
+                return 'unknown';
+        }
     }
 
     public static getItemRarityById(id: any): string {

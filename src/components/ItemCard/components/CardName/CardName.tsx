@@ -15,7 +15,7 @@ interface CardNameProps {
 export function CardName({ id, children, className }: CardNameProps) {
     const classes = styles();
 
-    const name: string = ItemUtils.getItemNameById(id);
+    const name: string = id ? ItemUtils.getNameById(id) : '';
 
     return (
         <Typography className={classNames(className, classes.name)}>

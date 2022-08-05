@@ -30,7 +30,7 @@ export function BaazaarItem({ item }: { item: any }) {
                                 className={classes.itemName}
                                 variant={'caption'}
                             >
-                                {ItemUtils.getItemNameById(item.erc1155TypeId)}
+                                {ItemUtils.getNameById(item.erc1155TypeId)}
                             </Typography>
                         </Grid>
                     }
