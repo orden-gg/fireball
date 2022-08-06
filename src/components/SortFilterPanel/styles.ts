@@ -61,7 +61,6 @@ export const styles = makeStyles(theme => createStyles({
         background: theme.palette.background.paper,
         borderRadius: '0 4px 4px 4px',
         cursor: 'default',
-        overflow: 'hidden',
         display: 'none',
         '.opened &': {
             display: 'block'

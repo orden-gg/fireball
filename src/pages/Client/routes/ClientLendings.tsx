@@ -79,9 +79,10 @@ const sortings: SortingListItem[] = [
 const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
     whitelistId: { ...filtersData.whitelistId, divider: true },
+    borrower: { ...filtersData.borrower, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'whitelistId', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'whitelistId', 'borrower', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
     const navigate = useNavigate();
@@ -119,12 +120,15 @@ export function ClientLendings() {
     useEffect(() => {
         if (lendings.length > 0) {
             const whitelistData: string[] = [];
+            const borrowersAddresses: string[] = [];
 
             for (let i = 0; i < lendings.length; i++) {
                 whitelistData.push(lendings[i].whitelistId);
+                borrowersAddresses.push(lendings[i].borrower);
             }
 
             const sortedWhitelist: string[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+            const uniqueBorrowers = [...new Set(borrowersAddresses)];
 
             setCurrentFilters((currentFiltersCache: any) => {
                 const currentFiltersCacheCopy = { ...currentFiltersCache };
@@ -135,6 +139,15 @@ export function ClientLendings() {
                         title: whitelist,
                         value: whitelist,
                         queryParamValue: whitelist,
+                        isSelected: false
+                    }))
+                };
+                currentFiltersCacheCopy.borrower = {
+                    ...currentFiltersCacheCopy.borrower,
+                    items: uniqueBorrowers.map((borrower: string) => ({
+                        title: CommonUtils.cutAddress(borrower),
+                        value: borrower,
+                        queryParamValue: borrower,
                         isSelected: false
                     }))
                 };
