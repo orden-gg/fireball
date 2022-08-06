@@ -9,6 +9,44 @@ export class CitadelUtils {
         };
     }
 
+    public static getParcelSizeName(id: any): any {
+        switch (id) {
+            case '0':
+                return 'humble';
+            case '1':
+                return 'reasonable';
+            case '2': // 32x64
+                return 'spacious';
+            case '3': // 64x32
+                return 'spacious';
+            case '4':
+                return 'partner';
+            case '5':
+                return 'guardian';
+            default:
+                return '';
+        }
+    }
+
+    public static getParcelDimmentions(id: any): any {
+        switch (id) {
+            case '0':
+                return '8x8';
+            case '1':
+                return '16x16';
+            case '2':
+                return '32x64';
+            case '3':
+                return '64x32';
+            case '4':
+                return '64x64';
+            case '5':
+                return '64x64';
+            default:
+                return '';
+        }
+    }
+
     public static getParcelColorBySize(size: any): any {
         return COLORS.parcels[PARCEL_NAME[size]];
     }

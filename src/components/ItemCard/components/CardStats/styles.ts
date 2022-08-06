@@ -10,7 +10,7 @@ export const styles = makeStyles(theme => createStyles({
         flexWrap: 'wrap'
     },
     stat: {
-        margin: '0 2px',
+        margin: '0 3px',
         display: 'flex',
         alignItems: 'center'
     }

@@ -1,27 +1,79 @@
-import { RarityTypes } from 'shared/constants';
+import { ItemTypeNames, ItemTypes, RarityTypes, SetTypes, WEARABLE_SLOTS } from 'shared/constants';
 import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
 
-import { items } from '../data/items.data';
+import items from 'data/items.data.json';
+import sets from 'data/sets.data.json';
 
 export class ItemUtils {
-    public static getItemNameById(id: any): any {
-        return items[id]?.name || '';
+    public static getNameById(id: number | string): string {
+        return items[id][ItemTypes.Name];
     }
 
-    public static getItemRarityById(id: any): string {
-        return items[id]?.rarity || '';
+    public static getDescriptionById(id: number | string): string {
+        return items[id][ItemTypes.Description];
     }
 
-    public static getItemTypeById(id: any): any {
-        return items[id]?.type || '';
+    public static getAuthorById(id: number | string): string {
+        return items[id][ItemTypes.Author];
     }
 
-    public static getItemStatsById(id: any): any {
-        return items[id]?.stats || '';
+    public static getTraitModifiersById(id: number | string): number[] {
+        return items[id][ItemTypes.TraitModifiers];
     }
 
-    public static getItemSlotById(id: any): any {
-        return items[id]?.slot || '';
+    public static getSlotPositionsById(id: number | string): boolean[] {
+        return items[id][ItemTypes.SlotPositions];
+    }
+
+    public static getTotalQuantityById(id: number | string): number {
+        return items[id][ItemTypes.TotalQuantity];
+    }
+
+    public static getRarityScoreModifierById(id: number | string): number {
+        return items[id][ItemTypes.RarityScoreModifier];
+    }
+
+    public static getRarityNameById(id: number | string): string {
+        switch (items[id][ItemTypes.RarityScoreModifier]) {
+            case 1:
+                return RarityTypes.Common;
+            case 2:
+                return RarityTypes.Uncommon;
+            case 5:
+                return RarityTypes.Rare;
+            case 10:
+                return RarityTypes.Legendary;
+            case 20:
+                return RarityTypes.Mythical;
+            case 50:
+                return RarityTypes.Godlike;
+            default:
+                return 'unknown';
+        }
+    }
+
+    public static getTypeNameById(id: number | string): string {
+        switch (items[id][ItemTypes.Category]) {
+            case 0:
+                return ItemTypeNames.Wearable;
+            case 1:
+                return ItemTypeNames.Badge;
+            case 2:
+                return ItemTypeNames.Consumable;
+            default:
+                return 'unknown';
+        }
+    }
+
+    public static getSlotsById(id: number | string): string[] {
+        const slotsNames: string[] = [];
+        const slots = items[id][ItemTypes.SlotPositions];
+
+        slots.forEach((slot: boolean, index) => (
+            slot && slotsNames.push(WEARABLE_SLOTS[index]))
+        );
+
+        return slotsNames;
     }
 
     public static getTraitIconByKey(key: string): any {
@@ -35,36 +87,6 @@ export class ItemUtils {
         };
 
         return TRAITS_ICONS[key];
-    }
-
-    public static getWearableStatsById(id: number): any {
-        const stats: string = items[id]?.stats;
-        const result = {};
-
-        for (const stat of stats.split(',')) {
-            const [key, value]: string[] = stat.trim().split(' ');
-            result[key] = value;
-        }
-
-        return result;
-    }
-
-    public static getEmojiStatsById(id: any): any {
-        let stats: any = items[id]?.stats;
-
-        const emojis = { 'NRG':'⚡️', 'AGG':'👹', 'SPK':'👻', 'BRN':'🧠', 'EYS':'👀', 'EYC':'👁' };
-
-        if (!stats) return null;
-
-        Object.entries(emojis).forEach((item) => {
-            const [key, value] = item;
-
-            if (stats.includes(key)) {
-                stats = stats.replace(`${key} `, value);
-            }
-        });
-
-        return stats;
     }
 
     public static getItemType(item: any): any {
@@ -162,19 +184,6 @@ export class ItemUtils {
         return require(`../assets/images/traits/${trait}.png`).default;
     }
 
-    public static getRarityByTrait(trait: any): any {
-        switch (true) {
-            case trait >= 100 || trait <= -1:
-                return RarityTypes.Godlike;
-            case trait >= 98 || trait <= 1:
-                return RarityTypes.Mythical;
-            case trait >= 90 || trait <= 9:
-                return RarityTypes.Rare;
-            default:
-                return RarityTypes.Common;
-        }
-    }
-
     public static getItemImg(item: any): any {
         const typeMap: any = {
             wearable: () => returnWearable(),
@@ -244,114 +253,19 @@ export class ItemUtils {
         }
     }
 
-    public static getTicketFrensPrice(rarity: any): any {
-        switch (rarity) {
-            case RarityTypes.Common:
-                return 50;
-            case RarityTypes.Uncommon:
-                return 250;
-            case RarityTypes.Rare:
-                return 500;
-            case RarityTypes.Legendary:
-                return 2500;
-            case RarityTypes.Mythical:
-                return 10000;
-            case RarityTypes.Godlike:
-                return 50000;
-            case RarityTypes.Drop:
-                return 10000;
-            default:
-                return 0;
-        }
+    public static getSetName(id: number | string): string {
+        return sets[id][SetTypes.Name];
     }
 
-    public static getSlotCaption(name: any): any {
-        switch (name) {
-            case 'body':
-                return 'b';
-            case 'face':
-                return 'f';
-            case 'eyes':
-                return 'e';
-            case 'head':
-                return 'hd';
-            case 'right hand':
-                return 'rh';
-            case 'hands':
-                return 'hs';
-            case 'pet':
-                return 'p';
-            default:
-                return name;
-        }
+    public static getSetWearables(id: number | string): number[] {
+        return sets[id][SetTypes.WearableIds];
     }
 
-    public static getParcelSize(id: any): any {
-        switch (id) {
-            case '0':
-                return 'humble';
-            case '1':
-                return 'reasonable';
-            case '2': // 32x64
-                return 'spacious';
-            case '3': // 64x32
-                return 'spacious';
-            case '4':
-                return 'partner';
-            case '5':
-                return 'guardian';
-            default:
-                return '';
-        }
+    public static getSetModifiers(id: number | string): number[] {
+        return sets[id][SetTypes.TraitsBonuses];
     }
 
-    public static getParcelDimmentions(id: any): any {
-        switch (id) {
-            case '0':
-                return '8x8';
-            case '1':
-                return '16x16';
-            case '2':
-                return '32x64';
-            case '3':
-                return '64x32';
-            case '4':
-                return '64x64';
-            case '5':
-                return '64x64';
-            default:
-                return '';
-        }
-    }
-
-    public static getAlchemicaImg(name: any): any {
-        try {
-            return require(`../assets/images/icons/${name}.svg`).default;
-        } catch (error) {
-            return require('../assets/images/image-placeholder.svg').default;
-        }
-    }
-
-    public static getAlchemicaTokenImg(name: any): any {
-        try {
-            return require(`../assets/images/tokens/${name}-token.svg`).default;
-        } catch (error) {
-            return require('../assets/images/image-placeholder.svg').default;
-        }
-    }
-
-    public static getAlchemicaMultiplier(name: any): any {
-        switch (name) {
-            case 'fud':
-                return 1000;
-            case 'fomo':
-                return 500;
-            case 'alpha':
-                return 250;
-            case 'kek':
-                return 100;
-            default:
-                return 1;
-        }
+    public static isExistingSetId(id: number | string): boolean {
+        return id <= sets.length;
     }
 }

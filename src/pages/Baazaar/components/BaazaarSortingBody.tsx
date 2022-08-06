@@ -90,7 +90,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
-                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getRarityNameById(item.erc1155TypeId)}>
                                             <CardGroup name='imageCell'>
                                                 <CardImage id={item.erc1155TypeId} className={classes.horizontalImage} />
                                                 <HorizontalLink item={item} url={'https://aavegotchi.com/baazaar/erc1155/'} />
@@ -107,7 +107,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                 }
                                 {
                                     (item.__typename === 'ERC721Listing' && (item.category === '0' || item.category === '2')) && (
-                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                        <ItemCardHorizontal id={item.erc1155TypeId} category={item.category} type={ItemUtils.getRarityNameById(item.erc1155TypeId)}>
                                             <CardGroup name='imageCell'>
                                             <CardPortalImage category={item.category} hauntId={item.portal.hauntId} className={classes.horizontalImage} />
                                                 <HorizontalLink item={item} url={'https://aavegotchi.com/baazaar/erc1155/'} />
@@ -172,7 +172,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                 }
                                 {
                                     ((item.__typename === 'ERC1155Listing' || item.__typename === 'ERC1155Purchase') && (item.category === '0' || item.category === '2')) && (
-                                        <ItemCard id={item.erc1155TypeId} category={item.category} type={ItemUtils.getItemRarityById(item.erc1155TypeId)}>
+                                        <ItemCard id={item.erc1155TypeId} category={item.category} type={ItemUtils.getRarityNameById(item.erc1155TypeId)}>
                                             <CardGroup name='header'>
                                                 <CardTotalPrice
                                                     balance={item.quantity}

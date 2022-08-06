@@ -15,8 +15,8 @@ interface CardNameProps {
 export function CardName({ itemName, itemRarity, item }: CardNameProps) {
     const classes = styles();
 
-    const name: string = itemName || ItemUtils.getItemNameById(item.id || item.erc1155TypeId);
-    const rarity: string = itemRarity || ItemUtils.getItemRarityById(item.id || item.erc1155TypeId);
+    const name: string = itemName || ItemUtils.getNameById(item.id || item.erc1155TypeId);
+    const rarity: string = itemRarity || ItemUtils.getRarityNameById(item.id || item.erc1155TypeId);
 
     return (
         <div className={classes.nameWrapper}>

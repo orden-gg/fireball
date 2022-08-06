@@ -30,7 +30,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                 slots.map((name: string, index: number) => {
                     const id: number = wearables[index];
                     const category: string = Erc1155Categories.Wearable;
-                    const rarityColor: string = ItemUtils.getItemRarityById(id);
+                    const rarityColor: string = ItemUtils.getRarityNameById(id);
 
                     return (
                         <CustomTooltip

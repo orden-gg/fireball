@@ -18,7 +18,7 @@ export function GotchiWearable({ wearables, slotId }: GotchiWearableProps) {
 
     const name: string = WEARABLE_SLOTS[slotId];
     const id: number = wearables[slotId];
-    const rarity: string = ItemUtils.getItemRarityById(id);
+    const rarity: string = ItemUtils.getRarityNameById(id);
 
     return (
         <div className={classNames(classes.wearableCell, name.toLowerCase().replace(' ', '-'))}>

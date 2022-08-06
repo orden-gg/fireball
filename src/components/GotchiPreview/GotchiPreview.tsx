@@ -54,6 +54,7 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                         isShowIcon
                         isCopyButton
                         isPolygonButton
+                        isClientLink
                     />
                 </div>
 

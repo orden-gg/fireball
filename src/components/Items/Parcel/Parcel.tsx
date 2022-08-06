@@ -10,7 +10,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import { ItemUtils } from 'utils';
+import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
@@ -26,7 +26,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const size: any = ItemUtils.getParcelSize(parcel.size);
+    const size: any = CitadelUtils.getParcelSizeName(parcel.size);
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -66,7 +66,7 @@ export function Parcel({ parcel }: { parcel: any }) {
                 </div>
 
                 <div className={classes.parcelSize}>
-                    <ShineLabel text={ItemUtils.getParcelDimmentions(parcel.size)} />
+                    <ShineLabel text={CitadelUtils.getParcelDimmentions(parcel.size)} />
                 </div>
 
                 <div className={classes.parcelImageWrapper}>
@@ -84,7 +84,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                         return value > 0 ? (
                             <div className={classNames(classes.boost, key)} key={i}>
-                                <img src={ItemUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
                                 {value}
                             </div>
                         ) : (

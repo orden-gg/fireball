@@ -191,7 +191,7 @@ export function Shop() {
             balance: parseInt(listing.quantity, 10),
             category: listing.category,
             listing: listing.id,
-            rarity: ItemUtils.getItemRarityById(listing.erc1155TypeId),
+            rarity: ItemUtils.getRarityNameById(listing.erc1155TypeId),
             rarityId: listing.rarityLevel,
             priceInWei: listing.priceInWei,
             price: EthersApi.fromWei(listing.priceInWei)

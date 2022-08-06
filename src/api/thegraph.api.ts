@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
 import { SalesHistoryModel } from 'shared/models';
-import { GraphUtils } from 'utils';
+import { ItemUtils } from 'utils';
 
 import { EthersApi } from './ethers.api';
 import {
@@ -175,8 +175,8 @@ const modifyTraits = (gotchis: any): any => {
     return gotchisCache.map((gotchi) => {
         const gotchiCache = { ...gotchi };
 
-        if (gotchiCache.equippedSetID && GraphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
-            const modifiers = GraphUtils.getSetModifiers(gotchiCache.equippedSetID);
+        if (gotchiCache.equippedSetID && ItemUtils.isExistingSetId(gotchiCache.equippedSetID)) {
+            const modifiers = ItemUtils.getSetModifiers(gotchiCache.equippedSetID);
             const brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
             gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;

@@ -33,6 +33,45 @@ export enum Erc1155Categories {
     Tile = '5'
 }
 
+export enum ItemTypes {
+    Name = 0,
+    Description = 1,
+    Author = 2,
+    //! [WEARABLE ONLY] How much the wearable modifies each trait
+    // [NRG, AGG, SPK, BRN, EYS, EYC]
+    TraitModifiers = 3,
+    //! [WEARABLE ONLY] The slots that this wearable can be added to
+    // [body, face, eyes, head, L hand, R hand, pet, background, + 8 undeifned slots]
+    SlotPositions = 4,
+    //! [WEARABLE ONLY] The collaterals this wearable can be equipped to. An empty array is "any"
+    AllowedCollaterals = 5,
+    Dimensions = 6, //? SVG x,y,width,height
+    GhstPrice = 7, //? How much GHST this item costs
+    MaxQuantity = 8, //? Total number that can be minted of this item
+    TotalQuantity = 9, //? The total quantity of this item minted so far
+    SvgId = 10,
+    RarityScoreModifier = 11, //? Number from 1-50
+    CanPurchaseWithGhst = 12,
+    MinLevel = 13, //? The minimum Aavegotchi level required to use this item. Default is 1
+    CanBeTransferred = 14,
+    Category = 15, //? 0 is wearable, 1 is badge, 2 is consumable
+    KinshipBonus = 16, //! [CONSUMABLE ONLY]
+    ExperienceBonus = 17 //! [CONSUMABLE ONLY]
+}
+
+export enum ItemTypeNames {
+    Wearable = 'wearable',
+    Badge = 'badge',
+    Consumable = 'consumable',
+}
+
+export enum SetTypes {
+    Name = 0,
+    AllowedCollaterals = 1,
+    WearableIds = 2,
+    TraitsBonuses = 3
+}
+
 export enum InstallationTypes {
     Width = 0,
     Height = 1,
