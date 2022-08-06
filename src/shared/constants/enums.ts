@@ -65,6 +65,13 @@ export enum ItemTypeNames {
     Consumable = 'consumable',
 }
 
+export enum SetTypes {
+    Name = 0,
+    AllowedCollaterals = 1,
+    WearableIds = 2,
+    TraitsBonuses = 3
+}
+
 export enum InstallationTypes {
     Width = 0,
     Height = 1,

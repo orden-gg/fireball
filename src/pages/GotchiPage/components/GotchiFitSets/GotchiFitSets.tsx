@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Erc1155Categories } from 'shared/constants';
 import { CardImage } from 'components/ItemCard/components';
-import { wearableSets } from 'data/wearableSets.data';
+import sets from 'data/sets.data.json';
 
 interface GotchiFitSetsProps {
     gotchi : any;
@@ -14,11 +14,11 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
 
     useEffect(() => {
         const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
-        const sets: any[] = wearableSets.filter((set: any[]) =>
+        const wearableSets: any[] = sets.filter((set: any[]) =>
             getIsSetAvailable(filteredTraits, [...set[3]].splice(1, 4))
         );
 
-        setAvailableSets(sets);
+        setAvailableSets(wearableSets);
     }, [gotchi]);
 
     const getIsSetAvailable = (traits: number[], wearablesModifiers: number[]): boolean => {

@@ -1,7 +1,8 @@
-import { ItemTypeNames, ItemTypes, RarityTypes, WEARABLE_SLOTS } from 'shared/constants';
+import { ItemTypeNames, ItemTypes, RarityTypes, SetTypes, WEARABLE_SLOTS } from 'shared/constants';
 import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
 
-import items from '../data/items.data.json';
+import items from 'data/items.data.json';
+import sets from 'data/sets.data.json';
 
 export class ItemUtils {
     public static getNameById(id: number | string): string {
@@ -250,5 +251,21 @@ export class ItemUtils {
 
             return 'https://app.aavegotchi.com/baazaar';
         }
+    }
+
+    public static getSetName(id: number | string): string {
+        return sets[id][SetTypes.Name];
+    }
+
+    public static getSetWearables(id: number | string): number[] {
+        return sets[id][SetTypes.WearableIds];
+    }
+
+    public static getSetModifiers(id: number | string): number[] {
+        return sets[id][SetTypes.TraitsBonuses];
+    }
+
+    public static isExistingSetId(id: number | string): boolean {
+        return id <= sets.length;
     }
 }
