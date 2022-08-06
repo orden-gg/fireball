@@ -41,7 +41,7 @@ export function BaazaarItem({ item }: { item: any }) {
                                 className={classes.itemStats}
                                 variant={'caption'}
                             >
-                                {ItemUtils.getItemStatsById(item.erc1155TypeId)}
+                                {ItemUtils.getDescriptionById(item.erc1155TypeId)}
                             </Typography>
                         </Grid>
                     }

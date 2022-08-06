@@ -35,6 +35,8 @@ const CardInner = ({ children, id, category }: CardInnerProps): JSX.Element => {
 export function ItemCard({ children, type, id, category, className }: ItemCardProps) {
     const classes = styles();
 
+    // console.log(type)
+
     return (
         <CardContextProvider>
             <div className={classNames(type, classes.card, classes.cardVertical, className)}>

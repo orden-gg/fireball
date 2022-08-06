@@ -10,7 +10,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { EthersApi, TheGraphApi } from 'api';
-import { ItemUtils } from 'utils';
+import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHistory/components';
@@ -84,20 +84,20 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>size:</span>
-                                {ItemUtils.getParcelSize(parcel.size)}
-                                ({ItemUtils.getParcelDimmentions(parcel.size)})
+                                {CitadelUtils.getParcelSizeName(parcel.size)}
+                                ({CitadelUtils.getParcelDimmentions(parcel.size)})
                             </Paper>
                         </div>
 
                         <div className={classes.boosts}>
                             { boosts.map((boost, i) => {
-                                const multiplierValue = ItemUtils.getAlchemicaMultiplier(boost.name);
+                                const multiplierValue = GotchiverseUtils.getAlchemicaMultiplier(boost.name);
                                 const totalBoost = boost.value * multiplierValue;
 
                                 return boost.value > 0 ? (
                                     <div className={classNames(classes.boost, boost.name)} key={i}>
                                         <img
-                                            src={ItemUtils.getAlchemicaTokenImg(boost.name)}
+                                            src={GotchiverseUtils.getAlchemicaTokenImg(boost.name)}
                                             alt={boost.name}
                                             width={32}
                                         />

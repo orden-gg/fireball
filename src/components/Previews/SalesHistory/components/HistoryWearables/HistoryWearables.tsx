@@ -21,7 +21,7 @@ export function HistoryWearables({ wearables, className }: HistoryWearablesProps
     return <div className={classNames(classes.wearables, className)}>
         {filtered.length !== 0 ? (
             filtered.map((id: number, index: number) => {
-                const rarity = ItemUtils.getItemRarityById(id);
+                const rarity = ItemUtils.getRarityNameById(id);
 
                 return (
                     <CustomTooltip

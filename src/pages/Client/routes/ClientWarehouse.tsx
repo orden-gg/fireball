@@ -102,7 +102,11 @@ export function ClientWarehouse() {
                 <ItemsLazy
                     items={warehouse}
                     component={(wearable: any) =>
-                        <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
+                        <ItemCard
+                            id={wearable.id}
+                            category={wearable.category}
+                            type={wearable.rarity}
+                        >
                             <CardGroup name='header'>
                                 <CardTotalPrice
                                     balance={wearable.balance}

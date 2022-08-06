@@ -59,6 +59,12 @@ export enum ItemTypes {
     ExperienceBonus = 17 //! [CONSUMABLE ONLY]
 }
 
+export enum ItemTypeNames {
+    Wearable = 'wearable',
+    Badge = 'badge',
+    Consumable = 'consumable',
+}
+
 export enum InstallationTypes {
     Width = 0,
     Height = 1,

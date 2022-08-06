@@ -13,11 +13,16 @@ interface CardSlotProps {
 export function CardSlot({ id, children, className }: CardSlotProps) {
     const classes = styles();
 
-    const slot = ItemUtils.getItemSlotById(id);
+    const slots = id ? ItemUtils.getSlotsById(id) : [];
 
     return (
         <div className={classNames(className, classes.slot)}>
-            [{children || slot}]
+            [{
+                children
+                ||
+                slots.map((slot, index) => <span key={index}>{index > 0 && ', '}{slot}</span>
+                )
+            }]
         </div>
     );
 }
