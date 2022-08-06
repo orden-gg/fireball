@@ -68,46 +68,55 @@ export class CommonUtils {
         return new Set(array).size !== array.length;
     }
 
-    public static convertFloatNumberToSuffixNumber(number: any): any {
+    public static convertFloatNumberToSuffixNumber(number: any): number | string {
         if (number < 100) {
             return Number(number.toFixed(2));
         }
 
         const roundedNumber = Math.floor(number);
         const digits = roundedNumber.toString().split('');
-        let convertedNumber;
+        let convertedNumber: number | string;
+        let digitsString: string;
 
         switch (digits.length) {
             case 4:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}k`;
+                digitsString = `${digits[0]}.${digits[1]}${digits[2]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}k`;
 
                 break;
             case 5:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}k`;
+                digitsString = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}k`;
 
                 break;
             case 6:
-                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}k`;
+                digitsString = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}k`;
 
                 break;
             case 7:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}m`;
+                digitsString = `${digits[0]}.${digits[1]}${digits[2]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}m`;
 
                 break;
             case 8:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}m`;
+                digitsString = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}m`;
 
                 break;
             case 9:
-                convertedNumber = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}m`;
+                digitsString = `${digits[0]}${digits[1]}${digits[2]}.${digits[3]}${digits[4]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}m`;
 
                 break;
             case 10:
-                convertedNumber = `${digits[0]}.${digits[1]}${digits[2]}bn`;
+                digitsString = `${digits[0]}.${digits[1]}${digits[2]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}bn`;
 
                 break;
             case 11:
-                convertedNumber = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}bn`;
+                digitsString = `${digits[0]}${digits[1]}.${digits[2]}${digits[3]}`;
+                convertedNumber = `${CommonUtils.getCutStringZeroDigitsFromString(digitsString)}bn`;
 
                 break;
             default:
@@ -115,6 +124,28 @@ export class CommonUtils {
         }
 
         return convertedNumber;
+    }
+
+    private static getCutStringZeroDigitsFromString(digitsString: string): string {
+        let digitsStringCopy = digitsString;
+
+        while (digitsStringCopy.lastIndexOf('0') === digitsStringCopy.length - 1) {
+            digitsStringCopy = CommonUtils.removeCharAt(digitsStringCopy, digitsStringCopy.length - 1);
+        }
+
+        if (digitsStringCopy[digitsStringCopy.length - 1] === '.') {
+            digitsStringCopy = digitsStringCopy.slice(0, digitsStringCopy.length - 1);
+        }
+
+        return digitsStringCopy;
+    }
+
+    private static removeCharAt(targetString: string, indexToRemoveAt: number): string {
+        const targetStringCopy = targetString.split('');
+
+        targetStringCopy.splice(indexToRemoveAt , 1);
+
+        return targetStringCopy.join('');
     }
 
     public static stringToKey(string: any): any {
