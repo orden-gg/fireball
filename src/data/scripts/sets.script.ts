@@ -17,10 +17,8 @@ console.log('⏳ retrieving data from blockhain ⌛');
 
 mainContract.getWearableSets()
     .then((res: any) => {
-        const modified = _.cloneDeep(res);
+        fs.writeFileSync('src/data/sets.data.json', JSON.stringify(res), 'utf-8');
 
-        fs.writeFileSync('src/data/sets.data.json', JSON.stringify(modified), 'utf-8');
-
-        console.log(`✅ successfully recorded ${modified.length} items ✅`);
+        console.log(`✅ successfully recorded ${res.length} sets ✅`);
     })
     .catch(error => console.log('❌', error, '❌'));

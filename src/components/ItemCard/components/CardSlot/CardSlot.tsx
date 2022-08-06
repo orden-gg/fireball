@@ -18,10 +18,10 @@ export function CardSlot({ id, children, className }: CardSlotProps) {
     return (
         <div className={classNames(className, classes.slot)}>
             [{
-                children
-                ||
-                slots.map((slot, index) => <span key={index}>{index > 0 && ', '}{slot}</span>
-                )
+                children ||
+                slots.map((slot, index) => (
+                    <span key={index}>{index > 0 && ', '}{slot}</span>
+                ))
             }]
         </div>
     );
