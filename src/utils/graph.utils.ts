@@ -1,6 +1,4 @@
-import { SetTypes } from 'shared/constants';
 import { collaterals } from 'data/collaterals.data';
-import { wearableSets } from 'data/wearableSets.data';
 import { tokens } from 'data/tokens.data';
 
 export class GraphUtils {
@@ -63,21 +61,5 @@ export class GraphUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    }
-
-    public static getSetName(id: any): any {
-        return wearableSets[id][SetTypes.Name] || '';
-    }
-
-    public static getSetWearables(id: any): any {
-        return wearableSets[id][SetTypes.Wearables] || '';
-    }
-
-    public static getSetModifiers(id: any): any {
-        return wearableSets[id][SetTypes.Modifiers] || '';
-    }
-
-    public static isExistingSetId(id: any): any {
-        return id <= wearableSets.length;
     }
 }

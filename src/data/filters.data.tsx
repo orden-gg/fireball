@@ -92,6 +92,14 @@ export const filtersData = {
         },
         ...defaultMultiSelectionFilter
     },
+    borrower: {
+        key: 'borrower',
+        queryParamKey: 'borrower',
+        componentType: FilterComponentType.MultipleAutocomplete,
+        title: 'Borrower',
+        items: [],
+        ...defaultMultiSelectionFilter
+    },
     whitelistId: {
         key: 'whitelistId',
         queryParamKey: 'whitelistId',

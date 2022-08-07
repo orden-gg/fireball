@@ -4,6 +4,7 @@ import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
 import { FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { TokensPricesContext } from 'contexts/TokensPricesContext';
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -40,7 +41,7 @@ export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
 
                         return <div className={classes.token} key={index}>
                             <Icon className={classes.tokenIcon} width={20} height={20} />
-                            <span className={classes.amount}>{amount}</span>
+                            <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(amount)}</span>
                         </div>;
                     })
                 }

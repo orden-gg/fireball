@@ -63,4 +63,56 @@ export class GotchiverseUtils {
 
         return modified as AlchemicaList;
     }
+
+    public static getAlchemicaImg(name: any): any {
+        try {
+            return require(`../assets/images/icons/${name}.svg`).default;
+        } catch (error) {
+            return require('../assets/images/image-placeholder.svg').default;
+        }
+    }
+
+    public static getAlchemicaTokenImg(name: any): any {
+        try {
+            return require(`../assets/images/tokens/${name}-token.svg`).default;
+        } catch (error) {
+            return require('../assets/images/image-placeholder.svg').default;
+        }
+    }
+
+    public static getAlchemicaMultiplier(name: any): any {
+        switch (name) {
+            case 'fud':
+                return 1000;
+            case 'fomo':
+                return 500;
+            case 'alpha':
+                return 250;
+            case 'kek':
+                return 100;
+            default:
+                return 1;
+        }
+    }
+
+    public static getTicketFrensPrice(rarity: any): any {
+        switch (rarity) {
+            case RarityTypes.Common:
+                return 50;
+            case RarityTypes.Uncommon:
+                return 250;
+            case RarityTypes.Rare:
+                return 500;
+            case RarityTypes.Legendary:
+                return 2500;
+            case RarityTypes.Mythical:
+                return 10000;
+            case RarityTypes.Godlike:
+                return 50000;
+            case RarityTypes.Drop:
+                return 10000;
+            default:
+                return 0;
+        }
+    }
 }

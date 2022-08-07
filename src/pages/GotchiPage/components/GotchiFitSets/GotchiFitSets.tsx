@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 
 import _ from 'lodash';
 
-import { Erc1155Categories, SetTypes, TRAITS_KEYS, WearableTypes, WEARABLE_SLOTS } from 'shared/constants';
+import { SetTypes, TRAITS_KEYS, WearableTypes, WEARABLE_SLOTS } from 'shared/constants';
 import { GotchiSvgByStats } from 'components/Gotchi/GotchiImage/GotchiSvgByStats';
-// import { CardImage } from 'components/ItemCard/components';
-import { wearableSets } from 'data/wearableSets.data';
-import { CommonUtils, ItemUtils } from 'utils';
+import wearableSets from 'data/sets.data.json';
+import { ItemUtils } from 'utils';
 
 interface GotchiFitSetsProps {
     gotchi : any;
@@ -21,17 +20,10 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
     useEffect(() => {
         const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
         const sets: any[] = wearableSets.filter((set: any[]) => {
-            const setModifiers = [...set[SetTypes.Modifiers]].splice(1, 4);
-            const wareablesModifiers = set[SetTypes.Wearables].map((wearable: number) => {
-                const stats: Array<{name: string}> = ItemUtils.getWearableStatsById(wearable)
-
-                return [...TRAITS_KEYS].splice(0, 4).map((name: string) => {
-                    const statValue: number | undefined =  stats[name.toUpperCase()];
-
-                    return Number(statValue) || 0;
-                });
-            });
-
+            const setModifiers: number[] = [...set[SetTypes.TraitsBonuses]].splice(1, 4);
+            const wareablesModifiers: Array<number[]> = set[SetTypes.WearableIds].map((wearable: number) =>
+                ItemUtils.getTraitModifiersById(wearable)
+            );
             const concatedModifiers: number[] = concatTraits([concatTraits(wareablesModifiers), setModifiers]);
 
             return getIsSetAvailable(filteredTraits, concatedModifiers);
@@ -70,21 +62,16 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
 
     const setEquippedWearables = (wearables: number[]): number[] => {
         const array: number[] = _.fill(Array(16), 0);
-        const hands = WEARABLE_SLOTS[WearableTypes.Hands].toLowerCase();
 
         for (const wearableId of wearables) {
-            const slot: string = ItemUtils.getItemSlotById(wearableId);
+            const slotPositions: boolean[] = ItemUtils.getSlotPositionsById(wearableId);
+            const slotId: number = slotPositions.findIndex((isSlot: boolean) => isSlot);
 
-            let slotId: number = WEARABLE_SLOTS.findIndex((name: string) =>
-                name.toLowerCase() === slot
-            );
-
-
-            if (slot === hands && array[slotId] !== 0) {
-                slotId = WearableTypes.RightHand;
+            if (array[slotId] !== 0) {
+                array[WearableTypes.RightHand] = wearableId;
+            } else {
+                array[slotId] = wearableId;
             }
-
-            array[slotId] = wearableId;
         }
 
         return array;
@@ -92,21 +79,16 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
 
     return <div className={className} style={{ marginTop: 20 }}>
         {availableSets.map((set: any[], index: number) => {
-            return <span key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
+            return <div key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
                 <GotchiSvgByStats gotchi={{
                     hauntId: gotchi.hauntId,
                     collateral: gotchi.collateral,
                     numericTraits: gotchi.numericTraits,
-                    equippedWearables: setEquippedWearables(set[SetTypes.Wearables])
+                    equippedWearables: setEquippedWearables(set[SetTypes.WearableIds])
                 }} size='125px' />
 
                 <div style={{ textAlign: 'center' }}>{set[SetTypes.Name]}</div>
-
-                {/* {set[2].map((id: number, index: number) => <CardImage id={id} key={index} category={Erc1155Categories.Wearable} />)}
-                <div>{[...set[3]].splice(1,4).join('/')}</div>
-                <div>{[...gotchi.numericTraits].splice(0, 4).join('/')}</div>
-                <div>{set[0]}</div> */}
-            </span>;
+            </div>;
         })}
     </div>;
 }

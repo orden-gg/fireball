@@ -73,7 +73,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                     </CardGroup>
                 </ItemCard>;
             case 'wearables':
-                return <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getItemRarityById(item.id)}>
+                return <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getRarityNameById(item.id)}>
                     <CardGroup name='header'>
                         <CardTotalPrice
                             balance={item.quantity}

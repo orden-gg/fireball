@@ -37,7 +37,7 @@ export function CardImage({ id, category, className }: CardImageProps) {
                 url = InstallationsUtils.getImageById(id);
                 break;
             default:
-                name = ItemUtils.getItemNameById(id);
+                name = ItemUtils.getNameById(id);
                 url = ItemUtils.getWearableImg(id);
                 break;
         }

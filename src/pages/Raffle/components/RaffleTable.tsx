@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { RaffleContext } from 'contexts/RaffleContext';
-import { ItemUtils } from 'utils';
+import { GotchiverseUtils, ItemUtils } from 'utils';
 import { CommonUtils } from 'utils';
 
 import { tableStyles } from '../styles';
@@ -166,7 +166,7 @@ export function RaffleTable() {
                                             align='center'
                                             className={classNames(classes.tableValue, classes.price)}
                                         >
-                                            {CommonUtils.formatPrice(ticket.entered * ItemUtils.getTicketFrensPrice(ticket.rarity))}
+                                            {CommonUtils.formatPrice(ticket.entered * GotchiverseUtils.getTicketFrensPrice(ticket.rarity))}
                                         </Typography>
                                     )}
                                 </Box>
