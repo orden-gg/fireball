@@ -127,8 +127,14 @@ export enum WearableTypes {
     Face = 1,
     Eyes = 2,
     Head = 3,
-    LHand = 4,
-    RHand = 5,
+    RightHand = 4,
+    Hands = 5,
     Pet = 6,
     Background = 7
+}
+
+export enum SetTypes {
+    Name = 0,
+    Wearables = 2,
+    Modifiers = 3
 }

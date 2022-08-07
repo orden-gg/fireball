@@ -24,7 +24,7 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 <div className={classes.wearables}>
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Head} />
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Face} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.LHand} />
+                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Hands} />
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Background} />
                 </div>
                 <div className={classes.gotchiCenter}>
@@ -41,7 +41,7 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 <div className={classes.wearables}>
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Eyes} />
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Body} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.RHand} />
+                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.RightHand} />
                     <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Pet} />
                 </div>
             </div>

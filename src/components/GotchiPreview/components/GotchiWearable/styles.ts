@@ -28,7 +28,7 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
             width: '75%',
             paddingBottom: '75%'
         },
-        '.l-hand &': {
+        '.hands &': {
             transform: 'scaleX(-1)'
         }
     },

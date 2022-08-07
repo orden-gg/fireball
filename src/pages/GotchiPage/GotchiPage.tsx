@@ -12,6 +12,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, TheGraphApi } from 'api';
 
 import { styles } from './styles';
+import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
 export function GotchiPage() {
     const classes = styles();
@@ -48,7 +49,7 @@ export function GotchiPage() {
             gotchiLoaded && (
                 <>
                     <GotchiPreview gotchi={gotchi} />
-
+                    <GotchiFitSets gotchi={gotchi} />
                     {
                         gotchi.timesTraded > 0 && (
                             <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
