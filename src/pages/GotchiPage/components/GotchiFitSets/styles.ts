@@ -84,10 +84,13 @@ export const gotchiFitSetsStyles = makeStyles(theme => createStyles({
         bottom: theme.spacing(-1),
         opacity: 0,
         visibility: 'hidden',
+        borderRadius: 5,
         transition: '.3s',
+        background: theme.palette.background.default,
         '$set:hover &': {
             opacity: 1,
-            visibility: 'visible'
+            visibility: 'visible',
+            transform: 'none'
         }
     },
     setWearablesLeft: {
@@ -95,23 +98,14 @@ export const gotchiFitSetsStyles = makeStyles(theme => createStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        '& $setWearable': {
-            transform: 'translate(100%)'
-        }
+        transform: 'translate(100%)'
     },
     setWearablesRight: {
         left: '100%',
-        '& $setWearable': {
-            transform: 'translate(-100%)'
-        }
+        transform: 'translate(-100%)'
     },
     setWearable: {
         width: '100%',
-        background: theme.palette.background.default,
-        transition: '.2s linear',
-        '$set:hover &': {
-            transform: 'none'
-        },
         '& + &': {
             paddingTop: theme.spacing(.5)
         }
