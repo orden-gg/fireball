@@ -42,9 +42,6 @@ const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-
 const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
 const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 
-// TODO: temporary lend graph
-const lendAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
-
 const defaultOptions: DefaultOptions = {
     watchQuery: {
       fetchPolicy: 'no-cache',
@@ -71,7 +68,6 @@ const clientFactory = (() => {
         svgsClient: createClient(gotchiSvgAPI),
         realmClient: createClient(realmAPI),
         gotchiverseClient: createClient(gotchiverseAPI),
-        lendClient: createClient(lendAPI),
         incomeClient: createClient(incomeAPI)
     };
 })();
@@ -495,7 +491,7 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
@@ -517,7 +513,7 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
@@ -539,7 +535,7 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
