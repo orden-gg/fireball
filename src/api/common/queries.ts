@@ -552,6 +552,9 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
             modifiedRarityScore,
             toNextLevel
             level
+            equippedWearables
+            numericTraits
+            modifiedNumericTraits
         }
         lender
         borrower

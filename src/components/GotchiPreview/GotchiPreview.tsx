@@ -50,7 +50,7 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 <div className={classes.title}>
                     <span className={classes.name}>{gotchi.name}</span>
                     <EthAddress
-                        address={gotchi.originalOwner?.id || gotchi.owner.id}
+                        address={gotchi.originalOwner?.id || gotchi.lender}
                         isShowIcon
                         isCopyButton
                         isPolygonButton
