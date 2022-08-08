@@ -33,17 +33,47 @@ export const gotchiFitSetsStyles = makeStyles(theme => createStyles({
         }
     },
     setName: {
-        margin: 0
+        margin: 0,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     setBonus: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 12,
+        opacity: 0,
+        '$set:hover &': {
+            opacity: 1
+        }
+    },
+    setBonusRS: {
+        marginRight: theme.spacing(.5),
+        '& span': {
+            color: theme.palette.primary.main,
+            marginRight: 2
+        }
+    },
+    setTraits: {
+        fontSize: 12,
+        '& img': {
+            width: 15,
+            height: 'auto'
+        }
+    },
+    setRS: {
         position: 'absolute',
         left: '50%',
         transform: 'translateX(-50%)',
         top: 0,
         zIndex: 1,
-        padding: theme.spacing(0, .25),
-        lineHeight: 1.2,
-        backgroundColor: alpha(theme.palette.common.black, .7),
+        padding: theme.spacing(.25, .5),
+        lineHeight: 1,
+        fontSize: 12,
+        backgroundColor: alpha(theme.palette.common.black, .8),
+        fontWeight: 600,
         '& span': {
             color: theme.palette.primary.main
         }

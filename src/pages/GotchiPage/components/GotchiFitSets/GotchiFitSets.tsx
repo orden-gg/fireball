@@ -10,6 +10,8 @@ import wearableSets from 'data/sets.data.json';
 import { ItemUtils } from 'utils';
 
 import { gotchiFitSetsStyles } from './styles';
+import { CardStats } from 'components/ItemCard/components';
+
 interface GotchiFitSetsProps {
     gotchi : any;
     className?: string;
@@ -47,7 +49,7 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
                 const bonusRs = getBonusRs(concatedModifiers, filteredTraits) + set[SetTypes.TraitsBonuses][0] + wareablesRS;
                 const equippedWearables = getEquippedWearables(set[SetTypes.WearableIds]);
 
-                sets.push({ bonus: bonusRs, data: set, equippedWearables: equippedWearables  });
+                sets.push({ bonus: bonusRs, data: set, equippedWearables: equippedWearables });
             }
         });
 
@@ -56,7 +58,7 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
         setAvailableSets(sets);
     }, [gotchi]);
 
-    const getBonusRs = (modifiers: number[], traits: number[]) => {
+    const getBonusRs = (modifiers: number[], traits: number[]): number => {
         const traitsWithModifiers: number[] = traits.map((trait: number, index: number) => trait + modifiers[index]);
 
         return traitsWithModifiers.reduce((prev: number, current: number, index: number) => {
@@ -128,7 +130,12 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
 
                     <p className={classes.setName}>{set.data[SetTypes.Name]}</p>
 
-                    <span className={classes.setBonus}><span>+{set.bonus}</span> RS</span>
+                    <div className={classes.setBonus}>
+                        <span className={classes.setBonusRS}><span>RS</span>+{set.data[SetTypes.TraitsBonuses][0]}</span>
+                        <CardStats stats={[...set.data[SetTypes.TraitsBonuses]].slice(1, 4)} className={classes.setTraits} />
+                    </div>
+
+                    <span className={classes.setRS}><span>+{set.bonus}</span> RS</span>
 
                     <div className={classNames(classes.setWearables, classes.setWearablesLeft)}>
                         <div className={classes.setWearable}>

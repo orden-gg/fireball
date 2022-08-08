@@ -224,8 +224,8 @@ export function Shop() {
             ItemUtils.getTraitModifiersById(id) :
             ItemUtils.getDescriptionById(id);
 
-        return <CardStats stats={stats} />
-    }
+        return <CardStats stats={stats} />;
+    };
 
     return (
         <div className={classes.container}>
