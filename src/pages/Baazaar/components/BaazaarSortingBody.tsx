@@ -77,6 +77,15 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
 
     };
 
+    const renderCardStats = (id: number, category: string): JSX.Element => {
+        const isWearable: boolean = category === Erc1155Categories.Wearable;
+        const stats: any = isWearable ?
+            ItemUtils.getTraitModifiersById(id) :
+            ItemUtils.getDescriptionById(id);
+
+        return <CardStats stats={stats} />
+    }
+
     return (
         <div className={classes.baazaarBody}>
             <div className={classNames(classes.baazaarListItems, selectedGoodsType === ListingTypes.Activity ? 'horizontal' : '')}>
@@ -97,7 +106,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                             </CardGroup>
                                             <CardGroup name='statsCell'>
                                                 <CardName id={item.erc1155TypeId} />
-                                                <CardStats id={item.erc1155TypeId} category={item.category} />
+                                                {renderCardStats(item.erc1155TypeId, item.category)}
                                             </CardGroup>
                                             <CardGroup name='priceCell'>
                                                 <HorizontalPrice label='Sold for ' item={item} />
@@ -184,7 +193,7 @@ export function BaazaarSortingBody({ goods, page, limit, onNextPageClick, onPrev
                                                 <CardSlot id={item.erc1155TypeId} />
                                                 <CardImage id={item.erc1155TypeId} />
                                                 <CardName id={item.erc1155TypeId} />
-                                                <CardStats id={item.erc1155TypeId} category={item.category} />
+                                                {renderCardStats(item.erc1155TypeId, item.category)}
                                             </CardGroup>
                                             <CardGroup name='footer'>
                                                 <CardListing />

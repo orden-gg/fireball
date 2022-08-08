@@ -28,7 +28,7 @@ export function SlotWearable({ id, slotId, className }: SlotWearableProps) {
                         title={
                             <>
                                 <CardName id={id} />
-                                <CardStats id={id} category={Erc1155Categories.Wearable} />
+                                <CardStats stats={ItemUtils.getTraitModifiersById(id)} />
                             </>
                         }
                         followCursor

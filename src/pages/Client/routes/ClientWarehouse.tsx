@@ -5,6 +5,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 import qs from 'query-string';
 
+import { Erc1155Categories } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { ItemCard } from 'components/ItemCard/containers';
 import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats, CardTotalPrice } from 'components/ItemCard/components';
@@ -13,7 +14,7 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
-import { CommonUtils } from 'utils';
+import { CommonUtils, ItemUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
     {
@@ -88,6 +89,15 @@ export function ClientWarehouse() {
         onSortingChange: onSortingChange
     };
 
+    const renderCardStats = (id: number, category: string): JSX.Element => {
+        const isWearable: boolean = category === Erc1155Categories.Wearable;
+        const stats: any = isWearable ?
+            ItemUtils.getTraitModifiersById(id) :
+            ItemUtils.getDescriptionById(id);
+
+        return <CardStats stats={stats} />
+    }
+
     return (
         <>
             <SortFilterPanel
@@ -118,7 +128,7 @@ export function ClientWarehouse() {
                                 <CardSlot id={wearable.id} />
                                 <CardImage id={wearable.id} />
                                 <CardName id={wearable.id} />
-                                <CardStats id={wearable.id} category={wearable.category} />
+                                {renderCardStats(wearable.id, wearable.category)}
                             </CardGroup>
                             <CardGroup name='footer'>
                                 <CardListing />

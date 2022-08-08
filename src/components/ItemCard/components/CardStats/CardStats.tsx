@@ -6,23 +6,17 @@ import { ItemUtils } from 'utils';
 import { styles } from './styles';
 
 interface CardStatsProps {
-    id: number;
-    category: string;
+    stats: number[] | string;
     className?: string;
 }
 
-export function CardStats({ id, category, className }: CardStatsProps) {
+export function CardStats({ stats, className }: CardStatsProps) {
     const classes = styles();
-
-    const isWearable: boolean = category === Erc1155Categories.Wearable;
-    const stats: any = isWearable ?
-        ItemUtils.getTraitModifiersById(id) :
-        ItemUtils.getDescriptionById(id);
 
     return (
         <p className={classNames(className, classes.stats)}>
             {
-                isWearable ? (
+                typeof stats === 'object' ? (
                     stats.map((value: number, index) => {
                         if (value !== 0) {
                             const key = TRAITS_KEYS[index];
