@@ -1,4 +1,4 @@
-import { Link } from '@mui/material';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 
 import { styles } from './styles';
 
@@ -6,14 +6,13 @@ export function GotchiName({ gotchi }: { gotchi: any }) {
     const classes = styles();
 
     return (
-        <Link
-            className={classes.gotchiName}
-            href={`https://app.aavegotchi.com/gotchi/${gotchi.id}`}
-            target='_blank'
-            underline='none'
-        >
-            <p>{gotchi.name ? gotchi.name : 'Unnamed'}</p>
-            <span className={classes.gotchiId}>({gotchi.id})</span>
-        </Link>
+        <div className={classes.gotchiNameBox}>
+            <CopyToClipboardBlock text={gotchi.name} className={classes.gotchiName}>
+                {gotchi.name ? gotchi.name : 'Unnamed'}
+            </CopyToClipboardBlock>
+            <CopyToClipboardBlock text={gotchi.id} className={classes.gotchiId}>
+                {gotchi.id}
+            </CopyToClipboardBlock>
+        </div>
     );
 }

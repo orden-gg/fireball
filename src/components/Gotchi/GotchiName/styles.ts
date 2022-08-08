@@ -2,7 +2,7 @@ import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
-    gotchiName: {
+    gotchiNameBox: {
         display: 'flex',
         justifyContent: 'center',
         backgroundColor: alpha(theme.palette.secondary.dark, .3),
@@ -10,31 +10,35 @@ export const styles = makeStyles(theme => createStyles({
         fontWeight: 500,
         position: 'relative',
         transition: 'all .2s ease-in-out',
-        padding: 7,
         fontSize: 15,
-        '&:hover': {
-            textDecoration: 'none',
-            backgroundColor: alpha(theme.palette.secondary.dark, .6)
-        },
         '.narrowed &': {
-            background: 'none',
-            padding: 5,
-            '&:hover': {
-                textDecoration: 'underline'
-            }
-        },
-        '& p': {
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            margin: 0,
-            '.narrowed &': {
-                fontSize: 14
-            }
+            background: 'none'
+        }
+    },
+    gotchiName: {
+        padding: '7px',
+        flex: 1,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        margin: 0,
+        '.narrowed &': {
+            fontSize: 14
         }
     },
     gotchiId: {
-        color: '#00FFFF'
+        color: '#00FFFF',
+        padding: '7px',
+        position: 'relative',
+        '&::before': {
+            content: '""',
+            position: 'absolute',
+            left: 0,
+            top: '25%',
+            bottom: '25%',
+            width: 1,
+            backgroundColor: alpha(theme.palette.common.white, .15)
+        }
     },
     callMadeIcon: {
         position: 'absolute',

@@ -44,7 +44,7 @@ export function CopyToClipboardBlock({ children, text, className }: CopyToClipbo
                 onClick={(event) => copyText(event, text)}
                 onMouseEnter={() => setTooltipText(defaultTooltipText)}
             >
-                <span>{children}</span>
+                {children}
             </div>
         </CustomTooltip>
     );

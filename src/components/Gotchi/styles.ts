@@ -11,6 +11,7 @@ export const styles = makeStyles(theme => createStyles({
         position: 'relative',
         border: '3px solid gray',
         alignItem: 'space-between',
+        cursor: 'pointer',
         '&:hover': {
             textDecoration: 'none',
             zIndex: 1

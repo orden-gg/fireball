@@ -48,7 +48,8 @@ export const gotchiPreviewStyles = makeStyles(theme => createStyles({
     },
     name: {
         fontSize: 22,
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        color: theme.palette.primary.main
     },
     infoList: {
         display: 'flex',

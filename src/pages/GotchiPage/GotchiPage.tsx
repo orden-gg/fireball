@@ -49,7 +49,10 @@ export function GotchiPage() {
             gotchiLoaded && (
                 <>
                     <GotchiPreview gotchi={gotchi} />
-                    <GotchiFitSets gotchi={gotchi} />
+                    <div className={classes.sets}>
+                        <div className={classes.title}>Recommended sets</div>
+                        <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
+                    </div>
                     {
                         gotchi.timesTraded > 0 && (
                             <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>

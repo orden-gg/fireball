@@ -1,36 +1,68 @@
 import { useEffect, useState } from 'react';
 
+import classNames from 'classnames';
 import _ from 'lodash';
 
-import { SetTypes, TRAITS_KEYS, WearableTypes, WEARABLE_SLOTS } from 'shared/constants';
-import { GotchiSvgByStats } from 'components/Gotchi/GotchiImage/GotchiSvgByStats';
+import { SetTypes, WearableTypes } from 'shared/constants';
+import { SlotWearable } from 'components/Items/SlotWearable/SlotWearable';
+import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
 import wearableSets from 'data/sets.data.json';
 import { ItemUtils } from 'utils';
 
+import { gotchiFitSetsStyles } from './styles';
 interface GotchiFitSetsProps {
     gotchi : any;
     className?: string;
 }
-// This is test component, please avoid commenting it, or tell me, i'll move it out of project :)
-export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
-    const [availableSets, setAvailableSets] = useState<any[]>([]);
 
-    console.log(gotchi);
+interface Set {
+    bonus: number;
+    data: any[];
+    equippedWearables: number[];
+}
+
+export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
+    const classes = gotchiFitSetsStyles();
+
+    const [availableSets, setAvailableSets] = useState<Array<Set>>([]);
 
     useEffect(() => {
         const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
-        const sets: any[] = wearableSets.filter((set: any[]) => {
+        const sets: Array<Set> = [];
+
+        wearableSets.forEach((set: any[]) => {
             const setModifiers: number[] = [...set[SetTypes.TraitsBonuses]].splice(1, 4);
             const wareablesModifiers: Array<number[]> = set[SetTypes.WearableIds].map((wearable: number) =>
                 ItemUtils.getTraitModifiersById(wearable)
             );
+            const wareablesRS: number[] = set[SetTypes.WearableIds]
+                .map((wearable: number) =>
+                    ItemUtils.getRarityScoreModifierById(wearable)
+                )
+                .reduce((prev, current) => prev + current, 0);
             const concatedModifiers: number[] = concatTraits([concatTraits(wareablesModifiers), setModifiers]);
+            const isSetAvailable = getIsSetAvailable(filteredTraits, concatedModifiers);
 
-            return getIsSetAvailable(filteredTraits, concatedModifiers);
+            if (isSetAvailable) {
+                const bonusRs = getBonusRs(concatedModifiers, filteredTraits) + set[SetTypes.TraitsBonuses][0] + wareablesRS;
+                const equippedWearables = getEquippedWearables(set[SetTypes.WearableIds]);
+
+                sets.push({ bonus: bonusRs, data: set, equippedWearables: equippedWearables  });
+            }
         });
+
+        sets.sort((curentSet: Set, nextSet: Set) => nextSet.bonus - curentSet.bonus);
 
         setAvailableSets(sets);
     }, [gotchi]);
+
+    const getBonusRs = (modifiers: number[], traits: number[]) => {
+        const traitsWithModifiers: number[] = traits.map((trait: number, index: number) => trait + modifiers[index]);
+
+        return traitsWithModifiers.reduce((prev: number, current: number, index: number) => {
+            return prev + Math.abs(current - traits[index]);
+        }, 0);
+    };
 
     const concatTraits = (traitsList: Array<number[]>): number[] => {
         const result: number[] = [];
@@ -46,7 +78,7 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
         }
 
         return result;
-    }
+    };
 
     const getIsSetAvailable = (traits: number[], wearablesModifiers: number[]): boolean => {
         const isSetAvailable: boolean = traits.every((trait: number, index: number) =>
@@ -60,7 +92,7 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
         return isSetAvailable;
     };
 
-    const setEquippedWearables = (wearables: number[]): number[] => {
+    const getEquippedWearables = (wearables: number[]): number[] => {
         const array: number[] = _.fill(Array(16), 0);
 
         for (const wearableId of wearables) {
@@ -68,27 +100,67 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
             const slotId: number = slotPositions.findIndex((isSlot: boolean) => isSlot);
 
             if (array[slotId] !== 0) {
-                array[WearableTypes.RightHand] = wearableId;
+                array[WearableTypes.RHand] = wearableId;
             } else {
                 array[slotId] = wearableId;
             }
         }
 
         return array;
-    }
+    };
 
-    return <div className={className} style={{ marginTop: 20 }}>
-        {availableSets.map((set: any[], index: number) => {
-            return <div key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
-                <GotchiSvgByStats gotchi={{
-                    hauntId: gotchi.hauntId,
-                    collateral: gotchi.collateral,
-                    numericTraits: gotchi.numericTraits,
-                    equippedWearables: setEquippedWearables(set[SetTypes.WearableIds])
-                }} size='125px' />
+    return <div className={classNames(classes.setsList, className)}>
+        {availableSets.map((set: Set, index: number) => {
 
-                <div style={{ textAlign: 'center' }}>{set[SetTypes.Name]}</div>
-            </div>;
+            return (
+                <div key={index} className={classNames(classes.set)}>
+                    <div className={classes.setImage}>
+                        <GotchiImage
+                            gotchi={{
+                                hauntId: gotchi.hauntId,
+                                collateral: gotchi.collateral,
+                                numericTraits: gotchi.numericTraits,
+                                equippedWearables: set.equippedWearables
+                            }}
+                            renderSvgByStats
+                        />
+                    </div>
+
+                    <p className={classes.setName}>{set.data[SetTypes.Name]}</p>
+
+                    <span className={classes.setBonus}><span>+{set.bonus}</span> RS</span>
+
+                    <div className={classNames(classes.setWearables, classes.setWearablesLeft)}>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Head]} slotId={WearableTypes.Head} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Face]} slotId={WearableTypes.Face} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Background]} slotId={WearableTypes.Background} />
+                        </div>
+                    </div>
+
+                    <div className={classNames(classes.setWearables, classes.setWearablesRight)}>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Eyes]} slotId={WearableTypes.Eyes} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Body]} slotId={WearableTypes.Body} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
+                        </div>
+                        <div className={classes.setWearable}>
+                            <SlotWearable id={set.equippedWearables[WearableTypes.Pet]} slotId={WearableTypes.Pet} />
+                        </div>
+                    </div>
+                </div>
+            );
         })}
     </div>;
 }
