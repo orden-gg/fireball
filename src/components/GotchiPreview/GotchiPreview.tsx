@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { WearableTypes } from 'shared/constants';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiTraits } from 'components/Gotchi/GotchiTraits/GotchiTraits';
-import { SlotWearable } from '../Items/SlotWearable/SlotWearable';
+import { WearableSlot } from '../Items/WearableSlot/WearableSlot';
 import { GotchiImage } from './components/GotchiImage/GotchiImage';
 import { GotchiLevel } from './components/GotchiLevel/GotchiLevel';
 import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
@@ -23,10 +23,10 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
         <div className={classNames(classes.gotchi, className)}>
             <div className={classes.gotchiView}>
                 <div className={classes.wearables}>
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Head]} slotId={WearableTypes.Head} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Face]} slotId={WearableTypes.Face} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Background]} slotId={WearableTypes.Background} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Head]} slotId={WearableTypes.Head} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Face]} slotId={WearableTypes.Face} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Background]} slotId={WearableTypes.Background} />
                 </div>
                 <div className={classes.gotchiCenter}>
                     <div className={classes.centerHead}>
@@ -43,10 +43,10 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                     <GotchiLevel level={gotchi.level} experience={gotchi.experience} toNextLevel={gotchi.toNextLevel} />
                 </div>
                 <div className={classes.wearables}>
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Eyes]} slotId={WearableTypes.Eyes} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Body]} slotId={WearableTypes.Body} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
-                    <SlotWearable id={gotchi.equippedWearables[WearableTypes.Pet]} slotId={WearableTypes.Pet} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Eyes]} slotId={WearableTypes.Eyes} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Body]} slotId={WearableTypes.Body} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Pet]} slotId={WearableTypes.Pet} />
                 </div>
             </div>
 

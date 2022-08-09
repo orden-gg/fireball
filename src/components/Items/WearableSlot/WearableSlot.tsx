@@ -6,16 +6,16 @@ import { ItemCard } from 'components/ItemCard/containers';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ItemUtils } from 'utils';
 
-import { slotWearableStyles } from './styles';
+import { wearableSlotStyles } from './styles';
 
-interface SlotWearableProps {
+interface WearableSlotProps {
     id: number;
     slotId: number;
     className?: string;
 }
 
-export function SlotWearable({ id, slotId, className }: SlotWearableProps) {
-    const classes = slotWearableStyles();
+export function WearableSlot({ id, slotId, className }: WearableSlotProps) {
+    const classes = wearableSlotStyles();
 
     const name: string = WEARABLE_SLOTS[slotId];
     const rarity: string = ItemUtils.getRarityNameById(id);

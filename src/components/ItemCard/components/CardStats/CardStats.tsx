@@ -16,6 +16,7 @@ export function CardStats({ stats, className }: CardStatsProps) {
     return (
         <p className={classNames(className, classes.stats)}>
             {
+                // TODO: Temporary solution, should be reworked
                 typeof stats === 'object' ? (
                     stats.map((value: number, index) => {
                         if (value !== 0) {

@@ -11,8 +11,9 @@ import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, TheGraphApi } from 'api';
 
-import { styles } from './styles';
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
+
+import { styles } from './styles';
 
 export function GotchiPage() {
     const classes = styles();

@@ -271,11 +271,11 @@ export class ItemUtils {
         return id <= sets.length;
     }
 
-    public static combineTraitsModifiers = (traitsList: Array<number[]>): number[] => {
+    public static combineTraitsModifiers = (traitsMatrix: number[][]): number[] => {
         const result: number[] = [];
 
-        for (const array of traitsList) {
-            array.forEach((value, index) => {
+        for (const traitsArray of traitsMatrix) {
+            traitsArray.forEach((value, index) => {
                 if (result[index] !== undefined) {
                     result[index] += value;
                 } else {
@@ -304,19 +304,19 @@ export class ItemUtils {
     };
 
     public static getEquippedWearables = (wearables: number[]): number[] => {
-        const array: number[] = _.fill(Array(16), 0);
+        const equippedWearables: number[] = _.fill(Array(16), 0);
 
         for (const wearableId of wearables) {
             const slotPositions: boolean[] = ItemUtils.getSlotPositionsById(wearableId);
             const slotId: number = slotPositions.findIndex((isCurrentSlot: boolean) => isCurrentSlot);
 
-            if (array[slotId] !== 0) {
-                array[WearableTypes.RHand] = wearableId;
+            if (equippedWearables[slotId] !== 0) {
+                equippedWearables[WearableTypes.RHand] = wearableId;
             } else {
-                array[slotId] = wearableId;
+                equippedWearables[slotId] = wearableId;
             }
         }
 
-        return array;
+        return equippedWearables;
     };
 }

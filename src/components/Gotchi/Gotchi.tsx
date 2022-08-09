@@ -252,7 +252,6 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     gotchi.lending && isHighlightLending && 'lended',
                     isFlipped && classes.gotchiIsFlipped
                 )}
-
                 onClick={() => setIsPreviewOpen(true)}
             >
                 { gotchi.lending && isHighlightLending && (
