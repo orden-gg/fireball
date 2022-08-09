@@ -3,7 +3,6 @@ import { styled, Tooltip, tooltipClasses } from '@mui/material';
 interface CustomTooltipProps {
     children: JSX.Element;
     title: string | JSX.Element;
-    open?: boolean;
     placement:
         | 'bottom-end'
         | 'bottom-start'
@@ -21,6 +20,7 @@ interface CustomTooltipProps {
     enterTouchDelay?: number;
     className?: string;
     arrow?: boolean;
+    open?: boolean;
 }
 
 const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
@@ -43,7 +43,7 @@ const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
 
 export function CustomTooltip(props: CustomTooltipProps) {
     return (
-        <StyledTooltip open={true} {...props}>
+        <StyledTooltip {...props}>
             {props.children}
         </StyledTooltip>
     );
