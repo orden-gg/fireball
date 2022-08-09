@@ -30,7 +30,8 @@ export function About({ isRowsView, matches }: { isRowsView: boolean, matches: b
                     <CustomTooltip
                         placement='top'
                         title='About fireball.gg'
-                        arrow={true}
+                        arrow
+                        open
                     >
                         <div className={classes.imageBox}>
                             <img

@@ -3,6 +3,7 @@ import { styled, Tooltip, tooltipClasses } from '@mui/material';
 interface CustomTooltipProps {
     children: JSX.Element;
     title: string | JSX.Element;
+    open?: boolean;
     placement:
         | 'bottom-end'
         | 'bottom-start'
@@ -42,7 +43,7 @@ const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
 
 export function CustomTooltip(props: CustomTooltipProps) {
     return (
-        <StyledTooltip {...props}>
+        <StyledTooltip open={true} {...props}>
             {props.children}
         </StyledTooltip>
     );

@@ -12,7 +12,7 @@ import { ItemUtils } from 'utils';
 import { gotchiFitSetsStyles } from './styles';
 
 interface GotchiFitSetsProps {
-    gotchi : any;
+    gotchi: any;
     className?: string;
 }
 
