@@ -34,30 +34,40 @@ export class GotchiUtils {
         }
     }
 
-    public static getAgingMetadata(blockNumber: number): any {
+    public static getAgingMetadata(blocksOld: number): any {
+        const oneMillionBlocks = 1000000;
+
         switch (true) {
-            case blockNumber > 89000000:
-                return { name: 'Imba', boost: 10 };
-            case blockNumber > 55000000:
-                return { name: 'Seconds', boost: 9 };
-            case blockNumber > 34000000:
-                return { name: 'Third', boost: 8 };
-            case blockNumber > 21000000:
-                return { name: 'Fourth', boost: 7 };
-            case blockNumber > 13000000:
-                return { name: 'Fifth', boost: 6 };
-            case blockNumber > 8000000:
-                return { name: 'Sixth', boost: 5 };
-            case blockNumber > 5000000:
-                return { name: 'Seventh', boost: 4 };
-            case blockNumber > 3000000:
-                return { name: 'Eleventh', boost: 3 };
-            case blockNumber > 2000000:
-                return { name: 'Ninth', boost: 2 };
-            case blockNumber > 1000000:
-                return { name: 'Tenth', boost: 1 };
+            case blocksOld > 89 * oneMillionBlocks:
+                return { name: 'Aancient', boost: 10 };
+            case blocksOld > 55 * oneMillionBlocks:
+                return { name: 'Aancient', boost: 9 };
+            case blocksOld > 35 * oneMillionBlocks:
+                return { name: 'Aancient', boost: 8 };
+            case blocksOld > 21 * oneMillionBlocks:
+                return { name: 'Aancient', boost: 7 };
+            case blocksOld > 13 * oneMillionBlocks:
+                return { name: 'Aancient', boost: 6 };
+            case blocksOld > 8 * oneMillionBlocks:
+                return { name: 'Boomer', boost: 5 };
+            case blocksOld > 5 * oneMillionBlocks:
+                return { name: 'Zoomer', boost: 4 };
+            case blocksOld > 3 * oneMillionBlocks:
+                return { name: 'Youngin', boost: 3 };
+            case blocksOld > 2 * oneMillionBlocks:
+                return { name: 'Youngin', boost: 2 };
+            case blocksOld > 1 * oneMillionBlocks:
+                return { name: 'Newborn', boost: 1 };
             default:
                 return { name: 'Newborn', boost: 0 };
+        }
+    }
+
+    public static getAgingImg(id: number): any {
+        try {
+            return require(`../assets/images/aging/${id}.png`).default;
+        } catch (error) {
+            return require('../assets/images/image-placeholder.svg').default;
         }
     }
 }

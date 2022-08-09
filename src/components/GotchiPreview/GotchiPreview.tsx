@@ -78,7 +78,19 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                     </div>
                 </div>
 
-                <GotchiTraits traits={gotchi.numericTraits} currentTraits={gotchi.modifiedNumericTraits} className={classes.traits} />
+                <GotchiTraits
+                    traits={gotchi.numericTraits}
+                    currentTraits={gotchi.modifiedNumericTraits}
+                    className={classes.traits}
+                />
+
+                { gotchi.createdAt && (
+                    <GotchiAging block={Number(gotchi.createdAt)} />
+                )}
+
+                <div className={classes.appButton}>
+                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} />
+                </div>
             </div>
         </div>
     );
