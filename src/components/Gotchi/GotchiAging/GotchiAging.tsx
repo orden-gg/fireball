@@ -4,7 +4,7 @@ import { Skeleton } from '@mui/material';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
-import { CountdownShortFormat } from 'shared/models';
+import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
 import { CountdownFormatNonZeroType } from 'shared/constants';
 import { ShineLabel } from 'components/Labels/ShineLabel';
 import { Countdown } from 'components/Countdown/Countdown';
@@ -30,6 +30,7 @@ const countdownFormat: CountdownShortFormat = {
 
 export function GotchiAging({ block }: { block: number }) {
     const classes = styles();
+
     const [dataLoading, setDataLoading] = useState(true);
     const [aging, setAging]: any = useState(null);
 
@@ -43,7 +44,7 @@ export function GotchiAging({ block }: { block: number }) {
             EthersApi.getBlockByNumber(block)
         ]).then(([lastBlock, birthdayBlock]) => {
             const blockDiff = lastBlock.number - birthdayBlock.number;
-            const metadata = GotchiUtils.getAgingMetadata(blockDiff);
+            const metadata: GotchiAgingModel = GotchiUtils.getAgingMetadata(blockDiff);
 
             if (mounted) {
                 setAging({

@@ -2,6 +2,7 @@ export * from './contexts';
 export * from './alchemica-list.model';
 export * from './contdown-format.model';
 export * from './custom-parsed-query.model';
+export * from './gotchi.model';
 export * from './sales-history.model';
 export * from './installation.model';
 export * from './login-address.model';

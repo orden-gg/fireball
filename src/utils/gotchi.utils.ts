@@ -1,4 +1,5 @@
 import { RarityTypes } from 'shared/constants';
+import { GotchiAgingModel } from 'shared/models';
 
 export class GotchiUtils {
     public static getTotalXpByLevel(level: number): number {
@@ -34,7 +35,7 @@ export class GotchiUtils {
         }
     }
 
-    public static getAgingMetadata(blocksOld: number): any {
+    public static getAgingMetadata(blocksOld: number): GotchiAgingModel {
         const oneMillionBlocks = 1000000;
 
         switch (true) {
