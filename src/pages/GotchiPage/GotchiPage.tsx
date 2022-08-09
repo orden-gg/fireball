@@ -11,6 +11,8 @@ import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, TheGraphApi } from 'api';
 
+import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
+
 import { styles } from './styles';
 
 export function GotchiPage() {
@@ -39,58 +41,61 @@ export function GotchiPage() {
             .finally(() => setHistoryLoaded(true));
     }, [routeParams]);
 
-    if (!gotchi) {
-        return <div>There is no Gotchi with such ID :(</div>;
-    }
-
     return <div className={classes.content}>
         {
-            gotchiLoaded && (
-                <>
-                    <GotchiPreview gotchi={gotchi} />
-
-                    {
-                        gotchi.timesTraded > 0 && (
-                            <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
-                                <div className={classes.title}>Sales History</div>
-                                <HistoryHead className={classes.salesHeader}>
-                                    <HistoryItem className={classes.address}>seller</HistoryItem>
-                                    <HistoryItem className={classes.address}>buyer</HistoryItem>
-                                    <HistoryItem className={classes.price}>price</HistoryItem>
-                                    <HistoryItem className={classes.date}>time</HistoryItem>
-                                    <HistoryItem className={classes.wearables}>wearables</HistoryItem>
-                                </HistoryHead>
-                                <>
-                                    {salesHistory.map((listing: SalesHistoryModel, index: number) => (
-                                        <HistoryRow key={index}>
-                                            <HistoryItem className={classes.address}>
-                                                <EthAddress
-                                                    address={listing.seller}
-                                                    isShowIcon={true}
-                                                    isCopyButton={true}
-                                                    isPolygonButton={true}
-                                                />
-                                            </HistoryItem>
-                                            <HistoryItem className={classes.address}>
-                                                <EthAddress
-                                                    address={listing.buyer}
-                                                    isShowIcon={true}
-                                                    isCopyButton={true}
-                                                    isPolygonButton={true}
-                                                />
-                                            </HistoryItem>
-                                            <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
-                                            <HistoryItem className={classes.date}>
-                                                <>{DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}</>
-                                            </HistoryItem>
-                                            <HistoryWearables className={classes.wearables} wearables={listing.equippedWearables} />
-                                        </HistoryRow>
-                                    ))}
-                                </>
-                            </SalesHistory>
-                        )
-                    }
-                </>
+            gotchi ? (
+                gotchiLoaded && (
+                    <>
+                        <GotchiPreview gotchi={gotchi} />
+                        <div className={classes.sets}>
+                            <div className={classes.title}>Recommended sets</div>
+                            <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
+                        </div>
+                        {
+                            gotchi.timesTraded > 0 && (
+                                <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
+                                    <div className={classes.title}>Sales History</div>
+                                    <HistoryHead className={classes.salesHeader}>
+                                        <HistoryItem className={classes.address}>seller</HistoryItem>
+                                        <HistoryItem className={classes.address}>buyer</HistoryItem>
+                                        <HistoryItem className={classes.price}>price</HistoryItem>
+                                        <HistoryItem className={classes.date}>time</HistoryItem>
+                                        <HistoryItem className={classes.wearables}>wearables</HistoryItem>
+                                    </HistoryHead>
+                                    <>
+                                        {salesHistory.map((listing: SalesHistoryModel, index: number) => (
+                                            <HistoryRow key={index}>
+                                                <HistoryItem className={classes.address}>
+                                                    <EthAddress
+                                                        address={listing.seller}
+                                                        isShowIcon={true}
+                                                        isCopyButton={true}
+                                                        isPolygonButton={true}
+                                                    />
+                                                </HistoryItem>
+                                                <HistoryItem className={classes.address}>
+                                                    <EthAddress
+                                                        address={listing.buyer}
+                                                        isShowIcon={true}
+                                                        isCopyButton={true}
+                                                        isPolygonButton={true}
+                                                    />
+                                                </HistoryItem>
+                                                <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
+                                                <HistoryItem className={classes.date}>
+                                                    <>{DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}</>
+                                                </HistoryItem>
+                                                <HistoryWearables className={classes.wearables} wearables={listing.equippedWearables} />
+                                            </HistoryRow>
+                                        ))}
+                                    </>
+                                </SalesHistory>
+                            )
+                        }
+                    </>
+                )
+            ) : (
+                <div className={classes.title}>There is no Gotchi with such ID :(</div>
             )
         }
     </div>;

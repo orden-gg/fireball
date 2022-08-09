@@ -69,6 +69,7 @@ export const gotchiByIdQuery = (id: any): any => {
             minimumStake
             stakedAmount
             timesTraded
+            originalOwner
             listings(where:{cancelled: false, timePurchased: 0}) {
                 id
                 priceInWei

@@ -1,4 +1,6 @@
-import { ItemTypeNames, ItemTypes, RarityTypes, SetTypes, WEARABLE_SLOTS } from 'shared/constants';
+import _ from 'lodash';
+
+import { ItemTypeNames, ItemTypes, RarityTypes, SetTypes, WearableTypes, WEARABLE_SLOTS } from 'shared/constants';
 import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
 
 import items from 'data/items.data.json';
@@ -268,4 +270,53 @@ export class ItemUtils {
     public static isExistingSetId(id: number | string): boolean {
         return id <= sets.length;
     }
+
+    public static combineTraitsModifiers = (traitsMatrix: number[][]): number[] => {
+        const result: number[] = [];
+
+        for (const traitsArray of traitsMatrix) {
+            traitsArray.forEach((value, index) => {
+                if (result[index] !== undefined) {
+                    result[index] += value;
+                } else {
+                    result[index] = value;
+                }
+            });
+        }
+
+        return result;
+    };
+
+    public static getIsSetAvailable = (traits: number[], wearablesModifiers: number[]): boolean => {
+        const isSetAvailable: boolean = traits.every((trait: number, index: number) =>
+            trait >= 50 ? wearablesModifiers[index] >= 0 : wearablesModifiers[index] <= 0
+        );
+
+        return isSetAvailable;
+    };
+
+    public static getBonusRsByTraits = (modifiers: number[], traits: number[]): number => {
+        const traitsWithModifiers: number[] = traits.map((trait: number, index: number) => trait + modifiers[index]);
+
+        return traitsWithModifiers.reduce((prev: number, current: number, index: number) => {
+            return prev + Math.abs(current - traits[index]);
+        }, 0);
+    };
+
+    public static getEquippedWearables = (wearables: number[]): number[] => {
+        const equippedWearables: number[] = _.fill(Array(16), 0);
+
+        for (const wearableId of wearables) {
+            const slotPositions: boolean[] = ItemUtils.getSlotPositionsById(wearableId);
+            const slotId: number = slotPositions.findIndex((isCurrentSlot: boolean) => isCurrentSlot);
+
+            if (equippedWearables[slotId] !== 0) {
+                equippedWearables[WearableTypes.RHand] = wearableId;
+            } else {
+                equippedWearables[slotId] = wearableId;
+            }
+        }
+
+        return equippedWearables;
+    };
 }

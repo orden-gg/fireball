@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const gotchiPreviewStyles = makeStyles(theme => createStyles({
@@ -31,12 +32,32 @@ export const gotchiPreviewStyles = makeStyles(theme => createStyles({
             width: '100%'
         }
     },
+    imageWrapper: {
+        position: 'relative'
+    },
+    setName: {
+        position: 'absolute',
+        zIndex: 1,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        bottom: theme.spacing(.75),
+        padding: theme.spacing(0, .5),
+        textShadow: `0 0 2px ${theme.palette.secondary.dark},
+                    0 0 2px ${theme.palette.secondary.dark},
+                    0 0 2px ${theme.palette.secondary.dark}`,
+        fontWeight: 600,
+        color: theme.palette.rarity.legendary,
+        backgroundColor: alpha(theme.palette.secondary.dark, .6),
+        textAlign: 'center'
+    },
     wearables: {
         width: '20%'
     },
     body: {
         marginLeft: theme.spacing(2),
-        flex: 1
+        flex: 1,
+        position: 'relative',
+        paddingBottom: 40
     },
     title: {
         display: 'flex',
@@ -48,7 +69,8 @@ export const gotchiPreviewStyles = makeStyles(theme => createStyles({
     },
     name: {
         fontSize: 22,
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(2),
+        color: theme.palette.primary.main
     },
     infoList: {
         display: 'flex',
@@ -91,5 +113,12 @@ export const gotchiPreviewStyles = makeStyles(theme => createStyles({
             width: 24,
             height: 24
         }
+    },
+    appButton: {
+        position: 'absolute',
+        left: '50%',
+        bottom: 0,
+        transform: 'translateX(-50%)',
+        width: 200
     }
 }));

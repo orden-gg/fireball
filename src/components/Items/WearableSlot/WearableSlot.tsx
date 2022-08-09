@@ -1,32 +1,35 @@
 import classNames from 'classnames';
 
 import { DEFAULT_WEAREBLE_IDS, Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
-import { CardImage, CardName } from 'components/ItemCard/components';
+import { CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ItemUtils } from 'utils';
 
-import { gotchiWearableStyles } from './styles';
+import { wearableSlotStyles } from './styles';
 
-interface GotchiWearableProps {
-    wearables: number[];
+interface WearableSlotProps {
+    id: number;
     slotId: number;
+    className?: string;
 }
 
-export function GotchiWearable({ wearables, slotId }: GotchiWearableProps) {
-    const classes = gotchiWearableStyles();
+export function WearableSlot({ id, slotId, className }: WearableSlotProps) {
+    const classes = wearableSlotStyles();
 
     const name: string = WEARABLE_SLOTS[slotId];
-    const id: number = wearables[slotId];
     const rarity: string = ItemUtils.getRarityNameById(id);
 
     return (
-        <div className={classNames(classes.wearableCell, name.toLowerCase().replace(' ', '-'))}>
+        <div className={classNames(classes.wearableCell, className, name.toLowerCase().replace(' ', '-'))}>
             {
                 id !== 0 ? (
                     <CustomTooltip
                         title={
-                            <CardName id={id} />
+                            <>
+                                <CardName id={id} />
+                                <CardStats stats={ItemUtils.getTraitModifiersById(id)} />
+                            </>
                         }
                         followCursor
                         placement='top'
