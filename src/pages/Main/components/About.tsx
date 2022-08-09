@@ -31,7 +31,7 @@ export function About({ isRowsView, matches }: { isRowsView: boolean, matches: b
                         placement='top'
                         title='About fireball.gg'
                         arrow
-                        open
+                        open={!isOpened}
                     >
                         <div className={classes.imageBox}>
                             <img
