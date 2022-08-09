@@ -20,6 +20,7 @@ interface CustomTooltipProps {
     enterTouchDelay?: number;
     className?: string;
     arrow?: boolean;
+    open?: boolean;
 }
 
 const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
