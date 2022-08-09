@@ -9,6 +9,7 @@ import { GotchiLevel } from './components/GotchiLevel/GotchiLevel';
 import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
 
 import { gotchiPreviewStyles } from './styles';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 interface GotchiPreviewProps {
     gotchi: any;
@@ -35,7 +36,10 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                         </div>
                         <GotchiCollateral gotchi={gotchi} className={classes.collateral} />
                     </div>
-                    <GotchiImage id={gotchi.id} />
+                    <div className={classes.imageWrapper}>
+                        <GotchiImage id={gotchi.id} />
+                        {gotchi.equippedSetName && <span className={classes.setName}>{gotchi.equippedSetName}</span>}
+                    </div>
                     <GotchiLevel level={gotchi.level} experience={gotchi.experience} toNextLevel={gotchi.toNextLevel} />
                 </div>
                 <div className={classes.wearables}>
@@ -46,9 +50,9 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 </div>
             </div>
 
-            <div className={classNames(classes.body, 'vertical')}>
+            <div className={classes.body}>
                 <div className={classes.title}>
-                    <span className={classes.name}>{gotchi.name}</span>
+                    <span className={classes.name}>{gotchi.name || 'Unnamed'}</span>
                     <EthAddress
                         address={gotchi.originalOwner?.id || gotchi.owner.id}
                         isShowIcon
@@ -74,6 +78,8 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 </div>
 
                 <GotchiTraits traits={gotchi.numericTraits} currentTraits={gotchi.modifiedNumericTraits} className={classes.traits} />
+
+                <div className={classes.appButton}><ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} /></div>
             </div>
         </div>
     );
