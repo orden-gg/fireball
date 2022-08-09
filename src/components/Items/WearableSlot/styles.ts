@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiWearableStyles = makeStyles(theme => createStyles({
+export const wearableSlotStyles = makeStyles(theme => createStyles({
     wearableCell: {
         position: 'relative',
         paddingBottom: '100%',
@@ -28,7 +28,7 @@ export const gotchiWearableStyles = makeStyles(theme => createStyles({
             width: '75%',
             paddingBottom: '75%'
         },
-        '.l-hand &': {
+        '.hands &': {
             transform: 'scaleX(-1)'
         }
     },

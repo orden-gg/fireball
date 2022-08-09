@@ -1,46 +1,134 @@
 import { useEffect, useState } from 'react';
 
-import { Erc1155Categories } from 'shared/constants';
-import { CardImage } from 'components/ItemCard/components';
-import sets from 'data/sets.data.json';
+import classNames from 'classnames';
+
+import { SetTypes, WearableTypes } from 'shared/constants';
+import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
+import { CardStats } from 'components/ItemCard/components';
+import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
+import wearableSets from 'data/sets.data.json';
+import { ItemUtils } from 'utils';
+
+import { gotchiFitSetsStyles } from './styles';
 
 interface GotchiFitSetsProps {
     gotchi : any;
     className?: string;
 }
-// This is test component, please avoid commenting it, or tell me, i'll move it out of project :)
+
+interface CombinedSetData {
+    bonus: number;
+    data: any[];
+    equippedWearables: number[];
+}
+
 export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
-    const [availableSets, setAvailableSets] = useState<any[]>([]);
+    const classes = gotchiFitSetsStyles();
+
+    const [availableSets, setAvailableSets] = useState<Array<CombinedSetData>>([]);
 
     useEffect(() => {
         const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
-        const wearableSets: any[] = sets.filter((set: any[]) =>
-            getIsSetAvailable(filteredTraits, [...set[3]].splice(1, 4))
-        );
+        const sets: Array<CombinedSetData> = [];
 
-        setAvailableSets(wearableSets);
+        wearableSets.forEach((set: any[]) => {
+            const setModifiers: number[] = [...set[SetTypes.TraitsBonuses]].splice(1, 4);
+            const wareablesModifiers: number[][] = set[SetTypes.WearableIds].map((wearable: number) =>
+                ItemUtils.getTraitModifiersById(wearable)
+            );
+            const wareablesBonusRS: number[] = set[SetTypes.WearableIds]
+                .map((wearable: number) =>
+                    ItemUtils.getRarityScoreModifierById(wearable)
+                )
+                .reduce((previous: number, current: number) => previous + current, 0);
+            const combinedTraitsModifiers: number[] = ItemUtils.combineTraitsModifiers(wareablesModifiers);
+            const combinedModifiers: number[] = ItemUtils.combineTraitsModifiers([combinedTraitsModifiers, setModifiers]);
+            const isSetAvailable: boolean = ItemUtils.getIsSetAvailable(filteredTraits, combinedModifiers);
+
+            if (isSetAvailable) {
+                const bonusRs: number = set[SetTypes.TraitsBonuses][0] + wareablesBonusRS;
+                const bonusRsByTraits: number = ItemUtils.getBonusRsByTraits(combinedModifiers, filteredTraits);
+                const equippedWearables: number[] = ItemUtils.getEquippedWearables(set[SetTypes.WearableIds]);
+
+                sets.push({ bonus: bonusRs + bonusRsByTraits, data: set, equippedWearables: equippedWearables });
+            }
+        });
+
+        sets.sort((curentSet: CombinedSetData, nextSet: CombinedSetData) => nextSet.bonus - curentSet.bonus);
+
+        setAvailableSets(sets);
     }, [gotchi]);
 
-    const getIsSetAvailable = (traits: number[], wearablesModifiers: number[]): boolean => {
-        const isSetAvailable: boolean = traits.every((trait: number, index: number) =>
-            trait >= 50 ? (
-                wearablesModifiers[index] >= 0
-            ) : (
-                wearablesModifiers[index] <= 0
-            )
-        );
+    return <div className={classNames(classes.setsList, className)}>
+        {availableSets.map((set: CombinedSetData, index: number) =>
+            <div key={index} className={classNames(classes.set)}>
+                <div className={classes.setImage}>
+                    <GotchiImage
+                        gotchi={{
+                            hauntId: gotchi.hauntId,
+                            collateral: gotchi.collateral,
+                            numericTraits: gotchi.numericTraits,
+                            equippedWearables: set.equippedWearables
+                        }}
+                        renderSvgByStats
+                    />
+                </div>
 
-        return isSetAvailable;
-    };
+                <p className={classes.setName}>{set.data[SetTypes.Name]}</p>
 
-    return <div className={className}>
-        {availableSets.map((set: any[], index: number) => {
-            return <span key={index} style={{ display: 'inline-block', margin: '0 10px' }}>
-                {set[2].map((id: number) => <CardImage id={id} key={id} category={Erc1155Categories.Wearable} />)}
-                <div>{[...set[3]].splice(1,4).join('/')}</div>
-                <div>{[...gotchi.numericTraits].splice(0, 4).join('/')}</div>
-                <div>{set[0]}</div>
-            </span>;
-        })}
+                <div className={classes.setBonus}>
+                    <span className={classes.setBonusRS}><span>RS</span>+{set.data[SetTypes.TraitsBonuses][0]}</span>
+                    <CardStats stats={[...set.data[SetTypes.TraitsBonuses]].slice(1, 4)} className={classes.setTraits} />
+                </div>
+
+                <span className={classes.setRS}><span>+{set.bonus}</span> RS</span>
+
+                <div className={classNames(classes.setWearables, classes.setWearablesLeft)}>
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Head]}
+                        slotId={WearableTypes.Head}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Face]}
+                        slotId={WearableTypes.Face}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.LHand]}
+                        slotId={WearableTypes.LHand}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Background]}
+                        slotId={WearableTypes.Background}
+                    />
+                </div>
+
+                <div className={classNames(classes.setWearables, classes.setWearablesRight)}>
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Eyes]}
+                        slotId={WearableTypes.Eyes}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Body]}
+                        slotId={WearableTypes.Body}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.RHand]}
+                        slotId={WearableTypes.RHand}
+                    />
+                    <WearableSlot
+                        className={classes.setWearable}
+                        id={set.equippedWearables[WearableTypes.Pet]}
+                        slotId={WearableTypes.Pet}
+                    />
+                </div>
+            </div>
+        )}
     </div>;
 }

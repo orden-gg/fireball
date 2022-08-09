@@ -3,12 +3,13 @@ import classNames from 'classnames';
 import { WearableTypes } from 'shared/constants';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiTraits } from 'components/Gotchi/GotchiTraits/GotchiTraits';
-import { GotchiWearable } from './components/GotchiWearable/GotchiWearable';
+import { WearableSlot } from '../Items/WearableSlot/WearableSlot';
 import { GotchiImage } from './components/GotchiImage/GotchiImage';
 import { GotchiLevel } from './components/GotchiLevel/GotchiLevel';
 import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
 
 import { gotchiPreviewStyles } from './styles';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 interface GotchiPreviewProps {
     gotchi: any;
@@ -22,10 +23,10 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
         <div className={classNames(classes.gotchi, className)}>
             <div className={classes.gotchiView}>
                 <div className={classes.wearables}>
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Head} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Face} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.LHand} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Background} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Head]} slotId={WearableTypes.Head} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Face]} slotId={WearableTypes.Face} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Background]} slotId={WearableTypes.Background} />
                 </div>
                 <div className={classes.gotchiCenter}>
                     <div className={classes.centerHead}>
@@ -35,20 +36,23 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                         </div>
                         <GotchiCollateral gotchi={gotchi} className={classes.collateral} />
                     </div>
-                    <GotchiImage id={gotchi.id} />
+                    <div className={classes.imageWrapper}>
+                        <GotchiImage id={gotchi.id} />
+                        {gotchi.equippedSetName && <span className={classes.setName}>{gotchi.equippedSetName}</span>}
+                    </div>
                     <GotchiLevel level={gotchi.level} experience={gotchi.experience} toNextLevel={gotchi.toNextLevel} />
                 </div>
                 <div className={classes.wearables}>
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Eyes} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Body} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.RHand} />
-                    <GotchiWearable wearables={gotchi.equippedWearables} slotId={WearableTypes.Pet} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Eyes]} slotId={WearableTypes.Eyes} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Body]} slotId={WearableTypes.Body} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
+                    <WearableSlot id={gotchi.equippedWearables[WearableTypes.Pet]} slotId={WearableTypes.Pet} />
                 </div>
             </div>
 
-            <div className={classNames(classes.body, 'vertical')}>
+            <div className={classes.body}>
                 <div className={classes.title}>
-                    <span className={classes.name}>{gotchi.name}</span>
+                    <span className={classes.name}>{gotchi.name || 'Unnamed'}</span>
                     <EthAddress
                         address={gotchi.originalOwner?.id || gotchi.owner.id}
                         isShowIcon
@@ -74,6 +78,8 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                 </div>
 
                 <GotchiTraits traits={gotchi.numericTraits} currentTraits={gotchi.modifiedNumericTraits} className={classes.traits} />
+
+                <div className={classes.appButton}><ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} /></div>
             </div>
         </div>
     );

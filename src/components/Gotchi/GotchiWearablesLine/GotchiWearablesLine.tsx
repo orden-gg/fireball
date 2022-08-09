@@ -42,7 +42,7 @@ export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
                                                 <CardSlot id={id} />
                                                 <CardImage className={classes.cardImage} id={id} category={category} />
                                                 <CardName className={classes.cardName} id={id} />
-                                                <CardStats className={classes.cardStats} id={id} category={category} />
+                                                <CardStats className={classes.cardStats} stats={ItemUtils.getTraitModifiersById(id)} />
                                             </CardGroup>
                                             <CardGroup name='footer' className={classes.cardFoter}>
                                                 <CardListing />

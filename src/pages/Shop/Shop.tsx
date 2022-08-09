@@ -218,6 +218,15 @@ export function Shop() {
         }
     };
 
+    const renderCardStats = (id: number, category: string): JSX.Element => {
+        const isWearable: boolean = category === Erc1155Categories.Wearable;
+        const stats: any = isWearable ?
+            ItemUtils.getTraitModifiersById(id) :
+            ItemUtils.getDescriptionById(id);
+
+        return <CardStats stats={stats} />;
+    };
+
     return (
         <div className={classes.container}>
             <IconButton className={classes.backButton} onClick={() => { navigate('/') }} >
@@ -299,7 +308,7 @@ export function Shop() {
                                     <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName id={wearable.id} />
-                                    <CardStats id={wearable.id} category={wearable.category} />
+                                    {renderCardStats(wearable.id, wearable.category)}
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing />

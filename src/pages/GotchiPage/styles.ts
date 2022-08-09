@@ -15,7 +15,8 @@ export const styles = makeStyles(theme => createStyles({
     },
     title: {
         fontSize: 20,
-        fontWeight: 500
+        fontWeight: 500,
+        textAlign: 'center'
     },
     titleText: {
         width: '80%',
@@ -41,5 +42,11 @@ export const styles = makeStyles(theme => createStyles({
     },
     wearables: {
         flexBasis: 450
+    },
+    sets: {
+        margin: theme.spacing(7, 0, 4)
+    },
+    setsList: {
+        marginTop: theme.spacing(4)
     }
 }));
