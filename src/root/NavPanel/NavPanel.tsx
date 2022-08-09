@@ -20,7 +20,7 @@ export function NavPanel() {
 
     const activeAddress = useAppSelector(getActiveAddress);
 
-    const clientLink = activeAddress ? `/client/${activeAddress}` : 'client';
+    const clientLink = activeAddress ? `/client/${activeAddress}/gotchis` : 'client';
 
     return (
             <div className={classes.container}>
