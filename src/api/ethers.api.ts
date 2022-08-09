@@ -20,6 +20,12 @@ export class EthersApi {
         return ethers.utils.formatUnits(value, 0);
     }
 
+    public static async getBlockByNumber(blockNumber: number, network?: any): Promise<any> {
+        const provider: any = EthersApi.getProvider(network);
+
+        return provider.getBlock(blockNumber);
+    }
+
     public static async getLastBlock(network?: any): Promise<any> {
         const provider: any = EthersApi.getProvider(network);
         const blockNumber: any = await provider.getBlockNumber();

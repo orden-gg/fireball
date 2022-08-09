@@ -33,4 +33,31 @@ export class GotchiUtils {
                 return RarityTypes.Common;
         }
     }
+
+    public static getAgingMetadata(blockNumber: number): any {
+        switch (true) {
+            case blockNumber > 89000000:
+                return { name: 'Imba', boost: 10 };
+            case blockNumber > 55000000:
+                return { name: 'Seconds', boost: 9 };
+            case blockNumber > 34000000:
+                return { name: 'Third', boost: 8 };
+            case blockNumber > 21000000:
+                return { name: 'Fourth', boost: 7 };
+            case blockNumber > 13000000:
+                return { name: 'Fifth', boost: 6 };
+            case blockNumber > 8000000:
+                return { name: 'Sixth', boost: 5 };
+            case blockNumber > 5000000:
+                return { name: 'Seventh', boost: 4 };
+            case blockNumber > 3000000:
+                return { name: 'Eleventh', boost: 3 };
+            case blockNumber > 2000000:
+                return { name: 'Ninth', boost: 2 };
+            case blockNumber > 1000000:
+                return { name: 'Tenth', boost: 1 };
+            default:
+                return { name: 'Newborn', boost: 0 };
+        }
+    }
 }

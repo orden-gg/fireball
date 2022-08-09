@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import { WearableTypes } from 'shared/constants';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
 import { GotchiTraits } from 'components/Gotchi/GotchiTraits/GotchiTraits';
 import { GotchiWearable } from './components/GotchiWearable/GotchiWearable';
 import { GotchiImage } from './components/GotchiImage/GotchiImage';
@@ -73,7 +74,15 @@ export function GotchiPreview({ gotchi, className }: GotchiPreviewProps) {
                     </div>
                 </div>
 
-                <GotchiTraits traits={gotchi.numericTraits} currentTraits={gotchi.modifiedNumericTraits} className={classes.traits} />
+                <GotchiTraits
+                    traits={gotchi.numericTraits}
+                    currentTraits={gotchi.modifiedNumericTraits}
+                    className={classes.traits}
+                />
+
+                { gotchi.createdAt && (
+                    <GotchiAging block={Number(gotchi.createdAt)} />
+                )}
             </div>
         </div>
     );
