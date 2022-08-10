@@ -51,7 +51,7 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
                 />
 
                 <GotchiFooter>
-                    <ViewInAppButton link={`gotchi/${gotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
+                    <ViewInAppButton link={`/gotchi/${gotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
                     <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
                 </GotchiFooter>
             </GotchiContent>
