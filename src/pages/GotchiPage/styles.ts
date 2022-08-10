@@ -9,6 +9,27 @@ export const styles = makeStyles(theme => createStyles({
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 0 10px 10px ${theme.palette.background.secondary}`
     },
+    traits: {
+        maxWidth: 550,
+        margin: '0 auto',
+        backgroundColor: theme.palette.background.secondary,
+        padding: '2%',
+        fontSize: 16,
+        '& > div': {
+            flexBasis: '48%',
+            margin: '1%',
+            padding: theme.spacing(.5)
+        },
+        '& img': {
+            width: 24,
+            height: 24
+        }
+    },
+    button: {
+        width: 'auto',
+        margin: theme.spacing(0, 1),
+        minWidth: 200
+    },
     listings: {
         textAlign: 'center',
         margin: theme.spacing(4, 'auto', 0)
