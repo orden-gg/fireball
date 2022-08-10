@@ -5,6 +5,21 @@ export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
         width: 1000,
         padding: theme.spacing(1.5)
     },
+    traits: {
+        maxWidth: 550,
+        backgroundColor: theme.palette.background.secondary,
+        padding: '2%',
+        fontSize: 16,
+        '& > div': {
+            flexBasis: '48%',
+            margin: '1%',
+            padding: theme.spacing(.5)
+        },
+        '& img': {
+            width: 24,
+            height: 24
+        }
+    },
     listings: {
         textAlign: 'center',
         margin: theme.spacing(4, 'auto', 0)
@@ -37,5 +52,10 @@ export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
     },
     wearables: {
         flexBasis: 450
+    },
+    button: {
+        width: 'auto',
+        margin: theme.spacing(0, 1),
+        minWidth: 200
     }
 }));

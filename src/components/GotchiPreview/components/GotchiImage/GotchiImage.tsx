@@ -8,7 +8,12 @@ import { GotchiSvg } from 'components/Gotchi/GotchiImage/GotchiSvg';
 
 import { gotchiImageStyles } from './styles';
 
-export function GotchiImage({ id }: { id: string }) {
+interface GotchiImageProps {
+    id: string;
+    equippedSetName?: string;
+}
+
+export function GotchiImage({ id, equippedSetName }: GotchiImageProps) {
     const classes = gotchiImageStyles();
 
     const [view, setView] = useState<string>('svg');
@@ -35,5 +40,6 @@ export function GotchiImage({ id }: { id: string }) {
             ></div>
             <div className={classNames(classes.sideLine, `view${sideId}`)}></div>
         </div>
+        {equippedSetName && <span className={classes.setName}>{equippedSetName}</span>}
     </div>;
 }

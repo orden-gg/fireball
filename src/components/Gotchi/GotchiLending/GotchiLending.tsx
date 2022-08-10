@@ -91,7 +91,7 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
                 })}
             </div>
 
-            <ViewInAppButton link={`https://app.aavegotchi.com/lending/${gotchi.lendingId}`} />
+            <ViewInAppButton link={`https://app.aavegotchi.com/lending/${gotchi.lendingId}`}>View at aavegotchi.com</ViewInAppButton>
         </div>
     );
 }
