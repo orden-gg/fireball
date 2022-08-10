@@ -73,17 +73,19 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
                             <HistoryItem className={classes.address}>
                                 <EthAddress
                                     address={listing.seller}
-                                    isShowIcon={true}
-                                    isCopyButton={true}
-                                    isPolygonButton={true}
+                                    isShowIcon
+                                    isCopyButton
+                                    isPolygonButton
+                                    isClientLink
                                 />
                             </HistoryItem>
                             <HistoryItem className={classes.address}>
                                 <EthAddress
                                     address={listing.buyer}
-                                    isShowIcon={true}
-                                    isCopyButton={true}
-                                    isPolygonButton={true}
+                                    isShowIcon
+                                    isCopyButton
+                                    isPolygonButton
+                                    isClientLink
                                 />
                             </HistoryItem>
                             <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
