@@ -40,6 +40,8 @@ export function GotchiImage({ id, equippedSetName }: GotchiImageProps) {
             ></div>
             <div className={classNames(classes.sideLine, `view${sideId}`)}></div>
         </div>
-        {equippedSetName && <span className={classes.setName}>{equippedSetName}</span>}
+        {equippedSetName && <span className={classes.setName}>
+            <span>{equippedSetName}</span>
+        </span>}
     </div>;
 }

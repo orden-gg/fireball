@@ -7,6 +7,7 @@ import { GotchiLevel } from '../GotchiLevel/GotchiLevel';
 import { GotchiImage } from '../GotchiImage/GotchiImage';
 
 import { gotchiViewStyles } from './styles';
+import { GhstTokenIcon } from 'components/Icons/Icons';
 
 interface GotchiViewProps {
     gotchi: any;
@@ -27,7 +28,7 @@ export function GotchiView({ gotchi }: GotchiViewProps) {
                 <GotchiInfoItem label='Rarity' value={`${gotchi.modifiedRarityScore}(${gotchi.baseRarityScore})`} className={classes.rarity} />
                 <GotchiCollateral gotchi={gotchi} className={classes.collateral} />
             </div>
-            <GotchiImage id={gotchi.id} />
+            <GotchiImage id={gotchi.id} equippedSetName={gotchi.equippedSetName} />
             <GotchiLevel level={gotchi.level} experience={gotchi.experience} toNextLevel={gotchi.toNextLevel} />
         </div>
         <div className={classes.wearables}>
