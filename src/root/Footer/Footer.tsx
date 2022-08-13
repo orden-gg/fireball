@@ -26,7 +26,7 @@ export function Footer() {
         <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <div>
-                    <span className={classes.highlight}>v0.4</span>
+                    <span className={classes.highlight}>v0.42</span>
                     <span className={classes.footerCopyright}>
                         fireball.gg is the <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>open-source</a>, <a href='https://www.aavegotchi.com/' rel='noreferrer' target='_blank'>gotchiverse</a> client by <a href='https://twitter.com/orden_gg' rel='noreferrer' target='_blank'>ordenGG</a>
                     </span>
