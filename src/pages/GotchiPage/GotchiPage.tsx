@@ -6,18 +6,20 @@ import { DateTime } from 'luxon';
 import { Erc721Categories } from 'shared/constants';
 import { SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
-import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiView } from 'components/GotchiPreview/components';
-import { GotchiTraits } from 'components/Gotchi/GotchiTraits/GotchiTraits';
+import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
+import { GotchiChanelling } from 'components/Gotchi/GotchiChanneling/GotchiChanneling';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, TheGraphApi } from 'api';
+import { EthersApi, FireballApi, TheGraphApi } from 'api';
+import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
 import { styles } from './styles';
+import { GhstTokenIcon } from 'components/Icons/Icons';
 
 export function GotchiPage() {
     const classes = styles();
@@ -28,6 +30,7 @@ export function GotchiPage() {
     const [gotchi, setGotchi] = useState<any>({});
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
+    // const [exclusivity, setExclusivity] = useState<any>({});
 
     useEffect(() => {
         const id = Number(routeParams.gotchiId);
@@ -43,6 +46,14 @@ export function GotchiPage() {
             })
             .catch((error) => console.log(error))
             .finally(() => setHistoryLoaded(true));
+
+        // TODO: Will be used soon
+        // FireballApi.getFireGotchiById(id)
+        //     .then((response: any) => {
+        //         setExclusivity(response);
+        //     }).catch((error) => {
+        //         console.log(error);
+        //     });
     }, [routeParams]);
 
     return <div className={classes.content}>
@@ -59,17 +70,25 @@ export function GotchiPage() {
                                     <GotchiInfoItem label='id' value={gotchi.id} />
                                     <GotchiInfoItem label='kinship' value={gotchi.kinship} />
                                     <GotchiInfoItem label='haunt' value={gotchi.hauntId} />
+                                    <GotchiInfoItem
+                                        label='staked'
+                                        value={
+                                            parseFloat(GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5))
+                                        }
+                                    />
+                                    {/* <GotchiInfoItem label='exclusivity' value={`1/${exclusivity.related_num}`} /> */}
                                 </GotchiInfoList>
 
                                 <GotchiTraits
-                                    traits={gotchi.numericTraits}
-                                    currentTraits={gotchi.modifiedNumericTraits}
-                                    className={classes.traits}
+                                    numericTraits={gotchi.numericTraits}
+                                    modifiedNumericTraits={gotchi.modifiedNumericTraits}
                                 />
 
                                 {gotchi.createdAt && (
                                     <GotchiAging block={Number(gotchi.createdAt)} />
                                 )}
+
+                                <GotchiChanelling gotchiId={gotchi.id} />
 
                                 <GotchiFooter>
                                     <ViewInAppButton
@@ -78,6 +97,19 @@ export function GotchiPage() {
                                     >
                                         View at aavegotchi.com
                                     </ViewInAppButton>
+                                    {
+                                        gotchi.listings?.length ? (
+                                            <ViewInAppButton
+                                                link={`https://app.aavegotchi.com/baazaar/erc721/${gotchi.listings[0].id}`}
+                                                className={classes.button}
+                                            >
+                                                <>
+                                                    Listed for {EthersApi.fromWei(gotchi.listings[0].priceInWei)}
+                                                    <GhstTokenIcon width={14} height={14} className={classes.listingIcon} />
+                                                </>
+                                            </ViewInAppButton>
+                                        ) : <></>
+                                    }
                                 </GotchiFooter>
                             </GotchiContent>
                         </GotchiPreview>

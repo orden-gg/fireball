@@ -6,3 +6,5 @@ export { GotchiInfoItem } from './GotchiInfoList/components/GotchiInfoItem/Gotch
 export { GotchiLevel } from './GotchiLevel/GotchiLevel';
 export { GotchiView } from './GotchiView/GotchiView';
 export { GotchiImage } from './GotchiImage/GotchiImage';
+export { GotchiTraits } from './GotchiTraits/GotchiTraits';
+export { GotchiEquipmentPrice } from './GotchiEquipmentPrice/GotchiEquipmentPrice';

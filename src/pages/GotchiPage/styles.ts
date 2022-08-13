@@ -9,22 +9,6 @@ export const styles = makeStyles(theme => createStyles({
         backgroundColor: theme.palette.background.paper,
         boxShadow: `0 0 10px 10px ${theme.palette.background.secondary}`
     },
-    traits: {
-        maxWidth: 550,
-        margin: '0 auto',
-        backgroundColor: theme.palette.background.secondary,
-        padding: '2%',
-        fontSize: 16,
-        '& > div': {
-            flexBasis: '48%',
-            margin: '1%',
-            padding: theme.spacing(.5)
-        },
-        '& img': {
-            width: 24,
-            height: 24
-        }
-    },
     button: {
         width: 'auto',
         margin: theme.spacing(0, 1),
@@ -48,6 +32,9 @@ export const styles = makeStyles(theme => createStyles({
     },
     list: {
         marginTop: theme.spacing(2)
+    },
+    listingIcon: {
+        margin: theme.spacing(-0.25, 0, 0, .5)
     },
     salesHeader: {
         marginTop: theme.spacing(2)

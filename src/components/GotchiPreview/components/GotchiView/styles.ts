@@ -10,17 +10,18 @@ export const gotchiViewStyles = makeStyles(theme => createStyles({
     },
     gotchiCenter: {
         flex: 1,
-        margin: '0 2.5% 5%'
+        margin: '0 2.5% 0'
     },
     centerHead: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: theme.spacing(3)
+        marginBottom: theme.spacing(2)
     },
     rarity: {
         padding: theme.spacing(.5, 1),
-        margin: 0
+        margin: 0,
+        flex: 'none'
     },
     collateral: {
         width: 26,
@@ -31,5 +32,8 @@ export const gotchiViewStyles = makeStyles(theme => createStyles({
     },
     wearables: {
         width: '20%'
+    },
+    listings: {
+        marginTop: theme.spacing(1)
     }
 }));

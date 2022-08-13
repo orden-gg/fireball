@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { FormControl, Grid, InputLabel, MenuItem, Select, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 
+import { TokenData } from 'shared/models';
 import { BaazaarContext } from 'contexts/BaazaarContext';
 import { collaterals } from 'data/collaterals.data';
 
@@ -102,7 +103,7 @@ export function Stats({ runFilterWatcher, fastSearch, setFastSearch, runInstantF
                     >
                         <MenuItem value='all'>All</MenuItem>
                         {
-                            collaterals.map((coll, index) => {
+                            collaterals.map((coll: TokenData, index: number) => {
                                 return <MenuItem key={index} value={coll.address}>
                                     {coll.name}
                                 </MenuItem>;

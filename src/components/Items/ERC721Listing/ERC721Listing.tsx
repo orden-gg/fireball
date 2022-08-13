@@ -79,7 +79,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                         </div>
                     </CustomTooltip>
                 ) : (
-                    <div className={classes.listing}></div>
+                    <></>
                 )
             }
         </>

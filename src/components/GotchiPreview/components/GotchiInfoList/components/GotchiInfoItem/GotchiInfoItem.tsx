@@ -5,7 +5,7 @@ import { gotchiInfoItemStyles } from './styles';
 
 interface GotchiInfoItemProps {
     label: string;
-    value: string;
+    value: string | number;
     className?: string;
 }
 

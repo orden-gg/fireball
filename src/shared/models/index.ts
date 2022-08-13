@@ -9,3 +9,5 @@ export * from './login-address.model';
 export * from './page-nav.model';
 export * from './sorting.model';
 export * from './tile.model';
+export * from './token.model';
+export * from './traits.model';
