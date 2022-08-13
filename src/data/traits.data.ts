@@ -37,7 +37,7 @@ export const traitsDefinitions: TraitsDefinition[] = [
     {
         name: 'TBC',
         info: 'To be confirmed'
-    },
+    }
 ];
 
 export const traitsEffects: TraitsEffect[][] = [

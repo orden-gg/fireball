@@ -13,7 +13,7 @@ import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, FireballApi, TheGraphApi } from 'api';
+import { EthersApi, TheGraphApi } from 'api';
 import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
