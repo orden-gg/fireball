@@ -11,6 +11,7 @@ import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
+import glossary from 'assets/images/icons/glossary.svg';
 import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';
 import consumable from 'assets/images/icons/consumable.svg';
@@ -103,6 +104,10 @@ export const AlphaIcon = ({ width, height }: IconProps) => {
 
 export const BaazarIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={baazar} alt='baazar' />;
+};
+
+export const GlossaryIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={glossary} alt='glossary' />;
 };
 
 export const FomoIcon = ({ width, height }: IconProps) => {

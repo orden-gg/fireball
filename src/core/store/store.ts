@@ -1,10 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
+import { glossaryReducer } from 'pages/Glossary/store';
+
 import { loginReducer } from './login';
 
 export const store = configureStore({
     reducer: {
-        login: loginReducer
+        login: loginReducer,
+        glossary: glossaryReducer
     }
 });
 

@@ -166,19 +166,19 @@ export const ClientContextProvider = (props: any) => {
 
             // collect all equipped wearables
             allGotchis.forEach((item: any) => {
-                const equipped: any = item.equippedWearables.filter((item: any) => item > 0);
+                const equippedIds: any = item.equippedWearables.filter((item: any) => item > 0);
 
-                for (const wearable of equipped) {
-                    const index: number = wearables.findIndex(item => item.id === wearable);
+                for (const wearableId of equippedIds) {
+                    const index: number = wearables.findIndex(item => item.id === wearableId);
 
-                    if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+                    if ((wearableId >= 162 && wearableId <= 198) || wearableId === 210) continue; // skip badges or h1 bg
 
                     if (wearables[index] === undefined) {
                         wearables.push({
-                            id: wearable,
+                            id: wearableId,
                             balance: 1,
-                            rarity: ItemUtils.getRarityNameById(wearable),
-                            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearable)),
+                            rarity: ItemUtils.getRarityNameById(wearableId),
+                            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearableId)),
                             holders: [item.id],
                             category: Erc1155Categories.Wearable
                         });

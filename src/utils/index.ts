@@ -1,5 +1,6 @@
 export * from './citadel.utils';
 export * from './common.utils';
+export * from './erc-1155-item.utils';
 export * from './filters.helper';
 export * from './filters.utils';
 export * from './gotchiverse.utils';

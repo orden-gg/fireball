@@ -33,6 +33,14 @@ export enum Erc1155Categories {
     Tile = '5'
 }
 
+export enum Erc1155NumberCategories {
+    Wearable = 0,
+    Consumable = 2,
+    Ticket = 3,
+    Realm = 4,
+    Tile = 5
+}
+
 export enum ItemTypes {
     Name = 0,
     Description = 1,
@@ -41,7 +49,7 @@ export enum ItemTypes {
     // [NRG, AGG, SPK, BRN, EYS, EYC]
     TraitModifiers = 3,
     //! [WEARABLE ONLY] The slots that this wearable can be added to
-    // [body, face, eyes, head, L hand, R hand, pet, background, + 8 undeifned slots]
+    // [body, face, eyes, head, L hand, R hand, pet, background, + 8 undefined slots]
     SlotPositions = 4,
     //! [WEARABLE ONLY] The collaterals this wearable can be equipped to. An empty array is "any"
     AllowedCollaterals = 5,
@@ -170,4 +178,8 @@ export enum WearableTypes {
     RHand = 5,
     Pet = 6,
     Background = 7
+}
+
+export enum TypenameType {
+    ERC1155Listing = 'ERC1155Listing'
 }
