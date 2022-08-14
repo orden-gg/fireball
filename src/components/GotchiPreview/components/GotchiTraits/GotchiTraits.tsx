@@ -75,7 +75,7 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
                     const effect: TraitsEffect | undefined = traitsEffects[index].find((item: TraitsEffect) => {
                         const range: number[] = item[TraitsEffectsTypes.Range];
 
-                        return CommonUtils.isNumberInRange(traitValue, range[0], range[1]);
+                        return CommonUtils.isNumberInRange(Number(traitValue), range[0], range[1]);
                     });
 
                     return <div className={classNames(classes.gotchiTrait, traitName)} key={index}>
