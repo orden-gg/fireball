@@ -203,7 +203,9 @@ export class TheGraphApi {
     }
 
     public static getGotchiById(id: number): Promise<any> {
-        return this.getData(gotchiByIdQuery(id));
+        return this.getData(gotchiByIdQuery(id)).then((response: any) => {
+            return modifyTraits([response.data.aavegotchi])[0];
+        });
     }
 
     public static getGotchiesByIds(ids: number[]): Promise<any> {

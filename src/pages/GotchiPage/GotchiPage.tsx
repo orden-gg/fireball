@@ -36,7 +36,7 @@ export function GotchiPage() {
         const id = Number(routeParams.gotchiId);
 
         TheGraphApi.getGotchiById(id)
-            .then((response: any) => setGotchi(response.data.aavegotchi))
+            .then((response: any) => setGotchi(response))
             .catch((error) => console.log(error))
             .finally(() => setGotchiLoaded(true));
 
