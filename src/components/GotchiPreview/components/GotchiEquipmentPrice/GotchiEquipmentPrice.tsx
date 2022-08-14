@@ -9,7 +9,7 @@ export function GotchiEquipmentPrice({ price }: { price: number }) {
     return (
         price > 0 ? <p className={classes.totalPrice}>
             equipment value: {CommonUtils.convertFloatNumberToSuffixNumber(price)}
-            <GhstTokenIcon width={15} height={15} className={classes.icon} />
+            <GhstTokenIcon width={14} height={14} className={classes.icon} />
         </p> : <></>
     );
 }
