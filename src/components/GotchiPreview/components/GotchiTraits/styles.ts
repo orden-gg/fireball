@@ -36,9 +36,15 @@ export const styles = makeStyles(theme => createStyles({
         fontWeight: 500,
         opacity: 0
     },
+    tooltipInner: {
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      marignLeft: 'auto'
+    },
     traitEffectName: {
-        margin: theme.spacing(0, 1, 0, 'auto'),
-        color: theme.palette.rarity.legendary
+        color: theme.palette.rarity.legendary,
+        marginRight: theme.spacing(1)
     },
     effectsInfo: {
         color: alpha(theme.palette.common.white, .1)

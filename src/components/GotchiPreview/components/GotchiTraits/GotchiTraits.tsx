@@ -33,39 +33,39 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
             effect[TraitsEffectsTypes.Increase], effect[TraitsEffectsTypes.Decrease]
         ];
 
-        return <>
-            <span className={classes.traitEffectName}>{effect[TraitsEffectsTypes.Name]}</span>
-            <CustomTooltip
-                title={
-                    <>
-                        {
-                            increase.map((id: number, index: number) => {
-                                const definition: TraitsDefinition = traitsDefinitions[id];
+        return <CustomTooltip
+            title={
+                <>
+                    {
+                        increase.map((id: number, index: number) => {
+                            const definition: TraitsDefinition = traitsDefinitions[id];
 
-                                return <div className={classes.defination} key={index}>
-                                    <span className={classes.increaseName}>+ {definition.name}</span>
-                                    <div className={classes.definationInfo}>{definition.info}</div>
-                                </div>;
-                            })
-                        }
-                        {
-                            decrease.map((id: number, index: number) => {
-                                const definition: TraitsDefinition = traitsDefinitions[id];
+                            return <div className={classes.defination} key={index}>
+                                <span className={classes.increaseName}>+ {definition.name}</span>
+                                <div className={classes.definationInfo}>{definition.info}</div>
+                            </div>;
+                        })
+                    }
+                    {
+                        decrease.map((id: number, index: number) => {
+                            const definition: TraitsDefinition = traitsDefinitions[id];
 
-                                return <div className={classes.defination} key={index}>
-                                    <span className={classes.decreaseName}>- {definition.name}</span>
-                                    <div className={classes.definationInfo}>{definition.info}</div>
-                                </div>;
-                            })
-                        }
-                    </>
-                }
-                arrow={true}
-                placement='left'
-            >
+                            return <div className={classes.defination} key={index}>
+                                <span className={classes.decreaseName}>- {definition.name}</span>
+                                <div className={classes.definationInfo}>{definition.info}</div>
+                            </div>;
+                        })
+                    }
+                </>
+            }
+            arrow={true}
+            placement='left'
+        >
+            <span className={classes.tooltipInner}>
+                <span className={classes.traitEffectName}>{effect[TraitsEffectsTypes.Name]}</span>
                 <InfoIcon className={classes.effectsInfo} />
-            </CustomTooltip>
-        </>;
+            </span>
+        </CustomTooltip>;
     };
 
     return (
