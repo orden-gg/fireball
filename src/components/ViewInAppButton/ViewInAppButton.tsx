@@ -6,7 +6,7 @@ import { styles } from './styles';
 
 interface ViewInAppButtonProps {
     link: string;
-    children: string;
+    children: string | JSX.Element;
     className?: string;
 }
 

@@ -210,6 +210,8 @@ export function Baazaar() {
                         priceInWei
                     }
                     historicalPrices
+                    timesTraded
+                    stakedAmount
                 },
                 portal {
                     id,

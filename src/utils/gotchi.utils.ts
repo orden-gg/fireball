@@ -1,5 +1,7 @@
 import { ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel } from 'shared/models';
+import { GotchiAgingModel, CollateralData } from 'shared/models';
+import { EthersApi } from 'api';
+import { collaterals } from 'data/collaterals.data';
 
 export class GotchiUtils {
     public static getTotalXpByLevel(level: number): number {
@@ -68,5 +70,13 @@ export class GotchiUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
+    }
+
+    public static getStakedAmount(collateralAddress: string, stakedAmount: number): number {
+        const collateral: CollateralData | undefined = collaterals.find((collateral: CollateralData) =>
+            collateral.address === collateralAddress
+        );
+
+        return EthersApi.fromWei(stakedAmount, collateral?.decimals);
     }
 }

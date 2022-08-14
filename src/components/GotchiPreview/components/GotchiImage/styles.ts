@@ -41,18 +41,22 @@ export const gotchiImageStyles = makeStyles(theme => createStyles({
         }
     },
     setName: {
+        display: 'flex',
+        justifyContent: 'center',
         position: 'absolute',
         zIndex: 1,
-        left: '50%',
-        transform: 'translateX(-50%)',
+        left: 0,
+        right: 0,
         bottom: theme.spacing(.75),
-        padding: theme.spacing(0, .5),
-        textShadow: `0 0 2px ${theme.palette.secondary.dark},
-                    0 0 2px ${theme.palette.secondary.dark},
-                    0 0 2px ${theme.palette.secondary.dark}`,
-        fontWeight: 600,
-        color: theme.palette.rarity.legendary,
-        backgroundColor: alpha(theme.palette.secondary.dark, .6),
-        textAlign: 'center'
+        textAlign: 'center',
+        '& span': {
+            padding: theme.spacing(0, .5),
+            textShadow: `0 0 2px ${theme.palette.secondary.dark},
+                        0 0 2px ${theme.palette.secondary.dark},
+                        0 0 2px ${theme.palette.secondary.dark}`,
+            fontWeight: 600,
+            color: theme.palette.rarity.legendary,
+            backgroundColor: alpha(theme.palette.secondary.dark, .6)
+        }
     }
 }));

@@ -3,7 +3,7 @@ import { alpha } from '@mui/material';
 
 export const gotchiLevelStyles = makeStyles(theme => createStyles({
     levelBar: {
-        marginTop: theme.spacing(1),
+        margin: '3% 0',
         position: 'relative',
         backgroundColor: alpha(theme.palette.rarity.mythical, .2)
     },
