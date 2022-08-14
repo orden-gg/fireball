@@ -40,7 +40,7 @@ export const styles = makeStyles(theme => createStyles({
       display: 'flex',
       alignItems: 'center',
       flexWrap: 'wrap',
-      marignLeft: 'auto'
+      marginnLeft: 'auto'
     },
     traitEffectName: {
         color: theme.palette.rarity.legendary,
