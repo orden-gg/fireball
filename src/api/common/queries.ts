@@ -563,6 +563,8 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
             originalOwner {
                 id
             }
+            timesTraded
+            stakedAmount
         }
         lender
         borrower
