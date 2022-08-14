@@ -1,6 +1,6 @@
-import { TokenData } from 'shared/models';
+import { CollateralData } from 'shared/models';
 
-export const collaterals: TokenData[] = [
+export const collaterals: CollateralData[] = [
     // haunt 1
     {
         name: 'maWETH',

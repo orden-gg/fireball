@@ -164,7 +164,7 @@ export class CommonUtils {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    public static inRange(x, min, max) {
+    public static isNumberInRange(x, min, max) {
         return x >= min && x <= max;
     }
 }

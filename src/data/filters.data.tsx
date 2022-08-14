@@ -6,7 +6,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import { DateTime } from 'luxon';
 
 import { FilterComponentType } from 'shared/constants';
-import { TokenData } from 'shared/models';
+import { CollateralData } from 'shared/models';
 import { EthersApi } from 'api';
 import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 import { collaterals } from 'data/collaterals.data';
@@ -38,7 +38,7 @@ export const filtersData = {
     collateral: {
         key: 'collateral',
         queryParamKey: 'collateral',
-        items: collaterals.map((collateral: TokenData) => ({
+        items: collaterals.map((collateral: CollateralData) => ({
             title: collateral.name,
             value: collateral.address,
             isSelected: false,

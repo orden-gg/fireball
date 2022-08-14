@@ -1,5 +1,5 @@
 import { TraitsDefinitionsIds } from 'shared/constants';
-import { TraitsDefinition, TraitsEffect } from 'shared/models/traits.model';
+import { TraitsDefinition, TraitsEffect } from 'shared/models';
 
 export const traitsDefinitions: TraitsDefinition[] = [
     {

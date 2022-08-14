@@ -1,13 +1,13 @@
 import { ethers } from 'ethers';
 
-import { POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
+import { DEFAULT_COLLATERAL_DECIMALS, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
     public static isEthAddress(address: any): any {
         return ethers.utils.isAddress(address);
     }
 
-    public static fromWei(value: any, decimals: number = 18): any {
+    public static fromWei(value: any, decimals: number = DEFAULT_COLLATERAL_DECIMALS): any {
         return parseFloat(ethers.utils.formatUnits(value, decimals));
     }
 

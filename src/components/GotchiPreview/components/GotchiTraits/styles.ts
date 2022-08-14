@@ -49,7 +49,7 @@ export const styles = makeStyles(theme => createStyles({
     effectsInfo: {
         color: alpha(theme.palette.common.white, .1)
     },
-    defination: {
+    definition: {
         margin: theme.spacing(1, 0)
     },
     increaseName: {
@@ -58,7 +58,7 @@ export const styles = makeStyles(theme => createStyles({
     decreaseName: {
         color: theme.palette.error.light
     },
-    definationInfo: {
+    definitionInfo: {
         paddingLeft: theme.spacing(1.5)
     }
 }));

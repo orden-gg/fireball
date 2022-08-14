@@ -3,13 +3,12 @@ import InfoIcon from '@mui/icons-material/Info';
 import classNames from 'classnames';
 
 import { TraitsEffectsTypes, TRAITS_KEYS } from 'shared/constants';
+import { TraitsDefinition, TraitsEffect } from 'shared/models';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CommonUtils, ItemUtils } from 'utils';
+import { traitsDefinitions, traitsEffects } from 'data/traits.data';
 
 import { styles } from './styles';
-
-import { traitsDefinitions, traitsEffects } from 'data/traits.data';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { TraitsDefinition, TraitsEffect } from 'shared/models/traits.model';
 
 interface GotchiTraitsProps {
     numericTraits: any;
@@ -29,30 +28,29 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
     };
 
     const renderEffect = (effect: TraitsEffect): JSX.Element => {
-        const [increase, decrease]: number[][] = [
-            effect[TraitsEffectsTypes.Increase], effect[TraitsEffectsTypes.Decrease]
-        ];
+        const increaseEffect: number[] = effect[TraitsEffectsTypes.Increase];
+        const decreaseEffect: number[] = effect[TraitsEffectsTypes.Decrease];
 
         return <CustomTooltip
             title={
                 <>
                     {
-                        increase.map((id: number, index: number) => {
+                        increaseEffect.map((id: number, index: number) => {
                             const definition: TraitsDefinition = traitsDefinitions[id];
 
-                            return <div className={classes.defination} key={index}>
+                            return <div className={classes.definition} key={index}>
                                 <span className={classes.increaseName}>+ {definition.name}</span>
-                                <div className={classes.definationInfo}>{definition.info}</div>
+                                <div className={classes.definitionInfo}>{definition.info}</div>
                             </div>;
                         })
                     }
                     {
-                        decrease.map((id: number, index: number) => {
+                        decreaseEffect.map((id: number, index: number) => {
                             const definition: TraitsDefinition = traitsDefinitions[id];
 
-                            return <div className={classes.defination} key={index}>
+                            return <div className={classes.definition} key={index}>
                                 <span className={classes.decreaseName}>- {definition.name}</span>
-                                <div className={classes.definationInfo}>{definition.info}</div>
+                                <div className={classes.definitionInfo}>{definition.info}</div>
                             </div>;
                         })
                     }
@@ -77,7 +75,7 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
                     const effect: TraitsEffect | undefined = traitsEffects[index].find((item: TraitsEffect) => {
                         const range: number[] = item[TraitsEffectsTypes.Range];
 
-                        return CommonUtils.inRange(traitValue, range[0], range[1]);
+                        return CommonUtils.isNumberInRange(traitValue, range[0], range[1]);
                     });
 
                     return <div className={classNames(classes.gotchiTrait, traitName)} key={index}>

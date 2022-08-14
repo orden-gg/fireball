@@ -1,5 +1,5 @@
 import { ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel, TokenData } from 'shared/models';
+import { GotchiAgingModel, CollateralData } from 'shared/models';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 
@@ -72,11 +72,11 @@ export class GotchiUtils {
         }
     }
 
-    public static getStakedAmount(collateral: string, stakedAmount: number): number {
-        const token: TokenData | undefined = collaterals.find((token: TokenData) =>
-            token.address === collateral
+    public static getStakedAmount(collateralAddress: string, stakedAmount: number): number {
+        const collateral: CollateralData | undefined = collaterals.find((collateral: CollateralData) =>
+            collateral.address === collateralAddress
         );
 
-        return EthersApi.fromWei(stakedAmount, token?.decimals);
+        return EthersApi.fromWei(stakedAmount, collateral?.decimals);
     }
 }
