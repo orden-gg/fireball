@@ -1,20 +1,25 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { useAppSelector } from 'core/store/hooks';
 import { PageNavLink } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
+import { ConsumableIcon, WarehouseIcon } from 'components/Icons/Icons';
 
 import { GlossaryConsumables } from '../components/GlossaryConsumables/GlossaryConsumables';
 import { GlossaryWearables } from '../components/GlossaryWearables/GlossaryWearables';
-import { ConsumableIcon, WarehouseIcon } from 'components/Icons/Icons';
+
+import { getGlossaryWearablesCount } from '../store';
 
 export function Glossary() {
+    const wearablesCount = useAppSelector(getGlossaryWearablesCount);
+
     const navData: PageNavLink[] = [
         {
             name: 'wearables',
             path: 'wearables',
             icon: <WarehouseIcon width={24} height={24} />,
             isLoading: false,
-            count: 10
+            count: wearablesCount
         },
         {
             name: 'consumables',
