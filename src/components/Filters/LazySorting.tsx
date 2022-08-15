@@ -2,7 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
-import { Sorting, SortingListItem } from 'shared/models';
+import { Sorting, SortingItem, SortingListItem } from 'shared/models';
 import { CustomToggleButtonGroup } from 'components/custom/CustomToggleButtonGroup';
 
 import { styles } from './styles';
@@ -22,17 +22,13 @@ const directions: SortingListItem[] = [
     }
 ];
 
-export interface LazySortingProps {
-    sortingList: SortingListItem[];
-    sortingDefaults: Sorting;
-    onSortingChange: (sortBy: string, sortDir: string) => void;
-}
+export interface LazySortingProps extends Sorting { }
 
 // TODO move out from Filters directory:)
 export function LazySorting({ sortingList, sortingDefaults, onSortingChange }: LazySortingProps) {
     const classes = styles();
 
-    const { type, dir }: Sorting = sortingDefaults;
+    const { type, dir }: SortingItem = sortingDefaults;
 
     const onSortChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, sortBy: string, sortDir: string) => {
         if (!sortBy) {

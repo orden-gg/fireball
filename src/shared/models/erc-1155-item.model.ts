@@ -112,5 +112,6 @@ export interface Erc1155Item {
     kinshipBonus: number;
     experienceBonus: number;
     rarity: string;
+    rarityId: string;
     listingPrice?: number;
 }

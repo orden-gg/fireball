@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import qs from 'query-string';
 
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
@@ -108,7 +108,7 @@ export function Lend() {
     const [lendings, setLendings] = useState<any[]>([]);
     const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
     const [linksListView, setLinksListView] = useState<boolean>(false);
-    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'timeCreated', dir: 'desc' });
+    const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'timeCreated', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 

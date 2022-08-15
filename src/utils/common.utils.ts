@@ -60,7 +60,7 @@ export class CommonUtils {
         return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
     }
 
-    public static basicSort(array: any, sortType: any, sortDir?: any): any {
+    public static basicSort<T = any>(array: T[], sortType: any, sortDir?: any): T[] {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
     }
 

@@ -3,13 +3,14 @@ import { Backdrop, Button, Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { Sorting } from 'shared/models';
 import { Filters } from 'components/Filters/components/Filters/Filters';
-import { LazySorting, LazySortingProps } from 'components/Filters/LazySorting';
+import { LazySorting } from 'components/Filters/LazySorting';
 
 import { styles } from './styles';
 
 interface SortFilterPanelProps {
-    sorting: LazySortingProps;
+    sorting: Sorting;
     itemsLength: number;
     placeholder: JSX.Element;
     filters?: any;

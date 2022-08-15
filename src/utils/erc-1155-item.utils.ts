@@ -8,7 +8,9 @@ export class Erc1155ItemUtils {
     public static getStaticWearables(): Erc1155ItemTuple[] {
         return erc1155Items
             .filter(erc1155Item => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
-            .filter(erc1155Item => erc1155Item[ItemTypes.Name] !== 'The Void') as Erc1155ItemTuple[];
+            .filter(erc1155Item =>
+                erc1155Item[ItemTypes.Name] !== 'The Void' && erc1155Item[ItemTypes.Name] !== 'Haunt1 BG'
+            ) as Erc1155ItemTuple[];
     }
 
     public static getWearablesIds(): number[] {
@@ -19,7 +21,7 @@ export class Erc1155ItemUtils {
                 id: index
             }))
             .filter(erc1155Item => erc1155Item.category === Number(Erc1155Categories.Wearable))
-            .filter(erc1155Item => erc1155Item.name !== 'The Void')
+            .filter(erc1155Item => erc1155Item.name !== 'The Void' && erc1155Item.name !== 'Haunt1 BG')
             .map(erc1155Item => erc1155Item.id);
     }
 
@@ -74,7 +76,8 @@ export class Erc1155ItemUtils {
             category: tupleWearable[ItemTypes.Category],
             kinshipBonus: tupleWearable[ItemTypes.KinshipBonus],
             experienceBonus: tupleWearable[ItemTypes.ExperienceBonus],
-            rarity: ItemUtils.getRarityNameById(wearablesIds[index])
+            rarity: ItemUtils.getRarityNameById(wearablesIds[index]),
+            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearablesIds[index]))
         }));
 
         return mappedModelWearables;
