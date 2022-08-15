@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOp
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-import { Erc1155ListingsBatch, SalesHistoryModel } from 'shared/models';
+import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
 import { ItemUtils } from 'utils';
 
 import { EthersApi } from './ethers.api';
@@ -291,17 +291,21 @@ export class TheGraphApi {
         }).catch((error) => console.log(error));
     }
 
-    public static async getErc1155ListingsBatchQuery(ids: number[], category: string): Promise<Erc1155ListingsBatch> {
+    public static async getErc1155ListingsBatchQuery(
+        ids: number[],
+        category: string,
+        isSold: boolean,
+        orderBy: string,
+        orderDireciton: string
+    ): Promise<Erc1155ListingsBatch> {
         const getQuery = (ids: number[], category: string): string => {
-            const queries: string[] = ids.map((id: number) => erc1155ListingsBatchQuery(id, category));
+            const queries: string[] = ids.map((id: number) => erc1155ListingsBatchQuery(id, category, isSold, orderBy, orderDireciton));
 
             return `{${queries.join(',')}}`;
         };
 
         return TheGraphApi.getData(getQuery(ids, category))
-            .then((response: any) => {
-                return response.data;
-            });
+            .then((response: TheGraphResponse<Erc1155ListingsBatch>) => response.data);
     }
 
     public static async getErc721ListingsBySeller(seller: any): Promise<any> {

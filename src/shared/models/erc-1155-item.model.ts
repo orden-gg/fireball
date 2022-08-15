@@ -91,6 +91,16 @@ export type Erc1155ItemTuple = [
     experienceBonus: number
 ]
 
+export interface Erc1155Listing {
+    id: number | null;
+    price: number;
+    lastPurchased: number | null;
+}
+
+export interface Erc1155SoldListing extends Erc1155Listing {
+    soldDate?: string | null;
+}
+
 export interface Erc1155Item {
     id: number;
     name: string;
@@ -114,4 +124,6 @@ export interface Erc1155Item {
     rarity: string;
     rarityId: string;
     listingPrice?: number;
+    lastSoldListing?: Erc1155SoldListing;
+    currentListing?: Erc1155Listing;
 }

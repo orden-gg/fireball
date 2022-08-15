@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import ContentLoader from 'react-content-loader';
 import { alpha, Link, Typography } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -8,36 +7,40 @@ import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { Erc1155Listing, Erc1155SoldListing } from 'shared/models';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CommonUtils } from 'utils';
 
-import { CardContext } from '../../context/CardContext';
-
 import { styles } from './styles';
 
-// TODO should be replaced with CardListing component from shared directory after price fetching refactor
-export function CardListing() {
-    const classes = styles();
+interface CardListingProps {
+    lastSoldListing: Erc1155SoldListing | undefined;
+    currentListing: Erc1155Listing | undefined;
+    lastSoldDate: string | undefined | null;
+}
 
+// TODO this component is currently used for Glossary Card components and should be replacement
+// TODO for CardListing component in ItemCard submodule. Possibly should be moved to
+// TODO ItemCard directory
+export function CardListing({ lastSoldListing, currentListing, lastSoldDate }: CardListingProps) {
+    const classes = styles();
     const theme = useTheme();
 
-    const { lastSold, current, lastDate } = useContext<any>(CardContext);
-
     return <>
-        {!CommonUtils.isEmptyObject(current) && !CommonUtils.isEmptyObject(lastSold) ? (
+        {currentListing && lastSoldListing ? (
             <CustomTooltip
                 title={
                     <>
-                        {lastSold.price > 0 ? (
+                        {lastSoldListing.price > 0 ? (
                             <Typography variant='caption'>
                                 Sold for <Link
-                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${lastSold.listing}`}
+                                    href={`https://app.aavegotchi.com/baazaar/erc1155/${lastSoldListing.id}`}
                                     target='_blank'
                                     className={classes.soldOutLink}
                                 >
-                                    {CommonUtils.formatPrice(lastSold.price)}
-                                </Link> [{DateTime.fromISO(lastDate).toRelative()}]
+                                    {CommonUtils.formatPrice(lastSoldListing.price)}
+                                </Link> [{lastSoldDate && DateTime.fromISO(lastSoldDate).toRelative()}]
                             </Typography>
                         ) : (
                             <p className={classes.noSales}>No sales</p>
@@ -46,32 +49,32 @@ export function CardListing() {
                 }
                 placement='top'
             >
-                {current.price === 0 ? (
+                {currentListing.price === 0 ? (
                     <div className={classNames(classes.listings)}>
                         <Typography variant='subtitle2' className={classes.error}>No listings</Typography>
                     </div>
                 ) : (
                     <Link
-                        href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
+                        href={`https://app.aavegotchi.com/baazaar/erc1155/${currentListing.id}`}
                         target='_blank'
                         className={classNames(classes.listings)}
                     >
-                        {current.price === lastSold.price ? (
+                        {currentListing.price === lastSoldListing.price ? (
                             <Typography className={classes.lastPrice} variant='subtitle2'>
-                                {CommonUtils.formatPrice(current.price)}
+                                {CommonUtils.formatPrice(currentListing.price)}
                             </Typography>
-                        ) : current.price > lastSold.price ? (
+                        ) : currentListing.price > lastSoldListing.price ? (
                             <>
                                 <KeyboardArrowUpIcon color='success' fontSize='inherit' />
                                 <Typography className={classes.lastPriceUp} variant='subtitle2'>
-                                    {CommonUtils.formatPrice(current.price)}
+                                    {CommonUtils.formatPrice(currentListing.price)}
                                 </Typography>
                             </>
                         ) : (
                             <>
                                 <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
                                 <Typography className={classes.lastPriceDown} variant='subtitle2'>
-                                    {CommonUtils.formatPrice(current.price)}
+                                    {CommonUtils.formatPrice(currentListing.price)}
                                 </Typography>
                             </>
                         )}

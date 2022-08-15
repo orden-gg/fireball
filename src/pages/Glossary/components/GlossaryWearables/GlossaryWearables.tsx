@@ -4,15 +4,16 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { Erc1155Item, Sorting, SortingItem, SortingListItem } from 'shared/models';
 import {
     getGlossaryWearables,
     getWearablesSorting,
-    loadWearableListingPrices,
+    loadWearableListings,
     updateWearablesSorting
 } from 'pages/Glossary/store';
+import { CardListing } from 'shared/components/CardListing/CardListing';
+import { Erc1155Item, Sorting, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
+import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
@@ -53,7 +54,7 @@ export function GlossaryWearables() {
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
 
     useEffect(() => {
-        dispatch(loadWearableListingPrices([...Erc1155ItemUtils.getWearablesIds()]));
+        dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
@@ -85,7 +86,7 @@ export function GlossaryWearables() {
                             type={wearable.rarity}
                         >
                             <CardGroup name='header'>
-                                <CardBalance balance={`${wearable.maxQuantity}/${wearable.totalQuantity}`} holders={[]} />
+                                <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
                             </CardGroup>
                             <CardGroup name='body'>
                                 <CardSlot id={wearable.id} />
@@ -94,7 +95,11 @@ export function GlossaryWearables() {
                                 <CardStats id={wearable.id} category={wearable.category.toString()} />
                             </CardGroup>
                             <CardGroup name='footer'>
-                                <CardListing />
+                                <CardListing
+                                    currentListing={wearable.currentListing}
+                                    lastSoldListing={wearable.lastSoldListing}
+                                    lastSoldDate={wearable.lastSoldListing?.soldDate}
+                                />
                             </CardGroup>
                         </ItemCard>
                     }

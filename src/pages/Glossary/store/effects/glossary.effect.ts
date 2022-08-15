@@ -8,20 +8,36 @@ import { CommonUtils } from 'utils';
 
 import { setWearablesPrices, setWearables, setWearablesSorting } from '../slices';
 
-export const loadWearableListingPrices = (wearablesIds: number[]): AppThunk => async (dispatch, getState) => {
-    const wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.wearables);
+export const loadWearableListings = (wearablesIds: number[]): AppThunk => async (dispatch, getState) => {
+    let wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.wearables);
 
-    TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable)
-        .then((wearablesListings: Erc1155ListingsBatch) => {
-            Object.entries(wearablesListings).forEach(([_, listings], index: number) => {
-                listings.sort((a, b) => Number(a.priceInWei) - Number(b.priceInWei));
+    Promise.all([
+        TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc'),
+        TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, false, 'priceInWei', 'asc')
+    ])
+    .then(([lastSoldListings, currentListings]: [Erc1155ListingsBatch, Erc1155ListingsBatch]) => {
+        wearablesCopy = Object.keys(lastSoldListings).map((key, index) => {
+            return {
+                ...wearablesCopy[index],
+                lastSoldListing: {
+                    id: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].id) : null,
+                    price: lastSoldListings[key][0] ? Number(EthersApi.fromWei(lastSoldListings[key][0].priceInWei)) : 0,
+                    lastPurchased: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].timeLastPurchased) : null,
+                    soldDate: lastSoldListings[key][0]?.timeLastPurchased ?
+                        new Date(Number(lastSoldListings[key][0].timeLastPurchased) * 1000).toJSON() :
+                        null
+                },
+                currentListing: {
+                    id: currentListings[key][0] ? Number(currentListings[key][0].id) : null,
+                    price: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0].priceInWei)) : 0,
+                    lastPurchased: currentListings[key][0] ? Number(currentListings[key][0].timeLastPurchased) : null
+                },
+                listingPrice: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0
+            };
+        });
 
-                wearablesCopy[index].listingPrice = listings[0] ? Number(EthersApi.fromWei(listings[0]?.priceInWei)) : 0;
-            });
-
-            dispatch(setWearablesPrices(wearablesCopy));
-        })
-        .catch(error => console.log(error));
+        dispatch(setWearablesPrices(wearablesCopy));
+    }).catch(error => console.log(error));
 };
 
 export const updateWearablesSorting = (sorting: SortingItem): AppThunk => async (dispatch, getState) => {
