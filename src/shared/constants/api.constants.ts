@@ -1,5 +1,4 @@
 export const POLYGON_RPC: string = 'https://polygon-rpc.com/';
-// export const POLYGON_RPC: string = 'https://rpc-mainnet.maticvigil.com';
 export const RINKEBY_RPC: string = 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
 
 export const POLYGON_CHAIN_ID: number = 137;

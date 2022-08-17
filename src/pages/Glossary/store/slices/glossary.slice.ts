@@ -32,6 +32,10 @@ export const glossarySlice = createSlice({
     }
 });
 
-export const { setWearablesPrices, setWearables, setWearablesSorting } = glossarySlice.actions;
+export const {
+    setWearablesPrices,
+    setWearables,
+    setWearablesSorting
+} = glossarySlice.actions;
 
 export const glossaryReducer = glossarySlice.reducer;

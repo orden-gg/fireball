@@ -1,26 +1,36 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
 
+import classNames from 'classnames';
+
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     getGlossaryWearables,
+    getInitialGlossaryWearables,
     getWearablesSorting,
     loadWearableListings,
+    setWearables,
     updateWearablesSorting
 } from 'pages/Glossary/store';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { Erc1155Item, Sorting, SortingItem, SortingListItem } from 'shared/models';
+import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import { ContentInner } from 'components/Content/ContentInner';
+import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { WarehouseIcon } from 'components/Icons/Icons';
-import { Erc1155ItemUtils } from 'utils';
+import { Erc1155ItemUtils, FilterUtils } from 'utils';
 
 import { styles } from './styles';
+
+import { glossaryWearablesFilters } from '../../data/filters.data';
 
 const sortings: SortingListItem[] = [
     {
@@ -45,13 +55,19 @@ const sortings: SortingListItem[] = [
         icon: <FormatListNumberedIcon fontSize='small' />
     }
 ];
+const initialFilters: GlossaryWearablesFilters = {
+    rarity: { ...glossaryWearablesFilters.rarity }
+};
 
 export function GlossaryWearables() {
     const classes = styles();
 
     const dispatch = useAppDispatch();
+    const initialWearables: Erc1155Item[] = useAppSelector(getInitialGlossaryWearables);
     const wearables: Erc1155Item[] = useAppSelector(getGlossaryWearables);
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
+
+    const [currentFilters, setCurrentFilters] = useState<GlossaryWearablesFilters>({ ...initialFilters });
 
     useEffect(() => {
         dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
@@ -67,44 +83,95 @@ export function GlossaryWearables() {
         onSortingChange: onSortingChange
     };
 
+    useEffect(() => {
+        const modifiedWearables = FilterUtils.getFilteredSortedItems({
+            items: initialWearables,
+            filters: currentFilters,
+            sorting: wearablesSorting,
+            getFilteredItems: FilterUtils.getFilteredItems
+        });
+
+        dispatch(setWearables(modifiedWearables));
+    }, [currentFilters, initialWearables, wearablesSorting]);
+
+    const onSetSelectedFilters = (key: string, selectedValue: any) => {
+        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+    };
+
+    const onResetFilters = useCallback(() => {
+        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
+    }, [currentFilters]);
+
+    const onExportData = useCallback(() => {
+        FilterUtils.exportData(wearables, 'glossary_wearables');
+    }, [wearables]);
+
     return (
-        <div className={classes.glossaryWearablesContainer}>
-            <SortFilterPanel
-                sorting={sorting}
-                itemsLength={wearables.length}
-                placeholder={
-                    <WarehouseIcon width={20} height={20} />
-                }
-            />
-            <ContentInner dataLoading={false}>
-                <ItemsLazy
-                    items={wearables}
-                    component={(wearable: Erc1155Item) =>
-                        <ItemCard
-                            id={wearable.id}
-                            category={wearable.category}
-                            type={wearable.rarity}
-                        >
-                            <CardGroup name='header'>
-                                <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
-                            </CardGroup>
-                            <CardGroup name='body'>
-                                <CardSlot id={wearable.id} />
-                                <CardImage id={wearable.id} />
-                                <CardName children={wearable.name} />
-                                <CardStats id={wearable.id} category={wearable.category.toString()} />
-                            </CardGroup>
-                            <CardGroup name='footer'>
-                                <CardListing
-                                    currentListing={wearable.currentListing}
-                                    lastSoldListing={wearable.lastSoldListing}
-                                    lastSoldDate={wearable.lastSoldListing?.soldDate}
-                                />
-                            </CardGroup>
-                        </ItemCard>
+        <ContentWrapper>
+            <>
+                <Filters
+                    className={classNames(classes.section, classes.filtersWrapper)}
+                    filters={currentFilters}
+                    onSetSelectedFilters={onSetSelectedFilters}
+                />
+
+                <div className={classes.buttonsWrapper}>
+                    <Button
+                        variant='contained'
+                        color='warning'
+                        size='small'
+                        onClick={onResetFilters}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                        size='small'
+                        onClick={onExportData}
+                    >
+                        Export data (.json)
+                    </Button>
+                </div>
+            </>
+            <>
+                <SortFilterPanel
+                    sorting={sorting}
+                    itemsLength={wearables.length}
+                    placeholder={
+                        <WarehouseIcon width={20} height={20} />
                     }
                 />
-            </ContentInner>
-        </div>
+                <ContentInner dataLoading={false}>
+                    <ItemsLazy
+                        items={wearables}
+                        component={(wearable: Erc1155Item) =>
+                            <ItemCard
+                                id={wearable.id}
+                                category={wearable.category}
+                                type={wearable.rarity}
+                            >
+                                <CardGroup name='header'>
+                                    <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
+                                </CardGroup>
+                                <CardGroup name='body'>
+                                    <CardSlot id={wearable.id} />
+                                    <CardImage id={wearable.id} />
+                                    <CardName children={wearable.name} />
+                                    <CardStats id={wearable.id} category={wearable.category.toString()} />
+                                </CardGroup>
+                                <CardGroup name='footer'>
+                                    <CardListing
+                                        currentListing={wearable.currentListing}
+                                        lastSoldListing={wearable.lastSoldListing}
+                                        lastSoldDate={wearable.lastSoldListing?.soldDate}
+                                    />
+                                </CardGroup>
+                            </ItemCard>
+                        }
+                    />
+                </ContentInner>
+            </>
+        </ContentWrapper>
     );
 }
