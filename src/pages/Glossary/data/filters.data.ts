@@ -1,7 +1,8 @@
 import { FilterComponentType, RarityTypes } from 'shared/constants';
+import { Erc1155Item } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
-import { GlossaryWearablesFilters } from '../models';
+import { GlossaryWearablesFilters, FilterItemsOption, MultiButtonSelectionFilter } from '../models';
 
 export const glossaryWearablesFilters: GlossaryWearablesFilters = {
     rarity: {
@@ -58,5 +59,48 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         max: 200000,
         value: [0, 200000],
         ...defaultRangeSliderFilter
+    },
+    slot: {
+        key: 'slot',
+        queryParamKey: 'slot',
+        items: [
+            {
+                title: 'eyes',
+                value: 'eyes',
+                isSelected: false,
+                queryParamValue: 'eyes'
+            },
+            {
+                title: 'face',
+                value: 'face',
+                isSelected: false,
+                queryParamValue: 'face'
+            },
+            {
+                title: 'lHand',
+                value: 'lHand',
+                isSelected: false,
+                queryParamValue: 'lHand'
+            },
+            {
+                title: 'rHand',
+                value: 'rHand',
+                isSelected: false,
+                queryParamValue: 'rHand'
+            },
+            {
+                title: 'pet',
+                value: 'pet',
+                isSelected: false,
+                queryParamValue: 'pet'
+            }
+        ],
+        componentType: FilterComponentType.MultiButtonSelection,
+        ...defaultMultiSelectionFilter,
+        predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
+            return filter.items.some((item: FilterItemsOption) =>
+                item.isSelected && compareItem.slotPositions[item.value]
+            );
+        }
     }
 };

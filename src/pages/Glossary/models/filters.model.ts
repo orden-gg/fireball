@@ -1,4 +1,5 @@
 import { FilterComponentType } from 'shared/constants';
+import { Erc1155Item } from 'shared/models';
 
 export interface BaseFilter {
     key: string;
@@ -8,7 +9,7 @@ export interface BaseFilter {
     isFilterActive: boolean;
 }
 
-export interface MultiAutocompleteFilterItem {
+export interface FilterItemsOption {
     title: string;
     value: string;
     isSelected: boolean;
@@ -16,7 +17,7 @@ export interface MultiAutocompleteFilterItem {
 }
 
 export interface MultiAutocompleteFilter extends BaseFilter {
-    items: MultiAutocompleteFilterItem[];
+    items: FilterItemsOption[];
     getIsFilterValidFn: (values: any[]) => boolean;
     resetFilterFn: (filter: MultiAutocompleteFilter) => void;
     predicateFn: (filter: MultiAutocompleteFilter, compareItem: any) => boolean;
@@ -24,6 +25,17 @@ export interface MultiAutocompleteFilter extends BaseFilter {
     updateFromFilterFn: (filter: MultiAutocompleteFilter, values: any[]) => void;
     getQueryParamsFn: (filter: MultiAutocompleteFilter) => string[];
     getActiveFiltersCountFn: (filter: MultiAutocompleteFilter) => number;
+}
+
+export interface MultiButtonSelectionFilter<T> extends BaseFilter {
+    items: FilterItemsOption[];
+    getIsFilterValidFn: (values: any[]) => boolean;
+    resetFilterFn: (filter: MultiButtonSelectionFilter<T>) => void;
+    predicateFn: (filter: MultiButtonSelectionFilter<T>, compareItem: T) => boolean;
+    updateFromQueryFn: (filter: MultiButtonSelectionFilter<T>, compareValue: string | string[], compareKey: string) => void;
+    updateFromFilterFn: (filter: MultiButtonSelectionFilter<T>, values: any[]) => void;
+    getQueryParamsFn: (filter: MultiButtonSelectionFilter<T>) => string[];
+    getActiveFiltersCountFn: (filter: MultiButtonSelectionFilter<T>) => number;
 }
 
 export interface RangeSliderFilter extends BaseFilter {
@@ -42,4 +54,5 @@ export interface RangeSliderFilter extends BaseFilter {
 export interface GlossaryWearablesFilters {
     rarity: MultiAutocompleteFilter;
     listingPrice: RangeSliderFilter;
+    slot: MultiButtonSelectionFilter<Erc1155Item>;
 }
