@@ -146,7 +146,7 @@ export class FiltersHelper {
     }
 
     // Range slider filter handlers
-    public static rangeSliderGetIsFilterValidFn(values: any, filter: any): any {
+    public static rangeSliderGetIsFilterValidFn(values: any, filter: any): boolean {
         return values[0] > filter.min || values[1] < filter.max;
     }
 
@@ -185,7 +185,7 @@ export class FiltersHelper {
         return filter.value;
     }
 
-    public static rangeSliderGetActiveFiltersCount(filter: any): any {
+    public static rangeSliderGetActiveFiltersCount(filter: any): number {
         return filter.isFilterActive ? 1 : 0;
     }
 

@@ -26,6 +26,20 @@ export interface MultiAutocompleteFilter extends BaseFilter {
     getActiveFiltersCountFn: (filter: MultiAutocompleteFilter) => number;
 }
 
+export interface RangeSliderFilter extends BaseFilter {
+    min: number;
+    max: number;
+    value: number[];
+    getIsFilterValidFn: (values: number[], filter: RangeSliderFilter) => boolean;
+    resetFilterFn: (filter: RangeSliderFilter) => void;
+    predicateFn: (filter: RangeSliderFilter, compareItem: any) => boolean;
+    updateFromQueryFn: (filter: RangeSliderFilter, compareValue: any) => void;
+    updateFromFilterFn: (filter: RangeSliderFilter, values: number[]) => void;
+    getQueryParamsFn: (filter: RangeSliderFilter) => number[];
+    getActiveFiltersCountFn: (filter: RangeSliderFilter) => number;
+}
+
 export interface GlossaryWearablesFilters {
     rarity: MultiAutocompleteFilter;
+    listingPrice: RangeSliderFilter;
 }

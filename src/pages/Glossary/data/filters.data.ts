@@ -1,5 +1,5 @@
 import { FilterComponentType, RarityTypes } from 'shared/constants';
-import { defaultMultiSelectionFilter } from 'data/default-filters.data';
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
 
@@ -48,5 +48,15 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             }
         ],
         ...defaultMultiSelectionFilter
+    },
+    listingPrice: {
+        key: 'listingPrice',
+        queryParamKey: 'price',
+        title: 'listing price (ghst)',
+        componentType: FilterComponentType.RangeSlider,
+        min: 0,
+        max: 200000,
+        value: [0, 200000],
+        ...defaultRangeSliderFilter
     }
 };
