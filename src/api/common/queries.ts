@@ -652,8 +652,6 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
         period
         lastClaimed
         completed
-        timesTraded
-        stakedAmount
         gotchi {
             id
             name
@@ -673,6 +671,8 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
             equippedSetName
             toNextLevel
             level
+            timesTraded
+            stakedAmount
         }
         lender
         borrower
