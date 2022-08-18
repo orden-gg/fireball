@@ -1,8 +1,8 @@
 import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS } from 'shared/constants';
-import { Erc1155Item } from 'shared/models';
+import { Erc1155Item, FilterItemsOption, MultiButtonSelectionFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
-import { GlossaryWearablesFilters, FilterItemsOption, MultiButtonSelectionFilter } from '../models';
+import { GlossaryWearablesFilters } from '../models';
 
 export const glossaryWearablesFilters: GlossaryWearablesFilters = {
     rarity: {
