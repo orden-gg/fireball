@@ -1,4 +1,4 @@
-import { FilterComponentType, RarityTypes, TRAITS_KEYS } from 'shared/constants';
+import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS } from 'shared/constants';
 import { Erc1155Item } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
@@ -96,12 +96,13 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         key: 'traitModifier',
         queryParamKey: 'traitModifier',
         componentType: FilterComponentType.MultiButtonSelection,
-        items: TRAITS_KEYS.map((key: string) => ({
-            title: key.toUpperCase(),
-            value: key,
-            isSelected: false,
-            queryParamValue: key
-        })),
+        items: TRAITS_MODIFY_KEYS
+            .map((key: string) => ({
+                title: key.toUpperCase(),
+                value: key,
+                isSelected: false,
+                queryParamValue: key
+            })),
         ...defaultMultiSelectionFilter,
         predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
             return filter.items.some((item: FilterItemsOption) =>
