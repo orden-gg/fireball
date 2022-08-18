@@ -7,6 +7,7 @@ export interface BaseFilter {
     componentType: FilterComponentType;
     title: string;
     isFilterActive: boolean;
+    divider?: boolean;
 }
 
 export interface FilterItemsOption {
@@ -53,6 +54,7 @@ export interface RangeSliderFilter extends BaseFilter {
 
 export interface GlossaryWearablesFilters {
     rarity: MultiButtonSelectionFilter<Erc1155Item>;
-    listingPrice: RangeSliderFilter;
     slot: MultiButtonSelectionFilter<Erc1155Item>;
+    traitModifier: MultiButtonSelectionFilter<Erc1155Item>;
+    listingPrice: RangeSliderFilter;
 }
