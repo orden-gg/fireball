@@ -6,12 +6,13 @@ import PercentIcon from '@mui/icons-material/Percent';
 import { DateTime } from 'luxon';
 
 import { FilterComponentType } from 'shared/constants';
+import { CollateralData } from 'shared/models';
 import { EthersApi } from 'api';
+import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import { DISTRICTS } from 'data/citadel.data';
 import guilds from 'data/guilds.json';
-import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 
 export const filtersData = {
     hauntId: {
@@ -37,7 +38,7 @@ export const filtersData = {
     collateral: {
         key: 'collateral',
         queryParamKey: 'collateral',
-        items: collaterals.map((collateral: any) => ({
+        items: collaterals.map((collateral: CollateralData) => ({
             title: collateral.name,
             value: collateral.address,
             isSelected: false,

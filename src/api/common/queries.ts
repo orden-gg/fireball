@@ -27,6 +27,8 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
           equippedSetID
           equippedSetName
           usedSkillPoints
+          timesTraded
+          stakedAmount
           listings(where:{cancelled: false, timePurchased: 0}) {
             id
             priceInWei
@@ -69,6 +71,7 @@ export const gotchiByIdQuery = (id: any): any => {
             minimumStake
             stakedAmount
             timesTraded
+            originalOwner
             listings(where:{cancelled: false, timePurchased: 0}) {
                 id
                 priceInWei
@@ -111,6 +114,7 @@ export const userQuery = (id: any, skip: any): any => {
             equippedSetName
             usedSkillPoints
             timesTraded
+            stakedAmount
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -151,6 +155,7 @@ export const userOwnedGotchisQuery = (address: string, skip: number): string => 
             equippedSetName
             usedSkillPoints
             timesTraded
+            stakedAmount
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -583,6 +588,8 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
             originalOwner {
                 id
             }
+            timesTraded
+            stakedAmount
         }
         lender
         borrower
@@ -634,6 +641,8 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
             equippedSetName
             toNextLevel
             level
+            timesTraded
+            stakedAmount
             originalOwner {
                 id
             }
@@ -668,6 +677,8 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
         period
         lastClaimed
         completed
+        timesTraded
+        stakedAmount
         gotchi {
             id
             name

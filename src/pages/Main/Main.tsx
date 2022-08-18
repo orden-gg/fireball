@@ -31,7 +31,7 @@ export function Main() {
     const [isRowsView, setIsRowsView] = useState<boolean>(true);
 
     useEffect(() => {
-        const isRowsView: boolean = CommonUtils.generateRandomIntegerInRange(1, 100) > EASTER_EGG_VIEW_CHANCE;
+        const isRowsView: boolean = CommonUtils.generateRandomIntegerInRange(1, 100) < EASTER_EGG_VIEW_CHANCE;
         let isMounted: boolean = true;
 
         setIsRowsView(isRowsView);

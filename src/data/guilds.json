@@ -943,7 +943,7 @@
         }
     },{
         "name": "TEC Viva Gotchi Guild",
-        "logo": "tecviva.png",
+        "logo": "tecvivagotchiguild.png",
         "members": [
             "0xEb7989a7C04b70cEA2bef6C2160ab7AFCa2A0d98",
             "0xa322f14c4e9628F5934420a6098a01e7C999e657"
@@ -965,7 +965,7 @@
         "banner": "tecviva-banner.png",
         "socials": {
             "twitter": "https://twitter.com/TECGotchi",
-            "discord": "https://discord.gg/Bsn2RPaE"
+            "discord": "https://discord.gg/PHa787WvUR"
         }
     }
 ]

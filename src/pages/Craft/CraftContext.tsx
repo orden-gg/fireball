@@ -32,9 +32,11 @@ export const CraftContextProvider = (props: any) => {
 
     const getMaxCraftAmount = useCallback((): number => {
         const isFreeItem: boolean = selectedItem.alchemicaCost.every((cost: number) => cost === 0);
-        const amounts: number[] = selectedItem.alchemicaCost.map((price, index) =>
-            Math.floor(tokens[index].amount / price)
-        );
+        const amounts: number[] = selectedItem.alchemicaCost
+            .map((price, index) =>
+                tokens[index].amount === 0 ? -1 : Math.floor(tokens[index].amount / price)
+            )
+            .filter((amount) => amount !== -1);
         const minAmount = Math.min(...amounts) || 0;
 
         return minAmount > 200 || isFreeItem ? 200 : minAmount;

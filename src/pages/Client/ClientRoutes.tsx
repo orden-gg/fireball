@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
-import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
@@ -11,7 +11,7 @@ import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
-import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
+import { BaazarIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi } from 'api';
@@ -103,15 +103,16 @@ export function ClientRoutes() {
                 <div className={classes.routesNav}>
                     <PageNav
                         links={navData}
-                        beforeContent={(
-                            <Button
-                                to={account as string}
-                                className={classes.customBtn}
-                                component={NavLink}
-                            >
-                                <GameControllerIcon width={24} height={24} />
-                            </Button>
-                        )}
+                        // TODO should be shown in the future
+                        // beforeContent={(
+                        //     <Button
+                        //         to={account as string}
+                        //         className={classes.customBtn}
+                        //         component={NavLink}
+                        //     >
+                        //         <GameControllerIcon width={24} height={24} />
+                        //     </Button>
+                        // )}
                         afterContent={(
                             <React.Fragment>
                                 <Button
@@ -135,7 +136,7 @@ export function ClientRoutes() {
                 <Route path='warehouse' element={<ClientWarehouse />} />
                 <Route path='tickets' element={<ClientTickets />} />
                 <Route path='realm/*' element={<ClientRealm />} />
-                <Route path='*' element={<Navigate to='' replace />} />
+                <Route path='*' element={<Navigate to='gotchis' replace />} />
             </Routes>
         </div>
     );

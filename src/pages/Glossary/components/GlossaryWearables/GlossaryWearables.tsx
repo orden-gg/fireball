@@ -169,7 +169,7 @@ export function GlossaryWearables() {
                                     <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName children={wearable.name} />
-                                    <CardStats id={wearable.id} category={wearable.category.toString()} />
+                                    <CardStats stats={Object.entries(wearable.traitModifiers).map(([_, traitValue]) => traitValue)} />
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

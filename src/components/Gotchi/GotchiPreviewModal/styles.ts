@@ -37,5 +37,10 @@ export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
     },
     wearables: {
         flexBasis: 450
+    },
+    button: {
+        width: 'auto',
+        margin: theme.spacing(0, 1),
+        minWidth: 200
     }
 }));

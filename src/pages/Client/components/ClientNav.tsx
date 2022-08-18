@@ -16,7 +16,7 @@ export function ClientNav() {
     const dispatch = useAppDispatch();
 
     const onAddressSubmit = useCallback((address: string) => {
-        navigate({ pathname: `/client/${address}` });
+        navigate({ pathname: `/client/${address}/gotchis` });
         dispatch(setActiveAddress(address));
     }, [navigate]);
 

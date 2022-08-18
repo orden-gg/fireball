@@ -174,10 +174,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
         get svg() {
             return (
-                <div
-                    key={`${gotchi.id}-svg`}
-                    onClick={() => setIsPreviewOpen(true)}
-                >
+                <div key={`${gotchi.id}-svg`} >
                     <GotchiImage
                         gotchi={gotchi}
                         renderSvgByStats={renderSvgByStats}
@@ -244,26 +241,29 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     }
 
     return (
-        <div
-            className={classNames(
-                classes.gotchi,
-                `haunt${gotchi.hauntId}`,
-                'vertical',
-                className,
-                GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
-                gotchi.lending && isHighlightLending && 'lended',
-                isFlipped && classes.gotchiIsFlipped
-            )}
-        >
-            { gotchi.lending && isHighlightLending && (
-                <div className={classes.statusBadge}>Lended</div>
-            )}
-            {render.map((name: any) => {
-                return renderSection(name);
-            })}
+        <>
+            <div
+                className={classNames(
+                    classes.gotchi,
+                    `haunt${gotchi.hauntId}`,
+                    'vertical',
+                    className,
+                    GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
+                    gotchi.lending && isHighlightLending && 'lended',
+                    isFlipped && classes.gotchiIsFlipped
+                )}
+                onClick={() => setIsPreviewOpen(true)}
+            >
+                { gotchi.lending && isHighlightLending && (
+                    <div className={classes.statusBadge}>Lended</div>
+                )}
+                {render.map((name: any) => {
+                    return renderSection(name);
+                })}
+            </div>
             <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
                 <GotchiPreviewModal gotchi={gotchi} />
             </CustomModal>
-        </div>
+        </>
     );
 }

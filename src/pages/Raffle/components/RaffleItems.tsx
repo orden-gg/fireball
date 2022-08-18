@@ -85,7 +85,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                         <CardSlot id={item.id} />
                         <CardImage id={item.id} />
                         <CardName id={item.id} />
-                        <CardStats id={item.id} category={Erc1155Categories.Wearable} />
+                        <CardStats stats={ItemUtils.getTraitModifiersById(item.id)} />
                         <RaffleItemChance stats={{
                             chance: item.chance,
                             won: item.won,

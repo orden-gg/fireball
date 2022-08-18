@@ -1,14 +1,14 @@
 import { ethers } from 'ethers';
 
-import { POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
+import { DEFAULT_COLLATERAL_DECIMALS, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
     public static isEthAddress(address: any): any {
         return ethers.utils.isAddress(address);
     }
 
-    public static fromWei(value: any): any {
-        return parseFloat(ethers.utils.formatUnits(value));
+    public static fromWei(value: any, decimals: number = DEFAULT_COLLATERAL_DECIMALS): any {
+        return parseFloat(ethers.utils.formatUnits(value, decimals));
     }
 
     public static toWei(value: any): any {
@@ -18,6 +18,12 @@ export class EthersApi {
 
     public static formatBigNumber(value: any): any {
         return ethers.utils.formatUnits(value, 0);
+    }
+
+    public static async getBlockByNumber(blockNumber: number, network?: any): Promise<any> {
+        const provider: any = EthersApi.getProvider(network);
+
+        return provider.getBlock(blockNumber);
     }
 
     public static async getLastBlock(network?: any): Promise<any> {

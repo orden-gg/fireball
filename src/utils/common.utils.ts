@@ -163,4 +163,8 @@ export class CommonUtils {
     public static generateRandomIntegerInRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+
+    public static isNumberInRange(x: number, min: number, max: number) {
+        return x >= min && x <= max;
+    }
 }

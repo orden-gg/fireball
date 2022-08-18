@@ -5,12 +5,15 @@ import { DateTime } from 'luxon';
 import { Erc721Categories } from 'shared/constants';
 import { SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
+import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, TheGraphApi } from 'api';
 
 import { gotchiPreviewModalStyles } from './styles';
+import { GotchiUtils } from 'utils';
 
 export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
     const classes = gotchiPreviewModalStyles();
@@ -19,7 +22,7 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
 
     useEffect(() => {
-        const id = Number(gotchi.id);
+        const id: number = Number(gotchi.id);
 
         TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
             .then((response: SalesHistoryModel[]) => {
@@ -30,7 +33,34 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
     }, [gotchi.id]);
 
     return <div className={classes.previewModal}>
-        <GotchiPreview gotchi={gotchi} />
+        <GotchiPreview>
+            <GotchiView gotchi={gotchi} />
+            <GotchiContent>
+                <GotchiHead name={gotchi.name || 'Unnamed'} owner={gotchi.originalOwner?.id || gotchi.owner.id} />
+
+                <GotchiInfoList>
+                    <GotchiInfoItem label='id' value={gotchi.id} />
+                    <GotchiInfoItem label='kinship' value={gotchi.kinship} />
+                    <GotchiInfoItem label='haunt' value={gotchi.hauntId} />
+                    <GotchiInfoItem
+                        label='staked'
+                        value={
+                            parseFloat(GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5))
+                        }
+                    />
+                </GotchiInfoList>
+
+                <GotchiTraits
+                    numericTraits={gotchi.numericTraits}
+                    modifiedNumericTraits={gotchi.modifiedNumericTraits}
+                />
+
+                <GotchiFooter>
+                    <ViewInAppButton link={`/gotchi/${gotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
+                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
+                </GotchiFooter>
+            </GotchiContent>
+        </GotchiPreview>
         {gotchi.timesTraded > 0 && (
             <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
@@ -48,17 +78,19 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
                             <HistoryItem className={classes.address}>
                                 <EthAddress
                                     address={listing.seller}
-                                    isShowIcon={true}
-                                    isCopyButton={true}
-                                    isPolygonButton={true}
+                                    isShowIcon
+                                    isCopyButton
+                                    isPolygonButton
+                                    isClientLink
                                 />
                             </HistoryItem>
                             <HistoryItem className={classes.address}>
                                 <EthAddress
                                     address={listing.buyer}
-                                    isShowIcon={true}
-                                    isCopyButton={true}
-                                    isPolygonButton={true}
+                                    isShowIcon
+                                    isCopyButton
+                                    isPolygonButton
+                                    isClientLink
                                 />
                             </HistoryItem>
                             <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
