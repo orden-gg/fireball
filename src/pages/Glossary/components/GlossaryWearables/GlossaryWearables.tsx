@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Button, IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
@@ -65,6 +67,8 @@ const initialFilters: GlossaryWearablesFilters = {
 export function GlossaryWearables() {
     const classes = styles();
 
+    const navigate = useNavigate();
+
     const dispatch = useAppDispatch();
     const initialWearables: Erc1155Item[] = useAppSelector(getInitialGlossaryWearables);
     const wearables: Erc1155Item[] = useAppSelector(getGlossaryWearables);
@@ -112,6 +116,10 @@ export function GlossaryWearables() {
     return (
         <ContentWrapper>
             <>
+                <IconButton className={classes.backButton} onClick={() => { navigate('/glossary') }} >
+                    <ArrowBackIcon />
+                </IconButton>
+
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={currentFilters}
