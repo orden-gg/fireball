@@ -32,7 +32,7 @@ import { Erc1155ItemUtils, FilterUtils } from 'utils';
 
 import { styles } from './styles';
 
-import { glossaryWearablesFilters } from '../../data/filters.data';
+import { glossaryWearablesFilters } from '../../data/glossary-filters.data';
 
 const sortings: SortingListItem[] = [
     {

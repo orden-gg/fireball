@@ -1,1 +1,1 @@
-export * from './filters.data';
+export * from './glossary-filters.data';
