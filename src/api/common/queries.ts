@@ -673,6 +673,9 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
             level
             timesTraded
             stakedAmount
+            originalOwner {
+                id
+            }
         }
         lender
         borrower
