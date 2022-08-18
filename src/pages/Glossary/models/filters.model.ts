@@ -52,7 +52,7 @@ export interface RangeSliderFilter extends BaseFilter {
 }
 
 export interface GlossaryWearablesFilters {
-    rarity: MultiAutocompleteFilter;
+    rarity: MultiButtonSelectionFilter<Erc1155Item>;
     listingPrice: RangeSliderFilter;
     slot: MultiButtonSelectionFilter<Erc1155Item>;
 }

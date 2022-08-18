@@ -8,8 +8,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
     rarity: {
         key: 'rarity',
         queryParamKey: 'rarity',
-        componentType: FilterComponentType.MultipleAutocomplete,
-        title: 'Rarity',
+        componentType: FilterComponentType.MultiButtonSelection,
         items: [
             {
                 title: RarityTypes.Common,
@@ -63,6 +62,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
     slot: {
         key: 'slot',
         queryParamKey: 'slot',
+        componentType: FilterComponentType.MultiButtonSelection,
         items: [
             {
                 title: 'eyes',
@@ -95,7 +95,6 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
                 queryParamValue: 'pet'
             }
         ],
-        componentType: FilterComponentType.MultiButtonSelection,
         ...defaultMultiSelectionFilter,
         predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
             return filter.items.some((item: FilterItemsOption) =>
