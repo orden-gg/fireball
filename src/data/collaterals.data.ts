@@ -30,7 +30,7 @@ export const collaterals: CollateralData[] = [
     {
         name: 'maTUSD',
         address: '0xf4b8888427b00d7caf21654408b7cba2ecf4ebd9',
-        decimals: 20
+        decimals: 18
     },
     {
         name: 'maLINK',
