@@ -1,4 +1,4 @@
-import { Erc1155Categories, ItemTypes } from 'shared/constants';
+import { Erc1155Categories, ItemTypes, TraitsNumberTypes, WearableTypes } from 'shared/constants';
 import { Erc1155Item, Erc1155ItemTuple } from 'shared/models';
 import erc1155Items from 'data/items.data.json';
 
@@ -33,22 +33,23 @@ export class Erc1155ItemUtils {
             description: tupleWearable[ItemTypes.Description],
             author: tupleWearable[ItemTypes.Author],
             traitModifiers: {
-                nrg: tupleWearable[ItemTypes.TraitModifiers][0],
-                agg: tupleWearable[ItemTypes.TraitModifiers][1],
-                spk: tupleWearable[ItemTypes.TraitModifiers][2],
-                brn: tupleWearable[ItemTypes.TraitModifiers][3],
-                eys: tupleWearable[ItemTypes.TraitModifiers][4],
-                eyc: tupleWearable[ItemTypes.TraitModifiers][5]
+                nrg: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.NRG],
+                agg: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.AGG],
+                spk: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.SPK],
+                brn: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.BRN],
+                eys: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.EYS],
+                eyc: tupleWearable[ItemTypes.TraitModifiers][TraitsNumberTypes.EYC]
             },
             slotPositions: {
-                body: tupleWearable[ItemTypes.SlotPositions][0],
-                face: tupleWearable[ItemTypes.SlotPositions][1],
-                eyes: tupleWearable[ItemTypes.SlotPositions][2],
-                head: tupleWearable[ItemTypes.SlotPositions][3],
-                rHand: tupleWearable[ItemTypes.SlotPositions][4],
-                lHand: tupleWearable[ItemTypes.SlotPositions][5],
-                pet: tupleWearable[ItemTypes.SlotPositions][6],
-                background: tupleWearable[ItemTypes.SlotPositions][7],
+                body: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Body],
+                face: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Face],
+                eyes: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Eyes],
+                head: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Head],
+                rHand: tupleWearable[ItemTypes.SlotPositions][WearableTypes.RHand],
+                lHand: tupleWearable[ItemTypes.SlotPositions][WearableTypes.LHand],
+                pet: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Pet],
+                background: tupleWearable[ItemTypes.SlotPositions][WearableTypes.Background],
+                // as it's unknown slot for now there is no enum equivalent for this
                 unknownSlot1: tupleWearable[ItemTypes.SlotPositions][8],
                 unknownSlot2: tupleWearable[ItemTypes.SlotPositions][9],
                 unknownSlot3: tupleWearable[ItemTypes.SlotPositions][10],

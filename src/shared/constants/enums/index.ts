@@ -1,2 +1,3 @@
 export * from './enums';
-export * from './filter-component.enum';
+export * from './filter-component.enums';
+export * from './traits.enums';
