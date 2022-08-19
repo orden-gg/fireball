@@ -55,6 +55,12 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         componentType: FilterComponentType.MultiButtonSelection,
         items: [
             {
+                title: 'body',
+                value: 'body',
+                isSelected: false,
+                queryParamValue: 'body'
+            },
+            {
                 title: 'eyes',
                 value: 'eyes',
                 isSelected: false,
