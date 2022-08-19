@@ -7,7 +7,7 @@ import _ from 'lodash';
 // @ts-ignore
 import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';
 // @ts-ignore
-import { ItemTypes } from '../../shared/constants/enums.ts';
+import { ItemTypes } from '../../shared/constants/enums/enums.ts';
 
 const abiFile = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(abiFile.toString());
