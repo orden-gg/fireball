@@ -12,7 +12,7 @@ export interface GlossaryState {
 
 const initialState: GlossaryState = {
     initialWearables: Erc1155ItemUtils.getMappedWearables(Erc1155ItemUtils.getStaticWearables()),
-    wearables: Erc1155ItemUtils.getMappedWearables(Erc1155ItemUtils.getStaticWearables()),
+    wearables: [],
     wearablesSorting: { type: 'rarityId', dir: 'asc' },
     maxWearablePrice: 0
 };

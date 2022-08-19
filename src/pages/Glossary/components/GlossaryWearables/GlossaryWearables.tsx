@@ -80,7 +80,14 @@ export function GlossaryWearables() {
     const [currentFilters, setCurrentFilters] = useState<GlossaryWearablesFilters>({ ...initialFilters });
 
     useEffect(() => {
+        dispatch(setWearables(initialWearables));
         dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
+
+        return () => {
+            onResetFilters();
+
+            dispatch(setWearables([]));
+        };
     }, []);
 
     useEffect(() => {
