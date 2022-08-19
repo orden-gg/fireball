@@ -15,7 +15,7 @@ export const styles = makeStyles(theme => createStyles({
         [theme.breakpoints.up('sm')]: {
             width: 300,
             flexShrink: 0,
-            marginRight: 24,
+            marginLeft: 24,
             marginBottom: 0
         }
     },

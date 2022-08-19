@@ -5,11 +5,11 @@ export function ContentWrapper({ children }: { children: JSX.Element[] }) {
 
     return (
         <div className={classes.content}>
-            <div className={classes.sidebar}>
+            <div className={classes.inner}>
                 {children[0]}
             </div>
 
-            <div className={classes.inner}>
+            <div className={classes.sidebar}>
                 {children[1]}
             </div>
         </div>
