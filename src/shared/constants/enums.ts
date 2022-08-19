@@ -49,7 +49,7 @@ export enum ItemTypes {
     // [NRG, AGG, SPK, BRN, EYS, EYC]
     TraitModifiers = 3,
     //! [WEARABLE ONLY] The slots that this wearable can be added to
-    // [body, face, eyes, head, L hand, R hand, pet, background, + 8 undefined slots]
+    // [body, face, eyes, head, R hand, L hand, pet, background, + 8 undefined slots]
     SlotPositions = 4,
     //! [WEARABLE ONLY] The collaterals this wearable can be equipped to. An empty array is "any"
     AllowedCollaterals = 5,
