@@ -36,6 +36,13 @@ export function GlossaryRoot() {
             icon: <AnvilIcon width={24} height={24} />,
             isLoading: false,
             count: 0
+        },
+        {
+            name: 'sets',
+            path: 'sets',
+            icon: <WarehouseIcon width={24} height={24} />,
+            isLoading: false,
+            count: 0
         }
     ];
 
