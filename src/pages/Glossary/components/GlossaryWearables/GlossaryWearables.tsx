@@ -60,8 +60,8 @@ const sortings: SortingListItem[] = [
     }
 ];
 const initialFilters: GlossaryWearablesFilters = {
-    rarity: { ...glossaryWearablesFilters.rarity },
-    slot: { ...glossaryWearablesFilters.slot },
+    rarity: { ...glossaryWearablesFilters.rarity, divider: true },
+    slot: { ...glossaryWearablesFilters.slot, divider: true },
     traitModifier: { ...glossaryWearablesFilters.traitModifier, divider: true },
     listingPrice: { ...glossaryWearablesFilters.listingPrice }
 };

@@ -67,13 +67,13 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
                 queryParamValue: 'face'
             },
             {
-                title: 'L Hand',
+                title: 'l hand',
                 value: 'lHand',
                 isSelected: false,
                 queryParamValue: 'lHand'
             },
             {
-                title: 'R Hand',
+                title: 'r hand',
                 value: 'rHand',
                 isSelected: false,
                 queryParamValue: 'rHand'
@@ -98,7 +98,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         componentType: FilterComponentType.MultiButtonSelection,
         items: TRAITS_MODIFY_KEYS
             .map((key: string) => ({
-                title: key.toUpperCase(),
+                title: key,
                 value: key,
                 isSelected: false,
                 queryParamValue: key
