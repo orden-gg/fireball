@@ -100,7 +100,7 @@ export function NavPanel() {
                     <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/glossary'>
                             <Icon className={classes.iconBox}>
-                                <GlossaryIcon width={24} height={24} />
+                                <GlossaryIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Glossary</span>
                         </NavLink>
