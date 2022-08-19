@@ -116,36 +116,6 @@ export function GlossaryWearables() {
     return (
         <ContentWrapper>
             <>
-                <IconButton className={classes.backButton} onClick={() => { navigate('/glossary') }} >
-                    <ArrowBackIcon />
-                </IconButton>
-
-                <Filters
-                    className={classNames(classes.section, classes.filtersWrapper)}
-                    filters={currentFilters}
-                    onSetSelectedFilters={onSetSelectedFilters}
-                />
-
-                <div className={classes.buttonsWrapper}>
-                    <Button
-                        variant='contained'
-                        color='warning'
-                        size='small'
-                        onClick={onResetFilters}
-                    >
-                        Reset
-                    </Button>
-                    <Button
-                        variant='contained'
-                        color='secondary'
-                        size='small'
-                        onClick={onExportData}
-                    >
-                        Export data (.json)
-                    </Button>
-                </div>
-            </>
-            <>
                 <SortFilterPanel
                     sorting={sorting}
                     itemsLength={wearables.length}
@@ -182,6 +152,36 @@ export function GlossaryWearables() {
                         }
                     />
                 </ContentInner>
+            </>
+            <>
+                <IconButton className={classes.backButton} onClick={() => { navigate('/glossary') }} >
+                    <ArrowBackIcon />
+                </IconButton>
+
+                <Filters
+                    className={classNames(classes.section, classes.filtersWrapper)}
+                    filters={currentFilters}
+                    onSetSelectedFilters={onSetSelectedFilters}
+                />
+
+                <div className={classes.buttonsWrapper}>
+                    <Button
+                        variant='contained'
+                        color='warning'
+                        size='small'
+                        onClick={onResetFilters}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        variant='contained'
+                        color='secondary'
+                        size='small'
+                        onClick={onExportData}
+                    >
+                        Export data (.json)
+                    </Button>
+                </div>
             </>
         </ContentWrapper>
     );
