@@ -6,18 +6,24 @@ import { Erc1155Item, Erc1155ListingsBatch, SortingItem } from 'shared/models';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
-import { setWearablesPrices, setWearables, setWearablesSorting } from '../slices';
+import { setWearablesPrices, setWearables, setWearablesSorting, setMaxWearablePrice } from '../slices';
 
 export const loadWearableListings = (wearablesIds: number[]): AppThunk => async (dispatch, getState) => {
-    let wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.wearables);
+    const wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.wearables);
 
     Promise.all([
         TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc'),
         TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, false, 'priceInWei', 'asc')
     ])
     .then(([lastSoldListings, currentListings]: [Erc1155ListingsBatch, Erc1155ListingsBatch]) => {
-        wearablesCopy = Object.keys(lastSoldListings).map((key, index) => {
-            return {
+        const listingPrices: number[] = [];
+
+        Object.keys(lastSoldListings).forEach((key, index) => {
+            const listingPrice: number = currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0;
+
+            listingPrices.push(listingPrice);
+
+            wearablesCopy[index] = {
                 ...wearablesCopy[index],
                 lastSoldListing: {
                     id: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].id) : null,
@@ -36,6 +42,9 @@ export const loadWearableListings = (wearablesIds: number[]): AppThunk => async 
             };
         });
 
+        const maxListingPrice: number = Math.max(...listingPrices);
+
+        dispatch(setMaxWearablePrice(maxListingPrice));
         dispatch(setWearablesPrices(wearablesCopy));
     }).catch(error => console.log(error));
 };

@@ -6,12 +6,14 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
 
+import _ from 'lodash';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     getGlossaryWearables,
     getInitialGlossaryWearables,
+    getMaxWearablePrice,
     getWearablesSorting,
     loadWearableListings,
     setWearables,
@@ -73,12 +75,27 @@ export function GlossaryWearables() {
     const initialWearables: Erc1155Item[] = useAppSelector(getInitialGlossaryWearables);
     const wearables: Erc1155Item[] = useAppSelector(getGlossaryWearables);
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
+    const maxWearablePrice: number = useAppSelector(getMaxWearablePrice);
 
     const [currentFilters, setCurrentFilters] = useState<GlossaryWearablesFilters>({ ...initialFilters });
 
     useEffect(() => {
         dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
     }, []);
+
+    useEffect(() => {
+        setCurrentFilters((currentFiltersCache: GlossaryWearablesFilters) => {
+            const currentFiltersCacheCopy: GlossaryWearablesFilters = _.cloneDeep(currentFiltersCache);
+
+            currentFiltersCacheCopy.listingPrice = {
+                ...currentFiltersCacheCopy.listingPrice,
+                max: maxWearablePrice,
+                value: [currentFiltersCacheCopy.listingPrice.min, maxWearablePrice]
+            };
+
+            return currentFiltersCacheCopy;
+        });
+    }, [maxWearablePrice]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateWearablesSorting({ dir: sortDir, type: sortBy }));

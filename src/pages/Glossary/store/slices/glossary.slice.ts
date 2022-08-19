@@ -7,12 +7,14 @@ export interface GlossaryState {
     initialWearables: Erc1155Item[];
     wearables: Erc1155Item[];
     wearablesSorting: SortingItem;
+    maxWearablePrice: number;
 }
 
 const initialState: GlossaryState = {
     initialWearables: Erc1155ItemUtils.getMappedWearables(Erc1155ItemUtils.getStaticWearables()),
     wearables: Erc1155ItemUtils.getMappedWearables(Erc1155ItemUtils.getStaticWearables()),
-    wearablesSorting: { type: 'rarityId', dir: 'asc' }
+    wearablesSorting: { type: 'rarityId', dir: 'asc' },
+    maxWearablePrice: 0
 };
 
 export const glossarySlice = createSlice({
@@ -28,6 +30,9 @@ export const glossarySlice = createSlice({
         },
         setWearablesSorting: (state, action: PayloadAction<SortingItem>) => {
             state.wearablesSorting = action.payload;
+        },
+        setMaxWearablePrice: (state, action: PayloadAction<number>) => {
+            state.maxWearablePrice = action.payload;
         }
     }
 });
@@ -35,7 +40,8 @@ export const glossarySlice = createSlice({
 export const {
     setWearablesPrices,
     setWearables,
-    setWearablesSorting
+    setWearablesSorting,
+    setMaxWearablePrice
 } = glossarySlice.actions;
 
 export const glossaryReducer = glossarySlice.reducer;
