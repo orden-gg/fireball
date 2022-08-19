@@ -42,7 +42,7 @@ export function GotchiView({ gotchi }: GotchiViewProps) {
         <div className={classes.wearables}>
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Head]} slotId={WearableTypes.Head} />
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Face]} slotId={WearableTypes.Face} />
-            <WearableSlot id={gotchi.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
+            <WearableSlot id={gotchi.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Background]} slotId={WearableTypes.Background} />
         </div>
         <div className={classes.gotchiCenter}>
@@ -61,7 +61,7 @@ export function GotchiView({ gotchi }: GotchiViewProps) {
         <div className={classes.wearables}>
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Eyes]} slotId={WearableTypes.Eyes} />
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Body]} slotId={WearableTypes.Body} />
-            <WearableSlot id={gotchi.equippedWearables[WearableTypes.RHand]} slotId={WearableTypes.RHand} />
+            <WearableSlot id={gotchi.equippedWearables[WearableTypes.LHand]} slotId={WearableTypes.LHand} />
             <WearableSlot id={gotchi.equippedWearables[WearableTypes.Pet]} slotId={WearableTypes.Pet} />
         </div>
     </div>;

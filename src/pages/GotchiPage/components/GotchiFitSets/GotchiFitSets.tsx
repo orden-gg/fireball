@@ -96,8 +96,8 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
                     />
                     <WearableSlot
                         className={classes.setWearable}
-                        id={set.equippedWearables[WearableTypes.LHand]}
-                        slotId={WearableTypes.LHand}
+                        id={set.equippedWearables[WearableTypes.RHand]}
+                        slotId={WearableTypes.RHand}
                     />
                     <WearableSlot
                         className={classes.setWearable}
@@ -119,8 +119,8 @@ export function GotchiFitSets({ gotchi, className } : GotchiFitSetsProps) {
                     />
                     <WearableSlot
                         className={classes.setWearable}
-                        id={set.equippedWearables[WearableTypes.RHand]}
-                        slotId={WearableTypes.RHand}
+                        id={set.equippedWearables[WearableTypes.LHand]}
+                        slotId={WearableTypes.LHand}
                     />
                     <WearableSlot
                         className={classes.setWearable}
