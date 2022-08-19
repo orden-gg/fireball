@@ -180,6 +180,13 @@ export enum WearableTypes {
     Background = 7
 }
 
+export enum Erc1155DimensionsNumberTypes {
+    X = 0,
+    Y = 1,
+    WIDTH = 2,
+    HEIGHT = 3
+}
+
 export enum TypenameType {
     ERC1155Listing = 'ERC1155Listing'
 }

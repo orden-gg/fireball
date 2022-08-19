@@ -1,4 +1,10 @@
-import { Erc1155Categories, ItemTypes, TraitsNumberTypes, WearableTypes } from 'shared/constants';
+import {
+    Erc1155Categories,
+    Erc1155DimensionsNumberTypes,
+    ItemTypes,
+    TraitsNumberTypes,
+    WearableTypes
+} from 'shared/constants';
 import { Erc1155Item, Erc1155ItemTuple } from 'shared/models';
 import erc1155Items from 'data/items.data.json';
 
@@ -61,10 +67,10 @@ export class Erc1155ItemUtils {
             },
             allowedCollaterals: tupleWearable[ItemTypes.AllowedCollaterals],
             dimensions: {
-                x: tupleWearable[ItemTypes.Dimensions][0],
-                y: tupleWearable[ItemTypes.Dimensions][1],
-                width: tupleWearable[ItemTypes.Dimensions][2],
-                height: tupleWearable[ItemTypes.Dimensions][3]
+                x: tupleWearable[ItemTypes.Dimensions][Erc1155DimensionsNumberTypes.X],
+                y: tupleWearable[ItemTypes.Dimensions][Erc1155DimensionsNumberTypes.Y],
+                width: tupleWearable[ItemTypes.Dimensions][Erc1155DimensionsNumberTypes.WIDTH],
+                height: tupleWearable[ItemTypes.Dimensions][Erc1155DimensionsNumberTypes.HEIGHT]
             },
             ghstPrice: tupleWearable[ItemTypes.GhstPrice],
             maxQuantity: tupleWearable[ItemTypes.MaxQuantity],
