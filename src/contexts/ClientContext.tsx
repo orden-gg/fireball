@@ -166,10 +166,10 @@ export const ClientContextProvider = (props: any) => {
 
             // collect all equipped wearables
             allGotchis.forEach((item: any) => {
-                const equippedIds: any = item.equippedWearables.filter((item: any) => item > 0);
+                const equippedIds: number[] = item.equippedWearables.filter((item: number) => item > 0);
 
                 for (const wearableId of equippedIds) {
-                    const index: number = wearables.findIndex(item => item.id === wearableId);
+                    const index: number = wearables.findIndex((item: any) => item.id === wearableId);
 
                     if ((wearableId >= 162 && wearableId <= 198) || wearableId === 210) continue; // skip badges or h1 bg
 

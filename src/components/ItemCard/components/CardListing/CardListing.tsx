@@ -5,7 +5,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useTheme } from '@mui/material';
 
-import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -47,14 +46,14 @@ export function CardListing() {
                 placement='top'
             >
                 {current.price === 0 ? (
-                    <div className={classNames(classes.listings)}>
+                    <div className={classes.listings}>
                         <Typography variant='subtitle2' className={classes.error}>No listings</Typography>
                     </div>
                 ) : (
                     <Link
                         href={`https://app.aavegotchi.com/baazaar/erc1155/${current.listing}`}
                         target='_blank'
-                        className={classNames(classes.listings)}
+                        className={classes.listings}
                     >
                         {current.price === lastSold.price ? (
                             <Typography className={classes.lastPrice} variant='subtitle2'>

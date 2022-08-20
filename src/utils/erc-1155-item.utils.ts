@@ -1,3 +1,5 @@
+
+import { VOID_WEARABLE, HAUNT_ONE_BACKGROUND_WEARABLE } from 'shared/constants';
 import {
     Erc1155Categories,
     Erc1155DimensionsNumberTypes,
@@ -15,7 +17,7 @@ export class Erc1155ItemUtils {
         return erc1155Items
             .filter(erc1155Item => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
             .filter(erc1155Item =>
-                erc1155Item[ItemTypes.Name] !== 'The Void' && erc1155Item[ItemTypes.Name] !== 'Haunt1 BG'
+                erc1155Item[ItemTypes.Name] !== VOID_WEARABLE && erc1155Item[ItemTypes.Name] !== HAUNT_ONE_BACKGROUND_WEARABLE
             ) as Erc1155ItemTuple[];
     }
 
@@ -27,7 +29,7 @@ export class Erc1155ItemUtils {
                 id: index
             }))
             .filter(erc1155Item => erc1155Item.category === Number(Erc1155Categories.Wearable))
-            .filter(erc1155Item => erc1155Item.name !== 'The Void' && erc1155Item.name !== 'Haunt1 BG')
+            .filter(erc1155Item => erc1155Item.name !== VOID_WEARABLE && erc1155Item.name !== HAUNT_ONE_BACKGROUND_WEARABLE)
             .map(erc1155Item => erc1155Item.id);
     }
 

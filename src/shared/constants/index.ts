@@ -5,3 +5,4 @@ export * from './gotchi.constants';
 export * from './homepage.constants';
 export * from './numbers.constants';
 export * from './token.constants';
+export * from './wearables.constants';

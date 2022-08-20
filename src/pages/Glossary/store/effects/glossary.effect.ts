@@ -18,7 +18,7 @@ export const loadWearableListings = (wearablesIds: number[]): AppThunk => async 
     .then(([lastSoldListings, currentListings]: [Erc1155ListingsBatch, Erc1155ListingsBatch]) => {
         const listingPrices: number[] = [];
 
-        Object.keys(lastSoldListings).forEach((key, index) => {
+        Object.keys(lastSoldListings).forEach((key: string, index: number) => {
             const listingPrice: number = currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0;
 
             listingPrices.push(listingPrice);
