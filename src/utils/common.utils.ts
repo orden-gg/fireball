@@ -6,7 +6,7 @@ export class CommonUtils {
     public static formatPrice(number: number | string): string {
         return Number(number) % 1 === 0 ?
             this.formatNumberWithCommas(number) : number < 100 ?
-            Number(number).toFixed(2) : this.formatNumberWithCommas(Number(number).toFixed(0));
+                Number(number).toFixed(2) : this.formatNumberWithCommas(Number(number).toFixed(0));
     }
 
     public static capitalize(string: any): any {
@@ -60,7 +60,7 @@ export class CommonUtils {
         return [...array].sort((a, b) => sortDir === 'asc' ? a - b : b - a);
     }
 
-    public static basicSort(array: any, sortType: any, sortDir?: any): any {
+    public static basicSort<T = any>(array: T[], sortType: any, sortDir?: any): T[] {
         return [...array].sort((a, b) => sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]);
     }
 

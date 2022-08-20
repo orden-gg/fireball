@@ -5,29 +5,30 @@ import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
-import { Footer } from './root/Footer/Footer';
-import { Header } from './root/Header/Header';
+import { Footer } from 'root/Footer/Footer';
+import { Header } from 'root/Header/Header';
 import { NavPanel } from 'root/NavPanel/NavPanel';
 
-import { Autopet } from './pages/Autopet/Autopet';
-import { Baazaar } from './pages/Baazaar/Baazaar';
-import { Client } from './pages/Client/Client';
+import { Autopet } from 'pages/Autopet/Autopet';
+import { Baazaar } from 'pages/Baazaar/Baazaar';
+import { Client } from 'pages/Client/Client';
 import { Craft } from 'pages/Craft/Craft';
-import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
-import { GotchiPage } from './pages/GotchiPage/GotchiPage';
-import { Guilds } from './pages/Guilds/Guilds';
+import { GhostExplorer } from 'pages/GhostExplorer/GhostExplorer';
+import { Glossary } from 'pages/Glossary/containers/Glossary';
+import { GotchiPage } from 'pages/GotchiPage/GotchiPage';
+import { Guilds } from 'pages/Guilds/Guilds';
 import { Lend } from 'pages/Lend/Lend';
-import { Main } from './pages/Main/Main';
-import { Map } from './pages/Map/Map';
-import { NotFound } from './pages/NotFound/NotFound';
-import { ParcelPage } from './pages/Parcel/ParcelPage';
-import { Raffle } from './pages/Raffle/Raffle';
-import { Shop } from './pages/Shop/Shop';
-import { BaazaarContextProvider } from './contexts/BaazaarContext';
+import { Main } from 'pages/Main/Main';
+import { Map } from 'pages/Map/Map';
+import { NotFound } from 'pages/NotFound/NotFound';
+import { ParcelPage } from 'pages/Parcel/ParcelPage';
+import { Raffle } from 'pages/Raffle/Raffle';
+import { Shop } from 'pages/Shop/Shop';
+import { BaazaarContextProvider } from 'contexts/BaazaarContext';
 import { BalancesContextProvider } from 'contexts/BalancesContext';
-import { ClientContextProvider } from './contexts/ClientContext';
+import { ClientContextProvider } from 'contexts/ClientContext';
 import { DataReloadContextProvider } from 'contexts/DataReloadContext';
-import { SnackbarContextProvider } from './contexts/SnackbarContext';
+import { SnackbarContextProvider } from 'contexts/SnackbarContext';
 import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
 
 const classes = {
@@ -94,6 +95,7 @@ export function App() {
                                         <Route path='shop' element={<Shop />} />
                                         <Route path='map' element={<Map />} />
                                         <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
+                                        <Route path='glossary/*' element={<Glossary />} />
                                         <Route path='404' element={<NotFound />} />
                                         <Route path='*' element={<Navigate to='404' replace />}></Route>
                                     </Routes>

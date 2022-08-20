@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, Sorting } from 'shared/models';
+import { DataReloadContextState, PageNavLink, SortingItem } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
@@ -24,19 +24,19 @@ export const ClientContext = createContext({});
 
 export const ClientContextProvider = (props: any) => {
     const [gotchis, setGotchis] = useState<any[]>([]);
-    const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
+    const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
 
     const [lendings, setLendings] = useState<any[]>([]);
-    const [lendingsSorting, setLendingsSorting] = useState<Sorting>({ type: 'kinship', dir: 'desc' });
+    const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
     const [loadingLendings, setLoadingLendings] = useState<boolean>(true);
 
     const [borrowed, setBorrowed] = useState<any[]>([]);
-    const [borrowedSorting, setBorrowedSorting] = useState<Sorting>({ type: 'kinship', dir: 'desc' });
+    const [borrowedSorting, setBorrowedSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
     const [loadingBorrowed, setLoadingBorrowed] = useState<boolean>(true);
 
     const [warehouse, setWarehouse] = useState<any[]>([]);
-    const [warehouseSorting, setWarehouseSorting] = useState<Sorting>({ type: 'rarityId', dir: 'desc' });
+    const [warehouseSorting, setWarehouseSorting] = useState<SortingItem>({ type: 'rarityId', dir: 'desc' });
     const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(false);
 
     const [installations, setInstallations] = useState<any[]>([]);
@@ -49,7 +49,7 @@ export const ClientContextProvider = (props: any) => {
     const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
 
     const [realm, setRealm] = useState<any[]>([]);
-    const [realmSorting, setRealmSorting] = useState<Sorting>({ type: 'size', dir: 'desc' });
+    const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
     const [loadingRealm, setLoadingRealm] = useState<boolean>(true);
 
     const [reward, setReward] = useState<any>(null);
@@ -166,19 +166,19 @@ export const ClientContextProvider = (props: any) => {
 
             // collect all equipped wearables
             allGotchis.forEach((item: any) => {
-                const equipped: any = item.equippedWearables.filter((item: any) => item > 0);
+                const equippedIds: number[] = item.equippedWearables.filter((item: number) => item > 0);
 
-                for (const wearable of equipped) {
-                    const index: number = wearables.findIndex(item => item.id === wearable);
+                for (const wearableId of equippedIds) {
+                    const index: number = wearables.findIndex((item: any) => item.id === wearableId);
 
-                    if ((wearable >= 162 && wearable <= 198) || wearable === 210) continue; // skip badges or h1 bg
+                    if ((wearableId >= 162 && wearableId <= 198) || wearableId === 210) continue; // skip badges or h1 bg
 
                     if (wearables[index] === undefined) {
                         wearables.push({
-                            id: wearable,
+                            id: wearableId,
                             balance: 1,
-                            rarity: ItemUtils.getRarityNameById(wearable),
-                            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearable)),
+                            rarity: ItemUtils.getRarityNameById(wearableId),
+                            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearableId)),
                             holders: [item.id],
                             category: Erc1155Categories.Wearable
                         });

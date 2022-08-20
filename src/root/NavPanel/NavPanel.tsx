@@ -11,7 +11,7 @@ import classNames from 'classnames';
 
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
-import { GuildIcon, LendingIcon, CraftIcon } from 'components/Icons/Icons';
+import { GuildIcon, LendingIcon, CraftIcon, GlossaryIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 
@@ -95,6 +95,14 @@ export function NavPanel() {
                                 <TravelExploreIcon width={20} height={20} />
                             </Icon>
                             <span className={classes.navItemName}>Aavegotchi explorer</span>
+                        </NavLink>
+                    </div>
+                    <div className={classes.navItem}>
+                        <NavLink className={classes.navLink} to='/glossary'>
+                            <Icon className={classes.iconBox}>
+                                <GlossaryIcon width={20} height={20} />
+                            </Icon>
+                            <span className={classes.navItemName}>Glossary</span>
                         </NavLink>
                     </div>
                 </nav>

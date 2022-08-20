@@ -28,7 +28,7 @@ export const wearableSlotStyles = makeStyles(theme => createStyles({
             width: '75%',
             paddingBottom: '75%'
         },
-        '.r-hand &': {
+        '.l-hand &': {
             transform: 'scaleX(-1)'
         }
     },

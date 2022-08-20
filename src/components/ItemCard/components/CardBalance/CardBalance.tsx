@@ -7,7 +7,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { styles } from './styles';
 
 interface CardBalanceProps {
-    balance: number;
+    balance: number | string;
     holders?: string[];
     className?: string;
 }
@@ -25,16 +25,16 @@ export function CardBalance({ balance, holders, className }: CardBalanceProps) {
                             {
                                 holders.map((holder, index) => {
                                     return <span key={index}>
-                                    <Link
-                                        href={`https://app.aavegotchi.com/gotchi/${holder}`}
-                                        target='_blank'
-                                        underline='none'
-                                        className={classes.equippedTitleLink}
-                                    >
-                                        {holder}
-                                    </Link>
-                                        {index === holders.length - 1 ? '' : ', '}
-                                </span>;
+                                        <Link
+                                            href={`https://app.aavegotchi.com/gotchi/${holder}`}
+                                            target='_blank'
+                                            underline='none'
+                                            className={classes.equippedTitleLink}
+                                        >
+                                            {holder}
+                                        </Link>
+                                            {index === holders.length - 1 ? '' : ', '}
+                                    </span>;
                                 })
                             }
                         </div>

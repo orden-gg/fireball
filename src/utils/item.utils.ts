@@ -311,7 +311,7 @@ export class ItemUtils {
             const slotId: number = slotPositions.findIndex((isCurrentSlot: boolean) => isCurrentSlot);
 
             if (equippedWearables[slotId] !== 0) {
-                equippedWearables[WearableTypes.RHand] = wearableId;
+                equippedWearables[WearableTypes.LHand] = wearableId;
             } else {
                 equippedWearables[slotId] = wearableId;
             }

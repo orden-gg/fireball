@@ -202,6 +202,31 @@ export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, or
   }`;
 };
 
+export const erc1155ListingsBatchQuery = (
+    id: number,
+    category: string,
+    isSold: boolean,
+    orderBy: string,
+    orderDireciton: string
+): string => {
+    return `
+        item${id}: erc1155Listings(
+            orderBy: ${orderBy},
+            orderDirection: ${orderDireciton},
+            where: {
+                erc1155TypeId: ${id},
+                category: ${category}
+                sold: ${isSold},
+                cancelled: false
+            }
+        ) {
+            id
+            priceInWei
+            timeLastPurchased
+        }
+    `;
+};
+
 export const erc721ListingsBySeller = (seller: any): any => {
     return `{
         erc721Listings(

@@ -9,7 +9,7 @@ export const CardContextProvider = (props: any) => {
     const [current, setCurrent] = useState<any>({});
     const [lastDate, setLastDate] = useState<any>({});
 
-    const loadData = (id: number | string, category: number | string): void => {
+    const loadCardPrice = (id: number | string, category: number | string): void => {
         TheGraphApi.getErc1155Price(id, true, category, 'timeLastPurchased', 'desc').then((response: any) => {
             setLastSold(response);
 
@@ -30,7 +30,7 @@ export const CardContextProvider = (props: any) => {
             lastSold,
             current,
             lastDate,
-            loadData
+            loadCardPrice
         }}>
             { props.children }
         </CardContext.Provider>
