@@ -9,7 +9,7 @@ export interface BaseFilter {
     divider?: boolean;
 }
 
-export interface FilterItemsOption {
+export interface FilterItemOption {
     title: string;
     value: string;
     isSelected: boolean;
@@ -17,7 +17,7 @@ export interface FilterItemsOption {
 }
 
 export interface MultiAutocompleteFilter<T> extends BaseFilter {
-    items: FilterItemsOption[];
+    items: FilterItemOption[];
     getIsFilterValidFn: (values: any[]) => boolean;
     resetFilterFn: (filter: MultiAutocompleteFilter<T>) => void;
     predicateFn: (filter: MultiAutocompleteFilter<T>, compareItem: T) => boolean;
@@ -28,7 +28,7 @@ export interface MultiAutocompleteFilter<T> extends BaseFilter {
 }
 
 export interface MultiButtonSelectionFilter<T> extends BaseFilter {
-    items: FilterItemsOption[];
+    items: FilterItemOption[];
     getIsFilterValidFn: (values: any[]) => boolean;
     resetFilterFn: (filter: MultiButtonSelectionFilter<T>) => void;
     predicateFn: (filter: MultiButtonSelectionFilter<T>, compareItem: T) => boolean;

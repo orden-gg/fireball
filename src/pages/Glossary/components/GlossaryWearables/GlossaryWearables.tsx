@@ -24,6 +24,7 @@ import { Erc1155Item, Sorting, SortingItem, SortingListItem } from 'shared/model
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -63,6 +64,8 @@ const initialFilters: GlossaryWearablesFilters = {
     rarity: { ...glossaryWearablesFilters.rarity, divider: true },
     slot: { ...glossaryWearablesFilters.slot, divider: true },
     traitModifier: { ...glossaryWearablesFilters.traitModifier, divider: true },
+    itemType: { ...glossaryWearablesFilters.itemType },
+    benefit: { ...glossaryWearablesFilters.benefit, divider: true },
     listingPrice: { ...glossaryWearablesFilters.listingPrice }
 };
 
@@ -104,16 +107,6 @@ export function GlossaryWearables() {
         });
     }, [maxWearablePrice]);
 
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateWearablesSorting({ dir: sortDir, type: sortBy }));
-    };
-
-    const sorting: Sorting = {
-        sortingList: sortings,
-        sortingDefaults: wearablesSorting,
-        onSortingChange: onSortingChange
-    };
-
     useEffect(() => {
         const modifiedWearables = FilterUtils.getFilteredSortedItems({
             items: initialWearables,
@@ -124,6 +117,16 @@ export function GlossaryWearables() {
 
         dispatch(setWearables(modifiedWearables));
     }, [currentFilters, initialWearables, wearablesSorting]);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(updateWearablesSorting({ dir: sortDir, type: sortBy }));
+    };
+
+    const sorting: Sorting = {
+        sortingList: sortings,
+        sortingDefaults: wearablesSorting,
+        onSortingChange: onSortingChange
+    };
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
@@ -156,7 +159,26 @@ export function GlossaryWearables() {
                                 category={wearable.category}
                                 type={wearable.rarity}
                             >
-                                <CardGroup name='header'>
+                                <CardGroup name='header' className={classes.wearableHeader}>
+                                    <CustomTooltip
+                                        title={
+                                            <div className={classes.wearableBenefitTooltip}>
+                                                <div>
+                                                    Type: <span className='highlight'>{wearable.itemType}</span>
+                                                </div>
+                                                <div>
+                                                    Benefit#1: <span className='highlight'>{wearable.benefit.first}</span>
+                                                </div>
+                                                <div>
+                                                    Benefit#2: <span className='highlight'>{wearable.benefit.second}</span>
+                                                </div>
+                                            </div>
+                                        }
+                                        placement='top'
+                                        followCursor
+                                    >
+                                        <div className={classes.wearableHeaderLabel}>Benefits</div>
+                                    </CustomTooltip>
                                     <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
                                 </CardGroup>
                                 <CardGroup name='body'>

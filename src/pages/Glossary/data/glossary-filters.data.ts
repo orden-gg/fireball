@@ -1,5 +1,5 @@
-import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS } from 'shared/constants';
-import { Erc1155Item, FilterItemsOption, MultiButtonSelectionFilter } from 'shared/models';
+import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
+import { Erc1155Item, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
@@ -93,7 +93,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         ],
         ...defaultMultiSelectionFilter,
         predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
-            return filter.items.some((item: FilterItemsOption) =>
+            return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.slotPositions[item.value]
             );
         }
@@ -111,8 +111,39 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             })),
         ...defaultMultiSelectionFilter,
         predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
-            return filter.items.some((item: FilterItemsOption) =>
+            return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.traitModifiers[item.value]
+            );
+        }
+    },
+    itemType: {
+        key: 'itemType',
+        queryParamKey: 'type',
+        title: 'Wearable Types',
+        componentType: FilterComponentType.MultipleAutocomplete,
+        items: Object.keys(WearableItemTypes).map((key: string) => ({
+            title: WearableItemTypes[key] as string,
+            value: WearableItemTypes[key] as string,
+            isSelected: false,
+            queryParamValue: key
+        })),
+        ...defaultMultiSelectionFilter
+    },
+    benefit: {
+        key: 'benefit',
+        queryParamKey: 'benefit',
+        title: 'Benefits',
+        componentType: FilterComponentType.MultipleAutocomplete,
+        items: Object.keys(WerableBenefitTypes).map((key: string) => ({
+            title: WerableBenefitTypes[key] as string,
+            value: WerableBenefitTypes[key] as string,
+            isSelected: false,
+            queryParamValue: key
+        })),
+        ...defaultMultiSelectionFilter,
+        predicateFn: (filter: MultiAutocompleteFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
+            return filter.items.some((item: FilterItemOption) =>
+                item.isSelected && (item.value === compareItem.benefit.first || item.value === compareItem.benefit.second)
             );
         }
     },
