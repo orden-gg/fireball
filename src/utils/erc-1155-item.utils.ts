@@ -7,7 +7,7 @@ import {
     TraitsNumberTypes,
     WearableTypes
 } from 'shared/constants';
-import { Erc1155Item, Erc1155ItemTuple, WearableBenefit } from 'shared/models';
+import { Erc1155ItemTuple, GlossaryWearable, WearableBenefit } from 'shared/models';
 import erc1155Items from 'data/items.data.json';
 import { WEARABLES_BENEFITS } from 'data/wearables-benefits.data';
 
@@ -34,9 +34,9 @@ export class Erc1155ItemUtils {
             .map(erc1155Item => erc1155Item.id);
     }
 
-    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): Erc1155Item[] {
+    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): GlossaryWearable[] {
         const wearablesIds = Erc1155ItemUtils.getWearablesIds();
-        const mappedModelWearables: Erc1155Item[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => {
+        const mappedModelWearables: GlossaryWearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => {
             const wearableBenefit: WearableBenefit | undefined = WEARABLES_BENEFITS.find(benefit => benefit.id === wearablesIds[index]);
 
             return {

@@ -15,4 +15,4 @@ export * from './the-graph.model';
 export * from './tile.model';
 export * from './token.model';
 export * from './traits.model';
-export * from './wearable-benefit.model';
+export * from './wearable.model';

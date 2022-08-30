@@ -1,4 +1,4 @@
-import { Erc1155NumberCategories, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
+import { Erc1155NumberCategories } from 'shared/constants';
 
 export interface TraitModifiers {
     nrg: number;
@@ -123,11 +123,6 @@ export interface Erc1155Item {
     experienceBonus: number;
     rarity: string;
     rarityId: string;
-    benefit: {
-        first: WerableBenefitTypes | undefined;
-        second: WerableBenefitTypes | undefined;
-    },
-    itemType: WearableItemTypes | undefined;
     listingPrice?: number;
     lastSoldListing?: Erc1155SoldListing;
     currentListing?: Erc1155Listing;
