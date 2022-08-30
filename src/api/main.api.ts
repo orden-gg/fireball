@@ -5,6 +5,9 @@ import MAIN_ABI from 'data/abi/main.abi.json';
 
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 
+console.log(contract);
+
+
 export class MainApi {
     public static isPetApproved(address: any): any {
         return contract.isPetOperatorForAll(address, AUTOPET_OPERATOR);
@@ -17,6 +20,12 @@ export class MainApi {
         return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => (
             Boolean(response.status)
         ));
+    }
+
+    public static getAavegotchiById(id) {
+        return contract.getAavegotchi(id).then((response) => {
+            return response;
+        });
     }
 
     public static async getAvailableSkillPoints(tokenId: any): Promise<any> {

@@ -14,6 +14,9 @@ export const styles = makeStyles(theme => createStyles({
         margin: theme.spacing(0, 1),
         minWidth: 200
     },
+    inventory: {
+        marginTop: theme.spacing(5)
+    },
     listings: {
         textAlign: 'center',
         margin: theme.spacing(4, 'auto', 0)

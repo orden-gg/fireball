@@ -13,13 +13,14 @@ import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, TheGraphApi } from 'api';
+import { GhstTokenIcon } from 'components/Icons/Icons';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+import { EthersApi, MainApi, TheGraphApi } from 'api';
 import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
 import { styles } from './styles';
-import { GhstTokenIcon } from 'components/Icons/Icons';
 
 export function GotchiPage() {
     const classes = styles();
@@ -30,10 +31,15 @@ export function GotchiPage() {
     const [gotchi, setGotchi] = useState<any>({});
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
+    const [inventory, setInventory] = useState<any[]>([]);
     // const [exclusivity, setExclusivity] = useState<any>({});
 
     useEffect(() => {
         const id = Number(routeParams.gotchiId);
+
+        MainApi.getAavegotchiById(id).then((response) => {
+            setInventory(response[22]);
+        });
 
         TheGraphApi.getGotchiById(id)
             .then((response: any) => setGotchi(response))
@@ -56,7 +62,7 @@ export function GotchiPage() {
         //     });
     }, [routeParams]);
 
-    return <div className={classes.content}>
+return <div className={classes.content}>
         {
             gotchi ? (
                 gotchiLoaded && (
@@ -113,6 +119,10 @@ export function GotchiPage() {
                                 </GotchiFooter>
                             </GotchiContent>
                         </GotchiPreview>
+                        <div className={classes.inventory}>
+                            <div className={classes.title}>Inventory</div>
+                            <GotchiInventory items={inventory} />
+                        </div>
                         <div className={classes.sets}>
                             <div className={classes.title}>Recommended sets</div>
                             <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
