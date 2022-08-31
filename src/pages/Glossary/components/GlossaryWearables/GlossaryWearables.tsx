@@ -14,6 +14,7 @@ import {
     getGlossaryWearables,
     getInitialGlossaryWearables,
     getMaxWearablePrice,
+    getWearablesIds,
     getWearablesSorting,
     loadWearableListings,
     setWearables,
@@ -31,7 +32,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { WarehouseIcon } from 'components/Icons/Icons';
-import { Erc1155ItemUtils, FilterUtils } from 'utils';
+import { FilterUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -86,6 +87,7 @@ export function GlossaryWearables() {
 
     const dispatch = useAppDispatch();
     const initialWearables: GlossaryWearable[] = useAppSelector(getInitialGlossaryWearables);
+    const wearableIds: number[] = useAppSelector(getWearablesIds);
     const wearables: GlossaryWearable[] = useAppSelector(getGlossaryWearables);
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
     const maxWearablePrice: number = useAppSelector(getMaxWearablePrice);
@@ -94,7 +96,7 @@ export function GlossaryWearables() {
 
     useEffect(() => {
         dispatch(setWearables(initialWearables));
-        dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
+        dispatch(loadWearableListings(wearableIds));
 
         setCurrentFilters((currentFiltersCache: GlossaryWearablesFilters) =>
             FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
@@ -153,18 +155,12 @@ export function GlossaryWearables() {
     }, [wearablesSorting]);
 
     useEffect(() => {
-        let modifiedWearables: GlossaryWearable[];
-
-        if (maxWearablePrice > 0) {
-            modifiedWearables = FilterUtils.getFilteredSortedItems({
-                items: initialWearables,
-                filters: currentFilters,
-                sorting: wearablesSorting,
-                getFilteredItems: FilterUtils.getFilteredItems
-            });
-        } else {
-            modifiedWearables = initialWearables;
-        }
+        const modifiedWearables = FilterUtils.getFilteredSortedItems({
+            items: initialWearables,
+            filters: currentFilters,
+            sorting: wearablesSorting,
+            getFilteredItems: FilterUtils.getFilteredItems
+        });
 
         dispatch(setWearables(modifiedWearables));
     }, [currentFilters, initialWearables, wearablesSorting]);

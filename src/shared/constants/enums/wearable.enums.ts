@@ -1,3 +1,14 @@
+export enum WearableTypes {
+    Body = 0,
+    Face = 1,
+    Eyes = 2,
+    Head = 3,
+    RHand = 4,
+    LHand = 5,
+    Pet = 6,
+    Background = 7
+}
+
 export enum WearableItemTypes {
     Accessory = 'Accessory',
     AlcoholicBeverage = 'Alcoholic Beverage',
@@ -61,4 +72,9 @@ export enum WerableBenefitTypes {
     VisionRange = 'Vision Range',
     // weapons
     Unknown = 'Unknown'
+}
+
+export enum WearableBenefitIndex {
+    First = 0,
+    Second = 1
 }

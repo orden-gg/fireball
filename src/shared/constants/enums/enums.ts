@@ -35,6 +35,7 @@ export enum Erc1155Categories {
 
 export enum Erc1155NumberCategories {
     Wearable = 0,
+    Badge = 1,
     Consumable = 2,
     Ticket = 3,
     Realm = 4,
@@ -65,7 +66,11 @@ export enum ItemTypes {
     Category = 15, //? 0 is wearable, 1 is badge, 2 is consumable
     KinshipBonus = 16, //! [CONSUMABLE ONLY]
     ExperienceBonus = 17, //! [CONSUMABLE ONLY]
-    Id = 18
+    Id = 18,
+    //! [WEARABLE ONLY] WearableItemTypes
+    WearableType = 19,
+    //! [WEARABLE ONLY] WerableBenefitTypes
+    WearableBenefitType = 20
 }
 
 export enum ItemTypeNames {
@@ -168,17 +173,6 @@ export enum DataReloadType {
 export enum HauntIds {
     Haunt1 = '1',
     Haunt2 = '2'
-}
-
-export enum WearableTypes {
-    Body = 0,
-    Face = 1,
-    Eyes = 2,
-    Head = 3,
-    RHand = 4,
-    LHand = 5,
-    Pet = 6,
-    Background = 7
 }
 
 export enum Erc1155DimensionsNumberTypes {

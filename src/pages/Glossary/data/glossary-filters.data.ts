@@ -1,5 +1,5 @@
 import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
-import { GlossaryWearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter } from 'shared/models';
+import { GlossaryWearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
@@ -155,6 +155,13 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         min: 0,
         max: 0,
         value: [0, 0],
-        ...defaultRangeSliderFilter
+        ...defaultRangeSliderFilter,
+        predicateFn: (filter: RangeSliderFilter<GlossaryWearable>, compareItem: GlossaryWearable): boolean => {
+            if (filter.max === 0) {
+                return true;
+            }
+
+            return defaultRangeSliderFilter.predicateFn(filter, compareItem);
+        }
     }
 };
