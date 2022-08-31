@@ -64,7 +64,8 @@ export enum ItemTypes {
     CanBeTransferred = 14,
     Category = 15, //? 0 is wearable, 1 is badge, 2 is consumable
     KinshipBonus = 16, //! [CONSUMABLE ONLY]
-    ExperienceBonus = 17 //! [CONSUMABLE ONLY]
+    ExperienceBonus = 17, //! [CONSUMABLE ONLY]
+    Id = 18
 }
 
 export enum ItemTypeNames {
