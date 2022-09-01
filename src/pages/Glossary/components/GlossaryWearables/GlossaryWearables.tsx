@@ -21,7 +21,7 @@ import {
     setWearablesSorting
 } from 'pages/Glossary/store';
 import { CardListing } from 'shared/components/CardListing/CardListing';
-import { CustomParsedQuery, GlossaryWearable, Sorting, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, Wearable, Sorting, SortingItem, SortingListItem } from 'shared/models';
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -86,9 +86,9 @@ export function GlossaryWearables() {
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
     const dispatch = useAppDispatch();
-    const initialWearables: GlossaryWearable[] = useAppSelector(getInitialGlossaryWearables);
+    const initialWearables: Wearable[] = useAppSelector(getInitialGlossaryWearables);
     const wearableIds: number[] = useAppSelector(getWearablesIds);
-    const wearables: GlossaryWearable[] = useAppSelector(getGlossaryWearables);
+    const wearables: Wearable[] = useAppSelector(getGlossaryWearables);
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
     const maxWearablePrice: number = useAppSelector(getMaxWearablePrice);
 
@@ -212,7 +212,7 @@ export function GlossaryWearables() {
                 <ContentInner dataLoading={false}>
                     <ItemsLazy
                         items={wearables}
-                        component={(wearable: GlossaryWearable) =>
+                        component={(wearable: Wearable) =>
                             <ItemCard
                                 id={wearable.id}
                                 category={wearable.category}

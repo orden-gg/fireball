@@ -7,7 +7,7 @@ import {
     TraitsNumberTypes,
     WearableTypes
 } from 'shared/constants';
-import { Erc1155ItemTuple, GlossaryWearable } from 'shared/models';
+import { Erc1155ItemTuple, Wearable } from 'shared/models';
 import erc1155Items from 'data/items.data.json';
 
 import { ItemUtils } from './item.utils';
@@ -33,9 +33,9 @@ export class Erc1155ItemUtils {
             .map(erc1155Item => erc1155Item.id);
     }
 
-    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): GlossaryWearable[] {
+    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): Wearable[] {
         const wearablesIds = Erc1155ItemUtils.getWearablesIds();
-        const mappedModelWearables: GlossaryWearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => ({
+        const mappedModelWearables: Wearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => ({
             id: tupleWearable[ItemTypes.Id],
             name: tupleWearable[ItemTypes.Name],
             description: tupleWearable[ItemTypes.Description],

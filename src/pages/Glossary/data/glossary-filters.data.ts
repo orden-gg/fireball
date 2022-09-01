@@ -1,5 +1,5 @@
 import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
-import { GlossaryWearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
+import { Wearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
@@ -92,7 +92,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             }
         ],
         ...defaultMultiSelectionFilter,
-        predicateFn: (filter: MultiButtonSelectionFilter<GlossaryWearable>, compareItem: GlossaryWearable): boolean => {
+        predicateFn: (filter: MultiButtonSelectionFilter<Wearable>, compareItem: Wearable): boolean => {
             return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.slotPositions[item.value]
             );
@@ -110,7 +110,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
                 queryParamValue: key
             })),
         ...defaultMultiSelectionFilter,
-        predicateFn: (filter: MultiButtonSelectionFilter<GlossaryWearable>, compareItem: GlossaryWearable): boolean => {
+        predicateFn: (filter: MultiButtonSelectionFilter<Wearable>, compareItem: Wearable): boolean => {
             return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.traitModifiers[item.value]
             );
@@ -141,7 +141,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             queryParamValue: key.toLowerCase()
         })),
         ...defaultMultiSelectionFilter,
-        predicateFn: (filter: MultiAutocompleteFilter<GlossaryWearable>, compareItem: GlossaryWearable): boolean => {
+        predicateFn: (filter: MultiAutocompleteFilter<Wearable>, compareItem: Wearable): boolean => {
             return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && (item.value === compareItem.benefit.first || item.value === compareItem.benefit.second)
             );
@@ -156,7 +156,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         max: 0,
         value: [0, 0],
         ...defaultRangeSliderFilter,
-        predicateFn: (filter: RangeSliderFilter<GlossaryWearable>, compareItem: GlossaryWearable): boolean => {
+        predicateFn: (filter: RangeSliderFilter<Wearable>, compareItem: Wearable): boolean => {
             if (filter.max === 0) {
                 return true;
             }

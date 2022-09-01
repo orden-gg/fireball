@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GlossaryWearable, SortingItem } from 'shared/models';
+import { Wearable, SortingItem } from 'shared/models';
 import { Erc1155ItemUtils } from 'utils';
 
 export interface GlossaryState {
-    initialWearables: GlossaryWearable[];
-    wearables: GlossaryWearable[];
+    initialWearables: Wearable[];
+    wearables: Wearable[];
     wearablesSorting: SortingItem;
     maxWearablePrice: number;
 }
@@ -21,11 +21,11 @@ export const glossarySlice = createSlice({
     name: 'glossary',
     initialState,
     reducers: {
-        setWearablesPrices: (state, action: PayloadAction<GlossaryWearable[]>) => {
+        setWearablesPrices: (state, action: PayloadAction<Wearable[]>) => {
             state.initialWearables = action.payload;
             state.wearables = action.payload;
         },
-        setWearables: (state, action: PayloadAction<GlossaryWearable[]>) => {
+        setWearables: (state, action: PayloadAction<Wearable[]>) => {
             state.wearables = action.payload;
         },
         setWearablesSorting: (state, action: PayloadAction<SortingItem>) => {

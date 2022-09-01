@@ -2,13 +2,13 @@ import _ from 'lodash';
 
 import { AppThunk } from 'core/store/store';
 import { Erc1155Categories } from 'shared/constants';
-import { Erc1155ListingsBatch, GlossaryWearable } from 'shared/models';
+import { Erc1155ListingsBatch, Wearable } from 'shared/models';
 import { EthersApi, TheGraphApi } from 'api';
 
 import { setWearablesPrices, setMaxWearablePrice } from '../slices';
 
 export const loadWearableListings = (wearablesIds: number[]): AppThunk => async (dispatch, getState) => {
-    const wearablesCopy: GlossaryWearable[] = _.cloneDeep(getState().glossary.wearables);
+    const wearablesCopy: Wearable[] = _.cloneDeep(getState().glossary.wearables);
 
     Promise.all([
         TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc'),
