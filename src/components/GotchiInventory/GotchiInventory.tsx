@@ -4,6 +4,7 @@ import { ItemCard } from 'components/ItemCard/containers';
 import { EthersApi } from 'api';
 
 import { gotchiInventoryStyles } from './styles';
+import { ItemUtils } from 'utils';
 
 export function GotchiInventory({ items }: { items: any[] }) {
     const classes = gotchiInventoryStyles();
@@ -11,10 +12,11 @@ export function GotchiInventory({ items }: { items: any[] }) {
     return (
         <div className={classes.items}>
             {
-                items.map((badge: any) => {
-                    const id: number = EthersApi.formatBigNumber(badge.itemId);
+                items.map((item: any) => {
+                    const id: number = EthersApi.formatBigNumber(item.itemId);
+                    const rarity: string = ItemUtils.getRarityNameById(item.itemId);
 
-                    return <ItemCard type='badge' key={id} className={classes.item}>
+                    return <ItemCard type={rarity} key={id} className={classes.item}>
                         <CardImage
                             id={id}
                             category={Erc1155Categories.Wearable}

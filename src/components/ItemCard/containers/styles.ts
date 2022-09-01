@@ -53,9 +53,9 @@ export const styles = makeStyles(theme => createStyles({
             backgroundColor: alpha(theme.palette.haunts.h2, .15),
             color: lighten(theme.palette.haunts.h2, .2)
         },
-        '&.badge': {
-            backgroundColor: alpha(theme.palette.rarity.common, .1),
-            color: lighten(theme.palette.rarity.common, .2)
+        '&.unknown': {
+            backgroundColor: alpha(theme.palette.primary.main, .1),
+            color: lighten(theme.palette.primary.main, .2)
         }
     },
     cardVertical: {
