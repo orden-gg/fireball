@@ -1,8 +1,10 @@
-import { Erc1155Item, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
+import { Wearable, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
 
 export interface GlossaryWearablesFilters {
-    rarity: MultiButtonSelectionFilter<Erc1155Item>;
-    slot: MultiButtonSelectionFilter<Erc1155Item>;
-    traitModifier: MultiButtonSelectionFilter<Erc1155Item>;
-    listingPrice: RangeSliderFilter<Erc1155Item>;
+    rarity: MultiButtonSelectionFilter<Wearable>;
+    slot: MultiButtonSelectionFilter<Wearable>;
+    traitModifier: MultiButtonSelectionFilter<Wearable>;
+    itemType: MultiAutocompleteFilter<Wearable>;
+    benefit: MultiAutocompleteFilter<Wearable>;
+    listingPrice: RangeSliderFilter<Wearable>;
 }

@@ -2,14 +2,13 @@ import _ from 'lodash';
 
 import { AppThunk } from 'core/store/store';
 import { Erc1155Categories } from 'shared/constants';
-import { Erc1155Item, Erc1155ListingsBatch, SortingItem } from 'shared/models';
+import { Erc1155ListingsBatch, Wearable } from 'shared/models';
 import { EthersApi, TheGraphApi } from 'api';
-import { CommonUtils } from 'utils';
 
-import { setWearablesPrices, setWearables, setWearablesSorting, setMaxWearablePrice } from '../slices';
+import { setWearablesPrices, setMaxWearablePrice } from '../slices';
 
 export const loadWearableListings = (wearablesIds: number[]): AppThunk => async (dispatch, getState) => {
-    const wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.wearables);
+    const wearablesCopy: Wearable[] = _.cloneDeep(getState().glossary.wearables);
 
     Promise.all([
         TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc'),
@@ -47,13 +46,4 @@ export const loadWearableListings = (wearablesIds: number[]): AppThunk => async 
         dispatch(setMaxWearablePrice(maxListingPrice));
         dispatch(setWearablesPrices(wearablesCopy));
     }).catch(error => console.log(error));
-};
-
-export const updateWearablesSorting = (sorting: SortingItem): AppThunk => async (dispatch, getState) => {
-    dispatch(setWearablesSorting(sorting));
-
-    let wearablesCopy: Erc1155Item[] = _.cloneDeep(getState().glossary.initialWearables);
-    wearablesCopy = CommonUtils.basicSort<Erc1155Item>(wearablesCopy, sorting.type, sorting.dir);
-
-    dispatch(setWearables(wearablesCopy));
 };

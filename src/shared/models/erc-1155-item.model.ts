@@ -88,7 +88,10 @@ export type Erc1155ItemTuple = [
     canBeTransferred: boolean,
     category: Erc1155NumberCategories,
     kinshipBonus: number,
-    experienceBonus: number
+    experienceBonus: number,
+    id: number,
+    wearableType: string,
+    wearableBenefit: string
 ]
 
 export interface Erc1155Listing {
