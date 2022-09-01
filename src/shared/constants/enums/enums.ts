@@ -191,3 +191,23 @@ export enum TypenameType {
     ERC1155Listing = 'ERC1155Listing'
 }
 
+export enum GotchiTypes {
+    Id = 0,
+    Name = 1,
+    NumericTraits = 5,
+    modifiedNumericTraits = 6,
+    EquippedWearables = 7,
+    Collateral = 8,
+    Owner = 9,
+    StakedAmount = 10,
+    MinimumStake = 11,
+    Kinship = 12,
+    Experience = 14,
+    ToNextLevel = 15,
+    UsedSkillPoints = 16,
+    Level = 17,
+    HauntId = 18,
+    BaseRarityScore = 19,
+    ModifiedRarityScore = 20,
+    Inventory = 22
+}

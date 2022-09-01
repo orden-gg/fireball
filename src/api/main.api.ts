@@ -1,12 +1,9 @@
 import { EthersApi } from './ethers.api';
 
-import { MAIN_CONTRACT, AUTOPET_OPERATOR } from 'shared/constants';
+import { MAIN_CONTRACT, AUTOPET_OPERATOR, GotchiTypes } from 'shared/constants';
 import MAIN_ABI from 'data/abi/main.abi.json';
 
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
-
-console.log(contract);
-
 
 export class MainApi {
     public static isPetApproved(address: any): any {
@@ -23,8 +20,29 @@ export class MainApi {
     }
 
     public static getAavegotchiById(id) {
-        return contract.getAavegotchi(id).then((response) => {
-            return response;
+        return contract.getAavegotchi(id).then((gotchi) => {
+            return {
+                id: EthersApi.formatBigNumber(gotchi[GotchiTypes.Id]),
+                name: gotchi[GotchiTypes.Name],
+                numericTraits: gotchi[GotchiTypes.NumericTraits],
+                modifiedNumericTraits: gotchi[GotchiTypes.ModifiedRarityScore],
+                equippedWearables: gotchi[GotchiTypes.EquippedWearables],
+                collateral: gotchi[GotchiTypes.Collateral],
+                owner: {
+                    id: gotchi[GotchiTypes.Owner]
+                },
+                stakedAmount: gotchi[GotchiTypes.StakedAmount],
+                minimumStake: EthersApi.formatBigNumber(gotchi[GotchiTypes.MinimumStake]),
+                kinship: EthersApi.formatBigNumber(gotchi[GotchiTypes.Kinship]),
+                experience: EthersApi.formatBigNumber(gotchi[GotchiTypes.Experience]),
+                toNextLevel: EthersApi.formatBigNumber(gotchi[GotchiTypes.ToNextLevel]),
+                usedSkillPoints: EthersApi.formatBigNumber(gotchi[GotchiTypes.UsedSkillPoints]),
+                level: EthersApi.formatBigNumber(gotchi[GotchiTypes.Level]),
+                hauntId: EthersApi.formatBigNumber(gotchi[GotchiTypes.HauntId]),
+                baseRarityScore: gotchi[GotchiTypes.BaseRarityScore],
+                modifiedRarityScore: gotchi[GotchiTypes.ModifiedRarityScore],
+                inventory: gotchi[GotchiTypes.Inventory]
+            };
         });
     }
 

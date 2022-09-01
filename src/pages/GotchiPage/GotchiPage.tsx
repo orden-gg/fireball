@@ -38,7 +38,7 @@ export function GotchiPage() {
         const id = Number(routeParams.gotchiId);
 
         MainApi.getAavegotchiById(id).then((response) => {
-            setInventory(response[22]);
+            setInventory(response.inventory);
         });
 
         TheGraphApi.getGotchiById(id)
@@ -62,7 +62,10 @@ export function GotchiPage() {
         //     });
     }, [routeParams]);
 
-return <div className={classes.content}>
+    console.log(gotchi);
+
+
+    return <div className={classes.content}>
         {
             gotchi ? (
                 gotchiLoaded && (
