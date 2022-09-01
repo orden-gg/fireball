@@ -1,5 +1,5 @@
 import { Erc1155Categories } from 'shared/constants';
-import { CardImage, CardName } from 'components/ItemCard/components';
+import { CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { EthersApi } from 'api';
 
@@ -22,6 +22,7 @@ export function GotchiInventory({ items }: { items: any[] }) {
                             category={Erc1155Categories.Wearable}
                         />
                         <CardName id={id} className={classes.name} />
+                        <CardStats stats={ItemUtils.getTraitModifiersById(id)} />
                     </ItemCard>;
                 })
             }

@@ -61,9 +61,6 @@ export function GotchiPage() {
         //     });
     }, [routeParams]);
 
-    console.log(gotchi);
-
-
     return <div className={classes.content}>
         {
             gotchi ? (

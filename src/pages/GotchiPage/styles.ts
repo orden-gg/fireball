@@ -55,7 +55,7 @@ export const styles = makeStyles(theme => createStyles({
         flexBasis: 450
     },
     sets: {
-        margin: theme.spacing(7, 0, 4)
+        margin: theme.spacing(5, 0, 4)
     },
     setsList: {
         marginTop: theme.spacing(4)
