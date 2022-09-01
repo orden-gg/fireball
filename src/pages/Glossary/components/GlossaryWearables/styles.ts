@@ -24,20 +24,28 @@ export const styles = makeStyles((theme) => createStyles({
         marginLeft: '-8px',
         justifyContent: 'space-between'
     },
-    wearableHeaderLabel: {
-        minWidth: 34,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: theme.spacing(0, .5),
-        color: theme.palette.common.white,
-        backgroundColor: theme.palette.secondary.dark,
-        fontWeight: 600,
-        lineHeight: 1.6
+    overridedSlot: {
+        margin: 0,
+        padding: '4px 0 0 4px'
     },
-    wearableBenefitTooltip: {
+    benefits: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        color: theme.palette.common.white,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
+                    ${theme.palette.secondary.main} -1px -1px 0px,
+                    ${theme.palette.secondary.main} 1px -1px 0px,
+                    ${theme.palette.secondary.main} -1px 1px 0px,
+                    ${theme.palette.secondary.main} 1px 1px 0px`
+    },
+    benefitsLabel: {
+        color: 'darkcyan'
+    },
+    benefitValue: {
+        textAlign: 'center'
     }
 }));

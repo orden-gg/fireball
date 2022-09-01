@@ -25,7 +25,6 @@ import { CustomParsedQuery, Wearable, Sorting, SortingItem, SortingListItem } fr
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -219,32 +218,23 @@ export function GlossaryWearables() {
                                 type={wearable.rarity}
                             >
                                 <CardGroup name='header' className={classes.wearableHeader}>
-                                    <CustomTooltip
-                                        title={
-                                            <div className={classes.wearableBenefitTooltip}>
-                                                <div>
-                                                    Type: <span className='highlight'>{wearable.itemType}</span>
-                                                </div>
-                                                <div>
-                                                    Benefit#1: <span className='highlight'>{wearable.benefit.first}</span>
-                                                </div>
-                                                <div>
-                                                    Benefit#2: <span className='highlight'>{wearable.benefit.second}</span>
-                                                </div>
-                                            </div>
-                                        }
-                                        placement='top'
-                                        followCursor
-                                    >
-                                        <div className={classes.wearableHeaderLabel}>Benefits</div>
-                                    </CustomTooltip>
+                                    <CardSlot id={wearable.id} className={classes.overridedSlot}/>
                                     <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
                                 </CardGroup>
                                 <CardGroup name='body'>
-                                    <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName children={wearable.name} />
                                     <CardStats stats={Object.entries(wearable.traitModifiers).map(([_, traitValue]) => traitValue)} />
+                                    <div className={classes.benefits}>
+                                        <span>
+                                            <span className={classes.benefitsLabel}>Type: </span>
+                                            <span>{wearable.itemType}</span>
+                                        </span>
+                                        <span className={classes.benefitValue}>
+                                            <span className={classes.benefitsLabel}>Benefits: </span>
+                                            <span>{wearable.benefit.first}, {wearable.benefit.second}</span>
+                                        </span>
+                                    </div>
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing
