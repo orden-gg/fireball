@@ -21,21 +21,8 @@ export class Erc1155ItemUtils {
             ) as Erc1155ItemTuple[];
     }
 
-    public static getWearablesIds(): number[] {
-        return erc1155Items
-            .map((erc1155Item, index: number) => ({
-                name: erc1155Item[ItemTypes.Name],
-                category: erc1155Item[ItemTypes.Category],
-                id: index
-            }))
-            .filter(erc1155Item => erc1155Item.category === Number(Erc1155Categories.Wearable))
-            .filter(erc1155Item => erc1155Item.name !== VOID_WEARABLE && erc1155Item.name !== HAUNT_ONE_BACKGROUND_WEARABLE)
-            .map(erc1155Item => erc1155Item.id);
-    }
-
     public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): Wearable[] {
-        const wearablesIds = Erc1155ItemUtils.getWearablesIds();
-        const mappedModelWearables: Wearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => ({
+        const mappedModelWearables: Wearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple) => ({
             id: tupleWearable[ItemTypes.Id],
             name: tupleWearable[ItemTypes.Name],
             description: tupleWearable[ItemTypes.Description],
@@ -85,8 +72,8 @@ export class Erc1155ItemUtils {
             category: tupleWearable[ItemTypes.Category],
             kinshipBonus: tupleWearable[ItemTypes.KinshipBonus],
             experienceBonus: tupleWearable[ItemTypes.ExperienceBonus],
-            rarity: ItemUtils.getRarityNameById(wearablesIds[index]),
-            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearablesIds[index])),
+            rarity: ItemUtils.getRarityNameById(tupleWearable[ItemTypes.Id]),
+            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(tupleWearable[ItemTypes.Id])),
             benefit: {
                 first: tupleWearable[ItemTypes.WearableBenefitType] ?
                     tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.First] : '',
