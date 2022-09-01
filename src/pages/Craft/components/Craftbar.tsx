@@ -88,7 +88,7 @@ export function Craftbar() {
                 <CardGroup name='body'>
                     <CardSlot>{selectedItem.type}</CardSlot>
                     <CardImage id={selectedItem.id} category={categoryId} />
-                    <CardName id={selectedItem.id} />
+                    <CardName>{selectedItem.name}</CardName>
                 </CardGroup>
             </ItemCard>;
         } else {
