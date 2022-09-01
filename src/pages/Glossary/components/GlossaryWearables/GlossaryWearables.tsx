@@ -1,26 +1,27 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
 
-import _ from 'lodash';
 import classNames from 'classnames';
+import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     getGlossaryWearables,
     getInitialGlossaryWearables,
     getMaxWearablePrice,
+    getWearablesIds,
     getWearablesSorting,
     loadWearableListings,
     setWearables,
-    updateWearablesSorting
+    setWearablesSorting
 } from 'pages/Glossary/store';
 import { CardListing } from 'shared/components/CardListing/CardListing';
-import { Erc1155Item, Sorting, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, Wearable, Sorting, SortingItem, SortingListItem } from 'shared/models';
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -30,7 +31,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { WarehouseIcon } from 'components/Icons/Icons';
-import { Erc1155ItemUtils, FilterUtils } from 'utils';
+import { FilterUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -63,17 +64,30 @@ const initialFilters: GlossaryWearablesFilters = {
     rarity: { ...glossaryWearablesFilters.rarity, divider: true },
     slot: { ...glossaryWearablesFilters.slot, divider: true },
     traitModifier: { ...glossaryWearablesFilters.traitModifier, divider: true },
+    itemType: { ...glossaryWearablesFilters.itemType },
+    benefit: { ...glossaryWearablesFilters.benefit, divider: true },
     listingPrice: { ...glossaryWearablesFilters.listingPrice }
 };
+const queryParamsOrder: string[] = [
+    glossaryWearablesFilters.rarity.queryParamKey,
+    glossaryWearablesFilters.slot.queryParamKey,
+    glossaryWearablesFilters.traitModifier.queryParamKey,
+    glossaryWearablesFilters.itemType.queryParamKey,
+    glossaryWearablesFilters.benefit.queryParamKey,
+    glossaryWearablesFilters.listingPrice.queryParamKey
+];
 
 export function GlossaryWearables() {
     const classes = styles();
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
     const dispatch = useAppDispatch();
-    const initialWearables: Erc1155Item[] = useAppSelector(getInitialGlossaryWearables);
-    const wearables: Erc1155Item[] = useAppSelector(getGlossaryWearables);
+    const initialWearables: Wearable[] = useAppSelector(getInitialGlossaryWearables);
+    const wearableIds: number[] = useAppSelector(getWearablesIds);
+    const wearables: Wearable[] = useAppSelector(getGlossaryWearables);
     const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
     const maxWearablePrice: number = useAppSelector(getMaxWearablePrice);
 
@@ -81,18 +95,33 @@ export function GlossaryWearables() {
 
     useEffect(() => {
         dispatch(setWearables(initialWearables));
-        dispatch(loadWearableListings([...Erc1155ItemUtils.getWearablesIds()]));
+        dispatch(loadWearableListings(wearableIds));
+
+        setCurrentFilters((currentFiltersCache: GlossaryWearablesFilters) =>
+            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+        );
+
+        const { sort, dir } = queryParams as CustomParsedQuery;
+
+        if (sort && dir) {
+            const key: string | undefined = sortings.find(sorting => sorting.paramKey === sort)?.key;
+
+            if (key) {
+                onSortingChange(key, dir);
+            }
+        }
 
         return () => {
             onResetFilters();
 
             dispatch(setWearables([]));
+            dispatch(setWearablesSorting({ type: 'rarityId', dir: 'asc' }));
         };
     }, []);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: GlossaryWearablesFilters) => {
-            const currentFiltersCacheCopy: GlossaryWearablesFilters = _.cloneDeep(currentFiltersCache);
+            const currentFiltersCacheCopy: GlossaryWearablesFilters = { ...currentFiltersCache };
 
             currentFiltersCacheCopy.listingPrice = {
                 ...currentFiltersCacheCopy.listingPrice,
@@ -100,19 +129,29 @@ export function GlossaryWearables() {
                 value: [currentFiltersCacheCopy.listingPrice.min, maxWearablePrice]
             };
 
-            return currentFiltersCacheCopy;
+            let filtersToReturn: GlossaryWearablesFilters;
+
+            if (Object.keys(queryParams).length > 0) {
+                filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+            } else {
+                filtersToReturn = currentFiltersCacheCopy;
+            }
+
+            return filtersToReturn;
         });
     }, [maxWearablePrice]);
 
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateWearablesSorting({ dir: sortDir, type: sortBy }));
-    };
+    useEffect(() => {
+        updateFilterQueryParams(currentFilters);
+    }, [currentFilters]);
 
-    const sorting: Sorting = {
-        sortingList: sortings,
-        sortingDefaults: wearablesSorting,
-        onSortingChange: onSortingChange
-    };
+    useEffect(() => {
+        const paramKey: string | undefined = sortings.find(sorting => sorting.key === wearablesSorting.type)?.paramKey;
+
+        if (paramKey) {
+            updateSortQueryParams(paramKey, wearablesSorting.dir);
+        }
+    }, [wearablesSorting]);
 
     useEffect(() => {
         const modifiedWearables = FilterUtils.getFilteredSortedItems({
@@ -124,6 +163,28 @@ export function GlossaryWearables() {
 
         dispatch(setWearables(modifiedWearables));
     }, [currentFilters, initialWearables, wearablesSorting]);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(setWearablesSorting({ dir: sortDir, type: sortBy }));
+    };
+
+    const sorting: Sorting = {
+        sortingList: sortings,
+        sortingDefaults: wearablesSorting,
+        onSortingChange: onSortingChange
+    };
+
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
+        const params = { ...queryParams, sort: prop, dir };
+
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
+
+    const updateFilterQueryParams = useCallback((filters: GlossaryWearablesFilters) => {
+        const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
+
+        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
@@ -150,20 +211,30 @@ export function GlossaryWearables() {
                 <ContentInner dataLoading={false}>
                     <ItemsLazy
                         items={wearables}
-                        component={(wearable: Erc1155Item) =>
+                        component={(wearable: Wearable) =>
                             <ItemCard
                                 id={wearable.id}
                                 category={wearable.category}
                                 type={wearable.rarity}
                             >
-                                <CardGroup name='header'>
+                                <CardGroup name='header' className={classes.wearableHeader}>
+                                    <CardSlot id={wearable.id} className={classes.overridedSlot}/>
                                     <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
                                 </CardGroup>
                                 <CardGroup name='body'>
-                                    <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName children={wearable.name} />
                                     <CardStats stats={Object.entries(wearable.traitModifiers).map(([_, traitValue]) => traitValue)} />
+                                    <div className={classes.benefits}>
+                                        <span>
+                                            <span className={classes.benefitsLabel}>Type: </span>
+                                            <span>{wearable.itemType}</span>
+                                        </span>
+                                        <span className={classes.benefitValue}>
+                                            <span className={classes.benefitsLabel}>Benefits: </span>
+                                            <span>{wearable.benefit.first}, {wearable.benefit.second}</span>
+                                        </span>
+                                    </div>
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

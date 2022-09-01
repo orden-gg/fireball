@@ -1,5 +1,5 @@
 
-import { VOID_WEARABLE, HAUNT_ONE_BACKGROUND_WEARABLE } from 'shared/constants';
+import { VOID_WEARABLE, HAUNT_ONE_BACKGROUND_WEARABLE, WearableBenefitIndex } from 'shared/constants';
 import {
     Erc1155Categories,
     Erc1155DimensionsNumberTypes,
@@ -7,7 +7,7 @@ import {
     TraitsNumberTypes,
     WearableTypes
 } from 'shared/constants';
-import { Erc1155Item, Erc1155ItemTuple } from 'shared/models';
+import { Erc1155ItemTuple, Wearable } from 'shared/models';
 import erc1155Items from 'data/items.data.json';
 
 import { ItemUtils } from './item.utils';
@@ -21,22 +21,9 @@ export class Erc1155ItemUtils {
             ) as Erc1155ItemTuple[];
     }
 
-    public static getWearablesIds(): number[] {
-        return erc1155Items
-            .map((erc1155Item, index: number) => ({
-                name: erc1155Item[ItemTypes.Name],
-                category: erc1155Item[ItemTypes.Category],
-                id: index
-            }))
-            .filter(erc1155Item => erc1155Item.category === Number(Erc1155Categories.Wearable))
-            .filter(erc1155Item => erc1155Item.name !== VOID_WEARABLE && erc1155Item.name !== HAUNT_ONE_BACKGROUND_WEARABLE)
-            .map(erc1155Item => erc1155Item.id);
-    }
-
-    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): Erc1155Item[] {
-        const wearablesIds = Erc1155ItemUtils.getWearablesIds();
-        const mappedModelWearables: Erc1155Item[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple, index: number) => ({
-            id: wearablesIds[index],
+    public static getMappedWearables(tupleWearables: Erc1155ItemTuple[]): Wearable[] {
+        const mappedModelWearables: Wearable[] = tupleWearables.map((tupleWearable: Erc1155ItemTuple) => ({
+            id: tupleWearable[ItemTypes.Id],
             name: tupleWearable[ItemTypes.Name],
             description: tupleWearable[ItemTypes.Description],
             author: tupleWearable[ItemTypes.Author],
@@ -85,8 +72,15 @@ export class Erc1155ItemUtils {
             category: tupleWearable[ItemTypes.Category],
             kinshipBonus: tupleWearable[ItemTypes.KinshipBonus],
             experienceBonus: tupleWearable[ItemTypes.ExperienceBonus],
-            rarity: ItemUtils.getRarityNameById(wearablesIds[index]),
-            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearablesIds[index]))
+            rarity: ItemUtils.getRarityNameById(tupleWearable[ItemTypes.Id]),
+            rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(tupleWearable[ItemTypes.Id])),
+            benefit: {
+                first: tupleWearable[ItemTypes.WearableBenefitType] ?
+                    tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.First] : '',
+                second: tupleWearable[ItemTypes.WearableBenefitType] ?
+                    tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.Second] : ''
+            },
+            itemType: tupleWearable[ItemTypes.WearableType]
         }));
 
         return mappedModelWearables;

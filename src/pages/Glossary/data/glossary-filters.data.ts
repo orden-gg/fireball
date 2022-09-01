@@ -1,5 +1,5 @@
-import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS } from 'shared/constants';
-import { Erc1155Item, FilterItemsOption, MultiButtonSelectionFilter } from 'shared/models';
+import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
+import { Wearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
@@ -92,15 +92,15 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             }
         ],
         ...defaultMultiSelectionFilter,
-        predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
-            return filter.items.some((item: FilterItemsOption) =>
+        predicateFn: (filter: MultiButtonSelectionFilter<Wearable>, compareItem: Wearable): boolean => {
+            return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.slotPositions[item.value]
             );
         }
     },
     traitModifier: {
         key: 'traitModifier',
-        queryParamKey: 'traitModifier',
+        queryParamKey: 'modifier',
         componentType: FilterComponentType.MultiButtonSelection,
         items: TRAITS_MODIFY_KEYS
             .map((key: string) => ({
@@ -110,9 +110,40 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
                 queryParamValue: key
             })),
         ...defaultMultiSelectionFilter,
-        predicateFn: (filter: MultiButtonSelectionFilter<Erc1155Item>, compareItem: Erc1155Item): boolean => {
-            return filter.items.some((item: FilterItemsOption) =>
+        predicateFn: (filter: MultiButtonSelectionFilter<Wearable>, compareItem: Wearable): boolean => {
+            return filter.items.some((item: FilterItemOption) =>
                 item.isSelected && compareItem.traitModifiers[item.value]
+            );
+        }
+    },
+    itemType: {
+        key: 'itemType',
+        queryParamKey: 'type',
+        title: 'Wearable Types',
+        componentType: FilterComponentType.MultipleAutocomplete,
+        items: Object.keys(WearableItemTypes).map((key: string) => ({
+            title: WearableItemTypes[key] as string,
+            value: WearableItemTypes[key] as string,
+            isSelected: false,
+            queryParamValue: key.toLowerCase()
+        })),
+        ...defaultMultiSelectionFilter
+    },
+    benefit: {
+        key: 'benefit',
+        queryParamKey: 'benefit',
+        title: 'Benefits',
+        componentType: FilterComponentType.MultipleAutocomplete,
+        items: Object.keys(WerableBenefitTypes).map((key: string) => ({
+            title: WerableBenefitTypes[key] as string,
+            value: WerableBenefitTypes[key] as string,
+            isSelected: false,
+            queryParamValue: key.toLowerCase()
+        })),
+        ...defaultMultiSelectionFilter,
+        predicateFn: (filter: MultiAutocompleteFilter<Wearable>, compareItem: Wearable): boolean => {
+            return filter.items.some((item: FilterItemOption) =>
+                item.isSelected && (item.value === compareItem.benefit.first || item.value === compareItem.benefit.second)
             );
         }
     },
@@ -122,8 +153,15 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         title: 'listing price (ghst)',
         componentType: FilterComponentType.RangeSlider,
         min: 0,
-        max: 200000,
-        value: [0, 200000],
-        ...defaultRangeSliderFilter
+        max: 0,
+        value: [0, 0],
+        ...defaultRangeSliderFilter,
+        predicateFn: (filter: RangeSliderFilter<Wearable>, compareItem: Wearable): boolean => {
+            if (filter.max === 0) {
+                return true;
+            }
+
+            return defaultRangeSliderFilter.predicateFn(filter, compareItem);
+        }
     }
 };
