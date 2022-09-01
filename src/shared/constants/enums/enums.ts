@@ -195,7 +195,7 @@ export enum GotchiTypes {
     Id = 0,
     Name = 1,
     NumericTraits = 5,
-    modifiedNumericTraits = 6,
+    ModifiedNumericTraits = 6,
     EquippedWearables = 7,
     Collateral = 8,
     Owner = 9,

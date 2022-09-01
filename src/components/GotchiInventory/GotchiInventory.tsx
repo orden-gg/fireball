@@ -2,9 +2,9 @@ import { Erc1155Categories } from 'shared/constants';
 import { CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { EthersApi } from 'api';
+import { ItemUtils } from 'utils';
 
 import { gotchiInventoryStyles } from './styles';
-import { ItemUtils } from 'utils';
 
 export function GotchiInventory({ items }: { items: any[] }) {
     const classes = gotchiInventoryStyles();

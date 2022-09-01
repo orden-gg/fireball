@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { SalesHistoryModel } from 'shared/models';
+import { GotchiModel, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -34,14 +34,16 @@ export function GotchiPage() {
     // const [exclusivity, setExclusivity] = useState<any>({});
 
     useEffect(() => {
-        const id = Number(routeParams.gotchiId);
+        const id: number = Number(routeParams.gotchiId);
 
-        MainApi.getAavegotchiById(id).then((response) => {
-            setInventory(response.inventory);
+        MainApi.getAavegotchiById(id).then((response: any[]) => {
+            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+
+            setInventory(gotchi.inventory);
         });
 
         TheGraphApi.getGotchiById(id)
-            .then((response: any) => setGotchi(response))
+            .then((response: any) => { setGotchi(response) })
             .catch((error) => console.log(error))
             .finally(() => setGotchiLoaded(true));
 
