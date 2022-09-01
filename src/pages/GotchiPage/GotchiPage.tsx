@@ -8,7 +8,6 @@ import { SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
-import { GotchiChanelling } from 'components/Gotchi/GotchiChanneling/GotchiChanneling';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
@@ -96,8 +95,6 @@ export function GotchiPage() {
                                 {gotchi.createdAt && (
                                     <GotchiAging block={Number(gotchi.createdAt)} />
                                 )}
-
-                                <GotchiChanelling gotchiId={gotchi.id} />
 
                                 <GotchiFooter>
                                     <ViewInAppButton
