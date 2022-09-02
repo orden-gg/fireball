@@ -118,10 +118,14 @@ export function GotchiPage() {
                                 </GotchiFooter>
                             </GotchiContent>
                         </GotchiPreview>
-                        <div className={classes.inventory}>
-                            <div className={classes.title}>Inventory</div>
-                            <GotchiInventory items={inventory} />
-                        </div>
+                        {
+                            inventory.length > 0 ? (
+                                <div className={classes.inventory}>
+                                    <div className={classes.title}>Inventory</div>
+                                    <GotchiInventory items={inventory} />
+                                </div>
+                            ) : <></>
+                        }
                         <div className={classes.sets}>
                             <div className={classes.title}>Recommended sets</div>
                             <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
