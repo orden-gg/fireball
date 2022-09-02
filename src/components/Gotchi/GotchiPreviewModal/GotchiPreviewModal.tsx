@@ -3,26 +3,34 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { SalesHistoryModel } from 'shared/models';
+import { GotchiModel, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, TheGraphApi } from 'api';
+import { EthersApi, MainApi, TheGraphApi } from 'api';
+import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
-import { GotchiUtils } from 'utils';
 
 export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
     const classes = gotchiPreviewModalStyles();
 
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
+    const [inventory, setInventory] = useState<any[]>([]);
 
     useEffect(() => {
         const id: number = Number(gotchi.id);
+
+        MainApi.getAavegotchiById(id).then((response: any[]) => {
+            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+
+            setInventory(gotchi.inventory);
+        });
 
         TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
             .then((response: SalesHistoryModel[]) => {
@@ -61,6 +69,14 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
                 </GotchiFooter>
             </GotchiContent>
         </GotchiPreview>
+        {
+            inventory.length > 0 ? (
+                <div className={classes.inventory}>
+                    <div className={classes.title}>Inventory</div>
+                    <GotchiInventory items={inventory} />
+                </div>
+            ) : <></>
+        }
         {gotchi.timesTraded > 0 && (
             <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
