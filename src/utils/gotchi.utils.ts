@@ -1,5 +1,5 @@
-import { ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel, CollateralData } from 'shared/models';
+import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
+import { GotchiAgingModel, CollateralData, GotchiModel } from 'shared/models';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 
@@ -78,5 +78,30 @@ export class GotchiUtils {
         );
 
         return EthersApi.fromWei(stakedAmount, collateral?.decimals);
+    }
+
+    public static convertDataFromContract(gotchi: any[]): GotchiModel {
+        return {
+            id: EthersApi.formatBigNumber(gotchi[GotchiTypes.Id]),
+            name: gotchi[GotchiTypes.Name],
+            numericTraits: gotchi[GotchiTypes.NumericTraits],
+            modifiedNumericTraits: gotchi[GotchiTypes.ModifiedNumericTraits],
+            equippedWearables: gotchi[GotchiTypes.EquippedWearables],
+            collateral: gotchi[GotchiTypes.Collateral],
+            owner: {
+                id: gotchi[GotchiTypes.Owner]
+            },
+            stakedAmount: gotchi[GotchiTypes.StakedAmount],
+            minimumStake: EthersApi.formatBigNumber(gotchi[GotchiTypes.MinimumStake]),
+            kinship: EthersApi.formatBigNumber(gotchi[GotchiTypes.Kinship]),
+            experience: EthersApi.formatBigNumber(gotchi[GotchiTypes.Experience]),
+            toNextLevel: EthersApi.formatBigNumber(gotchi[GotchiTypes.ToNextLevel]),
+            usedSkillPoints: EthersApi.formatBigNumber(gotchi[GotchiTypes.UsedSkillPoints]),
+            level: EthersApi.formatBigNumber(gotchi[GotchiTypes.Level]),
+            hauntId: EthersApi.formatBigNumber(gotchi[GotchiTypes.HauntId]),
+            baseRarityScore: gotchi[GotchiTypes.BaseRarityScore],
+            modifiedRarityScore: gotchi[GotchiTypes.ModifiedRarityScore],
+            inventory: gotchi[GotchiTypes.Inventory]
+        };
     }
 }

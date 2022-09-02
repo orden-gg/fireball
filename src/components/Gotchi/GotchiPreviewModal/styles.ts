@@ -11,7 +11,8 @@ export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
     },
     title: {
         fontSize: 20,
-        fontWeight: 500
+        fontWeight: 500,
+        textAlign: 'center'
     },
     titleText: {
         width: '80%',
@@ -19,6 +20,9 @@ export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
         '& span': {
             color: theme.palette.primary.main
         }
+    },
+    inventory: {
+        marginTop: theme.spacing(5)
     },
     list: {
         marginTop: theme.spacing(2)

@@ -19,6 +19,12 @@ export class MainApi {
         ));
     }
 
+    public static getAavegotchiById(id: number): Promise<any[]> {
+        return contract.getAavegotchi(id).then((response: any[]) => {
+            return response;
+        });
+    }
+
     public static async getAvailableSkillPoints(tokenId: any): Promise<any> {
         try {
             return await contract.availableSkillPoints(tokenId)

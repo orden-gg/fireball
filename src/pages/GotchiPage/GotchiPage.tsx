@@ -4,22 +4,22 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { SalesHistoryModel } from 'shared/models';
+import { GotchiModel, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
-import { GotchiChanelling } from 'components/Gotchi/GotchiChanneling/GotchiChanneling';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, TheGraphApi } from 'api';
+import { GhstTokenIcon } from 'components/Icons/Icons';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+import { EthersApi, MainApi, TheGraphApi } from 'api';
 import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
 import { styles } from './styles';
-import { GhstTokenIcon } from 'components/Icons/Icons';
 
 export function GotchiPage() {
     const classes = styles();
@@ -30,13 +30,20 @@ export function GotchiPage() {
     const [gotchi, setGotchi] = useState<any>({});
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
+    const [inventory, setInventory] = useState<any[]>([]);
     // const [exclusivity, setExclusivity] = useState<any>({});
 
     useEffect(() => {
-        const id = Number(routeParams.gotchiId);
+        const id: number = Number(routeParams.gotchiId);
+
+        MainApi.getAavegotchiById(id).then((response: any[]) => {
+            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+
+            setInventory(gotchi.inventory);
+        });
 
         TheGraphApi.getGotchiById(id)
-            .then((response: any) => setGotchi(response))
+            .then((response: any) => { setGotchi(response) })
             .catch((error) => console.log(error))
             .finally(() => setGotchiLoaded(true));
 
@@ -88,8 +95,6 @@ export function GotchiPage() {
                                     <GotchiAging block={Number(gotchi.createdAt)} />
                                 )}
 
-                                <GotchiChanelling gotchiId={gotchi.id} />
-
                                 <GotchiFooter>
                                     <ViewInAppButton
                                         link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`}
@@ -113,6 +118,14 @@ export function GotchiPage() {
                                 </GotchiFooter>
                             </GotchiContent>
                         </GotchiPreview>
+                        {
+                            inventory.length > 0 ? (
+                                <div className={classes.inventory}>
+                                    <div className={classes.title}>Inventory</div>
+                                    <GotchiInventory items={inventory} />
+                                </div>
+                            ) : <></>
+                        }
                         <div className={classes.sets}>
                             <div className={classes.title}>Recommended sets</div>
                             <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
