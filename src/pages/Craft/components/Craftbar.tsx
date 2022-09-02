@@ -85,8 +85,10 @@ export function Craftbar() {
             const categoryId: string = category === 'tile' ? Erc1155Categories.Tile : Erc1155Categories.Realm;
 
             return <ItemCard type='golden' id={selectedItem.id} category={categoryId}>
-                <CardGroup name='body'>
+                <CardGroup name='headerBetween'>
                     <CardSlot>{selectedItem.type}</CardSlot>
+                </CardGroup>
+                <CardGroup name='body'>
                     <CardImage id={selectedItem.id} category={categoryId} />
                     <CardName>{selectedItem.name}</CardName>
                 </CardGroup>

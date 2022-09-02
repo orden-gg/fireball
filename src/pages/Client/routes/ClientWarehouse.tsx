@@ -117,7 +117,8 @@ export function ClientWarehouse() {
                             category={wearable.category}
                             type={wearable.rarity}
                         >
-                            <CardGroup name='header'>
+                            <CardGroup name='headerBetween'>
+                                <CardSlot id={wearable.id} />
                                 <CardTotalPrice
                                     balance={wearable.balance}
                                     priceInWei={wearable.priceInWei}
@@ -125,7 +126,6 @@ export function ClientWarehouse() {
                                 <CardBalance balance={wearable.balance} holders={wearable.holders} />
                             </CardGroup>
                             <CardGroup name='body'>
-                                <CardSlot id={wearable.id} />
                                 <CardImage id={wearable.id} />
                                 <CardName id={wearable.id} />
                                 {renderCardStats(wearable.id, wearable.category)}

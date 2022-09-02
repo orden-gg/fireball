@@ -5,7 +5,13 @@ export const styles = makeStyles(theme => createStyles({
     header: {
         display: 'flex',
         justifyContent: 'flex-end',
-        margin: theme.spacing(-1, -1, 0, 0)
+        margin: theme.spacing(-1, -1, 0, -1)
+    },
+    headerBetween: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: theme.spacing(-1, -1, 0, -1)
     },
     body: {
         margin: theme.spacing(.25, 0),
@@ -19,7 +25,7 @@ export const styles = makeStyles(theme => createStyles({
     footer: {
         display: 'flex',
         justifyContent: 'flex-end',
-        margin: theme.spacing(1, -1, -1, 0)
+        margin: theme.spacing(0, -1, -1, 0)
     },
     imageCell: {
         margin: theme.spacing(0, 1),
