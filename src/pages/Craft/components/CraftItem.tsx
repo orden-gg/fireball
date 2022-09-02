@@ -41,8 +41,10 @@ export function CraftItem({ data }: { data: any }) {
             onClick={handleItemClick}
         >
             <ItemCard type='golden' id={data.id} category={category}>
-                <CardGroup name='body'>
+                <CardGroup name='headerBetween'>
                     <CardSlot>{data.type}</CardSlot>
+                </CardGroup>
+                <CardGroup name='body'>
                     <CardImage id={data.id} category={category} />
                     <CardName className={classes.itemName}>{data.name}</CardName>
                     <AlchemicaPrice alchemica={data.alchemicaCost} />

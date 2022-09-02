@@ -2,18 +2,19 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(theme => createStyles({
     slot: {
-        marginLeft: 'auto',
+        marginRight: 'auto',
         minWidth: 34,
         color: theme.palette.common.white,
-        opacity: .2,
+        opacity: .5,
         fontSize: 12,
         fontWeight: 600,
-        padding: 0,
+        padding: '2px 6px',
         transition: 'opacity .2s ease-in-out',
-        textShadow: `${theme.palette.secondary.dark} 2px 2px 0px,
-                    ${theme.palette.secondary.main} -1px -1px 0px,
-                    ${theme.palette.secondary.main} 1px -1px 0px,
-                    ${theme.palette.secondary.main} -1px 1px 0px,
-                    ${theme.palette.secondary.main} 1px 1px 0px`
+        '& span': {
+            display: 'inline-block'
+        }
+    },
+    divider: {
+        marginRight: 4
     }
 }));

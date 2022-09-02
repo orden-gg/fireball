@@ -17,12 +17,15 @@ export function CardSlot({ id, children, className }: CardSlotProps) {
 
     return (
         <div className={classNames(className, classes.slot)}>
-            [{
+            {
                 children ||
                 slots.map((slot, index) => (
-                    <span key={index}>{index > 0 && ', '}{slot}</span>
+                    <span key={index}>
+                        {slot}
+                        {(index + 1) < slots.length && <span className={classes.divider}>,</span>}
+                    </span>
                 ))
-            }]
+            }
         </div>
     );
 }

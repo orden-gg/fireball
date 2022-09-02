@@ -227,7 +227,7 @@ export function GlossaryWearables() {
                                     <CardStats stats={Object.entries(wearable.traitModifiers).map(([_, traitValue]) => traitValue)} />
                                     <div className={classes.benefits}>
                                         <span className={classes.itemTypeValue}>{wearable.itemType}</span>
-                                        <span className={classes.benefitValue}>[{wearable.benefit.first}, {wearable.benefit.second}]</span>
+                                        <span className={classes.benefitValue}>{wearable.benefit.first}, {wearable.benefit.second}</span>
                                     </div>
                                 </CardGroup>
                                 <CardGroup name='footer'>

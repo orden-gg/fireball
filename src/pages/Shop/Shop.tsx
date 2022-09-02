@@ -297,7 +297,8 @@ export function Shop() {
                     wearables.map((wearable: any) =>
                         <div className={classes.listItem} key={wearable.listing}>
                             <ItemCard type={wearable.rarity} id={wearable.id} category={wearable.category}>
-                                <CardGroup name='header'>
+                                <CardGroup name='headerBetween'>
+                                    <CardSlot id={wearable.id} />
                                     <CardTotalPrice
                                         balance={wearable.balance}
                                         priceInWei={wearable.priceInWei}
@@ -305,7 +306,6 @@ export function Shop() {
                                     <CardBalance balance={wearable.balance} holders={wearable.holders} />
                                 </CardGroup>
                                 <CardGroup name='body'>
-                                    <CardSlot id={wearable.id} />
                                     <CardImage id={wearable.id} />
                                     <CardName id={wearable.id} />
                                     {renderCardStats(wearable.id, wearable.category)}

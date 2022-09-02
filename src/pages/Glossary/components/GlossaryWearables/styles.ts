@@ -26,7 +26,7 @@ export const styles = makeStyles((theme) => createStyles({
     },
     overridedSlot: {
         margin: 0,
-        padding: '4px 0 0 4px'
+        padding: '4px 0 0 6px'
     },
     benefits: {
         display: 'flex',
@@ -35,12 +35,14 @@ export const styles = makeStyles((theme) => createStyles({
         color: theme.palette.common.white,
         fontSize: 12,
         fontWeight: 600,
-        padding: 0
+        padding: 0,
+        marginTop: 4
     },
     itemTypeValue: {
-        color: 'darkcyan'
+        color: '#06b6b6'
     },
     benefitValue: {
-        textAlign: 'center'
+        textAlign: 'center',
+        fontStyle: 'italic'
     }
 }));
