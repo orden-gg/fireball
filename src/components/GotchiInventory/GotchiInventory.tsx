@@ -12,7 +12,12 @@ export function GotchiInventory({ items }: { items: any[] }) {
     return (
         <div className={classes.items}>
             {
-                items.map((item: any) => {
+                items.sort((previousItem: any) => {
+                    const previousId: number = EthersApi.formatBigNumber(previousItem.itemId);
+                    const slot: string[] = ItemUtils.getSlotsById(previousId);
+
+                    return slot.length > 0 ? -1 : 1;
+                }).map((item: any) => {
                     const id: number = EthersApi.formatBigNumber(item.itemId);
                     const rarity: string = ItemUtils.getRarityNameById(item.itemId);
 

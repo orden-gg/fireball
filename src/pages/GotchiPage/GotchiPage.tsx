@@ -39,7 +39,7 @@ export function GotchiPage() {
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
 
-            setInventory(gotchi.inventory);
+            setInventory([...gotchi.inventory]);
         });
 
         TheGraphApi.getGotchiById(id)

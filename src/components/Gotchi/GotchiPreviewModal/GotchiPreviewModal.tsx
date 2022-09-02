@@ -29,7 +29,7 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
 
-            setInventory(gotchi.inventory);
+            setInventory([...gotchi.inventory]);
         });
 
         TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
