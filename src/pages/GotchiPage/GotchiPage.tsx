@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiModel, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -15,7 +15,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils } from 'utils';
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
@@ -30,16 +30,21 @@ export function GotchiPage() {
     const [gotchi, setGotchi] = useState<any>({});
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-    const [inventory, setInventory] = useState<any[]>([]);
+    const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
     // const [exclusivity, setExclusivity] = useState<any>({});
 
     useEffect(() => {
         const id: number = Number(routeParams.gotchiId);
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+            const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
+                const slot: string[] = ItemUtils.getSlotsById(item.id);
 
-            setInventory(gotchi.inventory);
+                return slot.length > 0 ? -1 : 1;
+            });
+
+            setInventory(sortedInventory);
         });
 
         TheGraphApi.getGotchiById(id)

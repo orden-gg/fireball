@@ -20,6 +20,7 @@ import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
 import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
+import { GotchiBadges } from './GotchiBadges/GotchiBadges';
 import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
@@ -129,6 +130,12 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     experience={gotchi.experience}
                     key={`${gotchi.id}-level`}
                 />
+            );
+        },
+
+        get badges() {
+            return (
+                <GotchiBadges id={gotchi.id}  key={`${gotchi.id}-badges`} />
             );
         },
 

@@ -88,6 +88,12 @@ export const styles = makeStyles(theme => createStyles({
             padding: 0
         }
     },
+    gotchiBadges: {
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'auto',
+        paddingRight: theme.spacing(.5)
+    },
     gotchiInnerSection: {
         marginTop: 8
     },

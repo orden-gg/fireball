@@ -36,6 +36,10 @@ export function Aavegotchi({ item }: { item: any }) {
                                     },
                                     'name',
                                     'traits',
+                                    {
+                                        className: 'gotchiBadges',
+                                        items: ['badges']
+                                    },
                                     'wearablesLine',
                                     'listing'
                                 ]}
@@ -70,6 +74,10 @@ export function Aavegotchi({ item }: { item: any }) {
                                     },
                                     'name',
                                     'traits',
+                                    {
+                                        className: 'gotchiBadges',
+                                        items: ['badges']
+                                    },
                                     'wearablesLine',
                                     'listing'
                                 ]}

@@ -1,5 +1,5 @@
 import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel, CollateralData, GotchiModel } from 'shared/models';
+import { GotchiAgingModel, CollateralData, Gotchi, GotchiInventory } from 'shared/models';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 
@@ -80,7 +80,14 @@ export class GotchiUtils {
         return EthersApi.fromWei(stakedAmount, collateral?.decimals);
     }
 
-    public static convertDataFromContract(gotchi: any[]): GotchiModel {
+    public static convertDataFromContract(gotchi: any[]): Gotchi {
+        const inventory: GotchiInventory[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
+            return {
+                id: EthersApi.formatBigNumber(item.itemId),
+                balance: EthersApi.formatBigNumber(item.balance)
+            };
+        });
+
         return {
             id: EthersApi.formatBigNumber(gotchi[GotchiTypes.Id]),
             name: gotchi[GotchiTypes.Name],
@@ -101,7 +108,7 @@ export class GotchiUtils {
             hauntId: EthersApi.formatBigNumber(gotchi[GotchiTypes.HauntId]),
             baseRarityScore: gotchi[GotchiTypes.BaseRarityScore],
             modifiedRarityScore: gotchi[GotchiTypes.ModifiedRarityScore],
-            inventory: gotchi[GotchiTypes.Inventory]
+            inventory: inventory
         };
     }
 }

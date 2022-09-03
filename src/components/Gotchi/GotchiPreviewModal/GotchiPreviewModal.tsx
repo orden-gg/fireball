@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiModel, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
@@ -12,7 +12,7 @@ import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils } from 'utils';
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
@@ -21,15 +21,20 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
 
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-    const [inventory, setInventory] = useState<any[]>([]);
+    const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
 
     useEffect(() => {
         const id: number = Number(gotchi.id);
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+            const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
+                const slot: string[] = ItemUtils.getSlotsById(item.id);
 
-            setInventory(gotchi.inventory);
+                return slot.length > 0 ? -1 : 1;
+            });
+
+            setInventory(sortedInventory);
         });
 
         TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
