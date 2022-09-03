@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiModel, SalesHistoryModel } from 'shared/models';
+import { GotchiInventoryModel, GotchiModel, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
@@ -21,15 +21,15 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
 
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-    const [inventory, setInventory] = useState<any[]>([]);
+    const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
 
     useEffect(() => {
         const id: number = Number(gotchi.id);
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
-            const sortedInventory = [...gotchi.inventory].sort((id: number) => {
-                const slot: string[] = ItemUtils.getSlotsById(id);
+            const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
+                const slot: string[] = ItemUtils.getSlotsById(item.id);
 
                 return slot.length > 0 ? -1 : 1;
             });

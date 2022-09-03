@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Erc1155Categories } from 'shared/constants';
-import { GotchiModel } from 'shared/models';
+import { GotchiInventoryModel, GotchiModel } from 'shared/models';
 import { CardImage, CardName } from 'components/ItemCard/components';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { MainApi } from 'api';
@@ -12,13 +12,13 @@ import { gotchiBadgesStyles } from './styles';
 export function GotchiBadges({ id }: { id: number }) {
     const classes = gotchiBadgesStyles();
 
-    const [badges, setBadges] = useState<number[]>([]);
+    const [badges, setBadges] = useState<GotchiInventoryModel[]>([]);
 
     useEffect(() => {
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
-            const badges: number[] = gotchi.inventory.filter((id: number) => {
-                const slot = ItemUtils.getSlotsById(id);
+            const badges: GotchiInventoryModel[] = gotchi.inventory.filter((item: GotchiInventoryModel) => {
+                const slot = ItemUtils.getSlotsById(item.id);
 
                 return slot.length === 0;
             });
@@ -29,10 +29,10 @@ export function GotchiBadges({ id }: { id: number }) {
 
     return <div className={classes.badges}>
         {
-            badges.map((id, index) =>
+            badges.map((item: GotchiInventoryModel, index: number) =>
                 <CustomTooltip
                     title={
-                        <CardName id={id} className={classes.name} />
+                        <CardName id={item.id} className={classes.name} />
                     }
                     placement='top'
                     key={index}
@@ -40,7 +40,7 @@ export function GotchiBadges({ id }: { id: number }) {
                 >
                     <div className={classes.badge}>
                         <CardImage
-                            id={id}
+                            id={item.id}
                             category={Erc1155Categories.Wearable}
                             className={classes.badgeImage}
                         />

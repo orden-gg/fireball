@@ -3,6 +3,11 @@ export interface GotchiAgingModel {
     boost: number;
 }
 
+export interface GotchiInventoryModel {
+    id: number;
+    balance: number;
+}
+
 export interface GotchiModel {
     id: number;
     name: string;
@@ -23,5 +28,5 @@ export interface GotchiModel {
     hauntId: number;
     baseRarityScore: number;
     modifiedRarityScore: number;
-    inventory: number[]
+    inventory: GotchiInventoryModel[];
 }
