@@ -1,5 +1,5 @@
 import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel, CollateralData, GotchiModel, GotchiInventoryModel } from 'shared/models';
+import { GotchiAgingModel, CollateralData, Gotchi, GotchiInventory } from 'shared/models';
 import { EthersApi } from 'api';
 import { collaterals } from 'data/collaterals.data';
 
@@ -80,8 +80,8 @@ export class GotchiUtils {
         return EthersApi.fromWei(stakedAmount, collateral?.decimals);
     }
 
-    public static convertDataFromContract(gotchi: any[]): GotchiModel {
-        const inventory: GotchiInventoryModel[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
+    public static convertDataFromContract(gotchi: any[]): Gotchi {
+        const inventory: GotchiInventory[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
             return {
                 id: EthersApi.formatBigNumber(item.itemId),
                 balance: EthersApi.formatBigNumber(item.balance)

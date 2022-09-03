@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiInventoryModel, GotchiModel, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import { GotchiContent, GotchiFooter, GotchiHead, GotchiInfoItem, GotchiInfoList, GotchiTraits, GotchiView } from 'components/GotchiPreview/components';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -37,7 +37,7 @@ export function GotchiPage() {
         const id: number = Number(routeParams.gotchiId);
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
             const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
                 const slot: string[] = ItemUtils.getSlotsById(item.id);
 

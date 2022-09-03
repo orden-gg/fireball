@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Erc1155Categories } from 'shared/constants';
-import { GotchiInventoryModel, GotchiModel } from 'shared/models';
+import { GotchiInventory, Gotchi } from 'shared/models';
 import { CardImage, CardName } from 'components/ItemCard/components';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { MainApi } from 'api';
@@ -12,12 +12,12 @@ import { gotchiBadgesStyles } from './styles';
 export function GotchiBadges({ id }: { id: number }) {
     const classes = gotchiBadgesStyles();
 
-    const [badges, setBadges] = useState<GotchiInventoryModel[]>([]);
+    const [badges, setBadges] = useState<GotchiInventory[]>([]);
 
     useEffect(() => {
         MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
-            const badges: GotchiInventoryModel[] = gotchi.inventory.filter((item: GotchiInventoryModel) => {
+            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+            const badges: GotchiInventory[] = gotchi.inventory.filter((item: GotchiInventory) => {
                 const slot = ItemUtils.getSlotsById(item.id);
 
                 return slot.length === 0;
@@ -29,7 +29,7 @@ export function GotchiBadges({ id }: { id: number }) {
 
     return <div className={classes.badges}>
         {
-            badges.map((item: GotchiInventoryModel, index: number) =>
+            badges.map((item: GotchiInventory, index: number) =>
                 <CustomTooltip
                     title={
                         <CardName id={item.id} className={classes.name} />
