@@ -81,6 +81,10 @@ export class GotchiUtils {
     }
 
     public static convertDataFromContract(gotchi: any[]): GotchiModel {
+        const inventoryItemsIds: number[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
+            return EthersApi.formatBigNumber(item.itemId);
+        });
+
         return {
             id: EthersApi.formatBigNumber(gotchi[GotchiTypes.Id]),
             name: gotchi[GotchiTypes.Name],
@@ -101,7 +105,7 @@ export class GotchiUtils {
             hauntId: EthersApi.formatBigNumber(gotchi[GotchiTypes.HauntId]),
             baseRarityScore: gotchi[GotchiTypes.BaseRarityScore],
             modifiedRarityScore: gotchi[GotchiTypes.ModifiedRarityScore],
-            inventory: gotchi[GotchiTypes.Inventory]
+            inventory: inventoryItemsIds
         };
     }
 }

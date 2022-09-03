@@ -12,7 +12,7 @@ import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow, HistoryWearables } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils } from 'utils';
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
@@ -28,8 +28,13 @@ export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+            const sortedInventory = [...gotchi.inventory].sort((id: number) => {
+                const slot: string[] = ItemUtils.getSlotsById(id);
 
-            setInventory([...gotchi.inventory]);
+                return slot.length > 0 ? -1 : 1;
+            });
+
+            setInventory(sortedInventory);
         });
 
         TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)

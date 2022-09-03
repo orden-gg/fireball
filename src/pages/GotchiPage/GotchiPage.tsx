@@ -15,7 +15,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils } from 'utils';
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 
@@ -38,8 +38,13 @@ export function GotchiPage() {
 
         MainApi.getAavegotchiById(id).then((response: any[]) => {
             const gotchi: GotchiModel = GotchiUtils.convertDataFromContract(response);
+            const sortedInventory = [...gotchi.inventory].sort((id: number) => {
+                const slot: string[] = ItemUtils.getSlotsById(id);
 
-            setInventory([...gotchi.inventory]);
+                return slot.length > 0 ? -1 : 1;
+            });
+
+            setInventory(sortedInventory);
         });
 
         TheGraphApi.getGotchiById(id)
