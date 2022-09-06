@@ -64,6 +64,7 @@ const initialFilters: GlossaryWearablesFilters = {
     rarity: { ...glossaryWearablesFilters.rarity, divider: true },
     slot: { ...glossaryWearablesFilters.slot, divider: true },
     traitModifier: { ...glossaryWearablesFilters.traitModifier, divider: true },
+    search: { ...glossaryWearablesFilters.search, divider: true },
     itemType: { ...glossaryWearablesFilters.itemType },
     benefit: { ...glossaryWearablesFilters.benefit, divider: true },
     listingPrice: { ...glossaryWearablesFilters.listingPrice }
@@ -72,9 +73,12 @@ const queryParamsOrder: string[] = [
     glossaryWearablesFilters.rarity.queryParamKey,
     glossaryWearablesFilters.slot.queryParamKey,
     glossaryWearablesFilters.traitModifier.queryParamKey,
+    glossaryWearablesFilters.search.queryParamKey,
     glossaryWearablesFilters.itemType.queryParamKey,
     glossaryWearablesFilters.benefit.queryParamKey,
-    glossaryWearablesFilters.listingPrice.queryParamKey
+    glossaryWearablesFilters.listingPrice.queryParamKey,
+    'sort',
+    'dir'
 ];
 
 export function GlossaryWearables() {
