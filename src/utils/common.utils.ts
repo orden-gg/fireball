@@ -148,8 +148,8 @@ export class CommonUtils {
         return targetStringCopy.join('');
     }
 
-    public static stringToKey(string: any): any {
-        return string.replace(/’| /g, '').replace(/ /g, '').toLowerCase();
+    public static stringToKey(string: any, divider: string = ''): any {
+        return string.replace(/’| /g, divider).replace(/ /g, divider).toLowerCase();
     }
 
     public static isEmptyObject(obj: any): any {

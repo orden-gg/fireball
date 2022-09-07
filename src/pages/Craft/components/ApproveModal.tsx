@@ -4,7 +4,7 @@ import { Button, CircularProgress, Typography } from '@mui/material';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import { INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
 import { AlchemicaApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -26,12 +26,12 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
     } = useContext<any>(CraftContext);
 
     const approveAlchemicaSpend = (): void => {
-        const operator: string = category === 'tile' ? TILES_CONTRACT : INSTALLATION_CONTRACT;
+        const operator: string = category === Erc1155Categories.Tile ? TILES_CONTRACT : INSTALLATION_CONTRACT;
         const tokenName: string = Object.keys(TokenTypes)[activeIndex];
 
         setIsTokenApproving(true);
 
-        AlchemicaApi[`approve${Object.keys(TokenTypes)[activeIndex]}`](operator).then((isApproved: boolean) => {
+        AlchemicaApi[`approve${tokenName}`](operator).then((isApproved: boolean) => {
             if (isApproved) {
                 setTokenApprovals((currentApprovals: any[]) => {
                     const modified = _.cloneDeep(currentApprovals);
@@ -50,7 +50,8 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
 
     useEffect(() => {
         const isSomeNotApproved: boolean = tokensApprovals[category].some((isApproved: boolean) => !isApproved);
-        const activeIndex: number = tokensApprovals[category || 'tiles'].findIndex((isApproved: boolean) => !isApproved);
+
+        const activeIndex: number = tokensApprovals[category].findIndex((isApproved: boolean) => !isApproved);
 
         setActiveIndex(activeIndex);
 
@@ -71,7 +72,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
                             key={index}
                             className={classNames(
                                 classes.token,
-                                tokensApprovals[category || 'tiles'][index] && classes.approved,
+                                tokensApprovals[category][index] && classes.approved,
                                 activeIndex === index && classes.active
                             )}
                         >

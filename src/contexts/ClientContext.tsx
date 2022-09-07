@@ -325,7 +325,8 @@ export const ClientContextProvider = (props: any) => {
                         id: id,
                         level: InstallationsUtils.getLevelById(id),
                         category: Erc1155Categories.Realm,
-                        rarity: InstallationsUtils.getRarityById(id)
+                        rarity: InstallationsUtils.getRarityById(id),
+                        deprecated: InstallationsUtils.getDeprecatedById(id)
                     };
                 });
 
@@ -354,7 +355,8 @@ export const ClientContextProvider = (props: any) => {
                         balance: EthersApi.formatBigNumber(item.balance._hex),
                         id: id,
                         rarity: 'golden',
-                        category: Erc1155Categories.Tile
+                        category: Erc1155Categories.Tile,
+                        deprecated: TilesUtils.getDeprecatedById(id)
                     };
                 });
 

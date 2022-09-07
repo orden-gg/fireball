@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useContext, useCallback } from 'rea
 
 import { useMetamask } from 'use-metamask';
 
-import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 import { BalancesContext } from 'contexts/BalancesContext';
 import { AlchemicaApi } from 'api';
 
@@ -12,13 +12,13 @@ export const CraftContextProvider = (props: any) => {
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
     const [accountAddress, setAccountAddress] = useState<string>('');
     const [tokensApprovals, setTokenApprovals] = useState<any>({
-        tile: [],
-        installation: []
+        [Erc1155Categories.Realm]: [],
+        [Erc1155Categories.Tile]: []
     });
     const [isAlchemicaApproved, setIsAlchemicaApproved] = useState<boolean>(false);
     const [selectedItem, setSelectedItem] = useState<any>({});
     const [isItemSelected, setIsItemSelected] = useState<boolean>(false);
-    const [category, setCategory] = useState<string>('installation');
+    const [category, setCategory] = useState<string>(Erc1155Categories.Realm);
     const [maxCraftAmount, setMaxCraftAmount] = useState<number>(1);
 
     const { tokens } = useContext<any>(BalancesContext);
@@ -68,8 +68,8 @@ export const CraftContextProvider = (props: any) => {
                 ]);
 
                 setTokenApprovals({
-                    tile: tileApprovals,
-                    installation: installationApprovals
+                    [Erc1155Categories.Realm]: installationApprovals,
+                    [Erc1155Categories.Tile]: tileApprovals
                 });
             })();
         }
