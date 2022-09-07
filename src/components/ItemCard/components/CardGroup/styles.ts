@@ -5,12 +5,7 @@ export const styles = makeStyles(theme => createStyles({
     header: {
         display: 'flex',
         justifyContent: 'flex-end',
-        margin: theme.spacing(-1, -1, 0, -1)
-    },
-    headerBetween: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         margin: theme.spacing(-1, -1, 0, -1)
     },
     body: {

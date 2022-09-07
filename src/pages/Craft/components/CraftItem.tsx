@@ -39,7 +39,7 @@ export function CraftItem({ item }: { item: any }) {
             onClick={handleItemClick}
         >
             <ItemCard type='golden' id={item.id} category={item.category}>
-                <CardGroup name='headerBetween'>
+                <CardGroup name='header'>
                     <CardSlot>{item.type}</CardSlot>
                 </CardGroup>
                 <CardGroup name='body'>
