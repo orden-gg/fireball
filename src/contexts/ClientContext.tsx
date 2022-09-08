@@ -192,9 +192,10 @@ export const ClientContextProvider = (props: any) => {
 
             setWarehouse((existing: any[]) => CommonUtils.basicSort(
                 [...existing, ...wearables].reduce((items: any[], current: any) => {
-                    const wearableBenefit = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
-                        benefit.ids.find((id: number) => id === current.id)
-                    );
+                    const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS
+                        .find((benefit: WearableTypeBenefit) =>
+                            benefit.ids.some((id: number) => id === current.id)
+                        );
                     const duplicated: any = items.find((item: any) => item.id === current.id);
 
                     if (duplicated) {
@@ -207,10 +208,10 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat({
                         ...current,
                         benefit: {
-                            first: wearableBenefit?.benefit.first,
-                            second: wearableBenefit?.benefit.second
+                            first: wearableTypeBenefit?.benefit.first,
+                            second: wearableTypeBenefit?.benefit.second
                         },
-                        itemType: wearableBenefit?.type
+                        itemType: wearableTypeBenefit?.type
                     });
                 }, []), wSortType, wSortDir));
 
@@ -296,9 +297,10 @@ export const ClientContextProvider = (props: any) => {
             setWarehouse((existing: any[]) => CommonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
                     const duplicated = items.find((item: any) => item.id === current.id);
-                    const wearableBenefit = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
-                        benefit.ids.find((id: number) => id === current.id)
-                    );
+                    const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS
+                        .find((benefit: WearableTypeBenefit) =>
+                            benefit.ids.some((id: number) => id === current.id)
+                        );
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -310,10 +312,10 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat({
                         ...current,
                         benefit: {
-                            first: wearableBenefit?.benefit.first,
-                            second: wearableBenefit?.benefit.second
+                            first: wearableTypeBenefit?.benefit.first,
+                            second: wearableTypeBenefit?.benefit.second
                         },
-                        itemType: wearableBenefit?.type
+                        itemType: wearableTypeBenefit?.type
                     });
                 }, []), type, dir));
 
