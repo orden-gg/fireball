@@ -73,7 +73,7 @@ export class GotchiUtils {
     }
 
     public static getStakedAmount(collateralAddress: string, stakedAmount: number): number {
-        const collateral: CollateralData | undefined = collaterals.find((collateral: CollateralData) =>
+        const collateral: Undefinable<CollateralData> = collaterals.find((collateral: CollateralData) =>
             collateral.address === collateralAddress
         );
 

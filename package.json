@@ -63,6 +63,9 @@
     "prepare": "husky install",
     "data": "execution() { yarn ts-node --esm src/data/scripts/\"$@\".script.ts; }; execution"
   },
+  "paths": {
+    "*": ["types/*.d.ts"]
+  },
   "browserslist": {
     "production": [
       ">0.2%",

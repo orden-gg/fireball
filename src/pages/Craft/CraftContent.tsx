@@ -74,9 +74,9 @@ export function CraftContent() {
             setCraftableItems(active);
             setDeprecatedItems(deprecated);
 
-            const selected: string | (string | null)[] | null = params.selected;
+            const selected: Undefinable<string> = params.selected as Undefinable<string>;
 
-            if (craftableItems.length > 0 && selected !== undefined && selected !== null) {
+            if (craftableItems.length > 0 && selected) {
                 const name: string = selected.toString().replace(/-/g, ' ');
                 const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name );
 
@@ -90,9 +90,9 @@ export function CraftContent() {
     }, []);
 
     useEffect(() => {
-        const selected: string | (string | null)[] | null = params.selected;
+        const selected: Undefinable<string> = params.selected as Undefinable<string>;
 
-        if (craftableItems.length > 0 && selected !== undefined && selected !== null) {
+        if (craftableItems.length > 0 && selected) {
             const name: string = selected.toString().replace(/-/g, ' ');
             const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name );
 

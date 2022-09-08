@@ -4,7 +4,7 @@ import { LoginAddress } from 'shared/models';
 
 export interface LoginState {
     loggedAddresses: LoginAddress[];
-    activeAddress: string | null | undefined;
+    activeAddress: Undefinable<string | null>;
     isDropdownOpen: boolean;
 }
 
@@ -24,7 +24,7 @@ export const loginSlice = createSlice({
         setLoggedAddresses: (state, action: PayloadAction<LoginAddress[]>) => {
             state.loggedAddresses = action.payload;
         },
-        setActiveAddress: (state, action: PayloadAction<string | undefined>) => {
+        setActiveAddress: (state, action: PayloadAction<Undefinable<string>>) => {
             state.activeAddress = action.payload;
         }
     }

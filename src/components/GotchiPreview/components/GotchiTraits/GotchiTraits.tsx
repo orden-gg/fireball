@@ -72,7 +72,7 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
                 modifiedNumericTraits.map((traitValue: string, index: number) => {
                     const traitName: string = TRAITS_KEYS[index];
                     const imageUrl: string = ItemUtils.getTraitIconByName(traitName);
-                    const effect: TraitsEffect | undefined = traitsEffects[index].find((item: TraitsEffect) => {
+                    const effect: Undefinable<TraitsEffect> = traitsEffects[index].find((item: TraitsEffect) => {
                         const range: number[] = item[TraitsEffectsTypes.Range];
 
                         return CommonUtils.isNumberInRange(Number(traitValue), range[0], range[1]);
