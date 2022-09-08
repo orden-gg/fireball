@@ -16,6 +16,8 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { ClientContext } from 'contexts/ClientContext';
 import { CommonUtils, ItemUtils } from 'utils';
 
+import { warehouseStyles } from '../styles';
+
 const sortings: SortingListItem[] = [
     {
         name: 'rarity',
@@ -35,6 +37,8 @@ const sortings: SortingListItem[] = [
 const queryParamsOrder: string[] = ['sort', 'dir'];
 
 export function ClientWarehouse() {
+    const classes = warehouseStyles();
+
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
@@ -47,8 +51,6 @@ export function ClientWarehouse() {
         loadingGotchis,
         loadingWarehouse
     } = useContext<any>(ClientContext);
-
-
 
     useEffect(() => {
         const { sort, dir } = queryParams as CustomParsedQuery;
@@ -129,6 +131,10 @@ export function ClientWarehouse() {
                                 <CardImage id={wearable.id} />
                                 <CardName id={wearable.id} />
                                 {renderCardStats(wearable.id, wearable.category)}
+                                <div className={classes.benefits}>
+                                    <span className={classes.itemTypeValue}>{wearable.itemType}</span>
+                                    <span className={classes.benefitValue}>{wearable.benefit.first}, {wearable.benefit.second}</span>
+                                </div>
                             </CardGroup>
                             <CardGroup name='footer'>
                                 <CardListing />
