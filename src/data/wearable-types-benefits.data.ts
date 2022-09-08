@@ -1,16 +1,9 @@
 // @ts-ignore
 import { WearableItemTypes, WerableBenefitTypes } from '../shared/constants/enums/wearable.enums.ts';
+// @ts-ignore
+import { WearableTypeBenefit } from '../shared/models/wearable.model.ts';
 
-interface WearableTypeBenefits {
-    type: WearableItemTypes;
-    benefit: {
-        first: WerableBenefitTypes;
-        second: WerableBenefitTypes;
-    };
-    ids: number[];
-}
-
-export const WEARABLES_TYPES_BENEFITS: WearableTypeBenefits[] = [
+export const WEARABLES_TYPES_BENEFITS: WearableTypeBenefit[] = [
     {
         type: WearableItemTypes.Accessory,
         benefit: {

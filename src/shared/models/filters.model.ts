@@ -50,3 +50,16 @@ export interface RangeSliderFilter<T> extends BaseFilter {
     getQueryParamsFn: (filter: RangeSliderFilter<T>) => number[];
     getActiveFiltersCountFn: (filter: RangeSliderFilter<T>) => number;
 }
+
+export interface InputFilter<T> extends BaseFilter {
+    keys: string[];
+    placeholder: string;
+    value: string;
+    getIsFilterValidFn: (value: string) => boolean;
+    resetFilterFn: (filter: InputFilter<T>) => void;
+    predicateFn: (filter: InputFilter<T>, compareItem: T) => boolean;
+    updateFromQueryFn: (filter: InputFilter<T>, value: string) => void;
+    updateFromFilterFn: (filter: InputFilter<T>, value: string) => void;
+    getQueryParamsFn: (filter: InputFilter<T>) => string;
+    getActiveFiltersCountFn: (filter: InputFilter<T>) => number;
+}

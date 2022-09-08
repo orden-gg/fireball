@@ -1,6 +1,7 @@
 import { FilterComponentType, RarityTypes, TRAITS_MODIFY_KEYS, WearableItemTypes, WerableBenefitTypes } from 'shared/constants';
 import { Wearable, FilterItemOption, MultiAutocompleteFilter, MultiButtonSelectionFilter, RangeSliderFilter } from 'shared/models';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
+import { FiltersHelper } from 'utils';
 
 import { GlossaryWearablesFilters } from '../models';
 
@@ -116,10 +117,27 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
             );
         }
     },
+    search: {
+        key: 'search',
+        queryParamKey: 'search',
+        keys: ['name'],
+        componentType: FilterComponentType.Input,
+        title: 'Search',
+        placeholder: 'name',
+        value: '',
+        isFilterActive: false,
+        getIsFilterValidFn: FiltersHelper.inputGetIsFilterValidFn,
+        resetFilterFn: FiltersHelper.inputResetFilterFn,
+        predicateFn: FiltersHelper.inputPredicateFn,
+        updateFromQueryFn: FiltersHelper.inputUpdateFromQueryFn,
+        updateFromFilterFn: FiltersHelper.inputUpdateFromFilterFn,
+        getQueryParamsFn: FiltersHelper.inputGetQueryParamsFn,
+        getActiveFiltersCountFn: FiltersHelper.inputGetActiveFiltersCount
+    },
     itemType: {
         key: 'itemType',
         queryParamKey: 'type',
-        title: 'Wearable Types',
+        title: 'wearable types',
         componentType: FilterComponentType.MultipleAutocomplete,
         items: Object.keys(WearableItemTypes).map((key: string) => ({
             title: WearableItemTypes[key] as string,
@@ -132,7 +150,7 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
     benefit: {
         key: 'benefit',
         queryParamKey: 'benefit',
-        title: 'Benefits',
+        title: 'benefits',
         componentType: FilterComponentType.MultipleAutocomplete,
         items: Object.keys(WerableBenefitTypes).map((key: string) => ({
             title: WerableBenefitTypes[key] as string,
