@@ -15,9 +15,9 @@ import { CommonUtils } from 'utils';
 import { styles } from './styles';
 
 interface CardListingProps {
-    lastSoldListing: Erc1155SoldListing | undefined;
-    currentListing: Erc1155Listing | undefined;
-    lastSoldDate: string | undefined | null;
+    lastSoldListing: Undefinable<Erc1155SoldListing>;
+    currentListing: Undefinable<Erc1155Listing>;
+    lastSoldDate: Undefinable<string | null>;
 }
 
 // TODO this component is currently used for Glossary Card components and should be replacement

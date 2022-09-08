@@ -108,7 +108,7 @@ export function GlossaryWearables() {
         const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key: string | undefined = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: Undefinable<string> = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
             if (key) {
                 onSortingChange(key, dir);
@@ -150,7 +150,7 @@ export function GlossaryWearables() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey: string | undefined = sortings.find(sorting => sorting.key === wearablesSorting.type)?.paramKey;
+        const paramKey: Undefinable<string> = sortings.find(sorting => sorting.key === wearablesSorting.type)?.paramKey;
 
         if (paramKey) {
             updateSortQueryParams(paramKey, wearablesSorting.dir);

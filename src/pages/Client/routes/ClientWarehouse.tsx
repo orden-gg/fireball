@@ -119,7 +119,7 @@ export function ClientWarehouse() {
                             category={wearable.category}
                             type={wearable.rarity}
                         >
-                            <CardGroup name='headerBetween'>
+                            <CardGroup name='header'>
                                 <CardSlot id={wearable.id} />
                                 <CardTotalPrice
                                     balance={wearable.balance}

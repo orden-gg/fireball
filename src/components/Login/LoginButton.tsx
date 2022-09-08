@@ -73,7 +73,7 @@ export function LoginButton() {
     };
 
     const onAddressSubmit = (address: string): void => {
-        const duplicated: LoginAddressModel | undefined = storeLoggedAddress.find((item: any) => item.address === address);
+        const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddress.find((item: any) => item.address === address);
 
         onCloseDropdown();
 

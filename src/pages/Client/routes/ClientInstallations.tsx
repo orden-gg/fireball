@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { ItemCard } from 'components/ItemCard/containers';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardTotalPrice } from 'components/ItemCard/components';
+import { CardBalance, CardCraftLink, CardGroup, CardImage, CardListing, CardName, CardTotalPrice } from 'components/ItemCard/components';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function ClientInstallations() {
@@ -19,18 +19,19 @@ export function ClientInstallations() {
             <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={182}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
-                    component={(installation: any) =>
-                        <ItemCard id={installation.id} category={installation.category} type={installation.rarity || 'drop'}>
+                    component={(item: any) =>
+                        <ItemCard id={item.id} category={item.category} type={item.rarity || 'drop'}>
                             <CardGroup name='header'>
+                                {!item.deprecated ? <CardCraftLink name={item.name} /> : <></>}
                                 <CardTotalPrice
-                                    balance={installation.balance}
-                                    priceInWei={installation.priceInWei}
+                                    balance={item.balance}
+                                    priceInWei={item.priceInWei}
                                 />
-                                <CardBalance balance={installation.balance} />
+                                <CardBalance balance={item.balance} />
                             </CardGroup>
                             <CardGroup name='body'>
-                                <CardImage id={installation.id} category={installation.category} />
-                                <CardName>{installation.name}</CardName>
+                                <CardImage id={item.id} category={item.category} />
+                                <CardName>{item.name}</CardName>
                             </CardGroup>
                             <CardGroup name='footer'>
                                 <CardListing />

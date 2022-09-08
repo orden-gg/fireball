@@ -62,7 +62,7 @@ export function Craftbar() {
             const amount: number = craftAmount;
             const items: number[] = Array(amount).fill(selectedItem.id);
             const gltrs: number[] = Array(amount).fill(0);
-            const promise: Promise<any> = category === 'tile' ?
+            const promise: Promise<any> = category === Erc1155Categories.Tile ?
                 TilesApi.craftTiles(items) :
                 InstallationsApi.craftInstallations(items, gltrs);
 
@@ -82,14 +82,12 @@ export function Craftbar() {
 
     const renderSelectedItem = (): JSX.Element => {
         if (isItemSelected) {
-            const categoryId: string = category === 'tile' ? Erc1155Categories.Tile : Erc1155Categories.Realm;
-
-            return <ItemCard type='golden' id={selectedItem.id} category={categoryId}>
+            return <ItemCard type='golden' id={selectedItem.id} category={category}>
                 <CardGroup name='headerBetween'>
                     <CardSlot>{selectedItem.type}</CardSlot>
                 </CardGroup>
                 <CardGroup name='body'>
-                    <CardImage id={selectedItem.id} category={categoryId} />
+                    <CardImage id={selectedItem.id} category={category} />
                     <CardName>{selectedItem.name}</CardName>
                 </CardGroup>
             </ItemCard>;

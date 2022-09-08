@@ -5,7 +5,7 @@ export const styles = makeStyles(theme => createStyles({
         backgroundColor: theme.palette.secondary.dark,
         minWidth: 34,
         fontWeight: 600,
-        padding: theme.spacing(0, .5),
+        padding: theme.spacing(.25, .5),
         color: theme.palette.common.white,
         lineHeight: 1.6,
         display: 'flex',
