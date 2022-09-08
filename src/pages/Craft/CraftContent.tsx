@@ -77,10 +77,10 @@ export function CraftContent() {
             const selected: Undefinable<string> = params.selected as Undefinable<string>;
 
             if (craftableItems.length > 0 && selected) {
-                const name: string = selected.toString().replace(/-/g, ' ');
-                const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name );
+                const name: string = selected.replace(/-/g, ' ');
+                const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name);
 
-                if (item !== undefined) {
+                if (item) {
                     setCategory(item.category);
                     setIsItemSelected(true);
                     setSelectedItem(item);
@@ -93,10 +93,10 @@ export function CraftContent() {
         const selected: Undefinable<string> = params.selected as Undefinable<string>;
 
         if (craftableItems.length > 0 && selected) {
-            const name: string = selected.toString().replace(/-/g, ' ');
+            const name: string = selected.replace(/-/g, ' ');
             const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name );
 
-            if (item !== undefined) {
+            if (item) {
                 setCategory(item.category);
                 setIsItemSelected(true);
                 setSelectedItem(item);

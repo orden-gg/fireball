@@ -18,7 +18,7 @@ export function CardCraftLink({ name, className }: CardCraftLinkProps) {
     return (
         <Link
             className={classNames(classes.link, className)}
-            href={`/craft/?selected=${CommonUtils.stringToKey(name.trim(), '-')}`}
+            href={`/craft?selected=${CommonUtils.stringToKey(name.trim(), '-')}`}
             target='_blank'
         >
             Craft <OpenInNewIcon className={classes.icon} />
