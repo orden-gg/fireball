@@ -177,7 +177,7 @@ export const BalancesContextProvider = (props: any) => {
     };
 
     const generateSwapUrl = (inputToken: any, outputToken: any): string => {
-        return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
+        return `https://quickswap.exchange/#/swap?currency0=${inputToken}&currency1=${outputToken}`;
     };
 
     return (
