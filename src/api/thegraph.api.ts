@@ -526,7 +526,7 @@ export class TheGraphApi {
         function getQueries() {
             const queries: any[] = [];
 
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 6; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000));
             }
 
