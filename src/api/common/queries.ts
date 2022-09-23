@@ -563,8 +563,8 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
           orderBy: "timeCreated",
           orderDirection: ${orderDir},
           where: {
-            borrower: "0x0000000000000000000000000000000000000000",
             cancelled: false
+            timeAgreed: null
         }
       ) {
         id
