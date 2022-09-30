@@ -11,7 +11,7 @@ import { styles } from './styles';
 
 interface ERC721ListingProps {
     listings: any[];
-    historicalPrices: any[];
+    historicalPrices: string[];
 }
 
 export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps) {

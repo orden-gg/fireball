@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { ContentInnerStyles } from './style';
 
 interface ContentInnerProps {
-    children: JSX.Element;
+    children: JSX.Element | JSX.Element[];
     dataLoading: boolean;
     offset?: number;
     className?: string;

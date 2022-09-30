@@ -1,4 +1,5 @@
 export * from './alchemica.api';
+export * from './the-graph-core.api';
 export * from './autopet.api';
 export * from './ethers.api';
 export * from './fireball.api';

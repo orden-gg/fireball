@@ -17,9 +17,10 @@ const NoContent = styled.div`
 interface ItemsLazyProps {
     items: any[];
     component: (props: any) => JSX.Element;
+    onHandleEndReached?: () => void;
 }
 
-export function ItemsLazy({ items, component }: ItemsLazyProps) {
+export function ItemsLazy({ items, component, onHandleEndReached }: ItemsLazyProps) {
     const gridRef = useRef<any>(null);
 
     useEffect(() => {
@@ -48,6 +49,14 @@ export function ItemsLazy({ items, component }: ItemsLazyProps) {
         );
     }
 
+    const onEndReached = (index: number) => {
+        if (index === items.length - 1) {
+            if (onHandleEndReached) {
+                onHandleEndReached();
+            }
+        }
+    };
+
     return (
         <VirtuosoGrid
             ref={gridRef}
@@ -57,6 +66,7 @@ export function ItemsLazy({ items, component }: ItemsLazyProps) {
                 List: ListContainer as any
             }}
             itemContent={(index) => component(items[index])}
+            endReached={(index) => onEndReached(index)}
         />
     );
 }

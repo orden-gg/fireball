@@ -15,16 +15,22 @@ export function GotchiBadges({ id }: { id: number }) {
     const [badges, setBadges] = useState<GotchiInventory[]>([]);
 
     useEffect(() => {
+        let mounted: boolean = true;
+
         MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-            const badges: GotchiInventory[] = gotchi.inventory.filter((item: GotchiInventory) => {
-                const slot = ItemUtils.getSlotsById(item.id);
+            if (mounted) {
+                const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+                const badges: GotchiInventory[] = gotchi.inventory.filter((item: GotchiInventory) => {
+                    const slot = ItemUtils.getSlotsById(item.id);
 
-                return slot.length === 0;
-            });
+                    return slot.length === 0;
+                });
 
-            setBadges(badges.reverse());
+                setBadges(badges.reverse());
+            }
         });
+
+        return () => { mounted = false };
     }, [id]);
 
     return <div className={classes.badges}>

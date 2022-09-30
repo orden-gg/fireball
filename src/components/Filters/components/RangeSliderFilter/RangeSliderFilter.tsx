@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Slider, TextField } from '@mui/material';
 
 import { styles } from './styles';
+import { IconUtils } from 'utils';
 
 interface RangeSliderFilterProps {
     filter: any;
@@ -78,6 +79,9 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             <div className={classes.range}>
                 <div className={classes.title}>
                     {filter.title}
+                    {filter.isShowIcon &&
+                        <span style={{ ...filter.iconProps, marginLeft: filter.title ? 4 : 0 }}>{IconUtils.getIconByName(filter.iconName, filter.iconProps)}</span>
+                    }
                 </div>
 
                 <Slider

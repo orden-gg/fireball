@@ -26,7 +26,7 @@ let localGoods: any[] = [];
 let filteredLocalGoods: any[] = [];
 
 // TODO component is to large to check every prop for types on initial migration. Should be checked afterwards
-export function Baazaar() {
+export function BaazaarOld() {
     const classes = styles();
     // server pagination
     const [goods, setGoods] = useState<any>([]);

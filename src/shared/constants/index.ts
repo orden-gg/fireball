@@ -4,5 +4,6 @@ export * from './enums';
 export * from './gotchi.constants';
 export * from './homepage.constants';
 export * from './numbers.constants';
+export * from './the-graph.constants';
 export * from './token.constants';
 export * from './wearables.constants';

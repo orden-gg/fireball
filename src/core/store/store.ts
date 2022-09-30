@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
+import { baazaarReducer } from 'pages/Baazaar/store';
 import { glossaryReducer } from 'pages/Glossary/store';
 
 import { loginReducer } from './login';
@@ -7,7 +8,8 @@ import { loginReducer } from './login';
 export const store = configureStore({
     reducer: {
         login: loginReducer,
-        glossary: glossaryReducer
+        glossary: glossaryReducer,
+        baazaar: baazaarReducer
     }
 });
 

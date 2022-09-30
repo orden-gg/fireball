@@ -183,7 +183,9 @@ export enum Erc1155DimensionsNumberTypes {
 }
 
 export enum TypenameType {
-    ERC1155Listing = 'ERC1155Listing'
+    Aavegotchi = 'Aavegotchi',
+    ERC1155Listing = 'ERC1155Listing',
+    User = 'User'
 }
 
 export enum GotchiTypes {

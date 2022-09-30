@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material';
 import { PageNavLink } from 'shared/models';
 
 import { styles } from './styles';
+import classNames from 'classnames';
 
 interface PageNavProps {
     links: PageNavLink[];
@@ -39,23 +40,33 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                                 disabled={link.count === 0}
                                 startIcon={link.icon}
                                 component={NavLink}
-                                className={classes.button}
+                                className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
                                 to={link.path}
                             >
-                                <span className={classes.navName}>{link.name}</span>
-                                { link.isLoading ? (
-                                    <ContentLoader
-                                        speed={2}
-                                        viewBox='0 0 28 14'
-                                        backgroundColor={theme.palette.secondary.main}
-                                        foregroundColor={theme.palette.primary.dark}
-                                        className={classes.buttonLoader}
-                                    >
-                                        <rect x='0' y='0' width='28' height='14' />
-                                    </ContentLoader>
-                                ) : (
-                                    <span className={classes.label}>[{link.count}]</span>
-                                )}
+                                {link.name && <span className={classes.navName}>{link.name}</span>}
+                                {
+                                    link.count !== undefined ?
+                                        (
+                                            <>
+                                                { link.isLoading ? (
+                                                    <ContentLoader
+                                                        speed={2}
+                                                        viewBox='0 0 28 14'
+                                                        backgroundColor={theme.palette.secondary.main}
+                                                        foregroundColor={theme.palette.primary.dark}
+                                                        className={classes.buttonLoader}
+                                                    >
+                                                        <rect x='0' y='0' width='28' height='14' />
+                                                    </ContentLoader>
+                                                ) : (
+                                                    <span className={classes.label}>[{link.count}]</span>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )
+                                }
+
                             </Button>
                         </div>
                     );
