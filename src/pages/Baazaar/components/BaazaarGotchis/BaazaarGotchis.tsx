@@ -48,11 +48,6 @@ export function BaazaarGotchis() {
         dispatch(loadBaazaarGotchiListings());
     }, []);
 
-    useEffect(() => {
-        // console.log('gotchiListingsFilters', gotchiListingsFilters)
-        // setGotchis(baazaarGotchiListings)
-    }, [gotchiListingsFilters]);
-
     const onHandleEndReached = (): void => {
         dispatch(setSkipLimit(gotchiListingsGraphQueryParams.skip + listingsLimitPerLoad));
 

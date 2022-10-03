@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Slider, TextField } from '@mui/material';
 
-import { styles } from './styles';
+import _ from 'lodash';
+
 import { IconUtils } from 'utils';
+
+import { styles } from './styles';
 
 interface RangeSliderFilterProps {
     filter: any;
@@ -40,7 +43,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             const currentValueToSet = [Number(value), Number(maxValue)];
 
             setCurrentValue(currentValueToSet);
-            onSetSelectedFilters(filter.key, currentValueToSet);
+            onHandleInputDebounce(filter.key, currentValueToSet);
         }
     }, [maxValue, filter, onSetSelectedFilters]);
 
@@ -56,9 +59,13 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             const currentValueToSet = [Number(minValue), Number(value)];
 
             setCurrentValue(currentValueToSet);
-            onSetSelectedFilters(filter.key, currentValueToSet);
+            onHandleInputDebounce(filter.key, currentValueToSet);
         }
     }, [minValue, filter, onSetSelectedFilters]);
+
+    const onHandleInputDebounce = _.debounce((key: string, value: number[]) => {
+        onSetSelectedFilters(key, value);
+    }, 500);
 
     const updateMinValue = (value: number) => {
         setMinValue(value);
