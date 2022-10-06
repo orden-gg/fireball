@@ -1,19 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { gotchiListingsFiltersData } from 'pages/Baazaar/static';
+
 import { Erc721Categories } from 'shared/constants';
-import { GraphFiltersValueTypes, SortingItem } from 'shared/models';
+import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { BaazaarGotchiListingVM, GotchiListingsFilters } from '../../models';
-
-export interface GraphQueryParams {
-    first: number;
-    skip: number;
-    orderBy: string;
-    orderDirection: string;
-    where: {
-        category: string;
-    }
-}
+import { gotchiListingsFiltersData } from '../../static';
 
 export interface BaazaarState {
     baazaarGotchiListings: BaazaarGotchiListingVM[];
@@ -46,7 +37,7 @@ export const baazaarSlice = createSlice({
         setBaazaarGotchiListings: (state, action: PayloadAction<BaazaarGotchiListingVM[]>): void => {
             state.baazaarGotchiListings = action.payload;
         },
-        setSkipLimit: (state, action: PayloadAction<number>): void => {
+        setGotchiListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.gotchiListingsGraphQueryParams.skip = action.payload;
         },
         setGotchiListingsSorting: (state, action: PayloadAction<SortingItem>): void => {
@@ -54,15 +45,6 @@ export const baazaarSlice = createSlice({
 
             state.gotchiListingsGraphQueryParams.orderBy = action.payload.type;
             state.gotchiListingsGraphQueryParams.orderDirection = action.payload.dir;
-        },
-        setGotchiListingsFilterValueByKey: (
-            state,
-            action: PayloadAction<{ key: string, value: GraphFiltersValueTypes, isFilterActive: boolean }>
-        ): void => {
-            state.gotchiListingsFilters[action.payload.key] = {
-                ...state.gotchiListingsFilters[action.payload.key],
-                ...action.payload
-            };
         },
         setGotchiListingsFilters: (state, action: PayloadAction<GotchiListingsFilters>): void => {
             state.gotchiListingsFilters = action.payload;
@@ -72,10 +54,9 @@ export const baazaarSlice = createSlice({
 
 export const {
     setBaazaarGotchiListings,
-    setSkipLimit,
+    setGotchiListingsSkipLimit,
     setGotchiListingsSorting,
-    setGotchiListingsFilterValueByKey,
     setGotchiListingsFilters
 } = baazaarSlice.actions;
 
-export const baazaarReducer = baazaarSlice.reducer;
+export const baazaar = baazaarSlice.reducer;

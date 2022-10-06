@@ -1,34 +1,36 @@
 import { useCallback, useEffect } from 'react';
+import { Button } from '@mui/material';
+
+import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { GraphFiltersValueTypes, SortingItem } from 'shared/models';
-import { BaazaarGotchiListingVM } from 'pages/Baazaar/models';
+import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { Aavegotchi } from 'pages/BaazaarOld/components/BaazaarSidebar/components/ItemTypes/Aavegotchi';
+import { ContentInner } from 'components/Content/ContentInner';
+import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+
+import { GotchiListingsFilterTypes } from '../../constants';
+import { BaazaarGotchiListingVM, GotchiListingsFilters } from '../../models';
 import {
     getBaazaarGotchiListings,
     getGotchiListingsFilters,
     getGotchiListingsGraphQueryParams,
     getGotchiListingsSorting,
-    getListingsLimitPerLoad,
-    GraphQueryParams,
+    getGotchiListingsLimitPerLoad,
     loadBaazaarGotchiListings,
     resetGotchiListingsFilters,
-    setSkipLimit,
+    setGotchiListingsSkipLimit,
     updateGotchiListingsFilterByKey,
     updateGotchiListingsSorting
-} from 'pages/Baazaar/store';
-import { ContentInner } from 'components/Content/ContentInner';
-import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { GotchiIcon } from 'components/Icons/Icons';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { Aavegotchi } from 'pages/BaazaarOld/components/BaazaarSidebar/components/ItemTypes/Aavegotchi';
-import { sortings } from 'pages/Baazaar/static';
+} from '../../store';
+import { gotchiListingsSortings } from '../../static';
 
 import { styles } from './styles';
-import { Filters } from 'components/Filters/components/Filters/Filters';
-import { Button } from '@mui/material';
-import classNames from 'classnames';
-import { GotchiListingsFilterTypes } from 'pages/Baazaar/constants';
 
 export function BaazaarGotchis() {
     const classes = styles();
@@ -37,8 +39,8 @@ export function BaazaarGotchis() {
     const baazaarGotchiListings: BaazaarGotchiListingVM[] = useAppSelector(getBaazaarGotchiListings);
     const gotchiListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchiListingsGraphQueryParams);
     const gotchiListingsSorting: SortingItem = useAppSelector(getGotchiListingsSorting);
-    const gotchiListingsFilters: any = useAppSelector(getGotchiListingsFilters);
-    const listingsLimitPerLoad: number = useAppSelector(getListingsLimitPerLoad);
+    const gotchiListingsFilters: GotchiListingsFilters = useAppSelector(getGotchiListingsFilters);
+    const listingsLimitPerLoad: number = useAppSelector(getGotchiListingsLimitPerLoad);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateGotchiListingsSorting({ type: sortBy, dir: sortDir }));
@@ -48,8 +50,8 @@ export function BaazaarGotchis() {
         dispatch(loadBaazaarGotchiListings());
     }, []);
 
-    const onHandleEndReached = (): void => {
-        dispatch(setSkipLimit(gotchiListingsGraphQueryParams.skip + listingsLimitPerLoad));
+    const onHandleReachedEnd = (): void => {
+        dispatch(setGotchiListingsSkipLimit(gotchiListingsGraphQueryParams.skip + listingsLimitPerLoad));
 
         dispatch(loadBaazaarGotchiListings());
     };
@@ -68,7 +70,7 @@ export function BaazaarGotchis() {
             <>
                 <SortFilterPanel
                     sorting={{
-                        sortingList: sortings,
+                        sortingList: gotchiListingsSortings,
                         sortingDefaults: gotchiListingsSorting,
                         onSortingChange: onSortingChange
                     }}
@@ -81,7 +83,7 @@ export function BaazaarGotchis() {
                     <ItemsLazy
                         items={baazaarGotchiListings}
                         component={(gotchiListing: BaazaarGotchiListingVM) => <Aavegotchi item={gotchiListing} />}
-                        onHandleEndReached={onHandleEndReached}
+                        onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>
             </>

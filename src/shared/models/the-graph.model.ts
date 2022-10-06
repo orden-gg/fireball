@@ -3,3 +3,13 @@ export interface TheGraphResponse<T> {
     loading: boolean;
     networkStatus: number;
 }
+
+export interface GraphQueryParams {
+    first: number;
+    skip: number;
+    orderBy: string;
+    orderDirection: string;
+    where: {
+        category: string;
+    }
+}

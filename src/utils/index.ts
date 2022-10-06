@@ -4,7 +4,7 @@ export * from './erc-1155-item.utils';
 export * from './filters.helper';
 export * from './filters.utils';
 export * from './gotchiverse.utils';
-export * from './graph-filters.helper';
+export * from './graph-filters.helpers';
 export * from './graph-filters.utils';
 export * from './graph.utils';
 export * from './icons.utils';

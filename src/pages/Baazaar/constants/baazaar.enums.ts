@@ -8,5 +8,10 @@ export enum GotchiListingsFilterTypes {
     SpkTrait = 'spkTrait',
     BrnTrait = 'brnTrait',
     EysTrait = 'eysTrait',
-    EycTrait = 'eycTrait',
+    EycTrait = 'eycTrait'
+}
+
+export enum ClosedPortalListingFilterTypes {
+    HauntId = 'hauntId',
+    Price = 'priceInWei',
 }

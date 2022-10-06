@@ -29,7 +29,6 @@ export interface GotchiDTO extends GotchiBase {
     modifiedRarityScore: string;
     numericTraits: number[]; // ?? tuple
     possibleSets: string;
-    timesTraded: string;
     toNextLevel: string;
     usedSkillPoints: string;
     withSetsNumericTraits: number; // ?? tuple
@@ -47,7 +46,6 @@ export interface GotchiVM extends GotchiBase {
     modifiedNumericTraits: number[]; // ?? tuple
     modifiedRarityScore: number;
     possibleSets: number;
-    timesTraded: number;
     toNextLevel: number;
     usedSkillPoints: number;
     withSetsNumericTraits: number; // ?? tuple
@@ -55,5 +53,5 @@ export interface GotchiVM extends GotchiBase {
     listings: {
         id: number;
         priceInWei: string;
-    }[]
+    }[];
 }

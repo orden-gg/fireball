@@ -1,10 +1,11 @@
-import { GraphFiltersDataType, GraphFiltersHelperType, IconName } from 'shared/constants';
+import { FilterDomainType, GraphComparatorOptions, GraphFiltersDataType, GraphFiltersHelperType, IconName } from 'shared/constants';
 
-import { BaseFilter } from './filters.model';
+import { BaseFilter, FilterItemOption } from './filters.model';
 
 export interface GraphRangeSliderFilter extends BaseFilter {
     dataType: GraphFiltersDataType.RangeSliderFilter;
-    graphComparatorOptions: any;
+    filterDomainType: FilterDomainType;
+    graphComparatorOptions: GraphComparatorOptions[];
     min: number;
     max: number;
     value: number[];
@@ -19,25 +20,25 @@ export interface GraphRangeSliderFilter extends BaseFilter {
 
 export interface GraphInputFilter extends BaseFilter {
     dataType: GraphFiltersDataType.InputFilter;
-    graphComparatorOptions: any;
+    filterDomainType: FilterDomainType;
+    graphComparatorOptions: GraphComparatorOptions[];
     placeholder: string;
     value: string;
     helperType?: GraphFiltersHelperType;
 }
 
-// export interface GraphMultiAutocompleteFilter extends BaseFilter {
-//     graphComparatorOption: GraphComparatorOptions;
-//     graphComparatorOptions: any;
-//     items: FilterItemOption[];
-//     value: any;
-//     dataType: GraphFiltersDataType.MultiAutocompleteFilter;
-// }
+export interface GraphMultiButtonSelectionFilter extends BaseFilter {
+    dataType: GraphFiltersDataType.MultiButtonSelection;
+    filterDomainType: FilterDomainType;
+    graphComparatorOptions: GraphComparatorOptions[];
+    items: FilterItemOption[];
+    helperType?: GraphFiltersHelperType;
+}
+
+export type GraphFiltersTypes = GraphRangeSliderFilter | GraphInputFilter | GraphMultiButtonSelectionFilter;
 
 export type GraphRangeSliderFilterValue = number[];
 export type GraphInputFilterValue = string;
+export type GraphMultipleSelectionFilterValue = FilterItemOption[];
+export type GraphFiltersValueTypes = GraphRangeSliderFilterValue | GraphInputFilterValue | GraphMultipleSelectionFilterValue;
 
-export type GraphFiltersValueTypes = GraphRangeSliderFilterValue | GraphInputFilterValue;
-
-export type GraphFiltersTypes = GraphRangeSliderFilter | GraphInputFilter;
-
-// export type GraphFiltersTypes = GraphFiltersTypes1[keyof GraphFiltersTypes1];

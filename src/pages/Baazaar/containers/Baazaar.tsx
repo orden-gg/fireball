@@ -3,7 +3,7 @@ import { PageNav } from 'components/PageNav/PageNav';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PageNavLink } from 'shared/models';
 
-import { BaazaarGotchis } from '../components/BaazaarGotchis/BaazaarGotchis';
+import { BaazaarClosedPortals, BaazaarGotchis } from '../components';
 
 export function Baazaar() {
     const navData: PageNavLink[] = [
@@ -26,7 +26,7 @@ export function Baazaar() {
 
         <Routes>
             <Route path='gotchis' element={<BaazaarGotchis />} />
-            <Route path='portals' element={<div>Baazaar portals</div>} />
+            <Route path='portals' element={<BaazaarClosedPortals />} />
             <Route path='wearables' element={<div>Baazaar wearables</div>} />
             <Route path='*' element={<Navigate to='gotchis' replace />} />
         </Routes>

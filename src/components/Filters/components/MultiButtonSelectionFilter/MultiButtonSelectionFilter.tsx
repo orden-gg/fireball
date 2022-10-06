@@ -1,6 +1,7 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
+import _ from 'lodash';
 import classNames from 'classnames';
 
 import { styles } from './styles';
@@ -13,14 +14,19 @@ interface MultiButtonSelectionFilterProps {
 export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters }: MultiButtonSelectionFilterProps) {
     const classes = styles();
 
-    const [items, setItems] = useState<any[]>([...filter.items]);
+    const [items, setItems] = useState<any[]>([]);
+
+    useEffect(() => {
+        setItems(filter.items);
+    }, [filter.items]);
 
     const onHandleSelectionChange = useCallback((index: number) => {
-        items[index].isSelected = !items[index].isSelected;
+        const itemsCopy = _.cloneDeep(items);
+        itemsCopy[index].isSelected = !itemsCopy[index].isSelected;
 
-        setItems([...items]);
+        setItems([...itemsCopy]);
 
-        const selectedItems: any[] = items.filter(item => item.isSelected);
+        const selectedItems: any[] = itemsCopy.filter(item => item.isSelected);
 
         onSetSelectedFilters(filter.key, selectedItems);
     }, [filter, onSetSelectedFilters, items]);

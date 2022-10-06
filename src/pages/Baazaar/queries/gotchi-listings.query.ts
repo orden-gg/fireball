@@ -1,4 +1,4 @@
-import { GraphQueryParams } from '../store';
+import { GraphQueryParams } from 'shared/models';
 
 export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
@@ -9,8 +9,8 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
             orderDirection: ${graphQueryParams.orderDirection},
             where: {
                 cancelled: false,
-                category: ${graphQueryParams.where.category},
                 timePurchased: "0"
+                category: ${graphQueryParams.where.category},
                 ${whereParams}
             }
         )
@@ -46,6 +46,35 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
                     historicalPrices
                     timesTraded
                     stakedAmount
+                }
+            }
+    }`;
+};
+
+
+export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc721Listings (
+            first: ${graphQueryParams.first},
+            skip: ${graphQueryParams.skip},
+            orderBy: ${graphQueryParams.orderBy},
+            orderDirection: ${graphQueryParams.orderDirection},
+            where: {
+                cancelled: false,
+                timePurchased: "0"
+                category: ${graphQueryParams.where.category},
+                ${whereParams}
+            }
+        )
+            {
+                id,
+                priceInWei,
+                tokenId,
+              	category
+                timeCreated,
+                hauntId,
+              	portal {
+                  historicalPrices
                 }
             }
     }`;

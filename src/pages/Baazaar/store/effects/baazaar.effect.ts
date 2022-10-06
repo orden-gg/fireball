@@ -1,34 +1,27 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersValueTypes, SortingItem } from 'shared/models';
-import { BaazaarGotchiListingDTO, BaazaarGotchiListingVM, GotchiListingsFilters, GotchiListingsFilterType } from 'pages/Baazaar/models';
+import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { BaazaarGotchiListingDTO, BaazaarGotchiListingVM, GotchiListingsFilters, GotchiListingFiltersType } from 'pages/Baazaar/models';
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
 import { GraphFiltersUtils } from 'utils';
 
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    GraphQueryParams,
     setBaazaarGotchiListings,
     setGotchiListingsFilters,
-    setGotchiListingsFilterValueByKey,
     setGotchiListingsSorting,
-    setSkipLimit
+    setGotchiListingsSkipLimit
 } from '../slices';
 import { GotchiListingsFilterTypes } from 'pages/Baazaar/constants';
 
 export const loadBaazaarGotchiListings = (): AppThunk => async (dispatch, getState) => {
-    const gotchiListingsGraphQueryParams: GraphQueryParams = getState().baazaar.gotchiListingsGraphQueryParams;
-    const currentGotchiListings: BaazaarGotchiListingVM[] = getState().baazaar.baazaarGotchiListings;
-    const filters: GotchiListingsFilters = getState().baazaar.gotchiListingsFilters;
+    const gotchiListingsGraphQueryParams: GraphQueryParams = getState().baazaar.baazaar.gotchiListingsGraphQueryParams;
+    const currentGotchiListings: BaazaarGotchiListingVM[] = getState().baazaar.baazaar.baazaarGotchiListings;
+    const filters: GotchiListingsFilters = getState().baazaar.baazaar.gotchiListingsFilters;
 
     let whereParams: string = '';
-    Object.entries(filters).forEach(([_, filter]: [_: string, filter: GotchiListingsFilterType]) => {
+    Object.entries(filters).forEach(([_, filter]: [_: string, filter: GotchiListingFiltersType]) => {
         if (filter.isFilterActive) {
-            filter.graphComparatorOptions.forEach(option => {
-                let value = option.valueIndex !== undefined ? filter.value[option.valueIndex] : filter.value;
-                value = filter.helperType ? GraphFiltersUtils.onHandleFilterHelper(filter.helperType, value) : value;
-
-                whereParams += `\n ${option.key}: ${value}`;
-            });
+            whereParams += GraphFiltersUtils.getGraphWhereParam(filter);
         }
     });
 
@@ -44,7 +37,7 @@ export const loadBaazaarGotchiListings = (): AppThunk => async (dispatch, getSta
 
 export const updateGotchiListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
     dispatch(setGotchiListingsSorting(sortings));
-    dispatch(setSkipLimit(0));
+    dispatch(setGotchiListingsSkipLimit(0));
     dispatch(setBaazaarGotchiListings([]));
     dispatch(loadBaazaarGotchiListings());
 };
@@ -52,28 +45,28 @@ export const updateGotchiListingsSorting = (sortings: SortingItem): AppThunk => 
 export const updateGotchiListingsFilterByKey =
     ({ key, value }: { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
         async (dispatch, getState) => {
-            const filters: GotchiListingsFilters = getState().baazaar.gotchiListingsFilters;
+            const filters: GotchiListingsFilters = getState().baazaar.baazaar.gotchiListingsFilters;
 
             const updatedFilter = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-            dispatch(setGotchiListingsFilterValueByKey({ key, value: updatedFilter.value, isFilterActive: updatedFilter.isFilterActive }));
-            dispatch(setSkipLimit(0));
+            dispatch(setGotchiListingsFilters({ ...filters, [key]: updatedFilter }));
+            dispatch(setGotchiListingsSkipLimit(0));
             dispatch(setBaazaarGotchiListings([]));
             dispatch(loadBaazaarGotchiListings());
         };
 
 export const resetGotchiListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
-        const filters: GotchiListingsFilters = getState().baazaar.gotchiListingsFilters;
+        const filters: GotchiListingsFilters = getState().baazaar.baazaar.gotchiListingsFilters;
 
         const updatedFilters = Object.fromEntries(
-            Object.entries(filters).map(([_, filter]: [_: string, filter: GotchiListingsFilterType]) =>
+            Object.entries(filters).map(([_, filter]: [_: string, filter: GotchiListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
         );
 
         dispatch(setGotchiListingsFilters(updatedFilters));
-        dispatch(setSkipLimit(0));
+        dispatch(setGotchiListingsSkipLimit(0));
         dispatch(setBaazaarGotchiListings([]));
         dispatch(loadBaazaarGotchiListings());
     };
@@ -96,7 +89,6 @@ const mapGotchisDTOToVM = (listings: BaazaarGotchiListingDTO[]): BaazaarGotchiLi
             level: Number(listing.gotchi.level),
             modifiedRarityScore: Number(listing.gotchi.modifiedRarityScore),
             possibleSets: Number(listing.gotchi.possibleSets),
-            timesTraded: Number(listing.gotchi.timesTraded),
             toNextLevel: Number(listing.gotchi.toNextLevel),
             usedSkillPoints: Number(listing.gotchi.usedSkillPoints),
             withSetsRarityScore: Number(listing.gotchi.withSetsRarityScore),

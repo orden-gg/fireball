@@ -8,7 +8,7 @@ import ScienceIcon from '@mui/icons-material/Science';
 
 import { SortingListItem } from 'shared/models';
 
-export const sortings: SortingListItem[] = [
+export const gotchiListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
@@ -50,5 +50,26 @@ export const sortings: SortingListItem[] = [
         key: 'experience',
         tooltip: 'experience',
         icon: <ScienceIcon fontSize='small' />
+    }
+];
+
+export const closedPortalsListingsSortings: SortingListItem[] = [
+    {
+        name: 'price',
+        key: 'priceInWei',
+        tooltip: 'price',
+        icon: <AttachMoneyIcon fontSize='small' />
+    },
+    {
+        name: 'time created',
+        key: 'timeCreated',
+        tooltip: 'time created',
+        icon: <AccessTimeIcon fontSize='small' />
+    },
+    {
+        name: 'id',
+        key: 'tokenId',
+        tooltip: 'portal id',
+        icon: <Grid3x3Icon fontSize='small' />
     }
 ];

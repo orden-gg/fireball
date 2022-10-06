@@ -1,7 +1,7 @@
-import { FilterComponentType, GraphComparatorOptions, GraphFiltersDataType, GraphFiltersHelperType, IconName } from 'shared/constants';
-import { GotchiListingsFilterTypes } from '../constants';
+import { FilterComponentType, FilterDomainType, GraphComparatorOptions, GraphFiltersDataType, GraphFiltersHelperType, IconName } from 'shared/constants';
+import { ClosedPortalListingFilterTypes, GotchiListingsFilterTypes } from '../constants';
 
-import { GotchiListingsFilters } from '../models';
+import { GotchiListingsFilters, ClosedPortalListingFilters } from '../models';
 
 export const gotchiListingsFiltersData: GotchiListingsFilters = {
     [GotchiListingsFilterTypes.BRS]: {
@@ -11,13 +11,10 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         placeholder: 'min BRS',
         componentType: FilterComponentType.Input,
         dataType: GraphFiltersDataType.InputFilter,
+        filterDomainType: FilterDomainType.SingleRange,
         isFilterActive: false,
         value: '',
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.BRS]}_${GraphComparatorOptions.GTE}`
-            }
-        ],
+        graphComparatorOptions: [GraphComparatorOptions.GTE],
         divider: true
     },
     [GotchiListingsFilterTypes.Kinship]: {
@@ -27,13 +24,10 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         placeholder: 'min kin',
         componentType: FilterComponentType.Input,
         dataType: GraphFiltersDataType.InputFilter,
+        filterDomainType: FilterDomainType.SingleRange,
         isFilterActive: false,
         value: '',
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.Kinship]}_${GraphComparatorOptions.GTE}`
-            }
-        ],
+        graphComparatorOptions: [GraphComparatorOptions.GTE],
         divider: true
     },
     [GotchiListingsFilterTypes.Experience]: {
@@ -43,13 +37,10 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         placeholder: 'min exp',
         componentType: FilterComponentType.Input,
         dataType: GraphFiltersDataType.InputFilter,
+        filterDomainType: FilterDomainType.SingleRange,
         isFilterActive: false,
         value: '',
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.Experience]}_${GraphComparatorOptions.GTE}`
-            }
-        ],
+        graphComparatorOptions: [GraphComparatorOptions.GTE],
         divider: true
     },
     [GotchiListingsFilterTypes.Price]: {
@@ -58,16 +49,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         title: 'price (ghst)',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.Price]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.Price]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: 0,
         max: 1000000,
@@ -82,16 +65,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'nrg',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.NrgTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.NrgTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -106,16 +81,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'agg',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.AggTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.AggTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -130,16 +97,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'spk',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.SpkTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.SpkTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -154,16 +113,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'brn',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.BrnTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.BrnTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -178,16 +129,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'eys',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.EysTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.EysTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -202,16 +145,8 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         queryParamKey: 'eyc',
         componentType: FilterComponentType.RangeSlider,
         dataType: GraphFiltersDataType.RangeSliderFilter,
-        graphComparatorOptions: [
-            {
-                key: `${[GotchiListingsFilterTypes.EycTrait]}_${GraphComparatorOptions.GTE}`,
-                valueIndex: 0
-            },
-            {
-                key: `${[GotchiListingsFilterTypes.EycTrait]}_${GraphComparatorOptions.LTE}`,
-                valueIndex: 1
-            }
-        ],
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
         isFilterActive: false,
         min: -20,
         max: 120,
@@ -219,5 +154,48 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         isShowIcon: true,
         iconName: IconName.EyeColor,
         iconProps: { width: 20, height: 20 }
+    }
+};
+
+export const closedPortalListingsFiltersData: ClosedPortalListingFilters = {
+    [ClosedPortalListingFilterTypes.HauntId]: {
+        key: `${[ClosedPortalListingFilterTypes.HauntId]}`,
+        queryParamKey: 'haunt',
+        title: 'Haunt',
+        componentType: FilterComponentType.MultiButtonSelection,
+        dataType: GraphFiltersDataType.MultiButtonSelection,
+        filterDomainType: FilterDomainType.Equals,
+        graphComparatorOptions: [GraphComparatorOptions.IN],
+        items: [
+            {
+                title: 'Haunt 1',
+                value: '1',
+                isSelected: false,
+                queryParamValue: '1'
+            },
+            {
+                title: 'Haunt 2',
+                value: '2',
+                isSelected: false,
+                queryParamValue: '2'
+            }
+        ],
+        isFilterActive: false,
+        helperType: GraphFiltersHelperType.Price
+    },
+    [ClosedPortalListingFilterTypes.Price]: {
+        key: `${[ClosedPortalListingFilterTypes.Price]}`,
+        queryParamKey: 'price',
+        title: 'price (ghst)',
+        componentType: FilterComponentType.RangeSlider,
+        dataType: GraphFiltersDataType.RangeSliderFilter,
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
+        isFilterActive: false,
+        min: 0,
+        max: 1000000,
+        value: [0, 1000000],
+        isShowIcon: false,
+        helperType: GraphFiltersHelperType.Price
     }
 };

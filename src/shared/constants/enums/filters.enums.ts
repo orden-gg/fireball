@@ -7,7 +7,8 @@ export enum FilterComponentType {
     SingleAutocomplete = 'SingleAutocomplete'
 }
 
-export enum GraphFiltersDataType {
-    RangeSliderFilter = 'RangeSliderFilter',
-    InputFilter = 'InputFilter',
+export enum FilterDomainType {
+    Equals,
+    Range,
+    SingleRange
 }

@@ -17,10 +17,10 @@ const NoContent = styled.div`
 interface ItemsLazyProps {
     items: any[];
     component: (props: any) => JSX.Element;
-    onHandleEndReached?: () => void;
+    onHandleReachedEnd?: () => void;
 }
 
-export function ItemsLazy({ items, component, onHandleEndReached }: ItemsLazyProps) {
+export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyProps) {
     const gridRef = useRef<any>(null);
 
     useEffect(() => {
@@ -51,8 +51,8 @@ export function ItemsLazy({ items, component, onHandleEndReached }: ItemsLazyPro
 
     const onEndReached = (index: number) => {
         if (index === items.length - 1) {
-            if (onHandleEndReached) {
-                onHandleEndReached();
+            if (onHandleReachedEnd) {
+                onHandleReachedEnd();
             }
         }
     };

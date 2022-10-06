@@ -4,7 +4,6 @@ import { GotchiDTO, GotchiVM } from 'shared/models';
 export interface BaazaarGotchiListingBase {
     gotchi: GotchiDTO;
     priceInWei: string;
-    portal: Nullable<any>;
     __typename: TypenameType;
 }
 

@@ -8,6 +8,12 @@ export enum GraphComparatorOptions {
     NOT_IN = 'not_in'
 }
 
+export enum GraphFiltersDataType {
+    RangeSliderFilter = 'RangeSliderFilter',
+    InputFilter = 'InputFilter',
+    MultiButtonSelection = 'MultiButtonSelection'
+}
+
 export enum GraphFiltersHelperType {
     Price = 'Price'
 }
