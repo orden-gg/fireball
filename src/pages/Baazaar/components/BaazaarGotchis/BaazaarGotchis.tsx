@@ -15,16 +15,16 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
 
 import { GotchiListingsFilterTypes } from '../../constants';
-import { BaazaarGotchiListingVM, GotchiListingsFilters } from '../../models';
+import { GotchiListingVM, GotchiListingsFilters } from '../../models';
 import {
-    getBaazaarGotchiListings,
-    getGotchiListingsFilters,
-    getGotchiListingsGraphQueryParams,
-    getGotchiListingsSorting,
-    getGotchiListingsLimitPerLoad,
+    getGotchisListings,
+    getGotchisListingsFilters,
+    getGotchisListingsGraphQueryParams,
+    getGotchisListingsSorting,
+    getGotchisListingsLimitPerLoad,
     loadBaazaarGotchiListings,
     resetGotchiListingsFilters,
-    setGotchiListingsSkipLimit,
+    setGotchisListingsSkipLimit,
     updateGotchiListingsFilterByKey,
     updateGotchiListingsSorting
 } from '../../store';
@@ -36,11 +36,11 @@ export function BaazaarGotchis() {
     const classes = styles();
 
     const dispatch = useAppDispatch();
-    const baazaarGotchiListings: BaazaarGotchiListingVM[] = useAppSelector(getBaazaarGotchiListings);
-    const gotchiListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchiListingsGraphQueryParams);
-    const gotchiListingsSorting: SortingItem = useAppSelector(getGotchiListingsSorting);
-    const gotchiListingsFilters: GotchiListingsFilters = useAppSelector(getGotchiListingsFilters);
-    const listingsLimitPerLoad: number = useAppSelector(getGotchiListingsLimitPerLoad);
+    const gotchiListings: GotchiListingVM[] = useAppSelector(getGotchisListings);
+    const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchisListingsGraphQueryParams);
+    const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
+    const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(getGotchisListingsFilters);
+    const listingsLimitPerLoad: number = useAppSelector(getGotchisListingsLimitPerLoad);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateGotchiListingsSorting({ type: sortBy, dir: sortDir }));
@@ -51,7 +51,7 @@ export function BaazaarGotchis() {
     }, []);
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setGotchiListingsSkipLimit(gotchiListingsGraphQueryParams.skip + listingsLimitPerLoad));
+        dispatch(setGotchisListingsSkipLimit(gotchisListingsGraphQueryParams.skip + listingsLimitPerLoad));
 
         dispatch(loadBaazaarGotchiListings());
     };
@@ -71,18 +71,18 @@ export function BaazaarGotchis() {
                 <SortFilterPanel
                     sorting={{
                         sortingList: gotchiListingsSortings,
-                        sortingDefaults: gotchiListingsSorting,
+                        sortingDefaults: gotchisListingsSorting,
                         onSortingChange: onSortingChange
                     }}
-                    itemsLength={baazaarGotchiListings.length}
+                    itemsLength={gotchiListings.length}
                     placeholder={
                         <GotchiIcon width={20} height={20} />
                     }
                 />
                 <ContentInner dataLoading={false}>
                     <ItemsLazy
-                        items={baazaarGotchiListings}
-                        component={(gotchiListing: BaazaarGotchiListingVM) => <Aavegotchi item={gotchiListing} />}
+                        items={gotchiListings}
+                        component={(gotchiListing: GotchiListingVM) => <Aavegotchi item={gotchiListing} />}
                         onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>
@@ -90,7 +90,7 @@ export function BaazaarGotchis() {
             <>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
-                    filters={gotchiListingsFilters}
+                    filters={gotchisListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
                 />
 

@@ -1,20 +1,20 @@
 import { TypenameType } from 'shared/constants';
 import { GotchiDTO, GotchiVM } from 'shared/models';
 
-export interface BaazaarGotchiListingBase {
+export interface GotchiListingBase {
     gotchi: GotchiDTO;
     priceInWei: string;
     __typename: TypenameType;
 }
 
-export interface BaazaarGotchiListingDTO extends BaazaarGotchiListingBase {
+export interface GotchiListingDTO extends GotchiListingBase {
     hauntId: string;
     id: string;
     timeCreated: string;
     tokenId: string;
 }
 
-export interface BaazaarGotchiListingVM extends Omit<BaazaarGotchiListingBase, 'gotchi'> {
+export interface GotchiListingVM extends Omit<GotchiListingBase, 'gotchi'> {
     gotchi: GotchiVM;
     hauntId: number;
     id: number;

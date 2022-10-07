@@ -1,2 +1,2 @@
 export * from './closed-portals-listings.effect';
-export * from './baazaar.effect';
+export * from './gotchi-listings.effect';

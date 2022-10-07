@@ -1,1 +1,1 @@
-export * from './gotchi-listings.query';
+export * from './baazaar-listings.query';
