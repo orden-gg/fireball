@@ -3,6 +3,7 @@ export enum GotchiListingsFilterTypes {
     Kinship = 'kinship',
     Experience = 'experience',
     Price = 'priceInWei',
+    Collateral = 'collateral',
     NrgTrait = 'nrgTrait',
     AggTrait = 'aggTrait',
     SpkTrait = 'spkTrait',

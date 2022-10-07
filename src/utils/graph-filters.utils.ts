@@ -98,7 +98,7 @@ export class GraphFiltersUtils {
                         param = `\n ${filter.key}_${filter.graphComparatorOptions[0]}: [${
                             filter.items
                                 .filter((item: FilterItemOption) => item.isSelected)
-                                .map((item: FilterItemOption) => item.value)
+                                .map((item: FilterItemOption) => `"${item.value}"`)
                         }]`;
 
                         break;

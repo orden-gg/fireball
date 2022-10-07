@@ -1,4 +1,6 @@
+import { collaterals } from 'data/collaterals.data';
 import { FilterComponentType, FilterDomainType, GraphComparatorOptions, GraphFiltersDataType, GraphFiltersHelperType, IconName } from 'shared/constants';
+import { CollateralData } from 'shared/models';
 import { ClosedPortalListingFilterTypes, GotchiListingsFilterTypes } from '../constants';
 
 import { GotchiListingsFilters, ClosedPortalListingFilters } from '../models';
@@ -41,6 +43,23 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         isFilterActive: false,
         value: '',
         graphComparatorOptions: [GraphComparatorOptions.GTE],
+        divider: true
+    },
+    [GotchiListingsFilterTypes.Collateral]: {
+        key: `${[GotchiListingsFilterTypes.Collateral]}`,
+        queryParamKey: 'collateral',
+        title: 'Collateral',
+        componentType: FilterComponentType.MultiButtonSelection,
+        dataType: GraphFiltersDataType.MultiButtonSelection,
+        filterDomainType: FilterDomainType.Equals,
+        graphComparatorOptions: [GraphComparatorOptions.IN],
+        isFilterActive: false,
+        items: collaterals.map((collateral: CollateralData) => ({
+            title: collateral.name,
+            value: collateral.address,
+            isSelected: false,
+            queryParamValue: collateral.name.toLowerCase()
+        })),
         divider: true
     },
     [GotchiListingsFilterTypes.Price]: {

@@ -1,4 +1,4 @@
-import { GraphInputFilter, GraphRangeSliderFilter } from 'shared/models';
+import { GraphInputFilter, GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
 import { GotchiListingsFilterTypes } from '../constants';
 
@@ -7,6 +7,7 @@ export interface GotchiListingsFilters {
     [GotchiListingsFilterTypes.Kinship]: GraphInputFilter;
     [GotchiListingsFilterTypes.Experience]: GraphInputFilter;
     [GotchiListingsFilterTypes.Price]: GraphRangeSliderFilter;
+    [GotchiListingsFilterTypes.Collateral]: GraphMultiButtonSelectionFilter;
     [GotchiListingsFilterTypes.NrgTrait]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.AggTrait]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.SpkTrait]: GraphRangeSliderFilter;
