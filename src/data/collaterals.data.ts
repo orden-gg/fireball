@@ -77,7 +77,7 @@ export const collaterals: CollateralData[] = [
     {
         name: 'amWBTC',
         address: '0x5c2ed810328349100a66b82b78a1791b101c9d61',
-        decimals: 6
+        decimals: 8
     },
     {
         name: 'amUSDC',
