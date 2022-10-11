@@ -1,5 +1,5 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
 import { GotchiListingDTO, GotchiListingVM, GotchiListingsFilters, GotchiListingFiltersType } from 'pages/Baazaar/models';
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
 import { GraphFiltersUtils } from 'utils';
@@ -47,7 +47,7 @@ export const updateGotchiListingsFilterByKey =
         async (dispatch, getState) => {
             const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
 
-            const updatedFilter = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
+            const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setGotchisListingsFilters({ ...filters, [key]: updatedFilter }));
             dispatch(setGotchisListingsSkipLimit(0));

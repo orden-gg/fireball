@@ -16,3 +16,12 @@ export enum ClosedPortalListingFilterTypes {
     HauntId = 'hauntId',
     Price = 'priceInWei',
 }
+
+export enum WearableListingFilterTypes {
+    RarityLevel = 'rarityLevel',
+    Price = 'priceInWei',
+    NrgTraitModifier = 'nrgTraitModifier',
+    AggTraitModifier = 'aggTraitModifier',
+    SpkTraitModifier = 'spkTraitModifier',
+    BrnTraitModifier = 'brnTraitModifier'
+}

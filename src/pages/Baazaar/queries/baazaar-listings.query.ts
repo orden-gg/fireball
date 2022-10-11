@@ -51,7 +51,6 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
     }`;
 };
 
-
 export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
@@ -76,6 +75,31 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
               	portal {
                   historicalPrices
                 }
+            }
+    }`;
+};
+
+export const getBaazaarWearablesListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc1155Listings (
+            first: ${graphQueryParams.first},
+            skip: ${graphQueryParams.skip},
+            orderBy: ${graphQueryParams.orderBy},
+            orderDirection: ${graphQueryParams.orderDirection},
+            where: {
+                category: ${graphQueryParams.where.category},
+                cancelled: false,
+                sold: false,
+                ${whereParams}
+            })
+            {
+                id,
+                priceInWei,
+                category,
+                timeCreated,
+                quantity,
+                rarityLevel,
+                erc1155TypeId
             }
     }`;
 };

@@ -1,11 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { DataReloadContextState, PageNavLink, SortingItem } from 'shared/models';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
@@ -192,10 +191,6 @@ export const ClientContextProvider = (props: any) => {
 
             setWarehouse((existing: any[]) => CommonUtils.basicSort(
                 [...existing, ...wearables].reduce((items: any[], current: any) => {
-                    const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS
-                        .find((benefit: WearableTypeBenefit) =>
-                            benefit.ids.some((id: number) => id === current.id)
-                        );
                     const duplicated: any = items.find((item: any) => item.id === current.id);
 
                     if (duplicated) {
@@ -208,10 +203,9 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat({
                         ...current,
                         benefit: {
-                            first: wearableTypeBenefit?.benefit.first,
-                            second: wearableTypeBenefit?.benefit.second
+                            ...ItemUtils.getWearableBenefitsById(current.id)
                         },
-                        itemType: wearableTypeBenefit?.type
+                        itemType: ItemUtils.getWearableTypeById(current.id)
                     });
                 }, []), wSortType, wSortDir));
 
@@ -297,10 +291,6 @@ export const ClientContextProvider = (props: any) => {
             setWarehouse((existing: any[]) => CommonUtils.basicSort(
                 [...existing, ...modified].reduce((items, current) => {
                     const duplicated = items.find((item: any) => item.id === current.id);
-                    const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS
-                        .find((benefit: WearableTypeBenefit) =>
-                            benefit.ids.some((id: number) => id === current.id)
-                        );
 
                     if (duplicated) {
                         duplicated.balance += current.balance;
@@ -312,10 +302,9 @@ export const ClientContextProvider = (props: any) => {
                     return items.concat({
                         ...current,
                         benefit: {
-                            first: wearableTypeBenefit?.benefit.first,
-                            second: wearableTypeBenefit?.benefit.second
+                            ...ItemUtils.getWearableBenefitsById(current.id)
                         },
-                        itemType: wearableTypeBenefit?.type
+                        itemType: ItemUtils.getWearableTypeById(current.id)
                     });
                 }, []), type, dir));
 

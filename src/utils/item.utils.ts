@@ -1,6 +1,14 @@
 import _ from 'lodash';
 
-import { ItemTypeNames, ItemTypes, RarityTypes, SetTypes, WearableTypes, WEARABLE_SLOTS } from 'shared/constants';
+import {
+    ItemTypeNames,
+    ItemTypes,
+    RarityTypes,
+    SetTypes,
+    WearableBenefitIndex,
+    WearableTypes,
+    WEARABLE_SLOTS
+} from 'shared/constants';
 import { AggressionIcon, BrainIcon, EnergyIcon, EyeColorIcon, EyeShapeIcon, SpookinessIcon } from 'components/Icons/Icons';
 
 import items from 'data/items.data.json';
@@ -52,6 +60,17 @@ export class ItemUtils {
             default:
                 return 'unknown';
         }
+    }
+
+    public static getWearableTypeById(id: number | string): string {
+        return items[id][ItemTypes.WearableType];
+    }
+
+    public static getWearableBenefitsById(id: number | string): { first: string; second: string } {
+        return {
+            first: items[id][ItemTypes.WearableBenefitType][WearableBenefitIndex.First],
+            second: items[id][ItemTypes.WearableBenefitType][WearableBenefitIndex.Second]
+        };
     }
 
     public static getTypeNameById(id: number | string): string {

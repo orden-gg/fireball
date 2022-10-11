@@ -1,9 +1,10 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import GrainIcon from '@mui/icons-material/Grain';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import ScienceIcon from '@mui/icons-material/Science';
 
 import { SortingListItem } from 'shared/models';
@@ -71,5 +72,27 @@ export const closedPortalsListingsSortings: SortingListItem[] = [
         key: 'tokenId',
         tooltip: 'portal id',
         icon: <Grid3x3Icon fontSize='small' />
+    }
+];
+
+export const wearablesListingsSortings: SortingListItem[] = [
+    {
+        name: 'rarity',
+        key: 'rarityLevel',
+        paramKey: 'rarity',
+        tooltip: 'rarity',
+        icon: <GrainIcon fontSize='small' />
+    },
+    {
+        name: 'price',
+        key: 'priceInWei',
+        tooltip: 'price',
+        icon: <AttachMoneyIcon fontSize='small' />
+    },
+    {
+        name: 'time created',
+        key: 'timeCreated',
+        tooltip: 'time created',
+        icon: <AccessTimeIcon fontSize='small' />
     }
 ];

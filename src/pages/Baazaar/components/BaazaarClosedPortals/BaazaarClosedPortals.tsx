@@ -84,19 +84,19 @@ export function BaazaarClosedPortals() {
                 <ContentInner dataLoading={false}>
                     <ItemsLazy
                         items={closedPortalsListings}
-                        component={(portal: ClosedPortalListingVM) =>
-                            <div className={classes.listItem} key={portal.tokenId}>
-                                <ItemCard type={`haunt${portal.hauntId}`} id={portal.id} category={portal.category}>
+                        component={(portalListing: ClosedPortalListingVM) =>
+                            <div className={classes.listItem} key={portalListing.tokenId}>
+                                <ItemCard type={`haunt${portalListing.hauntId}`} id={portalListing.id} category={portalListing.category}>
                                     <CardGroup name='body'>
-                                        <CardSlot>{`Haunt ${portal.hauntId}`}</CardSlot>
-                                        <CardPortalImage category={portal.category} hauntId={portal.hauntId} />
-                                        <CardName>{`Portal ${portal.tokenId}`}</CardName>
+                                        <CardSlot>{`Haunt ${portalListing.hauntId}`}</CardSlot>
+                                        <CardPortalImage category={portalListing.category} hauntId={portalListing.hauntId} />
+                                        <CardName>{`Portal ${portalListing.tokenId}`}</CardName>
                                     </CardGroup>
                                     <CardGroup name='footer'>
                                         <CardERC721Listing
-                                            activeListing={portal.id}
-                                            listings={portal.listings}
-                                            historicalPrices={portal.historicalPrices}
+                                            activeListing={portalListing.id}
+                                            listings={portalListing.listings}
+                                            historicalPrices={portalListing.historicalPrices}
                                         />
                                     </CardGroup>
                                 </ItemCard>

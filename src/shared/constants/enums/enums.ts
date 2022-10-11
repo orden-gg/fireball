@@ -163,6 +163,16 @@ export enum RarityTypes {
     Drop = 'drop'
 }
 
+export enum RarityNumberTypes {
+    Common,
+    Uncommon,
+    Rare,
+    Legendary,
+    Mythical,
+    Godlike,
+    Drop
+}
+
 export enum DataReloadType {
     Client = 'client',
     Lend = 'lend',
