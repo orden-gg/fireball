@@ -97,7 +97,6 @@ export type Erc1155ItemTuple = [
 export interface Erc1155Listing {
     id: number | null;
     price: number;
-    lastPurchased: number | null;
 }
 
 export interface Erc1155SoldListing extends Erc1155Listing {

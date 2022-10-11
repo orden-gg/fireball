@@ -94,13 +94,11 @@ const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldLis
             traitModifiers: ItemUtils.getTraitModifiersById(listing.erc1155TypeId),
             currentListing: {
                 id: Number(listing.id),
-                price: EthersApi.fromWei(listing.priceInWei),
-                lastPurchased: listing.timeLastPurchased ? Number(listing.timeLastPurchased) : 0
+                price: EthersApi.fromWei(listing.priceInWei)
             },
             lastSoldListing: {
                 id: lastSoldListing[0] ? Number(lastSoldListing[0].id) : null,
                 price: lastSoldListing[0] ? Number(EthersApi.fromWei(lastSoldListing[0].priceInWei)) : 0,
-                lastPurchased: lastSoldListing[0] ? Number(lastSoldListing[0].timeLastPurchased) : null,
                 soldDate: lastSoldListing[0]?.timeLastPurchased ?
                     new Date(Number(lastSoldListing[0].timeLastPurchased) * 1000).toJSON() :
                     null

@@ -106,7 +106,6 @@ export function BaazaarWearables() {
                                     <CardListing
                                         currentListing={wearableListing.currentListing}
                                         lastSoldListing={wearableListing.lastSoldListing}
-                                        lastSoldDate={wearableListing.lastSoldListing?.soldDate}
                                     />
                                 </CardGroup>
                             </ItemCard>

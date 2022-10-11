@@ -27,15 +27,13 @@ export const loadWearableListings = (wearablesIds: number[]): AppThunk => async 
                 lastSoldListing: {
                     id: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].id) : null,
                     price: lastSoldListings[key][0] ? Number(EthersApi.fromWei(lastSoldListings[key][0].priceInWei)) : 0,
-                    lastPurchased: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].timeLastPurchased) : null,
                     soldDate: lastSoldListings[key][0]?.timeLastPurchased ?
                         new Date(Number(lastSoldListings[key][0].timeLastPurchased) * 1000).toJSON() :
                         null
                 },
                 currentListing: {
                     id: currentListings[key][0] ? Number(currentListings[key][0].id) : null,
-                    price: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0].priceInWei)) : 0,
-                    lastPurchased: currentListings[key][0] ? Number(currentListings[key][0].timeLastPurchased) : null
+                    price: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0].priceInWei)) : 0
                 },
                 listingPrice: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0
             };
