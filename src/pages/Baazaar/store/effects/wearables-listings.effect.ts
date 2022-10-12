@@ -16,7 +16,7 @@ import {
 } from '../slices';
 
 export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, getState) => {
-    const gotchisListingsGraphQueryParams: GraphQueryParams = getState().baazaar.wearables.wearablesListingsGraphQueryParams;
+    const wearablesListingsGraphQueryParams: GraphQueryParams = getState().baazaar.wearables.wearablesListingsGraphQueryParams;
     const currentWearablesListings: WearableListingVM[] = getState().baazaar.wearables.wearablesListings;
     const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
 
@@ -27,7 +27,7 @@ export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, get
         }
     });
 
-    const query = getBaazaarWearablesListingsQuery(gotchisListingsGraphQueryParams, whereParams);
+    const query = getBaazaarWearablesListingsQuery(wearablesListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getWearablesListings(query)
         .then((wearablesListings: WearableListingDTO[]) => {

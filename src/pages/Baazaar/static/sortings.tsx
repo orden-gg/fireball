@@ -96,3 +96,25 @@ export const wearablesListingsSortings: SortingListItem[] = [
         icon: <AccessTimeIcon fontSize='small' />
     }
 ];
+
+export const consumablesListingsSortings: SortingListItem[] = [
+    {
+        name: 'rarity',
+        key: 'rarityLevel',
+        paramKey: 'rarity',
+        tooltip: 'rarity',
+        icon: <GrainIcon fontSize='small' />
+    },
+    {
+        name: 'price',
+        key: 'priceInWei',
+        tooltip: 'price',
+        icon: <AttachMoneyIcon fontSize='small' />
+    },
+    {
+        name: 'time created',
+        key: 'timeCreated',
+        tooltip: 'time created',
+        icon: <AccessTimeIcon fontSize='small' />
+    }
+];

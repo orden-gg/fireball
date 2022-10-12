@@ -25,3 +25,12 @@ export enum WearableListingFilterTypes {
     SpkTraitModifier = 'spkTraitModifier',
     BrnTraitModifier = 'brnTraitModifier'
 }
+
+export enum ConsumableListingFilterTypes {
+    RarityLevel = 'rarityLevel',
+    Price = 'priceInWei',
+    NrgTraitModifier = 'nrgTraitModifier',
+    AggTraitModifier = 'aggTraitModifier',
+    SpkTraitModifier = 'spkTraitModifier',
+    BrnTraitModifier = 'brnTraitModifier'
+}
