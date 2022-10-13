@@ -32,7 +32,7 @@ export function CardImage({ id, category, className }: CardImageProps) {
                 name = TilesUtils.getNameById(id);
                 url = TilesUtils.getImageById(id);
                 break;
-            case Erc1155Categories.Realm:
+            case Erc1155Categories.Installation:
                 name = InstallationsUtils.getNameById(id);
                 url = InstallationsUtils.getImageById(id);
                 break;

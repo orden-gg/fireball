@@ -30,7 +30,7 @@ export enum Erc1155Categories {
     Wearable = '0',
     Consumable = '2',
     Ticket = '3',
-    Realm = '4',
+    Installation = '4',
     Tile = '5'
 }
 
@@ -39,7 +39,7 @@ export enum Erc1155NumberCategories {
     Badge = 1,
     Consumable = 2,
     Ticket = 3,
-    Realm = 4,
+    Installation = 4,
     Tile = 5
 }
 

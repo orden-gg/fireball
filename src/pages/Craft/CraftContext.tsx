@@ -12,13 +12,13 @@ export const CraftContextProvider = (props: any) => {
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
     const [accountAddress, setAccountAddress] = useState<string>('');
     const [tokensApprovals, setTokenApprovals] = useState<any>({
-        [Erc1155Categories.Realm]: [],
+        [Erc1155Categories.Installation]: [],
         [Erc1155Categories.Tile]: []
     });
     const [isAlchemicaApproved, setIsAlchemicaApproved] = useState<boolean>(false);
     const [selectedItem, setSelectedItem] = useState<any>({});
     const [isItemSelected, setIsItemSelected] = useState<boolean>(false);
-    const [category, setCategory] = useState<string>(Erc1155Categories.Realm);
+    const [category, setCategory] = useState<string>(Erc1155Categories.Installation);
     const [maxCraftAmount, setMaxCraftAmount] = useState<number>(1);
 
     const { tokens } = useContext<any>(BalancesContext);
@@ -68,7 +68,7 @@ export const CraftContextProvider = (props: any) => {
                 ]);
 
                 setTokenApprovals({
-                    [Erc1155Categories.Realm]: installationApprovals,
+                    [Erc1155Categories.Installation]: installationApprovals,
                     [Erc1155Categories.Tile]: tileApprovals
                 });
             })();

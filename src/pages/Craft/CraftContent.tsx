@@ -48,7 +48,7 @@ export function CraftContent() {
                 .map((data: any[], index: number) => ({
                     ...InstallationsUtils.getMetadataById(index),
                     id: index,
-                    category: Erc1155Categories.Realm,
+                    category: Erc1155Categories.Installation,
                     deprecated: data[InstallationTypes.Deprecated]
                 })).filter((item: any) =>
                     item.level === 1 &&

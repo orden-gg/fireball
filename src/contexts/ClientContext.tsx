@@ -347,7 +347,7 @@ export const ClientContextProvider = (props: any) => {
                         balance: EthersApi.formatBigNumber(item.balance._hex),
                         id: id,
                         level: InstallationsUtils.getLevelById(id),
-                        category: Erc1155Categories.Realm,
+                        category: Erc1155Categories.Installation,
                         rarity: InstallationsUtils.getRarityById(id),
                         deprecated: InstallationsUtils.getDeprecatedById(id)
                     };
