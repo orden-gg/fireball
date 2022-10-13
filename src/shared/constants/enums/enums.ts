@@ -22,7 +22,8 @@ export enum BaazaarFilteringTypes {
 export enum Erc721Categories {
     ClosedPortal = '0',
     OpenedPortal = '2',
-    Aavegotchi = '3'
+    Aavegotchi = '3',
+    Realm = '4'
 }
 
 export enum Erc1155Categories {

@@ -35,6 +35,14 @@ export interface GraphMultiButtonSelectionFilter extends BaseFilter {
     helperType?: GraphFiltersHelperType;
 }
 
+export interface GraphMultiAutocompleteFilter extends BaseFilter {
+    dataType: GraphFiltersDataType.MultiAutocomplete;
+    filterDomainType: FilterDomainType;
+    graphComparatorOptions: GraphComparatorOptions[];
+    items: FilterItemOption[];
+    helperType?: GraphFiltersHelperType;
+}
+
 export type GraphFiltersTypes = GraphRangeSliderFilter | GraphInputFilter | GraphMultiButtonSelectionFilter;
 
 export type GraphRangeSliderFilterValue = number[];

@@ -5,64 +5,63 @@ import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
-import { Aavegotchi } from 'pages/BaazaarOld/components/BaazaarSidebar/components/ItemTypes/Aavegotchi';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
-import { GotchiIcon } from 'components/Icons/Icons';
+import { KekIcon } from 'components/Icons/Icons';
+import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
-
-import { GotchiListingsFilterTypes } from '../../constants';
-import { GotchiListingVM, GotchiListingsFilters } from '../../models';
+import { ParcelListingFilterTypes } from '../../constants';
+import { ParcelListingVM, ParcelListingFilters } from '../../models';
 import {
-    getGotchisListings,
-    getGotchisListingsFilters,
-    getGotchisListingsGraphQueryParams,
-    getGotchisListingsSorting,
-    getGotchisListingsLimitPerLoad,
-    loadBaazaarGotchiListings,
-    resetGotchiListingsFilters,
-    setGotchisListingsSkipLimit,
-    updateGotchiListingsFilterByKey,
-    updateGotchiListingsSorting
+    getParcelsListings,
+    getParcelsListingsFilters,
+    getParcelsListingsGraphQueryParams,
+    getParcelsListingsSorting,
+    getParcelsListingsLimitPerLoad,
+    loadBaazaarParcelsListings,
+    resetParcelsListingsFilters,
+    setParcelsListingsSkipLimit,
+    updateParcelsListingsFilterByKey,
+    updateParcelsListingsSorting
 } from '../../store';
-import { gotchiListingsSortings } from '../../static';
+import { parcelsListingsSortings } from '../../static';
 
 import { styles } from './styles';
 
-export function BaazaarGotchis() {
+export function BaazaarParcels() {
     const classes = styles();
 
     const dispatch = useAppDispatch();
-    const gotchiListings: GotchiListingVM[] = useAppSelector(getGotchisListings);
-    const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchisListingsGraphQueryParams);
-    const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
-    const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(getGotchisListingsFilters);
-    const listingsLimitPerLoad: number = useAppSelector(getGotchisListingsLimitPerLoad);
+    const parcelsListings: ParcelListingVM[] = useAppSelector(getParcelsListings);
+    const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getParcelsListingsGraphQueryParams);
+    const parcelsListingsSorting: SortingItem = useAppSelector(getParcelsListingsSorting);
+    const parcelsListingsFilters: ParcelListingFilters = useAppSelector(getParcelsListingsFilters);
+    const parcelsListingslistingsLimitPerLoad: number = useAppSelector(getParcelsListingsLimitPerLoad);
 
     useEffect(() => {
-        dispatch(loadBaazaarGotchiListings());
+        dispatch(loadBaazaarParcelsListings());
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateGotchiListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(updateParcelsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setGotchisListingsSkipLimit(gotchisListingsGraphQueryParams.skip + listingsLimitPerLoad));
+        dispatch(setParcelsListingsSkipLimit(parcelsListingsGraphQueryParams.skip + parcelsListingslistingsLimitPerLoad));
 
-        dispatch(loadBaazaarGotchiListings());
+        dispatch(loadBaazaarParcelsListings());
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
         // TODO fix `as` in the future
-        dispatch(updateGotchiListingsFilterByKey({ key, value } as { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(updateParcelsListingsFilterByKey({ key, value } as { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }));
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetGotchiListingsFilters());
+        dispatch(resetParcelsListingsFilters());
     }, []);
 
     return (
@@ -70,19 +69,19 @@ export function BaazaarGotchis() {
             <>
                 <SortFilterPanel
                     sorting={{
-                        sortingList: gotchiListingsSortings,
-                        sortingDefaults: gotchisListingsSorting,
+                        sortingList: parcelsListingsSortings,
+                        sortingDefaults: parcelsListingsSorting,
                         onSortingChange: onSortingChange
                     }}
-                    itemsLength={gotchiListings.length}
+                    itemsLength={parcelsListings.length}
                     placeholder={
-                        <GotchiIcon width={20} height={20} />
+                        <KekIcon width={20} height={20} alt='realm' />
                     }
                 />
                 <ContentInner dataLoading={false}>
                     <ItemsLazy
-                        items={gotchiListings}
-                        component={(gotchiListing: GotchiListingVM) => <Aavegotchi item={gotchiListing} />}
+                        items={parcelsListings}
+                        component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}
                         onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>
@@ -90,7 +89,7 @@ export function BaazaarGotchis() {
             <>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
-                    filters={gotchisListingsFilters}
+                    filters={parcelsListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
                 />
 

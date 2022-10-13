@@ -12,6 +12,7 @@ export * from './filters.model';
 export * from './installation.model';
 export * from './login-address.model';
 export * from './page-nav.model';
+export * from './parcel.model';
 export * from './sorting.model';
 export * from './the-graph.model';
 export * from './tile.model';

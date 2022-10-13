@@ -51,6 +51,41 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
     }`;
 };
 
+export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc721Listings (
+            first: ${graphQueryParams.first},
+            skip: ${graphQueryParams.skip},
+            orderBy: ${graphQueryParams.orderBy},
+            orderDirection: ${graphQueryParams.orderDirection},
+            where: {
+                cancelled: false,
+                timePurchased: "0"
+                category: ${graphQueryParams.where.category},
+                ${whereParams}
+            }
+        )
+            {
+                id,
+                priceInWei,
+                parcel {
+                    parcelId
+                    parcelHash
+                    tokenId
+                    coordinateX
+                    coordinateY
+                    district
+                    fudBoost
+                    fomoBoost
+                    alphaBoost
+                    kekBoost
+                    size
+                    historicalPrices
+                }
+            }
+    }`;
+};
+
 export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (

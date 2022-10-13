@@ -4,5 +4,9 @@ export enum IconName {
     Spookiness = 'Spookiness',
     Brain = 'Brain',
     EyeShape = 'EyeShape',
-    EyeColor = 'EyeColor'
+    EyeColor = 'EyeColor',
+    Fud = 'Fud',
+    Fomo = 'Fomo',
+    Alpha = 'Alpha',
+    Kek = 'Kek'
 }

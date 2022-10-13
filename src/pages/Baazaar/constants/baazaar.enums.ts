@@ -12,6 +12,16 @@ export enum GotchiListingsFilterTypes {
     EycTrait = 'eycTrait'
 }
 
+export enum ParcelListingFilterTypes {
+    Size = 'size',
+    District = 'district',
+    Price = 'priceInWei',
+    FudBoost = 'fudBoost',
+    FomoBoost = 'fomoBoost',
+    AlphaBoost = 'alphaBoost',
+    KekBoost = 'kekBoost'
+}
+
 export enum ClosedPortalListingFilterTypes {
     HauntId = 'hauntId',
     Price = 'priceInWei',

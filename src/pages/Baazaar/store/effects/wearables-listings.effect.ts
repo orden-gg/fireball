@@ -79,12 +79,10 @@ export const resetWearablesListingsFilters = (): AppThunk =>
     };
 
 const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldListings: Erc1155ListingsBatch): WearableListingVM[] => {
-    const modifiedListings: WearableListingVM[] = [];
-
-    listings.forEach((listing: WearableListingDTO) => {
+    return listings.map((listing: WearableListingDTO) => {
         const lastSoldListing = lastSoldListings[`item${listing.erc1155TypeId}`];
 
-        modifiedListings.push({
+        return ({
             ...listing,
             erc1155TypeId: Number(listing.erc1155TypeId),
             quantity: Number(listing.quantity),
@@ -109,6 +107,4 @@ const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldLis
             itemType: ItemUtils.getWearableTypeById(listing.erc1155TypeId)
         });
     });
-
-    return modifiedListings;
 };

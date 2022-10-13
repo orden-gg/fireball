@@ -79,12 +79,10 @@ export const resetConsumablesListingsFilters = (): AppThunk =>
     };
 
 const mapConsumablesListingsDTOToVM = (listings: ConsumableListingDTO[], lastSoldListings: Erc1155ListingsBatch): ConsumableListingVM[] => {
-    const modifiedListings: ConsumableListingVM[] = [];
-
-    listings.forEach((listing: ConsumableListingDTO) => {
+    return listings.map((listing: ConsumableListingDTO) => {
         const lastSoldListing = lastSoldListings[`item${listing.erc1155TypeId}`];
 
-        modifiedListings.push({
+        return ({
             ...listing,
             erc1155TypeId: Number(listing.erc1155TypeId),
             quantity: Number(listing.quantity),
@@ -104,6 +102,4 @@ const mapConsumablesListingsDTOToVM = (listings: ConsumableListingDTO[], lastSol
             }
         });
     });
-
-    return modifiedListings;
 };

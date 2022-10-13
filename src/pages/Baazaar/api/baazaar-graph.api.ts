@@ -10,6 +10,11 @@ export class BaazaarGraphApi {
             .then((res: TheGraphResponse<{ erc721Listings: GotchiListingDTO[] }>) => res.data.erc721Listings);
     }
 
+    public static async getParcelsListings(query: string): Promise<any[]> {
+        return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query)
+            .then((res: TheGraphResponse<{ erc721Listings: any[] }>) => res.data.erc721Listings);
+    }
+
     public static async getClosedPortalsListings(query: string): Promise<ClosedPortalListingDTO[]> {
         return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query)
             .then((res: TheGraphResponse<{ erc721Listings: ClosedPortalListingDTO[] }>) => res.data.erc721Listings);

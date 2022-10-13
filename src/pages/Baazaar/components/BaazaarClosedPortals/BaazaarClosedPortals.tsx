@@ -42,13 +42,13 @@ export function BaazaarClosedPortals() {
     const closedPortalsListingsFilters: ClosedPortalListingFilters = useAppSelector(getClosedPortalsListingsFilters);
     const closedPortalsListingsLimitPerLoad: number = useAppSelector(getClosedPortalsListingsLimitPerLoad);
 
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
-    };
-
     useEffect(() => {
         dispatch(loadBaazaarClosedPortalsListings());
     }, []);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(updateClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
+    };
 
     const onHandleReachedEnd = (): void => {
         dispatch(setClosedPortalsListingsSkipLimit(closedPortalsListingsGraphQueryParams.skip + closedPortalsListingsLimitPerLoad));

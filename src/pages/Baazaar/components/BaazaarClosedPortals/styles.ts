@@ -1,15 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() => createStyles({
-    gotchiListings: {
-        display: 'flex',
-        flexWrap: 'wrap'
-    },
-    gotchiListingItem: {
-        maxHeight: 150,
-        maxWidth: 240,
-        padding: 6
-    },
     section: {
         '& + $section': {
             marginTop: 12

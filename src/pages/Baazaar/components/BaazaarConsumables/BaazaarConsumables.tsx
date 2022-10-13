@@ -43,13 +43,13 @@ export function BaazaarConsumables() {
     const consumablesListingsFilters: ConsumableListingFilters = useAppSelector(getConsumablesListingsFilters);
     const consuamblesListingsLimitPerLoad: number = useAppSelector(getConsumablesListingsLimitPerLoad);
 
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
-    };
-
     useEffect(() => {
         dispatch(loadBaazaarConsumablesListings());
     }, []);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(updateConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
+    };
 
     const onHandleReachedEnd = (): void => {
         dispatch(setConsumablesListingsSkipLimit(consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad));
