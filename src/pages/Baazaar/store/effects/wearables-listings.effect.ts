@@ -31,7 +31,7 @@ export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, get
 
     BaazaarGraphApi.getWearablesListings(query)
         .then((wearablesListings: WearableListingDTO[]) => {
-            const wearablesIds: number[] = wearablesListings.map(a => Number(a.erc1155TypeId));
+            const wearablesIds: number[] = wearablesListings.map((listing: WearableListingDTO) => Number(listing.erc1155TypeId));
 
             TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc')
                .then((lastSoldListings: Erc1155ListingsBatch) => {

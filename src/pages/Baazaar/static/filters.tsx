@@ -23,7 +23,8 @@ import {
     ClosedPortalListingFilters,
     WearableListingFilters,
     ConsumableListingFilters,
-    ParcelListingFilters
+    ParcelListingFilters,
+    InstallationListingFilters
 } from '../models';
 
 export const gotchiListingsFiltersData: GotchiListingsFilters = {
@@ -506,6 +507,24 @@ export const wearableListingFiltersData: WearableListingFilters = {
         isShowIcon: true,
         iconName: IconName.Brain,
         iconProps: { width: 20, height: 20 }
+    }
+};
+
+export const installationListingFiltersData: InstallationListingFilters = {
+    [WearableListingFilterTypes.Price]: {
+        key: `${[WearableListingFilterTypes.Price]}`,
+        queryParamKey: 'price',
+        title: 'price (ghst)',
+        componentType: FilterComponentType.RangeSlider,
+        dataType: GraphFiltersDataType.RangeSliderFilter,
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
+        isFilterActive: false,
+        min: 0,
+        max: 10000,
+        value: [0, 10000],
+        isShowIcon: false,
+        helperType: GraphFiltersHelperType.Price
     }
 };
 

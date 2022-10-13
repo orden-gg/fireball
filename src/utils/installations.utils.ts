@@ -108,7 +108,7 @@ export class InstallationsUtils {
         return installations[id][InstallationTypes.Deprecated];
     }
 
-    public static getRarityById(id: number): string {
+    public static getRarityById(id: number | string): string {
         const name: string = InstallationsUtils.getNameById(id).split(' ')[0].toLowerCase();
         const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
 

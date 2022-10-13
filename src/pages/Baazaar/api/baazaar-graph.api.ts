@@ -2,7 +2,7 @@ import { GRAPH_CORE_API } from 'shared/constants';
 import { TheGraphResponse } from 'shared/models';
 import { TheGraphCoreApi } from 'api';
 
-import { GotchiListingDTO, ClosedPortalListingDTO, WearableListingDTO, ConsumableListingDTO } from '../models';
+import { GotchiListingDTO, ClosedPortalListingDTO, WearableListingDTO, ConsumableListingDTO, InstallationListingDTO } from '../models';
 
 export class BaazaarGraphApi {
     public static async getBaazaarGotchis(query: string): Promise<GotchiListingDTO[]> {
@@ -28,5 +28,10 @@ export class BaazaarGraphApi {
     public static async getConsumablesListings(query: string): Promise<ConsumableListingDTO[]> {
         return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query)
             .then((res: TheGraphResponse<{ erc1155Listings: ConsumableListingDTO[] }>) => res.data.erc1155Listings);
+    }
+
+    public static async getInstallationsListings(query: string): Promise<InstallationListingDTO[]> {
+        return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query)
+            .then((res: TheGraphResponse<{ erc1155Listings: InstallationListingDTO[] }>) => res.data.erc1155Listings);
     }
 }

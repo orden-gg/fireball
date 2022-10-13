@@ -1,9 +1,16 @@
-import { ConsumableIcon, GotchiIcon, H1SealedPortalIcon, KekIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { AnvilIcon, ConsumableIcon, GotchiIcon, H1SealedPortalIcon, KekIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { PageNavLink } from 'shared/models';
 
-import { BaazaarClosedPortals, BaazaarConsumables, BaazaarGotchis, BaazaarParcels, BaazaarWearables } from '../components';
+import {
+    BaazaarClosedPortals,
+    BaazaarConsumables,
+    BaazaarGotchis,
+    BaazaarInstallations,
+    BaazaarParcels,
+    BaazaarWearables
+} from '../components';
 
 export function Baazaar() {
     const navData: PageNavLink[] = [
@@ -24,6 +31,10 @@ export function Baazaar() {
             icon: <WarehouseIcon width={24} height={24} />
         },
         {
+            path: 'installations',
+            icon: <AnvilIcon width={24} height={24} />
+        },
+        {
             path: 'consumables',
             icon: <ConsumableIcon width={24} height={24} />
         }
@@ -37,6 +48,7 @@ export function Baazaar() {
             <Route path='parcels' element={<BaazaarParcels />} />
             <Route path='portals' element={<BaazaarClosedPortals />} />
             <Route path='wearables' element={<BaazaarWearables />} />
+            <Route path='installations' element={<BaazaarInstallations />} />
             <Route path='consumables' element={<BaazaarConsumables />} />
             <Route path='*' element={<Navigate to='gotchis' replace />} />
         </Routes>

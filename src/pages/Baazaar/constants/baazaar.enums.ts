@@ -36,6 +36,9 @@ export enum WearableListingFilterTypes {
     BrnTraitModifier = 'brnTraitModifier'
 }
 
+export enum InstallationListingFilterTypes {
+    Price = 'priceInWei'
+}
 export enum ConsumableListingFilterTypes {
     RarityLevel = 'rarityLevel',
     Price = 'priceInWei',

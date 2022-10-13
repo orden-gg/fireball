@@ -31,7 +31,7 @@ export const loadBaazaarConsumablesListings = (): AppThunk => async (dispatch, g
 
     BaazaarGraphApi.getConsumablesListings(query)
         .then((consumablesListings: ConsumableListingDTO[]) => {
-            const consumablesIds: number[] = consumablesListings.map(a => Number(a.erc1155TypeId));
+            const consumablesIds: number[] = consumablesListings.map((listing: ConsumableListingDTO) => Number(listing.erc1155TypeId));
 
             TheGraphApi.getErc1155ListingsBatchQuery(consumablesIds, Erc1155Categories.Consumable, true, 'timeLastPurchased', 'desc')
                .then((lastSoldListings: Erc1155ListingsBatch) => {
