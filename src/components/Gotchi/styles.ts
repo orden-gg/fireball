@@ -92,7 +92,20 @@ export const styles = makeStyles(theme => createStyles({
         display: 'flex',
         alignItems: 'center',
         overflow: 'auto',
-        paddingRight: theme.spacing(.5)
+        paddingRight: theme.spacing(.5),
+        '&::-webkit-scrollbar': {
+            backgroundColor: 'transparent',
+            width: 4,
+            height: 4
+        },
+        '&::-webkit-scrollbar-thumb': {
+            borderRadius: 8,
+            backgroundColor: alpha(theme.palette.primary.main, .8),
+            visibility: 'hidden'
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+            visibility: 'visible'
+        }
     },
     gotchiInnerSection: {
         marginTop: 8

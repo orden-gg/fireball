@@ -19,8 +19,7 @@ html, body {
 }
 
 .custom-scroll {
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: auto;
 }
 .custom-scroll::-webkit-scrollbar {
   background-color: transparent;
@@ -30,6 +29,11 @@ html, body {
 .custom-scroll::-webkit-scrollbar-thumb {
   border-radius: 8px;
   background-color: rgba(253, 154, 249, .8);
+  visibility: hidden;
+}
+
+.custom-scroll:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
 }
 
 

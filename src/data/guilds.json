@@ -138,7 +138,7 @@
         ]
     },
     {
-        "name": "Chigotchi Bulls",
+        "name": "Chigotchi Ballers",
         "logo": "chigotchibulls.png",
         "members": [
             "0x4572192Ed1DEe5fD0f8f07269bE4eF3e3e270715",
@@ -151,10 +151,12 @@
             "0x122f08C08432983277F5c1e750a481cddAbFD708",
             "0x6f48134d8BDEB954aD97525Cf0ADB9Ad446260B1",
             "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777",
-            "0x8B200F4c81c54d9014B4cDA3F16501069FA20Ab9"
+            "0x8B200F4c81c54d9014B4cDA3F16501069FA20Ab9",
+            "0xCAFBFd974EB21D0eBD6A05eF8858f5ca2C9f9E39",
+            "0x3c2262255793f2b4629F7b9A2D57cE78f7842A8d"
         ],
         "description": [
-            { "title": "Description", "text": "GOTCHI JAM! HEADQUARTERS" },
+            { "title": "Description", "text": "GOTCHI JAM headquarters" },
             {
                 "title": "Requirement",
                 "text": "Join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and say hello!."
@@ -646,7 +648,10 @@
             "0xcc251ba254a5a3c1d9c88661b42c1408162e8366",
             "0xbb73548A0e6F839fb58e9D59969Ba6AEdEcDF5f1",
             "0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc",
-            "0xeFC64437a1390964a862FE5cf9D1D63Ff265366B"
+            "0xeFC64437a1390964a862FE5cf9D1D63Ff265366B",
+            "0x31382577b52bd5c71088089845d16cc044a464e2",
+            "0xaf4fa10c1e93e9c60149f386ce783a4bc2952a77",
+            "0xc0e8b0E7981E2E254D4c22B6A0BC4223933A2D1d"
         ],
         "description": [
             {
