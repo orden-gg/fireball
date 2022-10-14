@@ -41,6 +41,7 @@ export enum InstallationListingFilterTypes {
 }
 
 export enum TileListingFilterTypes {
+    Erc1155TypeId = 'erc1155TypeId',
     Price = 'priceInWei'
 }
 

@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { TileListingFilters, TileListingVM } from '../../models';
-import { installationListingFiltersData } from '../../static';
+import { tileListingFiltersData } from '../../static';
 
 export interface TilesListingsState {
     tilesListings: TileListingVM[];
@@ -27,7 +27,7 @@ const initialState: TilesListingsState = {
         }
     },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    tilesListingsFilters: installationListingFiltersData
+    tilesListingsFilters: tileListingFiltersData
 };
 
 export const tilesListingsSlice = createSlice({

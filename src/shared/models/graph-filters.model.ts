@@ -2,6 +2,10 @@ import { FilterDomainType, GraphComparatorOptions, GraphFiltersDataType, GraphFi
 
 import { BaseFilter, FilterItemOption } from './filters.model';
 
+export interface FilterGraphItemOption extends FilterItemOption {
+    graphValues?: string[]
+}
+
 export interface GraphRangeSliderFilter extends BaseFilter {
     dataType: GraphFiltersDataType.RangeSliderFilter;
     filterDomainType: FilterDomainType;
@@ -31,7 +35,7 @@ export interface GraphMultiButtonSelectionFilter extends BaseFilter {
     dataType: GraphFiltersDataType.MultiButtonSelection;
     filterDomainType: FilterDomainType;
     graphComparatorOptions: GraphComparatorOptions[];
-    items: FilterItemOption[];
+    items: FilterGraphItemOption[];
     helperType?: GraphFiltersHelperType;
 }
 

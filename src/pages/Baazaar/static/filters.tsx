@@ -530,7 +530,61 @@ export const installationListingFiltersData: InstallationListingFilters = {
     }
 };
 
-export const tilenListingFiltersData: TileListingFilters = {
+export const tileListingFiltersData: TileListingFilters = {
+    [TileListingFilterTypes.Erc1155TypeId]: {
+        key: `${[TileListingFilterTypes.Erc1155TypeId]}`,
+        queryParamKey: 'tileType',
+        title: '',
+        componentType: FilterComponentType.MultiButtonSelection,
+        dataType: GraphFiltersDataType.MultiButtonSelection,
+        filterDomainType: FilterDomainType.Equals,
+        graphComparatorOptions: [GraphComparatorOptions.IN],
+        items: [
+            {
+                title: 'Portal',
+                value: 'portal',
+                isSelected: false,
+                queryParamValue: 'portal',
+                graphValues: ['2']
+            },
+            {
+                title: 'Gotchiverse',
+                value: 'gotchiverse',
+                isSelected: false,
+                queryParamValue: 'gotchiverse',
+                graphValues: ['1']
+            },
+            {
+                title: 'Gotchi',
+                value: 'gotchi',
+                isSelected: false,
+                queryParamValue: 'gotchi',
+                graphValues: ['3']
+            },
+            {
+                title: 'Rugs',
+                value: 'rugs',
+                isSelected: false,
+                queryParamValue: 'rugs',
+                graphValues: ['5', '7']
+            },
+            {
+                title: 'Mosaics',
+                value: 'mosaics',
+                isSelected: false,
+                queryParamValue: 'mosaics',
+                graphValues: ['8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+            },
+            {
+                title: 'Grass',
+                value: 'grass',
+                isSelected: false,
+                queryParamValue: 'grass',
+                graphValues: ['4', '6']
+            }
+        ],
+        isFilterActive: false
+    },
     [TileListingFilterTypes.Price]: {
         key: `${[TileListingFilterTypes.Price]}`,
         queryParamKey: 'price',
