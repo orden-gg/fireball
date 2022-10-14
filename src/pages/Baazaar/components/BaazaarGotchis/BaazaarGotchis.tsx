@@ -13,7 +13,6 @@ import { Filters } from 'components/Filters/components/Filters/Filters';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
-
 import { GotchiListingsFilterTypes } from '../../constants';
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
 import {
