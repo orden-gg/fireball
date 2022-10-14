@@ -22,6 +22,7 @@ import {
     getParcelsListingsSorting,
     getParcelsListingsLimitPerLoad,
     loadBaazaarParcelsListings,
+    resetParcelsListingsData,
     resetParcelsListingsFilters,
     setParcelsListingsSkipLimit,
     updateParcelsListingsFilterByKey,
@@ -43,6 +44,10 @@ export function BaazaarParcels() {
 
     useEffect(() => {
         dispatch(loadBaazaarParcelsListings());
+
+        return () => {
+            dispatch(resetParcelsListingsData());
+        };
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {

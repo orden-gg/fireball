@@ -71,6 +71,21 @@ export const resetParcelsListingsFilters = (): AppThunk =>
         dispatch(loadBaazaarParcelsListings());
     };
 
+export const resetParcelsListingsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
+
+        const updatedFilters: ParcelListingFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: ParcelListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setParcelsListingsFilters(updatedFilters));
+        dispatch(setParcelsListingsSkipLimit(0));
+        dispatch(setParcelsListings([]));
+    };
+
 const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {
     return listings.map((listing: ParcelListingDTO) => ({
             ...listing.parcel,

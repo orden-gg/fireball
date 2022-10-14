@@ -24,6 +24,7 @@ import {
     getConsumablesListingsLimitPerLoad,
     getConsumablesListingsSorting,
     loadBaazaarConsumablesListings,
+    resetConsumablesListingsData,
     resetConsumablesListingsFilters,
     setConsumablesListingsSkipLimit,
     updateConsumablesListingsFilterByKey,
@@ -45,6 +46,10 @@ export function BaazaarConsumables() {
 
     useEffect(() => {
         dispatch(loadBaazaarConsumablesListings());
+
+        return () => {
+            dispatch(resetConsumablesListingsData());
+        };
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {

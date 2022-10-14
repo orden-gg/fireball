@@ -71,6 +71,21 @@ export const resetClosedPortalsListingsFilters = (): AppThunk =>
         dispatch(loadBaazaarClosedPortalsListings());
     };
 
+export const resetClosedPortalsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
+
+        const updatedFilters: ClosedPortalListingFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: ClosedPortaListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setClosedPortalsListingsFilters(updatedFilters));
+        dispatch(setClosedPortalsListingsSkipLimit(0));
+        dispatch(setClosedPortalsListings([]));
+    };
+
 const mapClosedPortalsDTOToVM = (listings: ClosedPortalListingDTO[]): ClosedPortalListingVM[] => {
     return listings.map((listing: ClosedPortalListingDTO) => ({
         ...listing,

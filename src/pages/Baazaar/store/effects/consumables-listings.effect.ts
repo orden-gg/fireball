@@ -78,6 +78,21 @@ export const resetConsumablesListingsFilters = (): AppThunk =>
         dispatch(loadBaazaarConsumablesListings());
     };
 
+export const resetConsumablesListingsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
+
+        const updatedFilters: ConsumableListingFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: ConsumableListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setConsumablesListingsFilters(updatedFilters));
+        dispatch(setConsumablesListingsSkipLimit(0));
+        dispatch(setConsumablesListings([]));
+    };
+
 const mapConsumablesListingsDTOToVM = (listings: ConsumableListingDTO[], lastSoldListings: Erc1155ListingsBatch): ConsumableListingVM[] => {
     return listings.map((listing: ConsumableListingDTO) => {
         const lastSoldListing = lastSoldListings[`item${listing.erc1155TypeId}`];

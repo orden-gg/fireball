@@ -59,7 +59,7 @@ export const resetGotchiListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: GotchiListingsFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: GotchiListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
@@ -69,6 +69,21 @@ export const resetGotchiListingsFilters = (): AppThunk =>
         dispatch(setGotchisListingsSkipLimit(0));
         dispatch(setGotchisListings([]));
         dispatch(loadBaazaarGotchiListings());
+    };
+
+export const resetGotchiListingsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
+
+        const updatedFilters: GotchiListingsFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: GotchiListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setGotchisListingsFilters(updatedFilters));
+        dispatch(setGotchisListingsSkipLimit(0));
+        dispatch(setGotchisListings([]));
     };
 
 const mapGotchisDTOToVM = (listings: GotchiListingDTO[]): GotchiListingVM[] => {

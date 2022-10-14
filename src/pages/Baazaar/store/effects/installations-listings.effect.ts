@@ -67,7 +67,7 @@ export const resetInstallationsListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: InstallationListingFilters = getState().baazaar.installations.installationsListingsFilters;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: InstallationListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: InstallationListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
@@ -77,6 +77,21 @@ export const resetInstallationsListingsFilters = (): AppThunk =>
         dispatch(setInstallationsListingsSkipLimit(0));
         dispatch(setInstallationsListings([]));
         dispatch(loadBaazaarInstallationsListings());
+    };
+
+export const resetInstallationsListingsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: InstallationListingFilters = getState().baazaar.installations.installationsListingsFilters;
+
+        const updatedFilters: InstallationListingFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: InstallationListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setInstallationsListingsFilters(updatedFilters));
+        dispatch(setInstallationsListingsSkipLimit(0));
+        dispatch(setInstallationsListings([]));
     };
 
 const mapInstallationsListingsDTOToVM = (listings: InstallationListingDTO[], lastSoldListings: Erc1155ListingsBatch): InstallationListingVM[] => {

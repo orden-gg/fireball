@@ -25,6 +25,7 @@ import {
     getTilesListingsLimitPerLoad,
     getTilesListingsSorting,
     loadBaazaarTilesListings,
+    resetTilesListingsData,
     resetTilesListingsFilters,
     setTilesListingsSkipLimit,
     updateTilesListingsFilterByKey,
@@ -50,6 +51,10 @@ export function BaazaarTiles() {
 
     useEffect(() => {
         dispatch(loadBaazaarTilesListings());
+
+        return () => {
+            dispatch(resetTilesListingsData());
+        };
     }, []);
 
     const onHandleReachedEnd = (): void => {

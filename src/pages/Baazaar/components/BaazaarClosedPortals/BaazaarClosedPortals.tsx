@@ -23,6 +23,7 @@ import {
     getClosedPortalsListingsLimitPerLoad,
     getClosedPortalsListingsSorting,
     loadBaazaarClosedPortalsListings,
+    resetClosedPortalsData,
     resetClosedPortalsListingsFilters,
     setClosedPortalsListingsSkipLimit,
     updateClosedPortalsListingsFilterByKey,
@@ -44,6 +45,10 @@ export function BaazaarClosedPortals() {
 
     useEffect(() => {
         dispatch(loadBaazaarClosedPortalsListings());
+
+        return () => {
+            dispatch(resetClosedPortalsData());
+        };
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {

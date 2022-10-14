@@ -24,6 +24,7 @@ import {
     getWearablesListingsLimitPerLoad,
     getWearablesListingsSorting,
     loadBaazaarWearablesListings,
+    resetWearablesListingsData,
     resetWearablesListingsFilters,
     setWearablesListingsSkipLimit,
     updateWearablesListingsFilterByKey,
@@ -49,6 +50,10 @@ export function BaazaarWearables() {
 
     useEffect(() => {
         dispatch(loadBaazaarWearablesListings());
+
+        return () => {
+            dispatch(resetWearablesListingsData());
+        };
     }, []);
 
     const onHandleReachedEnd = (): void => {

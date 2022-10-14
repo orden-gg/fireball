@@ -25,6 +25,7 @@ import {
     getInstallationsListingsLimitPerLoad,
     getInstallationsListingsSorting,
     loadBaazaarInstallationsListings,
+    resetInstallationsListingsData,
     resetInstallationsListingsFilters,
     setInstallationsListingsSkipLimit,
     updateInstallationsListingsFilterByKey,
@@ -50,6 +51,10 @@ export function BaazaarInstallations() {
 
     useEffect(() => {
         dispatch(loadBaazaarInstallationsListings());
+
+        return () => {
+            dispatch(resetInstallationsListingsData());
+        };
     }, []);
 
     const onHandleReachedEnd = (): void => {

@@ -79,6 +79,22 @@ export const resetTilesListingsFilters = (): AppThunk =>
         dispatch(loadBaazaarTilesListings());
     };
 
+
+export const resetTilesListingsData = (): AppThunk =>
+    async (dispatch, getState) => {
+        const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
+
+        const updatedFilters: TileListingFilters = Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: TileListingFiltersType]) =>
+                [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
+            )
+        );
+
+        dispatch(setTilesListingsFilters(updatedFilters));
+        dispatch(setTilesListingsSkipLimit(0));
+        dispatch(setTilesListings([]));
+    };
+
 const mapTilesListingsDTOToVM = (listings: TileListingDTO[], lastSoldListings: Erc1155ListingsBatch): TileListingVM[] => {
     return listings.map((listing: TileListingDTO) => {
         const lastSoldListing = lastSoldListings[`item${listing.erc1155TypeId}`];

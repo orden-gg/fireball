@@ -23,6 +23,7 @@ import {
     getGotchisListingsSorting,
     getGotchisListingsLimitPerLoad,
     loadBaazaarGotchiListings,
+    resetGotchiListingsData,
     resetGotchiListingsFilters,
     setGotchisListingsSkipLimit,
     updateGotchiListingsFilterByKey,
@@ -44,6 +45,10 @@ export function BaazaarGotchis() {
 
     useEffect(() => {
         dispatch(loadBaazaarGotchiListings());
+
+        return () => {
+            dispatch(resetGotchiListingsData());
+        };
     }, []);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
