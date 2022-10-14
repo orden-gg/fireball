@@ -1,6 +1,15 @@
-import { AnvilIcon, ConsumableIcon, GotchiIcon, H1SealedPortalIcon, KekIcon, WarehouseIcon } from 'components/Icons/Icons';
-import { PageNav } from 'components/PageNav/PageNav';
 import { Navigate, Route, Routes } from 'react-router-dom';
+
+import {
+    AnvilIcon,
+    ConsumableIcon,
+    GotchiIcon,
+    H1SealedPortalIcon,
+    KekIcon,
+    PurpleGrassIcon,
+    WarehouseIcon
+} from 'components/Icons/Icons';
+import { PageNav } from 'components/PageNav/PageNav';
 import { PageNavLink } from 'shared/models';
 
 import {
@@ -9,6 +18,7 @@ import {
     BaazaarGotchis,
     BaazaarInstallations,
     BaazaarParcels,
+    BaazaarTiles,
     BaazaarWearables
 } from '../components';
 
@@ -35,6 +45,10 @@ export function Baazaar() {
             icon: <AnvilIcon width={24} height={24} />
         },
         {
+            path: 'tiles',
+            icon: <PurpleGrassIcon width={24} height={24} />
+        },
+        {
             path: 'consumables',
             icon: <ConsumableIcon width={24} height={24} />
         }
@@ -49,6 +63,7 @@ export function Baazaar() {
             <Route path='portals' element={<BaazaarClosedPortals />} />
             <Route path='wearables' element={<BaazaarWearables />} />
             <Route path='installations' element={<BaazaarInstallations />} />
+            <Route path='tiles' element={<BaazaarTiles />} />
             <Route path='consumables' element={<BaazaarConsumables />} />
             <Route path='*' element={<Navigate to='gotchis' replace />} />
         </Routes>

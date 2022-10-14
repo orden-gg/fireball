@@ -8,5 +8,7 @@ export * from './installation-listing.model';
 export * from './installation-listings-filters.model';
 export * from './parcel-listing.model';
 export * from './parcel-listings-filters.model';
+export * from './tile-listing.model';
+export * from './tile-listings-filters.model';
 export * from './wearable-listing.model';
 export * from './wearable-listings-filters.model';

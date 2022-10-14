@@ -115,7 +115,7 @@ export class InstallationsUtils {
         if (isRarity) {
             return name;
         } else {
-            return 'golden';
+            return RarityTypes.Golden;
         }
     }
 }

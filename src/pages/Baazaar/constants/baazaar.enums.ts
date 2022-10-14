@@ -39,6 +39,11 @@ export enum WearableListingFilterTypes {
 export enum InstallationListingFilterTypes {
     Price = 'priceInWei'
 }
+
+export enum TileListingFilterTypes {
+    Price = 'priceInWei'
+}
+
 export enum ConsumableListingFilterTypes {
     RarityLevel = 'rarityLevel',
     Price = 'priceInWei',

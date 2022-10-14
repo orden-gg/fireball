@@ -16,6 +16,7 @@ import {
     ClosedPortalListingFilterTypes,
     GotchiListingsFilterTypes,
     ParcelListingFilterTypes,
+    TileListingFilterTypes,
     WearableListingFilterTypes
 } from '../constants';
 import {
@@ -24,7 +25,8 @@ import {
     WearableListingFilters,
     ConsumableListingFilters,
     ParcelListingFilters,
-    InstallationListingFilters
+    InstallationListingFilters,
+    TileListingFilters
 } from '../models';
 
 export const gotchiListingsFiltersData: GotchiListingsFilters = {
@@ -513,6 +515,24 @@ export const wearableListingFiltersData: WearableListingFilters = {
 export const installationListingFiltersData: InstallationListingFilters = {
     [WearableListingFilterTypes.Price]: {
         key: `${[WearableListingFilterTypes.Price]}`,
+        queryParamKey: 'price',
+        title: 'price (ghst)',
+        componentType: FilterComponentType.RangeSlider,
+        dataType: GraphFiltersDataType.RangeSliderFilter,
+        filterDomainType: FilterDomainType.Range,
+        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
+        isFilterActive: false,
+        min: 0,
+        max: 10000,
+        value: [0, 10000],
+        isShowIcon: false,
+        helperType: GraphFiltersHelperType.Price
+    }
+};
+
+export const tilenListingFiltersData: TileListingFilters = {
+    [TileListingFilterTypes.Price]: {
+        key: `${[TileListingFilterTypes.Price]}`,
         queryParamKey: 'price',
         title: 'price (ghst)',
         componentType: FilterComponentType.RangeSlider,
