@@ -5,6 +5,7 @@ import {
     GraphFiltersValueTypes,
     GraphInputFilter,
     GraphInputFilterValue,
+    GraphMultiAutocompleteFilter,
     GraphMultiButtonSelectionFilter,
     GraphMultipleSelectionFilterValue,
     GraphRangeSliderFilter,
@@ -19,13 +20,21 @@ export class GraphFiltersUtils {
         value: GraphFiltersValueTypes
     ): GraphFiltersTypes {
         switch (filter.dataType) {
-            case GraphFiltersDataType.InputFilter:
+            case GraphFiltersDataType.Input:
                 return GraphFiltersUtils.getUpdatedSelectedFilter<GraphInputFilter, GraphInputFilterValue>(
                     filter,
                     value as GraphInputFilterValue,
                     GraphFiltersHelper.getIsInputFilterValid,
                     GraphFiltersHelper.getResetedInputFilter,
                     GraphFiltersHelper.getUpdatedInputFromFilter
+                );
+            case GraphFiltersDataType.MultiAutocomplete:
+                return GraphFiltersUtils.getUpdatedSelectedFilter<GraphMultiAutocompleteFilter, GraphMultipleSelectionFilterValue>(
+                    filter,
+                    value as GraphMultipleSelectionFilterValue,
+                    GraphFiltersHelper.getIsMultipleAutocompleteFilterValid,
+                    GraphFiltersHelper.getResetedMultipleAutocompleteFilter,
+                    GraphFiltersHelper.getUpdatedMultipleAutocompleteFromFilter
                 );
             case GraphFiltersDataType.MultiButtonSelection:
                 return GraphFiltersUtils.getUpdatedSelectedFilter<GraphMultiButtonSelectionFilter, GraphMultipleSelectionFilterValue>(
@@ -35,7 +44,7 @@ export class GraphFiltersUtils {
                     GraphFiltersHelper.getResetedMultipleSelectionFilter,
                     GraphFiltersHelper.getUpdatedMultipleSelectionFromFilter
                 );
-            case GraphFiltersDataType.RangeSliderFilter:
+            case GraphFiltersDataType.RangeSlider:
                 return GraphFiltersUtils.getUpdatedSelectedFilter<GraphRangeSliderFilter, GraphRangeSliderFilterValue>(
                     filter,
                     value as GraphRangeSliderFilterValue,
@@ -48,11 +57,13 @@ export class GraphFiltersUtils {
 
     public static getResetedFilterByType(filter: GraphFiltersTypes): GraphFiltersTypes {
         switch (filter.dataType) {
-            case GraphFiltersDataType.InputFilter:
+            case GraphFiltersDataType.Input:
                 return GraphFiltersHelper.getResetedInputFilter(filter);
+            case GraphFiltersDataType.MultiAutocomplete:
+                return GraphFiltersHelper.getResetedMultipleAutocompleteFilter(filter);
             case GraphFiltersDataType.MultiButtonSelection:
                 return GraphFiltersHelper.getResetedMultipleSelectionFilter(filter);
-            case GraphFiltersDataType.RangeSliderFilter:
+            case GraphFiltersDataType.RangeSlider:
                 return GraphFiltersHelper.getResetedRangeSliderFilter(filter);
         }
     }
@@ -68,11 +79,11 @@ export class GraphFiltersUtils {
         return value ? `"${value}000000000000000000"` : '0';
     }
 
-    public static getGraphWhereParam(filter:GraphFiltersTypes): string {
+    public static getGraphWhereParam(filter: GraphFiltersTypes): string {
         let param: string = '';
 
         switch (filter.dataType) {
-            case GraphFiltersDataType.InputFilter:
+            case GraphFiltersDataType.Input:
                 switch (filter.filterDomainType) {
                     case FilterDomainType.Equals:
                         param = '';
@@ -85,6 +96,33 @@ export class GraphFiltersUtils {
 
                         break;
                     }
+                    case FilterDomainType.Range:
+                        param = '';
+
+                        break;
+                }
+
+                return param;
+            case GraphFiltersDataType.MultiAutocomplete:
+                switch (filter.filterDomainType) {
+                    case FilterDomainType.Equals:
+                        param = `\n ${filter.key}_${filter.graphComparatorOptions[0]}: [${
+                            filter.items
+                                .filter((item: FilterGraphItemOption) => item.isSelected)
+                                .map((item: FilterGraphItemOption) => {
+                                    if (item.graphValues) {
+                                        return item.graphValues.map((val: string) => `"${val}"`);
+                                    } else {
+                                        return `"${item.value}"`;
+                                    }
+                                })
+                        }]`;
+
+                        break;
+                    case FilterDomainType.SingleRange:
+                        param = '';
+
+                        break;
                     case FilterDomainType.Range:
                         param = '';
 
@@ -119,7 +157,7 @@ export class GraphFiltersUtils {
                 }
 
                 return param;
-            case GraphFiltersDataType.RangeSliderFilter:
+            case GraphFiltersDataType.RangeSlider:
                 switch (filter.filterDomainType) {
                     case FilterDomainType.Equals:
                         param = '';

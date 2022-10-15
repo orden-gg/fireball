@@ -2,6 +2,7 @@ import {
     FilterItemOption,
     GraphInputFilter,
     GraphInputFilterValue,
+    GraphMultiAutocompleteFilter,
     GraphMultiButtonSelectionFilter,
     GraphRangeSliderFilter,
     GraphRangeSliderFilterValue
@@ -73,6 +74,37 @@ export class GraphFiltersHelper {
         filter: GraphMultiButtonSelectionFilter,
         values: FilterItemOption[]
     ): GraphMultiButtonSelectionFilter {
+        return {
+            ...filter,
+            isFilterActive: true,
+            items: filter.items.map((item: FilterItemOption) => {
+                const filterItem = values.find((value: FilterItemOption) => value.value === item.value);
+
+                return { ...item, isSelected: filterItem ? true : false };
+            })
+        };
+    }
+
+    // Multiple autocomplete filter handlers
+    public static getIsMultipleAutocompleteFilterValid(values: FilterItemOption[]): boolean {
+        return values.length > 0;
+    }
+
+    public static getResetedMultipleAutocompleteFilter(filter: GraphMultiAutocompleteFilter): GraphMultiAutocompleteFilter {
+        return {
+            ...filter,
+            isFilterActive: false,
+            items: filter.items.map((item: FilterItemOption) => ({
+                ...item,
+                isSelected: false
+            }))
+        };
+    }
+
+    public static getUpdatedMultipleAutocompleteFromFilter(
+        filter: GraphMultiAutocompleteFilter,
+        values: FilterItemOption[]
+    ): GraphMultiAutocompleteFilter {
         return {
             ...filter,
             isFilterActive: true,

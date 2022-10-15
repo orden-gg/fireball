@@ -9,10 +9,10 @@ export enum GraphComparatorOptions {
 }
 
 export enum GraphFiltersDataType {
-    InputFilter = 'InputFilter',
-    MultiAutocomplete = 'MultiButtonSelection',
+    Input = 'Input',
+    MultiAutocomplete = 'MultiAutocomplete',
     MultiButtonSelection = 'MultiButtonSelection',
-    RangeSliderFilter = 'RangeSliderFilter'
+    RangeSlider = 'RangeSlider'
 }
 
 export enum GraphFiltersHelperType {

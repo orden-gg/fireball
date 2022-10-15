@@ -7,7 +7,7 @@ export interface FilterGraphItemOption extends FilterItemOption {
 }
 
 export interface GraphRangeSliderFilter extends BaseFilter {
-    dataType: GraphFiltersDataType.RangeSliderFilter;
+    dataType: GraphFiltersDataType.RangeSlider;
     filterDomainType: FilterDomainType;
     graphComparatorOptions: GraphComparatorOptions[];
     min: number;
@@ -23,7 +23,7 @@ export interface GraphRangeSliderFilter extends BaseFilter {
 }
 
 export interface GraphInputFilter extends BaseFilter {
-    dataType: GraphFiltersDataType.InputFilter;
+    dataType: GraphFiltersDataType.Input;
     filterDomainType: FilterDomainType;
     graphComparatorOptions: GraphComparatorOptions[];
     placeholder: string;
@@ -47,7 +47,7 @@ export interface GraphMultiAutocompleteFilter extends BaseFilter {
     helperType?: GraphFiltersHelperType;
 }
 
-export type GraphFiltersTypes = GraphRangeSliderFilter | GraphInputFilter | GraphMultiButtonSelectionFilter;
+export type GraphFiltersTypes = GraphRangeSliderFilter | GraphInputFilter | GraphMultiAutocompleteFilter | GraphMultiButtonSelectionFilter;
 
 export type GraphRangeSliderFilterValue = number[];
 export type GraphInputFilterValue = string;
