@@ -39,7 +39,7 @@ import {
     updateParcelsListingsFilterByKey,
     updateParcelsListingsSorting
 } from '../../store';
-import { parcelsListingsSortings } from '../../static';
+import { parcelsListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 

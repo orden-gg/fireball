@@ -41,7 +41,7 @@ import {
     updateWearablesListingsFilterByKey,
     updateWearablesListingsSorting
 } from '../../store';
-import { wearablesListingsSortings } from '../../static';
+import { wearablesListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 

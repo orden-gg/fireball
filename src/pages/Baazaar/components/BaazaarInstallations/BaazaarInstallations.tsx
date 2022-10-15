@@ -42,7 +42,7 @@ import {
     updateInstallationsListingsFilterByKey,
     updateInstallationsListingsSorting
 } from '../../store';
-import { installationsListingsSortings } from '../../static';
+import { installationsListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 

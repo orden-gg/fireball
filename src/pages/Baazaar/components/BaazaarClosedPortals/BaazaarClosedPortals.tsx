@@ -33,7 +33,7 @@ import {
     updateClosedPortalsListingsFilterByKey,
     updateClosedPortalsListingsSorting
 } from '../../store';
-import { closedPortalsListingsSortings } from '../../static';
+import { closedPortalsListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 

@@ -41,7 +41,7 @@ import {
     updateConsumablesListingsFilterByKey,
     updateConsumablesListingsSorting
 } from '../../store';
-import { consumablesListingsSortings } from '../../static';
+import { consumablesListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 

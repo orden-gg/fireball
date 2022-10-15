@@ -39,7 +39,7 @@ import {
     updateGotchiListingsFilterByKey,
     updateGotchiListingsSorting
 } from '../../store';
-import { gotchiListingsSortings } from '../../static';
+import { gotchisListingsSortings } from '../../static/sortings';
 
 import { styles } from './styles';
 
@@ -64,7 +64,7 @@ export function BaazaarGotchis() {
         const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key: Undefinable<string> = gotchiListingsSortings
+            const key: Undefinable<string> = gotchisListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
@@ -78,7 +78,7 @@ export function BaazaarGotchis() {
     }, []);
 
     useEffect(() => {
-        const paramKey: Undefinable<string> = gotchiListingsSortings
+        const paramKey: Undefinable<string> = gotchisListingsSortings
             .find(sorting => sorting.key === gotchisListingsSorting.type)?.paramKey;
 
         if (paramKey) {
@@ -115,7 +115,7 @@ export function BaazaarGotchis() {
             <>
                 <SortFilterPanel
                     sorting={{
-                        sortingList: gotchiListingsSortings,
+                        sortingList: gotchisListingsSortings,
                         sortingDefaults: gotchisListingsSorting,
                         onSortingChange: onSortingChange
                     }}
