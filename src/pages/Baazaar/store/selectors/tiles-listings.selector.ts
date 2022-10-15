@@ -17,3 +17,6 @@ export const getTilesListingsSorting = (state: RootState): SortingItem =>
 
 export const getTilesListingsFilters = (state: RootState): TileListingFilters =>
     state.baazaar.tiles.tilesListingsFilters;
+
+export const getTilesListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.tiles.tilesListingsQueryParamsOrder;

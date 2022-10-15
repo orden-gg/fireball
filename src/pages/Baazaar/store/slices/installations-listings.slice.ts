@@ -12,6 +12,7 @@ export interface InstallationsListingsState {
     installationsListingsGraphQueryParams: GraphQueryParams;
     installationsListingsSorting: SortingItem;
     installationsListingsFilters: InstallationListingFilters;
+    installationsListingsQueryParamsOrder: string[];
 }
 
 const initialState: InstallationsListingsState = {
@@ -27,7 +28,8 @@ const initialState: InstallationsListingsState = {
         }
     },
     installationsListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    installationsListingsFilters: installationListingFiltersData
+    installationsListingsFilters: installationListingFiltersData,
+    installationsListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const installationsListingsSlice = createSlice({

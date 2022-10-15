@@ -17,3 +17,6 @@ export const getWearablesListingsSorting = (state: RootState): SortingItem =>
 
 export const getWearablesListingsFilters = (state: RootState): WearableListingFilters =>
     state.baazaar.wearables.wearablesListingsFilters;
+
+export const getWearablesListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.wearables.wearablesListingsQueryParamsOrder;

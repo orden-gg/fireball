@@ -12,6 +12,7 @@ export interface ParcelsListingsState {
     parcelsListingsGraphQueryParams: GraphQueryParams;
     parcelsListingsSorting: SortingItem;
     parcelsListingsFilters: ParcelListingFilters;
+    parcelsListingsQueryParamsOrder: string[];
 }
 
 const initialState: ParcelsListingsState = {
@@ -27,7 +28,8 @@ const initialState: ParcelsListingsState = {
         }
     },
     parcelsListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    parcelsListingsFilters: parcelListingFiltersData
+    parcelsListingsFilters: parcelListingFiltersData,
+    parcelsListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const parcelsListingsSlice = createSlice({

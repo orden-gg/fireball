@@ -12,6 +12,7 @@ export interface ConsumablesListingsState {
     consumablesListingsGraphQueryParams: GraphQueryParams;
     consumablesListingsSorting: SortingItem;
     consumablesListingsFilters: ConsumableListingFilters;
+    consumablesListingsQueryParamsOrder: string[];
 }
 
 const initialState: ConsumablesListingsState = {
@@ -27,7 +28,8 @@ const initialState: ConsumablesListingsState = {
         }
     },
     consumablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    consumablesListingsFilters: consumableListingFiltersData
+    consumablesListingsFilters: consumableListingFiltersData,
+    consumablesListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const consumablesListingsSlice = createSlice({

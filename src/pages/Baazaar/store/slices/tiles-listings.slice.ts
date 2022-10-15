@@ -12,6 +12,7 @@ export interface TilesListingsState {
     tilesListingsGraphQueryParams: GraphQueryParams;
     tilesListingsSorting: SortingItem;
     tilesListingsFilters: TileListingFilters;
+    tilesListingsQueryParamsOrder: string[];
 }
 
 const initialState: TilesListingsState = {
@@ -27,7 +28,8 @@ const initialState: TilesListingsState = {
         }
     },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    tilesListingsFilters: tileListingFiltersData
+    tilesListingsFilters: tileListingFiltersData,
+    tilesListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const tilesListingsSlice = createSlice({

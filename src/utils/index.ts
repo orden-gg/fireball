@@ -10,5 +10,6 @@ export * from './graph.utils';
 export * from './icons.utils';
 export * from './installations.utils';
 export * from './item.utils';
+export * from './route.utils';
 export * from './tiles.utils';
 export * from './gotchi.utils';

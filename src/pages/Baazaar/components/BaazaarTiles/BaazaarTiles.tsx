@@ -1,10 +1,19 @@
 import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
+import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import {
+    CustomParsedQuery,
+    GraphFiltersValueTypes,
+    GraphQueryParams,
+    QueryParamSortingItem,
+    SortingItem,
+    SortingListItem
+} from 'shared/models';
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
@@ -15,6 +24,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { PurpleGrassIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { RouteUtils } from 'utils';
 
 import { TileListingFilterTypes } from '../../constants';
 import { TileListingFilters, TileListingVM } from '../../models';
@@ -24,6 +34,7 @@ import {
     getTilesListingsGraphQueryParams,
     getTilesListingsLimitPerLoad,
     getTilesListingsSorting,
+    getTilesListingsQueryParamsOrder,
     loadBaazaarTilesListings,
     resetTilesListingsData,
     resetTilesListingsFilters,
@@ -38,24 +49,55 @@ import { styles } from './styles';
 export function BaazaarTiles() {
     const classes = styles();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+
     const dispatch = useAppDispatch();
     const tilesListings: TileListingVM[] = useAppSelector(getTilesListings);
     const tilesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getTilesListingsGraphQueryParams);
     const tilesListingsSorting: SortingItem = useAppSelector(getTilesListingsSorting);
     const tilesListingsFilters: TileListingFilters = useAppSelector(getTilesListingsFilters);
     const tilesListingsLimitPerLoad: number = useAppSelector(getTilesListingsLimitPerLoad);
-
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateTilesListingsSorting({ type: sortBy, dir: sortDir }));
-    };
+    const tilesListingsQueryParamsOrder: string[] = useAppSelector(getTilesListingsQueryParamsOrder);
 
     useEffect(() => {
         dispatch(loadBaazaarTilesListings());
+
+        const { sort, dir } = queryParams as CustomParsedQuery;
+
+        if (sort && dir) {
+            const key: Undefinable<string> = tilesListingsSortings
+                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+
+            if (key) {
+                onSortingChange(key, dir);
+            }
+        }
 
         return () => {
             dispatch(resetTilesListingsData());
         };
     }, []);
+
+    useEffect(() => {
+        const paramKey: Undefinable<string> = tilesListingsSortings
+            .find(sorting => sorting.key === tilesListingsSorting.type)?.paramKey;
+
+        if (paramKey) {
+            updateSortQueryParams(paramKey, tilesListingsSorting.dir);
+        }
+    }, [tilesListingsSorting]);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(updateTilesListingsSorting({ type: sortBy, dir: sortDir }));
+    };
+
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
+        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
+
+        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onHandleReachedEnd = (): void => {
         dispatch(setTilesListingsSkipLimit(tilesListingsGraphQueryParams.skip + tilesListingsLimitPerLoad));
@@ -64,7 +106,6 @@ export function BaazaarTiles() {
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        // TODO fix `as` in the future
         dispatch(updateTilesListingsFilterByKey({ key, value } as { key: TileListingFilterTypes, value: GraphFiltersValueTypes }));
     };
 

@@ -12,6 +12,7 @@ export interface GotchisListingsState {
     gotchisListingsGraphQueryParams: GraphQueryParams;
     gotchisListingsSorting: SortingItem;
     gotchisListingsFilters: GotchiListingsFilters;
+    gotchisListingsQueryParamsOrder: string[];
 }
 
 const initialState: GotchisListingsState = {
@@ -27,7 +28,8 @@ const initialState: GotchisListingsState = {
         }
     },
     gotchisListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    gotchisListingsFilters: gotchiListingsFiltersData
+    gotchisListingsFilters: gotchiListingsFiltersData,
+    gotchisListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const gotchisListingsSlice = createSlice({

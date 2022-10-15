@@ -17,3 +17,6 @@ export const getInstallationsListingsSorting = (state: RootState): SortingItem =
 
 export const getInstallationsListingsFilters = (state: RootState): InstallationListingFilters =>
     state.baazaar.installations.installationsListingsFilters;
+
+export const getInstallationsListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.installations.installationsListingsQueryParamsOrder;

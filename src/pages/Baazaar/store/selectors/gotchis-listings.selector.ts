@@ -17,3 +17,6 @@ export const getGotchisListingsSorting = (state: RootState): SortingItem =>
 
 export const getGotchisListingsFilters = (state: RootState): GotchiListingsFilters =>
     state.baazaar.gotchis.gotchisListingsFilters;
+
+export const getGotchisListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.gotchis.gotchisListingsQueryParamsOrder;

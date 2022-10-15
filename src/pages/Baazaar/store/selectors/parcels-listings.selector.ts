@@ -17,3 +17,6 @@ export const getParcelsListingsSorting = (state: RootState): SortingItem =>
 
 export const getParcelsListingsFilters = (state: RootState): ParcelListingFilters =>
     state.baazaar.parcels.parcelsListingsFilters;
+
+export const getParcelsListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.parcels.parcelsListingsQueryParamsOrder;

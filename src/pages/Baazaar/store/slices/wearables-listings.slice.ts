@@ -12,6 +12,7 @@ export interface WearablesListingsState {
     wearablesListingsGraphQueryParams: GraphQueryParams;
     wearablesListingsSorting: SortingItem;
     wearablesListingsFilters: WearableListingFilters;
+    wearablesListingsQueryParamsOrder: string[];
 }
 
 const initialState: WearablesListingsState = {
@@ -27,7 +28,8 @@ const initialState: WearablesListingsState = {
         }
     },
     wearablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    wearablesListingsFilters: wearableListingFiltersData
+    wearablesListingsFilters: wearableListingFiltersData,
+    wearablesListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const wearablesListingsSlice = createSlice({

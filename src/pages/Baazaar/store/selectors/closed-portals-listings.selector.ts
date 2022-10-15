@@ -17,3 +17,6 @@ export const getClosedPortalsListingsSorting = (state: RootState): SortingItem =
 
 export const getClosedPortalsListingsFilters = (state: RootState): ClosedPortalListingFilters =>
     state.baazaar.closedPortals.closedPortalsListingsFilters;
+
+export const getClosedPortalsListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.closedPortals.closedPortalsListingsQueryParamsOrder;

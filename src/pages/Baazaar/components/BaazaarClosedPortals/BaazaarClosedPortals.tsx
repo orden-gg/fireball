@@ -1,10 +1,12 @@
 import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
+import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { CustomParsedQuery, GraphFiltersValueTypes, GraphQueryParams, QueryParamSortingItem, SortingItem, SortingListItem } from 'shared/models';
 import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -13,6 +15,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { H1SealedPortalIcon } from 'components/Icons/Icons';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { RouteUtils } from 'utils';
 
 import { ClosedPortalListingFilterTypes } from '../../constants';
 import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
@@ -22,6 +25,7 @@ import {
     getClosedPortalsListingsGraphQueryParams,
     getClosedPortalsListingsLimitPerLoad,
     getClosedPortalsListingsSorting,
+    getClosedPortalsListingsQueryParamsOrder,
     loadBaazaarClosedPortalsListings,
     resetClosedPortalsData,
     resetClosedPortalsListingsFilters,
@@ -36,20 +40,51 @@ import { styles } from './styles';
 export function BaazaarClosedPortals() {
     const classes = styles();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+
     const dispatch = useAppDispatch();
     const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(getClosedPortalsListings);
     const closedPortalsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getClosedPortalsListingsGraphQueryParams);
     const closedPortalsListingsSorting: SortingItem = useAppSelector(getClosedPortalsListingsSorting);
     const closedPortalsListingsFilters: ClosedPortalListingFilters = useAppSelector(getClosedPortalsListingsFilters);
     const closedPortalsListingsLimitPerLoad: number = useAppSelector(getClosedPortalsListingsLimitPerLoad);
+    const closedPortalsListingsQueryParamsOrder: string[] = useAppSelector(getClosedPortalsListingsQueryParamsOrder);
 
     useEffect(() => {
         dispatch(loadBaazaarClosedPortalsListings());
+
+        const { sort, dir } = queryParams as CustomParsedQuery;
+
+        if (sort && dir) {
+            const key: Undefinable<string> = closedPortalsListingsSortings
+                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+
+            if (key) {
+                onSortingChange(key, dir);
+            }
+        }
 
         return () => {
             dispatch(resetClosedPortalsData());
         };
     }, []);
+
+    useEffect(() => {
+        const paramKey: Undefinable<string> = closedPortalsListingsSortings
+            .find(sorting => sorting.key === closedPortalsListingsSorting.type)?.paramKey;
+
+        if (paramKey) {
+            updateSortQueryParams(paramKey, closedPortalsListingsSorting.dir);
+        }
+    }, [closedPortalsListingsSorting]);
+
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
+        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
+
+        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, closedPortalsListingsQueryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
@@ -62,7 +97,6 @@ export function BaazaarClosedPortals() {
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        // TODO fix `as` in the future
         dispatch(updateClosedPortalsListingsFilterByKey(
             { key, value } as { key: ClosedPortalListingFilterTypes, value: GraphFiltersValueTypes }
         ));

@@ -1,10 +1,19 @@
 import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
+import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import {
+    CustomParsedQuery,
+    GraphFiltersValueTypes,
+    GraphQueryParams,
+    QueryParamSortingItem,
+    SortingItem,
+    SortingListItem
+} from 'shared/models';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -14,6 +23,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { RouteUtils } from 'utils';
 
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingFilters, WearableListingVM } from '../../models';
@@ -23,6 +33,7 @@ import {
     getWearablesListingsGraphQueryParams,
     getWearablesListingsLimitPerLoad,
     getWearablesListingsSorting,
+    getWearablesListingsQueryParamsOrder,
     loadBaazaarWearablesListings,
     resetWearablesListingsData,
     resetWearablesListingsFilters,
@@ -37,24 +48,55 @@ import { styles } from './styles';
 export function BaazaarWearables() {
     const classes = styles();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+
     const dispatch = useAppDispatch();
     const wearablesListings: WearableListingVM[] = useAppSelector(getWearablesListings);
     const wearablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getWearablesListingsGraphQueryParams);
     const wearablesListingsSorting: SortingItem = useAppSelector(getWearablesListingsSorting);
     const wearablesListingsFilters: WearableListingFilters = useAppSelector(getWearablesListingsFilters);
     const wearablesListingsLimitPerLoad: number = useAppSelector(getWearablesListingsLimitPerLoad);
-
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateWearablesListingsSorting({ type: sortBy, dir: sortDir }));
-    };
+    const WearablesListingsQueryParamsOrder: string[] = useAppSelector(getWearablesListingsQueryParamsOrder);
 
     useEffect(() => {
         dispatch(loadBaazaarWearablesListings());
+
+        const { sort, dir } = queryParams as CustomParsedQuery;
+
+        if (sort && dir) {
+            const key: Undefinable<string> = wearablesListingsSortings
+                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+
+            if (key) {
+                onSortingChange(key, dir);
+            }
+        }
 
         return () => {
             dispatch(resetWearablesListingsData());
         };
     }, []);
+
+    useEffect(() => {
+        const paramKey: Undefinable<string> = wearablesListingsSortings
+            .find(sorting => sorting.key === wearablesListingsSorting.type)?.paramKey;
+
+        if (paramKey) {
+            updateSortQueryParams(paramKey, wearablesListingsSorting.dir);
+        }
+    }, [wearablesListingsSorting]);
+
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
+        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
+
+        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, WearablesListingsQueryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
+
+    const onSortingChange = (sortBy: string, sortDir: string): void => {
+        dispatch(updateWearablesListingsSorting({ type: sortBy, dir: sortDir }));
+    };
 
     const onHandleReachedEnd = (): void => {
         dispatch(setWearablesListingsSkipLimit(wearablesListingsGraphQueryParams.skip + wearablesListingsLimitPerLoad));
@@ -63,7 +105,6 @@ export function BaazaarWearables() {
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        // TODO fix `as` in the future
         dispatch(updateWearablesListingsFilterByKey({ key, value } as { key: WearableListingFilterTypes, value: GraphFiltersValueTypes }));
     };
 

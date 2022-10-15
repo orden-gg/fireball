@@ -12,6 +12,7 @@ export interface ClosedPortlasListingsState {
     closedPortalsListingsGraphQueryParams: GraphQueryParams;
     closedPortalsListingsSorting: SortingItem;
     closedPortalsListingsFilters: ClosedPortalListingFilters;
+    closedPortalsListingsQueryParamsOrder: string[];
 }
 
 const initialState: ClosedPortlasListingsState = {
@@ -27,7 +28,8 @@ const initialState: ClosedPortlasListingsState = {
         }
     },
     closedPortalsListingsSorting: { type: 'timeCreated', dir: 'desc' },
-    closedPortalsListingsFilters: closedPortalListingsFiltersData
+    closedPortalsListingsFilters: closedPortalListingsFiltersData,
+    closedPortalsListingsQueryParamsOrder: ['sort', 'dir']
 };
 
 export const closedPortalsListingsSlice = createSlice({

@@ -16,42 +16,49 @@ export const gotchiListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     },
     {
         name: 'id',
         key: 'tokenId',
+        paramKey: 'id',
         tooltip: 'gotchi id',
         icon: <Grid3x3Icon fontSize='small' />
     },
     {
         name: 'mrs',
         key: 'modifiedRarityScore',
+        paramKey: 'mrs',
         tooltip: 'rarity score',
         icon: <EmojiEventsOutlinedIcon fontSize='small' />
     },
     {
         name: 'brs',
         key: 'baseRarityScore',
+        paramKey: 'brs',
         tooltip: 'base rarity score',
         icon: <FormatListNumberedIcon fontSize='small' />
     },
     {
         name: 'kin',
         key: 'kinship',
+        paramKey: 'kin',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
     },
     {
         name: 'experience',
         key: 'experience',
+        paramKey: 'exp',
         tooltip: 'experience',
         icon: <ScienceIcon fontSize='small' />
     }
@@ -75,18 +82,21 @@ export const parcelsListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     },
     {
         name: 'id',
         key: 'tokenId',
+        paramKey: 'id',
         tooltip: 'parcel id',
         icon: <Grid3x3Icon fontSize='small' />
     },
@@ -124,18 +134,21 @@ export const closedPortalsListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     },
     {
         name: 'id',
         key: 'tokenId',
+        paramKey: 'id',
         tooltip: 'portal id',
         icon: <Grid3x3Icon fontSize='small' />
     }
@@ -152,12 +165,14 @@ export const installationsListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     }
@@ -174,12 +189,14 @@ export const tilesListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     }
@@ -196,12 +213,14 @@ export const wearablesListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     }
@@ -218,12 +237,14 @@ export const consumablesListingsSortings: SortingListItem[] = [
     {
         name: 'price',
         key: 'priceInWei',
+        paramKey: 'price',
         tooltip: 'price',
         icon: <AttachMoneyIcon fontSize='small' />
     },
     {
         name: 'time created',
         key: 'timeCreated',
+        paramKey: 'timeCreated',
         tooltip: 'time created',
         icon: <AccessTimeIcon fontSize='small' />
     }

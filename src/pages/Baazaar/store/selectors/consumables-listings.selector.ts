@@ -17,3 +17,6 @@ export const getConsumablesListingsSorting = (state: RootState): SortingItem =>
 
 export const getConsumablesListingsFilters = (state: RootState): ConsumableListingFilters =>
     state.baazaar.consumables.consumablesListingsFilters;
+
+export const getConsumablesListingsQueryParamsOrder = (state: RootState): string[] =>
+    state.baazaar.consumables.consumablesListingsQueryParamsOrder;

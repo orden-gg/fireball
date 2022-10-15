@@ -1,10 +1,19 @@
 import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
+import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import {
+    CustomParsedQuery,
+    GraphFiltersValueTypes,
+    GraphQueryParams,
+    QueryParamSortingItem,
+    SortingItem,
+    SortingListItem
+} from 'shared/models';
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
@@ -15,6 +24,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { AnvilIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { RouteUtils } from 'utils';
 
 import { InstallationListingFilterTypes } from '../../constants';
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
@@ -24,6 +34,7 @@ import {
     getInstallationsListingsGraphQueryParams,
     getInstallationsListingsLimitPerLoad,
     getInstallationsListingsSorting,
+    getInstallationsListingsQueryParamsOrder,
     loadBaazaarInstallationsListings,
     resetInstallationsListingsData,
     resetInstallationsListingsFilters,
@@ -38,12 +49,17 @@ import { styles } from './styles';
 export function BaazaarInstallations() {
     const classes = styles();
 
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+
     const dispatch = useAppDispatch();
     const installationsListings: InstallationListingVM[] = useAppSelector(getInstallationsListings);
     const installationsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getInstallationsListingsGraphQueryParams);
     const installationsListingsSorting: SortingItem = useAppSelector(getInstallationsListingsSorting);
     const installationsListingsFilters: InstallationListingFilters = useAppSelector(getInstallationsListingsFilters);
     const installationsListingsLimitPerLoad: number = useAppSelector(getInstallationsListingsLimitPerLoad);
+    const installationsListingsQueryParamsOrder: string[] = useAppSelector(getInstallationsListingsQueryParamsOrder);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateInstallationsListingsSorting({ type: sortBy, dir: sortDir }));
@@ -52,10 +68,36 @@ export function BaazaarInstallations() {
     useEffect(() => {
         dispatch(loadBaazaarInstallationsListings());
 
+        const { sort, dir } = queryParams as CustomParsedQuery;
+
+        if (sort && dir) {
+            const key: Undefinable<string> = installationsListingsSortings
+                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+
+            if (key) {
+                onSortingChange(key, dir);
+            }
+        }
+
         return () => {
             dispatch(resetInstallationsListingsData());
         };
     }, []);
+
+    useEffect(() => {
+        const paramKey: Undefinable<string> = installationsListingsSortings
+            .find(sorting => sorting.key === installationsListingsSorting.type)?.paramKey;
+
+        if (paramKey) {
+            updateSortQueryParams(paramKey, installationsListingsSorting.dir);
+        }
+    }, [installationsListingsSorting]);
+
+    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
+        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
+
+        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, installationsListingsQueryParamsOrder);
+    }, [queryParams, navigate, location.pathname]);
 
     const onHandleReachedEnd = (): void => {
         dispatch(setInstallationsListingsSkipLimit(installationsListingsGraphQueryParams.skip + installationsListingsLimitPerLoad));
@@ -64,7 +106,6 @@ export function BaazaarInstallations() {
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        // TODO fix `as` in the future
         dispatch(updateInstallationsListingsFilterByKey(
             { key, value } as { key: InstallationListingFilterTypes, value: GraphFiltersValueTypes })
         );
