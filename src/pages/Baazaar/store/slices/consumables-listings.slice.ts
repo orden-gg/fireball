@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
-import { consumableListingFiltersData } from '../../static';
+import { consumableListingFiltersData } from '../../static/filters';
 
 export interface ConsumablesListingsState {
     consumablesListings: ConsumableListingVM[];

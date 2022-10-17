@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
-import { gotchiListingsFiltersData } from '../../static';
+import { gotchiListingsFiltersData } from '../../static/filters';
 
 export interface GotchisListingsState {
     gotchisListings: GotchiListingVM[];

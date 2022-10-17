@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { WearableListingFilters, WearableListingVM } from '../../models';
-import { wearableListingFiltersData } from '../../static';
+import { wearableListingFiltersData } from '../../static/filters';
 
 export interface WearablesListingsState {
     wearablesListings: WearableListingVM[];

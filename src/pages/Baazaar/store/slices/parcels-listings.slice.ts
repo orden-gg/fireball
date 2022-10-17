@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ParcelListingFilters, ParcelListingVM } from '../../models';
-import { parcelListingFiltersData } from '../../static';
+import { parcelListingFiltersData } from '../../static/filters';
 
 export interface ParcelsListingsState {
     parcelsListings: ParcelListingVM[];

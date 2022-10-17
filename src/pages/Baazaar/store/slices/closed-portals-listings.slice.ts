@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ClosedPortalListingVM, ClosedPortalListingFilters } from '../../models';
-import { closedPortalListingsFiltersData } from '../../static';
+import { closedPortalListingsFiltersData } from '../../static/filters';
 
 export interface ClosedPortlasListingsState {
     closedPortalsListings: ClosedPortalListingVM[];

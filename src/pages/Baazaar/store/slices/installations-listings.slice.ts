@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
-import { installationListingFiltersData } from '../../static';
+import { installationListingFiltersData } from '../../static/filters';
 
 export interface InstallationsListingsState {
     installationsListings: InstallationListingVM[];

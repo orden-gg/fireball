@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { TileListingFilters, TileListingVM } from '../../models';
-import { tileListingFiltersData } from '../../static';
+import { tileListingFiltersData } from '../../static/filters';
 
 export interface TilesListingsState {
     tilesListings: TileListingVM[];
