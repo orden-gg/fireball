@@ -67,7 +67,7 @@ export const resetTilesListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: TileListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: TileListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
@@ -83,6 +83,7 @@ export const resetTilesListingsFilters = (): AppThunk =>
 export const resetTilesListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.tiles.tilesListingsDefaultSorting;
 
         const updatedFilters: TileListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: TileListingFiltersType]) =>
@@ -91,6 +92,7 @@ export const resetTilesListingsData = (): AppThunk =>
         );
 
         dispatch(setTilesListingsFilters(updatedFilters));
+        dispatch(setTilesListingsSorting(defaultSorting));
         dispatch(setTilesListingsSkipLimit(0));
         dispatch(setTilesListings([]));
     };

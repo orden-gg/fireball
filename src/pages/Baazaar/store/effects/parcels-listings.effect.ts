@@ -59,7 +59,7 @@ export const resetParcelsListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: ParcelListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: ParcelListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
@@ -74,6 +74,7 @@ export const resetParcelsListingsFilters = (): AppThunk =>
 export const resetParcelsListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.parcels.parcelsListingsDefaultSorting;
 
         const updatedFilters: ParcelListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: ParcelListingFiltersType]) =>
@@ -82,6 +83,7 @@ export const resetParcelsListingsData = (): AppThunk =>
         );
 
         dispatch(setParcelsListingsFilters(updatedFilters));
+        dispatch(setParcelsListingsSorting(defaultSorting));
         dispatch(setParcelsListingsSkipLimit(0));
         dispatch(setParcelsListings([]));
     };

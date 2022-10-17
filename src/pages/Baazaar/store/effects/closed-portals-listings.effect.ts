@@ -74,6 +74,7 @@ export const resetClosedPortalsListingsFilters = (): AppThunk =>
 export const resetClosedPortalsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.closedPortals.closedPortalsListingsDefaultSorting;
 
         const updatedFilters: ClosedPortalListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: ClosedPortaListingFiltersType]) =>
@@ -82,6 +83,7 @@ export const resetClosedPortalsData = (): AppThunk =>
         );
 
         dispatch(setClosedPortalsListingsFilters(updatedFilters));
+        dispatch(setClosedPortalsListingsSorting(defaultSorting));
         dispatch(setClosedPortalsListingsSkipLimit(0));
         dispatch(setClosedPortalsListings([]));
     };

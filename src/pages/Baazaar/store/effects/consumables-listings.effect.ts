@@ -81,6 +81,7 @@ export const resetConsumablesListingsFilters = (): AppThunk =>
 export const resetConsumablesListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.consumables.consumablesListingsDefaultSorting;
 
         const updatedFilters: ConsumableListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: ConsumableListingFiltersType]) =>
@@ -89,6 +90,7 @@ export const resetConsumablesListingsData = (): AppThunk =>
         );
 
         dispatch(setConsumablesListingsFilters(updatedFilters));
+        dispatch(setConsumablesListingsSorting(defaultSorting));
         dispatch(setConsumablesListingsSkipLimit(0));
         dispatch(setConsumablesListings([]));
     };

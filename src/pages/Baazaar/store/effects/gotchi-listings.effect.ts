@@ -74,6 +74,7 @@ export const resetGotchiListingsFilters = (): AppThunk =>
 export const resetGotchiListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.gotchis.gotchisListingsDefaultSorting;
 
         const updatedFilters: GotchiListingsFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: GotchiListingFiltersType]) =>
@@ -82,6 +83,7 @@ export const resetGotchiListingsData = (): AppThunk =>
         );
 
         dispatch(setGotchisListingsFilters(updatedFilters));
+        dispatch(setGotchisListingsSorting(defaultSorting));
         dispatch(setGotchisListingsSkipLimit(0));
         dispatch(setGotchisListings([]));
     };

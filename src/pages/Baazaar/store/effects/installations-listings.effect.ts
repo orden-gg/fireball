@@ -82,6 +82,7 @@ export const resetInstallationsListingsFilters = (): AppThunk =>
 export const resetInstallationsListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: InstallationListingFilters = getState().baazaar.installations.installationsListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.installations.installationsListingsDefaultSorting;
 
         const updatedFilters: InstallationListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: InstallationListingFiltersType]) =>
@@ -90,6 +91,7 @@ export const resetInstallationsListingsData = (): AppThunk =>
         );
 
         dispatch(setInstallationsListingsFilters(updatedFilters));
+        dispatch(setInstallationsListingsSorting(defaultSorting));
         dispatch(setInstallationsListingsSkipLimit(0));
         dispatch(setInstallationsListings([]));
     };

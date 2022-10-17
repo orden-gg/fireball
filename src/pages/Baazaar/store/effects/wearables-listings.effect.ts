@@ -66,7 +66,7 @@ export const resetWearablesListingsFilters = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: WearableListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: WearableListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
@@ -81,14 +81,16 @@ export const resetWearablesListingsFilters = (): AppThunk =>
 export const resetWearablesListingsData = (): AppThunk =>
     async (dispatch, getState) => {
         const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
+        const defaultSorting: SortingItem = getState().baazaar.wearables.wearablesListingsDefaultSorting;
 
-        const updatedFilters = Object.fromEntries(
+        const updatedFilters: WearableListingFilters = Object.fromEntries(
             Object.entries(filters).map(([_, filter]: [_: string, filter: WearableListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
         );
 
         dispatch(setWearablesListingsFilters(updatedFilters));
+        dispatch(setWearablesListingsSorting(defaultSorting));
         dispatch(setWearablesListingsSkipLimit(0));
         dispatch(setWearablesListings([]));
     };
