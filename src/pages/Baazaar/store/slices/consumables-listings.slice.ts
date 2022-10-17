@@ -12,7 +12,9 @@ export interface ConsumablesListingsState {
     consumablesListingsGraphQueryParams: GraphQueryParams;
     consumablesListingsDefaultSorting: SortingItem;
     consumablesListingsSorting: SortingItem;
+    consumablesListingsIsSortingUpdated: boolean;
     consumablesListingsFilters: ConsumableListingFilters;
+    consumablesListingsIsFiltersUpdated: boolean;
     consumablesListingsQueryParamsOrder: string[];
 }
 
@@ -30,7 +32,9 @@ const initialState: ConsumablesListingsState = {
     },
     consumablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     consumablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    consumablesListingsIsSortingUpdated: false,
     consumablesListingsFilters: consumableListingFiltersData,
+    consumablesListingsIsFiltersUpdated: false,
     consumablesListingsQueryParamsOrder: [
         consumableListingFiltersData.rarityLevel.queryParamKey,
         consumableListingFiltersData.priceInWei.queryParamKey,
@@ -55,8 +59,14 @@ export const consumablesListingsSlice = createSlice({
             state.consumablesListingsGraphQueryParams.orderBy = action.payload.type;
             state.consumablesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setConsumablesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.consumablesListingsIsSortingUpdated = action.payload;
+        },
         setConsumablesListingsFilters: (state, action: PayloadAction<ConsumableListingFilters>): void => {
             state.consumablesListingsFilters = action.payload;
+        },
+        setConsumablesListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.consumablesListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -65,7 +75,9 @@ export const {
     setConsumablesListings,
     setConsumablesListingsSkipLimit,
     setConsumablesListingsSorting,
-    setConsumablesListingsFilters
+    setConsumablesListingsIsSortingUpdated,
+    setConsumablesListingsFilters,
+    setConsumablesListingsIsFiltersUpdated
 } = consumablesListingsSlice.actions;
 
 export const consumablesListingsReducer = consumablesListingsSlice.reducer;

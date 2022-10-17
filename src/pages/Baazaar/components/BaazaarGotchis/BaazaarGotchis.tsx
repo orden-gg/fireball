@@ -33,13 +33,16 @@ import {
     getGotchisListingsSorting,
     getGotchisListingsLimitPerLoad,
     getGotchisListingsQueryParamsOrder,
-    loadBaazaarGotchiListings,
+    onLoadBaazaarGotchisListings,
+    loadBaazaarGotchisListings,
     resetGotchiListingsData,
     resetGotchiListingsFilters,
     setGotchisListingsSkipLimit,
+    setGotchisListingsSorting,
+    setGotchisListingsFilters,
     updateGotchiListingsFilterByKey,
-    updateGotchiListingsSorting,
-    setGotchisListingsFilters
+    setGotchisListingsIsFiltersUpdated,
+    setGotchisListingsIsSortingUpdated
 } from '../../store';
 import { gotchisListingsSortings } from '../../static/sortings';
 
@@ -65,8 +68,6 @@ export function BaazaarGotchis() {
     const gotchisListingsQueryParamsOrder: string[] = useAppSelector(getGotchisListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarGotchiListings());
-
         const updatedFilters: GotchiListingsFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...gotchisListingsFilters });
         dispatch(setGotchisListingsFilters(updatedFilters));
@@ -109,16 +110,29 @@ export function BaazaarGotchis() {
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);
+
+        dispatch(onLoadBaazaarGotchisListings());
     }, [gotchisListingsFilters, gotchisListingsSorting]);
 
+    useEffect(() => {
+        dispatch(setGotchisListingsIsFiltersUpdated(true));
+    }, [gotchisListingsFilters]);
+
+    useEffect(() => {
+        dispatch(setGotchisListingsIsSortingUpdated(true));
+    }, [gotchisListingsSorting]);
+
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateGotchiListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(setGotchisListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setGotchisListingsSkipLimit(gotchisListingsGraphQueryParams.skip + gotchisListingsLimitPerLoad));
+        const skipLimit: number = gotchisListingsGraphQueryParams.skip + gotchisListingsLimitPerLoad;
 
-        dispatch(loadBaazaarGotchiListings());
+        if (skipLimit <= gotchiListings.length) {
+            dispatch(setGotchisListingsSkipLimit(skipLimit));
+            dispatch(loadBaazaarGotchisListings());
+        }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {

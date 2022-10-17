@@ -35,13 +35,16 @@ import {
     getConsumablesListingsDefaultSorting,
     getConsumablesListingsSorting,
     getConsumablesListingsQueryParamsOrder,
+    onLoadBaazaarConsumablesListings,
     loadBaazaarConsumablesListings,
     resetConsumablesListingsData,
     resetConsumablesListingsFilters,
     setConsumablesListingsSkipLimit,
-    updateConsumablesListingsFilterByKey,
-    updateConsumablesListingsSorting,
-    setConsumablesListingsFilters
+    setConsumablesListingsSorting,
+    setConsumablesListingsIsSortingUpdated,
+    setConsumablesListingsFilters,
+    setConsumablesListingsIsFiltersUpdated,
+    updateConsumablesListingsFilterByKey
 } from '../../store';
 import { consumablesListingsSortings } from '../../static/sortings';
 
@@ -67,8 +70,6 @@ export function BaazaarConsumables() {
     const consumablesListingsQueryParamsOrder: string[] = useAppSelector(getConsumablesListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarConsumablesListings());
-
         const updatedFilters: ConsumableListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...consumablesListingsFilters });
         dispatch(setConsumablesListingsFilters(updatedFilters));
@@ -111,16 +112,29 @@ export function BaazaarConsumables() {
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, consumablesListingsQueryParamsOrder);
+
+        dispatch(onLoadBaazaarConsumablesListings());
     }, [consumablesListingsFilters, consumablesListingsSorting]);
 
+    useEffect(() => {
+        dispatch(setConsumablesListingsIsFiltersUpdated(true));
+    }, [consumablesListingsFilters]);
+
+    useEffect(() => {
+        dispatch(setConsumablesListingsIsSortingUpdated(true));
+    }, [consumablesListingsSorting]);
+
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(setConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setConsumablesListingsSkipLimit(consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad));
+        const skipLimit: number = consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad;
 
-        dispatch(loadBaazaarConsumablesListings());
+        if (skipLimit <= consumablesListings.length) {
+            dispatch(setConsumablesListingsSkipLimit(consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad));
+            dispatch(loadBaazaarConsumablesListings());
+        }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {

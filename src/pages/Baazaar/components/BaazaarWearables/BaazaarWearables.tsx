@@ -35,13 +35,16 @@ import {
     getWearablesListingsDefaultSorting,
     getWearablesListingsSorting,
     getWearablesListingsQueryParamsOrder,
+    onLoadBaazaarWearablesListings,
     loadBaazaarWearablesListings,
     resetWearablesListingsData,
     resetWearablesListingsFilters,
     setWearablesListingsSkipLimit,
-    updateWearablesListingsFilterByKey,
-    updateWearablesListingsSorting,
-    setWearablesListingsFilters
+    setWearablesListingsSorting,
+    setWearablesListingsIsSortingUpdated,
+    setWearablesListingsFilters,
+    setWearablesListingsIsFiltersUpdated,
+    updateWearablesListingsFilterByKey
 } from '../../store';
 import { wearablesListingsSortings } from '../../static/sortings';
 
@@ -67,8 +70,6 @@ export function BaazaarWearables() {
     const WearablesListingsQueryParamsOrder: string[] = useAppSelector(getWearablesListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarWearablesListings());
-
         const updatedFilters: WearableListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...wearablesListingsFilters });
         dispatch(setWearablesListingsFilters(updatedFilters));
@@ -111,16 +112,29 @@ export function BaazaarWearables() {
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, WearablesListingsQueryParamsOrder);
+
+        dispatch(onLoadBaazaarWearablesListings());
     }, [wearablesListingsFilters, wearablesListingsSorting]);
 
+    useEffect(() => {
+        dispatch(setWearablesListingsIsFiltersUpdated(true));
+    }, [wearablesListingsFilters]);
+
+    useEffect(() => {
+        dispatch(setWearablesListingsIsSortingUpdated(true));
+    }, [wearablesListingsSorting]);
+
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateWearablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(setWearablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setWearablesListingsSkipLimit(wearablesListingsGraphQueryParams.skip + wearablesListingsLimitPerLoad));
+        const skipLimit: number = wearablesListingsGraphQueryParams.skip + wearablesListingsLimitPerLoad;
 
-        dispatch(loadBaazaarWearablesListings());
+        if (skipLimit <= wearablesListings.length) {
+            dispatch(setWearablesListingsSkipLimit(skipLimit));
+            dispatch(loadBaazaarWearablesListings());
+        }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {

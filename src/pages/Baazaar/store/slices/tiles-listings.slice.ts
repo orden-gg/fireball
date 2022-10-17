@@ -12,7 +12,9 @@ export interface TilesListingsState {
     tilesListingsGraphQueryParams: GraphQueryParams;
     tilesListingsDefaultSorting: SortingItem;
     tilesListingsSorting: SortingItem;
+    tilesListingsIsSortingUpdated: boolean;
     tilesListingsFilters: TileListingFilters;
+    tilesListingsIsFiltersUpdated: boolean;
     tilesListingsQueryParamsOrder: string[];
 }
 
@@ -30,7 +32,9 @@ const initialState: TilesListingsState = {
     },
     tilesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    tilesListingsIsSortingUpdated: false,
     tilesListingsFilters: tileListingFiltersData,
+    tilesListingsIsFiltersUpdated: false,
     tilesListingsQueryParamsOrder: [
         tileListingFiltersData.erc1155TypeId.queryParamKey,
         tileListingFiltersData.priceInWei.queryParamKey,
@@ -55,8 +59,14 @@ export const tilesListingsSlice = createSlice({
             state.tilesListingsGraphQueryParams.orderBy = action.payload.type;
             state.tilesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setTilesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.tilesListingsIsSortingUpdated = action.payload;
+        },
         setTilesListingsFilters: (state, action: PayloadAction<TileListingFilters>): void => {
             state.tilesListingsFilters = action.payload;
+        },
+        setTilesListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.tilesListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -65,7 +75,9 @@ export const {
     setTilesListings,
     setTilesListingsSkipLimit,
     setTilesListingsSorting,
-    setTilesListingsFilters
+    setTilesListingsIsSortingUpdated,
+    setTilesListingsFilters,
+    setTilesListingsIsFiltersUpdated
 } = tilesListingsSlice.actions;
 
 export const tilesListingsReducer = tilesListingsSlice.reducer;

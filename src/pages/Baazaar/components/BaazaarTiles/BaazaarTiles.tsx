@@ -36,13 +36,16 @@ import {
     getTilesListingsDefaultSorting,
     getTilesListingsSorting,
     getTilesListingsQueryParamsOrder,
+    onLoadBaazaarTilesListings,
     loadBaazaarTilesListings,
     resetTilesListingsData,
     resetTilesListingsFilters,
     setTilesListingsSkipLimit,
-    updateTilesListingsFilterByKey,
-    updateTilesListingsSorting,
-    setTilesListingsFilters
+    setTilesListingsSorting,
+    setTilesListingsIsSortingUpdated,
+    setTilesListingsFilters,
+    setTilesListingsIsFiltersUpdated,
+    updateTilesListingsFilterByKey
 } from '../../store';
 import { tilesListingsSortings } from '../../static/sortings';
 
@@ -68,8 +71,6 @@ export function BaazaarTiles() {
     const tilesListingsQueryParamsOrder: string[] = useAppSelector(getTilesListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarTilesListings());
-
         const updatedFilters: TileListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...tilesListingsFilters });
         dispatch(setTilesListingsFilters(updatedFilters));
@@ -112,16 +113,29 @@ export function BaazaarTiles() {
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);
+
+        dispatch(onLoadBaazaarTilesListings());
     }, [tilesListingsFilters, tilesListingsSorting]);
 
+    useEffect(() => {
+        dispatch(setTilesListingsIsFiltersUpdated(true));
+    }, [tilesListingsFilters]);
+
+    useEffect(() => {
+        dispatch(setTilesListingsIsSortingUpdated(true));
+    }, [tilesListingsSorting]);
+
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateTilesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(setTilesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setTilesListingsSkipLimit(tilesListingsGraphQueryParams.skip + tilesListingsLimitPerLoad));
+        const skipLimit: number = tilesListingsGraphQueryParams.skip + tilesListingsLimitPerLoad;
 
-        dispatch(loadBaazaarTilesListings());
+        if (skipLimit <= tilesListings.length) {
+            dispatch(setTilesListingsSkipLimit(skipLimit));
+            dispatch(loadBaazaarTilesListings());
+        }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {

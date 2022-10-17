@@ -12,7 +12,9 @@ export interface WearablesListingsState {
     wearablesListingsGraphQueryParams: GraphQueryParams;
     wearablesListingsDefaultSorting: SortingItem;
     wearablesListingsSorting: SortingItem;
+    wearablesListingsIsSortingUpdated: boolean;
     wearablesListingsFilters: WearableListingFilters;
+    wearablesListingsIsFiltersUpdated: boolean;
     wearablesListingsQueryParamsOrder: string[];
 }
 
@@ -30,7 +32,9 @@ const initialState: WearablesListingsState = {
     },
     wearablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     wearablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    wearablesListingsIsSortingUpdated: false,
     wearablesListingsFilters: wearableListingFiltersData,
+    wearablesListingsIsFiltersUpdated: false,
     wearablesListingsQueryParamsOrder: [
         wearableListingFiltersData.rarityLevel.queryParamKey,
         wearableListingFiltersData.priceInWei.queryParamKey,
@@ -59,8 +63,14 @@ export const wearablesListingsSlice = createSlice({
             state.wearablesListingsGraphQueryParams.orderBy = action.payload.type;
             state.wearablesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setWearablesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.wearablesListingsIsSortingUpdated = action.payload;
+        },
         setWearablesListingsFilters: (state, action: PayloadAction<WearableListingFilters>): void => {
             state.wearablesListingsFilters = action.payload;
+        },
+        setWearablesListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.wearablesListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -69,7 +79,9 @@ export const {
     setWearablesListings,
     setWearablesListingsSkipLimit,
     setWearablesListingsSorting,
-    setWearablesListingsFilters
+    setWearablesListingsIsSortingUpdated,
+    setWearablesListingsFilters,
+    setWearablesListingsIsFiltersUpdated
 } = wearablesListingsSlice.actions;
 
 export const wearablesListingsReducer = wearablesListingsSlice.reducer;

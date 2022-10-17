@@ -12,7 +12,9 @@ export interface ParcelsListingsState {
     parcelsListingsGraphQueryParams: GraphQueryParams;
     parcelsListingsDefaultSorting: SortingItem;
     parcelsListingsSorting: SortingItem;
+    parcelsListingsIsSortingUpdated: boolean;
     parcelsListingsFilters: ParcelListingFilters;
+    parcelsListingsIsFiltersUpdated: boolean;
     parcelsListingsQueryParamsOrder: string[];
 }
 
@@ -31,7 +33,9 @@ const initialState: ParcelsListingsState = {
 
     parcelsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     parcelsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    parcelsListingsIsSortingUpdated: false,
     parcelsListingsFilters: parcelListingFiltersData,
+    parcelsListingsIsFiltersUpdated: false,
     parcelsListingsQueryParamsOrder: [
         parcelListingFiltersData.size.queryParamKey,
         parcelListingFiltersData.district.queryParamKey,
@@ -61,8 +65,14 @@ export const parcelsListingsSlice = createSlice({
             state.parcelsListingsGraphQueryParams.orderBy = action.payload.type;
             state.parcelsListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setParcelsListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.parcelsListingsIsSortingUpdated = action.payload;
+        },
         setParcelsListingsFilters: (state, action: PayloadAction<ParcelListingFilters>): void => {
             state.parcelsListingsFilters = action.payload;
+        },
+        setParcelsListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.parcelsListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -71,7 +81,9 @@ export const {
     setParcelsListings,
     setParcelsListingsSkipLimit,
     setParcelsListingsSorting,
-    setParcelsListingsFilters
+    setParcelsListingsIsSortingUpdated,
+    setParcelsListingsFilters,
+    setParcelsListingsIsFiltersUpdated
 } = parcelsListingsSlice.actions;
 
 export const parcelsListingsReducer = parcelsListingsSlice.reducer;

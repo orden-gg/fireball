@@ -6,11 +6,13 @@ import { GraphFiltersUtils, ItemUtils } from 'utils';
 
 import { ConsumableListingFilterTypes } from '../../constants';
 import { ConsumableListingDTO, ConsumableListingFilters, ConsumableListingFiltersType, ConsumableListingVM } from '../../models';
-import { getBaazaarWearablesListingsQuery } from '../../queries';
+import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     setConsumablesListings,
     setConsumablesListingsFilters,
+    setConsumablesListingsIsFiltersUpdated,
+    setConsumablesListingsIsSortingUpdated,
     setConsumablesListingsSkipLimit,
     setConsumablesListingsSorting
 } from '../slices';
@@ -27,7 +29,7 @@ export const loadBaazaarConsumablesListings = (): AppThunk => async (dispatch, g
         }
     });
 
-    const query = getBaazaarWearablesListingsQuery(consumablesListingsGraphQueryParams, whereParams);
+    const query = getBaazaarErc1155ListingsQuery(consumablesListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getConsumablesListings(query)
         .then((consumablesListings: ConsumableListingDTO[]) => {
@@ -42,11 +44,15 @@ export const loadBaazaarConsumablesListings = (): AppThunk => async (dispatch, g
         });
 };
 
-export const updateConsumablesListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
-    dispatch(setConsumablesListingsSorting(sortings));
-    dispatch(setConsumablesListingsSkipLimit(0));
-    dispatch(setConsumablesListings([]));
-    dispatch(loadBaazaarConsumablesListings());
+export const onLoadBaazaarConsumablesListings = (): AppThunk => async (dispatch, getState) => {
+    const isFiltersUpdated: boolean = getState().baazaar.consumables.consumablesListingsIsFiltersUpdated;
+    const isSortingUpdated: boolean = getState().baazaar.consumables.consumablesListingsIsSortingUpdated;
+
+    if (isFiltersUpdated && isSortingUpdated) {
+        dispatch(setConsumablesListingsSkipLimit(0));
+        dispatch(setConsumablesListings([]));
+        dispatch(loadBaazaarConsumablesListings());
+    }
 };
 
 export const updateConsumablesListingsFilterByKey =
@@ -57,9 +63,6 @@ export const updateConsumablesListingsFilterByKey =
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setConsumablesListingsFilters({ ...filters, [key]: updatedFilter }));
-            dispatch(setConsumablesListingsSkipLimit(0));
-            dispatch(setConsumablesListings([]));
-            dispatch(loadBaazaarConsumablesListings());
         };
 
 export const resetConsumablesListingsFilters = (): AppThunk =>
@@ -73,9 +76,6 @@ export const resetConsumablesListingsFilters = (): AppThunk =>
         );
 
         dispatch(setConsumablesListingsFilters(updatedFilters));
-        dispatch(setConsumablesListingsSkipLimit(0));
-        dispatch(setConsumablesListings([]));
-        dispatch(loadBaazaarConsumablesListings());
     };
 
 export const resetConsumablesListingsData = (): AppThunk =>
@@ -93,6 +93,8 @@ export const resetConsumablesListingsData = (): AppThunk =>
         dispatch(setConsumablesListingsSorting(defaultSorting));
         dispatch(setConsumablesListingsSkipLimit(0));
         dispatch(setConsumablesListings([]));
+        dispatch(setConsumablesListingsIsSortingUpdated(false));
+        dispatch(setConsumablesListingsIsFiltersUpdated(false));
     };
 
 const mapConsumablesListingsDTOToVM = (listings: ConsumableListingDTO[], lastSoldListings: Erc1155ListingsBatch): ConsumableListingVM[] => {

@@ -114,7 +114,7 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
     }`;
 };
 
-export const getBaazaarWearablesListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc1155Listings (
             first: ${graphQueryParams.first},

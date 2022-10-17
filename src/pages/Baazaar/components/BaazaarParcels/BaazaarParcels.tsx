@@ -33,13 +33,16 @@ import {
     getParcelsListingsSorting,
     getParcelsListingsLimitPerLoad,
     getParcelsListingsQueryParamsOrder,
+    onLoadBaazaarParcelsListings,
     loadBaazaarParcelsListings,
     resetParcelsListingsData,
     resetParcelsListingsFilters,
     setParcelsListingsSkipLimit,
-    updateParcelsListingsFilterByKey,
-    updateParcelsListingsSorting,
-    setParcelsListingsFilters
+    setParcelsListingsSorting,
+    setParcelsListingsIsSortingUpdated,
+    setParcelsListingsFilters,
+    setParcelsListingsIsFiltersUpdated,
+    updateParcelsListingsFilterByKey
 } from '../../store';
 import { parcelsListingsSortings } from '../../static/sortings';
 
@@ -65,8 +68,6 @@ export function BaazaarParcels() {
     const parcelsListingsQueryParamsOrder: string[] = useAppSelector(getParcelsListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarParcelsListings());
-
         const updatedFilters: ParcelListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...parcelsListingsFilters });
         dispatch(setParcelsListingsFilters(updatedFilters));
@@ -109,16 +110,29 @@ export function BaazaarParcels() {
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, parcelsListingsQueryParamsOrder);
+
+        dispatch(onLoadBaazaarParcelsListings());
     }, [parcelsListingsFilters, parcelsListingsSorting]);
 
+    useEffect(() => {
+        dispatch(setParcelsListingsIsFiltersUpdated(true));
+    }, [parcelsListingsFilters]);
+
+    useEffect(() => {
+        dispatch(setParcelsListingsIsSortingUpdated(true));
+    }, [parcelsListingsSorting]);
+
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(updateParcelsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(setParcelsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
-        dispatch(setParcelsListingsSkipLimit(parcelsListingsGraphQueryParams.skip + parcelsListingslistingsLimitPerLoad));
+        const skipLimit: number = parcelsListingsGraphQueryParams.skip + parcelsListingslistingsLimitPerLoad;
 
-        dispatch(loadBaazaarParcelsListings());
+        if (skipLimit <= parcelsListings.length) {
+            dispatch(setParcelsListingsSkipLimit(skipLimit));
+            dispatch(loadBaazaarParcelsListings());
+        }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {

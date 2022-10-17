@@ -6,11 +6,13 @@ import { GraphFiltersUtils, InstallationsUtils } from 'utils';
 
 import { InstallationListingFilterTypes } from '../../constants';
 import { InstallationListingDTO, InstallationListingFilters, InstallationListingFiltersType, InstallationListingVM } from '../../models';
-import { getBaazaarWearablesListingsQuery } from '../../queries';
+import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     setInstallationsListings,
     setInstallationsListingsFilters,
+    setInstallationsListingsIsFiltersUpdated,
+    setInstallationsListingsIsSortingUpdated,
     setInstallationsListingsSkipLimit,
     setInstallationsListingsSorting
 } from '../slices';
@@ -27,7 +29,7 @@ export const loadBaazaarInstallationsListings = (): AppThunk => async (dispatch,
         }
     });
 
-    const query = getBaazaarWearablesListingsQuery(installationsListingsGraphQueryParams, whereParams);
+    const query = getBaazaarErc1155ListingsQuery(installationsListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getInstallationsListings(query)
         .then((installationsListings: InstallationListingDTO[]) => {
@@ -43,11 +45,15 @@ export const loadBaazaarInstallationsListings = (): AppThunk => async (dispatch,
         });
 };
 
-export const updateInstallationsListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
-    dispatch(setInstallationsListingsSorting(sortings));
-    dispatch(setInstallationsListingsSkipLimit(0));
-    dispatch(setInstallationsListings([]));
-    dispatch(loadBaazaarInstallationsListings());
+export const onLoadBaazaarInstallationsListings = (): AppThunk => async (dispatch, getState) => {
+    const isFiltersUpdated: boolean = getState().baazaar.installations.installationsListingsIsFiltersUpdated;
+    const isSortingUpdated: boolean = getState().baazaar.installations.installationsListingsIsSortingUpdated;
+
+    if (isFiltersUpdated && isSortingUpdated) {
+        dispatch(setInstallationsListingsSkipLimit(0));
+        dispatch(setInstallationsListings([]));
+        dispatch(loadBaazaarInstallationsListings());
+    }
 };
 
 export const updateInstallationsListingsFilterByKey =
@@ -58,9 +64,6 @@ export const updateInstallationsListingsFilterByKey =
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setInstallationsListingsFilters({ ...filters, [key]: updatedFilter as InstallationListingFiltersType }));
-            dispatch(setInstallationsListingsSkipLimit(0));
-            dispatch(setInstallationsListings([]));
-            dispatch(loadBaazaarInstallationsListings());
         };
 
 export const resetInstallationsListingsFilters = (): AppThunk =>
@@ -74,9 +77,6 @@ export const resetInstallationsListingsFilters = (): AppThunk =>
         );
 
         dispatch(setInstallationsListingsFilters(updatedFilters));
-        dispatch(setInstallationsListingsSkipLimit(0));
-        dispatch(setInstallationsListings([]));
-        dispatch(loadBaazaarInstallationsListings());
     };
 
 export const resetInstallationsListingsData = (): AppThunk =>
@@ -94,6 +94,8 @@ export const resetInstallationsListingsData = (): AppThunk =>
         dispatch(setInstallationsListingsSorting(defaultSorting));
         dispatch(setInstallationsListingsSkipLimit(0));
         dispatch(setInstallationsListings([]));
+        dispatch(setInstallationsListingsIsSortingUpdated(false));
+        dispatch(setInstallationsListingsIsFiltersUpdated(false));
     };
 
 const mapInstallationsListingsDTOToVM = (listings: InstallationListingDTO[], lastSoldListings: Erc1155ListingsBatch): InstallationListingVM[] => {

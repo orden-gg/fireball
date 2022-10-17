@@ -6,11 +6,13 @@ import { GraphFiltersUtils, ItemUtils } from 'utils';
 
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingDTO, WearableListingFilters, WearableListingFiltersType, WearableListingVM } from '../../models';
-import { getBaazaarWearablesListingsQuery } from '../../queries';
+import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     setWearablesListings,
     setWearablesListingsFilters,
+    setWearablesListingsIsFiltersUpdated,
+    setWearablesListingsIsSortingUpdated,
     setWearablesListingsSkipLimit,
     setWearablesListingsSorting
 } from '../slices';
@@ -27,7 +29,7 @@ export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, get
         }
     });
 
-    const query = getBaazaarWearablesListingsQuery(wearablesListingsGraphQueryParams, whereParams);
+    const query = getBaazaarErc1155ListingsQuery(wearablesListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getWearablesListings(query)
         .then((wearablesListings: WearableListingDTO[]) => {
@@ -42,11 +44,15 @@ export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, get
         });
 };
 
-export const updateWearablesListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
-    dispatch(setWearablesListingsSorting(sortings));
-    dispatch(setWearablesListingsSkipLimit(0));
-    dispatch(setWearablesListings([]));
-    dispatch(loadBaazaarWearablesListings());
+export const onLoadBaazaarWearablesListings = (): AppThunk => async (dispatch, getState) => {
+    const isFiltersUpdated: boolean = getState().baazaar.wearables.wearablesListingsIsFiltersUpdated;
+    const isSortingUpdated: boolean = getState().baazaar.wearables.wearablesListingsIsSortingUpdated;
+
+    if (isFiltersUpdated && isSortingUpdated) {
+        dispatch(setWearablesListingsSkipLimit(0));
+        dispatch(setWearablesListings([]));
+        dispatch(loadBaazaarWearablesListings());
+    }
 };
 
 export const updateWearablesListingsFilterByKey =
@@ -57,9 +63,6 @@ export const updateWearablesListingsFilterByKey =
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setWearablesListingsFilters({ ...filters, [key]: updatedFilter }));
-            dispatch(setWearablesListingsSkipLimit(0));
-            dispatch(setWearablesListings([]));
-            dispatch(loadBaazaarWearablesListings());
         };
 
 export const resetWearablesListingsFilters = (): AppThunk =>
@@ -73,9 +76,6 @@ export const resetWearablesListingsFilters = (): AppThunk =>
         );
 
         dispatch(setWearablesListingsFilters(updatedFilters));
-        dispatch(setWearablesListingsSkipLimit(0));
-        dispatch(setWearablesListings([]));
-        dispatch(loadBaazaarWearablesListings());
     };
 
 export const resetWearablesListingsData = (): AppThunk =>
@@ -93,6 +93,8 @@ export const resetWearablesListingsData = (): AppThunk =>
         dispatch(setWearablesListingsSorting(defaultSorting));
         dispatch(setWearablesListingsSkipLimit(0));
         dispatch(setWearablesListings([]));
+        dispatch(setWearablesListingsIsSortingUpdated(false));
+        dispatch(setWearablesListingsIsFiltersUpdated(false));
     };
 
 const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldListings: Erc1155ListingsBatch): WearableListingVM[] => {

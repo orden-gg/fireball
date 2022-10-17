@@ -6,11 +6,13 @@ import { GraphFiltersUtils, TilesUtils } from 'utils';
 
 import { TileListingFilterTypes } from '../../constants';
 import { TileListingDTO, TileListingFilters, TileListingFiltersType, TileListingVM } from '../../models';
-import { getBaazaarWearablesListingsQuery } from '../../queries';
+import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     setTilesListings,
     setTilesListingsFilters,
+    setTilesListingsIsFiltersUpdated,
+    setTilesListingsIsSortingUpdated,
     setTilesListingsSkipLimit,
     setTilesListingsSorting
 } from '../slices';
@@ -27,7 +29,7 @@ export const loadBaazaarTilesListings = (): AppThunk => async (dispatch, getStat
         }
     });
 
-    const query = getBaazaarWearablesListingsQuery(tilesListingsGraphQueryParams, whereParams);
+    const query = getBaazaarErc1155ListingsQuery(tilesListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getTilesListings(query)
         .then((tilesListings: TileListingDTO[]) => {
@@ -43,11 +45,15 @@ export const loadBaazaarTilesListings = (): AppThunk => async (dispatch, getStat
         });
 };
 
-export const updateTilesListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
-    dispatch(setTilesListingsSorting(sortings));
-    dispatch(setTilesListingsSkipLimit(0));
-    dispatch(setTilesListings([]));
-    dispatch(loadBaazaarTilesListings());
+export const onLoadBaazaarTilesListings = (): AppThunk => async (dispatch, getState) => {
+    const isFiltersUpdated: boolean = getState().baazaar.tiles.tilesListingsIsFiltersUpdated;
+    const isSortingUpdated: boolean = getState().baazaar.tiles.tilesListingsIsSortingUpdated;
+
+    if (isFiltersUpdated && isSortingUpdated) {
+        dispatch(setTilesListingsSkipLimit(0));
+        dispatch(setTilesListings([]));
+        dispatch(loadBaazaarTilesListings());
+    }
 };
 
 export const updateTilesListingsFilterByKey =
@@ -58,9 +64,6 @@ export const updateTilesListingsFilterByKey =
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setTilesListingsFilters({ ...filters, [key]: updatedFilter as TileListingFiltersType }));
-            dispatch(setTilesListingsSkipLimit(0));
-            dispatch(setTilesListings([]));
-            dispatch(loadBaazaarTilesListings());
         };
 
 export const resetTilesListingsFilters = (): AppThunk =>
@@ -74,9 +77,6 @@ export const resetTilesListingsFilters = (): AppThunk =>
         );
 
         dispatch(setTilesListingsFilters(updatedFilters));
-        dispatch(setTilesListingsSkipLimit(0));
-        dispatch(setTilesListings([]));
-        dispatch(loadBaazaarTilesListings());
     };
 
 
@@ -95,6 +95,8 @@ export const resetTilesListingsData = (): AppThunk =>
         dispatch(setTilesListingsSorting(defaultSorting));
         dispatch(setTilesListingsSkipLimit(0));
         dispatch(setTilesListings([]));
+        dispatch(setTilesListingsIsSortingUpdated(false));
+        dispatch(setTilesListingsIsFiltersUpdated(false));
     };
 
 const mapTilesListingsDTOToVM = (listings: TileListingDTO[], lastSoldListings: Erc1155ListingsBatch): TileListingVM[] => {

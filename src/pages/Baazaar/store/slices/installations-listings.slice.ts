@@ -12,7 +12,9 @@ export interface InstallationsListingsState {
     installationsListingsGraphQueryParams: GraphQueryParams;
     installationsListingsDefaultSorting: SortingItem;
     installationsListingsSorting: SortingItem;
+    installationsListingsIsSortingUpdated: boolean;
     installationsListingsFilters: InstallationListingFilters;
+    installationsListingsIsFiltersUpdated: boolean;
     installationsListingsQueryParamsOrder: string[];
 }
 
@@ -30,7 +32,9 @@ const initialState: InstallationsListingsState = {
     },
     installationsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     installationsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    installationsListingsIsSortingUpdated: false,
     installationsListingsFilters: installationListingFiltersData,
+    installationsListingsIsFiltersUpdated: false,
     installationsListingsQueryParamsOrder: [
         installationListingFiltersData.priceInWei.queryParamKey,
         'sort',
@@ -54,8 +58,14 @@ export const installationsListingsSlice = createSlice({
             state.installationsListingsGraphQueryParams.orderBy = action.payload.type;
             state.installationsListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setInstallationsListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.installationsListingsIsSortingUpdated = action.payload;
+        },
         setInstallationsListingsFilters: (state, action: PayloadAction<InstallationListingFilters>): void => {
             state.installationsListingsFilters = action.payload;
+        },
+        setInstallationsListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.installationsListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -64,7 +74,9 @@ export const {
     setInstallationsListings,
     setInstallationsListingsSkipLimit,
     setInstallationsListingsSorting,
-    setInstallationsListingsFilters
+    setInstallationsListingsIsSortingUpdated,
+    setInstallationsListingsFilters,
+    setInstallationsListingsIsFiltersUpdated
 } = installationsListingsSlice.actions;
 
 export const installationsListingsReducer = installationsListingsSlice.reducer;

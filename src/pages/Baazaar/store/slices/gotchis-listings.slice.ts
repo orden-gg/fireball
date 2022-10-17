@@ -12,7 +12,9 @@ export interface GotchisListingsState {
     gotchisListingsGraphQueryParams: GraphQueryParams;
     gotchisListingsDefaultSorting: SortingItem;
     gotchisListingsSorting: SortingItem;
+    gotchisListingsIsSortingUpdated: boolean;
     gotchisListingsFilters: GotchiListingsFilters;
+    gotchisListingsIsFiltersUpdated: boolean;
     gotchisListingsQueryParamsOrder: string[];
 }
 
@@ -30,7 +32,9 @@ const initialState: GotchisListingsState = {
     },
     gotchisListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     gotchisListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    gotchisListingsIsSortingUpdated: false,
     gotchisListingsFilters: gotchiListingsFiltersData,
+    gotchisListingsIsFiltersUpdated: false,
     gotchisListingsQueryParamsOrder: [
         gotchiListingsFiltersData.baseRarityScore.queryParamKey,
         gotchiListingsFiltersData.kinship.queryParamKey,
@@ -64,8 +68,14 @@ export const gotchisListingsSlice = createSlice({
             state.gotchisListingsGraphQueryParams.orderBy = action.payload.type;
             state.gotchisListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setGotchisListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.gotchisListingsIsSortingUpdated = action.payload;
+        },
         setGotchisListingsFilters: (state, action: PayloadAction<GotchiListingsFilters>): void => {
             state.gotchisListingsFilters = action.payload;
+        },
+        setGotchisListingsIsFiltersUpdated: (state, action: PayloadAction<boolean>): void => {
+            state.gotchisListingsIsFiltersUpdated = action.payload;
         }
     }
 });
@@ -74,7 +84,9 @@ export const {
     setGotchisListings,
     setGotchisListingsSkipLimit,
     setGotchisListingsSorting,
-    setGotchisListingsFilters
+    setGotchisListingsIsSortingUpdated,
+    setGotchisListingsFilters,
+    setGotchisListingsIsFiltersUpdated
 } = gotchisListingsSlice.actions;
 
 export const gotchisListingsReducer = gotchisListingsSlice.reducer;

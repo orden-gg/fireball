@@ -9,6 +9,8 @@ import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     setParcelsListings,
     setParcelsListingsFilters,
+    setParcelsListingsIsFiltersUpdated,
+    setParcelsListingsIsSortingUpdated,
     setParcelsListingsSkipLimit,
     setParcelsListingsSorting
 } from '../slices';
@@ -35,11 +37,15 @@ export const loadBaazaarParcelsListings = (): AppThunk => async (dispatch, getSt
         });
 };
 
-export const updateParcelsListingsSorting = (sortings: SortingItem): AppThunk => async (dispatch) => {
-    dispatch(setParcelsListingsSorting(sortings));
-    dispatch(setParcelsListingsSkipLimit(0));
-    dispatch(setParcelsListings([]));
-    dispatch(loadBaazaarParcelsListings());
+export const onLoadBaazaarParcelsListings = (): AppThunk => async (dispatch, getState) => {
+    const isFiltersUpdated: boolean = getState().baazaar.parcels.parcelsListingsIsFiltersUpdated;
+    const isSortingUpdated: boolean = getState().baazaar.parcels.parcelsListingsIsSortingUpdated;
+
+    if (isFiltersUpdated && isSortingUpdated) {
+        dispatch(setParcelsListingsSkipLimit(0));
+        dispatch(setParcelsListings([]));
+        dispatch(loadBaazaarParcelsListings());
+    }
 };
 
 export const updateParcelsListingsFilterByKey =
@@ -50,9 +56,6 @@ export const updateParcelsListingsFilterByKey =
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
             dispatch(setParcelsListingsFilters({ ...filters, [key]: updatedFilter }));
-            dispatch(setParcelsListingsSkipLimit(0));
-            dispatch(setParcelsListings([]));
-            dispatch(loadBaazaarParcelsListings());
         };
 
 export const resetParcelsListingsFilters = (): AppThunk =>
@@ -66,9 +69,6 @@ export const resetParcelsListingsFilters = (): AppThunk =>
         );
 
         dispatch(setParcelsListingsFilters(updatedFilters));
-        dispatch(setParcelsListingsSkipLimit(0));
-        dispatch(setParcelsListings([]));
-        dispatch(loadBaazaarParcelsListings());
     };
 
 export const resetParcelsListingsData = (): AppThunk =>
@@ -86,6 +86,8 @@ export const resetParcelsListingsData = (): AppThunk =>
         dispatch(setParcelsListingsSorting(defaultSorting));
         dispatch(setParcelsListingsSkipLimit(0));
         dispatch(setParcelsListings([]));
+        dispatch(setParcelsListingsIsSortingUpdated(false));
+        dispatch(setParcelsListingsIsFiltersUpdated(false));
     };
 
 const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {
