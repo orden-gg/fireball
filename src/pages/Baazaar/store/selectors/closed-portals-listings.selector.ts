@@ -12,6 +12,9 @@ export const getClosedPortalsListingsGraphQueryParams = (state: RootState): Grap
 export const getClosedPortalsListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.closedPortals.closedPortalsListingsLimitPerLoad;
 
+export const getClosedPortalsListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.closedPortals.closedPortalsListingsDefaultSorting;
+
 export const getClosedPortalsListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.closedPortals.closedPortalsListingsSorting;
 

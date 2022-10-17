@@ -12,6 +12,9 @@ export const getParcelsListingsGraphQueryParams = (state: RootState): GraphQuery
 export const getParcelsListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.parcels.parcelsListingsLimitPerLoad;
 
+export const getParcelsListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.parcels.parcelsListingsDefaultSorting;
+
 export const getParcelsListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.parcels.parcelsListingsSorting;
 

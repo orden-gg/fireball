@@ -32,6 +32,7 @@ import {
     getConsumablesListingsFilters,
     getConsumablesListingsGraphQueryParams,
     getConsumablesListingsLimitPerLoad,
+    getConsumablesListingsDefaultSorting,
     getConsumablesListingsSorting,
     getConsumablesListingsQueryParamsOrder,
     loadBaazaarConsumablesListings,
@@ -59,6 +60,7 @@ export function BaazaarConsumables() {
     const dispatch = useAppDispatch();
     const consumablesListings: ConsumableListingVM[] = useAppSelector(getConsumablesListings);
     const consumablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getConsumablesListingsGraphQueryParams);
+    const consumablesListingsDefaultSorting: SortingItem = useAppSelector(getConsumablesListingsDefaultSorting);
     const consumablesListingsSorting: SortingItem = useAppSelector(getConsumablesListingsSorting);
     const consumablesListingsFilters: ConsumableListingFilters = useAppSelector(getConsumablesListingsFilters);
     const consuamblesListingsLimitPerLoad: number = useAppSelector(getConsumablesListingsLimitPerLoad);
@@ -95,7 +97,17 @@ export function BaazaarConsumables() {
             .find(sorting => sorting.key === consumablesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: consumablesListingsSorting.dir };
+            if (
+                consumablesListingsSorting.dir === consumablesListingsDefaultSorting.dir &&
+                consumablesListingsSorting.type === consumablesListingsDefaultSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: consumablesListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, consumablesListingsQueryParamsOrder);

@@ -10,6 +10,7 @@ export interface TilesListingsState {
     tilesListings: TileListingVM[];
     tilesListingsLimitPerLoad: number;
     tilesListingsGraphQueryParams: GraphQueryParams;
+    tilesListingsDefaultSorting: SortingItem;
     tilesListingsSorting: SortingItem;
     tilesListingsFilters: TileListingFilters;
     tilesListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: TilesListingsState = {
             category: Erc1155Categories.Tile
         }
     },
+    tilesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     tilesListingsFilters: tileListingFiltersData,
     tilesListingsQueryParamsOrder: [

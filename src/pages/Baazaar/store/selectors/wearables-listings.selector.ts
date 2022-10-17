@@ -12,6 +12,9 @@ export const getWearablesListingsGraphQueryParams = (state: RootState): GraphQue
 export const getWearablesListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.wearables.wearablesListingsLimitPerLoad;
 
+export const getWearablesListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.wearables.wearablesListingsDefaultSorting;
+
 export const getWearablesListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.wearables.wearablesListingsSorting;
 

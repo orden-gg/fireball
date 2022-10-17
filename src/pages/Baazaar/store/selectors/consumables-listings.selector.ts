@@ -12,6 +12,9 @@ export const getConsumablesListingsGraphQueryParams = (state: RootState): GraphQ
 export const getConsumablesListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.consumables.consumablesListingsLimitPerLoad;
 
+export const getConsumablesListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.consumables.consumablesListingsDefaultSorting;
+
 export const getConsumablesListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.consumables.consumablesListingsSorting;
 

@@ -10,6 +10,7 @@ export interface WearablesListingsState {
     wearablesListings: WearableListingVM[];
     wearablesListingsLimitPerLoad: number;
     wearablesListingsGraphQueryParams: GraphQueryParams;
+    wearablesListingsDefaultSorting: SortingItem;
     wearablesListingsSorting: SortingItem;
     wearablesListingsFilters: WearableListingFilters;
     wearablesListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: WearablesListingsState = {
             category: Erc1155Categories.Wearable
         }
     },
+    wearablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     wearablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     wearablesListingsFilters: wearableListingFiltersData,
     wearablesListingsQueryParamsOrder: [

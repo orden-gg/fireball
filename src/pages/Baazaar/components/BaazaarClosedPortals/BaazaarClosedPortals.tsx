@@ -31,6 +31,7 @@ import {
     getClosedPortalsListingsFilters,
     getClosedPortalsListingsGraphQueryParams,
     getClosedPortalsListingsLimitPerLoad,
+    getClosedPortalsListingsDefaultSorting,
     getClosedPortalsListingsSorting,
     getClosedPortalsListingsQueryParamsOrder,
     loadBaazaarClosedPortalsListings,
@@ -58,6 +59,7 @@ export function BaazaarClosedPortals() {
     const dispatch = useAppDispatch();
     const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(getClosedPortalsListings);
     const closedPortalsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getClosedPortalsListingsGraphQueryParams);
+    const closedPortalsListingsDefaultSorting: SortingItem = useAppSelector(getClosedPortalsListingsDefaultSorting);
     const closedPortalsListingsSorting: SortingItem = useAppSelector(getClosedPortalsListingsSorting);
     const closedPortalsListingsFilters: ClosedPortalListingFilters = useAppSelector(getClosedPortalsListingsFilters);
     const closedPortalsListingsLimitPerLoad: number = useAppSelector(getClosedPortalsListingsLimitPerLoad);
@@ -93,9 +95,21 @@ export function BaazaarClosedPortals() {
         const paramKey: Undefinable<string> = closedPortalsListingsSortings
             .find(sorting => sorting.key === closedPortalsListingsSorting.type)?.paramKey;
 
-        if (paramKey) {
-            params = { ...params, sort: paramKey, dir: closedPortalsListingsSorting.dir };
-        }
+
+
+            if (paramKey) {
+                if (
+                    closedPortalsListingsSorting.dir === closedPortalsListingsDefaultSorting.dir &&
+                    closedPortalsListingsSorting.type === closedPortalsListingsDefaultSorting.type
+                ) {
+                    delete params['sort'];
+                    delete params['dir'];
+
+                    params = { ...params };
+                } else {
+                    params = { ...params, sort: paramKey, dir: closedPortalsListingsSorting.dir };
+                }
+            }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, closedPortalsListingsQueryParamsOrder);
     }, [closedPortalsListingsFilters, closedPortalsListingsSorting]);

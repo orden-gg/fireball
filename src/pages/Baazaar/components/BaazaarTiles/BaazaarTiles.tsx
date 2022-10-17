@@ -33,6 +33,7 @@ import {
     getTilesListingsFilters,
     getTilesListingsGraphQueryParams,
     getTilesListingsLimitPerLoad,
+    getTilesListingsDefaultSorting,
     getTilesListingsSorting,
     getTilesListingsQueryParamsOrder,
     loadBaazaarTilesListings,
@@ -60,6 +61,7 @@ export function BaazaarTiles() {
     const dispatch = useAppDispatch();
     const tilesListings: TileListingVM[] = useAppSelector(getTilesListings);
     const tilesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getTilesListingsGraphQueryParams);
+    const tilesListingsDefaultSorting: SortingItem = useAppSelector(getTilesListingsDefaultSorting);
     const tilesListingsSorting: SortingItem = useAppSelector(getTilesListingsSorting);
     const tilesListingsFilters: TileListingFilters = useAppSelector(getTilesListingsFilters);
     const tilesListingsLimitPerLoad: number = useAppSelector(getTilesListingsLimitPerLoad);
@@ -96,7 +98,17 @@ export function BaazaarTiles() {
             .find(sorting => sorting.key === tilesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: tilesListingsSorting.dir };
+            if (
+                tilesListingsSorting.dir === tilesListingsDefaultSorting.dir &&
+                tilesListingsSorting.type === tilesListingsDefaultSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: tilesListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);

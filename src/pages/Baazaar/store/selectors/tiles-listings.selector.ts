@@ -12,6 +12,9 @@ export const getTilesListingsGraphQueryParams = (state: RootState): GraphQueryPa
 export const getTilesListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.tiles.tilesListingsLimitPerLoad;
 
+export const getTilesListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.tiles.tilesListingsDefaultSorting;
+
 export const getTilesListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.tiles.tilesListingsSorting;
 

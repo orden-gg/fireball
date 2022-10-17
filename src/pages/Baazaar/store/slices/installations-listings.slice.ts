@@ -10,6 +10,7 @@ export interface InstallationsListingsState {
     installationsListings: InstallationListingVM[];
     installationsListingsLimitPerLoad: number;
     installationsListingsGraphQueryParams: GraphQueryParams;
+    installationsListingsDefaultSorting: SortingItem;
     installationsListingsSorting: SortingItem;
     installationsListingsFilters: InstallationListingFilters;
     installationsListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: InstallationsListingsState = {
             category: Erc1155Categories.Installation
         }
     },
+    installationsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     installationsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     installationsListingsFilters: installationListingFiltersData,
     installationsListingsQueryParamsOrder: [

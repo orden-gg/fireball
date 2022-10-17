@@ -32,6 +32,7 @@ import {
     getWearablesListingsFilters,
     getWearablesListingsGraphQueryParams,
     getWearablesListingsLimitPerLoad,
+    getWearablesListingsDefaultSorting,
     getWearablesListingsSorting,
     getWearablesListingsQueryParamsOrder,
     loadBaazaarWearablesListings,
@@ -59,6 +60,7 @@ export function BaazaarWearables() {
     const dispatch = useAppDispatch();
     const wearablesListings: WearableListingVM[] = useAppSelector(getWearablesListings);
     const wearablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getWearablesListingsGraphQueryParams);
+    const wearablesListingsDefaultSorting: SortingItem = useAppSelector(getWearablesListingsDefaultSorting);
     const wearablesListingsSorting: SortingItem = useAppSelector(getWearablesListingsSorting);
     const wearablesListingsFilters: WearableListingFilters = useAppSelector(getWearablesListingsFilters);
     const wearablesListingsLimitPerLoad: number = useAppSelector(getWearablesListingsLimitPerLoad);
@@ -95,7 +97,17 @@ export function BaazaarWearables() {
             .find(sorting => sorting.key === wearablesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: wearablesListingsSorting.dir };
+            if (
+                wearablesListingsSorting.dir === wearablesListingsDefaultSorting.dir &&
+                wearablesListingsSorting.type === wearablesListingsDefaultSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: wearablesListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, WearablesListingsQueryParamsOrder);

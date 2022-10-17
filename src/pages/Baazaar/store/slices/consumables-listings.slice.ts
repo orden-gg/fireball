@@ -10,6 +10,7 @@ export interface ConsumablesListingsState {
     consumablesListings: ConsumableListingVM[];
     consumablesListingsLimitPerLoad: number;
     consumablesListingsGraphQueryParams: GraphQueryParams;
+    consumablesListingsDefaultSorting: SortingItem;
     consumablesListingsSorting: SortingItem;
     consumablesListingsFilters: ConsumableListingFilters;
     consumablesListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: ConsumablesListingsState = {
             category: Erc1155Categories.Consumable
         }
     },
+    consumablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     consumablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     consumablesListingsFilters: consumableListingFiltersData,
     consumablesListingsQueryParamsOrder: [

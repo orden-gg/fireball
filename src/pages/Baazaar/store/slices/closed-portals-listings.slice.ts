@@ -10,6 +10,7 @@ export interface ClosedPortlasListingsState {
     closedPortalsListings: ClosedPortalListingVM[];
     closedPortalsListingsLimitPerLoad: number;
     closedPortalsListingsGraphQueryParams: GraphQueryParams;
+    closedPortalsListingsDefaultSorting: SortingItem;
     closedPortalsListingsSorting: SortingItem;
     closedPortalsListingsFilters: ClosedPortalListingFilters;
     closedPortalsListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: ClosedPortlasListingsState = {
             category: Erc721Categories.ClosedPortal
         }
     },
+    closedPortalsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     closedPortalsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     closedPortalsListingsFilters: closedPortalListingsFiltersData,
     closedPortalsListingsQueryParamsOrder: [

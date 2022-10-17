@@ -29,6 +29,7 @@ import {
     getParcelsListings,
     getParcelsListingsFilters,
     getParcelsListingsGraphQueryParams,
+    getParcelsListingsDefaultSorting,
     getParcelsListingsSorting,
     getParcelsListingsLimitPerLoad,
     getParcelsListingsQueryParamsOrder,
@@ -57,6 +58,7 @@ export function BaazaarParcels() {
     const dispatch = useAppDispatch();
     const parcelsListings: ParcelListingVM[] = useAppSelector(getParcelsListings);
     const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getParcelsListingsGraphQueryParams);
+    const parcelsListingsDefaultSorting: SortingItem = useAppSelector(getParcelsListingsDefaultSorting);
     const parcelsListingsSorting: SortingItem = useAppSelector(getParcelsListingsSorting);
     const parcelsListingsFilters: ParcelListingFilters = useAppSelector(getParcelsListingsFilters);
     const parcelsListingslistingsLimitPerLoad: number = useAppSelector(getParcelsListingsLimitPerLoad);
@@ -93,7 +95,17 @@ export function BaazaarParcels() {
             .find(sorting => sorting.key === parcelsListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: parcelsListingsSorting.dir };
+            if (
+                parcelsListingsSorting.dir === parcelsListingsDefaultSorting.dir &&
+                parcelsListingsSorting.type === parcelsListingsDefaultSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: parcelsListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, parcelsListingsQueryParamsOrder);

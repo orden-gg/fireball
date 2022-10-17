@@ -10,6 +10,7 @@ export interface ParcelsListingsState {
     parcelsListings: ParcelListingVM[];
     parcelsListingsLimitPerLoad: number;
     parcelsListingsGraphQueryParams: GraphQueryParams;
+    parcelsListingsDefaultSorting: SortingItem;
     parcelsListingsSorting: SortingItem;
     parcelsListingsFilters: ParcelListingFilters;
     parcelsListingsQueryParamsOrder: string[];
@@ -27,6 +28,8 @@ const initialState: ParcelsListingsState = {
             category: Erc721Categories.Realm
         }
     },
+
+    parcelsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     parcelsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     parcelsListingsFilters: parcelListingFiltersData,
     parcelsListingsQueryParamsOrder: [

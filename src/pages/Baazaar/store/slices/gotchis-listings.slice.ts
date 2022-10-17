@@ -10,6 +10,7 @@ export interface GotchisListingsState {
     gotchisListings: GotchiListingVM[];
     gotchisListingsLimitPerLoad: number;
     gotchisListingsGraphQueryParams: GraphQueryParams;
+    gotchisListingsDefaultSorting: SortingItem;
     gotchisListingsSorting: SortingItem;
     gotchisListingsFilters: GotchiListingsFilters;
     gotchisListingsQueryParamsOrder: string[];
@@ -27,6 +28,7 @@ const initialState: GotchisListingsState = {
             category: Erc721Categories.Aavegotchi
         }
     },
+    gotchisListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     gotchisListingsSorting: { type: 'timeCreated', dir: 'desc' },
     gotchisListingsFilters: gotchiListingsFiltersData,
     gotchisListingsQueryParamsOrder: [

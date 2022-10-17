@@ -29,6 +29,7 @@ import {
     getGotchisListings,
     getGotchisListingsFilters,
     getGotchisListingsGraphQueryParams,
+    getGotchisDefaultListingsSorting,
     getGotchisListingsSorting,
     getGotchisListingsLimitPerLoad,
     getGotchisListingsQueryParamsOrder,
@@ -58,6 +59,7 @@ export function BaazaarGotchis() {
     const gotchiListings: GotchiListingVM[] = useAppSelector(getGotchisListings);
     const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchisListingsGraphQueryParams);
     const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(getGotchisListingsFilters);
+    const gotchisDefaultListingsSorting: SortingItem = useAppSelector(getGotchisDefaultListingsSorting);
     const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
     const gotchisListingsLimitPerLoad: number = useAppSelector(getGotchisListingsLimitPerLoad);
     const gotchisListingsQueryParamsOrder: string[] = useAppSelector(getGotchisListingsQueryParamsOrder);
@@ -93,7 +95,17 @@ export function BaazaarGotchis() {
             .find(sorting => sorting.key === gotchisListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: gotchisListingsSorting.dir };
+            if (
+                gotchisListingsSorting.dir === gotchisDefaultListingsSorting.dir &&
+                gotchisListingsSorting.type === gotchisDefaultListingsSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: gotchisListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);

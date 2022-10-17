@@ -33,6 +33,7 @@ import {
     getInstallationsListingsFilters,
     getInstallationsListingsGraphQueryParams,
     getInstallationsListingsLimitPerLoad,
+    getInstallationsListingsDefaultSorting,
     getInstallationsListingsSorting,
     getInstallationsListingsQueryParamsOrder,
     loadBaazaarInstallationsListings,
@@ -60,6 +61,7 @@ export function BaazaarInstallations() {
     const dispatch = useAppDispatch();
     const installationsListings: InstallationListingVM[] = useAppSelector(getInstallationsListings);
     const installationsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getInstallationsListingsGraphQueryParams);
+    const installationsListingsDefaultSorting: SortingItem = useAppSelector(getInstallationsListingsDefaultSorting);
     const installationsListingsSorting: SortingItem = useAppSelector(getInstallationsListingsSorting);
     const installationsListingsFilters: InstallationListingFilters = useAppSelector(getInstallationsListingsFilters);
     const installationsListingsLimitPerLoad: number = useAppSelector(getInstallationsListingsLimitPerLoad);
@@ -100,7 +102,17 @@ export function BaazaarInstallations() {
             .find(sorting => sorting.key === installationsListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            params = { ...params, sort: paramKey, dir: installationsListingsSorting.dir };
+            if (
+                installationsListingsSorting.dir === installationsListingsDefaultSorting.dir &&
+                installationsListingsSorting.type === installationsListingsDefaultSorting.type
+            ) {
+                delete params['sort'];
+                delete params['dir'];
+
+                params = { ...params };
+            } else {
+                params = { ...params, sort: paramKey, dir: installationsListingsSorting.dir };
+            }
         }
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, installationsListingsQueryParamsOrder);

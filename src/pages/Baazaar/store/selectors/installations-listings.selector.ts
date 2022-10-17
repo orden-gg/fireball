@@ -12,6 +12,9 @@ export const getInstallationsListingsGraphQueryParams = (state: RootState): Grap
 export const getInstallationsListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.installations.installationsListingsLimitPerLoad;
 
+export const getInstallationsListingsDefaultSorting = (state: RootState): SortingItem =>
+    state.baazaar.installations.installationsListingsDefaultSorting;
+
 export const getInstallationsListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.installations.installationsListingsSorting;
 

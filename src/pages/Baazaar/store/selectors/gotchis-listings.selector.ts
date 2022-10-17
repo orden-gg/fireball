@@ -12,6 +12,9 @@ export const getGotchisListingsGraphQueryParams = (state: RootState): GraphQuery
 export const getGotchisListingsLimitPerLoad = (state: RootState): number =>
     state.baazaar.gotchis.gotchisListingsLimitPerLoad;
 
+export const getGotchisDefaultListingsSorting = (state: RootState): SortingItem =>
+    state.baazaar.gotchis.gotchisListingsDefaultSorting;
+
 export const getGotchisListingsSorting = (state: RootState): SortingItem =>
     state.baazaar.gotchis.gotchisListingsSorting;
 
