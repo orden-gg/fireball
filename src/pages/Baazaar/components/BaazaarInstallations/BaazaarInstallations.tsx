@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -24,7 +24,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { AnvilIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { InstallationListingFilterTypes } from '../../constants';
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
@@ -40,7 +40,8 @@ import {
     resetInstallationsListingsFilters,
     setInstallationsListingsSkipLimit,
     updateInstallationsListingsFilterByKey,
-    updateInstallationsListingsSorting
+    updateInstallationsListingsSorting,
+    setInstallationsListingsFilters
 } from '../../store';
 import { installationsListingsSortings } from '../../static/sortings';
 
@@ -51,7 +52,10 @@ export function BaazaarInstallations() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const installationsListings: InstallationListingVM[] = useAppSelector(getInstallationsListings);
@@ -68,14 +72,18 @@ export function BaazaarInstallations() {
     useEffect(() => {
         dispatch(loadBaazaarInstallationsListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: InstallationListingFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...installationsListingsFilters });
+        dispatch(setInstallationsListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams;
 
         if (sort && dir) {
             const key: Undefinable<string> = installationsListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -85,19 +93,18 @@ export function BaazaarInstallations() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...installationsListingsFilters });
+
         const paramKey: Undefinable<string> = installationsListingsSortings
             .find(sorting => sorting.key === installationsListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, installationsListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: installationsListingsSorting.dir };
         }
-    }, [installationsListingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, installationsListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+    }, [installationsListingsFilters, installationsListingsSorting]);
 
     const onHandleReachedEnd = (): void => {
         dispatch(setInstallationsListingsSkipLimit(installationsListingsGraphQueryParams.skip + installationsListingsLimitPerLoad));

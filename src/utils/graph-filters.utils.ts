@@ -1,6 +1,8 @@
 import { FilterDomainType, GraphComparatorOptions, GraphFiltersDataType, GraphFiltersHelperType } from 'shared/constants';
 import {
+    CustomParsedQuery,
     FilterGraphItemOption,
+    GraphFiltersQueryParamTypes,
     GraphFiltersTypes,
     GraphFiltersValueTypes,
     GraphInputFilter,
@@ -65,6 +67,65 @@ export class GraphFiltersUtils {
                 return GraphFiltersHelper.getResetedMultipleSelectionFilter(filter);
             case GraphFiltersDataType.RangeSlider:
                 return GraphFiltersHelper.getResetedRangeSliderFilter(filter);
+        }
+    }
+
+    public static getFiltersQueryParams(
+        queryParams: CustomParsedQuery<GraphFiltersQueryParamTypes>,
+        filters: { [key: string]: GraphFiltersTypes }
+    ): CustomParsedQuery<GraphFiltersQueryParamTypes> {
+        const params: CustomParsedQuery<GraphFiltersQueryParamTypes> = { ...queryParams };
+
+        Object.entries(filters).forEach(([_, filter]: [_: string, filter: GraphFiltersTypes]) => {
+            if (filter.isFilterActive) {
+                params[filter.queryParamKey] = GraphFiltersUtils.getFilterQueryParamsByType(filter);
+            } else {
+                delete params[filter.queryParamKey];
+            }
+        });
+
+        return params;
+    }
+
+    public static getFilterQueryParamsByType(filter: GraphFiltersTypes): GraphFiltersQueryParamTypes {
+        switch (filter.dataType) {
+            case GraphFiltersDataType.Input:
+                return GraphFiltersHelper.getInputFilterQueryParams(filter);
+            case GraphFiltersDataType.MultiAutocomplete:
+                return GraphFiltersHelper.getMultipleAutocompleteFilterQueryParams(filter);
+            case GraphFiltersDataType.MultiButtonSelection:
+                return GraphFiltersHelper.getMultipleSelectionFilterQueryParams(filter);
+            case GraphFiltersDataType.RangeSlider:
+                return GraphFiltersHelper.getRangeSliderFilterQueryParams(filter);
+        }
+    }
+
+    public static getUpdatedFiltersFromQueryParams<T>(
+        queryParams: CustomParsedQuery<GraphFiltersQueryParamTypes>,
+        filters: T
+    ): T {
+        return Object.fromEntries(
+            Object.entries(filters).map(([_, filter]: [_: string, filter: GraphFiltersTypes]) => {
+                return [
+                    [filter.key],
+                    queryParams[filter.queryParamKey] ?
+                        GraphFiltersUtils.getUpdatedFilterFromQueryParamsByType(filter, queryParams):
+                        filter
+                ];
+            })
+        );
+    }
+
+    public static getUpdatedFilterFromQueryParamsByType(filter: GraphFiltersTypes, queryParams: any): any {
+        switch (filter.dataType) {
+            case GraphFiltersDataType.Input:
+                return GraphFiltersHelper.getUpdatedInputFromQuery(filter, queryParams[filter.queryParamKey]);
+            case GraphFiltersDataType.MultiAutocomplete:
+                return GraphFiltersHelper.getUpdatedMultipleAutocompleteFromQuery(filter, queryParams[filter.queryParamKey], 'queryParamValue');
+            case GraphFiltersDataType.MultiButtonSelection:
+                return GraphFiltersHelper.getUpdatedMultipleSelectionFromQuery(filter, queryParams[filter.queryParamKey], 'queryParamValue');
+            case GraphFiltersDataType.RangeSlider:
+                return GraphFiltersHelper.getUpdatedRangeSliderFromQuery(filter, queryParams[filter.queryParamKey]);
         }
     }
 

@@ -1,13 +1,13 @@
 import { NavigateFunction } from 'react-router-dom';
 
-import { QueryParamSortingItem } from 'shared/models';
+import { CustomParsedQuery, GraphFiltersQueryParamTypes } from 'shared/models';
 
 export class RouteUtils {
     public static updateQueryParams(
         navigate: NavigateFunction,
         pathname: string,
         qs: any,
-        queryParams: QueryParamSortingItem,
+        queryParams: CustomParsedQuery<GraphFiltersQueryParamTypes>,
         queryParamsOrder: string[]
     ): void {
         navigate({

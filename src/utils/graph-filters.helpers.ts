@@ -1,4 +1,5 @@
 import {
+    FilterGraphItemOption,
     FilterItemOption,
     GraphInputFilter,
     GraphInputFilterValue,
@@ -30,6 +31,21 @@ export class GraphFiltersHelper {
         };
     }
 
+    public static getUpdatedInputFromQuery(
+        filter: GraphInputFilter,
+        value: string
+    ): GraphInputFilter {
+        return {
+            ...filter,
+            isFilterActive: true,
+            value
+        };
+    }
+
+    public static getInputFilterQueryParams(filter: GraphInputFilter): string {
+        return filter.value;
+    }
+
     // Range slider filter handlers
     public static getIsRangeSliderFilterValid(values: GraphRangeSliderFilterValue, filter: GraphRangeSliderFilter): boolean {
         return values[0] > filter.min || values[1] < filter.max;
@@ -52,6 +68,21 @@ export class GraphFiltersHelper {
             isFilterActive: true,
             value
         };
+    }
+
+    public static getUpdatedRangeSliderFromQuery(
+        filter: GraphRangeSliderFilter,
+        value: string[]
+    ): GraphRangeSliderFilter {
+        return {
+            ...filter,
+            isFilterActive: true,
+            value: value.map((value: string) => Number(value))
+        };
+    }
+
+    public static getRangeSliderFilterQueryParams(filter: GraphRangeSliderFilter): number[] {
+        return filter.value;
     }
 
     // Multiple selection filter handlers
@@ -85,6 +116,34 @@ export class GraphFiltersHelper {
         };
     }
 
+    public static getUpdatedMultipleSelectionFromQuery(
+        filter: GraphMultiButtonSelectionFilter,
+        compareValue: string | string[],
+        compareKey: string
+    ): GraphMultiButtonSelectionFilter {
+        return {
+            ...filter,
+            isFilterActive: true,
+            items: filter.items.map((item: FilterGraphItemOption) => {
+                let filterItem: FilterGraphItemOption | string | undefined;
+
+                if (typeof compareValue === 'string') {
+                    filterItem = compareValue === item[compareKey] ? item : undefined;
+                } else {
+                    filterItem = compareValue.find(value => value === item[compareKey]);
+                }
+
+                return { ...item, isSelected: filterItem ? true : false };
+            })
+        };
+    }
+
+    public static getMultipleSelectionFilterQueryParams(filter: GraphMultiButtonSelectionFilter): string[] {
+        return filter.items
+            .filter((item: FilterGraphItemOption) => item.isSelected)
+            .map((item: FilterGraphItemOption) => item.queryParamValue);
+    }
+
     // Multiple autocomplete filter handlers
     public static getIsMultipleAutocompleteFilterValid(values: FilterItemOption[]): boolean {
         return values.length > 0;
@@ -114,5 +173,33 @@ export class GraphFiltersHelper {
                 return { ...item, isSelected: filterItem ? true : false };
             })
         };
+    }
+
+    public static getUpdatedMultipleAutocompleteFromQuery(
+        filter: GraphMultiAutocompleteFilter,
+        compareValue: string | string[],
+        compareKey: string
+    ): GraphMultiAutocompleteFilter {
+        return {
+            ...filter,
+            isFilterActive: true,
+            items: filter.items.map((item: FilterGraphItemOption) => {
+                let filterItem: FilterGraphItemOption | string | undefined;
+
+                if (typeof compareValue === 'string') {
+                    filterItem = compareValue === item[compareKey] ? item : undefined;
+                } else {
+                    filterItem = compareValue.find(value => value === item[compareKey]);
+                }
+
+                return { ...item, isSelected: filterItem ? true : false };
+            })
+        };
+    }
+
+    public static getMultipleAutocompleteFilterQueryParams(filter: GraphMultiAutocompleteFilter): string[] {
+        return filter.items
+            .filter((item: FilterGraphItemOption) => item.isSelected)
+            .map((item: FilterGraphItemOption) => item.queryParamValue);
     }
 }

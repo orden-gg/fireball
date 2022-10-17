@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -21,7 +21,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { GotchiListingsFilterTypes } from '../../constants';
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
@@ -37,7 +37,8 @@ import {
     resetGotchiListingsFilters,
     setGotchisListingsSkipLimit,
     updateGotchiListingsFilterByKey,
-    updateGotchiListingsSorting
+    updateGotchiListingsSorting,
+    setGotchisListingsFilters
 } from '../../store';
 import { gotchisListingsSortings } from '../../static/sortings';
 
@@ -48,27 +49,34 @@ export function BaazaarGotchis() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const gotchiListings: GotchiListingVM[] = useAppSelector(getGotchisListings);
     const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchisListingsGraphQueryParams);
-    const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
     const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(getGotchisListingsFilters);
+    const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
     const gotchisListingsLimitPerLoad: number = useAppSelector(getGotchisListingsLimitPerLoad);
     const gotchisListingsQueryParamsOrder: string[] = useAppSelector(getGotchisListingsQueryParamsOrder);
 
     useEffect(() => {
         dispatch(loadBaazaarGotchiListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: GotchiListingsFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...gotchisListingsFilters });
+        dispatch(setGotchisListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
         if (sort && dir) {
             const key: Undefinable<string> = gotchisListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -78,19 +86,18 @@ export function BaazaarGotchis() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...gotchisListingsFilters });
+
         const paramKey: Undefinable<string> = gotchisListingsSortings
             .find(sorting => sorting.key === gotchisListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, gotchisListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: gotchisListingsSorting.dir };
         }
-    }, [gotchisListingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+    }, [gotchisListingsFilters, gotchisListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateGotchiListingsSorting({ type: sortBy, dir: sortDir }));

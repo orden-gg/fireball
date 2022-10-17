@@ -29,7 +29,12 @@ const initialState: ConsumablesListingsState = {
     },
     consumablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     consumablesListingsFilters: consumableListingFiltersData,
-    consumablesListingsQueryParamsOrder: ['sort', 'dir']
+    consumablesListingsQueryParamsOrder: [
+        consumableListingFiltersData.rarityLevel.queryParamKey,
+        consumableListingFiltersData.priceInWei.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const consumablesListingsSlice = createSlice({

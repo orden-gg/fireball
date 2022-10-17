@@ -29,7 +29,17 @@ const initialState: ParcelsListingsState = {
     },
     parcelsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     parcelsListingsFilters: parcelListingFiltersData,
-    parcelsListingsQueryParamsOrder: ['sort', 'dir']
+    parcelsListingsQueryParamsOrder: [
+        parcelListingFiltersData.size.queryParamKey,
+        parcelListingFiltersData.district.queryParamKey,
+        parcelListingFiltersData.priceInWei.queryParamKey,
+        parcelListingFiltersData.fudBoost.queryParamKey,
+        parcelListingFiltersData.fomoBoost.queryParamKey,
+        parcelListingFiltersData.alphaBoost.queryParamKey,
+        parcelListingFiltersData.kekBoost.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const parcelsListingsSlice = createSlice({

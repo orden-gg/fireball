@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -21,7 +21,7 @@ import { Filters } from 'components/Filters/components/Filters/Filters';
 import { KekIcon } from 'components/Icons/Icons';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingVM, ParcelListingFilters } from '../../models';
@@ -37,7 +37,8 @@ import {
     resetParcelsListingsFilters,
     setParcelsListingsSkipLimit,
     updateParcelsListingsFilterByKey,
-    updateParcelsListingsSorting
+    updateParcelsListingsSorting,
+    setParcelsListingsFilters
 } from '../../store';
 import { parcelsListingsSortings } from '../../static/sortings';
 
@@ -48,7 +49,10 @@ export function BaazaarParcels() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const parcelsListings: ParcelListingVM[] = useAppSelector(getParcelsListings);
@@ -61,14 +65,18 @@ export function BaazaarParcels() {
     useEffect(() => {
         dispatch(loadBaazaarParcelsListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: ParcelListingFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...parcelsListingsFilters });
+        dispatch(setParcelsListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams;
 
         if (sort && dir) {
             const key: Undefinable<string> = parcelsListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -78,19 +86,18 @@ export function BaazaarParcels() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...parcelsListingsFilters });
+
         const paramKey: Undefinable<string> = parcelsListingsSortings
             .find(sorting => sorting.key === parcelsListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, parcelsListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: parcelsListingsSorting.dir };
         }
-    }, [parcelsListingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, parcelsListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+    }, [parcelsListingsFilters, parcelsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateParcelsListingsSorting({ type: sortBy, dir: sortDir }));

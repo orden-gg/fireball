@@ -29,7 +29,11 @@ const initialState: InstallationsListingsState = {
     },
     installationsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     installationsListingsFilters: installationListingFiltersData,
-    installationsListingsQueryParamsOrder: ['sort', 'dir']
+    installationsListingsQueryParamsOrder: [
+        installationListingFiltersData.priceInWei.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const installationsListingsSlice = createSlice({

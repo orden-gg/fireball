@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -24,7 +24,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { PurpleGrassIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { TileListingFilterTypes } from '../../constants';
 import { TileListingFilters, TileListingVM } from '../../models';
@@ -40,7 +40,8 @@ import {
     resetTilesListingsFilters,
     setTilesListingsSkipLimit,
     updateTilesListingsFilterByKey,
-    updateTilesListingsSorting
+    updateTilesListingsSorting,
+    setTilesListingsFilters
 } from '../../store';
 import { tilesListingsSortings } from '../../static/sortings';
 
@@ -51,7 +52,10 @@ export function BaazaarTiles() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const tilesListings: TileListingVM[] = useAppSelector(getTilesListings);
@@ -64,14 +68,18 @@ export function BaazaarTiles() {
     useEffect(() => {
         dispatch(loadBaazaarTilesListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: TileListingFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...tilesListingsFilters });
+        dispatch(setTilesListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams;
 
         if (sort && dir) {
             const key: Undefinable<string> = tilesListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -81,23 +89,22 @@ export function BaazaarTiles() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...tilesListingsFilters });
+
         const paramKey: Undefinable<string> = tilesListingsSortings
             .find(sorting => sorting.key === tilesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, tilesListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: tilesListingsSorting.dir };
         }
-    }, [tilesListingsSorting]);
+
+        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);
+    }, [tilesListingsFilters, tilesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateTilesListingsSorting({ type: sortBy, dir: sortDir }));
     };
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
-
-        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
 
     const onHandleReachedEnd = (): void => {
         dispatch(setTilesListingsSkipLimit(tilesListingsGraphQueryParams.skip + tilesListingsLimitPerLoad));

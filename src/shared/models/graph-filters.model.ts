@@ -53,4 +53,5 @@ export type GraphRangeSliderFilterValue = number[];
 export type GraphInputFilterValue = string;
 export type GraphMultipleSelectionFilterValue = FilterItemOption[];
 export type GraphFiltersValueTypes = GraphRangeSliderFilterValue | GraphInputFilterValue | GraphMultipleSelectionFilterValue;
+export type GraphFiltersQueryParamTypes = string | string[] | number[];
 

@@ -29,7 +29,12 @@ const initialState: TilesListingsState = {
     },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     tilesListingsFilters: tileListingFiltersData,
-    tilesListingsQueryParamsOrder: ['sort', 'dir']
+    tilesListingsQueryParamsOrder: [
+        tileListingFiltersData.erc1155TypeId.queryParamKey,
+        tileListingFiltersData.priceInWei.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const tilesListingsSlice = createSlice({

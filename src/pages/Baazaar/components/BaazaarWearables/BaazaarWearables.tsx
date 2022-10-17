@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -23,7 +23,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { WarehouseIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingFilters, WearableListingVM } from '../../models';
@@ -39,7 +39,8 @@ import {
     resetWearablesListingsFilters,
     setWearablesListingsSkipLimit,
     updateWearablesListingsFilterByKey,
-    updateWearablesListingsSorting
+    updateWearablesListingsSorting,
+    setWearablesListingsFilters
 } from '../../store';
 import { wearablesListingsSortings } from '../../static/sortings';
 
@@ -50,7 +51,10 @@ export function BaazaarWearables() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const wearablesListings: WearableListingVM[] = useAppSelector(getWearablesListings);
@@ -63,14 +67,18 @@ export function BaazaarWearables() {
     useEffect(() => {
         dispatch(loadBaazaarWearablesListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: WearableListingFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...wearablesListingsFilters });
+        dispatch(setWearablesListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams;
 
         if (sort && dir) {
             const key: Undefinable<string> = wearablesListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -80,19 +88,18 @@ export function BaazaarWearables() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...wearablesListingsFilters });
+
         const paramKey: Undefinable<string> = wearablesListingsSortings
             .find(sorting => sorting.key === wearablesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, wearablesListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: wearablesListingsSorting.dir };
         }
-    }, [wearablesListingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, WearablesListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+    }, [wearablesListingsFilters, wearablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateWearablesListingsSorting({ type: sortBy, dir: sortDir }));

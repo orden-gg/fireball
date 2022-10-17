@@ -8,9 +8,9 @@ import qs from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
     CustomParsedQuery,
+    GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes,
     GraphQueryParams,
-    QueryParamSortingItem,
     SortingItem,
     SortingListItem
 } from 'shared/models';
@@ -23,7 +23,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { ConsumableIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { RouteUtils } from 'utils';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ConsumableListingFilterTypes } from '../../constants';
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
@@ -39,7 +39,8 @@ import {
     resetConsumablesListingsFilters,
     setConsumablesListingsSkipLimit,
     updateConsumablesListingsFilterByKey,
-    updateConsumablesListingsSorting
+    updateConsumablesListingsSorting,
+    setConsumablesListingsFilters
 } from '../../store';
 import { consumablesListingsSortings } from '../../static/sortings';
 
@@ -50,7 +51,10 @@ export function BaazaarConsumables() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+    const queryParams = qs.parse(
+        location.search,
+        { arrayFormat: 'comma' }
+    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
     const consumablesListings: ConsumableListingVM[] = useAppSelector(getConsumablesListings);
@@ -63,14 +67,18 @@ export function BaazaarConsumables() {
     useEffect(() => {
         dispatch(loadBaazaarConsumablesListings());
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+        const updatedFilters: ConsumableListingFilters =
+            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...consumablesListingsFilters });
+        dispatch(setConsumablesListingsFilters(updatedFilters));
+
+        const { sort, dir } = queryParams;
 
         if (sort && dir) {
             const key: Undefinable<string> = consumablesListingsSortings
                 .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
 
             if (key) {
-                onSortingChange(key, dir);
+                onSortingChange(key, dir as string);
             }
         }
 
@@ -80,19 +88,18 @@ export function BaazaarConsumables() {
     }, []);
 
     useEffect(() => {
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
+            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...consumablesListingsFilters });
+
         const paramKey: Undefinable<string> = consumablesListingsSortings
             .find(sorting => sorting.key === consumablesListingsSorting.type)?.paramKey;
 
         if (paramKey) {
-            updateSortQueryParams(paramKey, consumablesListingsSorting.dir);
+            params = { ...params, sort: paramKey, dir: consumablesListingsSorting.dir };
         }
-    }, [consumablesListingsSorting]);
-
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params: QueryParamSortingItem = { ...queryParams, sort: prop, dir };
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, consumablesListingsQueryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+    }, [consumablesListingsFilters, consumablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
         dispatch(updateConsumablesListingsSorting({ type: sortBy, dir: sortDir }));

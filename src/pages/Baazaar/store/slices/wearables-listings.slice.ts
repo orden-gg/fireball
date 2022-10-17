@@ -29,7 +29,16 @@ const initialState: WearablesListingsState = {
     },
     wearablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
     wearablesListingsFilters: wearableListingFiltersData,
-    wearablesListingsQueryParamsOrder: ['sort', 'dir']
+    wearablesListingsQueryParamsOrder: [
+        wearableListingFiltersData.rarityLevel.queryParamKey,
+        wearableListingFiltersData.priceInWei.queryParamKey,
+        wearableListingFiltersData.nrgTraitModifier.queryParamKey,
+        wearableListingFiltersData.aggTraitModifier.queryParamKey,
+        wearableListingFiltersData.spkTraitModifier.queryParamKey,
+        wearableListingFiltersData.brnTraitModifier.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const wearablesListingsSlice = createSlice({

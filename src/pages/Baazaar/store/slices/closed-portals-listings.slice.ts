@@ -29,7 +29,12 @@ const initialState: ClosedPortlasListingsState = {
     },
     closedPortalsListingsSorting: { type: 'timeCreated', dir: 'desc' },
     closedPortalsListingsFilters: closedPortalListingsFiltersData,
-    closedPortalsListingsQueryParamsOrder: ['sort', 'dir']
+    closedPortalsListingsQueryParamsOrder: [
+        closedPortalListingsFiltersData.hauntId.queryParamKey,
+        closedPortalListingsFiltersData.priceInWei.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const closedPortalsListingsSlice = createSlice({

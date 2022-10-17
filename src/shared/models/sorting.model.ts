@@ -4,8 +4,7 @@ export interface SortingItem {
 }
 
 export interface QueryParamSortingItem {
-    sort: string;
-    dir: string;
+    [key: string]: string | string[] | number[];
 }
 
 export interface SortingListItem {

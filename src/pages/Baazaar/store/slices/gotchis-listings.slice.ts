@@ -29,7 +29,21 @@ const initialState: GotchisListingsState = {
     },
     gotchisListingsSorting: { type: 'timeCreated', dir: 'desc' },
     gotchisListingsFilters: gotchiListingsFiltersData,
-    gotchisListingsQueryParamsOrder: ['sort', 'dir']
+    gotchisListingsQueryParamsOrder: [
+        gotchiListingsFiltersData.baseRarityScore.queryParamKey,
+        gotchiListingsFiltersData.kinship.queryParamKey,
+        gotchiListingsFiltersData.experience.queryParamKey,
+        gotchiListingsFiltersData.collateral.queryParamKey,
+        gotchiListingsFiltersData.priceInWei.queryParamKey,
+        gotchiListingsFiltersData.nrgTrait.queryParamKey,
+        gotchiListingsFiltersData.aggTrait.queryParamKey,
+        gotchiListingsFiltersData.spkTrait.queryParamKey,
+        gotchiListingsFiltersData.brnTrait.queryParamKey,
+        gotchiListingsFiltersData.eysTrait.queryParamKey,
+        gotchiListingsFiltersData.eycTrait.queryParamKey,
+        'sort',
+        'dir'
+    ]
 };
 
 export const gotchisListingsSlice = createSlice({
