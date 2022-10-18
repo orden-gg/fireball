@@ -147,7 +147,7 @@ export function BaazaarTiles() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -160,8 +160,8 @@ export function BaazaarTiles() {
                         <PurpleGrassIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
-                <ItemsLazy
+                <ContentInner dataLoading={false} offset={257}>
+                    <ItemsLazy
                         items={tilesListings}
                         component={(installationListing: TileListingVM) =>
                             <ItemCard id={installationListing.id} category={installationListing.category} type={'drop'}>
@@ -185,7 +185,7 @@ export function BaazaarTiles() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={tilesListingsFilters}
@@ -202,7 +202,7 @@ export function BaazaarTiles() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

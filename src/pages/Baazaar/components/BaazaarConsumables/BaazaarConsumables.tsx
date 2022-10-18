@@ -148,7 +148,7 @@ export function BaazaarConsumables() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -161,8 +161,8 @@ export function BaazaarConsumables() {
                         <ConsumableIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
-                <ItemsLazy
+                <ContentInner dataLoading={false} offset={257}>
+                    <ItemsLazy
                         items={consumablesListings}
                         component={(consumableListing: ConsumableListingVM) =>
                             <ItemCard type={consumableListing.rarity} id={consumableListing.id} category={consumableListing.category}>
@@ -185,7 +185,7 @@ export function BaazaarConsumables() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={consumablesListingsFilters}
@@ -202,7 +202,7 @@ export function BaazaarConsumables() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

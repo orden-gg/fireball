@@ -144,7 +144,7 @@ export function BaazaarParcels() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -157,7 +157,7 @@ export function BaazaarParcels() {
                         <KekIcon width={20} height={20} alt='realm' />
                     }
                 />
-                <ContentInner dataLoading={false}>
+                <ContentInner dataLoading={false} offset={257}>
                     <ItemsLazy
                         items={parcelsListings}
                         component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}
@@ -165,7 +165,7 @@ export function BaazaarParcels() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={parcelsListingsFilters}
@@ -182,7 +182,7 @@ export function BaazaarParcels() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

@@ -8,6 +8,9 @@ export const styles = makeStyles(theme => createStyles({
             alignItems: 'flex-start'
         }
     },
+    noPadding: {
+        padding: 0
+    },
     sidebar: {
         borderRadius: 4,
         background: theme.palette.background.paper,

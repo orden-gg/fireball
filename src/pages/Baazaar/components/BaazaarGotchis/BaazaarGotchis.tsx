@@ -144,7 +144,7 @@ export function BaazaarGotchis() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -157,7 +157,7 @@ export function BaazaarGotchis() {
                         <GotchiIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
+                <ContentInner dataLoading={false} offset={257}>
                     <ItemsLazy
                         items={gotchiListings}
                         component={(gotchiListing: GotchiListingVM) => <Aavegotchi item={gotchiListing} />}
@@ -165,7 +165,7 @@ export function BaazaarGotchis() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={gotchisListingsFilters}
@@ -182,7 +182,7 @@ export function BaazaarGotchis() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

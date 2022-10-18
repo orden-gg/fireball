@@ -151,7 +151,7 @@ export function BaazaarInstallations() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -164,8 +164,8 @@ export function BaazaarInstallations() {
                         <AnvilIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
-                <ItemsLazy
+                <ContentInner dataLoading={false} offset={257}>
+                    <ItemsLazy
                         items={installationsListings}
                         component={(installationListing: InstallationListingVM) =>
                             <ItemCard id={installationListing.id} category={installationListing.category} type={installationListing.rarity || 'drop'}>
@@ -189,7 +189,7 @@ export function BaazaarInstallations() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={installationsListingsFilters}
@@ -206,7 +206,7 @@ export function BaazaarInstallations() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

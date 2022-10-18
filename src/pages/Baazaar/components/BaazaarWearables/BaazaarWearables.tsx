@@ -146,7 +146,7 @@ export function BaazaarWearables() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -159,8 +159,8 @@ export function BaazaarWearables() {
                         <WarehouseIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
-                <ItemsLazy
+                <ContentInner dataLoading={false} offset={257}>
+                    <ItemsLazy
                         items={wearablesListings}
                         component={(wearableListing: WearableListingVM) =>
                             <ItemCard
@@ -193,7 +193,7 @@ export function BaazaarWearables() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={wearablesListingsFilters}
@@ -210,7 +210,7 @@ export function BaazaarWearables() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

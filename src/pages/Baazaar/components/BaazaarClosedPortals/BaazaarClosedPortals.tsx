@@ -149,7 +149,7 @@ export function BaazaarClosedPortals() {
     }, []);
 
     return (
-        <ContentWrapper>
+        <ContentWrapper paddingZero>
             <>
                 <SortFilterPanel
                     sorting={{
@@ -162,7 +162,7 @@ export function BaazaarClosedPortals() {
                         <H1SealedPortalIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={false}>
+                <ContentInner dataLoading={false} offset={257}>
                     <ItemsLazy
                         items={closedPortalsListings}
                         component={(portalListing: ClosedPortalListingVM) =>
@@ -187,7 +187,7 @@ export function BaazaarClosedPortals() {
                     />
                 </ContentInner>
             </>
-            <>
+            <div className={classes.sidebar}>
                 <Filters
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={closedPortalsListingsFilters}
@@ -204,7 +204,7 @@ export function BaazaarClosedPortals() {
                         Reset
                     </Button>
                 </div>
-            </>
+            </div>
         </ContentWrapper>
     );
 }

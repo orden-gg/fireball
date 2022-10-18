@@ -2,6 +2,10 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() => createStyles({
+    sidebar: {
+        height: 'calc(100vh - 177px)',
+        overflowY: 'auto'
+    },
     gotchiListings: {
         display: 'flex',
         flexWrap: 'wrap'

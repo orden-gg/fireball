@@ -22,7 +22,11 @@ import {
     BaazaarWearables
 } from '../components';
 
+import { styles } from './styles';
+
 export function Baazaar() {
+    const classes = styles();
+
     const navData: PageNavLink[] = [
         {
             path: 'gotchis',
@@ -54,8 +58,10 @@ export function Baazaar() {
         }
     ];
 
-    return <>
-        <PageNav links={navData}></PageNav>
+    return <div className={classes.container}>
+        <div className={classes.containerNav}>
+            <PageNav links={navData}></PageNav>
+        </div>
 
         <Routes>
             <Route path='gotchis' element={<BaazaarGotchis />} />
@@ -67,5 +73,5 @@ export function Baazaar() {
             <Route path='consumables' element={<BaazaarConsumables />} />
             <Route path='*' element={<Navigate to='gotchis' replace />} />
         </Routes>
-    </>;
+    </div>;
 }
