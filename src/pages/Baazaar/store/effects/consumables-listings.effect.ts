@@ -9,17 +9,23 @@ import { ConsumableListingDTO, ConsumableListingFilters, ConsumableListingFilter
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    setConsumablesListings,
+    loadConsumablesListings,
+    loadConsumablesListingsSucceded,
+    loadConsumablesListingsFailed,
     setConsumablesListingsFilters,
     setConsumablesListingsIsFiltersUpdated,
     setConsumablesListingsIsSortingUpdated,
     setConsumablesListingsSkipLimit,
-    setConsumablesListingsSorting
+    setConsumablesListingsSorting,
+    setIsConsumablesListingsInitialDataLoading,
+    resetConsumablesListings
 } from '../slices';
 
-export const loadBaazaarConsumablesListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarConsumablesListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadConsumablesListings());
+
     const consumablesListingsGraphQueryParams: GraphQueryParams = getState().baazaar.consumables.consumablesListingsGraphQueryParams;
-    const currentConsumablesListings: ConsumableListingVM[] = getState().baazaar.consumables.consumablesListings;
+    const currentConsumablesListings: ConsumableListingVM[] = getState().baazaar.consumables.consumablesListings.data;
     const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
 
     let whereParams: string = '';
@@ -39,25 +45,34 @@ export const loadBaazaarConsumablesListings = (): AppThunk => async (dispatch, g
                .then((lastSoldListings: Erc1155ListingsBatch) => {
                     const modifiedListings: ConsumableListingVM[] = mapConsumablesListingsDTOToVM(consumablesListings, lastSoldListings);
 
-                    dispatch(setConsumablesListings(currentConsumablesListings.concat(modifiedListings)));
+                    if (shouldResetListings) {
+                        dispatch(loadConsumablesListingsSucceded(modifiedListings));
+                    } else {
+                        dispatch(loadConsumablesListingsSucceded(currentConsumablesListings.concat(modifiedListings)));
+                    }
+                })
+                .finally(() => {
+                    dispatch(setIsConsumablesListingsInitialDataLoading(false));
                 });
+        })
+        .catch(() => {
+            dispatch(loadConsumablesListingsFailed());
         });
 };
 
-export const onLoadBaazaarConsumablesListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarConsumablesListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.consumables.consumablesListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.consumables.consumablesListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setConsumablesListingsSkipLimit(0));
-        dispatch(setConsumablesListings([]));
-        dispatch(loadBaazaarConsumablesListings());
+        dispatch(loadBaazaarConsumablesListings(true));
     }
 };
 
 export const updateConsumablesListingsFilterByKey =
     ({ key, value }: { key: ConsumableListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -66,7 +81,7 @@ export const updateConsumablesListingsFilterByKey =
         };
 
 export const resetConsumablesListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
 
         const updatedFilters: ConsumableListingFilters = Object.fromEntries(
@@ -79,7 +94,7 @@ export const resetConsumablesListingsFilters = (): AppThunk =>
     };
 
 export const resetConsumablesListingsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ConsumableListingFilters = getState().baazaar.consumables.consumablesListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.consumables.consumablesListingsDefaultSorting;
 
@@ -92,9 +107,10 @@ export const resetConsumablesListingsData = (): AppThunk =>
         dispatch(setConsumablesListingsFilters(updatedFilters));
         dispatch(setConsumablesListingsSorting(defaultSorting));
         dispatch(setConsumablesListingsSkipLimit(0));
-        dispatch(setConsumablesListings([]));
+        dispatch(resetConsumablesListings());
         dispatch(setConsumablesListingsIsSortingUpdated(false));
         dispatch(setConsumablesListingsIsFiltersUpdated(false));
+        dispatch(setIsConsumablesListingsInitialDataLoading(true));
     };
 
 const mapConsumablesListingsDTOToVM = (listings: ConsumableListingDTO[], lastSoldListings: Erc1155ListingsBatch): ConsumableListingVM[] => {

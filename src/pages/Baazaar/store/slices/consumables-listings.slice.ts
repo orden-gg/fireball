@@ -7,7 +7,13 @@ import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
 import { consumableListingFiltersData } from '../../static/filters';
 
 export interface ConsumablesListingsState {
-    consumablesListings: ConsumableListingVM[];
+    consumablesListings: {
+        data: ConsumableListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isConsumablesListingsInitialDataLoading: boolean;
     consumablesListingsLimitPerLoad: number;
     consumablesListingsGraphQueryParams: GraphQueryParams;
     consumablesListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface ConsumablesListingsState {
 }
 
 const initialState: ConsumablesListingsState = {
-    consumablesListings: [],
+    consumablesListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isConsumablesListingsInitialDataLoading: true,
     consumablesListingsLimitPerLoad: 50,
     consumablesListingsGraphQueryParams: {
         first: 50,
@@ -47,8 +59,35 @@ export const consumablesListingsSlice = createSlice({
     name: 'consumablesListings',
     initialState,
     reducers: {
-        setConsumablesListings: (state, action: PayloadAction<ConsumableListingVM[]>): void => {
-            state.consumablesListings = action.payload;
+        loadConsumablesListings: (state): void => {
+            state.consumablesListings = {
+                ...state.consumablesListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadConsumablesListingsSucceded: (state, action: PayloadAction<ConsumableListingVM[]>): void => {
+            state.consumablesListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadConsumablesListingsFailed: (state): void => {
+            state.consumablesListings = {
+                ...state.consumablesListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsConsumablesListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isConsumablesListingsInitialDataLoading = action.payload;
+        },
+        resetConsumablesListings: (state): void => {
+            state.consumablesListings.data = [];
         },
         setConsumablesListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.consumablesListingsGraphQueryParams.skip = action.payload;
@@ -72,7 +111,11 @@ export const consumablesListingsSlice = createSlice({
 });
 
 export const {
-    setConsumablesListings,
+    loadConsumablesListings,
+    loadConsumablesListingsSucceded,
+    loadConsumablesListingsFailed,
+    setIsConsumablesListingsInitialDataLoading,
+    resetConsumablesListings,
     setConsumablesListingsSkipLimit,
     setConsumablesListingsSorting,
     setConsumablesListingsIsSortingUpdated,

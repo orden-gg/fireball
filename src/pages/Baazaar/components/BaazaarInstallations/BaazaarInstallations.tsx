@@ -28,26 +28,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { InstallationListingFilterTypes } from '../../constants';
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
-import {
-    getInstallationsListings,
-    getInstallationsListingsFilters,
-    getInstallationsListingsGraphQueryParams,
-    getInstallationsListingsLimitPerLoad,
-    getInstallationsListingsDefaultSorting,
-    getInstallationsListingsSorting,
-    getInstallationsListingsQueryParamsOrder,
-    onLoadBaazaarInstallationsListings,
-    loadBaazaarInstallationsListings,
-    resetInstallationsListingsData,
-    resetInstallationsListingsFilters,
-    setInstallationsListingsSkipLimit,
-    setInstallationsListingsSorting,
-    setInstallationsListingsIsSortingUpdated,
-    setInstallationsListingsFilters,
-    setInstallationsListingsIsFiltersUpdated,
-    updateInstallationsListingsFilterByKey
-} from '../../store';
 import { installationsListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -62,20 +45,24 @@ export function BaazaarInstallations() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const installationsListings: InstallationListingVM[] = useAppSelector(getInstallationsListings);
-    const installationsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getInstallationsListingsGraphQueryParams);
-    const installationsListingsDefaultSorting: SortingItem = useAppSelector(getInstallationsListingsDefaultSorting);
-    const installationsListingsSorting: SortingItem = useAppSelector(getInstallationsListingsSorting);
-    const installationsListingsFilters: InstallationListingFilters = useAppSelector(getInstallationsListingsFilters);
-    const installationsListingsLimitPerLoad: number = useAppSelector(getInstallationsListingsLimitPerLoad);
-    const installationsListingsQueryParamsOrder: string[] = useAppSelector(getInstallationsListingsQueryParamsOrder);
+    const installationsListings: InstallationListingVM[] = useAppSelector(fromBaazaarStore.getInstallationsListings);
+    const isInstallationsListingsInitialDataLoading: boolean =
+        useAppSelector(fromBaazaarStore.getIsInstallationsListingsInitialDataLoading);
+    const isInstallationsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsInstallationsListingsLoading);
+    const installationsListingsGraphQueryParams: GraphQueryParams =
+        useAppSelector(fromBaazaarStore.getInstallationsListingsGraphQueryParams);
+    const installationsListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getInstallationsListingsDefaultSorting);
+    const installationsListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getInstallationsListingsSorting);
+    const installationsListingsFilters: InstallationListingFilters = useAppSelector(fromBaazaarStore.getInstallationsListingsFilters);
+    const installationsListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getInstallationsListingsLimitPerLoad);
+    const installationsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getInstallationsListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(loadBaazaarInstallationsListings());
+        dispatch(fromBaazaarStore.loadBaazaarInstallationsListings());
 
         const updatedFilters: InstallationListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...installationsListingsFilters });
-        dispatch(setInstallationsListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setInstallationsListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -89,7 +76,7 @@ export function BaazaarInstallations() {
         }
 
         return () => {
-            dispatch(resetInstallationsListingsData());
+            dispatch(fromBaazaarStore.resetInstallationsListingsData());
         };
     }, []);
 
@@ -116,38 +103,38 @@ export function BaazaarInstallations() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, installationsListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarInstallationsListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarInstallationsListings());
     }, [installationsListingsFilters, installationsListingsSorting]);
 
     useEffect(() => {
-        dispatch(setInstallationsListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setInstallationsListingsIsFiltersUpdated(true));
     }, [installationsListingsFilters]);
 
     useEffect(() => {
-        dispatch(setInstallationsListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setInstallationsListingsIsSortingUpdated(true));
     }, [installationsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setInstallationsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setInstallationsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = installationsListingsGraphQueryParams.skip + installationsListingsLimitPerLoad;
 
         if (skipLimit <= installationsListings.length) {
-            dispatch(setInstallationsListingsSkipLimit(skipLimit));
-            dispatch(loadBaazaarInstallationsListings());
+            dispatch(fromBaazaarStore.setInstallationsListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarInstallationsListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateInstallationsListingsFilterByKey(
+        dispatch(fromBaazaarStore.updateInstallationsListingsFilterByKey(
             { key, value } as { key: InstallationListingFilterTypes, value: GraphFiltersValueTypes })
         );
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetInstallationsListingsFilters());
+        dispatch(fromBaazaarStore.resetInstallationsListingsFilters());
     }, []);
 
     return (
@@ -163,8 +150,9 @@ export function BaazaarInstallations() {
                     placeholder={
                         <AnvilIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isInstallationsListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isInstallationsListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={installationsListings}
                         component={(installationListing: InstallationListingVM) =>
@@ -194,6 +182,7 @@ export function BaazaarInstallations() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={installationsListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isInstallationsListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -202,6 +191,7 @@ export function BaazaarInstallations() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isInstallationsListingsLoading}
                     >
                         Reset
                     </Button>

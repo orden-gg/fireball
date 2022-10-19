@@ -28,26 +28,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { TileListingFilterTypes } from '../../constants';
 import { TileListingFilters, TileListingVM } from '../../models';
-import {
-    getTilesListings,
-    getTilesListingsFilters,
-    getTilesListingsGraphQueryParams,
-    getTilesListingsLimitPerLoad,
-    getTilesListingsDefaultSorting,
-    getTilesListingsSorting,
-    getTilesListingsQueryParamsOrder,
-    onLoadBaazaarTilesListings,
-    loadBaazaarTilesListings,
-    resetTilesListingsData,
-    resetTilesListingsFilters,
-    setTilesListingsSkipLimit,
-    setTilesListingsSorting,
-    setTilesListingsIsSortingUpdated,
-    setTilesListingsFilters,
-    setTilesListingsIsFiltersUpdated,
-    updateTilesListingsFilterByKey
-} from '../../store';
 import { tilesListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -62,18 +45,20 @@ export function BaazaarTiles() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const tilesListings: TileListingVM[] = useAppSelector(getTilesListings);
-    const tilesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getTilesListingsGraphQueryParams);
-    const tilesListingsDefaultSorting: SortingItem = useAppSelector(getTilesListingsDefaultSorting);
-    const tilesListingsSorting: SortingItem = useAppSelector(getTilesListingsSorting);
-    const tilesListingsFilters: TileListingFilters = useAppSelector(getTilesListingsFilters);
-    const tilesListingsLimitPerLoad: number = useAppSelector(getTilesListingsLimitPerLoad);
-    const tilesListingsQueryParamsOrder: string[] = useAppSelector(getTilesListingsQueryParamsOrder);
+    const tilesListings: TileListingVM[] = useAppSelector(fromBaazaarStore.getTilesListings);
+    const isTilesListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsTilesListingsInitialDataLoading);
+    const isTilesListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsTilesListingsLoading);
+    const tilesListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getTilesListingsGraphQueryParams);
+    const tilesListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getTilesListingsDefaultSorting);
+    const tilesListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getTilesListingsSorting);
+    const tilesListingsFilters: TileListingFilters = useAppSelector(fromBaazaarStore.getTilesListingsFilters);
+    const tilesListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getTilesListingsLimitPerLoad);
+    const tilesListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getTilesListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: TileListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...tilesListingsFilters });
-        dispatch(setTilesListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setTilesListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -87,7 +72,7 @@ export function BaazaarTiles() {
         }
 
         return () => {
-            dispatch(resetTilesListingsData());
+            dispatch(fromBaazaarStore.resetTilesListingsData());
         };
     }, []);
 
@@ -114,36 +99,36 @@ export function BaazaarTiles() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, tilesListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarTilesListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarTilesListings());
     }, [tilesListingsFilters, tilesListingsSorting]);
 
     useEffect(() => {
-        dispatch(setTilesListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setTilesListingsIsFiltersUpdated(true));
     }, [tilesListingsFilters]);
 
     useEffect(() => {
-        dispatch(setTilesListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setTilesListingsIsSortingUpdated(true));
     }, [tilesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setTilesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setTilesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = tilesListingsGraphQueryParams.skip + tilesListingsLimitPerLoad;
 
         if (skipLimit <= tilesListings.length) {
-            dispatch(setTilesListingsSkipLimit(skipLimit));
-            dispatch(loadBaazaarTilesListings());
+            dispatch(fromBaazaarStore.setTilesListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarTilesListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateTilesListingsFilterByKey({ key, value } as { key: TileListingFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(fromBaazaarStore.updateTilesListingsFilterByKey({ key, value } as { key: TileListingFilterTypes, value: GraphFiltersValueTypes }));
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetTilesListingsFilters());
+        dispatch(fromBaazaarStore.resetTilesListingsFilters());
     }, []);
 
     return (
@@ -159,8 +144,9 @@ export function BaazaarTiles() {
                     placeholder={
                         <PurpleGrassIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isTilesListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isTilesListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={tilesListings}
                         component={(installationListing: TileListingVM) =>
@@ -190,6 +176,7 @@ export function BaazaarTiles() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={tilesListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isTilesListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -198,6 +185,7 @@ export function BaazaarTiles() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isTilesListingsLoading}
                     >
                         Reset
                     </Button>

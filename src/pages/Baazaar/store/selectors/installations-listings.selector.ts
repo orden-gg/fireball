@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
 
 export const getInstallationsListings = (state: RootState): InstallationListingVM[] =>
-    state.baazaar.installations.installationsListings;
+    state.baazaar.installations.installationsListings.data;
+
+export const getIsInstallationsListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.installations.isInstallationsListingsInitialDataLoading;
+
+export const getIsInstallationsListingsLoading = (state: RootState): boolean =>
+    state.baazaar.installations.installationsListings.isLoading;
 
 export const getInstallationsListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.installations.installationsListingsGraphQueryParams;

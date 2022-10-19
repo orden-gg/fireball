@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
 
 export const getConsumablesListings = (state: RootState): ConsumableListingVM[] =>
-    state.baazaar.consumables.consumablesListings;
+    state.baazaar.consumables.consumablesListings.data;
+
+export const getIsConsumablesListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.consumables.isConsumablesListingsInitialDataLoading;
+
+export const getIsConsumablesListingsLoading = (state: RootState): boolean =>
+    state.baazaar.consumables.consumablesListings.isLoading;
 
 export const getConsumablesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.consumables.consumablesListingsGraphQueryParams;

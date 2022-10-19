@@ -27,26 +27,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ConsumableListingFilterTypes } from '../../constants';
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
-import {
-    getConsumablesListings,
-    getConsumablesListingsFilters,
-    getConsumablesListingsGraphQueryParams,
-    getConsumablesListingsLimitPerLoad,
-    getConsumablesListingsDefaultSorting,
-    getConsumablesListingsSorting,
-    getConsumablesListingsQueryParamsOrder,
-    onLoadBaazaarConsumablesListings,
-    loadBaazaarConsumablesListings,
-    resetConsumablesListingsData,
-    resetConsumablesListingsFilters,
-    setConsumablesListingsSkipLimit,
-    setConsumablesListingsSorting,
-    setConsumablesListingsIsSortingUpdated,
-    setConsumablesListingsFilters,
-    setConsumablesListingsIsFiltersUpdated,
-    updateConsumablesListingsFilterByKey
-} from '../../store';
 import { consumablesListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -61,18 +44,20 @@ export function BaazaarConsumables() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const consumablesListings: ConsumableListingVM[] = useAppSelector(getConsumablesListings);
-    const consumablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getConsumablesListingsGraphQueryParams);
-    const consumablesListingsDefaultSorting: SortingItem = useAppSelector(getConsumablesListingsDefaultSorting);
-    const consumablesListingsSorting: SortingItem = useAppSelector(getConsumablesListingsSorting);
-    const consumablesListingsFilters: ConsumableListingFilters = useAppSelector(getConsumablesListingsFilters);
-    const consuamblesListingsLimitPerLoad: number = useAppSelector(getConsumablesListingsLimitPerLoad);
-    const consumablesListingsQueryParamsOrder: string[] = useAppSelector(getConsumablesListingsQueryParamsOrder);
+    const consumablesListings: ConsumableListingVM[] = useAppSelector(fromBaazaarStore.getConsumablesListings);
+    const isConsumablesListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsConsumablesListingsInitialDataLoading);
+    const isConsumablesListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsConsumablesListingsLoading);
+    const consumablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getConsumablesListingsGraphQueryParams);
+    const consumablesListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getConsumablesListingsDefaultSorting);
+    const consumablesListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getConsumablesListingsSorting);
+    const consumablesListingsFilters: ConsumableListingFilters = useAppSelector(fromBaazaarStore.getConsumablesListingsFilters);
+    const consuamblesListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getConsumablesListingsLimitPerLoad);
+    const consumablesListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getConsumablesListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: ConsumableListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...consumablesListingsFilters });
-        dispatch(setConsumablesListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setConsumablesListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -86,7 +71,7 @@ export function BaazaarConsumables() {
         }
 
         return () => {
-            dispatch(resetConsumablesListingsData());
+            dispatch(fromBaazaarStore.resetConsumablesListingsData());
         };
     }, []);
 
@@ -113,38 +98,38 @@ export function BaazaarConsumables() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, consumablesListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarConsumablesListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarConsumablesListings());
     }, [consumablesListingsFilters, consumablesListingsSorting]);
 
     useEffect(() => {
-        dispatch(setConsumablesListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setConsumablesListingsIsFiltersUpdated(true));
     }, [consumablesListingsFilters]);
 
     useEffect(() => {
-        dispatch(setConsumablesListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setConsumablesListingsIsSortingUpdated(true));
     }, [consumablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad;
 
         if (skipLimit <= consumablesListings.length) {
-            dispatch(setConsumablesListingsSkipLimit(consumablesListingsGraphQueryParams.skip + consuamblesListingsLimitPerLoad));
-            dispatch(loadBaazaarConsumablesListings());
+            dispatch(fromBaazaarStore.setConsumablesListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarConsumablesListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateConsumablesListingsFilterByKey(
+        dispatch(fromBaazaarStore.updateConsumablesListingsFilterByKey(
             { key, value } as { key: ConsumableListingFilterTypes, value: GraphFiltersValueTypes })
         );
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetConsumablesListingsFilters());
+        dispatch(fromBaazaarStore.resetConsumablesListingsFilters());
     }, []);
 
     return (
@@ -160,8 +145,9 @@ export function BaazaarConsumables() {
                     placeholder={
                         <ConsumableIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isConsumablesListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isConsumablesListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={consumablesListings}
                         component={(consumableListing: ConsumableListingVM) =>
@@ -190,6 +176,7 @@ export function BaazaarConsumables() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={consumablesListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isConsumablesListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -198,6 +185,7 @@ export function BaazaarConsumables() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isConsumablesListingsLoading}
                     >
                         Reset
                     </Button>

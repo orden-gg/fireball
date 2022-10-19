@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { WearableListingFilters, WearableListingVM } from '../../models';
 
 export const getWearablesListings = (state: RootState): WearableListingVM[] =>
-    state.baazaar.wearables.wearablesListings;
+    state.baazaar.wearables.wearablesListings.data;
+
+export const getIsWearablesListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.wearables.isWearablesListingsInitialDataLoading;
+
+export const getIsWearablesListingsLoading = (state: RootState): boolean =>
+    state.baazaar.wearables.wearablesListings.isLoading;
 
 export const getWearablesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.wearables.wearablesListingsGraphQueryParams;

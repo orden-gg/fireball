@@ -7,7 +7,13 @@ import { ParcelListingFilters, ParcelListingVM } from '../../models';
 import { parcelListingFiltersData } from '../../static/filters';
 
 export interface ParcelsListingsState {
-    parcelsListings: ParcelListingVM[];
+    parcelsListings: {
+        data: ParcelListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isParcelsListingsInitialDataLoading: boolean;
     parcelsListingsLimitPerLoad: number;
     parcelsListingsGraphQueryParams: GraphQueryParams;
     parcelsListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface ParcelsListingsState {
 }
 
 const initialState: ParcelsListingsState = {
-    parcelsListings: [],
+    parcelsListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isParcelsListingsInitialDataLoading: true,
     parcelsListingsLimitPerLoad: 50,
     parcelsListingsGraphQueryParams: {
         first: 50,
@@ -53,8 +65,35 @@ export const parcelsListingsSlice = createSlice({
     name: 'parcelsListings',
     initialState,
     reducers: {
-        setParcelsListings: (state, action: PayloadAction<ParcelListingVM[]>): void => {
-            state.parcelsListings = action.payload;
+        loadParcelsListings: (state): void => {
+            state.parcelsListings = {
+                ...state.parcelsListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadParcelsListingsSucceded: (state, action: PayloadAction<ParcelListingVM[]>): void => {
+            state.parcelsListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadParcelsListingsFailed: (state): void => {
+            state.parcelsListings = {
+                ...state.parcelsListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsParcelsListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isParcelsListingsInitialDataLoading = action.payload;
+        },
+        resetParcelsListings: (state): void => {
+            state.parcelsListings.data = [];
         },
         setParcelsListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.parcelsListingsGraphQueryParams.skip = action.payload;
@@ -78,7 +117,11 @@ export const parcelsListingsSlice = createSlice({
 });
 
 export const {
-    setParcelsListings,
+    loadParcelsListings,
+    loadParcelsListingsSucceded,
+    loadParcelsListingsFailed,
+    setIsParcelsListingsInitialDataLoading,
+    resetParcelsListings,
     setParcelsListingsSkipLimit,
     setParcelsListingsSorting,
     setParcelsListingsIsSortingUpdated,

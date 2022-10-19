@@ -25,26 +25,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { GotchiListingsFilterTypes } from '../../constants';
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
-import {
-    getGotchisListings,
-    getGotchisListingsFilters,
-    getGotchisListingsGraphQueryParams,
-    getGotchisDefaultListingsSorting,
-    getGotchisListingsSorting,
-    getGotchisListingsLimitPerLoad,
-    getGotchisListingsQueryParamsOrder,
-    onLoadBaazaarGotchisListings,
-    loadBaazaarGotchisListings,
-    resetGotchiListingsData,
-    resetGotchiListingsFilters,
-    setGotchisListingsSkipLimit,
-    setGotchisListingsSorting,
-    setGotchisListingsFilters,
-    updateGotchiListingsFilterByKey,
-    setGotchisListingsIsFiltersUpdated,
-    setGotchisListingsIsSortingUpdated
-} from '../../store';
 import { gotchisListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -59,18 +42,20 @@ export function BaazaarGotchis() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const gotchiListings: GotchiListingVM[] = useAppSelector(getGotchisListings);
-    const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(getGotchisListingsGraphQueryParams);
-    const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(getGotchisListingsFilters);
-    const gotchisDefaultListingsSorting: SortingItem = useAppSelector(getGotchisDefaultListingsSorting);
-    const gotchisListingsSorting: SortingItem = useAppSelector(getGotchisListingsSorting);
-    const gotchisListingsLimitPerLoad: number = useAppSelector(getGotchisListingsLimitPerLoad);
-    const gotchisListingsQueryParamsOrder: string[] = useAppSelector(getGotchisListingsQueryParamsOrder);
+    const gotchiListings: GotchiListingVM[] = useAppSelector(fromBaazaarStore.getGotchisListings);
+    const isGotchisListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsInitialDataLoading);
+    const isGotchisListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsLoading);
+    const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getGotchisListingsGraphQueryParams);
+    const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(fromBaazaarStore.getGotchisListingsFilters);
+    const gotchisDefaultListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisDefaultListingsSorting);
+    const gotchisListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisListingsSorting);
+    const gotchisListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getGotchisListingsLimitPerLoad);
+    const gotchisListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getGotchisListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: GotchiListingsFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...gotchisListingsFilters });
-        dispatch(setGotchisListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setGotchisListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
@@ -84,7 +69,7 @@ export function BaazaarGotchis() {
         }
 
         return () => {
-            dispatch(resetGotchiListingsData());
+            dispatch(fromBaazaarStore.resetGotchiListingsData());
         };
     }, []);
 
@@ -111,36 +96,38 @@ export function BaazaarGotchis() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarGotchisListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarGotchisListings());
     }, [gotchisListingsFilters, gotchisListingsSorting]);
 
     useEffect(() => {
-        dispatch(setGotchisListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setGotchisListingsIsFiltersUpdated(true));
     }, [gotchisListingsFilters]);
 
     useEffect(() => {
-        dispatch(setGotchisListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setGotchisListingsIsSortingUpdated(true));
     }, [gotchisListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setGotchisListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setGotchisListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = gotchisListingsGraphQueryParams.skip + gotchisListingsLimitPerLoad;
 
         if (skipLimit <= gotchiListings.length) {
-            dispatch(setGotchisListingsSkipLimit(skipLimit));
-            dispatch(loadBaazaarGotchisListings());
+            dispatch(fromBaazaarStore.setGotchisListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarGotchisListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateGotchiListingsFilterByKey({ key, value } as { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(fromBaazaarStore.updateGotchiListingsFilterByKey(
+            { key, value } as { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes })
+        );
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetGotchiListingsFilters());
+        dispatch(fromBaazaarStore.resetGotchiListingsFilters());
     }, []);
 
     return (
@@ -156,8 +143,9 @@ export function BaazaarGotchis() {
                     placeholder={
                         <GotchiIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isGotchisListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isGotchisListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={gotchiListings}
                         component={(gotchiListing: GotchiListingVM) => <Aavegotchi item={gotchiListing} />}
@@ -170,6 +158,7 @@ export function BaazaarGotchis() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={gotchisListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isGotchisListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -178,6 +167,7 @@ export function BaazaarGotchis() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isGotchisListingsLoading}
                     >
                         Reset
                     </Button>

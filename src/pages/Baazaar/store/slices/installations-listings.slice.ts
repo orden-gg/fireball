@@ -7,7 +7,13 @@ import { InstallationListingFilters, InstallationListingVM } from '../../models'
 import { installationListingFiltersData } from '../../static/filters';
 
 export interface InstallationsListingsState {
-    installationsListings: InstallationListingVM[];
+    installationsListings: {
+        data: InstallationListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isInstallationsListingsInitialDataLoading: boolean;
     installationsListingsLimitPerLoad: number;
     installationsListingsGraphQueryParams: GraphQueryParams;
     installationsListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface InstallationsListingsState {
 }
 
 const initialState: InstallationsListingsState = {
-    installationsListings: [],
+    installationsListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isInstallationsListingsInitialDataLoading: true,
     installationsListingsLimitPerLoad: 50,
     installationsListingsGraphQueryParams: {
         first: 50,
@@ -46,8 +58,35 @@ export const installationsListingsSlice = createSlice({
     name: 'installationsListings',
     initialState,
     reducers: {
-        setInstallationsListings: (state, action: PayloadAction<InstallationListingVM[]>): void => {
-            state.installationsListings = action.payload;
+        loadInstallationsListings: (state): void => {
+            state.installationsListings = {
+                ...state.installationsListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadInstallationsListingsSucceded: (state, action: PayloadAction<InstallationListingVM[]>): void => {
+            state.installationsListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadInstallationsListingsFailed: (state): void => {
+            state.installationsListings = {
+                ...state.installationsListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsInstallationsListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isInstallationsListingsInitialDataLoading = action.payload;
+        },
+        resetInstallationsListings: (state): void => {
+            state.installationsListings.data = [];
         },
         setInstallationsListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.installationsListingsGraphQueryParams.skip = action.payload;
@@ -71,7 +110,11 @@ export const installationsListingsSlice = createSlice({
 });
 
 export const {
-    setInstallationsListings,
+    loadInstallationsListings,
+    loadInstallationsListingsSucceded,
+    loadInstallationsListingsFailed,
+    setIsInstallationsListingsInitialDataLoading,
+    resetInstallationsListings,
     setInstallationsListingsSkipLimit,
     setInstallationsListingsSorting,
     setInstallationsListingsIsSortingUpdated,

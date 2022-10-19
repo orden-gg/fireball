@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { TileListingFilters, TileListingVM } from '../../models';
 
 export const getTilesListings = (state: RootState): TileListingVM[] =>
-    state.baazaar.tiles.tilesListings;
+    state.baazaar.tiles.tilesListings.data;
+
+export const getIsTilesListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.tiles.isTilesListingsInitialDataLoading;
+
+export const getIsTilesListingsLoading = (state: RootState): boolean =>
+    state.baazaar.tiles.tilesListings.isLoading;
 
 export const getTilesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.tiles.tilesListingsGraphQueryParams;

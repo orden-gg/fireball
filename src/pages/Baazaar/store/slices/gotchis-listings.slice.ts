@@ -7,7 +7,13 @@ import { GotchiListingVM, GotchiListingsFilters } from '../../models';
 import { gotchiListingsFiltersData } from '../../static/filters';
 
 export interface GotchisListingsState {
-    gotchisListings: GotchiListingVM[];
+    gotchisListings: {
+        data: GotchiListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isGotchisListingsInitialDataLoading: boolean;
     gotchisListingsLimitPerLoad: number;
     gotchisListingsGraphQueryParams: GraphQueryParams;
     gotchisListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface GotchisListingsState {
 }
 
 const initialState: GotchisListingsState = {
-    gotchisListings: [],
+    gotchisListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isGotchisListingsInitialDataLoading: true,
     gotchisListingsLimitPerLoad: 50,
     gotchisListingsGraphQueryParams: {
         first: 50,
@@ -56,8 +68,35 @@ export const gotchisListingsSlice = createSlice({
     name: 'gotchisListings',
     initialState,
     reducers: {
-        setGotchisListings: (state, action: PayloadAction<GotchiListingVM[]>): void => {
-            state.gotchisListings = action.payload;
+        loadGotchisListings: (state): void => {
+            state.gotchisListings = {
+                ...state.gotchisListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadGotchisListingsSucceded: (state, action: PayloadAction<GotchiListingVM[]>): void => {
+            state.gotchisListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadGotchisListingsFailed: (state): void => {
+            state.gotchisListings = {
+                ...state.gotchisListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsGotchisListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isGotchisListingsInitialDataLoading = action.payload;
+        },
+        resetGotchisListings: (state): void => {
+            state.gotchisListings.data = [];
         },
         setGotchisListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.gotchisListingsGraphQueryParams.skip = action.payload;
@@ -81,7 +120,11 @@ export const gotchisListingsSlice = createSlice({
 });
 
 export const {
-    setGotchisListings,
+    loadGotchisListings,
+    loadGotchisListingsSucceded,
+    loadGotchisListingsFailed,
+    setIsGotchisListingsInitialDataLoading,
+    resetGotchisListings,
     setGotchisListingsSkipLimit,
     setGotchisListingsSorting,
     setGotchisListingsIsSortingUpdated,

@@ -7,17 +7,23 @@ import { GraphFiltersUtils } from 'utils';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { ClosedPortalListingFilterTypes } from 'pages/Baazaar/constants';
 import {
-    setClosedPortalsListings,
+    loadClosedPortalsListings,
+    loadClosedPortalsListingsSucceded,
+    loadClosedPortalsListingsFailed,
     setClosedPortalsListingsSorting,
     setClosedPortalsListingsSkipLimit,
     setClosedPortalsListingsFilters,
     setClosedPortalsListingsIsSortingUpdated,
-    setClosedPortalsListingsIsFiltersUpdated
+    setClosedPortalsListingsIsFiltersUpdated,
+    setIsClosedPortalsListingsInitialDataLoading,
+    resetClosedPortalsListings
 } from '../slices';
 
-export const loadBaazaarClosedPortalsListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarClosedPortalsListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadClosedPortalsListings());
+
     const closedPortalsListingsGraphQueryParams: GraphQueryParams = getState().baazaar.closedPortals.closedPortalsListingsGraphQueryParams;
-    const closedPortalsListings: ClosedPortalListingVM[] = getState().baazaar.closedPortals.closedPortalsListings;
+    const closedPortalsListings: ClosedPortalListingVM[] = getState().baazaar.closedPortals.closedPortalsListings.data;
     const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
 
     let whereParams: string = '';
@@ -33,24 +39,34 @@ export const loadBaazaarClosedPortalsListings = (): AppThunk => async (dispatch,
         .then((res: ClosedPortalListingDTO[]) => {
             const modifiedListings: ClosedPortalListingVM[] = mapClosedPortalsDTOToVM(res);
 
-            dispatch(setClosedPortalsListings(closedPortalsListings.concat(modifiedListings)));
+            if (shouldResetListings) {
+                dispatch(loadClosedPortalsListingsSucceded(modifiedListings));
+            } else {
+                dispatch(loadClosedPortalsListingsSucceded(closedPortalsListings.concat(modifiedListings)));
+            }
+
+        })
+        .catch(() => {
+            dispatch(loadClosedPortalsListingsFailed());
+        })
+        .finally(() => {
+            dispatch(setIsClosedPortalsListingsInitialDataLoading(false));
         });
 };
 
-export const onLoadBaazaarClosedPortalsListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarClosedPortalsListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.closedPortals.closedPortalsListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.closedPortals.closedPortalsListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setClosedPortalsListingsSkipLimit(0));
-        dispatch(setClosedPortalsListings([]));
-        dispatch(loadBaazaarClosedPortalsListings());
+        dispatch(loadBaazaarClosedPortalsListings(true));
     }
 };
 
 export const updateClosedPortalsListingsFilterByKey =
     ({ key, value }: { key: ClosedPortalListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -59,7 +75,7 @@ export const updateClosedPortalsListingsFilterByKey =
         };
 
 export const resetClosedPortalsListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
 
         const updatedFilters: ClosedPortalListingFilters = Object.fromEntries(
@@ -72,7 +88,7 @@ export const resetClosedPortalsListingsFilters = (): AppThunk =>
     };
 
 export const resetClosedPortalsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ClosedPortalListingFilters = getState().baazaar.closedPortals.closedPortalsListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.closedPortals.closedPortalsListingsDefaultSorting;
 
@@ -85,9 +101,10 @@ export const resetClosedPortalsData = (): AppThunk =>
         dispatch(setClosedPortalsListingsFilters(updatedFilters));
         dispatch(setClosedPortalsListingsSorting(defaultSorting));
         dispatch(setClosedPortalsListingsSkipLimit(0));
-        dispatch(setClosedPortalsListings([]));
+        dispatch(resetClosedPortalsListings());
         dispatch(setClosedPortalsListingsIsSortingUpdated(false));
         dispatch(setClosedPortalsListingsIsFiltersUpdated(false));
+        dispatch(setIsClosedPortalsListingsInitialDataLoading(true));
     };
 
 const mapClosedPortalsDTOToVM = (listings: ClosedPortalListingDTO[]): ClosedPortalListingVM[] => {

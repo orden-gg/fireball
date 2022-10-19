@@ -7,7 +7,13 @@ import { TileListingFilters, TileListingVM } from '../../models';
 import { tileListingFiltersData } from '../../static/filters';
 
 export interface TilesListingsState {
-    tilesListings: TileListingVM[];
+    tilesListings: {
+        data: TileListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isTilesListingsInitialDataLoading: boolean;
     tilesListingsLimitPerLoad: number;
     tilesListingsGraphQueryParams: GraphQueryParams;
     tilesListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface TilesListingsState {
 }
 
 const initialState: TilesListingsState = {
-    tilesListings: [],
+    tilesListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isTilesListingsInitialDataLoading: true,
     tilesListingsLimitPerLoad: 50,
     tilesListingsGraphQueryParams: {
         first: 50,
@@ -47,8 +59,35 @@ export const tilesListingsSlice = createSlice({
     name: 'tilesListings',
     initialState,
     reducers: {
-        setTilesListings: (state, action: PayloadAction<TileListingVM[]>): void => {
-            state.tilesListings = action.payload;
+        loadTilesListings: (state): void => {
+            state.tilesListings = {
+                ...state.tilesListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadTilesListingsSucceded: (state, action: PayloadAction<TileListingVM[]>): void => {
+            state.tilesListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadTilesListingsFailed: (state): void => {
+            state.tilesListings = {
+                ...state.tilesListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsTilesListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isTilesListingsInitialDataLoading = action.payload;
+        },
+        resetTilesListings: (state): void => {
+            state.tilesListings.data = [];
         },
         setTilesListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.tilesListingsGraphQueryParams.skip = action.payload;
@@ -72,7 +111,11 @@ export const tilesListingsSlice = createSlice({
 });
 
 export const {
-    setTilesListings,
+    loadTilesListings,
+    loadTilesListingsSucceded,
+    loadTilesListingsFailed,
+    setIsTilesListingsInitialDataLoading,
+    resetTilesListings,
     setTilesListingsSkipLimit,
     setTilesListingsSorting,
     setTilesListingsIsSortingUpdated,

@@ -7,17 +7,23 @@ import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, Parce
 import { getBaazaarParcelsListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    setParcelsListings,
+    loadParcelsListings,
+    loadParcelsListingsSucceded,
+    loadParcelsListingsFailed,
     setParcelsListingsFilters,
     setParcelsListingsIsFiltersUpdated,
     setParcelsListingsIsSortingUpdated,
     setParcelsListingsSkipLimit,
-    setParcelsListingsSorting
+    setParcelsListingsSorting,
+    setIsParcelsListingsInitialDataLoading,
+    resetParcelsListings
 } from '../slices';
 
-export const loadBaazaarParcelsListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadParcelsListings());
+
     const parcelsListingsGraphQueryParams: GraphQueryParams = getState().baazaar.parcels.parcelsListingsGraphQueryParams;
-    const currentParcelsListings: ParcelListingVM[] = getState().baazaar.parcels.parcelsListings;
+    const currentParcelsListings: ParcelListingVM[] = getState().baazaar.parcels.parcelsListings.data;
     const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
 
     let whereParams: string = '';
@@ -33,24 +39,33 @@ export const loadBaazaarParcelsListings = (): AppThunk => async (dispatch, getSt
         .then((parcelsListings: ParcelListingDTO[]) => {
             const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
 
-            dispatch(setParcelsListings(currentParcelsListings.concat(modifiedListings)));
+            if (shouldResetListings) {
+                dispatch(loadParcelsListingsSucceded(modifiedListings));
+            } else {
+                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+            }
+        })
+        .catch(() => {
+            dispatch(loadParcelsListingsFailed());
+        })
+        .finally(() => {
+            dispatch(setIsParcelsListingsInitialDataLoading(false));
         });
 };
 
-export const onLoadBaazaarParcelsListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarParcelsListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.parcels.parcelsListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.parcels.parcelsListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setParcelsListingsSkipLimit(0));
-        dispatch(setParcelsListings([]));
-        dispatch(loadBaazaarParcelsListings());
+        dispatch(loadBaazaarParcelsListings(true));
     }
 };
 
 export const updateParcelsListingsFilterByKey =
     ({ key, value }: { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -59,7 +74,7 @@ export const updateParcelsListingsFilterByKey =
         };
 
 export const resetParcelsListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
 
         const updatedFilters: ParcelListingFilters = Object.fromEntries(
@@ -72,7 +87,7 @@ export const resetParcelsListingsFilters = (): AppThunk =>
     };
 
 export const resetParcelsListingsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: ParcelListingFilters = getState().baazaar.parcels.parcelsListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.parcels.parcelsListingsDefaultSorting;
 
@@ -85,9 +100,10 @@ export const resetParcelsListingsData = (): AppThunk =>
         dispatch(setParcelsListingsFilters(updatedFilters));
         dispatch(setParcelsListingsSorting(defaultSorting));
         dispatch(setParcelsListingsSkipLimit(0));
-        dispatch(setParcelsListings([]));
+        dispatch(resetParcelsListings());
         dispatch(setParcelsListingsIsSortingUpdated(false));
         dispatch(setParcelsListingsIsFiltersUpdated(false));
+        dispatch(setIsParcelsListingsInitialDataLoading(true));
     };
 
 const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {

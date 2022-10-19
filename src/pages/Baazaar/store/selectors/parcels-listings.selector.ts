@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { ParcelListingFilters, ParcelListingVM } from '../../models';
 
 export const getParcelsListings = (state: RootState): ParcelListingVM[] =>
-    state.baazaar.parcels.parcelsListings;
+    state.baazaar.parcels.parcelsListings.data;
+
+export const getIsParcelsListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.parcels.isParcelsListingsInitialDataLoading;
+
+export const getIsParcelsListingsLoading = (state: RootState): boolean =>
+    state.baazaar.parcels.parcelsListings.isLoading;
 
 export const getParcelsListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.parcels.parcelsListingsGraphQueryParams;

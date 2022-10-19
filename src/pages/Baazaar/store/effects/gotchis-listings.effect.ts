@@ -6,18 +6,24 @@ import { GraphFiltersUtils } from 'utils';
 
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    setGotchisListings,
+    loadGotchisListings,
+    loadGotchisListingsSucceded,
+    loadGotchisListingsFailed,
     setGotchisListingsFilters,
     setGotchisListingsSorting,
     setGotchisListingsSkipLimit,
     setGotchisListingsIsSortingUpdated,
-    setGotchisListingsIsFiltersUpdated
+    setGotchisListingsIsFiltersUpdated,
+    setIsGotchisListingsInitialDataLoading,
+    resetGotchisListings
 } from '../slices';
 import { GotchiListingsFilterTypes } from 'pages/Baazaar/constants';
 
-export const loadBaazaarGotchisListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarGotchisListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadGotchisListings());
+
     const gotchisListingsGraphQueryParams: GraphQueryParams = getState().baazaar.gotchis.gotchisListingsGraphQueryParams;
-    const currentGotchiListings: GotchiListingVM[] = getState().baazaar.gotchis.gotchisListings;
+    const currentGotchiListings: GotchiListingVM[] = getState().baazaar.gotchis.gotchisListings.data;
     const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
 
     let whereParams: string = '';
@@ -33,24 +39,34 @@ export const loadBaazaarGotchisListings = (): AppThunk => async (dispatch, getSt
         .then((res: GotchiListingDTO[]) => {
             const modifiedListings: GotchiListingVM[] = mapGotchisDTOToVM(res);
 
-            dispatch(setGotchisListings(currentGotchiListings.concat(modifiedListings)));
+            if (shouldResetListings) {
+                dispatch(loadGotchisListingsSucceded(modifiedListings));
+            } else {
+                dispatch(loadGotchisListingsSucceded(currentGotchiListings.concat(modifiedListings)));
+            }
+
+        })
+        .catch(() => {
+            dispatch(loadGotchisListingsFailed());
+        })
+        .finally(() => {
+            dispatch(setIsGotchisListingsInitialDataLoading(false));
         });
 };
 
-export const onLoadBaazaarGotchisListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarGotchisListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.gotchis.gotchisListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.gotchis.gotchisListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setGotchisListingsSkipLimit(0));
-        dispatch(setGotchisListings([]));
-        dispatch(loadBaazaarGotchisListings());
+        dispatch(loadBaazaarGotchisListings(true));
     }
 };
 
 export const updateGotchiListingsFilterByKey =
     ({ key, value }: { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -59,7 +75,7 @@ export const updateGotchiListingsFilterByKey =
         };
 
 export const resetGotchiListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
 
         const updatedFilters: GotchiListingsFilters = Object.fromEntries(
@@ -72,7 +88,7 @@ export const resetGotchiListingsFilters = (): AppThunk =>
     };
 
 export const resetGotchiListingsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: GotchiListingsFilters = getState().baazaar.gotchis.gotchisListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.gotchis.gotchisListingsDefaultSorting;
 
@@ -85,9 +101,10 @@ export const resetGotchiListingsData = (): AppThunk =>
         dispatch(setGotchisListingsFilters(updatedFilters));
         dispatch(setGotchisListingsSorting(defaultSorting));
         dispatch(setGotchisListingsSkipLimit(0));
-        dispatch(setGotchisListings([]));
+        dispatch(resetGotchisListings());
         dispatch(setGotchisListingsIsSortingUpdated(false));
         dispatch(setGotchisListingsIsFiltersUpdated(false));
+        dispatch(setIsGotchisListingsInitialDataLoading(true));
     };
 
 const mapGotchisDTOToVM = (listings: GotchiListingDTO[]): GotchiListingVM[] => {

@@ -8,9 +8,10 @@ import { styles } from './styles';
 interface InputFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: string) => void;
+    isDisabled: boolean;
 }
 
-export function InputFilter({ filter, onSetSelectedFilters }: InputFilterProps) {
+export function InputFilter({ filter, onSetSelectedFilters, isDisabled }: InputFilterProps) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState<string>('');
@@ -41,6 +42,7 @@ export function InputFilter({ filter, onSetSelectedFilters }: InputFilterProps) 
                 value={currentValue}
                 onChange={event => onInputChange(event.target.value)}
                 className={classes.input}
+                disabled={isDisabled}
             ></TextField>
         </div>
     );

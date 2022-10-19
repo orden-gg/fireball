@@ -9,17 +9,23 @@ import { WearableListingDTO, WearableListingFilters, WearableListingFiltersType,
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    setWearablesListings,
+    loadWearablesListings,
+    loadWearablesListingsSucceded,
+    loadWearablesListingsFailed,
     setWearablesListingsFilters,
     setWearablesListingsIsFiltersUpdated,
     setWearablesListingsIsSortingUpdated,
     setWearablesListingsSkipLimit,
-    setWearablesListingsSorting
+    setWearablesListingsSorting,
+    setIsWearablesListingsInitialDataLoading,
+    resetWearablesListings
 } from '../slices';
 
-export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarWearablesListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadWearablesListings());
+
     const wearablesListingsGraphQueryParams: GraphQueryParams = getState().baazaar.wearables.wearablesListingsGraphQueryParams;
-    const currentWearablesListings: WearableListingVM[] = getState().baazaar.wearables.wearablesListings;
+    const currentWearablesListings: WearableListingVM[] = getState().baazaar.wearables.wearablesListings.data;
     const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
 
     let whereParams: string = '';
@@ -39,25 +45,34 @@ export const loadBaazaarWearablesListings = (): AppThunk => async (dispatch, get
                .then((lastSoldListings: Erc1155ListingsBatch) => {
                     const modifiedListings: WearableListingVM[] = mapWearablesListingsDTOToVM(wearablesListings, lastSoldListings);
 
-                    dispatch(setWearablesListings(currentWearablesListings.concat(modifiedListings)));
+                    if (shouldResetListings) {
+                        dispatch(loadWearablesListingsSucceded(modifiedListings));
+                    } else {
+                        dispatch(loadWearablesListingsSucceded(currentWearablesListings.concat(modifiedListings)));
+                    }
+                })
+                .finally(() => {
+                    dispatch(setIsWearablesListingsInitialDataLoading(false));
                 });
+        })
+        .catch(() => {
+            dispatch(loadWearablesListingsFailed());
         });
 };
 
-export const onLoadBaazaarWearablesListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarWearablesListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.wearables.wearablesListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.wearables.wearablesListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setWearablesListingsSkipLimit(0));
-        dispatch(setWearablesListings([]));
-        dispatch(loadBaazaarWearablesListings());
+        dispatch(loadBaazaarWearablesListings(true));
     }
 };
 
 export const updateWearablesListingsFilterByKey =
     ({ key, value }: { key: WearableListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -66,7 +81,7 @@ export const updateWearablesListingsFilterByKey =
         };
 
 export const resetWearablesListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
 
         const updatedFilters: WearableListingFilters = Object.fromEntries(
@@ -79,7 +94,7 @@ export const resetWearablesListingsFilters = (): AppThunk =>
     };
 
 export const resetWearablesListingsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: WearableListingFilters = getState().baazaar.wearables.wearablesListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.wearables.wearablesListingsDefaultSorting;
 
@@ -92,9 +107,10 @@ export const resetWearablesListingsData = (): AppThunk =>
         dispatch(setWearablesListingsFilters(updatedFilters));
         dispatch(setWearablesListingsSorting(defaultSorting));
         dispatch(setWearablesListingsSkipLimit(0));
-        dispatch(setWearablesListings([]));
+        dispatch(resetWearablesListings());
         dispatch(setWearablesListingsIsSortingUpdated(false));
         dispatch(setWearablesListingsIsFiltersUpdated(false));
+        dispatch(setIsWearablesListingsInitialDataLoading(true));
     };
 
 const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldListings: Erc1155ListingsBatch): WearableListingVM[] => {

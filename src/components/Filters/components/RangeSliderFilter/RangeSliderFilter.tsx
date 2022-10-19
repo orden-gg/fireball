@@ -10,9 +10,10 @@ import { styles } from './styles';
 interface RangeSliderFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: number[]) => void;
+    isDisabled: boolean;
 }
 
-export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderFilterProps) {
+export function RangeSliderFilter({ filter, onSetSelectedFilters, isDisabled }: RangeSliderFilterProps) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState<number[]>([]);
@@ -100,6 +101,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     valueLabelDisplay='auto'
                     disableSwap
                     size='small'
+                    disabled={isDisabled}
                 />
             </div>
 
@@ -112,6 +114,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     inputProps={{ type: 'number' }}
                     value={minValue}
                     onChange={event => onMinInputChange(event.target.value)}
+                    disabled={isDisabled}
                 ></TextField>
                 <TextField
                     className={classes.textField}
@@ -121,6 +124,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     inputProps={{ type: 'number' }}
                     value={maxValue}
                     onChange={event => onMaxInputChange(event.target.value)}
+                    disabled={isDisabled}
                 ></TextField>
             </div>
         </div>

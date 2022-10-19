@@ -7,7 +7,13 @@ import { WearableListingFilters, WearableListingVM } from '../../models';
 import { wearableListingFiltersData } from '../../static/filters';
 
 export interface WearablesListingsState {
-    wearablesListings: WearableListingVM[];
+    wearablesListings: {
+        data: WearableListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isWearablesListingsInitialDataLoading: boolean;
     wearablesListingsLimitPerLoad: number;
     wearablesListingsGraphQueryParams: GraphQueryParams;
     wearablesListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface WearablesListingsState {
 }
 
 const initialState: WearablesListingsState = {
-    wearablesListings: [],
+    wearablesListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isWearablesListingsInitialDataLoading: true,
     wearablesListingsLimitPerLoad: 50,
     wearablesListingsGraphQueryParams: {
         first: 50,
@@ -51,8 +63,35 @@ export const wearablesListingsSlice = createSlice({
     name: 'wearablesListings',
     initialState,
     reducers: {
-        setWearablesListings: (state, action: PayloadAction<WearableListingVM[]>): void => {
-            state.wearablesListings = action.payload;
+        loadWearablesListings: (state): void => {
+            state.wearablesListings = {
+                ...state.wearablesListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadWearablesListingsSucceded: (state, action: PayloadAction<WearableListingVM[]>): void => {
+            state.wearablesListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadWearablesListingsFailed: (state): void => {
+            state.wearablesListings = {
+                ...state.wearablesListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsWearablesListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isWearablesListingsInitialDataLoading = action.payload;
+        },
+        resetWearablesListings: (state): void => {
+            state.wearablesListings.data = [];
         },
         setWearablesListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.wearablesListingsGraphQueryParams.skip = action.payload;
@@ -76,7 +115,11 @@ export const wearablesListingsSlice = createSlice({
 });
 
 export const {
-    setWearablesListings,
+    loadWearablesListings,
+    loadWearablesListingsSucceded,
+    loadWearablesListingsFailed,
+    setIsWearablesListingsInitialDataLoading,
+    resetWearablesListings,
     setWearablesListingsSkipLimit,
     setWearablesListingsSorting,
     setWearablesListingsIsSortingUpdated,

@@ -25,26 +25,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingVM, ParcelListingFilters } from '../../models';
-import {
-    getParcelsListings,
-    getParcelsListingsFilters,
-    getParcelsListingsGraphQueryParams,
-    getParcelsListingsDefaultSorting,
-    getParcelsListingsSorting,
-    getParcelsListingsLimitPerLoad,
-    getParcelsListingsQueryParamsOrder,
-    onLoadBaazaarParcelsListings,
-    loadBaazaarParcelsListings,
-    resetParcelsListingsData,
-    resetParcelsListingsFilters,
-    setParcelsListingsSkipLimit,
-    setParcelsListingsSorting,
-    setParcelsListingsIsSortingUpdated,
-    setParcelsListingsFilters,
-    setParcelsListingsIsFiltersUpdated,
-    updateParcelsListingsFilterByKey
-} from '../../store';
 import { parcelsListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -59,18 +42,20 @@ export function BaazaarParcels() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const parcelsListings: ParcelListingVM[] = useAppSelector(getParcelsListings);
-    const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getParcelsListingsGraphQueryParams);
-    const parcelsListingsDefaultSorting: SortingItem = useAppSelector(getParcelsListingsDefaultSorting);
-    const parcelsListingsSorting: SortingItem = useAppSelector(getParcelsListingsSorting);
-    const parcelsListingsFilters: ParcelListingFilters = useAppSelector(getParcelsListingsFilters);
-    const parcelsListingslistingsLimitPerLoad: number = useAppSelector(getParcelsListingsLimitPerLoad);
-    const parcelsListingsQueryParamsOrder: string[] = useAppSelector(getParcelsListingsQueryParamsOrder);
+    const parcelsListings: ParcelListingVM[] = useAppSelector(fromBaazaarStore.getParcelsListings);
+    const isParcelsListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsParcelsListingsInitialDataLoading);
+    const isParcelsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsParcelsListingsLoading);
+    const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getParcelsListingsGraphQueryParams);
+    const parcelsListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getParcelsListingsDefaultSorting);
+    const parcelsListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getParcelsListingsSorting);
+    const parcelsListingsFilters: ParcelListingFilters = useAppSelector(fromBaazaarStore.getParcelsListingsFilters);
+    const parcelsListingslistingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getParcelsListingsLimitPerLoad);
+    const parcelsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getParcelsListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: ParcelListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...parcelsListingsFilters });
-        dispatch(setParcelsListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setParcelsListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -84,7 +69,7 @@ export function BaazaarParcels() {
         }
 
         return () => {
-            dispatch(resetParcelsListingsData());
+            dispatch(fromBaazaarStore.resetParcelsListingsData());
         };
     }, []);
 
@@ -111,36 +96,36 @@ export function BaazaarParcels() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, parcelsListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarParcelsListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarParcelsListings());
     }, [parcelsListingsFilters, parcelsListingsSorting]);
 
     useEffect(() => {
-        dispatch(setParcelsListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setParcelsListingsIsFiltersUpdated(true));
     }, [parcelsListingsFilters]);
 
     useEffect(() => {
-        dispatch(setParcelsListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setParcelsListingsIsSortingUpdated(true));
     }, [parcelsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setParcelsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setParcelsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = parcelsListingsGraphQueryParams.skip + parcelsListingslistingsLimitPerLoad;
 
         if (skipLimit <= parcelsListings.length) {
-            dispatch(setParcelsListingsSkipLimit(skipLimit));
-            dispatch(loadBaazaarParcelsListings());
+            dispatch(fromBaazaarStore.setParcelsListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarParcelsListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateParcelsListingsFilterByKey({ key, value } as { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(fromBaazaarStore.updateParcelsListingsFilterByKey({ key, value } as { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }));
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetParcelsListingsFilters());
+        dispatch(fromBaazaarStore.resetParcelsListingsFilters());
     }, []);
 
     return (
@@ -156,8 +141,9 @@ export function BaazaarParcels() {
                     placeholder={
                         <KekIcon width={20} height={20} alt='realm' />
                     }
+                    isPanelDisabled={isParcelsListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isParcelsListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={parcelsListings}
                         component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}
@@ -170,6 +156,7 @@ export function BaazaarParcels() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={parcelsListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isParcelsListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -178,6 +165,7 @@ export function BaazaarParcels() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isParcelsListingsLoading}
                     >
                         Reset
                     </Button>

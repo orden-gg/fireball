@@ -7,7 +7,13 @@ import { ClosedPortalListingVM, ClosedPortalListingFilters } from '../../models'
 import { closedPortalListingsFiltersData } from '../../static/filters';
 
 export interface ClosedPortlasListingsState {
-    closedPortalsListings: ClosedPortalListingVM[];
+    closedPortalsListings: {
+        data: ClosedPortalListingVM[];
+        isLoading: boolean;
+        isLoaded: boolean;
+        isError: boolean;
+    };
+    isClosedPortalsListingsInitialDataLoading: boolean;
     closedPortalsListingsLimitPerLoad: number;
     closedPortalsListingsGraphQueryParams: GraphQueryParams;
     closedPortalsListingsDefaultSorting: SortingItem;
@@ -19,7 +25,13 @@ export interface ClosedPortlasListingsState {
 }
 
 const initialState: ClosedPortlasListingsState = {
-    closedPortalsListings: [],
+    closedPortalsListings: {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+    },
+    isClosedPortalsListingsInitialDataLoading: true,
     closedPortalsListingsLimitPerLoad: 50,
     closedPortalsListingsGraphQueryParams: {
         first: 50,
@@ -47,8 +59,35 @@ export const closedPortalsListingsSlice = createSlice({
     name: 'closedPortalsListings',
     initialState,
     reducers: {
-        setClosedPortalsListings: (state, action: PayloadAction<ClosedPortalListingVM[]>): void => {
-            state.closedPortalsListings = action.payload;
+        loadClosedPortalsListings: (state): void => {
+            state.closedPortalsListings = {
+                ...state.closedPortalsListings,
+                isLoading: true,
+                isLoaded: false,
+                isError: false
+            };
+        },
+        loadClosedPortalsListingsSucceded: (state, action: PayloadAction<ClosedPortalListingVM[]>): void => {
+            state.closedPortalsListings = {
+                data: action.payload,
+                isLoading: false,
+                isLoaded: true,
+                isError: false
+            };
+        },
+        loadClosedPortalsListingsFailed: (state): void => {
+            state.closedPortalsListings = {
+                ...state.closedPortalsListings,
+                isLoading: false,
+                isLoaded: true,
+                isError: true
+            };
+        },
+        setIsClosedPortalsListingsInitialDataLoading: (state, action: PayloadAction<boolean>): void => {
+            state.isClosedPortalsListingsInitialDataLoading = action.payload;
+        },
+        resetClosedPortalsListings: (state): void => {
+            state.closedPortalsListings.data = [];
         },
         setClosedPortalsListingsSkipLimit: (state, action: PayloadAction<number>): void => {
             state.closedPortalsListingsGraphQueryParams.skip = action.payload;
@@ -72,7 +111,11 @@ export const closedPortalsListingsSlice = createSlice({
 });
 
 export const {
-    setClosedPortalsListings,
+    loadClosedPortalsListings,
+    loadClosedPortalsListingsSucceded,
+    loadClosedPortalsListingsFailed,
+    setIsClosedPortalsListingsInitialDataLoading,
+    resetClosedPortalsListings,
     setClosedPortalsListingsSkipLimit,
     setClosedPortalsListingsSorting,
     setClosedPortalsListingsIsSortingUpdated,

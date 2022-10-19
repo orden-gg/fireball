@@ -9,9 +9,10 @@ import { styles } from './styles';
 interface MultiButtonSelectionFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: any[]) => void;
+    isDisabled: boolean;
 }
 
-export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters }: MultiButtonSelectionFilterProps) {
+export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters, isDisabled }: MultiButtonSelectionFilterProps) {
     const classes = styles();
 
     const [items, setItems] = useState<any[]>([]);
@@ -44,6 +45,7 @@ export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters }: Mul
                             key={item.value}
                             size='small'
                             onClick={() => onHandleSelectionChange(index)}
+                            disabled={isDisabled}
                         >
                             {item.title}
                         </Button>

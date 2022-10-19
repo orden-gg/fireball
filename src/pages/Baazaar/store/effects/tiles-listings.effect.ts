@@ -9,17 +9,23 @@ import { TileListingDTO, TileListingFilters, TileListingFiltersType, TileListing
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
-    setTilesListings,
+    loadTilesListings,
+    loadTilesListingsSucceded,
+    loadTilesListingsFailed,
     setTilesListingsFilters,
     setTilesListingsIsFiltersUpdated,
     setTilesListingsIsSortingUpdated,
     setTilesListingsSkipLimit,
-    setTilesListingsSorting
+    setTilesListingsSorting,
+    setIsTilesListingsInitialDataLoading,
+    resetTilesListings
 } from '../slices';
 
-export const loadBaazaarTilesListings = (): AppThunk => async (dispatch, getState) => {
+export const loadBaazaarTilesListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+    dispatch(loadTilesListings());
+
     const tilesListingsGraphQueryParams: GraphQueryParams = getState().baazaar.tiles.tilesListingsGraphQueryParams;
-    const currentTilesListings: TileListingVM[] = getState().baazaar.tiles.tilesListings;
+    const currentTilesListings: TileListingVM[] = getState().baazaar.tiles.tilesListings.data;
     const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
 
     let whereParams: string = '';
@@ -39,26 +45,34 @@ export const loadBaazaarTilesListings = (): AppThunk => async (dispatch, getStat
             TheGraphApi.getErc1155ListingsBatchQuery(tilesIds, Erc1155Categories.Tile, true, 'timeLastPurchased', 'desc')
                .then((lastSoldListings: Erc1155ListingsBatch) => {
                     const modifiedListings: TileListingVM[] = mapTilesListingsDTOToVM(tilesListings, lastSoldListings);
-
-                    dispatch(setTilesListings(currentTilesListings.concat(modifiedListings)));
+                    if (shouldResetListings) {
+                        dispatch(loadTilesListingsSucceded(modifiedListings));
+                    } else {
+                        dispatch(loadTilesListingsSucceded(currentTilesListings.concat(modifiedListings)));
+                    }
+                })
+                .finally(() => {
+                    dispatch(setIsTilesListingsInitialDataLoading(false));
                 });
+        })
+        .catch(() => {
+            dispatch(loadTilesListingsFailed());
         });
 };
 
-export const onLoadBaazaarTilesListings = (): AppThunk => async (dispatch, getState) => {
+export const onLoadBaazaarTilesListings = (): AppThunk => (dispatch, getState) => {
     const isFiltersUpdated: boolean = getState().baazaar.tiles.tilesListingsIsFiltersUpdated;
     const isSortingUpdated: boolean = getState().baazaar.tiles.tilesListingsIsSortingUpdated;
 
     if (isFiltersUpdated && isSortingUpdated) {
         dispatch(setTilesListingsSkipLimit(0));
-        dispatch(setTilesListings([]));
-        dispatch(loadBaazaarTilesListings());
+        dispatch(loadBaazaarTilesListings(true));
     }
 };
 
 export const updateTilesListingsFilterByKey =
     ({ key, value }: { key: TileListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>
-        async (dispatch, getState) => {
+        (dispatch, getState) => {
             const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
@@ -67,7 +81,7 @@ export const updateTilesListingsFilterByKey =
         };
 
 export const resetTilesListingsFilters = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
 
         const updatedFilters: TileListingFilters = Object.fromEntries(
@@ -81,7 +95,7 @@ export const resetTilesListingsFilters = (): AppThunk =>
 
 
 export const resetTilesListingsData = (): AppThunk =>
-    async (dispatch, getState) => {
+    (dispatch, getState) => {
         const filters: TileListingFilters = getState().baazaar.tiles.tilesListingsFilters;
         const defaultSorting: SortingItem = getState().baazaar.tiles.tilesListingsDefaultSorting;
 
@@ -94,9 +108,10 @@ export const resetTilesListingsData = (): AppThunk =>
         dispatch(setTilesListingsFilters(updatedFilters));
         dispatch(setTilesListingsSorting(defaultSorting));
         dispatch(setTilesListingsSkipLimit(0));
-        dispatch(setTilesListings([]));
+        dispatch(resetTilesListings());
         dispatch(setTilesListingsIsSortingUpdated(false));
         dispatch(setTilesListingsIsFiltersUpdated(false));
+        dispatch(setIsTilesListingsInitialDataLoading(true));
     };
 
 const mapTilesListingsDTOToVM = (listings: TileListingDTO[], lastSoldListings: Erc1155ListingsBatch): TileListingVM[] => {

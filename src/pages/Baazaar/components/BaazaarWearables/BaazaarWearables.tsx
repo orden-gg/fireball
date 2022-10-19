@@ -27,26 +27,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingFilters, WearableListingVM } from '../../models';
-import {
-    getWearablesListings,
-    getWearablesListingsFilters,
-    getWearablesListingsGraphQueryParams,
-    getWearablesListingsLimitPerLoad,
-    getWearablesListingsDefaultSorting,
-    getWearablesListingsSorting,
-    getWearablesListingsQueryParamsOrder,
-    onLoadBaazaarWearablesListings,
-    loadBaazaarWearablesListings,
-    resetWearablesListingsData,
-    resetWearablesListingsFilters,
-    setWearablesListingsSkipLimit,
-    setWearablesListingsSorting,
-    setWearablesListingsIsSortingUpdated,
-    setWearablesListingsFilters,
-    setWearablesListingsIsFiltersUpdated,
-    updateWearablesListingsFilterByKey
-} from '../../store';
 import { wearablesListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -61,18 +44,20 @@ export function BaazaarWearables() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const wearablesListings: WearableListingVM[] = useAppSelector(getWearablesListings);
-    const wearablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(getWearablesListingsGraphQueryParams);
-    const wearablesListingsDefaultSorting: SortingItem = useAppSelector(getWearablesListingsDefaultSorting);
-    const wearablesListingsSorting: SortingItem = useAppSelector(getWearablesListingsSorting);
-    const wearablesListingsFilters: WearableListingFilters = useAppSelector(getWearablesListingsFilters);
-    const wearablesListingsLimitPerLoad: number = useAppSelector(getWearablesListingsLimitPerLoad);
-    const WearablesListingsQueryParamsOrder: string[] = useAppSelector(getWearablesListingsQueryParamsOrder);
+    const wearablesListings: WearableListingVM[] = useAppSelector(fromBaazaarStore.getWearablesListings);
+    const isWearablesListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsWearablesListingsInitialDataLoading);
+    const isWearablesListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsWearablesListingsLoading);
+    const wearablesListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getWearablesListingsGraphQueryParams);
+    const wearablesListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getWearablesListingsDefaultSorting);
+    const wearablesListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getWearablesListingsSorting);
+    const wearablesListingsFilters: WearableListingFilters = useAppSelector(fromBaazaarStore.getWearablesListingsFilters);
+    const wearablesListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getWearablesListingsLimitPerLoad);
+    const WearablesListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getWearablesListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: WearableListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...wearablesListingsFilters });
-        dispatch(setWearablesListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setWearablesListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -86,7 +71,7 @@ export function BaazaarWearables() {
         }
 
         return () => {
-            dispatch(resetWearablesListingsData());
+            dispatch(fromBaazaarStore.resetWearablesListingsData());
         };
     }, []);
 
@@ -113,36 +98,38 @@ export function BaazaarWearables() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, WearablesListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarWearablesListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarWearablesListings());
     }, [wearablesListingsFilters, wearablesListingsSorting]);
 
     useEffect(() => {
-        dispatch(setWearablesListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setWearablesListingsIsFiltersUpdated(true));
     }, [wearablesListingsFilters]);
 
     useEffect(() => {
-        dispatch(setWearablesListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setWearablesListingsIsSortingUpdated(true));
     }, [wearablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setWearablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setWearablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = wearablesListingsGraphQueryParams.skip + wearablesListingsLimitPerLoad;
 
         if (skipLimit <= wearablesListings.length) {
-            dispatch(setWearablesListingsSkipLimit(skipLimit));
-            dispatch(loadBaazaarWearablesListings());
+            dispatch(fromBaazaarStore.setWearablesListingsSkipLimit(skipLimit));
+            dispatch(fromBaazaarStore.loadBaazaarWearablesListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateWearablesListingsFilterByKey({ key, value } as { key: WearableListingFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(fromBaazaarStore.updateWearablesListingsFilterByKey(
+            { key, value } as { key: WearableListingFilterTypes, value: GraphFiltersValueTypes }
+        ));
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetWearablesListingsFilters());
+        dispatch(fromBaazaarStore.resetWearablesListingsFilters());
     }, []);
 
     return (
@@ -158,8 +145,9 @@ export function BaazaarWearables() {
                     placeholder={
                         <WarehouseIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isWearablesListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isWearablesListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={wearablesListings}
                         component={(wearableListing: WearableListingVM) =>
@@ -198,6 +186,7 @@ export function BaazaarWearables() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={wearablesListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isWearablesListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -206,6 +195,7 @@ export function BaazaarWearables() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isWearablesListingsLoading}
                     >
                         Reset
                     </Button>

@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
 
 export const getGotchisListings = (state: RootState): GotchiListingVM[] =>
-    state.baazaar.gotchis.gotchisListings;
+    state.baazaar.gotchis.gotchisListings.data;
+
+export const getIsGotchisListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.gotchis.isGotchisListingsInitialDataLoading;
+
+export const getIsGotchisListingsLoading = (state: RootState): boolean =>
+    state.baazaar.gotchis.gotchisListings.isLoading;
 
 export const getGotchisListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.gotchis.gotchisListingsGraphQueryParams;

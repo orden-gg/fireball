@@ -4,7 +4,13 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
 
 export const getClosedPortalsListings = (state: RootState): ClosedPortalListingVM[] =>
-    state.baazaar.closedPortals.closedPortalsListings;
+    state.baazaar.closedPortals.closedPortalsListings.data;
+
+export const getIsClosedPortalsListingsInitialDataLoading = (state: RootState): boolean =>
+    state.baazaar.closedPortals.isClosedPortalsListingsInitialDataLoading;
+
+export const getIsClosedPortalsListingsLoading = (state: RootState): boolean =>
+    state.baazaar.closedPortals.closedPortalsListings.isLoading;
 
 export const getClosedPortalsListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
     state.baazaar.closedPortals.closedPortalsListingsGraphQueryParams;

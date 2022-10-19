@@ -26,26 +26,9 @@ import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ClosedPortalListingFilterTypes } from '../../constants';
 import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
-import {
-    getClosedPortalsListings,
-    getClosedPortalsListingsFilters,
-    getClosedPortalsListingsGraphQueryParams,
-    getClosedPortalsListingsLimitPerLoad,
-    getClosedPortalsListingsDefaultSorting,
-    getClosedPortalsListingsSorting,
-    getClosedPortalsListingsQueryParamsOrder,
-    onLoadBaazaarClosedPortalsListings,
-    loadBaazaarClosedPortalsListings,
-    resetClosedPortalsData,
-    resetClosedPortalsListingsFilters,
-    setClosedPortalsListingsSkipLimit,
-    setClosedPortalsListingsSorting,
-    setClosedPortalsListingsIsSortingUpdated,
-    setClosedPortalsListingsFilters,
-    setClosedPortalsListingsIsFiltersUpdated,
-    updateClosedPortalsListingsFilterByKey
-} from '../../store';
 import { closedPortalsListingsSortings } from '../../static/sortings';
+
+import * as fromBaazaarStore from '../../store';
 
 import { styles } from './styles';
 
@@ -60,18 +43,22 @@ export function BaazaarClosedPortals() {
     ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
     const dispatch = useAppDispatch();
-    const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(getClosedPortalsListings);
-    const closedPortalsListingsGraphQueryParams: GraphQueryParams = useAppSelector(getClosedPortalsListingsGraphQueryParams);
-    const closedPortalsListingsDefaultSorting: SortingItem = useAppSelector(getClosedPortalsListingsDefaultSorting);
-    const closedPortalsListingsSorting: SortingItem = useAppSelector(getClosedPortalsListingsSorting);
-    const closedPortalsListingsFilters: ClosedPortalListingFilters = useAppSelector(getClosedPortalsListingsFilters);
-    const closedPortalsListingsLimitPerLoad: number = useAppSelector(getClosedPortalsListingsLimitPerLoad);
-    const closedPortalsListingsQueryParamsOrder: string[] = useAppSelector(getClosedPortalsListingsQueryParamsOrder);
+    const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(fromBaazaarStore.getClosedPortalsListings);
+    const isClosedPortalsListingsInitialDataLoading: boolean =
+        useAppSelector(fromBaazaarStore.getIsClosedPortalsListingsInitialDataLoading);
+    const isClosedPortalsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsClosedPortalsListingsLoading);
+    const closedPortalsListingsGraphQueryParams: GraphQueryParams =
+        useAppSelector(fromBaazaarStore.getClosedPortalsListingsGraphQueryParams);
+    const closedPortalsListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getClosedPortalsListingsDefaultSorting);
+    const closedPortalsListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getClosedPortalsListingsSorting);
+    const closedPortalsListingsFilters: ClosedPortalListingFilters = useAppSelector(fromBaazaarStore.getClosedPortalsListingsFilters);
+    const closedPortalsListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getClosedPortalsListingsLimitPerLoad);
+    const closedPortalsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getClosedPortalsListingsQueryParamsOrder);
 
     useEffect(() => {
         const updatedFilters: ClosedPortalListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...closedPortalsListingsFilters });
-        dispatch(setClosedPortalsListingsFilters(updatedFilters));
+        dispatch(fromBaazaarStore.setClosedPortalsListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
@@ -85,7 +72,7 @@ export function BaazaarClosedPortals() {
         }
 
         return () => {
-            dispatch(resetClosedPortalsData());
+            dispatch(fromBaazaarStore.resetClosedPortalsData());
         };
     }, []);
 
@@ -114,38 +101,38 @@ export function BaazaarClosedPortals() {
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, closedPortalsListingsQueryParamsOrder);
 
-        dispatch(onLoadBaazaarClosedPortalsListings());
+        dispatch(fromBaazaarStore.onLoadBaazaarClosedPortalsListings());
     }, [closedPortalsListingsFilters, closedPortalsListingsSorting]);
 
     useEffect(() => {
-        dispatch(setClosedPortalsListingsIsFiltersUpdated(true));
+        dispatch(fromBaazaarStore.setClosedPortalsListingsIsFiltersUpdated(true));
     }, [closedPortalsListingsFilters]);
 
     useEffect(() => {
-        dispatch(setClosedPortalsListingsIsSortingUpdated(true));
+        dispatch(fromBaazaarStore.setClosedPortalsListingsIsSortingUpdated(true));
     }, [closedPortalsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(setClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.setClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
         const skipLimit: number = closedPortalsListingsGraphQueryParams.skip + closedPortalsListingsLimitPerLoad;
 
         if (skipLimit <= closedPortalsListings.length) {
-            dispatch(setClosedPortalsListingsSkipLimit(closedPortalsListingsGraphQueryParams.skip + closedPortalsListingsLimitPerLoad));
-            dispatch(loadBaazaarClosedPortalsListings());
+            dispatch(fromBaazaarStore.setClosedPortalsListingsSkipLimit(closedPortalsListingsGraphQueryParams.skip + closedPortalsListingsLimitPerLoad));
+            dispatch(fromBaazaarStore.loadBaazaarClosedPortalsListings());
         }
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(updateClosedPortalsListingsFilterByKey(
+        dispatch(fromBaazaarStore.updateClosedPortalsListingsFilterByKey(
             { key, value } as { key: ClosedPortalListingFilterTypes, value: GraphFiltersValueTypes }
         ));
     };
 
     const onResetFilters = useCallback(() => {
-        dispatch(resetClosedPortalsListingsFilters());
+        dispatch(fromBaazaarStore.resetClosedPortalsListingsFilters());
     }, []);
 
     return (
@@ -161,8 +148,9 @@ export function BaazaarClosedPortals() {
                     placeholder={
                         <H1SealedPortalIcon width={20} height={20} />
                     }
+                    isPanelDisabled={isClosedPortalsListingsLoading}
                 />
-                <ContentInner dataLoading={false} offset={257}>
+                <ContentInner dataLoading={isClosedPortalsListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={closedPortalsListings}
                         component={(portalListing: ClosedPortalListingVM) =>
@@ -192,6 +180,7 @@ export function BaazaarClosedPortals() {
                     className={classNames(classes.section, classes.filtersWrapper)}
                     filters={closedPortalsListingsFilters}
                     onSetSelectedFilters={onSetSelectedFilters}
+                    isFiltersDisabled={isClosedPortalsListingsLoading}
                 />
 
                 <div className={classes.buttonsWrapper}>
@@ -200,6 +189,7 @@ export function BaazaarClosedPortals() {
                         color='warning'
                         size='small'
                         onClick={onResetFilters}
+                        disabled={isClosedPortalsListingsLoading}
                     >
                         Reset
                     </Button>

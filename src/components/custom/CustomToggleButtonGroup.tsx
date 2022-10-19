@@ -34,9 +34,16 @@ interface CustomToggleButtonGroupProps {
     value: string;
     onChange: (event: React.MouseEvent<HTMLElement>, value: string) => void;
     ariaLabel: string;
+    isDisabled: boolean;
 }
 
-export function CustomToggleButtonGroup({ list, value, onChange, ariaLabel }: CustomToggleButtonGroupProps) {
+export function CustomToggleButtonGroup({
+    list,
+    value,
+    onChange,
+    ariaLabel,
+    isDisabled = false
+}: CustomToggleButtonGroupProps) {
     return (
         <StyledToggleButtonGroup
             size='small'
@@ -45,6 +52,7 @@ export function CustomToggleButtonGroup({ list, value, onChange, ariaLabel }: Cu
             value={value}
             onChange={onChange}
             aria-label={ariaLabel}
+            disabled={isDisabled}
         >
             {
                 list.map((item: any, index: number) => {
