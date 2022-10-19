@@ -41,19 +41,27 @@ export const loadBaazaarWearablesListings = (shouldResetListings: boolean = fals
         .then((wearablesListings: WearableListingDTO[]) => {
             const wearablesIds: number[] = wearablesListings.map((listing: WearableListingDTO) => Number(listing.erc1155TypeId));
 
-            TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc')
-               .then((lastSoldListings: Erc1155ListingsBatch) => {
-                    const modifiedListings: WearableListingVM[] = mapWearablesListingsDTOToVM(wearablesListings, lastSoldListings);
+            if (wearablesIds.length > 0) {
+                TheGraphApi.getErc1155ListingsBatchQuery(wearablesIds, Erc1155Categories.Wearable, true, 'timeLastPurchased', 'desc')
+                    .then((lastSoldListings: Erc1155ListingsBatch) => {
+                        const modifiedListings: WearableListingVM[] = mapWearablesListingsDTOToVM(wearablesListings, lastSoldListings);
 
-                    if (shouldResetListings) {
-                        dispatch(loadWearablesListingsSucceded(modifiedListings));
-                    } else {
-                        dispatch(loadWearablesListingsSucceded(currentWearablesListings.concat(modifiedListings)));
-                    }
-                })
-                .finally(() => {
-                    dispatch(setIsWearablesListingsInitialDataLoading(false));
-                });
+                        if (shouldResetListings) {
+                            dispatch(loadWearablesListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadWearablesListingsSucceded(currentWearablesListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsWearablesListingsInitialDataLoading(false));
+                    });
+            } else {
+                if (shouldResetListings) {
+                    dispatch(loadWearablesListingsSucceded([]));
+                }
+
+                dispatch(setIsWearablesListingsInitialDataLoading(false));
+            }
         })
         .catch(() => {
             dispatch(loadWearablesListingsFailed());

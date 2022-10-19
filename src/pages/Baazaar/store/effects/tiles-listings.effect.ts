@@ -42,18 +42,26 @@ export const loadBaazaarTilesListings = (shouldResetListings: boolean = false): 
             const tilesIds: number[] = tilesListings
                 .map((listing: TileListingDTO) => Number(listing.erc1155TypeId));
 
-            TheGraphApi.getErc1155ListingsBatchQuery(tilesIds, Erc1155Categories.Tile, true, 'timeLastPurchased', 'desc')
-               .then((lastSoldListings: Erc1155ListingsBatch) => {
-                    const modifiedListings: TileListingVM[] = mapTilesListingsDTOToVM(tilesListings, lastSoldListings);
-                    if (shouldResetListings) {
-                        dispatch(loadTilesListingsSucceded(modifiedListings));
-                    } else {
-                        dispatch(loadTilesListingsSucceded(currentTilesListings.concat(modifiedListings)));
-                    }
-                })
-                .finally(() => {
-                    dispatch(setIsTilesListingsInitialDataLoading(false));
-                });
+            if (tilesIds.length > 0) {
+                TheGraphApi.getErc1155ListingsBatchQuery(tilesIds, Erc1155Categories.Tile, true, 'timeLastPurchased', 'desc')
+                   .then((lastSoldListings: Erc1155ListingsBatch) => {
+                        const modifiedListings: TileListingVM[] = mapTilesListingsDTOToVM(tilesListings, lastSoldListings);
+                        if (shouldResetListings) {
+                            dispatch(loadTilesListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadTilesListingsSucceded(currentTilesListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsTilesListingsInitialDataLoading(false));
+                    });
+            } else {
+                if (shouldResetListings) {
+                    dispatch(loadTilesListingsSucceded([]));
+                }
+
+                dispatch(setIsTilesListingsInitialDataLoading(false));
+            }
         })
         .catch(() => {
             dispatch(loadTilesListingsFailed());

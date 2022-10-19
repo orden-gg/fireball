@@ -41,19 +41,27 @@ export const loadBaazaarConsumablesListings = (shouldResetListings: boolean = fa
         .then((consumablesListings: ConsumableListingDTO[]) => {
             const consumablesIds: number[] = consumablesListings.map((listing: ConsumableListingDTO) => Number(listing.erc1155TypeId));
 
-            TheGraphApi.getErc1155ListingsBatchQuery(consumablesIds, Erc1155Categories.Consumable, true, 'timeLastPurchased', 'desc')
-               .then((lastSoldListings: Erc1155ListingsBatch) => {
-                    const modifiedListings: ConsumableListingVM[] = mapConsumablesListingsDTOToVM(consumablesListings, lastSoldListings);
+            if (consumablesIds.length > 0) {
+                TheGraphApi.getErc1155ListingsBatchQuery(consumablesIds, Erc1155Categories.Consumable, true, 'timeLastPurchased', 'desc')
+                   .then((lastSoldListings: Erc1155ListingsBatch) => {
+                        const modifiedListings: ConsumableListingVM[] = mapConsumablesListingsDTOToVM(consumablesListings, lastSoldListings);
 
-                    if (shouldResetListings) {
-                        dispatch(loadConsumablesListingsSucceded(modifiedListings));
-                    } else {
-                        dispatch(loadConsumablesListingsSucceded(currentConsumablesListings.concat(modifiedListings)));
-                    }
-                })
-                .finally(() => {
-                    dispatch(setIsConsumablesListingsInitialDataLoading(false));
-                });
+                        if (shouldResetListings) {
+                            dispatch(loadConsumablesListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadConsumablesListingsSucceded(currentConsumablesListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsConsumablesListingsInitialDataLoading(false));
+                    });
+            } else {
+                if (shouldResetListings) {
+                    dispatch(loadConsumablesListingsSucceded([]));
+                }
+
+                dispatch(setIsConsumablesListingsInitialDataLoading(false));
+            }
         })
         .catch(() => {
             dispatch(loadConsumablesListingsFailed());

@@ -42,20 +42,28 @@ export const loadBaazaarInstallationsListings = (shouldResetListings: boolean = 
             const installationsIds: number[] = installationsListings
                 .map((listing: InstallationListingDTO) => Number(listing.erc1155TypeId));
 
-            TheGraphApi.getErc1155ListingsBatchQuery(installationsIds, Erc1155Categories.Installation, true, 'timeLastPurchased', 'desc')
-               .then((lastSoldListings: Erc1155ListingsBatch) => {
-                    const modifiedListings: InstallationListingVM[] =
-                        mapInstallationsListingsDTOToVM(installationsListings, lastSoldListings);
+            if (installationsIds.length > 0) {
+                TheGraphApi.getErc1155ListingsBatchQuery(installationsIds, Erc1155Categories.Installation, true, 'timeLastPurchased', 'desc')
+                   .then((lastSoldListings: Erc1155ListingsBatch) => {
+                        const modifiedListings: InstallationListingVM[] =
+                            mapInstallationsListingsDTOToVM(installationsListings, lastSoldListings);
 
-                    if (shouldResetListings) {
-                        dispatch(loadInstallationsListingsSucceded(modifiedListings));
-                    } else {
-                        dispatch(loadInstallationsListingsSucceded(currentInstallationsListings.concat(modifiedListings)));
-                    }
-                })
-                .finally(() => {
-                    dispatch(setIsInstallationsListingsInitialDataLoading(false));
-                });
+                        if (shouldResetListings) {
+                            dispatch(loadInstallationsListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadInstallationsListingsSucceded(currentInstallationsListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsInstallationsListingsInitialDataLoading(false));
+                    });
+            } else {
+                if (shouldResetListings) {
+                    dispatch(loadInstallationsListingsSucceded([]));
+                }
+
+                dispatch(setIsInstallationsListingsInitialDataLoading(false));
+            }
         })
         .catch(() => {
             dispatch(loadInstallationsListingsFailed());
