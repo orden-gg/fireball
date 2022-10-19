@@ -35,7 +35,7 @@ export const loadBaazaarClosedPortalsListings = (shouldResetListings: boolean = 
 
     const query = getBaazaarClosedPortalsListingsQuery(closedPortalsListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getClosedPortalsListings(query)
+    BaazaarGraphApi.getErc721Listings<ClosedPortalListingDTO>(query)
         .then((res: ClosedPortalListingDTO[]) => {
             const modifiedListings: ClosedPortalListingVM[] = mapClosedPortalsDTOToVM(res);
 

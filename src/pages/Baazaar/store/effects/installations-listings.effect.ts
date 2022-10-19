@@ -37,7 +37,7 @@ export const loadBaazaarInstallationsListings = (shouldResetListings: boolean = 
 
     const query = getBaazaarErc1155ListingsQuery(installationsListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getInstallationsListings(query)
+    BaazaarGraphApi.getErc1155Listings<InstallationListingDTO>(query)
         .then((installationsListings: InstallationListingDTO[]) => {
             const installationsIds: number[] = installationsListings
                 .map((listing: InstallationListingDTO) => Number(listing.erc1155TypeId));

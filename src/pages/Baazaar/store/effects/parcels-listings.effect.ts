@@ -35,7 +35,7 @@ export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false)
 
     const query = getBaazaarParcelsListingsQuery(parcelsListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getParcelsListings(query)
+    BaazaarGraphApi.getErc721Listings<ParcelListingDTO>(query)
         .then((parcelsListings: ParcelListingDTO[]) => {
             const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
 

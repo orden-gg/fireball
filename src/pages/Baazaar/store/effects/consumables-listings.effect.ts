@@ -37,7 +37,7 @@ export const loadBaazaarConsumablesListings = (shouldResetListings: boolean = fa
 
     const query = getBaazaarErc1155ListingsQuery(consumablesListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getConsumablesListings(query)
+    BaazaarGraphApi.getErc1155Listings<ConsumableListingDTO>(query)
         .then((consumablesListings: ConsumableListingDTO[]) => {
             const consumablesIds: number[] = consumablesListings.map((listing: ConsumableListingDTO) => Number(listing.erc1155TypeId));
 

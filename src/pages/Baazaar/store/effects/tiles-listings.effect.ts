@@ -37,7 +37,7 @@ export const loadBaazaarTilesListings = (shouldResetListings: boolean = false): 
 
     const query = getBaazaarErc1155ListingsQuery(tilesListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getTilesListings(query)
+    BaazaarGraphApi.getErc1155Listings<TileListingDTO>(query)
         .then((tilesListings: TileListingDTO[]) => {
             const tilesIds: number[] = tilesListings
                 .map((listing: TileListingDTO) => Number(listing.erc1155TypeId));

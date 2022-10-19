@@ -37,7 +37,7 @@ export const loadBaazaarWearablesListings = (shouldResetListings: boolean = fals
 
     const query = getBaazaarErc1155ListingsQuery(wearablesListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getWearablesListings(query)
+    BaazaarGraphApi.getErc1155Listings<WearableListingDTO>(query)
         .then((wearablesListings: WearableListingDTO[]) => {
             const wearablesIds: number[] = wearablesListings.map((listing: WearableListingDTO) => Number(listing.erc1155TypeId));
 

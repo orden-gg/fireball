@@ -35,7 +35,7 @@ export const loadBaazaarGotchisListings = (shouldResetListings: boolean = false)
 
     const query = getBaazaarGotchiListingsQuery(gotchisListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getBaazaarGotchis(query)
+    BaazaarGraphApi.getErc721Listings<GotchiListingDTO>(query)
         .then((res: GotchiListingDTO[]) => {
             const modifiedListings: GotchiListingVM[] = mapGotchisDTOToVM(res);
 
