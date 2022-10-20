@@ -1,4 +1,5 @@
 import { Erc721Categories, TypenameType } from 'shared/constants';
+
 export interface ClosedPortalListingBase {
     category: Erc721Categories;
     hauntId: string;

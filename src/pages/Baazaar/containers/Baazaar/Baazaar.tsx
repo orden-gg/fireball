@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
+    ActivityIcon,
     AnvilIcon,
     ConsumableIcon,
     GotchiIcon,
@@ -10,8 +11,10 @@ import {
     WarehouseIcon
 } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
+import { SubNav } from 'components/PageNav/SubNav';
 import { PageNavLink } from 'shared/models';
 
+import { BaazaarActivity } from '../BaazaarActivity/BaazaarActivity';
 import {
     BaazaarClosedPortals,
     BaazaarConsumables,
@@ -20,7 +23,7 @@ import {
     BaazaarParcels,
     BaazaarTiles,
     BaazaarWearables
-} from '../components';
+} from '../../components';
 
 import { styles } from './styles';
 
@@ -55,6 +58,25 @@ export function Baazaar() {
         {
             path: 'consumables',
             icon: <ConsumableIcon width={24} height={24} />
+        },
+        {
+            path: 'activity',
+            icon: <ActivityIcon width={20} height={20} />,
+            isShowSubRoutes: true,
+            subNavComponent: <SubNav links={[
+                {
+                    path: 'activity/portals',
+                    icon: <H1SealedPortalIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/gotchis',
+                    icon: <GotchiIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/parcels',
+                    icon: <KekIcon width={24} height={24} />
+                }
+            ]} />
         }
     ];
 
@@ -71,6 +93,7 @@ export function Baazaar() {
             <Route path='installations' element={<BaazaarInstallations />} />
             <Route path='tiles' element={<BaazaarTiles />} />
             <Route path='consumables' element={<BaazaarConsumables />} />
+            <Route path='activity/*' element={<BaazaarActivity />} />
             <Route path='*' element={<Navigate to='gotchis' replace />} />
         </Routes>
     </div>;

@@ -10,6 +10,7 @@ export interface GraphQueryParams {
     orderBy: string;
     orderDirection: string;
     where: {
-        category: string;
+        category?: string;
+        categories?: string[]
     }
 }

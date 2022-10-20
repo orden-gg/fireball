@@ -11,7 +11,7 @@ import { NavPanel } from 'root/NavPanel/NavPanel';
 
 import { Autopet } from 'pages/Autopet/Autopet';
 import { BaazaarOld } from 'pages/BaazaarOld/BaazaarOld';
-import { Baazaar } from 'pages/Baazaar/containers/Baazaar';
+import { Baazaar } from 'pages/Baazaar/containers';
 import { Client } from 'pages/Client/Client';
 import { Craft } from 'pages/Craft/Craft';
 import { GhostExplorer } from 'pages/GhostExplorer/GhostExplorer';

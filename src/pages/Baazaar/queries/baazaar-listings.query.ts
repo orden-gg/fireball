@@ -108,7 +108,7 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
                 timeCreated,
                 hauntId,
               	portal {
-                  historicalPrices
+                    historicalPrices
                 }
             }
     }`;
@@ -135,6 +135,34 @@ export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParam
                 quantity,
                 rarityLevel,
                 erc1155TypeId
+            }
+    }`;
+};
+
+export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc721Listings (
+            first: 100,
+            orderBy: timePurchased,
+            orderDirection: desc,
+            where: {
+                timePurchased_gt: 0
+                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}],
+                ${whereParams}
+            }
+        )
+            {
+                id
+                tokenId
+                hauntId
+                category
+                priceInWei
+                buyer
+                seller
+                timePurchased
+                portal {
+                    historicalPrices
+                }
             }
     }`;
 };

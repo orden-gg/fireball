@@ -5,7 +5,7 @@ import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
 import { GraphFiltersUtils } from 'utils';
 
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { ClosedPortalListingFilterTypes } from 'pages/Baazaar/constants';
+import { ClosedPortalListingFilterTypes } from '../../constants';
 import {
     loadClosedPortalsListings,
     loadClosedPortalsListingsSucceded,

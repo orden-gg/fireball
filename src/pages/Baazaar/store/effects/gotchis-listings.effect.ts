@@ -4,6 +4,7 @@ import { GotchiListingDTO, GotchiListingVM, GotchiListingsFilters, GotchiListing
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
 import { GraphFiltersUtils } from 'utils';
 
+import { GotchiListingsFilterTypes } from '../../constants';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     loadGotchisListings,
@@ -17,7 +18,6 @@ import {
     setIsGotchisListingsInitialDataLoading,
     resetGotchisListings
 } from '../slices';
-import { GotchiListingsFilterTypes } from 'pages/Baazaar/constants';
 
 export const loadBaazaarGotchisListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
     dispatch(loadGotchisListings());

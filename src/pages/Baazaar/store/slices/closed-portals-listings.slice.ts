@@ -6,7 +6,7 @@ import { GraphQueryParams, SortingItem } from 'shared/models';
 import { ClosedPortalListingVM, ClosedPortalListingFilters } from '../../models';
 import { closedPortalListingsFiltersData } from '../../static/filters';
 
-export interface ClosedPortlasListingsState {
+export interface ClosedPortalsListingsState {
     closedPortalsListings: {
         data: ClosedPortalListingVM[];
         isLoading: boolean;
@@ -24,7 +24,7 @@ export interface ClosedPortlasListingsState {
     closedPortalsListingsQueryParamsOrder: string[];
 }
 
-const initialState: ClosedPortlasListingsState = {
+const initialState: ClosedPortalsListingsState = {
     closedPortalsListings: {
         data: [],
         isLoading: false,

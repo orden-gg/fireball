@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
 import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { PageNavLink } from 'shared/models';
 
 import { styles } from './styles';
-import classNames from 'classnames';
 
 interface PageNavProps {
     links: PageNavLink[];
@@ -19,9 +20,13 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     const classes = styles();
     const theme = useTheme();
 
-    const subroute = location.pathname.split('/')[3];
+    const { pathname } = useLocation();
 
     const data = useMemo(() => links, [links]);
+
+    const isPathMatch = (currentPath: string): boolean => {
+        return pathname.indexOf(currentPath) !== -1;
+    };
 
     return (
         <div className={classes.container}>
@@ -30,7 +35,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                 data.map((link: PageNavLink, index: number) => {
                     return (
                         <div className={classes.navItem} key={index}>
-                            { link.isShowSubRoutes && link.path === subroute &&
+                            { link.isShowSubRoutes && isPathMatch(link.path) &&
                                 <div className={classes.subNav}>
                                     {link.subNavComponent}
                                 </div>

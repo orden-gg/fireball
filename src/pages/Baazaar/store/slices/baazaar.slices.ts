@@ -7,6 +7,12 @@ import { installationsListingsReducer } from './installations-listings.slice';
 import { parcelsListingsReducer } from './parcels-listings.slice';
 import { tilesListingsReducer } from './tiles-listings.slice';
 import { wearablesListingsReducer } from './wearables-listings.slice';
+// activity
+import { activityPortalsListingsReducer } from './activity-portals-listings.slice';
+
+export const activityReducers = combineReducers({
+    portals: activityPortalsListingsReducer
+});
 
 export const baazarReducers = combineReducers({
     gotchis: gotchisListingsReducer,
@@ -15,5 +21,7 @@ export const baazarReducers = combineReducers({
     installations: installationsListingsReducer,
     parcels: parcelsListingsReducer,
     tiles: tilesListingsReducer,
-    wearables: wearablesListingsReducer
+    wearables: wearablesListingsReducer,
+    // activity
+    activity: activityReducers
 });

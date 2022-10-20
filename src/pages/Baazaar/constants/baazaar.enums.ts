@@ -53,3 +53,8 @@ export enum ConsumableListingFilterTypes {
     SpkTraitModifier = 'spkTraitModifier',
     BrnTraitModifier = 'brnTraitModifier'
 }
+
+// avtivity
+export enum ActivityPortalListingFilterTypes {
+    HauntId = 'hauntId'
+}

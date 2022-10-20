@@ -1,6 +1,6 @@
 export interface PageNavLink {
     path: string;
-    icon: JSX.Element;
+    icon?: JSX.Element;
     name?: string;
     isLoading?: boolean;
     count?: number | string;
