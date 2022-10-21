@@ -54,7 +54,7 @@ export enum ConsumableListingFilterTypes {
     BrnTraitModifier = 'brnTraitModifier'
 }
 
-// avtivity
+// activity
 export enum ActivityPortalListingFilterTypes {
     HauntId = 'hauntId'
 }
@@ -70,4 +70,13 @@ export enum ActivityGotchiListingFilterTypes {
     BrnTrait = 'brnTrait',
     EysTrait = 'eysTrait',
     EycTrait = 'eycTrait'
+}
+
+export enum ActivityParcelListingFilterTypes {
+    Size = 'size',
+    District = 'district',
+    FudBoost = 'fudBoost',
+    FomoBoost = 'fomoBoost',
+    AlphaBoost = 'alphaBoost',
+    KekBoost = 'kekBoost'
 }

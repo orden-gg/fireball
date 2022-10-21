@@ -1,4 +1,5 @@
 export * from './activity-gotchis-listings.selector';
+export * from './activity-parcels-listings.selector';
 export * from './activity-portals-listings.selector';
 export * from './closed-portals-listings.selector';
 export * from './consumables-listings.selector';

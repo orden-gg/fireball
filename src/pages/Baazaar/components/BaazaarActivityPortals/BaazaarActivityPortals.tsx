@@ -44,7 +44,8 @@ export function BaazaarActivityPortals() {
     const isActivityPortalsListingsInitialDataLoading: boolean =
         useAppSelector(fromBaazaarStore.getIsActivityPortalsListingsInitialDataLoading);
     const isActivityPortalsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsActivityPortalsListingsLoading);
-    const activityPortalsListingsFilters: ActivityPortalListingFilters = useAppSelector(fromBaazaarStore.getActivityPortalsListingsFilters);
+    const activityPortalsListingsFilters: ActivityPortalListingFilters =
+        useAppSelector(fromBaazaarStore.getActivityPortalsListingsFilters);
     const activityPortalsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getActivityPortalsListingsQueryParamsOrder);
 
     useEffect(() => {

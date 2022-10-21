@@ -41,7 +41,8 @@ export function BaazaarActivityGotchis() {
     const isActivityGotchisListingsInitialDataLoading: boolean =
         useAppSelector(fromBaazaarStore.getIsActivityGotchisListingsInitialDataLoading);
     const isActivityGotchisListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsActivityGotchisListingsLoading);
-    const activityGotchisListingsFilters: ActivityGotchiListingFilters = useAppSelector(fromBaazaarStore.getActivityGotchisListingsFilters);
+    const activityGotchisListingsFilters: ActivityGotchiListingFilters =
+        useAppSelector(fromBaazaarStore.getActivityGotchisListingsFilters);
     const activityGotchisListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getActivityGotchisListingsQueryParamsOrder);
 
     useEffect(() => {

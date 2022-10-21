@@ -3,40 +3,40 @@ import { GraphQueryParams } from 'shared/models';
 export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
-            first: ${graphQueryParams.first},
-            skip: ${graphQueryParams.skip},
-            orderBy: ${graphQueryParams.orderBy},
-            orderDirection: ${graphQueryParams.orderDirection},
+            first: ${graphQueryParams.first}
+            skip: ${graphQueryParams.skip}
+            orderBy: ${graphQueryParams.orderBy}
+            orderDirection: ${graphQueryParams.orderDirection}
             where: {
-                cancelled: false,
+                cancelled: false
                 timePurchased: "0"
-                category: ${graphQueryParams.where.category},
+                category: ${graphQueryParams.where.category}
                 ${whereParams}
             }
         )
             {
-                id,
-                priceInWei,
-                tokenId,
-                timeCreated,
-                hauntId,
+                id
+                priceInWei
+                tokenId
+                timeCreated
+                hauntId
                 gotchi {
-                    id,
+                    id
                     owner {
                         id
-                    },
-                    hauntId,
-                    name,
-                    numericTraits,
+                    }
+                    hauntId
+                    name
+                    numericTraits
                     modifiedNumericTraits
-                    withSetsNumericTraits,
-                    equippedWearables,
-                    collateral,
-                    kinship,
-                    experience,
-                    toNextLevel,
-                    level,
-                    baseRarityScore,
+                    withSetsNumericTraits
+                    equippedWearables
+                    collateral
+                    kinship
+                    experience
+                    toNextLevel
+                    level
+                    baseRarityScore
                     modifiedRarityScore
                     withSetsRarityScore
                     possibleSets
@@ -54,20 +54,20 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
 export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
-            first: ${graphQueryParams.first},
-            skip: ${graphQueryParams.skip},
-            orderBy: ${graphQueryParams.orderBy},
-            orderDirection: ${graphQueryParams.orderDirection},
+            first: ${graphQueryParams.first}
+            skip: ${graphQueryParams.skip}
+            orderBy: ${graphQueryParams.orderBy}
+            orderDirection: ${graphQueryParams.orderDirection}
             where: {
-                cancelled: false,
+                cancelled: false
                 timePurchased: "0"
-                category: ${graphQueryParams.where.category},
+                category: ${graphQueryParams.where.category}
                 ${whereParams}
             }
         )
             {
-                id,
-                priceInWei,
+                id
+                priceInWei
                 parcel {
                     parcelId
                     parcelHash
@@ -89,24 +89,24 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
 export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
-            first: ${graphQueryParams.first},
-            skip: ${graphQueryParams.skip},
-            orderBy: ${graphQueryParams.orderBy},
-            orderDirection: ${graphQueryParams.orderDirection},
+            first: ${graphQueryParams.first}
+            skip: ${graphQueryParams.skip}
+            orderBy: ${graphQueryParams.orderBy}
+            orderDirection: ${graphQueryParams.orderDirection}
             where: {
-                cancelled: false,
+                cancelled: false
                 timePurchased: "0"
-                category: ${graphQueryParams.where.category},
+                category: ${graphQueryParams.where.category}
                 ${whereParams}
             }
         )
             {
-                id,
-                priceInWei,
-                tokenId,
+                id
+                priceInWei
+                tokenId
               	category
-                timeCreated,
-                hauntId,
+                timeCreated
+                hauntId
               	portal {
                     historicalPrices
                 }
@@ -117,23 +117,23 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
 export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc1155Listings (
-            first: ${graphQueryParams.first},
-            skip: ${graphQueryParams.skip},
-            orderBy: ${graphQueryParams.orderBy},
-            orderDirection: ${graphQueryParams.orderDirection},
+            first: ${graphQueryParams.first}
+            skip: ${graphQueryParams.skip}
+            orderBy: ${graphQueryParams.orderBy}
+            orderDirection: ${graphQueryParams.orderDirection}
             where: {
-                category: ${graphQueryParams.where.category},
-                cancelled: false,
-                sold: false,
+                category: ${graphQueryParams.where.category}
+                cancelled: false
+                sold: false
                 ${whereParams}
             })
             {
-                id,
-                priceInWei,
-                category,
-                timeCreated,
-                quantity,
-                rarityLevel,
+                id
+                priceInWei
+                category
+                timeCreated
+                quantity
+                rarityLevel
                 erc1155TypeId
             }
     }`;
@@ -142,12 +142,12 @@ export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParam
 export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
-            first: 100,
-            orderBy: timePurchased,
-            orderDirection: desc,
+            first: 100
+            orderBy: timePurchased
+            orderDirection: desc
             where: {
                 timePurchased_gt: 0
-                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}],
+                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}]
                 ${whereParams}
             }
         )
@@ -170,12 +170,12 @@ export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQu
 export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc721Listings (
-            first: 100,
-            orderBy: timePurchased,
-            orderDirection: desc,
+            first: 100
+            orderBy: timePurchased
+            orderDirection: desc
             where: {
                 timePurchased_gt: 0
-                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}],
+                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}]
                 ${whereParams}
             }
         )
@@ -188,22 +188,22 @@ export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQu
                 buyer
                 timePurchased
                 gotchi {
-                    id,
+                    id
                     owner {
                         id
-                    },
-                    hauntId,
-                    name,
-                    numericTraits,
+                    }
+                    hauntId
+                    name
+                    numericTraits
                     modifiedNumericTraits
-                    withSetsNumericTraits,
-                    equippedWearables,
-                    collateral,
-                    kinship,
-                    experience,
-                    toNextLevel,
-                    level,
-                    baseRarityScore,
+                    withSetsNumericTraits
+                    equippedWearables
+                    collateral
+                    kinship
+                    experience
+                    toNextLevel
+                    level
+                    baseRarityScore
                     modifiedRarityScore
                     withSetsRarityScore
                     possibleSets
@@ -213,6 +213,44 @@ export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQu
                     historicalPrices
                     timesTraded
                     stakedAmount
+                }
+            }
+    }`;
+};
+
+export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc721Listings (
+            first: 100
+            orderBy: timePurchased
+            orderDirection: desc
+            where: {
+                timePurchased_gt: 0
+                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}]
+                ${whereParams}
+            }
+        )
+            {
+                id
+                tokenId
+                category
+                priceInWei
+                seller
+                buyer
+                timePurchased
+                parcel {
+                    parcelId
+                    parcelHash
+                    tokenId
+                    coordinateX
+                    coordinateY
+                    district
+                    fudBoost
+                    fomoBoost
+                    alphaBoost
+                    kekBoost
+                    size
+                    historicalPrices
                 }
             }
     }`;

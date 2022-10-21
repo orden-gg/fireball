@@ -10,10 +10,12 @@ import { wearablesListingsReducer } from './wearables-listings.slice';
 // activity
 import { activityPortalsListingsReducer } from './activity-portals-listings.slice';
 import { activityGotchisListingsReducer } from './activity-gotchis-listings.slice';
+import { activityParcelsListingsReducer } from './activity-parcels-listings.slice';
 
 export const activityReducers = combineReducers({
     portals: activityPortalsListingsReducer,
-    gotchis: activityGotchisListingsReducer
+    gotchis: activityGotchisListingsReducer,
+    parcels: activityParcelsListingsReducer
 });
 
 export const baazarReducers = combineReducers({
