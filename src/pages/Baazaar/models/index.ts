@@ -1,3 +1,5 @@
+export * from './activity-gotchi-listing.model';
+export * from './activity-gotchi-listings-filters.model';
 export * from './activity-portal-listing.model';
 export * from './activity-portal-listings-filters.model';
 export * from './closed-portal-listing.model';

@@ -58,3 +58,16 @@ export enum ConsumableListingFilterTypes {
 export enum ActivityPortalListingFilterTypes {
     HauntId = 'hauntId'
 }
+
+export enum ActivityGotchiListingFilterTypes {
+    BRS = 'baseRarityScore',
+    Kinship = 'kinship',
+    Experience = 'experience',
+    Collateral = 'collateral',
+    NrgTrait = 'nrgTrait',
+    AggTrait = 'aggTrait',
+    SpkTrait = 'spkTrait',
+    BrnTrait = 'brnTrait',
+    EysTrait = 'eysTrait',
+    EycTrait = 'eycTrait'
+}

@@ -166,3 +166,54 @@ export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQu
             }
     }`;
 };
+
+export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc721Listings (
+            first: 100,
+            orderBy: timePurchased,
+            orderDirection: desc,
+            where: {
+                timePurchased_gt: 0
+                category_in: [${graphQueryParams.where.categories?.map((category: string) => `${category}`)}],
+                ${whereParams}
+            }
+        )
+            {
+                id
+                tokenId
+                category
+                priceInWei
+                seller
+                buyer
+                timePurchased
+                gotchi {
+                    id,
+                    owner {
+                        id
+                    },
+                    hauntId,
+                    name,
+                    numericTraits,
+                    modifiedNumericTraits
+                    withSetsNumericTraits,
+                    equippedWearables,
+                    collateral,
+                    kinship,
+                    experience,
+                    toNextLevel,
+                    level,
+                    baseRarityScore,
+                    modifiedRarityScore
+                    withSetsRarityScore
+                    possibleSets
+                    equippedSetID
+                    equippedSetName
+                    usedSkillPoints
+                    historicalPrices
+                    timesTraded
+                    stakedAmount
+                }
+            }
+    }`;
+};

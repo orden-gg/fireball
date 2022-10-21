@@ -1,6 +1,11 @@
 import { AppThunk } from 'core/store/store';
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
-import { ActivityPortalListingDTO, ActivityPortalListingFilters, ActivityPortalListingVM, ActivityPortaListingFiltersType } from '../../models';
+import {
+    ActivityPortalListingDTO,
+    ActivityPortalListingFilters,
+    ActivityPortalListingVM,
+    ActivityPortalListingFiltersType
+} from '../../models';
 import { getBaazaarActivityPortalsListingsQuery } from '../../queries';
 import { GraphFiltersUtils } from 'utils';
 
@@ -19,12 +24,13 @@ import {
 export const loadBaazaarActivityPortalsListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
     dispatch(loadActivityPortalsListings());
 
-    const activityPortalsListingsGraphQueryParams: GraphQueryParams = getState().baazaar.activity.portals.activityPortalsListingsGraphQueryParams;
+    const activityPortalsListingsGraphQueryParams: GraphQueryParams =
+        getState().baazaar.activity.portals.activityPortalsListingsGraphQueryParams;
     const activityPortalsListings: ActivityPortalListingVM[] = getState().baazaar.activity.portals.activityPortalsListings.data;
     const filters: ActivityPortalListingFilters = getState().baazaar.activity.portals.activityPortalsListingsFilters;
 
     let whereParams: string = '';
-    Object.entries(filters).forEach(([_, filter]: [_: string, filter: ActivityPortaListingFiltersType]) => {
+    Object.entries(filters).forEach(([_, filter]: [_: string, filter: ActivityPortalListingFiltersType]) => {
         if (filter.isFilterActive) {
             whereParams += GraphFiltersUtils.getGraphWhereParam(filter);
         }
@@ -66,7 +72,7 @@ export const updateActivityPortalsListingsFilterByKey =
 
             const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-            dispatch(setActivityPortalsListingsFilters({ ...filters, [key]: updatedFilter as ActivityPortaListingFiltersType }));
+            dispatch(setActivityPortalsListingsFilters({ ...filters, [key]: updatedFilter as ActivityPortalListingFiltersType }));
         };
 
 export const resetActivityPortalsListingsFilters = (): AppThunk =>
@@ -74,7 +80,7 @@ export const resetActivityPortalsListingsFilters = (): AppThunk =>
         const filters: ActivityPortalListingFilters = getState().baazaar.activity.portals.activityPortalsListingsFilters;
 
         const updatedFilters: ActivityPortalListingFilters = Object.fromEntries(
-            Object.entries(filters).map(([_, filter]: [_: string, filter: ActivityPortaListingFiltersType]) =>
+            Object.entries(filters).map(([_, filter]: [_: string, filter: ActivityPortalListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
         );
@@ -87,7 +93,7 @@ export const resetActivityPortalsData = (): AppThunk =>
         const filters: ActivityPortalListingFilters = getState().baazaar.activity.portals.activityPortalsListingsFilters;
 
         const updatedFilters: ActivityPortalListingFilters = Object.fromEntries(
-            Object.entries(filters).map(([_, filter]: [_: string, filter: ActivityPortaListingFiltersType]) =>
+            Object.entries(filters).map(([_, filter]: [_: string, filter: ActivityPortalListingFiltersType]) =>
                 [[filter.key], GraphFiltersUtils.getResetedFilterByType(filter)]
             )
         );

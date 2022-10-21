@@ -1,9 +1,8 @@
-
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() => createStyles({
     sidebar: {
-        height: 'calc(100vh - 177px)',
+        maxHeight: 'calc(100vh - 177px)',
         overflowY: 'auto'
     },
     section: {
@@ -18,5 +17,22 @@ export const styles = makeStyles(() => createStyles({
         padding: 12,
         display: 'flex',
         justifyContent: 'space-between'
+    },
+    listItem: {
+        height: '100%'
+    },
+    results: {
+        height: 40,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingRight: 8,
+        fontWeight: 'bold'
+    },
+    placeholder: {
+        marginLeft: 4,
+        '& img': {
+            display: 'block'
+        }
     }
 }));

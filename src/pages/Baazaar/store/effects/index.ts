@@ -1,3 +1,4 @@
+export * from './activity-gotchis-listings.effect';
 export * from './activity-portals-listings.effect';
 export * from './closed-portals-listings.effect';
 export * from './consumables-listings.effect';

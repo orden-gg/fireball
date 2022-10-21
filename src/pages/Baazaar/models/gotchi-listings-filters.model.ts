@@ -16,4 +16,4 @@ export interface GotchiListingsFilters {
     [GotchiListingsFilterTypes.EycTrait]: GraphRangeSliderFilter;
 }
 
-export type GotchiListingFiltersType = GraphInputFilter | GraphRangeSliderFilter;
+export type GotchiListingFiltersType = GraphInputFilter | GraphRangeSliderFilter | GraphMultiButtonSelectionFilter;

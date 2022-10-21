@@ -6,4 +6,4 @@ export interface ActivityPortalListingFilters {
     [ActivityPortalListingFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;
 }
 
-export type ActivityPortaListingFiltersType = GraphMultiButtonSelectionFilter;
+export type ActivityPortalListingFiltersType = GraphMultiButtonSelectionFilter;
