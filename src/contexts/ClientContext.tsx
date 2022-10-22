@@ -451,7 +451,9 @@ export const ClientContextProvider = (props: any) => {
                 };
             }
 
-            const installations: any[] = parcel.equippedInstallations.map((inst: any) => ({
+            const installations: any[] = parcel.equippedInstallations.filter((item: any) =>
+                InstallationsUtils.getIsInstallationExist(item.id)
+            ).map((inst: any) => ({
                 id: inst.id,
                 name: InstallationsUtils.getNameById(inst.id),
                 level: InstallationsUtils.getLevelById(inst.id),
