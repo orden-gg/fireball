@@ -75,6 +75,10 @@ export function Baazaar() {
                 {
                     path: 'activity/parcels',
                     icon: <KekIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/wearables',
+                    icon: <WarehouseIcon width={24} height={24} />
                 }
             ]} />
         }

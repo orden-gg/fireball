@@ -4,6 +4,8 @@ export * from './activity-parcel-listing.model';
 export * from './activity-parcel-listings-filters.model';
 export * from './activity-portal-listing.model';
 export * from './activity-portal-listings-filters.model';
+export * from './activity-wearable-listing.model';
+export * from './activity-wearable-listings-filters.model';
 export * from './closed-portal-listing.model';
 export * from './closed-portal-listings-filters.model';
 export * from './consumable-listing.model';

@@ -2,6 +2,7 @@ export * from './baazaar.slices';
 export * from './activity-gotchis-listings.slice';
 export * from './activity-parcels-listings.slice';
 export * from './activity-portals-listings.slice';
+export * from './activity-wearables-listings.slice';
 export * from './closed-portals-listings.slice';
 export * from './consumables-listings.slice';
 export * from './gotchis-listings.slice';

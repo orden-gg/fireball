@@ -80,3 +80,7 @@ export enum ActivityParcelListingFilterTypes {
     AlphaBoost = 'alphaBoost',
     KekBoost = 'kekBoost'
 }
+
+export enum ActivityWearableListingFilterTypes {
+    RarityLevel = 'rarityLevel'
+}

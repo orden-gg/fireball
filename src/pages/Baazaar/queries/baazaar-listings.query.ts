@@ -255,3 +255,27 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
             }
     }`;
 };
+
+export const getBaazaarErc1155PurchasesQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+    return `{
+        erc1155Purchases (
+            first: 100
+            orderBy: timeLastPurchased
+            orderDirection: desc
+            where: {
+                category: ${graphQueryParams.where.category}
+                ${whereParams}
+            })
+            {
+                listingID
+                erc1155TypeId
+                category
+                priceInWei
+                quantity
+                timeLastPurchased
+                seller
+                buyer
+                rarityLevel
+            }
+    }`;
+};
