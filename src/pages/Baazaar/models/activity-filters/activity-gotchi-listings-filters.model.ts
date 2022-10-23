@@ -1,6 +1,6 @@
 import { GraphInputFilter, GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
-import { ActivityGotchiListingFilterTypes } from '../constants';
+import { ActivityGotchiListingFilterTypes } from '../../constants';
 
 export interface ActivityGotchiListingFilters {
     [ActivityGotchiListingFilterTypes.BRS]: GraphInputFilter;

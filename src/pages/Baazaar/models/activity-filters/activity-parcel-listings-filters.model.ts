@@ -1,6 +1,6 @@
 import { GraphMultiAutocompleteFilter, GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
-import { ActivityParcelListingFilterTypes } from '../constants';
+import { ActivityParcelListingFilterTypes } from '../../constants';
 
 export interface ActivityParcelListingFilters {
     [ActivityParcelListingFilterTypes.Size]: GraphMultiButtonSelectionFilter;

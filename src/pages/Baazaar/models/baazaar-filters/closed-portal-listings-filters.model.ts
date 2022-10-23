@@ -1,6 +1,6 @@
 import { GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
-import { ClosedPortalListingFilterTypes } from '../constants';
+import { ClosedPortalListingFilterTypes } from '../../constants';
 
 export interface ClosedPortalListingFilters {
     [ClosedPortalListingFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;

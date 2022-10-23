@@ -1,6 +1,6 @@
 import { GraphRangeSliderFilter } from 'shared/models';
 
-import { InstallationListingFilterTypes } from '../constants';
+import { InstallationListingFilterTypes } from '../../constants';
 
 export interface InstallationListingFilters {
     [InstallationListingFilterTypes.Price]: GraphRangeSliderFilter;

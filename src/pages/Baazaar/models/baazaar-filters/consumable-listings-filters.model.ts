@@ -1,6 +1,6 @@
 import { GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
-import { ConsumableListingFilterTypes } from '../constants';
+import { ConsumableListingFilterTypes } from '../../constants';
 
 export interface ConsumableListingFilters {
     [ConsumableListingFilterTypes.RarityLevel]: GraphMultiButtonSelectionFilter;

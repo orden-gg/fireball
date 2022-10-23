@@ -1,6 +1,6 @@
 import { GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/models';
 
-import { WearableListingFilterTypes } from '../constants';
+import { WearableListingFilterTypes } from '../../constants';
 
 export interface WearableListingFilters {
     [WearableListingFilterTypes.RarityLevel]: GraphMultiButtonSelectionFilter;
