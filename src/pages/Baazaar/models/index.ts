@@ -1,5 +1,6 @@
 export * from './activity-gotchi-listing.model';
 export * from './activity-gotchi-listings-filters.model';
+export * from './activity-installation-listing.model';
 export * from './activity-parcel-listing.model';
 export * from './activity-parcel-listings-filters.model';
 export * from './activity-portal-listing.model';

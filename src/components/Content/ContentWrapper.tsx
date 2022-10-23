@@ -2,7 +2,13 @@ import classNames from 'classnames';
 
 import { styles } from './style';
 
-export function ContentWrapper({ children, paddingZero = false }: { children: JSX.Element[], paddingZero?: boolean }) {
+interface ContentWrapperProps {
+    children: JSX.Element[];
+    paddingZero?: boolean;
+    isShowSidebar?: boolean;
+}
+
+export function ContentWrapper({ children, paddingZero = false, isShowSidebar = true }: ContentWrapperProps) {
     const classes = styles();
 
     return (
@@ -11,9 +17,11 @@ export function ContentWrapper({ children, paddingZero = false }: { children: JS
                 {children[0]}
             </div>
 
-            <div className={classes.sidebar}>
-                {children[1]}
-            </div>
+            { isShowSidebar &&
+                <div className={classes.sidebar}>
+                    {children[1]}
+                </div>
+            }
         </div>
     );
 }

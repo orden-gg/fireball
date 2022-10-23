@@ -1,4 +1,5 @@
 export * from './activity-gotchis-listings.effect';
+export * from './activity-installations-listings.effect';
 export * from './activity-parcels-listings.effect';
 export * from './activity-portals-listings.effect';
 export * from './activity-wearables-listings.effect';

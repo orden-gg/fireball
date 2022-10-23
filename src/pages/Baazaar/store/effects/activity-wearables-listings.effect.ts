@@ -22,12 +22,11 @@ import {
     resetActivityWearablesListings
 } from '../slices';
 
-export const loadBaazaarActivityWearablesListings = (shouldResetListings: boolean = false): AppThunk => (dispatch, getState) => {
+export const loadBaazaarActivityWearablesListings = (): AppThunk => (dispatch, getState) => {
     dispatch(loadActivityWearablesListings());
 
     const activityWearablesListingsGraphQueryParams: GraphQueryParams =
         getState().baazaar.activity.wearables.activityWearablesListingsGraphQueryParams;
-    const activityWearablesListings: ActivityWearableListingVM[] = getState().baazaar.activity.wearables.activityWearablesListings.data;
     const filters: ActivityWearableListingFilters = getState().baazaar.activity.wearables.activityWearablesListingsFilters;
 
     let whereParams: string = '';
@@ -44,11 +43,7 @@ export const loadBaazaarActivityWearablesListings = (shouldResetListings: boolea
             const modifiedListings: ActivityWearableListingVM[] =
                 mapActivityWearablesDTOToVM(wearablesListings);
 
-            if (shouldResetListings) {
-                dispatch(loadActivityWearablesListingsSucceded(modifiedListings));
-            } else {
-                dispatch(loadActivityWearablesListingsSucceded(activityWearablesListings.concat(modifiedListings)));
-            }
+            dispatch(loadActivityWearablesListingsSucceded(modifiedListings));
         })
         .catch(() => {
             dispatch(loadActivityWearablesListingsFailed());
@@ -62,7 +57,7 @@ export const onLoadBaazaarActivityWearablesListings = (): AppThunk => (dispatch,
     const isFiltersUpdated: boolean = getState().baazaar.activity.wearables.activityWearablesListingsIsFiltersUpdated;
 
     if (isFiltersUpdated) {
-        dispatch(loadBaazaarActivityWearablesListings(true));
+        dispatch(loadBaazaarActivityWearablesListings());
     }
 };
 

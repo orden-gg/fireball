@@ -22,8 +22,8 @@ export class InstallationsUtils {
         return Boolean(installations[id]);
     }
 
-    public static getNameById(id: any): any {
-        return installations[id][InstallationTypes.Name];
+    public static getNameById(id: any): string {
+        return installations[id][InstallationTypes.Name] as string;
     }
 
     public static getLevelById(id: any): any {

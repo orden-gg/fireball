@@ -79,6 +79,10 @@ export function Baazaar() {
                 {
                     path: 'activity/wearables',
                     icon: <WarehouseIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/installations',
+                    icon: <AnvilIcon width={24} height={24} />
                 }
             ]} />
         }

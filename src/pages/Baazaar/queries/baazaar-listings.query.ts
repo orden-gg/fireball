@@ -256,7 +256,7 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
     }`;
 };
 
-export const getBaazaarErc1155PurchasesQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
+export const getBaazaarErc1155PurchasesQuery = (graphQueryParams: GraphQueryParams, whereParams: string = '') => {
     return `{
         erc1155Purchases (
             first: 100
