@@ -14,11 +14,11 @@ import {
     SortingItem,
     SortingListItem
 } from 'shared/models';
-import { Aavegotchi } from 'pages/BaazaarOld/components/BaazaarSidebar/components/ItemTypes/Aavegotchi';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
+import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { GraphFiltersUtils, RouteUtils } from 'utils';
@@ -148,7 +148,40 @@ export function BaazaarGotchis() {
                 <ContentInner dataLoading={isGotchisListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={gotchiListings}
-                        component={(gotchiListing: GotchiListingVM) => <Aavegotchi item={gotchiListing} />}
+                        component={(gotchiListing: GotchiListingVM) =>
+                            <Gotchi
+                                gotchi={gotchiListing.gotchi}
+                                renderSvgByStats={true}
+                                render={[
+                                    {
+                                        className: 'gotchiHeader',
+                                        items: [
+                                            'collateral',
+                                            'kinship',
+                                            'level'
+                                        ]
+                                    },
+                                    {
+                                        className: 'imageContainer',
+                                        items: [
+                                            'svg',
+                                            {
+                                                className: 'rsContainer',
+                                                items: ['rs', 'skillpoints']
+                                            }
+                                        ]
+                                    },
+                                    'name',
+                                    'traits',
+                                    {
+                                        className: 'gotchiBadges',
+                                        items: ['badges']
+                                    },
+                                    'wearablesLine',
+                                    'listing'
+                                ]}
+                            />
+                        }
                         onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>

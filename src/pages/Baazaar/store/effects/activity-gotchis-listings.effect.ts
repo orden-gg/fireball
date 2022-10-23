@@ -121,6 +121,7 @@ const mapActivityGotchisDTOToVM = (listings: ActivityGotchiListingDTO[]): Activi
             kinship: Number(listing.gotchi.kinship),
             level: Number(listing.gotchi.level),
             modifiedRarityScore: Number(listing.gotchi.modifiedRarityScore),
+            equippedWearables: listing.equippedWearables,
             possibleSets: Number(listing.gotchi.possibleSets),
             toNextLevel: Number(listing.gotchi.toNextLevel),
             usedSkillPoints: Number(listing.gotchi.usedSkillPoints),

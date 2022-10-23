@@ -11,12 +11,12 @@ import {
     GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes
 } from 'shared/models';
-import { Aavegotchi } from 'pages/BaazaarOld/components/BaazaarSidebar/components/ItemTypes/Aavegotchi';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { GotchiIcon } from 'components/Icons/Icons';
 import { Filters } from 'components/Filters/components/Filters/Filters';
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
 import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ActivityGotchiListingFilterTypes } from '../../constants';
@@ -92,7 +92,40 @@ export function BaazaarActivityGotchis() {
                 <ContentInner dataLoading={isActivityGotchisListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={activityGotchisListings}
-                        component={(gotchiListing: ActivityGotchiListingVM) => <Aavegotchi item={gotchiListing} />}
+                        component={(gotchiListing: ActivityGotchiListingVM) =>
+                            <Gotchi
+                                gotchi={gotchiListing.gotchi}
+                                renderSvgByStats={true}
+                                render={[
+                                    {
+                                        className: 'gotchiHeader',
+                                        items: [
+                                            'collateral',
+                                            'kinship',
+                                            'level'
+                                        ]
+                                    },
+                                    {
+                                        className: 'imageContainer',
+                                        items: [
+                                            'svg',
+                                            {
+                                                className: 'rsContainer',
+                                                items: ['rs', 'skillpoints']
+                                            }
+                                        ]
+                                    },
+                                    'name',
+                                    'traits',
+                                    {
+                                        className: 'gotchiBadges',
+                                        items: ['badges']
+                                    },
+                                    'wearablesLine',
+                                    'listing'
+                                ]}
+                            />
+                        }
                     />
                 </ContentInner>
             </>

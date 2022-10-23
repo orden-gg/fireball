@@ -7,6 +7,7 @@ export interface ActivityGotchiListingBase {
     buyer: string;
     gotchi: GotchiDTO;
     priceInWei: string;
+    equippedWearables: number[];
     __typename: TypenameType;
 }
 
