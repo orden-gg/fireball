@@ -1,3 +1,4 @@
+export * from './activity-consumables-listings-filters';
 export * from './activity-gotchis-listings-filters';
 export * from './activity-parcels-listings-filters';
 export * from './activity-portals-listings-filters';

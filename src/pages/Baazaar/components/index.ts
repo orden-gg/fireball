@@ -1,3 +1,4 @@
+export { BaazaarActivityConsumables } from '../components/BaazaarActivityConsumables/BaazaarActivityConsumables';
 export { BaazaarActivityGotchis } from '../components/BaazaarActivityGotchis/BaazaarActivityGotchis';
 export { BaazaarActivityInstallations } from '../components/BaazaarActivityInstallations/BaazaarActivityInstallations';
 export { BaazaarActivityParcels } from '../components/BaazaarActivityParcels/BaazaarActivityParcels';

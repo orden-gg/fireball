@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
+    BaazaarActivityConsumables,
     BaazaarActivityGotchis,
     BaazaarActivityParcels,
     BaazaarActivityPortals,
@@ -18,6 +19,7 @@ export function BaazaarActivity() {
             <Route path='wearables' element={<BaazaarActivityWearables />} />
             <Route path='installations' element={<BaazaarActivityInstallations />} />
             <Route path='tiles' element={<BaazaarActivityTiles />} />
+            <Route path='consumables' element={<BaazaarActivityConsumables />} />
             <Route path='*' element={<Navigate to='portals' replace />} />
         </Routes>
     );

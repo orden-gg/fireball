@@ -3,16 +3,15 @@ import {
     FilterDomainType,
     GraphComparatorOptions,
     GraphFiltersDataType,
-    GraphFiltersHelperType,
     RarityNumberTypes,
     RarityTypes
 } from 'shared/constants';
-import { ConsumableListingFilterTypes } from '../../constants';
-import { ConsumableListingFilters } from '../../models';
+import { ActivityConsumableListingFilterTypes } from '../../constants';
+import { ActivityConsumableListingFilters } from '../../models';
 
-export const consumableListingFiltersData: ConsumableListingFilters = {
-    [ConsumableListingFilterTypes.RarityLevel]: {
-        key: `${[ConsumableListingFilterTypes.RarityLevel]}`,
+export const activityConsumableListingFilters: ActivityConsumableListingFilters = {
+    [ActivityConsumableListingFilterTypes.RarityLevel]: {
+        key: `${[ActivityConsumableListingFilterTypes.RarityLevel]}`,
         queryParamKey: 'rarity',
         title: '',
         isFilterActive: false,
@@ -41,20 +40,5 @@ export const consumableListingFiltersData: ConsumableListingFilters = {
             }
         ],
         divider: true
-    },
-    [ConsumableListingFilterTypes.Price]: {
-        key: `${[ConsumableListingFilterTypes.Price]}`,
-        queryParamKey: 'price',
-        title: 'price (ghst)',
-        componentType: FilterComponentType.RangeSlider,
-        dataType: GraphFiltersDataType.RangeSlider,
-        filterDomainType: FilterDomainType.Range,
-        graphComparatorOptions: [GraphComparatorOptions.GTE, GraphComparatorOptions.LTE],
-        isFilterActive: false,
-        min: 0,
-        max: 10000,
-        value: [0, 10000],
-        isShowIcon: false,
-        helperType: GraphFiltersHelperType.Price
     }
 };

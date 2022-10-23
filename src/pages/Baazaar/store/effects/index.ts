@@ -1,3 +1,4 @@
+export * from './activity-consumables-listings.effect';
 export * from './activity-gotchis-listings.effect';
 export * from './activity-installations-listings.effect';
 export * from './activity-parcels-listings.effect';

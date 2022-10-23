@@ -47,11 +47,7 @@ export enum TileListingFilterTypes {
 
 export enum ConsumableListingFilterTypes {
     RarityLevel = 'rarityLevel',
-    Price = 'priceInWei',
-    NrgTraitModifier = 'nrgTraitModifier',
-    AggTraitModifier = 'aggTraitModifier',
-    SpkTraitModifier = 'spkTraitModifier',
-    BrnTraitModifier = 'brnTraitModifier'
+    Price = 'priceInWei'
 }
 
 // activity
@@ -87,4 +83,8 @@ export enum ActivityWearableListingFilterTypes {
 
 export enum ActivityTileListingFilterTypes {
     Erc1155TypeId = 'erc1155TypeId'
+}
+
+export enum ActivityConsumableListingFilterTypes {
+    RarityLevel = 'rarityLevel'
 }

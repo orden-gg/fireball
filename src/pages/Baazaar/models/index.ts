@@ -1,3 +1,5 @@
+export * from './activity-consumable-listing.model';
+export * from './activity-consumable-listings-filters.model';
 export * from './activity-gotchi-listing.model';
 export * from './activity-gotchi-listings-filters.model';
 export * from './activity-installation-listing.model';

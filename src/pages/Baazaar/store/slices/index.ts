@@ -1,4 +1,5 @@
 export * from './baazaar.slices';
+export * from './activity-consumables-listings.slice';
 export * from './activity-gotchis-listings.slice';
 export * from './activity-installations-listings.slice';
 export * from './activity-parcels-listings.slice';
