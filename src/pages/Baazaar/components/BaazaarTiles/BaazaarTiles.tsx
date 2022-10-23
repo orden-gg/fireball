@@ -149,20 +149,20 @@ export function BaazaarTiles() {
                 <ContentInner dataLoading={isTilesListingsInitialDataLoading} offset={257}>
                     <ItemsLazy
                         items={tilesListings}
-                        component={(installationListing: TileListingVM) =>
-                            <ItemCard id={installationListing.id} category={installationListing.category} type={'drop'}>
+                        component={(tileListing: TileListingVM) =>
+                            <ItemCard id={tileListing.id} category={tileListing.category} type={tileListing.rarity}>
                                 <CardGroup name='header'>
-                                    {!installationListing.isDeprecated ? <CardCraftLink name={installationListing.name} /> : <></>}
-                                    <CardBalance balance={installationListing.quantity} />
+                                    {!tileListing.isDeprecated ? <CardCraftLink name={tileListing.name} /> : <></>}
+                                    <CardBalance balance={tileListing.quantity} />
                                 </CardGroup>
                                 <CardGroup name='body'>
-                                    <CardImage src={installationListing.imageSrcUrl} alt={installationListing.name} />
-                                    <CardName>{installationListing.name}</CardName>
+                                    <CardImage src={tileListing.imageSrcUrl} alt={tileListing.name} />
+                                    <CardName>{tileListing.name}</CardName>
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing
-                                        currentListing={installationListing.currentListing}
-                                        lastSoldListing={installationListing.lastSoldListing}
+                                        currentListing={tileListing.currentListing}
+                                        lastSoldListing={tileListing.lastSoldListing}
                                     />
                                 </CardGroup>
                             </ItemCard>

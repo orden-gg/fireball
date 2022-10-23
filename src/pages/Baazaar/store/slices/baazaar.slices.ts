@@ -13,13 +13,15 @@ import { activityGotchisListingsReducer } from './activity-gotchis-listings.slic
 import { activityParcelsListingsReducer } from './activity-parcels-listings.slice';
 import { activityWearablesListingsReducer } from './activity-wearables-listings.slice';
 import { activityInstallationsListingsReducer } from './activity-installations-listings.slice';
+import { activityTilesListingsReducer } from './activity-tiles-listings.slice';
 
 export const activityReducers = combineReducers({
     portals: activityPortalsListingsReducer,
     gotchis: activityGotchisListingsReducer,
     parcels: activityParcelsListingsReducer,
     wearables: activityWearablesListingsReducer,
-    installations: activityInstallationsListingsReducer
+    installations: activityInstallationsListingsReducer,
+    tiles: activityTilesListingsReducer
 });
 
 export const baazarReducers = combineReducers({

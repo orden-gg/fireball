@@ -5,6 +5,7 @@ import {
     BaazaarActivityParcels,
     BaazaarActivityPortals,
     BaazaarActivityInstallations,
+    BaazaarActivityTiles,
     BaazaarActivityWearables
 } from '../../components';
 
@@ -16,6 +17,7 @@ export function BaazaarActivity() {
             <Route path='parcels' element={<BaazaarActivityParcels />} />
             <Route path='wearables' element={<BaazaarActivityWearables />} />
             <Route path='installations' element={<BaazaarActivityInstallations />} />
+            <Route path='tiles' element={<BaazaarActivityTiles />} />
             <Route path='*' element={<Navigate to='portals' replace />} />
         </Routes>
     );

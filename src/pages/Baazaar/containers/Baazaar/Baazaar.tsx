@@ -83,6 +83,10 @@ export function Baazaar() {
                 {
                     path: 'activity/installations',
                     icon: <AnvilIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/tiles',
+                    icon: <PurpleGrassIcon width={24} height={24} />
                 }
             ]} />
         }

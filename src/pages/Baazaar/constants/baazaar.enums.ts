@@ -84,3 +84,7 @@ export enum ActivityParcelListingFilterTypes {
 export enum ActivityWearableListingFilterTypes {
     RarityLevel = 'rarityLevel'
 }
+
+export enum ActivityTileListingFilterTypes {
+    Erc1155TypeId = 'erc1155TypeId'
+}

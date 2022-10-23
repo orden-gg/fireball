@@ -40,8 +40,7 @@ export const loadBaazaarActivityWearablesListings = (): AppThunk => (dispatch, g
 
     BaazaarGraphApi.getErc1155Purchases<ActivityWearableListingDTO>(query)
         .then((wearablesListings: ActivityWearableListingDTO[]) => {
-            const modifiedListings: ActivityWearableListingVM[] =
-                mapActivityWearablesDTOToVM(wearablesListings);
+            const modifiedListings: ActivityWearableListingVM[] = mapActivityWearablesDTOToVM(wearablesListings);
 
             dispatch(loadActivityWearablesListingsSucceded(modifiedListings));
         })

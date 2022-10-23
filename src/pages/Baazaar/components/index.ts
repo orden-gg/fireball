@@ -2,6 +2,7 @@ export { BaazaarActivityGotchis } from '../components/BaazaarActivityGotchis/Baa
 export { BaazaarActivityInstallations } from '../components/BaazaarActivityInstallations/BaazaarActivityInstallations';
 export { BaazaarActivityParcels } from '../components/BaazaarActivityParcels/BaazaarActivityParcels';
 export { BaazaarActivityPortals } from '../components/BaazaarActivityPortals/BaazaarActivityPortals';
+export { BaazaarActivityTiles } from '../components/BaazaarActivityTiles/BaazaarActivityTiles';
 export { BaazaarActivityWearables } from '../components/BaazaarActivityWearables/BaazaarActivityWearables';
 export { BaazaarClosedPortals } from '../components/BaazaarClosedPortals/BaazaarClosedPortals';
 export { BaazaarConsumables } from '../components/BaazaarConsumables/BaazaarConsumables';
