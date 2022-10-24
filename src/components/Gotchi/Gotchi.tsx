@@ -269,7 +269,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                 })}
             </div>
             <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
-                <GotchiPreviewModal gotchi={gotchi} />
+                <GotchiPreviewModal id={gotchi.id} />
             </CustomModal>
         </>
     );

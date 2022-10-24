@@ -3,7 +3,13 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const gotchiPreviewModalStyles = makeStyles(theme => createStyles({
     previewModal: {
         width: 1000,
-        padding: theme.spacing(1.5)
+        padding: theme.spacing(1.5),
+        '&.emptyState': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 'calc(100vh - 32px)'
+        }
     },
     listings: {
         textAlign: 'center',

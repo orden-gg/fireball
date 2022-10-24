@@ -18,6 +18,7 @@ interface GotchiViewProps {
 
 export function GotchiView({ gotchi }: GotchiViewProps) {
     const classes = gotchiViewStyles();
+
     const [totalItemsValue, setTotalItemsValue] = useState<number>(0);
 
     useEffect(() => {
