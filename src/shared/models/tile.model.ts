@@ -4,4 +4,6 @@ export interface TileItem {
     craftTime: number;
     alchemicaCost: number[];
     deprecated: boolean;
+    width: number;
+    height: number;
 }
