@@ -9,7 +9,7 @@ export interface TraitModifiers {
     eyc: number;
 }
 
-type TraitModifiersTuple = [
+export type TraitModifiersTuple = [
     nrg: number,
     agg: number,
     spk: number,

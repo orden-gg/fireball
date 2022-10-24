@@ -1,5 +1,7 @@
 import { TypenameType } from 'shared/constants';
 
+import { TraitModifiersTuple } from './erc-1155-item.model';
+
 interface GotchiBase {
     collateral: string;
     equippedSetName: string;
@@ -7,7 +9,6 @@ interface GotchiBase {
     historicalPrices: string[];
     modifiedNumericTraits: number[]; // ?? tuple
     name: string;
-    numericTraits: number[]; // ?? tuple
     stakedAmount: string;
     owner:  {
         id: string;
@@ -43,6 +44,7 @@ export interface GotchiVM extends GotchiBase {
     id: number;
     kinship: number;
     level: number;
+    numericTraits: number[] | TraitModifiersTuple;
     modifiedNumericTraits: number[]; // ?? tuple
     modifiedRarityScore: number;
     possibleSets: number;

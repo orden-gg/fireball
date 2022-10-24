@@ -123,12 +123,13 @@ const mapActivityGotchisDTOToVM = (listings: ActivityGotchiListingDTO[]): Activi
             modifiedRarityScore: Number(listing.gotchi.modifiedRarityScore),
             equippedWearables: listing.equippedWearables,
             numericTraits: [
+
                 Number(listing.nrgTrait),
                 Number(listing.aggTrait),
                 Number(listing.spkTrait),
                 Number(listing.brnTrait),
                 Number(listing.eysTrait),
-                Number(listing.eycTrait),
+                Number(listing.eycTrait)
             ],
             possibleSets: Number(listing.gotchi.possibleSets),
             toNextLevel: Number(listing.gotchi.toNextLevel),
