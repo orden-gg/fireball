@@ -188,6 +188,12 @@ export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQu
                 buyer
                 timePurchased
                 equippedWearables
+                nrgTrait
+                aggTrait
+                spkTrait
+                brnTrait
+                eysTrait
+                eycTrait
                 gotchi {
                     id
                     owner {

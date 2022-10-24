@@ -16,6 +16,12 @@ export interface ActivityGotchiListingDTO extends ActivityGotchiListingBase {
     id: string;
     timePurchased: string;
     tokenId: string;
+    nrgTrait: string;
+    aggTrait: string;
+    spkTrait: string;
+    brnTrait: string;
+    eysTrait: string;
+    eycTrait: string;
 }
 
 export interface ActivityGotchiListingVM extends Omit<ActivityGotchiListingBase, 'gotchi'> {
