@@ -9,3 +9,4 @@ export { CardSlot } from './CardSlot/CardSlot';
 export { CardListing } from './CardListing/CardListing';
 export { CardERC721Listing } from './CardListing/CardERC721Listing';
 export { CardCraftLink } from './CardCraftLink/CardCraftLink';
+export { CardSize } from './CardSize/CardSize';

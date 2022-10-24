@@ -8,4 +8,6 @@ export interface InstallationItem {
     alchemicaCost: number[];
     cooldown: number;
     deprecated: boolean;
+    width: number;
+    height: number;
 }
