@@ -114,6 +114,36 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
     }`;
 };
 
+export const getBaazaarOpenedPortalsListingsQuery = () => {
+    return `{
+        erc721Listings (
+            first: 500
+            skip: 0
+            orderBy: timeCreated
+            orderDirection: asc
+            where: {
+                cancelled: false
+                category: 2
+                timePurchased: "0"
+            })
+            {
+                id
+                priceInWei
+                tokenId
+                timeCreated
+                hauntId
+                portal {
+                    options {
+                        id
+                        numericTraits
+                        collateralType
+                        baseRarityScore
+                    }
+                }
+            }
+    }`;
+};
+
 export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
     return `{
         erc1155Listings (

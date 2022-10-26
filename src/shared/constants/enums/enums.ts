@@ -220,3 +220,12 @@ export enum GotchiTypes {
     ModifiedRarityScore = 20,
     Inventory = 22
 }
+
+export enum TraitNumberType {
+    Nrg,
+    Agg,
+    Spk,
+    Brn,
+    Eys,
+    Eyc
+}

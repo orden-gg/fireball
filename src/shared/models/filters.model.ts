@@ -1,4 +1,4 @@
-import { FilterComponentType } from 'shared/constants';
+import { FilterComponentType, IconName } from 'shared/constants';
 
 export interface BaseFilter {
     key: string;
@@ -42,6 +42,12 @@ export interface RangeSliderFilter<T> extends BaseFilter {
     min: number;
     max: number;
     value: number[];
+    isShowIcon?: boolean;
+    iconName?: IconName;
+    iconProps?: {
+        width: number;
+        height: number;
+    }
     getIsFilterValidFn: (values: number[], filter: RangeSliderFilter<T>) => boolean;
     resetFilterFn: (filter: RangeSliderFilter<T>) => void;
     predicateFn: (filter: RangeSliderFilter<T>, compareItem: T) => boolean;
@@ -49,10 +55,11 @@ export interface RangeSliderFilter<T> extends BaseFilter {
     updateFromFilterFn: (filter: RangeSliderFilter<T>, values: number[]) => void;
     getQueryParamsFn: (filter: RangeSliderFilter<T>) => number[];
     getActiveFiltersCountFn: (filter: RangeSliderFilter<T>) => number;
+    valueMapperFn?: (value: any[]) => any[]
 }
 
 export interface InputFilter<T> extends BaseFilter {
-    keys: string[];
+    keys?: string[];
     placeholder: string;
     value: string;
     getIsFilterValidFn: (value: string) => boolean;

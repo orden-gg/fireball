@@ -25,8 +25,6 @@ export function MultiButtonSelectionFilter({ filter, onSetSelectedFilters, isDis
         const itemsCopy = _.cloneDeep(items);
         itemsCopy[index].isSelected = !itemsCopy[index].isSelected;
 
-        setItems([...itemsCopy]);
-
         const selectedItems: any[] = itemsCopy.filter(item => item.isSelected);
 
         onSetSelectedFilters(filter.key, selectedItems);

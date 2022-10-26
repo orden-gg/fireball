@@ -14,7 +14,7 @@ export interface GraphRangeSliderFilter extends BaseFilter {
     max: number;
     value: number[];
     isShowIcon: boolean;
-    iconName?: IconName,
+    iconName?: IconName;
     iconProps?: {
         width: number;
         height: number;

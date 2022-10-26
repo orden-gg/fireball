@@ -5,6 +5,7 @@ import {
     AnvilIcon,
     ConsumableIcon,
     GotchiIcon,
+    H1OpenedPortalIcon,
     H1SealedPortalIcon,
     KekIcon,
     PurpleGrassIcon,
@@ -20,6 +21,7 @@ import {
     BaazaarConsumables,
     BaazaarGotchis,
     BaazaarInstallations,
+    BaazaarOpenedPortals,
     BaazaarParcels,
     BaazaarTiles,
     BaazaarWearables
@@ -36,12 +38,16 @@ export function Baazaar() {
             icon: <GotchiIcon width={24} height={24} />
         },
         {
-            path: 'parcels',
-            icon: <KekIcon width={24} height={24} alt='realm' />
+            path: 'opened-portals',
+            icon: <H1OpenedPortalIcon width={24} height={24} />
         },
         {
             path: 'portals',
             icon: <H1SealedPortalIcon width={24} height={24} />
+        },
+        {
+            path: 'parcels',
+            icon: <KekIcon width={24} height={24} alt='realm' />
         },
         {
             path: 'wearables',
@@ -105,6 +111,7 @@ export function Baazaar() {
             <Route path='gotchis' element={<BaazaarGotchis />} />
             <Route path='parcels' element={<BaazaarParcels />} />
             <Route path='portals' element={<BaazaarClosedPortals />} />
+            <Route path='opened-portals' element={<BaazaarOpenedPortals />} />
             <Route path='wearables' element={<BaazaarWearables />} />
             <Route path='installations' element={<BaazaarInstallations />} />
             <Route path='tiles' element={<BaazaarTiles />} />

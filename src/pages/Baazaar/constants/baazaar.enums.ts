@@ -12,6 +12,25 @@ export enum GotchiListingsFilterTypes {
     EycTrait = 'eycTrait'
 }
 
+export enum ClosedPortalListingFilterTypes {
+    HauntId = 'hauntId',
+    Price = 'priceInWei'
+}
+
+export enum OpenedPortalListingFilterTypes {
+    BRS = 'baseRarityScore',
+    TokenId = 'tokenId',
+    HauntId = 'hauntId',
+    Collateral = 'collateral',
+    Price = 'priceInWei',
+    NrgTrait = 'nrgTrait',
+    AggTrait = 'aggTrait',
+    SpkTrait = 'spkTrait',
+    BrnTrait = 'brnTrait',
+    EysTrait = 'eysTrait',
+    EycTrait = 'eycTrait'
+}
+
 export enum ParcelListingFilterTypes {
     Size = 'size',
     District = 'district',
@@ -20,11 +39,6 @@ export enum ParcelListingFilterTypes {
     FomoBoost = 'fomoBoost',
     AlphaBoost = 'alphaBoost',
     KekBoost = 'kekBoost'
-}
-
-export enum ClosedPortalListingFilterTypes {
-    HauntId = 'hauntId',
-    Price = 'priceInWei',
 }
 
 export enum WearableListingFilterTypes {
