@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const styles = makeStyles(theme => createStyles({
     content: {
         padding: '64px 24px 0',
+        flexGrow: 1,
         [theme.breakpoints.up('sm')]: {
             display: 'flex',
             alignItems: 'flex-start'
@@ -25,6 +26,8 @@ export const styles = makeStyles(theme => createStyles({
     inner: {
         background: theme.palette.background.paper,
         borderRadius: 4,
+        display: 'flex',
+        flexDirection: 'column',
         minHeight: '100%',
         position: 'relative',
         [theme.breakpoints.up('sm')]: {
@@ -38,7 +41,7 @@ export const ContentInnerStyles = makeStyles(theme => ({
     content: {
         background: theme.palette.background.paper,
         borderRadius: 4,
-        minHeight: '100%',
+        flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
         '&.loading': {

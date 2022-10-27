@@ -5,7 +5,7 @@ export const styles = makeStyles(() => createStyles({
         padding: '51px 24px 0',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%'
+        flexGrow: 1
     },
     containerNav: {
         display: 'flex',
