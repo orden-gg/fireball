@@ -40,7 +40,7 @@ export const styles = makeStyles(theme => createStyles({
         }
     },
     loader: {
-        margin: 'auto'
+        margin: 'auto auto 0 auto'
     }
 }));
 

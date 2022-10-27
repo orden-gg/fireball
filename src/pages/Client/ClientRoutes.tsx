@@ -88,7 +88,7 @@ export function ClientRoutes() {
     }, [lastManuallyUpdated]);
 
     return (
-        <div>
+        <>
             <Helmet>
                 <title>
                     { account ? (
@@ -138,6 +138,6 @@ export function ClientRoutes() {
                 <Route path='realm/*' element={<ClientRealm />} />
                 <Route path='*' element={<Navigate to='gotchis' replace />} />
             </Routes>
-        </div>
+        </>
     );
 }

@@ -16,7 +16,7 @@ export function ClientInstallations() {
 
     return (
         <>
-            <ContentInner dataLoading={loadingTiles || loadingInstallations} offset={182}>
+            <ContentInner dataLoading={loadingTiles || loadingInstallations}>
                 <ItemsLazy
                     items={[...installations, ...tiles]}
                     component={(item: any) =>

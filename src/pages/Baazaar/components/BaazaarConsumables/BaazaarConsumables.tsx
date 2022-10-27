@@ -147,7 +147,7 @@ export function BaazaarConsumables() {
                     }
                     isPanelDisabled={isConsumablesListingsLoading}
                 />
-                <ContentInner dataLoading={isConsumablesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isConsumablesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={consumablesListings}
                         component={(consumableListing: ConsumableListingVM) =>

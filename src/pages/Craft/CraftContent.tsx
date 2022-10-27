@@ -138,7 +138,6 @@ export function CraftContent() {
                 <ContentInner
                     className={classNames(classes.body, isItemSelected && classes.isSwiped)}
                     dataLoading={false}
-                    offset={154}
                 >
                     <>
                         <div className={classes.header}>

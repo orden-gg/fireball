@@ -91,7 +91,7 @@ export function BaazaarActivityConsumables() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityConsumablesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityConsumablesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityConsumablesListings}
                         component={(consumableListing: ActivityConsumableListingVM) =>

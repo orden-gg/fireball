@@ -143,7 +143,7 @@ export function BaazaarParcels() {
                     }
                     isPanelDisabled={isParcelsListingsLoading}
                 />
-                <ContentInner dataLoading={isParcelsListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isParcelsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={parcelsListings}
                         component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}

@@ -91,7 +91,7 @@ export function BaazaarActivityWearables() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityWearablesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityWearablesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityWearablesListings}
                         component={(wearableListing: ActivityWearableListingVM) =>
