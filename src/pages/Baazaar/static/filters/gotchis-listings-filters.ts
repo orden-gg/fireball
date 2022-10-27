@@ -52,6 +52,19 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         graphComparatorOptions: [GraphComparatorOptions.GTE],
         divider: true
     },
+    [GotchiListingsFilterTypes.NameLowerCase]: {
+        key: `${[GotchiListingsFilterTypes.NameLowerCase]}`,
+        title: 'Name',
+        queryParamKey: 'name',
+        placeholder: 'search by name',
+        componentType: FilterComponentType.Input,
+        dataType: GraphFiltersDataType.Input,
+        filterDomainType: FilterDomainType.Contains,
+        isFilterActive: false,
+        value: '',
+        graphComparatorOptions: [GraphComparatorOptions.CONTAINS_NOCASE],
+        divider: true
+    },
     [GotchiListingsFilterTypes.Collateral]: {
         key: `${[GotchiListingsFilterTypes.Collateral]}`,
         queryParamKey: 'collateral',

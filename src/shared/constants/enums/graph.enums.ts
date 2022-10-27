@@ -5,7 +5,8 @@ export enum GraphComparatorOptions {
     GTE = 'gte',
     LTE = 'lte',
     IN = 'in',
-    NOT_IN = 'not_in'
+    NOT_IN = 'not_in',
+    CONTAINS_NOCASE = 'contains_nocase'
 }
 
 export enum GraphFiltersDataType {

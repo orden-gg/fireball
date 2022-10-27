@@ -6,6 +6,7 @@ export interface GotchiListingsFilters {
     [GotchiListingsFilterTypes.BRS]: GraphInputFilter;
     [GotchiListingsFilterTypes.Kinship]: GraphInputFilter;
     [GotchiListingsFilterTypes.Experience]: GraphInputFilter;
+    [GotchiListingsFilterTypes.NameLowerCase]: GraphInputFilter;
     [GotchiListingsFilterTypes.Price]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.Collateral]: GraphMultiButtonSelectionFilter;
     [GotchiListingsFilterTypes.NrgTrait]: GraphRangeSliderFilter;

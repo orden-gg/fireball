@@ -8,6 +8,7 @@ export enum FilterComponentType {
 }
 
 export enum FilterDomainType {
+    Contains,
     Equals,
     Range,
     SingleRange

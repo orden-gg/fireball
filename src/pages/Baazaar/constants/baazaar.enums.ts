@@ -2,6 +2,7 @@ export enum GotchiListingsFilterTypes {
     BRS = 'baseRarityScore',
     Kinship = 'kinship',
     Experience = 'experience',
+    NameLowerCase = 'nameLowerCase',
     Price = 'priceInWei',
     Collateral = 'collateral',
     NrgTrait = 'nrgTrait',

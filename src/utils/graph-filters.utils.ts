@@ -146,6 +146,10 @@ export class GraphFiltersUtils {
         switch (filter.dataType) {
             case GraphFiltersDataType.Input:
                 switch (filter.filterDomainType) {
+                    case FilterDomainType.Contains:
+                        param = `\n ${filter.key}_${filter.graphComparatorOptions[0]}: "${filter.value}"`;
+
+                        break;
                     case FilterDomainType.Equals:
                         param = '';
 
