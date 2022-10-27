@@ -80,6 +80,7 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
                     alphaBoost
                     kekBoost
                     size
+                    timesTraded
                     historicalPrices
                 }
             }
@@ -287,6 +288,7 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
                     alphaBoost
                     kekBoost
                     size
+                    timesTraded
                     historicalPrices
                 }
             }

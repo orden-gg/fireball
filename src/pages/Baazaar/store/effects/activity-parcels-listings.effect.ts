@@ -114,6 +114,7 @@ const mapActivityParcelsDTOToVM = (listings: ActivityParcelListingDTO[]): Activi
             fomoBoost: Number(listing.parcel.fomoBoost),
             alphaBoost: Number(listing.parcel.alphaBoost),
             kekBoost: Number(listing.parcel.kekBoost),
+            timesTraded: Number(listing.parcel.timesTraded),
             listings: [{
                 id: listing.id,
                 priceInWei: listing.priceInWei

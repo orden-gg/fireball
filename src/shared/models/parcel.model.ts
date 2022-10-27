@@ -17,6 +17,7 @@ export interface ParcelDTO extends ParcelBase {
     fomoBoost: string;
     alphaBoost: string;
     kekBoost: string;
+    timesTraded: string;
 }
 
 export interface ParcelVM extends ParcelBase {
@@ -26,4 +27,5 @@ export interface ParcelVM extends ParcelBase {
     fomoBoost: number;
     alphaBoost: number;
     kekBoost: number;
+    timesTraded: number;
 }
