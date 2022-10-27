@@ -62,12 +62,17 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                             <KeyboardArrowUpIcon fontSize='inherit' />
                                             <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                         </div>
-                                    ) : (
+                                    ) : currentPrice < lastPrice ? (
                                         <div className={classes.lastPriceDown}>
                                             <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
                                             <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                         </div>
-                                    )}
+                                    ) : (
+                                        <div>
+                                            <p>{CommonUtils.formatPrice(currentPrice)}</p>
+                                        </div>
+                                    )
+                                    }
                                     <GhstTokenIcon className={classes.token} width={14} height={14} />
                                 </Link>
                             ) : (
