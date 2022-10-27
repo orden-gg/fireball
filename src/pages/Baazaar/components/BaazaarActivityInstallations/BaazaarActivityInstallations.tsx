@@ -43,7 +43,7 @@ export function BaazaarActivityInstallations() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityInstallationsListingsLoading} offset={257}>
+                <ContentInner dataLoading={isActivityInstallationsListingsLoading}>
                     <ItemsLazy
                         items={activityInstallationsListings}
                         component={(installationListing: ActivityInstallationListingVM) =>

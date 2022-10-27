@@ -141,7 +141,7 @@ export function BaazaarOpenedPortals() {
                         <GotchiIcon width={20} height={20} />
                     }
                 />
-                <ContentInner dataLoading={isOpenedPortalsListingsLoading} offset={257}>
+                <ContentInner dataLoading={isOpenedPortalsListingsLoading}>
                     <ItemsLazy
                         items={openedPortalsListings}
                         component={(portalListing: OpenedPortalListingVM) =>

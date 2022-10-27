@@ -92,7 +92,7 @@ export function BaazaarActivityPortals() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityPortalsListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityPortalsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityPortalsListings}
                         component={(portalListing: ActivityPortalListingVM) =>

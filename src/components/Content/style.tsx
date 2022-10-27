@@ -44,6 +44,9 @@ export const ContentInnerStyles = makeStyles(theme => ({
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
+        '& > div': {
+            flexGrow: 1
+        },
         '&.loading': {
             alignItems: 'center',
             justifyContent: 'center'

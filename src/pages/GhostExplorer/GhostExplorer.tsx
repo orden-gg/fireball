@@ -230,7 +230,7 @@ export function GhostExplorer() {
                 filtersCount={activeFiltersCount}
             />
 
-            <ContentInner dataLoading={isGotchisLoading} offset={179}>
+            <ContentInner dataLoading={isGotchisLoading}>
                 <GotchisLazy
                     items={modifiedGotchis}
                     renderItem={id => (

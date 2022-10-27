@@ -152,7 +152,7 @@ export function BaazaarInstallations() {
                     }
                     isPanelDisabled={isInstallationsListingsLoading}
                 />
-                <ContentInner dataLoading={isInstallationsListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isInstallationsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={installationsListings}
                         component={(installationListing: InstallationListingVM) =>

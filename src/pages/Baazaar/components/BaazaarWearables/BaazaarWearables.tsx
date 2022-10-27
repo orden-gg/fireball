@@ -147,7 +147,7 @@ export function BaazaarWearables() {
                     }
                     isPanelDisabled={isWearablesListingsLoading}
                 />
-                <ContentInner dataLoading={isWearablesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isWearablesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={wearablesListings}
                         component={(wearableListing: WearableListingVM) =>

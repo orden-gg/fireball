@@ -145,7 +145,7 @@ export function BaazaarGotchis() {
                     }
                     isPanelDisabled={isGotchisListingsLoading}
                 />
-                <ContentInner dataLoading={isGotchisListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isGotchisListingsInitialDataLoading}>
                     <ItemsLazy
                         items={gotchiListings}
                         component={(gotchiListing: GotchiListingVM) =>

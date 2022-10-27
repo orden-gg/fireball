@@ -150,7 +150,7 @@ export function BaazaarClosedPortals() {
                     }
                     isPanelDisabled={isClosedPortalsListingsLoading}
                 />
-                <ContentInner dataLoading={isClosedPortalsListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isClosedPortalsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={closedPortalsListings}
                         component={(portalListing: ClosedPortalListingVM) =>

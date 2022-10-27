@@ -146,7 +146,7 @@ export function BaazaarTiles() {
                     }
                     isPanelDisabled={isTilesListingsLoading}
                 />
-                <ContentInner dataLoading={isTilesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isTilesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={tilesListings}
                         component={(tileListing: TileListingVM) =>
