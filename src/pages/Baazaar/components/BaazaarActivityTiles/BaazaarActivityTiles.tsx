@@ -92,7 +92,7 @@ export function BaazaarActivityTiles() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityTilesListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityTilesListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityTilesListings}
                         component={(tileListing: ActivityTileListingVM) =>

@@ -13,30 +13,32 @@ export function ClientTickets() {
     const { tickets, loadingTickets } = useContext<any>(ClientContext);
 
     return (
-        <ContentInner dataLoading={loadingTickets} offset={208}>
-            <div className={classes.list}>
-                {
-                    tickets.map((ticket: any, index: number) =>
-                        <div className={classes.listItem} key={index}>
-                            <ItemCard type={ticket.name} category={Erc1155Categories.Ticket} id={ticket.id}>
-                                <CardGroup name='header'>
-                                    <CardTotalPrice
-                                        balance={ticket.balance}
-                                        priceInWei={ticket.priceInWei}
-                                    />
-                                    <CardBalance balance={ticket.balance} />
-                                </CardGroup>
-                                <CardGroup name='body'>
-                                    <CardImage id={ticket.id} category={Erc1155Categories.Ticket} />
-                                    <CardName>{ticket.name}</CardName>
-                                </CardGroup>
-                                <CardGroup name='footer'>
-                                    <CardListing />
-                                </CardGroup>
-                            </ItemCard>
-                        </div>
-                    )
-                }
+        <ContentInner dataLoading={loadingTickets}>
+            <div>
+                <div className={classes.list}>
+                    {
+                        tickets.map((ticket: any, index: number) =>
+                            <div className={classes.listItem} key={index}>
+                                <ItemCard type={ticket.name} category={Erc1155Categories.Ticket} id={ticket.id}>
+                                    <CardGroup name='header'>
+                                        <CardTotalPrice
+                                            balance={ticket.balance}
+                                            priceInWei={ticket.priceInWei}
+                                        />
+                                        <CardBalance balance={ticket.balance} />
+                                    </CardGroup>
+                                    <CardGroup name='body'>
+                                        <CardImage id={ticket.id} category={Erc1155Categories.Ticket} />
+                                        <CardName>{ticket.name}</CardName>
+                                    </CardGroup>
+                                    <CardGroup name='footer'>
+                                        <CardListing />
+                                    </CardGroup>
+                                </ItemCard>
+                            </div>
+                        )
+                    }
+                </div>
             </div>
         </ContentInner>
     );

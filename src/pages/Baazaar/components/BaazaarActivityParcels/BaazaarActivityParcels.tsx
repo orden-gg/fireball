@@ -89,7 +89,7 @@ export function BaazaarActivityParcels() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityParcelsListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityParcelsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityParcelsListings}
                         component={(parcelListing: ActivityParcelListingVM) => <Parcel parcel={parcelListing} />}
