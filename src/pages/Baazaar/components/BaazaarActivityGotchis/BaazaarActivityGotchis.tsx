@@ -89,7 +89,7 @@ export function BaazaarActivityGotchis() {
                         </span>
                     </div>
                 }
-                <ContentInner dataLoading={isActivityGotchisListingsInitialDataLoading} offset={257}>
+                <ContentInner dataLoading={isActivityGotchisListingsInitialDataLoading}>
                     <ItemsLazy
                         items={activityGotchisListings}
                         component={(gotchiListing: ActivityGotchiListingVM) =>
