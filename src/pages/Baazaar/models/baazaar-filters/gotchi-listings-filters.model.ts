@@ -7,8 +7,9 @@ export interface GotchiListingsFilters {
     [GotchiListingsFilterTypes.Kinship]: GraphInputFilter;
     [GotchiListingsFilterTypes.Experience]: GraphInputFilter;
     [GotchiListingsFilterTypes.NameLowerCase]: GraphInputFilter;
-    [GotchiListingsFilterTypes.Price]: GraphRangeSliderFilter;
+    [GotchiListingsFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;
     [GotchiListingsFilterTypes.Collateral]: GraphMultiButtonSelectionFilter;
+    [GotchiListingsFilterTypes.Price]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.NrgTrait]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.AggTrait]: GraphRangeSliderFilter;
     [GotchiListingsFilterTypes.SpkTrait]: GraphRangeSliderFilter;

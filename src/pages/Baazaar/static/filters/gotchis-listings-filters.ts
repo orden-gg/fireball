@@ -65,6 +65,30 @@ export const gotchiListingsFiltersData: GotchiListingsFilters = {
         graphComparatorOptions: [GraphComparatorOptions.CONTAINS_NOCASE],
         divider: true
     },
+    [GotchiListingsFilterTypes.HauntId]: {
+        key: `${[GotchiListingsFilterTypes.HauntId]}`,
+        queryParamKey: 'haunt',
+        title: '',
+        componentType: FilterComponentType.MultiButtonSelection,
+        dataType: GraphFiltersDataType.MultiButtonSelection,
+        filterDomainType: FilterDomainType.Equals,
+        graphComparatorOptions: [GraphComparatorOptions.IN],
+        items: [
+            {
+                title: 'Haunt 1',
+                value: '1',
+                isSelected: false,
+                queryParamValue: '1'
+            },
+            {
+                title: 'Haunt 2',
+                value: '2',
+                isSelected: false,
+                queryParamValue: '2'
+            }
+        ],
+        isFilterActive: false
+    },
     [GotchiListingsFilterTypes.Collateral]: {
         key: `${[GotchiListingsFilterTypes.Collateral]}`,
         queryParamKey: 'collateral',
