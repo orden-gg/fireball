@@ -54,6 +54,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                     target='_blank'
                                     underline='none'
                                     className={classes.listingLink}
+                                    onClick={(event) => event.stopPropagation()}
                                 >
                                     {!lastPrice ? (
                                         <p>{CommonUtils.formatPrice(currentPrice)}</p>
