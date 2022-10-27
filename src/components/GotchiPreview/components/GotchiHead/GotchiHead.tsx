@@ -4,7 +4,7 @@ import { gotchiHeadStyles } from './styles';
 
 interface GotchiHeadProps {
     name: string;
-    owner: string;
+    owner?: string;
 }
 
 export function GotchiHead({ name, owner }: GotchiHeadProps) {
@@ -12,12 +12,15 @@ export function GotchiHead({ name, owner }: GotchiHeadProps) {
 
     return <div className={classes.title}>
         <span className={classes.name}>{name}</span>
-        <EthAddress
-            address={owner}
-            isShowIcon
-            isCopyButton
-            isPolygonButton
-            isClientLink
-        />
+
+        {owner &&
+            <EthAddress
+                address={owner}
+                isShowIcon
+                isCopyButton
+                isPolygonButton
+                isClientLink
+            />
+        }
     </div>;
 }

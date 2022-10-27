@@ -152,6 +152,7 @@ export function BaazaarOpenedPortals() {
                                     listings: [{ id: portalListing.id, priceInWei: portalListing.priceInWei }],
                                     historicalPrices: []
                                 }}
+                                shouldLoadGotchiInModal={false}
                                 renderSvgByStats={true}
                                 portal={true}
                                 render={[

@@ -62,11 +62,14 @@ const mapOpenedPortalsDTOToVM = (listings: OpenedPortalListingDTO[]): OpenedPort
                     collateral: option.collateralType,
                     hauntId: listing.hauntId,
                     id: option.id.split('-')[0],
-                    kinship: '50',
+                    kinship: 50,
+                    level: 1,
+                    expirience: 0,
+                    toNextLevel: 50,
                     numericTraits: option.numericTraits,
                     modifiedNumericTraits: option.numericTraits,
                     baseRarityScore: option.baseRarityScore,
-                    level: '1',
+                    modifiedRarityScore: option.baseRarityScore,
                     equippedWearables: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }
             });

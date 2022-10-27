@@ -37,11 +37,14 @@ export interface OpenedPortalListingVM {
         collateral: string;
         hauntId: string;
         id: string;
-        kinship: string;
+        kinship: number;
+        level: number;
+        expirience: number;
+        toNextLevel: number;
         numericTraits: number[];
         modifiedNumericTraits: number[];
         baseRarityScore: number;
-        level: string;
+        modifiedRarityScore: number;
         equippedWearables: number[];
     }
 }

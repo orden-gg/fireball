@@ -18,71 +18,82 @@ import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-export function GotchiPreviewModal({ id }: { id: number }) {
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
     const classes = gotchiPreviewModalStyles();
 
-    const [gotchi, setGotchi] = useState<any>(null);
+    const [modalGotchi, setModalGotchi] = useState<any>(null);
     const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
     const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
 
     useEffect(() => {
-        MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-            const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-                const slot: string[] = ItemUtils.getSlotsById(item.id);
+        if (gotchi) {
+            setModalGotchi(gotchi);
+            setInventory([]);
+            setSalesHistory([]);
+            setIsGotchiLoading(false);
+        } else {
+            MainApi.getAavegotchiById(id).then((response: any[]) => {
+                const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+                const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
+                    const slot: string[] = ItemUtils.getSlotsById(item.id);
 
-                return slot.length > 0 ? -1 : 1;
-            });
+                    return slot.length > 0 ? -1 : 1;
+                });
 
-            setInventory(sortedInventory);
-        });
-
-        TheGraphApi.getGotchiById(id)
-            .then((response: any) => setGotchi(response))
-            .catch((error) => console.log(error))
-            .finally(() => setIsGotchiLoading(false));
-
-        TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
-            .then((response: SalesHistoryModel[]) => {
-                setSalesHistory(response);
+                setInventory(sortedInventory);
             })
-            .catch((error) => console.log(error))
-            .finally(() => setHistoryLoaded(true));
-    }, [id]);
+            .catch((error) => console.log(error));
 
-    return <div className={classNames(classes.previewModal, (isGotchiLoading || !gotchi) && 'emptyState')}>
+            TheGraphApi.getGotchiById(id)
+                .then((response: any) => setModalGotchi(response))
+                .catch((error) => console.log(error))
+                .finally(() => setIsGotchiLoading(false));
+
+            TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
+                .then((response: SalesHistoryModel[]) => {
+                    setSalesHistory(response);
+                })
+                .catch((error) => console.log(error))
+                .finally(() => setHistoryLoaded(true));
+        }
+    }, []);
+
+    return <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
         {
             !isGotchiLoading ? (
-                gotchi ? (
+                modalGotchi ? (
                     <>
                         <GotchiPreview>
-                            <GotchiView gotchi={gotchi} />
+                            <GotchiView gotchi={modalGotchi} />
                             <GotchiContent>
-                                <GotchiHead name={gotchi.name || 'Unnamed'} owner={gotchi.originalOwner?.id || gotchi.owner.id} />
+                                <GotchiHead name={modalGotchi.name || 'Unnamed'} owner={modalGotchi.originalOwner?.id || modalGotchi.owner?.id} />
 
                                 <GotchiInfoList>
-                                    <GotchiInfoItem label='id' value={gotchi.id} />
-                                    <GotchiInfoItem label='kinship' value={gotchi.kinship} />
-                                    <GotchiInfoItem label='haunt' value={gotchi.hauntId} />
+                                    <GotchiInfoItem label='id' value={modalGotchi.id} />
+                                    <GotchiInfoItem label='kinship' value={modalGotchi.kinship} />
+                                    <GotchiInfoItem label='haunt' value={modalGotchi.hauntId} />
                                     <GotchiInfoItem
                                         label='staked'
                                         value={
-                                            parseFloat(GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5))
+                                            parseFloat(GotchiUtils.getStakedAmount(
+                                                modalGotchi.collateral,
+                                                modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
+                                            ).toPrecision(5))
                                         }
                                     />
                                 </GotchiInfoList>
 
                                 <GotchiTraits
-                                    numericTraits={gotchi.numericTraits}
-                                    modifiedNumericTraits={gotchi.modifiedNumericTraits}
+                                    numericTraits={modalGotchi.numericTraits}
+                                    modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
                                 />
 
-                                <GotchiFooter>
-                                    <ViewInAppButton link={`/gotchi/${gotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
-                                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
-                                </GotchiFooter>
+                                {(modalGotchi.originalOwner?.id || modalGotchi.owner?.id) && <GotchiFooter>
+                                    <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
+                                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
+                                </GotchiFooter>}
                             </GotchiContent>
                         </GotchiPreview>
                         {
@@ -93,7 +104,7 @@ export function GotchiPreviewModal({ id }: { id: number }) {
                                 </div>
                             ) : <></>
                         }
-                        {gotchi.timesTraded > 0 && (
+                        {modalGotchi?.timesTraded > 0 && (
                             <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                                 <div className={classes.title}>Sales History</div>
                                 <HistoryHead className={classes.salesHeader}>
