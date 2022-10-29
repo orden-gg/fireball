@@ -10,7 +10,6 @@ import { Header } from 'root/Header/Header';
 import { NavPanel } from 'root/NavPanel/NavPanel';
 
 import { Autopet } from 'pages/Autopet/Autopet';
-import { BaazaarOld } from 'pages/BaazaarOld/BaazaarOld';
 import { Baazaar } from 'pages/Baazaar/containers';
 import { Client } from 'pages/Client/Client';
 import { Craft } from 'pages/Craft/Craft';
@@ -84,7 +83,6 @@ export function App() {
                                 <Box className={classes.content}>
                                     <Routes>
                                         <Route path='' element={<Main />} />
-                                        <Route path='market-old' element={<BaazaarOld />} />
                                         <Route path='market/*' element={<Baazaar />} />
                                         <Route path='lend' element={<Lend />} />
                                         <Route path='explorer' element={<GhostExplorer />} />

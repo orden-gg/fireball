@@ -50,14 +50,6 @@ export function NavPanel() {
                         </NavLink>
                     </div>
                     <div className={classes.navItem}>
-                        <NavLink className={classes.navLink} to='/market-old'>
-                            <Icon className={classes.iconBox}>
-                                <StoreIcon width={20} height={20} />
-                            </Icon>
-                            <span className={classes.navItemName}>Market Old</span>
-                        </NavLink>
-                    </div>
-                    <div className={classes.navItem}>
                         <NavLink className={classes.navLink} to='/autopet'>
                             <Icon className={classes.iconBox}>
                                 <AutorenewIcon width={20} height={20} />
