@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() =>
@@ -25,7 +26,9 @@ export const styles = makeStyles(() =>
             alignItems: 'center',
             justifyContent: 'flex-end',
             paddingRight: 8,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            background: alpha('#000', 0.2),
+            borderRadius: '4px 4px 0 0'
         },
         placeholder: {
             marginLeft: 4,

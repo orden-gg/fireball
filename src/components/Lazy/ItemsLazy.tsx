@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -23,19 +23,19 @@ interface ItemsLazyProps {
 export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyProps) {
     const gridRef = useRef<any>(null);
 
-    useEffect(() => {
-        if (items.length) {
-            scrollToTop();
-        }
-    }, [items]);
+    // useEffect(() => {
+    //     if (items.length) {
+    //         scrollToTop();
+    //     }
+    // }, [items]);
 
-    const scrollToTop = () => {
-        gridRef.current.scrollToIndex({
-            index: 0,
-            align: 'start',
-            behavior: 'auto'
-        });
-    };
+    // const scrollToTop = () => {
+    //     gridRef.current.scrollToIndex({
+    //         index: 0,
+    //         align: 'start',
+    //         behavior: 'auto'
+    //     });
+    // };
 
     if (!items) {
         return <></>;

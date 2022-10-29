@@ -67,7 +67,7 @@ export function Baazaar() {
         },
         {
             path: 'activity',
-            icon: <ActivityIcon width={20} height={20} />,
+            icon: <ActivityIcon width={24} height={24} />,
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
                 {
