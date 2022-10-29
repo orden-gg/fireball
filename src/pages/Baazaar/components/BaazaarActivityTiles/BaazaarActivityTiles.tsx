@@ -12,7 +12,7 @@ import {
     GraphFiltersValueTypes
 } from 'shared/models';
 import { CardImage } from 'shared/components/CardImage/CardImage';
-import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
+import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -104,6 +104,14 @@ export function BaazaarActivityTiles() {
                                 <CardGroup name='body'>
                                     <CardImage src={tileListing.imageSrcUrl} alt={tileListing.name} />
                                     <CardName>{tileListing.name}</CardName>
+                                    <CardSalesHistory
+                                        className={classes.history}
+                                        listing={{
+                                            seller: tileListing.seller,
+                                            buyer: tileListing.buyer,
+                                            timePurchased: tileListing.timeLastPurchased
+                                        }}
+                                    />
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

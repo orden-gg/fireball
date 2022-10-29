@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { AnvilIcon } from 'components/Icons/Icons';
-import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
+import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -55,6 +55,14 @@ export function BaazaarActivityInstallations() {
                                 <CardGroup name='body'>
                                     <CardImage src={installationListing.imageSrcUrl} alt={installationListing.name} />
                                     <CardName>{installationListing.name}</CardName>
+                                    <CardSalesHistory
+                                        className={classes.history}
+                                        listing={{
+                                            seller: installationListing.seller,
+                                            buyer: installationListing.buyer,
+                                            timePurchased: installationListing.timeLastPurchased
+                                        }}
+                                    />
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

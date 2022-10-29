@@ -11,7 +11,7 @@ import {
     GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes
 } from 'shared/models';
-import { CardBalance, CardGroup, CardImage, CardName } from 'components/ItemCard/components';
+import { CardBalance, CardGroup, CardImage, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -102,6 +102,14 @@ export function BaazaarActivityConsumables() {
                                 <CardGroup name='body'>
                                     <CardImage id={consumableListing.erc1155TypeId} />
                                     <CardName children={consumableListing.name} />
+                                    <CardSalesHistory
+                                        className={classes.history}
+                                        listing={{
+                                            seller: consumableListing.seller,
+                                            buyer: consumableListing.buyer,
+                                            timePurchased: consumableListing.timeLastPurchased
+                                        }}
+                                    />
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

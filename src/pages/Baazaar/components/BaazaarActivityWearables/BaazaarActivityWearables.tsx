@@ -11,7 +11,7 @@ import {
     GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes
 } from 'shared/models';
-import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
+import { CardBalance, CardGroup, CardImage, CardName, CardSalesHistory, CardSlot, CardStats } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -112,6 +112,14 @@ export function BaazaarActivityWearables() {
                                         <span className={classes.itemTypeValue}>{wearableListing.itemType}</span>
                                         <span className={classes.benefitValue}>{wearableListing.benefit.first}, {wearableListing.benefit.second}</span>
                                     </div>
+                                    <CardSalesHistory
+                                        className={classes.history}
+                                        listing={{
+                                            seller: wearableListing.seller,
+                                            buyer: wearableListing.buyer,
+                                            timePurchased: wearableListing.timeLastPurchased
+                                        }}
+                                    />
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardListing

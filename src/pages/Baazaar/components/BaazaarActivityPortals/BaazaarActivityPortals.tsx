@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -12,10 +11,9 @@ import {
     GraphFiltersQueryParamTypes,
     GraphFiltersValueTypes
 } from 'shared/models';
-import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
+import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSalesHistory, CardSlot } from 'components/ItemCard/components';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { H1SealedPortalIcon } from 'components/Icons/Icons';
@@ -102,23 +100,14 @@ export function BaazaarActivityPortals() {
                                         <CardSlot>{`Haunt ${portalListing.hauntId}`}</CardSlot>
                                         <CardPortalImage category={portalListing.category} hauntId={portalListing.hauntId} />
                                         <CardName>{`Portal ${portalListing.tokenId}`}</CardName>
-                                        <EthAddress
-                                            address={portalListing.seller}
-                                            isShowIcon
-                                            isCopyButton
-                                            isPolygonButton
-                                            isClientLink
+                                        <CardSalesHistory
+                                            className={classes.history}
+                                            listing={{
+                                                seller: portalListing.seller,
+                                                buyer: portalListing.buyer,
+                                                timePurchased: portalListing.timePurchased
+                                            }}
                                         />
-                                        <EthAddress
-                                            address={portalListing.buyer}
-                                            isShowIcon
-                                            isCopyButton
-                                            isPolygonButton
-                                            isClientLink
-                                        />
-                                        <div className={classes.purchasedDate}>
-                                            {DateTime.fromSeconds(parseInt(portalListing.timePurchased)).toRelative()}
-                                        </div>
                                     </CardGroup>
                                     <CardGroup name='footer'>
                                         <CardERC721Listing
