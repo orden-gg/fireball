@@ -14,8 +14,18 @@ export class InstallationsUtils {
             craftTime: InstallationsUtils.getCraftTimeById(id),
             alchemicaCost: InstallationsUtils.getAlchemicaCostById(id),
             cooldown: InstallationsUtils.getCooldownByLevel(InstallationsUtils.getLevelById(id)),
-            deprecated: InstallationsUtils.getDeprecatedById(id)
+            deprecated: InstallationsUtils.getDeprecatedById(id),
+            width: InstallationsUtils.getWidthById(id),
+            height: InstallationsUtils.getHeightById(id)
         };
+    }
+
+    public static getWidthById(id: number): any {
+        return installations[id][InstallationTypes.Width];
+    }
+
+    public static getHeightById(id: number): any {
+        return installations[id][InstallationTypes.Height];
     }
 
     public static getIsInstallationExist(id: number): boolean {
@@ -34,7 +44,11 @@ export class InstallationsUtils {
         try {
             return require(`../assets/images/installations/${id}.png`).default;
         } catch (error) {
-            return require('../assets/images/image-placeholder.svg').default;
+            try {
+                return require(`../assets/images/installations/${id}.gif`).default;
+            } catch (error) {
+                return require('../assets/images/image-placeholder.svg').default;
+            }
         }
     }
 

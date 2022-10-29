@@ -7,6 +7,7 @@ export { CardListing } from './CardListing/CardListing';
 export { CardName } from './CardName/CardName';
 export { CardPortalImage } from './CardImage/CardPortalImage';
 export { CardSalesHistory } from './CardSalesHistory/CardSalesHistory';
+export { CardSize } from './CardSize/CardSize';
 export { CardSlot } from './CardSlot/CardSlot';
 export { CardStats } from './CardStats/CardStats';
 export { CardTotalPrice } from './CardTotalPrice/CardTotalPrice';

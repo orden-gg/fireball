@@ -9,8 +9,18 @@ export class TilesUtils {
             alchemicaCost: TilesUtils.getAlchemicaCostById(id),
             craftTime: TilesUtils.getCraftTimeById(id),
             deprecated: TilesUtils.getDeprecatedById(id),
+            width: TilesUtils.getWidthById(id),
+            height: TilesUtils.getHeightById(id),
             type: 'tile'
         };
+    }
+
+    public static getWidthById(id: number): any {
+        return tiles[id][TileTypes.Width];
+    }
+
+    public static getHeightById(id: number): any {
+        return tiles[id][TileTypes.Height];
     }
 
     public static getIsTileExist(id: number): boolean {
