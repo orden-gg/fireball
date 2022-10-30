@@ -37,7 +37,7 @@ const initialState: WearablesListingsState = {
         first: 50,
         skip: 0,
         orderBy: 'timeCreated',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
         where: {
             category: Erc1155Categories.Wearable
         }

@@ -37,7 +37,7 @@ const initialState: ClosedPortalsListingsState = {
         first: 50,
         skip: 0,
         orderBy: 'timeCreated',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
         where: {
             category: Erc721Categories.ClosedPortal
         }

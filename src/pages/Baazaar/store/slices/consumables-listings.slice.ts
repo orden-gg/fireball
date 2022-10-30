@@ -37,7 +37,7 @@ const initialState: ConsumablesListingsState = {
         first: 50,
         skip: 0,
         orderBy: 'timeCreated',
-        orderDirection: 'asc',
+        orderDirection: 'desc',
         where: {
             category: Erc1155Categories.Consumable
         }
