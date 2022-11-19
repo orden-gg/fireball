@@ -17,13 +17,12 @@ import { styles } from './styles';
 interface CardListingProps {
     lastSoldListing: Undefinable<Erc1155SoldListing>;
     currentListing: Undefinable<Erc1155Listing>;
-    lastSoldDate: Undefinable<string | null>;
 }
 
 // TODO this component is currently used for Glossary Card components and should be replacement
 // TODO for CardListing component in ItemCard submodule. Possibly should be moved to
 // TODO ItemCard directory
-export function CardListing({ lastSoldListing, currentListing, lastSoldDate }: CardListingProps) {
+export function CardListing({ lastSoldListing, currentListing }: CardListingProps) {
     const classes = styles();
     const theme = useTheme();
 
@@ -40,7 +39,7 @@ export function CardListing({ lastSoldListing, currentListing, lastSoldDate }: C
                                     className={classes.soldOutLink}
                                 >
                                     {CommonUtils.formatPrice(lastSoldListing.price)}
-                                </Link> [{lastSoldDate && DateTime.fromISO(lastSoldDate).toRelative()}]
+                                </Link> [{lastSoldListing.soldDate && DateTime.fromISO(lastSoldListing.soldDate).toRelative()}]
                             </Typography>
                         ) : (
                             <p className={classes.noSales}>No sales</p>

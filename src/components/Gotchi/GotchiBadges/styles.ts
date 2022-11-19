@@ -5,7 +5,8 @@ export const gotchiBadgesStyles = makeStyles(theme => createStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        flexDirection: 'row-reverse'
+        flexDirection: 'row-reverse',
+        height: 36
     },
     badge: {
         position: 'relative',

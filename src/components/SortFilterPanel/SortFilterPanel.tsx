@@ -19,6 +19,7 @@ interface SortFilterPanelProps {
     exportData?: () => void;
     isShowFilters?: boolean;
     filtersCount?: number;
+    isPanelDisabled?: boolean;
 }
 
 export function SortFilterPanel({
@@ -30,7 +31,8 @@ export function SortFilterPanel({
     setSelectedFilters,
     resetFilters,
     filtersCount,
-    exportData
+    exportData,
+    isPanelDisabled = false
 }: SortFilterPanelProps) {
     const classes = styles();
 
@@ -66,7 +68,7 @@ export function SortFilterPanel({
 
     return (
         <div className={classNames(classes.container, isDropdownOpen ? 'opened' : 'closed')}>
-            <LazySorting {...sorting}/>
+            <LazySorting {...sorting} isSortingDisabled={isPanelDisabled} />
 
             {
                 isShowFilters &&
@@ -112,7 +114,7 @@ export function SortFilterPanel({
                     </div>
             }
 
-            { itemsLength > 0 &&
+            {
                 <div className={classNames(classes.inner, classes.results)}>
                     <span>{itemsLength}</span>
                     <span className={classes.placeholder}>{placeholder}</span>

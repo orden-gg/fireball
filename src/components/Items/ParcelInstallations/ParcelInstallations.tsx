@@ -87,7 +87,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                             <div className={classes.installationLevel}>
                                 {metadata.level}
                             </div>
-                            <CardImage id={installation.id} category={Erc1155Categories.Realm} className={classes.installationImage} />
+                            <CardImage id={installation.id} category={Erc1155Categories.Installation} className={classes.installationImage} />
                         </div>
                     </CustomTooltip>
 

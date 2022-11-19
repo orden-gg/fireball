@@ -6,5 +6,5 @@ export interface Erc1155ListingsBatch {
         priceInWei: string;
         timeLastPurchased: string;
         __typename: TypenameType
-    }[]
+    }[];
 }

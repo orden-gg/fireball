@@ -18,6 +18,7 @@ interface GotchiViewProps {
 
 export function GotchiView({ gotchi }: GotchiViewProps) {
     const classes = gotchiViewStyles();
+
     const [totalItemsValue, setTotalItemsValue] = useState<number>(0);
 
     useEffect(() => {
@@ -52,7 +53,7 @@ export function GotchiView({ gotchi }: GotchiViewProps) {
                     value={`${gotchi.modifiedRarityScore}(${gotchi.baseRarityScore})`}
                     className={classes.rarity}
                 />
-                <GotchiCollateral gotchi={gotchi} className={classes.collateral} />
+                <GotchiCollateral collateral={gotchi.collateral} className={classes.collateral} />
             </div>
             <GotchiImage id={gotchi.id} equippedSetName={gotchi.equippedSetName} />
             <GotchiLevel level={gotchi.level} experience={gotchi.experience} toNextLevel={gotchi.toNextLevel} />

@@ -35,6 +35,8 @@ import {
     parcelsOwnerGotchiverseQuery,
     realmQueryByDistrict
 } from './common/queries';
+import { TheGraphCoreApi } from './the-graph-core.api';
+import { GRAPH_CORE_API } from 'shared/constants';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
@@ -188,7 +190,7 @@ const modifyTraits = (gotchis: any): any => {
 
 export class TheGraphApi {
     public static async getData(query: any): Promise<any> {
-        return await getGraphData(clientFactory.client, query);
+        return await TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query);
     }
 
     public static async getJoinedData(queries: any): Promise<any> {

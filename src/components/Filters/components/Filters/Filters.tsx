@@ -18,9 +18,15 @@ interface FiltersProps {
     filters: any;
     onSetSelectedFilters: (key: string, selectedValue: any) => void;
     className?: string;
+    isFiltersDisabled?: boolean;
 }
 
-export function Filters({ filters, onSetSelectedFilters, className }: FiltersProps) {
+export function Filters({
+    filters,
+    onSetSelectedFilters,
+    className,
+    isFiltersDisabled = false
+}: FiltersProps) {
     const classes = styles();
 
     // TODO replace object type with appropriate one
@@ -28,9 +34,9 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
         return Object.entries(renderFilters).map(([key, renderFilter]) => {
             let componentToRender: JSX.Element;
             const filterProps = {
-                key,
                 filter: renderFilter,
-                onSetSelectedFilters: onSetSelectedFilters
+                onSetSelectedFilters: onSetSelectedFilters,
+                isDisabled: isFiltersDisabled
             };
             const divider: boolean = filters[key].divider;
 
@@ -64,7 +70,7 @@ export function Filters({ filters, onSetSelectedFilters, className }: FiltersPro
             }
 
             return (
-                <div key={`${componentToRender.key}-component`}>
+                <div key={`${componentToRender}${key}-component`}>
                     <div className={classNames(classes.component, renderFilter.class, !divider && 'no-padding-bottom')}>
                         { componentToRender }
                     </div>

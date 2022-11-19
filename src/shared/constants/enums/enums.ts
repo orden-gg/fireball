@@ -22,14 +22,15 @@ export enum BaazaarFilteringTypes {
 export enum Erc721Categories {
     ClosedPortal = '0',
     OpenedPortal = '2',
-    Aavegotchi = '3'
+    Aavegotchi = '3',
+    Realm = '4'
 }
 
 export enum Erc1155Categories {
     Wearable = '0',
     Consumable = '2',
     Ticket = '3',
-    Realm = '4',
+    Installation = '4',
     Tile = '5'
 }
 
@@ -38,7 +39,7 @@ export enum Erc1155NumberCategories {
     Badge = 1,
     Consumable = 2,
     Ticket = 3,
-    Realm = 4,
+    Installation = 4,
     Tile = 5
 }
 
@@ -160,7 +161,18 @@ export enum RarityTypes {
     Rare = 'rare',
     Uncommon = 'uncommon',
     Common = 'common',
-    Drop = 'drop'
+    Drop = 'drop',
+    Golden = 'golden'
+}
+
+export enum RarityNumberTypes {
+    Common,
+    Uncommon,
+    Rare,
+    Legendary,
+    Mythical,
+    Godlike,
+    Drop
 }
 
 export enum DataReloadType {
@@ -183,7 +195,9 @@ export enum Erc1155DimensionsNumberTypes {
 }
 
 export enum TypenameType {
-    ERC1155Listing = 'ERC1155Listing'
+    Aavegotchi = 'Aavegotchi',
+    ERC1155Listing = 'ERC1155Listing',
+    User = 'User'
 }
 
 export enum GotchiTypes {
@@ -205,4 +219,13 @@ export enum GotchiTypes {
     BaseRarityScore = 19,
     ModifiedRarityScore = 20,
     Inventory = 22
+}
+
+export enum TraitNumberType {
+    Nrg,
+    Agg,
+    Spk,
+    Brn,
+    Eys,
+    Eyc
 }

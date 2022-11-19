@@ -2,7 +2,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
-import { Sorting, SortingItem, SortingListItem } from 'shared/models';
+import { SortingItem, SortingListItem } from 'shared/models';
 import { CustomToggleButtonGroup } from 'components/custom/CustomToggleButtonGroup';
 
 import { styles } from './styles';
@@ -22,10 +22,15 @@ const directions: SortingListItem[] = [
     }
 ];
 
-export interface LazySortingProps extends Sorting { }
+export interface LazySortingProps {
+    sortingList: SortingListItem[];
+    sortingDefaults: SortingItem;
+    onSortingChange: (sortBy: string, sortDir: string) => void;
+    isSortingDisabled?: boolean;
+}
 
 // TODO move out from Filters directory:)
-export function LazySorting({ sortingList, sortingDefaults, onSortingChange }: LazySortingProps) {
+export function LazySorting({ sortingList, sortingDefaults, onSortingChange, isSortingDisabled = false }: LazySortingProps) {
     const classes = styles();
 
     const { type, dir }: SortingItem = sortingDefaults;
@@ -53,6 +58,7 @@ export function LazySorting({ sortingList, sortingDefaults, onSortingChange }: L
                 onChange={(event, value) => onSortChange(event, value, dir)}
                 ariaLabel='sorting'
                 list={sortingList}
+                isDisabled={isSortingDisabled}
             />
 
             <Divider flexItem orientation='vertical' sx={{ mx: 0.5, my: 1 }} />
@@ -62,6 +68,7 @@ export function LazySorting({ sortingList, sortingDefaults, onSortingChange }: L
                 onChange={(event, value) => onDirectionChange(event, value, type)}
                 ariaLabel='sorting direction'
                 list={directions}
+                isDisabled={isSortingDisabled}
             />
         </div>
     );

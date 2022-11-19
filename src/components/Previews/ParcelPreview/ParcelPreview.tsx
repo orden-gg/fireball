@@ -33,7 +33,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     useEffect(() => {
         let mounted = true;
 
-        TheGraphApi.getErc721SalesHistory(Number(parcel.tokenId), Erc1155Categories.Realm)
+        TheGraphApi.getErc721SalesHistory(Number(parcel.tokenId), Erc1155Categories.Installation)
             .then((res: any) => {
                 if (mounted) {
                     setHistory(res);

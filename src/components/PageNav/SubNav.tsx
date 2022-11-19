@@ -22,24 +22,34 @@ export function SubNav({ links }: { links: PageNavLink[] }) {
                         <div className={classes.navItem} key={index}>
                             <Button
                                 disabled={subLink.count === 0}
+                                startIcon={subLink.icon}
                                 component={NavLink}
-                                className={classNames(classes.button, classes.subButton)}
+                                className={classNames(classes.button, classes.subButton, subLink.count === undefined && classes.onlyIconBtn)}
                                 to={subLink.path}
                             >
-                                <span className={classes.navName}>{subLink.name}</span>
-                                { subLink.isLoading ? (
-                                    <ContentLoader
-                                        speed={2}
-                                        viewBox='0 0 28 14'
-                                        backgroundColor={theme.palette.secondary.main}
-                                        foregroundColor={theme.palette.primary.dark}
-                                        className={classes.buttonLoader}
-                                    >
-                                        <rect x='0' y='0' width='28' height='14' />
-                                    </ContentLoader>
-                                ) : (
-                                    <span className={classes.label}>[{subLink.count}]</span>
-                                )}
+                                {subLink.name && <span className={classes.navName}>{subLink.name}</span>}
+                                {
+                                    subLink.count !== undefined ?
+                                        (
+                                            <>
+                                                { subLink.isLoading ? (
+                                                    <ContentLoader
+                                                        speed={2}
+                                                        viewBox='0 0 28 14'
+                                                        backgroundColor={theme.palette.secondary.main}
+                                                        foregroundColor={theme.palette.primary.dark}
+                                                        className={classes.buttonLoader}
+                                                    >
+                                                        <rect x='0' y='0' width='28' height='14' />
+                                                    </ContentLoader>
+                                                ) : (
+                                                    <span className={classes.label}>[{subLink.count}]</span>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <></>
+                                        )
+                                }
                             </Button>
                         </div>
                     );

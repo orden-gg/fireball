@@ -5,9 +5,10 @@ import TextField from '@mui/material/TextField';
 interface MultiAutocompleteFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: any[]) => void;
+    isDisabled: boolean;
 }
 
-export function MultiAutocompleteFilter({ filter, onSetSelectedFilters }: MultiAutocompleteFilterProps) {
+export function MultiAutocompleteFilter({ filter, onSetSelectedFilters, isDisabled }: MultiAutocompleteFilterProps) {
     const onHandleAutocompleteChange = useCallback((event: any, values: any[]) => {
         onSetSelectedFilters(filter.key, values);
     }, [filter, onSetSelectedFilters]);
@@ -25,6 +26,7 @@ export function MultiAutocompleteFilter({ filter, onSetSelectedFilters }: MultiA
                 <TextField {...params} size='small' label={filter.title} />
             )}
             renderTags={filter.renderTagsFn}
+            disabled={isDisabled}
         />
     );
 }

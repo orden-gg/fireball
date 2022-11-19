@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, LendingIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -75,21 +75,18 @@ export const ClientContextProvider = (props: any) => {
                 {
                     name: 'owned',
                     path: 'gotchis/owned',
-                    icon: <GotchiIcon width={24} height={24} />,
                     isLoading: loadingGotchis,
                     count: gotchis.length
                 },
                 {
                     name: 'lendings',
                     path: 'gotchis/lended',
-                    icon: <GotchiIcon width={24} height={24} />,
                     isLoading: loadingLendings,
                     count: lendings.length
                 },
                 {
                     name: 'borrowed',
                     path: 'gotchis/borrowed',
-                    icon: <LendingIcon width={24} height={24} />,
                     isLoading: loadingBorrowed,
                     count: borrowed.length
                 }
@@ -347,7 +344,7 @@ export const ClientContextProvider = (props: any) => {
                         balance: EthersApi.formatBigNumber(item.balance._hex),
                         id: id,
                         level: InstallationsUtils.getLevelById(id),
-                        category: Erc1155Categories.Realm,
+                        category: Erc1155Categories.Installation,
                         rarity: InstallationsUtils.getRarityById(id),
                         deprecated: InstallationsUtils.getDeprecatedById(id)
                     };

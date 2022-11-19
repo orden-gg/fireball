@@ -122,7 +122,11 @@ export class FiltersHelper {
     }
 
     public static inputPredicateFn(filter: any, compareItem: any) {
-        return filter.keys.some((key: any) => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
+        if (filter.keys) {
+            return filter.keys.some((key: any) => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
+        } else {
+            return compareItem[filter.key].toLowerCase().includes(filter.value.toLowerCase());
+        }
     }
 
     public static inputUpdateFromQueryFn(filter: any, value: any): any {

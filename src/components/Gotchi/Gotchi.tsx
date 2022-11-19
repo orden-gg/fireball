@@ -35,9 +35,18 @@ interface GotchiProps {
     portal?: any;
     isHighlightLending?: boolean;
     className?: string;
+    shouldLoadGotchiInModal?: boolean;
 }
 
-export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLending, className }: GotchiProps) {
+export function Gotchi({
+    gotchi,
+    renderSvgByStats,
+    render,
+    portal,
+    isHighlightLending,
+    className,
+    shouldLoadGotchiInModal = true
+}: GotchiProps) {
     const classes = styles();
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
@@ -116,7 +125,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         get collateral() {
             return (
                 <GotchiCollateral
-                    gotchi={gotchi}
+                collateral={gotchi.collateral}
                     key={`${gotchi.id}-collateral`}
                 />
             );
@@ -269,7 +278,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                 })}
             </div>
             <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
-                <GotchiPreviewModal gotchi={gotchi} />
+                <GotchiPreviewModal id={shouldLoadGotchiInModal ? gotchi.id : null} gotchi={!shouldLoadGotchiInModal ? gotchi :null } />
             </CustomModal>
         </>
     );

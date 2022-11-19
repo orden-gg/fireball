@@ -5,23 +5,23 @@ import { GraphUtils } from 'utils';
 
 import { styles } from './styles';
 
-export function GotchiCollateral({ gotchi, className }: { gotchi: any, className?: string }) {
+export function GotchiCollateral({ collateral, className }: { collateral: string, className?: string }) {
     const classes = styles();
 
-    const collateral: string = GraphUtils.getCollateralName(gotchi.collateral);
+    const collateralName: string = GraphUtils.getCollateralName(collateral);
 
     return (
         <CustomTooltip
-            title={collateral}
+            title={collateralName}
             enterTouchDelay={0}
             placement='top'
             followCursor
         >
             <div className={classNames(classes.gotchiCollateral, className)}>
                 <img
-                    src={GraphUtils.getCollateralImg(collateral)}
+                    src={GraphUtils.getCollateralImg(collateralName)}
                     width={25}
-                    alt={collateral}
+                    alt={collateralName}
                 />
             </div>
         </CustomTooltip>

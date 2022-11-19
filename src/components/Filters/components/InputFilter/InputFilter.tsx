@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 
+import _ from 'lodash';
+
 import { styles } from './styles';
 
 interface InputFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: string) => void;
+    isDisabled: boolean;
 }
 
-export function InputFilter({ filter, onSetSelectedFilters }: InputFilterProps) {
+export function InputFilter({ filter, onSetSelectedFilters, isDisabled }: InputFilterProps) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState<string>('');
@@ -20,8 +23,12 @@ export function InputFilter({ filter, onSetSelectedFilters }: InputFilterProps) 
     const onInputChange = useCallback((value: string) => {
         setCurrentValue(value);
 
-        onSetSelectedFilters(filter.key, value);
+        onHandleInputDebounce(filter.key, value);
     }, [filter, onSetSelectedFilters]);
+
+    const onHandleInputDebounce = _.debounce((key: string, value: string) => {
+        onSetSelectedFilters(key, value);
+    }, 500);
 
     return (
         <div className={classes.wrapper}>
@@ -35,6 +42,7 @@ export function InputFilter({ filter, onSetSelectedFilters }: InputFilterProps) 
                 value={currentValue}
                 onChange={event => onInputChange(event.target.value)}
                 className={classes.input}
+                disabled={isDisabled}
             ></TextField>
         </div>
     );

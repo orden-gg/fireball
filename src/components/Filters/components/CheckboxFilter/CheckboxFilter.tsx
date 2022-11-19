@@ -6,9 +6,10 @@ import FormGroup from '@mui/material/FormGroup';
 interface CheckboxFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: boolean) => void;
+    isDisabled: boolean;
 }
 
-export function CheckboxFilter({ filter, onSetSelectedFilters }: CheckboxFilterProps) {
+export function CheckboxFilter({ filter, onSetSelectedFilters, isDisabled }: CheckboxFilterProps) {
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
     useEffect(() => {
@@ -29,6 +30,7 @@ export function CheckboxFilter({ filter, onSetSelectedFilters }: CheckboxFilterP
                     <Checkbox
                         checked={isChecked}
                         onChange={(event) => onCheckboxChange(event.target.checked)}
+                        disabled={isDisabled}
                     />
                 }
             />

@@ -33,6 +33,7 @@ import land from 'assets/images/icons/land.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
+import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import firegem from 'assets/images/icons/firegem.svg';
@@ -247,6 +248,10 @@ export const MetamaskIcon = ({ className, width, height }: IconProps) => {
 
 export const PurchaseIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={purchase} alt='purchase' />;
+};
+
+export const PurpleGrassIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={purpleGrass} alt='purple grass' />;
 };
 
 export const ReloadIcon = ({ width, height }: IconProps) => {

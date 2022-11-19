@@ -30,7 +30,9 @@ export const styles = makeStyles(() => createStyles({
         }
     },
     title: {
-        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         fontWeight: 500
     }
 }));

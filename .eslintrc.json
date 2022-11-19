@@ -75,6 +75,7 @@
         "React": true,
         "JSX": true,
         "NodeJS": true,
-        "Undefinable": true
+        "Undefinable": true,
+        "Nullable": true
     }
 }

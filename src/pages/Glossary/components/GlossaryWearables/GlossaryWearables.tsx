@@ -238,7 +238,6 @@ export function GlossaryWearables() {
                                     <CardListing
                                         currentListing={wearable.currentListing}
                                         lastSoldListing={wearable.lastSoldListing}
-                                        lastSoldDate={wearable.lastSoldListing?.soldDate}
                                     />
                                 </CardGroup>
                             </ItemCard>

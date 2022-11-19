@@ -6,7 +6,7 @@ export const styles = makeStyles(theme => createStyles({
         padding: '51px 24px 0',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%'
+        flexGrow: 1
     },
     loginNav: {
         maxWidth: 500,

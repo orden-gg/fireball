@@ -97,7 +97,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                     </CardGroup>
                 </ItemCard>;
             case 'installations':
-                return <ItemCard id={item.id} category={Erc1155Categories.Realm} type={InstallationsUtils.getRarityById(item.id)}>
+                return <ItemCard id={item.id} category={Erc1155Categories.Installation} type={InstallationsUtils.getRarityById(item.id)}>
                     <CardGroup name='header'>
                         <CardTotalPrice
                             balance={item.quantity}
@@ -106,7 +106,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                         <CardBalance balance={item.quantity} />
                     </CardGroup>
                     <CardGroup name='body'>
-                        <CardImage id={item.id} category={Erc1155Categories.Realm} />
+                        <CardImage id={item.id} category={Erc1155Categories.Installation} />
                         <CardName id={item.id} />
                         <RaffleItemChance stats={{
                             chance: item.chance,

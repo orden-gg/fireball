@@ -10,7 +10,7 @@ import { Header } from 'root/Header/Header';
 import { NavPanel } from 'root/NavPanel/NavPanel';
 
 import { Autopet } from 'pages/Autopet/Autopet';
-import { Baazaar } from 'pages/Baazaar/Baazaar';
+import { Baazaar } from 'pages/Baazaar/containers';
 import { Client } from 'pages/Client/Client';
 import { Craft } from 'pages/Craft/Craft';
 import { GhostExplorer } from 'pages/GhostExplorer/GhostExplorer';
@@ -83,7 +83,7 @@ export function App() {
                                 <Box className={classes.content}>
                                     <Routes>
                                         <Route path='' element={<Main />} />
-                                        <Route path='market' element={<Baazaar />} />
+                                        <Route path='market/*' element={<Baazaar />} />
                                         <Route path='lend' element={<Lend />} />
                                         <Route path='explorer' element={<GhostExplorer />} />
                                         <Route path='autopet' element={<Autopet />} />

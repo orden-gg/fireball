@@ -116,7 +116,7 @@ export function Shop() {
         const sortedGotchis: any[] = CommonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
 
         const listedParcels: any[] = listings
-            .filter((listing: any) => listing.category === Erc1155Categories.Realm)
+            .filter((listing: any) => listing.category === Erc721Categories.Realm)
             .map((listing: any) => ({
                 ...listing.parcel,
                 priceInWei: listing.priceInWei,

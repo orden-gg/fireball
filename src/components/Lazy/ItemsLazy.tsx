@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
 
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -17,24 +17,25 @@ const NoContent = styled.div`
 interface ItemsLazyProps {
     items: any[];
     component: (props: any) => JSX.Element;
+    onHandleReachedEnd?: () => void;
 }
 
-export function ItemsLazy({ items, component }: ItemsLazyProps) {
+export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyProps) {
     const gridRef = useRef<any>(null);
 
-    useEffect(() => {
-        if (items.length) {
-            scrollToTop();
-        }
-    }, [items]);
+    // useEffect(() => {
+    //     if (items.length) {
+    //         scrollToTop();
+    //     }
+    // }, [items]);
 
-    const scrollToTop = () => {
-        gridRef.current.scrollToIndex({
-            index: 0,
-            align: 'start',
-            behavior: 'auto'
-        });
-    };
+    // const scrollToTop = () => {
+    //     gridRef.current.scrollToIndex({
+    //         index: 0,
+    //         align: 'start',
+    //         behavior: 'auto'
+    //     });
+    // };
 
     if (!items) {
         return <></>;
@@ -48,6 +49,14 @@ export function ItemsLazy({ items, component }: ItemsLazyProps) {
         );
     }
 
+    const onEndReached = (index: number) => {
+        if (index === items.length - 1) {
+            if (onHandleReachedEnd) {
+                onHandleReachedEnd();
+            }
+        }
+    };
+
     return (
         <VirtuosoGrid
             ref={gridRef}
@@ -57,6 +66,7 @@ export function ItemsLazy({ items, component }: ItemsLazyProps) {
                 List: ListContainer as any
             }}
             itemContent={(index) => component(items[index])}
+            endReached={(index) => onEndReached(index)}
         />
     );
 }

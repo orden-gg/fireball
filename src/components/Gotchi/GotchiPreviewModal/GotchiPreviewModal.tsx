@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
+import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
@@ -16,113 +18,141 @@ import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-export function GotchiPreviewModal({ gotchi }: { gotchi: any }) {
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
     const classes = gotchiPreviewModalStyles();
 
+    const [modalGotchi, setModalGotchi] = useState<any>(null);
+    const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
     const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
     const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
 
     useEffect(() => {
-        const id: number = Number(gotchi.id);
+        if (gotchi) {
+            setModalGotchi(gotchi);
+            setInventory([]);
+            setSalesHistory([]);
+            setIsGotchiLoading(false);
+        } else {
+            MainApi.getAavegotchiById(id).then((response: any[]) => {
+                const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
+                const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
+                    const slot: string[] = ItemUtils.getSlotsById(item.id);
 
-        MainApi.getAavegotchiById(id).then((response: any[]) => {
-            const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-            const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-                const slot: string[] = ItemUtils.getSlotsById(item.id);
+                    return slot.length > 0 ? -1 : 1;
+                });
 
-                return slot.length > 0 ? -1 : 1;
-            });
-
-            setInventory(sortedInventory);
-        });
-
-        TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
-            .then((response: SalesHistoryModel[]) => {
-                setSalesHistory(response);
+                setInventory(sortedInventory);
             })
-            .catch((error) => console.log(error))
-            .finally(() => setHistoryLoaded(true));
-    }, [gotchi.id]);
+            .catch((error) => console.log(error));
 
-    return <div className={classes.previewModal}>
-        <GotchiPreview>
-            <GotchiView gotchi={gotchi} />
-            <GotchiContent>
-                <GotchiHead name={gotchi.name || 'Unnamed'} owner={gotchi.originalOwner?.id || gotchi.owner.id} />
+            TheGraphApi.getGotchiById(id)
+                .then((response: any) => setModalGotchi(response))
+                .catch((error) => console.log(error))
+                .finally(() => setIsGotchiLoading(false));
 
-                <GotchiInfoList>
-                    <GotchiInfoItem label='id' value={gotchi.id} />
-                    <GotchiInfoItem label='kinship' value={gotchi.kinship} />
-                    <GotchiInfoItem label='haunt' value={gotchi.hauntId} />
-                    <GotchiInfoItem
-                        label='staked'
-                        value={
-                            parseFloat(GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5))
-                        }
-                    />
-                </GotchiInfoList>
-
-                <GotchiTraits
-                    numericTraits={gotchi.numericTraits}
-                    modifiedNumericTraits={gotchi.modifiedNumericTraits}
-                />
-
-                <GotchiFooter>
-                    <ViewInAppButton link={`/gotchi/${gotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
-                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
-                </GotchiFooter>
-            </GotchiContent>
-        </GotchiPreview>
-        {
-            inventory.length > 0 ? (
-                <div className={classes.inventory}>
-                    <div className={classes.title}>Inventory</div>
-                    <GotchiInventory items={inventory} />
-                </div>
-            ) : <></>
+            TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
+                .then((response: SalesHistoryModel[]) => {
+                    setSalesHistory(response);
+                })
+                .catch((error) => console.log(error))
+                .finally(() => setHistoryLoaded(true));
         }
-        {gotchi.timesTraded > 0 && (
-            <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
-                <div className={classes.title}>Sales History</div>
-                <HistoryHead className={classes.salesHeader}>
-                    <HistoryItem className={classes.address}>seller</HistoryItem>
-                    <HistoryItem className={classes.address}>buyer</HistoryItem>
-                    <HistoryItem className={classes.price}>price</HistoryItem>
-                    <HistoryItem className={classes.date}>time</HistoryItem>
-                    <HistoryItem className={classes.wearables}>wearables</HistoryItem>
-                </HistoryHead>
+    }, []);
 
-                <>
-                    {salesHistory.map((listing: SalesHistoryModel, index: number) => (
-                        <HistoryRow key={index}>
-                            <HistoryItem className={classes.address}>
-                                <EthAddress
-                                    address={listing.seller}
-                                    isShowIcon
-                                    isCopyButton
-                                    isPolygonButton
-                                    isClientLink
+    return <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
+        {
+            !isGotchiLoading ? (
+                modalGotchi ? (
+                    <>
+                        <GotchiPreview>
+                            <GotchiView gotchi={modalGotchi} />
+                            <GotchiContent>
+                                <GotchiHead name={modalGotchi.name || 'Unnamed'} owner={modalGotchi.originalOwner?.id || modalGotchi.owner?.id} />
+
+                                <GotchiInfoList>
+                                    <GotchiInfoItem label='id' value={modalGotchi.id} />
+                                    <GotchiInfoItem label='kinship' value={modalGotchi.kinship} />
+                                    <GotchiInfoItem label='haunt' value={modalGotchi.hauntId} />
+                                    <GotchiInfoItem
+                                        label='staked'
+                                        value={
+                                            parseFloat(GotchiUtils.getStakedAmount(
+                                                modalGotchi.collateral,
+                                                modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
+                                            ).toPrecision(5))
+                                        }
+                                    />
+                                </GotchiInfoList>
+
+                                <GotchiTraits
+                                    numericTraits={modalGotchi.numericTraits}
+                                    modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
                                 />
-                            </HistoryItem>
-                            <HistoryItem className={classes.address}>
-                                <EthAddress
-                                    address={listing.buyer}
-                                    isShowIcon
-                                    isCopyButton
-                                    isPolygonButton
-                                    isClientLink
-                                />
-                            </HistoryItem>
-                            <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
-                            <HistoryItem className={classes.date}>
-                                <>{DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}</>
-                            </HistoryItem>
-                            <HistoryWearables className={classes.wearables} wearables={listing.equippedWearables} />
-                        </HistoryRow>
-                    ))}
-                </>
-            </SalesHistory>
-        )}
+
+                                {(modalGotchi.originalOwner?.id || modalGotchi.owner?.id) && <GotchiFooter>
+                                    <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>MORE INFO</ViewInAppButton>
+                                    <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`} className={classes.button}>View at aavegotchi.com</ViewInAppButton>
+                                </GotchiFooter>}
+                            </GotchiContent>
+                        </GotchiPreview>
+                        {
+                            inventory.length > 0 ? (
+                                <div className={classes.inventory}>
+                                    <div className={classes.title}>Inventory</div>
+                                    <GotchiInventory items={inventory} />
+                                </div>
+                            ) : <></>
+                        }
+                        {modalGotchi?.timesTraded > 0 && (
+                            <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
+                                <div className={classes.title}>Sales History</div>
+                                <HistoryHead className={classes.salesHeader}>
+                                    <HistoryItem className={classes.address}>seller</HistoryItem>
+                                    <HistoryItem className={classes.address}>buyer</HistoryItem>
+                                    <HistoryItem className={classes.price}>price</HistoryItem>
+                                    <HistoryItem className={classes.date}>time</HistoryItem>
+                                    <HistoryItem className={classes.wearables}>wearables</HistoryItem>
+                                </HistoryHead>
+
+                                <>
+                                    {salesHistory.map((listing: SalesHistoryModel, index: number) => (
+                                        <HistoryRow key={index}>
+                                            <HistoryItem className={classes.address}>
+                                                <EthAddress
+                                                    address={listing.seller}
+                                                    isShowIcon
+                                                    isCopyButton
+                                                    isPolygonButton
+                                                    isClientLink
+                                                />
+                                            </HistoryItem>
+                                            <HistoryItem className={classes.address}>
+                                                <EthAddress
+                                                    address={listing.buyer}
+                                                    isShowIcon
+                                                    isCopyButton
+                                                    isPolygonButton
+                                                    isClientLink
+                                                />
+                                            </HistoryItem>
+                                            <HistoryPrice className={classes.price} price={EthersApi.fromWei(listing.priceInWei)} />
+                                            <HistoryItem className={classes.date}>
+                                                <>{DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}</>
+                                            </HistoryItem>
+                                            <HistoryWearables className={classes.wearables} wearables={listing.equippedWearables} />
+                                        </HistoryRow>
+                                    ))}
+                                </>
+                            </SalesHistory>
+                        )}
+                    </>
+                ) : (
+                    <div className={classes.title}>There is no Gotchi with such ID :(</div>
+                )
+            ) : (
+                <CircularProgress color='primary' />
+            )
+        }
     </div>;
 }

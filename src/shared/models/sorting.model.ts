@@ -3,6 +3,10 @@ export interface SortingItem {
     dir: string;
 }
 
+export interface QueryParamSortingItem {
+    [key: string]: string | string[] | number[];
+}
+
 export interface SortingListItem {
     name: string;
     key: string;
