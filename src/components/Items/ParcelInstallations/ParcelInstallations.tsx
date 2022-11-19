@@ -70,7 +70,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                                             cd: <span>{metadata.cooldown}h</span>
                                         </div>
                                         <div className={classes.inner}>
-                                            rate: <span>{metadata.spillRate / 100}%</span>
+                                            spillover: <span>{metadata.spillRate / 100}%</span>
                                         </div>
                                     </div>
                                 )}
