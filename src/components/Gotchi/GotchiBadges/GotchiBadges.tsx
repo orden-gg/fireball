@@ -26,8 +26,6 @@ export function GotchiBadges({ id }: { id: number }) {
                     return slot.length === 0;
                 });
 
-                console.log(badges);
-
                 setBadges(badges.reverse());
             }
         });

@@ -462,8 +462,6 @@ export const ClientContextProvider = (props: any) => {
     };
 
     const getModifiedParcelInfo = (parcelinfo: any[]): any[] => {
-        console.log(parcelinfo);
-
         return parcelinfo.map((parcel: any) => {
             if (!parcel.equippedInstallations.length) {
                 return {
