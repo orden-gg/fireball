@@ -30,29 +30,25 @@ export function GotchiBadges({ id }: { id: number }) {
             }
         });
 
-        return () => { mounted = false };
+        return () => {
+            mounted = false;
+        };
     }, [id]);
 
-    return <div className={classes.badges}>
-        {
-            badges.map((item: GotchiInventory, index: number) =>
+    return (
+        <div className={classes.badges}>
+            {badges.map((item: GotchiInventory, index: number) => (
                 <CustomTooltip
-                    title={
-                        <CardName id={item.id} className={classes.name} />
-                    }
-                    placement='top'
+                    title={<CardName id={item.id} className={classes.name} />}
+                    placement="top"
                     key={index}
                     arrow
                 >
                     <div className={classes.badge}>
-                        <CardImage
-                            id={item.id}
-                            category={Erc1155Categories.Wearable}
-                            className={classes.badgeImage}
-                        />
+                        <CardImage id={item.id} category={Erc1155Categories.Wearable} className={classes.badgeImage} />
                     </div>
                 </CustomTooltip>
-            )
-        }
-    </div>;
+            ))}
+        </div>
+    );
 }
