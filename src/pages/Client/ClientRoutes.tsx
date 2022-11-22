@@ -20,6 +20,7 @@ import { CommonUtils } from 'utils';
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
+import { ClientFakeGotchis } from './routes/ClientFakeGotchis/ClientFakeGotchis';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
@@ -91,15 +92,11 @@ export function ClientRoutes() {
         <>
             <Helmet>
                 <title>
-                    { account ? (
-                        `${CommonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
-                    ) : (
-                        'client'
-                    )}
+                    {account ? `${CommonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}` : 'client'}
                 </title>
             </Helmet>
 
-            { EthersApi.isEthAddress(account) && (
+            {EthersApi.isEthAddress(account) && (
                 <div className={classes.routesNav}>
                     <PageNav
                         links={navData}
@@ -113,30 +110,29 @@ export function ClientRoutes() {
                         //         <GameControllerIcon width={24} height={24} />
                         //     </Button>
                         // )}
-                        afterContent={(
+                        afterContent={
                             <React.Fragment>
-                                <Button
-                                    href={`/shop?address=${account}`}
-                                    target='_blank'
-                                    className={classes.customBtn}
-                                >
+                                <Button href={`/shop?address=${account}`} target="_blank" className={classes.customBtn}>
                                     <BaazarIcon width={24} height={24} />
                                 </Button>
-                                { subroute.includes('realm') && <RealmSwitchButton view={realmView} navigate={navigate} /> }
+                                {subroute.includes('realm') && (
+                                    <RealmSwitchButton view={realmView} navigate={navigate} />
+                                )}
                             </React.Fragment>
-                        )}
+                        }
                     ></PageNav>
                 </div>
             )}
 
             <Routes>
-                <Route path='' element={<ClientAccount />} />
-                <Route path='gotchis/*' element={<ClientGotchis />} />
-                <Route path='installations' element={<ClientInstallations />} />
-                <Route path='warehouse' element={<ClientWarehouse />} />
-                <Route path='tickets' element={<ClientTickets />} />
-                <Route path='realm/*' element={<ClientRealm />} />
-                <Route path='*' element={<Navigate to='gotchis' replace />} />
+                <Route path="" element={<ClientAccount />} />
+                <Route path="gotchis/*" element={<ClientGotchis />} />
+                <Route path="installations" element={<ClientInstallations />} />
+                <Route path="warehouse" element={<ClientWarehouse />} />
+                <Route path="tickets" element={<ClientTickets />} />
+                <Route path="realm/*" element={<ClientRealm />} />
+                <Route path="fake-gotchis" element={<ClientFakeGotchis />} />
+                <Route path="*" element={<Navigate to="gotchis" replace />} />
             </Routes>
         </>
     );

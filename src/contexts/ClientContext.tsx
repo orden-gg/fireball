@@ -9,6 +9,8 @@ import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
+import { useAppDispatch } from 'core/store/hooks';
+import { onLoadFakeGotchis } from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
     isGotchisLoaded: false,
@@ -24,6 +26,8 @@ const loadedDefaultStates: { [key: string]: boolean } = {
 export const ClientContext = createContext({});
 
 export const ClientContextProvider = (props: any) => {
+    const dispatch = useAppDispatch();
+
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
@@ -123,6 +127,13 @@ export const ClientContextProvider = (props: any) => {
             icon: <KekIcon width={24} height={24} alt="realm" />,
             isLoading: loadingRealm,
             count: realm.length
+        },
+        {
+            name: 'fake gotchis',
+            path: 'fake-gotchis',
+            icon: <AnvilIcon width={24} height={24} />,
+            isLoading: false,
+            count: 1
         }
     ];
 
@@ -148,6 +159,7 @@ export const ClientContextProvider = (props: any) => {
         getRealm(address, shouldUpdateIsLoading);
         getInstallations(address, shouldUpdateIsLoading);
         getTiles(address, shouldUpdateIsLoading);
+        getFakeGotchis(address);
 
         // reset
         setWarehouse([]);
@@ -494,6 +506,10 @@ export const ClientContextProvider = (props: any) => {
                 installations: installations
             };
         });
+    };
+
+    const getFakeGotchis = (address: string): void => {
+        dispatch(onLoadFakeGotchis(address));
     };
 
     // TODO check if needed

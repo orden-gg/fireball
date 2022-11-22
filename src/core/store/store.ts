@@ -1,6 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { baazarReducers } from 'pages/Baazaar/store';
+import { clientReducers } from 'pages/Client/store';
 import { glossaryReducer } from 'pages/Glossary/store';
 
 import { loginReducer } from './login';
@@ -9,15 +10,11 @@ export const store = configureStore({
     reducer: {
         login: loginReducer,
         glossary: glossaryReducer,
-        baazaar: baazarReducers
+        baazaar: baazarReducers,
+        client: clientReducers
     }
 });
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
