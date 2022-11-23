@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
@@ -9,8 +11,6 @@ import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { onLoadFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
     isGotchisLoaded: false,
@@ -153,6 +153,10 @@ export const ClientContextProvider = (props: any) => {
     }, [loadedStates]);
 
     const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        // reset
+        setWarehouse([]);
+        dispatch(resetFakeGotchis());
+
         getGotchis(address, shouldUpdateIsLoading);
         getLendings(address, shouldUpdateIsLoading);
         getBorrowed(address, shouldUpdateIsLoading);
@@ -161,10 +165,7 @@ export const ClientContextProvider = (props: any) => {
         getRealm(address, shouldUpdateIsLoading);
         getInstallations(address, shouldUpdateIsLoading);
         getTiles(address, shouldUpdateIsLoading);
-        getFakeGotchis(address);
-
-        // reset
-        setWarehouse([]);
+        getFakeGotchis(address, shouldUpdateIsLoading);
     };
 
     const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {

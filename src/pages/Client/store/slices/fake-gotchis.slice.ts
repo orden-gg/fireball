@@ -47,10 +47,23 @@ export const fakeGotchisSlice = createSlice({
                 isLoaded: true,
                 isError: true
             };
+        },
+        resetFakeGotchis: (state): void => {
+            state.fakeGotchis = {
+                data: null,
+                isLoading: false,
+                isLoaded: false,
+                isError: false
+            };
         }
     }
 });
 
-export const { loadFakeGotchis, loadFakeGotchisSucceded, loadFakeGotchisFailed } = fakeGotchisSlice.actions;
+export const {
+    loadFakeGotchis,
+    loadFakeGotchisSucceded,
+    loadFakeGotchisFailed,
+    resetFakeGotchis
+} = fakeGotchisSlice.actions;
 
 export const fakeGotchisReducer = fakeGotchisSlice.reducer;
