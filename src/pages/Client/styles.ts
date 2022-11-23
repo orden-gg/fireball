@@ -363,6 +363,7 @@ export const fakeGotchiStyles = makeStyles((theme) => createStyles({
         position: 'relative'
     },
     fakeGotchiLink: {
+        cursor: 'pointer',
         '&:hover .drop': {
             background: alpha('#000', 0.2)
         }

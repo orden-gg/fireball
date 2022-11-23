@@ -1,5 +1,3 @@
-import { Link } from '@mui/material';
-
 import { useAppSelector } from 'core/store/hooks';
 import { Erc721ListingsDictionary } from 'shared/models';
 import { CardBalance, CardERC721Listing, CardGroup, CardName } from 'components/ItemCard/components';
@@ -21,35 +19,44 @@ export function ClientFakeGotchis() {
     const isFakeGotchisLoading: boolean = useAppSelector(selectIsFakeGotchisLoading);
     const fakeGotchisListings: Erc721ListingsDictionary = useAppSelector(selectFakeGotchisListings);
 
-    const renderFakeGotchi = (fakeGotchi: FakeGotchi): JSX.Element => {
-        return <Link className={classes.fakeGotchiLink} href={`https://www.fakegotchis.com/explore/${fakeGotchi.identifier}`} target="_blank">
-            <ItemCard type='drop'>
-                <CardGroup name='body' className={classes.fakeGotchiBody}>
-                    <CardImage
-                        className={classes.fakeGotchiImage}
-                        src={`https://arweave.net/${fakeGotchi.thumbnailHash}`}
-                        alt={fakeGotchi.name}
-                    />
-                    <CardName className={classes.fakeGotchiName}>{fakeGotchi.name}</CardName>
-                    <div className={classes.description}>
-                        <span className={classes.descriptionText}>{fakeGotchi.description}</span>
-                        <span className={classes.descriptionFooter}>
-                            <span className={classes.author}>{fakeGotchi.artistName}</span>
-                            , 1 out {fakeGotchi.editions}
-                        </span>
-                    </div>
-                </CardGroup>
+    const onHandleFakeGotchiRedirect = (url: string): void => {
+        window.open(url, '_blank');
+    };
 
-                <CardGroup name='footer'>
-                    {fakeGotchisListings[fakeGotchi.identifier] && <CardERC721Listing
-                            currentListingId={fakeGotchisListings[fakeGotchi.identifier].listingId}
-                            currentPrice={fakeGotchisListings[fakeGotchi.identifier].listingPrice}
-                            historicalPrices={fakeGotchisListings[fakeGotchi.identifier] && fakeGotchisListings[fakeGotchi.identifier].historicalPrices}
+    const renderFakeGotchi = (fakeGotchi: FakeGotchi): JSX.Element => {
+        return (
+            <div
+                className={classes.fakeGotchiLink}
+                onClick={() => onHandleFakeGotchiRedirect(`https://www.fakegotchis.com/explore/${fakeGotchi.identifier}`)}
+            >
+                <ItemCard type='drop'>
+                    <CardGroup name='body' className={classes.fakeGotchiBody}>
+                        <CardImage
+                            className={classes.fakeGotchiImage}
+                            src={`https://arweave.net/${fakeGotchi.thumbnailHash}`}
+                            alt={fakeGotchi.name}
                         />
-                    }
-                </CardGroup>
-            </ItemCard>
-        </Link>;
+                        <CardName className={classes.fakeGotchiName}>{fakeGotchi.name}</CardName>
+                        <div className={classes.description}>
+                            <span className={classes.descriptionText}>{fakeGotchi.description}</span>
+                            <span className={classes.descriptionFooter}>
+                                <span className={classes.author}>{fakeGotchi.artistName}</span>
+                                , 1 out {fakeGotchi.editions}
+                            </span>
+                        </div>
+                    </CardGroup>
+
+                    <CardGroup name='footer'>
+                        {fakeGotchisListings[fakeGotchi.identifier] && <CardERC721Listing
+                                currentListingId={fakeGotchisListings[fakeGotchi.identifier].listingId}
+                                currentPrice={fakeGotchisListings[fakeGotchi.identifier].listingPrice}
+                                historicalPrices={fakeGotchisListings[fakeGotchi.identifier] && fakeGotchisListings[fakeGotchi.identifier].historicalPrices}
+                            />
+                        }
+                    </CardGroup>
+                </ItemCard>
+            </div>
+        );
     };
 
     const renderFakeCard = (fakeCard: FakeGotchiCard): JSX.Element => {
