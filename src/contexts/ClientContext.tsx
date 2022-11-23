@@ -28,8 +28,6 @@ export const ClientContext = createContext({});
 export const ClientContextProvider = (props: any) => {
     const dispatch = useAppDispatch();
 
-    const fakeGotchisLength = useAppSelector(selectFakeGotchisLength);
-
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
@@ -63,6 +61,8 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculating, setRewardCalculating] = useState<boolean>(false);
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
+
+    const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
     const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
