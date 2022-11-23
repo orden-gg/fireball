@@ -36,3 +36,40 @@ export const getFakeGotchisListingsQuery = (id: number): string => {
         }
     `;
 };
+
+export const getFakeGotchiCardCurrentListingQuery = (seller: string): string => {
+    return `{
+        erc1155Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timeLastPurchased: 0
+            }
+        )
+        {
+            id
+            priceInWei
+        }
+    }`;
+};
+
+export const getFakeGotchiCardLastSoldListingQuery = (): string => {
+    return `{
+        erc1155Listings(
+            first: 1
+            where: {
+                erc1155TypeId: 0
+                priceInWei_lt: "10000000000000000000000000"
+                quantity_gt: 0
+                cancelled: false
+            }
+            orderBy: timeLastPurchased
+            orderDirection: desc
+        ) {
+            id
+            priceInWei
+            timeCreated
+            timeLastPurchased
+        }
+    }`;
+};

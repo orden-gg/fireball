@@ -1,11 +1,28 @@
 import { AppThunk } from 'core/store/store';
-import { Erc721ListingsBatch, Erc721ListingsDictionary } from 'shared/models';
+import { Erc1155Listings, Erc721ListingsBatch, Erc721ListingsDictionary } from 'shared/models';
 import { ClientApi } from 'pages/Client/api/client.api';
-import { FakeGotchi, FakeGotchiCard, FakeItemsDTO, FakeItemsVM } from 'pages/Client/models';
-import { getFakeGotchisByAddressQuery } from 'pages/Client/queries';
+import {
+    FakeGotchi,
+    FakeGotchiCard,
+    FakeGotchiCardLastSoldListingDTO,
+    FakeGotchiCardListingDTO,
+    FakeItemsDTO,
+    FakeItemsVM
+} from 'pages/Client/models';
+import {
+    getFakeGotchiCardCurrentListingQuery,
+    getFakeGotchiCardLastSoldListingQuery,
+    getFakeGotchisByAddressQuery
+} from 'pages/Client/queries';
 import { EthersApi } from 'api';
 
-import { loadFakeGotchis, loadFakeGotchisSucceded, loadFakeGotchisFailed, setFakeGotchisListings } from '../slices';
+import {
+    loadFakeGotchis,
+    loadFakeGotchisSucceded,
+    loadFakeGotchisFailed,
+    setFakeGotchisListings,
+    setFakeGotchiCardListings
+} from '../slices';
 
 export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolean): AppThunk =>
     (dispatch) => {
@@ -24,7 +41,6 @@ export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolea
                         const listings: Erc721ListingsDictionary = {};
 
                         Object.keys(currentListings).forEach((key: string) => {
-                            // debugger
                             const dictionaryKey: string = key.split('item')[1];
                             const currentListing = currentListings[key].find(listing => Number(listing.timePurchased) === 0);
 
@@ -42,7 +58,31 @@ export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolea
                     });
                 }
 
-                dispatch(loadFakeGotchisSucceded(mapFakeItemsDTOToVM(res)));
+                const mappedItems: FakeItemsVM = mapFakeItemsDTOToVM(res);
+
+                if (mappedItems.fakeGotchiCards.length > 0) {
+                    Promise.all([
+                        ClientApi.getFakeGotchiCardListing<FakeGotchiCardListingDTO>(getFakeGotchiCardCurrentListingQuery(address)),
+                        ClientApi.getFakeGotchiCardListing<FakeGotchiCardLastSoldListingDTO>(getFakeGotchiCardLastSoldListingQuery())
+                    ])
+                    .then(([currentListing, lastSoldlisting]: [FakeGotchiCardListingDTO[], FakeGotchiCardLastSoldListingDTO[]]) => {
+                        const listings: Erc1155Listings = {
+                            currentListing: {
+                                id: currentListing[0] ? Number(currentListing[0].id) : null,
+                                price: currentListing[0] ?EthersApi.fromWei(currentListing[0].priceInWei) : 0
+                            },
+                            lastSoldListing: {
+                                id: Number(lastSoldlisting[0].id),
+                                price: EthersApi.fromWei(lastSoldlisting[0].priceInWei),
+                                soldDate: new Date(Number(lastSoldlisting[0].timeLastPurchased) * 1000).toJSON()
+                            }
+                        };
+
+                        dispatch(setFakeGotchiCardListings(listings));
+                    });
+                }
+
+                dispatch(loadFakeGotchisSucceded(mappedItems));
             })
             .catch(() => dispatch(loadFakeGotchisFailed()));
     };

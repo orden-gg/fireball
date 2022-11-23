@@ -1,5 +1,5 @@
 import { RootState } from 'core/store/store';
-import { Erc721ListingsDictionary } from 'shared/models';
+import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
 import { FakeItemsVM } from 'pages/Client/models';
 
 export const selectFakeGotchis = (state: RootState): FakeItemsVM | null =>
@@ -16,3 +16,6 @@ export const selectIsFakeGotchisLoading = (state: RootState): boolean =>
 
 export const selectFakeGotchisListings = (state: RootState): Erc721ListingsDictionary =>
     state.client.fakeGotchis.fakeGotchisListings;
+
+export const selectFakeGotchiCardListings = (state: RootState): Erc1155Listings =>
+    state.client.fakeGotchis.fakeGotchiCardListings;

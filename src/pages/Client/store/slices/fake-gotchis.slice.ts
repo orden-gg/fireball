@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Erc721ListingsDictionary } from 'shared/models';
+import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
 import { FakeItemsVM } from 'pages/Client/models';
 
 export interface ClientFakeGotchisState {
@@ -11,6 +11,7 @@ export interface ClientFakeGotchisState {
         isError: boolean;
     };
     fakeGotchisListings: Erc721ListingsDictionary;
+    fakeGotchiCardListings: Erc1155Listings;
 }
 
 const initialState: ClientFakeGotchisState = {
@@ -20,7 +21,18 @@ const initialState: ClientFakeGotchisState = {
         isLoaded: false,
         isError: false
     },
-    fakeGotchisListings: {}
+    fakeGotchisListings: {},
+    fakeGotchiCardListings: {
+        currentListing: {
+            id: null,
+            price: 0
+        },
+        lastSoldListing: {
+            id: null,
+            price: 0,
+            soldDate: ''
+        }
+    }
 };
 
 export const fakeGotchisSlice = createSlice({
@@ -61,6 +73,9 @@ export const fakeGotchisSlice = createSlice({
         },
         setFakeGotchisListings: (state, action: PayloadAction<Erc721ListingsDictionary>): void => {
             state.fakeGotchisListings = action.payload;
+        },
+        setFakeGotchiCardListings: (state, action: PayloadAction<Erc1155Listings>): void => {
+            state.fakeGotchiCardListings = action.payload;
         }
     }
 });
@@ -70,7 +85,8 @@ export const {
     loadFakeGotchisSucceded,
     loadFakeGotchisFailed,
     resetFakeGotchis,
-    setFakeGotchisListings
+    setFakeGotchisListings,
+    setFakeGotchiCardListings
 } = fakeGotchisSlice.actions;
 
 export const fakeGotchisReducer = fakeGotchisSlice.reducer;

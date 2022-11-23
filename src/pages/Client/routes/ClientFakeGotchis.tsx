@@ -1,5 +1,6 @@
 import { useAppSelector } from 'core/store/hooks';
-import { Erc721ListingsDictionary } from 'shared/models';
+import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
+import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CardBalance, CardERC721Listing, CardGroup, CardName } from 'components/ItemCard/components';
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -8,16 +9,17 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 
 import { FakeGotchi, FakeGotchiCard, FakeItemsVM } from '../models';
-import { selectFakeGotchis, selectFakeGotchisListings, selectIsFakeGotchisLoading } from '../store';
+import * as fromFakeGotchisStore from '../store';
 
 import { fakeGotchiStyles } from '../styles';
 
 export function ClientFakeGotchis() {
     const classes = fakeGotchiStyles();
 
-    const fakeItems: FakeItemsVM | null = useAppSelector(selectFakeGotchis);
-    const isFakeGotchisLoading: boolean = useAppSelector(selectIsFakeGotchisLoading);
-    const fakeGotchisListings: Erc721ListingsDictionary = useAppSelector(selectFakeGotchisListings);
+    const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.selectFakeGotchis);
+    const isFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.selectIsFakeGotchisLoading);
+    const fakeGotchisListings: Erc721ListingsDictionary = useAppSelector(fromFakeGotchisStore.selectFakeGotchisListings);
+    const fakeGotchiCardListings: Erc1155Listings = useAppSelector(fromFakeGotchisStore.selectFakeGotchiCardListings);
 
     const onHandleFakeGotchiRedirect = (url: string): void => {
         window.open(url, '_blank');
@@ -74,6 +76,12 @@ export function ClientFakeGotchis() {
                     alt='Fake Gotchi Card'
                 />
                 <CardName>Fake Gotchi Card</CardName>
+            </CardGroup>
+            <CardGroup name='footer'>
+                <CardListing
+                    currentListing={fakeGotchiCardListings.currentListing}
+                    lastSoldListing={fakeGotchiCardListings.lastSoldListing}
+                />
             </CardGroup>
         </ItemCard>;
     };

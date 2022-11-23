@@ -22,4 +22,10 @@ export class ClientApi {
         return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, getQuery(ids))
             .then((response: TheGraphResponse<Erc721ListingsBatch>) => response.data);
     }
+
+    public static async getFakeGotchiCardListing<T>(query: string): Promise<T[]> {
+        return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query).then(
+            (res: TheGraphResponse<{ erc1155Listings: T[] }>) => res.data.erc1155Listings
+        );
+    }
 }
