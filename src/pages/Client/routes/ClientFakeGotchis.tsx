@@ -1,7 +1,8 @@
 import { Link } from '@mui/material';
 
 import { useAppSelector } from 'core/store/hooks';
-import { CardBalance, CardGroup, CardName } from 'components/ItemCard/components';
+import { Erc721ListingsDictionary } from 'shared/models';
+import { CardBalance, CardERC721Listing, CardGroup, CardName } from 'components/ItemCard/components';
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemCard } from 'components/ItemCard/containers';
@@ -9,7 +10,7 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 
 import { FakeGotchi, FakeGotchiCard, FakeItemsVM } from '../models';
-import { selectFakeGotchis, selectIsFakeGotchisLoading } from '../store';
+import { selectFakeGotchis, selectFakeGotchisListings, selectIsFakeGotchisLoading } from '../store';
 
 import { fakeGotchiStyles } from '../styles';
 
@@ -18,6 +19,7 @@ export function ClientFakeGotchis() {
 
     const fakeItems: FakeItemsVM | null = useAppSelector(selectFakeGotchis);
     const isFakeGotchisLoading: boolean = useAppSelector(selectIsFakeGotchisLoading);
+    const fakeGotchisListings: Erc721ListingsDictionary = useAppSelector(selectFakeGotchisListings);
 
     const renderFakeGotchi = (fakeGotchi: FakeGotchi): JSX.Element => {
         return <Link className={classes.fakeGotchiLink} href={`https://www.fakegotchis.com/explore/${fakeGotchi.identifier}`} target="_blank">
@@ -38,10 +40,14 @@ export function ClientFakeGotchis() {
                     </div>
                 </CardGroup>
 
-                {/* // TODO: add fake gotchi listings info
                 <CardGroup name='footer'>
-                    <CardListing />
-                </CardGroup> */}
+                    {fakeGotchisListings[fakeGotchi.identifier] && <CardERC721Listing
+                            currentListingId={fakeGotchisListings[fakeGotchi.identifier].listingId}
+                            currentPrice={fakeGotchisListings[fakeGotchi.identifier].listingPrice}
+                            historicalPrices={fakeGotchisListings[fakeGotchi.identifier] && fakeGotchisListings[fakeGotchi.identifier].historicalPrices}
+                        />
+                    }
+                </CardGroup>
             </ItemCard>
         </Link>;
     };

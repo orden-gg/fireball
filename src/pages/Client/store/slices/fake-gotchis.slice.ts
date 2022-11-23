@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { Erc721ListingsDictionary } from 'shared/models';
 import { FakeItemsVM } from 'pages/Client/models';
 
 export interface ClientFakeGotchisState {
@@ -9,6 +10,7 @@ export interface ClientFakeGotchisState {
         isLoaded: boolean;
         isError: boolean;
     };
+    fakeGotchisListings: Erc721ListingsDictionary;
 }
 
 const initialState: ClientFakeGotchisState = {
@@ -17,7 +19,8 @@ const initialState: ClientFakeGotchisState = {
         isLoading: false,
         isLoaded: false,
         isError: false
-    }
+    },
+    fakeGotchisListings: {}
 };
 
 export const fakeGotchisSlice = createSlice({
@@ -55,6 +58,9 @@ export const fakeGotchisSlice = createSlice({
                 isLoaded: false,
                 isError: false
             };
+        },
+        setFakeGotchisListings: (state, action: PayloadAction<Erc721ListingsDictionary>): void => {
+            state.fakeGotchisListings = action.payload;
         }
     }
 });
@@ -63,7 +69,8 @@ export const {
     loadFakeGotchis,
     loadFakeGotchisSucceded,
     loadFakeGotchisFailed,
-    resetFakeGotchis
+    resetFakeGotchis,
+    setFakeGotchisListings
 } = fakeGotchisSlice.actions;
 
 export const fakeGotchisReducer = fakeGotchisSlice.reducer;

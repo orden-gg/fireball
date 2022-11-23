@@ -139,11 +139,8 @@ export function Shop() {
                     hauntId: listing.portal.hauntId
                 },
                 historicalPrices: listing.portal.historicalPrices ? listing.portal.historicalPrices : [],
-                listings: [{
-                    id: listing.tokenId,
-                    priceInWei: listing.priceInWei
-                }],
-                activeListing: listing.portal.activeListing
+                listingId: listing.portal.activeListing,
+                listingPrice: EthersApi.fromWei(listing.priceInWei)
             }));
         const sortedPortals: any[] = CommonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
@@ -350,8 +347,8 @@ export function Shop() {
                                 </CardGroup>
                                 <CardGroup name='footer'>
                                     <CardERC721Listing
-                                        activeListing={portal.activeListing}
-                                        listings={portal.listings}
+                                        currentListingId={portal.listingId}
+                                        currentPrice={portal.listingPrice}
                                         historicalPrices={portal.historicalPrices}
                                     />
                                 </CardGroup>

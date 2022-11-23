@@ -23,7 +23,8 @@ export enum Erc721Categories {
     ClosedPortal = '0',
     OpenedPortal = '2',
     Aavegotchi = '3',
-    Realm = '4'
+    Realm = '4',
+    FakeAavegotchi = '5'
 }
 
 export enum Erc1155Categories {

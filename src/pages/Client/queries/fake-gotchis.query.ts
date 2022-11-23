@@ -1,3 +1,5 @@
+import { Erc721Categories } from 'shared/constants';
+
 export const getFakeGotchisByAddressQuery = (address: string) => {
     return `{
         account(id: "${address}") {
@@ -17,4 +19,20 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
             }
         }
     }`;
+};
+
+export const getFakeGotchisListingsQuery = (id: number): string => {
+    return `
+        item${id}: erc721Listings(
+            where: {
+                category: ${Erc721Categories.FakeAavegotchi}
+                tokenId_in: [${id}]
+                cancelled: false
+            }
+        ) {
+            id
+            priceInWei
+            timePurchased
+        }
+    `;
 };

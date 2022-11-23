@@ -1,5 +1,9 @@
 import { AppThunk } from 'core/store/store';
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+import { EthersApi } from 'api';
+import { GraphFiltersUtils } from 'utils';
+
+import { ActivityPortalListingFilterTypes } from '../../constants';
 import {
     ActivityPortalListingDTO,
     ActivityPortalListingFilters,
@@ -7,10 +11,7 @@ import {
     ActivityPortalListingFiltersType
 } from '../../models';
 import { getBaazaarActivityPortalsListingsQuery } from '../../queries';
-import { GraphFiltersUtils } from 'utils';
-
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { ActivityPortalListingFilterTypes } from '../../constants';
 import {
     loadActivityPortalsListings,
     loadActivityPortalsListingsSucceded,
@@ -108,9 +109,6 @@ const mapActivityPortalsDTOToVM = (listings: ActivityPortalListingDTO[]): Activi
     return listings.map((listing: ActivityPortalListingDTO) => ({
         ...listing,
         historicalPrices: listing.portal.historicalPrices,
-        listings: [{
-            id: listing.id,
-            priceInWei: listing.priceInWei
-        }]
+        listingPrice: EthersApi.fromWei(listing.priceInWei)
     }));
 };

@@ -8,3 +8,12 @@ export interface Erc1155ListingsBatch {
         __typename: TypenameType
     }[];
 }
+
+export interface Erc721ListingsBatch {
+    [key: string]: {
+        id: string;
+        priceInWei: string;
+        timePurchased: string;
+        __typename: TypenameType
+    }[];
+}

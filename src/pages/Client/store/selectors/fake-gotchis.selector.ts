@@ -1,4 +1,5 @@
 import { RootState } from 'core/store/store';
+import { Erc721ListingsDictionary } from 'shared/models';
 import { FakeItemsVM } from 'pages/Client/models';
 
 export const selectFakeGotchis = (state: RootState): FakeItemsVM | null =>
@@ -12,3 +13,6 @@ export const selectFakeGotchisLength = (state: RootState): number =>
 
 export const selectIsFakeGotchisLoading = (state: RootState): boolean =>
     state.client.fakeGotchis.fakeGotchis.isLoading;
+
+export const selectFakeGotchisListings = (state: RootState): Erc721ListingsDictionary =>
+    state.client.fakeGotchis.fakeGotchisListings;
