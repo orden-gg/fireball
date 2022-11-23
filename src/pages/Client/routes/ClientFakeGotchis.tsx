@@ -6,7 +6,7 @@ import { CardImage } from 'shared/components/CardImage/CardImage';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import fakeGotchiCard from 'assets/images/fake-gotchi-card.png';
+import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 
 import { FakeGotchi, FakeGotchiCard, FakeItemsVM } from '../models';
 import { selectFakeGotchis, selectIsFakeGotchisLoading } from '../store';
@@ -57,7 +57,7 @@ export function ClientFakeGotchis() {
             <CardGroup name='body' className={classes.fakeGotchiBody}>
                 <CardImage
                     className={classes.fakeGotchiImage}
-                    src={fakeGotchiCard}
+                    src={fakeGotchisCard}
                     alt='Fake Gotchi Card'
                 />
                 <CardName>Fake Gotchi Card</CardName>

@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchiCardIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -133,7 +133,7 @@ export const ClientContextProvider = (props: any) => {
         {
             name: 'fake gotchis',
             path: 'fake-gotchis',
-            icon: <FakeGotchiCardIcon width={24} height={18} />,
+            icon: <FakeGotchisIcon width={24} height={24} />,
             isLoading: false,
             count: fakeGotchisLength
         }
