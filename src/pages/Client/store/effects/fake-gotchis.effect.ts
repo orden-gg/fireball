@@ -16,14 +16,19 @@ export const onLoadFakeGotchis = (address: string): AppThunk =>
 const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {
     return {
         fakeGotchis: fakeItems.ERC721tokens.map(erc721Token => ({
+            type: 'fake',
             identifier: erc721Token.identifier,
-            name: erc721Token.metadata.name,
-            description: erc721Token.metadata.description,
-            thumbnailHash: erc721Token.metadata.thumbnailHash
+            name: erc721Token.name,
+            description: erc721Token.description,
+            artistName: erc721Token.artistName,
+            publisherName: erc721Token.publisherName,
+            editions: erc721Token.editions,
+            thumbnailHash: erc721Token.thumbnailHash
         })),
-        fakeGotchiCard: {
-            id: fakeItems.ERC1155balances[0].id,
-            valueExact: Number(fakeItems.ERC1155balances[0].valueExact)
-        }
+        fakeGotchiCards: fakeItems.ERC1155balances.map(erc1155 => ({
+            type: 'card',
+            id: erc1155.id,
+            valueExact: Number(erc1155.valueExact)
+        }))
     };
 };

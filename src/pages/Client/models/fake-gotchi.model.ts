@@ -1,31 +1,26 @@
 export interface FakeItemsDTO {
-    ERC721tokens: {
-        identifier: string;
-        metadata: {
-            name: string;
-            thumbnailHash: string;
-            description: string;
-        };
-    }[];
-    ERC1155balances: {
-        id: string;
-        valueExact: string;
-    }[];
+    ERC721tokens: FakeGotchi[];
+    ERC1155balances: FakeGotchiCard[];
 }
 
 export interface FakeItemsVM {
     fakeGotchis: FakeGotchi[];
-    fakeGotchiCard: FakeGotchiCard;
+    fakeGotchiCards: FakeGotchiCard[];
 }
 
 export interface FakeGotchi {
+    type: string;
     identifier: string;
     name: string;
-    thumbnailHash: string;
+    artistName: string;
+    publisherName: string;
     description: string;
+    editions: number;
+    thumbnailHash: string;
 }
 
 export interface FakeGotchiCard {
+    type: string;
     id: string;
     valueExact: number;
 }

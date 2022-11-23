@@ -4,11 +4,12 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
             id
             ERC721tokens(first: 1000) {
                 identifier
-                metadata {
-                    name
-                    thumbnailHash
-                    description
-                }
+                name
+                artistName
+                publisherName
+                description
+                editions
+                thumbnailHash
             }
             ERC1155balances(first: 1) {
                 id

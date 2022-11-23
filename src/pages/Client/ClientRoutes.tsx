@@ -20,7 +20,7 @@ import { CommonUtils } from 'utils';
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
-import { ClientFakeGotchis } from './routes/ClientFakeGotchis/ClientFakeGotchis';
+import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
