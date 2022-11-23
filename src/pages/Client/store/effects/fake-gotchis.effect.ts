@@ -53,10 +53,12 @@ const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {
             ...erc721Token,
             type: 'fake'
         })),
-        fakeGotchiCards: fakeItems.ERC1155balances.map((erc1155: FakeGotchiCard) => ({
-            type: 'card',
-            id: erc1155.id,
-            valueExact: Number(erc1155.valueExact)
-        }))
+        fakeGotchiCards: fakeItems.ERC1155balances
+            .filter((erc1155: FakeGotchiCard) => Number(erc1155.valueExact) > 0)
+            .map((erc1155: FakeGotchiCard) => ({
+                type: 'card',
+                id: erc1155.id,
+                valueExact: Number(erc1155.valueExact)
+            }))
     };
 };
