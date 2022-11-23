@@ -2,15 +2,15 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchiCardIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
-import { useAppDispatch } from 'core/store/hooks';
-import { onLoadFakeGotchis } from 'pages/Client/store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { onLoadFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
     isGotchisLoaded: false,
@@ -27,6 +27,8 @@ export const ClientContext = createContext({});
 
 export const ClientContextProvider = (props: any) => {
     const dispatch = useAppDispatch();
+
+    const fakeGotchisLength = useAppSelector(selectFakeGotchisLength);
 
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
@@ -131,9 +133,9 @@ export const ClientContextProvider = (props: any) => {
         {
             name: 'fake gotchis',
             path: 'fake-gotchis',
-            icon: <AnvilIcon width={24} height={24} />,
+            icon: <FakeGotchiCardIcon width={24} height={18} />,
             isLoading: false,
-            count: 1
+            count: fakeGotchisLength
         }
     ];
 
