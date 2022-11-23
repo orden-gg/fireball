@@ -4,9 +4,11 @@ import { FakeGotchi, FakeGotchiCard, FakeItemsDTO, FakeItemsVM } from 'pages/Cli
 
 import { loadFakeGotchis, loadFakeGotchisSucceded, loadFakeGotchisFailed } from '../slices';
 
-export const onLoadFakeGotchis = (address: string): AppThunk =>
+export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolean): AppThunk =>
     (dispatch) => {
-        dispatch(loadFakeGotchis());
+        if (shouldUpdateIsLoading) {
+            dispatch(loadFakeGotchis());
+        }
 
         ClientApi.getFakeGotchisByAddress(address)
             .then((res: FakeItemsDTO) => dispatch(loadFakeGotchisSucceded(mapFakeItemsDTOToVM(res))))

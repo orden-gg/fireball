@@ -438,14 +438,6 @@ export const ClientContextProvider = (props: any) => {
         setLoadingRealm(shouldUpdateIsLoading);
         setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: false }));
 
-        // TheGraphApi.getRealmByAddress(address).then((response) => {
-        //     console.log(response);
-        // });
-
-        // TheGraphApi.getParcelsGotchiverseInfoByOwner(address).then((response) => {
-        //     console.log(response);
-        // });
-
         Promise.all([TheGraphApi.getRealmByAddress(address), TheGraphApi.getParcelsGotchiverseInfoByOwner(address)])
             .then((response) => {
                 const realm: any[] = response[0];
@@ -510,8 +502,8 @@ export const ClientContextProvider = (props: any) => {
         });
     };
 
-    const getFakeGotchis = (address: string): void => {
-        dispatch(onLoadFakeGotchis(address));
+    const getFakeGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        dispatch(onLoadFakeGotchis(address, shouldUpdateIsLoading));
     };
 
     // TODO check if needed
