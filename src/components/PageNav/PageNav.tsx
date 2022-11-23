@@ -25,7 +25,12 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     const data = useMemo(() => links, [links]);
 
     const isPathMatch = (currentPath: string): boolean => {
-        return pathname.indexOf(currentPath) !== -1;
+        const indexOfPath: number = pathname.indexOf(currentPath);
+        const splittedPathname = pathname.split('');
+
+        return indexOfPath !== -1 &&
+            splittedPathname[indexOfPath - 1] === '/' &&
+            splittedPathname[indexOfPath + currentPath.length] === '/';
     };
 
     return (
