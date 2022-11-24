@@ -1,5 +1,3 @@
-
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CommonUtils } from 'utils';
@@ -17,14 +15,6 @@ interface CardTotalPriceProps {
 export function CardTotalPrice({ balance, price }: CardTotalPriceProps) {
     const classes = styles();
 
-    const renderNode = (): string => {
-        if (price) {
-            return CommonUtils.formatPrice(price * balance);
-        } else {
-            return '???';
-        }
-    };
-
     return (
         <CustomTooltip
             title='Total value'
@@ -32,7 +22,7 @@ export function CardTotalPrice({ balance, price }: CardTotalPriceProps) {
             followCursor
         >
             <div className={classes.total}>
-                <span>{renderNode()}</span>
+                <span>{price ? CommonUtils.formatPrice(price * balance) : '???'}</span>
                 <GhstTokenGif width={18} height={18} />
             </div>
         </CustomTooltip>
