@@ -62,7 +62,7 @@ export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolea
 
                 if (mappedItems.fakeGotchiCards.length > 0) {
                     Promise.all([
-                        ClientApi.getFakeGotchiCardListing<FakeGotchiCardListingDTO>(getFakeGotchiCardCurrentListingQuery(address)),
+                        ClientApi.getFakeGotchiCardListing<FakeGotchiCardListingDTO>(getFakeGotchiCardCurrentListingQuery()),
                         ClientApi.getFakeGotchiCardListing<FakeGotchiCardLastSoldListingDTO>(getFakeGotchiCardLastSoldListingQuery())
                     ])
                     .then(([currentListing, lastSoldlisting]: [FakeGotchiCardListingDTO[], FakeGotchiCardLastSoldListingDTO[]]) => {

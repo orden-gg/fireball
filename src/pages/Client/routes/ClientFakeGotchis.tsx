@@ -1,5 +1,6 @@
 import { useAppSelector } from 'core/store/hooks';
 import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
+import { CardTotalPrice } from 'shared/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CardBalance, CardERC721Listing, CardGroup, CardName } from 'components/ItemCard/components';
 import { CardImage } from 'shared/components/CardImage/CardImage';
@@ -64,6 +65,10 @@ export function ClientFakeGotchis() {
     const renderFakeCard = (fakeCard: FakeGotchiCard): JSX.Element => {
         return <ItemCard type='common' className={classes.fakeGotchiCard}>
             <CardGroup name='header' className={classes.fakeGotchiHeader}>
+                <CardTotalPrice
+                    balance={fakeCard.valueExact}
+                    price={fakeGotchiCardListings.lastSoldListing.price}
+                />
                 <CardBalance
                     balance={fakeCard.valueExact}
                     holders={[]}

@@ -32,7 +32,8 @@ export enum Erc1155Categories {
     Consumable = '2',
     Ticket = '3',
     Installation = '4',
-    Tile = '5'
+    Tile = '5',
+    FakeGotchiCard = '6'
 }
 
 export enum Erc1155NumberCategories {

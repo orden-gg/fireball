@@ -37,14 +37,17 @@ export const getFakeGotchisListingsQuery = (id: number): string => {
     `;
 };
 
-export const getFakeGotchiCardCurrentListingQuery = (seller: string): string => {
+export const getFakeGotchiCardCurrentListingQuery = (): string => {
     return `{
         erc1155Listings(
+            first: 1
             where: {
-                seller: "${seller}",
-                cancelled: false,
+                category: 6
+                cancelled: false
                 timeLastPurchased: 0
             }
+            orderBy: priceInWei
+            orderDirection: asc
         )
         {
             id
@@ -55,20 +58,18 @@ export const getFakeGotchiCardCurrentListingQuery = (seller: string): string => 
 
 export const getFakeGotchiCardLastSoldListingQuery = (): string => {
     return `{
-        erc1155Listings(
+        erc1155Listings (
             first: 1
             where: {
-                erc1155TypeId: 0
-                priceInWei_lt: "10000000000000000000000000"
-                quantity_gt: 0
                 cancelled: false
+                sold: false
+                category: 6
             }
             orderBy: timeLastPurchased
             orderDirection: desc
-        ) {
+        ){
             id
             priceInWei
-            timeCreated
             timeLastPurchased
         }
     }`;
