@@ -7,8 +7,8 @@ export class EthersApi {
         return ethers.utils.isAddress(address);
     }
 
-    public static fromWei(value: any, decimals: number = DEFAULT_COLLATERAL_DECIMALS): any {
-        return parseFloat(ethers.utils.formatUnits(value, decimals));
+    public static fromWei(value: any, decimals: number = DEFAULT_COLLATERAL_DECIMALS): number {
+        return Number(ethers.utils.formatUnits(value, decimals));
     }
 
     public static toWei(value: any): any {

@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon } from 'components/Icons/Icons';
+import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -24,6 +26,8 @@ const loadedDefaultStates: { [key: string]: boolean } = {
 export const ClientContext = createContext({});
 
 export const ClientContextProvider = (props: any) => {
+    const dispatch = useAppDispatch();
+
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
@@ -57,6 +61,8 @@ export const ClientContextProvider = (props: any) => {
     const [rewardCalculating, setRewardCalculating] = useState<boolean>(false);
     const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
     const [realmView, setRealmView] = useState<string>('list');
+
+    const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
     const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
@@ -123,6 +129,13 @@ export const ClientContextProvider = (props: any) => {
             icon: <KekIcon width={24} height={24} alt="realm" />,
             isLoading: loadingRealm,
             count: realm.length
+        },
+        {
+            name: 'fake gotchis',
+            path: 'fake-gotchis',
+            icon: <FakeGotchisIcon width={24} height={24} />,
+            isLoading: false,
+            count: fakeGotchisLength
         }
     ];
 
@@ -140,6 +153,10 @@ export const ClientContextProvider = (props: any) => {
     }, [loadedStates]);
 
     const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        // reset
+        setWarehouse([]);
+        dispatch(resetFakeGotchis());
+
         getGotchis(address, shouldUpdateIsLoading);
         getLendings(address, shouldUpdateIsLoading);
         getBorrowed(address, shouldUpdateIsLoading);
@@ -148,9 +165,7 @@ export const ClientContextProvider = (props: any) => {
         getRealm(address, shouldUpdateIsLoading);
         getInstallations(address, shouldUpdateIsLoading);
         getTiles(address, shouldUpdateIsLoading);
-
-        // reset
-        setWarehouse([]);
+        getFakeGotchis(address, shouldUpdateIsLoading);
     };
 
     const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -424,14 +439,6 @@ export const ClientContextProvider = (props: any) => {
         setLoadingRealm(shouldUpdateIsLoading);
         setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: false }));
 
-        // TheGraphApi.getRealmByAddress(address).then((response) => {
-        //     console.log(response);
-        // });
-
-        // TheGraphApi.getParcelsGotchiverseInfoByOwner(address).then((response) => {
-        //     console.log(response);
-        // });
-
         Promise.all([TheGraphApi.getRealmByAddress(address), TheGraphApi.getParcelsGotchiverseInfoByOwner(address)])
             .then((response) => {
                 const realm: any[] = response[0];
@@ -494,6 +501,10 @@ export const ClientContextProvider = (props: any) => {
                 installations: installations
             };
         });
+    };
+
+    const getFakeGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        dispatch(onLoadFakeGotchis(address, shouldUpdateIsLoading));
     };
 
     // TODO check if needed

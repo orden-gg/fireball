@@ -18,8 +18,5 @@ export interface ClosedPortalListingDTO extends ClosedPortalListingBase {
 
 export interface ClosedPortalListingVM extends ClosedPortalListingBase {
     historicalPrices: string[];
-    listings: {
-        id: string;
-        priceInWei: string;
-    }[];
+    listingPrice: number;
 }

@@ -23,7 +23,8 @@ export enum Erc721Categories {
     ClosedPortal = '0',
     OpenedPortal = '2',
     Aavegotchi = '3',
-    Realm = '4'
+    Realm = '4',
+    FakeAavegotchi = '5'
 }
 
 export enum Erc1155Categories {
@@ -31,7 +32,8 @@ export enum Erc1155Categories {
     Consumable = '2',
     Ticket = '3',
     Installation = '4',
-    Tile = '5'
+    Tile = '5',
+    FakeGotchiCard = '6'
 }
 
 export enum Erc1155NumberCategories {

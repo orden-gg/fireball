@@ -20,8 +20,5 @@ export interface ActivityPortalListingDTO extends ActivityPortalListingBase {
 
 export interface ActivityPortalListingVM extends ActivityPortalListingBase {
     historicalPrices: string[];
-    listings: {
-        id: string;
-        priceInWei: string;
-    }[];
+    listingPrice: number;
 }

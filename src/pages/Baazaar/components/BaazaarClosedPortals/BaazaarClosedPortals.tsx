@@ -163,8 +163,8 @@ export function BaazaarClosedPortals() {
                                     </CardGroup>
                                     <CardGroup name='footer'>
                                         <CardERC721Listing
-                                            activeListing={portalListing.id}
-                                            listings={portalListing.listings}
+                                            currentListingId={portalListing.id}
+                                            currentPrice={portalListing.listingPrice}
                                             historicalPrices={portalListing.historicalPrices}
                                         />
                                     </CardGroup>

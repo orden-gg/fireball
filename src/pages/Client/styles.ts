@@ -357,3 +357,61 @@ export const warehouseStyles = makeStyles((theme) => createStyles({
         fontStyle: 'italic'
     }
 }));
+
+export const fakeGotchiStyles = makeStyles((theme) => createStyles({
+    fakeGotchiCard: {
+        height: '100%',
+        position: 'relative'
+    },
+    fakeGotchiLink: {
+        height: '100%',
+        cursor: 'pointer',
+        '&:hover .drop': {
+            background: alpha('#000', 0.2)
+        }
+    },
+    fakeGotchiHeader: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        margin: 0,
+        zIndex: 5
+    },
+    fakeGotchiBody: {
+        justifyContent: 'flex-start'
+    },
+    fakeGotchiName: {
+        fontSize: 15,
+        color: '#fff'
+    },
+    fakeGotchiImage: {
+        width: '100%',
+        marginTop: 0,
+        paddingBottom: '70%',
+        '& img': {
+            objectFit: 'cover'
+        }
+    },
+    description: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        color: theme.palette.common.white,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        marginTop: 4
+    },
+    descriptionText: {
+        color: '#06b6b6'
+    },
+    descriptionFooter: {
+        textAlign: 'center',
+        fontStyle: 'italic'
+    },
+    author: {
+        fontWeight: 700,
+        color: 'burlywood'
+    }
+}));

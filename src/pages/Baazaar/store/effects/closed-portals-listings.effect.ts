@@ -1,11 +1,12 @@
 import { AppThunk } from 'core/store/store';
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
-import { ClosedPortaListingFiltersType, ClosedPortalListingDTO, ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
-import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
+import { EthersApi } from 'api';
 import { GraphFiltersUtils } from 'utils';
 
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { ClosedPortalListingFilterTypes } from '../../constants';
+import { ClosedPortaListingFiltersType, ClosedPortalListingDTO, ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
+import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     loadClosedPortalsListings,
     loadClosedPortalsListingsSucceded,
@@ -111,9 +112,6 @@ const mapClosedPortalsDTOToVM = (listings: ClosedPortalListingDTO[]): ClosedPort
     return listings.map((listing: ClosedPortalListingDTO) => ({
         ...listing,
         historicalPrices: listing.portal.historicalPrices,
-        listings: [{
-            id: listing.id,
-            priceInWei: listing.priceInWei
-        }]
+        listingPrice: EthersApi.fromWei(listing.priceInWei)
     }));
 };

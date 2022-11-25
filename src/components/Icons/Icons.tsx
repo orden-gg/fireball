@@ -13,6 +13,8 @@ import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import badge from 'assets/images/icons/badge.svg';
 import glossary from 'assets/images/icons/glossary.svg';
+import fakeGotchis from 'assets/images/icons/fake-gotchis.png';
+import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';
 import consumable from 'assets/images/icons/consumable.svg';
@@ -114,6 +116,14 @@ export const BadgeIcon = ({ width, height }: IconProps) => {
 
 export const GlossaryIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={glossary} alt='glossary' />;
+};
+
+export const FakeGotchisIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGotchis} alt='fake gotchis' />;
+};
+
+export const FakeGotchisCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGotchisCard} alt='fake gotchi card' />;
 };
 
 export const FomoIcon = ({ width, height }: IconProps) => {

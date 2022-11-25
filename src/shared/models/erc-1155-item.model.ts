@@ -103,6 +103,11 @@ export interface Erc1155SoldListing extends Erc1155Listing {
     soldDate?: string | null;
 }
 
+export interface Erc1155Listings {
+    currentListing: Erc1155Listing;
+    lastSoldListing: Erc1155SoldListing;
+}
+
 export interface Erc1155Item {
     id: number;
     name: string;
