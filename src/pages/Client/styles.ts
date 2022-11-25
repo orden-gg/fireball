@@ -360,9 +360,11 @@ export const warehouseStyles = makeStyles((theme) => createStyles({
 
 export const fakeGotchiStyles = makeStyles((theme) => createStyles({
     fakeGotchiCard: {
+        height: '100%',
         position: 'relative'
     },
     fakeGotchiLink: {
+        height: '100%',
         cursor: 'pointer',
         '&:hover .drop': {
             background: alpha('#000', 0.2)
