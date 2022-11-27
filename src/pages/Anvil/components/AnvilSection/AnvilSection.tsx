@@ -3,10 +3,10 @@ import { ItemCard } from 'components/ItemCard/containers';
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 import { InstallationItem } from 'shared/models';
 
-import { anvilSectionStyles } from '../styles';
+import { styles } from './styles';
 
 export function AnvilSection({ item, imageIndex }: { item: InstallationItem; imageIndex: number }) {
-    const classes = anvilSectionStyles();
+    const classes = styles();
 
     return (
         <div className={classes.anvilItem}>

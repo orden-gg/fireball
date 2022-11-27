@@ -1,10 +1,10 @@
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 import { AlchemicaList, InstallationItem } from 'shared/models';
 
-import { anvilSummaryStyles } from '../styles';
+import { styles } from './styles';
 
 export function AnvilSummary({ summary }: { summary: InstallationItem[] }) {
-    const classes = anvilSummaryStyles();
+    const classes = styles();
 
     const calculateSummary = (array: InstallationItem[]): AlchemicaList => {
         return [...array].reduce((prev: any, current: any) => {

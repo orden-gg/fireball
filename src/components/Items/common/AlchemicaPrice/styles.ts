@@ -31,14 +31,31 @@ export const styles = makeStyles((theme) =>
             color: theme.palette.common.white,
             fontWeight: 600
         },
-        daiPrice: {
+        totalPrice: {
             textAlign: 'center',
             fontWeight: 500,
-            color: theme.palette.common.white,
-            fontSize: 12,
+            color: theme.palette.rarity.golden,
+            fontSize: 14,
+            marginTop: 2,
+            minHeight: 22,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             '& span': {
-                color: theme.palette.rarity.golden
+                color: theme.palette.common.white,
+                margin: '0 10px'
+            },
+            '& img': {
+                marginLeft: 4
             }
+        },
+        placeholder: {
+            display: 'block',
+            margin: '2px auto 0',
+            width: 120,
+            height: 22,
+            borderRadius: 4,
+            opacity: 0.4
         }
     })
 );
