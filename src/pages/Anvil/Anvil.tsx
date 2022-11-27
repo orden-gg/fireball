@@ -44,17 +44,17 @@ const items = options.map((item: AnvilOptions): AnvilItem => {
 export function Anvil() {
     const classes = styles();
 
-    const [anvil, setAnvil] = useState(items[0].name);
+    const [anvilName, setAnvilName] = useState(items[0].name);
 
     const handleAnvil = (event: SelectChangeEvent) => {
-        setAnvil(event.target.value as string);
+        setAnvilName(event.target.value as string);
     };
 
     const findSelectedAnvil = (name: string) => {
         return items.find((item) => item.name === name);
     };
 
-    const selectedAnvil = findSelectedAnvil(anvil);
+    const selectedAnvil = findSelectedAnvil(anvilName);
 
     return (
         <div className={classes.anvilWrapper}>
@@ -62,7 +62,7 @@ export function Anvil() {
                 <h1>Anvil</h1>
                 <Select
                     id='anvil'
-                    value={anvil}
+                    value={anvilName}
                     size='small'
                     onChange={handleAnvil}
                     className={classes.anvilSelectWrapper}
