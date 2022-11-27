@@ -7,7 +7,8 @@ export const styles = makeStyles((theme) =>
             padding: theme.spacing(3),
             maxWidth: 1400,
             margin: 'auto',
-            width: '100%'
+            width: '100%',
+            minHeight: 'calc(100vh - 177px)'
         },
         anvilTitle: {
             display: 'flex',

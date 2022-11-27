@@ -14,7 +14,13 @@ const options: AnvilOptions[] = [
     { index: 10, levels: 9 }, // altar
     { index: 56, levels: 9 }, // fud harvester
     { index: 65, levels: 9 }, // fomo harvester
-    { index: 92, levels: 9 } // fud reservoir
+    { index: 74, levels: 9 }, // alpha harvester
+    { index: 83, levels: 9 }, // kek harvester
+    { index: 92, levels: 9 }, // fud reservoir
+    { index: 101, levels: 9 }, // fomo reservoir
+    { index: 110, levels: 9 }, // alpha reservoir
+    { index: 119, levels: 9 }, // kek reservoir
+    { index: 128, levels: 9 } // maaker
 ];
 
 const items = options.map((item: AnvilOptions): AnvilItem => {
