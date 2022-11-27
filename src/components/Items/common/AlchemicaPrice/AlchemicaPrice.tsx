@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
+import classNames from 'classnames';
+
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
 import { FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
@@ -10,7 +12,7 @@ import { styles } from './styles';
 
 const icons = [FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon];
 
-export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
+export function AlchemicaPrice({ alchemica, className }: { alchemica: AlchemicaList; className?: string }) {
     const classes = styles();
 
     const [itemPrice, setItemPrice] = useState<number>(0);
@@ -19,9 +21,9 @@ export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
     const getItemPrice = (): number => {
         const tokens = Object.values(TokenTypes);
 
-        return alchemica.reduce((prev: number, current: number, index: number) =>
-            prev + current * tokensPrices[tokens[index]]
-        , 0);
+        return alchemica.reduce((prev: number, current: number, index: number) => {
+            return prev + current * tokensPrices[tokens[index]];
+        }, 0);
     };
 
     useEffect(() => {
@@ -33,20 +35,24 @@ export function AlchemicaPrice({ alchemica }: { alchemica: AlchemicaList }) {
     }, [isPricesLoaded, alchemica]);
 
     return (
-        <>
+        <div className={classNames(classes.alchemicaWrapper, className)}>
             <div className={classes.alchemica}>
-                {
-                    alchemica.map((amount: number, index: number) => {
-                        const Icon = icons[index];
+                {alchemica.map((amount: number, index: number) => {
+                    const Icon = icons[index];
 
-                        return <div className={classes.token} key={index}>
+                    return (
+                        <div className={classes.token} key={index}>
                             <Icon className={classes.tokenIcon} width={20} height={20} />
-                            <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(amount)}</span>
-                        </div>;
-                    })
-                }
+                            <span className={classes.amount}>
+                                {CommonUtils.convertFloatNumberToSuffixNumber(amount)}
+                            </span>
+                        </div>
+                    );
+                })}
             </div>
-            <div className={classes.daiPrice}>craft price: <span>{itemPrice}$</span></div>
-        </>
+            <div className={classes.daiPrice}>
+                price: <span>{itemPrice}$</span>
+            </div>
+        </div>
     );
 }
