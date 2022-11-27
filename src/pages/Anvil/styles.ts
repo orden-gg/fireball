@@ -116,6 +116,14 @@ export const anvilSummaryStyles = makeStyles(() =>
             },
             '& span': {
                 fontSize: '18px !important'
+            },
+            '& div:last-of-type': {
+                marginTop: 8,
+                fontSize: '20px !important',
+                '& img': {
+                    width: 20,
+                    height: 20
+                }
             }
         }
     })

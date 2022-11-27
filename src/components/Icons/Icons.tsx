@@ -56,6 +56,7 @@ import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
+import daiToken from 'assets/images/tokens/dai-token.svg';
 
 // traits
 import aggression from 'assets/images/traits/agg.png';
@@ -238,6 +239,10 @@ export const GltrTokenIcon = ({ width, height }: IconProps) => {
 
 export const KekTokenIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={kekToken} alt='kek' />;
+};
+
+export const DaiTokenIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={daiToken} alt='dai' />;
 };
 
 export const ListingIcon = ({ width, height }: IconProps) => {
