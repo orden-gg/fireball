@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
-import { AnvilSection } from './AnvilSection';
-import { AnvilButton } from './AnvilButton';
-import { AnvilItem } from '../models';
+import { AnvilButton } from '../AnvilButton/AnvilButton';
+import { AnvilItem } from '../../models';
+import { AnvilSection } from '../AnvilSection/AnvilSection';
+import { AnvilSummary } from '../AnvilSummary/AnvilSummary';
 
-import { anvilCalcStyles } from '../styles';
-import { AnvilSummary } from './AnvilSummary';
+import { styles } from './styles';
 
 export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
-    const classes = anvilCalcStyles();
+    const classes = styles();
 
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(anvil.levels.length - 1);
@@ -49,9 +49,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
                     <AnvilButton text='+' onClick={handleTo} disabled={to === anvil.levels.length - 1} />
                 </div>
             </div>
-            <div className={classes.anvilCalcFooter}>
-                <AnvilSummary summary={[...anvil.levels].splice(from + 1, to + 1)} />
-            </div>
+            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to + 1)} />
         </div>
     );
 }

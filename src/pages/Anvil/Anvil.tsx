@@ -5,7 +5,7 @@ import { CardImage } from 'components/ItemCard/components';
 import { InstallationsUtils } from 'utils';
 import installations from 'data/installations.data.json';
 
-import { AnvilCalculator } from './components/AnvilCalculator';
+import { AnvilCalculator } from './components/AnvilCalculator/AnvilCalculator';
 import { AnvilItem, AnvilOptions } from './models';
 
 import { styles } from './styles';
@@ -44,7 +44,7 @@ const items = options.map((item: AnvilOptions): AnvilItem => {
 export function Anvil() {
     const classes = styles();
 
-    const [anvilName, setAnvilName] = useState(items[0].name);
+    const [anvilName, setAnvilName] = useState<string>(items[0].name);
 
     const handleAnvil = (event: SelectChangeEvent) => {
         setAnvilName(event.target.value as string);
