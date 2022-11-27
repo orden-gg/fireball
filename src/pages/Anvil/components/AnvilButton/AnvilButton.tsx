@@ -2,11 +2,11 @@ import { Button, ButtonProps } from '@mui/material';
 
 import { styles } from './styles';
 
-interface AnvulButtonProps extends ButtonProps {
+interface AnvilButtonProps extends ButtonProps {
     text: string;
 }
 
-export function AnvilButton(props: AnvulButtonProps) {
+export function AnvilButton(props: AnvilButtonProps) {
     const classes = styles();
 
     return (

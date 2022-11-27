@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { CardImage } from 'components/ItemCard/components';
@@ -45,16 +45,17 @@ export function Anvil() {
     const classes = styles();
 
     const [anvilName, setAnvilName] = useState<string>(items[0].name);
+    const [selectedAnvil, setSelectedAnvil] = useState<AnvilItem | undefined>();
+
+    useEffect(() => {
+        const selectedAnv: AnvilItem | undefined = items.find((item) => item.name === anvilName);
+
+        setSelectedAnvil(selectedAnv);
+    }, [anvilName]);
 
     const handleAnvil = (event: SelectChangeEvent) => {
-        setAnvilName(event.target.value as string);
+        setAnvilName(event.target.value);
     };
-
-    const findSelectedAnvil = (name: string) => {
-        return items.find((item) => item.name === name);
-    };
-
-    const selectedAnvil = findSelectedAnvil(anvilName);
 
     return (
         <div className={classes.anvilWrapper}>
