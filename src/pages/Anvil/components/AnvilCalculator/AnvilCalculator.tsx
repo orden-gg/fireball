@@ -55,7 +55,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
                     <AnvilButton text='+' onClick={handleTo} disabled={to === anvil.levels.length - 1} />
                 </div>
             </div>
-            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to + 1)} />
+            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to - from)} />
         </div>
     );
 }
