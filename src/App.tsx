@@ -85,24 +85,24 @@ export function App() {
 
                                 <Box className={classes.content}>
                                     <Routes>
-                                        <Route path='' element={<Main />} />
-                                        <Route path='anvil' element={<Anvil />} />
-                                        <Route path='market/*' element={<Baazaar />} />
-                                        <Route path='lend' element={<Lend />} />
-                                        <Route path='explorer' element={<GhostExplorer />} />
-                                        <Route path='autopet' element={<Autopet />} />
-                                        <Route path='guilds/*' element={<Guilds />} />
-                                        <Route path='client/*' element={<Client />} />
-                                        <Route path='craft' element={<Craft />} />
-                                        <Route path='parcel/:parcelId' element={<ParcelPage />} />
-                                        <Route path='raffles/*' element={<Raffle />} />
-                                        <Route path='shop' element={<Shop />} />
-                                        <Route path='map' element={<Map />} />
-                                        <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
-                                        <Route path='glossary/*' element={<Glossary />} />
-                                        <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
-                                        <Route path='404' element={<NotFound />} />
-                                        <Route path='*' element={<Navigate to='404' replace />}></Route>
+                                        <Route path="" element={<Main />} />
+                                        <Route path="anvil" element={<Anvil />} />
+                                        <Route path="market/*" element={<Baazaar />} />
+                                        <Route path="lend" element={<Lend />} />
+                                        <Route path="explorer" element={<GhostExplorer />} />
+                                        <Route path="autopet" element={<Autopet />} />
+                                        <Route path="guilds/*" element={<Guilds />} />
+                                        <Route path="client/*" element={<Client />} />
+                                        <Route path="craft" element={<Craft />} />
+                                        <Route path="parcel/:parcelId" element={<ParcelPage />} />
+                                        <Route path="raffles/*" element={<Raffle />} />
+                                        <Route path="shop" element={<Shop />} />
+                                        <Route path="map" element={<Map />} />
+                                        <Route path="gotchi/:gotchiId" element={<GotchiPage />} />
+                                        <Route path="glossary/*" element={<Glossary />} />
+                                        <Route path="fake-gotchis-gallery/*" element={<FakeGotchisGallery />} />
+                                        <Route path="404" element={<NotFound />} />
+                                        <Route path="*" element={<Navigate to="404" replace />}></Route>
                                     </Routes>
                                 </Box>
 
