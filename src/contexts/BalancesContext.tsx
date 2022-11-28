@@ -158,7 +158,7 @@ export const BalancesContextProvider = (props: any) => {
                     key: TokenTypes.Ghst,
                     icon: <GhstTokenIcon height={14} width={14} />,
                     amount: amounts[TokenTypes.Ghst],
-                    pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(3),
+                    pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(2),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]),
                     swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT)
                 }
