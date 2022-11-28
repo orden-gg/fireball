@@ -8,7 +8,6 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
                 identifier
                 name
                 artistName
-                publisherName
                 description
                 editions
                 thumbnailHash

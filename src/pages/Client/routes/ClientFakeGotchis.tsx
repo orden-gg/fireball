@@ -50,7 +50,8 @@ export function ClientFakeGotchis() {
                     </CardGroup>
 
                     <CardGroup name='footer'>
-                        {fakeGotchisListings[fakeGotchi.identifier] && <CardERC721Listing
+                        {fakeGotchisListings[fakeGotchi.identifier] &&
+                            <CardERC721Listing
                                 currentListingId={fakeGotchisListings[fakeGotchi.identifier].listingId}
                                 currentPrice={fakeGotchisListings[fakeGotchi.identifier].listingPrice}
                                 historicalPrices={fakeGotchisListings[fakeGotchi.identifier] && fakeGotchisListings[fakeGotchi.identifier].historicalPrices}

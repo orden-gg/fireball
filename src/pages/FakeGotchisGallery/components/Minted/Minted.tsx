@@ -1,0 +1,52 @@
+import { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { ContentInner } from 'components/Content/ContentInner';
+
+import { MintedFakeGotchi } from '../../models';
+
+import * as fromFakeGotchisGalleryStore from '../../store';
+
+import { styles } from './styles';
+
+export function Minted() {
+    const classes = styles();
+
+    const dispatch = useAppDispatch();
+
+    const mintedGotchis: MintedFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
+
+    useEffect(() => {
+    }, [mintedGotchis]);
+
+    useEffect(() => {
+        dispatch(fromFakeGotchisGalleryStore.loadMintedFakeGotchis());
+    }, []);
+
+    return (
+        <>
+            <ContentInner dataLoading={false}>
+                <ItemsLazy
+                    items={mintedGotchis}
+                    component={(mintedGotchi: MintedFakeGotchi) => {
+                        return <>
+                            <img
+                                className={classes.mintedFakeGotchiImage}
+                                src={`https://arweave.net/${mintedGotchi.thumbnailHash}`}
+                            />
+                            <div className={classes.mintedFakeGotchiContent}>
+                                <div className={classes.mintedFakeGotchiName}>{mintedGotchi.name}</div>
+                                <div className={classes.mintedFakeGotchiDescription}>{mintedGotchi.description}</div>
+                                <div className={classes.mintedFakeGotchiFooter}>
+                                    <span className={classes.mintedFakeGotchiAuthor}>{mintedGotchi.artistName}</span>
+                                    <span>{mintedGotchi.editions}</span>
+                                </div>
+                            </div>
+                        </>;
+                    }}
+                />
+            </ContentInner>
+        </>
+    );
+}
