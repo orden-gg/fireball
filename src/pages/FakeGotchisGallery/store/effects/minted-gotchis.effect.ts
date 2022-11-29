@@ -9,7 +9,7 @@ import { loadMintedGotchis, loadMintedGotchisFailed, loadMintedGotchisSucceded }
 export const loadMintedFakeGotchis = (): AppThunk => async (dispatch) => {
     dispatch(loadMintedGotchis());
 
-    FakeGotchisGalleryApi.getMintedFakeGotchis(getMintedFakeGotchisQuery())
+    FakeGotchisGalleryApi.getGalleryFakeGotchis(getMintedFakeGotchisQuery())
         .then((res: GalleryFakeGotchi[]) => dispatch(loadMintedGotchisSucceded(res)))
         .catch(() => dispatch(loadMintedGotchisFailed()));
 };
