@@ -16,9 +16,7 @@ export function Minted() {
     const dispatch = useAppDispatch();
 
     const mintedGotchis: MintedFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
-
-    useEffect(() => {
-    }, [mintedGotchis]);
+    const isMintedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoading);
 
     useEffect(() => {
         dispatch(fromFakeGotchisGalleryStore.loadMintedFakeGotchis());
@@ -26,7 +24,7 @@ export function Minted() {
 
     return (
         <>
-            <ContentInner dataLoading={false}>
+            <ContentInner dataLoading={isMintedGotchisLoading}>
                 <ItemsLazy
                     items={mintedGotchis}
                     component={(mintedGotchi: MintedFakeGotchi) => {
