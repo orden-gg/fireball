@@ -1,8 +1,8 @@
 import { RootState } from 'core/store/store';
 
-import { MintedFakeGotchi } from '../../models';
+import { GalleryFakeGotchi } from '../../models';
 
-export const getMintedGotchis = (state: RootState): MintedFakeGotchi[] =>
+export const getMintedGotchis = (state: RootState): GalleryFakeGotchi[] =>
     state.fake.minted.mintedGotchis.data;
 
 export const getIsMintedGotchisLoading = (state: RootState): boolean =>

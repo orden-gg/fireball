@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { GalleryFakeGotchi } from '../../models';
 
-export interface MintedGotchisState {
-    mintedGotchis: {
+export interface QueuedGotchisState {
+    queuedGotchis: {
         data: GalleryFakeGotchi[];
         isLoading: boolean;
         isLoaded: boolean;
@@ -11,8 +11,8 @@ export interface MintedGotchisState {
     }
 }
 
-const initialState: MintedGotchisState = {
-    mintedGotchis: {
+const initialState: QueuedGotchisState = {
+    queuedGotchis: {
         data: [],
         isLoading: false,
         isLoaded: false,
@@ -20,29 +20,29 @@ const initialState: MintedGotchisState = {
     }
 };
 
-export const mintedGotchisSlice = createSlice({
-    name: 'mintedGotchis',
+export const queuedGotchisSlice = createSlice({
+    name: 'queuedGotchis',
     initialState,
     reducers: {
-        loadMintedGotchis: (state): void => {
-            state.mintedGotchis = {
-                ...state.mintedGotchis,
+        loadQueuedGotchis: (state): void => {
+            state.queuedGotchis = {
+                ...state.queuedGotchis,
                 isLoading: true,
                 isLoaded: false,
                 isError: false
             };
         },
-        loadMintedGotchisSucceded: (state, action: PayloadAction<GalleryFakeGotchi[]>): void => {
-            state.mintedGotchis = {
+        loadQueuedGotchisSucceded: (state, action: PayloadAction<GalleryFakeGotchi[]>): void => {
+            state.queuedGotchis = {
                 data: action.payload,
                 isLoading: false,
                 isLoaded: true,
                 isError: false
             };
         },
-        loadMintedGotchisFailed: (state): void => {
-            state.mintedGotchis = {
-                ...state.mintedGotchis,
+        loadQueuedGotchisFailed: (state): void => {
+            state.queuedGotchis = {
+                ...state.queuedGotchis,
                 isLoading: false,
                 isLoaded: true,
                 isError: true
@@ -52,9 +52,9 @@ export const mintedGotchisSlice = createSlice({
 });
 
 export const {
-    loadMintedGotchis,
-    loadMintedGotchisSucceded,
-    loadMintedGotchisFailed
-} = mintedGotchisSlice.actions;
+    loadQueuedGotchis,
+    loadQueuedGotchisSucceded,
+    loadQueuedGotchisFailed
+} = queuedGotchisSlice.actions;
 
-export const mintedGotchisReducer = mintedGotchisSlice.reducer;
+export const queuedGotchisReducer = queuedGotchisSlice.reducer;

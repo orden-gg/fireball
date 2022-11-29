@@ -1,4 +1,4 @@
-export interface MintedFakeGotchi {
+export interface GalleryFakeGotchi {
     artistName: string;
     name: string;
     description: string;

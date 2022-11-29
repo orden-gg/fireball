@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { ContentInner } from 'components/Content/ContentInner';
 
-import { MintedFakeGotchi } from '../../models';
+import { GalleryFakeGotchi } from '../../models';
 
 import * as fromFakeGotchisGalleryStore from '../../store';
 
@@ -15,7 +15,7 @@ export function Minted() {
 
     const dispatch = useAppDispatch();
 
-    const mintedGotchis: MintedFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
+    const mintedGotchis: GalleryFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
     const isMintedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoading);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export function Minted() {
             <ContentInner dataLoading={isMintedGotchisLoading}>
                 <ItemsLazy
                     items={mintedGotchis}
-                    component={(mintedGotchi: MintedFakeGotchi) => {
+                    component={(mintedGotchi: GalleryFakeGotchi) => {
                         return <>
                             <img
                                 className={classes.mintedFakeGotchiImage}

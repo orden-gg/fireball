@@ -1,5 +1,5 @@
 import { AppThunk } from 'core/store/store';
-import { MintedFakeGotchi } from 'pages/FakeGotchisGallery/models';
+import { GalleryFakeGotchi } from 'pages/FakeGotchisGallery/models';
 import { FakeGotchisGalleryApi } from 'pages/FakeGotchisGallery/api';
 
 import { getMintedFakeGotchisQuery } from '../../queries';
@@ -10,6 +10,6 @@ export const loadMintedFakeGotchis = (): AppThunk => async (dispatch) => {
     dispatch(loadMintedGotchis());
 
     FakeGotchisGalleryApi.getMintedFakeGotchis(getMintedFakeGotchisQuery())
-        .then((res: MintedFakeGotchi[]) => dispatch(loadMintedGotchisSucceded(res)))
+        .then((res: GalleryFakeGotchi[]) => dispatch(loadMintedGotchisSucceded(res)))
         .catch(() => dispatch(loadMintedGotchisFailed()));
 };
