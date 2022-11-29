@@ -7,3 +7,6 @@ export const getMintedGotchis = (state: RootState): MintedFakeGotchi[] =>
 
 export const getIsMintedGotchisLoading = (state: RootState): boolean =>
     state.fake.minted.mintedGotchis.isLoading;
+
+export const getMintedGotchisLength = (state: RootState): number =>
+    state.fake.minted.mintedGotchis.data.length;

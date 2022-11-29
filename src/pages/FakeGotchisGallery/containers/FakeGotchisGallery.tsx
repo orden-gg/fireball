@@ -1,15 +1,20 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { useAppSelector } from 'core/store/hooks';
 import { PageNavLink } from 'shared/models';
 import { FakeGotchisIcon } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 
 import { Minted, Queue } from '../components';
 
+import * as fromFakeGotchisGalleryStore from '../store';
+
 import { styles } from './styles';
 
 export function FakeGotchisGallery() {
     const classes = styles();
+
+    const mintedGotchisLength: number = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchisLength);
 
     const navData: PageNavLink[] = [
         {
@@ -17,7 +22,7 @@ export function FakeGotchisGallery() {
             path: 'minted',
             icon: <FakeGotchisIcon width={24} height={24} />,
             isLoading: false,
-            count: 1
+            count: mintedGotchisLength
         },
         {
             name: 'queue',
