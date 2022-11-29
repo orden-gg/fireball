@@ -28,26 +28,28 @@ export function ClientFakeGotchis() {
 
     const renderFakeGotchi = (fakeGotchi: FakeGotchi): JSX.Element => {
         return (
-            <div
-                className={classes.fakeGotchiLink}
-                onClick={() => onHandleFakeGotchiRedirect(`https://www.fakegotchis.com/explore/${fakeGotchi.identifier}`)}
-            >
+            <div className={classes.fakeGotchiLink}>
                 <ItemCard type='drop'>
-                    <CardGroup name='body' className={classes.fakeGotchiBody}>
-                        <CardImage
-                            className={classes.fakeGotchiImage}
-                            src={`https://arweave.net/${fakeGotchi.thumbnailHash}`}
-                            alt={fakeGotchi.name}
-                        />
-                        <CardName className={classes.fakeGotchiName}>{fakeGotchi.name}</CardName>
-                        <div className={classes.description}>
-                            <span className={classes.descriptionText}>{fakeGotchi.description}</span>
-                            <span className={classes.descriptionFooter}>
-                                <span className={classes.author}>{fakeGotchi.artistName}</span>
-                                , 1 out {fakeGotchi.editions}
-                            </span>
-                        </div>
-                    </CardGroup>
+                    <div
+                        className={classes.fakeGotchiBodyWrapper}
+                        onClick={() => onHandleFakeGotchiRedirect(`https://www.fakegotchis.com/explore/${fakeGotchi.identifier}`)}
+                    >
+                        <CardGroup name='body' className={classes.fakeGotchiBody}>
+                            <CardImage
+                                className={classes.fakeGotchiImage}
+                                src={`https://arweave.net/${fakeGotchi.thumbnailHash}`}
+                                alt={fakeGotchi.name}
+                            />
+                            <CardName className={classes.fakeGotchiName}>{fakeGotchi.name}</CardName>
+                            <div className={classes.description}>
+                                <span className={classes.descriptionText}>{fakeGotchi.description}</span>
+                                <span className={classes.descriptionFooter}>
+                                    <span className={classes.author}>{fakeGotchi.artistName}</span>
+                                    , 1 out {fakeGotchi.editions}
+                                </span>
+                            </div>
+                        </CardGroup>
+                    </div>
 
                     <CardGroup name='footer'>
                         {fakeGotchisListings[fakeGotchi.identifier] &&
