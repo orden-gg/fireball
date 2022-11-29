@@ -7,3 +7,12 @@ export interface PageNavLink {
     isShowSubRoutes?: boolean;
     subNavComponent?: JSX.Element;
 }
+
+export interface PageNavItem {
+    path: string;
+    name: string;
+    icon: JSX.Element;
+    isLoading: boolean;
+    isLoaded: boolean;
+    count: number;
+}

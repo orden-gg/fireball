@@ -8,5 +8,8 @@ export const getQueuedGotchis = (state: RootState): GalleryFakeGotchi[] =>
 export const getIsQueuedGotchisLoading = (state: RootState): boolean =>
     state.fake.queued.queuedGotchis.isLoading;
 
-export const getQueuedGotchisLength = (state: RootState): number =>
+export const getIsQueuedGotchisLoaded = (state: RootState): boolean =>
+    state.fake.queued.queuedGotchis.isLoaded;
+
+export const getQueuedGotchisCount = (state: RootState): number =>
     state.fake.queued.queuedGotchis.data.length;

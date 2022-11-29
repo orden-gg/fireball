@@ -8,5 +8,8 @@ export const getMintedGotchis = (state: RootState): GalleryFakeGotchi[] =>
 export const getIsMintedGotchisLoading = (state: RootState): boolean =>
     state.fake.minted.mintedGotchis.isLoading;
 
-export const getMintedGotchisLength = (state: RootState): number =>
+export const getIsMintedGotchisLoaded = (state: RootState): boolean =>
+    state.fake.minted.mintedGotchis.isLoaded;
+
+export const getMintedGotchisCount = (state: RootState): number =>
     state.fake.minted.mintedGotchis.data.length;
