@@ -92,19 +92,17 @@ export function ClientFakeGotchis() {
     };
 
     return (
-        <>
-            <ContentInner dataLoading={isFakeGotchisLoading}>
-                <ItemsLazy
-                    items={fakeItems ? [...fakeItems.fakeGotchiCards, ...fakeItems.fakeGotchis] : []}
-                    component={(fakeItem: FakeGotchi | FakeGotchiCard) => (
-                        fakeItem.type === 'fake' ? (
-                            renderFakeGotchi(fakeItem as FakeGotchi)
-                        ) : (
-                            renderFakeCard(fakeItem as FakeGotchiCard)
-                        )
-                    )}
-                />
-            </ContentInner>
-        </>
+        <ContentInner dataLoading={isFakeGotchisLoading}>
+            <ItemsLazy
+                items={fakeItems ? [...fakeItems.fakeGotchiCards, ...fakeItems.fakeGotchis] : []}
+                component={(fakeItem: FakeGotchi | FakeGotchiCard) => (
+                    fakeItem.type === 'fake' ? (
+                        renderFakeGotchi(fakeItem as FakeGotchi)
+                    ) : (
+                        renderFakeCard(fakeItem as FakeGotchiCard)
+                    )
+                )}
+            />
+        </ContentInner>
     );
 }

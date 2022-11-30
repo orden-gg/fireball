@@ -13,4 +13,3 @@ export * from './Map/Map';
 export * from './NotFound/NotFound';
 export * from './Parcel/ParcelPage';
 export * from './Raffle/Raffle';
-export * from './Shop/Shop';

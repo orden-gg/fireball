@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
+import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon } from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon, BaazarIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -20,7 +20,8 @@ const loadedDefaultStates: { [key: string]: boolean } = {
     isTicketsLoaded: false,
     isRealmLoaded: false,
     isInstallationsLoaded: false,
-    isTilesLoaded: false
+    isTilesLoaded: false,
+    isItemsForSaleLoaded: false
 };
 
 export const ClientContext = createContext({});
@@ -63,6 +64,24 @@ export const ClientContextProvider = (props: any) => {
     const [realmView, setRealmView] = useState<string>('list');
 
     const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
+
+    const [itemsForSale, setItemsForSale] = useState<{
+        gotchis: any[],
+        wearables: any[],
+        parcels: any[],
+        portals: any[],
+        tickets: any[],
+        consumables: any[]
+    }>({
+        gotchis: [],
+        wearables: [],
+        parcels: [],
+        portals: [],
+        tickets: [],
+        consumables: []
+    });
+    const [isItemsForSaleLoading, setIsItemsForSaleLoading] = useState<boolean>(false);
+    const [isItemsForSaleEmpty, setIsItemsForSaleEmpty] = useState<boolean>(true);
 
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
     const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
@@ -136,6 +155,18 @@ export const ClientContextProvider = (props: any) => {
             icon: <FakeGotchisIcon width={24} height={24} />,
             isLoading: false,
             count: fakeGotchisLength
+        },
+        {
+            name: 'for sale',
+            path: 'for-sale',
+            icon: <BaazarIcon width={24} height={24} />,
+            isLoading: isItemsForSaleLoading,
+            count: itemsForSale.consumables.length +
+                itemsForSale.gotchis.length +
+                itemsForSale.parcels.length +
+                itemsForSale.portals.length +
+                itemsForSale.tickets.length +
+                itemsForSale.wearables.length
         }
     ];
 
@@ -166,6 +197,7 @@ export const ClientContextProvider = (props: any) => {
         getInstallations(address, shouldUpdateIsLoading);
         getTiles(address, shouldUpdateIsLoading);
         getFakeGotchis(address, shouldUpdateIsLoading);
+        getItemsForSale(address, shouldUpdateIsLoading);
     };
 
     const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -507,6 +539,140 @@ export const ClientContextProvider = (props: any) => {
         dispatch(onLoadFakeGotchis(address, shouldUpdateIsLoading));
     };
 
+    const getItemsForSale = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+        if (shouldUpdateIsLoading) {
+            resetItemsForSale();
+        }
+        setIsItemsForSaleLoading(shouldUpdateIsLoading);
+        setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: false }));
+
+        Promise.all([
+            TheGraphApi.getErc721ListingsBySeller(address),
+            TheGraphApi.getErc1155ListingsBySeller(address)
+        ]).then(([erc721Listings, erc1155Listings]: [any, any]) => {
+            const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+
+            setIsItemsForSaleEmpty(isListingsEmpty);
+
+            if (isListingsEmpty) {
+                resetItemsForSale();
+            } else {
+                handleSetErc721Listings(erc721Listings);
+                handleSetErc1155Listings(erc1155Listings);
+            }
+        }).catch(() => {
+            resetItemsForSale();
+        }).finally(() => {
+            setIsItemsForSaleLoading(false);
+            setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: true }));
+        });
+    };
+
+    const resetItemsForSale = (): void => {
+        setItemsForSale({
+            gotchis: [],
+            wearables: [],
+            parcels: [],
+            portals: [],
+            tickets: [],
+            consumables: []
+        });
+    };
+
+    const handleSetErc721Listings = (listings: any[]): void => {
+        const listedGotchis: any[] = listings
+            .filter((listing: any) => listing.category === Erc721Categories.Aavegotchi)
+            .map((listing: any) => listing.gotchi);
+        const sortedGotchis: any[] = CommonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
+
+        const listedParcels: any[] = listings
+            .filter((listing: any) => listing.category === Erc721Categories.Realm)
+            .map((listing: any) => ({
+                ...listing.parcel,
+                priceInWei: listing.priceInWei,
+                baazaarId: listing.id,
+                historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
+                listings: [{
+                    id: listing.id,
+                    priceInWei: listing.priceInWei
+                }]
+            }));
+        const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
+
+        const listedPortals: any[] = listings
+            .filter((listing: any) =>
+                listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal
+            )
+            .map((listing: any) => ({
+                priceInWei: listing.priceInWei,
+                category: listing.category,
+                tokenId: listing.tokenId,
+                portal: {
+                    hauntId: listing.portal.hauntId
+                },
+                historicalPrices: listing.portal.historicalPrices ? listing.portal.historicalPrices : [],
+                listingId: listing.portal.activeListing,
+                listingPrice: EthersApi.fromWei(listing.priceInWei)
+            }));
+        const sortedPortals: any[] = CommonUtils.basicSort(listedPortals, 'tokenId', 'asc');
+
+        setItemsForSale((itemsForSaleCache) => ({
+            ...itemsForSaleCache,
+            gotchis: sortedGotchis,
+            parcels: sortedParcels,
+            portals: sortedPortals
+        }));
+    };
+
+    const handleSetErc1155Listings = (listings: any[]): void => {
+        const listedWearables: any[] = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Wearable)
+            .map((listing: any) => ({
+                ...mapWearableAndTicket(listing),
+                category: listing.category
+            }));
+        const sortedWearables: any[] = CommonUtils.basicSort(listedWearables, 'rarityId', 'desc');
+
+        const listedTickets: any[] = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Ticket)
+            .map((listing: any) => ({
+                ...mapWearableAndTicket(listing),
+                erc1155TypeId: listing.erc1155TypeId,
+                category: listing.category
+            }));
+        const sortedTickets: any[] = CommonUtils.basicSort(listedTickets, 'rarityId', 'desc');
+
+        const listedConsumables = listings
+            .filter((listing: any) => listing.category === Erc1155Categories.Consumable)
+            .map((listing: any) => ({
+                id: parseInt(listing.erc1155TypeId, 10),
+                balance: parseInt(listing.quantity, 10),
+                listing: listing.id,
+                price: EthersApi.fromWei(listing.priceInWei),
+                category: listing.category
+            }));
+
+        setItemsForSale((itemsForSaleCache) => ({
+            ...itemsForSaleCache,
+            wearables: sortedWearables,
+            tickets: sortedTickets,
+            consumables: listedConsumables
+        }));
+    };
+
+    const mapWearableAndTicket = (listing: any): any => {
+        return {
+            id: parseInt(listing.erc1155TypeId, 10),
+            balance: parseInt(listing.quantity, 10),
+            category: listing.category,
+            listing: listing.id,
+            rarity: ItemUtils.getRarityNameById(listing.erc1155TypeId),
+            rarityId: listing.rarityLevel,
+            priceInWei: listing.priceInWei,
+            price: EthersApi.fromWei(listing.priceInWei)
+        };
+    };
+
     // TODO check if needed
     const calculateReward = () => {
         setRewardCalculating(true);
@@ -587,6 +753,10 @@ export const ClientContextProvider = (props: any) => {
                 setRealmView,
                 setRealmSorting,
                 setLoadingRealm,
+
+                itemsForSale,
+                isItemsForSaleLoading,
+                isItemsForSaleEmpty,
 
                 reward,
                 rewardCalculated,
