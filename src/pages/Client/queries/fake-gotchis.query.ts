@@ -8,10 +8,15 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
                 identifier
                 name
                 artistName
-                publisherName
                 description
                 editions
                 thumbnailHash
+                externalLink
+                metadata {
+                    createdAt
+                    likeCount
+                    status
+                }
             }
             ERC1155balances(first: 1) {
                 id

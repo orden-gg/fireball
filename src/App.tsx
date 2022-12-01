@@ -15,6 +15,7 @@ import {
     Baazaar,
     Client,
     Craft,
+    FakeGotchisGallery,
     GhostExplorer,
     Glossary,
     GotchiPage,
@@ -72,17 +73,15 @@ export function App() {
                                 <title>fireball.gg gotchiverse client</title>
                             </Helmet>
 
-                            <Wrapper
-                                className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}
-                            >
-                                {!isHeaderHidden && (
+                            <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
+                                { !isHeaderHidden &&
                                     <>
                                         <BalancesContextProvider>
                                             <Header />
                                         </BalancesContextProvider>
                                         <NavPanel />
                                     </>
-                                )}
+                                }
 
                                 <Box className={classes.content}>
                                     <Routes>
@@ -101,12 +100,13 @@ export function App() {
                                         <Route path="map" element={<Map />} />
                                         <Route path="gotchi/:gotchiId" element={<GotchiPage />} />
                                         <Route path="glossary/*" element={<Glossary />} />
+                                        <Route path="fake-gotchis-gallery/*" element={<FakeGotchisGallery />} />
                                         <Route path="404" element={<NotFound />} />
                                         <Route path="*" element={<Navigate to="404" replace />}></Route>
                                     </Routes>
                                 </Box>
 
-                                {!isFooterHidden && <Footer />}
+                                { !isFooterHidden && <Footer /> }
                             </Wrapper>
                         </ClientContextProvider>
                     </TokensPricesContextProvider>

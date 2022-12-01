@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { GlossaryRoot, GlossaryWearables } from '../components';
 
 export function Glossary() {
-
     return (
         <>
             <Routes>

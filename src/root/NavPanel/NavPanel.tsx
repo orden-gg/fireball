@@ -12,7 +12,7 @@ import classNames from 'classnames';
 
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
-import { GuildIcon, LendingIcon, CraftIcon, GlossaryIcon } from 'components/Icons/Icons';
+import { GuildIcon, LendingIcon, CraftIcon, GlossaryIcon, FakeGotchisIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 
@@ -112,6 +112,14 @@ export function NavPanel() {
                             <GlossaryIcon width={20} height={20} />
                         </Icon>
                         <span className={classes.navItemName}>Glossary</span>
+                    </NavLink>
+                </div>
+                <div className={classes.navItem}>
+                    <NavLink className={classes.navLink} to='/fake-gotchis-gallery'>
+                        <Icon className={classes.iconBox}>
+                            <FakeGotchisIcon width={20} height={20} />
+                        </Icon>
+                        <span className={classes.navItemName}>Fake Gotchis Gallery</span>
                     </NavLink>
                 </div>
             </nav>

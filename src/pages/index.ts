@@ -3,6 +3,7 @@ export * from './Autopet/Autopet';
 export * from './Baazaar/containers';
 export * from './Client/Client';
 export * from './Craft/Craft';
+export * from './FakeGotchisGallery/containers/FakeGotchisGallery';
 export * from './GhostExplorer/GhostExplorer';
 export * from './Glossary/containers/Glossary';
 export * from './GotchiPage/GotchiPage';

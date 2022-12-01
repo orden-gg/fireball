@@ -13,7 +13,6 @@ export interface FakeGotchi {
     identifier: string;
     name: string;
     artistName: string;
-    publisherName: string;
     description: string;
     editions: number;
     thumbnailHash: string;

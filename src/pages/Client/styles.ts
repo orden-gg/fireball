@@ -370,6 +370,9 @@ export const fakeGotchiStyles = makeStyles((theme) => createStyles({
             background: alpha('#000', 0.2)
         }
     },
+    fakeGotchiBodyWrapper: {
+        height: '100%'
+    },
     fakeGotchiHeader: {
         position: 'absolute',
         top: 0,
