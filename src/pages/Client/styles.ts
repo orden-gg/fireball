@@ -418,3 +418,37 @@ export const fakeGotchiStyles = makeStyles((theme) => createStyles({
         color: 'burlywood'
     }
 }));
+
+export const forSaleStyles = makeStyles(theme => createStyles({
+    container: {
+        position: 'relative',
+        padding: theme.spacing(3),
+        paddingTop: 0,
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    shopAddress: {
+        marginTop: 24
+    },
+    list: {
+        display: 'grid',
+        alignItems: 'start',
+        gap: 12,
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
+        gridAutoRows: '1fr'
+    },
+    listItem: {
+        height: '100%'
+    },
+    loaderBox: {
+        marginTop: '1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noListings: {
+        marginTop: '1.5rem',
+        textAlign: 'center',
+        fontSize: '1rem'
+    }
+}));

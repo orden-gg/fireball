@@ -25,8 +25,7 @@ import {
     Map,
     NotFound,
     ParcelPage,
-    Raffle,
-    Shop
+    Raffle
 } from 'pages';
 import { BaazaarContextProvider } from 'contexts/BaazaarContext';
 import { BalancesContextProvider } from 'contexts/BalancesContext';
@@ -96,7 +95,6 @@ export function App() {
                                         <Route path="craft" element={<Craft />} />
                                         <Route path="parcel/:parcelId" element={<ParcelPage />} />
                                         <Route path="raffles/*" element={<Raffle />} />
-                                        <Route path="shop" element={<Shop />} />
                                         <Route path="map" element={<Map />} />
                                         <Route path="gotchi/:gotchiId" element={<GotchiPage />} />
                                         <Route path="glossary/*" element={<Glossary />} />

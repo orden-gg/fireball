@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button } from '@mui/material';
 import { Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
@@ -11,7 +10,6 @@ import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
-import { BaazarIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi } from 'api';
@@ -21,6 +19,7 @@ import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
+import { ClientForSale } from './routes/ClientForSale';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
@@ -112,9 +111,6 @@ export function ClientRoutes() {
                         // )}
                         afterContent={
                             <React.Fragment>
-                                <Button href={`/shop?address=${account}`} target="_blank" className={classes.customBtn}>
-                                    <BaazarIcon width={24} height={24} />
-                                </Button>
                                 {subroute.includes('realm') && (
                                     <RealmSwitchButton view={realmView} navigate={navigate} />
                                 )}
@@ -132,6 +128,7 @@ export function ClientRoutes() {
                 <Route path="tickets" element={<ClientTickets />} />
                 <Route path="realm/*" element={<ClientRealm />} />
                 <Route path="fake-gotchis" element={<ClientFakeGotchis />} />
+                <Route path="for-sale" element={<ClientForSale />} />
                 <Route path="*" element={<Navigate to="gotchis" replace />} />
             </Routes>
         </>
