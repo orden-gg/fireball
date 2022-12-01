@@ -3,16 +3,17 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { ContentInner } from 'components/Content/ContentInner';
 
+import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
+
 import { GalleryFakeGotchi } from '../../models';
 
 import * as fromFakeGotchisGalleryStore from '../../store';
-import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
 
 export function Queue() {
     const dispatch = useAppDispatch();
 
     const queuedGotchis: GalleryFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getQueuedGotchis);
-    const isQueuedGotchisLoaded: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsQueuedGotchisLoaded);
+    const isQueuedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsQueuedGotchisLoading);
 
     useEffect(() => {
         dispatch(fromFakeGotchisGalleryStore.loadQueuedFakeGotchis());
@@ -20,7 +21,7 @@ export function Queue() {
 
     return (
         <>
-            <ContentInner dataLoading={!isQueuedGotchisLoaded}>
+            <ContentInner dataLoading={isQueuedGotchisLoading}>
                 <GalleryLayout items={queuedGotchis} />
             </ContentInner>
         </>
