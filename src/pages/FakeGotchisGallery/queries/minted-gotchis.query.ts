@@ -12,6 +12,10 @@ export const getMintedFakeGotchisQuery = (): string => {
             description
             thumbnailHash
             editions
+            externalLink
+            createdAt
+            likeCount
+            status
         }
     }`;
 };

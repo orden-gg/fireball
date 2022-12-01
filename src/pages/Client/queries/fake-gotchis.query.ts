@@ -11,6 +11,12 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
                 description
                 editions
                 thumbnailHash
+                externalLink
+                metadata {
+                    createdAt
+                    likeCount
+                    status
+                }
             }
             ERC1155balances(first: 1) {
                 id

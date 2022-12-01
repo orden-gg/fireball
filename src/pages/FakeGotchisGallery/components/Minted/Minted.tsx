@@ -13,7 +13,7 @@ export function Minted() {
     const dispatch = useAppDispatch();
 
     const mintedGotchis: GalleryFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
-    const isMintedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoading);
+    const isMintedGotchisLoaded: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoaded);
 
     useEffect(() => {
         dispatch(fromFakeGotchisGalleryStore.loadMintedFakeGotchis());
@@ -21,8 +21,8 @@ export function Minted() {
 
     return (
         <>
-            <ContentInner dataLoading={isMintedGotchisLoading}>
-                {mintedGotchis.length ? <GalleryLayout items={mintedGotchis} /> : <span>loading</span>}
+            <ContentInner dataLoading={!isMintedGotchisLoaded}>
+                <GalleryLayout items={mintedGotchis} />
             </ContentInner>
         </>
     );

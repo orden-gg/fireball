@@ -8,7 +8,7 @@ export interface MintedGotchisState {
         isLoading: boolean;
         isLoaded: boolean;
         isError: boolean;
-    }
+    };
 }
 
 const initialState: MintedGotchisState = {
@@ -51,10 +51,6 @@ export const mintedGotchisSlice = createSlice({
     }
 });
 
-export const {
-    loadMintedGotchis,
-    loadMintedGotchisSucceded,
-    loadMintedGotchisFailed
-} = mintedGotchisSlice.actions;
+export const { loadMintedGotchis, loadMintedGotchisSucceded, loadMintedGotchisFailed } = mintedGotchisSlice.actions;
 
 export const mintedGotchisReducer = mintedGotchisSlice.reducer;
