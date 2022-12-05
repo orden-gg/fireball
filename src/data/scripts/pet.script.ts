@@ -25,7 +25,7 @@ interface Gotchi {
 const { OWNER_ADDRESS, OPERATOR_PRIVATE_KEY } = process.env;
 
 if (!OWNER_ADDRESS || !OPERATOR_PRIVATE_KEY) {
-    console.log(`Please specify OWNER_ADDRESS and OPERTOR_PRIVATE_KEY in .env`);
+    console.log('Please specify OWNER_ADDRESS and OPERTOR_PRIVATE_KEY in .env');
     exit();
 }
 
