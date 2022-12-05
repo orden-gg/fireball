@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ParcelListingFilters, ParcelListingVM } from '../../models';
-import { parcelListingFiltersData } from '../../static/filters';
+import { parcelListingFilters } from '../../static/filters';
 
 export interface ParcelsListingsState {
     parcelsListings: {
@@ -18,6 +18,7 @@ export interface ParcelsListingsState {
     parcelsListingsGraphQueryParams: GraphQueryParams;
     parcelsListingsDefaultSorting: SortingItem;
     parcelsListingsSorting: SortingItem;
+    parcelsListingsPreviousSortingProp: string;
     parcelsListingsIsSortingUpdated: boolean;
     parcelsListingsFilters: ParcelListingFilters;
     parcelsListingsIsFiltersUpdated: boolean;
@@ -45,17 +46,18 @@ const initialState: ParcelsListingsState = {
 
     parcelsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     parcelsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    parcelsListingsPreviousSortingProp: '',
     parcelsListingsIsSortingUpdated: false,
-    parcelsListingsFilters: parcelListingFiltersData,
+    parcelsListingsFilters: parcelListingFilters,
     parcelsListingsIsFiltersUpdated: false,
     parcelsListingsQueryParamsOrder: [
-        parcelListingFiltersData.size.queryParamKey,
-        parcelListingFiltersData.district.queryParamKey,
-        parcelListingFiltersData.priceInWei.queryParamKey,
-        parcelListingFiltersData.fudBoost.queryParamKey,
-        parcelListingFiltersData.fomoBoost.queryParamKey,
-        parcelListingFiltersData.alphaBoost.queryParamKey,
-        parcelListingFiltersData.kekBoost.queryParamKey,
+        parcelListingFilters.size.queryParamKey,
+        parcelListingFilters.district.queryParamKey,
+        parcelListingFilters.priceInWei.queryParamKey,
+        parcelListingFilters.fudBoost.queryParamKey,
+        parcelListingFilters.fomoBoost.queryParamKey,
+        parcelListingFilters.alphaBoost.queryParamKey,
+        parcelListingFilters.kekBoost.queryParamKey,
         'sort',
         'dir'
     ]
@@ -104,6 +106,9 @@ export const parcelsListingsSlice = createSlice({
             state.parcelsListingsGraphQueryParams.orderBy = action.payload.type;
             state.parcelsListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setParcelsListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.parcelsListingsPreviousSortingProp = action.payload;
+        },
         setParcelsListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.parcelsListingsIsSortingUpdated = action.payload;
         },
@@ -124,6 +129,7 @@ export const {
     resetParcelsListings,
     setParcelsListingsSkipLimit,
     setParcelsListingsSorting,
+    setParcelsListingsPreviousSortingProp,
     setParcelsListingsIsSortingUpdated,
     setParcelsListingsFilters,
     setParcelsListingsIsFiltersUpdated

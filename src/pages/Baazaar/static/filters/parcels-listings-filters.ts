@@ -11,7 +11,7 @@ import { DISTRICTS } from 'data/citadel.data';
 import { ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingFilters } from '../../models';
 
-export const parcelListingFiltersData: ParcelListingFilters = {
+export const parcelListingFilters: ParcelListingFilters = {
     [ParcelListingFilterTypes.Size]: {
         key: `${[ParcelListingFilterTypes.Size]}`,
         queryParamKey: 'size',

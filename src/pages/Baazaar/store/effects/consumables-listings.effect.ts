@@ -4,7 +4,7 @@ import { Erc1155ListingsBatch, GraphFiltersTypes, GraphFiltersValueTypes, GraphQ
 import { EthersApi, TheGraphApi } from 'api';
 import { GraphFiltersUtils, ItemUtils } from 'utils';
 
-import { ConsumableListingFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, ConsumableListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ConsumableListingDTO, ConsumableListingFilters, ConsumableListingFiltersType, ConsumableListingVM } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
@@ -17,6 +17,7 @@ import {
     setConsumablesListingsIsSortingUpdated,
     setConsumablesListingsSkipLimit,
     setConsumablesListingsSorting,
+    setConsumablesListingsPreviousSortingProp,
     setIsConsumablesListingsInitialDataLoading,
     resetConsumablesListings
 } from '../slices';
@@ -77,6 +78,19 @@ export const onLoadBaazaarConsumablesListings = (): AppThunk => (dispatch, getSt
         dispatch(loadBaazaarConsumablesListings(true));
     }
 };
+
+export const onSetConsumablesListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.consumables.consumablesListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setConsumablesListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setConsumablesListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateConsumablesListingsFilterByKey =
     ({ key, value }: { key: ConsumableListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

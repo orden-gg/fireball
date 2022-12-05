@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ClosedPortalListingVM, ClosedPortalListingFilters } from '../../models';
-import { closedPortalListingsFiltersData } from '../../static/filters';
+import { closedPortalListingsFilters } from '../../static/filters';
 
 export interface ClosedPortalsListingsState {
     closedPortalsListings: {
@@ -18,6 +18,7 @@ export interface ClosedPortalsListingsState {
     closedPortalsListingsGraphQueryParams: GraphQueryParams;
     closedPortalsListingsDefaultSorting: SortingItem;
     closedPortalsListingsSorting: SortingItem;
+    closedPortalsListingsPreviousSortingProp: string;
     closedPortalsListingsIsSortingUpdated: boolean;
     closedPortalsListingsFilters: ClosedPortalListingFilters;
     closedPortalsListingsIsFiltersUpdated: boolean;
@@ -44,12 +45,13 @@ const initialState: ClosedPortalsListingsState = {
     },
     closedPortalsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     closedPortalsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    closedPortalsListingsPreviousSortingProp: '',
     closedPortalsListingsIsSortingUpdated: false,
-    closedPortalsListingsFilters: closedPortalListingsFiltersData,
+    closedPortalsListingsFilters: closedPortalListingsFilters,
     closedPortalsListingsIsFiltersUpdated: false,
     closedPortalsListingsQueryParamsOrder: [
-        closedPortalListingsFiltersData.hauntId.queryParamKey,
-        closedPortalListingsFiltersData.priceInWei.queryParamKey,
+        closedPortalListingsFilters.hauntId.queryParamKey,
+        closedPortalListingsFilters.priceInWei.queryParamKey,
         'sort',
         'dir'
     ]
@@ -98,6 +100,9 @@ export const closedPortalsListingsSlice = createSlice({
             state.closedPortalsListingsGraphQueryParams.orderBy = action.payload.type;
             state.closedPortalsListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setClosedPortalsListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.closedPortalsListingsPreviousSortingProp = action.payload;
+        },
         setClosedPortalsListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.closedPortalsListingsIsSortingUpdated = action.payload;
         },
@@ -118,6 +123,7 @@ export const {
     resetClosedPortalsListings,
     setClosedPortalsListingsSkipLimit,
     setClosedPortalsListingsSorting,
+    setClosedPortalsListingsPreviousSortingProp,
     setClosedPortalsListingsIsSortingUpdated,
     setClosedPortalsListingsFilters,
     setClosedPortalsListingsIsFiltersUpdated

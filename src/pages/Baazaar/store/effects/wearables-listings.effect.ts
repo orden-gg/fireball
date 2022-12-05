@@ -4,7 +4,7 @@ import { Erc1155ListingsBatch, GraphFiltersTypes, GraphFiltersValueTypes, GraphQ
 import { EthersApi, TheGraphApi } from 'api';
 import { GraphFiltersUtils, ItemUtils } from 'utils';
 
-import { WearableListingFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, PRICE_IN_WEI, WearableListingFilterTypes } from '../../constants';
 import { WearableListingDTO, WearableListingFilters, WearableListingFiltersType, WearableListingVM } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
@@ -17,6 +17,7 @@ import {
     setWearablesListingsIsSortingUpdated,
     setWearablesListingsSkipLimit,
     setWearablesListingsSorting,
+    setWearablesListingsPreviousSortingProp,
     setIsWearablesListingsInitialDataLoading,
     resetWearablesListings
 } from '../slices';
@@ -77,6 +78,19 @@ export const onLoadBaazaarWearablesListings = (): AppThunk => (dispatch, getStat
         dispatch(loadBaazaarWearablesListings(true));
     }
 };
+
+export const onSetWearablesListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.wearables.wearablesListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setWearablesListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setWearablesListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateWearablesListingsFilterByKey =
     ({ key, value }: { key: WearableListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

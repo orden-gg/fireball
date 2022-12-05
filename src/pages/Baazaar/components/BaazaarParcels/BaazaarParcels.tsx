@@ -68,6 +68,10 @@ export function BaazaarParcels() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setParcelsListingsPreviousSortingProp(parcelsListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetParcelsListingsData());
         };
@@ -108,7 +112,7 @@ export function BaazaarParcels() {
     }, [parcelsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setParcelsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetParcelsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

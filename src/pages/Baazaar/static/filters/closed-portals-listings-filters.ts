@@ -9,7 +9,7 @@ import {
 import { ClosedPortalListingFilterTypes } from '../../constants';
 import { ClosedPortalListingFilters } from '../../models';
 
-export const closedPortalListingsFiltersData: ClosedPortalListingFilters = {
+export const closedPortalListingsFilters: ClosedPortalListingFilters = {
     [ClosedPortalListingFilterTypes.HauntId]: {
         key: `${[ClosedPortalListingFilterTypes.HauntId]}`,
         queryParamKey: 'haunt',

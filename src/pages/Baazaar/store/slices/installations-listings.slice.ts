@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { InstallationListingFilters, InstallationListingVM } from '../../models';
-import { installationListingFiltersData } from '../../static/filters';
+import { installationListingFilters } from '../../static/filters';
 
 export interface InstallationsListingsState {
     installationsListings: {
@@ -18,6 +18,7 @@ export interface InstallationsListingsState {
     installationsListingsGraphQueryParams: GraphQueryParams;
     installationsListingsDefaultSorting: SortingItem;
     installationsListingsSorting: SortingItem;
+    installationsListingsPreviousSortingProp: string;
     installationsListingsIsSortingUpdated: boolean;
     installationsListingsFilters: InstallationListingFilters;
     installationsListingsIsFiltersUpdated: boolean;
@@ -44,11 +45,12 @@ const initialState: InstallationsListingsState = {
     },
     installationsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     installationsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    installationsListingsPreviousSortingProp: '',
     installationsListingsIsSortingUpdated: false,
-    installationsListingsFilters: installationListingFiltersData,
+    installationsListingsFilters: installationListingFilters,
     installationsListingsIsFiltersUpdated: false,
     installationsListingsQueryParamsOrder: [
-        installationListingFiltersData.priceInWei.queryParamKey,
+        installationListingFilters.priceInWei.queryParamKey,
         'sort',
         'dir'
     ]
@@ -97,6 +99,9 @@ export const installationsListingsSlice = createSlice({
             state.installationsListingsGraphQueryParams.orderBy = action.payload.type;
             state.installationsListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setInstallationsListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.installationsListingsPreviousSortingProp = action.payload;
+        },
         setInstallationsListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.installationsListingsIsSortingUpdated = action.payload;
         },
@@ -117,6 +122,7 @@ export const {
     resetInstallationsListings,
     setInstallationsListingsSkipLimit,
     setInstallationsListingsSorting,
+    setInstallationsListingsPreviousSortingProp,
     setInstallationsListingsIsSortingUpdated,
     setInstallationsListingsFilters,
     setInstallationsListingsIsFiltersUpdated

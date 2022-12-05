@@ -12,7 +12,7 @@ import {
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingFilters } from '../../models';
 
-export const wearableListingFiltersData: WearableListingFilters = {
+export const wearableListingFilters: WearableListingFilters = {
     [WearableListingFilterTypes.RarityLevel]: {
         key: `${[WearableListingFilterTypes.RarityLevel]}`,
         queryParamKey: 'rarity',

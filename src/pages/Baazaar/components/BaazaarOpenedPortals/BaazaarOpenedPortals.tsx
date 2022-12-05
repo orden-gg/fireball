@@ -67,6 +67,10 @@ export function BaazaarOpenedPortals() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setOpenedPortalsPreviousSortingProp(openedPortalsListingsDefaultSorting.type));
+        }
+
         return () => {
             onResetFilters();
 
@@ -116,7 +120,7 @@ export function BaazaarOpenedPortals() {
     }, [currentFilters, initialOpenedPortalsListings, openedPortalsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setOpenedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetOpenedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onSetSelectedFilters = (key: string, value: any) => {

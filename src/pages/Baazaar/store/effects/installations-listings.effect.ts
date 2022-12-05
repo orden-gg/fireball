@@ -4,7 +4,7 @@ import { Erc1155ListingsBatch, GraphFiltersTypes, GraphFiltersValueTypes, GraphQ
 import { EthersApi, TheGraphApi } from 'api';
 import { GraphFiltersUtils, InstallationsUtils } from 'utils';
 
-import { InstallationListingFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, InstallationListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { InstallationListingDTO, InstallationListingFilters, InstallationListingFiltersType, InstallationListingVM } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
@@ -17,6 +17,7 @@ import {
     setInstallationsListingsIsSortingUpdated,
     setInstallationsListingsSkipLimit,
     setInstallationsListingsSorting,
+    setInstallationsListingsPreviousSortingProp,
     setIsInstallationsListingsInitialDataLoading,
     resetInstallationsListings
 } from '../slices';
@@ -79,6 +80,19 @@ export const onLoadBaazaarInstallationsListings = (): AppThunk => (dispatch, get
         dispatch(loadBaazaarInstallationsListings(true));
     }
 };
+
+export const onSetInstallationsListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.installations.installationsListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setInstallationsListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setInstallationsListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateInstallationsListingsFilterByKey =
     ({ key, value }: { key: InstallationListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

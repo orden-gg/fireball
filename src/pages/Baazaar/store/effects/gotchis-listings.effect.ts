@@ -4,7 +4,7 @@ import { GotchiListingDTO, GotchiListingVM, GotchiListingsFilters, GotchiListing
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
 import { GraphFiltersUtils } from 'utils';
 
-import { GotchiListingsFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, GotchiListingsFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
     loadGotchisListings,
@@ -12,6 +12,7 @@ import {
     loadGotchisListingsFailed,
     setGotchisListingsFilters,
     setGotchisListingsSorting,
+    setGotchisListingsPreviousSortingProp,
     setGotchisListingsSkipLimit,
     setGotchisListingsIsSortingUpdated,
     setGotchisListingsIsFiltersUpdated,
@@ -63,6 +64,19 @@ export const onLoadBaazaarGotchisListings = (): AppThunk => (dispatch, getState)
         dispatch(loadBaazaarGotchisListings(true));
     }
 };
+
+export const onSetGotchisListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.gotchis.gotchisListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setGotchisListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setGotchisListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateGotchiListingsFilterByKey =
     ({ key, value }: { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

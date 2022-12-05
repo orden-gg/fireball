@@ -3,7 +3,7 @@ import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingIte
 import { EthersApi } from 'api';
 import { GraphFiltersUtils } from 'utils';
 
-import { ClosedPortalListingFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, ClosedPortalListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ClosedPortaListingFiltersType, ClosedPortalListingDTO, ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
 import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
@@ -12,6 +12,7 @@ import {
     loadClosedPortalsListingsSucceded,
     loadClosedPortalsListingsFailed,
     setClosedPortalsListingsSorting,
+    setClosedPortalsListingsPreviousSortingProp,
     setClosedPortalsListingsSkipLimit,
     setClosedPortalsListingsFilters,
     setClosedPortalsListingsIsSortingUpdated,
@@ -64,6 +65,19 @@ export const onLoadBaazaarClosedPortalsListings = (): AppThunk => (dispatch, get
         dispatch(loadBaazaarClosedPortalsListings(true));
     }
 };
+
+export const onSetClosedPortalsListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.closedPortals.closedPortalsListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setClosedPortalsListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setClosedPortalsListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateClosedPortalsListingsFilterByKey =
     ({ key, value }: { key: ClosedPortalListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

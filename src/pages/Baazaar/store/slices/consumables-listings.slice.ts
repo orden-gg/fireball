@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
-import { consumableListingFiltersData } from '../../static/filters';
+import { consumableListingFilters } from '../../static/filters';
 
 export interface ConsumablesListingsState {
     consumablesListings: {
@@ -18,6 +18,7 @@ export interface ConsumablesListingsState {
     consumablesListingsGraphQueryParams: GraphQueryParams;
     consumablesListingsDefaultSorting: SortingItem;
     consumablesListingsSorting: SortingItem;
+    consumablesListingsPreviousSortingProp: string;
     consumablesListingsIsSortingUpdated: boolean;
     consumablesListingsFilters: ConsumableListingFilters;
     consumablesListingsIsFiltersUpdated: boolean;
@@ -44,12 +45,13 @@ const initialState: ConsumablesListingsState = {
     },
     consumablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     consumablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    consumablesListingsPreviousSortingProp: '',
     consumablesListingsIsSortingUpdated: false,
-    consumablesListingsFilters: consumableListingFiltersData,
+    consumablesListingsFilters: consumableListingFilters,
     consumablesListingsIsFiltersUpdated: false,
     consumablesListingsQueryParamsOrder: [
-        consumableListingFiltersData.rarityLevel.queryParamKey,
-        consumableListingFiltersData.priceInWei.queryParamKey,
+        consumableListingFilters.rarityLevel.queryParamKey,
+        consumableListingFilters.priceInWei.queryParamKey,
         'sort',
         'dir'
     ]
@@ -98,6 +100,9 @@ export const consumablesListingsSlice = createSlice({
             state.consumablesListingsGraphQueryParams.orderBy = action.payload.type;
             state.consumablesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setConsumablesListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.consumablesListingsPreviousSortingProp = action.payload;
+        },
         setConsumablesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.consumablesListingsIsSortingUpdated = action.payload;
         },
@@ -118,6 +123,7 @@ export const {
     resetConsumablesListings,
     setConsumablesListingsSkipLimit,
     setConsumablesListingsSorting,
+    setConsumablesListingsPreviousSortingProp,
     setConsumablesListingsIsSortingUpdated,
     setConsumablesListingsFilters,
     setConsumablesListingsIsFiltersUpdated

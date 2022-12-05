@@ -71,6 +71,10 @@ export function BaazaarTiles() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setTilesListingsPreviousSortingProp(tilesListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetTilesListingsData());
         };
@@ -111,7 +115,7 @@ export function BaazaarTiles() {
     }, [tilesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setTilesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetTilesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

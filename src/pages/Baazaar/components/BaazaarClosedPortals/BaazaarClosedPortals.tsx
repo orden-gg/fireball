@@ -71,6 +71,10 @@ export function BaazaarClosedPortals() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setClosedPortalsListingsPreviousSortingProp(closedPortalsListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetClosedPortalsData());
         };
@@ -113,7 +117,7 @@ export function BaazaarClosedPortals() {
     }, [closedPortalsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetClosedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {
