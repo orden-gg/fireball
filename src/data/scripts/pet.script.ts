@@ -76,12 +76,12 @@ MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRE
                 MAIN_CONTRACT_WITH_SIGNER.interact(gotchiIds, {
                     gasPrice: gasPriceGwei
                 }).then((tx: ContractTransaction) => {
-                    console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com//tx/${tx.hash}`);
+                    console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
 
                     // ! wait for pet transaction to display result
                     tx.wait()
                         .then(() => {
-                            console.log(paint('Folowing gotchis are happy:', CONSOLE_COLORS.Green));
+                            console.log(paint('Folowing gotchis are happy:', CONSOLE_COLORS.Pink));
                             console.log(gotchis.map((gotchi) => `${gotchi.gotchiId}: ${gotchi.name}`));
                         })
                         .catch((error: any) =>
