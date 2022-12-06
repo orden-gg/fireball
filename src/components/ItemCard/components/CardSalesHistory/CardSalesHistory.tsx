@@ -6,7 +6,11 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { styles } from './styles';
 
 interface CardSalesHistoryProps {
-    listing: any,
+    listing: {
+        seller: string;
+        buyer: string;
+        timePurchased: number;
+    },
     className?: string
 }
 
@@ -14,13 +18,13 @@ export function CardSalesHistory({ listing, className }: CardSalesHistoryProps) 
     const classes = styles();
 
     return (
-        <div className={classNames(className, classes.historyWrapper)}>
+        <div className={classNames(classes.historyWrapper, className)}>
             <div className={classes.historyRow}>
                 <div className={classes.historyTitle}>
                     time:
                 </div>
                 <div className={classes.historyInner}>
-                    {DateTime.fromSeconds(parseInt(listing.timePurchased)).toRelative()}
+                    {DateTime.fromSeconds(listing.timePurchased).toRelative()}
                 </div>
             </div>
             <div className={classes.historyRow}>

@@ -56,4 +56,7 @@ export interface GotchiVM extends GotchiBase {
         id: number;
         priceInWei: string;
     }[];
+    buyer?: string;
+    seller?: string;
+    timePurchased?: number;
 }

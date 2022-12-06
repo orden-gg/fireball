@@ -6,13 +6,13 @@ export interface ActivityPortalListingBase {
     hauntId: string;
     category: Erc721Categories;
     priceInWei: string;
-    timePurchased: string;
     seller: string;
     buyer: string;
     __typename: TypenameType;
 }
 
 export interface ActivityPortalListingDTO extends ActivityPortalListingBase {
+    timePurchased: string;
     portal: {
         historicalPrices: string[];
     };
@@ -21,4 +21,5 @@ export interface ActivityPortalListingDTO extends ActivityPortalListingBase {
 export interface ActivityPortalListingVM extends ActivityPortalListingBase {
     historicalPrices: string[];
     listingPrice: number;
+    timePurchased: number;
 }

@@ -270,8 +270,6 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
         )
             {
                 id
-                tokenId
-                category
                 priceInWei
                 seller
                 buyer
