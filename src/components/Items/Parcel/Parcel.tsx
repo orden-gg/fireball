@@ -3,6 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
+import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
@@ -94,6 +95,17 @@ export function Parcel({ parcel }: { parcel: any }) {
                 </div>
 
                 <ParcelName parcel={parcel} />
+
+                {parcel.timePurchased &&
+                    <CardSalesHistory
+                        className={classes.history}
+                        listing={{
+                            seller: parcel.seller,
+                            buyer: parcel.buyer,
+                            timePurchased: parcel.timePurchased
+                        }}
+                    />
+                }
 
                 { parcel.channeling && (
                     <ChannelingInfo channeling={parcel.channeling} />

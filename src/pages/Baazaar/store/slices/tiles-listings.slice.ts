@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { TileListingFilters, TileListingVM } from '../../models';
-import { tileListingFiltersData } from '../../static/filters';
+import { tileListingFilters } from '../../static/filters';
 
 export interface TilesListingsState {
     tilesListings: {
@@ -18,6 +18,7 @@ export interface TilesListingsState {
     tilesListingsGraphQueryParams: GraphQueryParams;
     tilesListingsDefaultSorting: SortingItem;
     tilesListingsSorting: SortingItem;
+    tilesListingsPreviousSortingProp: string;
     tilesListingsIsSortingUpdated: boolean;
     tilesListingsFilters: TileListingFilters;
     tilesListingsIsFiltersUpdated: boolean;
@@ -44,12 +45,13 @@ const initialState: TilesListingsState = {
     },
     tilesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     tilesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    tilesListingsPreviousSortingProp: '',
     tilesListingsIsSortingUpdated: false,
-    tilesListingsFilters: tileListingFiltersData,
+    tilesListingsFilters: tileListingFilters,
     tilesListingsIsFiltersUpdated: false,
     tilesListingsQueryParamsOrder: [
-        tileListingFiltersData.erc1155TypeId.queryParamKey,
-        tileListingFiltersData.priceInWei.queryParamKey,
+        tileListingFilters.erc1155TypeId.queryParamKey,
+        tileListingFilters.priceInWei.queryParamKey,
         'sort',
         'dir'
     ]
@@ -98,6 +100,9 @@ export const tilesListingsSlice = createSlice({
             state.tilesListingsGraphQueryParams.orderBy = action.payload.type;
             state.tilesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setTilesListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.tilesListingsPreviousSortingProp = action.payload;
+        },
         setTilesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.tilesListingsIsSortingUpdated = action.payload;
         },
@@ -118,6 +123,7 @@ export const {
     resetTilesListings,
     setTilesListingsSkipLimit,
     setTilesListingsSorting,
+    setTilesListingsPreviousSortingProp,
     setTilesListingsIsSortingUpdated,
     setTilesListingsFilters,
     setTilesListingsIsFiltersUpdated

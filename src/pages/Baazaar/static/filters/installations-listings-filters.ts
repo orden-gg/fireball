@@ -9,7 +9,7 @@ import {
 import { WearableListingFilterTypes } from '../../constants';
 import { InstallationListingFilters } from '../../models';
 
-export const installationListingFiltersData: InstallationListingFilters = {
+export const installationListingFilters: InstallationListingFilters = {
     [WearableListingFilterTypes.Price]: {
         key: `${[WearableListingFilterTypes.Price]}`,
         queryParamKey: 'price',

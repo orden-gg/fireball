@@ -47,7 +47,7 @@ export function BaazaarGotchis() {
     const isGotchisListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsLoading);
     const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getGotchisListingsGraphQueryParams);
     const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(fromBaazaarStore.getGotchisListingsFilters);
-    const gotchisDefaultListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisDefaultListingsSorting);
+    const gotchisListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisDefaultListingsSorting);
     const gotchisListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisListingsSorting);
     const gotchisListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getGotchisListingsLimitPerLoad);
     const gotchisListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getGotchisListingsQueryParamsOrder);
@@ -68,6 +68,10 @@ export function BaazaarGotchis() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setGotchisListingsPreviousSortingProp(gotchisListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetGotchiListingsData());
         };
@@ -82,8 +86,8 @@ export function BaazaarGotchis() {
 
         if (paramKey) {
             if (
-                gotchisListingsSorting.dir === gotchisDefaultListingsSorting.dir &&
-                gotchisListingsSorting.type === gotchisDefaultListingsSorting.type
+                gotchisListingsSorting.dir === gotchisListingsDefaultSorting.dir &&
+                gotchisListingsSorting.type === gotchisListingsDefaultSorting.type
             ) {
                 delete params['sort'];
                 delete params['dir'];
@@ -108,7 +112,7 @@ export function BaazaarGotchis() {
     }, [gotchisListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setGotchisListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetGotchisListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

@@ -15,6 +15,7 @@ export interface OpenedPortalsListingsState {
     };
     openedPortalsListingsDefaultSorting: SortingItem;
     openedPortalsListingsSorting: SortingItem;
+    openedPortalsPreviousSortingProp: string;
     openedPortalsListingsQueryParamsOrder: string[];
 }
 
@@ -28,6 +29,7 @@ const initialState: OpenedPortalsListingsState = {
     },
     openedPortalsListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     openedPortalsListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    openedPortalsPreviousSortingProp: '',
     openedPortalsListingsQueryParamsOrder: [
         openedPortalListingsFilters.hauntId.queryParamKey,
         openedPortalListingsFilters.collateral.queryParamKey,
@@ -82,6 +84,9 @@ export const openedPortalsListingsSlice = createSlice({
         },
         setOpenedPortalsListingsSorting: (state, action: PayloadAction<SortingItem>): void => {
             state.openedPortalsListingsSorting = action.payload;
+        },
+        setOpenedPortalsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.openedPortalsPreviousSortingProp = action.payload;
         }
     }
 });
@@ -92,7 +97,8 @@ export const {
     loadOpenedPortalsListingsFailed,
     setOpenedPortalsListings,
     resetOpenedPortalsListings,
-    setOpenedPortalsListingsSorting
+    setOpenedPortalsListingsSorting,
+    setOpenedPortalsPreviousSortingProp
 } = openedPortalsListingsSlice.actions;
 
 export const openedPortalsListingsReducer = openedPortalsListingsSlice.reducer;

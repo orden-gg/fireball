@@ -4,7 +4,7 @@ import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
-import { gotchiListingsFiltersData } from '../../static/filters';
+import { gotchiListingsFilters } from '../../static/filters';
 
 export interface GotchisListingsState {
     gotchisListings: {
@@ -18,6 +18,7 @@ export interface GotchisListingsState {
     gotchisListingsGraphQueryParams: GraphQueryParams;
     gotchisListingsDefaultSorting: SortingItem;
     gotchisListingsSorting: SortingItem;
+    gotchisListingsPreviousSortingProp: string;
     gotchisListingsIsSortingUpdated: boolean;
     gotchisListingsFilters: GotchiListingsFilters;
     gotchisListingsIsFiltersUpdated: boolean;
@@ -44,21 +45,22 @@ const initialState: GotchisListingsState = {
     },
     gotchisListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     gotchisListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    gotchisListingsPreviousSortingProp: '',
     gotchisListingsIsSortingUpdated: false,
-    gotchisListingsFilters: gotchiListingsFiltersData,
+    gotchisListingsFilters: gotchiListingsFilters,
     gotchisListingsIsFiltersUpdated: false,
     gotchisListingsQueryParamsOrder: [
-        gotchiListingsFiltersData.baseRarityScore.queryParamKey,
-        gotchiListingsFiltersData.kinship.queryParamKey,
-        gotchiListingsFiltersData.experience.queryParamKey,
-        gotchiListingsFiltersData.collateral.queryParamKey,
-        gotchiListingsFiltersData.priceInWei.queryParamKey,
-        gotchiListingsFiltersData.nrgTrait.queryParamKey,
-        gotchiListingsFiltersData.aggTrait.queryParamKey,
-        gotchiListingsFiltersData.spkTrait.queryParamKey,
-        gotchiListingsFiltersData.brnTrait.queryParamKey,
-        gotchiListingsFiltersData.eysTrait.queryParamKey,
-        gotchiListingsFiltersData.eycTrait.queryParamKey,
+        gotchiListingsFilters.baseRarityScore.queryParamKey,
+        gotchiListingsFilters.kinship.queryParamKey,
+        gotchiListingsFilters.experience.queryParamKey,
+        gotchiListingsFilters.collateral.queryParamKey,
+        gotchiListingsFilters.priceInWei.queryParamKey,
+        gotchiListingsFilters.nrgTrait.queryParamKey,
+        gotchiListingsFilters.aggTrait.queryParamKey,
+        gotchiListingsFilters.spkTrait.queryParamKey,
+        gotchiListingsFilters.brnTrait.queryParamKey,
+        gotchiListingsFilters.eysTrait.queryParamKey,
+        gotchiListingsFilters.eycTrait.queryParamKey,
         'sort',
         'dir'
     ]
@@ -107,6 +109,9 @@ export const gotchisListingsSlice = createSlice({
             state.gotchisListingsGraphQueryParams.orderBy = action.payload.type;
             state.gotchisListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setGotchisListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.gotchisListingsPreviousSortingProp = action.payload;
+        },
         setGotchisListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.gotchisListingsIsSortingUpdated = action.payload;
         },
@@ -127,6 +132,7 @@ export const {
     resetGotchisListings,
     setGotchisListingsSkipLimit,
     setGotchisListingsSorting,
+    setGotchisListingsPreviousSortingProp,
     setGotchisListingsIsSortingUpdated,
     setGotchisListingsFilters,
     setGotchisListingsIsFiltersUpdated

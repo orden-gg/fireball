@@ -4,7 +4,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { WearableListingFilters, WearableListingVM } from '../../models';
-import { wearableListingFiltersData } from '../../static/filters';
+import { wearableListingFilters } from '../../static/filters';
 
 export interface WearablesListingsState {
     wearablesListings: {
@@ -18,6 +18,7 @@ export interface WearablesListingsState {
     wearablesListingsGraphQueryParams: GraphQueryParams;
     wearablesListingsDefaultSorting: SortingItem;
     wearablesListingsSorting: SortingItem;
+    wearablesListingsPreviousSortingProp: string;
     wearablesListingsIsSortingUpdated: boolean;
     wearablesListingsFilters: WearableListingFilters;
     wearablesListingsIsFiltersUpdated: boolean;
@@ -44,16 +45,17 @@ const initialState: WearablesListingsState = {
     },
     wearablesListingsDefaultSorting: { type: 'timeCreated', dir: 'desc' },
     wearablesListingsSorting: { type: 'timeCreated', dir: 'desc' },
+    wearablesListingsPreviousSortingProp: '',
     wearablesListingsIsSortingUpdated: false,
-    wearablesListingsFilters: wearableListingFiltersData,
+    wearablesListingsFilters: wearableListingFilters,
     wearablesListingsIsFiltersUpdated: false,
     wearablesListingsQueryParamsOrder: [
-        wearableListingFiltersData.rarityLevel.queryParamKey,
-        wearableListingFiltersData.priceInWei.queryParamKey,
-        wearableListingFiltersData.nrgTraitModifier.queryParamKey,
-        wearableListingFiltersData.aggTraitModifier.queryParamKey,
-        wearableListingFiltersData.spkTraitModifier.queryParamKey,
-        wearableListingFiltersData.brnTraitModifier.queryParamKey,
+        wearableListingFilters.rarityLevel.queryParamKey,
+        wearableListingFilters.priceInWei.queryParamKey,
+        wearableListingFilters.nrgTraitModifier.queryParamKey,
+        wearableListingFilters.aggTraitModifier.queryParamKey,
+        wearableListingFilters.spkTraitModifier.queryParamKey,
+        wearableListingFilters.brnTraitModifier.queryParamKey,
         'sort',
         'dir'
     ]
@@ -102,6 +104,9 @@ export const wearablesListingsSlice = createSlice({
             state.wearablesListingsGraphQueryParams.orderBy = action.payload.type;
             state.wearablesListingsGraphQueryParams.orderDirection = action.payload.dir;
         },
+        setWearablesListingsPreviousSortingProp: (state, action: PayloadAction<string>): void => {
+            state.wearablesListingsPreviousSortingProp = action.payload;
+        },
         setWearablesListingsIsSortingUpdated: (state, action: PayloadAction<boolean>): void => {
             state.wearablesListingsIsSortingUpdated = action.payload;
         },
@@ -122,6 +127,7 @@ export const {
     resetWearablesListings,
     setWearablesListingsSkipLimit,
     setWearablesListingsSorting,
+    setWearablesListingsPreviousSortingProp,
     setWearablesListingsIsSortingUpdated,
     setWearablesListingsFilters,
     setWearablesListingsIsFiltersUpdated

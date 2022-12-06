@@ -71,12 +71,12 @@ export function Baazaar() {
             isShowSubRoutes: true,
             subNavComponent: <SubNav links={[
                 {
-                    path: 'activity/portals',
-                    icon: <H1SealedPortalIcon width={24} height={24} />
-                },
-                {
                     path: 'activity/gotchis',
                     icon: <GotchiIcon width={24} height={24} />
+                },
+                {
+                    path: 'activity/portals',
+                    icon: <H1SealedPortalIcon width={24} height={24} />
                 },
                 {
                     path: 'activity/parcels',

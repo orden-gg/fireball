@@ -70,6 +70,10 @@ export function BaazaarWearables() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setWearablesListingsPreviousSortingProp(wearablesListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetWearablesListingsData());
         };
@@ -110,7 +114,7 @@ export function BaazaarWearables() {
     }, [wearablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setWearablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetWearablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

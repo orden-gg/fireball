@@ -2,7 +2,7 @@ import { AppThunk } from 'core/store/store';
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
 import { GraphFiltersUtils } from 'utils';
 
-import { ParcelListingFilterTypes } from '../../constants';
+import { ASCENDING_DIRECTION, ParcelListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
 import { getBaazaarParcelsListingsQuery } from '../../queries';
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
@@ -15,6 +15,7 @@ import {
     setParcelsListingsIsSortingUpdated,
     setParcelsListingsSkipLimit,
     setParcelsListingsSorting,
+    setParcelsListingsPreviousSortingProp,
     setIsParcelsListingsInitialDataLoading,
     resetParcelsListings
 } from '../slices';
@@ -62,6 +63,19 @@ export const onLoadBaazaarParcelsListings = (): AppThunk => (dispatch, getState)
         dispatch(loadBaazaarParcelsListings(true));
     }
 };
+
+export const onSetParcelsListingsSorting = (sort: SortingItem): AppThunk =>
+    (dispatch, getState) => {
+        let direction: string = sort.dir;
+        const previousSortingProp: string = getState().baazaar.parcels.parcelsListingsPreviousSortingProp;
+
+        if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+            direction = ASCENDING_DIRECTION;
+        }
+
+        dispatch(setParcelsListingsSorting({ type: sort.type, dir: direction }));
+        dispatch(setParcelsListingsPreviousSortingProp(sort.type));
+    };
 
 export const updateParcelsListingsFilterByKey =
     ({ key, value }: { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }): AppThunk =>

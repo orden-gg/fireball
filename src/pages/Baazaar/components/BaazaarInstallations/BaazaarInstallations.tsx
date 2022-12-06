@@ -58,8 +58,6 @@ export function BaazaarInstallations() {
     const installationsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getInstallationsListingsQueryParamsOrder);
 
     useEffect(() => {
-        dispatch(fromBaazaarStore.loadBaazaarInstallationsListings());
-
         const updatedFilters: InstallationListingFilters =
             GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...installationsListingsFilters });
         dispatch(fromBaazaarStore.setInstallationsListingsFilters(updatedFilters));
@@ -73,6 +71,10 @@ export function BaazaarInstallations() {
             if (key) {
                 onSortingChange(key, dir as string);
             }
+        }
+
+        if (!sort) {
+            dispatch(fromBaazaarStore.setInstallationsListingsPreviousSortingProp(installationsListingsDefaultSorting.type));
         }
 
         return () => {
@@ -115,7 +117,7 @@ export function BaazaarInstallations() {
     }, [installationsListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setInstallationsListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetInstallationsListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

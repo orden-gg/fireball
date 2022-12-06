@@ -70,6 +70,10 @@ export function BaazaarConsumables() {
             }
         }
 
+        if (!sort) {
+            dispatch(fromBaazaarStore.setConsumablesListingsPreviousSortingProp(consumablesListingsDefaultSorting.type));
+        }
+
         return () => {
             dispatch(fromBaazaarStore.resetConsumablesListingsData());
         };
@@ -110,7 +114,7 @@ export function BaazaarConsumables() {
     }, [consumablesListingsSorting]);
 
     const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.setConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
+        dispatch(fromBaazaarStore.onSetConsumablesListingsSorting({ type: sortBy, dir: sortDir }));
     };
 
     const onHandleReachedEnd = (): void => {

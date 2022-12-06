@@ -106,19 +106,21 @@ export const resetActivityParcelsData = (): AppThunk =>
 
 const mapActivityParcelsDTOToVM = (listings: ActivityParcelListingDTO[]): ActivityParcelListingVM[] => {
     return listings.map((listing: ActivityParcelListingDTO) => ({
+        ...listing,
         ...listing.parcel,
+        id: listing.id,
+        coordinateX: Number(listing.parcel.coordinateX),
+        coordinateY: Number(listing.parcel.coordinateY),
+        fudBoost: Number(listing.parcel.fudBoost),
+        fomoBoost: Number(listing.parcel.fomoBoost),
+        alphaBoost: Number(listing.parcel.alphaBoost),
+        kekBoost: Number(listing.parcel.kekBoost),
+        timesTraded: Number(listing.parcel.timesTraded),
+        listings: [{
             id: listing.id,
-            coordinateX: Number(listing.parcel.coordinateX),
-            coordinateY: Number(listing.parcel.coordinateY),
-            fudBoost: Number(listing.parcel.fudBoost),
-            fomoBoost: Number(listing.parcel.fomoBoost),
-            alphaBoost: Number(listing.parcel.alphaBoost),
-            kekBoost: Number(listing.parcel.kekBoost),
-            timesTraded: Number(listing.parcel.timesTraded),
-            listings: [{
-                id: listing.id,
-                priceInWei: listing.priceInWei
-            }],
-            historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : []
+            priceInWei: listing.priceInWei
+        }],
+        historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
+        timePurchased: Number(listing.timePurchased)
     }));
 };

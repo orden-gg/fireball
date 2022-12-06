@@ -17,7 +17,7 @@ import {
 } from '../../constants';
 import { TileListingFilters } from '../../models';
 
-export const tileListingFiltersData: TileListingFilters = {
+export const tileListingFilters: TileListingFilters = {
     [TileListingFilterTypes.Erc1155TypeId]: {
         key: `${[TileListingFilterTypes.Erc1155TypeId]}`,
         queryParamKey: 'tileType',

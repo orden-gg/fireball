@@ -109,6 +109,7 @@ const mapActivityPortalsDTOToVM = (listings: ActivityPortalListingDTO[]): Activi
     return listings.map((listing: ActivityPortalListingDTO) => ({
         ...listing,
         historicalPrices: listing.portal.historicalPrices,
-        listingPrice: EthersApi.fromWei(listing.priceInWei)
+        listingPrice: EthersApi.fromWei(listing.priceInWei),
+        timePurchased: Number(listing.timePurchased)
     }));
 };

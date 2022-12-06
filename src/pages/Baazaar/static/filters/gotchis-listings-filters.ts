@@ -12,7 +12,7 @@ import { collaterals } from 'data/collaterals.data';
 import { GotchiListingsFilterTypes } from '../../constants';
 import { GotchiListingsFilters } from '../../models';
 
-export const gotchiListingsFiltersData: GotchiListingsFilters = {
+export const gotchiListingsFilters: GotchiListingsFilters = {
     [GotchiListingsFilterTypes.BRS]: {
         key: `${[GotchiListingsFilterTypes.BRS]}`,
         title: 'BRS',

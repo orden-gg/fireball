@@ -122,6 +122,7 @@ export function BaazaarActivityGotchis() {
                                         items: ['badges']
                                     },
                                     'wearablesLine',
+                                    'saleHistory',
                                     'listing'
                                 ]}
                             />

@@ -137,7 +137,10 @@ const mapActivityGotchisDTOToVM = (listings: ActivityGotchiListingDTO[]): Activi
             listings: [{
                 id: Number(listing.id),
                 priceInWei: listing.priceInWei
-            }]
+            }],
+            buyer: listing.buyer,
+            seller: listing.seller,
+            timePurchased: Number(listing.timePurchased)
         }
     }));
 };

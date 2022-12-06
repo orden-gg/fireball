@@ -10,7 +10,7 @@ import {
 import { ConsumableListingFilterTypes } from '../../constants';
 import { ConsumableListingFilters } from '../../models';
 
-export const consumableListingFiltersData: ConsumableListingFilters = {
+export const consumableListingFilters: ConsumableListingFilters = {
     [ConsumableListingFilterTypes.RarityLevel]: {
         key: `${[ConsumableListingFilterTypes.RarityLevel]}`,
         queryParamKey: 'rarity',

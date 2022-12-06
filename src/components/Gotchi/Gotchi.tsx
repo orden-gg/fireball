@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GotchiverseUtils } from 'utils';
 
+import { CardSalesHistory } from 'components/ItemCard/components';
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
@@ -224,6 +225,19 @@ export function Gotchi({
                     key={`${gotchi.id}-listing`}
                     listings={gotchi.listings}
                     historicalPrices={gotchi.historicalPrices}
+                />
+            );
+        },
+
+        get saleHistory() {
+            return (
+                <CardSalesHistory
+                    key={`${gotchi.id}-saleHistory`}
+                    listing={{
+                        seller: gotchi.seller,
+                        buyer: gotchi.buyer,
+                        timePurchased: gotchi.timePurchased
+                    }}
                 />
             );
         },
