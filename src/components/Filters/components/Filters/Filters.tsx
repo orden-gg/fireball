@@ -1,6 +1,7 @@
 import React from 'react';
 import { Divider } from '@mui/material';
 
+import _ from 'lodash';
 import classNames from 'classnames';
 
 import { FilterComponentType } from 'shared/constants';
@@ -54,7 +55,17 @@ export function Filters({
 
                     break;
                 case FilterComponentType.MultiButtonSelection:
-                    componentToRender = <MultiButtonSelectionFilter {...filterProps} />;
+                    componentToRender = <MultiButtonSelectionFilter
+                        {
+                            ...{
+                                filter: renderFilter,
+                                onSetSelectedFilters: _.debounce((key: string, selectedValue: any) => {
+                                    onSetSelectedFilters(key, selectedValue);
+                                }, 1000),
+                                isDisabled: isFiltersDisabled
+                            }
+                        }
+                    />;
 
                     break;
                 case FilterComponentType.SingleAutocomplete:
