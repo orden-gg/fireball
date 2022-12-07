@@ -949,4 +949,36 @@
             "discord": "https://discord.gg/PHa787WvUR"
         }
     }
+
+ {
+        "name": "School of Aavegotchi",
+        "logo": "SOA.png",
+        "members": [
+            "0x1D0542B616C691a002E90a713e7d094C0f8e022d",
+          
+        ]
+        "description": [
+            
+            { "title": "Description", "text": "Guild that welcomes ambitious farmers looking for FREE gotchis to lease as well as generous farming rights to several large and fast growing farms across the Gotchiverse!" 
+                       
+            },
+            {
+                "title": "Point of Contact",
+                "text": "ALTBAΞ | SOA#6814"
+            },
+                        
+            {
+                "title": "Requirements",
+                "text": "No requirements. Keen for collaboration."
+            }
+                       ],
+
+        "banner": "SOA-banner.png",
+        "socials": { 
+            
+            "twitter": "https://twitter.com/schoolofgotchi/", 
+            "discord": "https://discord.gg/bREYcA2SuX" 
+        },
+       
+    },
 ]
