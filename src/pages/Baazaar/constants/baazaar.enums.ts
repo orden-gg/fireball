@@ -75,6 +75,7 @@ export enum ActivityGotchiListingFilterTypes {
     BRS = 'baseRarityScore',
     Kinship = 'kinship',
     Experience = 'experience',
+    HauntId = 'hauntId',
     Collateral = 'collateral',
     NrgTrait = 'nrgTrait',
     AggTrait = 'aggTrait',

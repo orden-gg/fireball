@@ -6,6 +6,7 @@ export interface ActivityGotchiListingFilters {
     [ActivityGotchiListingFilterTypes.BRS]: GraphInputFilter;
     [ActivityGotchiListingFilterTypes.Kinship]: GraphInputFilter;
     [ActivityGotchiListingFilterTypes.Experience]: GraphInputFilter;
+    [ActivityGotchiListingFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;
     [ActivityGotchiListingFilterTypes.Collateral]: GraphMultiButtonSelectionFilter;
     [ActivityGotchiListingFilterTypes.NrgTrait]: GraphRangeSliderFilter;
     [ActivityGotchiListingFilterTypes.AggTrait]: GraphRangeSliderFilter;
