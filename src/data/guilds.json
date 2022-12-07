@@ -952,7 +952,7 @@
 
  {
         "name": "School of Aavegotchi",
-        "logo": "SOA.png",
+        "logo": "logoSOA.png",
         "members": [
             "0x1D0542B616C691a002E90a713e7d094C0f8e022d",
           
@@ -973,7 +973,7 @@
             }
                        ],
 
-        "banner": "SOA-banner.png",
+        "banner": "",
         "socials": { 
             
             "twitter": "https://twitter.com/schoolofgotchi/", 
