@@ -41,7 +41,7 @@ export function StakePanel({ index, dir }: AutopetPanelProps) {
 
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={stakeState === 'approving' || !availableStake}
+                    disabled={!isStaked}
                     variant='contained'
                     fullWidth
                     size='large'

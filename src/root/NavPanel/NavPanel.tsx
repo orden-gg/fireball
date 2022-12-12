@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom';
 import { Icon } from '@mui/material';
 import StoreIcon from '@mui/icons-material/Store';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PersonIcon from '@mui/icons-material/Person';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import MapIcon from '@mui/icons-material/Map';
@@ -48,14 +47,6 @@ export function NavPanel() {
                             <StoreIcon width={20} height={20} />
                         </Icon>
                         <span className={classes.navItemName}>Market</span>
-                    </NavLink>
-                </div>
-                <div className={classes.navItem}>
-                    <NavLink className={classes.navLink} to='/autopet'>
-                        <Icon className={classes.iconBox}>
-                            <AutorenewIcon width={20} height={20} />
-                        </Icon>
-                        <span className={classes.navItemName}>Autopet</span>
                     </NavLink>
                 </div>
                 <div className={classes.navItem}>

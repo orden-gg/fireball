@@ -38,7 +38,7 @@ export function PetPanel({ index, dir }: AutopetPanelProps) {
             </Typography>
             <div className={classes.panelButtonGroup}>
                 <Button
-                    disabled={petState !== 'approve' || isStaked || !isUserConnected}
+                    disabled={true}
                     variant='contained'
                     fullWidth
                     size='large'

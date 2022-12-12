@@ -69,7 +69,7 @@ export function App() {
                     <TokensPricesContextProvider>
                         <ClientContextProvider>
                             <Helmet>
-                                <title>fireball.gg gotchiverse client</title>
+                                <title>aavegotchi portal #1</title>
                             </Helmet>
 
                             <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>

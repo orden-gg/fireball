@@ -15,20 +15,27 @@ import { styles } from './styles';
 
 export function Footer() {
     const classes = styles();
-    const {
-        isOpen,
-        type,
-        message,
-        onSnackbarClose
-    } = useContext<any>(SnackbarContext);
+    const { isOpen, type, message, onSnackbarClose } = useContext<any>(SnackbarContext);
 
     return (
         <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <div>
-                    <span className={classes.highlight}>v0.42</span>
+                    <span className={classes.highlight}>v0.5</span>
                     <span className={classes.footerCopyright}>
-                        fireball.gg is the <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>open-source</a>, <a href='https://www.aavegotchi.com/' rel='noreferrer' target='_blank'>gotchiverse</a> client by <a href='https://twitter.com/orden_gg' rel='noreferrer' target='_blank'>ordenGG</a>
+                        © fireball.gg ||{' '}
+                        <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
+                            #1 aavegotchi client
+                        </a>{' '}
+                        maintained by ordengg and frens ||{' '}
+                        <a
+                            href='https://www.notion.so/fireball-gg/fireball-DAO-fireball-gg-b26d07a1cae041db82f4237f876828b9'
+                            rel='noreferrer'
+                            target='_blank'
+                        >
+                            {' '}
+                            ❤️‍🔥 fireball gamedao litepaper
+                        </a>
                     </span>
                 </div>
 
@@ -71,37 +78,19 @@ export function Footer() {
                         >
                             <DiscordIcon />
                         </IconButton>
-                        <IconButton
-                            className={classes.btn}
-                            href='https://twitter.com/orden_gg'
-                            target='_blank'
-                        >
+                        <IconButton className={classes.btn} href='https://twitter.com/orden_gg' target='_blank'>
                             <TwitterIcon />
                         </IconButton>
-                        <IconButton
-                            className={classes.btn}
-                            href='https://github.com/orden-gg/fireball'
-                            target='_blank'
-                        >
+                        <IconButton className={classes.btn} href='https://github.com/orden-gg/fireball' target='_blank'>
                             <GitHubIcon />
                         </IconButton>
-                        <div className={classes.socialJoin}>
-                            Join our community!
-                        </div>
+                        <div className={classes.socialJoin}>Join our community!</div>
                     </div>
                 </div>
             </Toolbar>
 
-            <Snackbar
-                open={isOpen}
-                autoHideDuration={3000}
-                onClose={() => onSnackbarClose()}
-            >
-                <Alert
-                    elevation={6}
-                    variant='filled'
-                    severity={type}
-                >
+            <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
+                <Alert elevation={6} variant='filled' severity={type}>
                     {message}
                 </Alert>
             </Snackbar>
