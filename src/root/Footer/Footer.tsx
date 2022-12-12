@@ -30,6 +30,7 @@ export function Footer() {
                         maintained by ordengg and frens ||{' '}
                         <a
                             href='https://www.notion.so/fireball-gg/fireball-DAO-fireball-gg-b26d07a1cae041db82f4237f876828b9'
+                            rel='noreferrer'
                             target='_blank'
                         >
                             {' '}
