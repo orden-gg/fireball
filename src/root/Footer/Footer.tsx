@@ -26,9 +26,9 @@ export function Footer() {
         <Box className={classes.footerWrapper}>
             <Toolbar className={classes.toolbar}>
                 <div>
-                    <span className={classes.highlight}>v0.42</span>
+                    <span className={classes.highlight}>v0.5</span>
                     <span className={classes.footerCopyright}>
-                        fireball.gg is the <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>open-source</a>, <a href='https://www.aavegotchi.com/' rel='noreferrer' target='_blank'>gotchiverse</a> client by <a href='https://twitter.com/orden_gg' rel='noreferrer' target='_blank'>ordenGG</a>
+                    © fireball.gg || <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>#1 aavegotchi client</a> maintained by ordengg and frens || <a href='https://www.notion.so/fireball-gg/fireball-DAO-fireball-gg-b26d07a1cae041db82f4237f876828b9'> ❤️‍🔥 fireball gamedao litepaper</a>
                     </span>
                 </div>
 
