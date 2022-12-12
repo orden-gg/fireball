@@ -64,7 +64,7 @@ export const headerStyles = makeStyles(theme => createStyles({
     warnings: {
         [theme.breakpoints.up('md')]: {
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             '& > div': {
                 flexBasis: `calc(50% - ${theme.spacing(1)})`
             }
