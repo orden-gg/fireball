@@ -12,9 +12,17 @@
 [![](https://img.shields.io/badge/🔥.gg-production-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball.gg/)
 [![](https://img.shields.io/badge/🔥.gg-staging-brightgreen?style=for-the-badge&color=lightsalmon)](https://fireball-staging-ilsbc366ba-ew.a.run.app/)
 
-[fireball.gg](http://fireball.gg) client for [aavegotchi](https://github.com/aavegotchi/aavegotchi-contracts) web3 game protocol. The goal of this project is to embrace value bulding for open on-chain games.
+[fireball.gg](http://fireball.gg) #1 portal for [aavegotchi](https://github.com/aavegotchi/aavegotchi-contracts) protocol
 
-This game framework has completley open license for experiments, pet projects or any small in-game enterprises. We build this project to explore how in-game data can be efficiently & fairly represented. If you are a hackers, data visulizers or coding students and want to explore game in early stages: fork a client, (maybe) change pages according to your or your guilds needs, dive deeper.
+### what is new in 0.5
+
+* change of a software license to business (but 0.4 still can be used with old license)
+* Major client update
+* New marketplace with updated user interface & filters
+* Anvil -- calculate your farm update cost in DAO and GHST
+* glossary -- list of all wearables with effects and stats
+* other bugfixes & improvements
+* fake gotchi gallery & queue
 
 ### 📦 goods inside
 
@@ -56,9 +64,16 @@ For ubuntu & macos only.
 * `yarn deploy:prod` - production deploy
 
 ### review forked PR's
+
 * `git fetch origin pull/<PULL_ID>/head:<YOUR_BRANCH_NAME>`
 
 ### Links
 
-* ordenGG twitter: https://twitter.com/orden_gg
-* ordenGG discord: https://discord.gg/orden
+* fireball twitter: https://twitter.com/fireball_gg
+* ordengg twitter: https://twitter.com/orden_gg
+* ordengg discord: https://discord.gg/orden
+
+### licensing
+
+We will happilly colaborate with a aavegotchi-friendly projects and developers!
+Please contact us in discord or twitter.
