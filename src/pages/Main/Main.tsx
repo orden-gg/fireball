@@ -4,7 +4,16 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { GOTCHI_IDS, LAST_GOTCHI_SCALE, START_ANGLE, H_D, V_D, MAX_GOTCHIS_IN_ROW, MAX_ROWS, EASTER_EGG_VIEW_CHANCE } from 'shared/constants';
+import {
+    GOTCHI_IDS,
+    LAST_GOTCHI_SCALE,
+    START_ANGLE,
+    H_D,
+    V_D,
+    MAX_GOTCHIS_IN_ROW,
+    MAX_ROWS,
+    EASTER_EGG_VIEW_CHANCE
+} from 'shared/constants';
 import { Section } from 'components/Section/Section';
 import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
@@ -13,6 +22,7 @@ import { About } from './components/About';
 import { Team } from './components/Team';
 import { User } from './components/User';
 import { HomeGotchi } from './components/HomeGotchi.';
+import { NavigationCards } from './components/NavigationCards/NavigationCards';
 
 import { styles, bgStyles, teamStyles } from './styles';
 
@@ -36,55 +46,46 @@ export function Main() {
 
         setIsRowsView(isRowsView);
 
-        TheGraphApi.getGotchiesByIds(GOTCHI_IDS).then((response: any) => {
-            if (isMounted) {
-                const gotchis: any[] = response.map(item => item.data.aavegotchi);
+        TheGraphApi.getGotchiesByIds(GOTCHI_IDS)
+            .then((response: any) => {
+                if (isMounted) {
+                    const gotchis: any[] = response.map((item) => item.data.aavegotchi);
 
-                if (isRowsView) {
-                    const modifiedGotchis: any[] = _.cloneDeep(gotchis);
-                    const separatedGotchis: any[] = [
-                        [], [], []
-                    ];
+                    if (isRowsView) {
+                        const modifiedGotchis: any[] = _.cloneDeep(gotchis);
+                        const separatedGotchis: any[] = [[], [], []];
 
-                    for (const gotchi of modifiedGotchis) {
-                        separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
+                        for (const gotchi of modifiedGotchis) {
+                            separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
+                        }
+
+                        separatedGotchis[getAvailableRowIndex(separatedGotchis)].push({
+                            name: 'user'
+                        });
+
+                        setMembersInRow(separatedGotchis);
                     }
 
-                    separatedGotchis[getAvailableRowIndex(separatedGotchis)].push({
-                        name: 'user'
-                    });
-
-                    setMembersInRow(separatedGotchis);
+                    setTeam(gotchis);
                 }
+            })
+            .catch((error) => console.log(error))
+            .finally(() => setIsloaded(true));
 
-                setTeam(gotchis);
-            }
-        })
-        .catch((error) => console.log(error))
-        .finally(() => setIsloaded(true));
-
-        return () => { isMounted = false };
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
-    const renderGotchisRow = (row: number) : JSX.Element => {
+    const renderGotchisRow = (row: number): JSX.Element => {
         const isShowRow: boolean = isLoaded && matches && isRowsView;
 
         if (isShowRow) {
             return (
-                <div className={classNames(
-                        classes.gotchisRow, classes[`gotchisRow${row+1}`],
-                        isLoaded && 'active'
+                <div className={classNames(classes.gotchisRow, classes[`gotchisRow${row + 1}`], isLoaded && 'active')}>
+                    {membersInRow[row].map((gotchi: any, index) =>
+                        gotchi.name !== 'user' ? <HomeGotchi gotchi={gotchi} key={index} /> : <User key={index} />
                     )}
-                >
-                    {
-                        membersInRow[row].map((gotchi: any, index) =>
-                            gotchi.name !== 'user' ? (
-                                <HomeGotchi gotchi={gotchi} key={index} />
-                            ) : (
-                                <User key={index} />
-                            )
-                        )
-                    }
                 </div>
             );
         } else {
@@ -92,7 +93,9 @@ export function Main() {
         }
     };
 
-    const getGotchiStyles = (id: number): {
+    const getGotchiStyles = (
+        id: number
+    ): {
         left: string;
         bottom: string;
         zIndex: number;
@@ -104,7 +107,7 @@ export function Main() {
         const radius: number = (H_D * V_D) / Math.sqrt(H_D * H_D * s * s + V_D * V_D * c * c) / 2;
         const left: number = radius * c;
         const bottom: number = Math.abs(radius * s * 2);
-        const scale: number = (1 - LAST_GOTCHI_SCALE) * Math.abs(left) / 50;
+        const scale: number = ((1 - LAST_GOTCHI_SCALE) * Math.abs(left)) / 50;
 
         return {
             left: left + '%',
@@ -115,10 +118,10 @@ export function Main() {
     };
 
     const getAvailableRowIndex = (array: any[]): number => {
-        let rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
+        let rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS - 1);
 
         while (array[rowIndex].length >= MAX_GOTCHIS_IN_ROW[rowIndex]) {
-            rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS-1);
+            rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS - 1);
         }
 
         return rowIndex;
@@ -126,7 +129,8 @@ export function Main() {
 
     return (
         <div className={classes.content}>
-            <div className={classes.homeBg}>
+            <NavigationCards />
+            {/* <div className={classes.homeBg}>
                 <div className={classNames(classes.flower2, classes.bgPart)}></div>
                 <div className={classNames(classes.flower1, classes.bgPart)}></div>
                 {renderGotchisRow(2)}
@@ -137,37 +141,25 @@ export function Main() {
                 <div className={classNames(classes.smokeClose, classes.bgPart)}></div>
                 <div className={classNames(classes.foreground, classes.bgPart)}></div>
                 {renderGotchisRow(0)}
-                {
-                    isLoaded && matches && !isRowsView &&
+                {isLoaded && matches && !isRowsView && (
                     <div className={classNames(classes.gotchisSemicircle, 'active')}>
-                        {
-                            team.map((gotchi: any, index: number) =>
-                                <div
-                                    className={classes.gotchiBox}
-                                    style={getGotchiStyles(index)}
-                                    key={index}
-                                >
-                                    <HomeGotchi gotchi={gotchi} key={index} />
-                                </div>
-                            )
-                        }
-                        <div
-                            className={classes.gotchiBox}
-                            style={getGotchiStyles(GOTCHI_IDS.length+1)}
-                        >
+                        {team.map((gotchi: any, index: number) => (
+                            <div className={classes.gotchiBox} style={getGotchiStyles(index)} key={index}>
+                                <HomeGotchi gotchi={gotchi} key={index} />
+                            </div>
+                        ))}
+                        <div className={classes.gotchiBox} style={getGotchiStyles(GOTCHI_IDS.length + 1)}>
                             <User />
                         </div>
                     </div>
-                }
+                )}
             </div>
-            {
-                team.length > 0 && !matches && (
-                    <Section backgroundColor='rgb(39, 42, 48)'>
-                        <Team team={team} />
-                    </Section>
-                )
-            }
-            <About isRowsView={isRowsView} matches={matches} />
+            {team.length > 0 && !matches && (
+                <Section backgroundColor='rgb(39, 42, 48)'>
+                    <Team team={team} />
+                </Section>
+            )}
+            <About isRowsView={isRowsView} matches={matches} /> */}
         </div>
     );
 }
