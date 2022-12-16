@@ -77,11 +77,12 @@ MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRE
                     gasPrice: gasPriceGwei
                 }).then((tx: ContractTransaction) => {
                     console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+                    console.log('waiting Tx approval...');
 
                     // ! wait for pet transaction to display result
                     tx.wait()
                         .then(() => {
-                            console.log(paint('Folowing gotchis are happy:', CONSOLE_COLORS.Pink));
+                            console.log(paint('Happy folks:', CONSOLE_COLORS.Pink));
                             console.log(gotchis.map((gotchi) => `${gotchi.gotchiId}: ${gotchi.name}`));
                         })
                         .catch((error: any) =>
