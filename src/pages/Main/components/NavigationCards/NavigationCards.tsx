@@ -1,85 +1,26 @@
-import {
-    AnvilCardIcon,
-    ClientCardIcon,
-    CraftCardIcon,
-    ExplorerCardIcon,
-    FakeGalleryCardIcon,
-    GlossaryCardIcon,
-    GuildsCardIcon,
-    LendCardIcon,
-    MapCardIcon,
-    MarketCardIcon,
-    RafflesCardIcon
-} from 'components/Icons/Icons';
 import { NavLink } from 'react-router-dom';
+
+import { routes } from 'data/routes.data';
 import { styles } from './styles';
-
-interface Route {
-    name: string;
-    icon: JSX.Element;
-    path?: string;
-    description?: string;
-}
-
-const routes: Route[] = [
-    {
-        name: 'client',
-        description: 'explore and analyse on-chain data from aavegotchi protocol',
-        icon: <ClientCardIcon />
-    },
-    {
-        name: 'lend',
-        icon: <LendCardIcon />
-    },
-    {
-        name: 'market',
-        description: 'explore goods sold on the aavegotchi baazar',
-        icon: <MarketCardIcon />
-    },
-    {
-        name: 'guilds',
-        icon: <GuildsCardIcon />
-    },
-    {
-        name: 'raffles',
-        icon: <RafflesCardIcon />
-    },
-    {
-        name: 'map',
-        icon: <MapCardIcon />
-    },
-    {
-        name: 'craft',
-        icon: <CraftCardIcon />
-    },
-    {
-        name: 'anvil',
-        icon: <AnvilCardIcon />
-    },
-    {
-        name: 'explorer',
-        icon: <ExplorerCardIcon />
-    },
-    {
-        name: 'glossary',
-        icon: <GlossaryCardIcon />
-    },
-    {
-        name: 'fake gallery',
-        path: 'fake-gotchis-gallery',
-        description: 'fake gotchis art collection browser',
-        icon: <FakeGalleryCardIcon />
-    }
-];
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
+import { Route } from 'shared/models';
 
 export function NavigationCards() {
     const classes = styles();
 
+    const activeAddress = useAppSelector(getActiveAddress);
+    const clientLink = activeAddress ? `/client/${activeAddress}/gotchis` : 'client';
+
     return (
         <div className={classes.navContainer}>
             <div className={classes.navInner}>
-                {routes.map((route, i) => (
-                    <NavLink to={route.name} className={classes.navCard} key={i}>
+                {routes.map((route: Route, index: number) => (
+                    <NavLink
+                        to={route.name === 'client' ? clientLink : route.path ? route.path : route.name}
+                        className={classes.navCard}
+                        key={index}
+                    >
                         <div className={classes.navCardImage}>
                             {route.icon}
                             <div className={classes.navCardName}>{route.name}</div>

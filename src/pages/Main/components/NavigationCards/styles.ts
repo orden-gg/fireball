@@ -39,6 +39,11 @@ export const styles = makeStyles(() =>
             },
             '&:hover $navCardDescr': {
                 transform: 'none'
+            },
+            '&:hover $navCardName': {
+                textShadow: `0 0 2px ${alpha('#000', 0.6)},
+                            0 0 2px ${alpha('#000', 0.6)},
+                            0 0 2px ${alpha('#000', 0.6)}`
             }
         },
         navCardName: {
@@ -52,6 +57,7 @@ export const styles = makeStyles(() =>
             right: 0,
             left: 0,
             padding: 4,
+            transition: 'all .2s ease-in-out',
             textShadow: `0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)}`
