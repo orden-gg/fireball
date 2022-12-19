@@ -16,8 +16,9 @@ import { styles } from './styles';
 
 interface Route {
     name: string;
-    description: string;
     icon: JSX.Element;
+    path?: string;
+    description?: string;
 }
 
 const routes: Route[] = [
@@ -28,7 +29,6 @@ const routes: Route[] = [
     },
     {
         name: 'lend',
-        description: 'lend description',
         icon: <LendCardIcon />
     },
     {
@@ -38,41 +38,35 @@ const routes: Route[] = [
     },
     {
         name: 'guilds',
-        description: 'guilds description',
         icon: <GuildsCardIcon />
     },
     {
         name: 'raffles',
-        description: 'raffles description',
         icon: <RafflesCardIcon />
     },
     {
         name: 'map',
-        description: 'map description',
         icon: <MapCardIcon />
     },
     {
         name: 'craft',
-        description: 'craft description',
         icon: <CraftCardIcon />
     },
     {
         name: 'anvil',
-        description: 'anvil description',
         icon: <AnvilCardIcon />
     },
     {
         name: 'explorer',
-        description: 'explorer description',
         icon: <ExplorerCardIcon />
     },
     {
         name: 'glossary',
-        description: 'glossary description',
         icon: <GlossaryCardIcon />
     },
     {
-        name: 'fakegallery',
+        name: 'fake gallery',
+        path: 'fake-gotchis-gallery',
         description: 'fake gotchis art collection browser',
         icon: <FakeGalleryCardIcon />
     }
@@ -83,15 +77,17 @@ export function NavigationCards() {
 
     return (
         <div className={classes.navContainer}>
-            {routes.map((route, i) => (
-                <NavLink to={route.name} className={classes.navCard} key={i}>
-                    <div className={classes.navCardImage}>
-                        {route.icon}
-                        <div className={classes.navCardName}>{route.name}</div>
-                    </div>
-                    <div className={classes.navCardDescr}>{route.description}</div>
-                </NavLink>
-            ))}
+            <div className={classes.navInner}>
+                {routes.map((route, i) => (
+                    <NavLink to={route.name} className={classes.navCard} key={i}>
+                        <div className={classes.navCardImage}>
+                            {route.icon}
+                            <div className={classes.navCardName}>{route.name}</div>
+                        </div>
+                        {route.description && <div className={classes.navCardDescr}>{route.description}</div>}
+                    </NavLink>
+                ))}
+            </div>
         </div>
     );
 }

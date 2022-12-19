@@ -8,53 +8,78 @@ export const styles = makeStyles(() =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexWrap: 'wrap',
-            fontSize: `${(16 / 1920) * 100}vw`
+            fontSize: `${(16 / 1920) * 100}vw`,
+            padding: '55px 0',
+            background: '#282537',
+            backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)'
+        },
+        navInner: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap'
         },
         navCard: {
-            background: alpha('#000', 0.15),
-            border: '1px solid transparent',
             margin: '0.5em',
             borderRadius: 4,
             overflow: 'hidden',
             color: 'white',
             textDecoration: 'none',
             textAlign: 'center',
-            width: '18em',
-            transition: 'background .2s ease-in-out',
+            width: '15em',
+            position: 'relative',
             '& img': {
                 display: 'block',
-                width: '100%'
+                width: '100%',
+                transform: 'translate3d(0, 0, 0)',
+                backfaceVisibility: 'hidden'
             },
-            '&:hover': {
-                background: alpha('#000', 0.3)
+            '&:hover img': {
+                animation: '$shake 0.82s cubic-bezier(.36,.07,.19,.97) both'
+            },
+            '&:hover $navCardDescr': {
+                transform: 'none'
             }
         },
         navCardName: {
             fontFamily: 'Amatic SC, cursive',
             fontSize: '2em',
-            color: 'gold',
+            fontWeight: 700,
+            color: 'snow',
             lineHeight: 1,
             position: 'absolute',
-            bottom: 0,
+            top: 0,
             right: 0,
             left: 0,
-            padding: 8,
+            padding: 4,
             textShadow: `0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)}`
         },
         navCardImage: {
-            position: 'relative'
+            position: 'relative',
+            overflow: 'hidden'
         },
         navCardDescr: {
-            minHeight: '5.5em',
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            left: 0,
             padding: 8,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
-            // width: '100%'
-            // fontSize: 16
+            justifyContent: 'center',
+            background: alpha('#000', 0.75),
+            transform: 'translateY(100%)',
+            transition: 'all .2s ease-in-out'
+        },
+        '@keyframes shake': {
+            '30%, 50%, 70%': {
+                transform: 'scale(1.025) translate3d(-1px, 0, 0)'
+            },
+            '40%, 60%': {
+                transform: 'scale(1.025) translate3d(1px, 0, 0)'
+            }
         }
     })
 );
