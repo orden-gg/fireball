@@ -40,11 +40,10 @@ export const styles = makeStyles((theme) =>
             '& img': {
                 display: 'block',
                 width: '100%',
-                transform: 'translate3d(0, 0, 0)',
-                backfaceVisibility: 'hidden'
+                transition: 'transform .3s ease-in-out'
             },
             '&:hover img': {
-                animation: '$shake 0.82s cubic-bezier(.36,.07,.19,.97) both'
+                transform: 'scale(1.03)'
             },
             '&:hover $navCardDescr': {
                 transform: 'none'
@@ -81,14 +80,6 @@ export const styles = makeStyles((theme) =>
             background: alpha('#000', 0.75),
             transform: 'translateY(100%)',
             transition: 'all .2s ease-in-out'
-        },
-        '@keyframes shake': {
-            '30%, 50%, 70%': {
-                transform: 'scale(1.025) translate3d(-1px, 0, 0)'
-            },
-            '40%, 60%': {
-                transform: 'scale(1.025) translate3d(1px, 0, 0)'
-            }
         }
     })
 );

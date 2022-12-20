@@ -24,7 +24,9 @@ export function NavPanel() {
                             to={route.name === 'client' ? clientLink : route.path ? route.path : route.name}
                         >
                             <div className={classes.iconBox}>{route.icon}</div>
-                            <span className={classes.navItemName}>{route.name}</span>
+                            <div className={classes.navItemName}>
+                                <span>{route.name}</span>
+                            </div>
                         </NavLink>
                     </div>
                 ))}
