@@ -9,7 +9,7 @@ export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
     const classes = styles();
 
     return (
-        <ImageList variant='masonry' cols={8} gap={4} className={classes.fakeGotchiGalleryList}>
+        <ImageList variant='masonry' cols={6} gap={4} className={classes.fakeGotchiGalleryList}>
             {items.map((item: GalleryFakeGotchi, index: number) => (
                 <div className={classes.fakeGotchiGalleryItem} key={index}>
                     <img

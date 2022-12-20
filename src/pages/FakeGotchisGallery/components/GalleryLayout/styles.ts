@@ -6,10 +6,10 @@ export const styles = makeStyles((theme) =>
         fakeGotchiGalleryList: {
             margin: 0,
             [theme.breakpoints.down('lg')]: {
-                columnCount: '6 !important'
+                columnCount: '4 !important'
             },
             [theme.breakpoints.down('md')]: {
-                columnCount: '4 !important'
+                columnCount: '3 !important'
             },
             [theme.breakpoints.down('sm')]: {
                 columnCount: '2 !important'
