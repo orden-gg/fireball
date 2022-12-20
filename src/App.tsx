@@ -90,7 +90,7 @@ export function App() {
                                         <Route path='' element={<Main />} />
                                         <Route path='anvil' element={<Anvil />} />
                                         <Route path='market/*' element={<Baazaar />} />
-                                        <Route path='lend' element={<Lend />} />
+                                        <Route path='lendings' element={<Lend />} />
                                         <Route path='explorer' element={<GhostExplorer />} />
                                         <Route path='autopet' element={<Autopet />} />
                                         <Route path='guilds/*' element={<Guilds />} />

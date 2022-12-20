@@ -20,7 +20,7 @@ export const routes: Route[] = [
         icon: <ClientCardIcon />
     },
     {
-        name: 'lend',
+        name: 'lendings',
         icon: <LendCardIcon />
     },
     {

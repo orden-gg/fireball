@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(() =>
+export const styles = makeStyles((theme) =>
     createStyles({
         navContainer: {
             minHeight: '100vh',
@@ -9,9 +9,18 @@ export const styles = makeStyles(() =>
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: `${(16 / 1920) * 100}vw`,
-            padding: '55px 0',
+            padding: '55px 10px',
             background: '#282537',
-            backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)'
+            backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)',
+            [theme.breakpoints.down('lg')]: {
+                fontSize: `${(22 / 1920) * 100}vw`
+            },
+            [theme.breakpoints.down('md')]: {
+                fontSize: `${(28 / 1920) * 100}vw`
+            },
+            [theme.breakpoints.down('sm')]: {
+                fontSize: `${(40 / 1920) * 100}vw`
+            }
         },
         navInner: {
             display: 'flex',
@@ -39,11 +48,6 @@ export const styles = makeStyles(() =>
             },
             '&:hover $navCardDescr': {
                 transform: 'none'
-            },
-            '&:hover $navCardName': {
-                textShadow: `0 0 2px ${alpha('#000', 0.6)},
-                            0 0 2px ${alpha('#000', 0.6)},
-                            0 0 2px ${alpha('#000', 0.6)}`
             }
         },
         navCardName: {
@@ -57,7 +61,6 @@ export const styles = makeStyles(() =>
             right: 0,
             left: 0,
             padding: 4,
-            transition: 'all .2s ease-in-out',
             textShadow: `0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)},
                         0 0 2px ${alpha('#000', 0.5)}`

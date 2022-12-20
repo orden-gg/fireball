@@ -6,15 +6,19 @@ export const styles = makeStyles((theme) =>
         container: {
             position: 'fixed',
             top: '50%',
-            left: 0,
+            left: -60,
             transform: 'translateY(-50%)',
             zIndex: theme.zIndex.appBar + 10,
-            backgroundColor: alpha(theme.palette.background.paper, 0.8),
+            background: theme.palette.secondary.dark,
             borderRadius: '0 5px 5px 0',
-            boxShadow: `0 0 5px 0 ${alpha(theme.palette.common.black, 0.5)}`
+            boxShadow: `0 0 5px 0 ${alpha(theme.palette.common.black, 0.5)}`,
+            transition: 'left .3s ease-in-out',
+            '&:hover': {
+                left: 0
+            }
         },
         navigation: {
-            width: 50
+            width: 60
         },
         navItem: {
             display: 'flex'
@@ -25,29 +29,41 @@ export const styles = makeStyles((theme) =>
             alignItems: 'center',
             textDecoration: 'none',
             position: 'relative',
+            borderRadius: '0 4px 4px 0',
 
             '&.active': {
-                backgroundColor: theme.palette.background.default
+                backgroundColor: 'blue',
+                borderRight: `16px solid ${theme.palette.primary.main}`
             },
 
             '&:hover': {
-                backgroundColor: theme.palette.background.default,
-                boxShadow: `0 0 5px 0 ${alpha(theme.palette.common.black, 0.5)}`,
-                borderRadius: '0 5px 5px 0',
+                background: theme.palette.secondary.dark,
+                paddingRight: 8,
+
+                '& $iconBox': {
+                    padding: '3px 6px',
+                    margin: '2px 0'
+                },
 
                 '& $navItemName': {
-                    display: 'block'
+                    position: 'relative',
+                    left: 0,
+                    opacity: 1
                 }
             }
         },
         iconBox: {
-            width: 50,
+            background: theme.palette.secondary.dark,
+            width: 60,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             overflow: 'hidden',
             padding: '3px 4px',
             borderRadius: 4,
+            position: 'relative',
+            zIndex: 1,
+            transition: 'all .2s ease-in-out',
             '& img': {
                 display: 'block',
                 borderRadius: 4,
@@ -55,12 +71,16 @@ export const styles = makeStyles((theme) =>
             }
         },
         navItemName: {
-            margin: theme.spacing(0, 2, 0, 1),
+            marginBottom: 3,
+            paddingLeft: 4,
             fontFamily: 'Amatic SC, cursive',
             fontWeight: 700,
             whiteSpace: 'nowrap',
-            display: 'none',
-            fontSize: 24
+            position: 'absolute',
+            left: '-100%',
+            fontSize: 28,
+            opacity: 0,
+            transition: 'all .2s ease-in-out'
         }
     })
 );
