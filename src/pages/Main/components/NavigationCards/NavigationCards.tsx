@@ -1,10 +1,12 @@
 import { NavLink } from 'react-router-dom';
 
-import { routes } from 'data/routes.data';
-import { styles } from './styles';
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
-import { Route } from 'shared/models';
+
+import { AppRoute } from 'shared/models';
+import { appRoutes } from 'data/app-routes.data';
+
+import { styles } from './styles';
 
 export function NavigationCards() {
     const classes = styles();
@@ -15,7 +17,7 @@ export function NavigationCards() {
     return (
         <div className={classes.navContainer}>
             <div className={classes.navInner}>
-                {routes.map((route: Route, index: number) => (
+                {appRoutes.map((route: AppRoute, index: number) => (
                     <NavLink
                         to={route.name === 'client' ? clientLink : route.path ? route.path : route.name}
                         className={classes.navCard}

@@ -1,4 +1,4 @@
-export interface Route {
+export interface AppRoute {
     name: string;
     icon: JSX.Element;
     path?: string;
