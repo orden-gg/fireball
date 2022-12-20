@@ -6,4 +6,4 @@ export const V_D: number = 60;
 
 export const MAX_GOTCHIS_IN_ROW: number[] = [11, 12, 9];
 export const MAX_ROWS: number = 3;
-export const EASTER_EGG_VIEW_CHANCE: number = 3;
+export const EASTER_EGG_VIEW_CHANCE: number = 50;
