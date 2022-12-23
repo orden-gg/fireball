@@ -21,6 +21,7 @@ export const appRoutes: AppRoute[] = [
     },
     {
         name: 'lendings',
+        description: 'lend the character for pvp or farming',
         icon: <LendCardIcon />
     },
     {
@@ -30,36 +31,43 @@ export const appRoutes: AppRoute[] = [
     },
     {
         name: 'guilds',
+        description: 'associations of merchants, craftsmen and developers',
         icon: <GuildsCardIcon />
     },
     {
         name: 'raffles',
+        description: 'lottery for wearables, land and portals',
         icon: <RafflesCardIcon />
     },
     {
         name: 'map',
+        description: 'browse a citadel parcels',
         icon: <MapCardIcon />
     },
     {
         name: 'craft',
+        description: 'create a game items using alchemica',
         icon: <CraftCardIcon />
     },
     {
         name: 'anvil',
+        description: 'calculate the amount of resources needed for altars, harvesters and reservoirs updates',
         icon: <AnvilCardIcon />
     },
     {
         name: 'explorer',
+        description: 'browse all the summoned aavegotchis',
         icon: <ExplorerCardIcon />
     },
     {
         name: 'glossary',
+        description: 'list of all items with traits and pvp effectrs',
         icon: <GlossaryCardIcon />
     },
     {
         name: 'fake gallery',
         path: 'fake-gotchis-gallery',
-        description: 'fake gotchis art collection browser',
+        description: 'fake gotchis art gallery',
         icon: <FakeGalleryCardIcon />
     }
 ];
