@@ -13,7 +13,7 @@ import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import badge from 'assets/images/icons/badge.svg';
 import glossary from 'assets/images/icons/glossary.svg';
-import fakeGotchis from 'assets/images/icons/fake-gotchis.png';
+import fakeGotchis from 'assets/images/icons/fake-gotchis.svg';
 import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';

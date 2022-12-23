@@ -39,16 +39,16 @@ export function FakeGotchisGallery() {
         <div className={classes.fakeGotchisGalleryContainer}>
             <div className={classes.fakeGotchisGalleryContainerNav}>
                 {navData.map((navItem: PageNavItem) => {
-                    return <Button
-                        key={navItem.path}
-                        startIcon={navItem.icon}
-                        component={NavLink}
-                        className={classes.fakeGotchisGalleryNavButton}
-                        to={navItem.path}
-                    >
-                        {<span className={classes.fakeGotchisGalleryNavName}>{navItem.name}</span>}
-                        {
-                            navItem.isLoading ? (
+                    return (
+                        <Button
+                            key={navItem.path}
+                            startIcon={navItem.icon}
+                            component={NavLink}
+                            className={classes.fakeGotchisGalleryNavButton}
+                            to={navItem.path}
+                        >
+                            {<span className={classes.fakeGotchisGalleryNavName}>{navItem.name}</span>}
+                            {navItem.isLoading ? (
                                 <ContentLoader
                                     speed={2}
                                     viewBox='0 0 28 14'
@@ -60,17 +60,11 @@ export function FakeGotchisGallery() {
                                 </ContentLoader>
                             ) : (
                                 <span className={classes.fakeGotchisGalleryNavLabel}>
-                                    [
-                                        {navItem.isLoaded ? (
-                                            [navItem.count]
-                                        ) : (
-                                            <>...</>
-                                        )}
-                                    ]
+                                    [{navItem.isLoaded ? [navItem.count] : <>...</>}]
                                 </span>
-                            )
-                        }
-                    </Button>;
+                            )}
+                        </Button>
+                    );
                 })}
             </div>
 
@@ -79,7 +73,6 @@ export function FakeGotchisGallery() {
                 <Route path='queue' element={<Queue />} />
                 <Route path='*' element={<Navigate to='minted' replace />} />
             </Routes>
-
         </div>
     );
 }
