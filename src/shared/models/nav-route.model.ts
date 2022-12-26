@@ -1,4 +1,4 @@
-export interface AppRoute {
+export interface NavRoute {
     name: string;
     icon: JSX.Element;
     path?: string;

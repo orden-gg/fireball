@@ -1,4 +1,4 @@
-import { AppRoute } from 'shared/models';
+import { NavRoute } from 'shared/models';
 import {
     AnvilCardIcon,
     ClientCardIcon,
@@ -13,7 +13,7 @@ import {
     RafflesCardIcon
 } from 'components/Icons/Icons';
 
-export const appRoutes: AppRoute[] = [
+export const navRoutes: NavRoute[] = [
     {
         name: 'client',
         description: 'explore and analyse on-chain data from aavegotchi protocol',
