@@ -1,10 +1,8 @@
 import { Masonry } from '@mui/lab';
-// import { Link } from '@mui/material';
 
-// import { GotchiHeartGif, H1OpenedPortalGif } from 'components/Icons/Icons';
 import { GalleryFakeGotchi } from 'pages/FakeGotchisGallery/models';
+import { FakeGotchisIcon } from 'components/Icons/Icons';
 
-import { GalleryLoader } from '../GalleryLoader/GalleryLoader';
 import { styles } from './styles';
 
 export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
@@ -34,7 +32,9 @@ export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
                                 </p>
                             </div> */}
                     </div>
-                    <GalleryLoader className={classes.fakeGotchiGalleryLoader} />
+                    <div className={classes.fakeGotchiGalleryLoader}>
+                        <FakeGotchisIcon height={80} width={80} />
+                    </div>
                 </div>
             ))}
         </Masonry>
