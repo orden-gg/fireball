@@ -79,7 +79,7 @@ export enum ItemTypes {
 export enum ItemTypeNames {
     Wearable = 'wearable',
     Badge = 'badge',
-    Consumable = 'consumable',
+    Consumable = 'consumable'
 }
 
 export enum SetTypes {
@@ -179,7 +179,7 @@ export enum RarityNumberTypes {
 
 export enum DataReloadType {
     Client = 'client',
-    Lend = 'lend',
+    Lendings = 'lendings',
     Map = 'map',
     Explorer = 'explorer'
 }

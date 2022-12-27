@@ -8,12 +8,10 @@ export function Team({ team }: { team: any[] }) {
 
     return (
         <div className={classes.gotchisWrapper}>
-            {
-                team.map((gotchi: any, index: number) =>
-                    <HomeGotchi gotchi={gotchi} key={index} />
-                )
-            }
+            {team.map((gotchi: any, index: number) => (
+                <HomeGotchi gotchi={gotchi} key={index} />
+            ))}
             <User />
         </div>
-);
+    );
 }

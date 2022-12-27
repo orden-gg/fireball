@@ -112,12 +112,8 @@ export function Lend() {
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-    const {
-        lastManuallyUpdated,
-        setLastUpdated,
-        setActiveReloadType,
-        setIsReloadDisabled
-    } = useContext<DataReloadContextState>(DataReloadContext);
+    const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } =
+        useContext<DataReloadContextState>(DataReloadContext);
 
     useEffect(() => {
         setCurrentFilters((currentFiltersCache: any) =>
@@ -127,12 +123,12 @@ export function Lend() {
         const { sort, dir } = queryParams as CustomParsedQuery;
 
         if (sort && dir) {
-            const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+            const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
             onSortingChange(key, dir);
         }
 
-        setActiveReloadType(DataReloadType.Lend);
+        setActiveReloadType(DataReloadType.Lendings);
 
         return () => {
             onResetFilters();
@@ -145,7 +141,9 @@ export function Lend() {
 
         onGetLendings(isMounted, true);
 
-        return () => { isMounted = false };
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     useEffect(() => {
@@ -155,7 +153,9 @@ export function Lend() {
             onGetLendings(isMounted);
         }
 
-        return () => { isMounted = false };
+        return () => {
+            isMounted = false;
+        };
     }, [lastManuallyUpdated]);
 
     useEffect(() => {
@@ -163,7 +163,7 @@ export function Lend() {
     }, [currentFilters]);
 
     useEffect(() => {
-        const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+        const paramKey: any = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
 
         updateSortQueryParams(paramKey, lendingsSorting.dir);
     }, [lendingsSorting]);
@@ -208,7 +208,7 @@ export function Lend() {
 
                     currentFiltersCacheCopy.whitelistId = {
                         ...currentFiltersCacheCopy.whitelistId,
-                        items: sortedWhitelist.map(whitelist => ({
+                        items: sortedWhitelist.map((whitelist) => ({
                             title: whitelist,
                             value: whitelist,
                             queryParamValue: whitelist,
@@ -225,7 +225,10 @@ export function Lend() {
                     let filtersToReturn: any;
 
                     if (Object.keys(queryParams).length > 0) {
-                        filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                        filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(
+                            queryParams,
+                            currentFiltersCacheCopy
+                        );
                     } else {
                         filtersToReturn = currentFiltersCacheCopy;
                     }
@@ -241,9 +244,12 @@ export function Lend() {
         });
     };
 
-    const onSortingChange = useCallback((type: string, dir: string) => {
-        setLendingsSorting({ type, dir });
-    }, [setLendingsSorting]);
+    const onSortingChange = useCallback(
+        (type: string, dir: string) => {
+            setLendingsSorting({ type, dir });
+        },
+        [setLendingsSorting]
+    );
 
     const sorting: any = {
         sortingList: sortings,
@@ -251,17 +257,23 @@ export function Lend() {
         onSortingChange: onSortingChange
     };
 
-    const updateSortQueryParams = useCallback((prop: string, dir: string) => {
-        const params = { ...queryParams, sort: prop, dir };
+    const updateSortQueryParams = useCallback(
+        (prop: string, dir: string) => {
+            const params = { ...queryParams, sort: prop, dir };
 
-        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+            FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+        },
+        [queryParams, navigate, location.pathname]
+    );
 
-    const updateFilterQueryParams = useCallback((filters: any) => {
-        const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
+    const updateFilterQueryParams = useCallback(
+        (filters: any) => {
+            const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-        FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
-    }, [queryParams, navigate, location.pathname]);
+            FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+        },
+        [queryParams, navigate, location.pathname]
+    );
 
     const onSetSelectedFilters = (key: string, selectedValue: any) => {
         FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
@@ -272,7 +284,7 @@ export function Lend() {
     }, [currentFilters]);
 
     const onExportData = useCallback(() => {
-        FilterUtils.exportData(modifiedLendings, 'lend');
+        FilterUtils.exportData(modifiedLendings, 'lendings');
     }, [modifiedLendings]);
 
     return (
@@ -281,9 +293,7 @@ export function Lend() {
                 <SortFilterPanel
                     sorting={sorting}
                     itemsLength={modifiedLendings.length}
-                    placeholder={
-                        <GotchiIcon width={20} height={20} />
-                    }
+                    placeholder={<GotchiIcon width={20} height={20} />}
                 />
 
                 <ToggleButton
@@ -292,33 +302,46 @@ export function Lend() {
                     onChange={() => {
                         setLinksListView(!linksListView);
                     }}
-                    style={{ position: 'absolute', top: 0, right: 0, width: 36, padding: '6px 0', color: 'transparent', border: 'none' }}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        width: 36,
+                        padding: '6px 0',
+                        color: 'transparent',
+                        border: 'none'
+                    }}
                 >
                     List
                 </ToggleButton>
 
                 <ContentInner dataLoading={isDataLoading}>
                     {/* // !temporary code (hidden feature) */}
-                    { linksListView ? (
-                        <ol style={{ height: 'calc(100vh - 208px)', overflowY: 'scroll', margin: 0, padding: '10px 0 10px 60px' }}>
-                            {modifiedLendings.map(lend => {
-                                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>;
+                    {linksListView ? (
+                        <ol
+                            style={{
+                                height: 'calc(100vh - 208px)',
+                                overflowY: 'scroll',
+                                margin: 0,
+                                padding: '10px 0 10px 60px'
+                            }}
+                        >
+                            {modifiedLendings.map((lend) => {
+                                return (
+                                    <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
+                                );
                             })}
                         </ol>
                     ) : (
                         <GotchisLazy
                             items={modifiedLendings}
-                            renderItem={id => (
+                            renderItem={(id) => (
                                 <Gotchi
                                     gotchi={modifiedLendings[id]}
                                     render={[
                                         {
                                             className: 'gotchiHeader',
-                                            items: [
-                                                'collateral',
-                                                'kinship',
-                                                'level'
-                                            ]
+                                            items: ['collateral', 'kinship', 'level']
                                         },
                                         {
                                             className: 'imageContainer',
@@ -352,20 +375,10 @@ export function Lend() {
                 />
 
                 <div className={classes.buttonsWrapper}>
-                    <Button
-                        variant='contained'
-                        color='warning'
-                        size='small'
-                        onClick={onResetFilters}
-                    >
+                    <Button variant='contained' color='warning' size='small' onClick={onResetFilters}>
                         Reset
                     </Button>
-                    <Button
-                        variant='contained'
-                        color='secondary'
-                        size='small'
-                        onClick={onExportData}
-                    >
+                    <Button variant='contained' color='secondary' size='small' onClick={onExportData}>
                         Export data (.json)
                     </Button>
                 </div>

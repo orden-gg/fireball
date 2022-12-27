@@ -66,6 +66,19 @@ import eyeShape from 'assets/images/traits/eys.png';
 import energy from 'assets/images/traits/nrg.png';
 import spookiness from 'assets/images/traits/spk.png';
 
+// card icons
+import anvilCard from 'assets/images/navigation/anvil.jpg';
+import clientCard from 'assets/images/navigation/client.jpg';
+import craftCard from 'assets/images/navigation/craft.jpg';
+import explorerCard from 'assets/images/navigation/explorer.jpg';
+import fakeGalleryCard from 'assets/images/navigation/fakegallery.jpg';
+import glossaryCard from 'assets/images/navigation/glossary.jpg';
+import guildsCard from 'assets/images/navigation/guilds.jpg';
+import lendCard from 'assets/images/navigation/lend.jpg';
+import mapCard from 'assets/images/navigation/map.jpg';
+import marketCard from 'assets/images/navigation/market.jpg';
+import rafflesCard from 'assets/images/navigation/raffles.jpg';
+
 interface IconProps {
     className?: string;
     width?: number | string;
@@ -308,4 +321,49 @@ export const EnergyIcon = ({ width, height }: IconProps) => {
 
 export const SpookinessIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={spookiness} alt='spookiness' />;
+};
+
+// card icons
+export const AnvilCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={anvilCard} alt='anvil' />;
+};
+
+export const ClientCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={clientCard} alt='client' />;
+};
+
+export const CraftCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={craftCard} alt='craft' />;
+};
+
+export const ExplorerCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={explorerCard} alt='explorer' />;
+};
+
+export const FakeGalleryCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGalleryCard} alt='fakeGallery' />;
+};
+
+export const GlossaryCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={glossaryCard} alt='glossary' />;
+};
+
+export const GuildsCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={guildsCard} alt='guilds' />;
+};
+
+export const LendCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={lendCard} alt='lend' />;
+};
+
+export const MapCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={mapCard} alt='map' />;
+};
+
+export const MarketCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={marketCard} alt='market' />;
+};
+
+export const RafflesCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={rafflesCard} alt='raffles' />;
 };
