@@ -37,6 +37,7 @@
         "react-dom": "17.0.2",
         "react-helmet": "^6.1.0",
         "react-id-generator": "^3.0.2",
+        "react-medium-image-zoom": "^5.1.2",
         "react-redux": "8.0.2",
         "react-responsive-carousel": "^3.2.21",
         "react-router-dom": "6.3.0",
@@ -48,14 +49,14 @@
         "web-vitals": "^1.1.0"
     },
     "scripts": {
-        "build": "yarn lint && NODE_OPTIONS=--openssl-legacy-provider GENERATE_SOURCEMAP=false react-scripts build",
+        "build": "yarn lint && GENERATE_SOURCEMAP=false react-scripts build",
         "build:prod": "gcloud builds submit --tag eu.gcr.io/ordengg/fireball --timeout=1800 --machine-type=N1_HIGHCPU_8",
         "gcloud:staging": "gcloud run deploy fireball-staging --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
         "gcloud:prod": "gcloud run deploy fireball --image eu.gcr.io/ordengg/fireball:latest --region europe-west1",
         "deploy:staging": "run-s build:prod gcloud:staging",
         "deploy:prod": "run-s build:prod gcloud:prod",
-        "start": "DISABLE_ESLINT_PLUGIN=true NODE_OPTIONS=--openssl-legacy-provider PORT=3005 react-scripts start && yarn lint",
-        "start:prod": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build && serve -s build",
+        "start": "DISABLE_ESLINT_PLUGIN=true PORT=3005 react-scripts start && yarn lint",
+        "start:prod": "react-scripts build && serve -s build",
         "test": "jest --config ./jest.config.js",
         "eject": "react-scripts eject",
         "clean": "rm -rf node_modules",
@@ -85,6 +86,7 @@
         "glob-parent": "5.1.2"
     },
     "devDependencies": {
+        "@babel/plugin-proposal-optional-chaining": "^7.20.7",
         "@babel/preset-env": "7.16.5",
         "@babel/preset-react": "7.16.5",
         "@types/jest": "^28.1.1",

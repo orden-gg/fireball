@@ -3,6 +3,8 @@ import { Masonry } from '@mui/lab';
 import { GalleryFakeGotchi } from 'pages/FakeGotchisGallery/models';
 import { FakeGotchisIcon } from 'components/Icons/Icons';
 
+import Zoom from 'react-medium-image-zoom';
+
 import { styles } from './styles';
 
 export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
@@ -17,7 +19,10 @@ export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
                         // target='_blank'
                         className={classes.fakeGotchiGalleryItemDesc}
                     >
-                        <img src={`https://arweave.net/${item.thumbnailHash}`} alt={item.name} />
+                        <Zoom>
+                            <img src={`https://arweave.net/${item.thumbnailHash}`} alt={item.name} loading='lazy' />
+                        </Zoom>
+
                         {/* <div className={classes.name}>{item.name}</div>
                             <div className={classes.author}>
                                 by
