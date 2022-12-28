@@ -86,6 +86,8 @@
         "glob-parent": "5.1.2"
     },
     "devDependencies": {
+        "@babel/core": "7.19.6",
+        "@babel/generator": "7.19.6",
         "@babel/plugin-proposal-optional-chaining": "^7.20.7",
         "@babel/preset-env": "7.16.5",
         "@babel/preset-react": "7.16.5",
