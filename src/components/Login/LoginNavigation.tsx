@@ -27,9 +27,11 @@ export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
     const onMetamaskClick = async () => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
-                await connect(ethers.providers.Web3Provider, 'any');
+                if (connect) {
+                    await connect(ethers.providers.Web3Provider, 'any');
 
-                return true;
+                    return true;
+                }
             } catch (error) {
                 return false;
             }
