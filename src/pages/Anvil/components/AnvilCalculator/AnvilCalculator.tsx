@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
 import { AnvilButton } from '../AnvilButton/AnvilButton';
 import { AnvilSection } from '../AnvilSection/AnvilSection';
 import { AnvilSummary } from '../AnvilSummary/AnvilSummary';
-import { AnvilItem } from '../../models';
+import { AnvilCalculatorOptions, AnvilItem } from '../../models';
 
 import { styles } from './styles';
 
@@ -13,6 +14,10 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
 
     const [from, setFrom] = useState<number>(0);
     const [to, setTo] = useState<number>(anvil.levels.length - 1);
+    const [options, setOptions] = useState<AnvilCalculatorOptions>({
+        showGltr: true,
+        showDetailedAlchemica: true
+    });
 
     if (!anvil) {
         return null;
@@ -38,24 +43,43 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
         setTo(state === '+' ? to + 1 : to - 1);
     };
 
+    const handleOptionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setOptions({
+            ...options,
+            [event.target.name]: event.target.checked
+        });
+    };
+
     return (
         <div>
             <div className={classes.anvilCalc}>
                 <div className={classes.anvilCalcSection}>
                     <AnvilButton text='-' onClick={handleFrom} disabled={from === 0} />
-                    <AnvilSection item={anvil.levels[from]} imageIndex={anvil.id + from} />
+                    <AnvilSection item={anvil.levels[from]} imageIndex={anvil.id + from} options={options} />
                     <AnvilButton text='+' onClick={handleFrom} disabled={from === to - 1} />
                 </div>
 
-                <DoubleArrowIcon className={classes.anvilCalcArrow} />
+                <div className={classes.anvilCalcCore}>
+                    <DoubleArrowIcon className={classes.anvilCalcArrow} />
+                    <div className={classes.anvilCalcOptions}>
+                        {Object.entries(options).map(([name, value], index) => (
+                            <div key={index}>
+                                <FormControlLabel
+                                    control={<Checkbox checked={value} onChange={handleOptionsChange} name={name} />}
+                                    label={name.replace(/([A-Z])/g, ' $1').toLowerCase()}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
                 <div className={classes.anvilCalcSection}>
                     <AnvilButton text='-' onClick={handleTo} disabled={to === from + 1} />
-                    <AnvilSection item={anvil.levels[to]} imageIndex={anvil.id + to} />
+                    <AnvilSection item={anvil.levels[to]} imageIndex={anvil.id + to} options={options} />
                     <AnvilButton text='+' onClick={handleTo} disabled={to === anvil.levels.length - 1} />
                 </div>
             </div>
-            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to - from)} />
+            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to - from)} options={options} />
         </div>
     );
 }

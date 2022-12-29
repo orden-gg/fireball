@@ -5,6 +5,11 @@ export interface AnvilOptions {
     levels: number;
 }
 
+export interface AnvilCalculatorOptions {
+    showGltr: boolean;
+    showDetailedAlchemica: boolean;
+}
+
 export interface AnvilItem {
     id: number;
     name: string;
