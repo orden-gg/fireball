@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
+import { useLocalStorage } from 'hooks/useLocalStorage';
+
 import { AnvilButton } from '../AnvilButton/AnvilButton';
 import { AnvilSection } from '../AnvilSection/AnvilSection';
 import { AnvilSummary } from '../AnvilSummary/AnvilSummary';
@@ -9,15 +11,21 @@ import { AnvilCalculatorOptions, AnvilItem } from '../../models';
 
 import { styles } from './styles';
 
+const defaultOptions: AnvilCalculatorOptions = {
+    showGltr: true,
+    showDetailedAlchemica: true
+};
+
 export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     const classes = styles();
 
     const [from, setFrom] = useState<number>(0);
     const [to, setTo] = useState<number>(anvil.levels.length - 1);
-    const [options, setOptions] = useState<AnvilCalculatorOptions>({
-        showGltr: true,
-        showDetailedAlchemica: true
-    });
+
+    const [options, setOptions] = useLocalStorage(
+        'ANVIL_OPTIONS',
+        JSON.parse(localStorage.getItem('ANVIL_OPTIONS') as any) || defaultOptions
+    );
 
     if (!anvil) {
         return null;
@@ -44,10 +52,13 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     };
 
     const handleOptionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setOptions({
+        const updatedOptions = {
             ...options,
             [event.target.name]: event.target.checked
-        });
+        };
+
+        setOptions(updatedOptions);
+        localStorage.setItem('ANVIL_OPTIONS', JSON.stringify(updatedOptions));
     };
 
     return (
@@ -62,7 +73,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
                 <div className={classes.anvilCalcCore}>
                     <DoubleArrowIcon className={classes.anvilCalcArrow} />
                     <div className={classes.anvilCalcOptions}>
-                        {Object.entries(options).map(([name, value], index) => (
+                        {Object.entries(options as AnvilCalculatorOptions).map(([name, value], index) => (
                             <div key={index}>
                                 <FormControlLabel
                                     control={<Checkbox checked={value} onChange={handleOptionsChange} name={name} />}
