@@ -42,13 +42,18 @@ export const styles = makeStyles(() =>
             '& span': {
                 fontSize: '18px !important'
             },
-            '& div:last-of-type': {
+            '& > div:last-child': {
                 marginTop: 8,
                 fontSize: '20px !important',
                 '& img': {
                     width: 20,
                     height: 20
                 }
+            }
+        },
+        anvilSummaryDetailed: {
+            '& > div:first-child': {
+                display: 'none'
             }
         }
     })

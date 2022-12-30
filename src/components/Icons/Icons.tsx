@@ -246,8 +246,8 @@ export const GhstTokenIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
 };
 
-export const GltrTokenIcon = ({ width, height }: IconProps) => {
-    return <img width={width} height={height} src={gltrToken} alt='gltrToken' />;
+export const GltrTokenIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={gltrToken} alt='gltrToken' />;
 };
 
 export const KekTokenIcon = ({ className, width, height }: IconProps) => {

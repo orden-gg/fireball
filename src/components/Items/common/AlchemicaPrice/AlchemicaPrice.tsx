@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
@@ -10,33 +11,41 @@ import {
     AlphaTokenIcon,
     KekTokenIcon,
     GhstTokenIcon,
-    DaiTokenIcon
+    DaiTokenIcon,
+    GltrTokenIcon
 } from 'components/Icons/Icons';
 import { TokensPricesContext } from 'contexts/TokensPricesContext';
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
-import ContentLoader from 'react-content-loader';
 
-const icons = [FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon];
+const icons = [FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon, GltrTokenIcon];
 
-export function AlchemicaPrice({ alchemica, className }: { alchemica: AlchemicaList; className?: string }) {
+interface AlchemicaPriceProps {
+    alchemica: AlchemicaList;
+    gltr?: number;
+    className?: string;
+}
+
+export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPriceProps) {
     const classes = styles();
 
     const [itemPrice, setItemPrice] = useState<number>(0);
     const { tokensPrices, isPricesLoaded } = useContext<any>(TokensPricesContext);
 
-    const getItemPrice = (): number => {
-        const tokens = Object.values(TokenTypes);
+    const tokensList = gltr ? [...alchemica, gltr] : alchemica;
 
-        return alchemica.reduce((prev: number, current: number, index: number) => {
-            return prev + current * tokensPrices[tokens[index]];
+    const getItemPrice = (tokens: number[]): number => {
+        const tokensName = Object.values(TokenTypes);
+
+        return tokens.reduce((prev: number, current: number, index: number) => {
+            return prev + current * tokensPrices[tokensName[index]];
         }, 0);
     };
 
     useEffect(() => {
         if (isPricesLoaded) {
-            const price = getItemPrice();
+            const price = getItemPrice(tokensList);
 
             setItemPrice(price !== 0 ? Number(price.toFixed(2)) : 0);
         }
@@ -45,7 +54,7 @@ export function AlchemicaPrice({ alchemica, className }: { alchemica: AlchemicaL
     return (
         <div className={classNames(classes.alchemicaWrapper, className)}>
             <div className={classes.alchemica}>
-                {alchemica.map((amount: number, index: number) => {
+                {tokensList.map((amount: number, index: number) => {
                     const Icon = icons[index];
 
                     return (
