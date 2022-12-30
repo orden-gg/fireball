@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
@@ -22,10 +22,8 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     const [from, setFrom] = useState<number>(0);
     const [to, setTo] = useState<number>(anvil.levels.length - 1);
 
-    const [options, setOptions] = useLocalStorage(
-        'ANVIL_OPTIONS',
-        JSON.parse(localStorage.getItem('ANVIL_OPTIONS') as any) || defaultOptions
-    );
+    const [options, setOptions]: [AnvilCalculatorOptions, Dispatch<SetStateAction<AnvilCalculatorOptions>>] =
+        useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
 
     if (!anvil) {
         return null;
@@ -73,7 +71,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
                 <div className={classes.anvilCalcCore}>
                     <DoubleArrowIcon className={classes.anvilCalcArrow} />
                     <div className={classes.anvilCalcOptions}>
-                        {Object.entries(options as AnvilCalculatorOptions).map(([name, value], index) => (
+                        {Object.entries(options).map(([name, value], index) => (
                             <div key={index}>
                                 <FormControlLabel
                                     control={<Checkbox checked={value} onChange={handleOptionsChange} name={name} />}

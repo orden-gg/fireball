@@ -8,7 +8,7 @@ export function AnvilSummary({ summary, options }: { summary: InstallationItem[]
     const classes = styles();
 
     const calculateSummary = (array: InstallationItem[]): AlchemicaList => {
-        return [...array].reduce((prev: any, current: any) => {
+        return [...array].reduce((prev: any, current: InstallationItem) => {
             if (!prev.length) return current.alchemicaCost;
 
             return prev.map((pr, i) => pr + current.alchemicaCost[i]);
@@ -16,7 +16,7 @@ export function AnvilSummary({ summary, options }: { summary: InstallationItem[]
     };
 
     const calculateGltr = (array: InstallationItem[]): number => {
-        return [...array].reduce((prev: any, current: any) => prev + current.craftTime, 0);
+        return [...array].reduce((prev: number, current: InstallationItem) => prev + current.craftTime, 0);
     };
 
     return (
