@@ -11,6 +11,7 @@ export const styles = makeStyles(theme => createStyles({
         position: 'relative',
         border: '3px solid gray',
         alignItem: 'space-between',
+        cursor: 'pointer',
         '&:hover': {
             textDecoration: 'none',
             zIndex: 1
@@ -87,6 +88,25 @@ export const styles = makeStyles(theme => createStyles({
             padding: 0
         }
     },
+    gotchiBadges: {
+        display: 'flex',
+        alignItems: 'center',
+        overflow: 'auto',
+        paddingRight: theme.spacing(.5),
+        '&::-webkit-scrollbar': {
+            backgroundColor: 'transparent',
+            width: 4,
+            height: 4
+        },
+        '&::-webkit-scrollbar-thumb': {
+            borderRadius: 8,
+            backgroundColor: alpha(theme.palette.primary.main, .8),
+            visibility: 'hidden'
+        },
+        '&:hover::-webkit-scrollbar-thumb': {
+            visibility: 'visible'
+        }
+    },
     gotchiInnerSection: {
         marginTop: 8
     },
@@ -129,6 +149,7 @@ export const styles = makeStyles(theme => createStyles({
     gotchiPriceCell: {
         display: 'flex',
         flexDirection: 'column',
+        justifyContent: 'center',
         margin: theme.spacing(3, 1),
         flex: '1 1 auto'
     },
@@ -148,19 +169,6 @@ export const styles = makeStyles(theme => createStyles({
     gotchiFlipFront: {
         '$gotchiIsFlipped &': {
             display: 'none'
-        }
-    }
-}));
-
-export const CustomTooltipStyles = makeStyles(theme => createStyles({
-    customTooltip: {
-        backgroundColor: theme.palette.secondary.dark,
-        marginBottom: 8,
-        '& p': {
-            margin: 0
-        },
-        '& span': {
-            color: theme.palette.primary.main
         }
     }
 }));

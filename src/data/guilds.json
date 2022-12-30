@@ -19,9 +19,7 @@
         "banner": "ordenGG-banner.png",
         "socials": { "twitter": "https://twitter.com/orden_gg/", "discord": "https://discord.com/invite/NXEEETxSkC" },
         "wearables": [130],
-        "home": [
-            [2009, 9039]
-        ]
+        "home": [[2009, 9039]]
     },
     {
         "name": "Aavegotchi Francophonie",
@@ -52,7 +50,10 @@
             { "title": "Point of Contact", "text": "Blackyugin#0500" }
         ],
         "banner": "",
-        "socials": { "telegram": "https://t.me/aavegotchi_francophonie", "medium": "https://aavegotchi-francophonie.medium.com/" }
+        "socials": {
+            "telegram": "https://t.me/aavegotchi_francophonie",
+            "medium": "https://aavegotchi-francophonie.medium.com/"
+        }
     },
     {
         "name": "Aeolian Haunts",
@@ -70,15 +71,24 @@
             { "title": "Point of Contact", "text": "CryptoK9#1322" }
         ],
         "banner": "",
-        "socials": { "facebook": "https://www.facebook.com/groups/456606075476389", "discord": "https://discord.com/invite/w9SRJfFgnE" }
+        "socials": {
+            "facebook": "https://www.facebook.com/groups/456606075476389",
+            "discord": "https://discord.com/invite/w9SRJfFgnE"
+        }
     },
     {
         "name": "Aavegotchi Aavenue",
         "logo": "aavegotchi-aavenue.png",
         "members": [],
         "description": [
-            { "title": "Description", "text": "Come join us and be part of the hottest strip of land in the Gotchiverse, district 1!" },
-            { "title": "Requirement", "text": "Ownership of a Gotchiverse district 1 plot for eligibility into votes, raffles, and future events, but tourists from other districts are very welcome to join and hang out with us!" },
+            {
+                "title": "Description",
+                "text": "Come join us and be part of the hottest strip of land in the Gotchiverse, district 1!"
+            },
+            {
+                "title": "Requirement",
+                "text": "Ownership of a Gotchiverse district 1 plot for eligibility into votes, raffles, and future events, but tourists from other districts are very welcome to join and hang out with us!"
+            },
             { "title": "Point of Contact", "text": "Cookiethief#3952" }
         ],
         "banner": "",
@@ -88,7 +98,7 @@
         "name": "BlackPool’s Aapegotchis",
         "logo": "blackpoolsaapegotchis.png",
         "members": [
-            "0x93468adecdccd18131ce1fd8caeed68fb3de43e7",
+            "0xb9d72519f9F9ec41a657C57c5A59a32737Ae6636",
             "0xc31372db84e456193e72a162928539c8f5999ff6",
             "0x329c54289Ff5D6B7b7daE13592C6B1EDA1543eD4",
             "0x9ff84B91998dF96A6587DB8dDe8D4E47518107d6",
@@ -128,14 +138,12 @@
                 "text": "Comfortably settled in the depths of District 15, the Aapegotchis are pacifists and very frenly. They love to collect Alchemicas together, help their frens from other Districts, spook the lickquidators away and plan on conquering the Moon one day. However, be careful not to bully them. Whether you're experienced or a newbie and feel seasoned to join and help grow the Aapegotchis, you are welcome to assemble under the BlackPool flag!"
             },
             { "title": "Requirement", "text": "Wear any item from the Aastronaut set and/or the Citaadel Knight set." },
-            { "title": "Point of Contact", "text": "Hazelstar#7954" }
+            { "title": "Point of Contact", "text": "Albist#7220" }
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/BlackpoolHQ", "discord": "https://discord.gg/ddUyu4F4pp" },
         "wearables": [310, 309, 311, 312, 253, 252, 254],
-        "home": [
-            [17447, 15762]
-        ]
+        "home": [[17447, 15762]]
     },
     {
         "name": "Chigotchi Bulls",
@@ -150,26 +158,23 @@
             "0x2bD7716Ce2c43B9c0D58982F5BAC67633bf2E7dC",
             "0x122f08C08432983277F5c1e750a481cddAbFD708",
             "0x6f48134d8BDEB954aD97525Cf0ADB9Ad446260B1",
-            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777"
+            "0x4eDb4161D16c89b71Aec027930a943c3d4cf0777",
+            "0x8B200F4c81c54d9014B4cDA3F16501069FA20Ab9",
+            "0xCAFBFd974EB21D0eBD6A05eF8858f5ca2C9f9E39",
+            "0x3c2262255793f2b4629F7b9A2D57cE78f7842A8d"
         ],
         "description": [
-            { "title": "Description", "text": "OG Aair Gotchi Guild. Ballers and Scholars only." },
+            { "title": "Description", "text": "GOTCHI JAM headquarters" },
             {
-                "title": "Baller Requirements",
-                "text": "At least 1 Aavegotchi with full Aair Gotchi wearable set; join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and submit wallet 0x address holding Aair Gotchi in the #baller-roster channel."
-            },
-            {
-                "title": "Scholar Requirements",
-                "text": "Join Game Theory Guild Discord [https://discord.gg/f7C5dHrEsm] and intelligently complete Game Theory Guild Scholar Application [https://gametheoryguild.typeform.com/applications]"
+                "title": "Requirement",
+                "text": "Join Chigotchi Bulls Discord [https://discord.gg/zaBBnG4VhA] and say hello!."
             },
             { "title": "Point of Contact", "text": "humbledbagger#1337" }
         ],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/chigotchibulls", "discord": "https://discord.gg/zaBBnG4VhA" },
         "wearables": [225, 226, 227],
-        "home": [
-            [21152, 23479]
-        ]
+        "home": [[21152, 23479]]
     },
     {
         "name": "cRekto Club",
@@ -230,9 +235,7 @@
         "banner": "",
         "socials": { "telegram": "https://t.me/cRekto_club", "discord": "https://discord.com/invite/w9SRJfFgnE" },
         "wearables": [228, 229, 300],
-        "home": [
-            [25962, 15680]
-        ]
+        "home": [[25962, 15680]]
     },
     {
         "name": "DeFi Alpha Gaming Guild",
@@ -243,11 +246,18 @@
                 "title": "Description",
                 "text": "DeFi Alpha Gaming Guild fosters a safe and friendly community for DeFi users, NFT enthusiasts and play-to-earn gamers to hang, learn and have fun. Our aim is to provide an ongoing set of resources to help new entrants join this exciting space, in a supportive and safe environment."
             },
-            { "title": "Requirement", "text": "Entry into our growing community is free and there are currently no wearable requirements to join our Guild at this stage." },
+            {
+                "title": "Requirement",
+                "text": "Entry into our growing community is free and there are currently no wearable requirements to join our Guild at this stage."
+            },
             { "title": "Point of Contact", "text": "buckley_gerry#9941 and Seb Monty#8764" }
         ],
         "banner": "",
-        "socials": { "website": "https://defialpha.io/", "medium": "https://defialpha.medium.com/", "discord": "https://discord.com/invite/zQGs3Dua" }
+        "socials": {
+            "website": "https://defialpha.io/",
+            "medium": "https://defialpha.medium.com/",
+            "discord": "https://discord.com/invite/zQGs3Dua"
+        }
     },
     {
         "name": "F8 Guild",
@@ -287,19 +297,25 @@
             "0x40CF6bb888ca670e20139b1caA0BA0996f65371c",
             "0x494317b283247c07cAB8085e43EbDfCA37b2eBcA",
             "0x999166B837eBf770CE91Bf365618c5B215c5140e",
-            "0xa540A85FAD845Fc76A9C9A13C96AE1B1fA12EA07"
+            "0xa540A85FAD845Fc76A9C9A13C96AE1B1fA12EA07",
+            "0x2e21407be0545C706F25490fbBA532943fCaED32"
         ],
         "description": [
-            { "title": "Description", "text": "Active community of Gotchiverse addicts, game developers and content creators." },
+            {
+                "title": "Description",
+                "text": "Active community of Gotchiverse addicts, game developers and content creators."
+            },
             { "title": "Requirement", "text": "Miner Helmet" },
             { "title": "Point of Contact", "text": "Gotchinomics#4936" }
         ],
         "banner": "ghost-squad-banner.png",
-        "socials": { "twitter": "https://twitter.com/gotchighstsquad", "discord": "https://discord.com/invite/JQHx9u8mcV", "youtube": "https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg" },
+        "socials": {
+            "twitter": "https://twitter.com/gotchighstsquad",
+            "discord": "https://discord.com/invite/JQHx9u8mcV",
+            "youtube": "https://www.youtube.com/channel/UCcL-0-x85GiDRl7_udQaQhg"
+        },
         "wearables": [87],
-        "home": [
-            [39410, 36120]
-        ]
+        "home": [[39410, 36120]]
     },
     {
         "name": "Gotchi FArmy Gang",
@@ -467,10 +483,11 @@
             { "title": "Point of Contact", "text": "PG#0811 Be The Coin 🧩#4204" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/TheGotchiFArmy", "discord": "https://discord.com/invite/kMHQYn2dmG" },
-        "home": [
-            [9673, 10074]
-        ]
+        "socials": {
+            "twitter": "https://twitter.com/TheGotchiFArmy",
+            "discord": "https://discord.com/invite/kMHQYn2dmG"
+        },
+        "home": [[9673, 10074]]
     },
     {
         "name": "Gotchi Gaang Maafia",
@@ -516,22 +533,29 @@
                 "title": "Description",
                 "text": "We are a degenerate organization who’s central activities are; arms dealings, information, waste disposal management, expanding business, protection from liquidators, and the enforcement of illicit agreements in the Gotchiverse through the use of violence."
             },
-            { "title": "Requirement", "text": "Owning a gotchi that is not afraid to do some dirty work in the REALM." },
+            {
+                "title": "Requirement",
+                "text": "Owning a gotchi that is not afraid to do some dirty work in the REALM."
+            },
             { "title": "Point of Contact", "text": "Goobz#9104" }
         ],
         "banner": "",
         "socials": { "discord": "https://discord.com/invite/GRnRRKJz" },
-        "home": [
-            [8573, 11514]
-        ]
+        "home": [[8573, 11514]]
     },
     {
         "name": "Gotchi Riders",
         "logo": "gotchi-riders.png",
         "members": [],
         "description": [
-            { "title": "Description", "text": "Gotchis ride together! We are a Gotchi biker gang! We travel far and wide, and beat up Lickquidators!" },
-            { "title": "Requirement", "text": "Every Gotchi can become a prospect by wearing a 'Biker Jacket'. The insignia of the Gotchi Riders!" },
+            {
+                "title": "Description",
+                "text": "Gotchis ride together! We are a Gotchi biker gang! We travel far and wide, and beat up Lickquidators!"
+            },
+            {
+                "title": "Requirement",
+                "text": "Every Gotchi can become a prospect by wearing a 'Biker Jacket'. The insignia of the Gotchi Riders!"
+            },
             { "title": "Point of Contact", "text": "CryptoGotchi#9089" }
         ],
         "banner": "",
@@ -543,7 +567,10 @@
         "members": [],
         "description": [
             { "title": "Description", "text": "We'll be watching." },
-            { "title": "Requirement", "text": "Invite-only basis. The insignias of guild include Monocle, ROFL, and DAO Egg." },
+            {
+                "title": "Requirement",
+                "text": "Invite-only basis. The insignias of guild include Monocle, ROFL, and DAO Egg."
+            },
             { "title": "Point of Contact", "text": "Cookiethief#3952" }
         ],
         "banner": "",
@@ -554,7 +581,10 @@
         "logo": "levx.png",
         "members": [],
         "description": [
-            { "title": "Description", "text": "A guild governed by a Morty who's deranged grandpa has absolute authority over." },
+            {
+                "title": "Description",
+                "text": "A guild governed by a Morty who's deranged grandpa has absolute authority over."
+            },
             { "title": "Requirement", "text": "Acquire \"Ghost-In-Jars\" role" },
             { "title": "Point of Contact", "text": "bloob#7342" }
         ],
@@ -629,63 +659,52 @@
             "0xA709f9904a4E3cF50816609834175446C2246577"
         ],
         "description": [
-            { "title": "Description", "text": "First and only spanglish guild for Mustacho aficionados. Decentralized" },
-            { "title": "Requirement", "text": "None, but a moustache earns you voting power. 1 mustache= 1 vote Sergey Beard, Goatee, Mutton Chops, Horseshoe & Beard of Wisdom also unlock 1 VP." },
+            {
+                "title": "Description",
+                "text": "First and only spanglish guild for Mustacho aficionados. Decentralized"
+            },
+            {
+                "title": "Requirement",
+                "text": "None, but a moustache earns you voting power. 1 mustache= 1 vote Sergey Beard, Goatee, Mutton Chops, Horseshoe & Beard of Wisdom also unlock 1 VP."
+            },
             { "title": "Point of Contact", "text": "Fantasma#1777" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/LosMustachos", "discord": "https://discord.com/invite/bnAKfeczhu" },
+        "socials": {
+            "twitter": "https://twitter.com/LosMustachos",
+            "discord": "https://discord.com/invite/bnAKfeczhu"
+        },
         "wearables": [146, 13, 157, 219, 209, 260],
-        "home": [
-            [22637, 9904]
-        ]
+        "home": [[22637, 9904]]
     },
     {
         "name": "Metaguild",
         "logo": "metaguild.png",
         "members": [
             "0xC68C8452be34032ab999787796AE0fAaf071e054",
-            "0xcc251ba254a5a3c1d9c88661b42c1408162e8366",
-            "0x9f89Fe18A7AD4458eEa63Aad762aA8586E82eeD6",
-            "0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc",
-            "0x3A631b481a1B225e32D20C28BB531587e9F32dA0",
-            "0xa1BbD8D39eD536DEa030A32F3F6C5916C845A800",
-            "0x956F1CE3ff2ea59A8b41DF83Ce9F85ED59D73F92",
-            "0x74BF5B9972Da24406C2c046494a5cCBE2fBa28Dc",
-            "0x43FF4C088df0A425d1a519D3030A1a3DFff05CfD",
             "0x17a3831B39cc557296d0C322f9C2D42C0b3A8F3f",
-            "0x85362d4700d2f8d55D1d779b31B837C863aE3C14",
-            "0x2d44770aBdCbB62e716C765d4DaC4496c8A69B4d",
-            "0x22CAb81E0FEe2bad5b015DbBEB6A374A1B8738de",
-            "0xaE256cD2d13353e549d09aEA8D4105c8d1cc09d8",
-            "0x59Ae16B92d9BA31867BBFcF8552e7145cd211318",
-            "0x00D672E53e8e9bcD4eE4Bb2F05032b3C25E3c04c",
-            "0xd757f002d43DcB8dB9A4E43A8350Aa8cCcdC4e4f",
-            "0x31382577B52bD5C71088089845D16CC044a464e2",
-            "0xcd950256f924a0Eadb6B705f7A43EDF1F67C92Fa",
-            "0x5c4eab549a528Bf15c47A01e174500010997235c",
-            "0xFab9718db7CeE30BAd26157bf0500894fEfbAAb8",
+            "0xcc251ba254a5a3c1d9c88661b42c1408162e8366",
             "0xbb73548A0e6F839fb58e9D59969Ba6AEdEcDF5f1",
-            "0x3B02692AB73431e2E263421B1B6ECf89cDB6714c",
-            "0xE7394f05F97257958361329a3fD4f879773c0469",
-            "0xd01dbCde939fD3262C6c9Ee336260f0C6d3E68D3",
-            "0xc194765f438294595EB4A620Ca6D403f7c7E64c7",
-            "0x6004ec8712b6d60c02D5812a46FFD7e17e7Ee41c",
-            "0x8DF6a2DadfaC1009442430CA40F8479d206f7673",
-            "0x7909759B82EB27aB3Cc886C5f3fCE3A72a565b39",
-            "0xC727Bff1962590C71A6CB56C6D11F37beE740A5D",
-            "0xE7824cFa1C9FAFa4767dF34305123F3151A00F1B"
+            "0xbD6F5BdC401AB1Ca811e40755f4A2ddAd75cE2cc",
+            "0xeFC64437a1390964a862FE5cf9D1D63Ff265366B",
+            "0x31382577b52bd5c71088089845d16cc044a464e2",
+            "0xaf4fa10c1e93e9c60149f386ce783a4bc2952a77",
+            "0xc0e8b0E7981E2E254D4c22B6A0BC4223933A2D1d"
         ],
         "description": [
             {
                 "title": "Description",
                 "text": "Metaguild is a free-to-play guild. We want to coordinate our farming activities on both sides - aavegotchi and liquidators. Whether you have aavegochi or not is not important. As soon as the lending mechanism is implemented, we will start a scholarship program. Metaguild - the community of players, investors, and developers. We believe in games where the community has a voice and authority to choose the future."
             },
-            { "title": "Requirement", "text": "Adhere to the discord rules of Metaguild." },
+            { "title": "Requirement", "text": "Adhere to the Discord rules of Metaguild." },
             { "title": "Point of Contact", "text": "Sandro#7777 egor#1111 kupilslona#0022" }
         ],
         "banner": "metaguild-banner.png",
-        "socials": { "website": "https://metaguild.com/", "twitter": "https://twitter.com/metaguildcom", "discord": "https://discord.com/invite/gFYBnb3ymm" },
+        "socials": {
+            "website": "https://metaguild.com/",
+            "twitter": "https://twitter.com/metaguildcom",
+            "discord": "https://discord.com/invite/gFYBnb3ymm"
+        },
         "home": [
             [33911, 15928],
             [28489, 46374],
@@ -721,14 +740,21 @@
             { "title": "Point of Contact", "text": "🐙Musashi13#5579" }
         ],
         "banner": "",
-        "socials": { "website": "https://msggaang.wtf/", "twitter": "https://twitter.com/msggaang", "discord": "https://discord.com/invite/XUASaaxu2Q" }
+        "socials": {
+            "website": "https://msggaang.wtf/",
+            "twitter": "https://twitter.com/msggaang",
+            "discord": "https://discord.com/invite/XUASaaxu2Q"
+        }
     },
     {
         "name": "Mug’N’Buns",
         "logo": "mugnbuns.png",
         "members": [],
         "description": [
-            { "title": "Description", "text": "Your friendly neighborhood Mug cafe baased in the District 22. Mug owner ? Thirsty for lickquidations ? Join us !" },
+            {
+                "title": "Description",
+                "text": "Your friendly neighborhood Mug cafe baased in the District 22. Mug owner ? Thirsty for lickquidations ? Join us !"
+            },
             { "title": "Requirement", "text": "Must own 1 Mug wearable" },
             { "title": "Point of Contact", "text": "Cherry#0302" }
         ],
@@ -744,7 +770,10 @@
                 "title": "Description",
                 "text": "A group of blockchain enthusiasts, researchers for long term and sustainable potential project that can bring profound impact to society, by changing the way people connect ~ collaborate ~ creates the better future."
             },
-            { "title": "Requirement", "text": "Any beginner that hold at least 1 GHST are welcome to our growing TGC community" },
+            {
+                "title": "Requirement",
+                "text": "Any beginner that hold at least 1 GHST are welcome to our growing TGC community"
+            },
             { "title": "Point of Contact", "text": "Boyboy#6449" }
         ],
         "banner": "",
@@ -774,7 +803,10 @@
                 "title": "Description",
                 "text": "WAGMI Warriors are a wearable based guild in the Gotchiverse. We have bases set up in Districts 18, 19 and 10. Join our guild for NFT drops and help us build awesome NPCs as Dapps for the Gotchiverse. Have a say in how the guild is run via our Snapshot at https://snapshot.org/#/wagmiwarriors.eth"
             },
-            { "title": "Requirement", "text": "You must have an Aavegotchi equipped with any of the following wearables; a wagie cap, headphones, WGMI shirt, Big GHST Token, or a Gotchi Mug." },
+            {
+                "title": "Requirement",
+                "text": "You must have an Aavegotchi equipped with any of the following wearables; a wagie cap, headphones, WGMI shirt, Big GHST Token, or a Gotchi Mug."
+            },
             { "title": "Point of Contact", "text": "jarrod | aavegotchistats.com#9686" },
             { "title": "Social Media", "text": "https://twitter.com/WagmiWarriors" },
             { "title": "Discord", "text": "https://discord.gg/TNneBnhrM2" }
@@ -782,31 +814,42 @@
         "banner": "",
         "socials": { "twitter": "https://twitter.com/WagmiWarriors", "discord": "https://discord.gg/TNneBnhrM2" },
         "wearables": [239, 240, 241, 76, 205],
-        "home": [
-            [32036, 16088]
-        ]
+        "home": [[32036, 16088]]
     },
     { "name": "8bit Gamers Guild", "logo": "8gg.jpeg", "members": [] },
     {
         "name": "Aavemaa",
         "logo": "aavemaa.png",
-        "members": ["0xA62F79725e08DA9B8684fdaC2bfED855d41186E4", "0x09D43aDa2A315C88f627BB9350847f9C80F225e9", "0xb0C4Cc1AA998DF91D2c27cE06641261707A8c9C3"],
+        "members": [
+            "0xA62F79725e08DA9B8684fdaC2bfED855d41186E4",
+            "0x09D43aDa2A315C88f627BB9350847f9C80F225e9",
+            "0xb0C4Cc1AA998DF91D2c27cE06641261707A8c9C3"
+        ],
         "description": [
-            { "title": "Description", "text": "Aavemaa is a low intensity guild on aavegotchi consisting of mainly finnish irl frens." },
+            {
+                "title": "Description",
+                "text": "Aavemaa is a low intensity guild on aavegotchi consisting of mainly finnish irl frens."
+            },
             { "title": "Requirement", "text": "None really." },
             { "title": "Point of Contact", "text": "mikkop#3569" }
         ],
         "banner": "",
-        "socials": { "website": "https://peakd.com/aavegotchi/@rova/opastus-aavegotchiin", "discord": "https://discord.gg/RrvzVegn" }
+        "socials": {
+            "website": "https://peakd.com/aavegotchi/@rova/opastus-aavegotchiin",
+            "discord": "https://discord.gg/RrvzVegn"
+        }
     },
     { "name": "Cryptoticker.io GHST Guild", "logo": "cryptoticker.png", "members": [] },
     {
         "name": "Geistreich",
         "logo": "geistreich.png",
-        "members": [
-            "0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f"
+        "members": ["0x38798bfB6016beEeae2b12ed1f7bA2c9bb49334f"],
+        "description": [
+            {
+                "title": "Description",
+                "text": "Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature."
+            }
         ],
-        "description": [{ "title": "Description", "text": "Explorers of play2earn. Believers in cooperation. Smol in numbers. Big enthusiasm. Decentralized by nature." }],
         "banner": "",
         "socials": { "twitter": "https://twitter.com/GotchisGermany" }
     },
@@ -847,31 +890,38 @@
             "0xAe0E224BdA978E530465Fee0c7C318A8234799e0"
         ],
         "description": [
-            { "title": "Description", "text": "gmDAO is a quantitative hedgefund investing in the metaverse. HQ in the gotchiverse." },
+            {
+                "title": "Description",
+                "text": "gmDAO is a quantitative hedgefund investing in the metaverse. HQ in the gotchiverse."
+            },
             { "title": "Requirement", "text": "Adhere to the discord rules of gmDAO." },
             { "title": "Point of Contact", "text": "nationalbank#6969" }
         ],
         "banner": "",
-        "socials": { "website": "https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C", "twitter": "https://twitter.com/gmdaogm", "discord": "https://discord.gg/vcbZBYSbvq" },
-        "home": [
-            [51961, 33347]
-        ]
+        "socials": {
+            "website": "https://y.at/%F0%9F%8F%A0%F0%9F%91%BB%F0%9F%9A%9C",
+            "twitter": "https://twitter.com/gmdaogm",
+            "discord": "https://discord.gg/vcbZBYSbvq"
+        },
+        "home": [[51961, 33347]]
     },
     {
         "name": "SynthGuild",
         "logo": "synthguild.png",
         "members": [
-          "0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b",
-          "0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7",
-          "0x6f48134d8bdeb954ad97525cf0adb9ad446260b1",
-          "0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993",
-          "0x255f450c7dfe7d1584add15c020705b236e88d4a",
-          "0x65e856c356f0c220fc69c51a66b007748c7596e4",
-          "0x863a8faa3ed7df945ddcc03b5b6074f8e56c3fbb",
-          "0x8628d73d3f950abde99739ef34b6cfa10394f579",
-          "0x4edb4161d16c89b71aec027930a943c3d4cf0777",
-          "0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138",
-          "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8"
+            "0x1a760e3a431c8b9c075ed1280c8835a1a0f1651b",
+            "0x4a32007040567190bed4fa6ff3f5a03c0d47c9d7",
+            "0x6f48134d8bdeb954ad97525cf0adb9ad446260b1",
+            "0x755A89AC371eE91c1E0fC313Bc9efF5Fc150b993",
+            "0x255f450c7dfe7d1584add15c020705b236e88d4a",
+            "0x65e856c356f0c220fc69c51a66b007748c7596e4",
+            "0x863a8faa3ed7df945ddcc03b5b6074f8e56c3fbb",
+            "0x8628d73d3f950abde99739ef34b6cfa10394f579",
+            "0x4edb4161d16c89b71aec027930a943c3d4cf0777",
+            "0x25d3ee8cb4c2c6a41afcaa97d077d07dbecc3138",
+            "0x47dC446E56D14C5a51fB7cFf0abA7E5433754Be8",
+            "0x1052aFD68DaDd4165dC300836F65656C6ED574Ac",
+            "0xf0ecf448c3817bd9bfc2d0d0dc41ef568367506b"
         ],
         "description": [
             { "title": "Description", "text": "District 7 degens who work and chill together." },
@@ -879,7 +929,7 @@
             { "title": "Point of Contact", "text": "FuzzCuzz#6071 | Dunc Idaho#8289" }
         ],
         "banner": "",
-        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.gg/k4wumxSK" }
+        "socials": { "twitter": "https://twitter.com/SynthGuild", "discord": "https://discord.com/invite/F4DXSCctNW" }
     },
     {
         "name": "Hodler Sqvad",
@@ -915,14 +965,16 @@
             { "title": "Point of Contact", "text": "Marco#0908 | Jose Marcos#6220" }
         ],
         "banner": "",
-        "socials": { "website": "https://playtodao.com/", "twitter": "https://twitter.com/PlayToDAO", "discord": "https://discord.gg/aDjwSerZWZ" }
-    },{
+        "socials": {
+            "website": "https://playtodao.com/",
+            "twitter": "https://twitter.com/PlayToDAO",
+            "discord": "https://discord.gg/aDjwSerZWZ"
+        }
+    },
+    {
         "name": "DOUBLE TOP",
         "logo": "doubletop.png",
-        "members": [
-            "0x8C9482e27CC7Cae722FdEc48616a1F849fA51F8c",
-            "0x27ca0cfC3Da1F074963b77c13339EE7203CC3a7a"
-        ],
+        "members": ["0x8C9482e27CC7Cae722FdEc48616a1F849fA51F8c", "0x27ca0cfC3Da1F074963b77c13339EE7203CC3a7a"],
         "description": [
             {
                 "title": "Description",
@@ -941,6 +993,54 @@
         "socials": {
             "twitter": "https://twitter.com/doubletop_io",
             "telegram": "https://t.me/doubletop_chat"
+        }
+    },
+    {
+        "name": "TEC Viva Gotchi Guild",
+        "logo": "tecvivagotchiguild.png",
+        "members": ["0xEb7989a7C04b70cEA2bef6C2160ab7AFCa2A0d98", "0xa322f14c4e9628F5934420a6098a01e7C999e657"],
+        "description": [
+            {
+                "title": "Description",
+                "text": "Guild for community strategy development on Game Play, Economics, Stats, and Technology. This is a community-based decentralized initiative with motivations to establish a network of information exchange, scholarships, and a TEC Viva DAO of Aavegotchi gamers. Spanish channels available."
+            },
+            {
+                "title": "Point of Contact",
+                "text": "Tec Viva | TecViva#7652"
+            },
+            {
+                "title": "Requirements",
+                "text": "No requirements to join guild. See Discord for governance and scholarship requirements."
+            }
+        ],
+        "banner": "tecviva-banner.png",
+        "socials": {
+            "twitter": "https://twitter.com/TECGotchi",
+            "discord": "https://discord.gg/PHa787WvUR"
+        }
+    },
+    {
+        "name": "School of Aavegotchi",
+        "logo": "LogoSOA.png",
+        "members": ["0x1D0542B616C691a002E90a713e7d094C0f8e022d"],
+        "description": [
+            {
+                "title": "Description",
+                "text": "Guild that welcomes ambitious farmers looking for FREE gotchis to lease as well as generous farming rights to several large and fast growing farms across the Gotchiverse!"
+            },
+            {
+                "title": "Point of Contact",
+                "text": "ALTBAΞ | SOA#6814"
+            },
+            {
+                "title": "Requirements",
+                "text": "No requirements. Keen for collaboration."
+            }
+        ],
+        "banner": "",
+        "socials": {
+            "twitter": "https://twitter.com/schoolofgotchi/",
+            "discord": "https://discord.gg/bREYcA2SuX"
         }
     }
 ]

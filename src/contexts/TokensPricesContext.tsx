@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT, TokenTypes } from 'shared/constants';
+import { ALPHA_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT, TokenTypes, USDC_CONTRACT } from 'shared/constants';
 import { QuickswapApi } from 'api';
 
 export const TokensPricesContext = createContext({});
@@ -16,7 +16,7 @@ export const TokensPricesContextProvider = (props) => {
         const getTokensPrices = async function () {
             setIsPricesLoaded(false);
 
-            const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, DAI_CONTRACT);
+            const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
             const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
                 QuickswapApi.getTokenData(FUD_CONTRACT),
                 QuickswapApi.getTokenData(FOMO_CONTRACT),

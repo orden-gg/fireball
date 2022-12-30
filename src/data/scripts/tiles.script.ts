@@ -7,7 +7,7 @@ import _ from 'lodash';
 // @ts-ignore
 import { TILES_CONTRACT } from '../../shared/constants/api.constants.ts';
 // @ts-ignore
-import { TileTypes } from '../../shared/constants/enums.ts';
+import { TileTypes } from '../../shared/constants/enums/enums.ts';
 
 const abiFile = fs.readFileSync('src/data/abi/tiles.abi.json');
 const TILES_ABI = JSON.parse(abiFile.toString());

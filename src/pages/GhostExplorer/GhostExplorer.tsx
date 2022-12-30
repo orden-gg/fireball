@@ -10,7 +10,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import qs from 'query-string';
 
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, Sorting, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
@@ -85,7 +85,7 @@ export function GhostExplorer() {
     const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
     const [gotchis, setGotchis] = useState<any[]>([]);
     const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
-    const [gotchisSorting, setGotchisSorting] = useState<Sorting>({ type: 'modifiedRarityScore', dir: 'desc' });
+    const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
     const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
     const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
@@ -230,7 +230,7 @@ export function GhostExplorer() {
                 filtersCount={activeFiltersCount}
             />
 
-            <ContentInner dataLoading={isGotchisLoading} offset={179}>
+            <ContentInner dataLoading={isGotchisLoading}>
                 <GotchisLazy
                     items={modifiedGotchis}
                     renderItem={id => (

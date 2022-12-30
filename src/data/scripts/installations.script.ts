@@ -7,7 +7,7 @@ import _ from 'lodash';
 // @ts-ignore
 import { INSTALLATION_CONTRACT } from '../../shared/constants/api.constants.ts';
 // @ts-ignore
-import { InstallationTypes } from '../../shared/constants/enums.ts';
+import { InstallationTypes } from '../../shared/constants/enums/enums.ts';
 
 const abiFile = fs.readFileSync('src/data/abi/installations.abi.json');
 const INSTALLATION_ABI = JSON.parse(abiFile.toString());

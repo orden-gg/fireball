@@ -11,6 +11,10 @@ import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
+import badge from 'assets/images/icons/badge.svg';
+import glossary from 'assets/images/icons/glossary.svg';
+import fakeGotchis from 'assets/images/icons/fake-gotchis.png';
+import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';
 import consumable from 'assets/images/icons/consumable.svg';
@@ -31,6 +35,7 @@ import land from 'assets/images/icons/land.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
+import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import firegem from 'assets/images/icons/firegem.svg';
@@ -51,6 +56,28 @@ import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
+import daiToken from 'assets/images/tokens/dai-token.svg';
+
+// traits
+import aggression from 'assets/images/traits/agg.png';
+import brain from 'assets/images/traits/brn.png';
+import eyeColor from 'assets/images/traits/eyc.png';
+import eyeShape from 'assets/images/traits/eys.png';
+import energy from 'assets/images/traits/nrg.png';
+import spookiness from 'assets/images/traits/spk.png';
+
+// card icons
+import anvilCard from 'assets/images/navigation/anvil.jpg';
+import clientCard from 'assets/images/navigation/client.jpg';
+import craftCard from 'assets/images/navigation/craft.jpg';
+import explorerCard from 'assets/images/navigation/explorer.jpg';
+import fakeGalleryCard from 'assets/images/navigation/fakegallery.jpg';
+import glossaryCard from 'assets/images/navigation/glossary.jpg';
+import guildsCard from 'assets/images/navigation/guilds.jpg';
+import lendCard from 'assets/images/navigation/lend.jpg';
+import mapCard from 'assets/images/navigation/map.jpg';
+import marketCard from 'assets/images/navigation/market.jpg';
+import rafflesCard from 'assets/images/navigation/raffles.jpg';
 
 interface IconProps {
     className?: string;
@@ -60,8 +87,8 @@ interface IconProps {
 }
 
 // animated
-export const GhstTokenGif = ({ width, height }: IconProps) => {
-    return <img width={width} height={height} src={ghstTokenGif} alt='ghst token' />;
+export const GhstTokenGif = ({ width, height, className }: IconProps) => {
+    return <img className={className} width={width} height={height} src={ghstTokenGif} alt='ghst token' />;
 };
 
 export const GotchiHeartGif = ({ className, width, height }: IconProps) => {
@@ -95,6 +122,22 @@ export const AlphaIcon = ({ width, height }: IconProps) => {
 
 export const BaazarIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={baazar} alt='baazar' />;
+};
+
+export const BadgeIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={badge} alt='badge' />;
+};
+
+export const GlossaryIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={glossary} alt='glossary' />;
+};
+
+export const FakeGotchisIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGotchis} alt='fake gotchis' />;
+};
+
+export const FakeGotchisCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGotchisCard} alt='fake gotchi card' />;
 };
 
 export const FomoIcon = ({ width, height }: IconProps) => {
@@ -211,6 +254,10 @@ export const KekTokenIcon = ({ className, width, height }: IconProps) => {
     return <img className={className} width={width} height={height} src={kekToken} alt='kek' />;
 };
 
+export const DaiTokenIcon = ({ className, width, height }: IconProps) => {
+    return <img className={className} width={width} height={height} src={daiToken} alt='dai' />;
+};
+
 export const ListingIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={listing} alt='listing' />;
 };
@@ -231,6 +278,10 @@ export const PurchaseIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={purchase} alt='purchase' />;
 };
 
+export const PurpleGrassIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={purpleGrass} alt='purple grass' />;
+};
+
 export const ReloadIcon = ({ width, height }: IconProps) => {
     return <Reload width={width || 24} height={height || 24} />;
 };
@@ -245,4 +296,74 @@ export const FiregemIcon = ({ className, width, height }: IconProps) => {
 
 export const AnvilIcon = ({ width, height }: IconProps) => {
     return <img width={width} height={height} src={anvil} alt='anvil' />;
+};
+
+// traits
+export const AggressionIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={aggression} alt='aggression' />;
+};
+
+export const BrainIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={brain} alt='brain' />;
+};
+
+export const EyeColorIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={eyeColor} alt='eye color' />;
+};
+
+export const EyeShapeIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={eyeShape} alt='eye shape' />;
+};
+
+export const EnergyIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={energy} alt='energy' />;
+};
+
+export const SpookinessIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={spookiness} alt='spookiness' />;
+};
+
+// card icons
+export const AnvilCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={anvilCard} alt='anvil' />;
+};
+
+export const ClientCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={clientCard} alt='client' />;
+};
+
+export const CraftCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={craftCard} alt='craft' />;
+};
+
+export const ExplorerCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={explorerCard} alt='explorer' />;
+};
+
+export const FakeGalleryCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={fakeGalleryCard} alt='fakeGallery' />;
+};
+
+export const GlossaryCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={glossaryCard} alt='glossary' />;
+};
+
+export const GuildsCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={guildsCard} alt='guilds' />;
+};
+
+export const LendCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={lendCard} alt='lend' />;
+};
+
+export const MapCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={mapCard} alt='map' />;
+};
+
+export const MarketCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={marketCard} alt='market' />;
+};
+
+export const RafflesCardIcon = ({ width, height }: IconProps) => {
+    return <img width={width} height={height} src={rafflesCard} alt='raffles' />;
 };

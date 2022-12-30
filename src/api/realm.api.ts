@@ -1,4 +1,4 @@
-import { REALM_ABI } from 'data/abi/realm.abi';
+import REALM_ABI from 'data/abi/realm.abi.json';
 
 import { REALM_CONTRACT } from 'shared/constants';
 import { BigNumber } from 'shared/models';

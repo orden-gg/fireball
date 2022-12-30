@@ -43,6 +43,13 @@ export const styles = makeStyles(theme => createStyles({
             }
         }
     },
+    onlyIconBtn: {
+        minWidth: 24,
+        padding: 6,
+        '& > .MuiButton-startIcon': {
+            margin: 0
+        }
+    },
     subButton: {
         padding: '4px',
         lineHeight: 1.2,

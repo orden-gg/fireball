@@ -1,21 +1,21 @@
-import { Link, Tooltip } from '@mui/material';
+import { Link } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
-import { CustomTooltipStyles } from '../../Gotchi/styles';
 import { styles } from './styles';
 
 interface ERC721ListingProps {
     listings: any[];
-    historicalPrices: any[];
+    historicalPrices: string[];
 }
 
 export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps) {
-    const classes = { ...styles(), ...CustomTooltipStyles() };
+    const classes = styles();
 
     const currentPrice: any = listings?.length && EthersApi.fromWei(listings[0].priceInWei);
     const lastPrice: any = historicalPrices?.length && EthersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
@@ -24,7 +24,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
         <>
             {
                 listings?.length || historicalPrices?.length ? (
-                    <Tooltip
+                    <CustomTooltip
                         title={
                             historicalPrices.length ? (
                                 <>
@@ -43,7 +43,6 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                 <p><span>No history</span></p>
                             )
                         }
-                        classes={{ tooltip: classes.customTooltip }}
                         enterTouchDelay={0}
                         placement='top'
                         followCursor
@@ -55,6 +54,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                     target='_blank'
                                     underline='none'
                                     className={classes.listingLink}
+                                    onClick={(event) => event.stopPropagation()}
                                 >
                                     {!lastPrice ? (
                                         <p>{CommonUtils.formatPrice(currentPrice)}</p>
@@ -63,12 +63,17 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                             <KeyboardArrowUpIcon fontSize='inherit' />
                                             <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                         </div>
-                                    ) : (
+                                    ) : currentPrice < lastPrice ? (
                                         <div className={classes.lastPriceDown}>
                                             <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
                                             <p>{CommonUtils.formatPrice(currentPrice)}</p>
                                         </div>
-                                    )}
+                                    ) : (
+                                        <div>
+                                            <p>{CommonUtils.formatPrice(currentPrice)}</p>
+                                        </div>
+                                    )
+                                    }
                                     <GhstTokenIcon className={classes.token} width={14} height={14} />
                                 </Link>
                             ) : (
@@ -78,9 +83,9 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                                 </div>
                             )}
                         </div>
-                    </Tooltip>
+                    </CustomTooltip>
                 ) : (
-                    <div className={classes.listing}></div>
+                    <></>
                 )
             }
         </>

@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const defaultValue = {
+import { FilterItemOption } from 'shared/models';
+
+const defaultValue: FilterItemOption = {
     title: '',
     value: '',
     queryParamValue: '',
@@ -12,9 +14,10 @@ const defaultValue = {
 interface SingleAutocompleteFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: any) => void;
+    isDisabled: boolean;
 }
 
-export function SingleAutocompleteFilter({ filter, onSetSelectedFilters }: SingleAutocompleteFilterProps) {
+export function SingleAutocompleteFilter({ filter, onSetSelectedFilters, isDisabled }: SingleAutocompleteFilterProps) {
     const [currentValue, setCurrentValue] = useState<any>(defaultValue);
 
     useEffect(() => {
@@ -37,9 +40,9 @@ export function SingleAutocompleteFilter({ filter, onSetSelectedFilters }: Singl
             disablePortal
             value={currentValue}
             getOptionLabel={option => option.title || ''}
-            isOptionEqualToValue={(option, value) => option.isSelected === value.isSelected}
+            isOptionEqualToValue={(option, value) => option.isSelected === value.isSelected || true}
             options={filter.items}
-            disabled={filter.items.length === 0}
+            disabled={filter.items.length === 0 || isDisabled}
             onChange={onHandleChange}
             renderInput={params => (
                 <TextField {...params} label={filter.title} size='small' />

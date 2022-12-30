@@ -2,12 +2,24 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import { Erc1155Categories, Erc721Categories } from 'shared/constants';
+import { ItemCard } from 'components/ItemCard/containers';
+import {
+    CardBalance,
+    CardGroup,
+    CardImage,
+    CardListing,
+    CardName,
+    CardPortalImage,
+    CardSlot,
+    CardStats,
+    CardTotalPrice
+} from 'components/ItemCard/components';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
-import { PortalGeneric } from 'components/Items/Portal/PortalGeneric';
-import { Wearable } from 'components/Items/Wearable/Wearable';
-import { Installation } from 'components/Items/Installation/Installation';
-import { InstallationsUtils } from 'utils';
+import { InstallationsUtils, ItemUtils } from 'utils';
+
+import { RaffleItemChance } from './RaffleItemChance';
 
 import { itemsStyles } from '../styles';
 
@@ -46,44 +58,66 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
                     }}
                 ></ParcelGeneric>;
             case 'portals':
-                return <PortalGeneric
-                    portal={{
-                        id: item.id,
-                        balance: item.quantity
-                    }}
-                    raffleChances={{
-                        chance: item.chance,
-                        won: item.won,
-                        quantity:item.quantity
-                    }}
-                ></PortalGeneric>;
+                return <ItemCard type='haunt2'>
+                    <CardGroup name='header'>
+                        <CardBalance balance={item.quantity} />
+                    </CardGroup>
+                    <CardGroup name='body'>
+                        <CardPortalImage category={Erc721Categories.ClosedPortal} hauntId='2' />
+                        <CardName>H2 Portal</CardName>
+                        <RaffleItemChance stats={{
+                            chance: item.chance,
+                            won: item.won,
+                            quantity:item.quantity
+                        }} />
+                    </CardGroup>
+                </ItemCard>;
             case 'wearables':
-                return <Wearable
-                    wearable={{
-                        id: item.id,
-                        balance: item.quantity,
-                        category: 0
-                    }}
-                    raffleChances={{
-                        chance: item.chance,
-                        won: item.won,
-                        quantity:item.quantity
-                    }}
-                ></Wearable>;
+                return <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getRarityNameById(item.id)}>
+                    <CardGroup name='headerBetween'>
+                        <CardSlot id={item.id} />
+                        <CardTotalPrice
+                            balance={item.quantity}
+                            priceInWei={item.priceInWei}
+                        />
+                        <CardBalance balance={item.quantity} />
+                    </CardGroup>
+                    <CardGroup name='body'>
+                        <CardImage id={item.id} />
+                        <CardName id={item.id} />
+                        <CardStats stats={ItemUtils.getTraitModifiersById(item.id)} />
+                        <RaffleItemChance stats={{
+                            chance: item.chance,
+                            won: item.won,
+                            quantity:item.quantity
+                        }} />
+                    </CardGroup>
+                    <CardGroup name='footer'>
+                        <CardListing />
+                    </CardGroup>
+                </ItemCard>;
             case 'installations':
-                return <Installation
-                    installation={{
-                        id: item.id,
-                        balance: item.quantity,
-                        category: 0,
-                        name: InstallationsUtils.getNameById(item.id)
-                    }}
-                    raffleChances={{
-                        chance: item.chance,
-                        won: item.won,
-                        quantity:item.quantity
-                    }}
-                ></Installation>;
+                return <ItemCard id={item.id} category={Erc1155Categories.Installation} type={InstallationsUtils.getRarityById(item.id)}>
+                    <CardGroup name='header'>
+                        <CardTotalPrice
+                            balance={item.quantity}
+                            priceInWei={item.priceInWei}
+                        />
+                        <CardBalance balance={item.quantity} />
+                    </CardGroup>
+                    <CardGroup name='body'>
+                        <CardImage id={item.id} category={Erc1155Categories.Installation} />
+                        <CardName id={item.id} />
+                        <RaffleItemChance stats={{
+                            chance: item.chance,
+                            won: item.won,
+                            quantity:item.quantity
+                        }} />
+                    </CardGroup>
+                    <CardGroup name='footer'>
+                        <CardListing />
+                    </CardGroup>
+                </ItemCard>;
             default:
                 return <></>;
         }

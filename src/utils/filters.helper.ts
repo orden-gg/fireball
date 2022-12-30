@@ -122,7 +122,11 @@ export class FiltersHelper {
     }
 
     public static inputPredicateFn(filter: any, compareItem: any) {
-        return filter.keys.some((key: any) => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
+        if (filter.keys) {
+            return filter.keys.some((key: any) => compareItem[key].toLowerCase().includes(filter.value.toLowerCase()));
+        } else {
+            return compareItem[filter.key].toLowerCase().includes(filter.value.toLowerCase());
+        }
     }
 
     public static inputUpdateFromQueryFn(filter: any, value: any): any {
@@ -146,7 +150,7 @@ export class FiltersHelper {
     }
 
     // Range slider filter handlers
-    public static rangeSliderGetIsFilterValidFn(values: any, filter: any): any {
+    public static rangeSliderGetIsFilterValidFn(values: any, filter: any): boolean {
         return values[0] > filter.min || values[1] < filter.max;
     }
 
@@ -185,7 +189,7 @@ export class FiltersHelper {
         return filter.value;
     }
 
-    public static rangeSliderGetActiveFiltersCount(filter: any): any {
+    public static rangeSliderGetActiveFiltersCount(filter: any): number {
         return filter.isFilterActive ? 1 : 0;
     }
 

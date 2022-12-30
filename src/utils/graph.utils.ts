@@ -1,5 +1,5 @@
+import { CollateralData } from 'shared/models';
 import { collaterals } from 'data/collaterals.data';
-import { sets } from 'data/sets.data';
 import { tokens } from 'data/tokens.data';
 
 export class GraphUtils {
@@ -37,7 +37,7 @@ export class GraphUtils {
     }
 
     public static getCollateralName(address: any): any {
-        const index = collaterals.findIndex(coll => coll.address === address);
+        const index = collaterals.findIndex((collateral: CollateralData) => collateral.address === address);
 
         return collaterals[index]?.name;
     }
@@ -62,21 +62,5 @@ export class GraphUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    }
-
-    public static getSetName(id: any): any {
-        return sets[id][0] || '';
-    }
-
-    public static getSetWearables(id: any): any {
-        return sets[id][2] || '';
-    }
-
-    public static getSetModifiers(id: any): any {
-        return sets[id][3] || '';
-    }
-
-    public static isExistingSetId(id: any): any {
-        return id <= sets.length;
     }
 }

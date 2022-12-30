@@ -5,9 +5,10 @@ import AddIcon from '@mui/icons-material/Add';
 
 import classNames from 'classnames';
 
+import { Erc1155Categories } from 'shared/constants';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
 import { CustomModal } from 'components/CustomModal/CustomModal';
-import { Tile } from 'components/Items/Tile.js/Tile';
-import { Installation } from 'components/Items/Installation/Installation';
 import { InstallationsApi, TilesApi } from 'api';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -61,7 +62,7 @@ export function Craftbar() {
             const amount: number = craftAmount;
             const items: number[] = Array(amount).fill(selectedItem.id);
             const gltrs: number[] = Array(amount).fill(0);
-            const promise: Promise<any> = category === 'tile' ?
+            const promise: Promise<any> = category === Erc1155Categories.Tile ?
                 TilesApi.craftTiles(items) :
                 InstallationsApi.craftInstallations(items, gltrs);
 
@@ -81,9 +82,15 @@ export function Craftbar() {
 
     const renderSelectedItem = (): JSX.Element => {
         if (isItemSelected) {
-            return category === 'tile' ?
-                <Tile tile={selectedItem} /> :
-                <Installation installation={selectedItem} />;
+            return <ItemCard type='golden' id={selectedItem.id} category={category}>
+                <CardGroup name='headerBetween'>
+                    <CardSlot>{selectedItem.type}</CardSlot>
+                </CardGroup>
+                <CardGroup name='body'>
+                    <CardImage id={selectedItem.id} category={category} />
+                    <CardName>{selectedItem.name}</CardName>
+                </CardGroup>
+            </ItemCard>;
         } else {
             return <></>;
         }

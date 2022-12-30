@@ -5,7 +5,15 @@ import { getActiveAddress } from 'core/store/login';
 import { TokenTypes } from 'shared/constants';
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GhstTokenIcon, GltrTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 import { AlchemicaApi, GhstApi } from 'api';
-import { ALPHA_CONTRACT, DAI_CONTRACT, FOMO_CONTRACT, FUD_CONTRACT, GHST_CONTRACT, GLTR_CONTRACT, KEK_CONTRACT } from 'shared/constants/api.constants';
+import {
+    ALPHA_CONTRACT,
+    FOMO_CONTRACT,
+    FUD_CONTRACT,
+    GHST_CONTRACT,
+    GLTR_CONTRACT,
+    KEK_CONTRACT,
+    USDC_CONTRACT
+} from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
 
 import { TokensPricesContext } from './TokensPricesContext';
@@ -134,7 +142,7 @@ export const BalancesContextProvider = (props: any) => {
                     key: TokenTypes.Kek,
                     icon: <KekTokenIcon height={14} width={14} />,
                     amount: amounts[TokenTypes.Kek],
-                    pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(2),
+                    pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(3),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Kek] * amounts[TokenTypes.Kek]),
                     swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
                 },
@@ -152,7 +160,7 @@ export const BalancesContextProvider = (props: any) => {
                     amount: amounts[TokenTypes.Ghst],
                     pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(2),
                     balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]),
-                    swapUrl: generateSwapUrl(GHST_CONTRACT, DAI_CONTRACT)
+                    swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT)
                 }
             ];
 
@@ -177,7 +185,7 @@ export const BalancesContextProvider = (props: any) => {
     };
 
     const generateSwapUrl = (inputToken: any, outputToken: any): string => {
-        return `https://quickswap.exchange/#/swap?inputCurrency=${inputToken}&outputCurrency=${outputToken}`;
+        return `https://quickswap.exchange/#/swap?currency0=${inputToken}&currency1=${outputToken}`;
     };
 
     return (

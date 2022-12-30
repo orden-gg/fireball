@@ -74,6 +74,8 @@
     "globals": {
         "React": true,
         "JSX": true,
-        "NodeJS": true
+        "NodeJS": true,
+        "Undefinable": true,
+        "Nullable": true
     }
 }

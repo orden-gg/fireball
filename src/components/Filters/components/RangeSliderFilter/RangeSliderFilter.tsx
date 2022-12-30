@@ -1,14 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Slider, TextField } from '@mui/material';
 
+import _ from 'lodash';
+
+import { IconUtils } from 'utils';
+
 import { styles } from './styles';
 
 interface RangeSliderFilterProps {
     filter: any;
     onSetSelectedFilters: (key: string, value: number[]) => void;
+    isDisabled: boolean;
 }
 
-export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderFilterProps) {
+export function RangeSliderFilter({ filter, onSetSelectedFilters, isDisabled }: RangeSliderFilterProps) {
     const classes = styles();
 
     const [currentValue, setCurrentValue] = useState<number[]>([]);
@@ -39,7 +44,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             const currentValueToSet = [Number(value), Number(maxValue)];
 
             setCurrentValue(currentValueToSet);
-            onSetSelectedFilters(filter.key, currentValueToSet);
+            onHandleInputDebounce(filter.key, currentValueToSet);
         }
     }, [maxValue, filter, onSetSelectedFilters]);
 
@@ -55,9 +60,13 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             const currentValueToSet = [Number(minValue), Number(value)];
 
             setCurrentValue(currentValueToSet);
-            onSetSelectedFilters(filter.key, currentValueToSet);
+            onHandleInputDebounce(filter.key, currentValueToSet);
         }
     }, [minValue, filter, onSetSelectedFilters]);
+
+    const onHandleInputDebounce = _.debounce((key: string, value: number[]) => {
+        onSetSelectedFilters(key, value);
+    }, 500);
 
     const updateMinValue = (value: number) => {
         setMinValue(value);
@@ -78,6 +87,9 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
             <div className={classes.range}>
                 <div className={classes.title}>
                     {filter.title}
+                    {filter.isShowIcon &&
+                        <span style={{ ...filter.iconProps, marginLeft: filter.title ? 4 : 0 }}>{IconUtils.getIconByName(filter.iconName, filter.iconProps)}</span>
+                    }
                 </div>
 
                 <Slider
@@ -89,6 +101,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     valueLabelDisplay='auto'
                     disableSwap
                     size='small'
+                    disabled={isDisabled}
                 />
             </div>
 
@@ -101,6 +114,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     inputProps={{ type: 'number' }}
                     value={minValue}
                     onChange={event => onMinInputChange(event.target.value)}
+                    disabled={isDisabled}
                 ></TextField>
                 <TextField
                     className={classes.textField}
@@ -110,6 +124,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters }: RangeSliderF
                     inputProps={{ type: 'number' }}
                     value={maxValue}
                     onChange={event => onMaxInputChange(event.target.value)}
+                    disabled={isDisabled}
                 ></TextField>
             </div>
         </div>

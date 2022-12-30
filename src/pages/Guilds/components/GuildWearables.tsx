@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { WearableImage } from 'components/Items/Wearable/WearableImage';
+import { CardImage } from 'components/ItemCard/components';
 import { ItemUtils } from 'utils';
 
 import { guildWearables } from '../styles';
@@ -16,9 +16,9 @@ export function GuildWearables({ wearables, className, tooltip }: GuildWearables
     const classes = guildWearables();
 
     const renderWearableImage = (id: string): JSX.Element => (
-        <WearableImage
+        <CardImage
             className={classNames(classes.guildWearable, className || null)}
-            wearable={{ id: id }}
+            id={Number(id)}
             key={id}
         />
     );
@@ -27,7 +27,7 @@ export function GuildWearables({ wearables, className, tooltip }: GuildWearables
         wearables.map((id: any) =>
             tooltip !== undefined ? (
                 <CustomTooltip
-                    title={ItemUtils.getItemNameById(id)}
+                    title={ItemUtils.getNameById(id)}
                     followCursor
                     placement='top'
                     key={id}

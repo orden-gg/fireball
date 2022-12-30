@@ -659,6 +659,14 @@ export const parselStyles = makeStyles(theme => createStyles({
         bottom: 4,
         fontSize: 10,
         opacity: .8
+    },
+    installations: {
+        flexWrap: 'nowrap'
+    },
+    history: {
+        marginTop: 4,
+        width: '100%',
+        margin: 0
     }
 }));
 

@@ -1,7 +1,7 @@
 import { EthersApi } from './ethers.api';
 
 import { MAIN_CONTRACT, AUTOPET_OPERATOR } from 'shared/constants';
-import { MAIN_ABI } from 'data/abi/main.abi';
+import MAIN_ABI from 'data/abi/main.abi.json';
 
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 
@@ -14,17 +14,22 @@ export class MainApi {
         const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
         const transaction = await writeContract.setPetOperatorForAll(AUTOPET_OPERATOR, isApproved);
 
-        return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => (
+        return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) =>
             Boolean(response.status)
-        ));
+        );
+    }
+
+    public static getAavegotchiById(id: number): Promise<any[]> {
+        return contract.getAavegotchi(id).then((response: any[]) => {
+            return response;
+        });
     }
 
     public static async getAvailableSkillPoints(tokenId: any): Promise<any> {
         try {
-            return await contract.availableSkillPoints(tokenId)
-                .then((response: any) => {
-                    return EthersApi.formatBigNumber(response);
-                });
+            return await contract.availableSkillPoints(tokenId).then((response: any) => {
+                return EthersApi.formatBigNumber(response);
+            });
         } catch (error) {
             console.log(error);
 
@@ -36,16 +41,15 @@ export class MainApi {
         try {
             let contractResponse: any;
 
-            await contract.itemBalances(address.toLowerCase())
-                .then((response: any) => {
-                    const collection = response.map((item: any) => {
-                        const inner: any = item.map((i: any) => EthersApi.formatBigNumber(i));
+            await contract.itemBalances(address.toLowerCase()).then((response: any) => {
+                const collection = response.map((item: any) => {
+                    const inner: any = item.map((i: any) => EthersApi.formatBigNumber(i));
 
-                        return { itemId: inner[0], balance: inner[1] };
-                    });
-
-                    contractResponse = { items: collection, owner: address };
+                    return { itemId: inner[0], balance: inner[1] };
                 });
+
+                contractResponse = { items: collection, owner: address };
+            });
 
             return contractResponse;
         } catch (error) {

@@ -484,9 +484,23 @@ export const raffleDataStyles = makeStyles(() => createStyles({
     }
 }));
 
-export const raffleChanceStyles = makeStyles(() => createStyles({
+export const raffleChanceStyles = makeStyles(theme => createStyles({
     container: {
-        marginTop: '8px'
+        color: theme.palette.common.white,
+        marginTop: theme.spacing(1)
+    },
+    itemWon: {
+        color: '#1de91d'
+    },
+    itemChance: {
+        color: '#ffff00'
+    },
+    label: {
+        minWidth: 60,
+        display: 'inline-block',
+        textAlign: 'right',
+        color: theme.palette.common.white,
+        marginRight: theme.spacing(1)
     }
 }));
 
@@ -523,8 +537,7 @@ export const itemsStyles = makeStyles(() => createStyles({
     list: {
         display: 'grid',
         gap: 12,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
-        gridAutoRows: '1fr'
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))'
     },
     listItem: {
         position: 'relative',

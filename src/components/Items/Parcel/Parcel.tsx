@@ -3,7 +3,9 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 import { ParcelAlchemica } from 'shared/models';
+import { AlchemicaTypes } from 'shared/constants';
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
+import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
@@ -11,7 +13,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import { ItemUtils } from 'utils';
+import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
@@ -27,7 +29,7 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const parcelSize: string = ItemUtils.getParcelSize(parcel.size);
+    const parcelSize: any = CitadelUtils.getParcelSizeName(parcel.size);
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -55,27 +57,17 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
                         #{parcel.tokenId}
                     </CopyToClipboardBlock>
 
-                    <CustomTooltip
-                        title='District'
-                        placement='top'
-                        followCursor
-                    >
-                        <div className={classNames(classes.label, classes.labelBalance)}>
-                            {parcel.district}
-                        </div>
+                    <CustomTooltip title='District' placement='top' followCursor>
+                        <div className={classNames(classes.label, classes.labelBalance)}>{parcel.district}</div>
                     </CustomTooltip>
                 </div>
 
                 <div className={classes.parcelSize}>
-                    <ShineLabel text={ItemUtils.getParcelDimmentions(parcel.size)} />
+                    <ShineLabel text={CitadelUtils.getParcelDimmentions(parcel.size)} />
                 </div>
 
                 <div className={classes.parcelImageWrapper}>
-                    <ParcelImage
-                        parcel={parcel}
-                        imageSize={300}
-                        key={parcel.parcelId}
-                    />
+                    <ParcelImage parcel={parcel} imageSize={300} key={parcel.parcelId} />
                 </div>
 
                 <div className={classes.boosts}>
@@ -85,32 +77,41 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
 
                         return value > 0 ? (
                             <div className={classNames(classes.boost, key)} key={i}>
-                                <img src={ItemUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
                                 {value}
                             </div>
-                        ) : (
-                            null
-                        );
+                        ) : null;
                     })}
                 </div>
 
                 <ParcelName parcel={parcel} />
 
-                { parcel.channeling && (
-                    <ChannelingInfo channeling={parcel.channeling} />
+                {parcel.timePurchased && (
+                    <CardSalesHistory
+                        className={classes.history}
+                        listing={{
+                            seller: parcel.seller,
+                            buyer: parcel.buyer,
+                            timePurchased: parcel.timePurchased
+                        }}
+                    />
                 )}
 
-                { parcel.installations && (
+                {parcel.channeling && <ChannelingInfo channeling={parcel.channeling} />}
+
+                {parcel.installations && (
                     <div className={classes.parcelInstallations}>
-                        <ParcelInstallations parcel={parcel} />
+                        <ParcelInstallations
+                            parcel={parcel}
+                            className={classNames('custom-scroll', classes.installations)}
+                        />
                     </div>
                 )}
 
                 <div className={classes.parcelPriceContainer}>
-                    <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
+                    <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />
                 </div>
             </div>
-
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
                 <ParcelPreview parcel={parcel} alchemica={alchemica} />

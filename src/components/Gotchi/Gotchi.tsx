@@ -2,8 +2,10 @@ import { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
+import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GotchiverseUtils } from 'utils';
 
+import { CardSalesHistory } from 'components/ItemCard/components';
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
@@ -18,6 +20,8 @@ import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
+import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
+import { GotchiBadges } from './GotchiBadges/GotchiBadges';
 import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
@@ -32,12 +36,22 @@ interface GotchiProps {
     portal?: any;
     isHighlightLending?: boolean;
     className?: string;
+    shouldLoadGotchiInModal?: boolean;
 }
 
-export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLending, className }: GotchiProps) {
+export function Gotchi({
+    gotchi,
+    renderSvgByStats,
+    render,
+    portal,
+    isHighlightLending,
+    className,
+    shouldLoadGotchiInModal = true
+}: GotchiProps) {
     const classes = styles();
 
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
+    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
     const flipCard = useCallback(() => {
         setIsFlipped(!isFlipped);
@@ -112,7 +126,7 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
         get collateral() {
             return (
                 <GotchiCollateral
-                    gotchi={gotchi}
+                collateral={gotchi.collateral}
                     key={`${gotchi.id}-collateral`}
                 />
             );
@@ -126,6 +140,12 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     experience={gotchi.experience}
                     key={`${gotchi.id}-level`}
                 />
+            );
+        },
+
+        get badges() {
+            return (
+                <GotchiBadges id={gotchi.id}  key={`${gotchi.id}-badges`} />
             );
         },
 
@@ -171,12 +191,13 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
 
         get svg() {
             return (
-                <GotchiImage
-                    gotchi={gotchi}
-                    renderSvgByStats={renderSvgByStats}
-                    portal={portal}
-                    key={`${gotchi.id}-svg`}
-                />
+                <div key={`${gotchi.id}-svg`} >
+                    <GotchiImage
+                        gotchi={gotchi}
+                        renderSvgByStats={renderSvgByStats}
+                        portal={portal}
+                    />
+                </div>
             );
         },
 
@@ -204,6 +225,19 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
                     key={`${gotchi.id}-listing`}
                     listings={gotchi.listings}
                     historicalPrices={gotchi.historicalPrices}
+                />
+            );
+        },
+
+        get saleHistory() {
+            return (
+                <CardSalesHistory
+                    key={`${gotchi.id}-saleHistory`}
+                    listing={{
+                        seller: gotchi.seller,
+                        buyer: gotchi.buyer,
+                        timePurchased: gotchi.timePurchased
+                    }}
                 />
             );
         },
@@ -237,23 +271,29 @@ export function Gotchi({ gotchi, renderSvgByStats, render, portal, isHighlightLe
     }
 
     return (
-        <div
-            className={classNames(
-                classes.gotchi,
-                `haunt${gotchi.hauntId}`,
-                'vertical',
-                className,
-                GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
-                gotchi.lending && isHighlightLending && 'lended',
-                isFlipped && classes.gotchiIsFlipped
-            )}
-        >
-            { gotchi.lending && isHighlightLending && (
-                <div className={classes.statusBadge}>Lended</div>
-            )}
-            {render.map((name: any) => {
-                return renderSection(name);
-            })}
-        </div>
+        <>
+            <div
+                className={classNames(
+                    classes.gotchi,
+                    `haunt${gotchi.hauntId}`,
+                    'vertical',
+                    className,
+                    GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
+                    gotchi.lending && isHighlightLending && 'lended',
+                    isFlipped && classes.gotchiIsFlipped
+                )}
+                onClick={() => setIsPreviewOpen(true)}
+            >
+                { gotchi.lending && isHighlightLending && (
+                    <div className={classes.statusBadge}>Lended</div>
+                )}
+                {render.map((name: any) => {
+                    return renderSection(name);
+                })}
+            </div>
+            <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
+                <GotchiPreviewModal id={shouldLoadGotchiInModal ? gotchi.id : null} gotchi={!shouldLoadGotchiInModal ? gotchi :null } />
+            </CustomModal>
+        </>
     );
 }

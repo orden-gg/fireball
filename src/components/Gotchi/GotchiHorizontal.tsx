@@ -33,7 +33,7 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
         get collateral() {
             return (
                 <GotchiCollateral
-                    gotchi={gotchi}
+                collateral={gotchi.collateral}
                     key={`${gotchi.id}-collateral`}
                 />
             );

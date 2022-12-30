@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, useContext, useCallback } from 'rea
 
 import { useMetamask } from 'use-metamask';
 
-import { INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 import { BalancesContext } from 'contexts/BalancesContext';
 import { AlchemicaApi } from 'api';
 
@@ -12,13 +12,13 @@ export const CraftContextProvider = (props: any) => {
     const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
     const [accountAddress, setAccountAddress] = useState<string>('');
     const [tokensApprovals, setTokenApprovals] = useState<any>({
-        tile: [],
-        installation: []
+        [Erc1155Categories.Installation]: [],
+        [Erc1155Categories.Tile]: []
     });
     const [isAlchemicaApproved, setIsAlchemicaApproved] = useState<boolean>(false);
     const [selectedItem, setSelectedItem] = useState<any>({});
     const [isItemSelected, setIsItemSelected] = useState<boolean>(false);
-    const [category, setCategory] = useState<string>('installation');
+    const [category, setCategory] = useState<string>(Erc1155Categories.Installation);
     const [maxCraftAmount, setMaxCraftAmount] = useState<number>(1);
 
     const { tokens } = useContext<any>(BalancesContext);
@@ -32,9 +32,11 @@ export const CraftContextProvider = (props: any) => {
 
     const getMaxCraftAmount = useCallback((): number => {
         const isFreeItem: boolean = selectedItem.alchemicaCost.every((cost: number) => cost === 0);
-        const amounts: number[] = selectedItem.alchemicaCost.map((price, index) =>
-            Math.floor(tokens[index].amount / price)
-        );
+        const amounts: number[] = selectedItem.alchemicaCost
+            .map((price, index) =>
+                tokens[index].amount === 0 ? -1 : Math.floor(tokens[index].amount / price)
+            )
+            .filter((amount) => amount !== -1);
         const minAmount = Math.min(...amounts) || 0;
 
         return minAmount > 200 || isFreeItem ? 200 : minAmount;
@@ -66,8 +68,8 @@ export const CraftContextProvider = (props: any) => {
                 ]);
 
                 setTokenApprovals({
-                    tile: tileApprovals,
-                    installation: installationApprovals
+                    [Erc1155Categories.Installation]: installationApprovals,
+                    [Erc1155Categories.Tile]: tileApprovals
                 });
             })();
         }

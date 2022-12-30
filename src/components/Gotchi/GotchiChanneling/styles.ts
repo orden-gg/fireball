@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles(() => createStyles({
     container: {
+        position: 'relative',
         margin: '8px 0',
         background: alpha('#000', .1),
         borderRadius: 4,
@@ -11,6 +12,7 @@ export const styles = makeStyles(() => createStyles({
         justifyContent: 'center',
         width: 28,
         height: 28,
+        minWidth: 28,
         '& img': {
             display: 'block'
         }

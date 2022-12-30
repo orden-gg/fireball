@@ -6,7 +6,7 @@ export const styles = makeStyles(theme => createStyles({
         padding: '51px 24px 0',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%'
+        flexGrow: 1
     },
     loginNav: {
         maxWidth: 500,
@@ -335,5 +335,120 @@ export const actionStyles = makeStyles(() => createStyles({
     },
     marginBottom: {
         marginBottom: 8
+    }
+}));
+
+export const warehouseStyles = makeStyles((theme) => createStyles({
+    benefits: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        color: theme.palette.common.white,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        marginTop: 4
+    },
+    itemTypeValue: {
+        color: '#06b6b6'
+    },
+    benefitValue: {
+        textAlign: 'center',
+        fontStyle: 'italic'
+    }
+}));
+
+export const fakeGotchiStyles = makeStyles((theme) => createStyles({
+    fakeGotchiCard: {
+        height: '100%',
+        position: 'relative'
+    },
+    fakeGotchiLink: {
+        height: '100%',
+        cursor: 'pointer',
+        '&:hover .drop': {
+            background: alpha('#000', 0.2)
+        }
+    },
+    fakeGotchiBodyWrapper: {
+        height: '100%'
+    },
+    fakeGotchiHeader: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        margin: 0,
+        zIndex: 5
+    },
+    fakeGotchiBody: {
+        justifyContent: 'flex-start'
+    },
+    fakeGotchiName: {
+        fontSize: 15,
+        color: '#fff'
+    },
+    fakeGotchiImage: {
+        width: '100%',
+        marginTop: 0,
+        paddingBottom: '70%',
+        '& img': {
+            objectFit: 'cover'
+        }
+    },
+    description: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        color: theme.palette.common.white,
+        fontSize: 12,
+        fontWeight: 600,
+        padding: 0,
+        marginTop: 4
+    },
+    descriptionText: {
+        color: '#06b6b6'
+    },
+    descriptionFooter: {
+        textAlign: 'center',
+        fontStyle: 'italic'
+    },
+    author: {
+        fontWeight: 700,
+        color: 'burlywood'
+    }
+}));
+
+export const forSaleStyles = makeStyles(theme => createStyles({
+    container: {
+        position: 'relative',
+        padding: theme.spacing(3),
+        paddingTop: 0,
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    shopAddress: {
+        marginTop: 24
+    },
+    list: {
+        display: 'grid',
+        alignItems: 'start',
+        gap: 12,
+        gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
+        gridAutoRows: '1fr'
+    },
+    listItem: {
+        height: '100%'
+    },
+    loaderBox: {
+        marginTop: '1.5rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    noListings: {
+        marginTop: '1.5rem',
+        textAlign: 'center',
+        fontSize: '1rem'
     }
 }));

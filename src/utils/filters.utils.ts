@@ -1,3 +1,5 @@
+import { SortingItem } from 'shared/models';
+
 import { CommonUtils } from './common.utils';
 
 
@@ -40,20 +42,20 @@ export class FilterUtils {
         return count;
     }
 
-    public static getFilteredItems(filters: Object, items: any): any {
-        return items.filter((item: any) =>
+    public static getFilteredItems<T, K>(filters: T, items: K[]): K[] {
+        return items.filter((item: K) =>
             Object.entries(filters).every(([key, filter]) =>
                 filter.isFilterActive ? filter.predicateFn(filter, item, key) : true
             )
         );
     }
 
-    public static getFilteredSortedItems({
+    public static getFilteredSortedItems<T>({
         items,
         filters,
         sorting,
         getFilteredItems
-    }: { items: any, filters: Object, sorting: any, getFilteredItems: any }): any {
+    }: { items: T[], filters: Object, sorting: SortingItem, getFilteredItems: any }): T[] {
         const activeFilters = Object.entries(filters)
             .filter(([_, fitler]) => fitler.isFilterActive);
         let modifiedItems: any;

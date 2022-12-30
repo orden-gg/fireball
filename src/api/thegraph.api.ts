@@ -2,15 +2,17 @@ import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOp
 import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
-import { EthersApi } from './ethers.api';
-import { GraphUtils } from 'utils';
+import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import { ItemUtils } from 'utils';
 
+import { EthersApi } from './ethers.api';
 import {
     gotchiByIdQuery,
     gotchiesQuery,
     svgQuery,
     activeListingQeury,
     erc1155Query,
+    erc1155ListingsBatchQuery,
     erc721ListingsBySeller,
     erc721SalesHistory,
     erc1155ListingsBySeller,
@@ -33,6 +35,8 @@ import {
     parcelsOwnerGotchiverseQuery,
     realmQueryByDistrict
 } from './common/queries';
+import { TheGraphCoreApi } from './the-graph-core.api';
+import { GRAPH_CORE_API } from 'shared/constants';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
@@ -40,9 +44,6 @@ const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegot
 const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
 const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
-
-// TODO: temporary lend graph
-const lendAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-lending';
 
 const defaultOptions: DefaultOptions = {
     watchQuery: {
@@ -70,7 +71,6 @@ const clientFactory = (() => {
         svgsClient: createClient(gotchiSvgAPI),
         realmClient: createClient(realmAPI),
         gotchiverseClient: createClient(gotchiverseAPI),
-        lendClient: createClient(lendAPI),
         incomeClient: createClient(incomeAPI)
     };
 })();
@@ -174,8 +174,8 @@ const modifyTraits = (gotchis: any): any => {
     return gotchisCache.map((gotchi) => {
         const gotchiCache = { ...gotchi };
 
-        if (gotchiCache.equippedSetID && GraphUtils.isExistingSetId(gotchiCache.equippedSetID)) {
-            const modifiers = GraphUtils.getSetModifiers(gotchiCache.equippedSetID);
+        if (gotchiCache.equippedSetID && ItemUtils.isExistingSetId(gotchiCache.equippedSetID)) {
+            const modifiers = ItemUtils.getSetModifiers(gotchiCache.equippedSetID);
             const brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
 
             gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
@@ -190,7 +190,7 @@ const modifyTraits = (gotchis: any): any => {
 
 export class TheGraphApi {
     public static async getData(query: any): Promise<any> {
-        return await getGraphData(clientFactory.client, query);
+        return await TheGraphCoreApi.getGraphData(GRAPH_CORE_API, query);
     }
 
     public static async getJoinedData(queries: any): Promise<any> {
@@ -202,6 +202,12 @@ export class TheGraphApi {
             const filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
             return modifyTraits(filteredArray);
+        });
+    }
+
+    public static getGotchiById(id: number): Promise<any> {
+        return this.getData(gotchiByIdQuery(id)).then((response: any) => {
+            return modifyTraits([response.data.aavegotchi])[0];
         });
     }
 
@@ -287,6 +293,23 @@ export class TheGraphApi {
                 lastSale: erc1155[0]?.timeLastPurchased || null
             };
         }).catch((error) => console.log(error));
+    }
+
+    public static async getErc1155ListingsBatchQuery(
+        ids: number[],
+        category: string,
+        isSold: boolean,
+        orderBy: string,
+        orderDireciton: string
+    ): Promise<Erc1155ListingsBatch> {
+        const getQuery = (ids: number[], category: string): string => {
+            const queries: string[] = ids.map((id: number) => erc1155ListingsBatchQuery(id, category, isSold, orderBy, orderDireciton));
+
+            return `{${queries.join(',')}}`;
+        };
+
+        return TheGraphApi.getData(getQuery(ids, category))
+            .then((response: TheGraphResponse<Erc1155ListingsBatch>) => response.data);
     }
 
     public static async getErc721ListingsBySeller(seller: any): Promise<any> {
@@ -429,7 +452,7 @@ export class TheGraphApi {
         });
     }
 
-    public static async getErc721SalesHistory(id: string, category: any): Promise<any> {
+    public static async getErc721SalesHistory(id: number, category: string): Promise<SalesHistoryModel[]> {
         return await TheGraphApi.getData(erc721SalesHistory(id, category)).then((response: any) => {
             return response.data.erc721Listings;
         });
@@ -490,7 +513,7 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
@@ -505,14 +528,14 @@ export class TheGraphApi {
         function getQueries() {
             const queries: any[] = [];
 
-            for (let i = 0; i < 1; i++) {
+            for (let i = 0; i < 6; i++) {
                 queries.push(lendingsByAddressQuery(address.toLowerCase(), i * 1000));
             }
 
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,
@@ -534,7 +557,7 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.lendClient, getQueries()).then((response: any) => {
+        return await graphJoin(clientFactory.client, getQueries()).then((response: any) => {
             const filteredArray: any[] = filterCombinedGraphData(response, ['gotchiLendings'], 'id').map((item: any) => ({
                 ...item,
                 ...item.gotchi,

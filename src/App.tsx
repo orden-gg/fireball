@@ -5,28 +5,33 @@ import { Box } from '@mui/system';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
 
-import { Footer } from './root/Footer/Footer';
-import { Header } from './root/Header/Header';
+import { Footer } from 'root/Footer/Footer';
+import { Header } from 'root/Header/Header';
 import { NavPanel } from 'root/NavPanel/NavPanel';
 
-import { Autopet } from './pages/Autopet/Autopet';
-import { Baazaar } from './pages/Baazaar/Baazaar';
-import { Client } from './pages/Client/Client';
-import { Craft } from 'pages/Craft/Craft';
-import { GhostExplorer } from './pages/GhostExplorer/GhostExplorer';
-import { Guilds } from './pages/Guilds/Guilds';
-import { Lend } from 'pages/Lend/Lend';
-import { Main } from './pages/Main/Main';
-import { Map } from './pages/Map/Map';
-import { NotFound } from './pages/NotFound/NotFound';
-import { ParcelPage } from './pages/Parcel/ParcelPage';
-import { Raffle } from './pages/Raffle/Raffle';
-import { Shop } from './pages/Shop/Shop';
-import { BaazaarContextProvider } from './contexts/BaazaarContext';
+import {
+    Anvil,
+    Autopet,
+    Baazaar,
+    Client,
+    Craft,
+    FakeGotchisGallery,
+    GhostExplorer,
+    Glossary,
+    GotchiPage,
+    Guilds,
+    Lend,
+    Main,
+    Map,
+    NotFound,
+    ParcelPage,
+    Raffle
+} from 'pages';
+import { BaazaarContextProvider } from 'contexts/BaazaarContext';
 import { BalancesContextProvider } from 'contexts/BalancesContext';
-import { ClientContextProvider } from './contexts/ClientContext';
+import { ClientContextProvider } from 'contexts/ClientContext';
 import { DataReloadContextProvider } from 'contexts/DataReloadContext';
-import { SnackbarContextProvider } from './contexts/SnackbarContext';
+import { SnackbarContextProvider } from 'contexts/SnackbarContext';
 import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
 
 const classes = {
@@ -54,6 +59,7 @@ const Wrapper = styled('div')(() => ({
 export function App() {
     const location = useLocation();
     // TODO find a better way how to handle hide/show header/footer
+    const isNavHidden = location.pathname === '/';
     const isHeaderHidden = location.pathname === '/shop';
     const isFooterHidden = location.pathname === '/shop' || location.pathname === '/';
 
@@ -63,26 +69,28 @@ export function App() {
                 <BaazaarContextProvider>
                     <TokensPricesContextProvider>
                         <ClientContextProvider>
-
                             <Helmet>
-                                <title>fireball.gg gotchiverse client</title>
+                                <title>aavegotchi portal #1</title>
                             </Helmet>
 
-                            <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
-                                { !isHeaderHidden &&
+                            <Wrapper
+                                className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}
+                            >
+                                {!isHeaderHidden && (
                                     <>
                                         <BalancesContextProvider>
                                             <Header />
                                         </BalancesContextProvider>
-                                        <NavPanel />
+                                        {!isNavHidden && <NavPanel />}
                                     </>
-                                }
+                                )}
 
                                 <Box className={classes.content}>
                                     <Routes>
                                         <Route path='' element={<Main />} />
-                                        <Route path='market' element={<Baazaar />} />
-                                        <Route path='lend' element={<Lend />} />
+                                        <Route path='anvil' element={<Anvil />} />
+                                        <Route path='market/*' element={<Baazaar />} />
+                                        <Route path='lendings' element={<Lend />} />
                                         <Route path='explorer' element={<GhostExplorer />} />
                                         <Route path='autopet' element={<Autopet />} />
                                         <Route path='guilds/*' element={<Guilds />} />
@@ -90,16 +98,17 @@ export function App() {
                                         <Route path='craft' element={<Craft />} />
                                         <Route path='parcel/:parcelId' element={<ParcelPage />} />
                                         <Route path='raffles/*' element={<Raffle />} />
-                                        <Route path='shop' element={<Shop />} />
                                         <Route path='map' element={<Map />} />
+                                        <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
+                                        <Route path='glossary/*' element={<Glossary />} />
+                                        <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
                                         <Route path='404' element={<NotFound />} />
                                         <Route path='*' element={<Navigate to='404' replace />}></Route>
                                     </Routes>
                                 </Box>
 
-                                { !isFooterHidden && <Footer /> }
+                                {!isFooterHidden && <Footer />}
                             </Wrapper>
-
                         </ClientContextProvider>
                     </TokensPricesContextProvider>
                 </BaazaarContextProvider>

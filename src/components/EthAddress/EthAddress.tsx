@@ -12,13 +12,13 @@ import { styles } from './styles';
 
 interface EthAddressProps {
     address: string;
-    isShwoIcon: boolean;
+    isShowIcon: boolean;
     isClientLink?: boolean;
     isPolygonButton?: boolean;
     isCopyButton?: boolean;
 }
 
-export function EthAddress({ address, isShwoIcon, isClientLink, isPolygonButton, isCopyButton }: EthAddressProps) {
+export function EthAddress({ address, isShowIcon, isClientLink, isPolygonButton, isCopyButton }: EthAddressProps) {
     const classes = styles();
 
     if (!EthersApi.isEthAddress(address)) {
@@ -27,7 +27,7 @@ export function EthAddress({ address, isShwoIcon, isClientLink, isPolygonButton,
 
     return (
         <div className={classes.container}>
-            { isShwoIcon &&
+            { isShowIcon &&
                 <Blockies
                     seed={address.toLowerCase()}
                     size={8}

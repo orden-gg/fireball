@@ -207,7 +207,13 @@ export function ClientOwned() {
                                 },
                                 'name',
                                 'traits',
-                                'channeling',
+                                {
+                                    className: 'gotchiBadges',
+                                    items: [
+                                        'channeling',
+                                        'badges'
+                                    ]
+                                },
                                 'wearablesLine',
                                 'listing',
                                 'rewards'

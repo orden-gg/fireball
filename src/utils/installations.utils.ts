@@ -1,7 +1,7 @@
-import { InstallationTypeNames, InstallationTypes } from 'shared/constants';
+import { InstallationTypeNames, InstallationTypes, RarityTypes } from 'shared/constants';
+import { InstallationItem } from 'shared/models';
 import installations from 'data/installations.data.json';
 
-import { InstallationItem } from 'shared/models';
 
 export class InstallationsUtils {
     public static getMetadataById(id: any): InstallationItem {
@@ -14,16 +14,26 @@ export class InstallationsUtils {
             craftTime: InstallationsUtils.getCraftTimeById(id),
             alchemicaCost: InstallationsUtils.getAlchemicaCostById(id),
             cooldown: InstallationsUtils.getCooldownByLevel(InstallationsUtils.getLevelById(id)),
-            deprecated: InstallationsUtils.getDeprecatedById(id)
+            deprecated: InstallationsUtils.getDeprecatedById(id),
+            width: InstallationsUtils.getWidthById(id),
+            height: InstallationsUtils.getHeightById(id)
         };
+    }
+
+    public static getWidthById(id: number): any {
+        return installations[id][InstallationTypes.Width];
+    }
+
+    public static getHeightById(id: number): any {
+        return installations[id][InstallationTypes.Height];
     }
 
     public static getIsInstallationExist(id: number): boolean {
         return Boolean(installations[id]);
     }
 
-    public static getNameById(id: any): any {
-        return installations[id][InstallationTypes.Name];
+    public static getNameById(id: any): string {
+        return installations[id][InstallationTypes.Name] as string;
     }
 
     public static getLevelById(id: any): any {
@@ -34,7 +44,11 @@ export class InstallationsUtils {
         try {
             return require(`../assets/images/installations/${id}.png`).default;
         } catch (error) {
-            return require('../assets/images/image-placeholder.svg').default;
+            try {
+                return require(`../assets/images/installations/${id}.gif`).default;
+            } catch (error) {
+                return require('../assets/images/image-placeholder.svg').default;
+            }
         }
     }
 
@@ -106,5 +120,16 @@ export class InstallationsUtils {
 
     public static getDeprecatedById(id: any): any {
         return installations[id][InstallationTypes.Deprecated];
+    }
+
+    public static getRarityById(id: number | string): string {
+        const name: string = InstallationsUtils.getNameById(id).split(' ')[0].toLowerCase();
+        const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
+
+        if (isRarity) {
+            return name;
+        } else {
+            return RarityTypes.Golden;
+        }
     }
 }

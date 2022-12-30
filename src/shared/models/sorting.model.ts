@@ -1,6 +1,10 @@
-export interface Sorting {
+export interface SortingItem {
     type: string;
     dir: string;
+}
+
+export interface QueryParamSortingItem {
+    [key: string]: string | string[] | number[];
 }
 
 export interface SortingListItem {
@@ -9,4 +13,10 @@ export interface SortingListItem {
     tooltip: string;
     icon: JSX.Element;
     paramKey?: string;
+}
+
+export interface Sorting {
+    sortingList: SortingListItem[];
+    sortingDefaults: SortingItem;
+    onSortingChange: (sortBy: string, sortDir: string) => void;
 }

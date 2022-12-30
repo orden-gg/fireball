@@ -2,20 +2,19 @@ import { useContext, useCallback, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import TimerIcon from '@mui/icons-material/Timer';
-import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, GotchiIcon, KekTokenIcon } from 'components/Icons/Icons';
+import { GotchiIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { ClientContext } from 'contexts/ClientContext';
 import { filtersData } from 'data/filters.data';
-import { FilterUtils } from 'utils';
+import { CommonUtils, FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
     {
@@ -38,50 +37,52 @@ const sortings: SortingListItem[] = [
         paramKey: 'income',
         tooltip: 'alchemica power',
         icon: <LocalFireDepartmentIcon fontSize='small' />
-    },
-    {
-        name: 'total',
-        key: 'totalTokens',
-        paramKey: 'total',
-        tooltip: 'total alchemica',
-        icon: <GroupWorkIcon fontSize='small' />
-    },
-    {
-        name: 'fud',
-        key: 'fud',
-        paramKey: 'fud',
-        tooltip: 'fud',
-        icon: <FudTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'fomo',
-        key: 'fomo',
-        paramKey: 'fomo',
-        tooltip: 'fomo',
-        icon: <FomoTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'alpha',
-        key: 'alpha',
-        paramKey: 'alpha',
-        tooltip: 'alpha',
-        icon: <AlphaTokenIcon height={18} width={18} />
-    },
-    {
-        name: 'kek',
-        key: 'kek',
-        paramKey: 'kek',
-        tooltip: 'kek',
-        icon: <KekTokenIcon height={18} width={18} />
     }
+    // TODO that code will be reused in the future, but if you see this please check with @dudendy if it's still needed :)
+    // {
+    //     name: 'total',
+    //     key: 'totalTokens',
+    //     paramKey: 'total',
+    //     tooltip: 'total alchemica',
+    //     icon: <GroupWorkIcon fontSize='small' />
+    // },
+    // {
+    //     name: 'fud',
+    //     key: 'fud',
+    //     paramKey: 'fud',
+    //     tooltip: 'fud',
+    //     icon: <FudTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'fomo',
+    //     key: 'fomo',
+    //     paramKey: 'fomo',
+    //     tooltip: 'fomo',
+    //     icon: <FomoTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'alpha',
+    //     key: 'alpha',
+    //     paramKey: 'alpha',
+    //     tooltip: 'alpha',
+    //     icon: <AlphaTokenIcon height={18} width={18} />
+    // },
+    // {
+    //     name: 'kek',
+    //     key: 'kek',
+    //     paramKey: 'kek',
+    //     tooltip: 'kek',
+    //     icon: <KekTokenIcon height={18} width={18} />
+    // }
 ];
 
 const initialFilters: any = {
     hauntId: { ...filtersData.hauntId, divider: true },
-    collateral: { ...filtersData.collateral, divider: true },
+    whitelistId: { ...filtersData.whitelistId, divider: true },
+    borrower: { ...filtersData.borrower, divider: true },
     search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'whitelistId', 'borrower', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
     const navigate = useNavigate();
@@ -115,6 +116,54 @@ export function ClientLendings() {
             onResetFilters();
         };
     }, []);
+
+    useEffect(() => {
+        if (lendings.length > 0) {
+            const whitelistData: string[] = [];
+            const borrowersAddresses: string[] = [];
+
+            for (let i = 0; i < lendings.length; i++) {
+                whitelistData.push(lendings[i].whitelistId);
+                borrowersAddresses.push(lendings[i].borrower);
+            }
+
+            const sortedWhitelist: string[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+            const uniqueBorrowers = [...new Set(borrowersAddresses)];
+
+            setCurrentFilters((currentFiltersCache: any) => {
+                const currentFiltersCacheCopy = { ...currentFiltersCache };
+
+                currentFiltersCacheCopy.whitelistId = {
+                    ...currentFiltersCacheCopy.whitelistId,
+                    items: sortedWhitelist.map((whitelist: string) => ({
+                        title: whitelist,
+                        value: whitelist,
+                        queryParamValue: whitelist,
+                        isSelected: false
+                    }))
+                };
+                currentFiltersCacheCopy.borrower = {
+                    ...currentFiltersCacheCopy.borrower,
+                    items: uniqueBorrowers.map((borrower: string) => ({
+                        title: CommonUtils.cutAddress(borrower),
+                        value: borrower,
+                        queryParamValue: borrower,
+                        isSelected: false
+                    }))
+                };
+
+                let filtersToReturn: any;
+
+                if (Object.keys(queryParams).length > 0) {
+                    filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+                } else {
+                    filtersToReturn = currentFiltersCacheCopy;
+                }
+
+                return filtersToReturn;
+            });
+        }
+    }, [lendings]);
 
     useEffect(() => {
         FilterUtils.onFiltersUpdate(
@@ -214,6 +263,10 @@ export function ClientLendings() {
                                         {
                                             className: 'rsContainer',
                                             items: ['rs']
+                                        },
+                                        {
+                                            className: 'imageFooter',
+                                            items: ['whitelistId']
                                         }
                                     ]
                                 },
@@ -225,14 +278,13 @@ export function ClientLendings() {
                                             className: 'gotchiFlipBack',
                                             items: [
                                                 'traits',
-                                                'channeling',
                                                 'wearablesLine',
                                                 'listing'
                                             ]
                                         },
                                         {
                                             className: 'gotchiFlipFront',
-                                            items: ['lendingStats']
+                                            items: ['lendingStats', 'channeling']
                                         }
                                     ]
                                 },

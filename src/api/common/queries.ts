@@ -27,6 +27,8 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
           equippedSetID
           equippedSetName
           usedSkillPoints
+          timesTraded
+          stakedAmount
           listings(where:{cancelled: false, timePurchased: 0}) {
             id
             priceInWei
@@ -44,21 +46,46 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
 };
 
 export const gotchiByIdQuery = (id: any): any => {
-  return `{
-    aavegotchi(id: ${id}) {
-      id
-      hauntId
-      name
-      numericTraits
-      equippedWearables
-      owner {
-        id
-      }
-      originalOwner {
-        id
-      }
-    }
-  }`;
+    return `{
+        aavegotchi(id: ${id}) {
+            id
+            name
+            numericTraits
+            modifiedNumericTraits
+            withSetsNumericTraits
+            baseRarityScore
+            modifiedRarityScore
+            withSetsRarityScore
+            kinship
+            toNextLevel
+            level
+            experience
+            equippedWearables
+            collateral
+            hauntId
+            createdAt
+            possibleSets
+            equippedSetID
+            equippedSetName
+            usedSkillPoints
+            minimumStake
+            stakedAmount
+            timesTraded
+            originalOwner
+            listings(where:{cancelled: false, timePurchased: 0}) {
+                id
+                priceInWei
+            }
+            historicalPrices
+            owner {
+                id
+            }
+            originalOwner {
+                id
+            }
+            lending
+        }
+    }`;
 };
 
 export const userQuery = (id: any, skip: any): any => {
@@ -86,6 +113,8 @@ export const userQuery = (id: any, skip: any): any => {
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
+            stakedAmount
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -125,6 +154,8 @@ export const userOwnedGotchisQuery = (address: string, skip: number): string => 
             equippedSetID
             equippedSetName
             usedSkillPoints
+            timesTraded
+            stakedAmount
             listings(where:{cancelled: false, timePurchased: 0}) {
               id
               priceInWei
@@ -144,6 +175,9 @@ export const svgQuery = (id: any): any => {
         aavegotchis(where: {id: ${id}}) {
           id
           svg
+          right
+          back
+          left
         }
       }`;
 };
@@ -166,6 +200,31 @@ export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, or
           timeLastPurchased
       }
   }`;
+};
+
+export const erc1155ListingsBatchQuery = (
+    id: number,
+    category: string,
+    isSold: boolean,
+    orderBy: string,
+    orderDireciton: string
+): string => {
+    return `
+        item${id}: erc1155Listings(
+            orderBy: ${orderBy},
+            orderDirection: ${orderDireciton},
+            where: {
+                erc1155TypeId: ${id},
+                category: ${category}
+                sold: ${isSold},
+                cancelled: false
+            }
+        ) {
+            id
+            priceInWei
+            timeLastPurchased
+        }
+    `;
 };
 
 export const erc721ListingsBySeller = (seller: any): any => {
@@ -233,6 +292,7 @@ export const erc721ListingsBySeller = (seller: any): any => {
             portal {
                 hauntId
                 historicalPrices
+                activeListing
             }
         }
     }`;
@@ -347,7 +407,7 @@ export const activeListingQeury = (erc: any, id: any, type: any, category: any):
         }`;
 };
 
-export const erc721SalesHistory = (id: any, category: any): any => {
+export const erc721SalesHistory = (id: number, category: string): any => {
     return `{
         erc721Listings(
             where:{
@@ -362,6 +422,7 @@ export const erc721SalesHistory = (id: any, category: any): any => {
             seller
             timePurchased
             priceInWei
+            equippedWearables
         }
     }`;
 };
@@ -502,8 +563,8 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
           orderBy: "timeCreated",
           orderDirection: ${orderDir},
           where: {
-            borrower: "0x0000000000000000000000000000000000000000",
             cancelled: false
+            timeAgreed: null
         }
       ) {
         id
@@ -521,6 +582,14 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
             modifiedRarityScore,
             toNextLevel
             level
+            equippedWearables
+            numericTraits
+            modifiedNumericTraits
+            originalOwner {
+                id
+            }
+            timesTraded
+            stakedAmount
         }
         lender
         borrower
@@ -572,6 +641,11 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
             equippedSetName
             toNextLevel
             level
+            timesTraded
+            stakedAmount
+            originalOwner {
+                id
+            }
         }
         lender
         borrower
@@ -622,6 +696,11 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
             equippedSetName
             toNextLevel
             level
+            timesTraded
+            stakedAmount
+            originalOwner {
+                id
+            }
         }
         lender
         borrower

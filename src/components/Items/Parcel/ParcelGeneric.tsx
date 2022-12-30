@@ -2,7 +2,7 @@ import { Tooltip, Typography } from '@mui/material';
 import classNames from 'classnames';
 
 import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
-import { ItemUtils } from 'utils';
+import { CitadelUtils } from 'utils';
 
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
@@ -19,7 +19,7 @@ export function ParcelGeneric({ parcel, raffleChances }: ParcelGenericProps) {
         ...parselStyles()
     };
 
-    const size: any = ItemUtils.getParcelSize(parcel.size);
+    const size: any = CitadelUtils.getParcelSizeName(parcel.size);
 
     return (
         <div className={classNames(classes.item, size, classes.parcelCard)}>
@@ -47,7 +47,7 @@ export function ParcelGeneric({ parcel, raffleChances }: ParcelGenericProps) {
             </div>
 
             <div className={classes.size}>
-                {ItemUtils.getParcelDimmentions(parcel.size)}
+                {CitadelUtils.getParcelDimmentions(parcel.size)}
             </div>
 
             {raffleChances && <RaffleItemChance stats={raffleChances} />}

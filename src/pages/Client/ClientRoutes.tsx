@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button } from '@mui/material';
-import { NavLink, Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import Helmet from 'react-helmet';
 import queryString from 'query-string';
@@ -11,7 +10,6 @@ import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
-import { BaazarIcon, GameControllerIcon } from 'components/Icons/Icons';
 import { ClientContext } from 'contexts/ClientContext';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi } from 'api';
@@ -20,6 +18,8 @@ import { CommonUtils } from 'utils';
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
+import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
+import { ClientForSale } from './routes/ClientForSale';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
@@ -88,55 +88,49 @@ export function ClientRoutes() {
     }, [lastManuallyUpdated]);
 
     return (
-        <div>
+        <>
             <Helmet>
                 <title>
-                    { account ? (
-                        `${CommonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}`
-                    ) : (
-                        'client'
-                    )}
+                    {account ? `${CommonUtils.cutAddress(account, '..')} ${subroute ? subroute : 'client'}` : 'client'}
                 </title>
             </Helmet>
 
-            { EthersApi.isEthAddress(account) && (
+            {EthersApi.isEthAddress(account) && (
                 <div className={classes.routesNav}>
                     <PageNav
                         links={navData}
-                        beforeContent={(
-                            <Button
-                                to={account as string}
-                                className={classes.customBtn}
-                                component={NavLink}
-                            >
-                                <GameControllerIcon width={24} height={24} />
-                            </Button>
-                        )}
-                        afterContent={(
+                        // TODO should be shown in the future
+                        // beforeContent={(
+                        //     <Button
+                        //         to={account as string}
+                        //         className={classes.customBtn}
+                        //         component={NavLink}
+                        //     >
+                        //         <GameControllerIcon width={24} height={24} />
+                        //     </Button>
+                        // )}
+                        afterContent={
                             <React.Fragment>
-                                <Button
-                                    href={`/shop?address=${account}`}
-                                    target='_blank'
-                                    className={classes.customBtn}
-                                >
-                                    <BaazarIcon width={24} height={24} />
-                                </Button>
-                                { subroute.includes('realm') && <RealmSwitchButton view={realmView} navigate={navigate} /> }
+                                {subroute.includes('realm') && (
+                                    <RealmSwitchButton view={realmView} navigate={navigate} />
+                                )}
                             </React.Fragment>
-                        )}
+                        }
                     ></PageNav>
                 </div>
             )}
 
             <Routes>
-                <Route path='' element={<ClientAccount />} />
-                <Route path='gotchis/*' element={<ClientGotchis />} />
-                <Route path='installations' element={<ClientInstallations />} />
-                <Route path='warehouse' element={<ClientWarehouse />} />
-                <Route path='tickets' element={<ClientTickets />} />
-                <Route path='realm/*' element={<ClientRealm />} />
-                <Route path='*' element={<Navigate to='' replace />} />
+                <Route path="" element={<ClientAccount />} />
+                <Route path="gotchis/*" element={<ClientGotchis />} />
+                <Route path="installations" element={<ClientInstallations />} />
+                <Route path="warehouse" element={<ClientWarehouse />} />
+                <Route path="tickets" element={<ClientTickets />} />
+                <Route path="realm/*" element={<ClientRealm />} />
+                <Route path="fake-gotchis" element={<ClientFakeGotchis />} />
+                <Route path="for-sale" element={<ClientForSale />} />
+                <Route path="*" element={<Navigate to="gotchis" replace />} />
             </Routes>
-        </div>
+        </>
     );
 }

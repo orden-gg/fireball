@@ -7,7 +7,6 @@ export function GotchiRs({ gotchi }: { gotchi: any }) {
         <div className={classes.gotchiRsWrapper}>
             <span className={classes.modifiedRs}>{gotchi.modifiedRarityScore}</span>
             <span>({gotchi.baseRarityScore})</span>
-            <span className={''}></span>
         </div>
     );
 }

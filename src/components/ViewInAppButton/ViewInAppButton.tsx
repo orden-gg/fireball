@@ -1,20 +1,29 @@
 import { Button } from '@mui/material';
 
+import classNames from 'classnames';
+
 import { styles } from './styles';
 
-export function ViewInAppButton({ link }: { link: string }) {
+interface ViewInAppButtonProps {
+    link: string;
+    children: string | JSX.Element;
+    className?: string;
+}
+
+export function ViewInAppButton({ link, children, className }: ViewInAppButtonProps) {
     const classes = styles();
 
     return (
         <Button
-            className={classes.button}
+            className={classNames(classes.button, className)}
             href={link}
             size='small'
             variant='contained'
             target='_blank'
             fullWidth
+            onClick={(e) => e.stopPropagation()}
         >
-            View in App
+            {children}
         </Button>
     );
 }
