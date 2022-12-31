@@ -16,4 +16,16 @@ export class RealmApi {
     public static getRealmAlchemica(id: number): Promise<BigNumber[]> {
         return realmContract.getRealmAlchemica(id);
     }
+
+    public static getRoundAlchemica(id: number, round: number): Promise<BigNumber[]> {
+        return realmContract
+            .getRoundAlchemica(id, round)
+            .then((roundAlchemica: BigNumber[]) => [
+                Number(EthersApi.hexToNumber(roundAlchemica[0]._hex).toFixed(0)),
+                Number(EthersApi.hexToNumber(roundAlchemica[1]._hex).toFixed(0)),
+                Number(EthersApi.hexToNumber(roundAlchemica[2]._hex).toFixed(0)),
+                Number(EthersApi.hexToNumber(roundAlchemica[3]._hex).toFixed(0))
+            ])
+            .catch((error) => console.log(error));
+    }
 }

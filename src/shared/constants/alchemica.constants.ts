@@ -1,44 +1,72 @@
-export const AVERAGE_HUMBLE_FUD_BASE_ALCHEMICA: number = 7077;
-export const AVERAGE_HUMBLE_FOMO_BASE_ALCHEMICA: number = 3539;
-export const AVERAGE_HUMBLE_ALPHA_BASE_ALCHEMICA: number = 1769;
-export const AVERAGE_HUMBLE_KEK_BASE_ALCHEMICA: number = 708;
+import { AlchemicaTypes } from './enums';
 
-export const MIN_HUMBLE_FUD_BASE_ALCHEMICA: number = 1415;
-export const MIN_HUMBLE_FOMO_BASE_ALCHEMICA: number = 707;
-export const MIN_HUMBLE_ALPHA_BASE_ALCHEMICA: number = 353;
-export const MIN_HUMBLE_KEK_BASE_ALCHEMICA: number = 141;
+export const AVERAGE_HUMBLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 7077,
+    [AlchemicaTypes.Fomo]: 3539,
+    [AlchemicaTypes.Alpha]: 1769,
+    [AlchemicaTypes.Kek]: 708
+};
 
-export const MAX_HUMBLE_FUD_BASE_ALCHEMICA: number = 12738;
-export const MAX_HUMBLE_FOMO_BASE_ALCHEMICA: number = 6370;
-export const MAX_HUMBLE_ALPHA_BASE_ALCHEMICA: number = 3184;
-export const MAX_HUMBLE_KEK_BASE_ALCHEMICA: number = 1274;
+export const MIN_HUMBLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 1415,
+    [AlchemicaTypes.Fomo]: 707,
+    [AlchemicaTypes.Alpha]: 353,
+    [AlchemicaTypes.Kek]: 141
+};
 
-export const AVERAGE_REASONABLE_FUD_BASE_ALCHEMICA: number = 28308;
-export const AVERAGE_REASONABLE_FOMO_BASE_ALCHEMICA: number = 14154;
-export const AVERAGE_REASONABLE_ALPHA_BASE_ALCHEMICA: number = 7077;
-export const AVERAGE_REASONABLE_KEK_BASE_ALCHEMICA: number = 2831;
+export const MAX_HUMBLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 12738,
+    [AlchemicaTypes.Fomo]: 6370,
+    [AlchemicaTypes.Alpha]: 3184,
+    [AlchemicaTypes.Kek]: 1274
+};
 
-export const MIN_REASONABLE_FUD_BASE_ALCHEMICA: number = 5661;
-export const MIN_REASONABLE_FOMO_BASE_ALCHEMICA: number = 2830;
-export const MIN_REASONABLE_ALPHA_BASE_ALCHEMICA: number = 1215;
-export const MIN_REASONABLE_KEK_BASE_ALCHEMICA: number = 566;
+export const AVERAGE_REASONABLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 28308,
+    [AlchemicaTypes.Fomo]: 14154,
+    [AlchemicaTypes.Alpha]: 7077,
+    [AlchemicaTypes.Kek]: 2831
+};
 
-export const MAX_REASONABLE_FUD_BASE_ALCHEMICA: number = 50954;
-export const MAX_REASONABLE_FOMO_BASE_ALCHEMICA: number = 25477;
-export const MAX_REASONABLE_ALPHA_BASE_ALCHEMICA: number = 12738;
-export const MAX_REASONABLE_KEK_BASE_ALCHEMICA: number = 5095;
+export const MIN_REASONABLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 5661,
+    [AlchemicaTypes.Fomo]: 2830,
+    [AlchemicaTypes.Alpha]: 1215,
+    [AlchemicaTypes.Kek]: 566
+};
 
-export const AVERAGE_SPACIOUS_FUD_BASE_ALCHEMICA: number = 226465;
-export const AVERAGE_SPACIOUS_FOMO_BASE_ALCHEMICA: number = 113233;
-export const AVERAGE_SPACIOUS_ALPHA_BASE_ALCHEMICA: number = 56616;
-export const AVERAGE_SPACIOUS_KEK_BASE_ALCHEMICA: number = 22647;
+export const MAX_REASONABLE_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 50954,
+    [AlchemicaTypes.Fomo]: 25477,
+    [AlchemicaTypes.Alpha]: 12738,
+    [AlchemicaTypes.Kek]: 5095
+};
 
-export const MIN_SPACIOUS_FUD_BASE_ALCHEMICA: number = 45293;
-export const MIN_SPACIOUS_FOMO_BASE_ALCHEMICA: number = 22646;
-export const MIN_SPACIOUS_ALPHA_BASE_ALCHEMICA: number = 11323;
-export const MIN_SPACIOUS_KEK_BASE_ALCHEMICA: number = 4529;
+export const AVERAGE_SPACIOUS_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 226465,
+    [AlchemicaTypes.Fomo]: 113233,
+    [AlchemicaTypes.Alpha]: 56616,
+    [AlchemicaTypes.Kek]: 22647
+};
 
-export const MAX_SPACIOUS_FUD_BASE_ALCHEMICA: number = 407637;
-export const MAX_SPACIOUS_FOMO_BASE_ALCHEMICA: number = 203819;
-export const MAX_SPACIOUS_ALPHA_BASE_ALCHEMICA: number = 101908;
-export const MAX_SPACIOUS_KEK_BASE_ALCHEMICA: number = 40764;
+export const MIN_SPACIOUS_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 45293,
+    [AlchemicaTypes.Fomo]: 22646,
+    [AlchemicaTypes.Alpha]: 11323,
+    [AlchemicaTypes.Kek]: 4529
+};
+
+export const MAX_SPACIOUS_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 407637,
+    [AlchemicaTypes.Fomo]: 203819,
+    [AlchemicaTypes.Alpha]: 101908,
+    [AlchemicaTypes.Kek]: 40764
+};
+
+
+export const AVERAGE_PAARTNER_BASE_ALCHEMICA = {
+    [AlchemicaTypes.Fud]: 453350,
+    [AlchemicaTypes.Fomo]: 227452,
+    [AlchemicaTypes.Alpha]: 113849,
+    [AlchemicaTypes.Kek]: 45500
+};

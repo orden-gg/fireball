@@ -4,7 +4,7 @@ import { Paper } from '@mui/material';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
-import { AlchemicaTypes, Erc1155Categories } from 'shared/constants';
+import { Erc1155Categories } from 'shared/constants';
 import { ParcelAlchemica } from 'shared/models';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
@@ -18,11 +18,12 @@ import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHist
 
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica?: ParcelAlchemica }) {
+export function ParcelPreview({ parcel }: { parcel: any; alchemica?: ParcelAlchemica }) {
     const classes = styles();
 
     const [history, setHistory] = useState<any[]>([]);
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
+    // const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
 
     const boosts: Array<{ name: string; value: any }> = [
         { name: 'fud', value: parcel.fudBoost },
@@ -52,11 +53,13 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica?: 
         };
     }, [parcel.tokenId]);
 
+    // useEffect(() => {
+    //     setIsSurveyed(alchemica !== undefined && !CommonUtils.isEmptyObject(alchemica));
+    // }, [alchemica]);
+
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
     };
-
-    const isSurveyed = alchemica && Object.keys(alchemica).some((key) => alchemica[key] !== 0);
 
     return (
         <div className={classes.container}>
@@ -125,7 +128,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica?: 
 
                         <div className={classes.survey}>
                             <h5 className={classes.surveyTitle}>Survey</h5>
-                            {isSurveyed ? (
+                            {/* {isSurveyed ? (
                                 <div>
                                     <div>
                                         <span>{[AlchemicaTypes.Fud]}:</span>
@@ -144,9 +147,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica?: 
                                         <span>{alchemica[AlchemicaTypes.Kek]}</span>
                                     </div>
                                 </div>
-                            ) : (
-                                <div>not surveyed</div>
-                            )}
+                            )} */}
                         </div>
                     </div>
 

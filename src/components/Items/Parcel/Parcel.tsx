@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
 import { ParcelAlchemica } from 'shared/models';
-import { AlchemicaTypes } from 'shared/constants';
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
@@ -13,13 +12,14 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import { CitadelUtils, GotchiverseUtils } from 'utils';
+import { CitadelUtils, CommonUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 
-export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelAlchemica }) {
+export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAlchemica }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -28,6 +28,7 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
     };
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
 
     const parcelSize: any = CitadelUtils.getParcelSizeName(parcel.size);
 
@@ -38,10 +39,14 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
         kek: parcel.kekBoost
     };
 
+    useEffect(() => {
+        setIsSurveyed(alchemica !== undefined && !CommonUtils.isEmptyObject(alchemica));
+    }, [alchemica]);
+
     return (
         <>
             <div
-                className={classNames(classes.item, parcelSize, classes.parcelCard)}
+                className={classNames(classes.item, parcelSize, classes.parcelCard, 'parcel')}
                 onClick={() => setModalOpen(true)}
             >
                 <div className={classes.labels}>
@@ -68,20 +73,23 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica?: ParcelA
 
                 <div className={classes.parcelImageWrapper}>
                     <ParcelImage parcel={parcel} imageSize={300} key={parcel.parcelId} />
-                </div>
 
-                <div className={classes.boosts}>
-                    {Object.entries(boosts).map((boost: any, i: number) => {
-                        const key = boost[0];
-                        const value = boost[1];
+                    <div className={classes.parcelImageBottom}>
+                        <div className={classes.boosts}>
+                            {Object.entries(boosts).map((boost: any, i: number) => {
+                                const key = boost[0];
+                                const value = boost[1];
 
-                        return value > 0 ? (
-                            <div className={classNames(classes.boost, key)} key={i}>
-                                <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
-                                {value}
-                            </div>
-                        ) : null;
-                    })}
+                                return value > 0 ? (
+                                    <div className={classNames(classes.boost, key)} key={i}>
+                                        <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                        {value}
+                                    </div>
+                                ) : null;
+                            })}
+                        </div>
+                        {isSurveyed && <ParcelSurvey alchemica={alchemica} parcelSize={parcel.size} />}
+                    </div>
                 </div>
 
                 <ParcelName parcel={parcel} />

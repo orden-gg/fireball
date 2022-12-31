@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { getRealmAlchemicaDictionary } from 'core/store/realm-alchemica';
 import {
     CustomParsedQuery,
     GraphFiltersQueryParamTypes,
@@ -51,6 +52,7 @@ export function BaazaarParcels() {
     const parcelsListingsFilters: ParcelListingFilters = useAppSelector(fromBaazaarStore.getParcelsListingsFilters);
     const parcelsListingslistingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getParcelsListingsLimitPerLoad);
     const parcelsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getParcelsListingsQueryParamsOrder);
+    const realmAlchemicaDictionary = useAppSelector(getRealmAlchemicaDictionary);
 
     useEffect(() => {
         const updatedFilters: ParcelListingFilters =
@@ -150,7 +152,9 @@ export function BaazaarParcels() {
                 <ContentInner dataLoading={isParcelsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={parcelsListings}
-                        component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}
+                        component={(parcelListing: ParcelListingVM) =>
+                            <Parcel parcel={parcelListing} alchemica={realmAlchemicaDictionary[parcelListing.tokenId]} />
+                        }
                         onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>
