@@ -7,6 +7,6 @@ workflows:
   fire:
     jobs:
       - node/run:
-          version: '17.2.0'
+          version: '16.18.0'
           pkg-manager: yarn
           yarn-run: build
