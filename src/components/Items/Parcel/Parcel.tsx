@@ -12,7 +12,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
-import { CitadelUtils, CommonUtils, GotchiverseUtils } from 'utils';
+import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
@@ -40,7 +40,7 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
     };
 
     useEffect(() => {
-        setIsSurveyed(alchemica !== undefined && !CommonUtils.isEmptyObject(alchemica));
+        setIsSurveyed(alchemica !== undefined);
     }, [alchemica]);
 
     return (

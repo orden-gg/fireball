@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
 import { ParcelAlchemica } from 'shared/models';
+import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
@@ -18,12 +19,12 @@ import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHist
 
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel }: { parcel: any; alchemica?: ParcelAlchemica }) {
+export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: ParcelAlchemica }) {
     const classes = styles();
 
     const [history, setHistory] = useState<any[]>([]);
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
-    // const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
+    const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
 
     const boosts: Array<{ name: string; value: any }> = [
         { name: 'fud', value: parcel.fudBoost },
@@ -53,9 +54,9 @@ export function ParcelPreview({ parcel }: { parcel: any; alchemica?: ParcelAlche
         };
     }, [parcel.tokenId]);
 
-    // useEffect(() => {
-    //     setIsSurveyed(alchemica !== undefined && !CommonUtils.isEmptyObject(alchemica));
-    // }, [alchemica]);
+    useEffect(() => {
+        setIsSurveyed(alchemica !== undefined);
+    }, [alchemica]);
 
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
@@ -66,6 +67,8 @@ export function ParcelPreview({ parcel }: { parcel: any; alchemica?: ParcelAlche
             <div className={classes.inner}>
                 <div className={classes.image}>
                     <ParcelImage parcel={parcel} imageSize={300} />
+
+                    {isSurveyed && <ParcelSurvey className={classNames(classes.survey, 'active')} alchemica={alchemica} parcelSize={parcel.size} />}
                 </div>
 
                 <div className={classes.content}>
@@ -125,30 +128,6 @@ export function ParcelPreview({ parcel }: { parcel: any; alchemica?: ParcelAlche
                                 <ParcelInstallations parcel={parcel} size={80} />
                             </div>
                         )}
-
-                        <div className={classes.survey}>
-                            <h5 className={classes.surveyTitle}>Survey</h5>
-                            {/* {isSurveyed ? (
-                                <div>
-                                    <div>
-                                        <span>{[AlchemicaTypes.Fud]}:</span>
-                                        <span>{alchemica[AlchemicaTypes.Fud]}</span>
-                                    </div>
-                                    <div>
-                                        <span>{[AlchemicaTypes.Fomo]}:</span>
-                                        <span>{alchemica[AlchemicaTypes.Fomo]}</span>
-                                    </div>
-                                    <div>
-                                        <span>{[AlchemicaTypes.Alpha]}:</span>
-                                        <span>{alchemica[AlchemicaTypes.Alpha]}</span>
-                                    </div>
-                                    <div>
-                                        <span>{[AlchemicaTypes.Kek]}:</span>
-                                        <span>{alchemica[AlchemicaTypes.Kek]}</span>
-                                    </div>
-                                </div>
-                            )} */}
-                        </div>
                     </div>
 
                     <div className={classes.listing}>

@@ -11,9 +11,10 @@ import { parcelSurveyStyles } from './styles';
 interface ParcelSurveyProps {
     alchemica: ParcelAlchemica;
     parcelSize: number;
+    className?: string;
 }
 
-export function ParcelSurvey({ alchemica, parcelSize }: ParcelSurveyProps) {
+export function ParcelSurvey({ alchemica, parcelSize, className }: ParcelSurveyProps) {
     const classes = parcelSurveyStyles();
 
     const [maxRate, setMaxRate] = useState<number>(1);
@@ -43,7 +44,7 @@ export function ParcelSurvey({ alchemica, parcelSize }: ParcelSurveyProps) {
     }, [alchemica, parcelSize]);
 
     return (
-        <div className={classes.surveyList}>
+        <div className={classNames(classes.surveyList, className)}>
             <span className={classes.rateAvarage}>{(maxRate / 2) * 100}%</span>
             {
                 Object.entries(alchemica).map(([tokenName, value]) =>

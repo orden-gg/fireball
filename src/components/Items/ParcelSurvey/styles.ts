@@ -5,7 +5,8 @@ export const parcelSurveyStyles = makeStyles((theme) =>
     createStyles({
         surveyList: {
             marginTop: theme.spacing(1.5),
-            position: 'relative'
+            position: 'relative',
+            fontSize: 12
         },
         rateAvarage: {
             position: 'absolute',
@@ -30,7 +31,7 @@ export const parcelSurveyStyles = makeStyles((theme) =>
                 width: 2,
                 backgroundColor: alpha('#000', .5)
             },
-            '.parcel:hover &': {
+            '.parcel:hover &, .active &': {
                 height: 12
             }
         },
@@ -72,13 +73,12 @@ export const parcelSurveyStyles = makeStyles((theme) =>
             color: theme.palette.common.white,
             transition: 'opacity .1s 0s',
             lineHeight: 1,
-            fontSize: 12,
             display: 'block',
             fontWeight: 700,
             fontStyle: 'italic',
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
             padding: theme.spacing(0, 1),
-            '.parcel:hover &': {
+            '.parcel:hover &, .active &': {
                 opacity: 1,
                 transition: 'opacity .3s .1s'
             }

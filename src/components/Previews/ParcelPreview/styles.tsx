@@ -42,6 +42,7 @@ export const styles = makeStyles((theme) =>
             display: 'flex',
             justifyContent: 'center',
             marginBottom: 12,
+            position: 'relative',
             [theme.breakpoints.up('md')]: {
                 marginBottom: 0,
                 marginRight: 20
@@ -77,13 +78,10 @@ export const styles = makeStyles((theme) =>
             }
         },
         survey: {
-            textAlign: 'center',
-            marginTop: 12
-        },
-        surveyTitle: {
-            fontWeight: 500,
-            fontSize: 20,
-            margin: '0 0 8px'
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0
         },
         sales: {
             textAlign: 'center',
