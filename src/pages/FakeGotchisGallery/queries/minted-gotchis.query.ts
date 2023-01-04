@@ -8,6 +8,7 @@ export const getMintedFakeGotchisQuery = (): string => {
             orderBy: timestamp
             orderDirection: desc
         ) {
+            id
             artistName
             name
             description

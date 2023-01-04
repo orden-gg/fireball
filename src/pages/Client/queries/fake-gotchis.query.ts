@@ -13,6 +13,7 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
                 thumbnailHash
                 externalLink
                 metadata {
+                    editions
                     createdAt
                     likeCount
                     status

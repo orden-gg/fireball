@@ -37,7 +37,6 @@
         "react-dom": "17.0.2",
         "react-helmet": "^6.1.0",
         "react-id-generator": "^3.0.2",
-        "react-medium-image-zoom": "^5.1.2",
         "react-redux": "8.0.2",
         "react-responsive-carousel": "^3.2.21",
         "react-router-dom": "6.3.0",
