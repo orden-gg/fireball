@@ -6,17 +6,6 @@ export const styles = makeStyles((theme) =>
         fakeGotchiGalleryList: {
             margin: -2,
             width: 'calc(100% + 2px)'
-            // display: 'flex',
-            // flexWrap: 'wrap'
-            // [theme.breakpoints.down('lg')]: {
-            //     columnCount: '4 !important'
-            // },
-            // [theme.breakpoints.down('md')]: {
-            //     columnCount: '3 !important'
-            // },
-            // [theme.breakpoints.down('sm')]: {
-            //     columnCount: '2 !important'
-            // }
         },
         fakeGotchiGalleryCount: {
             position: 'absolute',
@@ -32,7 +21,6 @@ export const styles = makeStyles((theme) =>
         },
         fakeGotchiGalleryItem: {
             minHeight: 100,
-            // marginBottom: 4,
             position: 'relative',
             background: alpha('#000', 0.1),
             '& img': {
@@ -50,10 +38,6 @@ export const styles = makeStyles((theme) =>
             minHeight: '100%',
             display: 'flex',
             flexDirection: 'column',
-            // opacity: 0,
-            // position: 'absolute',
-            // inset: 0,
-            // padding: 8,
             background: alpha('#000', 0.25),
             textAlign: 'center',
             overflowY: 'auto',
@@ -79,11 +63,7 @@ export const styles = makeStyles((theme) =>
             '& span': {
                 fontWeight: 700
             },
-            // '& img': {
-            //     marginRight: 4
-            // },
             '&:hover': {
-                // opacity: 0.8,
                 cursor: 'zoom-in',
                 '&::after': {
                     opacity: 1
