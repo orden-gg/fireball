@@ -22,5 +22,16 @@ type Parcel @entity {
 
     "fud, fomo, alpha, kek"
     boosts: [BigInt!]
-    surveys: [BigInt!] # TODO: split surveys for rounds
+    surveys: [Survey!] @derivedFrom(field: "parcel")
+}
+
+type Survey @entity {
+    id: ID!
+    surveyedAddress: Bytes!
+    parcel: Parcel!
+    round: Int!
+    fud: BigInt!
+    fomo: BigInt!
+    alpha: BigInt!
+    kek: BigInt!
 }

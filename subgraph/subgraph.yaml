@@ -33,4 +33,6 @@ dataSources:
                 handler: handleStartSurveying
               - event: SurveyingRoundProgressed(indexed uint256)
                 handler: handleSurveyingRoundProgressed
+              - event: SurveyParcel(uint256,uint256,uint256[])
+                handler: handleSurveyParcel
           file: ./src/mappings/gotchiverse.ts

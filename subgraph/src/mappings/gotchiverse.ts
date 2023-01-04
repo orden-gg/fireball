@@ -6,9 +6,11 @@ import {
     MintParcel as MinParcelEvent,
     StartSurveying as StartSurveyingEvent,
     SurveyingRoundProgressed as SurveyingRoundProgressedEvent,
+    SurveyParcel,
     Transfer as TransferEvent
 } from '../../generated/gotchiverse/gotchiverse';
-import { loadOrCreateParcel, loadOrCreatePlayer } from '../helpers';
+import { loadOrCreateParcel, loadOrCreatePlayer, loadOrCreateSurvey } from '../helpers';
+import { AlchemicaTypes } from '../shared/enums';
 
 export function handleChannelAlchemica(event: ChannelAlchemicaEvent): void {
     const parcel = loadOrCreateParcel(event.params._realmId);
@@ -80,4 +82,19 @@ export function handleStartSurveying(event: StartSurveyingEvent): void {
 export function handleSurveyingRoundProgressed(event: SurveyingRoundProgressedEvent): void {
     // ! Triggered when diamond owner increment the surveying round (basically should show current round)
     log.error('proggressed: new round - {}', [event.params._newRound.toString()]);
+}
+
+export function handleSurveyParcel(event: SurveyParcel): void {
+    const survey = loadOrCreateSurvey(event.params._tokenId, event.params._round);
+
+    survey.parcel = event.params._tokenId.toString();
+
+    survey.surveyedAddress = event.address;
+
+    survey.fud = event.params._alchemicas[AlchemicaTypes.Fud];
+    survey.fomo = event.params._alchemicas[AlchemicaTypes.Fomo];
+    survey.alpha = event.params._alchemicas[AlchemicaTypes.Alpha];
+    survey.kek = event.params._alchemicas[AlchemicaTypes.Kek];
+
+    survey.save();
 }
