@@ -1,0 +1,26 @@
+type Player @entity {
+    "player address"
+    id: ID!
+    # parcels: [Parcel!]! @derivedFrom(field: "owner")
+    parcelsCount: Int!
+}
+
+type Parcel @entity {
+    "parcel token id"
+    id: ID!
+    parcelId: String
+    parcelHash: String
+
+    # owner: Player!
+    district: BigInt
+    size: BigInt
+    coordinateX: BigInt
+    coordinateY: BigInt
+
+    lastChanneled: BigInt
+    lastClaimed: BigInt
+
+    "fud, fomo, alpha, kek"
+    boosts: [BigInt!]
+    surveys: [BigInt!] # TODO: split surveys for rounds
+}

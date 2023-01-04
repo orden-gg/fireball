@@ -14,6 +14,10 @@
 # production
 /build
 
+# subgraph
+subgraph/build
+subgraph/generated
+
 # misc
 .DS_Store
 

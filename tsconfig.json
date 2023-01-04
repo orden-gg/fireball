@@ -29,6 +29,7 @@
     "node_modules",
     "build"
   ],
+  "extends": "@graphprotocol/graph-ts/types/tsconfig.base.json",
   "typeRoots": [
     "node_modules/@types"
   ]

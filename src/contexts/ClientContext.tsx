@@ -550,26 +550,26 @@ export const ClientContextProvider = (props: any) => {
         setIsItemsForSaleLoading(shouldUpdateIsLoading);
         setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: false }));
 
-        Promise.all([TheGraphApi.getErc721ListingsBySeller(address), TheGraphApi.getErc1155ListingsBySeller(address)])
-            .then(([erc721Listings, erc1155Listings]: [any, any]) => {
-                const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+        Promise.all([
+            TheGraphApi.getErc721ListingsBySeller(address),
+            TheGraphApi.getErc1155ListingsBySeller(address)
+        ]).then(([erc721Listings, erc1155Listings]: [any, any]) => {
+            const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
 
-                setIsItemsForSaleEmpty(isListingsEmpty);
+            setIsItemsForSaleEmpty(isListingsEmpty);
 
-                if (isListingsEmpty) {
-                    resetItemsForSale();
-                } else {
-                    handleSetErc721Listings(erc721Listings);
-                    handleSetErc1155Listings(erc1155Listings);
-                }
-            })
-            .catch(() => {
+            if (isListingsEmpty) {
                 resetItemsForSale();
-            })
-            .finally(() => {
-                setIsItemsForSaleLoading(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: true }));
-            });
+            } else {
+                handleSetErc721Listings(erc721Listings);
+                handleSetErc1155Listings(erc1155Listings);
+            }
+        }).catch(() => {
+            resetItemsForSale();
+        }).finally(() => {
+            setIsItemsForSaleLoading(false);
+            setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: true }));
+        });
     };
 
     const resetItemsForSale = (): void => {
