@@ -2,6 +2,7 @@ export * from './contexts';
 export * from './alchemica-list.model';
 export * from './contdown-format.model';
 export * from './custom-parsed-query.model';
+export * from './fake-gotchi.model';
 export * from './gotchi-dto.model';
 export * from './gotchi.model';
 export * from './graph-filters.model';

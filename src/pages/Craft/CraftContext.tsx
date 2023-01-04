@@ -25,7 +25,7 @@ export const CraftContextProvider = (props: any) => {
     const { getAccounts, metaState } = useMetamask();
 
     const setWalletAddress = async (): Promise<void> => {
-        const accounts = await getAccounts();
+        const accounts = getAccounts && await getAccounts();
 
         setAccountAddress(accounts[0]);
     };

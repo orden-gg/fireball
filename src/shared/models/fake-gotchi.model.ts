@@ -1,4 +1,5 @@
-export interface GalleryFakeGotchi {
+export interface FakeGotchi {
+    type: string;
     id: number;
     identifier: number;
     artistName: string;
@@ -11,10 +12,10 @@ export interface GalleryFakeGotchi {
     likeCount: number;
     flagCount: number;
     status: number;
-    metadata: GalleryFakeGotchiMetadata;
+    metadata: FakeGotchiMetadata;
 }
 
-interface GalleryFakeGotchiMetadata {
+interface FakeGotchiMetadata {
     editions: number;
     likeCount: number;
     createdAt: string;

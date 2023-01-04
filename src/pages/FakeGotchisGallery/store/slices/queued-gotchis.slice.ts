@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GalleryFakeGotchi } from '../../models';
+import { FakeGotchi } from 'shared/models';
 
 export interface QueuedGotchisState {
     queuedGotchis: {
-        data: GalleryFakeGotchi[];
+        data: FakeGotchi[];
         isLoading: boolean;
         isLoaded: boolean;
         isError: boolean;
-    }
+    };
 }
 
 const initialState: QueuedGotchisState = {
@@ -32,7 +32,7 @@ export const queuedGotchisSlice = createSlice({
                 isError: false
             };
         },
-        loadQueuedGotchisSucceded: (state, action: PayloadAction<GalleryFakeGotchi[]>): void => {
+        loadQueuedGotchisSucceded: (state, action: PayloadAction<FakeGotchi[]>): void => {
             state.queuedGotchis = {
                 data: action.payload,
                 isLoading: false,
@@ -51,10 +51,6 @@ export const queuedGotchisSlice = createSlice({
     }
 });
 
-export const {
-    loadQueuedGotchis,
-    loadQueuedGotchisSucceded,
-    loadQueuedGotchisFailed
-} = queuedGotchisSlice.actions;
+export const { loadQueuedGotchis, loadQueuedGotchisSucceded, loadQueuedGotchisFailed } = queuedGotchisSlice.actions;
 
 export const queuedGotchisReducer = queuedGotchisSlice.reducer;

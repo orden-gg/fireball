@@ -7,11 +7,15 @@ export const getQueuedFakeGotchisQuery = (): string => {
             orderBy: timestamp
             orderDirection: asc
         ) {
+            id
             artistName
             name
             description
             thumbnailHash
             editions
+            likeCount
+            flagCount
+            status
         }
     }`;
 };

@@ -1,18 +1,17 @@
 import { useEffect } from 'react';
 
+import { FakeGotchi } from 'shared/models';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { ContentInner } from 'components/Content/ContentInner';
 
 import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
-
-import { GalleryFakeGotchi } from '../../models';
 
 import * as fromFakeGotchisGalleryStore from '../../store';
 
 export function Queue() {
     const dispatch = useAppDispatch();
 
-    const queuedGotchis: GalleryFakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getQueuedGotchis);
+    const queuedGotchis: FakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getQueuedGotchis);
     const isQueuedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsQueuedGotchisLoading);
 
     useEffect(() => {
