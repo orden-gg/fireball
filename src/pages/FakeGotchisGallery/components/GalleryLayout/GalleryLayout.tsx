@@ -2,20 +2,20 @@ import { useState } from 'react';
 
 import { Masonry } from '@mui/lab';
 
+import { FakeGotchi } from 'shared/models';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { FakeGotchisIcon } from 'components/Icons/Icons';
-import { GalleryFakeGotchi } from 'pages/FakeGotchisGallery/models';
 
 import { GalleryPreview } from '../GalleryPreview/GalleryPreview';
 import { styles } from './styles';
 
-export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
+export function GalleryLayout({ items }: { items: FakeGotchi[] }) {
     const classes = styles();
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [selectedFakeGotchi, setSelectedFakeGotchi] = useState<GalleryFakeGotchi>();
+    const [selectedFakeGotchi, setSelectedFakeGotchi] = useState<FakeGotchi>();
 
-    const onFakeGotchiClick = (fakeGotchi: GalleryFakeGotchi) => {
+    const onFakeGotchiClick = (fakeGotchi: FakeGotchi) => {
         setSelectedFakeGotchi(fakeGotchi);
         setModalOpen(true);
     };
@@ -23,7 +23,7 @@ export function GalleryLayout({ items }: { items: GalleryFakeGotchi[] }) {
     return (
         <>
             <Masonry columns={{ xs: 2, sm: 3, md: 4, lg: 6 }} spacing={0.5} className={classes.fakeGotchiGalleryList}>
-                {items.map((item: GalleryFakeGotchi, index: number) => (
+                {items.map((item: FakeGotchi, index: number) => (
                     <div className={classes.fakeGotchiGalleryItem} key={index}>
                         <div className={classes.fakeGotchiGalleryItemDesc} onClick={() => onFakeGotchiClick(item)}>
                             <img src={`https://arweave.net/${item.thumbnailHash}`} alt={item.name} loading='lazy' />

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GalleryFakeGotchi } from '../../models';
+import { FakeGotchi } from 'shared/models';
 
 export interface MintedGotchisState {
     mintedGotchis: {
-        data: GalleryFakeGotchi[];
+        data: FakeGotchi[];
         isLoading: boolean;
         isLoaded: boolean;
         isError: boolean;
@@ -32,7 +32,7 @@ export const mintedGotchisSlice = createSlice({
                 isError: false
             };
         },
-        loadMintedGotchisSucceded: (state, action: PayloadAction<GalleryFakeGotchi[]>): void => {
+        loadMintedGotchisSucceded: (state, action: PayloadAction<FakeGotchi[]>): void => {
             state.mintedGotchis = {
                 data: action.payload,
                 isLoading: false,

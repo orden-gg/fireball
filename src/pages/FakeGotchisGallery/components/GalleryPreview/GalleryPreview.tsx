@@ -1,11 +1,11 @@
-import { GalleryFakeGotchi } from 'pages/FakeGotchisGallery/models';
+import { FakeGotchi } from 'shared/models';
 
 import { styles } from './styles';
 
-export function GalleryPreview({ fakeGotchi }: { fakeGotchi: GalleryFakeGotchi }) {
+export function GalleryPreview({ fakeGotchi }: { fakeGotchi: FakeGotchi }) {
     const classes = styles();
 
-    const externalLink = (card: GalleryFakeGotchi): string => {
+    const externalLink = (card: FakeGotchi): string => {
         return `https://www.fakegotchis.com/${card.identifier ? `explore/${card.identifier}` : `queue/${card.id}`}`;
     };
 
