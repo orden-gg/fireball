@@ -42,7 +42,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
                     setHistory(res);
                 }
             })
-            .catch((err) => console.log(err))
+            .catch(err => console.log(err))
             .finally(() => {
                 if (mounted) {
                     setHistoryLoaded(true);
@@ -101,7 +101,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
                         </div>
 
                         <div className={classes.boosts}>
-                            {boosts.map((boost, i) => {
+                            { boosts.map((boost, i) => {
                                 const multiplierValue = GotchiverseUtils.getAlchemicaMultiplier(boost.name);
                                 const totalBoost = boost.value * multiplierValue;
 
@@ -142,8 +142,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
                     </div>
                 </div>
             </div>
-
-            {parcel.timesTraded > 0 && (
+            { parcel.timesTraded > 0 &&
                 <>
                     <h5 className={classes.salesTitle}>Sales History</h5>
                     <SalesHistory historyLoaded={historyLoaded}>
@@ -184,7 +183,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
                         </>
                     </SalesHistory>
                 </>
-            )}
+            }
         </div>
     );
 }

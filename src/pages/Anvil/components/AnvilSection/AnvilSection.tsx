@@ -3,9 +3,16 @@ import { ItemCard } from 'components/ItemCard/containers';
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 import { InstallationItem } from 'shared/models';
 
+import { AnvilCalculatorOptions } from '../../models';
 import { styles } from './styles';
 
-export function AnvilSection({ item, imageIndex }: { item: InstallationItem; imageIndex: number }) {
+interface AnvilSectionProps {
+    item: InstallationItem;
+    imageIndex: number;
+    options: AnvilCalculatorOptions;
+}
+
+export function AnvilSection({ item, imageIndex, options }: AnvilSectionProps) {
     const classes = styles();
 
     return (
@@ -42,6 +49,7 @@ export function AnvilSection({ item, imageIndex }: { item: InstallationItem; ima
                             item.alchemicaCost[2],
                             item.alchemicaCost[3]
                         ]}
+                        gltr={options.showGltr ? item.craftTime : 0}
                     />
                 </CardGroup>
             </ItemCard>

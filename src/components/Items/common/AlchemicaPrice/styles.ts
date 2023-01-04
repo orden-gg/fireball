@@ -7,14 +7,16 @@ export const styles = makeStyles((theme) =>
         },
         alchemica: {
             display: 'flex',
+            flexWrap: 'wrap',
             marginTop: 'auto',
             textAlign: 'center',
             width: '100%'
         },
         token: {
-            flexBasis: '25%',
+            flexGrow: 1,
             marginTop: theme.spacing(1.5),
-            position: 'relative'
+            position: 'relative',
+            padding: '0 4px'
         },
         tokenIcon: {
             display: 'block',
@@ -23,7 +25,7 @@ export const styles = makeStyles((theme) =>
             top: -4,
             left: '50%',
             transform: 'translateX(-50%)',
-            opacity: 0.5
+            opacity: 0.7
         },
         amount: {
             position: 'relative',

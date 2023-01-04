@@ -25,28 +25,28 @@ const sortings: SortingListItem[] = [
         key: 'size',
         paramKey: 'size',
         tooltip: 'size',
-        icon: <HeightIcon fontSize='small' />
+        icon: <HeightIcon fontSize="small" />
     },
     {
         name: 'district',
         key: 'district',
         paramKey: 'district',
         tooltip: 'district',
-        icon: <HouseIcon fontSize='small' />
+        icon: <HouseIcon fontSize="small" />
     },
     {
         name: 'nextChannel',
         key: 'nextChannel',
         paramKey: 'nextChannel',
         tooltip: 'next channel',
-        icon: <TimerIcon fontSize='small' />
+        icon: <TimerIcon fontSize="small" />
     },
     {
         name: 'altarLevel',
         key: 'altarLevel',
         paramKey: 'altar',
         tooltip: 'altar level',
-        icon: <AutoGraphIcon fontSize='small' />
+        icon: <AutoGraphIcon fontSize="small" />
     },
     {
         name: 'fudBoost',

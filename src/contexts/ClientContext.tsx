@@ -5,15 +5,7 @@ import { loadRealmAlchemica } from 'core/store/realm-alchemica';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
-import {
-    GotchiIcon,
-    KekIcon,
-    RareTicketIcon,
-    WarehouseIcon,
-    AnvilIcon,
-    FakeGotchisIcon,
-    BaazarIcon
-} from 'components/Icons/Icons';
+import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon, BaazarIcon } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -75,12 +67,12 @@ export const ClientContextProvider = (props: any) => {
     const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
     const [itemsForSale, setItemsForSale] = useState<{
-        gotchis: any[];
-        wearables: any[];
-        parcels: any[];
-        portals: any[];
-        tickets: any[];
-        consumables: any[];
+        gotchis: any[],
+        wearables: any[],
+        parcels: any[],
+        portals: any[],
+        tickets: any[],
+        consumables: any[]
     }>({
         gotchis: [],
         wearables: [],
@@ -154,7 +146,7 @@ export const ClientContextProvider = (props: any) => {
         {
             name: 'realm',
             path: 'realm',
-            icon: <KekIcon width={24} height={24} alt='realm' />,
+            icon: <KekIcon width={24} height={24} alt="realm" />,
             isLoading: loadingRealm,
             count: realm.length
         },
@@ -170,8 +162,7 @@ export const ClientContextProvider = (props: any) => {
             path: 'for-sale',
             icon: <BaazarIcon width={24} height={24} />,
             isLoading: isItemsForSaleLoading,
-            count:
-                itemsForSale.consumables.length +
+            count: itemsForSale.consumables.length +
                 itemsForSale.gotchis.length +
                 itemsForSale.parcels.length +
                 itemsForSale.portals.length +
@@ -605,20 +596,16 @@ export const ClientContextProvider = (props: any) => {
                 priceInWei: listing.priceInWei,
                 baazaarId: listing.id,
                 historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
-                listings: [
-                    {
-                        id: listing.id,
-                        priceInWei: listing.priceInWei
-                    }
-                ]
+                listings: [{
+                    id: listing.id,
+                    priceInWei: listing.priceInWei
+                }]
             }));
         const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
 
         const listedPortals: any[] = listings
-            .filter(
-                (listing: any) =>
-                    listing.category === Erc721Categories.ClosedPortal ||
-                    listing.category === Erc721Categories.OpenedPortal
+            .filter((listing: any) =>
+                listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal
             )
             .map((listing: any) => ({
                 priceInWei: listing.priceInWei,
