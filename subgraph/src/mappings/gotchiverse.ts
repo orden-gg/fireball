@@ -1,4 +1,4 @@
-import { log } from '@graphprotocol/graph-ts';
+import { BigInt, log } from '@graphprotocol/graph-ts';
 import {
     AlchemicaClaimed as AlchemicaClaimedEvent,
     ChannelAlchemica as ChannelAlchemicaEvent,
@@ -7,9 +7,10 @@ import {
     StartSurveying as StartSurveyingEvent,
     SurveyingRoundProgressed as SurveyingRoundProgressedEvent,
     SurveyParcel,
-    Transfer as TransferEvent
+    Transfer as TransferEvent,
+    gotchiverse
 } from '../../generated/gotchiverse/gotchiverse';
-import { loadOrCreateParcel, loadOrCreatePlayer, loadOrCreateSurvey } from '../helpers';
+import { increaseCurrentSurvey, loadOrCreateParcel, loadOrCreatePlayer, loadOrCreateSurvey } from '../helpers';
 import { AlchemicaTypes } from '../shared/enums';
 
 export function handleChannelAlchemica(event: ChannelAlchemicaEvent): void {
@@ -19,21 +20,37 @@ export function handleChannelAlchemica(event: ChannelAlchemicaEvent): void {
 }
 
 export function handleAlchemicaClaimed(event: AlchemicaClaimedEvent): void {
+    const type = event.params._alchemicaType.toI32();
     const parcel = loadOrCreateParcel(event.params._realmId);
+    const alchemicaBag = parcel.alchemicaBag;
+
+    log.warning('amount: {}', [event.params._amount.toString()]);
+
+    alchemicaBag[type] = alchemicaBag[type].minus(event.params._amount);
+
     parcel.lastClaimed = event.block.timestamp;
+
+    log.warning('type: {}', [type.toString()]);
+
+    parcel.alchemicaBag = alchemicaBag;
+
     parcel.save();
 }
 
 export function handleMintParcel(event: MinParcelEvent): void {
-    const parcel = loadOrCreateParcel(event.params._tokenId);
-    const player = loadOrCreatePlayer(event.params._owner);
+    const owner = event.params._owner;
 
-    // parcel.owner = event.params._owner.toHexString();
+    const parcel = loadOrCreateParcel(event.params._tokenId);
+    const player = loadOrCreatePlayer(owner);
+
+    parcel.owner = owner.toHexString();
     const contract = RealmDiamond.bind(event.address);
     const _parcelInfo = contract.try_getParcelInfo(event.params._tokenId);
 
     if (!_parcelInfo.reverted) {
         const metadata = _parcelInfo.value;
+
+        parcel.owner = owner.toHexString();
 
         parcel.parcelId = metadata.parcelId;
         parcel.parcelHash = metadata.parcelAddress;
@@ -42,7 +59,10 @@ export function handleMintParcel(event: MinParcelEvent): void {
         parcel.coordinateX = metadata.coordinateX;
         parcel.coordinateY = metadata.coordinateY;
 
-        parcel.boosts = metadata.boost;
+        parcel.fudBoost = metadata.boost[AlchemicaTypes.Fud];
+        parcel.fomoBoost = metadata.boost[AlchemicaTypes.Fomo];
+        parcel.alphaBoost = metadata.boost[AlchemicaTypes.Alpha];
+        parcel.kekBoost = metadata.boost[AlchemicaTypes.Kek];
     }
 
     player.parcelsCount = player.parcelsCount + 1;
@@ -58,7 +78,7 @@ export function handleTransfer(event: TransferEvent): void {
 
     prevOwner.parcelsCount = prevOwner.parcelsCount - 1;
     nextOwner.parcelsCount = nextOwner.parcelsCount + 1;
-    // parcel.owner = event.params._to.toHexString();
+    parcel.owner = event.params._to.toHexString();
 
     prevOwner.save();
     nextOwner.save();
@@ -85,16 +105,28 @@ export function handleSurveyingRoundProgressed(event: SurveyingRoundProgressedEv
 }
 
 export function handleSurveyParcel(event: SurveyParcel): void {
-    const survey = loadOrCreateSurvey(event.params._tokenId, event.params._round);
+    const round = event.params._round;
+    const alchemicas = event.params._alchemicas;
+
+    const survey = loadOrCreateSurvey(event.params._tokenId, round);
+    const parcel = loadOrCreateParcel(event.params._tokenId);
+
+    if (round == BigInt.zero()) {
+        parcel.alchemicaBag = alchemicas;
+    } else {
+        parcel.alchemicaBag = increaseCurrentSurvey(parcel.alchemicaBag, alchemicas);
+    }
+
+    parcel.save();
 
     survey.parcel = event.params._tokenId.toString();
 
-    survey.surveyedAddress = event.address;
+    survey.surveyed = event.transaction.from;
 
-    survey.fud = event.params._alchemicas[AlchemicaTypes.Fud];
-    survey.fomo = event.params._alchemicas[AlchemicaTypes.Fomo];
-    survey.alpha = event.params._alchemicas[AlchemicaTypes.Alpha];
-    survey.kek = event.params._alchemicas[AlchemicaTypes.Kek];
+    survey.fud = alchemicas[AlchemicaTypes.Fud];
+    survey.fomo = alchemicas[AlchemicaTypes.Fomo];
+    survey.alpha = alchemicas[AlchemicaTypes.Alpha];
+    survey.kek = alchemicas[AlchemicaTypes.Kek];
 
     survey.save();
 }

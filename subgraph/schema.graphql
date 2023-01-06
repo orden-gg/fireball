@@ -11,7 +11,7 @@ type Parcel @entity {
     parcelId: String
     parcelHash: String
 
-    # owner: Player!
+    owner: Player
     district: BigInt
     size: BigInt
     coordinateX: BigInt
@@ -21,13 +21,17 @@ type Parcel @entity {
     lastClaimed: BigInt
 
     "fud, fomo, alpha, kek"
-    boosts: [BigInt!]
+    fudBoost: BigInt
+    fomoBoost: BigInt
+    alphaBoost: BigInt
+    kekBoost: BigInt
+    alchemicaBag: [BigInt!]!
     surveys: [Survey!] @derivedFrom(field: "parcel")
 }
 
 type Survey @entity {
     id: ID!
-    surveyedAddress: Bytes!
+    surveyed: Bytes! # address
     parcel: Parcel!
     round: Int!
     fud: BigInt!

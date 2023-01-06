@@ -8,7 +8,7 @@ export function loadOrCreateSurvey(id: BigInt, round: BigInt): Survey {
     if (!survey) {
         survey = new Survey(id.toString() + '-' + round.toString());
 
-        survey.surveyedAddress = Address.zero();
+        survey.surveyed = Address.zero();
 
         survey.round = round.toI32();
 
