@@ -7,8 +7,6 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getRealmAlchemicaDictionary } from 'core/store/realm-alchemica';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -98,8 +96,6 @@ export function ClientRealmList() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
-
-    const realmAlchemicaDictionary = useAppSelector(getRealmAlchemicaDictionary);
 
     const { realm, realmSorting, setRealmSorting, loadingRealm, setRealmView } = useContext<any>(ClientContext);
     const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -214,7 +210,7 @@ export function ClientRealmList() {
             <ContentInner dataLoading={loadingRealm}>
                 <ItemsLazy
                     items={modifiedRealm}
-                    component={(props) => <Parcel parcel={props} alchemica={realmAlchemicaDictionary[props.tokenId]} />}
+                    component={(props) => <Parcel parcel={props} />}
                 />
             </ContentInner>
         </>

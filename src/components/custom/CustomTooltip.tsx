@@ -16,6 +16,7 @@ interface CustomTooltipProps {
         | 'top-end'
         | 'top-start'
         | 'top';
+    disableInteractive?: boolean;
     followCursor?: boolean;
     enterTouchDelay?: number;
     className?: string;

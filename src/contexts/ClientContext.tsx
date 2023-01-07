@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { loadRealmAlchemica } from 'core/store/realm-alchemica';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
 import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
@@ -476,9 +475,6 @@ export const ClientContextProvider = (props: any) => {
             .then((response) => {
                 const realm: any[] = response[0];
                 const realmInfo: any[] = getModifiedParcelInfo(response[1]);
-                const parcelIds = realm.map((parcel) => Number(parcel.tokenId));
-
-                dispatch(loadRealmAlchemica(parcelIds));
 
                 const modifiedParcels = realm.map((parcel: any) => {
                     const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);

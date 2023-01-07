@@ -5,7 +5,6 @@ import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
-import { ParcelAlchemica } from 'shared/models';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
@@ -19,12 +18,11 @@ import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHist
 
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: ParcelAlchemica }) {
+export function ParcelPreview({ parcel }: { parcel: any }) {
     const classes = styles();
 
     const [history, setHistory] = useState<any[]>([]);
     const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
-    const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
 
     const boosts: Array<{ name: string; value: any }> = [
         { name: 'fud', value: parcel.fudBoost },
@@ -54,10 +52,6 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
         };
     }, [parcel.tokenId]);
 
-    useEffect(() => {
-        setIsSurveyed(alchemica !== undefined);
-    }, [alchemica]);
-
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
     };
@@ -68,7 +62,7 @@ export function ParcelPreview({ parcel, alchemica }: { parcel: any; alchemica: P
                 <div className={classes.image}>
                     <ParcelImage parcel={parcel} imageSize={300} />
 
-                    {isSurveyed && <ParcelSurvey className={classNames(classes.survey, 'active')} alchemica={alchemica} parcelSize={parcel.size} />}
+                    <ParcelSurvey className={classNames(classes.survey, 'active')} parcel={parcel}  />
                 </div>
 
                 <div className={classes.content}>

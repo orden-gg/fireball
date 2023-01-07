@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getRealmAlchemicaDictionary } from 'core/store/realm-alchemica';
 import { Erc1155Categories } from 'shared/constants';
 import { ItemCard } from 'components/ItemCard/containers';
 import {
@@ -30,9 +28,9 @@ import { Parcel } from 'components/Items/Parcel/Parcel';
 import { ClientContext } from 'contexts/ClientContext';
 import { ItemUtils } from 'utils';
 
-import { forSaleStyles } from '../styles';
-
 import { ListingTitle } from '../components/ListingTitle/ListingTitle';
+
+import { forSaleStyles } from '../styles';
 
 export function ClientForSale() {
     const classes = forSaleStyles();
@@ -42,8 +40,6 @@ export function ClientForSale() {
         isItemsForSaleLoading,
         isItemsForSaleEmpty
     } = useContext<any>(ClientContext);
-
-    const realmAlchemicaDictionary = useAppSelector(getRealmAlchemicaDictionary);
 
     const loaderRender = (): JSX.Element => {
         if (isItemsForSaleLoading) {
@@ -156,7 +152,7 @@ export function ClientForSale() {
                         {
                             itemsForSale.parcels.map((parcel: any) =>
                                 <div className={classes.listItem} key={parcel.parcelId}>
-                                    <Parcel parcel={parcel} alchemica={realmAlchemicaDictionary[parcel.tokenId]} />
+                                    <Parcel parcel={parcel} />
                                 </div>
                             )
                         }

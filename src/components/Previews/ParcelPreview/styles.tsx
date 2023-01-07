@@ -81,7 +81,11 @@ export const styles = makeStyles((theme) =>
             position: 'absolute',
             left: 0,
             right: 0,
-            bottom: 0
+            bottom: 0,
+            fontSize: 14,
+            '& > span': {
+                fontSize: 14
+            }
         },
         sales: {
             textAlign: 'center',

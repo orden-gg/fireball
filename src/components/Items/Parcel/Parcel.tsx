@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ParcelAlchemica } from 'shared/models';
 import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
@@ -19,7 +18,7 @@ import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations'
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 
-export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAlchemica }) {
+export function Parcel({ parcel }: { parcel: any }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -28,7 +27,6 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
     };
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
 
     const parcelSize: any = CitadelUtils.getParcelSizeName(parcel.size);
 
@@ -38,10 +36,6 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
         alpha: parcel.alphaBoost,
         kek: parcel.kekBoost
     };
-
-    useEffect(() => {
-        setIsSurveyed(alchemica !== undefined);
-    }, [alchemica]);
 
     return (
         <>
@@ -88,7 +82,7 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
                                 ) : null;
                             })}
                         </div>
-                        {isSurveyed && <ParcelSurvey alchemica={alchemica} parcelSize={parcel.size} />}
+                        <ParcelSurvey parcel={parcel} />
                     </div>
                 </div>
 
@@ -105,10 +99,6 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
                     />
                 }
 
-                { parcel.channeling && (
-                    <ChannelingInfo channeling={parcel.channeling} />
-                )}
-
                 {parcel.channeling && <ChannelingInfo channeling={parcel.channeling} />}
 
                 {parcel.installations && (
@@ -123,7 +113,7 @@ export function Parcel({ parcel, alchemica }: { parcel: any; alchemica: ParcelAl
             </div>
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
-                <ParcelPreview parcel={parcel} alchemica={alchemica} />
+                <ParcelPreview parcel={parcel} />
             </CustomModal>
         </>
     );

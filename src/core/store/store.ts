@@ -1,5 +1,4 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { realmAlchemicaReducer } from './realm-alchemica';
 
 import { baazarReducers } from 'pages/Baazaar/store';
 import { clientReducers } from 'pages/Client/store';
@@ -11,7 +10,6 @@ import { loginReducer } from './login';
 export const store = configureStore({
     reducer: {
         login: loginReducer,
-        realmAlchemica: realmAlchemicaReducer,
         glossary: glossaryReducer,
         baazaar: baazarReducers,
         client: clientReducers,

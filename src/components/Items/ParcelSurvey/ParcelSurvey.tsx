@@ -3,61 +3,87 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { ParcelAlchemica } from 'shared/models';
-import { AlchemicaTypes } from 'shared/constants';
-import { CommonUtils, AlchemicaUtils } from 'utils';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { EthersApi } from 'api';
+import { AlchemicaUtils } from 'utils';
+
+import { ParcelSurveyBar } from './components/ParcelSurveyBar';
 
 import { parcelSurveyStyles } from './styles';
 
 interface ParcelSurveyProps {
-    alchemica: ParcelAlchemica;
-    parcelSize: number;
+    parcel: any;
     className?: string;
 }
 
-export function ParcelSurvey({ alchemica, parcelSize, className }: ParcelSurveyProps) {
+export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
     const classes = parcelSurveyStyles();
 
-    const [maxRate, setMaxRate] = useState<number>(1);
-    const [avarageSurvey, setAvarageSurvey] = useState<{[key in AlchemicaTypes]: number} | {}>({});
-
-    const getPercentageByRate = (amount: number, tokenName: string) => {
-        const maxSupplyByCurrentRate = avarageSurvey[tokenName] * maxRate;
-
-        return amount / maxSupplyByCurrentRate * 100;
-    };
+    const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
+    const [avarageRate, setAvarageRate] = useState<number>(1);
+    const [avarageSurvey, setAvarageSurvey] = useState<ParcelAlchemica | {}>({});
+    const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica | null>(null);
 
     useEffect(() => {
-        let maxRate: number = 1;
-        const avarageSurvey = AlchemicaUtils.getAvarageSurveyBySize(Number(parcelSize));
+        const isSurveyed = parcel.surveys.length > 0;
 
-        for (const tokenName in alchemica) {
-            const currentTokentRate = Math.ceil(
-                alchemica[tokenName].amount / avarageSurvey[tokenName]
-                );
+        if (isSurveyed) {
+            const avarageSurvey: ParcelAlchemica = AlchemicaUtils.getAvarageSurveyBySize(Number(parcel.size));
+            const totalSurveysSupply: ParcelAlchemica = AlchemicaUtils.getCombinedSurveys(parcel.surveys);
+            let rateSum: number = 0;
 
-                if (currentTokentRate > maxRate) maxRate = currentTokentRate;
+            for (const tokenName in totalSurveysSupply) {
+                const currentTokentRate = totalSurveysSupply[tokenName] / avarageSurvey[tokenName];
+
+                rateSum += currentTokentRate;
             }
 
-        setMaxRate(maxRate);
-        setAvarageSurvey(AlchemicaUtils.getAvarageSurveyBySize(Number(parcelSize)));
+            setTotalSurveysSupply(totalSurveysSupply);
+            setAvarageRate(Number((rateSum / 4).toFixed(2)));
+            setAvarageSurvey(AlchemicaUtils.getAvarageSurveyBySize(Number(parcel.size)));
+        }
+        setIsSurveyed(isSurveyed);
 
-    }, [alchemica, parcelSize]);
+    }, [parcel]);
+
 
     return (
         <div className={classNames(classes.surveyList, className)}>
-            <span className={classes.rateAvarage}>{(maxRate / 2) * 100}%</span>
             {
-                Object.entries(alchemica).map(([tokenName, value]) =>
-                    <div className={classNames(classes.surveyAlchemica, classes[tokenName])} key={tokenName}>
-                        <div
-                            className={classes.surveyAlchemicaBar}
-                            style={{ width: `${getPercentageByRate(value.amount, tokenName)}%` }}
+                isSurveyed ? <>
+                    <span className={classes.surveyListHead}>
+                        <CustomTooltip
+                            placement='top'
+                            title={<>times surveyed</>}
+                            disableInteractive
+                            arrow
                         >
-                            <span className={classes.amount}>
-                                {CommonUtils.convertFloatNumberToSuffixNumber(value.amount)}
-                            </span>
-                        </div>
-                    </div>
+                            <span className={classes.surveyedTime}>{parcel.surveys.length}</span>
+                        </CustomTooltip>
+                        <CustomTooltip
+                            placement='top'
+                            title={<>total avarage</>}
+                            disableInteractive
+                            arrow
+                        >
+                            <span className={classes.rateAvarage}>x{avarageRate}</span>
+                        </CustomTooltip>
+                    </span>
+                    {
+                        totalSurveysSupply !== null && Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) =>
+                            <ParcelSurveyBar
+                                key={tokenName}
+                                avarageSurvey={avarageSurvey[tokenName]}
+                                tokenName={tokenName}
+                                currentAmount={EthersApi.fromWei(parcel.alchemicaBag[index])}
+                                surveySupply={amount}
+                            />
+                        )
+                    }
+                </> : (
+                    <span className={classes.surveyListHead}>
+                        <span className={classes.surveyedTime}>not surveyed</span>
+                    </span>
                 )
             }
         </div>

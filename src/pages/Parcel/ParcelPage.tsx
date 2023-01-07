@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getRealmAlchemicaDictionary, loadRealmAlchemica } from 'core/store/realm-alchemica';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { TheGraphApi } from 'api';
 
@@ -12,24 +10,15 @@ import { styles } from './styles';
 export function ParcelPage() {
     const classes = styles();
 
-    const dispatch = useAppDispatch();
-
     const [parcel, setParcel] = useState<any>(null);
     const [parcelLoading, setParcelLoading] = useState<boolean>(true);
 
     const { parcelId } = useParams<{ parcelId: string }>();
 
-    const realmAlchemicaDictionary = useAppSelector(getRealmAlchemicaDictionary);
-
     useEffect(() => {
         let mounted = true;
 
         setParcelLoading(true);
-
-
-        if (parcelId !== undefined) {
-            dispatch(loadRealmAlchemica([Number(parcelId)]));
-        }
 
         Promise.all([
             TheGraphApi.getRealmById(parcelId as string),
@@ -61,7 +50,7 @@ export function ParcelPage() {
                 </Backdrop>
             ) : (
                 parcel ? (
-                    <ParcelPreview parcel={parcel} alchemica={realmAlchemicaDictionary[parcel.tokenId]} />
+                    <ParcelPreview parcel={parcel}  />
                 ) : (
                     <div className={classes.alert}>
                         <Alert variant='filled' severity='error'>

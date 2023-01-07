@@ -3,15 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Backdrop, CircularProgress, Divider } from '@mui/material';
 import GridOnIcon from '@mui/icons-material/GridOn';
 
-
 import Phaser from 'phaser';
 import classNames from 'classnames';
 import { IonPhaser } from '@ion-phaser/react';
 import qs from 'query-string';
 
-
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getRealmAlchemicaDictionary, loadRealmAlchemica } from 'core/store/realm-alchemica';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GuildIcon } from 'components/Icons/Icons';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
@@ -40,8 +36,6 @@ interface CitadelProps {
 export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     const classes = { ...styles(), ...InterfaceStyles() };
 
-    const dispatch = useAppDispatch();
-
     const location = useLocation();
     const navigate = useNavigate();
     const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
@@ -54,8 +48,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
 
     const gameRef = useRef<any>(null);
     const wrapperRef = useRef<any>(null);
-
-    const realmAlchemicaDictionary = useAppSelector(getRealmAlchemicaDictionary);
 
     const findOnMap = (type: string, value: string) => game.scene.find(type, value);
 
@@ -206,7 +198,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
 
     useEffect(() => {
         if (selectedParcel !== null) {
-            dispatch(loadRealmAlchemica([selectedParcel.tokenId]));
             setModalOpen(true);
         }
     }, [selectedParcel]);
@@ -265,7 +256,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                 onModalClose={removeSelected}
             >
                 {selectedParcel !== null ? (
-                    <ParcelPreview parcel={selectedParcel} alchemica={realmAlchemicaDictionary[selectedParcel.tokenId]} />
+                    <ParcelPreview parcel={selectedParcel} />
                 ) : (
                     <></>
                 )}

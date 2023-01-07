@@ -5,35 +5,37 @@ export const parcelSurveyStyles = makeStyles((theme) =>
     createStyles({
         surveyList: {
             marginTop: theme.spacing(1.5),
+            fontSize: 5,
             position: 'relative',
-            fontSize: 12
+            zIndex: 4,
+            '.parcel:hover &': {
+                fontSize: 12
+            }
         },
-        rateAvarage: {
+        surveyListHead: {
+            display: 'flex',
+            justifyContent: 'space-between',
             position: 'absolute',
-            left: 0,
             right: 0,
+            left: 0,
             bottom: '100%',
             textAlign: 'center',
             color: theme.palette.rarity.golden,
-            fontWeight: 700
+            textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
+            fontWeight: 700,
+            fontStyle: 'italic',
+            fontSize: 12
+        },
+        surveyedTime: {
+            padding: theme.spacing(0, 1)
+        },
+        rateAvarage: {
+            padding: theme.spacing(0, 1)
         },
         surveyAlchemica: {
-            height: 5,
-            transition: 'height .3s',
+            transition: 'font-size .2s',
             position: 'relative',
-            '&:after': {
-                content: '""',
-                position: 'absolute',
-                left: '50%',
-                top: 1,
-                bottom: 1,
-                marginLeft: -1,
-                width: 2,
-                backgroundColor: alpha('#000', .5)
-            },
-            '.parcel:hover &, .active &': {
-                height: 12
-            }
+            lineHeight: 1
         },
         fud: {
             backgroundColor: alpha(darken(theme.palette.alchemica.fud, 0.5), 0.8),
@@ -53,14 +55,14 @@ export const parcelSurveyStyles = makeStyles((theme) =>
         },
         surveyAlchemicaBar: {
             height: '100%',
-            width: '80%',
+            width: '100%',
             position: 'relative',
             textAlign: 'center',
             '&:before': {
                 content: '""',
                 position: 'absolute',
                 backgroundColor: 'currentColor',
-                opacity: 0.8,
+                opacity: 0.5,
                 height: '100%',
                 width: '100%',
                 left: 0
@@ -72,12 +74,28 @@ export const parcelSurveyStyles = makeStyles((theme) =>
             opacity: 0,
             color: theme.palette.common.white,
             transition: 'opacity .1s 0s',
-            lineHeight: 1,
             display: 'block',
             fontWeight: 700,
             fontStyle: 'italic',
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
             padding: theme.spacing(0, 1),
+            '.parcel:hover &, .active &': {
+                opacity: 1,
+                transition: 'opacity .3s .1s'
+            }
+        },
+        supplyRate: {
+            position: 'absolute',
+            right: 0,
+            padding: theme.spacing(0, 1),
+            top: 0,
+            zIndex: 1,
+            fontWeight: 700,
+            fontStyle: 'italic',
+            transition: 'opacity .1s 0s',
+            opacity: 0,
+            textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
+            backgroundImage: `linear-gradient(to right, transparent 0%, ${alpha('#000', .5)} 100%)`,
             '.parcel:hover &, .active &': {
                 opacity: 1,
                 transition: 'opacity .3s .1s'
