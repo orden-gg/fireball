@@ -36,6 +36,7 @@ import {
     realmQueryByDistrict
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
+import { GotchiverseApi } from './gotchiverse.api';
 import { GRAPH_CORE_API } from 'shared/constants';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
@@ -404,8 +405,12 @@ export class TheGraphApi {
     private static async getRealmData(query: any): Promise<any> {
         return await getGraphData(clientFactory.realmClient, query);
     }
-
     public static async getRealmByAddress(address: string): Promise<any> {
+        const promises = [
+            graphJoin(clientFactory.client, getQueries()),
+            GotchiverseApi.getSurveysByAddress(address)
+        ];
+
         function getQueries() {
             const queries: any[] = [];
 
@@ -416,8 +421,18 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await graphJoin(clientFactory.client, getQueries()).then((response) => {
-            return filterCombinedGraphData(response, ['parcels'], 'tokenId');
+        return await Promise.all(promises).then(([parcels, surveys]) => {
+            const filteredParcels = filterCombinedGraphData(parcels, ['parcels'], 'tokenId');
+
+            console.log(surveys);
+
+
+            return filteredParcels.map((parcel: any, index: number) => {
+                return {
+                    ...parcel,
+                    ...surveys[index]
+                };
+            });
         });
     }
 

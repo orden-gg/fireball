@@ -5,3 +5,5 @@ export const GRAPH_REALM_API: string = 'https://api.thegraph.com/subgraphs/name/
 export const GRAPH_GOTCHIVERSE_API: string = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
 export const GRAPH_INCOME_API: string = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 export const GRAPH_FAKE_GOTCHIS_API: string = 'https://api.thegraph.com/subgraphs/name/aavegotchi/fake-gotchis-matic';
+
+export const GRAPH_FB_GOTCHIVERSE_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/gotchiverse';
