@@ -4,6 +4,7 @@ FROM node:16-alpine as react-build
 WORKDIR /app
 COPY . ./
 
+RUN apk add git
 RUN yarn
 RUN yarn build
 
