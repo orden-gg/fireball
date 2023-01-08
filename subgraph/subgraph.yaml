@@ -8,8 +8,9 @@ dataSources:
       source:
           address: '0x1d0360bac7299c86ec8e99d0c1c9a95fefaf2a11'
           abi: gotchiverse
-          #   startBlock: 20667840
-          startBlock: 32667840
+          startBlock: 20667840 # contract creation
+          #   startBlock: 28260500 # installations release
+          #   startBlock: 32667840 # surveyrs release
       mapping:
           kind: ethereum/events
           apiVersion: 0.0.6
@@ -17,6 +18,10 @@ dataSources:
           entities:
               - Player
               - Parcel
+              - Survey
+              - Installation
+              - Tile
+              - Gotchi
           abis:
               - name: gotchiverse
                 file: ../src/data/abi/realm.abi.json
@@ -29,10 +34,18 @@ dataSources:
                 handler: handleTransfer
               - event: MintParcel(indexed address,indexed uint256)
                 handler: handleMintParcel
-              - event: StartSurveying(uint256,uint256)
-                handler: handleStartSurveying
               - event: SurveyingRoundProgressed(indexed uint256)
                 handler: handleSurveyingRoundProgressed
               - event: SurveyParcel(uint256,uint256,uint256[])
                 handler: handleSurveyParcel
+              - event: EquipInstallation(uint256,uint256,uint256,uint256)
+                handler: handleEquipInstallation
+              - event: InstallationUpgraded(uint256,uint256,uint256,uint256,uint256)
+                handler: handleInstallationUpgraded
+              - event: UnequipInstallation(uint256,uint256,uint256,uint256)
+                handler: handleUnequipInstallation
+              - event: EquipTile(uint256,uint256,uint256,uint256)
+                handler: handleEquipTile
+              - event: UnequipTile(uint256,uint256,uint256,uint256)
+                handler: handleUnequipTile
           file: ./src/mappings/gotchiverse.ts

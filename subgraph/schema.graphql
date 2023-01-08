@@ -1,32 +1,36 @@
 type Player @entity {
     "player address"
     id: ID!
-    # parcels: [Parcel!]! @derivedFrom(field: "owner")
+    parcels: [Parcel!]! @derivedFrom(field: "owner")
     parcelsCount: Int!
+    installations: [Installation!]! @derivedFrom(field: "owner")
+    tiles: [Tile!]! @derivedFrom(field: "owner")
 }
 
 type Parcel @entity {
     "parcel token id"
     id: ID!
-    parcelId: String
     parcelHash: String
-
     owner: Player
-    district: BigInt
-    size: BigInt
-    coordinateX: BigInt
-    coordinateY: BigInt
+    district: Int
+    size: Int
+    coordinateX: Int
+    coordinateY: Int
 
-    lastChanneled: BigInt
-    lastClaimed: BigInt
+    lastChanneled: Int
+    lastClaimed: Int
 
-    "fud, fomo, alpha, kek"
     fudBoost: BigInt
     fomoBoost: BigInt
     alphaBoost: BigInt
     kekBoost: BigInt
-    alchemicaBag: [BigInt!]!
+
+    "parcel current alchemica"
+    alchemica: [BigInt!]!
     surveys: [Survey!] @derivedFrom(field: "parcel")
+
+    installations: [Installation!]!
+    tiles: [Tile!]!
 }
 
 type Survey @entity {
@@ -38,4 +42,29 @@ type Survey @entity {
     fomo: BigInt!
     alpha: BigInt!
     kek: BigInt!
+}
+
+type Installation @entity {
+    id: ID!
+    installationId: Int!
+    equipped: Boolean!
+    parcel: Parcel!
+    owner: Player!
+    x: Int!
+    y: Int!
+}
+
+type Tile @entity {
+    id: ID!
+    tileId: Int!
+    equipped: Boolean!
+    parcel: Parcel!
+    owner: Player!
+    x: Int!
+    y: Int!
+}
+
+type Gotchi @entity {
+    id: ID!
+    lastChanneled: Int!
 }

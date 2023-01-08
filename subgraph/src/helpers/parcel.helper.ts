@@ -8,24 +8,23 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
 
     if (!parcel) {
         parcel = new Parcel(id);
-        parcel.alchemicaBag = [
-            BigInt.zero(),
-            BigInt.zero(),
-            BigInt.zero(),
-            BigInt.zero()
-        ];
+        parcel.installations = [];
+        parcel.tiles = [];
+        parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
     }
 
     return parcel;
 };
 
-export const increaseCurrentSurvey = (alchemicaBag: BigInt[], alchemicas: BigInt[]): BigInt[] => {
-    const currentBag = alchemicaBag;
+export const increaseCurrentSurvey = (alchemica: BigInt[], alchemicas: BigInt[]): BigInt[] => {
+    const currentAlchemica = alchemica;
 
-    currentBag[AlchemicaTypes.Fud] = currentBag[AlchemicaTypes.Fud].plus(alchemicas[AlchemicaTypes.Fud]);
-    currentBag[AlchemicaTypes.Fomo] = currentBag[AlchemicaTypes.Fomo].plus(alchemicas[AlchemicaTypes.Fomo]);
-    currentBag[AlchemicaTypes.Alpha] = currentBag[AlchemicaTypes.Alpha].plus(alchemicas[AlchemicaTypes.Alpha]);
-    currentBag[AlchemicaTypes.Kek] = currentBag[AlchemicaTypes.Kek].plus(alchemicas[AlchemicaTypes.Kek]);
+    currentAlchemica[AlchemicaTypes.Fud] = currentAlchemica[AlchemicaTypes.Fud].plus(alchemicas[AlchemicaTypes.Fud]);
+    currentAlchemica[AlchemicaTypes.Fomo] = currentAlchemica[AlchemicaTypes.Fomo].plus(alchemicas[AlchemicaTypes.Fomo]);
+    currentAlchemica[AlchemicaTypes.Alpha] = currentAlchemica[AlchemicaTypes.Alpha].plus(
+        alchemicas[AlchemicaTypes.Alpha]
+    );
+    currentAlchemica[AlchemicaTypes.Kek] = currentAlchemica[AlchemicaTypes.Kek].plus(alchemicas[AlchemicaTypes.Kek]);
 
-    return currentBag;
-}
+    return currentAlchemica;
+};
