@@ -112,7 +112,7 @@ export function handleSurveyParcel(event: SurveyParcelEvent): void {
     const survey = loadOrCreateSurvey(event.params._tokenId, round);
     const parcel = loadOrCreateParcel(event.params._tokenId);
 
-    if (round == BigInt.zero()) {
+    if (round === BigInt.zero()) {
         parcel.alchemica = alchemicas;
     } else {
         parcel.alchemica = increaseCurrentSurvey(parcel.alchemica, alchemicas);
@@ -135,7 +135,7 @@ export function handleEquipInstallation(event: EquipInstallationEvent): void {
     parcel = equipInstallation(parcel, event.params._installationId, event.params._x, event.params._y);
     parcel.save();
 
-    let installation = loadOrCreateInstallation(
+    const installation = loadOrCreateInstallation(
         event.params._realmId,
         event.params._installationId,
         event.params._x,
@@ -189,7 +189,7 @@ export function handleUnequipInstallation(event: UnequipInstallationEvent): void
     parcel = unequipInstallation(parcel, event.params._installationId, event.params._x, event.params._y);
     parcel.save();
 
-    let installation = loadOrCreateInstallation(
+    const installation = loadOrCreateInstallation(
         event.params._realmId,
         event.params._installationId,
         event.params._x,
@@ -204,7 +204,7 @@ export function handleEquipTile(event: EquipTileEvent): void {
     parcel = equipTile(parcel, event.params._tileId, event.params._x, event.params._y);
     parcel.save();
 
-    let tile = loadOrCreateTile(event.params._realmId, event.params._tileId, event.params._x, event.params._y);
+    const tile = loadOrCreateTile(event.params._realmId, event.params._tileId, event.params._x, event.params._y);
     tile.owner = event.transaction.from.toHexString(); // !TODO: owner should not be event.transaction.from (possibly not real owner)
     tile.equipped = true;
     tile.save();
@@ -215,7 +215,7 @@ export function handleUnequipTile(event: UnequipTileEvent): void {
     parcel = unequipTile(parcel, event.params._tileId, event.params._x, event.params._y);
     parcel.save();
 
-    let tile = loadOrCreateTile(event.params._realmId, event.params._tileId, event.params._x, event.params._y);
+    const tile = loadOrCreateTile(event.params._realmId, event.params._tileId, event.params._x, event.params._y);
     tile.equipped = false;
     tile.save();
 }

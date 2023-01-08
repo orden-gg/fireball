@@ -4,6 +4,7 @@ import { Parcel, Tile } from '../../generated/schema';
 export function loadOrCreateTile(parcelId: BigInt, tileId: BigInt, x: BigInt, y: BigInt): Tile {
     const id = 'tile' + parcelId.toString() + '-' + tileId.toString() + '-' + x.toString() + '-' + y.toString();
     let tile = Tile.load(id);
+
     if (!tile) {
         tile = new Tile(id);
         tile.parcel = parcelId.toString();
@@ -11,6 +12,7 @@ export function loadOrCreateTile(parcelId: BigInt, tileId: BigInt, x: BigInt, y:
         tile.x = x.toI32();
         tile.y = y.toI32();
     }
+
     return tile;
 }
 
@@ -38,5 +40,6 @@ export const unequipTile = (parcel: Parcel, tileId: BigInt, x: BigInt, y: BigInt
     }
 
     parcel.tiles = newTiles;
+
     return parcel;
 };

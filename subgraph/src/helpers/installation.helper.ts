@@ -2,8 +2,9 @@ import { BigInt } from '@graphprotocol/graph-ts';
 import { Installation, Parcel } from '../../generated/schema';
 
 export function loadOrCreateInstallation(parcelId: BigInt, installationId: BigInt, x: BigInt, y: BigInt): Installation {
-    let id = 'inst' + parcelId.toString() + '-' + installationId.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'inst' + parcelId.toString() + '-' + installationId.toString() + '-' + x.toString() + '-' + y.toString();
     let installation = Installation.load(id);
+
     if (!installation) {
         installation = new Installation(id);
         installation.parcel = parcelId.toString();
@@ -11,6 +12,7 @@ export function loadOrCreateInstallation(parcelId: BigInt, installationId: BigIn
         installation.x = x.toI32();
         installation.y = y.toI32();
     }
+
     return installation;
 }
 
@@ -38,5 +40,6 @@ export const unequipInstallation = (parcel: Parcel, installationId: BigInt, x: B
     }
 
     parcel.installations = newInstallations;
+
     return parcel;
 };
