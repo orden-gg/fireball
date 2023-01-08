@@ -2,7 +2,15 @@ import { BigInt } from '@graphprotocol/graph-ts';
 import { Installation, Parcel } from '../../generated/schema';
 
 export function loadOrCreateInstallation(parcelId: BigInt, installationId: BigInt, x: BigInt, y: BigInt): Installation {
-    const id = 'inst' + parcelId.toString() + '-' + installationId.toString() + '-' + x.toString() + '-' + y.toString();
+    const id =
+        'inst-' +
+        installationId.toString() +
+        '-parcel-' +
+        parcelId.toString() +
+        '-' +
+        x.toString() +
+        '-' +
+        y.toString();
     let installation = Installation.load(id);
 
     if (!installation) {
@@ -18,7 +26,7 @@ export function loadOrCreateInstallation(parcelId: BigInt, installationId: BigIn
 
 export const equipInstallation = (parcel: Parcel, installationId: BigInt, x: BigInt, y: BigInt): Parcel => {
     const installations = parcel.installations;
-    const id = 'inst' + parcel.id + '-' + installationId.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'inst-' + installationId.toString() + '-parcel-' + parcel.id + '-' + x.toString() + '-' + y.toString();
 
     installations.push(id);
     parcel.installations = installations;
@@ -27,7 +35,7 @@ export const equipInstallation = (parcel: Parcel, installationId: BigInt, x: Big
 };
 
 export const unequipInstallation = (parcel: Parcel, installationId: BigInt, x: BigInt, y: BigInt): Parcel => {
-    const id = 'inst' + parcel.id + '-' + installationId.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'inst-' + installationId.toString() + '-parcel-' + parcel.id + '-' + x.toString() + '-' + y.toString();
     const installations = parcel.installations;
     const newInstallations = new Array<string>();
 
