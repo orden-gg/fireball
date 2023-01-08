@@ -2,7 +2,8 @@ import { BigInt } from '@graphprotocol/graph-ts';
 import { Parcel, Tile } from '../../generated/schema';
 
 export function loadOrCreateTile(parcelId: BigInt, tileId: BigInt, x: BigInt, y: BigInt): Tile {
-    const id = 'tile' + parcelId.toString() + '-' + tileId.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'tile-' + tileId.toString() + '-' + parcelId.toString() + '-' + x.toString() + '-' + y.toString();
+
     let tile = Tile.load(id);
 
     if (!tile) {
@@ -17,8 +18,7 @@ export function loadOrCreateTile(parcelId: BigInt, tileId: BigInt, x: BigInt, y:
 }
 
 export const equipTile = (parcel: Parcel, tileId: BigInt, x: BigInt, y: BigInt): Parcel => {
-    const id =
-        'tile-' + tileId.toString() + '-parcel-' + parcel.id.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'tile-' + tileId.toString() + '-' + parcel.id.toString() + '-' + x.toString() + '-' + y.toString();
     const tiles = parcel.tiles;
 
     tiles.push(id);
@@ -28,8 +28,7 @@ export const equipTile = (parcel: Parcel, tileId: BigInt, x: BigInt, y: BigInt):
 };
 
 export const unequipTile = (parcel: Parcel, tileId: BigInt, x: BigInt, y: BigInt): Parcel => {
-    const id =
-        'tile-' + tileId.toString() + '-parcel-' + parcel.id.toString() + '-' + x.toString() + '-' + y.toString();
+    const id = 'tile-' + tileId.toString() + '-' + parcel.id.toString() + '-' + x.toString() + '-' + y.toString();
     const tiles = parcel.tiles;
     const newTiles = new Array<string>();
 
