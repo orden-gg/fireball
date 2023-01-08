@@ -61,7 +61,7 @@ export const navRoutes: NavRoute[] = [
     },
     {
         name: 'glossary',
-        description: 'list of all items with traits and pvp effectrs',
+        description: 'list of all items with traits and pvp effects',
         icon: <GlossaryCardIcon />
     },
     {

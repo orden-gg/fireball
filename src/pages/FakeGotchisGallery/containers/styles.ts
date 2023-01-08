@@ -4,7 +4,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const styles = makeStyles((theme) =>
     createStyles({
         fakeGotchisGalleryContainer: {
-            padding: '51px 16px 0',
+            padding: '16px 0 0',
             display: 'flex',
             flexDirection: 'column',
             flexGrow: 1

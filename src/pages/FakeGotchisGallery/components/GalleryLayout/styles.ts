@@ -4,16 +4,8 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const styles = makeStyles((theme) =>
     createStyles({
         fakeGotchiGalleryList: {
-            margin: 0,
-            [theme.breakpoints.down('lg')]: {
-                columnCount: '6 !important'
-            },
-            [theme.breakpoints.down('md')]: {
-                columnCount: '4 !important'
-            },
-            [theme.breakpoints.down('sm')]: {
-                columnCount: '2 !important'
-            }
+            margin: -2,
+            width: 'calc(100% + 2px)'
         },
         fakeGotchiGalleryCount: {
             position: 'absolute',
@@ -29,29 +21,39 @@ export const styles = makeStyles((theme) =>
         },
         fakeGotchiGalleryItem: {
             minHeight: 100,
-            marginBottom: 4,
             position: 'relative',
-            background: alpha(theme.palette.rarity.godlike, 0.1),
-            '& > img': {
+            background: alpha('#000', 0.1),
+            '& img': {
                 display: 'block',
                 width: '100%'
             },
             '&:hover $fakeGotchiGalleryItemDesc': {
                 opacity: 1
+            },
+            [theme.breakpoints.up('md')]: {
+                minHeight: 130
             }
         },
         fakeGotchiGalleryItemDesc: {
+            minHeight: '100%',
             display: 'flex',
             flexDirection: 'column',
-            opacity: 0,
-            position: 'absolute',
-            inset: 0,
-            padding: 8,
-            background: alpha('#000', 0.75),
+            background: alpha('#000', 0.25),
             textAlign: 'center',
             overflowY: 'auto',
             transition: 'opacity .2s ease-in-out',
+            position: 'relative',
             zIndex: 1,
+            '&::after': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                background: alpha('#000', 0.25),
+                border: `2px solid ${alpha('#000', 0.75)}`,
+                pointerEvents: 'none',
+                transition: 'opacity .2s ease-in-out',
+                opacity: 0
+            },
             '& p': {
                 display: 'flex',
                 alignItems: 'center',
@@ -61,8 +63,11 @@ export const styles = makeStyles((theme) =>
             '& span': {
                 fontWeight: 700
             },
-            '& img': {
-                marginRight: 4
+            '&:hover': {
+                cursor: 'zoom-in',
+                '&::after': {
+                    opacity: 1
+                }
             }
         },
         fakeGotchiGalleryItemFooter: {
@@ -70,6 +75,14 @@ export const styles = makeStyles((theme) =>
             alignItems: 'center',
             justifyContent: 'space-between',
             padding: 4
+        },
+        fakeGotchiGalleryLoader: {
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            opacity: 0.8
         },
         name: {
             fontSize: 16,

@@ -2,7 +2,7 @@ import { alpha } from '@mui/system';
 import { createStyles, makeStyles } from '@mui/styles';
 import { lighten } from '@mui/material';
 
-export const styles = makeStyles((theme) =>
+export const styles = makeStyles(theme =>
     createStyles({
         soldOutLink: {
             color: theme.palette.primary.main,
@@ -211,7 +211,7 @@ export const styles = makeStyles((theme) =>
     })
 );
 
-export const itemStyles = makeStyles((theme) =>
+export const itemStyles = makeStyles(theme =>
     createStyles({
         item: {
             borderRadius: theme.shape.borderRadius,
@@ -347,7 +347,7 @@ export const itemStyles = makeStyles((theme) =>
     })
 );
 
-export const tooltipStyles = makeStyles((theme) =>
+export const tooltipStyles = makeStyles(theme =>
     createStyles({
         tooltip: {
             padding: '16px 12px 12px',
@@ -469,7 +469,7 @@ export const tooltipStyles = makeStyles((theme) =>
     })
 );
 
-export const ERC1155InnerStyles = makeStyles((theme) =>
+export const ERC1155InnerStyles = makeStyles(theme =>
     createStyles({
         iconWrapper: {
             display: 'flex',
@@ -585,7 +585,7 @@ export const ERC1155InnerStyles = makeStyles((theme) =>
     })
 );
 
-export const parselStyles = makeStyles((theme) =>
+export const parselStyles = makeStyles(theme =>
     createStyles({
         parcelImageBottom: {
             position: 'absolute',
@@ -737,7 +737,7 @@ export const channelingStyles = makeStyles(() =>
     })
 );
 
-export const installationStyles = makeStyles((theme) =>
+export const installationStyles = makeStyles(theme =>
     createStyles({
         installation: {
             display: 'flex',

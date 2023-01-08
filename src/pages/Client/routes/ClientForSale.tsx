@@ -28,9 +28,9 @@ import { Parcel } from 'components/Items/Parcel/Parcel';
 import { ClientContext } from 'contexts/ClientContext';
 import { ItemUtils } from 'utils';
 
-import { ListingTitle } from '../components/ListingTitle/ListingTitle';
-
 import { forSaleStyles } from '../styles';
+
+import { ListingTitle } from '../components/ListingTitle/ListingTitle';
 
 export function ClientForSale() {
     const classes = forSaleStyles();

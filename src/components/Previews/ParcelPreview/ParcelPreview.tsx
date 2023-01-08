@@ -62,7 +62,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                 <div className={classes.image}>
                     <ParcelImage parcel={parcel} imageSize={300} />
 
-                    <ParcelSurvey className={classNames(classes.survey, 'active')} parcel={parcel}  />
+                    <ParcelSurvey className={classNames(classes.survey, 'active')} parcel={parcel} />
                 </div>
 
                 <div className={classes.content}>
@@ -95,7 +95,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         </div>
 
                         <div className={classes.boosts}>
-                            { boosts.map((boost, i) => {
+                            {boosts.map((boost, i) => {
                                 const multiplierValue = GotchiverseUtils.getAlchemicaMultiplier(boost.name);
                                 const totalBoost = boost.value * multiplierValue;
 
@@ -136,7 +136,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                     </div>
                 </div>
             </div>
-            { parcel.timesTraded > 0 &&
+            {parcel.timesTraded > 0 && (
                 <>
                     <h5 className={classes.salesTitle}>Sales History</h5>
                     <SalesHistory historyLoaded={historyLoaded}>
@@ -177,7 +177,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         </>
                     </SalesHistory>
                 </>
-            }
+            )}
         </div>
     );
 }

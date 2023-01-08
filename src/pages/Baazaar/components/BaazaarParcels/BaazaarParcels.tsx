@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-
 import {
     CustomParsedQuery,
     GraphFiltersQueryParamTypes,
@@ -151,9 +150,7 @@ export function BaazaarParcels() {
                 <ContentInner dataLoading={isParcelsListingsInitialDataLoading}>
                     <ItemsLazy
                         items={parcelsListings}
-                        component={(parcelListing: ParcelListingVM) =>
-                            <Parcel parcel={parcelListing} />
-                        }
+                        component={(parcelListing: ParcelListingVM) => <Parcel parcel={parcelListing} />}
                         onHandleReachedEnd={onHandleReachedEnd}
                     />
                 </ContentInner>

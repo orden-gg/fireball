@@ -66,9 +66,12 @@ export const AutopetContextProvider = (props: any) => {
     const connectMetamask = async (): Promise<any> => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
-                await connect(ethers.providers.Web3Provider, 'any');
+                if (connect) {
+                    await connect(ethers.providers.Web3Provider, 'any');
 
-                return true;
+                    return true;
+                }
+
             } catch (error) {
                 return false;
             }

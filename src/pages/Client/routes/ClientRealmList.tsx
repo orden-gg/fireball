@@ -208,10 +208,7 @@ export function ClientRealmList() {
             />
 
             <ContentInner dataLoading={loadingRealm}>
-                <ItemsLazy
-                    items={modifiedRealm}
-                    component={(props) => <Parcel parcel={props} />}
-                />
+                <ItemsLazy items={modifiedRealm} component={(props) => <Parcel parcel={props} />} />
             </ContentInner>
         </>
     );

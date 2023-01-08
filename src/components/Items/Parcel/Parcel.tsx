@@ -88,7 +88,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                 <ParcelName parcel={parcel} />
 
-                {parcel.timePurchased &&
+                {parcel.timePurchased && (
                     <CardSalesHistory
                         className={classes.history}
                         listing={{
@@ -97,13 +97,16 @@ export function Parcel({ parcel }: { parcel: any }) {
                             timePurchased: parcel.timePurchased
                         }}
                     />
-                }
+                )}
 
                 {parcel.channeling && <ChannelingInfo channeling={parcel.channeling} />}
 
                 {parcel.installations && (
                     <div className={classes.parcelInstallations}>
-                        <ParcelInstallations parcel={parcel} className={classNames('custom-scroll', classes.installations)} />
+                        <ParcelInstallations
+                            parcel={parcel}
+                            className={classNames('custom-scroll', classes.installations)}
+                        />
                     </div>
                 )}
 

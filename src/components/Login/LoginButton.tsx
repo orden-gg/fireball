@@ -30,10 +30,12 @@ export function LoginButton() {
         if (metaState.isAvailable) {
             (async () => {
                 try {
-                    const accounts: string[] = await getAccounts();
+                    if (getAccounts) {
+                        const accounts: string[] = await getAccounts();
 
-                    if (accounts.length) {
-                        connectMetamask();
+                        if (accounts.length) {
+                            connectMetamask();
+                        }
                     }
                 } catch (error) {
                     console.log(error);
@@ -55,9 +57,11 @@ export function LoginButton() {
     const connectMetamask = async (): Promise<any> => {
         if (metaState.isAvailable && !metaState.isConnected) {
             try {
-                await connect(ethers.providers.Web3Provider, 'any');
+                if (connect) {
+                    await connect(ethers.providers.Web3Provider, 'any');
 
-                return true;
+                    return true;
+                }
             } catch (error) {
                 return false;
             }
