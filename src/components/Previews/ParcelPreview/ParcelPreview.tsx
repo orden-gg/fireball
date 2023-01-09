@@ -34,7 +34,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     useEffect(() => {
         let mounted = true;
 
-        TheGraphApi.getErc721SalesHistory(Number(parcel.tokenId), Erc1155Categories.Installation)
+        TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
             .then((res: any) => {
                 if (mounted) {
                     setHistory(res);
@@ -50,7 +50,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
         return () => {
             mounted = false;
         };
-    }, [parcel.tokenId]);
+    }, [parcel.id]);
 
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
@@ -81,7 +81,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         <div className={classes.badges}>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>id:</span>
-                                {parcel.tokenId}
+                                {parcel.id}
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>district:</span>
@@ -128,7 +128,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         <ActiveListingButton
                             item={{
                                 erc: 'erc721',
-                                id: parcel.tokenId,
+                                id: parcel.id,
                                 type: 'parcel',
                                 category: '4'
                             }}

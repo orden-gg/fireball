@@ -18,9 +18,6 @@ export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, avarag
     const [supplyRate, setSupplyRate] = useState<number>(0);
     const [amountRate, setAmountRate] = useState<number>(0);
 
-    console.log(tokenName, currentAmount, surveySupply, avarageSurvey);
-
-
     useEffect(() => {
         const supplyRate: number = Number((surveySupply / avarageSurvey).toFixed(2));
         const amountRate: number = Number((currentAmount / surveySupply).toFixed(2));
@@ -31,13 +28,8 @@ export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, avarag
 
     return (
         <div className={classNames(classes.surveyAlchemica, classes[tokenName])} key={tokenName}>
-            <div
-                className={classes.surveyAlchemicaBar}
-                style={{ width: `${amountRate * 100}%` }}
-            >
-                <span className={classes.amount}>
-                    {CommonUtils.convertFloatNumberToSuffixNumber(currentAmount)}
-                </span>
+            <div className={classes.surveyAlchemicaBar} style={{ width: `${amountRate * 100}%` }}>
+                <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(currentAmount)}</span>
             </div>
             <span className={classes.supplyRate}>x{supplyRate}</span>
         </div>

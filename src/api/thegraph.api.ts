@@ -36,8 +36,7 @@ import {
     realmQueryByDistrict
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GotchiverseApi } from './gotchiverse.api';
-import { GRAPH_CORE_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 
 const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
@@ -72,7 +71,8 @@ const clientFactory = (() => {
         svgsClient: createClient(gotchiSvgAPI),
         realmClient: createClient(realmAPI),
         gotchiverseClient: createClient(gotchiverseAPI),
-        incomeClient: createClient(incomeAPI)
+        incomeClient: createClient(incomeAPI),
+        fireballClient: createClient(GRAPH_FIREBALL_API)
     };
 })();
 
@@ -421,9 +421,8 @@ export class TheGraphApi {
     private static async getRealmData(query: any): Promise<any> {
         return await getGraphData(clientFactory.realmClient, query);
     }
-    public static async getRealmByAddress(address: string): Promise<any> {
-        const promises = [graphJoin(clientFactory.client, getQueries()), GotchiverseApi.getSurveysByAddress(address)];
 
+    public static async getRealmByAddress(address: string): Promise<any> {
         function getQueries() {
             const queries: any[] = [];
 
@@ -434,17 +433,8 @@ export class TheGraphApi {
             return queries;
         }
 
-        return await Promise.all(promises).then(([parcels, surveys]) => {
-            const filteredParcels = filterCombinedGraphData(parcels, ['parcels'], 'tokenId');
-
-            console.log(surveys);
-
-            return filteredParcels.map((parcel: any, index: number) => {
-                return {
-                    ...parcel,
-                    ...surveys[index]
-                };
-            });
+        return await graphJoin(clientFactory.fireballClient, getQueries()).then(response => {
+            return filterCombinedGraphData(response, ['parcels'], 'id');
         });
     }
 

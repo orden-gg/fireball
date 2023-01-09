@@ -66,13 +66,13 @@ export function handleMintParcel(event: MinParcelEvent): void {
     if (!_parcelInfo.reverted) {
         const metadata = _parcelInfo.value;
 
-        parcel.owner = owner.toHexString();
-
+        parcel.parcelId = metadata.parcelId;
         parcel.parcelHash = metadata.parcelAddress;
         parcel.size = metadata.size.toI32();
         parcel.district = metadata.district.toI32();
         parcel.coordinateX = metadata.coordinateX.toI32();
         parcel.coordinateY = metadata.coordinateY.toI32();
+        parcel.owner = owner.toHexString();
 
         parcel.fudBoost = metadata.boost[AlchemicaTypes.Fud];
         parcel.fomoBoost = metadata.boost[AlchemicaTypes.Fomo];

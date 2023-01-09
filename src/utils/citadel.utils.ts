@@ -10,7 +10,7 @@ export class CitadelUtils {
     }
 
     public static getParcelSizeName(id: any): any {
-        switch (id) {
+        switch (id.toString()) {
             case '0':
                 return 'humble';
             case '1':
@@ -29,7 +29,7 @@ export class CitadelUtils {
     }
 
     public static getParcelDimmentions(id: any): any {
-        switch (id) {
+        switch (id.toString()) {
             case '0':
                 return '8x8';
             case '1':
@@ -57,8 +57,8 @@ export class CitadelUtils {
 
     public static getParcelCoords(cx: any, cy: any): any {
         return {
-            x: cx-CITADEL_WIDTH/2,
-            y: cy-CITADEL_HEIGHT/2
+            x: cx - CITADEL_WIDTH / 2,
+            y: cy - CITADEL_HEIGHT / 2
         };
     }
 
@@ -118,7 +118,7 @@ export class CitadelUtils {
         }
     }
 
-    public static getParcelByTypeAndValueCoords(districtId: any, { cx, cy }: { cx: any, cy: any }): any {
+    public static getParcelByTypeAndValueCoords(districtId: any, { cx, cy }: { cx: any; cy: any }): any {
         const district: any = parcelsData[districtId] || [];
 
         let result: any;

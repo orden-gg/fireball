@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
-import { CardSalesHistory } from 'components/ItemCard/components';
+import { Parcel as ParcelModel } from 'shared/models';
+// import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
+// import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
@@ -15,10 +16,10 @@ import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
+import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export function Parcel({ parcel }: { parcel: any }) {
+export function Parcel({ parcel }: { parcel: ParcelModel }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -51,9 +52,9 @@ export function Parcel({ parcel }: { parcel: any }) {
                             classes.labelRarityColored,
                             classes.idHash
                         )}
-                        text={parcel.tokenId}
+                        text={parcel.id}
                     >
-                        #{parcel.tokenId}
+                        <span>#{parcel.id}</span>
                     </CopyToClipboardBlock>
 
                     <CustomTooltip title='District' placement='top' followCursor>
@@ -88,7 +89,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                 <ParcelName parcel={parcel} />
 
-                {parcel.timePurchased && (
+                {/* {parcel.timePurchased && (
                     <CardSalesHistory
                         className={classes.history}
                         listing={{
@@ -97,9 +98,9 @@ export function Parcel({ parcel }: { parcel: any }) {
                             timePurchased: parcel.timePurchased
                         }}
                     />
-                )}
+                )} */}
 
-                {parcel.channeling && <ChannelingInfo channeling={parcel.channeling} />}
+                <ChannelingInfo parcel={parcel} />
 
                 {parcel.installations && (
                     <div className={classes.parcelInstallations}>
@@ -110,9 +111,9 @@ export function Parcel({ parcel }: { parcel: any }) {
                     </div>
                 )}
 
-                <div className={classes.parcelPriceContainer}>
+                {/* <div className={classes.parcelPriceContainer}>
                     <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />
-                </div>
+                </div> */}
             </div>
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>

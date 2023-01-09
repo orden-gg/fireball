@@ -36,32 +36,41 @@ export function BaazaarParcels() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(
-        location.search,
-        { arrayFormat: 'comma' }
-    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
+        GraphFiltersQueryParamTypes
+    >;
 
     const dispatch = useAppDispatch();
     const parcelsListings: ParcelListingVM[] = useAppSelector(fromBaazaarStore.getParcelsListings);
-    const isParcelsListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsParcelsListingsInitialDataLoading);
+    const isParcelsListingsInitialDataLoading: boolean = useAppSelector(
+        fromBaazaarStore.getIsParcelsListingsInitialDataLoading
+    );
     const isParcelsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsParcelsListingsLoading);
-    const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getParcelsListingsGraphQueryParams);
-    const parcelsListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getParcelsListingsDefaultSorting);
+    const parcelsListingsGraphQueryParams: GraphQueryParams = useAppSelector(
+        fromBaazaarStore.getParcelsListingsGraphQueryParams
+    );
+    const parcelsListingsDefaultSorting: SortingItem = useAppSelector(
+        fromBaazaarStore.getParcelsListingsDefaultSorting
+    );
     const parcelsListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getParcelsListingsSorting);
     const parcelsListingsFilters: ParcelListingFilters = useAppSelector(fromBaazaarStore.getParcelsListingsFilters);
     const parcelsListingslistingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getParcelsListingsLimitPerLoad);
-    const parcelsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getParcelsListingsQueryParamsOrder);
+    const parcelsListingsQueryParamsOrder: string[] = useAppSelector(
+        fromBaazaarStore.getParcelsListingsQueryParamsOrder
+    );
 
     useEffect(() => {
-        const updatedFilters: ParcelListingFilters =
-            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...parcelsListingsFilters });
+        const updatedFilters: ParcelListingFilters = GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, {
+            ...parcelsListingsFilters
+        });
         dispatch(fromBaazaarStore.setParcelsListingsFilters(updatedFilters));
 
         const { sort, dir } = queryParams;
 
         if (sort && dir) {
-            const key: Undefinable<string> = parcelsListingsSortings
-                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+            const key: Undefinable<string> = parcelsListingsSortings.find(
+                (sorting: SortingListItem) => sorting.paramKey === sort
+            )?.key;
 
             if (key) {
                 onSortingChange(key, dir as string);
@@ -78,11 +87,14 @@ export function BaazaarParcels() {
     }, []);
 
     useEffect(() => {
-        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
-            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...parcelsListingsFilters });
+        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> = GraphFiltersUtils.getFiltersQueryParams(
+            queryParams,
+            { ...parcelsListingsFilters }
+        );
 
-        const paramKey: Undefinable<string> = parcelsListingsSortings
-            .find(sorting => sorting.key === parcelsListingsSorting.type)?.paramKey;
+        const paramKey: Undefinable<string> = parcelsListingsSortings.find(
+            sorting => sorting.key === parcelsListingsSorting.type
+        )?.paramKey;
 
         if (paramKey) {
             if (
@@ -125,7 +137,12 @@ export function BaazaarParcels() {
     };
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(fromBaazaarStore.updateParcelsListingsFilterByKey({ key, value } as { key: ParcelListingFilterTypes, value: GraphFiltersValueTypes }));
+        dispatch(
+            fromBaazaarStore.updateParcelsListingsFilterByKey({ key, value } as {
+                key: ParcelListingFilterTypes;
+                value: GraphFiltersValueTypes;
+            })
+        );
     };
 
     const onResetFilters = useCallback(() => {
@@ -142,9 +159,7 @@ export function BaazaarParcels() {
                         onSortingChange: onSortingChange
                     }}
                     itemsLength={parcelsListings.length}
-                    placeholder={
-                        <KekIcon width={20} height={20} alt='realm' />
-                    }
+                    placeholder={<KekIcon width={20} height={20} alt='realm' />}
                     isPanelDisabled={isParcelsListingsLoading}
                 />
                 <ContentInner dataLoading={isParcelsListingsInitialDataLoading}>

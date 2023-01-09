@@ -2,17 +2,16 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ParcelAlchemica } from 'shared/models';
+import { Parcel, ParcelAlchemica } from 'shared/models';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { EthersApi } from 'api';
 import { AlchemicaUtils } from 'utils';
 
 import { ParcelSurveyBar } from './components/ParcelSurveyBar';
-
 import { parcelSurveyStyles } from './styles';
 
 interface ParcelSurveyProps {
-    parcel: any;
+    parcel: Parcel;
     className?: string;
 }
 
@@ -40,52 +39,39 @@ export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
 
             setTotalSurveysSupply(totalSurveysSupply);
             setAvarageRate(Number((rateSum / 4).toFixed(2)));
-            setAvarageSurvey(AlchemicaUtils.getAvarageSurveyBySize(Number(parcel.size)));
+            setAvarageSurvey(AlchemicaUtils.getAvarageSurveyBySize(parcel.size));
         }
         setIsSurveyed(isSurveyed);
-
     }, [parcel]);
-
 
     return (
         <div className={classNames(classes.surveyList, className)}>
-            {
-                isSurveyed ? <>
+            {isSurveyed ? (
+                <>
                     <span className={classes.surveyListHead}>
-                        <CustomTooltip
-                            placement='top'
-                            title={<>times surveyed</>}
-                            disableInteractive
-                            arrow
-                        >
+                        <CustomTooltip placement='top' title={<>times surveyed</>} disableInteractive arrow>
                             <span className={classes.surveyedTime}>{parcel.surveys.length}</span>
                         </CustomTooltip>
-                        <CustomTooltip
-                            placement='top'
-                            title={<>total avarage</>}
-                            disableInteractive
-                            arrow
-                        >
+                        <CustomTooltip placement='top' title={<>total avarage</>} disableInteractive arrow>
                             <span className={classes.rateAvarage}>x{avarageRate}</span>
                         </CustomTooltip>
                     </span>
-                    {
-                        totalSurveysSupply !== null && Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) =>
+                    {totalSurveysSupply !== null &&
+                        Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) => (
                             <ParcelSurveyBar
                                 key={tokenName}
                                 avarageSurvey={avarageSurvey[tokenName]}
                                 tokenName={tokenName}
-                                currentAmount={EthersApi.fromWei(parcel.alchemicaBag[index])}
+                                currentAmount={EthersApi.fromWei(parcel.alchemica[index])}
                                 surveySupply={amount}
                             />
-                        )
-                    }
-                </> : (
-                    <span className={classes.surveyListHead}>
-                        <span className={classes.surveyedTime}>not surveyed</span>
-                    </span>
-                )
-            }
+                        ))}
+                </>
+            ) : (
+                <span className={classes.surveyListHead}>
+                    <span className={classes.surveyedTime}>not surveyed</span>
+                </span>
+            )}
         </div>
     );
 }

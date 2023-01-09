@@ -2,9 +2,17 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { DataReloadContextState, PageNavLink, Parcel, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
-import { GotchiIcon, KekIcon, RareTicketIcon, WarehouseIcon, AnvilIcon, FakeGotchisIcon, BaazarIcon } from 'components/Icons/Icons';
+import {
+    GotchiIcon,
+    KekIcon,
+    RareTicketIcon,
+    WarehouseIcon,
+    AnvilIcon,
+    FakeGotchisIcon,
+    BaazarIcon
+} from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
@@ -66,12 +74,12 @@ export const ClientContextProvider = (props: any) => {
     const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
     const [itemsForSale, setItemsForSale] = useState<{
-        gotchis: any[],
-        wearables: any[],
-        parcels: any[],
-        portals: any[],
-        tickets: any[],
-        consumables: any[]
+        gotchis: any[];
+        wearables: any[];
+        parcels: any[];
+        portals: any[];
+        tickets: any[];
+        consumables: any[];
     }>({
         gotchis: [],
         wearables: [],
@@ -145,7 +153,7 @@ export const ClientContextProvider = (props: any) => {
         {
             name: 'realm',
             path: 'realm',
-            icon: <KekIcon width={24} height={24} alt="realm" />,
+            icon: <KekIcon width={24} height={24} alt='realm' />,
             isLoading: loadingRealm,
             count: realm.length
         },
@@ -161,7 +169,8 @@ export const ClientContextProvider = (props: any) => {
             path: 'for-sale',
             icon: <BaazarIcon width={24} height={24} />,
             isLoading: isItemsForSaleLoading,
-            count: itemsForSale.consumables.length +
+            count:
+                itemsForSale.consumables.length +
                 itemsForSale.gotchis.length +
                 itemsForSale.parcels.length +
                 itemsForSale.portals.length +
@@ -171,7 +180,7 @@ export const ClientContextProvider = (props: any) => {
     ];
 
     useEffect(() => {
-        const isAllLoaded = Object.keys(loadedStates).every((key) => loadedStates[key]);
+        const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
 
         if (isAllLoaded) {
             setLastUpdated(Date.now());
@@ -202,7 +211,7 @@ export const ClientContextProvider = (props: any) => {
 
     const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingGotchis(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: false }));
 
         Promise.all([TheGraphApi.getGotchisByAddress(address), TheGraphApi.getOwnedGotchis(address)])
             .then((response: [any[], any[]]) => {
@@ -239,8 +248,10 @@ export const ClientContextProvider = (props: any) => {
                 setWarehouse((existing: any[]) =>
                     CommonUtils.basicSort(
                         [...existing, ...wearables].reduce((items: any[], current: any) => {
-                            const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
-                                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
+                            const wearableTypeBenefit:
+                                | WearableTypeBenefit
+                                | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
+                                benefit.ids.some((id: number) => id === current.id)
                             );
                             const duplicated: any = items.find((item: any) => item.id === current.id);
 
@@ -273,13 +284,13 @@ export const ClientContextProvider = (props: any) => {
             })
             .finally(() => {
                 setLoadingGotchis(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: true }));
+                setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: true }));
             });
     };
 
     const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingLendings(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: false }));
 
         TheGraphApi.getLendingsByAddress(address).then((lendings: any[]) => {
             const balancesRequest: any[] = [];
@@ -308,27 +319,27 @@ export const ClientContextProvider = (props: any) => {
 
                 setLendings(CommonUtils.basicSort(lendings, type, dir));
                 setLoadingLendings(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: true }));
+                setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
             });
         });
     };
 
     const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingBorrowed(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: false }));
 
         TheGraphApi.getBorrowedByAddress(address).then((borrowed: any[]) => {
             const { type, dir } = borrowedSorting;
 
             setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
             setLoadingBorrowed(false);
-            setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: true }));
+            setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: true }));
         });
     };
 
     const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingWarehouse(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: false }));
 
         MainApi.getInventoryByAddress(address)
             .then((response: any) => {
@@ -352,8 +363,10 @@ export const ClientContextProvider = (props: any) => {
                     CommonUtils.basicSort(
                         [...existing, ...modified].reduce((items, current) => {
                             const duplicated = items.find((item: any) => item.id === current.id);
-                            const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
-                                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
+                            const wearableTypeBenefit:
+                                | WearableTypeBenefit
+                                | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
+                                benefit.ids.some((id: number) => id === current.id)
                             );
 
                             if (duplicated) {
@@ -377,21 +390,21 @@ export const ClientContextProvider = (props: any) => {
                     )
                 );
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log(error);
                 setWarehouse([]);
             })
             .finally(() => {
                 setLoadingWarehouse(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: true }));
+                setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: true }));
             });
     };
 
     const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingInstallations(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: false }));
 
-        InstallationsApi.getInstallationsByAddress(address).then((response) => {
+        InstallationsApi.getInstallationsByAddress(address).then(response => {
             const installations: any[] = response
                 .filter((item: any) => {
                     const id: any = EthersApi.formatBigNumber(item.installationId._hex);
@@ -414,13 +427,13 @@ export const ClientContextProvider = (props: any) => {
 
             setInstallations(installations);
             setLoadingInstallations(false);
-            setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: true }));
+            setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: true }));
         });
     };
 
     const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingTiles(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isTilesLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: false }));
 
         TilesApi.getTilesByAddress(address).then((response: any) => {
             const tiles: any[] = response
@@ -444,13 +457,13 @@ export const ClientContextProvider = (props: any) => {
 
             setTiles(tiles);
             setLoadingTiles(false);
-            setLoadedStates((statesCache) => ({ ...statesCache, isTilesLoaded: true }));
+            setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: true }));
         });
     };
 
     const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingTickets(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: false }));
 
         TicketsApi.getTicketsByAddress(address)
             .then((response: any) => {
@@ -458,81 +471,56 @@ export const ClientContextProvider = (props: any) => {
 
                 setTickets(modified);
             })
-            .catch((error) => {
+            .catch(error => {
                 console.log(error);
             })
             .finally(() => {
                 setLoadingTickets(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: true }));
+                setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: true }));
             });
     };
 
     const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
         setLoadingRealm(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: false }));
 
-        Promise.all([TheGraphApi.getRealmByAddress(address), TheGraphApi.getParcelsGotchiverseInfoByOwner(address)])
-            .then((response) => {
-                const realm: any[] = response[0];
-                const realmInfo: any[] = getModifiedParcelInfo(response[1]);
+        TheGraphApi.getRealmByAddress(address)
+            .then(response => {
+                console.log('response', response);
 
-                const modifiedParcels = realm.map((parcel: any) => {
-                    const parcelInfo = realmInfo.find((info: any) => info.id === parcel.tokenId);
-
-                    const altar = parcelInfo?.installations.find(
+                const modifiedParcels = response.map((parcel: Parcel) => {
+                    const _installations: any[] = parcel.installations
+                        .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.id))
+                        .map((inst: any) => ({
+                            id: inst.id,
+                            name: InstallationsUtils.getNameById(inst.id),
+                            level: InstallationsUtils.getLevelById(inst.id),
+                            type: InstallationsUtils.getTypeById(inst.id)
+                        }));
+                    const altar = installations.find(
                         (installation: any) => installation.type === InstallationTypeNames.Altar
                     );
+                    const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
+                    parcel.installations = _installations;
 
                     return {
                         ...parcel,
-                        channeling: parcelInfo,
-                        nextChannel: parcelInfo?.nextChannel,
-                        altarLevel: altar ? altar.level : 0,
-                        installations: parcelInfo?.installations
+                        cooldown: cooldown,
+                        nextChannel: parcel.lastChanneled + cooldown,
+                        altarLevel: altar ? altar.level : 0
                     };
                 });
 
+                console.log('modifiedParcels', modifiedParcels);
+
                 setRealm(modifiedParcels);
             })
+            .catch(e => console.log(e))
             .finally(() => {
                 setLoadingRealm(false);
-                setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: true }));
+                setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: true }));
             });
-    };
-
-    const getModifiedParcelInfo = (parcelinfo: any[]): any[] => {
-        return parcelinfo.map((parcel: any) => {
-            if (!parcel.equippedInstallations.length) {
-                return {
-                    id: parcel.id,
-                    lastChanneled: 0,
-                    nextChannel: 0,
-                    installations: []
-                };
-            }
-
-            const installations: any[] = parcel.equippedInstallations
-                .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.id))
-                .map((inst: any) => ({
-                    id: inst.id,
-                    name: InstallationsUtils.getNameById(inst.id),
-                    level: InstallationsUtils.getLevelById(inst.id),
-                    type: InstallationsUtils.getTypeById(inst.id)
-                }));
-
-            const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
-            const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-            const lastChanneled = Number(parcel.lastChanneledAlchemica);
-            const nextChannel = lastChanneled + cooldown;
-
-            return {
-                id: parcel.id,
-                lastChanneled: lastChanneled,
-                nextChannel: Number(nextChannel),
-                cooldown: cooldown,
-                installations: installations
-            };
-        });
     };
 
     const getFakeGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -544,28 +532,28 @@ export const ClientContextProvider = (props: any) => {
             resetItemsForSale();
         }
         setIsItemsForSaleLoading(shouldUpdateIsLoading);
-        setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: false }));
+        setLoadedStates(statesCache => ({ ...statesCache, isItemsForSaleLoaded: false }));
 
-        Promise.all([
-            TheGraphApi.getErc721ListingsBySeller(address),
-            TheGraphApi.getErc1155ListingsBySeller(address)
-        ]).then(([erc721Listings, erc1155Listings]: [any, any]) => {
-            const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+        Promise.all([TheGraphApi.getErc721ListingsBySeller(address), TheGraphApi.getErc1155ListingsBySeller(address)])
+            .then(([erc721Listings, erc1155Listings]: [any, any]) => {
+                const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
 
-            setIsItemsForSaleEmpty(isListingsEmpty);
+                setIsItemsForSaleEmpty(isListingsEmpty);
 
-            if (isListingsEmpty) {
+                if (isListingsEmpty) {
+                    resetItemsForSale();
+                } else {
+                    handleSetErc721Listings(erc721Listings);
+                    handleSetErc1155Listings(erc1155Listings);
+                }
+            })
+            .catch(() => {
                 resetItemsForSale();
-            } else {
-                handleSetErc721Listings(erc721Listings);
-                handleSetErc1155Listings(erc1155Listings);
-            }
-        }).catch(() => {
-            resetItemsForSale();
-        }).finally(() => {
-            setIsItemsForSaleLoading(false);
-            setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: true }));
-        });
+            })
+            .finally(() => {
+                setIsItemsForSaleLoading(false);
+                setLoadedStates(statesCache => ({ ...statesCache, isItemsForSaleLoaded: true }));
+            });
     };
 
     const resetItemsForSale = (): void => {
@@ -592,16 +580,20 @@ export const ClientContextProvider = (props: any) => {
                 priceInWei: listing.priceInWei,
                 baazaarId: listing.id,
                 historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
-                listings: [{
-                    id: listing.id,
-                    priceInWei: listing.priceInWei
-                }]
+                listings: [
+                    {
+                        id: listing.id,
+                        priceInWei: listing.priceInWei
+                    }
+                ]
             }));
         const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
 
         const listedPortals: any[] = listings
-            .filter((listing: any) =>
-                listing.category === Erc721Categories.ClosedPortal || listing.category === Erc721Categories.OpenedPortal
+            .filter(
+                (listing: any) =>
+                    listing.category === Erc721Categories.ClosedPortal ||
+                    listing.category === Erc721Categories.OpenedPortal
             )
             .map((listing: any) => ({
                 priceInWei: listing.priceInWei,
@@ -616,7 +608,7 @@ export const ClientContextProvider = (props: any) => {
             }));
         const sortedPortals: any[] = CommonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
-        setItemsForSale((itemsForSaleCache) => ({
+        setItemsForSale(itemsForSaleCache => ({
             ...itemsForSaleCache,
             gotchis: sortedGotchis,
             parcels: sortedParcels,
@@ -652,7 +644,7 @@ export const ClientContextProvider = (props: any) => {
                 category: listing.category
             }));
 
-        setItemsForSale((itemsForSaleCache) => ({
+        setItemsForSale(itemsForSaleCache => ({
             ...itemsForSaleCache,
             wearables: sortedWearables,
             tickets: sortedTickets,
@@ -684,15 +676,15 @@ export const ClientContextProvider = (props: any) => {
 
             gotchis.forEach((item: any, index: number) => {
                 const BRS: any = GraphUtils.calculateRewards(
-                    brsLeaders.findIndex((x) => x.id === item.id),
+                    brsLeaders.findIndex(x => x.id === item.id),
                     'BRS'
                 );
                 const KIN: any = GraphUtils.calculateRewards(
-                    kinLeaders.findIndex((x) => x.id === item.id),
+                    kinLeaders.findIndex(x => x.id === item.id),
                     'KIN'
                 );
                 const EXP: any = GraphUtils.calculateRewards(
-                    expLeaders.findIndex((x) => x.id === item.id),
+                    expLeaders.findIndex(x => x.id === item.id),
                     'EXP'
                 );
 

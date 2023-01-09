@@ -7,10 +7,9 @@ import {
     AVERAGE_SPACIOUS_BASE_ALCHEMICA,
     ParcelTypes
 } from 'shared/constants';
-import { ParcelAlchemica } from 'shared/models';
+import { ParcelSurvey, ParcelAlchemica } from 'shared/models';
 
 export class AlchemicaUtils {
-
     public static getAvarageSurveyBySize(size: number) {
         switch (size) {
             case ParcelTypes.Humble:
@@ -24,23 +23,26 @@ export class AlchemicaUtils {
         }
     }
 
-    public static getCombinedSurveys(surveys: ParcelAlchemica[]) {
-        return surveys.reduce((previous: ParcelAlchemica, current: ParcelAlchemica) => {
-            previous[AlchemicaTypes.Fud] =
-                previous[AlchemicaTypes.Fud] + EthersApi.fromWei(current[AlchemicaTypes.Fud]);
-            previous[AlchemicaTypes.Fomo] =
-                previous[AlchemicaTypes.Fomo] + EthersApi.fromWei(current[AlchemicaTypes.Fomo]);
-            previous[AlchemicaTypes.Alpha] =
-                previous[AlchemicaTypes.Alpha] + EthersApi.fromWei(current[AlchemicaTypes.Alpha]);
-            previous[AlchemicaTypes.Kek] =
-                previous[AlchemicaTypes.Kek] + EthersApi.fromWei(current[AlchemicaTypes.Kek]);
+    public static getCombinedSurveys(surveys: ParcelSurvey[]): ParcelAlchemica {
+        return surveys.reduce(
+            (previous: ParcelAlchemica, current: any) => {
+                previous[AlchemicaTypes.Fud] =
+                    previous[AlchemicaTypes.Fud] + EthersApi.fromWei(current[AlchemicaTypes.Fud]);
+                previous[AlchemicaTypes.Fomo] =
+                    previous[AlchemicaTypes.Fomo] + EthersApi.fromWei(current[AlchemicaTypes.Fomo]);
+                previous[AlchemicaTypes.Alpha] =
+                    previous[AlchemicaTypes.Alpha] + EthersApi.fromWei(current[AlchemicaTypes.Alpha]);
+                previous[AlchemicaTypes.Kek] =
+                    previous[AlchemicaTypes.Kek] + EthersApi.fromWei(current[AlchemicaTypes.Kek]);
 
-            return previous;
-        }, {
-            [AlchemicaTypes.Fud]: 0,
-            [AlchemicaTypes.Fomo]: 0,
-            [AlchemicaTypes.Alpha]: 0,
-            [AlchemicaTypes.Kek]: 0
-        });
+                return previous;
+            },
+            {
+                [AlchemicaTypes.Fud]: 0,
+                [AlchemicaTypes.Fomo]: 0,
+                [AlchemicaTypes.Alpha]: 0,
+                [AlchemicaTypes.Kek]: 0
+            }
+        );
     }
 }

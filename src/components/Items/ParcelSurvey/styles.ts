@@ -1,7 +1,7 @@
 import { alpha, darken } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const parcelSurveyStyles = makeStyles((theme) =>
+export const parcelSurveyStyles = makeStyles(theme =>
     createStyles({
         surveyList: {
             marginTop: theme.spacing(1.5),
@@ -95,7 +95,7 @@ export const parcelSurveyStyles = makeStyles((theme) =>
             transition: 'opacity .1s 0s',
             opacity: 0,
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
-            backgroundImage: `linear-gradient(to right, transparent 0%, ${alpha('#000', .5)} 100%)`,
+            backgroundImage: `linear-gradient(to right, transparent 0%, ${alpha('#000', 0.5)} 100%)`,
             '.parcel:hover &, .active &': {
                 opacity: 1,
                 transition: 'opacity .3s .1s'

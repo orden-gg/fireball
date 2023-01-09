@@ -1,9 +1,7 @@
-import { Skeleton } from '@mui/material';
-
 import { DateTime } from 'luxon';
 
 import { CountdownFormatNonZeroType } from 'shared/constants';
-import { CountdownShortFormat } from 'shared/models';
+import { CountdownShortFormat, Parcel } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';
@@ -37,30 +35,19 @@ const countdownFormat: CountdownShortFormat = {
     }
 };
 
-export function ChannelingInfo({ channeling }: { channeling: any }) {
+export function ChannelingInfo({ parcel }: { parcel: Parcel }) {
     const classes = styles();
 
     const fromTimestampToMillis = (timestamp: number) => {
         return DateTime.fromSeconds(timestamp).toMillis();
     };
 
-    if (channeling.loading) {
-        return <div className={classes.placeholder}>
-            <Skeleton
-                className={classes.placeholderInner}
-                variant='rectangular'
-                width='100%'
-                height={30}
-            />
-        </div>;
-    }
-
-    if (channeling.lastChanneled === 0) {
-        return <div className={classes.container}>
-            <div className={classes.placeholderWarning}>
-                never channeled
+    if (!parcel.lastChanneled) {
+        return (
+            <div className={classes.container}>
+                <div className={classes.placeholderWarning}>never channeled</div>
             </div>
-        </div>;
+        );
     }
 
     return (
@@ -69,20 +56,17 @@ export function ChannelingInfo({ channeling }: { channeling: any }) {
 
             <div className={classes.inner}>
                 last:
-                <Countdown
-                    targetDate={fromTimestampToMillis(channeling.lastChanneled)}
-                    shortFormat={countdownFormat}
-                />
+                <Countdown targetDate={fromTimestampToMillis(parcel.lastChanneled)} shortFormat={countdownFormat} />
             </div>
             <div className={classes.inner}>
                 ready:
-                <div className={classes.countdown}>
+                {/* <div className={classes.countdown}>
                     <Countdown
                         targetDate={fromTimestampToMillis(channeling.nextChannel)}
                         shortFormat={countdownFormat}
                         replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
                     />
-                </div>
+                </div> */}
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ type Player @entity {
 type Parcel @entity {
     "parcel token id"
     id: ID!
+    parcelId: String
     parcelHash: String
     owner: Player
     district: Int

@@ -16,7 +16,6 @@ export * from './installation.model';
 export * from './login-address.model';
 export * from './nav-route.model';
 export * from './page-nav.model';
-export * from './parcel-alchemica-dictionary.model';
 export * from './parcel.model';
 export * from './sorting.model';
 export * from './the-graph.model';
