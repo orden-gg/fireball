@@ -1,4 +1,5 @@
-import { BigInt } from '@graphprotocol/graph-ts';
+import { BigInt, dataSource, log } from '@graphprotocol/graph-ts';
+import { gotchiverse as RealmDiamond } from '../../generated/gotchiverse/gotchiverse';
 import { Parcel } from '../../generated/schema';
 import { AlchemicaTypes } from '../shared/enums';
 
@@ -11,6 +12,33 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
         parcel.installations = [];
         parcel.tiles = [];
         parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
+    }
+
+    log.warning('parcel: {}, diamond: {}', [realmId.toString(), dataSource.address().toHexString()]);
+
+    if (!parcel.parcelId) {
+        const contract = RealmDiamond.bind(dataSource.address());
+        const _parcelInfo = contract.try_getParcelInfo(realmId);
+
+        if (!_parcelInfo.reverted) {
+            const metadata = _parcelInfo.value;
+
+            parcel.parcelId = metadata.parcelId;
+            parcel.parcelHash = metadata.parcelAddress;
+            parcel.size = metadata.size.toI32();
+            parcel.district = metadata.district.toI32();
+            parcel.coordinateX = metadata.coordinateX.toI32();
+            parcel.coordinateY = metadata.coordinateY.toI32();
+
+            parcel.fudBoost = metadata.boost[AlchemicaTypes.Fud];
+            parcel.fomoBoost = metadata.boost[AlchemicaTypes.Fomo];
+            parcel.alphaBoost = metadata.boost[AlchemicaTypes.Alpha];
+            parcel.kekBoost = metadata.boost[AlchemicaTypes.Kek];
+
+            log.warning('parcel: {}, DATA ARRIVED, id - {}', [realmId.toString(), metadata.parcelId]);
+        } else {
+            log.error('parcel: {}, REVERTED', [realmId.toString()]);
+        }
     }
 
     return parcel;

@@ -8,11 +8,12 @@ export function loadOrCreateInstallation(parcelId: BigInt, installationId: BigIn
 
     if (!installation) {
         installation = new Installation(id);
-        installation.parcel = parcelId.toString();
         installation.installationId = installationId.toI32();
         installation.x = x.toI32();
         installation.y = y.toI32();
     }
+
+    installation.parcel = parcelId.toString();
 
     return installation;
 }
@@ -35,7 +36,8 @@ export const unequipInstallation = (parcel: Parcel, installationId: BigInt, x: B
     for (let i = 0; i < installations.length; i++) {
         const item = installations[i];
 
-        if (item !== id) {
+        // eslint-disable-next-line
+        if (item != id) {
             newInstallations.push(item);
         }
     }

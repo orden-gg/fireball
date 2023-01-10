@@ -4,7 +4,6 @@ import {
     ChannelAlchemica as ChannelAlchemicaEvent,
     EquipInstallation as EquipInstallationEvent,
     EquipTile as EquipTileEvent,
-    gotchiverse as RealmDiamond,
     InstallationUpgraded as InstallationUpgradedEvent,
     MintParcel as MinParcelEvent,
     SurveyingRoundProgressed as SurveyingRoundProgressedEvent,
@@ -27,6 +26,10 @@ import {
     unequipTile
 } from '../helpers';
 import { AlchemicaTypes } from '../shared/enums';
+
+// !TODO: handle move events
+// moveInstallation(uint256,uint256,uint256,uint256,uint256,uint256)
+// moveTile(uint256,uint256,uint256,uint256,uint256,uint256)
 
 export function handleChannelAlchemica(event: ChannelAlchemicaEvent): void {
     const parcel = loadOrCreateParcel(event.params._realmId);
@@ -54,32 +57,10 @@ export function handleAlchemicaClaimed(event: AlchemicaClaimedEvent): void {
 
 export function handleMintParcel(event: MinParcelEvent): void {
     const owner = event.params._owner;
-
     const parcel = loadOrCreateParcel(event.params._tokenId);
     const player = loadOrCreatePlayer(owner);
 
-    const contract = RealmDiamond.bind(event.address);
-    const _parcelInfo = contract.try_getParcelInfo(event.params._tokenId);
-
     parcel.owner = owner.toHexString();
-
-    if (!_parcelInfo.reverted) {
-        const metadata = _parcelInfo.value;
-
-        parcel.parcelId = metadata.parcelId;
-        parcel.parcelHash = metadata.parcelAddress;
-        parcel.size = metadata.size.toI32();
-        parcel.district = metadata.district.toI32();
-        parcel.coordinateX = metadata.coordinateX.toI32();
-        parcel.coordinateY = metadata.coordinateY.toI32();
-        parcel.owner = owner.toHexString();
-
-        parcel.fudBoost = metadata.boost[AlchemicaTypes.Fud];
-        parcel.fomoBoost = metadata.boost[AlchemicaTypes.Fomo];
-        parcel.alphaBoost = metadata.boost[AlchemicaTypes.Alpha];
-        parcel.kekBoost = metadata.boost[AlchemicaTypes.Kek];
-    }
-
     player.parcelsCount = player.parcelsCount + 1;
 
     parcel.save();
@@ -101,7 +82,7 @@ export function handleTransfer(event: TransferEvent): void {
 }
 
 export function handleSurveyingRoundProgressed(event: SurveyingRoundProgressedEvent): void {
-    // ! Triggered when diamond owner increment the surveying round (basically should show current round)
+    // ? Triggered when diamond owner increment the surveying round (basically should show current round)
     log.error('proggressed: new round - {}', [event.params._newRound.toString()]);
 }
 
@@ -170,6 +151,7 @@ export function handleInstallationUpgraded(event: InstallationUpgradedEvent): vo
         event.params._coordinateY
     );
     installation.equipped = false;
+    installation.parcel = null;
     installation.save();
 
     // equip new
@@ -196,6 +178,7 @@ export function handleUnequipInstallation(event: UnequipInstallationEvent): void
         event.params._y
     );
     installation.equipped = false;
+    installation.parcel = null;
     installation.save();
 }
 
@@ -217,5 +200,6 @@ export function handleUnequipTile(event: UnequipTileEvent): void {
 
     const tile = loadOrCreateTile(event.params._realmId, event.params._tileId, event.params._x, event.params._y);
     tile.equipped = false;
+    tile.parcel = null;
     tile.save();
 }
