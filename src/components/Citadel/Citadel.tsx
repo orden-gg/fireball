@@ -80,7 +80,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         return realmGroups
             .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
             .map(group => {
-
                 return (
                     <BasicButton
                         type={group.type}
@@ -94,11 +93,14 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             });
     }, [realmGroups, mapCreated]);
 
-    const updateQueryParams = useCallback((filters: any) => {
-        const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
+    const updateQueryParams = useCallback(
+        (filters: any) => {
+            const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
 
-        setParams(newParams);
-    }, [params]);
+            setParams(newParams);
+        },
+        [params]
+    );
 
     useEffect(() => {
         setTimeout(() => {
@@ -124,19 +126,10 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             game.scene.on('parcelSelect', parcel => {
                 setParcelLoading(true);
 
-                Promise.all([
-                    TheGraphApi.getRealmById(parcel.tokenId),
-                    TheGraphApi.getParcelsGotchiverseInfoByIds([parcel.tokenId])
-                ])
-                    .then(([parcelRealm, info]) => {
-                        const combinedParcel = {
-                            ...parcelRealm,
-                            installations: info[0].installations
-                        };
-
-                        setParcelLoading(false);
-                        setSelectedParcel(parcelRealm ? combinedParcel : parcel);
-                    });
+                TheGraphApi.getRealmById(parcel.tokenId).then(realmParcel => {
+                    setParcelLoading(false);
+                    setSelectedParcel(realmParcel ? realmParcel : parcel);
+                });
             });
 
             game.scene.on('query', ({ name, params }) => {
@@ -207,17 +200,9 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
             <CitadelInterface>
-                <SearchForm
-                    onSearch={findOnMap}
-                    type='parcel'
-                    placeholder="Parcel id or name"
-                />
-                <SearchForm
-                    onSearch={findOnMap}
-                    type='district'
-                    placeholder="District id"
-                />
-                <Divider className={classes.interfaceDivider}/>
+                <SearchForm onSearch={findOnMap} type='parcel' placeholder='Parcel id or name' />
+                <SearchForm onSearch={findOnMap} type='district' placeholder='District id' />
+                <Divider className={classes.interfaceDivider} />
                 <BasicButton
                     type='grid'
                     tooltip='Districts grid'
@@ -234,37 +219,25 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                     handleClick={updateGroup}
                     active={buttonIsActive('guilds')}
                 />
-                <>{basicButtons.length !== 0 && <Divider className={classes.interfaceDivider}/>}</>
+                <>{basicButtons.length !== 0 && <Divider className={classes.interfaceDivider} />}</>
                 <>{basicButtons}</>
             </CitadelInterface>
 
-            {mapCreated &&
-                <CitadelFilters
-                    onFiltersChange={onFiltersChange}
-                    queryParams={params}
-                    onExportData={onExportData}
-                />
-            }
+            {mapCreated && (
+                <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} onExportData={onExportData} />
+            )}
 
             <FullscreenButton wrapperRef={wrapperRef} />
 
             <CitadelInfo />
 
-            <CustomModal
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-                onModalClose={removeSelected}
-            >
-                {selectedParcel !== null ? (
-                    <ParcelPreview parcel={selectedParcel} />
-                ) : (
-                    <></>
-                )}
+            <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen} onModalClose={removeSelected}>
+                {selectedParcel !== null ? <ParcelPreview parcel={selectedParcel} /> : <></>}
             </CustomModal>
 
             <CitadelLoader isLoaded={isLoaded && mapCreated} />
 
-            { parcelLoading && (
+            {parcelLoading && (
                 <Backdrop open={parcelLoading}>
                     <CircularProgress color='primary' />
                 </Backdrop>

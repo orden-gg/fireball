@@ -20,44 +20,38 @@ export function ParcelPage() {
 
         setParcelLoading(true);
 
-        Promise.all([
-            TheGraphApi.getRealmById(parcelId as string),
-            TheGraphApi.getParcelsGotchiverseInfoByIds([parcelId])
-        ])
-            .then(([parcel, info]) => {
+        TheGraphApi.getRealmById(parcelId as string)
+            .then(parcel => {
                 if (mounted && parcel) {
-                    setParcel({
-                        ...parcel,
-                        installations: info[0].installations
-                    });
+                    setParcel(parcel);
                 }
             })
-            .catch((err) => console.log(err))
+            .catch(err => console.log(err))
             .finally(() => {
                 if (mounted) {
                     setParcelLoading(false);
                 }
             });
 
-        return () => { mounted = false };
+        return () => {
+            mounted = false;
+        };
     }, [parcelId]);
 
     return (
         <div className={classes.container}>
-            { parcelLoading ? (
+            {parcelLoading ? (
                 <Backdrop open={parcelLoading}>
                     <CircularProgress color='primary' />
                 </Backdrop>
+            ) : parcel ? (
+                <ParcelPreview parcel={parcel} />
             ) : (
-                parcel ? (
-                    <ParcelPreview parcel={parcel}  />
-                ) : (
-                    <div className={classes.alert}>
-                        <Alert variant='filled' severity='error'>
-                            There is no parcel with id {parcelId}
-                        </Alert>
-                    </div>
-                )
+                <div className={classes.alert}>
+                    <Alert variant='filled' severity='error'>
+                        There is no parcel with id {parcelId}
+                    </Alert>
+                </div>
             )}
         </div>
     );

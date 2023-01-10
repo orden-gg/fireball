@@ -348,13 +348,13 @@ export const realmQuery = (address: any, skip: any): any => {
             alpha
             kek
         }
-        installations(where:{equipped:true}) {
+        installations {
             id
             installationId
             x
             y
         }
-        tiles(where:{equipped:true}) {
+        tiles {
             id
             tileId
             x
@@ -411,28 +411,50 @@ export const realmQueryByDistrict = (skip: any, district: any): any => {
     }`;
 };
 
-export const parselQuery = (id: any): any => {
+export const parcelQuery = (id: any): any => {
     return `{
-    parcel( id: ${id}) {
-      tokenId
-      parcelId
-      owner {
+      parcel(id: ${id}) {
         id
+        parcelId
+        owner {
+          id
+        }
+        coordinateX
+        coordinateY
+        size
+        district
+        parcelHash
+        lastChanneled
+        lastClaimed
+        fudBoost
+        fomoBoost
+        alphaBoost
+        kekBoost
+        alchemica
+        surveys {
+            id
+            surveyed
+            parcel
+            round
+            fud
+            fomo
+            alpha
+            kek
+        }
+        installations {
+            id
+            installationId
+            x
+            y
+        }
+        tiles {
+            id
+            tileId
+            x
+            y
+        }
       }
-      coordinateX
-      coordinateY
-      size
-      district
-      parcelHash
-      fudBoost
-      fomoBoost
-      alphaBoost
-      kekBoost
-      timesTraded
-      historicalPrices
-      activeListing
-    }
-  }`;
+    }`;
 };
 
 export const activeListingQeury = (erc: any, id: any, type: any, category: any): any => {

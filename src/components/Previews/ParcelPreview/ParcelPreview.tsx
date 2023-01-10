@@ -34,6 +34,8 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     useEffect(() => {
         let mounted = true;
 
+        console.log('parcel', parcel);
+
         TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
             .then((res: any) => {
                 if (mounted) {
@@ -136,7 +138,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                     </div>
                 </div>
             </div>
-            {parcel.timesTraded > 0 && (
+            {history.length > 0 && (
                 <>
                     <h5 className={classes.salesTitle}>Sales History</h5>
                     <SalesHistory historyLoaded={historyLoaded}>
