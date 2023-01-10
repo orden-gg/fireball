@@ -60,13 +60,13 @@ export function ChannelingInfo({ parcel }: { parcel: Parcel }) {
             </div>
             <div className={classes.inner}>
                 ready:
-                {/* <div className={classes.countdown}>
+                <div className={classes.countdown}>
                     <Countdown
-                        targetDate={fromTimestampToMillis(channeling.nextChannel)}
+                        targetDate={fromTimestampToMillis(parcel.nextChannel)}
                         shortFormat={countdownFormat}
                         replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
                     />
-                </div> */}
+                </div>
             </div>
         </div>
     );

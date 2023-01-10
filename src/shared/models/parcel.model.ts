@@ -21,6 +21,7 @@ export interface Parcel {
     coordinateY: number;
     lastChanneled: number;
     lastClaimed: number;
+    nextChannel: number;
     alchemica: string[];
     fudBoost: number;
     fomoBoost: number;

@@ -1,5 +1,3 @@
-import { Skeleton } from '@mui/material';
-
 import classNames from 'classnames';
 
 import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
@@ -18,80 +16,83 @@ import { CardImage } from 'components/ItemCard/components';
 interface ParcelInstallationsProps {
     parcel: any;
     size?: any;
-    className?: string
+    className?: string;
 }
 
 export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
     const classes = styles();
 
-    if (parcel.installations.loading) {
-        return <div className={classes.placeholder}>
-            <Skeleton
-                className={classes.placeholderInner}
-                variant='rectangular'
-                width='100%'
-                height={30}
-            />
-        </div>;
-    }
+    // if (parcel.installations.loading) {
+    //     return <div className={classes.placeholder}>
+    //         <Skeleton
+    //             className={classes.placeholderInner}
+    //             variant='rectangular'
+    //             width='100%'
+    //             height={30}
+    //         />
+    //     </div>;
+    // }
 
     if (!parcel.installations.length) {
-        return <div className={classes.container}>
-            <div className={classes.placeholderWarning}>
-                no installations
+        return (
+            <div className={classes.container}>
+                <div className={classes.placeholderWarning}>no installations</div>
             </div>
-        </div>;
+        );
     }
 
     return (
         <div className={classNames(classes.container, className)}>
-            { parcel.installations
-            .filter((installation: any) =>
-                InstallationsUtils.getIsInstallationExist(installation.id)
-            )
-            .map((installation: any, index: number) => {
-                const metadata = InstallationsUtils.getMetadataById(installation.id);
-                const isDecoration = metadata.type === InstallationTypeNames.Decoration;
+            {parcel.installations
+                .filter((installation: any) => InstallationsUtils.getIsInstallationExist(installation.id))
+                .map((installation: any, index: number) => {
+                    const metadata = InstallationsUtils.getMetadataById(installation.id);
+                    const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
-                return (
-                    <CustomTooltip
-                        title={
-                            <div>
-                                <div className={classes.inner}>
-                                    {metadata.type}: <span>{metadata.name}</span>
-                                </div>
-
-                                { !isDecoration && (
-                                    <div className={classes.row}>
-                                        <div className={classes.inner}>
-                                            lvl: <span>{metadata.level}</span>
-                                        </div>
-                                        <div className={classes.inner}>
-                                            cd: <span>{metadata.cooldown}h</span>
-                                        </div>
-                                        <div className={classes.inner}>
-                                            spillover: <span>{metadata.spillRate / 100}%</span>
-                                        </div>
+                    return (
+                        <CustomTooltip
+                            title={
+                                <div>
+                                    <div className={classes.inner}>
+                                        {metadata.type}: <span>{metadata.name}</span>
                                     </div>
-                                )}
-                            </div>
-                        }
-                        placement='top'
-                        arrow={true}
-                        key={index}
-                    >
-                        <div
-                            className={classes.installation}
-                            style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
-                        >
-                            <div className={classes.installationLevel}>
-                                {metadata.level}
-                            </div>
-                            <CardImage id={installation.id} category={Erc1155Categories.Installation} className={classes.installationImage} />
-                        </div>
-                    </CustomTooltip>
 
-                    /* { parcel.upgrading && (
+                                    {!isDecoration && (
+                                        <div className={classes.row}>
+                                            <div className={classes.inner}>
+                                                lvl: <span>{metadata.level}</span>
+                                            </div>
+                                            <div className={classes.inner}>
+                                                cd: <span>{metadata.cooldown}h</span>
+                                            </div>
+                                            <div className={classes.inner}>
+                                                spillover: <span>{metadata.spillRate / 100}%</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            }
+                            placement='top'
+                            arrow={true}
+                            key={index}
+                        >
+                            <div
+                                className={classes.installation}
+                                style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+                            >
+                                {installation.quantity > 1 && (
+                                    <div className={classes.installationQantity}>x{installation.quantity}</div>
+                                )}
+
+                                <CardImage
+                                    id={installation.id}
+                                    category={Erc1155Categories.Installation}
+                                    className={classes.installationImage}
+                                />
+                            </div>
+                        </CustomTooltip>
+
+                        /* { parcel.upgrading && (
                         <div className={classes.upgrade}>
                             <span>upg:</span>
 
@@ -104,8 +105,8 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                             </div>
                         </div>
                     )} */
-                );
-            })}
+                    );
+                })}
         </div>
     );
 }

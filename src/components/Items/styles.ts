@@ -298,7 +298,7 @@ export const itemStyles = makeStyles(theme =>
             }
         },
         parcelCard: {
-            padding: '0 0 28px',
+            padding: '0',
             cursor: 'pointer',
             border: '3px solid transparent',
             borderRadius: 0,
@@ -641,7 +641,7 @@ export const parselStyles = makeStyles(theme =>
             left: 0
         },
         parcelInstallations: {
-            padding: '4px 8px 8px'
+            padding: '2px'
         },
         labelParselPrice: {
             color: theme.palette.secondary.main,

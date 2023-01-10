@@ -486,33 +486,45 @@ export const ClientContextProvider = (props: any) => {
 
         TheGraphApi.getRealmByAddress(address)
             .then(response => {
-                console.log('response', response);
-
                 const modifiedParcels = response.map((parcel: Parcel) => {
                     const _installations: any[] = parcel.installations
-                        .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.id))
+                        .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.installationId))
                         .map((inst: any) => ({
-                            id: inst.id,
-                            name: InstallationsUtils.getNameById(inst.id),
-                            level: InstallationsUtils.getLevelById(inst.id),
-                            type: InstallationsUtils.getTypeById(inst.id)
-                        }));
-                    const altar = installations.find(
+                            id: inst.installationId,
+                            name: InstallationsUtils.getNameById(inst.installationId),
+                            level: InstallationsUtils.getLevelById(inst.installationId),
+                            type: InstallationsUtils.getTypeById(inst.installationId)
+                        }))
+                        .reduce((prev: any, current) => {
+                            const duplicated = prev.find(inst => inst.id === current.id);
+
+                            if (duplicated) {
+                                duplicated.quantity++;
+
+                                return prev;
+                            }
+
+                            return prev.concat({
+                                ...current,
+                                quantity: 1
+                            });
+                        }, [])
+                        .sort((a, b) => a.id - b.id)
+                        .sort((a, b) => b.level - a.level);
+
+                    const altar = _installations.find(
                         (installation: any) => installation.type === InstallationTypeNames.Altar
                     );
                     const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-
-                    parcel.installations = _installations;
 
                     return {
                         ...parcel,
                         cooldown: cooldown,
                         nextChannel: parcel.lastChanneled + cooldown,
-                        altarLevel: altar ? altar.level : 0
+                        altarLevel: altar ? altar.level : 0,
+                        installations: _installations
                     };
                 });
-
-                console.log('modifiedParcels', modifiedParcels);
 
                 setRealm(modifiedParcels);
             })
