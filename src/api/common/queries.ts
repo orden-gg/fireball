@@ -367,25 +367,6 @@ export const realmQuery = (address: any, skip: any): any => {
 // historicalPrices
 // activeListing
 
-export const realmSurveyQuery = (address: any, skip: any): any => {
-    return `{
-      parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
-        id
-        alchemica
-        surveys {
-            id
-            surveyed
-            parcel
-            round
-            fud
-            fomo
-            alpha
-            kek
-        }
-      }
-    }`;
-};
-
 export const realmQueryByDistrict = (skip: any, district: any): any => {
     return `{
       parcels(first: 1000, skip: ${skip}, where: { district: ${district}}) {

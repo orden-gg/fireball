@@ -24,7 +24,7 @@ export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
     const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica | null>(null);
 
     useEffect(() => {
-        const isSurveyed = parcel.surveys.length > 0;
+        const isSurveyed = parcel.surveys?.length > 0;
 
         if (isSurveyed) {
             const avarageSurvey: ParcelAlchemica = AlchemicaUtils.getAvarageSurveyBySize(Number(parcel.size));
@@ -43,6 +43,10 @@ export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
         }
         setIsSurveyed(isSurveyed);
     }, [parcel]);
+
+    if (parcel.surveys === undefined) {
+        return <></>;
+    }
 
     return (
         <div className={classNames(classes.surveyList, className)}>
