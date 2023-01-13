@@ -105,11 +105,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
     }, [parcel.tiles]);
 
     if (!parcel.installations.length && !parcel.tiles.length) {
-        return (
-            <div className={classes.container}>
-                <div className={classes.placeholderWarning}>no installations</div>
-            </div>
-        );
+        return <></>;
     }
 
     return (

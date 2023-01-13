@@ -103,14 +103,12 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
 
                 <ChannelingInfo parcel={parcel} />
 
-                {(parcel.installations || parcel.tiles) && (
-                    <div className={classes.parcelInstallations}>
-                        <ParcelInstallations
-                            parcel={parcel}
-                            className={classNames('custom-scroll', classes.installations)}
-                        />
-                    </div>
-                )}
+                <div className={classes.parcelInstallations}>
+                    <ParcelInstallations
+                        parcel={parcel}
+                        className={classNames('custom-scroll', classes.installations)}
+                    />
+                </div>
 
                 {/* <div className={classes.parcelPriceContainer}>
                     <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />

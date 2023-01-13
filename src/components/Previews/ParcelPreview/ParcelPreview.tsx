@@ -122,11 +122,9 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             })}
                         </div>
 
-                        {parcel.installations?.length > 0 && (
-                            <div className={classes.installations}>
-                                <ParcelInstallations parcel={parcel} size={80} />
-                            </div>
-                        )}
+                        <div className={classes.installations}>
+                            <ParcelInstallations parcel={parcel} size={80} />
+                        </div>
                     </div>
 
                     <div className={classes.listing}>
