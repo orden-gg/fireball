@@ -73,23 +73,35 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
     const getTiles = useCallback(() => {
         return parcel.tiles
             .filter((tile: any) => TilesUtils.getTileExist(tile.id))
-            .map((tile: any) =>
-                <div
-                    key={`tile-${tile.id}`}
-                    className={classes.installation}
-                    style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
-                >
-                    {tile.quantity > 1 && (
-                        <div className={classes.installationQantity}>x{tile.quantity}</div>
-                    )}
+            .map((tile: any) => {
+                const metadata = TilesUtils.getMetadataById(tile.id);
 
-                    <CardImage
-                        id={tile.id}
-                        category={Erc1155Categories.Tile}
-                        className={classes.installationImage}
-                    />
-                </div>
-            );
+                return <CustomTooltip
+                    title={
+                        <div className={classes.inner}>
+                            {metadata.type}: <span>{metadata.name}</span>
+                        </div>
+                    }
+                    placement='top'
+                    arrow={true}
+                    key={`tile-${tile.id}`}
+                >
+                    <div
+                        className={classes.installation}
+                        style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+                    >
+                        {tile.quantity > 1 && (
+                            <div className={classes.installationQantity}>x{tile.quantity}</div>
+                        )}
+
+                        <CardImage
+                            id={tile.id}
+                            category={Erc1155Categories.Tile}
+                            className={classes.installationImage}
+                        />
+                    </div>
+                </CustomTooltip>;
+            });
     }, [parcel.tiles]);
 
     if (!parcel.installations.length && !parcel.tiles.length) {
