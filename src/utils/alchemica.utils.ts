@@ -10,7 +10,7 @@ import {
 import { ParcelSurvey, ParcelAlchemica } from 'shared/models';
 
 export class AlchemicaUtils {
-    public static getAvarageSurveyBySize(size: number) {
+    public static getAverageSurveyBySize(size: number): ParcelAlchemica {
         switch (size) {
             case ParcelTypes.Humble:
                 return AVERAGE_HUMBLE_BASE_ALCHEMICA;
@@ -25,7 +25,7 @@ export class AlchemicaUtils {
 
     public static getCombinedSurveys(surveys: ParcelSurvey[]): ParcelAlchemica {
         return surveys.reduce(
-            (previous: ParcelAlchemica, current: any) => {
+            (previous: ParcelAlchemica, current: ParcelSurvey) => {
                 previous[AlchemicaTypes.Fud] =
                     previous[AlchemicaTypes.Fud] + EthersApi.fromWei(current[AlchemicaTypes.Fud]);
                 previous[AlchemicaTypes.Fomo] =

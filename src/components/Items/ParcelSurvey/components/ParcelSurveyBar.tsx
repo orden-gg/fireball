@@ -9,17 +9,18 @@ import { parcelSurveyStyles } from '../styles';
 interface ParcelSurveyProps {
     currentAmount: number;
     surveySupply: number;
-    avarageSurvey: number;
+    averageSurvey: number;
     tokenName: string;
 }
 
-export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, avarageSurvey }: ParcelSurveyProps) {
+export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, averageSurvey }: ParcelSurveyProps) {
     const classes = parcelSurveyStyles();
+
     const [supplyRate, setSupplyRate] = useState<number>(0);
     const [amountRate, setAmountRate] = useState<number>(0);
 
     useEffect(() => {
-        const supplyRate: number = Number((surveySupply / avarageSurvey).toFixed(2));
+        const supplyRate: number = Number((surveySupply / averageSurvey).toFixed(2));
         const amountRate: number = Number((currentAmount / surveySupply).toFixed(2));
 
         setAmountRate(amountRate);

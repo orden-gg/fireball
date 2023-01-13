@@ -71,19 +71,20 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
 
                     <div className={classes.parcelImageBottom}>
                         <div className={classes.boosts}>
-                            {Object.entries(boosts).map((boost: any, i: number) => {
-                                const key = boost[0];
-                                const value = boost[1];
-
+                            {Object.entries(boosts).map(([key, value]: (string | number)[]) => {
                                 return value > 0 ? (
-                                    <div className={classNames(classes.boost, key)} key={i}>
-                                        <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
+                                    <div className={classNames(classes.boost, key)} key={key}>
+                                        <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key as string} width={13} />
                                         {value}
                                     </div>
                                 ) : null;
                             })}
                         </div>
-                        <ParcelSurvey parcel={parcel} />
+                        <ParcelSurvey
+                            surveys={parcel.surveys}
+                            alchemica={parcel.alchemica}
+                            size={parcel.size}
+                         />
                     </div>
                 </div>
 
@@ -102,7 +103,7 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
 
                 <ChannelingInfo parcel={parcel} />
 
-                {parcel.installations && (
+                {(parcel.installations || parcel.tiles) && (
                     <div className={classes.parcelInstallations}>
                         <ParcelInstallations
                             parcel={parcel}

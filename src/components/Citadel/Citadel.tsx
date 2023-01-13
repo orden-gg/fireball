@@ -12,7 +12,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GuildIcon } from 'components/Icons/Icons';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { TheGraphApi } from 'api';
-import { CommonUtils, FilterUtils } from 'utils';
+import { CommonUtils, FilterUtils, InstallationsUtils, TilesUtils } from 'utils';
 
 import { CitadelScene } from './components/Scene';
 import { CitadelLoader } from './components/CitadelLoader';
@@ -126,9 +126,28 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
             game.scene.on('parcelSelect', parcel => {
                 setParcelLoading(true);
 
-                TheGraphApi.getRealmById(parcel.tokenId).then(realmParcel => {
+                TheGraphApi.getRealmById(parcel.tokenId).then((realmParcel) => {
+                    console.log(realmParcel);
+
+
+                    if (realmParcel !== null) {
+                        if (realmParcel.installations.length > 0) {
+                            realmParcel.installations = InstallationsUtils.combineInstallations(
+                                realmParcel.installations
+                            );
+                        }
+
+                        if (realmParcel.tiles.length > 0) {
+                            realmParcel.tiles = TilesUtils.combineTiles(
+                                realmParcel.tiles
+                            );
+                        }
+
+                        setSelectedParcel(realmParcel);
+                    } else {
+                        setSelectedParcel(parcel);
+                    }
                     setParcelLoading(false);
-                    setSelectedParcel(realmParcel ? realmParcel : parcel);
                 });
             });
 

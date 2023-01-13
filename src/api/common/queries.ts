@@ -363,9 +363,6 @@ export const realmQuery = (address: any, skip: any): any => {
       }
     }`;
 };
-// timesTraded
-// historicalPrices
-// activeListing
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {
     return `{

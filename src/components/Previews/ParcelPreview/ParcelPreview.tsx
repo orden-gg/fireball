@@ -34,8 +34,6 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     useEffect(() => {
         let mounted = true;
 
-        console.log('parcel', parcel);
-
         TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
             .then((res: any) => {
                 if (mounted) {
@@ -64,7 +62,12 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                 <div className={classes.image}>
                     <ParcelImage parcel={parcel} imageSize={300} />
 
-                    <ParcelSurvey className={classNames(classes.survey, 'active')} parcel={parcel} />
+                    <ParcelSurvey
+                        className={classNames(classes.survey, 'active')}
+                        surveys={parcel.surveys}
+                        alchemica={parcel.alchemica}
+                        size={parcel.size}
+                    />
                 </div>
 
                 <div className={classes.content}>

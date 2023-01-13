@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { Parcel, ParcelAlchemica } from 'shared/models';
+import { ParcelAlchemica, ParcelSurvey as ParcelSurveyModel } from 'shared/models';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { EthersApi } from 'api';
 import { AlchemicaUtils } from 'utils';
@@ -11,40 +11,42 @@ import { ParcelSurveyBar } from './components/ParcelSurveyBar';
 import { parcelSurveyStyles } from './styles';
 
 interface ParcelSurveyProps {
-    parcel: Parcel;
+    alchemica: string[];
+    size: number;
+    surveys: ParcelSurveyModel[];
     className?: string;
 }
 
-export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
+export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurveyProps) {
     const classes = parcelSurveyStyles();
 
     const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
     const [avarageRate, setAvarageRate] = useState<number>(1);
-    const [avarageSurvey, setAvarageSurvey] = useState<ParcelAlchemica | {}>({});
+    const [averageSurvey, setAverageSurvey] = useState<ParcelAlchemica | null>(null);
     const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica | null>(null);
 
     useEffect(() => {
-        const isSurveyed = parcel.surveys?.length > 0;
+        const isSurveyed = surveys?.length > 0;
 
         if (isSurveyed) {
-            const avarageSurvey: ParcelAlchemica = AlchemicaUtils.getAvarageSurveyBySize(Number(parcel.size));
-            const totalSurveysSupply: ParcelAlchemica = AlchemicaUtils.getCombinedSurveys(parcel.surveys);
+            const averageSurvey: ParcelAlchemica = AlchemicaUtils.getAverageSurveyBySize(Number(size));
+            const totalSurveysSupply: ParcelAlchemica = AlchemicaUtils.getCombinedSurveys(surveys);
             let rateSum: number = 0;
 
             for (const tokenName in totalSurveysSupply) {
-                const currentTokentRate = totalSurveysSupply[tokenName] / avarageSurvey[tokenName];
+                const currentTokentRate = totalSurveysSupply[tokenName] / averageSurvey[tokenName];
 
                 rateSum += currentTokentRate;
             }
 
             setTotalSurveysSupply(totalSurveysSupply);
             setAvarageRate(Number((rateSum / 4).toFixed(2)));
-            setAvarageSurvey(AlchemicaUtils.getAvarageSurveyBySize(parcel.size));
+            setAverageSurvey(AlchemicaUtils.getAverageSurveyBySize(size));
         }
         setIsSurveyed(isSurveyed);
-    }, [parcel]);
+    }, [surveys, size]);
 
-    if (parcel.surveys === undefined) {
+    if (surveys === undefined) {
         return <></>;
     }
 
@@ -54,7 +56,7 @@ export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
                 <>
                     <span className={classes.surveyListHead}>
                         <CustomTooltip placement='top' title={<>times surveyed</>} disableInteractive arrow>
-                            <span className={classes.surveyedTime}>{parcel.surveys.length}</span>
+                            <span className={classes.surveyedTime}>{surveys.length}</span>
                         </CustomTooltip>
                         <CustomTooltip placement='top' title={<>total avarage</>} disableInteractive arrow>
                             <span className={classes.rateAvarage}>x{avarageRate}</span>
@@ -64,9 +66,9 @@ export function ParcelSurvey({ parcel, className }: ParcelSurveyProps) {
                         Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) => (
                             <ParcelSurveyBar
                                 key={tokenName}
-                                avarageSurvey={avarageSurvey[tokenName]}
+                                averageSurvey={averageSurvey && averageSurvey[tokenName]}
                                 tokenName={tokenName}
-                                currentAmount={EthersApi.fromWei(parcel.alchemica[index])}
+                                currentAmount={EthersApi.fromWei(alchemica[index])}
                                 surveySupply={amount}
                             />
                         ))}

@@ -1,5 +1,3 @@
-import axios, { AxiosResponse } from 'axios';
-
 import { CollateralData } from 'shared/models';
 import { collaterals } from 'data/collaterals.data';
 import { tokens } from 'data/tokens.data';
@@ -64,9 +62,5 @@ export class GraphUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
-    }
-
-    public static async getGraphData(url: string, query: string): Promise<AxiosResponse> {
-        return await axios.post(url, { query: query });
     }
 }

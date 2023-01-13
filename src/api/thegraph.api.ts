@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 import fetch from 'cross-fetch';
 
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
-import { InstallationsUtils, ItemUtils } from 'utils';
+import { ItemUtils } from 'utils';
 
 import { EthersApi } from './ethers.api';
 import {
@@ -465,35 +465,7 @@ export class TheGraphApi {
 
     public static async getRealmById(id: string): Promise<any> {
         return await TheGraphApi.getData(parcelQuery(id), GRAPH_FIREBALL_API).then((response: any) => {
-            const parcel = response.data.parcel;
-            if (parcel.installations) {
-                parcel.installations = response.data.parcel.installations
-                    .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.installationId))
-                    .map((inst: any) => ({
-                        id: inst.installationId,
-                        name: InstallationsUtils.getNameById(inst.installationId),
-                        level: InstallationsUtils.getLevelById(inst.installationId),
-                        type: InstallationsUtils.getTypeById(inst.installationId)
-                    }))
-                    .reduce((prev: any, current) => {
-                        const duplicated = prev.find(inst => inst.id === current.id);
-
-                        if (duplicated) {
-                            duplicated.quantity++;
-
-                            return prev;
-                        }
-
-                        return prev.concat({
-                            ...current,
-                            quantity: 1
-                        });
-                    }, [])
-                    .sort((a, b) => a.id - b.id)
-                    .sort((a, b) => b.level - a.level);
-            }
-
-            return parcel;
+            return response.data.parcel;
         });
     }
 
