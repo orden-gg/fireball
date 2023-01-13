@@ -15,6 +15,10 @@ export class TilesUtils {
         };
     }
 
+    public static getTileExist(id: number): boolean {
+        return Boolean(tiles[id]);
+    }
+
     public static getWidthById(id: number): any {
         return tiles[id][TileTypes.Width];
     }
@@ -49,5 +53,30 @@ export class TilesUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
+    }
+
+    public static combineTiles(tiles) {
+        return tiles
+            .filter((item: any) => TilesUtils.getTileExist(item.tileId))
+            .map((inst: any) => ({
+                id: inst.tileId,
+                name: TilesUtils.getNameById(inst.tileId)
+            }))
+            .reduce((prev: any, current) => {
+                const duplicated = prev.find(inst => inst.id === current.id);
+
+                if (duplicated) {
+                    duplicated.quantity++;
+
+                    return prev;
+                }
+
+                return prev.concat({
+                    ...current,
+                    quantity: 1
+                });
+            }, [])
+            .sort((a, b) => a.id - b.id)
+            .sort((a, b) => b.level - a.level);
     }
 }

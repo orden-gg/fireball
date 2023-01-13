@@ -487,31 +487,8 @@ export const ClientContextProvider = (props: any) => {
         TheGraphApi.getRealmByAddress(address)
             .then(response => {
                 const modifiedParcels = response.map((parcel: Parcel) => {
-                    const _installations: any[] = parcel.installations
-                        .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.installationId))
-                        .map((inst: any) => ({
-                            id: inst.installationId,
-                            name: InstallationsUtils.getNameById(inst.installationId),
-                            level: InstallationsUtils.getLevelById(inst.installationId),
-                            type: InstallationsUtils.getTypeById(inst.installationId)
-                        }))
-                        .reduce((prev: any, current) => {
-                            const duplicated = prev.find(inst => inst.id === current.id);
-
-                            if (duplicated) {
-                                duplicated.quantity++;
-
-                                return prev;
-                            }
-
-                            return prev.concat({
-                                ...current,
-                                quantity: 1
-                            });
-                        }, [])
-                        .sort((a, b) => a.id - b.id)
-                        .sort((a, b) => b.level - a.level);
-
+                    const _installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+                    const tiles: any[] = TilesUtils.combineTiles(parcel.tiles);
                     const altar = _installations.find(
                         (installation: any) => installation.type === InstallationTypeNames.Altar
                     );
@@ -522,7 +499,8 @@ export const ClientContextProvider = (props: any) => {
                         cooldown: cooldown,
                         nextChannel: parcel.lastChanneled + cooldown,
                         altarLevel: altar ? altar.level : 0,
-                        installations: _installations
+                        installations: _installations,
+                        tiles: tiles
                     };
                 });
 

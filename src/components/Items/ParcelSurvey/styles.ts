@@ -23,14 +23,15 @@ export const parcelSurveyStyles = makeStyles(theme =>
             color: theme.palette.rarity.golden,
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
             fontWeight: 700,
-            fontStyle: 'italic',
             fontSize: 12
         },
         surveyedTime: {
-            padding: theme.spacing(0, 1)
+            padding: theme.spacing(0, 1),
+            backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'
         },
         rateAvarage: {
-            padding: theme.spacing(0, 1)
+            padding: theme.spacing(0, 1),
+            backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'
         },
         surveyAlchemica: {
             transition: 'font-size .2s',
@@ -75,8 +76,7 @@ export const parcelSurveyStyles = makeStyles(theme =>
             color: theme.palette.common.white,
             transition: 'opacity .1s 0s',
             display: 'block',
-            fontWeight: 700,
-            fontStyle: 'italic',
+            fontWeight: 500,
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
             padding: theme.spacing(0, 1),
             '.parcel:hover &, .active &': {
@@ -90,8 +90,7 @@ export const parcelSurveyStyles = makeStyles(theme =>
             padding: theme.spacing(0, 1),
             top: 0,
             zIndex: 1,
-            fontWeight: 700,
-            fontStyle: 'italic',
+            fontWeight: 500,
             transition: 'opacity .1s 0s',
             opacity: 0,
             textShadow: '0 0 1px #000, 0 0 1px #000, 0 0 1px #000',
