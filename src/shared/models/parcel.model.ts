@@ -1,6 +1,8 @@
 import { TypenameType } from 'shared/constants';
 import { AlchemicaTypes } from 'shared/constants';
 
+export declare type AlchemicaBag = [string, string, string, string];
+
 export interface ParcelSurvey {
     id: string;
     surveyed: string;
@@ -13,6 +15,7 @@ export interface ParcelSurvey {
 
 export interface Parcel {
     id: string;
+    tokenId?: string;
     parcelId: string;
     parcelHash: string;
     district: number;
@@ -22,7 +25,7 @@ export interface Parcel {
     lastChanneled: number;
     lastClaimed: number;
     nextChannel: number;
-    alchemica: string[];
+    alchemica: AlchemicaBag;
     fudBoost: number;
     fomoBoost: number;
     alphaBoost: number;
@@ -66,3 +69,8 @@ export interface ParcelVM extends ParcelBase {
 export type ParcelAlchemica = {
     [key in AlchemicaTypes]: number;
 };
+
+export interface ParcelSurveyAlchemica {
+    alchemica: AlchemicaBag;
+    surveyes: ParcelSurvey[];
+}

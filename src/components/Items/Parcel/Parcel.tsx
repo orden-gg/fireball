@@ -29,7 +29,7 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const parcelSize: any = CitadelUtils.getParcelSizeName(parcel.size);
+    const parcelSize: any = CitadelUtils.getParcelSizeName(Number(parcel.size));
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -52,9 +52,9 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
                             classes.labelRarityColored,
                             classes.idHash
                         )}
-                        text={parcel.id}
+                        text={parcel.tokenId || parcel.id}
                     >
-                        <span>#{parcel.id}</span>
+                        <span>#{parcel.tokenId || parcel.id}</span>
                     </CopyToClipboardBlock>
 
                     <CustomTooltip title='District' placement='top' followCursor>

@@ -41,7 +41,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
 
             setTotalSurveysSupply(totalSurveysSupply);
             setAvarageRate(Number((rateSum / 4).toFixed(2)));
-            setAverageSurvey(AlchemicaUtils.getAverageSurveyBySize(size));
+            setAverageSurvey(AlchemicaUtils.getAverageSurveyBySize(Number(size)));
         }
         setIsSurveyed(isSurveyed);
     }, [surveys, size]);

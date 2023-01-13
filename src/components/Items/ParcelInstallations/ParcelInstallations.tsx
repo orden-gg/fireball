@@ -104,7 +104,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
             });
     }, [parcel.tiles]);
 
-    if (!parcel.installations.length && !parcel.tiles.length) {
+    if (!parcel.installations?.length && !parcel.tiles?.length) {
         return <></>;
     }
 

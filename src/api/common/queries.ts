@@ -341,7 +341,6 @@ export const realmQuery = (address: any, skip: any): any => {
         surveys {
             id
             surveyed
-            parcel
             round
             fud
             fomo
@@ -362,6 +361,23 @@ export const realmQuery = (address: any, skip: any): any => {
         }
       }
     }`;
+};
+
+export const parcelSurveyById = (id: number) => {
+    return `
+        item${id}: parcels(where: { id_in: [${id}] }) {
+            alchemica
+            surveys {
+                id
+                surveyed
+                round
+                fud
+                fomo
+                alpha
+                kek
+            }
+        }
+    `;
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {

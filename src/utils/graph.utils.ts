@@ -63,4 +63,10 @@ export class GraphUtils {
             return require('../assets/images/image-placeholder.svg').default;
         }
     }
+
+    public static getСombinedQueriesByIds(ids: number[], getQuery: (id: number) => string): string {
+        const queries: string[] = ids.map((id: number) => getQuery(id));
+
+        return `{${queries.join(',')}}`;
+    }
 }

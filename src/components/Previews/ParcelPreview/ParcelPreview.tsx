@@ -86,7 +86,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         <div className={classes.badges}>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>id:</span>
-                                {parcel.id}
+                                {parcel.tokenId || parcel.id}
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>district:</span>
@@ -94,8 +94,8 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>size:</span>
-                                {CitadelUtils.getParcelSizeName(parcel.size)}(
-                                {CitadelUtils.getParcelDimmentions(parcel.size)})
+                                {CitadelUtils.getParcelSizeName(Number(parcel.size))}(
+                                {CitadelUtils.getParcelDimmentions(Number(parcel.size))})
                             </Paper>
                         </div>
 

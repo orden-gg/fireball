@@ -1,6 +1,7 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, ParcelSurveyAlchemica, SortingItem } from 'shared/models';
 import { GraphFiltersUtils } from 'utils';
+import { RealmApi } from 'api';
 
 import { ASCENDING_DIRECTION, ParcelListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
@@ -37,13 +38,24 @@ export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false)
     const query = getBaazaarParcelsListingsQuery(parcelsListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getErc721Listings<ParcelListingDTO>(query)
-        .then((parcelsListings: ParcelListingDTO[]) => {
+        .then(async (parcelsListings: ParcelListingDTO[]) => {
             const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
+            const parcelsIds: number[] = modifiedListings.map((listing: ParcelListingVM) =>
+                Number(listing.tokenId)
+            );
+            const parcelsSurveys: ParcelSurveyAlchemica[] = await RealmApi.getParcelsSurvey(parcelsIds);
+
+            const combinedListings = parcelsSurveys.map((alchemica: ParcelSurveyAlchemica, index: number) => {
+                return {
+                    ...modifiedListings[index],
+                    ...alchemica
+                };
+            });
 
             if (shouldResetListings) {
-                dispatch(loadParcelsListingsSucceded(modifiedListings));
+                dispatch(loadParcelsListingsSucceded(combinedListings));
             } else {
-                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(combinedListings)));
             }
         })
         .catch(() => {
