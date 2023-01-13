@@ -348,13 +348,13 @@ export const realmQuery = (address: any, skip: any): any => {
             alpha
             kek
         }
-        installations {
+        installations(first: 1000) {
             id
             installationId
             x
             y
         }
-        tiles {
+        tiles(first: 1000) {
             id
             tileId
             x
