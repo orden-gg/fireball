@@ -81,8 +81,6 @@ export function BaazaarParcels() {
             dispatch(fromBaazaarStore.setParcelsListingsPreviousSortingProp(parcelsListingsDefaultSorting.type));
         }
 
-        console.log(parcelsListings);
-
         return () => {
             dispatch(fromBaazaarStore.resetParcelsListingsData());
         };

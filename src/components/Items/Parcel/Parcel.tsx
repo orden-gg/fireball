@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-// import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
-// import { CardSalesHistory } from 'components/ItemCard/components';
+import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
+import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
@@ -89,7 +89,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                 <ParcelName parcel={parcel} />
 
-                {/* {parcel.timePurchased && (
+                {parcel.timePurchased && (
                     <CardSalesHistory
                         className={classes.history}
                         listing={{
@@ -98,7 +98,7 @@ export function Parcel({ parcel }: { parcel: any }) {
                             timePurchased: parcel.timePurchased
                         }}
                     />
-                )} */}
+                )}
 
                 <ChannelingInfo parcel={parcel} />
 
@@ -109,9 +109,9 @@ export function Parcel({ parcel }: { parcel: any }) {
                     />
                 </div>
 
-                {/* <div className={classes.parcelPriceContainer}>
+                {parcel.listings && (
                     <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />
-                </div> */}
+                )}
             </div>
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>

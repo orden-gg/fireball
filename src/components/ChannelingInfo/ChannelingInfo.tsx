@@ -43,11 +43,7 @@ export function ChannelingInfo({ parcel }: { parcel: any }) {
     };
 
     if (!parcel.lastChanneled) {
-        return (
-            <div className={classes.container}>
-                <div className={classes.placeholderWarning}>never channeled</div>
-            </div>
-        );
+        return <></>;
     }
 
     return (
