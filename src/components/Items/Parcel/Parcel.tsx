@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { Parcel as ParcelModel } from 'shared/models';
 // import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 // import { CardSalesHistory } from 'components/ItemCard/components';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
@@ -19,7 +18,7 @@ import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations'
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
-export function Parcel({ parcel }: { parcel: ParcelModel }) {
+export function Parcel({ parcel }: { parcel: any }) {
     const classes = {
         ...itemStyles(),
         ...ERC1155InnerStyles(),
@@ -74,17 +73,17 @@ export function Parcel({ parcel }: { parcel: ParcelModel }) {
                             {Object.entries(boosts).map(([key, value]: (string | number)[]) => {
                                 return value > 0 ? (
                                     <div className={classNames(classes.boost, key)} key={key}>
-                                        <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key as string} width={13} />
+                                        <img
+                                            src={GotchiverseUtils.getAlchemicaImg(key)}
+                                            alt={key as string}
+                                            width={13}
+                                        />
                                         {value}
                                     </div>
                                 ) : null;
                             })}
                         </div>
-                        <ParcelSurvey
-                            surveys={parcel.surveys}
-                            alchemica={parcel.alchemica}
-                            size={parcel.size}
-                         />
+                        <ParcelSurvey surveys={parcel.surveys} alchemica={parcel.alchemica} size={parcel.size} />
                     </div>
                 </div>
 

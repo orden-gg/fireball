@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 
 import { CountdownFormatNonZeroType } from 'shared/constants';
-import { CountdownShortFormat, Parcel } from 'shared/models';
+import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';
@@ -35,7 +35,7 @@ const countdownFormat: CountdownShortFormat = {
     }
 };
 
-export function ChannelingInfo({ parcel }: { parcel: Parcel }) {
+export function ChannelingInfo({ parcel }: { parcel: any }) {
     const classes = styles();
 
     const fromTimestampToMillis = (timestamp: number) => {

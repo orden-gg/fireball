@@ -13,44 +13,45 @@ export interface ParcelSurvey {
     kek: string;
 }
 
-export interface Parcel {
-    id: string;
-    tokenId?: string;
-    parcelId: string;
-    parcelHash: string;
-    district: number;
-    size: number;
-    coordinateX: number;
-    coordinateY: number;
-    lastChanneled: number;
-    lastClaimed: number;
-    nextChannel: number;
-    alchemica: AlchemicaBag;
-    fudBoost: number;
-    fomoBoost: number;
-    alphaBoost: number;
-    kekBoost: number;
-    surveys: ParcelSurvey[];
-    installations: string[];
-    tiles: string[];
-    historicalPrices?: string[];
-    timesTraded?: number;
-    timePurchased?: number;
-}
+// TODO: this model on hold until fireball subgraph will be synchronized and include parcel trading history and current listings
+// export interface Parcel {
+//     id: string;
+//     tokenId?: string;
+//     parcelId: string;
+//     parcelHash: string;
+//     district: number;
+//     size: number;
+//     coordinateX: number;
+//     coordinateY: number;
+//     lastChanneled: number;
+//     lastClaimed: number;
+//     nextChannel: number;
+//     alchemica: AlchemicaBag;
+//     fudBoost: number;
+//     fomoBoost: number;
+//     alphaBoost: number;
+//     kekBoost: number;
+//     surveys: ParcelSurvey[];
+//     installations: string[];
+//     tiles: string[];
+//     historicalPrices?: string[];
+//     timesTraded?: number;
+//     timePurchased?: number;
+// }
 
 export interface ParcelBase {
     parcelHash: string;
     tokenId: string;
     parcelId: string;
-    district: number;
-    coordinateX: number;
-    coordinateY: number;
-    size: number;
+    district: string;
+    size: string;
     historicalPrices: string[];
     __typename: TypenameType;
 }
 
 export interface ParcelDTO extends ParcelBase {
+    coordinateX: string;
+    coordinateY: string;
     fudBoost: string;
     fomoBoost: string;
     alphaBoost: string;
@@ -59,6 +60,8 @@ export interface ParcelDTO extends ParcelBase {
 }
 
 export interface ParcelVM extends ParcelBase {
+    coordinateX: number;
+    coordinateY: number;
     fudBoost: number;
     fomoBoost: number;
     alphaBoost: number;

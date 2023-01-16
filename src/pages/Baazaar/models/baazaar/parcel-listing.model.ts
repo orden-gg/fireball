@@ -1,11 +1,11 @@
-import { Parcel } from 'shared/models';
+import { ParcelDTO, ParcelVM } from 'shared/models';
 
 export interface ParcelListingDTO {
-    listingId: string;
+    id: string;
     priceInWei: string;
-    parcel: Parcel;
+    parcel: ParcelDTO;
 }
 
-export interface ParcelListingVM extends Parcel {
-    listingId: string;
+export interface ParcelListingVM extends ParcelVM {
+    id: string;
 }

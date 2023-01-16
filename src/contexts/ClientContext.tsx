@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, Parcel, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
     GotchiIcon,
@@ -486,7 +486,7 @@ export const ClientContextProvider = (props: any) => {
 
         TheGraphApi.getRealmByAddress(address)
             .then(response => {
-                const modifiedParcels = response.map((parcel: Parcel) => {
+                const modifiedParcels = response.map((parcel: any) => {
                     const _installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
                     const tiles: any[] = TilesUtils.combineTiles(parcel.tiles);
                     const altar = _installations.find(
