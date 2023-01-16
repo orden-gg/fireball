@@ -27,7 +27,7 @@ export function Footer() {
                         <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
                             #1 aavegotchi portal
                         </a>{' '}
-                        maintained by ordengg and frens (<a href="https://fireball.gg/client/0x6865ae680c92bf047d08aa7f40ca2ec5a4f01c5a">alchemica donations address</a>) al ||{' '}
+                        maintained by ordengg and frens ||{' '} donate alchemica and items <a href="https://fireball.gg/client/0x6865ae680c92bf047d08aa7f40ca2ec5a4f01c5a">here</a>  ||{' '}
                         <a
                             href='https://fireball-gg.notion.site/fireball-gamedao-litepaper-b26d07a1cae041db82f4237f876828b9'
                             rel='noreferrer'
