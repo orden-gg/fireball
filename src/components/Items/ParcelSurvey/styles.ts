@@ -25,6 +25,9 @@ export const parcelSurveyStyles = makeStyles(theme =>
             fontWeight: 700,
             fontSize: 12
         },
+        textCenter: {
+            width: '100%'
+        },
         surveyedTime: {
             padding: theme.spacing(0, 1),
             backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'

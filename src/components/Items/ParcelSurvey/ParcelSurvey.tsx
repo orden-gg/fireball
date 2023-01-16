@@ -75,7 +75,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
                 </>
             ) : (
                 <span className={classes.surveyListHead}>
-                    <span className={classes.surveyedTime}>not surveyed</span>
+                    <span className={classNames(classes.surveyedTime, classes.textCenter)}>not surveyed</span>
                 </span>
             )}
         </div>
