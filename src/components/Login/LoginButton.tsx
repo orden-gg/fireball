@@ -16,6 +16,11 @@ import { LoginAddress } from './LoginAddress';
 
 import { styles } from './styles';
 
+const donateAddress = {
+    name: 'ordengg (donate)',
+    address: '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a'
+};
+
 export function LoginButton() {
     const classes = styles();
 
@@ -125,6 +130,10 @@ export function LoginButton() {
                             ) : (
                                 null
                             )}
+
+                            <LoginAddress address={donateAddress}
+                                isMetamask={true}
+                            />
 
                             {storeLoggedAddress.length ? (
                                 storeLoggedAddress.map((item: any, index: number) => {

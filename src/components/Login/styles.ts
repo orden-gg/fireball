@@ -61,7 +61,7 @@ export const styles = makeStyles(theme => createStyles({
         background: theme.palette.background.paper,
         borderRadius: '4px 0 4px 4px',
         padding: 12,
-        width: 350,
+        width: 400,
         cursor: 'default',
         overflow: 'hidden',
         display: 'none',
@@ -138,7 +138,8 @@ export const styles = makeStyles(theme => createStyles({
     },
     loginAddressBody: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1
     },
     loginAddressName: {
         fontSize: 16,
@@ -178,7 +179,8 @@ export const styles = makeStyles(theme => createStyles({
     },
     loginAddressForm: {
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        flexGrow: 1
     },
     modal: {
         position: 'absolute',
