@@ -64,7 +64,7 @@ export const styles = makeStyles(theme => createStyles({
         background: theme.palette.background.paper,
         borderRadius: '4px 0 4px 4px',
         padding: 12,
-        width: 400,
+        width: 450,
         cursor: 'default',
         overflow: 'hidden',
         display: 'none',

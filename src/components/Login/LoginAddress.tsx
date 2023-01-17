@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import classNames from 'classnames';
 import Blockies from 'react-blockies';
 
+import { LoginAddress as LoginAddressModel } from 'shared/models';
 import { getActiveAddress, removeAddress, setActiveAddress, toggleLoginDropdown, updateAddressName } from 'core/store/login';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -15,17 +16,14 @@ import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
-interface Address {
-    name: string;
-    address: string;
-}
 
 interface LoginAddressProps {
-    address: Address;
+    address: LoginAddressModel;
+    onLogout?: (address: LoginAddressModel) => void;
     isMetamask?: boolean;
 }
 
-export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
+export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProps) {
     const classes = styles();
 
     const dispatch = useAppDispatch();
@@ -53,7 +51,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         dispatch(setActiveAddress(address.address));
     };
 
-    const isActive = (current: Address): boolean => {
+    const isActive = (current: LoginAddressModel): boolean => {
         return current.address === activeAddress;
     };
 
@@ -94,10 +92,14 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
         }
     };
 
-    const onAddressLogout = (event: any, address: string): void => {
+    const onAddressLogout = (event: any, loginAddress: LoginAddressModel): void => {
         event.stopPropagation();
 
-        dispatch(removeAddress(address));
+        if (onLogout) {
+            onLogout(address);
+        }
+
+        dispatch(removeAddress(loginAddress.address));
     };
 
     return (
@@ -123,6 +125,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
                             inputRef={nameRef}
                             value={name}
                             onChange={(event) => onNameChange(event.target.value)}
+                            onClick={(event) => editMode && event.stopPropagation()}
                             className={classNames(classes.loginAddressName, isMetamask && 'metamask')}
                             endAdornment={
                                 <InputAdornment position='end'>
@@ -161,7 +164,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
                         </CustomTooltip>
 
                         <CustomTooltip title='Logout' placement='top' followCursor>
-                            <IconButton size='small' color='warning' onClick={(event) => onAddressLogout(event, address.address)}>
+                            <IconButton size='small' color='warning' onClick={(event) => onAddressLogout(event, address)}>
                                 <LogoutIcon fontSize='small' />
                             </IconButton>
                         </CustomTooltip>

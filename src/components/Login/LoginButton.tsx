@@ -11,13 +11,14 @@ import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { LoginNavigation } from './LoginNavigation';
 import { LoginAddress } from './LoginAddress';
 
 import { styles } from './styles';
 
-const donateAddress = {
+const donateAddress: LoginAddressModel = {
     name: 'fireball donations addr',
     address: DONATE_ADDRESS
 };
@@ -27,6 +28,10 @@ export function LoginButton() {
 
     const { connect, getAccounts, metaState } = useMetamask();
 
+    const [isDonateAddressShown, setIsDonateAddressShown] = useLocalStorage(
+        'DONATE_ADDRESS_SHOWN',
+        JSON.parse(localStorage.getItem('DONATE_ADDRESS_SHOWN') as string)
+    );
     const dispatch = useAppDispatch();
     const activeAddress = useAppSelector(getActiveAddress);
     const storeLoggedAddress = useAppSelector(getLoggedAddress);
@@ -59,6 +64,12 @@ export function LoginButton() {
             dispatch(selectActiveAddress(storeLoggedAddress.length ? storeLoggedAddress[0].address : ''));
         }
     }, [metaState]);
+
+    useEffect(() => {
+        if (isDonateAddressShown === null) {
+            dispatch(addAddress(donateAddress));
+        }
+    }, [isDonateAddressShown]);
 
     const connectMetamask = async (): Promise<any> => {
         if (metaState.isAvailable && !metaState.isConnected) {
@@ -97,6 +108,12 @@ export function LoginButton() {
         }
     };
 
+    const onAccountLogout = (loginAddress: LoginAddressModel) => {
+        if (loginAddress.address === DONATE_ADDRESS) {
+            setIsDonateAddressShown(false);
+        }
+    };
+
     return (
         <>
             <div className={classNames(classes.button, isDropdownOpen && 'opened')}>
@@ -126,19 +143,18 @@ export function LoginButton() {
                         <div className={classNames(classes.loginList, 'custom-scroll')}>
                             {metaState.account[0] ? (
                                 <div className={classes.loginAddressBox}>
-                                    <LoginAddress address={{ name: 'Metamask', address: metaState.account[0] }} isMetamask={true} />
+                                    <LoginAddress
+                                        address={{ name: 'Metamask', address: metaState.account[0] }}
+                                        isMetamask={true}
+                                    />
                                 </div>
                             ) : (
                                 null
                             )}
 
-                            <LoginAddress address={donateAddress}
-                                isMetamask={true}
-                            />
-
                             {storeLoggedAddress.length ? (
                                 storeLoggedAddress.map((item: any, index: number) => {
-                                    return <LoginAddress address={item} key={index} />;
+                                    return <LoginAddress address={item} key={index}  onLogout={onAccountLogout} />;
                                 })
                             ) : (
                                 null
