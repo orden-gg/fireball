@@ -39,23 +39,16 @@ export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false)
 
     BaazaarGraphApi.getErc721Listings<ParcelListingDTO>(query)
         .then(async (parcelsListings: ParcelListingDTO[]) => {
-            const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
-            const parcelsIds: number[] = modifiedListings.map((listing: ParcelListingVM) =>
-                Number(listing.tokenId)
+            const parcelsIds: number[] = parcelsListings.map((listing: ParcelListingDTO) =>
+                Number(listing.parcel.tokenId)
             );
             const parcelsSurveys: ParcelSurveyAlchemica[] = await RealmApi.getParcelsSurvey(parcelsIds);
-
-            const combinedListings = parcelsSurveys.map((alchemica: ParcelSurveyAlchemica, index: number) => {
-                return {
-                    ...modifiedListings[index],
-                    ...alchemica
-                };
-            });
+            const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings, parcelsSurveys);
 
             if (shouldResetListings) {
-                dispatch(loadParcelsListingsSucceded(combinedListings));
+                dispatch(loadParcelsListingsSucceded(modifiedListings));
             } else {
-                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(combinedListings)));
+                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
             }
         })
         .catch(() => {
@@ -132,8 +125,9 @@ export const resetParcelsListingsData = (): AppThunk =>
         dispatch(setIsParcelsListingsInitialDataLoading(true));
     };
 
-const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {
-    return listings.map((listing: ParcelListingDTO) => ({
+const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[], parcelsSurveys: ParcelSurveyAlchemica[]): ParcelListingVM[] => {
+    return listings.map((listing: ParcelListingDTO, index: number) => ({
+            ...parcelsSurveys[index],
             ...listing.parcel,
             id: listing.id,
             coordinateX: Number(listing.parcel.coordinateX),

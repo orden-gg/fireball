@@ -10,6 +10,7 @@ import { addAddress, getActiveAddress, getIsDropdownOpen, getLoggedAddress, sele
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
+import { DONATE_ADDRESS } from 'data/login.data';
 
 import { LoginNavigation } from './LoginNavigation';
 import { LoginAddress } from './LoginAddress';
@@ -18,7 +19,7 @@ import { styles } from './styles';
 
 const donateAddress = {
     name: 'fireball donations addr',
-    address: '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a'
+    address: DONATE_ADDRESS
 };
 
 export function LoginButton() {

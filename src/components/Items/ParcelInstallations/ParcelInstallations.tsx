@@ -72,7 +72,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
 
     const getTiles = useCallback(() => {
         return parcel.tiles
-            .filter((tile: any) => TilesUtils.getTileExist(tile.id))
+            .filter((tile: any) => TilesUtils.getIsTileExists(tile.id))
             .map((tile: any) => {
                 const metadata = TilesUtils.getMetadataById(tile.id);
 

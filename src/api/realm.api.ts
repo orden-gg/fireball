@@ -17,10 +17,10 @@ export class RealmApi {
     }
 
     public static async getParcelsSurvey(ids: number[]): Promise<ParcelSurveyAlchemica[]> {
-        const queries = GraphUtils.getСombinedQueriesByIds(ids, parcelSurveyById);
+        const queries = GraphUtils.getCombinedQueriesByIds(ids, parcelSurveyById);
 
-        return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_API, queries).then((res: TheGraphResponse<{
-            [key: string]: ParcelSurveyAlchemica[]}>
+        return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_API, queries).then((
+            res: TheGraphResponse<{[key: string]: ParcelSurveyAlchemica[]}>
         ) => Object.values(res.data).map((item: ParcelSurveyAlchemica[]) => item[0]));
     }
 }

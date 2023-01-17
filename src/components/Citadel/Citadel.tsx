@@ -127,9 +127,6 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
                 setParcelLoading(true);
 
                 TheGraphApi.getRealmById(parcel.tokenId).then((realmParcel) => {
-                    console.log(realmParcel);
-
-
                     if (realmParcel !== null) {
                         if (realmParcel.installations.length > 0) {
                             realmParcel.installations = InstallationsUtils.combineInstallations(

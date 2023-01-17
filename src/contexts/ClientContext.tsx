@@ -440,7 +440,7 @@ export const ClientContextProvider = (props: any) => {
                 .filter((item: any) => {
                     const id: any = EthersApi.formatBigNumber(item.tileId._hex);
 
-                    return TilesUtils.getIsTileExist(id);
+                    return TilesUtils.getIsTileExists(id);
                 })
                 .map((item: any) => {
                     const id: any = EthersApi.formatBigNumber(item.tileId._hex);
@@ -487,9 +487,9 @@ export const ClientContextProvider = (props: any) => {
         TheGraphApi.getRealmByAddress(address)
             .then(response => {
                 const modifiedParcels = response.map((parcel: any) => {
-                    const _installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+                    const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
                     const tiles: any[] = TilesUtils.combineTiles(parcel.tiles);
-                    const altar = _installations.find(
+                    const altar = installations.find(
                         (installation: any) => installation.type === InstallationTypeNames.Altar
                     );
                     const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
@@ -499,7 +499,7 @@ export const ClientContextProvider = (props: any) => {
                         cooldown: cooldown,
                         nextChannel: parcel.lastChanneled + cooldown,
                         altarLevel: altar ? altar.level : 0,
-                        installations: _installations,
+                        installations: installations,
                         tiles: tiles
                     };
                 });

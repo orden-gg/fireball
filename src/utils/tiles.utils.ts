@@ -15,7 +15,7 @@ export class TilesUtils {
         };
     }
 
-    public static getTileExist(id: number): boolean {
+    public static getIsTileExists(id: number): boolean {
         return Boolean(tiles[id]);
     }
 
@@ -25,10 +25,6 @@ export class TilesUtils {
 
     public static getHeightById(id: number): any {
         return tiles[id][TileTypes.Height];
-    }
-
-    public static getIsTileExist(id: number): boolean {
-        return Boolean(tiles[id]);
     }
 
     public static getNameById(id: any): any {
@@ -57,7 +53,7 @@ export class TilesUtils {
 
     public static combineTiles(tiles) {
         return tiles
-            .filter((item: any) => TilesUtils.getTileExist(item.tileId))
+            .filter((item: any) => TilesUtils.getIsTileExists(item.tileId))
             .map((inst: any) => ({
                 id: inst.tileId,
                 name: TilesUtils.getNameById(inst.tileId)

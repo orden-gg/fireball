@@ -86,6 +86,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         <div className={classes.badges}>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>id:</span>
+                                {/* TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH */}
                                 {parcel.tokenId || parcel.id}
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>

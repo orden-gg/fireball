@@ -64,7 +64,7 @@ export class GraphUtils {
         }
     }
 
-    public static getСombinedQueriesByIds(ids: number[], getQuery: (id: number) => string): string {
+    public static getCombinedQueriesByIds(ids: number[], getQuery: (id: number) => string): string {
         const queries: string[] = ids.map((id: number) => getQuery(id));
 
         return `{${queries.join(',')}}`;

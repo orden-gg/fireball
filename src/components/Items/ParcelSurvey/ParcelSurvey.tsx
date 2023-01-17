@@ -21,7 +21,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
     const classes = parcelSurveyStyles();
 
     const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
-    const [avarageRate, setAvarageRate] = useState<number>(1);
+    const [averageRate, setAverageRate] = useState<number>(1);
     const [averageSurvey, setAverageSurvey] = useState<ParcelAlchemica | null>(null);
     const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica | null>(null);
 
@@ -40,7 +40,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
             }
 
             setTotalSurveysSupply(totalSurveysSupply);
-            setAvarageRate(Number((rateSum / 4).toFixed(2)));
+            setAverageRate(Number((rateSum / 4).toFixed(2)));
             setAverageSurvey(AlchemicaUtils.getAverageSurveyBySize(Number(size)));
         }
         setIsSurveyed(isSurveyed);
@@ -58,8 +58,8 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
                         <CustomTooltip placement='top' title={<>times surveyed</>} disableInteractive arrow>
                             <span className={classes.surveyedTime}>{surveys.length}</span>
                         </CustomTooltip>
-                        <CustomTooltip placement='top' title={<>total avarage</>} disableInteractive arrow>
-                            <span className={classes.rateAvarage}>x{avarageRate}</span>
+                        <CustomTooltip placement='top' title={<>total average</>} disableInteractive arrow>
+                            <span className={classes.rateAvarage}>x{averageRate}</span>
                         </CustomTooltip>
                     </span>
                     {totalSurveysSupply !== null &&

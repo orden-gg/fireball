@@ -51,7 +51,7 @@ export function Parcel({ parcel }: { parcel: any }) {
                             classes.labelRarityColored,
                             classes.idHash
                         )}
-                        text={parcel.tokenId || parcel.id}
+                        text={parcel.tokenId || parcel.id} // TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH
                     >
                         <span>#{parcel.tokenId || parcel.id}</span>
                     </CopyToClipboardBlock>
@@ -70,12 +70,12 @@ export function Parcel({ parcel }: { parcel: any }) {
 
                     <div className={classes.parcelImageBottom}>
                         <div className={classes.boosts}>
-                            {Object.entries(boosts).map(([key, value]: (string | number)[]) => {
+                            {Object.entries(boosts).map(([key, value]: [string, number]) => {
                                 return value > 0 ? (
                                     <div className={classNames(classes.boost, key)} key={key}>
                                         <img
                                             src={GotchiverseUtils.getAlchemicaImg(key)}
-                                            alt={key as string}
+                                            alt={key}
                                             width={13}
                                         />
                                         {value}
