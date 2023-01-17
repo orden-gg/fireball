@@ -1,6 +1,7 @@
 import { BigInt, dataSource, log } from '@graphprotocol/graph-ts';
 import { gotchiverse as RealmDiamond } from '../../generated/gotchiverse/gotchiverse';
 import { Parcel } from '../../generated/schema';
+import { BIGINT_ZERO } from '../shared/constants/common.constants';
 import { AlchemicaTypes } from '../shared/enums';
 
 export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
@@ -9,6 +10,7 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
 
     if (!parcel) {
         parcel = new Parcel(id);
+        parcel.timesTraded = BIGINT_ZERO;
         parcel.installations = [];
         parcel.tiles = [];
         parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];

@@ -32,6 +32,11 @@ type Parcel @entity {
 
     installations: [Installation!]!
     tiles: [Tile!]!
+
+    auctionId: String
+    timesTraded: BigInt!
+    historicalPrices: [BigInt!]
+    activeListing: BigInt
 }
 
 type Survey @entity {
@@ -68,4 +73,34 @@ type Tile @entity {
 type Gotchi @entity {
     id: ID!
     lastChanneled: Int!
+}
+
+type ERC721Listing @entity {
+    id: ID!
+    category: BigInt! # 0 = Closed Portal, 1 = VRF Pending, 2 = Open Portal, 3 = Aavegotchi
+    erc721TokenAddress: Bytes! # The token address of the NFT
+    tokenId: BigInt! # The token ID of the NFT
+    seller: Bytes! # The creator of the listing
+    buyer: Bytes
+    recipient: Bytes
+    timeCreated: BigInt! # Time at which listed was created
+    timePurchased: BigInt # Time when the listing was purchased
+    cancelled: Boolean # If the listing is cancelled
+    priceInWei: BigInt! # How much the listing is (in GHST)
+    parcel: String # if the listing is for a parcel, this will be populated
+    blockCreated: BigInt!
+
+    fudBoost: BigInt # boost of parcels
+    fomoBoost: BigInt # boost of parcels
+    alphaBoost: BigInt # boost of parcels
+    kekBoost: BigInt # boost of parcels
+    district: Int # district of parcel
+    coordinateX: Int # coordinate x of parcel
+    coordinateY: Int # coordinate y of parcel
+    size: Int # size of parcel
+    parcelHash: String # address/hash of parcel
+    nameLowerCase: String
+    amountEquippedWearables: Int
+    soldBefore: Boolean
+    claimedAt: BigInt
 }
