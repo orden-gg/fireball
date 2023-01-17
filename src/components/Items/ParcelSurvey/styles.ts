@@ -32,7 +32,7 @@ export const parcelSurveyStyles = makeStyles(theme =>
             padding: theme.spacing(0, 1),
             backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'
         },
-        rateAvarage: {
+        rateAverage: {
             padding: theme.spacing(0, 1),
             backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'
         },

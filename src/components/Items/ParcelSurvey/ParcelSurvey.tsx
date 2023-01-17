@@ -59,7 +59,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
                             <span className={classes.surveyedTime}>{surveys.length}</span>
                         </CustomTooltip>
                         <CustomTooltip placement='top' title={<>total average</>} disableInteractive arrow>
-                            <span className={classes.rateAvarage}>x{averageRate}</span>
+                            <span className={classes.rateAverage}>x{averageRate}</span>
                         </CustomTooltip>
                     </span>
                     {totalSurveysSupply !== null &&
