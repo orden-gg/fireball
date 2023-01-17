@@ -1,4 +1,43 @@
 import { TypenameType } from 'shared/constants';
+import { AlchemicaTypes } from 'shared/constants';
+
+export declare type AlchemicaBag = [string, string, string, string];
+
+export interface ParcelSurvey {
+    id: string;
+    surveyed: string;
+    round: number;
+    fud: string;
+    fomo: string;
+    alpha: string;
+    kek: string;
+}
+
+// TODO: this model on hold until fireball subgraph will be synchronized and include parcel trading history and current listings
+// export interface Parcel {
+//     id: string;
+//     tokenId?: string;
+//     parcelId: string;
+//     parcelHash: string;
+//     district: number;
+//     size: number;
+//     coordinateX: number;
+//     coordinateY: number;
+//     lastChanneled: number;
+//     lastClaimed: number;
+//     nextChannel: number;
+//     alchemica: AlchemicaBag;
+//     fudBoost: number;
+//     fomoBoost: number;
+//     alphaBoost: number;
+//     kekBoost: number;
+//     surveys: ParcelSurvey[];
+//     installations: string[];
+//     tiles: string[];
+//     historicalPrices?: string[];
+//     timesTraded?: number;
+//     timePurchased?: number;
+// }
 
 export interface ParcelBase {
     parcelHash: string;
@@ -28,4 +67,17 @@ export interface ParcelVM extends ParcelBase {
     alphaBoost: number;
     kekBoost: number;
     timesTraded: number;
+}
+
+export type ParcelAlchemica = {
+    [key in AlchemicaTypes]: number;
+};
+
+export interface ParcelSurveyAlchemica {
+    alchemica: AlchemicaBag;
+    surveyes: ParcelSurvey[];
+}
+
+export interface ParcelSurveyAlchemicaBatch {
+    [key: string]: ParcelSurveyAlchemica[];
 }

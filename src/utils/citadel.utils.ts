@@ -9,38 +9,38 @@ export class CitadelUtils {
         };
     }
 
-    public static getParcelSizeName(id: any): any {
+    public static getParcelSizeName(id: number): string {
         switch (id) {
-            case '0':
+            case 0:
                 return 'humble';
-            case '1':
+            case 1:
                 return 'reasonable';
-            case '2': // 32x64
+            case 2: // 32x64
                 return 'spacious';
-            case '3': // 64x32
+            case 3: // 64x32
                 return 'spacious';
-            case '4':
+            case 4:
                 return 'partner';
-            case '5':
+            case 5:
                 return 'guardian';
             default:
                 return '';
         }
     }
 
-    public static getParcelDimmentions(id: any): any {
+    public static getParcelDimmentions(id: number): string {
         switch (id) {
-            case '0':
+            case 0:
                 return '8x8';
-            case '1':
+            case 1:
                 return '16x16';
-            case '2':
+            case 2:
                 return '32x64';
-            case '3':
+            case 3:
                 return '64x32';
-            case '4':
+            case 4:
                 return '64x64';
-            case '5':
+            case 5:
                 return '64x64';
             default:
                 return '';
@@ -57,8 +57,8 @@ export class CitadelUtils {
 
     public static getParcelCoords(cx: any, cy: any): any {
         return {
-            x: cx-CITADEL_WIDTH/2,
-            y: cy-CITADEL_HEIGHT/2
+            x: cx - CITADEL_WIDTH / 2,
+            y: cy - CITADEL_HEIGHT / 2
         };
     }
 
@@ -118,7 +118,7 @@ export class CitadelUtils {
         }
     }
 
-    public static getParcelByTypeAndValueCoords(districtId: any, { cx, cy }: { cx: any, cy: any }): any {
+    public static getParcelByTypeAndValueCoords(districtId: any, { cx, cy }: { cx: any; cy: any }): any {
         const district: any = parcelsData[districtId] || [];
 
         let result: any;

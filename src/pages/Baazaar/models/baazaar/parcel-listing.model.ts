@@ -1,6 +1,5 @@
 import { ParcelDTO, ParcelVM } from 'shared/models';
 
-
 export interface ParcelListingDTO {
     id: string;
     priceInWei: string;

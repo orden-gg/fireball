@@ -6,6 +6,7 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 import classNames from 'classnames';
 
+import { DONATE_ADDRESS } from 'shared/constants';
 import { MusicButton } from 'components/MusicButton/MusicButton';
 import { SnackbarContext } from 'contexts/SnackbarContext';
 import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
@@ -25,11 +26,11 @@ export function Footer() {
                     <span className={classes.footerCopyright}>
                         © fireball.gg ||{' '}
                         <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
-                            #1 aavegotchi client
+                            #1 aavegotchi portal
                         </a>{' '}
-                        maintained by ordengg and frens ||{' '}
+                        maintained by ordengg and frens ||{' '} donate alchemica and items <a href={`https://fireball.gg/client/${DONATE_ADDRESS}`}>here</a>  ||{' '}
                         <a
-                            href='https://www.notion.so/fireball-gg/fireball-DAO-fireball-gg-b26d07a1cae041db82f4237f876828b9'
+                            href='https://fireball-gg.notion.site/fireball-gamedao-litepaper-b26d07a1cae041db82f4237f876828b9'
                             rel='noreferrer'
                             target='_blank'
                         >

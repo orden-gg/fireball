@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
+import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
@@ -33,7 +34,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     useEffect(() => {
         let mounted = true;
 
-        TheGraphApi.getErc721SalesHistory(Number(parcel.tokenId), Erc1155Categories.Installation)
+        TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
             .then((res: any) => {
                 if (mounted) {
                     setHistory(res);
@@ -46,8 +47,10 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                 }
             });
 
-        return () => { mounted = false };
-    }, [parcel.tokenId]);
+        return () => {
+            mounted = false;
+        };
+    }, [parcel.id]);
 
     const modifyName = (hash: string) => {
         return hash.replace(/-/g, ' ');
@@ -57,7 +60,14 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
         <div className={classes.container}>
             <div className={classes.inner}>
                 <div className={classes.image}>
-                    <ParcelImage parcel={parcel} imageSize={300}/>
+                    <ParcelImage parcel={parcel} imageSize={300} />
+
+                    <ParcelSurvey
+                        className={classNames(classes.survey, 'active')}
+                        surveys={parcel.surveys}
+                        alchemica={parcel.alchemica}
+                        size={parcel.size}
+                    />
                 </div>
 
                 <div className={classes.content}>
@@ -76,7 +86,8 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         <div className={classes.badges}>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>id:</span>
-                                {parcel.tokenId}
+                                {/* TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH */}
+                                {parcel.tokenId || parcel.id}
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>district:</span>
@@ -84,13 +95,13 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                             </Paper>
                             <Paper className={classes.badge} elevation={0}>
                                 <span className={classes.highlighted}>size:</span>
-                                {CitadelUtils.getParcelSizeName(parcel.size)}
-                                ({CitadelUtils.getParcelDimmentions(parcel.size)})
+                                {CitadelUtils.getParcelSizeName(Number(parcel.size))}(
+                                {CitadelUtils.getParcelDimmentions(Number(parcel.size))})
                             </Paper>
                         </div>
 
                         <div className={classes.boosts}>
-                            { boosts.map((boost, i) => {
+                            {boosts.map((boost, i) => {
                                 const multiplierValue = GotchiverseUtils.getAlchemicaMultiplier(boost.name);
                                 const totalBoost = boost.value * multiplierValue;
 
@@ -103,27 +114,25 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                                         />
                                         <div>
                                             <h5>{totalBoost}</h5>
-                                            <p>{boost.value}pts  x {multiplierValue}</p>
+                                            <p>
+                                                {boost.value}pts x {multiplierValue}
+                                            </p>
                                         </div>
                                     </div>
-                                ) : (
-                                    null
-                                );
+                                ) : null;
                             })}
                         </div>
 
-                        { parcel.installations?.length > 0 && (
-                            <div className={classes.installations}>
-                                <ParcelInstallations parcel={parcel} size={80} />
-                            </div>
-                        )}
+                        <div className={classes.installations}>
+                            <ParcelInstallations parcel={parcel} size={80} />
+                        </div>
                     </div>
 
                     <div className={classes.listing}>
                         <ActiveListingButton
                             item={{
                                 erc: 'erc721',
-                                id: parcel.tokenId,
+                                id: parcel.id,
                                 type: 'parcel',
                                 category: '4'
                             }}
@@ -131,7 +140,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                     </div>
                 </div>
             </div>
-            { parcel.timesTraded > 0 &&
+            {history.length > 0 && (
                 <>
                     <h5 className={classes.salesTitle}>Sales History</h5>
                     <SalesHistory historyLoaded={historyLoaded}>
@@ -172,7 +181,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                         </>
                     </SalesHistory>
                 </>
-            }
+            )}
         </div>
     );
 }

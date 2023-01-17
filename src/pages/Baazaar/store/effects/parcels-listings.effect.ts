@@ -1,6 +1,7 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, ParcelSurveyAlchemica, ParcelSurveyAlchemicaBatch, SortingItem } from 'shared/models';
 import { GraphFiltersUtils } from 'utils';
+import { RealmApi } from 'api';
 
 import { ASCENDING_DIRECTION, ParcelListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
@@ -37,20 +38,35 @@ export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false)
     const query = getBaazaarParcelsListingsQuery(parcelsListingsGraphQueryParams, whereParams);
 
     BaazaarGraphApi.getErc721Listings<ParcelListingDTO>(query)
-        .then((parcelsListings: ParcelListingDTO[]) => {
-            const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
+        .then(async (parcelsListings: ParcelListingDTO[]) => {
+            const parcelsIds: number[] = parcelsListings.map((listing: ParcelListingDTO) =>
+                Number(listing.parcel.tokenId)
+            );
 
-            if (shouldResetListings) {
-                dispatch(loadParcelsListingsSucceded(modifiedListings));
+            if (parcelsIds.length > 0) {
+                RealmApi.getParcelsSurvey(parcelsIds)
+                    .then((surveysBatch: ParcelSurveyAlchemicaBatch) => {
+                        const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings, surveysBatch);
+
+                        if (shouldResetListings) {
+                            dispatch(loadParcelsListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsParcelsListingsInitialDataLoading(false));
+                    });
             } else {
-                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+                if (shouldResetListings) {
+                    dispatch(loadParcelsListingsSucceded([]));
+                }
+
+                dispatch(setIsParcelsListingsInitialDataLoading(false));
             }
         })
         .catch(() => {
             dispatch(loadParcelsListingsFailed());
-        })
-        .finally(() => {
-            dispatch(setIsParcelsListingsInitialDataLoading(false));
         });
 };
 
@@ -120,9 +136,13 @@ export const resetParcelsListingsData = (): AppThunk =>
         dispatch(setIsParcelsListingsInitialDataLoading(true));
     };
 
-const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {
-    return listings.map((listing: ParcelListingDTO) => ({
+const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[], parcelsSurveys: ParcelSurveyAlchemicaBatch): ParcelListingVM[] => {
+    return listings.map((listing: ParcelListingDTO) => {
+        const parcelSurvey: ParcelSurveyAlchemica[] = parcelsSurveys[`item${listing.parcel.tokenId}`];
+
+        return ({
             ...listing.parcel,
+            ...parcelSurvey[0],
             id: listing.id,
             coordinateX: Number(listing.parcel.coordinateX),
             coordinateY: Number(listing.parcel.coordinateY),
@@ -136,6 +156,7 @@ const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingV
                 priceInWei: listing.priceInWei
             }],
             historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : []
-        })
+        });
+    }
     );
 };

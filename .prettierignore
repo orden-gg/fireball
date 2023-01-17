@@ -1,3 +1,4 @@
+src/data/abi
 dist
 *.yml
 *.md

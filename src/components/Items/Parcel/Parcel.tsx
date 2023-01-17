@@ -15,6 +15,7 @@ import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
+import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
 
 export function Parcel({ parcel }: { parcel: any }) {
@@ -27,7 +28,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const size: any = CitadelUtils.getParcelSizeName(parcel.size);
+    const parcelSize: any = CitadelUtils.getParcelSizeName(Number(parcel.size));
 
     const boosts = {
         fud: parcel.fudBoost,
@@ -39,7 +40,7 @@ export function Parcel({ parcel }: { parcel: any }) {
     return (
         <>
             <div
-                className={classNames(classes.item, size, classes.parcelCard)}
+                className={classNames(classes.item, parcelSize, classes.parcelCard, 'parcel')}
                 onClick={() => setModalOpen(true)}
             >
                 <div className={classes.labels}>
@@ -50,19 +51,14 @@ export function Parcel({ parcel }: { parcel: any }) {
                             classes.labelRarityColored,
                             classes.idHash
                         )}
-                        text={parcel.tokenId}
+                        text={parcel.tokenId || parcel.id} // TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH
                     >
-                        #{parcel.tokenId}
+                        {/* TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH */}
+                        <span>#{parcel.tokenId || parcel.id}</span>
                     </CopyToClipboardBlock>
 
-                    <CustomTooltip
-                        title='District'
-                        placement='top'
-                        followCursor
-                    >
-                        <div className={classNames(classes.label, classes.labelBalance)}>
-                            {parcel.district}
-                        </div>
+                    <CustomTooltip title='District' placement='top' followCursor>
+                        <div className={classNames(classes.label, classes.labelBalance)}>{parcel.district}</div>
                     </CustomTooltip>
                 </div>
 
@@ -71,32 +67,30 @@ export function Parcel({ parcel }: { parcel: any }) {
                 </div>
 
                 <div className={classes.parcelImageWrapper}>
-                    <ParcelImage
-                        parcel={parcel}
-                        imageSize={300}
-                        key={parcel.parcelId}
-                    />
-                </div>
+                    <ParcelImage parcel={parcel} imageSize={300} key={parcel.parcelId} />
 
-                <div className={classes.boosts}>
-                    {Object.entries(boosts).map((boost: any, i: number) => {
-                        const key = boost[0];
-                        const value = boost[1];
-
-                        return value > 0 ? (
-                            <div className={classNames(classes.boost, key)} key={i}>
-                                <img src={GotchiverseUtils.getAlchemicaImg(key)} alt={key} width={13} />
-                                {value}
-                            </div>
-                        ) : (
-                            null
-                        );
-                    })}
+                    <div className={classes.parcelImageBottom}>
+                        <div className={classes.boosts}>
+                            {Object.entries(boosts).map(([key, value]: [string, number]) => {
+                                return value > 0 ? (
+                                    <div className={classNames(classes.boost, key)} key={key}>
+                                        <img
+                                            src={GotchiverseUtils.getAlchemicaImg(key)}
+                                            alt={key}
+                                            width={13}
+                                        />
+                                        {value}
+                                    </div>
+                                ) : null;
+                            })}
+                        </div>
+                        <ParcelSurvey surveys={parcel.surveys} alchemica={parcel.alchemica} size={parcel.size} />
+                    </div>
                 </div>
 
                 <ParcelName parcel={parcel} />
 
-                {parcel.timePurchased &&
+                {parcel.timePurchased && (
                     <CardSalesHistory
                         className={classes.history}
                         listing={{
@@ -105,23 +99,21 @@ export function Parcel({ parcel }: { parcel: any }) {
                             timePurchased: parcel.timePurchased
                         }}
                     />
-                }
-
-                { parcel.channeling && (
-                    <ChannelingInfo channeling={parcel.channeling} />
                 )}
 
-                { parcel.installations && (
-                    <div className={classes.parcelInstallations}>
-                        <ParcelInstallations parcel={parcel} className={classNames('custom-scroll', classes.installations)} />
-                    </div>
-                )}
+                <ChannelingInfo parcel={parcel} />
 
-                <div className={classes.parcelPriceContainer}>
-                    <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices}/>
+                <div className={classes.parcelInstallations}>
+                    <ParcelInstallations
+                        parcel={parcel}
+                        className={classNames('custom-scroll', classes.installations)}
+                    />
                 </div>
-            </div>
 
+                {parcel.listings && (
+                    <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />
+                )}
+            </div>
 
             <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen}>
                 <ParcelPreview parcel={parcel} />

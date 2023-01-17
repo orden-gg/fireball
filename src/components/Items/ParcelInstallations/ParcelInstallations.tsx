@@ -1,55 +1,26 @@
-import { Skeleton } from '@mui/material';
-
 import classNames from 'classnames';
 
 import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
-import { InstallationsUtils } from 'utils';
+import { InstallationsUtils, TilesUtils } from 'utils';
 
 import { styles } from './styles';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CardImage } from 'components/ItemCard/components';
-
-// const dataFormat = {
-//     days: { key: 'dd', value: 'd', shownIfZero: false },
-//     hours: { key: 'hh', value: 'h', shownIfZero: false },
-//     minutes: { key: 'mm', value: 'm', shownIfZero: false }
-// };
+import { useCallback } from 'react';
 
 interface ParcelInstallationsProps {
     parcel: any;
     size?: any;
-    className?: string
+    className?: string;
 }
 
 export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
     const classes = styles();
 
-    if (parcel.installations.loading) {
-        return <div className={classes.placeholder}>
-            <Skeleton
-                className={classes.placeholderInner}
-                variant='rectangular'
-                width='100%'
-                height={30}
-            />
-        </div>;
-    }
-
-    if (!parcel.installations.length) {
-        return <div className={classes.container}>
-            <div className={classes.placeholderWarning}>
-                no installations
-            </div>
-        </div>;
-    }
-
-    return (
-        <div className={classNames(classes.container, className)}>
-            { parcel.installations
-            .filter((installation: any) =>
-                InstallationsUtils.getIsInstallationExist(installation.id)
-            )
-            .map((installation: any, index: number) => {
+    const getInstallations = useCallback(() => {
+        return parcel.installations
+            .filter((installation: any) => InstallationsUtils.getIsInstallationExist(installation.id))
+            .map((installation: any) => {
                 const metadata = InstallationsUtils.getMetadataById(installation.id);
                 const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
@@ -61,7 +32,7 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                                     {metadata.type}: <span>{metadata.name}</span>
                                 </div>
 
-                                { !isDecoration && (
+                                {!isDecoration && (
                                     <div className={classes.row}>
                                         <div className={classes.inner}>
                                             lvl: <span>{metadata.level}</span>
@@ -78,34 +49,68 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
                         }
                         placement='top'
                         arrow={true}
-                        key={index}
+                        key={`installation-${installation.id}`}
                     >
                         <div
                             className={classes.installation}
                             style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
                         >
-                            <div className={classes.installationLevel}>
-                                {metadata.level}
-                            </div>
-                            <CardImage id={installation.id} category={Erc1155Categories.Installation} className={classes.installationImage} />
+                            {installation.quantity > 1 && (
+                                <div className={classes.installationQantity}>x{installation.quantity}</div>
+                            )}
+
+                            <CardImage
+                                id={installation.id}
+                                category={Erc1155Categories.Installation}
+                                className={classes.installationImage}
+                            />
                         </div>
                     </CustomTooltip>
-
-                    /* { parcel.upgrading && (
-                        <div className={classes.upgrade}>
-                            <span>upg:</span>
-
-                            <div className={classes.countdown}>
-                                <Countdown
-                                    targetDate={DateTime.fromSeconds(parcel.upgrading.timestamp).toMillis()}
-                                    shortFormat={dataFormat}
-                                    replacementComponent={<span className={classes.ready}>Ready!</span>}
-                                />
-                            </div>
-                        </div>
-                    )} */
                 );
-            })}
+            });
+    }, [parcel.installations]);
+
+    const getTiles = useCallback(() => {
+        return parcel.tiles
+            .filter((tile: any) => TilesUtils.getIsTileExists(tile.id))
+            .map((tile: any) => {
+                const metadata = TilesUtils.getMetadataById(tile.id);
+
+                return <CustomTooltip
+                    title={
+                        <div className={classes.inner}>
+                            {metadata.type}: <span>{metadata.name}</span>
+                        </div>
+                    }
+                    placement='top'
+                    arrow={true}
+                    key={`tile-${tile.id}`}
+                >
+                    <div
+                        className={classes.installation}
+                        style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+                    >
+                        {tile.quantity > 1 && (
+                            <div className={classes.installationQantity}>x{tile.quantity}</div>
+                        )}
+
+                        <CardImage
+                            id={tile.id}
+                            category={Erc1155Categories.Tile}
+                            className={classes.installationImage}
+                        />
+                    </div>
+                </CustomTooltip>;
+            });
+    }, [parcel.tiles]);
+
+    if (!parcel.installations?.length && !parcel.tiles?.length) {
+        return <></>;
+    }
+
+    return (
+        <div className={classNames(classes.container, className)}>
+            {[...getInstallations(), ...getTiles()]}
         </div>
     );
 }

@@ -6,11 +6,7 @@ import classNames from 'classnames';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import {
-    CustomParsedQuery,
-    GraphFiltersQueryParamTypes,
-    GraphFiltersValueTypes
-} from 'shared/models';
+import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
@@ -31,23 +27,32 @@ export function BaazaarActivityParcels() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const queryParams = qs.parse(
-        location.search,
-        { arrayFormat: 'comma' }
-    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
+    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
+        GraphFiltersQueryParamTypes
+    >;
 
     const dispatch = useAppDispatch();
-    const activityParcelsListings: ActivityParcelListingVM[] = useAppSelector(fromBaazaarStore.getActivityParcelsListings);
-    const isActivityParcelsListingsInitialDataLoading: boolean =
-        useAppSelector(fromBaazaarStore.getIsActivityParcelsListingsInitialDataLoading);
-    const isActivityParcelsListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsActivityParcelsListingsLoading);
-    const activityParcelsListingsFilters: ActivityParcelListingFilters =
-        useAppSelector(fromBaazaarStore.getActivityParcelsListingsFilters);
-    const activityParcelsListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getActivityParcelsListingsQueryParamsOrder);
+    const activityParcelsListings: ActivityParcelListingVM[] = useAppSelector(
+        fromBaazaarStore.getActivityParcelsListings
+    );
+    const isActivityParcelsListingsInitialDataLoading: boolean = useAppSelector(
+        fromBaazaarStore.getIsActivityParcelsListingsInitialDataLoading
+    );
+    const isActivityParcelsListingsLoading: boolean = useAppSelector(
+        fromBaazaarStore.getIsActivityParcelsListingsLoading
+    );
+    const activityParcelsListingsFilters: ActivityParcelListingFilters = useAppSelector(
+        fromBaazaarStore.getActivityParcelsListingsFilters
+    );
+    const activityParcelsListingsQueryParamsOrder: string[] = useAppSelector(
+        fromBaazaarStore.getActivityParcelsListingsQueryParamsOrder
+    );
 
     useEffect(() => {
-        const updatedFilters: ActivityParcelListingFilters =
-            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...activityParcelsListingsFilters });
+        const updatedFilters: ActivityParcelListingFilters = GraphFiltersUtils.getUpdatedFiltersFromQueryParams(
+            queryParams,
+            { ...activityParcelsListingsFilters }
+        );
         dispatch(fromBaazaarStore.setActivityParcelsListingsFilters(updatedFilters));
 
         return () => {
@@ -56,8 +61,10 @@ export function BaazaarActivityParcels() {
     }, []);
 
     useEffect(() => {
-        const params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
-            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...activityParcelsListingsFilters });
+        const params: CustomParsedQuery<GraphFiltersQueryParamTypes> = GraphFiltersUtils.getFiltersQueryParams(
+            queryParams,
+            { ...activityParcelsListingsFilters }
+        );
 
         RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, activityParcelsListingsQueryParamsOrder);
 
@@ -69,9 +76,12 @@ export function BaazaarActivityParcels() {
     }, [activityParcelsListingsFilters]);
 
     const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(fromBaazaarStore.updateActivityParcelsListingsFilterByKey(
-            { key, value } as { key: ActivityParcelListingFilterTypes, value: GraphFiltersValueTypes }
-        ));
+        dispatch(
+            fromBaazaarStore.updateActivityParcelsListingsFilterByKey({ key, value } as {
+                key: ActivityParcelListingFilterTypes;
+                value: GraphFiltersValueTypes;
+            })
+        );
     };
 
     const onResetFilters = useCallback(() => {

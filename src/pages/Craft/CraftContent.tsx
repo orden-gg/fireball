@@ -56,7 +56,7 @@ export function CraftContent() {
                 );
 
             const filteredTiles: any[] = tiles
-                .filter((item: any, index: number) => TilesUtils.getIsTileExist(index))
+                .filter((item: any, index: number) => TilesUtils.getIsTileExists(index))
                 .map((data: any[], index: number) => ({
                     ...TilesUtils.getMetadataById(index),
                     id: index,

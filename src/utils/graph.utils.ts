@@ -17,19 +17,19 @@ export class GraphUtils {
                 return {
                     name: type,
                     position: position + 1,
-                    reward: +((Math.pow(1 / (position + 1), BRSformula.y)) * BRSformula.k).toFixed(0)
+                    reward: +(Math.pow(1 / (position + 1), BRSformula.y) * BRSformula.k).toFixed(0)
                 };
             case 'KIN':
                 return {
                     name: type,
                     position: position + 1,
-                    reward: +((Math.pow(1 / (position + 1), KINformula.y)) * KINformula.k).toFixed(0)
+                    reward: +(Math.pow(1 / (position + 1), KINformula.y) * KINformula.k).toFixed(0)
                 };
             case 'EXP':
                 return {
                     name: type,
                     position: position + 1,
-                    reward: +((Math.pow(1 / (position + 1), EXPformula.y)) * EXPformula.k).toFixed(0)
+                    reward: +(Math.pow(1 / (position + 1), EXPformula.y) * EXPformula.k).toFixed(0)
                 };
             default:
                 return { reward: 0 };
@@ -62,5 +62,11 @@ export class GraphUtils {
         } catch (error) {
             return require('../assets/images/image-placeholder.svg').default;
         }
+    }
+
+    public static getCombinedQueriesByIds(ids: number[], getQuery: (id: number) => string): string {
+        const queries: string[] = ids.map((id: number) => getQuery(id));
+
+        return `{${queries.join(',')}}`;
     }
 }

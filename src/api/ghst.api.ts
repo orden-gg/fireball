@@ -23,11 +23,11 @@ export class GhstApi {
 
     public static isGhstApproved(address: any): any {
         return contract.allowance(address, AUTOPET_CONTRACT).then(allowance => (
-            Number(ethers.utils.formatUnits(allowance._hex)) >= 100
+            EthersApi.hexToNumber(allowance._hex) >= 100
         ));
     }
 
     public static getBalanceOf(address: any): any {
-        return contract.balanceOf(address).then((balance: any) => Number(ethers.utils.formatUnits(balance._hex)));
+        return contract.balanceOf(address).then((balance: any) => EthersApi.hexToNumber(balance._hex));
     }
 }

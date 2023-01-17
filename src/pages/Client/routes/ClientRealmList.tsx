@@ -140,14 +140,14 @@ export function ClientRealmList() {
     }, [realmSorting]);
 
     useEffect(() => {
-        const modifiedLendings = FilterUtils.getFilteredSortedItems({
+        const modifiedRealm = FilterUtils.getFilteredSortedItems({
             items: realm,
             filters: currentFilters,
             sorting: realmSorting,
             getFilteredItems: FilterUtils.getFilteredItems
         });
 
-        setModifiedRealm(modifiedLendings);
+        setModifiedRealm(modifiedRealm);
     }, [currentFilters, realm, realmSorting]);
 
     const onSortingChange = useCallback(

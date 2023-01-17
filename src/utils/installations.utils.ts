@@ -132,4 +132,31 @@ export class InstallationsUtils {
             return RarityTypes.Golden;
         }
     }
+
+    public static combineInstallations(installations) {
+        return installations
+            .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.installationId))
+            .map((inst: any) => ({
+                id: inst.installationId,
+                name: InstallationsUtils.getNameById(inst.installationId),
+                level: InstallationsUtils.getLevelById(inst.installationId),
+                type: InstallationsUtils.getTypeById(inst.installationId)
+            }))
+            .reduce((prev: any, current) => {
+                const duplicated = prev.find(inst => inst.id === current.id);
+
+                if (duplicated) {
+                    duplicated.quantity++;
+
+                    return prev;
+                }
+
+                return prev.concat({
+                    ...current,
+                    quantity: 1
+                });
+            }, [])
+            .sort((a, b) => a.id - b.id)
+            .sort((a, b) => b.level - a.level);
+    }
 }

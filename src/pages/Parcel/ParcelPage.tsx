@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { InstallationsUtils, TilesUtils } from 'utils';
 import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
@@ -20,44 +21,50 @@ export function ParcelPage() {
 
         setParcelLoading(true);
 
-        Promise.all([
-            TheGraphApi.getRealmById(parcelId as string),
-            TheGraphApi.getParcelsGotchiverseInfoByIds([parcelId])
-        ])
-            .then(([parcel, info]) => {
+        TheGraphApi.getRealmById(parcelId as string)
+            .then(parcel => {
                 if (mounted && parcel) {
-                    setParcel({
-                        ...parcel,
-                        installations: info[0].installations
-                    });
+                    if (parcel.installations.length > 0) {
+                        parcel.installations = InstallationsUtils.combineInstallations(
+                            parcel.installations
+                        );
+                    }
+
+                    if (parcel.tiles.length > 0) {
+                        parcel.tiles = TilesUtils.combineTiles(
+                            parcel.tiles
+                        );
+                    }
+
+                    setParcel(parcel);
                 }
             })
-            .catch((err) => console.log(err))
+            .catch(err => console.log(err))
             .finally(() => {
                 if (mounted) {
                     setParcelLoading(false);
                 }
             });
 
-        return () => { mounted = false };
+        return () => {
+            mounted = false;
+        };
     }, [parcelId]);
 
     return (
         <div className={classes.container}>
-            { parcelLoading ? (
+            {parcelLoading ? (
                 <Backdrop open={parcelLoading}>
                     <CircularProgress color='primary' />
                 </Backdrop>
+            ) : parcel ? (
+                <ParcelPreview parcel={parcel} />
             ) : (
-                parcel ? (
-                    <ParcelPreview parcel={parcel} />
-                ) : (
-                    <div className={classes.alert}>
-                        <Alert variant='filled' severity='error'>
-                            There is no parcel with id {parcelId}
-                        </Alert>
-                    </div>
-                )
+                <div className={classes.alert}>
+                    <Alert variant='filled' severity='error'>
+                        There is no parcel with id {parcelId}
+                    </Alert>
+                </div>
             )}
         </div>
     );

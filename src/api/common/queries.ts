@@ -183,7 +183,7 @@ export const svgQuery = (id: any): any => {
 };
 
 export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, orderDireciton: any): any => {
-  return `{
+    return `{
       erc1155Listings (
           first: 1,
           orderBy: ${orderBy},
@@ -321,7 +321,7 @@ export const erc1155ListingsBySeller = (seller: any): any => {
 export const realmQuery = (address: any, skip: any): any => {
     return `{
       parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
-        tokenId
+        id
         parcelId
         owner {
           id
@@ -331,15 +331,53 @@ export const realmQuery = (address: any, skip: any): any => {
         size
         district
         parcelHash
+        lastChanneled
+        lastClaimed
         fudBoost
         fomoBoost
         alphaBoost
         kekBoost
-        timesTraded
-        historicalPrices
-        activeListing
+        alchemica
+        surveys {
+            id
+            surveyed
+            round
+            fud
+            fomo
+            alpha
+            kek
+        }
+        installations(first: 1000) {
+            id
+            installationId
+            x
+            y
+        }
+        tiles(first: 1000) {
+            id
+            tileId
+            x
+            y
+        }
       }
     }`;
+};
+
+export const parcelSurveyById = (id: number) => {
+    return `
+        item${id}: parcels(where: { id: ${id} }) {
+            alchemica
+            surveys {
+                id
+                surveyed
+                round
+                fud
+                fomo
+                alpha
+                kek
+            }
+        }
+    `;
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {
@@ -367,28 +405,50 @@ export const realmQueryByDistrict = (skip: any, district: any): any => {
     }`;
 };
 
-export const parselQuery = (id: any): any => {
-  return `{
-    parcel( id: ${id}) {
-      tokenId
-      parcelId
-      owner {
+export const parcelQuery = (id: any): any => {
+    return `{
+      parcel(id: ${id}) {
         id
+        parcelId
+        owner {
+          id
+        }
+        coordinateX
+        coordinateY
+        size
+        district
+        parcelHash
+        lastChanneled
+        lastClaimed
+        fudBoost
+        fomoBoost
+        alphaBoost
+        kekBoost
+        alchemica
+        surveys {
+            id
+            surveyed
+            parcel
+            round
+            fud
+            fomo
+            alpha
+            kek
+        }
+        installations {
+            id
+            installationId
+            x
+            y
+        }
+        tiles {
+            id
+            tileId
+            x
+            y
+        }
       }
-      coordinateX
-      coordinateY
-      size
-      district
-      parcelHash
-      fudBoost
-      fomoBoost
-      alphaBoost
-      kekBoost
-      timesTraded
-      historicalPrices
-      activeListing
-    }
-  }`;
+    }`;
 };
 
 export const activeListingQeury = (erc: any, id: any, type: any, category: any): any => {
@@ -445,7 +505,7 @@ export const getParcelOrderDirectionQuery = (data: any): any => {
             size
         }
     }`;
-  };
+};
 
 export const auctionQuery = (id: any): any => {
     return `{
@@ -505,7 +565,7 @@ export const listedParcelsQuery = (skip: any, orderDir: any, size: any): any => 
 };
 
 export const raffleQuery = (id: any): any => {
-  return `{
+    return `{
     raffles(where: {id: "${id}" }) {
       ticketPools {
         id

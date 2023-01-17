@@ -13,11 +13,15 @@ export class EthersApi {
 
     public static toWei(value: any): any {
         // return ethers.utils.parseUnits(value, 'wei') // TODO: figure out how to use ethers method for this
-        return value * 10**18;
+        return value * 10 ** 18;
     }
 
     public static formatBigNumber(value: any): any {
         return ethers.utils.formatUnits(value, 0);
+    }
+
+    public static hexToNumber(hex: string): number {
+        return Number(ethers.utils.formatUnits(hex));
     }
 
     public static async getBlockByNumber(blockNumber: number, network?: any): Promise<any> {
@@ -37,15 +41,13 @@ export class EthersApi {
         const averageBlockTime = 2.2; // !TODO: need more accurate way to get average block time
         const blocksDiff = futureBLock - currentBlock.number;
 
-        return parseInt((averageBlockTime * blocksDiff) + currentBlock.timestamp);
+        return parseInt(averageBlockTime * blocksDiff + currentBlock.timestamp);
     }
 
     public static waitForTransaction(hash: any, network: any): any {
         const provider = EthersApi.getProvider(network);
 
-        return provider.waitForTransaction(hash).then(response => (
-            response
-        ));
+        return provider.waitForTransaction(hash).then(response => response);
     }
 
     public static makeContract(contract: any, abi: any, network: any): any {
@@ -68,4 +70,3 @@ export class EthersApi {
         }
     }
 }
-

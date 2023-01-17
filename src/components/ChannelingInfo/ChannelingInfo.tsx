@@ -1,5 +1,3 @@
-import { Skeleton } from '@mui/material';
-
 import { DateTime } from 'luxon';
 
 import { CountdownFormatNonZeroType } from 'shared/constants';
@@ -37,30 +35,15 @@ const countdownFormat: CountdownShortFormat = {
     }
 };
 
-export function ChannelingInfo({ channeling }: { channeling: any }) {
+export function ChannelingInfo({ parcel }: { parcel: any }) {
     const classes = styles();
 
     const fromTimestampToMillis = (timestamp: number) => {
         return DateTime.fromSeconds(timestamp).toMillis();
     };
 
-    if (channeling.loading) {
-        return <div className={classes.placeholder}>
-            <Skeleton
-                className={classes.placeholderInner}
-                variant='rectangular'
-                width='100%'
-                height={30}
-            />
-        </div>;
-    }
-
-    if (channeling.lastChanneled === 0) {
-        return <div className={classes.container}>
-            <div className={classes.placeholderWarning}>
-                never channeled
-            </div>
-        </div>;
+    if (!parcel.lastChanneled) {
+        return <></>;
     }
 
     return (
@@ -69,16 +52,13 @@ export function ChannelingInfo({ channeling }: { channeling: any }) {
 
             <div className={classes.inner}>
                 last:
-                <Countdown
-                    targetDate={fromTimestampToMillis(channeling.lastChanneled)}
-                    shortFormat={countdownFormat}
-                />
+                <Countdown targetDate={fromTimestampToMillis(parcel.lastChanneled)} shortFormat={countdownFormat} />
             </div>
             <div className={classes.inner}>
                 ready:
                 <div className={classes.countdown}>
                     <Countdown
-                        targetDate={fromTimestampToMillis(channeling.nextChannel)}
+                        targetDate={fromTimestampToMillis(parcel.nextChannel)}
                         shortFormat={countdownFormat}
                         replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
                     />

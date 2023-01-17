@@ -13,12 +13,12 @@ const gltrContract = EthersApi.makeContract(GLTR_CONTRACT, GLTR_ABI, 'polygon');
 
 export class AlchemicaApi {
     public static getFudBalance(address: string): Promise<number> {
-        return fudContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
+        return fudContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
     }
 
     public static isFudApproved(address: string, contractAddress: string): Promise<boolean> {
         return fudContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > MIN_SPEND
+            EthersApi.hexToNumber(allowance._hex) > MIN_SPEND
         );
     }
 
@@ -35,12 +35,12 @@ export class AlchemicaApi {
     }
 
     public static getFomoBalance(address: string): Promise<number> {
-        return fomoContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
+        return fomoContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
     }
 
     public static isFomoApproved(address: string, contractAddress: string): Promise<boolean> {
         return fomoContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > MIN_SPEND
+            EthersApi.hexToNumber(allowance._hex) > MIN_SPEND
         );
     }
 
@@ -57,12 +57,12 @@ export class AlchemicaApi {
     }
 
     public static getAlphaBalance(address: string): Promise<number> {
-        return alphaContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
+        return alphaContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
     }
 
     public static isAlphaApproved(address: string, contractAddress: string): Promise<boolean> {
         return alphaContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > MIN_SPEND
+            EthersApi.hexToNumber(allowance._hex) > MIN_SPEND
         );
     }
 
@@ -79,12 +79,12 @@ export class AlchemicaApi {
     }
 
     public static getKekBalance(address: string): Promise<any> {
-        return akekContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
+        return akekContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
     }
 
     public static isKekApproved(address: string, contractAddress: string): Promise<any> {
         return akekContract.allowance(address, contractAddress).then((allowance: any) =>
-            Number(ethers.utils.formatUnits(allowance._hex)) > MIN_SPEND
+            EthersApi.hexToNumber(allowance._hex) > MIN_SPEND
         );
     }
 
@@ -101,6 +101,6 @@ export class AlchemicaApi {
     }
 
     public static getGltrBalance(address: any): Promise<any> {
-        return gltrContract.balanceOf(address).then((response: any) => Number(ethers.utils.formatUnits(response._hex)));
+        return gltrContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
     }
 }
