@@ -365,7 +365,7 @@ export const realmQuery = (address: any, skip: any): any => {
 
 export const parcelSurveyById = (id: number) => {
     return `
-        item${id}: parcels(where: { id_in: [${id}] }) {
+        item${id}: parcels(where: { id: ${id} }) {
             alchemica
             surveys {
                 id

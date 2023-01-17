@@ -1,5 +1,5 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, ParcelSurveyAlchemica, SortingItem } from 'shared/models';
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, ParcelSurveyAlchemica, ParcelSurveyAlchemicaBatch, SortingItem } from 'shared/models';
 import { GraphFiltersUtils } from 'utils';
 import { RealmApi } from 'api';
 
@@ -42,20 +42,31 @@ export const loadBaazaarParcelsListings = (shouldResetListings: boolean = false)
             const parcelsIds: number[] = parcelsListings.map((listing: ParcelListingDTO) =>
                 Number(listing.parcel.tokenId)
             );
-            const parcelsSurveys: ParcelSurveyAlchemica[] = await RealmApi.getParcelsSurvey(parcelsIds);
-            const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings, parcelsSurveys);
 
-            if (shouldResetListings) {
-                dispatch(loadParcelsListingsSucceded(modifiedListings));
+            if (parcelsIds.length > 0) {
+                RealmApi.getParcelsSurvey(parcelsIds)
+                    .then((surveysBatch: ParcelSurveyAlchemicaBatch) => {
+                        const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings, surveysBatch);
+
+                        if (shouldResetListings) {
+                            dispatch(loadParcelsListingsSucceded(modifiedListings));
+                        } else {
+                            dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+                        }
+                    })
+                    .finally(() => {
+                        dispatch(setIsParcelsListingsInitialDataLoading(false));
+                    });
             } else {
-                dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+                if (shouldResetListings) {
+                    dispatch(loadParcelsListingsSucceded([]));
+                }
+
+                dispatch(setIsParcelsListingsInitialDataLoading(false));
             }
         })
         .catch(() => {
             dispatch(loadParcelsListingsFailed());
-        })
-        .finally(() => {
-            dispatch(setIsParcelsListingsInitialDataLoading(false));
         });
 };
 
@@ -125,10 +136,13 @@ export const resetParcelsListingsData = (): AppThunk =>
         dispatch(setIsParcelsListingsInitialDataLoading(true));
     };
 
-const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[], parcelsSurveys: ParcelSurveyAlchemica[]): ParcelListingVM[] => {
-    return listings.map((listing: ParcelListingDTO, index: number) => ({
-            ...parcelsSurveys[index],
+const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[], parcelsSurveys: ParcelSurveyAlchemicaBatch): ParcelListingVM[] => {
+    return listings.map((listing: ParcelListingDTO) => {
+        const parcelSurvey: ParcelSurveyAlchemica[] = parcelsSurveys[`item${listing.parcel.tokenId}`];
+
+        return ({
             ...listing.parcel,
+            ...parcelSurvey[0],
             id: listing.id,
             coordinateX: Number(listing.parcel.coordinateX),
             coordinateY: Number(listing.parcel.coordinateY),
@@ -142,6 +156,7 @@ const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[], parcelsSurveys:
                 priceInWei: listing.priceInWei
             }],
             historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : []
-        })
+        });
+    }
     );
 };

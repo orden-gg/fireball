@@ -1,7 +1,7 @@
 import REALM_ABI from 'data/abi/realm.abi.json';
 
 import { GRAPH_FIREBALL_API, REALM_CONTRACT } from 'shared/constants';
-import { ParcelSurveyAlchemica, TheGraphResponse } from 'shared/models';
+import { ParcelSurveyAlchemicaBatch, TheGraphResponse } from 'shared/models';
 import { GraphUtils } from 'utils';
 import { parcelSurveyById } from './common/queries';
 import { EthersApi } from './ethers.api';
@@ -16,11 +16,11 @@ export class RealmApi {
         return realmContract.getLastChanneled(id).then((response: any) => response - 0);
     }
 
-    public static async getParcelsSurvey(ids: number[]): Promise<ParcelSurveyAlchemica[]> {
+    public static async getParcelsSurvey(ids: number[]): Promise<ParcelSurveyAlchemicaBatch> {
         const queries = GraphUtils.getCombinedQueriesByIds(ids, parcelSurveyById);
 
-        return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_API, queries).then((
-            res: TheGraphResponse<{[key: string]: ParcelSurveyAlchemica[]}>
-        ) => Object.values(res.data).map((item: ParcelSurveyAlchemica[]) => item[0]));
+        return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_API, queries).then(
+            (res: TheGraphResponse<ParcelSurveyAlchemicaBatch>) => res.data
+        );
     }
 }

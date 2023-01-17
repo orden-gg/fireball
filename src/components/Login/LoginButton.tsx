@@ -7,10 +7,10 @@ import { useMetamask } from 'use-metamask';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { addAddress, getActiveAddress, getIsDropdownOpen, getLoggedAddress, selectActiveAddress, toggleLoginDropdown } from 'core/store/login';
+import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
-import { DONATE_ADDRESS } from 'data/login.data';
 
 import { LoginNavigation } from './LoginNavigation';
 import { LoginAddress } from './LoginAddress';

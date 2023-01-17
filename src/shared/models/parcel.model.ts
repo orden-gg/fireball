@@ -77,3 +77,7 @@ export interface ParcelSurveyAlchemica {
     alchemica: AlchemicaBag;
     surveyes: ParcelSurvey[];
 }
+
+export interface ParcelSurveyAlchemicaBatch {
+    [key: string]: ParcelSurveyAlchemica[];
+}

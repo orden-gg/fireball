@@ -53,6 +53,7 @@ export function Parcel({ parcel }: { parcel: any }) {
                         )}
                         text={parcel.tokenId || parcel.id} // TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH
                     >
+                        {/* TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH */}
                         <span>#{parcel.tokenId || parcel.id}</span>
                     </CopyToClipboardBlock>
 
