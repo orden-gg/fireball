@@ -115,7 +115,7 @@ export function LoginAddress({ address, isMetamask }: LoginAddressProps) {
                         className={classes.blockiesIcon}
                     />
 
-                    <FormControl variant='standard' disabled={!editMode}>
+                    <FormControl variant='standard' disabled={!editMode} className={classes.formControl}>
                         <Input
                             id='name'
                             type='text'

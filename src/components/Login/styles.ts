@@ -35,6 +35,9 @@ export const styles = makeStyles(theme => createStyles({
             background: alpha(theme.palette.primary.main, .7)
         }
     },
+    formControl: {
+        flexGrow: 1
+    },
     captionText: {
         fontSize: 14,
         fontWeight: 600,
