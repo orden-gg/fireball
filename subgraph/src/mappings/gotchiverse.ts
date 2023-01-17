@@ -11,7 +11,7 @@ import {
     Transfer as TransferEvent,
     UnequipInstallation as UnequipInstallationEvent,
     UnequipTile as UnequipTileEvent
-} from '../../generated/gotchiverse/gotchiverse';
+} from '../../generated/RealmDiamond/gotchiverse';
 import {
     equipInstallation,
     equipTile,

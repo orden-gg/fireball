@@ -6,20 +6,20 @@ import {
     ERC721ListingRemoved
 } from '../../generated/RealmDiamond/AavegotchiDiamond';
 import { laodOrCreateERC721Listing, loadOrCreateParcel, updateERC721ListingInfo } from '../helpers';
-import {
-    BIGINT_ONE
-} from '../shared/constants/common.constants';
+import { BIGINT_ONE } from '../shared/constants/common.constants';
 
 export function handleERC721ListingAdd(event: ERC721ListingAdd): void {
     let listing = laodOrCreateERC721Listing(event.params.listingId.toString());
     listing = updateERC721ListingInfo(listing, event.params.listingId, event);
 
     // eslint-disable-next-line
-    if (listing.category == BigInt.fromI32(4)) {
-        listing.parcel = event.params.erc721TokenId.toString();
-
+    if (event.params.category == BigInt.fromI32(4)) {
         const parcel = loadOrCreateParcel(event.params.erc721TokenId);
         parcel.activeListing = event.params.listingId;
+        parcel.save();
+
+        listing.parcel = event.params.erc721TokenId.toString();
+
         listing.fudBoost = parcel.fudBoost;
         listing.fomoBoost = parcel.fomoBoost;
         listing.alphaBoost = parcel.alphaBoost;
@@ -32,32 +32,30 @@ export function handleERC721ListingAdd(event: ERC721ListingAdd): void {
         listing.coordinateY = parcel.coordinateY;
 
         listing.parcelHash = parcel.parcelHash;
-
-        listing.save();
     }
+
+    listing.save();
 }
 
 
 export function handleERC721ExecutedListing(
     event: ERC721ExecutedListing
 ): void {
+    let listing = laodOrCreateERC721Listing(event.params.listingId.toString());
+    listing = updateERC721ListingInfo(
+        listing,
+        event.params.listingId,
+        event
+    );
+
+    listing.buyer = event.params.buyer;
+    listing.timePurchased = event.params.time;
+    listing.parcel = event.params.erc721TokenId.toString();
+
+    listing.save();
 
     // eslint-disable-next-line
     if (event.params.category == BigInt.fromI32(4)) {
-        let listing = laodOrCreateERC721Listing(
-            event.params.listingId.toString()
-        );
-        listing = updateERC721ListingInfo(
-            listing,
-            event.params.listingId,
-            event
-        );
-
-        listing.buyer = event.params.buyer;
-        listing.timePurchased = event.params.time;
-        listing.parcel = event.params.erc721TokenId.toString();
-
-        listing.save();
 
         //Parcel -- update number of times traded
 
