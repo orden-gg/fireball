@@ -68,6 +68,7 @@ export function LoginButton() {
     useEffect(() => {
         if (isDonateAddressShown === null) {
             dispatch(addAddress(donateAddress));
+            setIsDonateAddressShown(true);
         }
     }, [isDonateAddressShown]);
 
