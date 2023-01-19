@@ -51,10 +51,9 @@ export function Parcel({ parcel }: { parcel: any }) {
                             classes.labelRarityColored,
                             classes.idHash
                         )}
-                        text={parcel.tokenId || parcel.id} // TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH
+                        text={parcel.id}
                     >
-                        {/* TODO: REMOVE parcel.tokenId, AFTER UPDATE FB GRAPH */}
-                        <span>#{parcel.tokenId || parcel.id}</span>
+                        <span>#{parcel.id}</span>
                     </CopyToClipboardBlock>
 
                     <CustomTooltip title='District' placement='top' followCursor>

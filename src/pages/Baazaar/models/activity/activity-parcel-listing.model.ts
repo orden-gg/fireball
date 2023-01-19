@@ -1,10 +1,10 @@
-import { ParcelDTO, ParcelVM } from 'shared/models';
+import { Parcel, ParcelVM } from 'shared/models';
 
 export interface ActivityParcelListingDTO {
     id: string;
     listingId: string;
     priceInWei: string;
-    parcel: ParcelDTO;
+    parcel: Parcel;
     buyer: string;
     seller: string;
     timePurchased: string;

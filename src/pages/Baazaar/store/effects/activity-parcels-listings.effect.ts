@@ -38,7 +38,7 @@ export const loadBaazaarActivityParcelsListings = (shouldResetListings: boolean 
 
     const query = getBaazaarActivityParcelsListingsQuery(activityParcelsListingsGraphQueryParams, whereParams);
 
-    BaazaarGraphApi.getErc721Listings<ActivityParcelListingDTO>(query)
+    BaazaarGraphApi.getParcelListings<ActivityParcelListingDTO>(query)
         .then((res: ActivityParcelListingDTO[]) => {
             const modifiedListings: ActivityParcelListingVM[] = mapActivityParcelsDTOToVM(res);
 
