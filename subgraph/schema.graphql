@@ -19,8 +19,8 @@ type Parcel @entity {
     coordinateX: BigInt
     coordinateY: BigInt
 
-    lastChanneled: BigInt!
-    lastClaimed: BigInt!
+    lastChanneled: Int
+    lastClaimed: Int
 
     fudBoost: BigInt
     fomoBoost: BigInt
@@ -74,7 +74,7 @@ type Tile @entity {
 
 type Gotchi @entity {
     id: ID!
-    lastChanneled: BigInt!
+    lastChanneled: Int!
 }
 
 type ERC721Listing @entity {

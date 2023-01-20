@@ -6,7 +6,6 @@ export const loadOrCreateGotchi = (gotchiId: BigInt): Gotchi => {
 
     if (!gotchi) {
         gotchi = new Gotchi(gotchiId.toString());
-        gotchi.lastChanneled = BigInt.zero();
     }
 
     return gotchi;

@@ -13,8 +13,6 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
         parcel.tiles = [];
         parcel.tokenId = realmId;
         parcel.timesTraded = BigInt.zero();
-        parcel.lastChanneled = BigInt.zero();
-        parcel.lastClaimed = BigInt.zero();
         parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
     }
 
