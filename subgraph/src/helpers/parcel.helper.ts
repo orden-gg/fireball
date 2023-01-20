@@ -1,7 +1,6 @@
 import { BigInt, dataSource, log } from '@graphprotocol/graph-ts';
 import { gotchiverse as RealmDiamond } from '../../generated/RealmDiamond/gotchiverse';
 import { Parcel } from '../../generated/schema';
-import { BIGINT_ZERO } from '../shared/constants/common.constants';
 import { AlchemicaTypes } from '../shared/enums';
 
 export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
@@ -10,9 +9,12 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
 
     if (!parcel) {
         parcel = new Parcel(id);
-        parcel.timesTraded = BIGINT_ZERO;
         parcel.installations = [];
         parcel.tiles = [];
+        parcel.tokenId = realmId;
+        parcel.timesTraded = BigInt.zero();
+        parcel.lastChanneled = BigInt.zero();
+        parcel.lastClaimed = BigInt.zero();
         parcel.alchemica = [BigInt.zero(), BigInt.zero(), BigInt.zero(), BigInt.zero()];
     }
 
@@ -27,10 +29,10 @@ export const loadOrCreateParcel = (realmId: BigInt): Parcel => {
 
             parcel.parcelId = metadata.parcelId;
             parcel.parcelHash = metadata.parcelAddress;
-            parcel.size = metadata.size.toI32();
-            parcel.district = metadata.district.toI32();
-            parcel.coordinateX = metadata.coordinateX.toI32();
-            parcel.coordinateY = metadata.coordinateY.toI32();
+            parcel.size = metadata.size;
+            parcel.district = metadata.district;
+            parcel.coordinateX = metadata.coordinateX;
+            parcel.coordinateY = metadata.coordinateY;
 
             parcel.fudBoost = metadata.boost[AlchemicaTypes.Fud];
             parcel.fomoBoost = metadata.boost[AlchemicaTypes.Fomo];

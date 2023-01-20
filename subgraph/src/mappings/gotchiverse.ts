@@ -35,8 +35,8 @@ export function handleChannelAlchemica(event: ChannelAlchemicaEvent): void {
     const parcel = loadOrCreateParcel(event.params._realmId);
     const gotchi = loadOrCreateGotchi(event.params._gotchiId);
 
-    parcel.lastChanneled = event.block.timestamp.toI32();
-    gotchi.lastChanneled = event.block.timestamp.toI32();
+    parcel.lastChanneled = event.block.timestamp;
+    gotchi.lastChanneled = event.block.timestamp;
 
     parcel.save();
     gotchi.save();
@@ -49,7 +49,7 @@ export function handleAlchemicaClaimed(event: AlchemicaClaimedEvent): void {
 
     alchemica[type] = alchemica[type].minus(event.params._amount);
 
-    parcel.lastClaimed = event.block.timestamp.toI32();
+    parcel.lastClaimed = event.block.timestamp;
     parcel.alchemica = alchemica;
 
     parcel.save();
