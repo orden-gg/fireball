@@ -638,16 +638,27 @@ export const ClientContextProvider = (props: any) => {
 
     const getModifiedRealmListings = (realmListings: any[]): any[] => {
         const listedParcels: any[] = realmListings
-            .map((listing: any) => ({
-                ...listing.parcel,
-                historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
-                listings: [
-                    {
-                        id: listing.id,
-                        priceInWei: listing.priceInWei
-                    }
-                ]
-            }));
+            .map((listing: any) => {
+                const installations: any[] = InstallationsUtils.combineInstallations(listing.parcel.installations);
+                const tiles: any[] = TilesUtils.combineTiles(listing.parcel.tiles);
+                const altar: any = installations.find(
+                    (installation: any) => installation.type === InstallationTypeNames.Altar
+                );
+
+                return ({
+                    ...listing.parcel,
+                    altarLevel: altar ? altar.level : 0,
+                    installations: installations,
+                    tiles: tiles,
+                    historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
+                    listings: [
+                        {
+                            id: listing.id,
+                            priceInWei: listing.priceInWei
+                        }
+                    ]
+                });
+            });
         const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
 
         return sortedParcels;
