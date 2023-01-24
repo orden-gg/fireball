@@ -79,7 +79,6 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
         if (imageMap.length > 0 && !imageLoading) {
             processColorsMap();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageMap, imageLoading]);
 
     return (

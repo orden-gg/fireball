@@ -28,7 +28,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-    const parcelSize: any = CitadelUtils.getParcelSizeName(Number(parcel.size));
+    const parcelSize: string = CitadelUtils.getParcelSizeName(Number(parcel.size));
 
     const boosts = {
         fud: parcel.fudBoost,
