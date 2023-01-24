@@ -10,13 +10,14 @@ type Player @entity {
 type Parcel @entity {
     "parcel token id"
     id: ID!
+    tokenId: BigInt!
     parcelId: String
     parcelHash: String
     owner: Player
-    district: Int
-    size: Int
-    coordinateX: Int
-    coordinateY: Int
+    district: BigInt
+    size: BigInt
+    coordinateX: BigInt
+    coordinateY: BigInt
 
     lastChanneled: Int
     lastClaimed: Int
@@ -28,14 +29,15 @@ type Parcel @entity {
 
     "parcel current alchemica"
     alchemica: [BigInt!]!
-    surveys: [Survey!] @derivedFrom(field: "parcel")
 
+    surveys: [Survey!] @derivedFrom(field: "parcel")
     installations: [Installation!]!
     tiles: [Tile!]!
 
     auctionId: String
     timesTraded: BigInt!
     historicalPrices: [BigInt!]
+    listings: [ERC721Listing!] @derivedFrom(field: "parcel")
     activeListing: BigInt
 }
 
@@ -87,17 +89,17 @@ type ERC721Listing @entity {
     timePurchased: BigInt # Time when the listing was purchased
     cancelled: Boolean # If the listing is cancelled
     priceInWei: BigInt! # How much the listing is (in GHST)
-    parcel: String # if the listing is for a parcel, this will be populated
+    parcel: Parcel # if the listing is for a parcel, this will be populated
     blockCreated: BigInt!
 
     fudBoost: BigInt # boost of parcels
     fomoBoost: BigInt # boost of parcels
     alphaBoost: BigInt # boost of parcels
     kekBoost: BigInt # boost of parcels
-    district: Int # district of parcel
-    coordinateX: Int # coordinate x of parcel
-    coordinateY: Int # coordinate y of parcel
-    size: Int # size of parcel
+    district: BigInt # district of parcel
+    coordinateX: BigInt # coordinate x of parcel
+    coordinateY: BigInt # coordinate y of parcel
+    size: BigInt # size of parcel
     parcelHash: String # address/hash of parcel
     nameLowerCase: String
     amountEquippedWearables: Int

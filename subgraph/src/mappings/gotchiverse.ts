@@ -49,7 +49,7 @@ export function handleAlchemicaClaimed(event: AlchemicaClaimedEvent): void {
 
     alchemica[type] = alchemica[type].minus(event.params._amount);
 
-    parcel.lastClaimed = event.block.timestamp.toI32();
+    parcel.lastClaimed = event.block.timestamp.toU32();
     parcel.alchemica = alchemica;
 
     parcel.save();

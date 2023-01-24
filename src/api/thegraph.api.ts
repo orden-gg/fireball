@@ -33,7 +33,8 @@ import {
     gotchisGotchiverseQuery,
     parcelsGotchiverseQuery,
     parcelsOwnerGotchiverseQuery,
-    realmQueryByDistrict
+    realmQueryByDistrict,
+    realmListingsBySeller
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
 import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
@@ -331,6 +332,14 @@ export class TheGraphApi {
 
     public static async getErc721ListingsBySeller(seller: any): Promise<any> {
         return await TheGraphApi.getData(erc721ListingsBySeller(seller))
+            .then((response: any) => response.data.erc721Listings)
+            .catch((error: any) => console.log(error));
+    }
+
+    // TODO as we integrate fireball graph for realm it's used here for now.
+    // TODO in the future, after full fireball graph integration should be used as general erc721 listings.
+    public static async getRealmListingsBySeller(seller: any): Promise<any> {
+        return await TheGraphApi.getData(realmListingsBySeller(seller), GRAPH_FIREBALL_API)
             .then((response: any) => response.data.erc721Listings)
             .catch((error: any) => console.log(error));
     }

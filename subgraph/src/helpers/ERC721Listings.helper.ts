@@ -1,24 +1,16 @@
-import {
-    AavegotchiDiamond
-} from '../../generated/RealmDiamond/AavegotchiDiamond';
+import { AavegotchiDiamond } from '../../generated/RealmDiamond/AavegotchiDiamond';
 
-import {
-    ERC721Listing
-} from '../../generated/schema';
-import { BIGINT_ZERO } from '../shared/constants/common.constants';
+import { ERC721Listing } from '../../generated/schema';
 import { BigInt, ethereum, log } from '@graphprotocol/graph-ts';
 
-export function laodOrCreateERC721Listing(
-    id: string,
-    createIfNotFound: boolean = true
-): ERC721Listing {
+export function laodOrCreateERC721Listing(id: string, createIfNotFound: boolean = true): ERC721Listing {
     let listing = ERC721Listing.load(id);
 
     // eslint-disable-next-line
     if (listing == null && createIfNotFound) {
         listing = new ERC721Listing(id);
-        listing.blockCreated = BIGINT_ZERO;
-        listing.timeCreated = BIGINT_ZERO;
+        listing.blockCreated = BigInt.zero();
+        listing.timeCreated = BigInt.zero();
     }
 
     return listing as ERC721Listing;
@@ -43,7 +35,7 @@ export function updateERC721ListingInfo(
         listing.priceInWei = listingInfo.priceInWei;
         listing.cancelled = listingInfo.cancelled;
 
-        if (listing.blockCreated.equals(BIGINT_ZERO)) {
+        if (listing.blockCreated.equals(BigInt.zero())) {
             listing.blockCreated = event.block.number;
         }
     } else {

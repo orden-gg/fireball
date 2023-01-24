@@ -271,10 +271,35 @@ export const erc721ListingsBySeller = (seller: any): any => {
                     id
                 }
             }
+            portal {
+                hauntId
+                historicalPrices
+                activeListing
+            }
+        }
+    }`;
+};
+
+// TODO should be removed after full integration of fireball gotchiverse graph.
+export const realmListingsBySeller = (seller: string): string => {
+    return `{
+        erc721Listings(
+            where: {
+                seller: "${seller}",
+                cancelled: false,
+                timePurchased: 0,
+                category: 4
+            }
+        )
+        {
+            id
+            tokenId
+            category
+            priceInWei
             parcel {
+                id
                 parcelId
                 parcelHash
-                tokenId
                 coordinateX
                 coordinateY
                 district
@@ -288,11 +313,29 @@ export const erc721ListingsBySeller = (seller: any): any => {
                 owner {
                     id
                 }
-            }
-            portal {
-                hauntId
-                historicalPrices
-                activeListing
+                alchemica
+                surveys {
+                    id
+                    surveyed
+                    parcel
+                    round
+                    fud
+                    fomo
+                    alpha
+                    kek
+                }
+                installations {
+                    id
+                    installationId
+                    x
+                    y
+                }
+                tiles {
+                    id
+                    tileId
+                    x
+                    y
+                }
             }
         }
     }`;
@@ -361,23 +404,6 @@ export const realmQuery = (address: any, skip: any): any => {
         }
       }
     }`;
-};
-
-export const parcelSurveyById = (id: number) => {
-    return `
-        item${id}: parcels(where: { id: ${id} }) {
-            alchemica
-            surveys {
-                id
-                surveyed
-                round
-                fud
-                fomo
-                alpha
-                kek
-            }
-        }
-    `;
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {

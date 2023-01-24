@@ -524,9 +524,15 @@ export const ClientContextProvider = (props: any) => {
         setIsItemsForSaleLoading(shouldUpdateIsLoading);
         setLoadedStates(statesCache => ({ ...statesCache, isItemsForSaleLoaded: false }));
 
-        Promise.all([TheGraphApi.getErc721ListingsBySeller(address), TheGraphApi.getErc1155ListingsBySeller(address)])
-            .then(([erc721Listings, erc1155Listings]: [any, any]) => {
-                const isListingsEmpty = erc721Listings.length === 0 && erc1155Listings.length === 0;
+        Promise.all([
+            TheGraphApi.getErc721ListingsBySeller(address),
+            TheGraphApi.getRealmListingsBySeller(address), // TODO should be removed after full integration of fireball gotchiverse graph.
+            TheGraphApi.getErc1155ListingsBySeller(address)
+        ])
+            .then(([erc721Listings, realmListings, erc1155Listings]: [any, any, any]) => {
+                const isListingsEmpty = erc721Listings.length === 0 &&
+                    erc1155Listings.length === 0 &&
+                    realmListings.length === 0;
 
                 setIsItemsForSaleEmpty(isListingsEmpty);
 
@@ -535,6 +541,11 @@ export const ClientContextProvider = (props: any) => {
                 } else {
                     handleSetErc721Listings(erc721Listings);
                     handleSetErc1155Listings(erc1155Listings);
+
+                    setItemsForSale((itemsForSaleCache) => ({
+                        ...itemsForSaleCache,
+                        parcels: getModifiedRealmListings(realmListings)
+                    }));
                 }
             })
             .catch(() => {
@@ -563,22 +574,6 @@ export const ClientContextProvider = (props: any) => {
             .map((listing: any) => listing.gotchi);
         const sortedGotchis: any[] = CommonUtils.basicSort(listedGotchis, 'baseRarityScore', 'desc');
 
-        const listedParcels: any[] = listings
-            .filter((listing: any) => listing.category === Erc721Categories.Realm)
-            .map((listing: any) => ({
-                ...listing.parcel,
-                priceInWei: listing.priceInWei,
-                baazaarId: listing.id,
-                historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
-                listings: [
-                    {
-                        id: listing.id,
-                        priceInWei: listing.priceInWei
-                    }
-                ]
-            }));
-        const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
-
         const listedPortals: any[] = listings
             .filter(
                 (listing: any) =>
@@ -601,7 +596,6 @@ export const ClientContextProvider = (props: any) => {
         setItemsForSale(itemsForSaleCache => ({
             ...itemsForSaleCache,
             gotchis: sortedGotchis,
-            parcels: sortedParcels,
             portals: sortedPortals
         }));
     };
@@ -640,6 +634,34 @@ export const ClientContextProvider = (props: any) => {
             tickets: sortedTickets,
             consumables: listedConsumables
         }));
+    };
+
+    const getModifiedRealmListings = (realmListings: any[]): any[] => {
+        const listedParcels: any[] = realmListings
+            .map((listing: any) => {
+                const installations: any[] = InstallationsUtils.combineInstallations(listing.parcel.installations);
+                const tiles: any[] = TilesUtils.combineTiles(listing.parcel.tiles);
+                const altar: any = installations.find(
+                    (installation: any) => installation.type === InstallationTypeNames.Altar
+                );
+
+                return ({
+                    ...listing.parcel,
+                    altarLevel: altar ? altar.level : 0,
+                    installations: installations,
+                    tiles: tiles,
+                    historicalPrices: listing.parcel.historicalPrices ? listing.parcel.historicalPrices : [],
+                    listings: [
+                        {
+                            id: listing.id,
+                            priceInWei: listing.priceInWei
+                        }
+                    ]
+                });
+            });
+        const sortedParcels: any[] = CommonUtils.basicSort(listedParcels, 'size', 'desc');
+
+        return sortedParcels;
     };
 
     const mapWearableAndTicket = (listing: any): any => {

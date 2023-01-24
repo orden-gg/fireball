@@ -1,6 +1,6 @@
 import tiles from 'data/tiles.data.json';
 import { TileTypes } from 'shared/constants';
-import { TileItem } from 'shared/models';
+import { ParcelTileDTO, ParcelTileVM, TileItem } from 'shared/models';
 
 export class TilesUtils {
     public static getMetadataById(id: any): TileItem {
@@ -51,15 +51,15 @@ export class TilesUtils {
         }
     }
 
-    public static combineTiles(tiles) {
+    public static combineTiles(tiles: ParcelTileDTO[]): ParcelTileVM[] {
         return tiles
-            .filter((item: any) => TilesUtils.getIsTileExists(item.tileId))
-            .map((inst: any) => ({
-                id: inst.tileId,
-                name: TilesUtils.getNameById(inst.tileId)
+            .filter((item: ParcelTileDTO) => TilesUtils.getIsTileExists(item.tileId))
+            .map((tile: ParcelTileDTO) => ({
+                id: tile.tileId,
+                name: TilesUtils.getNameById(tile.tileId)
             }))
-            .reduce((prev: any, current) => {
-                const duplicated = prev.find(inst => inst.id === current.id);
+            .reduce((prev: ParcelTileVM[], current: Omit<ParcelTileVM, 'quantity'>) => {
+                const duplicated: Undefinable<ParcelTileVM> = prev.find(tile => tile.id === current.id);
 
                 if (duplicated) {
                     duplicated.quantity++;
@@ -72,7 +72,6 @@ export class TilesUtils {
                     quantity: 1
                 });
             }, [])
-            .sort((a, b) => a.id - b.id)
-            .sort((a, b) => b.level - a.level);
+            .sort((a, b) => a.id - b.id);
     }
 }

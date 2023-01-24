@@ -1,5 +1,5 @@
 import { InstallationTypeNames, InstallationTypes, RarityTypes } from 'shared/constants';
-import { InstallationItem } from 'shared/models';
+import { InstallationItem, ParcelInstallationDTO, ParcelInstallationVM } from 'shared/models';
 import installations from 'data/installations.data.json';
 
 
@@ -32,11 +32,11 @@ export class InstallationsUtils {
         return Boolean(installations[id]);
     }
 
-    public static getNameById(id: any): string {
-        return installations[id][InstallationTypes.Name] as string;
+    public static getNameById(id: number | string): string {
+        return installations[id][InstallationTypes.Name];
     }
 
-    public static getLevelById(id: any): any {
+    public static getLevelById(id: number): any {
         return installations[id][InstallationTypes.Level];
     }
 
@@ -68,7 +68,7 @@ export class InstallationsUtils {
         return installations[id][InstallationTypes.AlchemicaCost];
     }
 
-    public static getTypeById(id: any): string {
+    public static getTypeById(id: number): string {
         switch (installations[id][InstallationTypes.Type]) {
             case 0:
                 return InstallationTypeNames.Altar;
@@ -133,17 +133,17 @@ export class InstallationsUtils {
         }
     }
 
-    public static combineInstallations(installations) {
+    public static combineInstallations(installations: ParcelInstallationDTO[]): ParcelInstallationVM[] {
         return installations
-            .filter((item: any) => InstallationsUtils.getIsInstallationExist(item.installationId))
-            .map((inst: any) => ({
+            .filter((item: ParcelInstallationDTO) => InstallationsUtils.getIsInstallationExist(item.installationId))
+            .map((inst: ParcelInstallationDTO) => ({
                 id: inst.installationId,
                 name: InstallationsUtils.getNameById(inst.installationId),
                 level: InstallationsUtils.getLevelById(inst.installationId),
-                type: InstallationsUtils.getTypeById(inst.installationId)
+                type: InstallationsUtils.getTypeById(inst.installationId) as InstallationTypeNames
             }))
-            .reduce((prev: any, current) => {
-                const duplicated = prev.find(inst => inst.id === current.id);
+            .reduce((prev: ParcelInstallationVM[], current: Omit<ParcelInstallationVM, 'quantity'>) => {
+                const duplicated: Undefinable<ParcelInstallationVM> = prev.find(inst => inst.id === current.id);
 
                 if (duplicated) {
                     duplicated.quantity++;

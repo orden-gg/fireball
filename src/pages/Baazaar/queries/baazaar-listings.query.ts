@@ -69,9 +69,9 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
                 id
                 priceInWei
                 parcel {
+                    id
                     parcelId
                     parcelHash
-                    tokenId
                     coordinateX
                     coordinateY
                     district
@@ -82,6 +82,24 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
                     size
                     timesTraded
                     historicalPrices
+                    alchemica
+                    surveys {
+                        id
+                        surveyed
+                        round
+                        fud
+                        fomo
+                        alpha
+                        kek
+                    }
+                    installations {
+                        id
+                        installationId
+                    }
+                    tiles {
+                        id
+                        tileId
+                    }
                 }
             }
     }`;
@@ -275,9 +293,9 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
                 buyer
                 timePurchased
                 parcel {
+                    id
                     parcelId
                     parcelHash
-                    tokenId
                     coordinateX
                     coordinateY
                     district
@@ -288,6 +306,16 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
                     size
                     timesTraded
                     historicalPrices
+                    alchemica
+                    surveys {
+                        id
+                        surveyed
+                        round
+                        fud
+                        fomo
+                        alpha
+                        kek
+                    }
                 }
             }
     }`;

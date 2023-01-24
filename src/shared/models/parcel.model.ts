@@ -1,7 +1,30 @@
-import { TypenameType } from 'shared/constants';
-import { AlchemicaTypes } from 'shared/constants';
+import { AlchemicaTypes, InstallationTypeNames, TypenameType } from 'shared/constants';
 
 export declare type AlchemicaBag = [string, string, string, string];
+
+export interface ParcelInstallationDTO {
+    id: string;
+    installationId: number;
+}
+
+export interface ParcelTileDTO {
+    id: string;
+    tileId: number;
+}
+
+export interface ParcelInstallationVM {
+    id: number;
+    level: number;
+    name: string;
+    quantity: number;
+    type: InstallationTypeNames;
+}
+
+export interface ParcelTileVM {
+    id: number;
+    name: string;
+    quantity: number;
+}
 
 export interface ParcelSurvey {
     id: string;
@@ -13,71 +36,40 @@ export interface ParcelSurvey {
     kek: string;
 }
 
-// TODO: this model on hold until fireball subgraph will be synchronized and include parcel trading history and current listings
-// export interface Parcel {
-//     id: string;
-//     tokenId?: string;
-//     parcelId: string;
-//     parcelHash: string;
-//     district: number;
-//     size: number;
-//     coordinateX: number;
-//     coordinateY: number;
-//     lastChanneled: number;
-//     lastClaimed: number;
-//     nextChannel: number;
-//     alchemica: AlchemicaBag;
-//     fudBoost: number;
-//     fomoBoost: number;
-//     alphaBoost: number;
-//     kekBoost: number;
-//     surveys: ParcelSurvey[];
-//     installations: string[];
-//     tiles: string[];
-//     historicalPrices?: string[];
-//     timesTraded?: number;
-//     timePurchased?: number;
-// }
-
-export interface ParcelBase {
-    parcelHash: string;
-    tokenId: string;
+export interface Parcel {
+    id: string;
     parcelId: string;
-    district: string;
-    size: string;
-    historicalPrices: string[];
-    __typename: TypenameType;
-}
-
-export interface ParcelDTO extends ParcelBase {
-    coordinateX: string;
-    coordinateY: string;
-    fudBoost: string;
-    fomoBoost: string;
-    alphaBoost: string;
-    kekBoost: string;
-    timesTraded: string;
-}
-
-export interface ParcelVM extends ParcelBase {
+    parcelHash: string;
+    district: number;
+    size: number;
     coordinateX: number;
     coordinateY: number;
+    lastChanneled: number;
+    lastClaimed: number;
+    nextChannel: number;
+    alchemica: AlchemicaBag;
     fudBoost: number;
     fomoBoost: number;
     alphaBoost: number;
     kekBoost: number;
-    timesTraded: number;
+    surveys: ParcelSurvey[];
+    __typename: TypenameType;
+    historicalPrices?: string[];
+    timesTraded?: number;
+    timePurchased?: number;
+}
+
+export interface ParcelDTO extends Parcel {
+    installations: ParcelInstallationDTO[];
+    tiles: ParcelTileDTO[];
+}
+
+export interface ParcelVM extends Parcel {
+    installations: ParcelInstallationVM[];
+    tiles: ParcelTileVM[];
+    altarLevel: number;
 }
 
 export type ParcelAlchemica = {
     [key in AlchemicaTypes]: number;
 };
-
-export interface ParcelSurveyAlchemica {
-    alchemica: AlchemicaBag;
-    surveyes: ParcelSurvey[];
-}
-
-export interface ParcelSurveyAlchemicaBatch {
-    [key: string]: ParcelSurveyAlchemica[];
-}
