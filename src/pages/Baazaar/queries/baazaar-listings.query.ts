@@ -92,6 +92,14 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
                         alpha
                         kek
                     }
+                    installations {
+                        id
+                        installationId
+                    }
+                    tiles {
+                        id
+                        tileId
+                    }
                 }
             }
     }`;

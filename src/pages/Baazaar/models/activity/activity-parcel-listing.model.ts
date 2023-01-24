@@ -10,6 +10,6 @@ export interface ActivityParcelListingDTO {
     timePurchased: string;
 }
 
-export interface ActivityParcelListingVM extends ParcelVM {
+export interface ActivityParcelListingVM extends Omit<ParcelVM, 'installations' | 'tiles' | 'altarLevel'> {
     id: string;
 }

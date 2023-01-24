@@ -1,7 +1,30 @@
-import { TypenameType } from 'shared/constants';
-import { AlchemicaTypes } from 'shared/constants';
+import { AlchemicaTypes, InstallationTypeNames, TypenameType } from 'shared/constants';
 
 export declare type AlchemicaBag = [string, string, string, string];
+
+export interface ParcelInstallationDTO {
+    id: string;
+    installationId: number;
+}
+
+export interface ParcelTileDTO {
+    id: string;
+    tileId: number;
+}
+
+export interface ParcelInstallationVM {
+    id: number;
+    level: number;
+    name: string;
+    quantity: number;
+    type: InstallationTypeNames;
+}
+
+export interface ParcelTileVM {
+    id: number;
+    name: string;
+    quantity: number;
+}
 
 export interface ParcelSurvey {
     id: string;
@@ -30,19 +53,21 @@ export interface Parcel {
     alphaBoost: number;
     kekBoost: number;
     surveys: ParcelSurvey[];
-    installations: string[];
-    tiles: string[];
     __typename: TypenameType;
     historicalPrices?: string[];
     timesTraded?: number;
     timePurchased?: number;
 }
 
+export interface ParcelDTO extends Parcel {
+    installations: ParcelInstallationDTO[];
+    tiles: ParcelTileDTO[];
+}
+
 export interface ParcelVM extends Parcel {
-    fudBoost: number;
-    fomoBoost: number;
-    alphaBoost: number;
-    kekBoost: number;
+    installations: ParcelInstallationVM[];
+    tiles: ParcelTileVM[];
+    altarLevel: number;
 }
 
 export type ParcelAlchemica = {

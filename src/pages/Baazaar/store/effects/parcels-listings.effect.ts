@@ -1,6 +1,14 @@
 import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
-import { GraphFiltersUtils } from 'utils';
+import { InstallationTypeNames } from 'shared/constants';
+import {
+    GraphFiltersTypes,
+    GraphFiltersValueTypes,
+    GraphQueryParams,
+    ParcelInstallationVM,
+    ParcelTileVM,
+    SortingItem
+} from 'shared/models';
+import { GraphFiltersUtils, InstallationsUtils, TilesUtils } from 'utils';
 
 import { ASCENDING_DIRECTION, ParcelListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
@@ -122,12 +130,18 @@ export const resetParcelsListingsData = (): AppThunk =>
 
 const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {
     return listings.map((listing: ParcelListingDTO) => {
+        const installations: ParcelInstallationVM[] =
+            InstallationsUtils.combineInstallations(listing.parcel.installations);
+        const tiles: ParcelTileVM[] = TilesUtils.combineTiles(listing.parcel.tiles);
+        const altar: Undefinable<ParcelInstallationVM> = installations.find(
+            (installation: ParcelInstallationVM) => installation.type === InstallationTypeNames.Altar
+        );
+
         return ({
             ...listing.parcel,
-            fudBoost: Number(listing.parcel.fudBoost),
-            fomoBoost: Number(listing.parcel.fomoBoost),
-            alphaBoost: Number(listing.parcel.alphaBoost),
-            kekBoost: Number(listing.parcel.kekBoost),
+            installations,
+            tiles,
+            altarLevel: altar ? altar.level : 0,
             listings: [{
                 id: listing.id,
                 priceInWei: listing.priceInWei
