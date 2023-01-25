@@ -21,9 +21,16 @@ interface Gotchi {
     name: string;
     lastInteracted: string;
 }
+// Interval repeater and tx cost limit
+const repeatTimer = 5 * 60 * 1000;
+const txCostLimit = 60 * 1e9;
+let interval;
 
 const { OWNER_ADDRESS, OPERATOR_PRIVATE_KEY } = process.env;
 
+pet();
+
+function pet () {
 if (!OWNER_ADDRESS || !OPERATOR_PRIVATE_KEY) {
     console.log('Please specify OWNER_ADDRESS and OPERTOR_PRIVATE_KEY in .env');
     exit();
@@ -62,11 +69,22 @@ MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRE
                 const gotchis: Gotchi[] = res.data.data.user.gotchisOriginalOwned;
                 const gotchiIds = gotchis.map((gotchi) => gotchi.gotchiId);
                 const gasPriceGwei = await getGasPrice();
+                if (gasPriceGwei >= txCostLimit)
+                { console.log(`💱 ${paint("to high tx cost: maximum",CONSOLE_COLORS.Red)} ${paint(txCostLimit, CONSOLE_COLORS.Red)} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
+                clearInterval(interval);
+                interval = setInterval(pet, repeatTimer);
+                console.log(`⌛ Next timer in minutes: ${paint(repeatTimer/60/1000, CONSOLE_COLORS.Green)}`);
+                return;}
+                console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
+
                 const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
 
                 if (!gotchis.length) {
                     console.log(paint('No gotchis avaialble for petting!', CONSOLE_COLORS.Yellow));
-                    exit();
+                    clearInterval(interval);
+                    interval = setInterval(pet, repeatTimer*12);
+                    console.log(`⌛ Next timer in minutes: ${paint(repeatTimer/60/1000*12, CONSOLE_COLORS.Green)}`);
+                    return;
                 }
 
                 console.log(`👻 gotchis for petting: ${paint(gotchis.length, CONSOLE_COLORS.Pink)}`);
@@ -84,6 +102,9 @@ MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRE
                         .then(() => {
                             console.log(paint('Happy folks:', CONSOLE_COLORS.Pink));
                             console.log(gotchis.map((gotchi) => `${gotchi.gotchiId}: ${gotchi.name}`));
+                            clearInterval(interval);
+                            interval = setInterval(pet, HALF_DAY_MILLIS+6000);
+                            console.log(`⌛ Next timer in minutes: ${paint((HALF_DAY_MILLIS/60/1000)+1, CONSOLE_COLORS.Green)}`);
                         })
                         .catch((error: any) =>
                             console.log(
@@ -97,3 +118,4 @@ MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRE
 
 console.log(`🧑 owner: ${paint(OWNER_ADDRESS, CONSOLE_COLORS.Cyan)}`);
 console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Cyan)}`);
+}
