@@ -57,48 +57,6 @@ export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
                 </div>
             </div>
 
-            {/* // TODO that code will be reused in the future, but if you see this please check with @dudendy if it's still needed :)
-                <div className={classNames(classes.section, classes.tokensStats)}>
-                <div className={classNames(classes.inner, classes.income)}>
-                    <CustomTooltip
-                        title={
-                            <span>
-                                total <span className='highlight'>alchemica</span> (power in <span className='highlight'>fud</span> equivalent)
-                            </span>
-                        }
-                        placement='top'
-                        followCursor
-                    >
-                        <div className={classes.inner}>
-                            <GroupWorkIcon className={classes.innerIcon} fontSize='small' />
-                            {CommonUtils.convertFloatNumberToSuffixNumber(gotchi.totalTokens)}
-                            <span className={classes.alchemicaPower}>
-                                ({CommonUtils.convertFloatNumberToSuffixNumber(gotchi.income)})
-                            </span>
-                        </div>
-                    </CustomTooltip>
-                </div>
-            </div>
-
-            {gotchi.tokensToShare.length > 0 && (
-                <div className={classNames(classes.section, classes.tokens)}>
-                    {gotchi.tokensToShare.map((token: any, index: number) => {
-                        const tokenName = GraphUtils.getTokenName(token);
-
-                        return (
-                            <div className={classNames(classes.token, tokenName)} key={index}>
-                                <img
-                                    src={GraphUtils.getTokenImg(tokenName)}
-                                    width={14}
-                                    alt={tokenName}
-                                />
-                                <span>{CommonUtils.convertFloatNumberToSuffixNumber(gotchi[tokenName])}</span>
-                            </div>
-                        );
-                    })}
-                </div>
-            )} */}
-
             <div className={classNames(classes.section, classes.bottom)}>
                 <div className={classes.inner}>
                     <EthAddress

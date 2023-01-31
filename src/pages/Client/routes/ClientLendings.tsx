@@ -1,8 +1,6 @@
 import { useContext, useCallback, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import TimerIcon from '@mui/icons-material/Timer';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 import qs from 'query-string';
 
@@ -23,57 +21,7 @@ const sortings: SortingListItem[] = [
         paramKey: 'kin',
         tooltip: 'kinship',
         icon: <FavoriteBorderIcon fontSize='small' />
-    },
-    {
-        name: 'endTime',
-        key: 'endTime',
-        paramKey: 'endTime',
-        tooltip: 'end time',
-        icon: <TimerIcon fontSize='small' />
-    },
-    {
-        name: 'income',
-        key: 'income',
-        paramKey: 'income',
-        tooltip: 'alchemica power',
-        icon: <LocalFireDepartmentIcon fontSize='small' />
     }
-    // TODO that code will be reused in the future, but if you see this please check with @dudendy if it's still needed :)
-    // {
-    //     name: 'total',
-    //     key: 'totalTokens',
-    //     paramKey: 'total',
-    //     tooltip: 'total alchemica',
-    //     icon: <GroupWorkIcon fontSize='small' />
-    // },
-    // {
-    //     name: 'fud',
-    //     key: 'fud',
-    //     paramKey: 'fud',
-    //     tooltip: 'fud',
-    //     icon: <FudTokenIcon height={18} width={18} />
-    // },
-    // {
-    //     name: 'fomo',
-    //     key: 'fomo',
-    //     paramKey: 'fomo',
-    //     tooltip: 'fomo',
-    //     icon: <FomoTokenIcon height={18} width={18} />
-    // },
-    // {
-    //     name: 'alpha',
-    //     key: 'alpha',
-    //     paramKey: 'alpha',
-    //     tooltip: 'alpha',
-    //     icon: <AlphaTokenIcon height={18} width={18} />
-    // },
-    // {
-    //     name: 'kek',
-    //     key: 'kek',
-    //     paramKey: 'kek',
-    //     tooltip: 'kek',
-    //     icon: <KekTokenIcon height={18} width={18} />
-    // }
 ];
 
 const initialFilters: any = {

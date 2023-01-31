@@ -28,7 +28,6 @@ import {
     lendingsQuery,
     lendingsByAddressQuery,
     borrowedByAddressQuery,
-    incomeQuery,
     getParcelOrderDirectionQuery,
     gotchisGotchiverseQuery,
     parcelsGotchiverseQuery,
@@ -44,7 +43,6 @@ const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
 const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
-const incomeAPI = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 
 const defaultOptions: DefaultOptions = {
     watchQuery: {
@@ -72,7 +70,6 @@ const clientFactory = (() => {
         svgsClient: createClient(gotchiSvgAPI),
         realmClient: createClient(realmAPI),
         gotchiverseClient: createClient(gotchiverseAPI),
-        incomeClient: createClient(incomeAPI),
         fireballClient: createClient(GRAPH_FIREBALL_API)
     };
 })();
@@ -600,40 +597,6 @@ export class TheGraphApi {
 
             return filteredArray;
         });
-    }
-
-    public static async getIncomeById(id: string, timestamp: any): Promise<any> {
-        return await getGraphData(clientFactory.incomeClient, incomeQuery(id, timestamp))
-            .then((response: any) => {
-                const data: any = response.data.vortexClaims;
-
-                if (!data.length) {
-                    // return 0 income if there are no records
-                    return {
-                        FUDAmount: 0,
-                        FOMOAmount: 0,
-                        ALPHAAmount: 0,
-                        KEKAmount: 0
-                    };
-                }
-
-                const combined: any = data.reduce((acc: any, x: any) => {
-                    for (const key in x) {
-                        if (key === 'gotchiId' || key === '__typename') {
-                            break;
-                        }
-
-                        acc[key] = acc[key]
-                            ? acc[key] + EthersApi.fromWei(x[key].toString())
-                            : EthersApi.fromWei(x[key].toString());
-                    }
-
-                    return acc;
-                }, {});
-
-                return combined;
-            })
-            .catch(e => console.log(e));
     }
 
     // ! GOTCHIVERSE

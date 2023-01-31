@@ -799,24 +799,6 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
     }`;
 };
 
-export const incomeQuery = (id: any, timestamp: any): any => {
-    return `{
-        vortexClaims(
-            first: 1000,
-            where:{
-                gotchiId: "${id}",
-                timestamp_gt: "${timestamp}"
-            }
-        ) {
-          gotchiId
-          FUDAmount
-          FOMOAmount
-          ALPHAAmount
-          KEKAmount
-        }
-      }`;
-};
-
 // ! Gotchiverse queries
 
 export const gotchisGotchiverseQuery = (gotchis: any): any => {

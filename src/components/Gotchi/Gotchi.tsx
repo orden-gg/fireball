@@ -53,7 +53,9 @@ export function Gotchi({
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
     const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
-    const flipCard = useCallback(() => {
+    const flipCard = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+
         setIsFlipped(!isFlipped);
     }, [isFlipped]);
 
