@@ -5,25 +5,25 @@ import GrainIcon from '@mui/icons-material/Grain';
 import { SortingListItem } from 'shared/models';
 
 export const wearablesListingsSortings: SortingListItem[] = [
-    {
-        name: 'rarity',
-        key: 'rarityLevel',
-        paramKey: 'rarity',
-        tooltip: 'rarity',
-        icon: <GrainIcon fontSize='small' />
-    },
-    {
-        name: 'price',
-        key: 'priceInWei',
-        paramKey: 'price',
-        tooltip: 'price',
-        icon: <AttachMoneyIcon fontSize='small' />
-    },
-    {
-        name: 'time created',
-        key: 'timeCreated',
-        paramKey: 'timeCreated',
-        tooltip: 'time created',
-        icon: <AccessTimeIcon fontSize='small' />
-    }
+  {
+    name: 'rarity',
+    key: 'rarityLevel',
+    paramKey: 'rarity',
+    tooltip: 'rarity',
+    icon: <GrainIcon fontSize='small' />
+  },
+  {
+    name: 'price',
+    key: 'priceInWei',
+    paramKey: 'price',
+    tooltip: 'price',
+    icon: <AttachMoneyIcon fontSize='small' />
+  },
+  {
+    name: 'time created',
+    key: 'timeCreated',
+    paramKey: 'timeCreated',
+    tooltip: 'time created',
+    icon: <AccessTimeIcon fontSize='small' />
+  }
 ];

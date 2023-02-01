@@ -9,52 +9,46 @@ import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
 
 export function GuildGotchis() {
-    const classes = guildContentStyles();
+  const classes = guildContentStyles();
 
-    const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext<any>(GuildsContext);
+  const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext<any>(GuildsContext);
 
-    const [isGotchisLoading, setIsGotchisLoading] = useState(false);
+  const [isGotchisLoading, setIsGotchisLoading] = useState(false);
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-        if (guildId === null) {
-            return;
+    if (guildId === null) {
+      return;
+    }
+
+    setIsGotchisLoading(true);
+
+    TheGraphApi.getGotchisByAddresses(guilds[guildId].members)
+      .then(gotchis => {
+        if (mounted) {
+          setGuildGotchis(gotchis);
         }
+      })
+      .finally(() => setIsGotchisLoading(false));
 
-        setIsGotchisLoading(true);
+    return () => {
+      mounted = false;
+    };
+  }, [guilds, guildId, setGuildGotchis]);
 
-        TheGraphApi.getGotchisByAddresses(guilds[guildId].members).then(gotchis => {
-            if (mounted) {
-                setGuildGotchis(gotchis);
-            }
-        }).finally(() => setIsGotchisLoading(false));
-
-        return () => { mounted = false };
-    }, [guilds, guildId, setGuildGotchis]);
-
-    return (
-        <div className={classes.guildGotchis}>
-            {isGotchisLoading ? (
-                <CircularProgress className={classes.loading} />
-            ) : guildGotchis.length > 0 ? (
-                    <GotchisLazy
-                        items={guildGotchis}
-                        renderItem={id => (
-                            <Gotchi
-                                gotchi={guildGotchis[id]}
-                                className='narrowed'
-                                render={[
-                                    'svg',
-                                    'name'
-                                ]}
-                            />
-                        )}
-                    />
-                ) : (
-                    <div className={classes.noData}>No Gotchis :(</div>
-                )
-            }
-        </div>
-    );
+  return (
+    <div className={classes.guildGotchis}>
+      {isGotchisLoading ? (
+        <CircularProgress className={classes.loading} />
+      ) : guildGotchis.length > 0 ? (
+        <GotchisLazy
+          items={guildGotchis}
+          renderItem={id => <Gotchi gotchi={guildGotchis[id]} className='narrowed' render={['svg', 'name']} />}
+        />
+      ) : (
+        <div className={classes.noData}>No Gotchis :(</div>
+      )}
+    </div>
+  );
 }

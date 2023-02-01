@@ -6,44 +6,45 @@ import _ from 'lodash';
 import { styles } from './styles';
 
 interface InputFilterProps {
-    filter: any;
-    onSetSelectedFilters: (key: string, value: string) => void;
-    isDisabled: boolean;
+  filter: any;
+  onSetSelectedFilters: (key: string, value: string) => void;
+  isDisabled: boolean;
 }
 
 export function InputFilter({ filter, onSetSelectedFilters, isDisabled }: InputFilterProps) {
-    const classes = styles();
+  const classes = styles();
 
-    const [currentValue, setCurrentValue] = useState<string>('');
+  const [currentValue, setCurrentValue] = useState<string>('');
 
-    useEffect(() => {
-        setCurrentValue(filter.value);
-    }, [filter.value]);
+  useEffect(() => {
+    setCurrentValue(filter.value);
+  }, [filter.value]);
 
-    const onInputChange = useCallback((value: string) => {
-        setCurrentValue(value);
+  const onInputChange = useCallback(
+    (value: string) => {
+      setCurrentValue(value);
 
-        onHandleInputDebounce(filter.key, value);
-    }, [filter, onSetSelectedFilters]);
+      onHandleInputDebounce(filter.key, value);
+    },
+    [filter, onSetSelectedFilters]
+  );
 
-    const onHandleInputDebounce = _.debounce((key: string, value: string) => {
-        onSetSelectedFilters(key, value);
-    }, 500);
+  const onHandleInputDebounce = _.debounce((key: string, value: string) => {
+    onSetSelectedFilters(key, value);
+  }, 500);
 
-    return (
-        <div className={classes.wrapper}>
-            { filter.title && (
-                <span className={classes.title}>{filter.title}</span>
-            )}
-            <TextField
-                variant='outlined'
-                size='small'
-                label={filter.placeholder}
-                value={currentValue}
-                onChange={event => onInputChange(event.target.value)}
-                className={classes.input}
-                disabled={isDisabled}
-            ></TextField>
-        </div>
-    );
+  return (
+    <div className={classes.wrapper}>
+      {filter.title && <span className={classes.title}>{filter.title}</span>}
+      <TextField
+        variant='outlined'
+        size='small'
+        label={filter.placeholder}
+        value={currentValue}
+        onChange={event => onInputChange(event.target.value)}
+        className={classes.input}
+        disabled={isDisabled}
+      ></TextField>
+    </div>
+  );
 }

@@ -12,83 +12,85 @@ import { AnvilCalculatorOptions, AnvilItem } from '../../models';
 import { styles } from './styles';
 
 const defaultOptions: AnvilCalculatorOptions = {
-    showGltr: true,
-    showDetailedAlchemica: true
+  showGltr: true,
+  showDetailedAlchemica: true
 };
 
 export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
-    const classes = styles();
+  const classes = styles();
 
-    const [from, setFrom] = useState<number>(0);
-    const [to, setTo] = useState<number>(anvil.levels.length - 1);
+  const [from, setFrom] = useState<number>(0);
+  const [to, setTo] = useState<number>(anvil.levels.length - 1);
 
-    const [options, setOptions]: [AnvilCalculatorOptions, Dispatch<SetStateAction<AnvilCalculatorOptions>>] =
-        useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
+  const [options, setOptions]: [
+    AnvilCalculatorOptions,
+    Dispatch<SetStateAction<AnvilCalculatorOptions>>
+  ] = useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
 
-    if (!anvil) {
-        return null;
+  if (!anvil) {
+    return null;
+  }
+
+  const handleFrom = event => {
+    const state = event.currentTarget.innerText;
+
+    if (!state) {
+      return;
     }
 
-    const handleFrom = (event) => {
-        const state = event.currentTarget.innerText;
+    setFrom(state === '+' ? from + 1 : from - 1);
+  };
 
-        if (!state) {
-            return;
-        }
+  const handleTo = event => {
+    const state = event.currentTarget.innerText;
 
-        setFrom(state === '+' ? from + 1 : from - 1);
+    if (!state) {
+      return;
+    }
+
+    setTo(state === '+' ? to + 1 : to - 1);
+  };
+
+  const handleOptionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const updatedOptions = {
+      ...options,
+      [event.target.name]: event.target.checked
     };
 
-    const handleTo = (event) => {
-        const state = event.currentTarget.innerText;
+    setOptions(updatedOptions);
+    localStorage.setItem('ANVIL_OPTIONS', JSON.stringify(updatedOptions));
+  };
 
-        if (!state) {
-            return;
-        }
-
-        setTo(state === '+' ? to + 1 : to - 1);
-    };
-
-    const handleOptionsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const updatedOptions = {
-            ...options,
-            [event.target.name]: event.target.checked
-        };
-
-        setOptions(updatedOptions);
-        localStorage.setItem('ANVIL_OPTIONS', JSON.stringify(updatedOptions));
-    };
-
-    return (
-        <div>
-            <div className={classes.anvilCalc}>
-                <div className={classes.anvilCalcSection}>
-                    <AnvilButton text='-' onClick={handleFrom} disabled={from === 0} />
-                    <AnvilSection item={anvil.levels[from]} imageIndex={anvil.id + from} options={options} />
-                    <AnvilButton text='+' onClick={handleFrom} disabled={from === to - 1} />
-                </div>
-
-                <div className={classes.anvilCalcCore}>
-                    <DoubleArrowIcon className={classes.anvilCalcArrow} />
-                    <div className={classes.anvilCalcOptions}>
-                        {Object.entries(options).map(([name, value], index) => (
-                            <div key={index}>
-                                <FormControlLabel
-                                    control={<Checkbox checked={value} onChange={handleOptionsChange} name={name} />}
-                                    label={name.replace(/([A-Z])/g, ' $1').toLowerCase()}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className={classes.anvilCalcSection}>
-                    <AnvilButton text='-' onClick={handleTo} disabled={to === from + 1} />
-                    <AnvilSection item={anvil.levels[to]} imageIndex={anvil.id + to} options={options} />
-                    <AnvilButton text='+' onClick={handleTo} disabled={to === anvil.levels.length - 1} />
-                </div>
-            </div>
-            <AnvilSummary summary={[...anvil.levels].splice(from + 1, to - from)} options={options} />
+  return (
+    <div>
+      <div className={classes.anvilCalc}>
+        <div className={classes.anvilCalcSection}>
+          <AnvilButton text='-' onClick={handleFrom} disabled={from === 0} />
+          <AnvilSection item={anvil.levels[from]} imageIndex={anvil.id + from} options={options} />
+          <AnvilButton text='+' onClick={handleFrom} disabled={from === to - 1} />
         </div>
-    );
+
+        <div className={classes.anvilCalcCore}>
+          <DoubleArrowIcon className={classes.anvilCalcArrow} />
+          <div className={classes.anvilCalcOptions}>
+            {Object.entries(options).map(([name, value], index) => (
+              <div key={index}>
+                <FormControlLabel
+                  control={<Checkbox checked={value} onChange={handleOptionsChange} name={name} />}
+                  label={name.replace(/([A-Z])/g, ' $1').toLowerCase()}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={classes.anvilCalcSection}>
+          <AnvilButton text='-' onClick={handleTo} disabled={to === from + 1} />
+          <AnvilSection item={anvil.levels[to]} imageIndex={anvil.id + to} options={options} />
+          <AnvilButton text='+' onClick={handleTo} disabled={to === anvil.levels.length - 1} />
+        </div>
+      </div>
+      <AnvilSummary summary={[...anvil.levels].splice(from + 1, to - from)} options={options} />
+    </div>
+  );
 }

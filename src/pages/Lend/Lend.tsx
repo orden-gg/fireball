@@ -30,359 +30,355 @@ import { filtersData } from 'data/filters.data';
 import { styles } from './styles';
 
 const sortings: SortingListItem[] = [
-    {
-        name: 'id',
-        key: 'id',
-        paramKey: 'id',
-        tooltip: 'gotchi id',
-        icon: <Grid3x3Icon fontSize='small' />
-    },
-    {
-        name: 'mrs',
-        key: 'modifiedRarityScore',
-        paramKey: 'mrs',
-        tooltip: 'rarity score',
-        icon: <EmojiEventsOutlinedIcon fontSize='small' />
-    },
-    {
-        name: 'kin',
-        key: 'kinship',
-        paramKey: 'kinship',
-        tooltip: 'kinship',
-        icon: <FavoriteBorderIcon fontSize='small' />
-    },
-    {
-        name: 'time',
-        key: 'timeCreated',
-        paramKey: 'created',
-        tooltip: 'time created',
-        icon: <FormatListNumberedIcon fontSize='small' />
-    },
-    {
-        name: 'upfront cost',
-        key: 'upfrontCost',
-        paramKey: 'cost',
-        tooltip: 'upfront cost',
-        icon: <AttachMoneyIcon fontSize='small' />
-    },
-    {
-        name: 'period',
-        key: 'period',
-        paramKey: 'period',
-        tooltip: 'rental period',
-        icon: <AccessTimeIcon fontSize='small' />
-    },
-    {
-        name: 'owner revenue',
-        key: 'splitOwner',
-        paramKey: 'owner',
-        tooltip: 'owner revenue',
-        icon: <CopyrightIcon fontSize='small' />
-    },
-    {
-        name: 'borrower revenue',
-        key: 'splitBorrower',
-        paramKey: 'borrower',
-        tooltip: 'borrower revenue',
-        icon: <PercentIcon fontSize='small' />
-    }
+  {
+    name: 'id',
+    key: 'id',
+    paramKey: 'id',
+    tooltip: 'gotchi id',
+    icon: <Grid3x3Icon fontSize='small' />
+  },
+  {
+    name: 'mrs',
+    key: 'modifiedRarityScore',
+    paramKey: 'mrs',
+    tooltip: 'rarity score',
+    icon: <EmojiEventsOutlinedIcon fontSize='small' />
+  },
+  {
+    name: 'kin',
+    key: 'kinship',
+    paramKey: 'kinship',
+    tooltip: 'kinship',
+    icon: <FavoriteBorderIcon fontSize='small' />
+  },
+  {
+    name: 'time',
+    key: 'timeCreated',
+    paramKey: 'created',
+    tooltip: 'time created',
+    icon: <FormatListNumberedIcon fontSize='small' />
+  },
+  {
+    name: 'upfront cost',
+    key: 'upfrontCost',
+    paramKey: 'cost',
+    tooltip: 'upfront cost',
+    icon: <AttachMoneyIcon fontSize='small' />
+  },
+  {
+    name: 'period',
+    key: 'period',
+    paramKey: 'period',
+    tooltip: 'rental period',
+    icon: <AccessTimeIcon fontSize='small' />
+  },
+  {
+    name: 'owner revenue',
+    key: 'splitOwner',
+    paramKey: 'owner',
+    tooltip: 'owner revenue',
+    icon: <CopyrightIcon fontSize='small' />
+  },
+  {
+    name: 'borrower revenue',
+    key: 'splitBorrower',
+    paramKey: 'borrower',
+    tooltip: 'borrower revenue',
+    icon: <PercentIcon fontSize='small' />
+  }
 ];
 
 const initialFilters: any = {
-    guild: { ...filtersData.guild },
-    whitelistId: { ...filtersData.whitelistId, divider: true },
-    period: { ...filtersData.period },
-    splitBorrower: { ...filtersData.splitBorrower },
-    upfrontCost: { ...filtersData.upfrontCost }
+  guild: { ...filtersData.guild },
+  whitelistId: { ...filtersData.whitelistId, divider: true },
+  period: { ...filtersData.period },
+  splitBorrower: { ...filtersData.splitBorrower },
+  upfrontCost: { ...filtersData.upfrontCost }
 };
 const queryParamsOrder: string[] = ['guild', 'whitelistId', 'period', 'borrower', 'upfront', 'sort', 'dir'];
 
 export function Lend() {
-    const classes = styles();
+  const classes = styles();
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-    const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
-    const [lendings, setLendings] = useState<any[]>([]);
-    const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
-    const [linksListView, setLinksListView] = useState<boolean>(false);
-    const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'timeCreated', dir: 'desc' });
-    const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-    const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
+  const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
+  const [lendings, setLendings] = useState<any[]>([]);
+  const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
+  const [linksListView, setLinksListView] = useState<boolean>(false);
+  const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'timeCreated', dir: 'desc' });
+  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+  const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-    const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } =
-        useContext<DataReloadContextState>(DataReloadContext);
+  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
+    DataReloadContextState
+  >(DataReloadContext);
 
-    useEffect(() => {
-        setCurrentFilters((currentFiltersCache: any) =>
-            FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
-        );
+  useEffect(() => {
+    setCurrentFilters((currentFiltersCache: any) =>
+      FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
+    );
 
-        const { sort, dir } = queryParams as CustomParsedQuery;
+    const { sort, dir } = queryParams as CustomParsedQuery;
 
-        if (sort && dir) {
-            const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+    if (sort && dir) {
+      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
 
-            onSortingChange(key, dir);
-        }
+      onSortingChange(key, dir);
+    }
 
-        setActiveReloadType(DataReloadType.Lendings);
+    setActiveReloadType(DataReloadType.Lendings);
 
-        return () => {
-            onResetFilters();
-            setActiveReloadType(null);
-        };
-    }, []);
+    return () => {
+      onResetFilters();
+      setActiveReloadType(null);
+    };
+  }, []);
 
-    useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-        onGetLendings(isMounted, true);
+    onGetLendings(isMounted, true);
 
-        return () => {
-            isMounted = false;
-        };
-    }, []);
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
-    useEffect(() => {
-        let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-        if (lastManuallyUpdated !== 0 && canBeUpdated) {
-            onGetLendings(isMounted);
-        }
+    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+      onGetLendings(isMounted);
+    }
 
-        return () => {
-            isMounted = false;
-        };
-    }, [lastManuallyUpdated]);
+    return () => {
+      isMounted = false;
+    };
+  }, [lastManuallyUpdated]);
 
-    useEffect(() => {
-        updateFilterQueryParams(currentFilters);
-    }, [currentFilters]);
+  useEffect(() => {
+    updateFilterQueryParams(currentFilters);
+  }, [currentFilters]);
 
-    useEffect(() => {
-        const paramKey: any = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
+  useEffect(() => {
+    const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
 
-        updateSortQueryParams(paramKey, lendingsSorting.dir);
-    }, [lendingsSorting]);
+    updateSortQueryParams(paramKey, lendingsSorting.dir);
+  }, [lendingsSorting]);
 
-    useEffect(() => {
-        const modifiedLendings = FilterUtils.getFilteredSortedItems({
-            items: lendings,
-            filters: currentFilters,
-            sorting: lendingsSorting,
-            getFilteredItems: FilterUtils.getFilteredItems
+  useEffect(() => {
+    const modifiedLendings = FilterUtils.getFilteredSortedItems({
+      items: lendings,
+      filters: currentFilters,
+      sorting: lendingsSorting,
+      getFilteredItems: FilterUtils.getFilteredItems
+    });
+
+    setModifiedLendings(modifiedLendings);
+  }, [currentFilters, lendings, lendingsSorting]);
+
+  const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
+    setIsReloadDisabled(true);
+    setIsDataLoading(shouldUpdateIsLoading);
+
+    TheGraphApi.getLendings().then((response: any) => {
+      if (isMounted) {
+        const whitelistData: any[] = [];
+        const mappedData: any[] = [];
+
+        response.forEach((listing: any) => {
+          if (listing.whitelistId) {
+            whitelistData.push(listing.whitelistId);
+          }
+
+          mappedData.push({
+            ...listing,
+            guild: GotchiverseUtils.gedAddressGuild(listing.lender)
+          });
         });
 
-        setModifiedLendings(modifiedLendings);
-    }, [currentFilters, lendings, lendingsSorting]);
+        const sortedWhitelist: any[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+        const upfronCostValues: number[] = mappedData.map((item: any) => EthersApi.fromWei(item.upfrontCost));
+        const maxUpfrontCost: number = Math.max(...upfronCostValues);
 
-    const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-        setIsReloadDisabled(true);
-        setIsDataLoading(shouldUpdateIsLoading);
+        setCurrentFilters((currentFiltersCache: any) => {
+          const currentFiltersCacheCopy = { ...currentFiltersCache };
 
-        TheGraphApi.getLendings().then((response: any) => {
-            if (isMounted) {
-                const whitelistData: any[] = [];
-                const mappedData: any[] = [];
+          currentFiltersCacheCopy.whitelistId = {
+            ...currentFiltersCacheCopy.whitelistId,
+            items: sortedWhitelist.map(whitelist => ({
+              title: whitelist,
+              value: whitelist,
+              queryParamValue: whitelist,
+              isSelected: false
+            }))
+          };
 
-                response.forEach((listing: any) => {
-                    if (listing.whitelistId) {
-                        whitelistData.push(listing.whitelistId);
-                    }
+          currentFiltersCacheCopy.upfrontCost = {
+            ...currentFiltersCacheCopy.upfrontCost,
+            max: maxUpfrontCost,
+            value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
+          };
 
-                    mappedData.push({
-                        ...listing,
-                        guild: GotchiverseUtils.gedAddressGuild(listing.lender)
-                    });
-                });
+          let filtersToReturn: any;
 
-                const sortedWhitelist: any[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
-                const upfronCostValues: number[] = mappedData.map((item: any) => EthersApi.fromWei(item.upfrontCost));
-                const maxUpfrontCost: number = Math.max(...upfronCostValues);
+          if (Object.keys(queryParams).length > 0) {
+            filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+          } else {
+            filtersToReturn = currentFiltersCacheCopy;
+          }
 
-                setCurrentFilters((currentFiltersCache: any) => {
-                    const currentFiltersCacheCopy = { ...currentFiltersCache };
-
-                    currentFiltersCacheCopy.whitelistId = {
-                        ...currentFiltersCacheCopy.whitelistId,
-                        items: sortedWhitelist.map((whitelist) => ({
-                            title: whitelist,
-                            value: whitelist,
-                            queryParamValue: whitelist,
-                            isSelected: false
-                        }))
-                    };
-
-                    currentFiltersCacheCopy.upfrontCost = {
-                        ...currentFiltersCacheCopy.upfrontCost,
-                        max: maxUpfrontCost,
-                        value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
-                    };
-
-                    let filtersToReturn: any;
-
-                    if (Object.keys(queryParams).length > 0) {
-                        filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(
-                            queryParams,
-                            currentFiltersCacheCopy
-                        );
-                    } else {
-                        filtersToReturn = currentFiltersCacheCopy;
-                    }
-
-                    return filtersToReturn;
-                });
-                setLendings(mappedData);
-                setIsDataLoading(false);
-                setIsReloadDisabled(false);
-                setLastUpdated(Date.now());
-                setCanBeUpdated(true);
-            }
+          return filtersToReturn;
         });
-    };
+        setLendings(mappedData);
+        setIsDataLoading(false);
+        setIsReloadDisabled(false);
+        setLastUpdated(Date.now());
+        setCanBeUpdated(true);
+      }
+    });
+  };
 
-    const onSortingChange = useCallback(
-        (type: string, dir: string) => {
-            setLendingsSorting({ type, dir });
-        },
-        [setLendingsSorting]
-    );
+  const onSortingChange = useCallback(
+    (type: string, dir: string) => {
+      setLendingsSorting({ type, dir });
+    },
+    [setLendingsSorting]
+  );
 
-    const sorting: any = {
-        sortingList: sortings,
-        sortingDefaults: lendingsSorting,
-        onSortingChange: onSortingChange
-    };
+  const sorting: any = {
+    sortingList: sortings,
+    sortingDefaults: lendingsSorting,
+    onSortingChange: onSortingChange
+  };
 
-    const updateSortQueryParams = useCallback(
-        (prop: string, dir: string) => {
-            const params = { ...queryParams, sort: prop, dir };
+  const updateSortQueryParams = useCallback(
+    (prop: string, dir: string) => {
+      const params = { ...queryParams, sort: prop, dir };
 
-            FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
-        },
-        [queryParams, navigate, location.pathname]
-    );
+      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    },
+    [queryParams, navigate, location.pathname]
+  );
 
-    const updateFilterQueryParams = useCallback(
-        (filters: any) => {
-            const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
+  const updateFilterQueryParams = useCallback(
+    (filters: any) => {
+      const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-            FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
-        },
-        [queryParams, navigate, location.pathname]
-    );
+      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+    },
+    [queryParams, navigate, location.pathname]
+  );
 
-    const onSetSelectedFilters = (key: string, selectedValue: any) => {
-        FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
-    };
+  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+    FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
+  };
 
-    const onResetFilters = useCallback(() => {
-        FilterUtils.resetFilters(currentFilters, setCurrentFilters);
-    }, [currentFilters]);
+  const onResetFilters = useCallback(() => {
+    FilterUtils.resetFilters(currentFilters, setCurrentFilters);
+  }, [currentFilters]);
 
-    const onExportData = useCallback(() => {
-        FilterUtils.exportData(modifiedLendings, 'lendings');
-    }, [modifiedLendings]);
+  const onExportData = useCallback(() => {
+    FilterUtils.exportData(modifiedLendings, 'lendings');
+  }, [modifiedLendings]);
 
-    return (
-        <ContentWrapper>
-            <>
-                <SortFilterPanel
-                    sorting={sorting}
-                    itemsLength={modifiedLendings.length}
-                    placeholder={<GotchiIcon width={20} height={20} />}
+  return (
+    <ContentWrapper>
+      <>
+        <SortFilterPanel
+          sorting={sorting}
+          itemsLength={modifiedLendings.length}
+          placeholder={<GotchiIcon width={20} height={20} />}
+        />
+
+        <ToggleButton
+          value='check'
+          selected={linksListView}
+          onChange={() => {
+            setLinksListView(!linksListView);
+          }}
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: 36,
+            padding: '6px 0',
+            color: 'transparent',
+            border: 'none'
+          }}
+        >
+          List
+        </ToggleButton>
+
+        <ContentInner dataLoading={isDataLoading}>
+          {/* // !temporary code (hidden feature) */}
+          {linksListView ? (
+            <ol
+              style={{
+                height: 'calc(100vh - 208px)',
+                overflowY: 'scroll',
+                margin: 0,
+                padding: '10px 0 10px 60px'
+              }}
+            >
+              {modifiedLendings.map(lend => {
+                return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>;
+              })}
+            </ol>
+          ) : (
+            <GotchisLazy
+              items={modifiedLendings}
+              renderItem={id => (
+                <Gotchi
+                  gotchi={modifiedLendings[id]}
+                  render={[
+                    {
+                      className: 'gotchiHeader',
+                      items: ['collateral', 'kinship', 'level']
+                    },
+                    {
+                      className: 'imageContainer',
+                      items: [
+                        'svg',
+                        {
+                          className: 'rsContainer',
+                          items: ['rs']
+                        },
+                        {
+                          className: 'imageFooter',
+                          items: ['guild', 'whitelistId']
+                        }
+                      ]
+                    },
+                    'name',
+                    'lending',
+                    'channeling'
+                  ]}
                 />
+              )}
+            />
+          )}
+        </ContentInner>
+      </>
+      <>
+        <Filters
+          className={classNames(classes.section, classes.filtersWrapper)}
+          filters={currentFilters}
+          onSetSelectedFilters={onSetSelectedFilters}
+        />
 
-                <ToggleButton
-                    value='check'
-                    selected={linksListView}
-                    onChange={() => {
-                        setLinksListView(!linksListView);
-                    }}
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        right: 0,
-                        width: 36,
-                        padding: '6px 0',
-                        color: 'transparent',
-                        border: 'none'
-                    }}
-                >
-                    List
-                </ToggleButton>
-
-                <ContentInner dataLoading={isDataLoading}>
-                    {/* // !temporary code (hidden feature) */}
-                    {linksListView ? (
-                        <ol
-                            style={{
-                                height: 'calc(100vh - 208px)',
-                                overflowY: 'scroll',
-                                margin: 0,
-                                padding: '10px 0 10px 60px'
-                            }}
-                        >
-                            {modifiedLendings.map((lend) => {
-                                return (
-                                    <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>
-                                );
-                            })}
-                        </ol>
-                    ) : (
-                        <GotchisLazy
-                            items={modifiedLendings}
-                            renderItem={(id) => (
-                                <Gotchi
-                                    gotchi={modifiedLendings[id]}
-                                    render={[
-                                        {
-                                            className: 'gotchiHeader',
-                                            items: ['collateral', 'kinship', 'level']
-                                        },
-                                        {
-                                            className: 'imageContainer',
-                                            items: [
-                                                'svg',
-                                                {
-                                                    className: 'rsContainer',
-                                                    items: ['rs']
-                                                },
-                                                {
-                                                    className: 'imageFooter',
-                                                    items: ['guild', 'whitelistId']
-                                                }
-                                            ]
-                                        },
-                                        'name',
-                                        'lending',
-                                        'channeling'
-                                    ]}
-                                />
-                            )}
-                        />
-                    )}
-                </ContentInner>
-            </>
-            <>
-                <Filters
-                    className={classNames(classes.section, classes.filtersWrapper)}
-                    filters={currentFilters}
-                    onSetSelectedFilters={onSetSelectedFilters}
-                />
-
-                <div className={classes.buttonsWrapper}>
-                    <Button variant='contained' color='warning' size='small' onClick={onResetFilters}>
-                        Reset
-                    </Button>
-                    <Button variant='contained' color='secondary' size='small' onClick={onExportData}>
-                        Export data (.json)
-                    </Button>
-                </div>
-            </>
-        </ContentWrapper>
-    );
+        <div className={classes.buttonsWrapper}>
+          <Button variant='contained' color='warning' size='small' onClick={onResetFilters}>
+            Reset
+          </Button>
+          <Button variant='contained' color='secondary' size='small' onClick={onExportData}>
+            Export data (.json)
+          </Button>
+        </div>
+      </>
+    </ContentWrapper>
+  );
 }

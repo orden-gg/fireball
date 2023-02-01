@@ -8,37 +8,37 @@ import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import { guildNavStyles } from '../styles';
 
 export function GuildNav() {
-    const classes = guildNavStyles();
+  const classes = guildNavStyles();
 
-    const { guildGotchis, guildLendings, guildRealm } = useContext<any>(GuildsContext);
+  const { guildGotchis, guildLendings, guildRealm } = useContext<any>(GuildsContext);
 
-    const navData: PageNavLink[] = [
-        {
-            name: 'gotchis',
-            path: 'gotchis',
-            icon: <GotchiIcon width={24} height={24} />,
-            isLoading: false,
-            count: guildGotchis.length || '...'
-        },
-        {
-            name: 'lendings',
-            path: 'lendings',
-            icon: <LendingIcon width={24} height={24} />,
-            isLoading: false,
-            count: guildLendings.length || '...'
-        },
-        {
-            name: 'realm',
-            path: 'realm',
-            icon: <KekIcon width={24} height={24} />,
-            isLoading: false,
-            count: guildRealm.length || '...'
-        }
-    ];
+  const navData: PageNavLink[] = [
+    {
+      name: 'gotchis',
+      path: 'gotchis',
+      icon: <GotchiIcon width={24} height={24} />,
+      isLoading: false,
+      count: guildGotchis.length || '...'
+    },
+    {
+      name: 'lendings',
+      path: 'lendings',
+      icon: <LendingIcon width={24} height={24} />,
+      isLoading: false,
+      count: guildLendings.length || '...'
+    },
+    {
+      name: 'realm',
+      path: 'realm',
+      icon: <KekIcon width={24} height={24} />,
+      isLoading: false,
+      count: guildRealm.length || '...'
+    }
+  ];
 
-    return (
-        <div className={classes.guildNav}>
-            <PageNav links={navData} />
-        </div>
-    );
+  return (
+    <div className={classes.guildNav}>
+      <PageNav links={navData} />
+    </div>
+  );
 }

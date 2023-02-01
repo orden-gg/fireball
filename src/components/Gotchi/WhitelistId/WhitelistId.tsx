@@ -3,12 +3,12 @@ import PlaylistAddCheckOutlinedIcon from '@mui/icons-material/PlaylistAddCheckOu
 import { styles } from './styles';
 
 export function WhitelistId({ whitelistId }: { whitelistId: number }) {
-    const classes = styles();
+  const classes = styles();
 
-    return (
-        <div className={classes.whitelist}>
-            <PlaylistAddCheckOutlinedIcon fontSize='small'/>
-            {whitelistId}
-        </div>
-    );
+  return (
+    <div className={classes.whitelist}>
+      <PlaylistAddCheckOutlinedIcon fontSize='small' />
+      {whitelistId}
+    </div>
+  );
 }

@@ -28,236 +28,232 @@ import { styles, InterfaceStyles } from './styles';
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
 interface CitadelProps {
-    realmGroups: any[];
-    className?: string;
-    isLoaded: boolean;
+  realmGroups: any[];
+  className?: string;
+  isLoaded: boolean;
 }
 
 export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
-    const classes = { ...styles(), ...InterfaceStyles() };
+  const classes = { ...styles(), ...InterfaceStyles() };
 
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
 
-    const [game, setGame] = useState<any>(null);
-    const [mapCreated, setMapCreated] = useState<boolean>(false);
-    const [selectedParcel, setSelectedParcel] = useState<any>(null);
-    const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const [parcelLoading, setParcelLoading] = useState<boolean>(false);
+  const [game, setGame] = useState<any>(null);
+  const [mapCreated, setMapCreated] = useState<boolean>(false);
+  const [selectedParcel, setSelectedParcel] = useState<any>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [parcelLoading, setParcelLoading] = useState<boolean>(false);
 
-    const gameRef = useRef<any>(null);
-    const wrapperRef = useRef<any>(null);
+  const gameRef = useRef<any>(null);
+  const wrapperRef = useRef<any>(null);
 
-    const findOnMap = (type: string, value: string) => game.scene.find(type, value);
+  const findOnMap = (type: string, value: string) => game.scene.find(type, value);
 
-    const removeSelected = () => setSelectedParcel(null);
+  const removeSelected = () => setSelectedParcel(null);
 
-    const onExportData = () => {
-        FilterUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
-    };
+  const onExportData = () => {
+    FilterUtils.exportData(game.scene.filtersManager.filteredParcels, 'parcels');
+  };
 
-    const updateGroup = (type: string, isActive: boolean) => {
-        game.scene.updateGroup(type, isActive);
-    };
+  const updateGroup = (type: string, isActive: boolean) => {
+    game.scene.updateGroup(type, isActive);
+  };
 
-    const onFiltersChange = (filters: any) => {
-        updateQueryParams(filters);
-        game.scene.filtersManager.updateFilters(filters);
-    };
+  const onFiltersChange = (filters: any) => {
+    updateQueryParams(filters);
+    game.scene.filtersManager.updateFilters(filters);
+  };
 
-    const buttonIsActive = (type: string) => {
-        const { active } = params;
+  const buttonIsActive = (type: string) => {
+    const { active } = params;
 
-        if (typeof active === 'string') {
-            return active === type;
-        } else {
-            return Boolean(active?.some(name => name === type));
-        }
-    };
+    if (typeof active === 'string') {
+      return active === type;
+    } else {
+      return Boolean(active?.some(name => name === type));
+    }
+  };
 
-    const basicButtons = useMemo(() => {
-        return realmGroups
-            .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
-            .map(group => {
-                return (
-                    <BasicButton
-                        type={group.type}
-                        icon={group.icon}
-                        tooltip={group.tooltip}
-                        active={buttonIsActive(group.type) || group.active}
-                        handleClick={updateGroup}
-                        key={group.type}
-                    />
-                );
-            });
-    }, [realmGroups, mapCreated]);
+  const basicButtons = useMemo(() => {
+    return realmGroups
+      .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
+      .map(group => {
+        return (
+          <BasicButton
+            type={group.type}
+            icon={group.icon}
+            tooltip={group.tooltip}
+            active={buttonIsActive(group.type) || group.active}
+            handleClick={updateGroup}
+            key={group.type}
+          />
+        );
+      });
+  }, [realmGroups, mapCreated]);
 
-    const updateQueryParams = useCallback(
-        (filters: any) => {
-            const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
+  const updateQueryParams = useCallback(
+    (filters: any) => {
+      const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
 
-            setParams(newParams);
+      setParams(newParams);
+    },
+    [params]
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      setGame({
+        width: window.innerWidth * window.devicePixelRatio,
+        height: window.innerHeight * window.devicePixelRatio,
+        type: Phaser.NONE,
+        scale: {
+          mode: Phaser.Scale.RESIZE,
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+          width: window.innerWidth,
+          height: window.innerHeight
         },
-        [params]
-    );
+        scene: new CitadelScene({ wrapperRef })
+      });
+    }, 100);
+  }, []);
 
-    useEffect(() => {
-        setTimeout(() => {
-            setGame({
-                width: window.innerWidth * window.devicePixelRatio,
-                height: window.innerHeight * window.devicePixelRatio,
-                type: Phaser.NONE,
-                scale: {
-                    mode: Phaser.Scale.RESIZE,
-                    autoCenter: Phaser.Scale.CENTER_BOTH,
-                    width: window.innerWidth,
-                    height: window.innerHeight
-                },
-                scene: new CitadelScene({ wrapperRef })
-            });
-        }, 100);
-    }, []);
+  useEffect(() => {
+    if (game?.scene) {
+      game.scene.on('created', () => setMapCreated(true));
 
-    useEffect(() => {
-        if (game?.scene) {
-            game.scene.on('created', () => setMapCreated(true));
+      game.scene.on('parcelSelect', parcel => {
+        setParcelLoading(true);
 
-            game.scene.on('parcelSelect', parcel => {
-                setParcelLoading(true);
+        TheGraphApi.getRealmById(parcel.tokenId).then(realmParcel => {
+          if (realmParcel !== null) {
+            if (realmParcel.installations.length > 0) {
+              realmParcel.installations = InstallationsUtils.combineInstallations(realmParcel.installations);
+            }
 
-                TheGraphApi.getRealmById(parcel.tokenId).then((realmParcel) => {
-                    if (realmParcel !== null) {
-                        if (realmParcel.installations.length > 0) {
-                            realmParcel.installations = InstallationsUtils.combineInstallations(
-                                realmParcel.installations
-                            );
-                        }
+            if (realmParcel.tiles.length > 0) {
+              realmParcel.tiles = TilesUtils.combineTiles(realmParcel.tiles);
+            }
 
-                        if (realmParcel.tiles.length > 0) {
-                            realmParcel.tiles = TilesUtils.combineTiles(
-                                realmParcel.tiles
-                            );
-                        }
-
-                        setSelectedParcel(realmParcel);
-                    } else {
-                        setSelectedParcel(parcel);
-                    }
-                    setParcelLoading(false);
-                });
-            });
-
-            game.scene.on('query', ({ name, params }) => {
-                setParams(paramsState => {
-                    paramsState[name] = params;
-
-                    return { ...paramsState };
-                });
-            });
-        }
-    }, [game]);
-
-    useEffect(() => {
-        navigate({
-            pathname: location.pathname,
-            search: qs.stringify(params, {
-                sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
-                arrayFormat: 'comma'
-            })
+            setSelectedParcel(realmParcel);
+          } else {
+            setSelectedParcel(parcel);
+          }
+          setParcelLoading(false);
         });
-    }, [params]);
+      });
 
-    useEffect(() => {
-        if (mapCreated && realmGroups.length > 0) {
-            const { active } = params;
-            const groups = realmGroups.filter(group => !CommonUtils.isEmptyObject(group));
+      game.scene.on('query', ({ name, params }) => {
+        setParams(paramsState => {
+          paramsState[name] = params;
 
-            game.scene.addGroups(groups);
+          return { ...paramsState };
+        });
+      });
+    }
+  }, [game]);
 
-            if (active) {
-                if (typeof active === 'string') {
-                    game.scene.toggleGroup(active, true);
-                } else {
-                    for (const type of active) {
-                        game.scene.toggleGroup(type, true);
-                    }
-                }
-            } else {
-                const activeGroups = groups.filter(group => group.active);
-                activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
+  useEffect(() => {
+    navigate({
+      pathname: location.pathname,
+      search: qs.stringify(params, {
+        sort: (a, b) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+        arrayFormat: 'comma'
+      })
+    });
+  }, [params]);
 
-                setParams(paramsCache => ({
-                    ...paramsCache,
-                    active: activeGroups.map(group => group.type)
-                }));
-            }
+  useEffect(() => {
+    if (mapCreated && realmGroups.length > 0) {
+      const { active } = params;
+      const groups = realmGroups.filter(group => !CommonUtils.isEmptyObject(group));
+
+      game.scene.addGroups(groups);
+
+      if (active) {
+        if (typeof active === 'string') {
+          game.scene.toggleGroup(active, true);
+        } else {
+          for (const type of active) {
+            game.scene.toggleGroup(type, true);
+          }
         }
-    }, [realmGroups, mapCreated]);
+      } else {
+        const activeGroups = groups.filter(group => group.active);
+        activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
 
-    useEffect(() => {
-        if (isLoaded && mapCreated) {
-            const { multiselect } = params;
+        setParams(paramsCache => ({
+          ...paramsCache,
+          active: activeGroups.map(group => group.type)
+        }));
+      }
+    }
+  }, [realmGroups, mapCreated]);
 
-            if (multiselect && multiselect.length > 0) {
-                game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
-            }
-        }
-    }, [isLoaded, mapCreated]);
+  useEffect(() => {
+    if (isLoaded && mapCreated) {
+      const { multiselect } = params;
 
-    useEffect(() => {
-        if (selectedParcel !== null) {
-            setModalOpen(true);
-        }
-    }, [selectedParcel]);
+      if (multiselect && multiselect.length > 0) {
+        game.scene.setMultiselect(typeof multiselect === 'string' ? [multiselect] : multiselect);
+      }
+    }
+  }, [isLoaded, mapCreated]);
 
-    return (
-        <div ref={wrapperRef} className={classNames(classes.citadelWrapper, className, 'citadel-wrapper')}>
-            <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
+  useEffect(() => {
+    if (selectedParcel !== null) {
+      setModalOpen(true);
+    }
+  }, [selectedParcel]);
 
-            <CitadelInterface>
-                <SearchForm onSearch={findOnMap} type='parcel' placeholder='Parcel id or name' />
-                <SearchForm onSearch={findOnMap} type='district' placeholder='District id' />
-                <Divider className={classes.interfaceDivider} />
-                <BasicButton
-                    type='grid'
-                    tooltip='Districts grid'
-                    /* eslint-disable-next-line react/jsx-key */
-                    icon={<GridOnIcon />}
-                    handleClick={updateGroup}
-                    active={buttonIsActive('grid')}
-                />
-                <BasicButton
-                    type='guilds'
-                    tooltip='Guilds'
-                    /* eslint-disable-next-line react/jsx-key */
-                    icon={<GuildIcon width={24} height={24} />}
-                    handleClick={updateGroup}
-                    active={buttonIsActive('guilds')}
-                />
-                <>{basicButtons.length !== 0 && <Divider className={classes.interfaceDivider} />}</>
-                <>{basicButtons}</>
-            </CitadelInterface>
+  return (
+    <div ref={wrapperRef} className={classNames(classes.citadelWrapper, className, 'citadel-wrapper')}>
+      <IonPhaser ref={gameRef} game={game} initialize={true} className={classes.citadel} />
 
-            {mapCreated && (
-                <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} onExportData={onExportData} />
-            )}
+      <CitadelInterface>
+        <SearchForm onSearch={findOnMap} type='parcel' placeholder='Parcel id or name' />
+        <SearchForm onSearch={findOnMap} type='district' placeholder='District id' />
+        <Divider className={classes.interfaceDivider} />
+        <BasicButton
+          type='grid'
+          tooltip='Districts grid'
+          /* eslint-disable-next-line react/jsx-key */
+          icon={<GridOnIcon />}
+          handleClick={updateGroup}
+          active={buttonIsActive('grid')}
+        />
+        <BasicButton
+          type='guilds'
+          tooltip='Guilds'
+          /* eslint-disable-next-line react/jsx-key */
+          icon={<GuildIcon width={24} height={24} />}
+          handleClick={updateGroup}
+          active={buttonIsActive('guilds')}
+        />
+        <>{basicButtons.length !== 0 && <Divider className={classes.interfaceDivider} />}</>
+        <>{basicButtons}</>
+      </CitadelInterface>
 
-            <FullscreenButton wrapperRef={wrapperRef} />
+      {mapCreated && (
+        <CitadelFilters onFiltersChange={onFiltersChange} queryParams={params} onExportData={onExportData} />
+      )}
 
-            <CitadelInfo />
+      <FullscreenButton wrapperRef={wrapperRef} />
 
-            <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen} onModalClose={removeSelected}>
-                {selectedParcel !== null ? <ParcelPreview parcel={selectedParcel} /> : <></>}
-            </CustomModal>
+      <CitadelInfo />
 
-            <CitadelLoader isLoaded={isLoaded && mapCreated} />
+      <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen} onModalClose={removeSelected}>
+        {selectedParcel !== null ? <ParcelPreview parcel={selectedParcel} /> : <></>}
+      </CustomModal>
 
-            {parcelLoading && (
-                <Backdrop open={parcelLoading}>
-                    <CircularProgress color='primary' />
-                </Backdrop>
-            )}
-        </div>
-    );
+      <CitadelLoader isLoaded={isLoaded && mapCreated} />
+
+      {parcelLoading && (
+        <Backdrop open={parcelLoading}>
+          <CircularProgress color='primary' />
+        </Backdrop>
+      )}
+    </div>
+  );
 }

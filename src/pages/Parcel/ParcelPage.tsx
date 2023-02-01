@@ -9,63 +9,59 @@ import { TheGraphApi } from 'api';
 import { styles } from './styles';
 
 export function ParcelPage() {
-    const classes = styles();
+  const classes = styles();
 
-    const [parcel, setParcel] = useState<any>(null);
-    const [parcelLoading, setParcelLoading] = useState<boolean>(true);
+  const [parcel, setParcel] = useState<any>(null);
+  const [parcelLoading, setParcelLoading] = useState<boolean>(true);
 
-    const { parcelId } = useParams<{ parcelId: string }>();
+  const { parcelId } = useParams<{ parcelId: string }>();
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-        setParcelLoading(true);
+    setParcelLoading(true);
 
-        TheGraphApi.getRealmById(parcelId as string)
-            .then(parcel => {
-                if (mounted && parcel) {
-                    if (parcel.installations.length > 0) {
-                        parcel.installations = InstallationsUtils.combineInstallations(
-                            parcel.installations
-                        );
-                    }
+    TheGraphApi.getRealmById(parcelId as string)
+      .then(parcel => {
+        if (mounted && parcel) {
+          if (parcel.installations.length > 0) {
+            parcel.installations = InstallationsUtils.combineInstallations(parcel.installations);
+          }
 
-                    if (parcel.tiles.length > 0) {
-                        parcel.tiles = TilesUtils.combineTiles(
-                            parcel.tiles
-                        );
-                    }
+          if (parcel.tiles.length > 0) {
+            parcel.tiles = TilesUtils.combineTiles(parcel.tiles);
+          }
 
-                    setParcel(parcel);
-                }
-            })
-            .catch(err => console.log(err))
-            .finally(() => {
-                if (mounted) {
-                    setParcelLoading(false);
-                }
-            });
+          setParcel(parcel);
+        }
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        if (mounted) {
+          setParcelLoading(false);
+        }
+      });
 
-        return () => {
-            mounted = false;
-        };
-    }, [parcelId]);
+    return () => {
+      mounted = false;
+    };
+  }, [parcelId]);
 
-    return (
-        <div className={classes.container}>
-            {parcelLoading ? (
-                <Backdrop open={parcelLoading}>
-                    <CircularProgress color='primary' />
-                </Backdrop>
-            ) : parcel ? (
-                <ParcelPreview parcel={parcel} />
-            ) : (
-                <div className={classes.alert}>
-                    <Alert variant='filled' severity='error'>
-                        There is no parcel with id {parcelId}
-                    </Alert>
-                </div>
-            )}
+  return (
+    <div className={classes.container}>
+      {parcelLoading ? (
+        <Backdrop open={parcelLoading}>
+          <CircularProgress color='primary' />
+        </Backdrop>
+      ) : parcel ? (
+        <ParcelPreview parcel={parcel} />
+      ) : (
+        <div className={classes.alert}>
+          <Alert variant='filled' severity='error'>
+            There is no parcel with id {parcelId}
+          </Alert>
         </div>
-    );
+      )}
+    </div>
+  );
 }

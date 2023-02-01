@@ -7,27 +7,24 @@ import { ItemUtils } from 'utils';
 import { gotchiInventoryStyles } from './styles';
 
 export function GotchiInventory({ items }: { items: GotchiInventoryModel[] }) {
-    const classes = gotchiInventoryStyles();
+  const classes = gotchiInventoryStyles();
 
-    return (
-        <div className={classes.items}>
-            {
-                items.map((item: GotchiInventoryModel) => {
-                    const rarity: string = ItemUtils.getRarityNameById(item.id);
+  return (
+    <div className={classes.items}>
+      {items.map((item: GotchiInventoryModel) => {
+        const rarity: string = ItemUtils.getRarityNameById(item.id);
 
-                    return <ItemCard type={rarity} key={item.id} className={classes.item}>
-                        <CardGroup name='header'>
-                            <CardBalance balance={item.balance} />
-                        </CardGroup>
-                        <CardImage
-                            id={item.id}
-                            category={Erc1155Categories.Wearable}
-                        />
-                        <CardName id={item.id} className={classes.name} />
-                        <CardStats stats={ItemUtils.getTraitModifiersById(item.id)} />
-                    </ItemCard>;
-                })
-            }
-        </div>
-    );
+        return (
+          <ItemCard type={rarity} key={item.id} className={classes.item}>
+            <CardGroup name='header'>
+              <CardBalance balance={item.balance} />
+            </CardGroup>
+            <CardImage id={item.id} category={Erc1155Categories.Wearable} />
+            <CardName id={item.id} className={classes.name} />
+            <CardStats stats={ItemUtils.getTraitModifiersById(item.id)} />
+          </ItemCard>
+        );
+      })}
+    </div>
+  );
 }

@@ -13,110 +13,113 @@ import { RealmApi } from 'api';
 import { styles } from './styles';
 
 const countdownFormat: CountdownShortFormat = {
-    days: { key: CountdownFormatNonZeroType.D, value: 'd', isShown: true, shownIfZero: false },
-    hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
-    minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
+  days: { key: CountdownFormatNonZeroType.D, value: 'd', isShown: true, shownIfZero: false },
+  hours: { key: CountdownFormatNonZeroType.H, value: 'h', isShown: true, shownIfZero: false },
+  minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
 };
 
 export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
-    const classes = styles();
+  const classes = styles();
 
-    const [lastChanneling, setLastChanneling] = useState<number>(0);
-    const [lastChannelingLoading, setLastChanellingLoading] = useState<boolean>(true);
+  const [lastChanneling, setLastChanneling] = useState<number>(0);
+  const [lastChannelingLoading, setLastChanellingLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        let mounted = true;
+  useEffect(() => {
+    let mounted = true;
 
-        setLastChanellingLoading(true);
+    setLastChanellingLoading(true);
 
-        RealmApi.getGotchiLastChanneled(gotchiId).then((res: any) => {
-            if (mounted) {
-                setLastChanneling(res * 1000);
-            }
-        }).finally(() => {
-            if (mounted) {
-                setLastChanellingLoading(false);
-            }
-        });
-
-        return () => { mounted = false };
-    }, [gotchiId]);
-
-    const atLeastOneTimeChanneled = (date: number) => {
-        return date > 0;
-    };
-
-    const moreThan24hours = (date: number) => {
-        const dateDiff = DateTime.local().toMillis() - date;
-
-        return dateDiff > DAY_MILLIS;
-    };
-
-    const getUTCDayMilis = (timestamp) => {
-        const utc = DateTime.fromMillis(timestamp).setZone('UTC');
-        const hours = utc.hour * HOUR_MILLIS;
-        const minutes = utc.minute * MINUTE_MILLIS;
-        const seconds = utc.second * SECOND_MILLIS;
-
-        return hours + minutes + seconds;
-    };
-
-    const chanelledBeforeCd = (date) => {
-        if (moreThan24hours(date)) {
-            return true;
+    RealmApi.getGotchiLastChanneled(gotchiId)
+      .then((res: any) => {
+        if (mounted) {
+          setLastChanneling(res * 1000);
         }
+      })
+      .finally(() => {
+        if (mounted) {
+          setLastChanellingLoading(false);
+        }
+      });
 
-        const last = getUTCDayMilis(date);
-        const now = getUTCDayMilis(DateTime.local().toMillis());
-
-        return last - now > 0;
+    return () => {
+      mounted = false;
     };
+  }, [gotchiId]);
 
-    return (
-        <div className={classes.container}>
-            { lastChannelingLoading ? (
-                <ContentLoader
-                    speed={2}
-                    viewBox='0 0 28 28'
-                    backgroundColor='#2c2f36'
-                    foregroundColor='#16181a'
-                    className={classes.placeholder}
-                >
-                    <rect x='0' y='0' width='28' height='28' />
-                </ContentLoader>
+  const atLeastOneTimeChanneled = (date: number) => {
+    return date > 0;
+  };
+
+  const moreThan24hours = (date: number) => {
+    const dateDiff = DateTime.local().toMillis() - date;
+
+    return dateDiff > DAY_MILLIS;
+  };
+
+  const getUTCDayMilis = timestamp => {
+    const utc = DateTime.fromMillis(timestamp).setZone('UTC');
+    const hours = utc.hour * HOUR_MILLIS;
+    const minutes = utc.minute * MINUTE_MILLIS;
+    const seconds = utc.second * SECOND_MILLIS;
+
+    return hours + minutes + seconds;
+  };
+
+  const chanelledBeforeCd = date => {
+    if (moreThan24hours(date)) {
+      return true;
+    }
+
+    const last = getUTCDayMilis(date);
+    const now = getUTCDayMilis(DateTime.local().toMillis());
+
+    return last - now > 0;
+  };
+
+  return (
+    <div className={classes.container}>
+      {lastChannelingLoading ? (
+        <ContentLoader
+          speed={2}
+          viewBox='0 0 28 28'
+          backgroundColor='#2c2f36'
+          foregroundColor='#16181a'
+          className={classes.placeholder}
+        >
+          <rect x='0' y='0' width='28' height='28' />
+        </ContentLoader>
+      ) : (
+        <CustomTooltip
+          title={
+            atLeastOneTimeChanneled(lastChanneling) ? (
+              <div className={classes.tooltipRow}>
+                <span>
+                  <Countdown targetDate={lastChanneling} shortFormat={countdownFormat} />
+                </span>
+                {'('}
+                <div style={{ color: chanelledBeforeCd(lastChanneling) ? 'lime' : 'orange' }}>
+                  {chanelledBeforeCd(lastChanneling) ? 'ready' : 'cooldown'}
+                </div>
+                {')'}
+              </div>
             ) : (
-                <CustomTooltip
-                    title={
-                        atLeastOneTimeChanneled(lastChanneling) ? (
-                            <div className={classes.tooltipRow}>
-                                <span>
-                                    <Countdown
-                                        targetDate={lastChanneling}
-                                        shortFormat={countdownFormat}
-                                    />
-                                </span>
-                                {'('}
-                                <div style={{ color: chanelledBeforeCd(lastChanneling) ? 'lime' : 'orange' }}>
-                                    { chanelledBeforeCd(lastChanneling) ? 'ready' : 'cooldown' }
-                                </div>
-                                {')'}
-                            </div>
-                        ) : (
-                            <span><span className='highlight'>never</span> channeled!</span>
-                        )
-                    }
-                    placement='top'
-                    followCursor
-                >
-                    <div>
-                        { chanelledBeforeCd(lastChanneling) ? (
-                            <ChannelActiveIcon className={classes.activeIcon} height={20} width={20} />
-                        ) : (
-                            <ChannelIcon className={classes.unactiveIcon} height={20} width={20} />
-                        )}
-                    </div>
-                </CustomTooltip>
+              <span>
+                <span className='highlight'>never</span> channeled!
+              </span>
+            )
+          }
+          placement='top'
+          followCursor
+        >
+          <div>
+            {chanelledBeforeCd(lastChanneling) ? (
+              <ChannelActiveIcon className={classes.activeIcon} height={20} width={20} />
+            ) : (
+              <ChannelIcon className={classes.unactiveIcon} height={20} width={20} />
             )}
-        </div>
-    );
+          </div>
+        </CustomTooltip>
+      )}
+    </div>
+  );
 }

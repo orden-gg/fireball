@@ -6,31 +6,24 @@ import MusicOffIcon from '@mui/icons-material/MusicOff';
 import song from 'assets/music/halloween.mp3';
 
 export function MusicButton() {
-    const [playing, setPlaying] = useState<boolean>(false);
-    const [audio] = useState<HTMLAudioElement>(new Audio(song));
+  const [playing, setPlaying] = useState<boolean>(false);
+  const [audio] = useState<HTMLAudioElement>(new Audio(song));
 
-    useEffect(() => {
-        audio.addEventListener('ended', () => audio.play()); // autoplay on end
-    }, []);
+  useEffect(() => {
+    audio.addEventListener('ended', () => audio.play()); // autoplay on end
+  }, []);
 
-    useEffect(() => {
-        if (playing) {
-            audio.play();
-        } else {
-            audio.pause();
-        }
-    }, [playing]);
+  useEffect(() => {
+    if (playing) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  }, [playing]);
 
-    return (
-        <IconButton
-            color={playing ? 'primary' : 'default'}
-            onClick={() => setPlaying(!playing)}
-        >
-            {playing ? (
-                <MusicOffIcon />
-            ) : (
-                <MusicNoteIcon />
-            )}
-        </IconButton>
-    );
+  return (
+    <IconButton color={playing ? 'primary' : 'default'} onClick={() => setPlaying(!playing)}>
+      {playing ? <MusicOffIcon /> : <MusicNoteIcon />}
+    </IconButton>
+  );
 }

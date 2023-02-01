@@ -16,51 +16,52 @@ import { GuildsContext } from '../GuildsContext';
 import { guildStyles } from '../styles';
 
 export function Guild() {
-    const classes = guildStyles();
+  const classes = guildStyles();
 
-    const params = useParams<{ name: string }>();
-    const navigate = useNavigate();
+  const params = useParams<{ name: string }>();
+  const navigate = useNavigate();
 
-    const { guilds, guildId, setGuildId } = useContext<any>(GuildsContext);
+  const { guilds, guildId, setGuildId } = useContext<any>(GuildsContext);
 
-    useEffect(() => {
-        const guildId: any = guilds.findIndex((guild: any) => (
-            CommonUtils.stringToKey(guild.name) === params.name
-        ));
+  useEffect(() => {
+    const guildId: any = guilds.findIndex((guild: any) => CommonUtils.stringToKey(guild.name) === params.name);
 
-        if (guildId === undefined || guilds[guildId].members?.length === 0) {
-            navigate('/guilds');
-        } else {
-            setGuildId(guildId);
-        }
-    }, []);
+    if (guildId === undefined || guilds[guildId].members?.length === 0) {
+      navigate('/guilds');
+    } else {
+      setGuildId(guildId);
+    }
+  }, []);
 
-    return (
-        <>
-            <Box className={classes.guildWrapper}>
-                <div className={classes.guildSidebar}>
-                    <GuildBanner />
-                    {<GuildsDetails guild={guilds[guildId]} />}
+  return (
+    <>
+      <Box className={classes.guildWrapper}>
+        <div className={classes.guildSidebar}>
+          <GuildBanner />
+          {<GuildsDetails guild={guilds[guildId]} />}
 
-                    <Tooltip
-                        title='Back to guilds'
-                    >
-                        <IconButton className={classes.backButton} onClick={ () => { navigate('/guilds')} } >
-                            <ArrowBackIcon />
-                        </IconButton>
-                    </Tooltip>
-                </div>
+          <Tooltip title='Back to guilds'>
+            <IconButton
+              className={classes.backButton}
+              onClick={() => {
+                navigate('/guilds');
+              }}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
 
-                <Box className={classes.guildContent}>
-                    <GuildNav />
-                    <Routes>
-                        <Route path='gotchis' element={<GuildGotchis />} />
-                        <Route path='lendings' element={<GuildLendings />} />
-                        <Route path='realm' element={ <GuildsRealm /> } />
-                        <Route path='*' element={<Navigate to='gotchis' replace />} />
-                    </Routes>
-                </Box>
-            </Box>
-        </>
-    );
+        <Box className={classes.guildContent}>
+          <GuildNav />
+          <Routes>
+            <Route path='gotchis' element={<GuildGotchis />} />
+            <Route path='lendings' element={<GuildLendings />} />
+            <Route path='realm' element={<GuildsRealm />} />
+            <Route path='*' element={<Navigate to='gotchis' replace />} />
+          </Routes>
+        </Box>
+      </Box>
+    </>
+  );
 }

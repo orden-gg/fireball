@@ -9,31 +9,30 @@ import { useFullscreenStatus } from 'hooks/useFullscreenStatus';
 import { InterfaceStyles } from '../styles';
 
 export function FullscreenButton({ wrapperRef }: { wrapperRef: any }) {
-    const classes = InterfaceStyles();
+  const classes = InterfaceStyles();
 
-    const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
+  const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);
 
-    const onShowFullScreen = () => {
-        if (isFullscreen) {
-            document.exitFullscreen();
-        } else {
-            setIsFullscreen();
-        }
-    };
-
-    if (isFullscreen === null) {
-        return <></>;
+  const onShowFullScreen = () => {
+    if (isFullscreen) {
+      document.exitFullscreen();
+    } else {
+      setIsFullscreen();
     }
+  };
 
-    return (
-        <CustomTooltip
-            title={'Fullscreen'}
-            enterTouchDelay={0}
-            placement='left'
-        >
-            <IconButton onClick={onShowFullScreen} className={classNames(classes.citadelInterfaceButton, classes.citadelFullscreen)}>
-                { isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon /> }
-            </IconButton>
-        </CustomTooltip>
-    );
+  if (isFullscreen === null) {
+    return <></>;
+  }
+
+  return (
+    <CustomTooltip title={'Fullscreen'} enterTouchDelay={0} placement='left'>
+      <IconButton
+        onClick={onShowFullScreen}
+        className={classNames(classes.citadelInterfaceButton, classes.citadelFullscreen)}
+      >
+        {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
+      </IconButton>
+    </CustomTooltip>
+  );
 }

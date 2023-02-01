@@ -15,19 +15,19 @@ import { theme } from './themes/ghst';
 import './index.css';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <MetamaskStateProvider>
-            <MuiThemeProvider theme={theme}>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <Provider store={store}>
-                        <App/>
-                    </Provider>
-                </ThemeProvider>
-            </MuiThemeProvider>
-        </MetamaskStateProvider>
-    </BrowserRouter>,
-    document.getElementById('root')
+  <BrowserRouter>
+    <MetamaskStateProvider>
+      <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </ThemeProvider>
+      </MuiThemeProvider>
+    </MetamaskStateProvider>
+  </BrowserRouter>,
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
