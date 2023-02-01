@@ -3,7 +3,11 @@ import { FiregemIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 
-export function FlipButton({ onFlipCard }: { onFlipCard: () => void }) {
+export function FlipButton({
+    onFlipCard
+}: {
+    onFlipCard: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+}) {
     const classes = styles();
 
     return (
@@ -15,7 +19,7 @@ export function FlipButton({ onFlipCard }: { onFlipCard: () => void }) {
         >
             <div className={classes.flipButtonWrapper}>
                 <button
-                    onClick={() => onFlipCard()}
+                    onClick={(event) => onFlipCard(event)}
                     className={classes.flipButton}
                 >
                     <FiregemIcon className={classes.flipButtonIcon} width={15} height={15} />

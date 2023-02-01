@@ -16,7 +16,7 @@ import {
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
-import { CommonUtils, GotchiverseUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { DataReloadContext } from './DataReloadContext';
 
@@ -293,34 +293,15 @@ export const ClientContextProvider = (props: any) => {
         setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: false }));
 
         TheGraphApi.getLendingsByAddress(address).then((lendings: any[]) => {
-            const balancesRequest: any[] = [];
             const { type, dir } = lendingsSorting;
 
-            for (let i = 0; i < lendings.length; i++) {
-                balancesRequest.push(TheGraphApi.getIncomeById(lendings[i].id, lendings[i].timeAgreed));
-            }
-
-            Promise.all(balancesRequest).then((balances: any[]) => {
-                balances.forEach((balance: any, i: number) => {
-                    lendings[i].fud = balance.FUDAmount;
-                    lendings[i].fomo = balance.FOMOAmount;
-                    lendings[i].alpha = balance.ALPHAAmount;
-                    lendings[i].kek = balance.KEKAmount;
-                    lendings[i].totalTokens =
-                        balance.FUDAmount + balance.FOMOAmount + balance.ALPHAAmount + balance.KEKAmount;
-                    lendings[i].income = GotchiverseUtils.countAlchemicaEfficency(
-                        balance.FUDAmount,
-                        balance.FOMOAmount,
-                        balance.ALPHAAmount,
-                        balance.KEKAmount
-                    );
-                    lendings[i].endTime = parseInt(lendings[i].timeAgreed) + parseInt(lendings[i].period);
-                });
-
-                setLendings(CommonUtils.basicSort(lendings, type, dir));
-                setLoadingLendings(false);
-                setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
+            lendings.forEach(lending => {
+                lending.endTime = parseInt(lending.timeAgreed) + parseInt(lending.period);
             });
+
+            setLendings(CommonUtils.basicSort(lendings, type, dir));
+            setLoadingLendings(false);
+            setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
         });
     };
 

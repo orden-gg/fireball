@@ -41,13 +41,6 @@ export class GotchiverseUtils {
         }
     }
 
-    public static countAlchemicaEfficency(fud: any, fomo: any, alpha: any, kek: any): any {
-        // 1 fomo = 2 fud
-        // 1 alpha = 4 fud
-        // 1 kek = 10 fud
-        return fud + fomo * 2 + alpha * 4 + kek * 10;
-    }
-
     public static countKinshipChannelingBoost(kinship: string): number {
         const defaultKinship = 50;
         const currentKinship = Number(kinship);

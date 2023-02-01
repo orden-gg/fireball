@@ -81,9 +81,6 @@ export const styles = makeStyles(theme => createStyles({
             color: theme.palette.alchemica.kek
         }
     },
-    income: {
-        fontWeight: 500
-    },
     activity: {
         display: 'flex',
         alignItems: 'center',
