@@ -26,7 +26,7 @@
 
 ### 📦 goods inside
 
-* aavegotchi assets explorerer
+* aavegotchi assets explorer
 * gotchiverse map with unique features
 * cards sub-framework
 * URL/assets state sub-framework
@@ -38,7 +38,7 @@
 1. install docker for your platform, you can use either [docker desktop](https://docs.docker.com/desktop/)
 2. clone this repo and build the docker image from a repos root folder: `docker build -t image_local_name .`
 3. run image locally `docker run -dp 8080:8080 local_name`
-4. client should be accesable on [localhost:8080](http://localhost:8080/)
+4. client should be accessible on [localhost:8080](http://localhost:8080/)
 
 ### local deployment
 
@@ -75,5 +75,5 @@ For ubuntu & macos only.
 
 ### licensing
 
-We will happilly colaborate with a aavegotchi-friendly projects and developers!
-Please contact us in discord or twitter.
+We will happily collaborate with aavegotchi-friendly projects and developers!
+Please contact us on discord or twitter.
