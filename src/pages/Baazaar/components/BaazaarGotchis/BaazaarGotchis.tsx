@@ -7,12 +7,12 @@ import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
-    CustomParsedQuery,
-    GraphFiltersQueryParamTypes,
-    GraphFiltersValueTypes,
-    GraphQueryParams,
-    SortingItem,
-    SortingListItem
+  CustomParsedQuery,
+  GraphFiltersQueryParamTypes,
+  GraphFiltersValueTypes,
+  GraphQueryParams,
+  SortingItem,
+  SortingListItem
 } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -32,184 +32,188 @@ import * as fromBaazaarStore from '../../store';
 import { styles } from './styles';
 
 export function BaazaarGotchis() {
-    const classes = styles();
+  const classes = styles();
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const queryParams = qs.parse(
-        location.search,
-        { arrayFormat: 'comma' }
-    ) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
+    GraphFiltersQueryParamTypes
+  >;
 
-    const dispatch = useAppDispatch();
-    const gotchiListings: GotchiListingVM[] = useAppSelector(fromBaazaarStore.getGotchisListings);
-    const isGotchisListingsInitialDataLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsInitialDataLoading);
-    const isGotchisListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsLoading);
-    const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(fromBaazaarStore.getGotchisListingsGraphQueryParams);
-    const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(fromBaazaarStore.getGotchisListingsFilters);
-    const gotchisListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisDefaultListingsSorting);
-    const gotchisListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisListingsSorting);
-    const gotchisListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getGotchisListingsLimitPerLoad);
-    const gotchisListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getGotchisListingsQueryParamsOrder);
+  const dispatch = useAppDispatch();
+  const gotchiListings: GotchiListingVM[] = useAppSelector(fromBaazaarStore.getGotchisListings);
+  const isGotchisListingsInitialDataLoading: boolean = useAppSelector(
+    fromBaazaarStore.getIsGotchisListingsInitialDataLoading
+  );
+  const isGotchisListingsLoading: boolean = useAppSelector(fromBaazaarStore.getIsGotchisListingsLoading);
+  const gotchisListingsGraphQueryParams: GraphQueryParams = useAppSelector(
+    fromBaazaarStore.getGotchisListingsGraphQueryParams
+  );
+  const gotchisListingsFilters: GotchiListingsFilters = useAppSelector(fromBaazaarStore.getGotchisListingsFilters);
+  const gotchisListingsDefaultSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisDefaultListingsSorting);
+  const gotchisListingsSorting: SortingItem = useAppSelector(fromBaazaarStore.getGotchisListingsSorting);
+  const gotchisListingsLimitPerLoad: number = useAppSelector(fromBaazaarStore.getGotchisListingsLimitPerLoad);
+  const gotchisListingsQueryParamsOrder: string[] = useAppSelector(fromBaazaarStore.getGotchisListingsQueryParamsOrder);
 
-    useEffect(() => {
-        const updatedFilters: GotchiListingsFilters =
-            GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, { ...gotchisListingsFilters });
-        dispatch(fromBaazaarStore.setGotchisListingsFilters(updatedFilters));
+  useEffect(() => {
+    const updatedFilters: GotchiListingsFilters = GraphFiltersUtils.getUpdatedFiltersFromQueryParams(queryParams, {
+      ...gotchisListingsFilters
+    });
+    dispatch(fromBaazaarStore.setGotchisListingsFilters(updatedFilters));
 
-        const { sort, dir } = queryParams as CustomParsedQuery<GraphFiltersQueryParamTypes>;
+    const { sort, dir } = queryParams as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
-        if (sort && dir) {
-            const key: Undefinable<string> = gotchisListingsSortings
-                .find((sorting: SortingListItem) => sorting.paramKey === sort)?.key;
+    if (sort && dir) {
+      const key: Undefinable<string> = gotchisListingsSortings.find(
+        (sorting: SortingListItem) => sorting.paramKey === sort
+      )?.key;
 
-            if (key) {
-                onSortingChange(key, dir as string);
-            }
-        }
+      if (key) {
+        onSortingChange(key, dir as string);
+      }
+    }
 
-        if (!sort) {
-            dispatch(fromBaazaarStore.setGotchisListingsPreviousSortingProp(gotchisListingsDefaultSorting.type));
-        }
+    if (!sort) {
+      dispatch(fromBaazaarStore.setGotchisListingsPreviousSortingProp(gotchisListingsDefaultSorting.type));
+    }
 
-        return () => {
-            dispatch(fromBaazaarStore.resetGotchiListingsData());
-        };
-    }, []);
-
-    useEffect(() => {
-        let params: CustomParsedQuery<GraphFiltersQueryParamTypes> =
-            GraphFiltersUtils.getFiltersQueryParams(queryParams, { ...gotchisListingsFilters });
-
-        const paramKey: Undefinable<string> = gotchisListingsSortings
-            .find(sorting => sorting.key === gotchisListingsSorting.type)?.paramKey;
-
-        if (paramKey) {
-            if (
-                gotchisListingsSorting.dir === gotchisListingsDefaultSorting.dir &&
-                gotchisListingsSorting.type === gotchisListingsDefaultSorting.type
-            ) {
-                delete params['sort'];
-                delete params['dir'];
-
-                params = { ...params };
-            } else {
-                params = { ...params, sort: paramKey, dir: gotchisListingsSorting.dir };
-            }
-        }
-
-        RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);
-
-        dispatch(fromBaazaarStore.onLoadBaazaarGotchisListings());
-    }, [gotchisListingsFilters, gotchisListingsSorting]);
-
-    useEffect(() => {
-        dispatch(fromBaazaarStore.setGotchisListingsIsFiltersUpdated(true));
-    }, [gotchisListingsFilters]);
-
-    useEffect(() => {
-        dispatch(fromBaazaarStore.setGotchisListingsIsSortingUpdated(true));
-    }, [gotchisListingsSorting]);
-
-    const onSortingChange = (sortBy: string, sortDir: string): void => {
-        dispatch(fromBaazaarStore.onSetGotchisListingsSorting({ type: sortBy, dir: sortDir }));
+    return () => {
+      dispatch(fromBaazaarStore.resetGotchiListingsData());
     };
+  }, []);
 
-    const onHandleReachedEnd = (): void => {
-        const skipLimit: number = gotchisListingsGraphQueryParams.skip + gotchisListingsLimitPerLoad;
+  useEffect(() => {
+    let params: CustomParsedQuery<GraphFiltersQueryParamTypes> = GraphFiltersUtils.getFiltersQueryParams(queryParams, {
+      ...gotchisListingsFilters
+    });
 
-        if (skipLimit <= gotchiListings.length) {
-            dispatch(fromBaazaarStore.setGotchisListingsSkipLimit(skipLimit));
-            dispatch(fromBaazaarStore.loadBaazaarGotchisListings());
-        }
-    };
+    const paramKey: Undefinable<string> = gotchisListingsSortings.find(
+      sorting => sorting.key === gotchisListingsSorting.type
+    )?.paramKey;
 
-    const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-        dispatch(fromBaazaarStore.updateGotchiListingsFilterByKey(
-            { key, value } as { key: GotchiListingsFilterTypes, value: GraphFiltersValueTypes })
-        );
-    };
+    if (paramKey) {
+      if (
+        gotchisListingsSorting.dir === gotchisListingsDefaultSorting.dir &&
+        gotchisListingsSorting.type === gotchisListingsDefaultSorting.type
+      ) {
+        delete params['sort'];
+        delete params['dir'];
 
-    const onResetFilters = useCallback(() => {
-        dispatch(fromBaazaarStore.resetGotchiListingsFilters());
-    }, []);
+        params = { ...params };
+      } else {
+        params = { ...params, sort: paramKey, dir: gotchisListingsSorting.dir };
+      }
+    }
 
-    return (
-        <ContentWrapper paddingZero>
-            <>
-                <SortFilterPanel
-                    sorting={{
-                        sortingList: gotchisListingsSortings,
-                        sortingDefaults: gotchisListingsSorting,
-                        onSortingChange: onSortingChange
-                    }}
-                    itemsLength={gotchiListings.length}
-                    placeholder={
-                        <GotchiIcon width={20} height={20} />
-                    }
-                    isPanelDisabled={isGotchisListingsLoading}
-                />
-                <ContentInner dataLoading={isGotchisListingsInitialDataLoading}>
-                    <ItemsLazy
-                        items={gotchiListings}
-                        component={(gotchiListing: GotchiListingVM) =>
-                            <Gotchi
-                                gotchi={gotchiListing.gotchi}
-                                renderSvgByStats={true}
-                                render={[
-                                    {
-                                        className: 'gotchiHeader',
-                                        items: [
-                                            'collateral',
-                                            'kinship',
-                                            'level'
-                                        ]
-                                    },
-                                    {
-                                        className: 'imageContainer',
-                                        items: [
-                                            'svg',
-                                            {
-                                                className: 'rsContainer',
-                                                items: ['rs', 'skillpoints']
-                                            }
-                                        ]
-                                    },
-                                    'name',
-                                    'traits',
-                                    {
-                                        className: 'gotchiBadges',
-                                        items: ['badges']
-                                    },
-                                    'wearablesLine',
-                                    'listing'
-                                ]}
-                            />
-                        }
-                        onHandleReachedEnd={onHandleReachedEnd}
-                    />
-                </ContentInner>
-            </>
-            <div className={classes.sidebar}>
-                <Filters
-                    className={classNames(classes.section, classes.filtersWrapper)}
-                    filters={gotchisListingsFilters}
-                    onSetSelectedFilters={onSetSelectedFilters}
-                    isFiltersDisabled={isGotchisListingsLoading}
-                />
+    RouteUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisListingsQueryParamsOrder);
 
-                <div className={classes.buttonsWrapper}>
-                    <Button
-                        variant='contained'
-                        color='warning'
-                        size='small'
-                        onClick={onResetFilters}
-                        disabled={isGotchisListingsLoading}
-                    >
-                        Reset
-                    </Button>
-                </div>
-            </div>
-        </ContentWrapper>
+    dispatch(fromBaazaarStore.onLoadBaazaarGotchisListings());
+  }, [gotchisListingsFilters, gotchisListingsSorting]);
+
+  useEffect(() => {
+    dispatch(fromBaazaarStore.setGotchisListingsIsFiltersUpdated(true));
+  }, [gotchisListingsFilters]);
+
+  useEffect(() => {
+    dispatch(fromBaazaarStore.setGotchisListingsIsSortingUpdated(true));
+  }, [gotchisListingsSorting]);
+
+  const onSortingChange = (sortBy: string, sortDir: string): void => {
+    dispatch(fromBaazaarStore.onSetGotchisListingsSorting({ type: sortBy, dir: sortDir }));
+  };
+
+  const onHandleReachedEnd = (): void => {
+    const skipLimit: number = gotchisListingsGraphQueryParams.skip + gotchisListingsLimitPerLoad;
+
+    if (skipLimit <= gotchiListings.length) {
+      dispatch(fromBaazaarStore.setGotchisListingsSkipLimit(skipLimit));
+      dispatch(fromBaazaarStore.loadBaazaarGotchisListings());
+    }
+  };
+
+  const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
+    dispatch(
+      fromBaazaarStore.updateGotchiListingsFilterByKey({ key, value } as {
+        key: GotchiListingsFilterTypes;
+        value: GraphFiltersValueTypes;
+      })
     );
+  };
+
+  const onResetFilters = useCallback(() => {
+    dispatch(fromBaazaarStore.resetGotchiListingsFilters());
+  }, []);
+
+  return (
+    <ContentWrapper paddingZero>
+      <>
+        <SortFilterPanel
+          sorting={{
+            sortingList: gotchisListingsSortings,
+            sortingDefaults: gotchisListingsSorting,
+            onSortingChange: onSortingChange
+          }}
+          itemsLength={gotchiListings.length}
+          placeholder={<GotchiIcon width={20} height={20} />}
+          isPanelDisabled={isGotchisListingsLoading}
+        />
+        <ContentInner dataLoading={isGotchisListingsInitialDataLoading}>
+          <ItemsLazy
+            items={gotchiListings}
+            component={(gotchiListing: GotchiListingVM) => (
+              <Gotchi
+                gotchi={gotchiListing.gotchi}
+                renderSvgByStats={true}
+                render={[
+                  {
+                    className: 'gotchiHeader',
+                    items: ['collateral', 'kinship', 'level']
+                  },
+                  {
+                    className: 'imageContainer',
+                    items: [
+                      'svg',
+                      {
+                        className: 'rsContainer',
+                        items: ['rs', 'skillpoints']
+                      }
+                    ]
+                  },
+                  'name',
+                  'traits',
+                  {
+                    className: 'gotchiBadges',
+                    items: ['badges']
+                  },
+                  'wearablesLine',
+                  'listing'
+                ]}
+              />
+            )}
+            onHandleReachedEnd={onHandleReachedEnd}
+          />
+        </ContentInner>
+      </>
+      <div className={classes.sidebar}>
+        <Filters
+          className={classNames(classes.section, classes.filtersWrapper)}
+          filters={gotchisListingsFilters}
+          onSetSelectedFilters={onSetSelectedFilters}
+          isFiltersDisabled={isGotchisListingsLoading}
+        />
+
+        <div className={classes.buttonsWrapper}>
+          <Button
+            variant='contained'
+            color='warning'
+            size='small'
+            onClick={onResetFilters}
+            disabled={isGotchisListingsLoading}
+          >
+            Reset
+          </Button>
+        </div>
+      </div>
+    </ContentWrapper>
+  );
 }

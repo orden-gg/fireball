@@ -8,20 +8,20 @@ import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
 import * as fromFakeGotchisGalleryStore from '../../store';
 
 export function Minted() {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const mintedGotchis: FakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
-    const isMintedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoading);
+  const mintedGotchis: FakeGotchi[] = useAppSelector(fromFakeGotchisGalleryStore.getMintedGotchis);
+  const isMintedGotchisLoading: boolean = useAppSelector(fromFakeGotchisGalleryStore.getIsMintedGotchisLoading);
 
-    useEffect(() => {
-        dispatch(fromFakeGotchisGalleryStore.loadMintedFakeGotchis());
-    }, []);
+  useEffect(() => {
+    dispatch(fromFakeGotchisGalleryStore.loadMintedFakeGotchis());
+  }, []);
 
-    return (
-        <>
-            <ContentInner dataLoading={isMintedGotchisLoading}>
-                <GalleryLayout items={mintedGotchis} />
-            </ContentInner>
-        </>
-    );
+  return (
+    <>
+      <ContentInner dataLoading={isMintedGotchisLoading}>
+        <GalleryLayout items={mintedGotchis} />
+      </ContentInner>
+    </>
+  );
 }

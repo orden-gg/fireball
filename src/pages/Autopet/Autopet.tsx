@@ -6,15 +6,15 @@ import { AutopetSteps } from './components/AutopetSteps/AutopetSteps';
 import { styles } from './styles';
 
 export function Autopet() {
-    const classes = styles();
+  const classes = styles();
 
-    return (
-        <AutopetContextProvider>
-            <div className={classes.autopetWrapper}>
-                <AutopetHeader />
-                <AutopetSteps />
-                <AutopetInfo />
-            </div>
-        </AutopetContextProvider>
-    );
+  return (
+    <AutopetContextProvider>
+      <div className={classes.autopetWrapper}>
+        <AutopetHeader />
+        <AutopetSteps />
+        <AutopetInfo />
+      </div>
+    </AutopetContextProvider>
+  );
 }

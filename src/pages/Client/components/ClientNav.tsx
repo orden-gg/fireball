@@ -8,21 +8,24 @@ import { LoginNavigation } from 'components/Login/LoginNavigation';
 import { accountStyles, styles } from '../styles';
 
 export function ClientNav() {
-    const classes = { ...styles(), ...accountStyles() };
+  const classes = { ...styles(), ...accountStyles() };
 
-    const navigate = useNavigate();
-    const { account } = useParams<{ account: string }>();
+  const navigate = useNavigate();
+  const { account } = useParams<{ account: string }>();
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const onAddressSubmit = useCallback((address: string) => {
-        navigate({ pathname: `/client/${address}/gotchis` });
-        dispatch(setActiveAddress(address));
-    }, [navigate]);
+  const onAddressSubmit = useCallback(
+    (address: string) => {
+      navigate({ pathname: `/client/${address}/gotchis` });
+      dispatch(setActiveAddress(address));
+    },
+    [navigate]
+  );
 
-    return (
-        <div className={classes.loginNav}>
-            <LoginNavigation address={account} onSubmit={onAddressSubmit} />
-        </div>
-    );
+  return (
+    <div className={classes.loginNav}>
+      <LoginNavigation address={account} onSubmit={onAddressSubmit} />
+    </div>
+  );
 }

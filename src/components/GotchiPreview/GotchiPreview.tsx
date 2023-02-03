@@ -3,14 +3,12 @@ import classNames from 'classnames';
 import { gotchiPreviewStyles } from './styles';
 
 interface GotchiPreviewProps {
-    children: JSX.Element | JSX.Element[];
-    className?: string;
+  children: JSX.Element | JSX.Element[];
+  className?: string;
 }
 
 export function GotchiPreview({ children, className }: GotchiPreviewProps) {
-    const classes = gotchiPreviewStyles();
+  const classes = gotchiPreviewStyles();
 
-    return <div className={classNames(classes.gotchi, className)}>
-        {children}
-    </div>;
+  return <div className={classNames(classes.gotchi, className)}>{children}</div>;
 }

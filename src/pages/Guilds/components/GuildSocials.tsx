@@ -11,48 +11,34 @@ import { GuildsContext } from 'pages/Guilds/GuildsContext';
 import { guildSocialsStyles } from '../styles';
 
 export function GuildSocials() {
-    const classes = guildSocialsStyles();
+  const classes = guildSocialsStyles();
 
-    const { guildId, guilds } = useContext<any>(GuildsContext);
+  const { guildId, guilds } = useContext<any>(GuildsContext);
 
-    const socials: any = {
-        facebook: <FacebookIcon className={classes.guildSocialIcon} />,
-        twitter: <TwitterIcon className={classes.guildSocialIcon} />,
-        discord: <DiscordIcon className={classes.guildSocialIcon} />,
-        telegram: <TelegramIcon className={classes.guildSocialIcon} />,
-        twitch: <TwitchIcon className={classes.guildSocialIcon} />,
-        default: <WebIcon className={classes.guildSocialIcon} />
-    };
+  const socials: any = {
+    facebook: <FacebookIcon className={classes.guildSocialIcon} />,
+    twitter: <TwitterIcon className={classes.guildSocialIcon} />,
+    discord: <DiscordIcon className={classes.guildSocialIcon} />,
+    telegram: <TelegramIcon className={classes.guildSocialIcon} />,
+    twitch: <TwitchIcon className={classes.guildSocialIcon} />,
+    default: <WebIcon className={classes.guildSocialIcon} />
+  };
 
-    const renderSocials = (): JSX.Element | JSX.Element[] => {
-        const guild: any = guilds[guildId];
+  const renderSocials = (): JSX.Element | JSX.Element[] => {
+    const guild: any = guilds[guildId];
 
-        if (guild === undefined || !guild.hasOwnProperty('socials')) {
-            return <></>;
-        }
+    if (guild === undefined || !guild.hasOwnProperty('socials')) {
+      return <></>;
+    }
 
-        return (
-            Object.keys(guild.socials).map(key => (
-                <Tooltip
-                    title={key}
-                    key={key}
-                    placement='top'
-                    followCursor
-                >
-                    <IconButton
-                        component={Link}
-                        href={guild.socials[key]}
-                        target='_blank'
-                        className={classes.guildSocialButton}
-                    >
-                        {socials[key] || socials.default}
-                    </IconButton>
-                </Tooltip>
-            ))
-        );
-    };
+    return Object.keys(guild.socials).map(key => (
+      <Tooltip title={key} key={key} placement='top' followCursor>
+        <IconButton component={Link} href={guild.socials[key]} target='_blank' className={classes.guildSocialButton}>
+          {socials[key] || socials.default}
+        </IconButton>
+      </Tooltip>
+    ));
+  };
 
-    return <div className={classes.guildSocials}>
-        {renderSocials()}
-    </div>;
+  return <div className={classes.guildSocials}>{renderSocials()}</div>;
 }

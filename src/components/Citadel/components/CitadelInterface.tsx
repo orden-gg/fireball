@@ -3,11 +3,7 @@ import classNames from 'classnames';
 import { InterfaceStyles } from '../styles';
 
 export function CitadelInterface({ children }: { children: JSX.Element[] }) {
-    const classes = InterfaceStyles();
+  const classes = InterfaceStyles();
 
-    return (
-        <div className={classNames(classes.citadelInterface, 'citadel-interface')}>
-            {children}
-        </div>
-    );
+  return <div className={classNames(classes.citadelInterface, 'citadel-interface')}>{children}</div>;
 }

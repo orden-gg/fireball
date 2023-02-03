@@ -6,12 +6,12 @@ import { FakeItemsVM } from '../models';
 import * as fromFakeGotchisStore from '../store';
 
 export function ClientFakeGotchis() {
-    const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.selectFakeGotchis);
-    const isFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.selectIsFakeGotchisLoading);
+  const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.selectFakeGotchis);
+  const isFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.selectIsFakeGotchisLoading);
 
-    return (
-        <ContentInner dataLoading={isFakeGotchisLoading}>
-            <GalleryLayout items={fakeItems ? fakeItems.fakeGotchis : []} />
-        </ContentInner>
-    );
+  return (
+    <ContentInner dataLoading={isFakeGotchisLoading}>
+      <GalleryLayout items={fakeItems ? fakeItems.fakeGotchis : []} />
+    </ContentInner>
+  );
 }

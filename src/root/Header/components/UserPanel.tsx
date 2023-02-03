@@ -6,14 +6,14 @@ import { LoginButton } from 'components/Login/LoginButton';
 import { styles } from '../styles';
 
 export function UserPanel() {
-    const classes = styles();
+  const classes = styles();
 
-    const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(getActiveAddress);
 
-    return (
-        <div className={classes.userPanel}>
-            { activeAddress && <Balances /> }
-            <LoginButton />
-        </div>
-    );
+  return (
+    <div className={classes.userPanel}>
+      {activeAddress && <Balances />}
+      <LoginButton />
+    </div>
+  );
 }

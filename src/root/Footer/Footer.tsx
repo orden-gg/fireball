@@ -15,86 +15,83 @@ import { GotchiverseOnline } from './components/GotchiverseOnline';
 import { styles } from './styles';
 
 export function Footer() {
-    const classes = styles();
-    const { isOpen, type, message, onSnackbarClose } = useContext<any>(SnackbarContext);
+  const classes = styles();
+  const { isOpen, type, message, onSnackbarClose } = useContext<any>(SnackbarContext);
 
-    return (
-        <Box className={classes.footerWrapper}>
-            <Toolbar className={classes.toolbar}>
-                <div>
-                    <span className={classes.highlight}>v0.5</span>
-                    <span className={classes.footerCopyright}>
-                        © fireball.gg ||{' '}
-                        <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
-                            #1 aavegotchi portal
-                        </a>{' '}
-                        maintained by ordengg and frens ||{' '} donate alchemica and items <a href={`https://fireball.gg/client/${DONATE_ADDRESS}`}>here</a>  ||{' '}
-                        <a
-                            href='https://fireball-gg.notion.site/fireball-gamedao-litepaper-b26d07a1cae041db82f4237f876828b9'
-                            rel='noreferrer'
-                            target='_blank'
-                        >
-                            {' '}
-                            ❤️‍🔥 fireball gamedao litepaper
-                        </a>
-                    </span>
-                </div>
+  return (
+    <Box className={classes.footerWrapper}>
+      <Toolbar className={classes.toolbar}>
+        <div>
+          <span className={classes.highlight}>v0.5</span>
+          <span className={classes.footerCopyright}>
+            © fireball.gg ||{' '}
+            <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
+              #1 aavegotchi portal
+            </a>{' '}
+            maintained by ordengg and frens || donate alchemica and items{' '}
+            <a href={`https://fireball.gg/client/${DONATE_ADDRESS}`}>here</a> ||{' '}
+            <a
+              href='https://fireball-gg.notion.site/fireball-gamedao-litepaper-b26d07a1cae041db82f4237f876828b9'
+              rel='noreferrer'
+              target='_blank'
+            >
+              {' '}
+              ❤️‍🔥 fireball gamedao litepaper
+            </a>
+          </span>
+        </div>
 
-                <div className={classes.buttons}>
-                    <GotchiverseOnline />
-                    <Button
-                        className={classes.playBtn}
-                        component={Link}
-                        size='small'
-                        color='inherit'
-                        href='https://verse.aavegotchi.com'
-                        target='_blank'
-                    >
-                        play
-                    </Button>
+        <div className={classes.buttons}>
+          <GotchiverseOnline />
+          <Button
+            className={classes.playBtn}
+            component={Link}
+            size='small'
+            color='inherit'
+            href='https://verse.aavegotchi.com'
+            target='_blank'
+          >
+            play
+          </Button>
 
-                    <Divider orientation='vertical' className={classes.divider} />
+          <Divider orientation='vertical' className={classes.divider} />
 
-                    <div className={classes.btnsGroup}>
-                        <IconButton
-                            className={classes.btn}
-                            href='https://simpleanalytics.com/fireball.gg'
-                            target='_blank'
-                        >
-                            <QueryStatsIcon />
-                        </IconButton>
+          <div className={classes.btnsGroup}>
+            <IconButton className={classes.btn} href='https://simpleanalytics.com/fireball.gg' target='_blank'>
+              <QueryStatsIcon />
+            </IconButton>
 
-                        <div className={classes.btn}>
-                            <MusicButton />
-                        </div>
-                    </div>
+            <div className={classes.btn}>
+              <MusicButton />
+            </div>
+          </div>
 
-                    <Divider orientation='vertical' className={classes.divider} />
+          <Divider orientation='vertical' className={classes.divider} />
 
-                    <div className={classes.btnsGroup}>
-                        <IconButton
-                            className={classNames(classes.btn, classes.discordIcon)}
-                            href='https://discord.gg/orden'
-                            target='_blank'
-                        >
-                            <DiscordIcon />
-                        </IconButton>
-                        <IconButton className={classes.btn} href='https://twitter.com/orden_gg' target='_blank'>
-                            <TwitterIcon />
-                        </IconButton>
-                        <IconButton className={classes.btn} href='https://github.com/orden-gg/fireball' target='_blank'>
-                            <GitHubIcon />
-                        </IconButton>
-                        <div className={classes.socialJoin}>Join our community!</div>
-                    </div>
-                </div>
-            </Toolbar>
+          <div className={classes.btnsGroup}>
+            <IconButton
+              className={classNames(classes.btn, classes.discordIcon)}
+              href='https://discord.gg/orden'
+              target='_blank'
+            >
+              <DiscordIcon />
+            </IconButton>
+            <IconButton className={classes.btn} href='https://twitter.com/orden_gg' target='_blank'>
+              <TwitterIcon />
+            </IconButton>
+            <IconButton className={classes.btn} href='https://github.com/orden-gg/fireball' target='_blank'>
+              <GitHubIcon />
+            </IconButton>
+            <div className={classes.socialJoin}>Join our community!</div>
+          </div>
+        </div>
+      </Toolbar>
 
-            <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
-                <Alert elevation={6} variant='filled' severity={type}>
-                    {message}
-                </Alert>
-            </Snackbar>
-        </Box>
-    );
+      <Snackbar open={isOpen} autoHideDuration={3000} onClose={() => onSnackbarClose()}>
+        <Alert elevation={6} variant='filled' severity={type}>
+          {message}
+        </Alert>
+      </Snackbar>
+    </Box>
+  );
 }

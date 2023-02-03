@@ -9,108 +9,98 @@ import { CardImage } from 'components/ItemCard/components';
 import { useCallback } from 'react';
 
 interface ParcelInstallationsProps {
-    parcel: any;
-    size?: any;
-    className?: string;
+  parcel: any;
+  size?: any;
+  className?: string;
 }
 
 export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
-    const classes = styles();
+  const classes = styles();
 
-    const getInstallations = useCallback(() => {
-        return parcel.installations
-            .filter((installation: any) => InstallationsUtils.getIsInstallationExist(installation.id))
-            .map((installation: any) => {
-                const metadata = InstallationsUtils.getMetadataById(installation.id);
-                const isDecoration = metadata.type === InstallationTypeNames.Decoration;
+  const getInstallations = useCallback(() => {
+    return parcel.installations
+      .filter((installation: any) => InstallationsUtils.getIsInstallationExist(installation.id))
+      .map((installation: any) => {
+        const metadata = InstallationsUtils.getMetadataById(installation.id);
+        const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
-                return (
-                    <CustomTooltip
-                        title={
-                            <div>
-                                <div className={classes.inner}>
-                                    {metadata.type}: <span>{metadata.name}</span>
-                                </div>
+        return (
+          <CustomTooltip
+            title={
+              <div>
+                <div className={classes.inner}>
+                  {metadata.type}: <span>{metadata.name}</span>
+                </div>
 
-                                {!isDecoration && (
-                                    <div className={classes.row}>
-                                        <div className={classes.inner}>
-                                            lvl: <span>{metadata.level}</span>
-                                        </div>
-                                        <div className={classes.inner}>
-                                            cd: <span>{metadata.cooldown}h</span>
-                                        </div>
-                                        <div className={classes.inner}>
-                                            spillover: <span>{metadata.spillRate / 100}%</span>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        }
-                        placement='top'
-                        arrow={true}
-                        key={`installation-${installation.id}`}
-                    >
-                        <div
-                            className={classes.installation}
-                            style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
-                        >
-                            {installation.quantity > 1 && (
-                                <div className={classes.installationQantity}>x{installation.quantity}</div>
-                            )}
-
-                            <CardImage
-                                id={installation.id}
-                                category={Erc1155Categories.Installation}
-                                className={classes.installationImage}
-                            />
-                        </div>
-                    </CustomTooltip>
-                );
-            });
-    }, [parcel.installations]);
-
-    const getTiles = useCallback(() => {
-        return parcel.tiles
-            .filter((tile: any) => TilesUtils.getIsTileExists(tile.id))
-            .map((tile: any) => {
-                const metadata = TilesUtils.getMetadataById(tile.id);
-
-                return <CustomTooltip
-                    title={
-                        <div className={classes.inner}>
-                            {metadata.type}: <span>{metadata.name}</span>
-                        </div>
-                    }
-                    placement='top'
-                    arrow={true}
-                    key={`tile-${tile.id}`}
-                >
-                    <div
-                        className={classes.installation}
-                        style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
-                    >
-                        {tile.quantity > 1 && (
-                            <div className={classes.installationQantity}>x{tile.quantity}</div>
-                        )}
-
-                        <CardImage
-                            id={tile.id}
-                            category={Erc1155Categories.Tile}
-                            className={classes.installationImage}
-                        />
+                {!isDecoration && (
+                  <div className={classes.row}>
+                    <div className={classes.inner}>
+                      lvl: <span>{metadata.level}</span>
                     </div>
-                </CustomTooltip>;
-            });
-    }, [parcel.tiles]);
+                    <div className={classes.inner}>
+                      cd: <span>{metadata.cooldown}h</span>
+                    </div>
+                    <div className={classes.inner}>
+                      spillover: <span>{metadata.spillRate / 100}%</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            }
+            placement='top'
+            arrow={true}
+            key={`installation-${installation.id}`}
+          >
+            <div
+              className={classes.installation}
+              style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+            >
+              {installation.quantity > 1 && <div className={classes.installationQantity}>x{installation.quantity}</div>}
 
-    if (!parcel.installations?.length && !parcel.tiles?.length) {
-        return <></>;
-    }
+              <CardImage
+                id={installation.id}
+                category={Erc1155Categories.Installation}
+                className={classes.installationImage}
+              />
+            </div>
+          </CustomTooltip>
+        );
+      });
+  }, [parcel.installations]);
 
-    return (
-        <div className={classNames(classes.container, className)}>
-            {[...getInstallations(), ...getTiles()]}
-        </div>
-    );
+  const getTiles = useCallback(() => {
+    return parcel.tiles
+      .filter((tile: any) => TilesUtils.getIsTileExists(tile.id))
+      .map((tile: any) => {
+        const metadata = TilesUtils.getMetadataById(tile.id);
+
+        return (
+          <CustomTooltip
+            title={
+              <div className={classes.inner}>
+                {metadata.type}: <span>{metadata.name}</span>
+              </div>
+            }
+            placement='top'
+            arrow={true}
+            key={`tile-${tile.id}`}
+          >
+            <div
+              className={classes.installation}
+              style={{ width: size ? `${size}px` : '40px', height: size ? `${size}px` : '40px' }}
+            >
+              {tile.quantity > 1 && <div className={classes.installationQantity}>x{tile.quantity}</div>}
+
+              <CardImage id={tile.id} category={Erc1155Categories.Tile} className={classes.installationImage} />
+            </div>
+          </CustomTooltip>
+        );
+      });
+  }, [parcel.tiles]);
+
+  if (!parcel.installations?.length && !parcel.tiles?.length) {
+    return <></>;
+  }
+
+  return <div className={classNames(classes.container, className)}>{[...getInstallations(), ...getTiles()]}</div>;
 }

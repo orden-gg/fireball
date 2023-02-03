@@ -30,272 +30,202 @@ import { WhitelistId } from './WhitelistId/WhitelistId';
 import { styles } from './styles';
 
 interface GotchiProps {
-    gotchi: any;
-    render: any;
-    renderSvgByStats?: any;
-    portal?: any;
-    isHighlightLending?: boolean;
-    className?: string;
-    shouldLoadGotchiInModal?: boolean;
+  gotchi: any;
+  render: any;
+  renderSvgByStats?: any;
+  portal?: any;
+  isHighlightLending?: boolean;
+  className?: string;
+  shouldLoadGotchiInModal?: boolean;
 }
 
 export function Gotchi({
-    gotchi,
-    renderSvgByStats,
-    render,
-    portal,
-    isHighlightLending,
-    className,
-    shouldLoadGotchiInModal = true
+  gotchi,
+  renderSvgByStats,
+  render,
+  portal,
+  isHighlightLending,
+  className,
+  shouldLoadGotchiInModal = true
 }: GotchiProps) {
-    const classes = styles();
+  const classes = styles();
 
-    const [isFlipped, setIsFlipped] = useState<boolean>(false);
-    const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
+  const [isFlipped, setIsFlipped] = useState<boolean>(false);
+  const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
 
-    const flipCard = useCallback((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.stopPropagation();
+  const flipCard = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
 
-        setIsFlipped(!isFlipped);
-    }, [isFlipped]);
+      setIsFlipped(!isFlipped);
+    },
+    [isFlipped]
+  );
 
-    const gotchiSections = {
-        wrapper: (children: any, className?: any) => {
-            return (
-                <div
-                    className={className && classes[className]}
-                    key={`${gotchi.id}-${className}`}
-                >
-                    {children}
-                </div>
-            );
-        },
+  const gotchiSections = {
+    wrapper: (children: any, className?: any) => {
+      return (
+        <div className={className && classes[className]} key={`${gotchi.id}-${className}`}>
+          {children}
+        </div>
+      );
+    },
 
-        get channeling() {
-            return (
-                <GotchiChanelling
-                    gotchiId={gotchi.id}
-                    key={`${gotchi.id}-channeling`}
-                />
-            );
-        },
+    get channeling() {
+      return <GotchiChanelling gotchiId={gotchi.id} key={`${gotchi.id}-channeling`} />;
+    },
 
-        get guild() {
-            return gotchi.guild && (
-                <GuildIcon
-                    guildName={gotchi.guild}
-                    key={`${gotchi.id}-guildIcon`}
-                />
-            );
-        },
+    get guild() {
+      return gotchi.guild && <GuildIcon guildName={gotchi.guild} key={`${gotchi.id}-guildIcon`} />;
+    },
 
-        get whitelistId() {
-            return gotchi.whitelistId && (
-                <WhitelistId
-                    whitelistId={gotchi.whitelistId}
-                    key={`${gotchi.whitelistId}-whitelistId`}
-                />
-            );
-        },
+    get whitelistId() {
+      return (
+        gotchi.whitelistId && <WhitelistId whitelistId={gotchi.whitelistId} key={`${gotchi.whitelistId}-whitelistId`} />
+      );
+    },
 
-        get rs() {
-            return (
-                <GotchiRs
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-rs`}
-                />
-            );
-        },
+    get rs() {
+      return <GotchiRs gotchi={gotchi} key={`${gotchi.id}-rs`} />;
+    },
 
-        get kinship() {
-            return (
-                <GotchiKinship
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-kinship`}
-                />
-            );
-        },
+    get kinship() {
+      return <GotchiKinship gotchi={gotchi} key={`${gotchi.id}-kinship`} />;
+    },
 
-        get owner() {
-            return (
-                <GotchiOwner
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-owner`}
-                />
-            );
-        },
+    get owner() {
+      return <GotchiOwner gotchi={gotchi} key={`${gotchi.id}-owner`} />;
+    },
 
-        get collateral() {
-            return (
-                <GotchiCollateral
-                collateral={gotchi.collateral}
-                    key={`${gotchi.id}-collateral`}
-                />
-            );
-        },
+    get collateral() {
+      return <GotchiCollateral collateral={gotchi.collateral} key={`${gotchi.id}-collateral`} />;
+    },
 
-        get level() {
-            return (
-                <GotchiLevel
-                    level={gotchi.level}
-                    toNextLevel={gotchi.toNextLevel}
-                    experience={gotchi.experience}
-                    key={`${gotchi.id}-level`}
-                />
-            );
-        },
+    get level() {
+      return (
+        <GotchiLevel
+          level={gotchi.level}
+          toNextLevel={gotchi.toNextLevel}
+          experience={gotchi.experience}
+          key={`${gotchi.id}-level`}
+        />
+      );
+    },
 
-        get badges() {
-            return (
-                <GotchiBadges id={gotchi.id}  key={`${gotchi.id}-badges`} />
-            );
-        },
+    get badges() {
+      return <GotchiBadges id={gotchi.id} key={`${gotchi.id}-badges`} />;
+    },
 
-        get skillpoints() {
-            return (
-                <GotchiSkillPoints
-                    id={gotchi.id}
-                    usedPoints={gotchi.usedSkillPoints}
-                    key={`${gotchi.id}-skillpoints`}
-                />
-            );
-        },
+    get skillpoints() {
+      return <GotchiSkillPoints id={gotchi.id} usedPoints={gotchi.usedSkillPoints} key={`${gotchi.id}-skillpoints`} />;
+    },
 
-        get traits() {
-            return (
-                <GotchiTraits
-                    traits={gotchi.numericTraits}
-                    currentTraits={gotchi.modifiedNumericTraits}
-                    key={`${gotchi.id}-traits`}
-                />
-            );
-        },
+    get traits() {
+      return (
+        <GotchiTraits
+          traits={gotchi.numericTraits}
+          currentTraits={gotchi.modifiedNumericTraits}
+          key={`${gotchi.id}-traits`}
+        />
+      );
+    },
 
-        get wearablesLine() {
-            return (
-                <div
-                    className={classes.gotchiInnerSection}
-                    key={`${gotchi.id}-wearablesLine`}
-                >
-                    <GotchiWearablesLine gotchi={gotchi}/>
-                </div>
-            );
-        },
+    get wearablesLine() {
+      return (
+        <div className={classes.gotchiInnerSection} key={`${gotchi.id}-wearablesLine`}>
+          <GotchiWearablesLine gotchi={gotchi} />
+        </div>
+      );
+    },
 
-        get name() {
-            return (
-                <GotchiName
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-name`}
-                />
-            );
-        },
+    get name() {
+      return <GotchiName gotchi={gotchi} key={`${gotchi.id}-name`} />;
+    },
 
-        get svg() {
-            return (
-                <div key={`${gotchi.id}-svg`} >
-                    <GotchiImage
-                        gotchi={gotchi}
-                        renderSvgByStats={renderSvgByStats}
-                        portal={portal}
-                    />
-                </div>
-            );
-        },
+    get svg() {
+      return (
+        <div key={`${gotchi.id}-svg`}>
+          <GotchiImage gotchi={gotchi} renderSvgByStats={renderSvgByStats} portal={portal} />
+        </div>
+      );
+    },
 
-        get lending() {
-            return (
-                <GotchiLending
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-lending`}
-                />
-            );
-        },
+    get lending() {
+      return <GotchiLending gotchi={gotchi} key={`${gotchi.id}-lending`} />;
+    },
 
-        get lendingStats() {
-            return (
-                <GotchiLendingStats
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-lending-stats`}
-                />
-            );
-        },
+    get lendingStats() {
+      return <GotchiLendingStats gotchi={gotchi} key={`${gotchi.id}-lending-stats`} />;
+    },
 
-        get listing() {
-            return (
-                <ERC721Listing
-                    key={`${gotchi.id}-listing`}
-                    listings={gotchi.listings}
-                    historicalPrices={gotchi.historicalPrices}
-                />
-            );
-        },
+    get listing() {
+      return (
+        <ERC721Listing
+          key={`${gotchi.id}-listing`}
+          listings={gotchi.listings}
+          historicalPrices={gotchi.historicalPrices}
+        />
+      );
+    },
 
-        get saleHistory() {
-            return (
-                <CardSalesHistory
-                    key={`${gotchi.id}-saleHistory`}
-                    listing={{
-                        seller: gotchi.seller,
-                        buyer: gotchi.buyer,
-                        timePurchased: gotchi.timePurchased
-                    }}
-                />
-            );
-        },
+    get saleHistory() {
+      return (
+        <CardSalesHistory
+          key={`${gotchi.id}-saleHistory`}
+          listing={{
+            seller: gotchi.seller,
+            buyer: gotchi.buyer,
+            timePurchased: gotchi.timePurchased
+          }}
+        />
+      );
+    },
 
+    get rewards() {
+      return <GotchiRewards gotchi={gotchi} key={`${gotchi.id}-rewards`} />;
+    },
 
-        get rewards() {
-            return (
-                <GotchiRewards
-                    gotchi={gotchi}
-                    key={`${gotchi.id}-rewards`}
-                />
-            );
-        },
-
-        get flipButton() {
-            return <FlipButton key={`${gotchi.id}-flipButton`} onFlipCard={flipCard} />;
-        }
-    };
-
-    function renderSection(value: any) {
-        if (typeof value === 'string') {
-            return gotchiSections[value];
-        } else {
-            return gotchiSections.wrapper(
-                value.items.map((item: any) => (
-                    renderSection(item)
-                )),
-                value.className
-            );
-        }
+    get flipButton() {
+      return <FlipButton key={`${gotchi.id}-flipButton`} onFlipCard={flipCard} />;
     }
+  };
 
-    return (
-        <>
-            <div
-                className={classNames(
-                    classes.gotchi,
-                    `haunt${gotchi.hauntId}`,
-                    'vertical',
-                    className,
-                    GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
-                    gotchi.lending && isHighlightLending && 'lended',
-                    isFlipped && classes.gotchiIsFlipped
-                )}
-                onClick={() => setIsPreviewOpen(true)}
-            >
-                { gotchi.lending && isHighlightLending && (
-                    <div className={classes.statusBadge}>Lended</div>
-                )}
-                {render.map((name: any) => {
-                    return renderSection(name);
-                })}
-            </div>
-            <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
-                <GotchiPreviewModal id={shouldLoadGotchiInModal ? gotchi.id : null} gotchi={!shouldLoadGotchiInModal ? gotchi :null } />
-            </CustomModal>
-        </>
-    );
+  function renderSection(value: any) {
+    if (typeof value === 'string') {
+      return gotchiSections[value];
+    } else {
+      return gotchiSections.wrapper(
+        value.items.map((item: any) => renderSection(item)),
+        value.className
+      );
+    }
+  }
+
+  return (
+    <>
+      <div
+        className={classNames(
+          classes.gotchi,
+          `haunt${gotchi.hauntId}`,
+          'vertical',
+          className,
+          GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore),
+          gotchi.lending && isHighlightLending && 'lended',
+          isFlipped && classes.gotchiIsFlipped
+        )}
+        onClick={() => setIsPreviewOpen(true)}
+      >
+        {gotchi.lending && isHighlightLending && <div className={classes.statusBadge}>Lended</div>}
+        {render.map((name: any) => {
+          return renderSection(name);
+        })}
+      </div>
+      <CustomModal modalOpen={isPreviewOpen} setModalOpen={setIsPreviewOpen}>
+        <GotchiPreviewModal
+          id={shouldLoadGotchiInModal ? gotchi.id : null}
+          gotchi={!shouldLoadGotchiInModal ? gotchi : null}
+        />
+      </CustomModal>
+    </>
+  );
 }

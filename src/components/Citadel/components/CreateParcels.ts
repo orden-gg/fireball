@@ -65,10 +65,7 @@ export class CreateParcels extends Phaser.GameObjects.Graphics {
     }
 
     valueToColor(from, to) {
-        return [
-            Phaser.Display.Color.ValueToColor(from),
-            Phaser.Display.Color.ValueToColor(to)
-        ];
+        return [Phaser.Display.Color.ValueToColor(from), Phaser.Display.Color.ValueToColor(to)];
     }
 
     getParcelColorBySize(parcel) {
@@ -80,11 +77,7 @@ export class CreateParcels extends Phaser.GameObjects.Graphics {
                 COLORS.parcels[this.settings.type][1]
             );
 
-            return this.getRangeColor(
-                from,
-                to,
-                percentage > 100 ? 100 : percentage
-            );
+            return this.getRangeColor(from, to, percentage > 100 ? 100 : percentage);
         } else {
             return CitadelUtils.getParcelColorBySize(parcel.size)[parcel.use];
         }

@@ -7,19 +7,19 @@ import { ClientNav } from '../components/ClientNav';
 import { styles, accountStyles } from '../styles';
 
 export function ClientAccount() {
-    const classes = { ...styles(), ...accountStyles() };
+  const classes = { ...styles(), ...accountStyles() };
 
-    const { account } = useParams<{ account: string }>();
+  const { account } = useParams<{ account: string }>();
 
-    return (
-        <div className={classes.accountContainer}>
-            <ClientNav />
+  return (
+    <div className={classes.accountContainer}>
+      <ClientNav />
 
-            { EthersApi.isEthAddress(account) && (
-                <div className={classes.accountPanel}>
-                    <EthAddressPanel address={account as string} />
-                </div>
-            )}
+      {EthersApi.isEthAddress(account) && (
+        <div className={classes.accountPanel}>
+          <EthAddressPanel address={account as string} />
         </div>
-    );
+      )}
+    </div>
+  );
 }

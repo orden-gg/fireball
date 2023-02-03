@@ -20,73 +20,65 @@ import { raffles } from './data/raffles.data';
 import { styles } from './styles';
 
 export function Raffle() {
-    const classes = styles();
+  const classes = styles();
 
-    const location = useLocation();
-    const navigate = useNavigate();
-    const queryParams = queryString.parse(location.search) as CustomParsedQuery;
-    const lastRaffle = raffles[raffles.length - 1];
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = queryString.parse(location.search) as CustomParsedQuery;
+  const lastRaffle = raffles[raffles.length - 1];
 
-    const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(getActiveAddress);
 
-    const [raffleActive, setRaffleActive] = useState<string>('');
+  const [raffleActive, setRaffleActive] = useState<string>('');
 
-    useEffect(() => {
-        if (activeAddress) {
-            setRaffleActive(activeAddress);
-        }
-    }, [activeAddress]);
+  useEffect(() => {
+    if (activeAddress) {
+      setRaffleActive(activeAddress);
+    }
+  }, [activeAddress]);
 
-    useEffect(() => {
-        if (queryParams.address) {
-            setRaffleActive(queryParams.address);
-        }
-    }, [queryParams.address]);
+  useEffect(() => {
+    if (queryParams.address) {
+      setRaffleActive(queryParams.address);
+    }
+  }, [queryParams.address]);
 
-    useEffect(() => {
-        const currentSubroute = location.pathname.split('/')[2];
-        const currentRaffle = raffles.find(raffle => raffle.name === currentSubroute);
+  useEffect(() => {
+    const currentSubroute = location.pathname.split('/')[2];
+    const currentRaffle = raffles.find(raffle => raffle.name === currentSubroute);
 
-        if (raffleActive && currentRaffle) {
-            queryParams.address = raffleActive;
+    if (raffleActive && currentRaffle) {
+      queryParams.address = raffleActive;
 
-            navigate({
-                pathname: currentRaffle.name,
-                search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
-            });
-        }
-    }, [raffleActive]);
+      navigate({
+        pathname: currentRaffle.name,
+        search: queryString.stringify(queryParams, { arrayFormat: 'comma', encode: false })
+      });
+    }
+  }, [raffleActive]);
 
-    return (
-        <Box className={classes.container}>
-            <Helmet>
-                <title>
-                    {
-                        `raffles || ${location.pathname.split('/')[2]} || ${raffleActive ? CommonUtils.cutAddress(raffleActive, '...') : ''}`
-                    }
-                </title>
-            </Helmet>
+  return (
+    <Box className={classes.container}>
+      <Helmet>
+        <title>
+          {`raffles || ${location.pathname.split('/')[2]} || ${
+            raffleActive ? CommonUtils.cutAddress(raffleActive, '...') : ''
+          }`}
+        </title>
+      </Helmet>
 
-            {raffleActive !== 'null' && raffleActive?.length ? (
-                <ProfilePane address={raffleActive} />
-            ) : (
-                null
-            )}
+      {raffleActive !== 'null' && raffleActive?.length ? <ProfilePane address={raffleActive} /> : null}
 
-            <RaffleNav user={raffleActive} />
+      <RaffleNav user={raffleActive} />
 
-            {EthersApi.isEthAddress(raffleActive) ? (
-                <RaffleTickets address={raffleActive} />
-            ) : (
-                null
-            )}
+      {EthersApi.isEthAddress(raffleActive) ? <RaffleTickets address={raffleActive} /> : null}
 
-            <RaffleContextProvider>
-                <Routes>
-                    <Route path=':name' element={<RaffleContent user={raffleActive} />} />
-                    <Route path='*' element={<Navigate to={lastRaffle.name} replace /> } />
-                </Routes>
-            </RaffleContextProvider>
-        </Box>
-    );
+      <RaffleContextProvider>
+        <Routes>
+          <Route path=':name' element={<RaffleContent user={raffleActive} />} />
+          <Route path='*' element={<Navigate to={lastRaffle.name} replace />} />
+        </Routes>
+      </RaffleContextProvider>
+    </Box>
+  );
 }

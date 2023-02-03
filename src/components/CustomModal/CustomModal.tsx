@@ -6,37 +6,32 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface CustomModalProps {
-    children: JSX.Element;
-    modalOpen: boolean;
-    setModalOpen: (isOpen: boolean) => void;
-    onModalClose?: () => void;
-    className?: string;
+  children: JSX.Element;
+  modalOpen: boolean;
+  setModalOpen: (isOpen: boolean) => void;
+  onModalClose?: () => void;
+  className?: string;
 }
 
 export function CustomModal({ children, modalOpen, setModalOpen, onModalClose, className }: CustomModalProps) {
-    const classes = styles();
+  const classes = styles();
 
-    const onClose = () => {
-        setModalOpen(false);
+  const onClose = () => {
+    setModalOpen(false);
 
-        if (onModalClose) {
-            onModalClose();
-        }
-    };
+    if (onModalClose) {
+      onModalClose();
+    }
+  };
 
-    return (
-        <Modal
-            open={modalOpen}
-            onClose={onClose}
-            className={classes.wrapper}
-        >
-            <div className={classNames(classes.modal, className)}>
-                { children }
-                <IconButton className={classes.close} onClick={onClose}>
-                    <CloseIcon  />
-                </IconButton>
-            </div>
-        </Modal>
-    );
-
+  return (
+    <Modal open={modalOpen} onClose={onClose} className={classes.wrapper}>
+      <div className={classNames(classes.modal, className)}>
+        {children}
+        <IconButton className={classes.close} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </div>
+    </Modal>
+  );
 }

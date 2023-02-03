@@ -4,14 +4,14 @@ import { HomeGotchi } from './HomeGotchi.';
 import { teamStyles } from '../styles';
 
 export function Team({ team }: { team: any[] }) {
-    const classes = teamStyles();
+  const classes = teamStyles();
 
-    return (
-        <div className={classes.gotchisWrapper}>
-            {team.map((gotchi: any, index: number) => (
-                <HomeGotchi gotchi={gotchi} key={index} />
-            ))}
-            <User />
-        </div>
-    );
+  return (
+    <div className={classes.gotchisWrapper}>
+      {team.map((gotchi: any, index: number) => (
+        <HomeGotchi gotchi={gotchi} key={index} />
+      ))}
+      <User />
+    </div>
+  );
 }

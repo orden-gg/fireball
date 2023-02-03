@@ -1,13 +1,11 @@
 import { gotchiFooterStyles } from './styles';
 
 interface GotchiFooterProps {
-    children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 }
 
 export function GotchiFooter({ children }: GotchiFooterProps) {
-    const classes = gotchiFooterStyles();
+  const classes = gotchiFooterStyles();
 
-    return <div className={classes.gotchiFooter}>
-        {children}
-    </div>;
+  return <div className={classes.gotchiFooter}>{children}</div>;
 }

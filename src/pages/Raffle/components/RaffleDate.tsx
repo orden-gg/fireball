@@ -8,8 +8,8 @@ import { useInterval } from 'hooks/useInterval';
 import { raffleDataStyles } from '../styles';
 
 interface RaffleDateProps {
-    start: DateTime;
-    end: DateTime;
+  start: DateTime;
+  end: DateTime;
 }
 
 /**
@@ -18,42 +18,38 @@ interface RaffleDateProps {
  * @param end - either could be milliseconds or seconds, currently rely on seconds
  */
 export function RaffleDate({ start, end }: RaffleDateProps) {
-    const classes = raffleDataStyles();
+  const classes = raffleDataStyles();
 
-    const [type, setType] = useState<any>(null);
-    const [title, setTitle] = useState<any>(null);
+  const [type, setType] = useState<any>(null);
+  const [title, setTitle] = useState<any>(null);
 
-    useEffect(() => {
-        renderTitle();
-    }, []);
+  useEffect(() => {
+    renderTitle();
+  }, []);
 
-    useInterval(() => {
-        renderTitle();
-    }, 1000);
+  useInterval(() => {
+    renderTitle();
+  }, 1000);
 
-    const renderTitle = (): void => {
-        const local = DateTime.local().toSeconds();
-        const diff = end.toSeconds() - local;
+  const renderTitle = (): void => {
+    const local = DateTime.local().toSeconds();
+    const diff = end.toSeconds() - local;
 
-        if (local > start.toSeconds() && local < end.toSeconds()) {
-            setType('live');
-            setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
-        } else if (local < start.toSeconds()) {
-            setType('upcoming');
-            setTitle(start.toRelative());
-        } else {
-            setType('ended');
-            setTitle(`ended ${end.toRelative()}`);
-        }
-    };
-
-    if (!title) {
-        <></>;
+    if (local > start.toSeconds() && local < end.toSeconds()) {
+      setType('live');
+      setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
+    } else if (local < start.toSeconds()) {
+      setType('upcoming');
+      setTitle(start.toRelative());
+    } else {
+      setType('ended');
+      setTitle(`ended ${end.toRelative()}`);
     }
+  };
 
-    return (
-        <div className={classNames(classes.title, type)}>
-            {title}
-        </div>
-    );
+  if (!title) {
+    <></>;
+  }
+
+  return <div className={classNames(classes.title, type)}>{title}</div>;
 }

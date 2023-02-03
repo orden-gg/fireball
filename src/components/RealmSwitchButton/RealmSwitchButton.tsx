@@ -8,29 +8,21 @@ import { ClientContext } from 'contexts/ClientContext';
 import { styles } from './styles';
 
 export function RealmSwitchButton({ view, navigate }: { view: string; navigate: NavigateFunction }) {
-    const classes = styles();
+  const classes = styles();
 
-    const { setRealmView } = useContext<any>(ClientContext);
+  const { setRealmView } = useContext<any>(ClientContext);
 
-    const updateView = () => {
-        const path = view === 'list' ? 'map' : 'list';
+  const updateView = () => {
+    const path = view === 'list' ? 'map' : 'list';
 
-        setRealmView(path);
+    setRealmView(path);
 
-        navigate(`realm/${path}`);
-    };
+    navigate(`realm/${path}`);
+  };
 
-    return (
-        <CustomTooltip
-            title={`Switch to ${view === 'map' ? 'list' : 'map'}`}
-            enterTouchDelay={0}
-            placement={'bottom'}
-        >
-            <Switch
-                className={classes.button}
-                checked={view === 'map'}
-                onChange={updateView}
-            />
-        </CustomTooltip>
-    );
+  return (
+    <CustomTooltip title={`Switch to ${view === 'map' ? 'list' : 'map'}`} enterTouchDelay={0} placement={'bottom'}>
+      <Switch className={classes.button} checked={view === 'map'} onChange={updateView} />
+    </CustomTooltip>
+  );
 }
