@@ -13,12 +13,15 @@ const provider: any = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
 export const SCRIPT_WALLET_ADDRESS = SCRIPT_WALLET.address.toLowerCase();
 
+export const SCRIPT_QUEST_WALLET: Wallet = new ethers.Wallet(process.env.QUEST_PRIVATE_KEY as string, provider);
+export const SCRIPT_QUEST_WALLET_ADDRESS = SCRIPT_QUEST_WALLET.address.toLowerCase();
+
 export const getGasPrice = async () => {
     return await provider.getGasPrice();
 };
 
 export const MAIN_CONTRACT_WITH_SIGNER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_WALLET);
-
+export const MAIN_CONTRACT_WITH_QUESTER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_QUEST_WALLET);
 export enum CONSOLE_COLORS {
     Black = '\x1B[30m',
     Red = '\x1B[31m',
