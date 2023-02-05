@@ -7,9 +7,9 @@ import { exit } from 'process';
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.js';
 // @ts-ignore
 import {
-  SCRIPT_QUEST_WALLET_ADDRESS,
+  SCRIPT_BORROWER_WALLET_ADDRESS,
   CONSOLE_COLORS,
-  MAIN_CONTRACT_WITH_QUESTER,
+  MAIN_CONTRACT_WITH_BORROWER,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.js';
@@ -57,10 +57,10 @@ axios
 .post(GRAPH_CORE_API, { query: whitelistQuery })
 .then(async res => { 
   const membersIds = res.data.data.whitelist.members;
-  if (!membersIds.includes(SCRIPT_QUEST_WALLET_ADDRESS.toLowerCase())) {
+  if (!membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
     console.log(`QUEST_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
     exit();
-  } else if (membersIds.includes(SCRIPT_QUEST_WALLET_ADDRESS.toLowerCase())) {
+  } else if (membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
     console.log(`QUEST_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
   }
 })
@@ -155,7 +155,7 @@ axios
 
           console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
           const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
-                MAIN_CONTRACT_WITH_QUESTER.agreeGotchiLending( borrowId.listingId, borrowId.gotchiId, 0,borrowId.period,[borrowId.splitOwner,borrowId.splitBorrower,borrowId.splitOther], { 
+            MAIN_CONTRACT_WITH_BORROWER.agreeGotchiLending( borrowId.listingId, borrowId.gotchiId, 0,borrowId.period,[borrowId.splitOwner,borrowId.splitBorrower,borrowId.splitOther], { 
                   gasPrice: gasPriceGwei , gasLimit: 6e5
                 }).then((tx: ContractTransaction) => {
                   console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
