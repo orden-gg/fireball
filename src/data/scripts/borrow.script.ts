@@ -37,12 +37,10 @@ const repeatTimer = 1 * 15 * 1000;
 const txCostLimit = 120 * 1e9;
 let interval;
 
-const { QUEST_ADDRESS } = process.env;
-
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
   // Check if QUEST_ADDRESS is part of .env
-  if (!QUEST_ADDRESS) {
-    console.log('Please specify QUEST_ADDRESS in .env');
+  if (!SCRIPT_BORROWER_WALLET_ADDRESS) {
+    console.log('Please specify BORROWER PK in .env');
     exit();
   }
   // Check if owner is part of whitelist members
