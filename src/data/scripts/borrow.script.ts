@@ -16,6 +16,7 @@ import {
 import { ContractTransaction, ethers } from 'ethers';
 
 interface Gotchi {
+  listingId: string;
   gotchiId: string;
   name: string;
   owner: string;
@@ -57,10 +58,10 @@ axios
 .then(async res => { 
   const membersIds = res.data.data.whitelist.members;
   if (!membersIds.includes(SCRIPT_QUEST_WALLET_ADDRESS.toLowerCase())) {
-    console.log(`QUEST_ADDRESS is not a part of ${paint('whitelisted', CONSOLE_COLORS.Red)}`);
+    console.log(`QUEST_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
     exit();
   } else if (membersIds.includes(SCRIPT_QUEST_WALLET_ADDRESS.toLowerCase())) {
-    console.log(`QUEST_ADDRESS is a part of ${paint('whitelisted', CONSOLE_COLORS.Green)}`);
+    console.log(`QUEST_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
   }
 })
 .catch(e => console.log(e)); 
@@ -70,6 +71,7 @@ function borrowGotchis (axios,CONSOLE_COLORS,paint) {
 
 const borrowQuery = `{ 
   gotchiLendings (first: 1000 where: {whitelist: "${whitelistID}"}) {
+    id
     whitelist {
       ownerAddress
     }
@@ -104,6 +106,7 @@ axios
           if (gotchiLendings.length != 0) {      
             for (let i = 0; i < gotchiLendings.length; i++) { 
             const gotchisPush = {} as Gotchi;
+            gotchisPush.listingId =  gotchiLendings[i].id;
             gotchisPush.gotchiId =  gotchiLendings[i].gotchi.id;
             gotchisPush.name =  gotchiLendings[i].gotchi.name;
             gotchisPush.owner =  gotchiLendings[i].gotchi.owner.id;
@@ -152,15 +155,16 @@ axios
 
           console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
           const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
-                MAIN_CONTRACT_WITH_QUESTER.agreeGotchiLending( 1656159, borrowId.gotchiId, 0,borrowId.period,[borrowId.splitOwner,borrowId.splitBorrower,borrowId.splitOther], { //1643833, borrowId.gotchiId, 0,3600,[100,0,0]
+                MAIN_CONTRACT_WITH_QUESTER.agreeGotchiLending( borrowId.listingId, borrowId.gotchiId, 0,borrowId.period,[borrowId.splitOwner,borrowId.splitBorrower,borrowId.splitOther], { 
                   gasPrice: gasPriceGwei , gasLimit: 6e5
                 }).then((tx: ContractTransaction) => {
                   console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
                   console.log('waiting Tx approval...');
-                  // ! wait for pet transaction to display result
+                  clearInterval(interval);
+                  // ! wait for borrow transaction to display result
                   tx.wait()
                   .then(() => {
-                  console.log(`${paint('Happy folks:', CONSOLE_COLORS.Pink)},borrowed: ${paint(borrowId.gotchiId, CONSOLE_COLORS.Green)}`);})
+                  console.log(`${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(borrowId.gotchiId, CONSOLE_COLORS.Green)} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`);})
                   console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
               })
               .catch((error: any) =>
