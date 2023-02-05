@@ -31,11 +31,19 @@ interface Gotchi {
   listing: number;
 }
 // Whitelist hardcoded id "717" 6110
-const whitelistID = "6110"
+const whitelistID = "717"
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
 const txCostLimit = 120 * 1e9;
 let interval;
+
+function wait(ms){
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + ms) {
+    end = new Date().getTime();
+ }
+}
 
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
   // Check if QUEST_ADDRESS is part of .env
@@ -56,10 +64,10 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
     .then(async res => {
       const membersIds = res.data.data.whitelist.members;
       if (!membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
-        console.log(`QUEST_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
+        console.log(`BORROWER_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
         exit();
       } else if (membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
-        console.log(`QUEST_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
+        console.log(`BORROWER_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
       }
     })
     .catch(e => console.log(e));
@@ -160,7 +168,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
               console.log('waiting Tx approval...');
               clearInterval(interval);
               // ! wait for borrow transaction to display result
-              tx.wait()
+              tx.wait(8)
                 .then(() => {
                   console.log(`${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(borrowId.gotchiId, CONSOLE_COLORS.Green)} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`);
                 })
@@ -168,8 +176,8 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             })
               .catch((error: any) =>
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
-              );
-
+                
+              ); 
           }
         };
       };
