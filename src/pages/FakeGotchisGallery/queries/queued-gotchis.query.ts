@@ -1,5 +1,5 @@
 export const getQueuedFakeGotchisQuery = (): string => {
-    return `{
+  return `{
         metadataActionLogs(
             where: {
                 status_lt: 2

@@ -1,7 +1,7 @@
 import { Erc721Categories } from 'shared/constants';
 
 export const getFakeGotchisByAddressQuery = (address: string) => {
-    return `{
+  return `{
         account(id: "${address}") {
             id
             ERC721tokens(first: 1000) {
@@ -28,7 +28,7 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
 };
 
 export const getFakeGotchisListingsQuery = (id: number): string => {
-    return `
+  return `
         item${id}: erc721Listings(
             where: {
                 category: ${Erc721Categories.FakeAavegotchi}
@@ -44,7 +44,7 @@ export const getFakeGotchisListingsQuery = (id: number): string => {
 };
 
 export const getFakeGotchiCardCurrentListingQuery = (): string => {
-    return `{
+  return `{
         erc1155Listings(
             first: 1
             where: {
@@ -63,7 +63,7 @@ export const getFakeGotchiCardCurrentListingQuery = (): string => {
 };
 
 export const getFakeGotchiCardLastSoldListingQuery = (): string => {
-    return `{
+  return `{
         erc1155Listings (
             first: 1
             where: {

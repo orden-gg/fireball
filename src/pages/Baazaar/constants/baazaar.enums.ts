@@ -1,107 +1,107 @@
 export enum GotchiListingsFilterTypes {
-    BRS = 'baseRarityScore',
-    Kinship = 'kinship',
-    Experience = 'experience',
-    NameLowerCase = 'nameLowerCase',
-    HauntId = 'hauntId',
-    Collateral = 'collateral',
-    Price = 'priceInWei',
-    NrgTrait = 'nrgTrait',
-    AggTrait = 'aggTrait',
-    SpkTrait = 'spkTrait',
-    BrnTrait = 'brnTrait',
-    EysTrait = 'eysTrait',
-    EycTrait = 'eycTrait'
+  BRS = 'baseRarityScore',
+  Kinship = 'kinship',
+  Experience = 'experience',
+  NameLowerCase = 'nameLowerCase',
+  HauntId = 'hauntId',
+  Collateral = 'collateral',
+  Price = 'priceInWei',
+  NrgTrait = 'nrgTrait',
+  AggTrait = 'aggTrait',
+  SpkTrait = 'spkTrait',
+  BrnTrait = 'brnTrait',
+  EysTrait = 'eysTrait',
+  EycTrait = 'eycTrait'
 }
 
 export enum ClosedPortalListingFilterTypes {
-    HauntId = 'hauntId',
-    Price = 'priceInWei'
+  HauntId = 'hauntId',
+  Price = 'priceInWei'
 }
 
 export enum OpenedPortalListingFilterTypes {
-    BRS = 'baseRarityScore',
-    TokenId = 'tokenId',
-    HauntId = 'hauntId',
-    Collateral = 'collateral',
-    Price = 'priceInWei',
-    NrgTrait = 'nrgTrait',
-    AggTrait = 'aggTrait',
-    SpkTrait = 'spkTrait',
-    BrnTrait = 'brnTrait',
-    EysTrait = 'eysTrait',
-    EycTrait = 'eycTrait'
+  BRS = 'baseRarityScore',
+  TokenId = 'tokenId',
+  HauntId = 'hauntId',
+  Collateral = 'collateral',
+  Price = 'priceInWei',
+  NrgTrait = 'nrgTrait',
+  AggTrait = 'aggTrait',
+  SpkTrait = 'spkTrait',
+  BrnTrait = 'brnTrait',
+  EysTrait = 'eysTrait',
+  EycTrait = 'eycTrait'
 }
 
 export enum ParcelListingFilterTypes {
-    Size = 'size',
-    District = 'district',
-    Price = 'priceInWei',
-    FudBoost = 'fudBoost',
-    FomoBoost = 'fomoBoost',
-    AlphaBoost = 'alphaBoost',
-    KekBoost = 'kekBoost'
+  Size = 'size',
+  District = 'district',
+  Price = 'priceInWei',
+  FudBoost = 'fudBoost',
+  FomoBoost = 'fomoBoost',
+  AlphaBoost = 'alphaBoost',
+  KekBoost = 'kekBoost'
 }
 
 export enum WearableListingFilterTypes {
-    RarityLevel = 'rarityLevel',
-    Price = 'priceInWei',
-    NrgTraitModifier = 'nrgTraitModifier',
-    AggTraitModifier = 'aggTraitModifier',
-    SpkTraitModifier = 'spkTraitModifier',
-    BrnTraitModifier = 'brnTraitModifier'
+  RarityLevel = 'rarityLevel',
+  Price = 'priceInWei',
+  NrgTraitModifier = 'nrgTraitModifier',
+  AggTraitModifier = 'aggTraitModifier',
+  SpkTraitModifier = 'spkTraitModifier',
+  BrnTraitModifier = 'brnTraitModifier'
 }
 
 export enum InstallationListingFilterTypes {
-    Price = 'priceInWei'
+  Price = 'priceInWei'
 }
 
 export enum TileListingFilterTypes {
-    Erc1155TypeId = 'erc1155TypeId',
-    Price = 'priceInWei'
+  Erc1155TypeId = 'erc1155TypeId',
+  Price = 'priceInWei'
 }
 
 export enum ConsumableListingFilterTypes {
-    RarityLevel = 'rarityLevel',
-    Price = 'priceInWei'
+  RarityLevel = 'rarityLevel',
+  Price = 'priceInWei'
 }
 
 // activity
 export enum ActivityPortalListingFilterTypes {
-    HauntId = 'hauntId'
+  HauntId = 'hauntId'
 }
 
 export enum ActivityGotchiListingFilterTypes {
-    BRS = 'baseRarityScore',
-    Kinship = 'kinship',
-    Experience = 'experience',
-    HauntId = 'hauntId',
-    Collateral = 'collateral',
-    NrgTrait = 'nrgTrait',
-    AggTrait = 'aggTrait',
-    SpkTrait = 'spkTrait',
-    BrnTrait = 'brnTrait',
-    EysTrait = 'eysTrait',
-    EycTrait = 'eycTrait'
+  BRS = 'baseRarityScore',
+  Kinship = 'kinship',
+  Experience = 'experience',
+  HauntId = 'hauntId',
+  Collateral = 'collateral',
+  NrgTrait = 'nrgTrait',
+  AggTrait = 'aggTrait',
+  SpkTrait = 'spkTrait',
+  BrnTrait = 'brnTrait',
+  EysTrait = 'eysTrait',
+  EycTrait = 'eycTrait'
 }
 
 export enum ActivityParcelListingFilterTypes {
-    Size = 'size',
-    District = 'district',
-    FudBoost = 'fudBoost',
-    FomoBoost = 'fomoBoost',
-    AlphaBoost = 'alphaBoost',
-    KekBoost = 'kekBoost'
+  Size = 'size',
+  District = 'district',
+  FudBoost = 'fudBoost',
+  FomoBoost = 'fomoBoost',
+  AlphaBoost = 'alphaBoost',
+  KekBoost = 'kekBoost'
 }
 
 export enum ActivityWearableListingFilterTypes {
-    RarityLevel = 'rarityLevel'
+  RarityLevel = 'rarityLevel'
 }
 
 export enum ActivityTileListingFilterTypes {
-    Erc1155TypeId = 'erc1155TypeId'
+  Erc1155TypeId = 'erc1155TypeId'
 }
 
 export enum ActivityConsumableListingFilterTypes {
-    RarityLevel = 'rarityLevel'
+  RarityLevel = 'rarityLevel'
 }

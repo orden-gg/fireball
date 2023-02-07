@@ -1,7 +1,7 @@
 import { GraphQueryParams } from 'shared/models';
 
 export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: ${graphQueryParams.first}
             skip: ${graphQueryParams.skip}
@@ -52,7 +52,7 @@ export const getBaazaarGotchiListingsQuery = (graphQueryParams: GraphQueryParams
 };
 
 export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: ${graphQueryParams.first}
             skip: ${graphQueryParams.skip}
@@ -106,7 +106,7 @@ export const getBaazaarParcelsListingsQuery = (graphQueryParams: GraphQueryParam
 };
 
 export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: ${graphQueryParams.first}
             skip: ${graphQueryParams.skip}
@@ -134,7 +134,7 @@ export const getBaazaarClosedPortalsListingsQuery = (graphQueryParams: GraphQuer
 };
 
 export const getBaazaarOpenedPortalsListingsQuery = () => {
-    return `{
+  return `{
         erc721Listings (
             first: 500
             skip: 0
@@ -164,7 +164,7 @@ export const getBaazaarOpenedPortalsListingsQuery = () => {
 };
 
 export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc1155Listings (
             first: ${graphQueryParams.first}
             skip: ${graphQueryParams.skip}
@@ -189,7 +189,7 @@ export const getBaazaarErc1155ListingsQuery = (graphQueryParams: GraphQueryParam
 };
 
 export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: 100
             orderBy: timePurchased
@@ -217,7 +217,7 @@ export const getBaazaarActivityPortalsListingsQuery = (graphQueryParams: GraphQu
 };
 
 export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: 100
             orderBy: timePurchased
@@ -275,7 +275,7 @@ export const getBaazaarActivityGotchisListingsQuery = (graphQueryParams: GraphQu
 };
 
 export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQueryParams, whereParams: string) => {
-    return `{
+  return `{
         erc721Listings (
             first: 100
             orderBy: timePurchased
@@ -322,7 +322,7 @@ export const getBaazaarActivityParcelsListingsQuery = (graphQueryParams: GraphQu
 };
 
 export const getBaazaarErc1155PurchasesQuery = (graphQueryParams: GraphQueryParams, whereParams: string = '') => {
-    return `{
+  return `{
         erc1155Purchases (
             first: 100
             orderBy: timeLastPurchased

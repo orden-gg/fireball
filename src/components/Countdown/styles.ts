@@ -1,38 +1,40 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
 // TODO drop it
-export const styles = makeStyles(theme => createStyles({
+export const styles = makeStyles(theme =>
+  createStyles({
     wrapper: {
-        display: 'flex',
-        textAlign: 'center'
+      display: 'flex',
+      textAlign: 'center'
     },
     inner: {
-        fontSize: 26,
-        minWidth: 70,
-        fontWeight: 600,
-        position: 'relative',
-        padding: '0 2px',
-        '&:after': {
-            content: '":"',
-            position: 'absolute',
-            left: '100%',
-            top: 1,
-            transform: 'translateX(-50%)'
-        },
+      fontSize: 26,
+      minWidth: 70,
+      fontWeight: 600,
+      position: 'relative',
+      padding: '0 2px',
+      '&:after': {
+        content: '":"',
+        position: 'absolute',
+        left: '100%',
+        top: 1,
+        transform: 'translateX(-50%)'
+      },
 
-        '&:last-of-type:after': {
-            content: 'none'
-        }
+      '&:last-of-type:after': {
+        content: 'none'
+      }
     },
     number: {
-        backgroundColor: theme.palette.secondary.dark,
-        borderRadius: 5,
-        padding: '2px 6px',
-        display: 'inline-block'
+      backgroundColor: theme.palette.secondary.dark,
+      borderRadius: 5,
+      padding: '2px 6px',
+      display: 'inline-block'
     },
     text: {
-        display: 'block',
-        fontSize: 14,
-        margin: '3px 0 0'
+      display: 'block',
+      fontSize: 14,
+      margin: '3px 0 0'
     }
-}));
+  })
+);

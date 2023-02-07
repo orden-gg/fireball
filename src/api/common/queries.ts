@@ -1,5 +1,5 @@
 export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
-    return `{
+  return `{
         aavegotchis(
           first: 1000,
           skip: ${skip},
@@ -46,7 +46,7 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
 };
 
 export const gotchiByIdQuery = (id: any): any => {
-    return `{
+  return `{
         aavegotchi(id: ${id}) {
             id
             name
@@ -89,7 +89,7 @@ export const gotchiByIdQuery = (id: any): any => {
 };
 
 export const userQuery = (id: any, skip: any): any => {
-    return `{
+  return `{
         user(id: "${id}") {
           id
           gotchisOriginalOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
@@ -130,7 +130,7 @@ export const userQuery = (id: any, skip: any): any => {
 };
 
 export const userOwnedGotchisQuery = (address: string, skip: number): string => {
-    return `{
+  return `{
         user(id: "${address}") {
           id
           gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3, originalOwner: null}) {
@@ -171,7 +171,7 @@ export const userOwnedGotchisQuery = (address: string, skip: number): string => 
 };
 
 export const svgQuery = (id: any): any => {
-    return `{
+  return `{
         aavegotchis(where: {id: ${id}}) {
           id
           svg
@@ -183,7 +183,7 @@ export const svgQuery = (id: any): any => {
 };
 
 export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, orderDireciton: any): any => {
-    return `{
+  return `{
       erc1155Listings (
           first: 1,
           orderBy: ${orderBy},
@@ -203,13 +203,13 @@ export const erc1155Query = (id: any, sold: any, category: any, orderBy: any, or
 };
 
 export const erc1155ListingsBatchQuery = (
-    id: number,
-    category: string,
-    isSold: boolean,
-    orderBy: string,
-    orderDireciton: string
+  id: number,
+  category: string,
+  isSold: boolean,
+  orderBy: string,
+  orderDireciton: string
 ): string => {
-    return `
+  return `
         item${id}: erc1155Listings(
             orderBy: ${orderBy},
             orderDirection: ${orderDireciton},
@@ -228,7 +228,7 @@ export const erc1155ListingsBatchQuery = (
 };
 
 export const erc721ListingsBySeller = (seller: any): any => {
-    return `{
+  return `{
         erc721Listings(
             where: {
                 seller: "${seller}",
@@ -282,7 +282,7 @@ export const erc721ListingsBySeller = (seller: any): any => {
 
 // TODO should be removed after full integration of fireball gotchiverse graph.
 export const realmListingsBySeller = (seller: string): string => {
-    return `{
+  return `{
         erc721Listings(
             where: {
                 seller: "${seller}",
@@ -342,7 +342,7 @@ export const realmListingsBySeller = (seller: string): string => {
 };
 
 export const erc1155ListingsBySeller = (seller: any): any => {
-    return `{
+  return `{
         erc1155Listings(
             where: {
                 seller: "${seller}",
@@ -362,7 +362,7 @@ export const erc1155ListingsBySeller = (seller: any): any => {
 };
 
 export const realmQuery = (address: any, skip: any): any => {
-    return `{
+  return `{
       parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
         id
         parcelId
@@ -407,7 +407,7 @@ export const realmQuery = (address: any, skip: any): any => {
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {
-    return `{
+  return `{
       parcels(first: 1000, skip: ${skip}, where: { district: ${district}}) {
         tokenId
         parcelId
@@ -432,7 +432,7 @@ export const realmQueryByDistrict = (skip: any, district: any): any => {
 };
 
 export const parcelQuery = (id: any): any => {
-    return `{
+  return `{
       parcel(id: ${id}) {
         id
         parcelId
@@ -478,7 +478,7 @@ export const parcelQuery = (id: any): any => {
 };
 
 export const activeListingQeury = (erc: any, id: any, type: any, category: any): any => {
-    return `{
+  return `{
         ${erc}Listings(
                 where: {
                     category: "${category}"
@@ -494,7 +494,7 @@ export const activeListingQeury = (erc: any, id: any, type: any, category: any):
 };
 
 export const erc721SalesHistory = (id: number, category: string): any => {
-    return `{
+  return `{
         erc721Listings(
             where:{
                 tokenId_in: ["${id}"]
@@ -514,7 +514,7 @@ export const erc721SalesHistory = (id: number, category: string): any => {
 };
 
 export const getParcelOrderDirectionQuery = (data: any): any => {
-    return `{
+  return `{
         erc721Listings(
             first: 1,
             orderBy: priceInWei,
@@ -534,7 +534,7 @@ export const getParcelOrderDirectionQuery = (data: any): any => {
 };
 
 export const auctionQuery = (id: any): any => {
-    return `{
+  return `{
       auctions(first: 1, where: { id: "${id}" }) {
         id
         highestBid
@@ -543,7 +543,7 @@ export const auctionQuery = (id: any): any => {
 };
 
 export const listedParcelsQuery = (skip: any, orderDir: any, size: any): any => {
-    return `{
+  return `{
         erc721Listings(
             first: 1000,
             skip: ${skip},
@@ -591,7 +591,7 @@ export const listedParcelsQuery = (skip: any, orderDir: any, size: any): any => 
 };
 
 export const raffleQuery = (id: any): any => {
-    return `{
+  return `{
     raffles(where: {id: "${id}" }) {
       ticketPools {
         id
@@ -614,7 +614,7 @@ export const raffleQuery = (id: any): any => {
 };
 
 export const raffleEntrantsQuery = (address: any): any => {
-    return `{
+  return `{
       raffleEntrants(where: { address: "${address}" }) {
         id
         ticketId
@@ -627,7 +627,7 @@ export const raffleEntrantsQuery = (address: any): any => {
 };
 
 export const raffleWinsQuery = (address: any): any => {
-    return `{
+  return `{
       raffleWinners(where: { address: "${address}" }) {
         id
         item{
@@ -642,7 +642,7 @@ export const raffleWinsQuery = (address: any): any => {
 };
 
 export const lendingsQuery = (skip: any, orderDir: any): any => {
-    return `{
+  return `{
       gotchiLendings(
           first: 1000,
           skip: ${skip},
@@ -689,7 +689,7 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
 };
 
 export const lendingsByAddressQuery = (address: any, skip: any): any => {
-    return `{
+  return `{
       gotchiLendings(
         first: 1000,
         skip: ${skip},
@@ -745,7 +745,7 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
 };
 
 export const borrowedByAddressQuery = (address: any, skip: any): any => {
-    return `{
+  return `{
       gotchiLendings(
         first: 1000,
         skip: ${skip},
@@ -802,7 +802,7 @@ export const borrowedByAddressQuery = (address: any, skip: any): any => {
 // ! Gotchiverse queries
 
 export const gotchisGotchiverseQuery = (gotchis: any): any => {
-    return `{
+  return `{
         gotchis(
             first: ${gotchis.length},
             where: { id_in: ${JSON.stringify(gotchis)}
@@ -814,7 +814,7 @@ export const gotchisGotchiverseQuery = (gotchis: any): any => {
 };
 
 export const parcelsGotchiverseQuery = (parcels: any): any => {
-    return `{
+  return `{
         parcels(
             first: ${parcels.length},
             where: { id_in: ${JSON.stringify(parcels)}
@@ -832,7 +832,7 @@ export const parcelsGotchiverseQuery = (parcels: any): any => {
 };
 
 export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
-    return `{
+  return `{
         parcels(
             first: 1000,
             where: { owner: "${owner}" }

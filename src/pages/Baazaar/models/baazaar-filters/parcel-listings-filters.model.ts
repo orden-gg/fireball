@@ -3,13 +3,16 @@ import { GraphMultiAutocompleteFilter, GraphMultiButtonSelectionFilter, GraphRan
 import { ParcelListingFilterTypes } from '../../constants';
 
 export interface ParcelListingFilters {
-    [ParcelListingFilterTypes.Size]: GraphMultiButtonSelectionFilter;
-    [ParcelListingFilterTypes.District]: GraphMultiAutocompleteFilter;
-    [ParcelListingFilterTypes.Price]: GraphRangeSliderFilter;
-    [ParcelListingFilterTypes.FudBoost]: GraphRangeSliderFilter;
-    [ParcelListingFilterTypes.FomoBoost]: GraphRangeSliderFilter;
-    [ParcelListingFilterTypes.AlphaBoost]: GraphRangeSliderFilter;
-    [ParcelListingFilterTypes.KekBoost]: GraphRangeSliderFilter;
+  [ParcelListingFilterTypes.Size]: GraphMultiButtonSelectionFilter;
+  [ParcelListingFilterTypes.District]: GraphMultiAutocompleteFilter;
+  [ParcelListingFilterTypes.Price]: GraphRangeSliderFilter;
+  [ParcelListingFilterTypes.FudBoost]: GraphRangeSliderFilter;
+  [ParcelListingFilterTypes.FomoBoost]: GraphRangeSliderFilter;
+  [ParcelListingFilterTypes.AlphaBoost]: GraphRangeSliderFilter;
+  [ParcelListingFilterTypes.KekBoost]: GraphRangeSliderFilter;
 }
 
-export type ParcelListingFiltersType = GraphMultiButtonSelectionFilter | GraphMultiAutocompleteFilter | GraphRangeSliderFilter;
+export type ParcelListingFiltersType =
+  | GraphMultiButtonSelectionFilter
+  | GraphMultiAutocompleteFilter
+  | GraphRangeSliderFilter;

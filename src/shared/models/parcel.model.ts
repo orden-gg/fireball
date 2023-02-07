@@ -3,73 +3,73 @@ import { AlchemicaTypes, InstallationTypeNames, TypenameType } from 'shared/cons
 export declare type AlchemicaBag = [string, string, string, string];
 
 export interface ParcelInstallationDTO {
-    id: string;
-    installationId: number;
+  id: string;
+  installationId: number;
 }
 
 export interface ParcelTileDTO {
-    id: string;
-    tileId: number;
+  id: string;
+  tileId: number;
 }
 
 export interface ParcelInstallationVM {
-    id: number;
-    level: number;
-    name: string;
-    quantity: number;
-    type: InstallationTypeNames;
+  id: number;
+  level: number;
+  name: string;
+  quantity: number;
+  type: InstallationTypeNames;
 }
 
 export interface ParcelTileVM {
-    id: number;
-    name: string;
-    quantity: number;
+  id: number;
+  name: string;
+  quantity: number;
 }
 
 export interface ParcelSurvey {
-    id: string;
-    surveyed: string;
-    round: number;
-    fud: string;
-    fomo: string;
-    alpha: string;
-    kek: string;
+  id: string;
+  surveyed: string;
+  round: number;
+  fud: string;
+  fomo: string;
+  alpha: string;
+  kek: string;
 }
 
 export interface Parcel {
-    id: string;
-    parcelId: string;
-    parcelHash: string;
-    district: number;
-    size: number;
-    coordinateX: number;
-    coordinateY: number;
-    lastChanneled: number;
-    lastClaimed: number;
-    nextChannel: number;
-    alchemica: AlchemicaBag;
-    fudBoost: number;
-    fomoBoost: number;
-    alphaBoost: number;
-    kekBoost: number;
-    surveys: ParcelSurvey[];
-    __typename: TypenameType;
-    historicalPrices?: string[];
-    timesTraded?: number;
-    timePurchased?: number;
+  id: string;
+  parcelId: string;
+  parcelHash: string;
+  district: number;
+  size: number;
+  coordinateX: number;
+  coordinateY: number;
+  lastChanneled: number;
+  lastClaimed: number;
+  nextChannel: number;
+  alchemica: AlchemicaBag;
+  fudBoost: number;
+  fomoBoost: number;
+  alphaBoost: number;
+  kekBoost: number;
+  surveys: ParcelSurvey[];
+  __typename: TypenameType;
+  historicalPrices?: string[];
+  timesTraded?: number;
+  timePurchased?: number;
 }
 
 export interface ParcelDTO extends Parcel {
-    installations: ParcelInstallationDTO[];
-    tiles: ParcelTileDTO[];
+  installations: ParcelInstallationDTO[];
+  tiles: ParcelTileDTO[];
 }
 
 export interface ParcelVM extends Parcel {
-    installations: ParcelInstallationVM[];
-    tiles: ParcelTileVM[];
-    altarLevel: number;
+  installations: ParcelInstallationVM[];
+  tiles: ParcelTileVM[];
+  altarLevel: number;
 }
 
 export type ParcelAlchemica = {
-    [key in AlchemicaTypes]: number;
+  [key in AlchemicaTypes]: number;
 };

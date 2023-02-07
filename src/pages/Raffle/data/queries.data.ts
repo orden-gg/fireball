@@ -1,5 +1,5 @@
 export const raffleTicketPriceQuery = (id: string): string => {
-    return `{
+  return `{
         erc1155Listings (
             first: 5,
             orderBy: timeLastPurchased,
@@ -19,7 +19,7 @@ export const raffleTicketPriceQuery = (id: string): string => {
 
 // TODO check if needed
 export const rafflePortalsPriceQuery = (): string => {
-    return `{
+  return `{
         erc721Listings (
             first: 15,
             orderBy: priceInWei,
@@ -39,7 +39,7 @@ export const rafflePortalsPriceQuery = (): string => {
 
 // TODO check if needed
 export const raffleTotalQuery = (id: string): string => {
-    return `{
+  return `{
         total(id: ${id}) {
             totalCommon
             totalUncommon
@@ -55,7 +55,7 @@ export const raffleTotalQuery = (id: string): string => {
 
 // TODO check if needed
 export const raffle5TotalEnteredQuery = (): string => {
-    return `{
+  return `{
         total(id: 4) {
             totalDrop
         }
@@ -64,7 +64,7 @@ export const raffle5TotalEnteredQuery = (): string => {
 
 // TODO check if needed
 export const raffle6TotalEnteredQuery = (): string => {
-    return `{
+  return `{
         total(id: 5) {
             totalCommon
             totalUncommon

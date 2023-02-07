@@ -1,4 +1,4 @@
 export interface BigNumber {
-    _hex: string;
-    _isBigNumber: boolean;
+  _hex: string;
+  _isBigNumber: boolean;
 }

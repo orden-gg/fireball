@@ -3,7 +3,7 @@ import { GraphMultiButtonSelectionFilter } from 'shared/models';
 import { ActivityPortalListingFilterTypes } from '../../constants';
 
 export interface ActivityPortalListingFilters {
-    [ActivityPortalListingFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;
+  [ActivityPortalListingFilterTypes.HauntId]: GraphMultiButtonSelectionFilter;
 }
 
 export type ActivityPortalListingFiltersType = GraphMultiButtonSelectionFilter;
