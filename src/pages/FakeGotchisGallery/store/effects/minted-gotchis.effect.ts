@@ -6,10 +6,10 @@ import { getMintedFakeGotchisQuery } from '../../queries';
 
 import { loadMintedGotchis, loadMintedGotchisFailed, loadMintedGotchisSucceded } from '../slices';
 
-export const loadMintedFakeGotchis = (): AppThunk => async (dispatch) => {
-    dispatch(loadMintedGotchis());
+export const loadMintedFakeGotchis = (): AppThunk => async dispatch => {
+  dispatch(loadMintedGotchis());
 
-    FakeGotchisGalleryApi.getGalleryFakeGotchis(getMintedFakeGotchisQuery())
-        .then((res: FakeGotchi[]) => dispatch(loadMintedGotchisSucceded(res)))
-        .catch(() => dispatch(loadMintedGotchisFailed()));
+  FakeGotchisGalleryApi.getGalleryFakeGotchis(getMintedFakeGotchisQuery())
+    .then((res: FakeGotchi[]) => dispatch(loadMintedGotchisSucceded(res)))
+    .catch(() => dispatch(loadMintedGotchisFailed()));
 };

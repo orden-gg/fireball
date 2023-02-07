@@ -18,24 +18,24 @@ import { activityTilesListingsReducer } from './activity-tiles-listings.slice';
 import { activityConsumablesListingsReducer } from './activity-consumables-listings.slice';
 
 export const activityReducers = combineReducers({
-    portals: activityPortalsListingsReducer,
-    gotchis: activityGotchisListingsReducer,
-    parcels: activityParcelsListingsReducer,
-    wearables: activityWearablesListingsReducer,
-    installations: activityInstallationsListingsReducer,
-    tiles: activityTilesListingsReducer,
-    consumables: activityConsumablesListingsReducer
+  portals: activityPortalsListingsReducer,
+  gotchis: activityGotchisListingsReducer,
+  parcels: activityParcelsListingsReducer,
+  wearables: activityWearablesListingsReducer,
+  installations: activityInstallationsListingsReducer,
+  tiles: activityTilesListingsReducer,
+  consumables: activityConsumablesListingsReducer
 });
 
 export const baazarReducers = combineReducers({
-    gotchis: gotchisListingsReducer,
-    closedPortals: closedPortalsListingsReducer,
-    consumables: consumablesListingsReducer,
-    installations: installationsListingsReducer,
-    openedPortals: openedPortalsListingsReducer,
-    parcels: parcelsListingsReducer,
-    tiles: tilesListingsReducer,
-    wearables: wearablesListingsReducer,
-    // activity
-    activity: activityReducers
+  gotchis: gotchisListingsReducer,
+  closedPortals: closedPortalsListingsReducer,
+  consumables: consumablesListingsReducer,
+  installations: installationsListingsReducer,
+  openedPortals: openedPortalsListingsReducer,
+  parcels: parcelsListingsReducer,
+  tiles: tilesListingsReducer,
+  wearables: wearablesListingsReducer,
+  // activity
+  activity: activityReducers
 });

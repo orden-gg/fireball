@@ -68,7 +68,7 @@
     "clean": "rm -rf node_modules",
     "lint": "eslint -c .eslintrc.json --ext .ts,.tsx .",
     "prepare": "husky install",
-    "prettier": "prettier --write 'src/**/*.ts', 'src/**/*.tsx'",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
     "data": "execution() { yarn ts-node --esm src/data/scripts/\"$@\".script.ts; }; execution"
   },
   "paths": {

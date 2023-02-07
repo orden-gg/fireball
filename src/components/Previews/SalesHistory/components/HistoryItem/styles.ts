@@ -1,7 +1,9 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const historyItemStyles = makeStyles(() => createStyles({
+export const historyItemStyles = makeStyles(() =>
+  createStyles({
     item: {
-        flexBasis: '25%'
+      flexBasis: '25%'
     }
-}));
+  })
+);

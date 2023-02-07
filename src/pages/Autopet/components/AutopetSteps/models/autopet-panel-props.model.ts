@@ -1,4 +1,4 @@
 export interface AutopetPanelProps {
-    index: number;
-    dir: string;
+  index: number;
+  dir: string;
 }
