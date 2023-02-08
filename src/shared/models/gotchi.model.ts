@@ -1,3 +1,5 @@
+import { TraitModifiersTuple } from './erc-1155-item.model';
+
 export interface GotchiAgingModel {
   name: string;
   boost: number;
@@ -11,7 +13,7 @@ export interface GotchiInventory {
 export interface Gotchi {
   id: number;
   name: string;
-  numericTraits: number[];
+  numericTraits: TraitModifiersTuple;
   modifiedNumericTraits: number[];
   equippedWearables: number[];
   collateral: string;

@@ -32,6 +32,7 @@ import { EthersApi, MainApi, TheGraphApi } from 'api';
 import { GotchiUtils, ItemUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
+import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
 
 import { styles } from './styles';
 
@@ -145,6 +146,10 @@ export function GotchiPage() {
             <div className={classes.sets}>
               <div className={classes.title}>Recommended sets</div>
               <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
+            </div>
+            <div className={classes.sets}>
+              <div className={classes.title}>Recommended wearables</div>
+              <GotchiFitWearables traits={gotchi.numericTraits} />
             </div>
             {gotchi.timesTraded > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>

@@ -744,6 +744,9 @@ export const ClientContextProvider = (props: any) => {
         navData,
         getClientData,
 
+        getInventory,
+        getGotchis,
+
         canBeUpdated,
         setCanBeUpdated,
         setLoadedStates

@@ -41,7 +41,7 @@ export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
         .reduce((previous: number, current: number) => previous + current, 0);
       const combinedTraitsModifiers: number[] = ItemUtils.combineTraitsModifiers(wareablesModifiers);
       const combinedModifiers: number[] = ItemUtils.combineTraitsModifiers([combinedTraitsModifiers, setModifiers]);
-      const isSetAvailable: boolean = ItemUtils.getIsSetAvailable(filteredTraits, combinedModifiers);
+      const isSetAvailable: boolean = ItemUtils.getIsTraitsModifiersFit(filteredTraits, combinedModifiers);
 
       if (isSetAvailable) {
         const bonusRs: number = set[SetTypes.TraitsBonuses][0] + wareablesBonusRS;

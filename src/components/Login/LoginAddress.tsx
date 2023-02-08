@@ -12,7 +12,7 @@ import { LoginAddress as LoginAddressModel } from 'shared/models';
 import {
   getActiveAddress,
   removeAddress,
-  setActiveAddress,
+  selectActiveAddress,
   toggleLoginDropdown,
   updateAddressName
 } from 'core/store/login';
@@ -54,7 +54,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
 
   const onAddressClick = (): void => {
     dispatch(toggleLoginDropdown(false));
-    dispatch(setActiveAddress(address.address));
+    dispatch(selectActiveAddress(address.address));
   };
 
   const isActive = (current: LoginAddressModel): boolean => {
