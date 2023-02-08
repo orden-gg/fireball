@@ -41,8 +41,10 @@ export function GotchiFitWearables({ traits }: GotchiFitWearablesProps) {
   }, [traits]);
 
   useEffect(() => {
-    getInventory(activeAddress);
-    getGotchis(activeAddress);
+    if (activeAddress) {
+      getInventory(activeAddress);
+      getGotchis(activeAddress);
+    }
   }, [activeAddress]);
 
   useEffect(() => {
@@ -56,9 +58,6 @@ export function GotchiFitWearables({ traits }: GotchiFitWearablesProps) {
           if (inventoryWearable) {
             wearable.balance = inventoryWearable.balance;
             wearable.holders = inventoryWearable.holders;
-          } else {
-            wearable.balance = 0;
-            wearable.holders = 0;
           }
 
           return wearable;
@@ -78,7 +77,7 @@ export function GotchiFitWearables({ traits }: GotchiFitWearablesProps) {
           className={classes.item}
         >
           <CardGroup name='header'>
-            <CardBalance balance={wearable.balance} holders={wearable.holders} />
+            <CardBalance balance={wearable.balance || 0} holders={wearable.holders || 0} />
           </CardGroup>
           <CardGroup name='body'>
             <CardImage id={wearable.id} category={Erc1155Categories.Wearable} />
