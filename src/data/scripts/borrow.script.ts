@@ -32,6 +32,7 @@ interface Gotchi {
 }
 // Whitelist hardcoded id "717" 6110
 const whitelistID = "717"
+const MAX_BORROWED = 3 ;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
 const txCostLimit = 120 * 1e9;
@@ -141,9 +142,11 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           exit();
         }
         if (distinctgotchis) {
+          let totalBorrowedTemp = 0;
           for (const borrowId of distinctgotchis) {
             // run contract to agreeGotchiLending
             // gas price check
+            
             const gasPriceGwei = await getGasPrice();
 
             if (gasPriceGwei >= txCostLimit) {
@@ -168,11 +171,18 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
               console.log('waiting Tx approval...');
               clearInterval(interval);
               // ! wait for borrow transaction to display result
-              tx.wait(8)
+              tx.wait(2)
                 .then(() => {
                   console.log(`${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(borrowId.gotchiId, CONSOLE_COLORS.Green)} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`);
+                  totalBorrowedTemp += 1;
                 })
+
               console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
+              if (totalBorrowedTemp >= MAX_BORROWED){
+                console.log(`🚀 Max barrrowed achieved: ${paint(totalBorrowedTemp, CONSOLE_COLORS.Pink)}`);
+                return;
+              }
+              console.log(`🚀 Barrrowed achieved: ${paint(totalBorrowedTemp, CONSOLE_COLORS.Pink)}`);
             })
               .catch((error: any) =>
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
