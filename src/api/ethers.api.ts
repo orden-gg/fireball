@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { EtherscanProvider, TransactionResponse } from '@ethersproject/providers';
 
 import { DEFAULT_COLLATERAL_DECIMALS, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
@@ -59,6 +60,13 @@ export class EthersApi {
     const signer: any = provider.getSigner();
 
     return new ethers.Contract(contract, abi, signer);
+  }
+
+  public static async getTxHistory(address: string): Promise<TransactionResponse[]> {
+    // ! NOTE: for getHistory method we need to use EtherscanProvider
+    const provider: EtherscanProvider = new ethers.providers.EtherscanProvider('matic');
+
+    return provider.getHistory(address);
   }
 
   public static getProvider(network?: any): any {
