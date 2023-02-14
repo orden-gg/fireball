@@ -8,7 +8,6 @@ export * from './GhostExplorer/GhostExplorer';
 export * from './Glossary/containers/Glossary';
 export * from './GotchiPage/GotchiPage';
 export * from './Guilds/Guilds';
-export * from './Learn/Learn';
 export * from './Lend/Lend';
 export * from './Main/Main';
 export * from './Map/Map';

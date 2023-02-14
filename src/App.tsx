@@ -20,7 +20,6 @@ import {
   Glossary,
   GotchiPage,
   Guilds,
-  Learn,
   Lend,
   Main,
   Map,
@@ -101,7 +100,6 @@ export function App() {
                     <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
                     <Route path='glossary/*' element={<Glossary />} />
                     <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
-                    <Route path='learn' element={<Learn />} />
                     <Route path='404' element={<NotFound />} />
                     <Route path='*' element={<Navigate to='404' replace />}></Route>
                   </Routes>
