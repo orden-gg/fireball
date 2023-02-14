@@ -90,11 +90,13 @@
   },
   "resolutions": {
     "immer": "9.0.6",
-    "glob-parent": "5.1.2"
+    "glob-parent": "5.1.2",
+    "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
     "@babel/preset-env": "7.20.2",
     "@babel/preset-react": "7.16.5",
+    "@ethersproject/providers": "^5.7.0",
     "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
     "@types/luxon": "^2.3.2",

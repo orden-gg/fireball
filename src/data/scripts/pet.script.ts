@@ -23,7 +23,7 @@ interface Gotchi {
 }
 // Interval repeater and tx cost limit
 const repeatTimer = 5 * 60 * 1000;
-const txCostLimit = 120 * 1e9;
+const txCostLimit = 220 * 1e9;
 let interval;
 
 const { OWNER_ADDRESS, OPERATOR_PRIVATE_KEY } = process.env;
