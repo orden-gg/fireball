@@ -848,3 +848,18 @@ export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
         }
       }`;
 };
+
+export const portalsQueryByAddress = (owner: string): any => {
+  return `{
+        portals(
+            where: { owner: "${owner}" }
+        ) {
+          hauntId
+          historicalPrices
+          id
+          buyer {
+            id
+          }
+        }
+      }`;
+};

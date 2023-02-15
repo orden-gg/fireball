@@ -8,6 +8,7 @@ import {
   GotchiIcon,
   KekIcon,
   RareTicketIcon,
+  H1SealedPortalIcon,
   WarehouseIcon,
   AnvilIcon,
   FakeGotchisIcon,
@@ -26,6 +27,7 @@ const loadedDefaultStates: { [key: string]: boolean } = {
   isBorrowedLoaded: false,
   isInventoryLoaded: false,
   isTicketsLoaded: false,
+  isPortalsLoaded: false,
   isRealmLoaded: false,
   isInstallationsLoaded: false,
   isTilesLoaded: false,
@@ -61,6 +63,9 @@ export const ClientContextProvider = (props: any) => {
 
   const [tickets, setTickets] = useState<any[]>([]);
   const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
+
+  const [portals, setPortals] = useState<any[]>([]);
+  const [loadingPortals, setLoadingPortals] = useState<boolean>(true);
 
   const [realm, setRealm] = useState<any[]>([]);
   const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
@@ -151,6 +156,14 @@ export const ClientContextProvider = (props: any) => {
       count: tickets.length
     },
     {
+      name: 'portals',
+      path: 'portals',
+      icon: <H1SealedPortalIcon width={24} height={24} />,
+      isLoading: loadingPortals,
+      count: portals.length
+    },
+     // designe
+    {
       name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
@@ -202,6 +215,7 @@ export const ClientContextProvider = (props: any) => {
     getBorrowed(address, shouldUpdateIsLoading);
     getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
+    getPortal(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
     getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
@@ -458,6 +472,23 @@ export const ClientContextProvider = (props: any) => {
       .finally(() => {
         setLoadingTickets(false);
         setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: true }));
+      });
+  };
+
+  const getPortal = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+    setLoadingPortals(shouldUpdateIsLoading);
+    setLoadedStates(statesCache => ({ ...statesCache, isPortalsLoaded: false }));
+
+    TheGraphApi.getPortalsByAddress(address)
+      .then((response: any) => {
+        setPortals(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoadingPortals(false);
+        setLoadedStates(statesCache => ({ ...statesCache, isPortalsLoaded: true }));
       });
   };
 
@@ -722,6 +753,9 @@ export const ClientContextProvider = (props: any) => {
 
         tickets,
         loadingTickets,
+
+        portals,
+        loadingPortals,
 
         realm,
         realmView,

@@ -32,6 +32,7 @@ import {
   gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
+  portalsQueryByAddress,
   realmQueryByDistrict,
   realmListingsBySeller
 } from './common/queries';
@@ -592,6 +593,13 @@ export class TheGraphApi {
       return filteredArray;
     });
   }
+
+  public static async getPortalsByAddress(seller: any): Promise<any> {
+    return await TheGraphApi.getData(portalsQueryByAddress(seller))
+      .then((response: any) => response.data.portals)
+      .catch((error: any) => console.log(error));
+  }
+
 
   // ! GOTCHIVERSE
 
