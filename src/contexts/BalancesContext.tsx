@@ -197,7 +197,7 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Matic] * amounts[TokenTypes.Matic]
           ),
-          swapUrl: generateSwapUrl(MATIC_CONTRACT, USDC_CONTRACT)
+          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT)
         }
       ];
 
