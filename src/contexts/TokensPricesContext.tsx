@@ -34,7 +34,7 @@ export const TokensPricesContextProvider = props => {
         QuickswapApi.getTokenData(KEK_CONTRACT),
         QuickswapApi.getTokenData(GLTR_CONTRACT)
       ]);
-      const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice ] = await Promise.all([
+      const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
         getTokenPrice(ghst, ghstPrice, fudToken),
         getTokenPrice(ghst, ghstPrice, fomoToken),
         getTokenPrice(ghst, ghstPrice, alphaToken),
