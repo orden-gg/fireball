@@ -27,6 +27,7 @@ import gotchi from 'assets/images/gotchi-placeholder.svg';
 import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import ghst from 'assets/images/icons/ghst.svg';
+import matic from 'assets/images/icons/matic.svg';
 import kek from 'assets/images/icons/kek.svg';
 import listing from 'assets/images/icons/listing.svg';
 import logo from 'assets/images/icons/logo-white.svg';
@@ -54,6 +55,7 @@ import alphaToken from 'assets/images/tokens/alpha-token.svg';
 import fomoToken from 'assets/images/tokens/fomo-token.svg';
 import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
+import maticToken from 'assets/images/tokens/matic-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 import daiToken from 'assets/images/tokens/dai-token.svg';
@@ -196,6 +198,10 @@ export const GhstIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={ghst} alt='ghst' />;
 };
 
+export const MaticIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={matic} alt='matic' />;
+};
+
 export const TwitchIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={twitch} alt='twitch' />;
 };
@@ -244,6 +250,10 @@ export const FudTokenIcon = ({ className, width, height }: IconProps) => {
 
 export const GhstTokenIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
+};
+
+export const MaticTokenIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={maticToken} alt='matic' />;
 };
 
 export const GltrTokenIcon = ({ className, width, height }: IconProps) => {

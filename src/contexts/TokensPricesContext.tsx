@@ -8,7 +8,8 @@ import {
   GLTR_CONTRACT,
   KEK_CONTRACT,
   TokenTypes,
-  USDC_CONTRACT
+  USDC_CONTRACT, 
+  MATIC_CONTRACT
 } from 'shared/constants';
 import { QuickswapApi } from 'api';
 
@@ -26,19 +27,21 @@ export const TokensPricesContextProvider = props => {
       setIsPricesLoaded(false);
 
       const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
+      const [fudToken, fomoToken, alphaToken, kekToken, gltrToken, maticToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
         QuickswapApi.getTokenData(ALPHA_CONTRACT),
         QuickswapApi.getTokenData(KEK_CONTRACT),
-        QuickswapApi.getTokenData(GLTR_CONTRACT)
+        QuickswapApi.getTokenData(GLTR_CONTRACT),
+        QuickswapApi.getTokenData(MATIC_CONTRACT)
       ]);
-      const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
+      const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice , maticPrice] = await Promise.all([
         getTokenPrice(ghst, ghstPrice, fudToken),
         getTokenPrice(ghst, ghstPrice, fomoToken),
         getTokenPrice(ghst, ghstPrice, alphaToken),
         getTokenPrice(ghst, ghstPrice, kekToken),
-        getTokenPrice(ghst, ghstPrice, gltrToken)
+        getTokenPrice(ghst, ghstPrice, gltrToken),
+        getTokenPrice(ghst, ghstPrice, maticToken)
       ]);
 
       setTokensPrices({
@@ -47,7 +50,8 @@ export const TokensPricesContextProvider = props => {
         [TokenTypes.Alpha]: alphaPrice,
         [TokenTypes.Kek]: kekPrice,
         [TokenTypes.Gltr]: gltrPrice,
-        [TokenTypes.Ghst]: ghstPrice
+        [TokenTypes.Ghst]: ghstPrice,
+        [TokenTypes.Matic]: maticPrice
       });
       setIsPricesLoaded(true);
     };
