@@ -26,7 +26,7 @@ export const TokensPricesContextProvider = props => {
     const getTokensPrices = async function() {
       setIsPricesLoaded(false);
       const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      const [matic, maticPrice] = await getMaticAndPriceToToken(MATIC_CONTRACT, USDC_CONTRACT);
+      const [maticPrice] = await getMaticAndPriceToToken(MATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
@@ -80,15 +80,12 @@ export const TokensPricesContextProvider = props => {
       QuickswapApi.getTokenData(maticContract),
       QuickswapApi.getTokenData(tokenContract)
     ]);
-    debugger;
+
     const maticTokenPair = await QuickswapApi.getPairData(matic, token);
-    debugger;
     const maticTokenRoute = QuickswapApi.getTokenRouteByPair(matic, maticTokenPair);
-    debugger;
-    const maticPriceToToken = Number(maticTokenRoute.midPrice.toSignificant(9));
-    debugger;
-    return [matic, maticPriceToToken];
-  };
+    const maticPriceToToken = Number(maticTokenRoute.midPrice.toSignificant(6));
+    
+    return [maticPriceToToken];};
 
   const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {
     const tokensPair = await QuickswapApi.getPairData(compareToken, targetToken);
