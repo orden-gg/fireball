@@ -25,16 +25,14 @@ export const TokensPricesContextProvider = props => {
   useEffect(() => {
     const getTokensPrices = async function() {
       setIsPricesLoaded(false);
-      const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      const [matic, maticPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      debugger;
+      const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
+      const [maticPrice] = await getGhstAndPriceToToken(MATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
         QuickswapApi.getTokenData(ALPHA_CONTRACT),
         QuickswapApi.getTokenData(KEK_CONTRACT),
-        QuickswapApi.getTokenData(GLTR_CONTRACT),
-        QuickswapApi.getTokenData(MATIC_CONTRACT),
+        QuickswapApi.getTokenData(GLTR_CONTRACT)
       ]);
       const [fudPrice, fomoPrice, alphaPrice, kekPrice, gltrPrice] = await Promise.all([
         getTokenPrice(ghst, ghstPrice, fudToken),
@@ -43,7 +41,6 @@ export const TokensPricesContextProvider = props => {
         getTokenPrice(ghst, ghstPrice, kekToken),
         getTokenPrice(ghst, ghstPrice, gltrToken)
       ]);
-      debugger;
       setTokensPrices({
         [TokenTypes.Fud]: fudPrice,
         [TokenTypes.Fomo]: fomoPrice,
@@ -75,7 +72,7 @@ export const TokensPricesContextProvider = props => {
     const ghstTokenRoute = QuickswapApi.getTokenRouteByPair(ghst, ghstTokenPair);
     const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
-    return [ghst, ghstPriceToToken];
+    return [ghstPriceToToken, ghst];
   };
 
   const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {
