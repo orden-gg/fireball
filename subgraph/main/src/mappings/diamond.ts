@@ -287,6 +287,7 @@ export function handleClaimAavegotchi(event: ClaimAavegotchi): void {
   }
 
   const identity = updateIdentityByGotchi(gotchi);
+  identity.save();
 
   gotchi.identity = identity.id;
 
@@ -301,7 +302,6 @@ export function handleClaimAavegotchi(event: ClaimAavegotchi): void {
   portal.save();
 
   gotchi.save();
-  identity.save();
   zeroUser.save();
 }
 
