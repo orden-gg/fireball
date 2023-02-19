@@ -1,0 +1,204 @@
+type Player @entity {
+  "player address"
+  id: ID!
+
+  items: [ERC1155Item!] @derivedFrom(field: "owner")
+  portalsBought: [Portal!]! @derivedFrom(field: "buyer")
+  gotchisOwned: [Gotchi!]! @derivedFrom(field: "owner")
+  gotchisOriginalOwned: [Gotchi!]! @derivedFrom(field: "originalOwner")
+  portalsOwned: [Portal!]! @derivedFrom(field: "owner")
+  gotchisLentOut: [BigInt!]!
+  gotchisBorrowed: [BigInt!]!
+}
+
+type AavegotchiOption @entity {
+  id: ID!
+  portalOptionId: Int!
+  gotchiId: BigInt!
+  hauntId: Int!
+  owner: Player
+  portal: Portal!
+  randomNumber: BigInt!
+  numericTraits: [Int!]!
+  collateralType: Bytes!
+  minimumStake: BigInt!
+  baseRarityScore: Int!
+  identity: Identity!
+}
+
+type Gotchi @entity {
+  id: ID!
+  gotchiId: BigInt!
+  owner: Player!
+  originalOwner: Player!
+  portal: Portal! @derivedFrom(field: "gotchi")
+  hauntId: BigInt!
+  name: String!
+  nameLowerCase: String!
+  randomNumber: BigInt!
+  status: BigInt!
+  numericTraits: [Int!]!
+  modifiedNumericTraits: [Int!]!
+  withSetsNumericTraits: [Int!]
+  equippedWearables: [Int!]!
+  equippedSetID: BigInt
+  equippedSetName: String
+  possibleSets: BigInt
+  collateral: Bytes!
+  escrow: Bytes!
+  stakedAmount: BigInt!
+  minimumStake: BigInt!
+  kinship: BigInt!
+  lastInteracted: BigInt!
+  experience: BigInt!
+  toNextLevel: BigInt!
+  usedSkillPoints: BigInt!
+  level: BigInt!
+  baseRarityScore: BigInt!
+  modifiedRarityScore: BigInt!
+  withSetsRarityScore: BigInt
+  locked: Boolean!
+  listings: [ERC721Listing!]! @derivedFrom(field: "gotchi")
+  createdAt: BigInt
+  claimedAt: BigInt
+  timesTraded: BigInt!
+  historicalPrices: [BigInt!]
+  activeListing: BigInt
+  lending: BigInt
+  badges: [Int!]!
+  identity: Identity!
+}
+
+type Identity @entity {
+  id: ID!
+  collateral: Bytes!
+  shape: String!
+  color: String!
+  claimed: [Gotchi!]!
+  unclaimed: [AavegotchiOption!]!
+}
+
+### lending
+type GotchiLending @entity {
+  id: ID!
+  rentDuration: BigInt!
+  upfrontCost: BigInt!
+  period: BigInt!
+
+  gotchi: Gotchi!
+
+  # gotch filter attributes
+  gotchiBRS: BigInt
+  gotchiTokenId: BigInt!
+  gotchiKinship: BigInt!
+
+  # profit split
+  splitOwner: BigInt
+  splitBorrower: BigInt
+  splitOther: BigInt
+
+  # tokens to share
+  tokensToShare: [Bytes!]!
+
+  whitelist: Whitelist
+  whitelistMembers: [Bytes!]!
+  whitelistId: BigInt
+  thirdPartyAddress: Bytes
+
+  borrower: Bytes
+  lender: Bytes
+  originalOwner: Bytes
+
+  cancelled: Boolean!
+  completed: Boolean!
+  lastClaimed: BigInt
+
+  timeAgreed: BigInt
+  timeCreated: BigInt
+  timeEnded: BigInt
+
+  claimed: [ClaimedToken!]! @derivedFrom(field: "lending")
+}
+
+type ClaimedToken @entity {
+  id: ID!
+  lending: GotchiLending!
+  token: Bytes!
+  amount: BigInt!
+}
+
+type Whitelist @entity {
+  id: ID!
+  name: String!
+  members: [Bytes!]!
+  owner: Player!
+  ownerAddress: Bytes!
+
+  "Access Right for max borrowed Gotchis, default 1"
+  maxBorrowLimit: Int
+}
+
+enum PortalStatus {
+  Bought
+  Opened
+  Claimed
+}
+
+type Portal @entity {
+  id: ID!
+  gotchiId: BigInt
+  buyer: Player
+  hauntId: BigInt!
+  owner: Player
+  gotchi: Gotchi
+  options: [AavegotchiOption!]! @derivedFrom(field: "portal")
+  status: PortalStatus!
+  boughtAt: BigInt
+  openedAt: BigInt
+  claimedAt: BigInt
+  timesTraded: BigInt!
+  historicalPrices: [BigInt!]
+  activeListing: BigInt
+}
+
+type ERC721Listing @entity {
+  id: ID!
+  gotchi: Gotchi
+  category: BigInt! # 0 = Closed Portal, 1 = VRF Pending, 2 = Open Portal, 3 = Aavegotchi
+  erc721TokenAddress: Bytes! # The token address of the NFT
+  tokenId: BigInt! # The token ID of the NFT
+  seller: Bytes! # The creator of the listing
+  buyer: Bytes
+  recipient: Bytes
+  timeCreated: BigInt! # Time at which listed was created
+  timePurchased: BigInt # Time when the listing was purchased
+  cancelled: Boolean # If the listing is cancelled
+  priceInWei: BigInt! # How much the listing is (in GHST)
+  blockCreated: BigInt!
+  portal: Portal
+
+  soldBefore: Boolean
+  claimedAt: BigInt
+  nameLowerCase: String
+  amountEquippedWearables: Int
+  kinship: BigInt
+  experience: BigInt
+  nrgTrait: BigInt
+  aggTrait: BigInt
+  spkTrait: BigInt
+  brnTrait: BigInt
+  eysTrait: BigInt
+  eycTrait: BigInt
+  collateral: Bytes
+  withSetsNumericTraits: [Int!]
+}
+
+type ERC1155Item @entity {
+  id: ID!
+  owner: Player!
+  amount: Int!
+  tokenId: Int!
+
+  category: Int!
+  equipped: Int!
+}
