@@ -9,7 +9,7 @@ import {
   KEK_CONTRACT,
   TokenTypes,
   USDC_CONTRACT,
-  MATIC_CONTRACT
+  WMATIC_CONTRACT
 } from 'shared/constants';
 import { QuickswapApi } from 'api';
 
@@ -26,7 +26,7 @@ export const TokensPricesContextProvider = props => {
     const getTokensPrices = async function() {
       setIsPricesLoaded(false);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      const [maticPrice] = await getGhstAndPriceToToken(MATIC_CONTRACT, USDC_CONTRACT);
+      const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
