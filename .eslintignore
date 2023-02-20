@@ -1,5 +1,4 @@
 build/*
 
 # subgraph
-subgraph/build
-subgraph/generated
+subgraph/*
