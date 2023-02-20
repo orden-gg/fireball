@@ -34,7 +34,7 @@ import { gotchiPreviewModalStyles } from './styles';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-
+  const [spawnId, setSpawnId] = useState<any>(null);
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
@@ -44,6 +44,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   useEffect(() => {
     if (gotchi) {
       setModalGotchi(gotchi);
+      setSpawnId('C-6072-3568-U');
       setInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
@@ -118,6 +119,20 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       className={classes.button}
                     >
                       View at aavegotchi.com
+                    </ViewInAppButton>
+                    
+                    <ViewInAppButton
+                      link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
+                      className={classes.button}
+                    >
+                      Jump into Arena
+                    </ViewInAppButton>
+                    <ViewInAppButton
+                      link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
+                      className={classes.button}
+                      
+                    >
+                      Jump into Farm
                     </ViewInAppButton>
                   </GotchiFooter>
                 )}
