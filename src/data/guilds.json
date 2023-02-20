@@ -764,7 +764,9 @@
     {
         "name": "TGC",
         "logo": "tgc.jpeg",
-        "members": [],
+        "members": [
+            "0x7D1368528D8dd105368C91700f1Ac30D81628794",
+        ],
         "description": [
             {
                 "title": "Description",
