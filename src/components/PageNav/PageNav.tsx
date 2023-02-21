@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 
 import { PageNavLink } from 'shared/models';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
@@ -39,41 +40,72 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     <div className={classes.container}>
       {beforeContent}
       {data.map((link: PageNavLink, index: number) => {
-        return (
-          <div className={classes.navItem} key={index}>
-            {link.isShowSubRoutes && isPathMatch(link.path) && (
-              <div className={classes.subNav}>{link.subNavComponent}</div>
-            )}
-
-            <Button
-              disabled={link.count === 0}
-              startIcon={link.icon}
-              component={NavLink}
-              className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
-              to={link.path}
-            >
-              {link.name && <span className={classes.navName}>{link.name}</span>}
-              {link.count !== undefined ? (
-                <>
-                  {link.isLoading ? (
-                    <ContentLoader
-                      speed={2}
-                      viewBox='0 0 28 14'
-                      backgroundColor={theme.palette.secondary.main}
-                      foregroundColor={theme.palette.primary.dark}
-                      className={classes.buttonLoader}
-                    >
-                      <rect x='0' y='0' width='28' height='14' />
-                    </ContentLoader>
-                  ) : (
-                    <span className={classes.label}>[{link.count}]</span>
-                  )}
-                </>
-              ) : (
-                <></>
+        return link.tooltip ? (
+          <CustomTooltip title={link.tooltip.title} placement={link.tooltip.placement}>
+            <div className={classes.navItem} key={index}>
+              {link.isShowSubRoutes && isPathMatch(link.path) && (
+                <div className={classes.subNav}>{link.subNavComponent}</div>
               )}
-            </Button>
-          </div>
+
+              <Button
+                disabled={link.count === 0}
+                startIcon={link.icon}
+                component={NavLink}
+                className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
+                to={link.path}
+              >
+                {link.name && <span className={classes.navName}>{link.name}</span>}
+                {link.count !== undefined ? (
+                  <>
+                    {link.isLoading ? (
+                      <ContentLoader
+                        speed={2}
+                        viewBox='0 0 28 14'
+                        backgroundColor={theme.palette.secondary.main}
+                        foregroundColor={theme.palette.primary.dark}
+                        className={classes.buttonLoader}
+                      >
+                        <rect x='0' y='0' width='28' height='14' />
+                      </ContentLoader>
+                    ) : (
+                      <span className={classes.label}>[{link.count}]</span>
+                    )}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </Button>
+            </div>
+          </CustomTooltip>
+        ) : (
+          <Button
+            disabled={link.count === 0}
+            startIcon={link.icon}
+            component={NavLink}
+            className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
+            to={link.path}
+          >
+            {link.name && <span className={classes.navName}>{link.name}</span>}
+            {link.count !== undefined ? (
+              <>
+                {link.isLoading ? (
+                  <ContentLoader
+                    speed={2}
+                    viewBox='0 0 28 14'
+                    backgroundColor={theme.palette.secondary.main}
+                    foregroundColor={theme.palette.primary.dark}
+                    className={classes.buttonLoader}
+                  >
+                    <rect x='0' y='0' width='28' height='14' />
+                  </ContentLoader>
+                ) : (
+                  <span className={classes.label}>[{link.count}]</span>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </Button>
         );
       })}
       {afterContent}

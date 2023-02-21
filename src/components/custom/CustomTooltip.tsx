@@ -1,6 +1,6 @@
 import { styled, Tooltip, tooltipClasses } from '@mui/material';
 
-interface CustomTooltipProps {
+export interface CustomTooltipProps {
   children: JSX.Element;
   title: string | JSX.Element;
   placement:

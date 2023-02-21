@@ -98,74 +98,73 @@ export const ClientContextProvider = (props: any) => {
 
   const navData: PageNavLink[] = [
     {
-      name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
       isLoading: loadingGotchis || loadingLendings || loadingBorrowed,
       count: gotchis.length + borrowed.length,
       isShowSubRoutes: true,
-      subNavComponent: (
-        <SubNav
-          links={[
-            {
-              name: 'owned',
-              path: 'gotchis/owned',
-              isLoading: loadingGotchis,
-              count: gotchis.length
-            },
-            {
-              name: 'lendings',
-              path: 'gotchis/lended',
-              isLoading: loadingLendings,
-              count: lendings.length
-            },
-            {
-              name: 'borrowed',
-              path: 'gotchis/borrowed',
-              isLoading: loadingBorrowed,
-              count: borrowed.length
-            }
-          ]}
-        />
-      )
+      tooltip: {
+        title: (
+          <>
+            <SubNav
+              links={[
+                {
+                  name: 'owned',
+                  path: 'gotchis/owned',
+                  isLoading: loadingGotchis,
+                  count: gotchis.length
+                },
+                {
+                  name: 'lendings',
+                  path: 'gotchis/lended',
+                  isLoading: loadingLendings,
+                  count: lendings.length
+                },
+                {
+                  name: 'borrowed',
+                  path: 'gotchis/borrowed',
+                  isLoading: loadingBorrowed,
+                  count: borrowed.length
+                }
+              ]}
+            />
+          </>
+        ),
+        children: <></>,
+        placement: 'bottom'
+      }
     },
     {
-      name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
       isLoading: loadingWarehouse,
       count: warehouse.length
     },
     {
-      name: 'installations',
       path: 'installations',
       icon: <AnvilIcon width={24} height={24} />,
       isLoading: loadingInstallations || loadingTiles,
       count: installations.length + tiles.length
     },
     {
-      name: 'tickets',
       path: 'tickets',
       icon: <RareTicketIcon width={24} height={24} />,
       isLoading: loadingTickets,
       count: tickets.length
     },
     {
-      name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
       isLoading: loadingRealm,
       count: realm.length
     },
     {
-      name: 'fake gotchis',
       path: 'fake-gotchis',
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: false,
       count: fakeGotchisLength
     },
     {
-      name: 'for sale',
       path: 'for-sale',
       icon: <BaazarIcon width={24} height={24} />,
       isLoading: isItemsForSaleLoading,
