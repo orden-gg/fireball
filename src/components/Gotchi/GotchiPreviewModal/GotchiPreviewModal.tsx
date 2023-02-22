@@ -81,47 +81,47 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.originalOwner)
         .then((response: any) => {
           
-          const filterParcelsOriginalOwnerGoldenAaltars = response.filter( p => {  (p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9) && ChannelingInfo(p.id) });
+          const filterParcelsOriginalOwnerGoldenAaltars = response.filter( p => p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9 && ChannelingInfo(p.id));
           
           for (const filterParcelsOriginalOwnerGoldenAaltar of filterParcelsOriginalOwnerGoldenAaltars){
-            filterParcelsOriginalOwnerGoldenAaltar.aaltarLvl = filterParcelsOriginalOwnerGoldenAaltar.equippedInstallations.id
-          };
+            filterParcelsOriginalOwnerGoldenAaltar.aaltarLvl = filterParcelsOriginalOwnerGoldenAaltar.equippedInstallations.id;
+          }
           
-          const filterParcelsOriginalOwnerAaltars = response.filter( p => {  (p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18)  && ChannelingInfo(p.id) });
+          const filterParcelsOriginalOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
           
           for (const filterParcelsOriginalOwnerAaltar of filterParcelsOriginalOwnerAaltars){
-            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id / 2
-          };
+            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id / 2;
+          }
 
-          const filterParcelsOriginalOwner =  {...filterParcelsOriginalOwnerGoldenAaltars, ...filterParcelsOriginalOwnerAaltars};
+          const filterParcelsOriginalOwner =  { ...filterParcelsOriginalOwnerGoldenAaltars, ...filterParcelsOriginalOwnerAaltars };
 
           setParcelsOriginalOwner(filterParcelsOriginalOwner);
         })
-        .catch(error => console.log(error))
+        .catch(error => console.log(error));
 
         TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.owner)
         .then((response: any) => {
           
-          const filterParcelsOwnerGoldenAaltars = response.filter( p => {  (p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9) && ChannelingInfo(p.id) });
+          const filterParcelsOwnerGoldenAaltars = response.filter( p => p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9 && ChannelingInfo(p.id));
           
           for (const filterParcelsOwnerGoldenAaltar of filterParcelsOwnerGoldenAaltars){
-            filterParcelsOwnerGoldenAaltar.aaltarLvl = filterParcelsOwnerGoldenAaltar.equippedInstallations.id
-          };
+            filterParcelsOwnerGoldenAaltar.aaltarLvl = filterParcelsOwnerGoldenAaltar.equippedInstallations.id;
+          }
           
-          const filterParcelsOwnerAaltars = response.filter( p => {  (p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18)  && ChannelingInfo(p.id) });
+          const filterParcelsOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
           
           for (const filterParcelsOwnerAaltar of filterParcelsOwnerAaltars){
-            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id / 2
-          };
+            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id / 2;
+          }
 
-          const filterParcelsOwner =  {...filterParcelsOwnerGoldenAaltars, ...filterParcelsOwnerAaltars};
+          const filterParcelsOwner =  { ...filterParcelsOwnerGoldenAaltars, ...filterParcelsOwnerAaltars };
 
           setParcelsOwner(filterParcelsOwner);
         })
         .catch(error => console.log(error))
         
         .finally(() => {
-        const filterParcels = {...parcelsOwner,...parcelsOriginalOwner}
+        const filterParcels = { ...parcelsOwner,...parcelsOriginalOwner }
         .sort(
           (a, b) => b.aaltarLvl - a.aaltarLvl
         );
