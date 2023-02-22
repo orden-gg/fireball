@@ -7,7 +7,6 @@
   "type": "module",
   "dependencies": {
     "@apollo/client": "^3.3.12",
-    "@emotion/css": "^11.5.0",
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@graphprotocol/graph-cli": "0.35.0",
