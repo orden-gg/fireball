@@ -90,7 +90,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
           const filterParcelsOriginalOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
           
           for (const filterParcelsOriginalOwnerAaltar of filterParcelsOriginalOwnerAaltars){
-            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id / 2;
+            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id - 9;
           }
 
           const filterParcelsOriginalOwner =  { ...filterParcelsOriginalOwnerGoldenAaltars, ...filterParcelsOriginalOwnerAaltars };
@@ -111,7 +111,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
           const filterParcelsOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
           
           for (const filterParcelsOwnerAaltar of filterParcelsOwnerAaltars){
-            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id / 2;
+            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id - 9;
           }
 
           const filterParcelsOwner =  { ...filterParcelsOwnerGoldenAaltars, ...filterParcelsOwnerAaltars };
