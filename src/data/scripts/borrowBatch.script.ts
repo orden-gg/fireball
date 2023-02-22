@@ -35,6 +35,11 @@ interface Gotchi {
 interface BorrowList {
   [key: string]: any;
 }
+
+interface BorrowedList {
+  name: string;
+  id: string;
+}
 //list: string[];
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
@@ -142,6 +147,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
       if (distinctGotchis) {
         let i = 0;
         const borrowList: BorrowList[] = [];
+        const borrowedList: BorrowedList[] = [];
         // LOOP FOR SELECTED GOTCHIS
         for (const borrowId of distinctGotchis) {
           // Max borrowed check
@@ -201,6 +207,10 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           );
 
           borrowList.push(tempTx);
+          const borrowedListPush = {} as BorrowedList;
+          borrowedListPush.name = borrowId.name;
+          borrowedListPush.id = borrowId.gotchiId;
+          borrowedList.push(borrowedListPush);
           i += 1;
         }
         //debugger;
@@ -216,7 +226,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
               console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
               console.log(
                 `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
-                  borrowList.length,
+                  borrowedList,
                   CONSOLE_COLORS.Green
                 )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
               );
