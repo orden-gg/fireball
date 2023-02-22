@@ -40,16 +40,6 @@ const repeatTimer = 1 * 15 * 1000;
 const txCostLimit = 155 * 1e9;
 let interval;
 let totalBorrowedTemp = 0;
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-function waiting(ms) {
-  var start = new Date().getTime();
-  var end = start;
-  while (end < start + ms) {
-    end = new Date().getTime();
-  }
-}
-
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
   // Check if QUEST_ADDRESS is part of .env
   if (!SCRIPT_BORROWER_WALLET_ADDRESS) {
@@ -113,7 +103,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
       // read all gotchis from whitelist = whitelistID
       const gotchiLendings = res.data.data.gotchiLendings;
       const gotchis: Gotchi[] = [];
-      if (gotchiLendings.length != 0) {
+      if (gotchiLendings.length !== 0) {
         for (let i = 0; i < gotchiLendings.length; i++) {
           const gotchisPush = {} as Gotchi;
           gotchisPush.listingId = gotchiLendings[i].id;
@@ -157,6 +147,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             if (totalBorrowedTemp >= MAX_BORROWED) {
               console.log(`🚀 Max borrowed achieved: ${paint(totalBorrowedTemp, CONSOLE_COLORS.Pink)}`);
               totalBorrowedTemp = 0;
+
               return;
             }
 
@@ -172,6 +163,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
               clearInterval(interval);
               interval = setInterval(borrow, repeatTimer);
               console.log(`⌛ Next timer in minutes: ${paint(repeatTimer / 60 / 1000, CONSOLE_COLORS.Green)}`);
+
               return;
             }
             clearInterval(interval);

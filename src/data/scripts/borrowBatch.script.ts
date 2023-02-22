@@ -109,7 +109,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
     // fetch all gotchis from graph result
     const gotchiLendings = res.data.data.gotchiLendings;
     const gotchis: Gotchi[] = [];
-    if (gotchiLendings.length != 0) {
+    if (gotchiLendings.length !== 0) {
       for (let i = 0; i < gotchiLendings.length; i++) {
         const gotchisPush = {} as Gotchi;
         gotchisPush.listingId = gotchiLendings[i].id;
@@ -147,6 +147,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           // Max borrowed check
           if (i >= MAX_BORROWED) {
             console.log(`🚀 Max borrowed achieved: ${paint(i, CONSOLE_COLORS.Pink)}`);
+
             return;
           }
           const gasPriceGwei = await getGasPrice();
@@ -161,6 +162,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             clearInterval(interval);
             interval = setInterval(borrow, repeatTimer);
             console.log(`⌛ Next timer in minutes: ${paint(repeatTimer / 60 / 1000, CONSOLE_COLORS.Green)}`);
+
             return;
           }
           clearInterval(interval);
@@ -180,10 +182,11 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             clearInterval(interval);
             interval = setInterval(borrow, repeatTimer);
             console.log(`⌛ Next timer in minutes: ${paint(repeatTimer / 60 / 1000, CONSOLE_COLORS.Green)}`);
+
             return;
           }
           // preparing tx agreeGotchiLending for nonce
-          debugger;
+          //debugger;
           const tempTx = MAIN_CONTRACT_WITH_BORROWER.agreeGotchiLending(
             borrowId.listingId,
             borrowId.gotchiId,
@@ -202,14 +205,14 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         }
         //debugger;
         await Promise.all(borrowList).then(txsRes => {
-          for (let tx of txsRes) {
+          for (const tx of txsRes) {
             console.log(`transaction sent! ${paint(`https://polygonscan.com/tx/${tx.hash}`, CONSOLE_COLORS.Light)}`);
             console.log(`🚀 gas price: ${paint(Number(tx.gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
           }
 
           txsRes[borrowList.length - 1]
             .wait()
-            .then((res: any) => {
+            .then((_res: any) => {
               console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
               console.log(
                 `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
