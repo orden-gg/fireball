@@ -52,6 +52,7 @@ export const styles = makeStyles(theme =>
       }
     },
     subButton: {
+      width: '100%',
       padding: '4px',
       lineHeight: 1.2,
       textTransform: 'lowercase'

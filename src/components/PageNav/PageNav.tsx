@@ -41,7 +41,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
       {beforeContent}
       {data.map((link: PageNavLink, index: number) => {
         return link.tooltip ? (
-          <CustomTooltip title={link.tooltip.title} placement={link.tooltip.placement}>
+          <CustomTooltip title={link.tooltip.title} placement={link.tooltip.placement} key={index}>
             <div className={classes.navItem} key={index}>
               {link.isShowSubRoutes && isPathMatch(link.path) && (
                 <div className={classes.subNav}>{link.subNavComponent}</div>
@@ -53,6 +53,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                 component={NavLink}
                 className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
                 to={link.path}
+                key={index}
               >
                 {link.name && <span className={classes.navName}>{link.name}</span>}
                 {link.count !== undefined ? (
@@ -84,6 +85,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
             component={NavLink}
             className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
             to={link.path}
+            key={index}
           >
             {link.name && <span className={classes.navName}>{link.name}</span>}
             {link.count !== undefined ? (

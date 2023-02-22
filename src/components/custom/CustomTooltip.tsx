@@ -1,37 +1,32 @@
+import { useState } from 'react';
 import { styled, Tooltip, tooltipClasses } from '@mui/material';
+import { CustomTooltipProps } from 'shared/models';
 
-export interface CustomTooltipProps {
-  children: JSX.Element;
-  title: string | JSX.Element;
-  placement:
-    | 'bottom-end'
-    | 'bottom-start'
-    | 'bottom'
-    | 'left-end'
-    | 'left-start'
-    | 'left'
-    | 'right-end'
-    | 'right-start'
-    | 'right'
-    | 'top-end'
-    | 'top-start'
-    | 'top';
-  disableInteractive?: boolean;
-  followCursor?: boolean;
-  enterTouchDelay?: number;
-  className?: string;
-  arrow?: boolean;
-  open?: boolean;
-}
+const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
 
-const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.secondary.dark
-  },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.secondary.dark,
+  const [isTolltipOpened, setIsTolltipOpened] = useState<boolean>(false);
+
+  const onTooltipClick = (): void => {
+    setIsTolltipOpened(false);
+  };
+
+  const onToggleTooltip = (value: boolean): void => {
+    setIsTolltipOpened(value);
+  };
+
+  return <div
+    onClick = {() => onTooltipClick()}
+    onMouseEnter={() => onToggleTooltip(true)}
+    onMouseLeave={() => onToggleTooltip(false)}>
+
+    <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }}/>
+      </div>;  
+    })(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      color: theme.palette.secondary.dark
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: theme.palette.secondary.dark,
     '& p': {
       margin: 0
     },

@@ -1,4 +1,4 @@
-import { CustomTooltipProps } from '../../components/custom/CustomTooltip';
+import { CustomTooltipProps } from 'shared/models';
 export interface PageNavLink {
   path: string;
   icon?: JSX.Element;
