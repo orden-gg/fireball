@@ -179,13 +179,13 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
                       className={classes.button}
                     >
-                      Jump into Arena
+                      Jump into the Arena
                     </ViewInAppButton>
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
                       className={classes.button}
                     >
-                      Jump into Farm
+                      Fireball Farmeer
                     </ViewInAppButton>
                   </GotchiFooter>
                 )}
