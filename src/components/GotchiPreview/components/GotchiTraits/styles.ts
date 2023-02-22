@@ -15,16 +15,41 @@ export const styles = makeStyles(theme =>
       margin: 'auto'
     },
     gotchiTrait: {
+      position: 'relative',
       backgroundColor: theme.palette.background.secondary,
       flexBasis: '48%',
       margin: '.5% 1%',
-      padding: theme.spacing(0.5),
+      padding: theme.spacing(0.5, 0.5, 0.5, 1.25),
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       border: `1px solid ${alpha(theme.palette.common.white, 0.05)}`,
       '&:hover $defaultValue': {
         opacity: 1
+      },
+      '&:before': {
+        content: '""',
+        display: 'block',
+        width: 5,
+        position: 'absolute',
+        left: 0,
+        top: 1,
+        bottom: 1
+      },
+      '&.godlike::before': {
+        backgroundColor: theme.palette.rarity.godlike
+      },
+      '&.mythical::before': {
+        backgroundColor: theme.palette.rarity.mythical
+      },
+      '&.rare::before': {
+        backgroundColor: theme.palette.rarity.rare
+      },
+      '&.uncommon::before': {
+        backgroundColor: theme.palette.rarity.uncommon
+      },
+      '&.common::before': {
+        backgroundColor: theme.palette.rarity.common
       }
     },
     traitValue: {

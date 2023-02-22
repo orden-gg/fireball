@@ -25,15 +25,18 @@ export class GotchiUtils {
   }
 
   public static getRarityByTrait(trait: any): any {
-    switch (true) {
-      case trait >= 100 || trait <= -1:
-        return RarityTypes.Godlike;
-      case trait >= 98 || trait <= 1:
-        return RarityTypes.Mythical;
-      case trait >= 90 || trait <= 9:
-        return RarityTypes.Rare;
-      default:
-        return RarityTypes.Common;
+    if (trait >= 100 || trait <= -1) {
+      return RarityTypes.Godlike;
+    } else if (trait >= 98 || trait <= 1) {
+      return RarityTypes.Mythical;
+    } else if (trait >= 90 || trait <= 9) {
+      return RarityTypes.Rare;
+    } else if (trait >= 75 || trait <= 24) {
+      return RarityTypes.Uncommon;
+    } else if (trait >= 25 && trait <= 74) {
+      return RarityTypes.Common;
+    } else {
+      return RarityTypes.Unknown;
     }
   }
 
