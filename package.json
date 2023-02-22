@@ -19,7 +19,6 @@
     "@reduxjs/toolkit": "1.8.3",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "classnames": "^2.2.6",
