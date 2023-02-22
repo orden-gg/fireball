@@ -1,6 +1,5 @@
-import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
+import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
 import { gql } from '@apollo/client';
-import fetch from 'cross-fetch';
 
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
 import { ItemUtils } from 'utils';
@@ -56,9 +55,9 @@ const defaultOptions: DefaultOptions = {
 };
 
 const clientFactory = (() => {
-  const createClient = (url: string): ApolloClient<NormalizedCacheObject> => {
+  const createClient = (uri: string): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
-      link: new HttpLink({ uri: url, fetch }),
+      uri,
       cache: new InMemoryCache(),
       defaultOptions: defaultOptions
     });
