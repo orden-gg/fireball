@@ -1,9 +1,11 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiInfoListStyles = makeStyles(() => createStyles({
+export const gotchiInfoListStyles = makeStyles(() =>
+  createStyles({
     infoList: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        margin: '1.5% -.5%'
+      display: 'flex',
+      flexWrap: 'wrap',
+      margin: '1.5% -.5%'
     }
-}));
+  })
+);

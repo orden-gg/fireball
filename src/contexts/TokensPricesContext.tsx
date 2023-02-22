@@ -8,7 +8,8 @@ import {
   GLTR_CONTRACT,
   KEK_CONTRACT,
   TokenTypes,
-  USDC_CONTRACT
+  USDC_CONTRACT,
+  WMATIC_CONTRACT
 } from 'shared/constants';
 import { QuickswapApi } from 'api';
 
@@ -24,8 +25,8 @@ export const TokensPricesContextProvider = props => {
   useEffect(() => {
     const getTokensPrices = async function() {
       setIsPricesLoaded(false);
-
-      const [ghst, ghstPrice] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
+      const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
+      const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
@@ -40,14 +41,14 @@ export const TokensPricesContextProvider = props => {
         getTokenPrice(ghst, ghstPrice, kekToken),
         getTokenPrice(ghst, ghstPrice, gltrToken)
       ]);
-
       setTokensPrices({
         [TokenTypes.Fud]: fudPrice,
         [TokenTypes.Fomo]: fomoPrice,
         [TokenTypes.Alpha]: alphaPrice,
         [TokenTypes.Kek]: kekPrice,
         [TokenTypes.Gltr]: gltrPrice,
-        [TokenTypes.Ghst]: ghstPrice
+        [TokenTypes.Ghst]: ghstPrice,
+        [TokenTypes.Matic]: maticPrice
       });
       setIsPricesLoaded(true);
     };
@@ -71,7 +72,7 @@ export const TokensPricesContextProvider = props => {
     const ghstTokenRoute = QuickswapApi.getTokenRouteByPair(ghst, ghstTokenPair);
     const ghstPriceToToken = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
-    return [ghst, ghstPriceToToken];
+    return [ghstPriceToToken, ghst];
   };
 
   const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {

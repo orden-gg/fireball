@@ -1,0 +1,26 @@
+export const ShapeMythicalLow1 = 'Mythical low 1';
+export const ShapeMythicalLow2 = 'Mythical low 2';
+export const ShapeRareLow1 = 'Rare low 1';
+export const ShapeRareLow2 = 'Rare low 2';
+export const ShapeRareLow3 = 'Rare low 3';
+export const ShapeUncommonLow1 = 'Uncommon low 1';
+export const ShapeUncommonLow2 = 'Uncommon low 2';
+export const ShapeUncommonLow3 = 'Uncommon low 3';
+export const ShapeCommon1 = 'Common 1';
+export const ShapeCommon2 = 'Common 2';
+export const ShapeCommon3 = 'Common 3';
+export const ShapeUncommonHigh1 = 'Uncommon high 1';
+export const ShapeUncommonHigh2 = 'Uncommon high 2';
+export const ShapeUncommonHigh3 = 'Uncommon high 3';
+export const ShapeRareHigh1 = 'Rare high 1';
+export const ShapeRareHigh2 = 'Rare high 2';
+export const ShapeRareHigh3 = 'Rare high 3';
+export const ShapeMythicalHigh = 'Mythical high';
+
+export const ColorMythicalLow = 'Mythical low';
+export const ColorRareLow = 'Rare low';
+export const ColorUncommonLow = 'Uncommon low';
+export const ColorCommon = 'Common';
+export const ColorUncommonHigh = 'Uncommon high';
+export const ColorRareHigh = 'Rare high';
+export const ColorMythicalHigh = 'Mythical high';

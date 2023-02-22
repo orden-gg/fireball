@@ -1,4 +1,4 @@
 export interface LoginAddress {
-    address: string;
-    name: string;
+  address: string;
+  name: string;
 }

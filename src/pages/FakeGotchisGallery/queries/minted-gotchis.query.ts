@@ -1,5 +1,5 @@
 export const getMintedFakeGotchisQuery = (): string => {
-    return `{
+  return `{
         metadataActionLogs(
             first: 1000,
             where:{

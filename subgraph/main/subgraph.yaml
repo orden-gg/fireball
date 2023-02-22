@@ -1,0 +1,86 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: AavegotchiDiamond
+    network: matic
+    source:
+      address: '0x86935F11C86623deC8a25696E1C19a8659CbF95d'
+      abi: AavegotchiDiamond
+      startBlock: 11516320
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: AavegotchiDiamond
+          file: ./abis/diamond.abi.json
+      eventHandlers:
+        - event: BuyPortals(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleBuyPortals
+        - event: ERC721ListingAdd(indexed uint256,indexed address,address,uint256,indexed uint256,uint256)
+          handler: handleERC721ListingAdd
+        - event: ERC721ExecutedListing(indexed uint256,indexed address,address,address,uint256,indexed uint256,uint256,uint256)
+          handler: handleERC721ExecutedListing
+        - event: ERC721ListingCancelled(indexed uint256,uint256,uint256)
+          handler: handleERC721ListingCancelled
+        - event: ERC721ListingRemoved(indexed uint256,uint256,uint256)
+          handler: handleERC721ListingRemoved
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleTransferBatch
+        - event: PortalOpened(indexed uint256)
+          handler: handlePortalOpened
+        - event: EquipWearables(indexed uint256,uint16[16],uint16[16])
+          handler: handleEquipWearables
+        - event: MintPortals(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleMintPortals
+        - event: Xingyun(indexed address,indexed address,uint256,uint256,uint256)
+          handler: handleXingyun
+        - event: TransferFromParent(indexed address,indexed uint256,indexed uint256,uint256)
+          handler: handleTransferFromParent
+        - event: TransferToParent(indexed address,indexed uint256,indexed uint256,uint256)
+          handler: handleTransferToParent
+        - event: ClaimAavegotchi(indexed uint256)
+          handler: handleClaimAavegotchi
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: GotchiLendingAdd(indexed uint32)
+          handler: handleGotchiLendingAdd
+        - event: GotchiLendingClaim(indexed uint32,address[],uint256[])
+          handler: handleGotchiLendingClaim
+        - event: GotchiLendingAdded(indexed uint32,indexed address,indexed uint32,uint96,uint32,uint8[3],address,address,uint32,address[],uint256)
+          handler: handleGotchiLendingAdded
+        - event: GotchiLendingClaimed(indexed uint32,indexed address,indexed address,uint32,uint96,uint32,uint8[3],address,address,uint32,address[],uint256[],uint256)
+          handler: handleGotchiLendingClaimed
+        - event: GotchiLendingEnded(indexed uint32,indexed address,indexed address,uint32,uint96,uint32,uint8[3],address,address,uint32,address[],uint256)
+          handler: handleGotchiLendingEnded
+        - event: GotchiLendingExecuted(indexed uint32,indexed address,indexed address,uint32,uint96,uint32,uint8[3],address,address,uint32,address[],uint256)
+          handler: handleGotchiLendingExecuted
+        - event: GotchiLendingCancel(indexed uint32,uint256)
+          handler: handleGotchiLendingCancel
+        - event: GotchiLendingCanceled(indexed uint32,indexed address,indexed uint32,uint96,uint32,uint8[3],address,address,uint32,address[],uint256)
+          handler: handleGotchiLendingCanceled
+        - event: ERC1155ExecutedToRecipient(indexed uint256,indexed address,indexed address)
+          handler: handleERC1155ExecutedToRecipient
+        - event: ERC721ExecutedToRecipient(indexed uint256,indexed address,indexed address)
+          handler: handleERC721ExecutedToRecipient
+        - event: IncreaseStake(indexed uint256,uint256)
+          handler: handleIncreaseStake
+        - event: DecreaseStake(indexed uint256,uint256)
+          handler: handleDecreaseStake
+        - event: SpendSkillpoints(indexed uint256,int16[4])
+          handler: handleSpendSkillpoints
+        - event: SetAavegotchiName(indexed uint256,string,string)
+          handler: handleSetAavegotchiName
+        - event: UseConsumables(indexed uint256,uint256[],uint256[])
+          handler: handleUseConsumables
+        - event: GrantExperience(uint256[],uint256[])
+          handler: handleGrantExperience
+        - event: AavegotchiInteract(indexed uint256,uint256)
+          handler: handleAavegotchiInteract
+      file: ./src/mappings/diamond.ts

@@ -3,8 +3,8 @@ import { GraphMultiButtonSelectionFilter, GraphRangeSliderFilter } from 'shared/
 import { ConsumableListingFilterTypes } from '../../constants';
 
 export interface ConsumableListingFilters {
-    [ConsumableListingFilterTypes.RarityLevel]: GraphMultiButtonSelectionFilter;
-    [ConsumableListingFilterTypes.Price]: GraphRangeSliderFilter;
+  [ConsumableListingFilterTypes.RarityLevel]: GraphMultiButtonSelectionFilter;
+  [ConsumableListingFilterTypes.Price]: GraphRangeSliderFilter;
 }
 
 export type ConsumableListingFiltersType = GraphMultiButtonSelectionFilter | GraphRangeSliderFilter;

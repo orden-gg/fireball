@@ -8,13 +8,13 @@ import { glossaryReducer } from 'pages/Glossary/store';
 import { loginReducer } from './login';
 
 export const store = configureStore({
-    reducer: {
-        login: loginReducer,
-        glossary: glossaryReducer,
-        baazaar: baazarReducers,
-        client: clientReducers,
-        fake: fakeGotchiReducers
-    }
+  reducer: {
+    login: loginReducer,
+    glossary: glossaryReducer,
+    baazaar: baazarReducers,
+    client: clientReducers,
+    fake: fakeGotchiReducers
+  }
 });
 
 export type AppDispatch = typeof store.dispatch;
