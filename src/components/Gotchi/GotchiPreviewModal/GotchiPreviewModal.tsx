@@ -32,8 +32,12 @@ import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
+import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
+
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
+  const [parcelsOriginalOwner, setParcelsOriginalOwner] = useState<any>(null);
+  const [parcelsOwner, setParcelsOwner] = useState<any>(null);
   const [spawnId, setSpawnId] = useState<any>(null);
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
@@ -44,7 +48,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   useEffect(() => {
     if (gotchi) {
       setModalGotchi(gotchi);
-      setSpawnId('C-6072-3568-U');
+      setSpawnId([]);
       setInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
@@ -73,6 +77,56 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch(error => console.log(error))
         .finally(() => setHistoryLoaded(true));
+      
+        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.originalOwner)
+        .then((response: any) => {
+          
+          const filterParcelsOriginalOwnerGoldenAaltars = response.filter( p => {  (p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9) && ChannelingInfo(p.id) });
+          
+          for (const filterParcelsOriginalOwnerGoldenAaltar of filterParcelsOriginalOwnerGoldenAaltars){
+            filterParcelsOriginalOwnerGoldenAaltar.aaltarLvl = filterParcelsOriginalOwnerGoldenAaltar.equippedInstallations.id
+          };
+          
+          const filterParcelsOriginalOwnerAaltars = response.filter( p => {  (p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18)  && ChannelingInfo(p.id) });
+          
+          for (const filterParcelsOriginalOwnerAaltar of filterParcelsOriginalOwnerAaltars){
+            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id / 2
+          };
+
+          const filterParcelsOriginalOwner =  {...filterParcelsOriginalOwnerGoldenAaltars, ...filterParcelsOriginalOwnerAaltars};
+
+          setParcelsOriginalOwner(filterParcelsOriginalOwner);
+        })
+        .catch(error => console.log(error))
+
+        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.owner)
+        .then((response: any) => {
+          
+          const filterParcelsOwnerGoldenAaltars = response.filter( p => {  (p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9) && ChannelingInfo(p.id) });
+          
+          for (const filterParcelsOwnerGoldenAaltar of filterParcelsOwnerGoldenAaltars){
+            filterParcelsOwnerGoldenAaltar.aaltarLvl = filterParcelsOwnerGoldenAaltar.equippedInstallations.id
+          };
+          
+          const filterParcelsOwnerAaltars = response.filter( p => {  (p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18)  && ChannelingInfo(p.id) });
+          
+          for (const filterParcelsOwnerAaltar of filterParcelsOwnerAaltars){
+            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id / 2
+          };
+
+          const filterParcelsOwner =  {...filterParcelsOwnerGoldenAaltars, ...filterParcelsOwnerAaltars};
+
+          setParcelsOwner(filterParcelsOwner);
+        })
+        .catch(error => console.log(error))
+        
+        .finally(() => {
+        const filterParcels = {...parcelsOwner,...parcelsOriginalOwner}
+        .sort(
+          (a, b) => b.aaltarLvl - a.aaltarLvl
+        );
+
+        setSpawnId(filterParcels[0].spawnId);});
     }
   }, []);
 
@@ -130,7 +184,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
                       className={classes.button}
-                      
                     >
                       Jump into Farm
                     </ViewInAppButton>
