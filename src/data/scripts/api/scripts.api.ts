@@ -19,6 +19,10 @@ export const getGasPrice = async () => {
   return await provider.getGasPrice();
 };
 
+export const getNonceBorrower = async () => {
+  return await provider.getTransactionCount(SCRIPT_BORROWER_WALLET_ADDRESS);
+};
+
 export const MAIN_CONTRACT_WITH_SIGNER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_WALLET);
 export const MAIN_CONTRACT_WITH_BORROWER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_BORROWER_WALLET);
 
