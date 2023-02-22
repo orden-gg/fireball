@@ -10,7 +10,7 @@ import {
   SCRIPT_BORROWER_WALLET_ADDRESS,
   CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_BORROWER,
-  getBorrowerNonce,
+  getNonceBorrower,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.js';
@@ -168,7 +168,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           // gasPrice conversion
           const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
           // nonce check
-          const nonce = await getBorrowerNonce();
+          const nonce = await getNonceBorrower();
           // max nonce check
           if (nonce >= MAX_NONCE) {
             console.log(
