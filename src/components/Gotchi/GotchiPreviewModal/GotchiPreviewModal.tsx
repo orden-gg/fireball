@@ -34,7 +34,7 @@ import { gotchiPreviewModalStyles } from './styles';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-  const [spawnId, setSpawnId] = useState<any>(null);
+  const [spawnId, setSpawnId] = useState<string>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [isParcelLoading, setIsParcelLoading] = useState<boolean>(true);
@@ -42,14 +42,14 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   useEffect(() => {
-    if (gotchi && spawnId) {
+    if (gotchi && !isParcelLoading) {
       setModalGotchi(gotchi);
       setSpawnId(spawnId);
       setInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
       setIsParcelLoading(false);
-    } else if (!gotchi) {
+    } else {
       MainApi.getAavegotchiById(id)
         .then((response: any[]) => {
           const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
@@ -61,38 +61,25 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
           setInventory(sortedInventory);
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
 
       TheGraphApi.getGotchiById(id)
         .then((response: any) => setModalGotchi(response))
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setIsGotchiLoading(false));
 
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {
           setSalesHistory(response);
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
-    } else if (gotchi && spawnId === null) {
-      TheGraphApi.getRealmByAddress(gotchi.owner)
-        .then(response => {
-          const modifiedParcels = response.map((parcel: any) => {
-            const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-            const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-            const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-
-            return {
-              ...parcel,
-              nextChannel: parcel.lastChanneled + cooldown,
-              altarLevel: altar ? altar.level : 0
-            };
-          });
-          modifiedParcels.filter(mp => mp.nextChannel > Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
-          setSpawnId(modifiedParcels[0].parcelId);
-        })
-        .catch(e => console.log(e))
-        .finally(() => setIsParcelLoading(false));
+      if (modalGotchi) {
+        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.owner)
+          .then((response) => setSpawnId(response))
+          .catch((e) => console.log(e))
+          .finally(() => setIsParcelLoading(false));
+      }
     }
   }, []);
   //!isGotchiLoading && !isParcelLoading
