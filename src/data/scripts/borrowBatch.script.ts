@@ -133,8 +133,8 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
       }
       // filter to search borrower = null && o.lender and kinship limitation
       const gotchisFiltred = gotchis.filter(
-        o =>
-          o.owner === o.originalOwner && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
+        g =>
+          g.owner === g.originalOwner && !g.borrower && g.lender && g.kinship > MIN_KINSHIP && g.kinship < MAX_KINSHIP
       );
       // distinct and sort result of search
       const distinctGotchis = [...new Map(gotchisFiltred.map(item => [item['gotchiId'], item])).values()].sort(
