@@ -49,8 +49,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       setSalesHistory([]);
       setIsGotchiLoading(false);
       setIsParcelLoading(false);
-    }  
-    else if (!gotchi){
+    } else if (!gotchi) {
       MainApi.getAavegotchiById(id)
         .then((response: any[]) => {
           const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
@@ -75,32 +74,29 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch(error => console.log(error))
         .finally(() => setHistoryLoaded(true));
-    }
-    else if (gotchi && !spawnId){
+    } else if (gotchi && spawnId !== null) {
       TheGraphApi.getRealmByAddress(gotchi.owner)
-            .then(response => {
-              const modifiedParcels = response.map((parcel: any) => {
-                const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-                const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-                const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+        .then(response => {
+          const modifiedParcels = response.map((parcel: any) => {
+            const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+            const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+            const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
-                return {
-                  ...parcel,
-                  nextChannel: parcel.lastChanneled + cooldown,
-                  altarLevel: altar ? altar.level : 0
-                };
-              });
-              modifiedParcels.filter((mp) => mp.nextChannel > Date.now())
-              .sort(
-                (a, b) => b.altarLevel - a.altarLevel
-              ); 
-              setSpawnId(modifiedParcels[0].parcelId);
-            })
-            .catch(e => console.log(e))
-            .finally(() => setIsParcelLoading(false));}
+            return {
+              ...parcel,
+              nextChannel: parcel.lastChanneled + cooldown,
+              altarLevel: altar ? altar.level : 0
+            };
+          });
+          modifiedParcels.filter(mp => mp.nextChannel > Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
+          setSpawnId(modifiedParcels[0].parcelId);
+        })
+        .catch(e => console.log(e))
+        .finally(() => setIsParcelLoading(false));
+    }
   }, []);
-  //!isGotchiLoading && !isParcelLoading 
-  
+  //!isGotchiLoading && !isParcelLoading
+
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
       {!isGotchiLoading && (isParcelLoading || !isParcelLoading) ? (
@@ -145,13 +141,13 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                     >
                       View at aavegotchi.com
                     </ViewInAppButton>
-                    
+
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
                       className={classes.button}
                     >
                       Jump into the Arena
-                    </ViewInAppButton> 
+                    </ViewInAppButton>
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
                       className={classes.button}
