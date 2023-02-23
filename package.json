@@ -85,7 +85,8 @@
   },
   "resolutions": {
     "immer": "9.0.6",
-    "glob-parent": "5.1.2"
+    "glob-parent": "5.1.2",
+    "react-error-overlay": "6.0.9"
   },
   "devDependencies": {
     "@babel/core": "7.20.2",
