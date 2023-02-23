@@ -56,7 +56,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
 
   axios
     .post(GRAPH_CORE_API, { query: whitelistQuery })
-    .then(async res => {
+    .then(async (res) => {
       const membersIds = res.data.data.whitelist.members;
       if (!membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
         console.log(`BORROWER_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
@@ -65,7 +65,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
         console.log(`BORROWER_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
       }
     })
-    .catch(e => console.log(e));
+    .catch((e) => console.log(e));
 }
 
 function borrowGotchis(axios, CONSOLE_COLORS, paint) {
@@ -99,7 +99,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
 }`;
   axios
     .post(GRAPH_CORE_API, { query: borrowQuery })
-    .then(async res => {
+    .then(async (res) => {
       // read all gotchis from whitelist = whitelistID
       const gotchiLendings = res.data.data.gotchiLendings;
       const gotchis: Gotchi[] = [];
@@ -125,11 +125,11 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         // filter to search borrower = null && o.lender
         //debugger;
         const gotchisFiltred = gotchis.filter(
-          o =>
+          (o) =>
             o.owner === o.originalOwner && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
         );
         //debugger;// distinct and sort result of search
-        const distinctgotchis = [...new Map(gotchisFiltred.map(item => [item['gotchiId'], item])).values()].sort(
+        const distinctgotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
           (a, b) => b.kinship - a.kinship
         ); // desc for now , for asc a.kinship - b.kinship
         //debugger;
@@ -205,7 +205,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         }
       }
     })
-    .catch(e => console.log(e));
+    .catch((e) => console.log(e));
 }
 
 borrow();

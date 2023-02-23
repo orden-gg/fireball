@@ -68,7 +68,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
 
   axios
     .post(GRAPH_CORE_API, { query: whitelistQuery })
-    .then(async res => {
+    .then(async (res) => {
       const membersIds = res.data.data.whitelist.members;
       if (!membersIds.includes(SCRIPT_BORROWER_WALLET_ADDRESS.toLowerCase())) {
         console.log(`BORROWER_ADDRESS is not a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Red)}`);
@@ -77,7 +77,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
         console.log(`BORROWER_ADDRESS is a part of ${paint(`whitelisted in:${whitelistID}`, CONSOLE_COLORS.Green)}`);
       }
     })
-    .catch(e => console.log(e));
+    .catch((e) => console.log(e));
 }
 
 function borrowGotchis(axios, CONSOLE_COLORS, paint) {
@@ -110,7 +110,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
     } 
   }
 }`;
-  axios.post(GRAPH_CORE_API, { query: borrowQuery }).then(async res => {
+  axios.post(GRAPH_CORE_API, { query: borrowQuery }).then(async (res) => {
     // fetch all gotchis from graph result
     const gotchiLendings = res.data.data.gotchiLendings;
     const gotchis: Gotchi[] = [];
@@ -133,11 +133,11 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
       }
       // filter to search borrower = null && o.lender and kinship limitation
       const gotchisFiltred = gotchis.filter(
-        g =>
+        (g) =>
           g.owner === g.originalOwner && !g.borrower && g.lender && g.kinship > MIN_KINSHIP && g.kinship < MAX_KINSHIP
       );
       // distinct and sort result of search
-      const distinctGotchis = [...new Map(gotchisFiltred.map(item => [item['gotchiId'], item])).values()].sort(
+      const distinctGotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
         (a, b) => b.kinship - a.kinship
       ); // desc for now , for asc a.kinship - b.kinship
       if (!distinctGotchis.length) {
@@ -214,7 +214,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           i += 1;
         }
         //debugger;
-        await Promise.all(borrowList).then(txsRes => {
+        await Promise.all(borrowList).then((txsRes) => {
           for (const tx of txsRes) {
             console.log(`transaction sent! ${paint(`https://polygonscan.com/tx/${tx.hash}`, CONSOLE_COLORS.Light)}`);
             console.log(`🚀 gas price: ${paint(Number(tx.gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
