@@ -35,13 +35,14 @@ import {
   realmListingsBySeller
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
-
-const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
-const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
-const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
-const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
+import {
+  GRAPH_CORE_API,
+  GRAPH_RAFFLE_API,
+  GRAPH_GOTCHI_SVG_API,
+  GRAPH_REALM_API,
+  GRAPH_GOTCHIVERSE_API,
+  GRAPH_FIREBALL_API
+} from 'shared/constants';
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -64,11 +65,11 @@ const clientFactory = (() => {
   };
 
   return {
-    client: createClient(coreAPI),
-    raffleClient: createClient(raffleAPI),
-    svgsClient: createClient(gotchiSvgAPI),
-    realmClient: createClient(realmAPI),
-    gotchiverseClient: createClient(gotchiverseAPI),
+    client: createClient(GRAPH_CORE_API),
+    raffleClient: createClient(GRAPH_RAFFLE_API),
+    svgsClient: createClient(GRAPH_GOTCHI_SVG_API),
+    realmClient: createClient(GRAPH_REALM_API),
+    gotchiverseClient: createClient(GRAPH_GOTCHIVERSE_API),
     fireballClient: createClient(GRAPH_FIREBALL_API)
   };
 })();
@@ -624,8 +625,17 @@ export class TheGraphApi {
   }
 
   public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
-    return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
-      (res: any) => res.data.parcels
-    );
+    return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then((res: any) => {
+      const dataArr: any = res.data.parcels;
+
+      // * gotchiverse return empty data if parcel was never channeled!
+      const modified: any = dataArr.map((id: any, i: number) => ({
+        id: dataArr[i]?.id || '',
+        lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0,
+        installations: dataArr[i]?.equippedInstallations || []
+      }));
+
+      return modified;
+    });
   }
 }

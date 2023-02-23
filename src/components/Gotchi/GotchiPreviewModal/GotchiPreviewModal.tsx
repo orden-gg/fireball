@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { Erc721Categories } from 'shared/constants';
+import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
 import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
@@ -28,31 +28,30 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils, ItemUtils } from 'utils';
+import { GotchiUtils, ItemUtils, InstallationsUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
-
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-  const [parcelsOriginalOwner, setParcelsOriginalOwner] = useState<any>(null);
-  const [parcelsOwner, setParcelsOwner] = useState<any>(null);
   const [spawnId, setSpawnId] = useState<any>(null);
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
+  const [isParcelLoading, setIsParcelLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-
+  debugger;
   useEffect(() => {
-    if (gotchi) {
+    if (gotchi && spawnId) {
       setModalGotchi(gotchi);
-      setSpawnId([]);
+      setSpawnId(spawnId);
       setInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
-    } else {
+      setIsParcelLoading(false);
+    }  
+    else if (!gotchi){
       MainApi.getAavegotchiById(id)
         .then((response: any[]) => {
           const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
@@ -77,59 +76,31 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch(error => console.log(error))
         .finally(() => setHistoryLoaded(true));
-      
-        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.originalOwner)
-        .then((response: any) => {
-          
-          const filterParcelsOriginalOwnerGoldenAaltars = response.filter( p => p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9 && ChannelingInfo(p.id));
-          
-          for (const filterParcelsOriginalOwnerGoldenAaltar of filterParcelsOriginalOwnerGoldenAaltars){
-            filterParcelsOriginalOwnerGoldenAaltar.aaltarLvl = filterParcelsOriginalOwnerGoldenAaltar.equippedInstallations.id;
-          }
-          
-          const filterParcelsOriginalOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
-          
-          for (const filterParcelsOriginalOwnerAaltar of filterParcelsOriginalOwnerAaltars){
-            filterParcelsOriginalOwnerAaltar.aaltarLvl = filterParcelsOriginalOwnerAaltar.equippedInstallations.id - 9;
-          }
-
-          const filterParcelsOriginalOwner =  { ...filterParcelsOriginalOwnerGoldenAaltars, ...filterParcelsOriginalOwnerAaltars };
-
-          setParcelsOriginalOwner(filterParcelsOriginalOwner);
-        })
-        .catch(error => console.log(error));
-
-        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.owner)
-        .then((response: any) => {
-          
-          const filterParcelsOwnerGoldenAaltars = response.filter( p => p.equippedInstallations.id >= 1 && p.equippedInstallations.id <= 9 && ChannelingInfo(p.id));
-          
-          for (const filterParcelsOwnerGoldenAaltar of filterParcelsOwnerGoldenAaltars){
-            filterParcelsOwnerGoldenAaltar.aaltarLvl = filterParcelsOwnerGoldenAaltar.equippedInstallations.id;
-          }
-          
-          const filterParcelsOwnerAaltars = response.filter( p => p.equippedInstallations.id >= 10 && p.equippedInstallations.id <= 18  && ChannelingInfo(p.id));
-          
-          for (const filterParcelsOwnerAaltar of filterParcelsOwnerAaltars){
-            filterParcelsOwnerAaltar.aaltarLvl = filterParcelsOwnerAaltar.equippedInstallations.id - 9;
-          }
-
-          const filterParcelsOwner =  { ...filterParcelsOwnerGoldenAaltars, ...filterParcelsOwnerAaltars };
-
-          setParcelsOwner(filterParcelsOwner);
-        })
-        .catch(error => console.log(error))
-        
-        .finally(() => {
-        const filterParcels = { ...parcelsOwner,...parcelsOriginalOwner }
-        .sort(
-          (a, b) => b.aaltarLvl - a.aaltarLvl
-        );
-
-        setSpawnId(filterParcels[0].spawnId);});
     }
+    else if (gotchi && !spawnId){
+      debugger;
+      TheGraphApi.getRealmByAddress(gotchi.owner)
+            .then(response => {
+              const modifiedParcels = response.map((parcel: any) => {
+                const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+                const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+                const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+                return {
+                  ...parcel,
+                  nextChannel: parcel.lastChanneled + cooldown,
+                  altarLevel: altar ? altar.level : 0
+                };
+              });
+              modifiedParcels.filter((mp) => mp.nextChannel > Date.now())
+              .sort(
+                (a, b) => b.altarLevel - a.altarLevel
+              ); 
+              setSpawnId(modifiedParcels[0].parcelId);
+            })
+            .catch(e => console.log(e))
+            .finally(() => setIsParcelLoading(false));}
   }, []);
-
+  //!isGotchiLoading && !isParcelLoading 
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
       {!isGotchiLoading ? (
@@ -180,7 +151,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       className={classes.button}
                     >
                       Jump into the Arena
-                    </ViewInAppButton>
+                    </ViewInAppButton> 
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
                       className={classes.button}
