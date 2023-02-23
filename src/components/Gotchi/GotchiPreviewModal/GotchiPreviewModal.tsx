@@ -4,7 +4,7 @@ import { CircularProgress } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
+import { Erc721Categories } from 'shared/constants';
 import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
@@ -28,7 +28,7 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils, ItemUtils, InstallationsUtils } from 'utils';
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
