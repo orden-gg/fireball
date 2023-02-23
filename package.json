@@ -45,7 +45,6 @@
   },
   "scripts": {
     "build": "yarn lint && GENERATE_SOURCEMAP=false react-scripts build",
-    "build:prod": "builds submit --tag eu.gcr.io/ordengg/fireball --timeout=1800 --machine-type=N1_HIGHCPU_8",
     "start": "DISABLE_ESLINT_PLUGIN=true PORT=3005 react-scripts start && yarn lint",
     "start:prod": "react-scripts build && serve -s build",
     "subgraph:auth:main:stage": "dotenv -- cross-var graph auth --product hosted-service %SUBGRAPH_MAIN_STAGE_API_KEY%",
