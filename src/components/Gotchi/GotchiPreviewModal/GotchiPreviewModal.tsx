@@ -41,7 +41,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-  debugger;
   useEffect(() => {
     if (gotchi && spawnId) {
       setModalGotchi(gotchi);
@@ -78,13 +77,13 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         .finally(() => setHistoryLoaded(true));
     }
     else if (gotchi && !spawnId){
-      debugger;
       TheGraphApi.getRealmByAddress(gotchi.owner)
             .then(response => {
               const modifiedParcels = response.map((parcel: any) => {
                 const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
                 const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
                 const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
                 return {
                   ...parcel,
                   nextChannel: parcel.lastChanneled + cooldown,
@@ -101,9 +100,10 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
             .finally(() => setIsParcelLoading(false));}
   }, []);
   //!isGotchiLoading && !isParcelLoading 
+  
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
-      {!isGotchiLoading ? (
+      {!isGotchiLoading && (isParcelLoading || !isParcelLoading) ? (
         modalGotchi ? (
           <>
             <GotchiPreview>
