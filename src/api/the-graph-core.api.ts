@@ -1,5 +1,4 @@
-import { ApolloClient, DefaultOptions, HttpLink, InMemoryCache, NormalizedCacheObject, gql } from '@apollo/client';
-import fetch from 'cross-fetch';
+import { ApolloClient, DefaultOptions, InMemoryCache, NormalizedCacheObject, gql } from '@apollo/client';
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -29,9 +28,9 @@ export class TheGraphCoreApi {
     }
   }
 
-  private static getClient(url: string): ApolloClient<NormalizedCacheObject> {
+  private static getClient(uri: string): ApolloClient<NormalizedCacheObject> {
     return new ApolloClient({
-      link: new HttpLink({ uri: url, fetch }),
+      uri,
       cache: new InMemoryCache(),
       defaultOptions: defaultOptions
     });
