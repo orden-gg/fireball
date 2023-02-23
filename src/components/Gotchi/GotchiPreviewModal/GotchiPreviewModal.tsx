@@ -74,7 +74,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch(error => console.log(error))
         .finally(() => setHistoryLoaded(true));
-    } else if (gotchi && spawnId !== null) {
+    } else if (gotchi && spawnId === null) {
       TheGraphApi.getRealmByAddress(gotchi.owner)
         .then(response => {
           const modifiedParcels = response.map((parcel: any) => {
