@@ -9,7 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
-import { useAppDispatch } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -88,6 +88,8 @@ export function GhostExplorer() {
 
   const dispatch = useAppDispatch();
 
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+
   const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
   const [gotchis, setGotchis] = useState<any[]>([]);
   const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
@@ -96,9 +98,7 @@ export function GhostExplorer() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
-    DataReloadContext
-  );
+  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -132,7 +132,7 @@ export function GhostExplorer() {
   }, []);
 
   useEffect(() => {
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       let isMounted = true;
 
       onGetGotchies(isMounted);
@@ -141,7 +141,7 @@ export function GhostExplorer() {
         isMounted = false;
       };
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   useEffect(() => {
     FilterUtils.onFiltersUpdate(

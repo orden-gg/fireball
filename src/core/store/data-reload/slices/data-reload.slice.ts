@@ -4,7 +4,7 @@ import { DataReloadType } from 'shared/constants';
 
 export interface DataReloadState {
   lastUpdatedTimestamp: number;
-  lastManuallyUpdatedTimestamp: number;
+  lastManuallyTriggeredTimestamp: number;
   reloadType: DataReloadType | null;
   reloadInterval: number;
   reloadIntervalCountdown: number;
@@ -14,7 +14,7 @@ export interface DataReloadState {
 
 const initialState: DataReloadState = {
   lastUpdatedTimestamp: 0,
-  lastManuallyUpdatedTimestamp: 0,
+  lastManuallyTriggeredTimestamp: 0,
   reloadType: null,
   reloadInterval: Number(localStorage.getItem('RELOAD_INTERVAL')),
   reloadIntervalCountdown: 0,
@@ -29,8 +29,8 @@ export const dataReloadSlice = createSlice({
     setLastUpdatedTimestamp: (state, action: PayloadAction<number>) => {
       state.lastUpdatedTimestamp = action.payload;
     },
-    setLastManuallyUpdatedTimestamp: (state, action: PayloadAction<number>) => {
-      state.lastManuallyUpdatedTimestamp = action.payload;
+    setLastManuallyTriggeredTimestamp: (state, action: PayloadAction<number>) => {
+      state.lastManuallyTriggeredTimestamp = action.payload;
     },
     setReloadType: (state, action: PayloadAction<DataReloadType>) => {
       state.reloadType = action.payload;
@@ -52,7 +52,7 @@ export const dataReloadSlice = createSlice({
 
 export const {
   setLastUpdatedTimestamp,
-  setLastManuallyUpdatedTimestamp,
+  setLastManuallyTriggeredTimestamp,
   setReloadType,
   setReloadInterval,
   setReloadIntervalCountdown,

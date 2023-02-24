@@ -5,7 +5,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 
 import classNames from 'classnames';
 
-import { useAppSelector } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
   CountdownFormatNonZeroType,
   CountdownFormatZeroType,
@@ -40,22 +40,20 @@ export function DataReloadPanel() {
   const { pathname } = useLocation();
   const currentRoute: string = pathname.split('/')[1];
 
+  const dispatch = useAppDispatch();
+
   const lastUpdatedTimestamp: number = useAppSelector(fromDataReloadStore.getLastUpdatedTimestamp);
 
-  const {
-    setLastManuallyUpdated,
-    reloadInterval,
-    setReloadInterval,
-    reloadIntervalCountdown,
-    isReloadDisabled
-  } = useContext<DataReloadContextState>(DataReloadContext);
+  const { reloadInterval, setReloadInterval, reloadIntervalCountdown, isReloadDisabled } = useContext<
+    DataReloadContextState
+  >(DataReloadContext);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
 
   const onHandleDataReload = (path: string): void => {
     if (Object.values(DataReloadType).includes(path as DataReloadType)) {
-      setLastManuallyUpdated(Date.now());
+      dispatch(fromDataReloadStore.setLastManuallyTriggeredTimestamp(Date.now()));
     }
   };
 

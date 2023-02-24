@@ -22,11 +22,10 @@ export function Map() {
 
   const dispatch = useAppDispatch();
 
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
 
-  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
-    DataReloadContext
-  );
+  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -58,7 +57,7 @@ export function Map() {
   }, [activeAddress]);
 
   useEffect(() => {
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       let isMounted = true;
 
       onLoadListedParcels(isMounted);
@@ -68,7 +67,7 @@ export function Map() {
         isMounted = false;
       };
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
     setIsReloadDisabled(true);

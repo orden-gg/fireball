@@ -24,6 +24,9 @@ import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
 
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+
 import { styles } from './styles';
 
 const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
@@ -43,10 +46,11 @@ export function ClientRoutes() {
   const queryParams = queryString.parse(location.search);
 
   const dispatch = useAppDispatch();
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
 
   const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
-  const { lastManuallyUpdated, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
+  const { setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -85,10 +89,10 @@ export function ClientRoutes() {
   }, [activeAddress]);
 
   useEffect(() => {
-    if (activeAddress && lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (activeAddress && lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       getClientData(activeAddress);
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   return (
     <>

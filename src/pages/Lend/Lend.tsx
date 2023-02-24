@@ -13,7 +13,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { useAppDispatch } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -110,6 +110,8 @@ export function Lend() {
 
   const dispatch = useAppDispatch();
 
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+
   const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
   const [lendings, setLendings] = useState<any[]>([]);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
@@ -118,9 +120,7 @@ export function Lend() {
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
-    DataReloadContext
-  );
+  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -156,14 +156,14 @@ export function Lend() {
   useEffect(() => {
     let isMounted = true;
 
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       onGetLendings(isMounted);
     }
 
     return () => {
       isMounted = false;
     };
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   useEffect(() => {
     updateFilterQueryParams(currentFilters);

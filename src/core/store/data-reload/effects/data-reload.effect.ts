@@ -3,7 +3,7 @@ import { DataReloadType } from 'shared/constants';
 
 import {
   setLastUpdatedTimestamp,
-  setLastManuallyUpdatedTimestamp,
+  setLastManuallyTriggeredTimestamp,
   setReloadType,
   setReloadInterval,
   setReloadIntervalCountdown,
@@ -20,7 +20,7 @@ export const onSetReloadType = (reloadType: DataReloadType): AppThunk => (dispat
 
   dispatch(setReloadType(reloadType));
   dispatch(setLastUpdatedTimestamp(0));
-  dispatch(setLastManuallyUpdatedTimestamp(0));
+  dispatch(setLastManuallyTriggeredTimestamp(0));
 
   if (reloadInterval) {
     dispatch(setReloadIntervalCountdown(Date.now() + reloadInterval));
@@ -35,9 +35,9 @@ export const onSetReloadInterval = (interval: number): AppThunk => dispatch => {
 };
 
 const handleDataReload = (): AppThunk => (dispatch, getSate) => {
-  const { lastManuallyUpdatedTimestamp, reloadInterval, reloadType, customInterval } = { ...getSate().dataReload };
+  const { lastManuallyTriggeredTimestamp, reloadInterval, reloadType, customInterval } = { ...getSate().dataReload };
 
-  if (reloadType || lastManuallyUpdatedTimestamp) {
+  if (reloadType || lastManuallyTriggeredTimestamp) {
     clearInterval(customInterval);
   }
 
@@ -50,8 +50,8 @@ const handleDataReload = (): AppThunk => (dispatch, getSate) => {
         setInterval(() => {
           dispatch(setReloadIntervalCountdown(Date.now() + reloadInterval));
 
-          if (lastManuallyUpdatedTimestamp + reloadInterval <= Date.now()) {
-            dispatch(setLastManuallyUpdatedTimestamp(Date.now()));
+          if (lastManuallyTriggeredTimestamp + reloadInterval <= Date.now()) {
+            dispatch(setLastManuallyTriggeredTimestamp(Date.now()));
           }
         }, reloadInterval)
       )
