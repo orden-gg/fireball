@@ -10,7 +10,7 @@ import {
   setCustomInterval
 } from '../slices/data-reload.slice';
 
-export const onSetLastUpdatedTimestamp = (timestamp: number): AppThunk => dispatch => {
+export const onSetLastUpdatedTimestamp = (timestamp: number): AppThunk => (dispatch) => {
   dispatch(setLastUpdatedTimestamp(timestamp));
   dispatch(handleDataReload());
 };
@@ -29,7 +29,7 @@ export const onSetReloadType = (reloadType: DataReloadType | null): AppThunk => 
   dispatch(handleDataReload());
 };
 
-export const onSetReloadInterval = (interval: number): AppThunk => dispatch => {
+export const onSetReloadInterval = (interval: number): AppThunk => (dispatch) => {
   dispatch(setReloadInterval(interval));
   dispatch(handleDataReload());
 

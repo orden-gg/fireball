@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiViewStyles = makeStyles(theme =>
+export const gotchiViewStyles = makeStyles((theme) =>
   createStyles({
     gotchiView: {
       flexBasis: '45%',

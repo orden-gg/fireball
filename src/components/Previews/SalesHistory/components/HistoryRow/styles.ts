@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const historyRowStyles = makeStyles(theme =>
+export const historyRowStyles = makeStyles((theme) =>
   createStyles({
     row: {
       display: 'flex',

@@ -94,7 +94,7 @@ export function BaazaarWearables() {
     });
 
     const paramKey: Undefinable<string> = wearablesListingsSortings.find(
-      sorting => sorting.key === wearablesListingsSorting.type
+      (sorting) => sorting.key === wearablesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

@@ -49,7 +49,7 @@ export function Main() {
     TheGraphApi.getGotchiesByIds(GOTCHI_IDS)
       .then((response: any) => {
         if (isMounted) {
-          const gotchis: any[] = response.map(item => item.data.aavegotchi);
+          const gotchis: any[] = response.map((item) => item.data.aavegotchi);
 
           if (isRowsView) {
             const modifiedGotchis: any[] = _.cloneDeep(gotchis);
@@ -69,7 +69,7 @@ export function Main() {
           setTeam(gotchis);
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setIsloaded(true));
 
     return () => {

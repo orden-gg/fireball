@@ -74,7 +74,7 @@ export function Craftbar() {
             showSnackbar('error', 'Craft failed! :( Please try again');
           }
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setIsCrafting(false));
     }
   };

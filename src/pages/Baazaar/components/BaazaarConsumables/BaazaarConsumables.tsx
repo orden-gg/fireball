@@ -96,7 +96,7 @@ export function BaazaarConsumables() {
     });
 
     const paramKey: Undefinable<string> = consumablesListingsSortings.find(
-      sorting => sorting.key === consumablesListingsSorting.type
+      (sorting) => sorting.key === consumablesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

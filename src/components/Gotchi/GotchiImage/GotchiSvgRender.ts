@@ -1,6 +1,6 @@
 import { MainApi } from 'api';
 
-export const renderSvg = async gotchies => {
+export const renderSvg = async (gotchies) => {
   const svgs: any[] = [];
 
   for (const key in gotchies) {

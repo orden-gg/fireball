@@ -50,7 +50,7 @@ export function Anvil() {
   const [selectedAnvil, setSelectedAnvil] = useState<AnvilItem | undefined>();
 
   useEffect(() => {
-    const selectedAnv: AnvilItem | undefined = items.find(item => item.name === anvilName);
+    const selectedAnv: AnvilItem | undefined = items.find((item) => item.name === anvilName);
 
     setSelectedAnvil(selectedAnv);
   }, [anvilName]);
@@ -64,7 +64,7 @@ export function Anvil() {
       <div className={classes.anvilTitle}>
         <h1>Anvil</h1>
         <Select id='anvil' value={anvilName} size='small' onChange={handleAnvil} className={classes.anvilSelectWrapper}>
-          {items.map(option => (
+          {items.map((option) => (
             <MenuItem value={option.name} key={option.id}>
               <CardImage id={option.id} className={classes.anvilSelectImage} category='4' />
               {option.name}

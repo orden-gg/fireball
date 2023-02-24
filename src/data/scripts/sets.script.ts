@@ -22,4 +22,4 @@ mainContract
 
     console.log(`✅ successfully recorded ${res.length} sets ✅`);
   })
-  .catch(error => console.log('❌', error, '❌'));
+  .catch((error) => console.log('❌', error, '❌'));

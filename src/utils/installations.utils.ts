@@ -144,7 +144,7 @@ export class InstallationsUtils {
         type: InstallationsUtils.getTypeById(inst.installationId) as InstallationTypeNames
       }))
       .reduce((prev: ParcelInstallationVM[], current: Omit<ParcelInstallationVM, 'quantity'>) => {
-        const duplicated: Undefinable<ParcelInstallationVM> = prev.find(inst => inst.id === current.id);
+        const duplicated: Undefinable<ParcelInstallationVM> = prev.find((inst) => inst.id === current.id);
 
         if (duplicated) {
           duplicated.quantity++;

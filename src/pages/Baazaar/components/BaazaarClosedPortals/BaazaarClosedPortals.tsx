@@ -97,7 +97,7 @@ export function BaazaarClosedPortals() {
     });
 
     const paramKey: Undefinable<string> = closedPortalsListingsSortings.find(
-      sorting => sorting.key === closedPortalsListingsSorting.type
+      (sorting) => sorting.key === closedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     container: {
       display: 'flex',
@@ -46,7 +46,7 @@ export const styles = makeStyles(theme =>
   })
 );
 
-export const sidebarStyles = makeStyles(theme =>
+export const sidebarStyles = makeStyles((theme) =>
   createStyles({
     sidebar: {
       width: 300,
@@ -192,7 +192,7 @@ export const sidebarStyles = makeStyles(theme =>
   })
 );
 
-export const itemStyles = makeStyles(theme =>
+export const itemStyles = makeStyles((theme) =>
   createStyles({
     craftItem: {
       height: '100%',
@@ -218,7 +218,7 @@ export const itemStyles = makeStyles(theme =>
   })
 );
 
-export const modalStyles = makeStyles(theme =>
+export const modalStyles = makeStyles((theme) =>
   createStyles({
     content: {
       width: 620,

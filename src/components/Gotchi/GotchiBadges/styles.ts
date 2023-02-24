@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiBadgesStyles = makeStyles(theme =>
+export const gotchiBadgesStyles = makeStyles((theme) =>
   createStyles({
     badges: {
       display: 'flex',

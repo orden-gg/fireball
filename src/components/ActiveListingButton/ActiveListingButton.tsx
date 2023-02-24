@@ -25,7 +25,7 @@ export function ActiveListingButton({ item }: { item: any }) {
           setListingLoading(false);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     return () => {
       mounted = false;

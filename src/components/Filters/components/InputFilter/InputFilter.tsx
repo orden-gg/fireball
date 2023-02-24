@@ -41,7 +41,7 @@ export function InputFilter({ filter, onSetSelectedFilters, isDisabled }: InputF
         size='small'
         label={filter.placeholder}
         value={currentValue}
-        onChange={event => onInputChange(event.target.value)}
+        onChange={(event) => onInputChange(event.target.value)}
         className={classes.input}
         disabled={isDisabled}
       ></TextField>

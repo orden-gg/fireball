@@ -33,7 +33,9 @@ mainContract
       modified[index][ItemTypes.TotalQuantity] = parseInt(ethers.utils.formatUnits(item.totalQuantity, 0));
 
       if (modified[index][ItemTypes.Category] === Erc1155NumberCategories.Wearable) {
-        const wearableType = WEARABLES_TYPES_BENEFITS.find(wearableType => wearableType.ids.find(id => id === index));
+        const wearableType = WEARABLES_TYPES_BENEFITS.find((wearableType) =>
+          wearableType.ids.find((id) => id === index)
+        );
 
         if (wearableType) {
           modified[index][ItemTypes.WearableType] = wearableType.type;
@@ -46,4 +48,4 @@ mainContract
 
     console.log(`✅ successfully recorded ${modified.length} items ✅`);
   })
-  .catch(error => console.log('❌', error, '❌'));
+  .catch((error) => console.log('❌', error, '❌'));
