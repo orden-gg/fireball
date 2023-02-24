@@ -37,7 +37,6 @@ import {
 import { TheGraphCoreApi } from './the-graph-core.api';
 import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 
-const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
@@ -64,7 +63,7 @@ const clientFactory = (() => {
   };
 
   return {
-    client: createClient(coreAPI),
+    client: createClient(GRAPH_CORE_API),
     raffleClient: createClient(raffleAPI),
     svgsClient: createClient(gotchiSvgAPI),
     realmClient: createClient(realmAPI),
