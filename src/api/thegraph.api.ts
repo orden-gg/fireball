@@ -35,7 +35,7 @@ import {
   realmListingsBySeller
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, InstallationTypeNames } from 'shared/constants';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
