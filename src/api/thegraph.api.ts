@@ -626,6 +626,12 @@ export class TheGraphApi {
   }
 
   public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
+    return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
+      (res: any) => res.data.parcels
+    );
+  }
+
+  public static getParcelToChannelGotchiverseInfoByOwner(owner: string): Promise<any> {
     return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then((res: any) => {
       const dataArr: any = res.data.parcels;
 

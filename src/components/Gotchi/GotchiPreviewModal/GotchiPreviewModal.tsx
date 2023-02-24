@@ -75,7 +75,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
       if (modalGotchi) {
-        TheGraphApi.getParcelsGotchiverseInfoByOwner(modalGotchi.owner)
+        TheGraphApi.getParcelToChannelGotchiverseInfoByOwner(modalGotchi.owner)
           .then((response) => setSpawnId(response))
           .catch((e) => console.log(e))
           .finally(() => setIsParcelLoading(false));
