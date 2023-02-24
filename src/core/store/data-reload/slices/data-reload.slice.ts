@@ -32,7 +32,7 @@ export const dataReloadSlice = createSlice({
     setLastManuallyTriggeredTimestamp: (state, action: PayloadAction<number>) => {
       state.lastManuallyTriggeredTimestamp = action.payload;
     },
-    setReloadType: (state, action: PayloadAction<DataReloadType>) => {
+    setReloadType: (state, action: PayloadAction<DataReloadType | null>) => {
       state.reloadType = action.payload;
     },
     setReloadInterval: (state, action: PayloadAction<number>) => {

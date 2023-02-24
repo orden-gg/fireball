@@ -120,7 +120,7 @@ export function Lend() {
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -135,11 +135,11 @@ export function Lend() {
       onSortingChange(key, dir);
     }
 
-    setActiveReloadType(DataReloadType.Lendings);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Lendings));
 
     return () => {
       onResetFilters();
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 

@@ -15,7 +15,7 @@ export const onSetLastUpdatedTimestamp = (timestamp: number): AppThunk => dispat
   dispatch(handleDataReload());
 };
 
-export const onSetReloadType = (reloadType: DataReloadType): AppThunk => (dispatch, getSate) => {
+export const onSetReloadType = (reloadType: DataReloadType | null): AppThunk => (dispatch, getSate) => {
   const reloadInterval: number = getSate().dataReload.reloadInterval;
 
   dispatch(setReloadType(reloadType));

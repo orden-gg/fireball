@@ -98,7 +98,7 @@ export function GhostExplorer() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -113,11 +113,11 @@ export function GhostExplorer() {
       onSortingChange(key, dir);
     }
 
-    setActiveReloadType(DataReloadType.Explorer);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Explorer));
 
     return () => {
       onResetFilters();
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 

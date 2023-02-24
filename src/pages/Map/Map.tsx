@@ -25,7 +25,7 @@ export function Map() {
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
 
-  const { setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -37,12 +37,12 @@ export function Map() {
 
     onLoadListedParcels(isMounted, true);
 
-    setActiveReloadType(DataReloadType.Map);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Map));
 
     return () => {
       isMounted = false;
 
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 

@@ -7,11 +7,9 @@ import queryString from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress, setActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
-import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -46,11 +44,11 @@ export function ClientRoutes() {
   const queryParams = queryString.parse(location.search);
 
   const dispatch = useAppDispatch();
+
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
 
   const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
-  const { setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -59,10 +57,10 @@ export function ClientRoutes() {
       dispatch(setActiveAddress(account));
     }
 
-    setActiveReloadType(DataReloadType.Client);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Client));
 
     return () => {
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
       setCanBeUpdated(false);
     };
   }, []);
