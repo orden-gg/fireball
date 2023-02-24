@@ -32,6 +32,8 @@ export const onSetReloadType = (reloadType: DataReloadType | null): AppThunk => 
 export const onSetReloadInterval = (interval: number): AppThunk => dispatch => {
   dispatch(setReloadInterval(interval));
   dispatch(handleDataReload());
+
+  localStorage.setItem('RELOAD_INTERVAL', `${interval}`);
 };
 
 const handleDataReload = (): AppThunk => (dispatch, getSate) => {
