@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -20,8 +20,6 @@ import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } fr
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
-
-import { DataReloadContext } from './DataReloadContext';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -96,8 +94,6 @@ export const ClientContextProvider = (props: any) => {
 
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
   const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
-
-  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const navData: PageNavLink[] = [
     {
@@ -187,10 +183,10 @@ export const ClientContextProvider = (props: any) => {
 
     if (isAllLoaded) {
       dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
-      setIsReloadDisabled(false);
+      dispatch(fromDataReloadStore.setIsReloadDisabled(false));
       setCanBeUpdated(true);
     } else {
-      setIsReloadDisabled(true);
+      dispatch(fromDataReloadStore.setIsReloadDisabled(true));
       setCanBeUpdated(false);
     }
   }, [loadedStates]);

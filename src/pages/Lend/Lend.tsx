@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, ToggleButton } from '@mui/material';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
@@ -15,7 +15,7 @@ import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
@@ -23,7 +23,6 @@ import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
@@ -120,8 +119,6 @@ export function Lend() {
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
-
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
@@ -187,7 +184,7 @@ export function Lend() {
   }, [currentFilters, lendings, lendingsSorting]);
 
   const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsDataLoading(shouldUpdateIsLoading);
 
     TheGraphApi.getLendings().then((response: any) => {
@@ -241,7 +238,7 @@ export function Lend() {
         });
         setLendings(mappedData);
         setIsDataLoading(false);
-        setIsReloadDisabled(false);
+        dispatch(fromDataReloadStore.setIsReloadDisabled(false));
         dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       }

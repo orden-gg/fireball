@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
@@ -7,8 +7,6 @@ import _ from 'lodash';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
-import { DataReloadContextState } from 'shared/models';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { Citadel } from 'components/Citadel/Citadel';
 import { TheGraphApi } from 'api/thegraph.api';
 
@@ -24,8 +22,6 @@ export function Map() {
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
-
-  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -70,7 +66,7 @@ export function Map() {
   }, [lastManuallyTriggeredTimestamp]);
 
   const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsListedLoaded(!shouldUpdateIsLoading);
 
     Promise.all([
@@ -111,7 +107,7 @@ export function Map() {
       .finally(() => {
         if (isMounted) {
           setIsListedLoaded(true);
-          setIsReloadDisabled(false);
+          dispatch(fromDataReloadStore.setIsReloadDisabled(false));
           dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
           setCanBeUpdated(true);
         }

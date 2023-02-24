@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -11,13 +11,12 @@ import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { TheGraphApi } from 'api';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
@@ -98,8 +97,6 @@ export function GhostExplorer() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
-
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
@@ -170,7 +167,7 @@ export function GhostExplorer() {
   }, [currentFilters, gotchis, gotchisSorting]);
 
   const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsGotchisLoading(shouldUpdateIsLoading);
 
     TheGraphApi.getAllGotchies()
@@ -184,7 +181,7 @@ export function GhostExplorer() {
       })
       .finally(() => {
         setIsGotchisLoading(false);
-        setIsReloadDisabled(false);
+        dispatch(fromDataReloadStore.setIsReloadDisabled(false));
         dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       });

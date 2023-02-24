@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
 import UpdateIcon from '@mui/icons-material/Update';
@@ -12,10 +12,9 @@ import {
   DataReloadType,
   DATA_RELOAD_INTERVALS
 } from 'shared/constants';
-import { DataReloadContextState, CountdownShortFormat } from 'shared/models';
+import { CountdownShortFormat } from 'shared/models';
 import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { ReloadIcon } from 'components/Icons/Icons';
 
 // store
@@ -45,8 +44,7 @@ export function DataReloadPanel() {
   const lastUpdatedTimestamp: number = useAppSelector(fromDataReloadStore.getLastUpdatedTimestamp);
   const reloadInterval: number = useAppSelector(fromDataReloadStore.getReloadInterval);
   const reloadIntervalCountdown: number = useAppSelector(fromDataReloadStore.getReloadIntervalCountdown);
-
-  const { isReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
