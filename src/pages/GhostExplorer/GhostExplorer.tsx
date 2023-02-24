@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
@@ -9,17 +9,20 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { TheGraphApi } from 'api';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { styles } from './styles';
 
@@ -82,6 +85,10 @@ export function GhostExplorer() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
+  const dispatch = useAppDispatch();
+
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+
   const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
   const [gotchis, setGotchis] = useState<any[]>([]);
   const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
@@ -89,10 +96,6 @@ export function GhostExplorer() {
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
-
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -107,11 +110,11 @@ export function GhostExplorer() {
       onSortingChange(key, dir);
     }
 
-    setActiveReloadType(DataReloadType.Explorer);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Explorer));
 
     return () => {
       onResetFilters();
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 
@@ -126,7 +129,7 @@ export function GhostExplorer() {
   }, []);
 
   useEffect(() => {
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       let isMounted = true;
 
       onGetGotchies(isMounted);
@@ -135,7 +138,7 @@ export function GhostExplorer() {
         isMounted = false;
       };
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   useEffect(() => {
     FilterUtils.onFiltersUpdate(
@@ -164,7 +167,7 @@ export function GhostExplorer() {
   }, [currentFilters, gotchis, gotchisSorting]);
 
   const onGetGotchies = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsGotchisLoading(shouldUpdateIsLoading);
 
     TheGraphApi.getAllGotchies()
@@ -178,8 +181,8 @@ export function GhostExplorer() {
       })
       .finally(() => {
         setIsGotchisLoading(false);
-        setIsReloadDisabled(false);
-        setLastUpdated(Date.now());
+        dispatch(fromDataReloadStore.setIsReloadDisabled(false));
+        dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       });
   };

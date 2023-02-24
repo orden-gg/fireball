@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -18,7 +18,8 @@ import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
-import { DataReloadContext } from './DataReloadContext';
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -93,8 +94,6 @@ export const ClientContextProvider = (props: any) => {
 
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
   const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
-
-  const { setLastUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const navData: PageNavLink[] = [
     {
@@ -183,11 +182,11 @@ export const ClientContextProvider = (props: any) => {
     const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
 
     if (isAllLoaded) {
-      setLastUpdated(Date.now());
-      setIsReloadDisabled(false);
+      dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
+      dispatch(fromDataReloadStore.setIsReloadDisabled(false));
       setCanBeUpdated(true);
     } else {
-      setIsReloadDisabled(true);
+      dispatch(fromDataReloadStore.setIsReloadDisabled(true));
       setCanBeUpdated(false);
     }
   }, [loadedStates]);

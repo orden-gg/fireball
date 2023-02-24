@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button, ToggleButton } from '@mui/material';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
@@ -13,8 +13,9 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchiIcon } from 'components/Icons/Icons';
@@ -22,10 +23,12 @@ import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { Gotchi } from 'components/Gotchi/Gotchi';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { styles } from './styles';
 
@@ -104,6 +107,10 @@ export function Lend() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
+  const dispatch = useAppDispatch();
+
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+
   const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
   const [lendings, setLendings] = useState<any[]>([]);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
@@ -111,10 +118,6 @@ export function Lend() {
   const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'timeCreated', dir: 'desc' });
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
-
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -129,11 +132,11 @@ export function Lend() {
       onSortingChange(key, dir);
     }
 
-    setActiveReloadType(DataReloadType.Lendings);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Lendings));
 
     return () => {
       onResetFilters();
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 
@@ -150,14 +153,14 @@ export function Lend() {
   useEffect(() => {
     let isMounted = true;
 
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       onGetLendings(isMounted);
     }
 
     return () => {
       isMounted = false;
     };
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   useEffect(() => {
     updateFilterQueryParams(currentFilters);
@@ -181,7 +184,7 @@ export function Lend() {
   }, [currentFilters, lendings, lendingsSorting]);
 
   const onGetLendings = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsDataLoading(shouldUpdateIsLoading);
 
     TheGraphApi.getLendings().then((response: any) => {
@@ -235,8 +238,8 @@ export function Lend() {
         });
         setLendings(mappedData);
         setIsDataLoading(false);
-        setIsReloadDisabled(false);
-        setLastUpdated(Date.now());
+        dispatch(fromDataReloadStore.setIsReloadDisabled(false));
+        dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       }
     });
