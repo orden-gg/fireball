@@ -18,6 +18,9 @@ import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+
 import { DataReloadContext } from './DataReloadContext';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
@@ -94,7 +97,7 @@ export const ClientContextProvider = (props: any) => {
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
   const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
 
-  const { setLastUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const { setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const navData: PageNavLink[] = [
     {
@@ -183,7 +186,7 @@ export const ClientContextProvider = (props: any) => {
     const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
 
     if (isAllLoaded) {
-      setLastUpdated(Date.now());
+      dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
       setIsReloadDisabled(false);
       setCanBeUpdated(true);
     } else {

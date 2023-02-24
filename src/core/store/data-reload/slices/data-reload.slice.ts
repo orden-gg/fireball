@@ -9,7 +9,7 @@ export interface DataReloadState {
   reloadInterval: number;
   reloadIntervalCountdown: number;
   isReloadDisabled: boolean;
-  customInterval: NodeJS.Timer | null;
+  customInterval: NodeJS.Timer | undefined;
 }
 
 const initialState: DataReloadState = {
@@ -19,7 +19,7 @@ const initialState: DataReloadState = {
   reloadInterval: Number(localStorage.getItem('RELOAD_INTERVAL')),
   reloadIntervalCountdown: 0,
   isReloadDisabled: false,
-  customInterval: null
+  customInterval: undefined
 };
 
 export const dataReloadSlice = createSlice({
@@ -34,10 +34,30 @@ export const dataReloadSlice = createSlice({
     },
     setReloadType: (state, action: PayloadAction<DataReloadType>) => {
       state.reloadType = action.payload;
+    },
+    setReloadInterval: (state, action: PayloadAction<number>) => {
+      state.reloadInterval = action.payload;
+    },
+    setReloadIntervalCountdown: (state, action: PayloadAction<number>) => {
+      state.reloadIntervalCountdown = action.payload;
+    },
+    setIsReloadDisabled: (state, action: PayloadAction<boolean>) => {
+      state.isReloadDisabled = action.payload;
+    },
+    setCustomInterval: (state, action: PayloadAction<NodeJS.Timer>) => {
+      state.customInterval = action.payload;
     }
   }
 });
 
-export const { setLastUpdatedTimestamp, setLastManuallyUpdatedTimestamp, setReloadType } = dataReloadSlice.actions;
+export const {
+  setLastUpdatedTimestamp,
+  setLastManuallyUpdatedTimestamp,
+  setReloadType,
+  setReloadInterval,
+  setReloadIntervalCountdown,
+  setIsReloadDisabled,
+  setCustomInterval
+} = dataReloadSlice.actions;
 
 export const dataReloadReducer = dataReloadSlice.reducer;

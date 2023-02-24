@@ -4,7 +4,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import _ from 'lodash';
 
-import { useAppSelector } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
 import { DataReloadContextState } from 'shared/models';
@@ -12,16 +12,21 @@ import { DataReloadContext } from 'contexts/DataReloadContext';
 import { Citadel } from 'components/Citadel/Citadel';
 import { TheGraphApi } from 'api/thegraph.api';
 
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+
 import { styles } from './styles';
 
 export function Map() {
   const classes = styles();
 
+  const dispatch = useAppDispatch();
+
   const activeAddress = useAppSelector(getActiveAddress);
 
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
+  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
+    DataReloadContext
+  );
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -108,7 +113,7 @@ export function Map() {
         if (isMounted) {
           setIsListedLoaded(true);
           setIsReloadDisabled(false);
-          setLastUpdated(Date.now());
+          dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
           setCanBeUpdated(true);
         }
       });

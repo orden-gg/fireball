@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
+import { useAppDispatch } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentInner } from 'components/Content/ContentInner';
@@ -20,6 +21,9 @@ import { DataReloadContext } from 'contexts/DataReloadContext';
 import { TheGraphApi } from 'api';
 import { filtersData } from 'data/filters.data';
 import { FilterUtils } from 'utils';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { styles } from './styles';
 
@@ -82,6 +86,8 @@ export function GhostExplorer() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
+  const dispatch = useAppDispatch();
+
   const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
   const [gotchis, setGotchis] = useState<any[]>([]);
   const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
@@ -90,9 +96,9 @@ export function GhostExplorer() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
+  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
+    DataReloadContext
+  );
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -179,7 +185,7 @@ export function GhostExplorer() {
       .finally(() => {
         setIsGotchisLoading(false);
         setIsReloadDisabled(false);
-        setLastUpdated(Date.now());
+        dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       });
   };

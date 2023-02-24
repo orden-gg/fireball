@@ -13,6 +13,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import { useAppDispatch } from 'core/store/hooks';
 import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, DataReloadContextState, SortingItem, SortingListItem } from 'shared/models';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -26,6 +27,9 @@ import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi, TheGraphApi } from 'api';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { styles } from './styles';
 
@@ -104,6 +108,8 @@ export function Lend() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
+  const dispatch = useAppDispatch();
+
   const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
   const [lendings, setLendings] = useState<any[]>([]);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
@@ -112,9 +118,9 @@ export function Lend() {
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
+  const { lastManuallyUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<DataReloadContextState>(
+    DataReloadContext
+  );
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: any) =>
@@ -236,7 +242,7 @@ export function Lend() {
         setLendings(mappedData);
         setIsDataLoading(false);
         setIsReloadDisabled(false);
-        setLastUpdated(Date.now());
+        dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
         setCanBeUpdated(true);
       }
     });

@@ -5,6 +5,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 
 import classNames from 'classnames';
 
+import { useAppSelector } from 'core/store/hooks';
 import {
   CountdownFormatNonZeroType,
   CountdownFormatZeroType,
@@ -16,6 +17,9 @@ import { Countdown } from 'components/Countdown/Countdown';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { DataReloadContext } from 'contexts/DataReloadContext';
 import { ReloadIcon } from 'components/Icons/Icons';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { dataReloadStyles } from '../styles';
 
@@ -36,8 +40,9 @@ export function DataReloadPanel() {
   const { pathname } = useLocation();
   const currentRoute: string = pathname.split('/')[1];
 
+  const lastUpdatedTimestamp: number = useAppSelector(fromDataReloadStore.getLastUpdatedTimestamp);
+
   const {
-    lastUpdated,
     setLastManuallyUpdated,
     reloadInterval,
     setReloadInterval,
@@ -73,13 +78,13 @@ export function DataReloadPanel() {
   };
 
   const getReloadTooltip = useCallback(
-    (lastUpdated: number): JSX.Element => {
+    (lastUpdatedTimestamp: number): JSX.Element => {
       let countdownText: JSX.Element;
 
-      if (lastUpdated === 0) {
+      if (lastUpdatedTimestamp === 0) {
         countdownText = <span>fetching...</span>;
       } else {
-        countdownText = <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} />;
+        countdownText = <Countdown shortFormat={countdownFormat} targetDate={lastUpdatedTimestamp} />;
       }
 
       return (
@@ -91,7 +96,7 @@ export function DataReloadPanel() {
         </div>
       );
     },
-    [lastUpdated]
+    [lastUpdatedTimestamp]
   );
 
   const getLiveReloadCountdown = (intervalCountdown: number): JSX.Element => {
@@ -129,7 +134,12 @@ export function DataReloadPanel() {
   return (
     <div className={classes.dataReloadWrapper}>
       <div className={classNames(classes.topButtonsGroup, isDropdownOpen && 'opened')}>
-        <CustomTooltip title={getReloadTooltip(lastUpdated)} enterTouchDelay={0} placement='bottom' arrow={true}>
+        <CustomTooltip
+          title={getReloadTooltip(lastUpdatedTimestamp)}
+          enterTouchDelay={0}
+          placement='bottom'
+          arrow={true}
+        >
           <span>
             <Button
               disabled={isReloadDisabled}
