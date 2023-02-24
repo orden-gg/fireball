@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
+import { Backdrop, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import UpdateIcon from '@mui/icons-material/Update';
 
 import classNames from 'classnames';
@@ -47,7 +47,9 @@ export function DataReloadPanel() {
   const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
+  const [dateReloadInterval, setDataReloadInterval] = useState<number>(
+    reloadInterval || DATA_RELOAD_INTERVALS.FiveMins
+  );
 
   const onHandleDataReload = (path: string): void => {
     if (Object.values(DataReloadType).includes(path as DataReloadType)) {
@@ -59,8 +61,8 @@ export function DataReloadPanel() {
     setIsDropdownOpen(!isOpen);
   };
 
-  const onHandleIntervalChange = (event: any): void => {
-    setInterval(event.target.value);
+  const onHandleIntervalChange = (event: SelectChangeEvent<string | number>): void => {
+    setDataReloadInterval(Number(event.target.value));
   };
 
   const onActivateLiveReload = (interval: number | string): void => {
@@ -169,7 +171,7 @@ export function DataReloadPanel() {
             <Select
               labelId='demo-simple-select-label'
               id='demo-simple-select'
-              value={interval}
+              value={dateReloadInterval}
               displayEmpty
               onChange={onHandleIntervalChange}
               size='small'
@@ -196,8 +198,8 @@ export function DataReloadPanel() {
               variant='contained'
               color='secondary'
               size='small'
-              disabled={!interval || isReloadDisabled}
-              onClick={() => onActivateLiveReload(interval)}
+              disabled={!dateReloadInterval || isReloadDisabled}
+              onClick={() => onActivateLiveReload(dateReloadInterval)}
               className={classes.dropdownButton}
             >
               Activate
