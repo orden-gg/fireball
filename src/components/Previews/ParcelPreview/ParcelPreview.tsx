@@ -12,15 +12,18 @@ import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { EthersApi, TheGraphApi } from 'api';
 import { CitadelUtils, GotchiverseUtils } from 'utils';
-
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+import { GotchiFooter } from 'components/GotchiPreview/components';
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 
 import { styles } from './styles';
 
+import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
+
 export function ParcelPreview({ parcel }: { parcel: any }) {
   const classes = styles();
-
+  const classesB = gotchiPreviewModalStyles();
   const [history, setHistory] = useState<any[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
 
@@ -40,7 +43,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
           setHistory(res);
         }
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
       .finally(() => {
         if (mounted) {
           setHistoryLoaded(true);
@@ -97,6 +100,18 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                 {CitadelUtils.getParcelSizeName(Number(parcel.size))}(
                 {CitadelUtils.getParcelDimmentions(Number(parcel.size))})
               </Paper>
+              <Paper className={classes.badge} elevation={0}>
+                <span className={classes.highlighted}>spawnId:</span>
+                {parcel.parcelId}
+              </Paper>
+              <GotchiFooter>
+                <ViewInAppButton
+                  link={`https://verse.aavegotchi.com/?spawnId=${parcel.parcelId}&gotchi=${parcel.owner}`}
+                  className={classesB.button}
+                >
+                  Fireball Farmeer
+                </ViewInAppButton>
+              </GotchiFooter>
             </div>
 
             <div className={classes.boosts}>
