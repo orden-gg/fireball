@@ -44,8 +44,9 @@ export function DataReloadPanel() {
 
   const lastUpdatedTimestamp: number = useAppSelector(fromDataReloadStore.getLastUpdatedTimestamp);
   const reloadInterval: number = useAppSelector(fromDataReloadStore.getReloadInterval);
+  const reloadIntervalCountdown: number = useAppSelector(fromDataReloadStore.getReloadIntervalCountdown);
 
-  const { reloadIntervalCountdown, isReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
+  const { isReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
