@@ -85,7 +85,7 @@ export class AlchemicaApi {
     const contract: any = EthersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
     const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then(response => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response) => Boolean(response.status));
   }
 
   public static getGltrBalance(address: any): Promise<any> {

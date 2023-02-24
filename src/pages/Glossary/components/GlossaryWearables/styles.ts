@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     glossaryWearablesContainer: {
       padding: '56px 16px 12px'

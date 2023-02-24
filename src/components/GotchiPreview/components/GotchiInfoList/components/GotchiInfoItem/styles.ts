@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiInfoItemStyles = makeStyles(theme =>
+export const gotchiInfoItemStyles = makeStyles((theme) =>
   createStyles({
     infoItem: {
       display: 'flex',

@@ -152,7 +152,7 @@ export class CitadelScene extends Phaser.Scene {
       this.zoomToPointer(pointer);
     });
 
-    this.input.on('pointerup', pointer => {
+    this.input.on('pointerup', (pointer) => {
       if (this.settings.isDragging) {
         return;
       }
@@ -175,7 +175,7 @@ export class CitadelScene extends Phaser.Scene {
       }
     });
 
-    this.input.on('pointermove', pointer => {
+    this.input.on('pointermove', (pointer) => {
       const { cx, cy } = this.getCursorFromCenter(pointer);
       const id = CitadelUtils.getDistrictIdByCoords(cx, cy);
 
@@ -289,7 +289,7 @@ export class CitadelScene extends Phaser.Scene {
 
     this.trigger('query', {
       name: 'multiselect',
-      params: this.multiselect.parcels.map(parcel => parcel.tokenId)
+      params: this.multiselect.parcels.map((parcel) => parcel.tokenId)
     });
   }
 
@@ -411,8 +411,8 @@ export class CitadelScene extends Phaser.Scene {
 
   setMultiselect(ids) {
     const parcels = ids
-      .map(id => CitadelUtils.getParcelByTypeAndValue('tokenId', id))
-      .filter(parcel => parcel !== undefined);
+      .map((id) => CitadelUtils.getParcelByTypeAndValue('tokenId', id))
+      .filter((parcel) => parcel !== undefined);
 
     if (parcels.length === 0) {
       return;

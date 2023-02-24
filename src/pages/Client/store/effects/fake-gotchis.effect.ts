@@ -23,7 +23,7 @@ import {
   setFakeGotchiCardListings
 } from '../slices';
 
-export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolean): AppThunk => dispatch => {
+export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolean): AppThunk => (dispatch) => {
   if (shouldUpdateIsLoading) {
     dispatch(loadFakeGotchis());
   }
@@ -38,15 +38,15 @@ export const onLoadFakeGotchis = (address: string, shouldUpdateIsLoading: boolea
 
           Object.keys(currentListings).forEach((key: string) => {
             const dictionaryKey: string = key.split('item')[1];
-            const currentListing = currentListings[key].find(listing => Number(listing.timePurchased) === 0);
+            const currentListing = currentListings[key].find((listing) => Number(listing.timePurchased) === 0);
 
             listings[dictionaryKey] = {
               listingId: currentListing ? currentListing.id : '',
               listingPrice: currentListing ? EthersApi.fromWei(currentListing.priceInWei) : 0,
               historicalPrices: currentListings[key]
-                .filter(listing => Number(listing.timePurchased) !== 0)
+                .filter((listing) => Number(listing.timePurchased) !== 0)
                 .sort((a, b) => Number(a.timePurchased) - Number(b.timePurchased))
-                .map(listing => listing.priceInWei)
+                .map((listing) => listing.priceInWei)
             };
           });
 

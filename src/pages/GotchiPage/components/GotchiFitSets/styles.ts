@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiFitSetsStyles = makeStyles(theme =>
+export const gotchiFitSetsStyles = makeStyles((theme) =>
   createStyles({
     setsList: {
       display: 'grid',

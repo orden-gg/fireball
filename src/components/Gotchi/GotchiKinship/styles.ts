@@ -1,7 +1,7 @@
 import { alpha, darken } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     container: {
       width: 188,

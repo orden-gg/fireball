@@ -32,7 +32,7 @@ export function CheckboxFilter({ filter, onSetSelectedFilters, isDisabled }: Che
         control={
           <Checkbox
             checked={isChecked}
-            onChange={event => onCheckboxChange(event.target.checked)}
+            onChange={(event) => onCheckboxChange(event.target.checked)}
             disabled={isDisabled}
           />
         }

@@ -79,7 +79,7 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
   }, [currentFilters]);
 
   useEffect(() => {
-    setCurrentFilters(currentFiltersCache =>
+    setCurrentFilters((currentFiltersCache) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 

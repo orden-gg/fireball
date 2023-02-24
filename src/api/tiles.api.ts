@@ -31,13 +31,13 @@ export class TilesApi {
         response.forEach(
           (tile, index) =>
             // ! Modify BigNumber`s => number`s
-            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map(alchemica => {
+            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map((alchemica) => {
               return parseInt(ethers.utils.formatUnits(alchemica));
             }))
         );
 
         return modified;
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 }

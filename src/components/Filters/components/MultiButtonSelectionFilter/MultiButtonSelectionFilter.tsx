@@ -32,7 +32,7 @@ export function MultiButtonSelectionFilter({
 
       setItems(itemsCopy);
 
-      const selectedItems: any[] = itemsCopy.filter(item => item.isSelected);
+      const selectedItems: any[] = itemsCopy.filter((item) => item.isSelected);
 
       onSetSelectedFilters(filter.key, selectedItems);
     },

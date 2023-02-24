@@ -31,7 +31,7 @@ export function GuildSocials() {
       return <></>;
     }
 
-    return Object.keys(guild.socials).map(key => (
+    return Object.keys(guild.socials).map((key) => (
       <Tooltip title={key} key={key} placement='top' followCursor>
         <IconButton component={Link} href={guild.socials[key]} target='_blank' className={classes.guildSocialButton}>
           {socials[key] || socials.default}

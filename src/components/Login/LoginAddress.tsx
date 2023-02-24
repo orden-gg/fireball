@@ -121,8 +121,8 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
               error={name.length === 0}
               inputRef={nameRef}
               value={name}
-              onChange={event => onNameChange(event.target.value)}
-              onClick={event => editMode && event.stopPropagation()}
+              onChange={(event) => onNameChange(event.target.value)}
+              onClick={(event) => editMode && event.stopPropagation()}
               className={classNames(classes.loginAddressName, isMetamask && 'metamask')}
               endAdornment={
                 <InputAdornment position='end'>
@@ -131,7 +131,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
                       type='submit'
                       color='success'
                       size='small'
-                      onClick={event => confirmNewAddress(event)}
+                      onClick={(event) => confirmNewAddress(event)}
                       disabled={name.length === 0}
                     >
                       <CheckIcon fontSize={'8px' as any} />
@@ -147,7 +147,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
           <Typography
             className={classes.loginAddressAddress}
             color='primary.main'
-            onClick={event => copyAddress(event)}
+            onClick={(event) => copyAddress(event)}
             onMouseLeave={() => setCopyTooltipText('Copy address')}
           >
             {CommonUtils.cutAddress(address.address, '..')}
@@ -159,13 +159,13 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
         {!isMetamask ? (
           <>
             <CustomTooltip title='Edit name' placement='top' followCursor>
-              <IconButton size='small' onClick={event => editAddress(event)}>
+              <IconButton size='small' onClick={(event) => editAddress(event)}>
                 <EditIcon fontSize='small' />
               </IconButton>
             </CustomTooltip>
 
             <CustomTooltip title='Logout' placement='top' followCursor>
-              <IconButton size='small' color='warning' onClick={event => onAddressLogout(event, address)}>
+              <IconButton size='small' color='warning' onClick={(event) => onAddressLogout(event, address)}>
                 <LogoutIcon fontSize='small' />
               </IconButton>
             </CustomTooltip>

@@ -24,7 +24,7 @@ const styles = makeStyles(() =>
   })
 );
 
-const InterfaceStyles = makeStyles(theme =>
+const InterfaceStyles = makeStyles((theme) =>
   createStyles({
     citadelInterface: {
       position: 'absolute',
@@ -130,7 +130,7 @@ const LoaderStyles = makeStyles(() =>
   })
 );
 
-const InfoStyles = makeStyles(theme =>
+const InfoStyles = makeStyles((theme) =>
   createStyles({
     infoContainer: {
       position: 'absolute',
@@ -151,7 +151,7 @@ const InfoStyles = makeStyles(theme =>
   })
 );
 
-const FilterStyles = makeStyles(theme =>
+const FilterStyles = makeStyles((theme) =>
   createStyles({
     dropdownContainer: {
       position: 'absolute',

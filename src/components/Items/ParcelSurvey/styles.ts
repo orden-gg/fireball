@@ -1,7 +1,7 @@
 import { alpha, darken } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const parcelSurveyStyles = makeStyles(theme =>
+export const parcelSurveyStyles = makeStyles((theme) =>
   createStyles({
     surveyList: {
       marginTop: theme.spacing(1.5),

@@ -14,7 +14,9 @@ export const addAddress = ({ address, name }: LoginAddress): AppThunk => (dispat
 
 export const updateAddressName = (address: string, name: string): AppThunk => (dispatch, getState) => {
   const state = getState();
-  const targetAddressIndex = state.login.loggedAddresses.findIndex(loggedAddress => loggedAddress.address === address);
+  const targetAddressIndex = state.login.loggedAddresses.findIndex(
+    (loggedAddress) => loggedAddress.address === address
+  );
   const loggedAddressesCopy = [...state.login.loggedAddresses];
 
   loggedAddressesCopy[targetAddressIndex] = { address, name };
@@ -36,7 +38,7 @@ export const removeAddress = (address: string): AppThunk => (dispatch, getState)
   localStorage.setItem('LOGGED_ADDRESSES', JSON.stringify(filteredAddresses));
 };
 
-export const selectActiveAddress = (address: string): AppThunk => dispatch => {
+export const selectActiveAddress = (address: string): AppThunk => (dispatch) => {
   dispatch(setActiveAddress(address));
 
   localStorage.setItem('ACTIVE_ADDRESS', JSON.stringify(address));

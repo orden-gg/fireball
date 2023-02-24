@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiContentStyles = makeStyles(theme =>
+export const gotchiContentStyles = makeStyles((theme) =>
   createStyles({
     gotchiContent: {
       marginLeft: theme.spacing(2),

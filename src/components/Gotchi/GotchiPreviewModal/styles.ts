@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiPreviewModalStyles = makeStyles(theme =>
+export const gotchiPreviewModalStyles = makeStyles((theme) =>
   createStyles({
     previewModal: {
       width: 1000,

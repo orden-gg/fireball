@@ -88,7 +88,7 @@ export function BaazaarGotchis() {
     });
 
     const paramKey: Undefinable<string> = gotchisListingsSortings.find(
-      sorting => sorting.key === gotchisListingsSorting.type
+      (sorting) => sorting.key === gotchisListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

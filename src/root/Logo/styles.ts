@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
 // TODO check if needed, not used for now
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     logoWrapper: {
       top: theme.spacing(1.5),

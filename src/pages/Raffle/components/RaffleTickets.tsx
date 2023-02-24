@@ -30,7 +30,7 @@ export function RaffleTickets({ address }: { address: string }) {
           setLoadingTickets(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };

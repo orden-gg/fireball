@@ -5,10 +5,12 @@ import { clientReducers } from 'pages/Client/store';
 import { fakeGotchiReducers } from 'pages/FakeGotchisGallery/store';
 import { glossaryReducer } from 'pages/Glossary/store';
 
+import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
 
 export const store = configureStore({
   reducer: {
+    dataReload: dataReloadReducer,
     login: loginReducer,
     glossary: glossaryReducer,
     baazaar: baazarReducers,
