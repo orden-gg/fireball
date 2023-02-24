@@ -103,7 +103,7 @@ export function Map() {
           });
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => {
         if (isMounted) {
           setIsListedLoaded(true);
@@ -140,7 +140,7 @@ export function Map() {
             });
           }
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => {
           if (isMounted) {
             setIsOwnerLoaded(true);

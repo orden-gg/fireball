@@ -59,18 +59,18 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
           setInventory(sortedInventory);
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
 
       TheGraphApi.getGotchiById(id)
         .then((response: any) => setModalGotchi(response))
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setIsGotchiLoading(false));
 
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {
           setSalesHistory(response);
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
     }
   }, []);

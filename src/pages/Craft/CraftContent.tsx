@@ -64,8 +64,8 @@ export function CraftContent() {
           .filter((item: any) => !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0)));
 
         const [active, deprecated]: any[] = [
-          filteredInstallations.concat(filteredTiles).filter(item => !item.deprecated),
-          filteredInstallations.concat(filteredTiles).filter(item => item.deprecated)
+          filteredInstallations.concat(filteredTiles).filter((item) => !item.deprecated),
+          filteredInstallations.concat(filteredTiles).filter((item) => item.deprecated)
         ];
 
         setCraftableItems(active);
@@ -142,7 +142,7 @@ export function CraftContent() {
             {!isLoading ? (
               <ItemsLazy
                 items={isCraftableShown ? craftableItems : deprecatedItems}
-                component={props => <CraftItem item={props} />}
+                component={(props) => <CraftItem item={props} />}
               />
             ) : (
               <CircularProgress className={classes.loader} />

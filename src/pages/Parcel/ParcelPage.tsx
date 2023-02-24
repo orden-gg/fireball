@@ -22,7 +22,7 @@ export function ParcelPage() {
     setParcelLoading(true);
 
     TheGraphApi.getRealmById(parcelId as string)
-      .then(parcel => {
+      .then((parcel) => {
         if (mounted && parcel) {
           if (parcel.installations.length > 0) {
             parcel.installations = InstallationsUtils.combineInstallations(parcel.installations);
@@ -35,7 +35,7 @@ export function ParcelPage() {
           setParcel(parcel);
         }
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
       .finally(() => {
         if (mounted) {
           setParcelLoading(false);

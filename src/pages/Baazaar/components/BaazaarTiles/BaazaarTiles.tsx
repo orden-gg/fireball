@@ -91,7 +91,7 @@ export function BaazaarTiles() {
     });
 
     const paramKey: Undefinable<string> = tilesListingsSortings.find(
-      sorting => sorting.key === tilesListingsSorting.type
+      (sorting) => sorting.key === tilesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

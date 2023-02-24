@@ -59,7 +59,7 @@ export class TilesUtils {
         name: TilesUtils.getNameById(tile.tileId)
       }))
       .reduce((prev: ParcelTileVM[], current: Omit<ParcelTileVM, 'quantity'>) => {
-        const duplicated: Undefinable<ParcelTileVM> = prev.find(tile => tile.id === current.id);
+        const duplicated: Undefinable<ParcelTileVM> = prev.find((tile) => tile.id === current.id);
 
         if (duplicated) {
           duplicated.quantity++;

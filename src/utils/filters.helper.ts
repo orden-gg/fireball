@@ -6,7 +6,7 @@ export class FiltersHelper {
 
   public static multipleSelectionResetFilterFn(filter: any): any {
     filter.isFilterActive = false;
-    filter.items.forEach(item => (item.isSelected = false));
+    filter.items.forEach((item) => (item.isSelected = false));
   }
 
   public static multipleSelectionPredicateFn(filter: any, compareItem: any): any {
@@ -25,7 +25,7 @@ export class FiltersHelper {
       if (typeof compareValue === 'string') {
         filterItem = compareValue === item[compareKey] ? item : null;
       } else {
-        filterItem = compareValue.find(value => value === item[compareKey]);
+        filterItem = compareValue.find((value) => value === item[compareKey]);
       }
 
       if (filterItem) {
@@ -89,7 +89,7 @@ export class FiltersHelper {
   public static singleSelectionUpdateFromFilterFn(filter: any, value: any): any {
     filter.isFilterActive = true;
 
-    filter.items.forEach(item => {
+    filter.items.forEach((item) => {
       if (item.value === value) {
         item.isSelected = true;
 

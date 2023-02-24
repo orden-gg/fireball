@@ -88,7 +88,7 @@ export function BaazaarParcels() {
     });
 
     const paramKey: Undefinable<string> = parcelsListingsSortings.find(
-      sorting => sorting.key === parcelsListingsSorting.type
+      (sorting) => sorting.key === parcelsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

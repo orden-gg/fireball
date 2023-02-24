@@ -127,7 +127,7 @@ export function Lend() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -167,7 +167,7 @@ export function Lend() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find(sorting => sorting.key === lendingsSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, lendingsSorting.dir);
   }, [lendingsSorting]);
@@ -212,7 +212,7 @@ export function Lend() {
 
           currentFiltersCacheCopy.whitelistId = {
             ...currentFiltersCacheCopy.whitelistId,
-            items: sortedWhitelist.map(whitelist => ({
+            items: sortedWhitelist.map((whitelist) => ({
               title: whitelist,
               value: whitelist,
               queryParamValue: whitelist,
@@ -327,14 +327,14 @@ export function Lend() {
                 padding: '10px 0 10px 60px'
               }}
             >
-              {modifiedLendings.map(lend => {
+              {modifiedLendings.map((lend) => {
                 return <li key={lend.lendingId}>https://app.aavegotchi.com/lending/{lend.lendingId}</li>;
               })}
             </ol>
           ) : (
             <GotchisLazy
               items={modifiedLendings}
-              renderItem={id => (
+              renderItem={(id) => (
                 <Gotchi
                   gotchi={modifiedLendings[id]}
                   render={[

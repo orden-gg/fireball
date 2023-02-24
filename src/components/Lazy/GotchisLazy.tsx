@@ -56,7 +56,7 @@ export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
       components={{
         List: ListContainer as any
       }}
-      itemContent={index => renderItem(index)}
+      itemContent={(index) => renderItem(index)}
     />
   );
 }

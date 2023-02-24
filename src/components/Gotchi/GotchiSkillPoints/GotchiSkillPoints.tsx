@@ -23,7 +23,7 @@ export function GotchiSkillPoints({ id, usedPoints }: { id: string; usedPoints: 
           setLoadingPoints(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 

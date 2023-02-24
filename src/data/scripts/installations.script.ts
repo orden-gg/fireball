@@ -30,12 +30,12 @@ installationsContract
       modified[index][InstallationTypes.Name] = name.replace(/level [1-9]/gi, '');
 
       // ! Modify BigNumber`s => number`s
-      modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map(alchemica => {
+      modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map((alchemica) => {
         return parseInt(ethers.utils.formatUnits(alchemica));
       });
       modified[index][InstallationTypes.HarvestRate] = parseInt(ethers.utils.formatUnits(installation.harvestRate));
       modified[index][InstallationTypes.Capacity] = parseInt(ethers.utils.formatUnits(installation.capacity));
-      modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map(alchemica => {
+      modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map((alchemica) => {
         return parseInt(ethers.utils.formatUnits(alchemica));
       });
     });
@@ -44,4 +44,4 @@ installationsContract
 
     console.log(`✅ successfully recorded ${modified.length} installations ✅`);
   })
-  .catch(error => console.log('❌', error, '❌'));
+  .catch((error) => console.log('❌', error, '❌'));

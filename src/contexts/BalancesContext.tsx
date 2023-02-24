@@ -75,7 +75,7 @@ export const BalancesContextProvider = (props: any) => {
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
   const [amounts, setAmounts] = useState<any>({});
   const [tokens, setTokens] = useState<any[]>([
-    ...initialTokensValues.map(token => ({
+    ...initialTokensValues.map((token) => ({
       amount: token.amount,
       balance: token.balance,
       icon: token.icon
@@ -93,9 +93,15 @@ export const BalancesContextProvider = (props: any) => {
       getAmounts = async function() {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount] = await getTokensAmounts(
-          activeAddress
-        );
+        const [
+          fudAmount,
+          fomoAmount,
+          alphaAmount,
+          kekAmount,
+          gltrAmount,
+          gshtAmount,
+          maticAmount
+        ] = await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({
@@ -211,7 +217,7 @@ export const BalancesContextProvider = (props: any) => {
     };
   }, [isAmountsLoaded, isPricesLoaded]);
 
-  const getTokensAmounts = address => {
+  const getTokensAmounts = (address) => {
     return Promise.all([
       AlchemicaApi.getFudBalance(address),
       AlchemicaApi.getFomoBalance(address),

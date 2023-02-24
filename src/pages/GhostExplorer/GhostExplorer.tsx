@@ -105,7 +105,7 @@ export function GhostExplorer() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -150,7 +150,7 @@ export function GhostExplorer() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === gotchisSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, gotchisSorting.dir);
   }, [gotchisSorting]);
@@ -176,7 +176,7 @@ export function GhostExplorer() {
           setGotchis(response);
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       })
       .finally(() => {
@@ -247,7 +247,7 @@ export function GhostExplorer() {
       <ContentInner dataLoading={isGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
-          renderItem={id => (
+          renderItem={(id) => (
             <Gotchi
               gotchi={modifiedGotchis[id]}
               render={[

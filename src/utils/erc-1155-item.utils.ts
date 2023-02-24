@@ -14,9 +14,9 @@ import { ItemUtils } from './item.utils';
 export class Erc1155ItemUtils {
   public static getStaticWearables(): Erc1155ItemTuple[] {
     return erc1155Items
-      .filter(erc1155Item => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
+      .filter((erc1155Item) => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
       .filter(
-        erc1155Item =>
+        (erc1155Item) =>
           erc1155Item[ItemTypes.Name] !== VOID_WEARABLE && erc1155Item[ItemTypes.Name] !== HAUNT_ONE_BACKGROUND_WEARABLE
       ) as Erc1155ItemTuple[];
   }

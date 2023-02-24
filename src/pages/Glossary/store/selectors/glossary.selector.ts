@@ -3,7 +3,7 @@ import { Wearable, SortingItem } from 'shared/models';
 
 export const getInitialGlossaryWearables = (state: RootState): Wearable[] => state.glossary.initialWearables;
 export const getWearablesIds = (state: RootState): number[] =>
-  state.glossary.initialWearables.map(wearable => wearable.id);
+  state.glossary.initialWearables.map((wearable) => wearable.id);
 export const getGlossaryWearables = (state: RootState): Wearable[] => state.glossary.wearables;
 export const getGlossaryWearablesCount = (state: RootState): number => state.glossary.initialWearables.length;
 export const getWearablesSorting = (state: RootState): SortingItem => state.glossary.wearablesSorting;

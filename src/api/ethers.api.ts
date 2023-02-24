@@ -47,7 +47,7 @@ export class EthersApi {
   public static waitForTransaction(hash: any, network: any): any {
     const provider = EthersApi.getProvider(network);
 
-    return provider.waitForTransaction(hash).then(response => response);
+    return provider.waitForTransaction(hash).then((response) => response);
   }
 
   public static makeContract(contract: any, abi: any, network: any): any {

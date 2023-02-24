@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const historyHeadStyles = makeStyles(theme =>
+export const historyHeadStyles = makeStyles((theme) =>
   createStyles({
     head: {
       display: 'flex',

@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     listings: {
       display: 'flex',

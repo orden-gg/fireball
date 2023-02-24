@@ -65,7 +65,7 @@ export function ClientWarehouse() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       setWarehouseSorting({ type: key, dir });
     }
@@ -79,7 +79,7 @@ export function ClientWarehouse() {
 
   const updateSortQueryParams = useCallback(
     (prop: string, dir: string) => {
-      const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
+      const paramKey = sortings.find((sorting) => sorting.key === prop)?.paramKey;
 
       navigate({
         pathname: location.pathname,

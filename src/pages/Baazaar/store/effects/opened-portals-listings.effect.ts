@@ -15,7 +15,7 @@ import {
 } from '../slices';
 import { ASCENDING_DIRECTION, PRICE_IN_WEI } from 'pages/Baazaar/constants';
 
-export const loadBaazaarOpenedPortalsListings = (): AppThunk => dispatch => {
+export const loadBaazaarOpenedPortalsListings = (): AppThunk => (dispatch) => {
   dispatch(loadOpenedPortalsListings());
 
   const query = getBaazaarOpenedPortalsListingsQuery();
@@ -54,7 +54,7 @@ const mapOpenedPortalsDTOToVM = (listings: OpenedPortalListingDTO[]): OpenedPort
   const items: OpenedPortalListingVM[] = [];
 
   listings.forEach((listing: OpenedPortalListingDTO) => {
-    listing.portal.options.forEach(option => {
+    listing.portal.options.forEach((option) => {
       items.push({
         id: listing.id,
         tokenId: listing.tokenId,

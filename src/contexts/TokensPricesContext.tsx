@@ -16,7 +16,7 @@ import { QuickswapApi } from 'api';
 export const TokensPricesContext = createContext({});
 
 // TODO add types
-export const TokensPricesContextProvider = props => {
+export const TokensPricesContextProvider = (props) => {
   const [isPricesLoaded, setIsPricesLoaded] = useState(false);
   const [tokensPrices, setTokensPrices] = useState({});
 

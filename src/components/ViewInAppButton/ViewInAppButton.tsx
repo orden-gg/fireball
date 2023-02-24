@@ -21,7 +21,7 @@ export function ViewInAppButton({ link, children, className }: ViewInAppButtonPr
       variant='contained'
       target='_blank'
       fullWidth
-      onClick={e => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
       {children}
     </Button>
