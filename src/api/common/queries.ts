@@ -45,47 +45,55 @@ export const gotchiesQuery = (skip: any, orderDir: any, hauntId: any): any => {
     }`;
 };
 
+const aavegotchiProps: string = `{
+  id
+  name
+  numericTraits
+  modifiedNumericTraits
+  withSetsNumericTraits
+  baseRarityScore
+  modifiedRarityScore
+  withSetsRarityScore
+  kinship
+  toNextLevel
+  level
+  experience
+  equippedWearables
+  collateral
+  hauntId
+  createdAt
+  possibleSets
+  equippedSetID
+  equippedSetName
+  usedSkillPoints
+  minimumStake
+  stakedAmount
+  timesTraded
+  originalOwner
+  listings(where:{cancelled: false, timePurchased: 0}) {
+      id
+      priceInWei
+  }
+  historicalPrices
+  owner {
+      id
+  }
+  originalOwner {
+      id
+  }
+  lending
+}`;
+
 export const gotchiByIdQuery = (id: any): any => {
   return `{
-        aavegotchi(id: ${id}) {
-            id
-            name
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            baseRarityScore
-            modifiedRarityScore
-            withSetsRarityScore
-            kinship
-            toNextLevel
-            level
-            experience
-            equippedWearables
-            collateral
-            hauntId
-            createdAt
-            possibleSets
-            equippedSetID
-            equippedSetName
-            usedSkillPoints
-            minimumStake
-            stakedAmount
-            timesTraded
-            originalOwner
-            listings(where:{cancelled: false, timePurchased: 0}) {
-                id
-                priceInWei
-            }
-            historicalPrices
-            owner {
-                id
-            }
-            originalOwner {
-                id
-            }
-            lending
-        }
+        aavegotchi(id: ${id}) ${aavegotchiProps}
     }`;
+};
+
+export const gotchiByIdBatchQuery = (id: number): string => {
+  return `
+    item${id}: aavegotchi(${id}) ${aavegotchiProps}
+  `;
 };
 
 export const userQuery = (id: any, skip: any): any => {

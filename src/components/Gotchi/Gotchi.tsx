@@ -26,6 +26,7 @@ import { GuildIcon } from './GuildIcon/GuildIcon';
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';
 import { WhitelistId } from './WhitelistId/WhitelistId';
+import { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
 
 import { styles } from './styles';
 
@@ -95,6 +96,10 @@ export function Gotchi({
 
     get owner() {
       return <GotchiOwner gotchi={gotchi} key={`${gotchi.id}-owner`} />;
+    },
+
+    get identity() {
+      return <GotchiIdentity id={gotchi.gotchiId} key={`${gotchi.id}-identity`} />;
     },
 
     get collateral() {

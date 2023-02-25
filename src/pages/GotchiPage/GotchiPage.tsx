@@ -3,13 +3,16 @@ import { useParams } from 'react-router-dom';
 
 import { DateTime } from 'luxon';
 
+import { getActiveAddress } from 'core/store/login';
+import { useAppSelector } from 'core/store/hooks';
 import { Erc721Categories } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { SalesHistoryModel, FBErc1155Item } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
   GotchiFooter,
   GotchiHead,
+  GotchiIdentity,
   GotchiInfoItem,
   GotchiInfoList,
   GotchiTraits,
@@ -28,8 +31,8 @@ import {
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
-import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils, ItemUtils } from 'utils';
+import { EthersApi, TheGraphApi } from 'api';
+import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
@@ -41,30 +44,26 @@ export function GotchiPage() {
 
   const routeParams = useParams();
 
+  const activeAddress = useAppSelector(getActiveAddress);
+
   const [gotchiLoaded, setGotchiLoaded] = useState<boolean>(false);
   const [gotchi, setGotchi] = useState<any>({});
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-  const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-  // const [exclusivity, setExclusivity] = useState<any>({});
+  const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
+  const [playerInventory, setPlayerInventory] = useState<FBErc1155Item[]>([]);
 
   useEffect(() => {
     const id: number = Number(routeParams.gotchiId);
 
-    MainApi.getAavegotchiById(id).then((response: any[]) => {
-      const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-      const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-        const slot: string[] = ItemUtils.getSlotsById(item.id);
+    TheGraphApi.getFBGotchiById(id)
+      .then((gotchi: any) => {
+        const sortedInventory: number[] = gotchi.equippedWearables
+          .concat(gotchi.badges)
+          .filter((id: number) => id !== 0);
 
-        return slot.length > 0 ? -1 : 1;
-      });
-
-      setInventory(sortedInventory);
-    });
-
-    TheGraphApi.getGotchiById(id)
-      .then((response: any) => {
-        setGotchi(response);
+        setGotchiInventory(sortedInventory);
+        setGotchi(gotchi);
       })
       .catch(error => console.log(error))
       .finally(() => setGotchiLoaded(true));
@@ -75,15 +74,17 @@ export function GotchiPage() {
       })
       .catch(error => console.log(error))
       .finally(() => setHistoryLoaded(true));
-
-    // TODO: Will be used soon
-    // FireballApi.getFireGotchiById(id)
-    //     .then((response: any) => {
-    //         setExclusivity(response);
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
   }, [routeParams]);
+
+  useEffect(() => {
+    if (activeAddress) {
+      TheGraphApi.getFBIventoryByAddress(activeAddress)
+        .then((inventory: FBErc1155Item[]) => {
+          setPlayerInventory(inventory);
+        })
+        .catch(error => console.log(error));
+    }
+  }, [activeAddress]);
 
   return (
     <div className={classes.content}>
@@ -105,7 +106,6 @@ export function GotchiPage() {
                       GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5)
                     )}
                   />
-                  {/* <GotchiInfoItem label='exclusivity' value={`1/${exclusivity.related_num}`} /> */}
                 </GotchiInfoList>
 
                 <GotchiTraits
@@ -113,7 +113,10 @@ export function GotchiPage() {
                   modifiedNumericTraits={gotchi.modifiedNumericTraits}
                 />
 
-                {gotchi.createdAt && <GotchiAging block={Number(gotchi.createdAt)} />}
+                <div className={classes.gotchiGroup}>
+                  {gotchi.createdAt && <GotchiAging block={Number(gotchi.createdAt)} />}
+                  <GotchiIdentity identity={gotchi.identity} />
+                </div>
 
                 <GotchiFooter>
                   <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>
@@ -135,22 +138,14 @@ export function GotchiPage() {
                 </GotchiFooter>
               </GotchiContent>
             </GotchiPreview>
-            {inventory.length > 0 ? (
+            {gotchiInventory.length > 0 ? (
               <div className={classes.inventory}>
                 <div className={classes.title}>Inventory</div>
-                <GotchiInventory items={inventory} />
+                <GotchiInventory items={gotchiInventory} />
               </div>
             ) : (
               <></>
             )}
-            <div className={classes.sets}>
-              <div className={classes.title}>Recommended sets</div>
-              <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
-            </div>
-            <div className={classes.sets}>
-              <div className={classes.title}>Recommended wearables</div>
-              <GotchiFitWearables traits={gotchi.numericTraits} />
-            </div>
             {gotchi.timesTraded > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
@@ -180,6 +175,14 @@ export function GotchiPage() {
                 </>
               </SalesHistory>
             )}
+            <div className={classes.sets}>
+              <div className={classes.title}>Recommended sets</div>
+              <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
+            </div>
+            <div className={classes.sets}>
+              <div className={classes.title}>Recommended wearables</div>
+              <GotchiFitWearables traits={gotchi.numericTraits} wearables={playerInventory} />
+            </div>
           </>
         )
       ) : (

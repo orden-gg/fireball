@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -14,7 +14,9 @@ import {
   GotchiInfoItem,
   GotchiInfoList,
   GotchiTraits,
-  GotchiView
+  GotchiView,
+  IdentityList,
+  IdentityTooltip
 } from 'components/GotchiPreview/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
@@ -27,8 +29,8 @@ import {
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils, ItemUtils } from 'utils';
+import { EthersApi, TheGraphApi } from 'api';
+import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
@@ -39,30 +41,24 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-  const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
+  const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
 
   useEffect(() => {
     if (gotchi) {
       setModalGotchi(gotchi);
-      setInventory([]);
+      setGotchiInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
     } else {
-      MainApi.getAavegotchiById(id)
-        .then((response: any[]) => {
-          const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-          const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-            const slot: string[] = ItemUtils.getSlotsById(item.id);
+      TheGraphApi.getFBGotchiById(id)
+        .then((gotchi: any) => {
+          const sortedInventory: number[] = gotchi.equippedWearables
+            .concat(gotchi.badges)
+            .filter((id: number) => id !== 0);
 
-            return slot.length > 0 ? -1 : 1;
-          });
-
-          setInventory(sortedInventory);
+          setGotchiInventory(sortedInventory);
+          setModalGotchi(gotchi);
         })
-        .catch(error => console.log(error));
-
-      TheGraphApi.getGotchiById(id)
-        .then((response: any) => setModalGotchi(response))
         .catch(error => console.log(error))
         .finally(() => setIsGotchiLoading(false));
 
@@ -101,6 +97,20 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       ).toPrecision(5)
                     )}
                   />
+                  <GotchiInfoItem
+                    label='identity'
+                    value={`1/${modalGotchi.identity.claimed.length}`}
+                    title={
+                      <IdentityTooltip>
+                        <IdentityList identity={modalGotchi.identity.claimed} title='summoned' />
+                        {modalGotchi.identity.unclaimed.length > 0 ? (
+                          <IdentityList identity={modalGotchi.identity.unclaimed} title='in portal' divider />
+                        ) : (
+                          <></>
+                        )}
+                      </IdentityTooltip>
+                    }
+                  />
                 </GotchiInfoList>
 
                 <GotchiTraits
@@ -123,10 +133,10 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                 )}
               </GotchiContent>
             </GotchiPreview>
-            {inventory.length > 0 ? (
+            {gotchiInventory.length > 0 ? (
               <div className={classes.inventory}>
                 <div className={classes.title}>Inventory</div>
-                <GotchiInventory items={inventory} />
+                <GotchiInventory items={gotchiInventory} />
               </div>
             ) : (
               <></>

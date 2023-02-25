@@ -10,6 +10,10 @@ export const styles = makeStyles(theme =>
       backgroundColor: theme.palette.background.paper,
       boxShadow: `0 0 10px 10px ${theme.palette.background.secondary}`
     },
+    gotchiGroup: {
+      display: 'flex',
+      margin: theme.spacing(1, 0)
+    },
     button: {
       width: 'auto',
       margin: theme.spacing(0, 1),

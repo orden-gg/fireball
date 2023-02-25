@@ -200,7 +200,8 @@ export function ClientOwned() {
                     {
                       className: 'rsContainer',
                       items: ['rs', 'skillpoints']
-                    }
+                    },
+                    'identity'
                   ]
                 },
                 'name',

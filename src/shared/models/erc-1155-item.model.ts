@@ -108,6 +108,15 @@ export interface Erc1155Listings {
     lastSoldListing: Erc1155SoldListing;
 }
 
+export interface IdentityOption {
+  gotchiId: string
+}
+
+export interface Identity {
+  claimed: IdentityOption[]
+  unclaimed: IdentityOption[]
+}
+
 export interface Erc1155Item {
     id: number;
     name: string;
@@ -133,4 +142,11 @@ export interface Erc1155Item {
     listingPrice?: number;
     lastSoldListing?: Erc1155SoldListing;
     currentListing?: Erc1155Listing;
+}
+
+// TODO: probably, should be changed for a better name after Dima's review :)
+export interface FBErc1155Item {
+  amount: number;
+  equipped: number;
+  tokenId: number;
 }

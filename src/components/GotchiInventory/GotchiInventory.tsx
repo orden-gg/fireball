@@ -1,27 +1,26 @@
 import { Erc1155Categories } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel } from 'shared/models';
 import { CardBalance, CardGroup, CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemUtils } from 'utils';
 
 import { gotchiInventoryStyles } from './styles';
 
-export function GotchiInventory({ items }: { items: GotchiInventoryModel[] }) {
+export function GotchiInventory({ items }: { items: number[] }) {
   const classes = gotchiInventoryStyles();
 
   return (
     <div className={classes.items}>
-      {items.map((item: GotchiInventoryModel) => {
-        const rarity: string = ItemUtils.getRarityNameById(item.id);
+      {items.map((id: number, index: number) => {
+        const rarity: string = ItemUtils.getRarityNameById(id);
 
         return (
-          <ItemCard type={rarity} key={item.id} className={classes.item}>
+          <ItemCard type={rarity} key={index} className={classes.item}>
             <CardGroup name='header'>
-              <CardBalance balance={item.balance} />
+              <CardBalance balance={1} />
             </CardGroup>
-            <CardImage id={item.id} category={Erc1155Categories.Wearable} />
-            <CardName id={item.id} className={classes.name} />
-            <CardStats stats={ItemUtils.getTraitModifiersById(item.id)} />
+            <CardImage id={id} category={Erc1155Categories.Wearable} />
+            <CardName id={id} className={classes.name} />
+            <CardStats stats={ItemUtils.getTraitModifiersById(id)} />
           </ItemCard>
         );
       })}

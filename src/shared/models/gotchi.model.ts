@@ -10,6 +10,10 @@ export interface GotchiInventory {
   balance: number;
 }
 
+export interface gotchiIdentity {
+  id: number;
+}
+
 export interface Gotchi {
   id: number;
   name: string;

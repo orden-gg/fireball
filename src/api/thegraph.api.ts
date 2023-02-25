@@ -1,9 +1,9 @@
-import { ApolloClient, InMemoryCache, HttpLink, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
+import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
 import { gql } from '@apollo/client';
-import fetch from 'cross-fetch';
 
-import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import { Erc1155ListingsBatch, FBErc1155Item, SalesHistoryModel, TheGraphResponse } from 'shared/models';
 import { ItemUtils } from 'utils';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
 
 import { EthersApi } from './ethers.api';
 import {
@@ -33,12 +33,12 @@ import {
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
   realmQueryByDistrict,
-  realmListingsBySeller
+  realmListingsBySeller,
+  gotchiByIdBatchQuery
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { gotchiIdentityQuery, gotchiQuery, playerInventoryQuery } from './common/fb.main.queries';
 
-const coreAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-core-matic';
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
@@ -56,21 +56,22 @@ const defaultOptions: DefaultOptions = {
 };
 
 const clientFactory = (() => {
-  const createClient = (url: string): ApolloClient<NormalizedCacheObject> => {
+  const createClient = (uri: string): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
-      link: new HttpLink({ uri: url, fetch }),
+      uri,
       cache: new InMemoryCache(),
       defaultOptions: defaultOptions
     });
   };
 
   return {
-    client: createClient(coreAPI),
+    client: createClient(GRAPH_CORE_API),
     raffleClient: createClient(raffleAPI),
     svgsClient: createClient(gotchiSvgAPI),
     realmClient: createClient(realmAPI),
     gotchiverseClient: createClient(gotchiverseAPI),
-    fireballClient: createClient(GRAPH_FIREBALL_API)
+    fireballClient: createClient(GRAPH_FIREBALL_API),
+    fireballMainClient: createClient(GRAPH_FIREBALL_MAIN_API)
   };
 })();
 
@@ -217,7 +218,13 @@ export class TheGraphApi {
   }
 
   public static getGotchiesByIds(ids: number[]): Promise<any> {
-    return TheGraphApi.getJoinedData([...ids.map(id => gotchiByIdQuery(id))]);
+    const getQuery = (ids: number[]): string => {
+      const queries: string[] = ids.map((id: number) => gotchiByIdBatchQuery(id));
+
+      return `{${queries.join(',')}}`;
+    };
+
+    return TheGraphApi.getData(getQuery(ids)).then((response: TheGraphResponse<any>) => response.data);
   }
 
   private static getGotchiQueries(): any[] {
@@ -627,6 +634,24 @@ export class TheGraphApi {
   public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
     return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
       (res: any) => res.data.parcels
+    );
+  }
+
+  public static getFBIventoryByAddress(address: string): Promise<FBErc1155Item[]> {
+    return getGraphData(clientFactory.fireballMainClient, playerInventoryQuery(address)).then(
+      (res: TheGraphResponse<{ player: { items: FBErc1155Item[] } }>) => res.data.player.items
+    );
+  }
+
+  public static getFBGotchiById(id: number): Promise<any> {
+    return getGraphData(clientFactory.fireballMainClient, gotchiQuery(id)).then(
+      (res: TheGraphResponse<any>) => modifyTraits([res.data.gotchi])[0]
+    );
+  }
+
+  public static getFBGotchiIdentityById(id: number): Promise<any> {
+    return getGraphData(clientFactory.fireballMainClient, gotchiIdentityQuery(id)).then(
+      (res: TheGraphResponse<any>) => modifyTraits([res.data.gotchi])[0]
     );
   }
 }

@@ -17,6 +17,11 @@ export const gotchiInfoItemStyles = makeStyles(theme =>
     infoLabel: {
       color: theme.palette.primary.main,
       marginRight: theme.spacing(0.5)
+    },
+    tooltip: {
+      '& .MuiTooltip-tooltip': {
+        maxWidth: 340
+      }
     }
   })
 );

@@ -8,3 +8,6 @@ export { GotchiView } from './GotchiView/GotchiView';
 export { GotchiImage } from './GotchiImage/GotchiImage';
 export { GotchiTraits } from './GotchiTraits/GotchiTraits';
 export { GotchiEquipmentPrice } from './GotchiEquipmentPrice/GotchiEquipmentPrice';
+export { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
+export { IdentityTooltip } from './GotchiIdentity/components/IdentityTooltip';
+export { IdentityList } from './GotchiIdentity/components/IdentityList';
