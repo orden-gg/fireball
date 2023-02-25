@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Paper } from '@mui/material';
-
+import { useMetamask } from 'use-metamask';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
@@ -13,7 +13,6 @@ import { ParcelInstallations } from 'components/Items/ParcelInstallations/Parcel
 import { EthersApi, TheGraphApi } from 'api';
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { GotchiFooter } from 'components/GotchiPreview/components';
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryItem, HistoryHead, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 
@@ -26,7 +25,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
   const classesB = gotchiPreviewModalStyles();
   const [history, setHistory] = useState<any[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
-
+  const { metaState } = useMetamask();
   const boosts: Array<{ name: string; value: any }> = [
     { name: 'fud', value: parcel.fudBoost },
     { name: 'fomo', value: parcel.fomoBoost },
@@ -104,14 +103,13 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
                 <span className={classes.highlighted}>spawnId:</span>
                 {parcel.parcelId}
               </Paper>
-              <GotchiFooter>
-                <ViewInAppButton
-                  link={`https://verse.aavegotchi.com/?spawnId=${parcel.parcelId}&gotchi=${parcel.owner}`}
-                  className={classesB.button}
-                >
-                  Fireball Farmeer
-                </ViewInAppButton>
-              </GotchiFooter>
+
+              <ViewInAppButton
+                link={`https://verse.aavegotchi.com/?spawnId=${parcel.parcelId}&gotchi=${metaState.account[0]}`}
+                className={classesB.button}
+              >
+                Fireball Farmeer
+              </ViewInAppButton>
             </div>
 
             <div className={classes.boosts}>

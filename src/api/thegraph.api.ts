@@ -30,6 +30,7 @@ import {
   getParcelOrderDirectionQuery,
   gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
+  parcelsIdOwnerGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
   realmQueryByDistrict,
   realmListingsBySeller
@@ -629,21 +630,18 @@ export class TheGraphApi {
   }
 
   public static getParcelToChannelGotchiverseInfoByOwner(owner: string): Promise<any> {
-    return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then((res: any) => {
+    return getGraphData(clientFactory.gotchiverseClient, parcelsIdOwnerGotchiverseQuery(owner)).then((res: any) => {
       const dataArr: any = res.data.parcels;
 
       const modified = dataArr.map((parcel: any) => {
-        const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-        const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-        const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+        // const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+        //const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+        //const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
-        return {
-          ...parcel,
-          nextChannel: parcel.lastChanneled + cooldown,
-          altarLevel: altar ? altar.level : 0
-        };
+        return parcel;
+        // { ...parcel, nextChannel: parcel.lastChanneled + cooldown, altarLevel: altar ? altar.level : 0 };
       });
-      modified.filter((mp) => mp.nextChannel > Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
+      //modified.filter((mp) => mp.nextChannel > Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
 
       return modified[0].parcelId;
     });

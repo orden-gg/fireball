@@ -34,7 +34,7 @@ import { gotchiPreviewModalStyles } from './styles';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-  const [spawnId, setSpawnId] = useState<string>();
+  const [spawnId, setSpawnId] = useState<any>(null);
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [isParcelLoading, setIsParcelLoading] = useState<boolean>(true);
@@ -74,9 +74,9 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
-      if (modalGotchi) {
-        TheGraphApi.getParcelToChannelGotchiverseInfoByOwner(modalGotchi.owner)
-          .then((response) => setSpawnId(response))
+      if (gotchi && !spawnId) {
+        TheGraphApi.getParcelToChannelGotchiverseInfoByOwner(gotchi.owner)
+          .then((response) => setSpawnId(response[0].parcelId))
           .catch((e) => console.log(e))
           .finally(() => setIsParcelLoading(false));
       }
