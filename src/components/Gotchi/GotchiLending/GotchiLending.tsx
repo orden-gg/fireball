@@ -94,9 +94,6 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
       <ViewInAppButton link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${gotchi.id}`}>
         Aarena
       </ViewInAppButton>
-      <ViewInAppButton link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${gotchi.id}`}>
-        Fireball Farmeer
-      </ViewInAppButton>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } fr
 import { gql } from '@apollo/client';
 
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
-import { ItemUtils } from 'utils';
+import { InstallationsUtils, ItemUtils } from 'utils';
 
 import { EthersApi } from './ethers.api';
 import {
@@ -36,7 +36,7 @@ import {
   realmListingsBySeller
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, InstallationTypeNames } from 'shared/constants';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
@@ -432,7 +432,7 @@ export class TheGraphApi {
       const queries: any[] = [];
 
       for (let i = 0; i < 5; i++) {
-        queries.push(realmQuery(address.toLowerCase(), i * 1000));
+        queries.push(realmQuery(address.toString().toLowerCase(), i * 1000));
       }
 
       return queries;
@@ -625,25 +625,7 @@ export class TheGraphApi {
 
   public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
     return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
-      (res: any) => res.data.parcels
+      (res: any) => res.data.data
     );
-  }
-
-  public static getParcelToChannelGotchiverseInfoByOwner(owner: string): Promise<any> {
-    return getGraphData(clientFactory.gotchiverseClient, parcelsIdOwnerGotchiverseQuery(owner)).then(
-      (res: any) => res.data.parcels
-    );
-
-    //const modified = dataArr.map((parcel: any) => {
-    // const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-    //const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-    //const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-
-    // return parcel;
-    // { ...parcel, nextChannel: parcel.lastChanneled + cooldown, altarLevel: altar ? altar.level : 0 };
-    //});
-    //modified.filter((mp) => mp.nextChannel > Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
-
-    //return modified;
   }
 }
