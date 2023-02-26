@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel, Parcel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -34,7 +34,7 @@ import { gotchiPreviewModalStyles } from './styles';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-  const [spawnId, setSpawnId] = useState<any>(null);
+  const [spawnId, setSpawnId] = useState<any>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [isParcelLoading, setIsParcelLoading] = useState<boolean>(true);
@@ -44,7 +44,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   useEffect(() => {
     if (gotchi && !isParcelLoading) {
       setModalGotchi(gotchi);
-      setSpawnId(spawnId);
       setInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
@@ -74,9 +73,9 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         })
         .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
-      if (gotchi && isParcelLoading) {
+      if (!isGotchiLoading) {
         TheGraphApi.getParcelToChannelGotchiverseInfoByOwner(gotchi.owner)
-          .then((response) => setSpawnId(response[0].parcelId))
+          .then((response: Parcel[]) => setSpawnId(response[0].parcelId))
           .catch((e) => console.log(e))
           .finally(() => setIsParcelLoading(false));
       }
@@ -133,7 +132,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
                       className={classes.button}
                     >
-                      Jump into the Arena
+                      Jump into the Aarena
                     </ViewInAppButton>
                     <ViewInAppButton
                       link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
