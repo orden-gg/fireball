@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel, Parcel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -89,7 +89,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
     const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
     Promise.all(promises).then((response) => {
-      debugger;
       const modifiedParcels = response.map((parcel: any) => {
         const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
         const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
@@ -110,7 +109,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       const allRealm = [...ownRealm, ...borrowedRealm];
 
       const bestRealm = allRealm.filter((r) => r.nextChannel < Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
-      debugger;
+
       setSpawnId(bestRealm[0]?.parcelId);
     });
 

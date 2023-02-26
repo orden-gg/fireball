@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } fr
 import { gql } from '@apollo/client';
 
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
-import { InstallationsUtils, ItemUtils } from 'utils';
+import { ItemUtils } from 'utils';
 
 import { EthersApi } from './ethers.api';
 import {
@@ -30,13 +30,12 @@ import {
   getParcelOrderDirectionQuery,
   gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
-  parcelsIdOwnerGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
   realmQueryByDistrict,
   realmListingsBySeller
 } from './common/queries';
 import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API, InstallationTypeNames } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
