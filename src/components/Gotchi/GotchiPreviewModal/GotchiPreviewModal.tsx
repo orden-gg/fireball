@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel, Parcel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -37,7 +37,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [spawnId, setSpawnId] = useState<any>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
-  //const [isParcelLoading, setIsParcelLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
@@ -87,11 +86,14 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
     }
     const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = new Set([...borrowedAddresses]);
-    const allAddresses = [ownAddress, ...uniqueAddresses];
+    const allAddresses = [ownAddress, ...uniqueAddresses].flat();
 
-    const promises: Promise<any>[] = allAddresses.map((address) =>
-      TheGraphApi.getRealmByAddress(address).then((response) => {
-        const modifiedParcels = response.map((parcel: any) => {
+    const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
+
+    Promise.all(promises)
+      .then((response) => {
+        const flatResponse = response.flat();
+        const modifiedParcels = flatResponse.map((parcel) => {
           const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
           const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
           const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
@@ -104,29 +106,24 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
             installations: installations
           };
         });
+        const ownRealms = realm;
+        const borrowedRealms = modifiedParcels.filter((r) => r.id);
+        let allRealms;
+        if (!borrowedRealms) {
+          allRealms = ownRealms;
+        } else if (!ownRealms) {
+          allRealms = borrowedRealms;
+        } else if (borrowedRealms && ownRealms) {
+          allRealms = [...ownRealms, ...borrowedRealms].flat();
+        }
 
-        return modifiedParcels;
+        const bestRealm = allRealms
+          .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
+          .sort((a, b) => b.altarLevel - a.altarLevel);
+
+        setSpawnId(bestRealm[0]?.parcelId);
       })
-    );
-    Promise.all(promises).then((response) => {
-      const ownRealms = realm;
-      const borrowedRealms = response[1]?.filter((r) => r.id);
-      let allRealms = realm;
-
-      if (!borrowedRealms) {
-        allRealms = ownRealms;
-      } else if (!ownRealms) {
-        allRealms = borrowedRealms;
-      } else if (borrowedRealms && ownRealms) {
-        allRealms = ownRealms.concat(borrowedRealms);
-      }
-
-      const bestRealm = allRealms
-        .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
-        .sort((a, b) => b.altarLevel - a.altarLevel);
-
-      setSpawnId(bestRealm[0]?.parcelId);
-    });
+      .catch((e) => console.log(e));
   }, [gotchi]);
 
   return (
