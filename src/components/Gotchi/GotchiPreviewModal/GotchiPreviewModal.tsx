@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { CircularProgress } from '@mui/material';
-import { useMetamask } from 'use-metamask';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
@@ -34,7 +33,6 @@ import { gotchiPreviewModalStyles } from './styles';
 import { ClientContext } from 'contexts/ClientContext';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
-  const { metaState } = useMetamask();
   const classes = gotchiPreviewModalStyles();
   const [spawnId, setSpawnId] = useState<any>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
@@ -81,44 +79,54 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   }, []);
 
   useEffect(() => {
-    const ownAddress = gotchis[0]?.owner || metaState.account[0];
+    let ownAddress;
+    if (!gotchis[0]?.owner) {
+      ownAddress = '0x0';
+    } else {
+      ownAddress = gotchis[0]?.owner;
+    }
     const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = new Set([...borrowedAddresses]);
     //
     const allAddresses = [ownAddress, ...uniqueAddresses];
 
-    const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
+    const promises: Promise<any>[] = allAddresses.map((address) =>
+      TheGraphApi.getRealmByAddress(address).then((response) => {
+        const modifiedParcels = response.map((parcel: any) => {
+          const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+          const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+          const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
+          return {
+            ...parcel,
+            cooldown: cooldown,
+            nextChannel: parcel.lastChanneled + cooldown,
+            altarLevel: altar ? altar.level : 0,
+            installations: installations
+          };
+        });
+
+        return modifiedParcels;
+      })
+    );
     Promise.all(promises).then((response) => {
-      const modifiedParcels = response.map((parcel: any) => {
-        const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-        const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-        const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+      const ownRealms = realm;
+      const borrowedRealms = response[1]?.filter((r) => r.id);
+      let allRealms = realm;
 
-        return {
-          ...parcel,
-          cooldown: cooldown,
-          nextChannel: parcel.lastChanneled + cooldown,
-          altarLevel: altar ? altar.level : 0,
-          installations: installations
-        };
-      });
+      if (!borrowedRealms) {
+        allRealms = ownRealms;
+      } else if (!ownRealms) {
+        allRealms = borrowedRealms;
+      } else if (borrowedRealms && ownRealms) {
+        allRealms = ownRealms.concat(borrowedRealms);
+      }
 
-      const borrowedRealm = modifiedParcels;
-
-      const ownRealm = realm;
-      const allRealm = [...ownRealm, ...borrowedRealm];
-
-      const bestRealm = allRealm.filter((r) => r.nextChannel < Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
+      const bestRealm = allRealms.filter((r) => r.nextChannel < Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
 
       setSpawnId(bestRealm[0]?.parcelId);
     });
-
-    //.then((response) => {
-    // debugger;
-    //
-    //});
   }, [gotchi]);
-  //!isGotchiLoading && !isParcelLoading
 
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
