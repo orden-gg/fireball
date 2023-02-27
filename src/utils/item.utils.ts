@@ -7,7 +7,8 @@ import {
   SetTypes,
   WearableBenefitIndex,
   WearableTypes,
-  WEARABLE_SLOTS
+  WEARABLE_SLOTS,
+  WerableBenefitTypes
 } from 'shared/constants';
 import {
   AggressionIcon,
@@ -74,9 +75,11 @@ export class ItemUtils {
   }
 
   public static getWearableBenefitsById(id: number | string): { first: string; second: string } {
+    const benefit: { first: string; second: string } | undefined = items[id][ItemTypes.WearableBenefitType];
+
     return {
-      first: items[id][ItemTypes.WearableBenefitType][WearableBenefitIndex.First],
-      second: items[id][ItemTypes.WearableBenefitType][WearableBenefitIndex.Second]
+      first: benefit ? benefit[WearableBenefitIndex.First] : WerableBenefitTypes.Unknown,
+      second: benefit ? benefit[WearableBenefitIndex.Second] : WerableBenefitTypes.Unknown
     };
   }
 
