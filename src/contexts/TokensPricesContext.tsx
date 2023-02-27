@@ -23,7 +23,7 @@ export const TokensPricesContextProvider = (props) => {
   const fetchInterval = 300; // seconds
 
   useEffect(() => {
-    const getTokensPrices = async function() {
+    const getTokensPrices = async function () {
       setIsPricesLoaded(false);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
