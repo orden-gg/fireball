@@ -848,14 +848,3 @@ export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
         }
       }`;
 };
-export const parcelsIdOwnerGotchiverseQuery = (owner: any): any => {
-  return `{
-              parcels(
-                  first: 1000,
-                  where: { owner: "${owner}" }
-              ) {
-                id
-                parcelId
-              }
-            }`;
-};
