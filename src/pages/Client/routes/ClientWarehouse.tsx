@@ -52,14 +52,8 @@ export function ClientWarehouse() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const {
-    warehouse,
-    setWarehouse,
-    warehouseSorting,
-    setWarehouseSorting,
-    loadingGotchis,
-    loadingWarehouse
-  } = useContext<any>(ClientContext);
+  const { warehouse, setWarehouse, warehouseSorting, setWarehouseSorting, loadingGotchis, loadingWarehouse } =
+    useContext<any>(ClientContext);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;

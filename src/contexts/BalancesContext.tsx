@@ -90,18 +90,11 @@ export const BalancesContextProvider = (props: any) => {
     let interval: NodeJS.Timer;
 
     if (activeAddress) {
-      getAmounts = async function() {
+      getAmounts = async function () {
         setIsAmountsLoaded(false);
 
-        const [
-          fudAmount,
-          fomoAmount,
-          alphaAmount,
-          kekAmount,
-          gltrAmount,
-          gshtAmount,
-          maticAmount
-        ] = await getTokensAmounts(activeAddress);
+        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount] =
+          await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({

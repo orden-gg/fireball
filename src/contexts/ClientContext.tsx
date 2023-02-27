@@ -247,10 +247,8 @@ export const ClientContextProvider = (props: any) => {
         setWarehouse((existing: any[]) =>
           CommonUtils.basicSort(
             [...existing, ...wearables].reduce((items: any[], current: any) => {
-              const wearableTypeBenefit:
-                | WearableTypeBenefit
-                | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
-                benefit.ids.some((id: number) => id === current.id)
+              const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
+                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
               );
               const duplicated: any = items.find((item: any) => item.id === current.id);
 
@@ -343,10 +341,8 @@ export const ClientContextProvider = (props: any) => {
           CommonUtils.basicSort(
             [...existing, ...modified].reduce((items, current) => {
               const duplicated = items.find((item: any) => item.id === current.id);
-              const wearableTypeBenefit:
-                | WearableTypeBenefit
-                | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
-                benefit.ids.some((id: number) => id === current.id)
+              const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
+                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
               );
 
               if (duplicated) {
