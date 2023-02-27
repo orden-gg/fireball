@@ -6,7 +6,7 @@ import { getMintedFakeGotchisQuery } from '../../queries';
 
 import { loadMintedGotchis, loadMintedGotchisFailed, loadMintedGotchisSucceded } from '../slices';
 
-export const loadMintedFakeGotchis = (): AppThunk => async dispatch => {
+export const loadMintedFakeGotchis = (): AppThunk => async (dispatch) => {
   dispatch(loadMintedGotchis());
 
   FakeGotchisGalleryApi.getGalleryFakeGotchis(getMintedFakeGotchisQuery())

@@ -51,7 +51,7 @@ export class GraphUtils {
   }
 
   public static getTokenName(address: any): any {
-    const index = tokens.findIndex(coll => coll.address.toLowerCase() === address.toLowerCase());
+    const index = tokens.findIndex((coll) => coll.address.toLowerCase() === address.toLowerCase());
 
     return tokens[index]?.name;
   }

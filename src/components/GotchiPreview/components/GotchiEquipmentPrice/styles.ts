@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiEquipmentPriceStyles = makeStyles(theme =>
+export const gotchiEquipmentPriceStyles = makeStyles((theme) =>
   createStyles({
     totalPrice: {
       margin: '0 auto',

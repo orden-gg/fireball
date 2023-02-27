@@ -8,10 +8,11 @@ import {
   FomoTokenIcon,
   FudTokenIcon,
   GhstTokenIcon,
+  MaticTokenIcon,
   GltrTokenIcon,
   KekTokenIcon
 } from 'components/Icons/Icons';
-import { AlchemicaApi, GhstApi } from 'api';
+import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -58,6 +59,11 @@ export const BalancesContextProvider = (props: any) => {
       icon: <GhstTokenIcon height={14} width={14} />,
       amount: 0,
       balance: 0
+    },
+    {
+      icon: <MaticTokenIcon height={14} width={14} />,
+      amount: 0,
+      balance: 0
     }
   ];
 
@@ -69,7 +75,7 @@ export const BalancesContextProvider = (props: any) => {
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
   const [amounts, setAmounts] = useState<any>({});
   const [tokens, setTokens] = useState<any[]>([
-    ...initialTokensValues.map(token => ({
+    ...initialTokensValues.map((token) => ({
       amount: token.amount,
       balance: token.balance,
       icon: token.icon
@@ -87,9 +93,15 @@ export const BalancesContextProvider = (props: any) => {
       getAmounts = async function() {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount] = await getTokensAmounts(
-          activeAddress
-        );
+        const [
+          fudAmount,
+          fomoAmount,
+          alphaAmount,
+          kekAmount,
+          gltrAmount,
+          gshtAmount,
+          maticAmount
+        ] = await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({
@@ -98,7 +110,8 @@ export const BalancesContextProvider = (props: any) => {
             [TokenTypes.Alpha]: alphaAmount,
             [TokenTypes.Kek]: kekAmount,
             [TokenTypes.Gltr]: gltrAmount,
-            [TokenTypes.Ghst]: gshtAmount
+            [TokenTypes.Ghst]: gshtAmount,
+            [TokenTypes.Matic]: maticAmount
           });
           setIsAmountsLoaded(true);
         }
@@ -180,6 +193,16 @@ export const BalancesContextProvider = (props: any) => {
             tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]
           ),
           swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT)
+        },
+        {
+          key: TokenTypes.Matic,
+          icon: <MaticTokenIcon height={14} width={14} />,
+          amount: amounts[TokenTypes.Matic],
+          pricePerToken: tokensPrices[TokenTypes.Matic].toFixed(2),
+          balance: CommonUtils.convertFloatNumberToSuffixNumber(
+            tokensPrices[TokenTypes.Matic] * amounts[TokenTypes.Matic]
+          ),
+          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT)
         }
       ];
 
@@ -194,14 +217,15 @@ export const BalancesContextProvider = (props: any) => {
     };
   }, [isAmountsLoaded, isPricesLoaded]);
 
-  const getTokensAmounts = address => {
+  const getTokensAmounts = (address) => {
     return Promise.all([
       AlchemicaApi.getFudBalance(address),
       AlchemicaApi.getFomoBalance(address),
       AlchemicaApi.getAlphaBalance(address),
       AlchemicaApi.getKekBalance(address),
       AlchemicaApi.getGltrBalance(address),
-      GhstApi.getBalanceOf(address)
+      GhstApi.getBalanceOf(address),
+      MaticApi.getBalanceOf(address)
     ]);
   };
 

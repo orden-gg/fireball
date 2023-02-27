@@ -42,12 +42,12 @@ export function SingleAutocompleteFilter({ filter, onSetSelectedFilters, isDisab
       id={`${filter.key}-autocomplete`}
       disablePortal
       value={currentValue}
-      getOptionLabel={option => option.title || ''}
+      getOptionLabel={(option) => option.title || ''}
       isOptionEqualToValue={(option, value) => option.isSelected === value.isSelected || true}
       options={filter.items}
       disabled={filter.items.length === 0 || isDisabled}
       onChange={onHandleChange}
-      renderInput={params => <TextField {...params} label={filter.title} size='small' />}
+      renderInput={(params) => <TextField {...params} label={filter.title} size='small' />}
     />
   );
 }

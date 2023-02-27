@@ -75,8 +75,8 @@ export function Countdown({
           .shiftTo(...formatKeys)
           .toObject();
         const mappedShortFormat: string[] = Object.keys(units)
-          .filter(key => getUnit(shortFormat, key, units))
-          .map(key => `${shortFormat[key].key}'${shortFormat[key].value}'`);
+          .filter((key) => getUnit(shortFormat, key, units))
+          .map((key) => `${shortFormat[key].key}'${shortFormat[key].value}'`);
 
         formattedTimeString = Duration.fromObject(units).toFormat(
           mappedShortFormat.join(valueSeparator ? valueSeparator : defaultValueSeparator)
@@ -151,7 +151,7 @@ export function Countdown({
   };
 
   const isShowUnitPredicate = (unitsKeys: string[], units: DurationLikeObject): boolean => {
-    return unitsKeys.some(unitsKey => Boolean(units[unitsKey]) && units[unitsKey] > 0);
+    return unitsKeys.some((unitsKey) => Boolean(units[unitsKey]) && units[unitsKey] > 0);
   };
 
   const getIsShowUnit = (key: string, units: DurationLikeObject): boolean => {

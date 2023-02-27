@@ -31,7 +31,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     return null;
   }
 
-  const handleFrom = event => {
+  const handleFrom = (event) => {
     const state = event.currentTarget.innerText;
 
     if (!state) {
@@ -41,7 +41,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     setFrom(state === '+' ? from + 1 : from - 1);
   };
 
-  const handleTo = event => {
+  const handleTo = (event) => {
     const state = event.currentTarget.innerText;
 
     if (!state) {

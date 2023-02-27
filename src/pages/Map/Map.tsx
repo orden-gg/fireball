@@ -1,27 +1,27 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 import _ from 'lodash';
 
-import { useAppSelector } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
-import { DataReloadContextState } from 'shared/models';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { Citadel } from 'components/Citadel/Citadel';
 import { TheGraphApi } from 'api/thegraph.api';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 import { styles } from './styles';
 
 export function Map() {
   const classes = styles();
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const dispatch = useAppDispatch();
 
-  const { lastManuallyUpdated, setLastUpdated, setActiveReloadType, setIsReloadDisabled } = useContext<
-    DataReloadContextState
-  >(DataReloadContext);
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+  const activeAddress = useAppSelector(getActiveAddress);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
@@ -33,12 +33,12 @@ export function Map() {
 
     onLoadListedParcels(isMounted, true);
 
-    setActiveReloadType(DataReloadType.Map);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Map));
 
     return () => {
       isMounted = false;
 
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
     };
   }, []);
 
@@ -53,7 +53,7 @@ export function Map() {
   }, [activeAddress]);
 
   useEffect(() => {
-    if (lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       let isMounted = true;
 
       onLoadListedParcels(isMounted);
@@ -63,10 +63,10 @@ export function Map() {
         isMounted = false;
       };
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   const onLoadListedParcels = (isMounted: boolean, shouldUpdateIsLoading: boolean = false): void => {
-    setIsReloadDisabled(true);
+    dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsListedLoaded(!shouldUpdateIsLoading);
 
     Promise.all([
@@ -103,12 +103,12 @@ export function Map() {
           });
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => {
         if (isMounted) {
           setIsListedLoaded(true);
-          setIsReloadDisabled(false);
-          setLastUpdated(Date.now());
+          dispatch(fromDataReloadStore.setIsReloadDisabled(false));
+          dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
           setCanBeUpdated(true);
         }
       });
@@ -140,7 +140,7 @@ export function Map() {
             });
           }
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => {
           if (isMounted) {
             setIsOwnerLoaded(true);

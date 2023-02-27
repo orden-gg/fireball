@@ -89,7 +89,7 @@ export function ClientBorrowed() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -109,7 +109,7 @@ export function ClientBorrowed() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find(sorting => sorting.key === borrowedSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === borrowedSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, borrowedSorting.dir);
   }, [borrowedSorting]);
@@ -185,7 +185,7 @@ export function ClientBorrowed() {
       <ContentInner dataLoading={loadingBorrowed}>
         <GotchisLazy
           items={modifiedGotchis}
-          renderItem={id => (
+          renderItem={(id) => (
             <Gotchi
               gotchi={modifiedGotchis[id]}
               render={[

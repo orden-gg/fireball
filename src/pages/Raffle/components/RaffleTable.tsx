@@ -54,7 +54,7 @@ export function RaffleTable() {
                     disabled={raffle.endDate - DateTime.local().toSeconds() < 0} // TODO check in the next Raffle is toSeconds ok
                     className={classNames(classes.input, ticket.rarity)}
                     label={CommonUtils.capitalize(ticket.rarity)}
-                    onChange={event => handleInputChange(event, i)}
+                    onChange={(event) => handleInputChange(event, i)}
                   />
                 </Box>
               </Grid>

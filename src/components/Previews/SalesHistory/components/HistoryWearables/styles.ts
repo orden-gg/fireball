@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const historyWearablesStyles = makeStyles(theme =>
+export const historyWearablesStyles = makeStyles((theme) =>
   createStyles({
     wearables: {
       display: 'flex',

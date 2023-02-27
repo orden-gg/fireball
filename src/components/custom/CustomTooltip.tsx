@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { styled, Tooltip, tooltipClasses } from '@mui/material';
+
 import { CustomTooltipProps } from 'shared/models';
 
 const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
-
   const [isTolltipOpened, setIsTolltipOpened] = useState<boolean>(false);
 
   const onTooltipClick = (): void => {
@@ -14,13 +14,14 @@ const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
     setIsTolltipOpened(value);
   };
 
-  return <div
-    onClick = {() => onTooltipClick()}
-    onMouseEnter={() => onToggleTooltip(true)}
-    onMouseLeave={() => onToggleTooltip(false)}>
-
-    <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }}/>
-      </div>;  
+  return (
+    <div
+      onClick = {() => onTooltipClick()}
+      onMouseEnter={() => onToggleTooltip(true)}
+      onMouseLeave={() => onToggleTooltip(false)}>
+      <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }}/>
+    </div>
+  );
     })(({ theme }) => ({
     [`& .${tooltipClasses.arrow}`]: {
       color: theme.palette.secondary.dark

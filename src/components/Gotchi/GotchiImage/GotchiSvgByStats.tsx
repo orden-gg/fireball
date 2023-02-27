@@ -53,7 +53,7 @@ export function GotchiSvgByStats({ gotchi, size }: GotchiSvgByStatsProps) {
           svgRef.current.appendChild(svgInner);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);

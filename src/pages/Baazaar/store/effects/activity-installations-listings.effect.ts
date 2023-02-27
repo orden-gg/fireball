@@ -32,7 +32,7 @@ export const loadBaazaarActivityInstallationsListings = (): AppThunk => (dispatc
     });
 };
 
-export const resetActivityInstallationsData = (): AppThunk => dispatch => {
+export const resetActivityInstallationsData = (): AppThunk => (dispatch) => {
   dispatch(resetActivityInstallationsListings());
 };
 

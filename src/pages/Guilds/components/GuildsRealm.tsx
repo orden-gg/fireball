@@ -37,7 +37,7 @@ export function GuildsRealm() {
       return;
     }
 
-    TheGraphApi.getRealmByAddresses(guilds[guildId].members).then(realm => {
+    TheGraphApi.getRealmByAddresses(guilds[guildId].members).then((realm) => {
       if (mounted) {
         setGuildRealm(realm);
         setIsLoaded(true);

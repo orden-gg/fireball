@@ -1,7 +1,7 @@
 import { alpha } from '@mui/system';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     container: {
       padding: '10px 24px 0',
@@ -51,7 +51,7 @@ export const styles = makeStyles(theme =>
   })
 );
 
-export const routersStyles = makeStyles(theme =>
+export const routersStyles = makeStyles((theme) =>
   createStyles({
     list: {
       display: 'grid',
@@ -105,7 +105,7 @@ export const routersStyles = makeStyles(theme =>
   })
 );
 
-export const loadRewardsStyles = makeStyles(theme =>
+export const loadRewardsStyles = makeStyles((theme) =>
   createStyles({
     loadWrapper: {
       display: 'flex',
@@ -147,7 +147,7 @@ export const loadRewardsStyles = makeStyles(theme =>
   })
 );
 
-export const parcelSinglePage = makeStyles(theme =>
+export const parcelSinglePage = makeStyles((theme) =>
   createStyles({
     nameWrapper: {
       whiteSpace: 'nowrap',
@@ -311,7 +311,7 @@ export const parcelSinglePage = makeStyles(theme =>
   })
 );
 
-export const accountStyles = makeStyles(theme =>
+export const accountStyles = makeStyles((theme) =>
   createStyles({
     accountContainer: {
       marginBottom: 20
@@ -351,7 +351,7 @@ export const actionStyles = makeStyles(() =>
   })
 );
 
-export const warehouseStyles = makeStyles(theme =>
+export const warehouseStyles = makeStyles((theme) =>
   createStyles({
     benefits: {
       display: 'flex',
@@ -373,7 +373,7 @@ export const warehouseStyles = makeStyles(theme =>
   })
 );
 
-export const fakeGotchiStyles = makeStyles(theme =>
+export const fakeGotchiStyles = makeStyles((theme) =>
   createStyles({
     fakeGotchiCard: {
       height: '100%',
@@ -436,7 +436,7 @@ export const fakeGotchiStyles = makeStyles(theme =>
   })
 );
 
-export const forSaleStyles = makeStyles(theme =>
+export const forSaleStyles = makeStyles((theme) =>
   createStyles({
     container: {
       position: 'relative',

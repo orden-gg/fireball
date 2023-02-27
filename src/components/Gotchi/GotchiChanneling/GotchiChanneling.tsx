@@ -56,7 +56,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     return dateDiff > DAY_MILLIS;
   };
 
-  const getUTCDayMilis = timestamp => {
+  const getUTCDayMilis = (timestamp) => {
     const utc = DateTime.fromMillis(timestamp).setZone('UTC');
     const hours = utc.hour * HOUR_MILLIS;
     const minutes = utc.minute * MINUTE_MILLIS;
@@ -65,7 +65,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     return hours + minutes + seconds;
   };
 
-  const chanelledBeforeCd = date => {
+  const chanelledBeforeCd = (date) => {
     if (moreThan24hours(date)) {
       return true;
     }

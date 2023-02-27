@@ -1,4 +1,5 @@
 import { CustomTooltipProps } from 'shared/models';
+
 export interface PageNavLink {
   path: string;
   icon?: JSX.Element;
