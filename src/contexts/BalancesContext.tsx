@@ -9,10 +9,11 @@ import {
   FudTokenIcon,
   GhstTokenIcon,
   MaticTokenIcon,
+  AlloyTokenIcon,
   GltrTokenIcon,
   KekTokenIcon
 } from 'components/Icons/Icons';
-import { AlchemicaApi, GhstApi, MaticApi } from 'api';
+import { AlchemicaApi, GhstApi, MaticApi, ForgeApi } from 'api';
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -20,7 +21,9 @@ import {
   GHST_CONTRACT,
   GLTR_CONTRACT,
   KEK_CONTRACT,
-  USDC_CONTRACT
+  USDC_CONTRACT,
+  FORGE_CONTRACT,
+  ALLOY_TOKENID
 } from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
 
@@ -52,6 +55,11 @@ export const BalancesContextProvider = (props: any) => {
     },
     {
       icon: <GltrTokenIcon height={14} width={14} />,
+      amount: 0,
+      balance: 0
+    },
+    {
+      icon: <AlloyTokenIcon height={14} width={14} />,
       amount: 0,
       balance: 0
     },
@@ -93,7 +101,7 @@ export const BalancesContextProvider = (props: any) => {
       getAmounts = async function () {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount] =
+        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount , alloyAmount] =
           await getTokensAmounts(activeAddress);
 
         if (mounted) {
@@ -104,7 +112,8 @@ export const BalancesContextProvider = (props: any) => {
             [TokenTypes.Kek]: kekAmount,
             [TokenTypes.Gltr]: gltrAmount,
             [TokenTypes.Ghst]: gshtAmount,
-            [TokenTypes.Matic]: maticAmount
+            [TokenTypes.Matic]: maticAmount,
+            [TokenTypes.Alloy]: alloyAmount
           });
           setIsAmountsLoaded(true);
         }
@@ -178,6 +187,16 @@ export const BalancesContextProvider = (props: any) => {
           swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
         },
         {
+          key: TokenTypes.Alloy,
+          icon: <AlloyTokenIcon height={14} width={14} />,
+          amount: amounts[TokenTypes.Alloy],
+          //pricePerToken: tokensPrices[TokenTypes.Alloy].toFixed(2),
+          balance: CommonUtils.convertFloatNumberToSuffixNumber(
+            tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
+          ),
+          //swapUrl: generateSwapUrl(GHST_CONTRACT, FORGE_CONTRACT)
+        },
+        {
           key: TokenTypes.Ghst,
           icon: <GhstTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Ghst],
@@ -217,6 +236,7 @@ export const BalancesContextProvider = (props: any) => {
       AlchemicaApi.getAlphaBalance(address),
       AlchemicaApi.getKekBalance(address),
       AlchemicaApi.getGltrBalance(address),
+      ForgeApi.getBalanceOf(address,ALLOY_TOKENID),
       GhstApi.getBalanceOf(address),
       MaticApi.getBalanceOf(address)
     ]);

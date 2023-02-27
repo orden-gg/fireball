@@ -5,6 +5,7 @@ export * from './ethers.api';
 export * from './fireball.api';
 export * from './ghst.api';
 export * from './matic.api';
+export * from './forge.api';
 export * from './gotchiverse.api';
 export * from './installations.api';
 export * from './main.api';

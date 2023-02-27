@@ -152,7 +152,8 @@ export enum TokenTypes {
   Kek = 'kek',
   Gltr = 'gltr',
   Ghst = 'ghst',
-  Matic = 'matic'
+  Matic = 'matic',
+  Alloy = 'alloy'
 }
 
 export enum CountdownFormatNonZeroType {
