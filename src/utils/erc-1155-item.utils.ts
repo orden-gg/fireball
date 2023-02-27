@@ -1,4 +1,9 @@
-import { VOID_WEARABLE, HAUNT_ONE_BACKGROUND_WEARABLE, WearableBenefitIndex } from 'shared/constants';
+import {
+  VOID_WEARABLE,
+  HAUNT_ONE_BACKGROUND_WEARABLE,
+  WearableBenefitIndex,
+  WerableBenefitTypes
+} from 'shared/constants';
 import {
   Erc1155Categories,
   Erc1155DimensionsNumberTypes,
@@ -77,10 +82,10 @@ export class Erc1155ItemUtils {
       benefit: {
         first: tupleWearable[ItemTypes.WearableBenefitType]
           ? tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.First]
-          : '',
+          : WerableBenefitTypes.Unknown,
         second: tupleWearable[ItemTypes.WearableBenefitType]
           ? tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.Second]
-          : ''
+          : WerableBenefitTypes.Unknown
       },
       itemType: tupleWearable[ItemTypes.WearableType]
     }));
