@@ -87,7 +87,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
     }
     const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = new Set([...borrowedAddresses]);
-    //
     const allAddresses = [ownAddress, ...uniqueAddresses];
 
     const promises: Promise<any>[] = allAddresses.map((address) =>
@@ -122,7 +121,9 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         allRealms = ownRealms.concat(borrowedRealms);
       }
 
-      const bestRealm = allRealms.filter((r) => r.nextChannel < Date.now()).sort((a, b) => b.altarLevel - a.altarLevel);
+      const bestRealm = allRealms
+        .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
+        .sort((a, b) => b.altarLevel - a.altarLevel);
 
       setSpawnId(bestRealm[0]?.parcelId);
     });
