@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiPreviewStyles = makeStyles(theme =>
+export const gotchiPreviewStyles = makeStyles((theme) =>
   createStyles({
     gotchi: {
       backgroundColor: theme.palette.background.default,

@@ -71,7 +71,7 @@ export function ClientForSale() {
           <ListingTitle icon={<GotchiIcon width={32} height={32} />} title='Gotchis' />
 
           <div className={classes.list}>
-            {itemsForSale.gotchis.map(gotchi => (
+            {itemsForSale.gotchis.map((gotchi) => (
               <div className={classes.listItem} key={gotchi.id}>
                 <Gotchi
                   gotchi={gotchi}

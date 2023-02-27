@@ -1,4 +1,9 @@
-import { VOID_WEARABLE, HAUNT_ONE_BACKGROUND_WEARABLE, WearableBenefitIndex } from 'shared/constants';
+import {
+  VOID_WEARABLE,
+  HAUNT_ONE_BACKGROUND_WEARABLE,
+  WearableBenefitIndex,
+  WerableBenefitTypes
+} from 'shared/constants';
 import {
   Erc1155Categories,
   Erc1155DimensionsNumberTypes,
@@ -14,9 +19,9 @@ import { ItemUtils } from './item.utils';
 export class Erc1155ItemUtils {
   public static getStaticWearables(): Erc1155ItemTuple[] {
     return erc1155Items
-      .filter(erc1155Item => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
+      .filter((erc1155Item) => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
       .filter(
-        erc1155Item =>
+        (erc1155Item) =>
           erc1155Item[ItemTypes.Name] !== VOID_WEARABLE && erc1155Item[ItemTypes.Name] !== HAUNT_ONE_BACKGROUND_WEARABLE
       ) as Erc1155ItemTuple[];
   }
@@ -77,10 +82,10 @@ export class Erc1155ItemUtils {
       benefit: {
         first: tupleWearable[ItemTypes.WearableBenefitType]
           ? tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.First]
-          : '',
+          : WerableBenefitTypes.Unknown,
         second: tupleWearable[ItemTypes.WearableBenefitType]
           ? tupleWearable[ItemTypes.WearableBenefitType][WearableBenefitIndex.Second]
-          : ''
+          : WerableBenefitTypes.Unknown
       },
       itemType: tupleWearable[ItemTypes.WearableType]
     }));

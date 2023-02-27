@@ -45,7 +45,7 @@ export function Raffle() {
 
   useEffect(() => {
     const currentSubroute = location.pathname.split('/')[2];
-    const currentRaffle = raffles.find(raffle => raffle.name === currentSubroute);
+    const currentRaffle = raffles.find((raffle) => raffle.name === currentSubroute);
 
     if (raffleActive && currentRaffle) {
       queryParams.address = raffleActive;

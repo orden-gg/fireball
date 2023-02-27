@@ -25,7 +25,7 @@ export function Balances() {
 
   const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
 
-  const handleButtonClick = isMenuOpen => setMenuOpen(isMenuOpen);
+  const handleButtonClick = (isMenuOpen) => setMenuOpen(isMenuOpen);
 
   if (!tokens.length) {
     return <></>;

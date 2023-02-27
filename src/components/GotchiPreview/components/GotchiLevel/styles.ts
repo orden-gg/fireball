@@ -1,7 +1,7 @@
 import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-export const gotchiLevelStyles = makeStyles(theme =>
+export const gotchiLevelStyles = makeStyles((theme) =>
   createStyles({
     levelBar: {
       margin: '3% 0',

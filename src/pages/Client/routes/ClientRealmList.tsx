@@ -114,7 +114,7 @@ export function ClientRealmList() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -134,7 +134,7 @@ export function ClientRealmList() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find(sorting => sorting.key === realmSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === realmSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, realmSorting.dir);
   }, [realmSorting]);
@@ -208,7 +208,7 @@ export function ClientRealmList() {
       />
 
       <ContentInner dataLoading={loadingRealm}>
-        <ItemsLazy items={modifiedRealm} component={props => <Parcel parcel={props} />} />
+        <ItemsLazy items={modifiedRealm} component={(props) => <Parcel parcel={props} />} />
       </ContentInner>
     </>
   );

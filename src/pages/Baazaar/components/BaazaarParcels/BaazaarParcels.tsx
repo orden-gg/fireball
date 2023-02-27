@@ -36,9 +36,9 @@ export function BaazaarParcels() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const parcelsListings: ParcelListingVM[] = useAppSelector(fromBaazaarStore.getParcelsListings);
@@ -88,7 +88,7 @@ export function BaazaarParcels() {
     });
 
     const paramKey: Undefinable<string> = parcelsListingsSortings.find(
-      sorting => sorting.key === parcelsListingsSorting.type
+      (sorting) => sorting.key === parcelsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

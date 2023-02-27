@@ -22,7 +22,7 @@ export function GotchiverseOnline() {
     let mounted = true;
 
     const getOnline = () => {
-      GotchiverseApi.getOnlineCount(true).then(gotchiverseOnline => {
+      GotchiverseApi.getOnlineCount(true).then((gotchiverseOnline) => {
         if (mounted) {
           setOnlineCount(gotchiverseOnline);
           setIsOnlineLoading(false);

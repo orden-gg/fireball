@@ -7,11 +7,9 @@ import queryString from 'query-string';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress, setActiveAddress } from 'core/store/login';
 import { DataReloadType } from 'shared/constants';
-import { DataReloadContextState } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 import { ClientContext } from 'contexts/ClientContext';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { EthersApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -24,6 +22,9 @@ import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
 
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+
 import { styles } from './styles';
 
 const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
@@ -34,19 +35,17 @@ export function ClientRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const subroute = location.pathname
-    .split('/')
-    .slice(3)
-    .join('/');
+  const subroute = location.pathname.split('/').slice(3).join('/');
 
   const { account } = useParams<{ account: string }>();
   const queryParams = queryString.parse(location.search);
 
   const dispatch = useAppDispatch();
+
+  const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const activeAddress = useAppSelector(getActiveAddress);
 
   const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
-  const { lastManuallyUpdated, setActiveReloadType } = useContext<DataReloadContextState>(DataReloadContext);
 
   const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 
@@ -55,10 +54,10 @@ export function ClientRoutes() {
       dispatch(setActiveAddress(account));
     }
 
-    setActiveReloadType(DataReloadType.Client);
+    dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Client));
 
     return () => {
-      setActiveReloadType(null);
+      dispatch(fromDataReloadStore.onSetReloadType(null));
       setCanBeUpdated(false);
     };
   }, []);
@@ -85,10 +84,10 @@ export function ClientRoutes() {
   }, [activeAddress]);
 
   useEffect(() => {
-    if (activeAddress && lastManuallyUpdated !== 0 && canBeUpdated) {
+    if (activeAddress && lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
       getClientData(activeAddress);
     }
-  }, [lastManuallyUpdated]);
+  }, [lastManuallyTriggeredTimestamp]);
 
   return (
     <>

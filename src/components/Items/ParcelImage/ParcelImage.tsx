@@ -65,12 +65,12 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
     setImageLoading(true);
 
     GotchiverseApi.getParcelImage(parcel.parcelId, imageSize, true)
-      .then(response => {
+      .then((response) => {
         if (mounted) {
           setImageMap(response);
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setImageLoading(false));
 
     return () => {

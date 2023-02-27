@@ -122,9 +122,7 @@ export class InstallationsUtils {
   }
 
   public static getRarityById(id: number | string): string {
-    const name: string = InstallationsUtils.getNameById(id)
-      .split(' ')[0]
-      .toLowerCase();
+    const name: string = InstallationsUtils.getNameById(id).split(' ')[0].toLowerCase();
     const isRarity: boolean = Object.values(RarityTypes).some((rarity: string) => rarity === name);
 
     if (isRarity) {
@@ -144,7 +142,7 @@ export class InstallationsUtils {
         type: InstallationsUtils.getTypeById(inst.installationId) as InstallationTypeNames
       }))
       .reduce((prev: ParcelInstallationVM[], current: Omit<ParcelInstallationVM, 'quantity'>) => {
-        const duplicated: Undefinable<ParcelInstallationVM> = prev.find(inst => inst.id === current.id);
+        const duplicated: Undefinable<ParcelInstallationVM> = prev.find((inst) => inst.id === current.id);
 
         if (duplicated) {
           duplicated.quantity++;

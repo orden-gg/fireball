@@ -1,7 +1,7 @@
 import { makeStyles, createStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     button: {
       display: 'inline-flex',

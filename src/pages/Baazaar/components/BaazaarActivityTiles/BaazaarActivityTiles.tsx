@@ -30,9 +30,9 @@ export function BaazaarActivityTiles() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const activityTilesListings: ActivityTileListingVM[] = useAppSelector(fromBaazaarStore.getActivityTilesListings);

@@ -24,7 +24,7 @@ export function GuildLendings() {
 
     setIsLendingsLoading(true);
 
-    const promises: any[] = guilds[guildId].members.map(address => TheGraphApi.getLendingsByAddress(address));
+    const promises: any[] = guilds[guildId].members.map((address) => TheGraphApi.getLendingsByAddress(address));
 
     Promise.all(promises)
       .then((responses: any[]) => {
@@ -48,7 +48,7 @@ export function GuildLendings() {
       ) : guildLendings?.length > 0 ? (
         <GotchisLazy
           items={guildLendings}
-          renderItem={id => <Gotchi gotchi={guildLendings[id]} className='narrowed' render={['svg', 'name']} />}
+          renderItem={(id) => <Gotchi gotchi={guildLendings[id]} className='narrowed' render={['svg', 'name']} />}
         />
       ) : (
         <div className={classes.noData}>No Gotchi Lendings :(</div>

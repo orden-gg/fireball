@@ -38,9 +38,9 @@ export function BaazaarConsumables() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const consumablesListings: ConsumableListingVM[] = useAppSelector(fromBaazaarStore.getConsumablesListings);
@@ -96,7 +96,7 @@ export function BaazaarConsumables() {
     });
 
     const paramKey: Undefinable<string> = consumablesListingsSortings.find(
-      sorting => sorting.key === consumablesListingsSorting.type
+      (sorting) => sorting.key === consumablesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

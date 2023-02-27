@@ -29,9 +29,9 @@ export function BaazaarOpenedPortals() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const initialOpenedPortalsListings: OpenedPortalListingVM[] = useAppSelector(
@@ -92,7 +92,7 @@ export function BaazaarOpenedPortals() {
     let params: CustomParsedQuery<GraphFiltersQueryParamTypes> = { ...queryParams };
 
     const paramKey: Undefinable<string> = openedPortalsListingsSortings.find(
-      sorting => sorting.key === openedPortalsListingsSorting.type
+      (sorting) => sorting.key === openedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

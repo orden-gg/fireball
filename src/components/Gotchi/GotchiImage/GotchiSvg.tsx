@@ -41,7 +41,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
           setLoadingSvg(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 

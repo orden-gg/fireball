@@ -72,14 +72,14 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     if (typeof active === 'string') {
       return active === type;
     } else {
-      return Boolean(active?.some(name => name === type));
+      return Boolean(active?.some((name) => name === type));
     }
   };
 
   const basicButtons = useMemo(() => {
     return realmGroups
-      .filter(group => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
-      .map(group => {
+      .filter((group) => !CommonUtils.isEmptyObject(group) && group.parcels?.length > 0)
+      .map((group) => {
         return (
           <BasicButton
             type={group.type}
@@ -123,10 +123,10 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     if (game?.scene) {
       game.scene.on('created', () => setMapCreated(true));
 
-      game.scene.on('parcelSelect', parcel => {
+      game.scene.on('parcelSelect', (parcel) => {
         setParcelLoading(true);
 
-        TheGraphApi.getRealmById(parcel.tokenId).then(realmParcel => {
+        TheGraphApi.getRealmById(parcel.tokenId).then((realmParcel) => {
           if (realmParcel !== null) {
             if (realmParcel.installations.length > 0) {
               realmParcel.installations = InstallationsUtils.combineInstallations(realmParcel.installations);
@@ -145,7 +145,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
       });
 
       game.scene.on('query', ({ name, params }) => {
-        setParams(paramsState => {
+        setParams((paramsState) => {
           paramsState[name] = params;
 
           return { ...paramsState };
@@ -167,7 +167,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
   useEffect(() => {
     if (mapCreated && realmGroups.length > 0) {
       const { active } = params;
-      const groups = realmGroups.filter(group => !CommonUtils.isEmptyObject(group));
+      const groups = realmGroups.filter((group) => !CommonUtils.isEmptyObject(group));
 
       game.scene.addGroups(groups);
 
@@ -180,12 +180,12 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
           }
         }
       } else {
-        const activeGroups = groups.filter(group => group.active);
-        activeGroups.forEach(group => game.scene.toggleGroup(group.type, true));
+        const activeGroups = groups.filter((group) => group.active);
+        activeGroups.forEach((group) => game.scene.toggleGroup(group.type, true));
 
-        setParams(paramsCache => ({
+        setParams((paramsCache) => ({
           ...paramsCache,
-          active: activeGroups.map(group => group.type)
+          active: activeGroups.map((group) => group.type)
         }));
       }
     }

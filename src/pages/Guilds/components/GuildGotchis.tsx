@@ -25,7 +25,7 @@ export function GuildGotchis() {
     setIsGotchisLoading(true);
 
     TheGraphApi.getGotchisByAddresses(guilds[guildId].members)
-      .then(gotchis => {
+      .then((gotchis) => {
         if (mounted) {
           setGuildGotchis(gotchis);
         }
@@ -44,7 +44,7 @@ export function GuildGotchis() {
       ) : guildGotchis.length > 0 ? (
         <GotchisLazy
           items={guildGotchis}
-          renderItem={id => <Gotchi gotchi={guildGotchis[id]} className='narrowed' render={['svg', 'name']} />}
+          renderItem={(id) => <Gotchi gotchi={guildGotchis[id]} className='narrowed' render={['svg', 'name']} />}
         />
       ) : (
         <div className={classes.noData}>No Gotchis :(</div>

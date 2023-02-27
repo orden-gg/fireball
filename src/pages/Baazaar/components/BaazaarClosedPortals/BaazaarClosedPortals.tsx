@@ -37,9 +37,9 @@ export function BaazaarClosedPortals() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(fromBaazaarStore.getClosedPortalsListings);
@@ -97,7 +97,7 @@ export function BaazaarClosedPortals() {
     });
 
     const paramKey: Undefinable<string> = closedPortalsListingsSortings.find(
-      sorting => sorting.key === closedPortalsListingsSorting.type
+      (sorting) => sorting.key === closedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

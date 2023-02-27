@@ -39,9 +39,9 @@ export function BaazaarTiles() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const tilesListings: TileListingVM[] = useAppSelector(fromBaazaarStore.getTilesListings);
@@ -91,7 +91,7 @@ export function BaazaarTiles() {
     });
 
     const paramKey: Undefinable<string> = tilesListingsSortings.find(
-      sorting => sorting.key === tilesListingsSorting.type
+      (sorting) => sorting.key === tilesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

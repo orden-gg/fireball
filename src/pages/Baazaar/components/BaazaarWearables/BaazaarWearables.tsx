@@ -38,9 +38,9 @@ export function BaazaarWearables() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const wearablesListings: WearableListingVM[] = useAppSelector(fromBaazaarStore.getWearablesListings);
@@ -94,7 +94,7 @@ export function BaazaarWearables() {
     });
 
     const paramKey: Undefinable<string> = wearablesListingsSortings.find(
-      sorting => sorting.key === wearablesListingsSorting.type
+      (sorting) => sorting.key === wearablesListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

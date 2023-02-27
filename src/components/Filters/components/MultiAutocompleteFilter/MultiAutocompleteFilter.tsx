@@ -25,7 +25,7 @@ export function MultiAutocompleteFilter({ filter, onSetSelectedFilters, isDisabl
       options={filter.items}
       getOptionLabel={(option: any) => option.title}
       isOptionEqualToValue={(option: any, value: any) => option.value === value.value}
-      renderInput={params => <TextField {...params} size='small' label={filter.title} />}
+      renderInput={(params) => <TextField {...params} size='small' label={filter.title} />}
       renderTags={filter.renderTagsFn}
       disabled={isDisabled}
     />

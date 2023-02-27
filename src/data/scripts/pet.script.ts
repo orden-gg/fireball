@@ -65,9 +65,9 @@ function pet() {
       // ! get all gotchis for petting
       axios
         .post(GRAPH_CORE_API, { query: petQuery })
-        .then(async res => {
+        .then(async (res) => {
           const gotchis: Gotchi[] = res.data.data.user.gotchisOriginalOwned;
-          const gotchiIds = gotchis.map(gotchi => gotchi.gotchiId);
+          const gotchiIds = gotchis.map((gotchi) => gotchi.gotchiId);
           const gasPriceGwei = await getGasPrice();
           if (gasPriceGwei >= txCostLimit) {
             console.log(
@@ -109,7 +109,7 @@ function pet() {
             tx.wait()
               .then(() => {
                 console.log(paint('Happy folks:', CONSOLE_COLORS.Pink));
-                console.log(gotchis.map(gotchi => `${gotchi.gotchiId}: ${gotchi.name}`));
+                console.log(gotchis.map((gotchi) => `${gotchi.gotchiId}: ${gotchi.name}`));
                 clearInterval(interval);
                 interval = setInterval(pet, HALF_DAY_MILLIS + 6000);
                 console.log(
@@ -121,7 +121,7 @@ function pet() {
               );
           });
         })
-        .catch(e => console.log(e));
+        .catch((e) => console.log(e));
     });
 
   console.log(`🧑 owner: ${paint(OWNER_ADDRESS, CONSOLE_COLORS.Cyan)}`);

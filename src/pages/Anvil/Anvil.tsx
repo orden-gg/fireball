@@ -23,25 +23,23 @@ const options: AnvilOptions[] = [
   { index: 128, levels: 9 } // maaker
 ];
 
-const items = options.map(
-  (item: AnvilOptions): AnvilItem => {
-    const metadata = InstallationsUtils.getMetadataById(item.index);
-    const levels = [...installations].splice(item.index, item.levels);
+const items = options.map((item: AnvilOptions): AnvilItem => {
+  const metadata = InstallationsUtils.getMetadataById(item.index);
+  const levels = [...installations].splice(item.index, item.levels);
 
-    return {
-      id: item.index,
-      name: metadata.name.toLowerCase(),
-      type: metadata.type,
-      width: metadata.width,
-      height: metadata.height,
-      levels: levels.map((_, i) => {
-        const instIndex = item.index + i;
+  return {
+    id: item.index,
+    name: metadata.name.toLowerCase(),
+    type: metadata.type,
+    width: metadata.width,
+    height: metadata.height,
+    levels: levels.map((_, i) => {
+      const instIndex = item.index + i;
 
-        return { id: instIndex, ...InstallationsUtils.getMetadataById(instIndex) };
-      })
-    };
-  }
-);
+      return { id: instIndex, ...InstallationsUtils.getMetadataById(instIndex) };
+    })
+  };
+});
 
 export function Anvil() {
   const classes = styles();
@@ -50,7 +48,7 @@ export function Anvil() {
   const [selectedAnvil, setSelectedAnvil] = useState<AnvilItem | undefined>();
 
   useEffect(() => {
-    const selectedAnv: AnvilItem | undefined = items.find(item => item.name === anvilName);
+    const selectedAnv: AnvilItem | undefined = items.find((item) => item.name === anvilName);
 
     setSelectedAnvil(selectedAnv);
   }, [anvilName]);
@@ -64,7 +62,7 @@ export function Anvil() {
       <div className={classes.anvilTitle}>
         <h1>Anvil</h1>
         <Select id='anvil' value={anvilName} size='small' onChange={handleAnvil} className={classes.anvilSelectWrapper}>
-          {items.map(option => (
+          {items.map((option) => (
             <MenuItem value={option.name} key={option.id}>
               <CardImage id={option.id} className={classes.anvilSelectImage} category='4' />
               {option.name}

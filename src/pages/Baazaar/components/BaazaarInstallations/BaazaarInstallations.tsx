@@ -39,9 +39,9 @@ export function BaazaarInstallations() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const installationsListings: InstallationListingVM[] = useAppSelector(fromBaazaarStore.getInstallationsListings);
@@ -99,7 +99,7 @@ export function BaazaarInstallations() {
     });
 
     const paramKey: Undefinable<string> = installationsListingsSortings.find(
-      sorting => sorting.key === installationsListingsSorting.type
+      (sorting) => sorting.key === installationsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

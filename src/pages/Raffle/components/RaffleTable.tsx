@@ -15,9 +15,8 @@ import { tableStyles } from '../styles';
 export function RaffleTable() {
   const classes = tableStyles();
 
-  const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext<
-    any
-  >(RaffleContext);
+  const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } =
+    useContext<any>(RaffleContext);
 
   const handleInputChange = (event: any, i: number) => {
     const newValue = event.target.value > 0 ? +event.target.value : '';
@@ -54,7 +53,7 @@ export function RaffleTable() {
                     disabled={raffle.endDate - DateTime.local().toSeconds() < 0} // TODO check in the next Raffle is toSeconds ok
                     className={classNames(classes.input, ticket.rarity)}
                     label={CommonUtils.capitalize(ticket.rarity)}
-                    onChange={event => handleInputChange(event, i)}
+                    onChange={(event) => handleInputChange(event, i)}
                   />
                 </Box>
               </Grid>
