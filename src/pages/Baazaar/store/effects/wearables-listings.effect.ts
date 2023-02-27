@@ -145,7 +145,7 @@ const mapWearablesListingsDTOToVM = (listings: WearableListingDTO[], lastSoldLis
             quantity: Number(listing.quantity),
             timeCreated: Number(listing.timeCreated),
             name: ItemUtils.getNameById(listing.erc1155TypeId),
-            rarity: ItemUtils.getItemRarityName(listing.rarityLevel),
+            rarity: ItemUtils.getRarityNameById(listing.erc1155TypeId),
             traitModifiers: ItemUtils.getTraitModifiersById(listing.erc1155TypeId),
             currentListing: {
                 id: Number(listing.id),
