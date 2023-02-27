@@ -88,7 +88,6 @@
     "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
-    "cross-var": "^1.1.0",
     "dotenv": "^16.0.1",
     "dotenv-cli": "^6.0.0",
     "eslint": "7.11.0",
