@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { DataReloadContextState, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -19,7 +19,8 @@ import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
-import { DataReloadContext } from './DataReloadContext';
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -98,8 +99,6 @@ export const ClientContextProvider = (props: any) => {
 
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
   const [loadedStates, setLoadedStates] = useState<{ [key: string]: boolean }>(loadedDefaultStates);
-
-  const { setLastUpdated, setIsReloadDisabled } = useContext<DataReloadContextState>(DataReloadContext);
 
   const navData: PageNavLink[] = [
     {
@@ -193,14 +192,14 @@ export const ClientContextProvider = (props: any) => {
   ];
 
   useEffect(() => {
-    const isAllLoaded = Object.keys(loadedStates).every(key => loadedStates[key]);
+    const isAllLoaded = Object.keys(loadedStates).every((key) => loadedStates[key]);
 
     if (isAllLoaded) {
-      setLastUpdated(Date.now());
-      setIsReloadDisabled(false);
+      dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
+      dispatch(fromDataReloadStore.setIsReloadDisabled(false));
       setCanBeUpdated(true);
     } else {
-      setIsReloadDisabled(true);
+      dispatch(fromDataReloadStore.setIsReloadDisabled(true));
       setCanBeUpdated(false);
     }
   }, [loadedStates]);
@@ -225,7 +224,7 @@ export const ClientContextProvider = (props: any) => {
 
   const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingGotchis(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: false }));
 
     Promise.all([TheGraphApi.getGotchisByAddress(address), TheGraphApi.getOwnedGotchis(address)])
       .then((response: [any[], any[]]) => {
@@ -298,43 +297,43 @@ export const ClientContextProvider = (props: any) => {
       })
       .finally(() => {
         setLoadingGotchis(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isGotchisLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: true }));
       });
   };
 
   const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingLendings(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: false }));
 
     TheGraphApi.getLendingsByAddress(address).then((lendings: any[]) => {
       const { type, dir } = lendingsSorting;
 
-      lendings.forEach(lending => {
+      lendings.forEach((lending) => {
         lending.endTime = parseInt(lending.timeAgreed) + parseInt(lending.period);
       });
 
       setLendings(CommonUtils.basicSort(lendings, type, dir));
       setLoadingLendings(false);
-      setLoadedStates(statesCache => ({ ...statesCache, isLendingsLoaded: true }));
+      setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: true }));
     });
   };
 
   const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingBorrowed(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: false }));
 
     TheGraphApi.getBorrowedByAddress(address).then((borrowed: any[]) => {
       const { type, dir } = borrowedSorting;
 
       setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
       setLoadingBorrowed(false);
-      setLoadedStates(statesCache => ({ ...statesCache, isBorrowedLoaded: true }));
+      setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: true }));
     });
   };
 
   const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingWarehouse(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: false }));
 
     MainApi.getInventoryByAddress(address)
       .then((response: any) => {
@@ -385,21 +384,21 @@ export const ClientContextProvider = (props: any) => {
           )
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         setWarehouse([]);
       })
       .finally(() => {
         setLoadingWarehouse(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isInventoryLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: true }));
       });
   };
 
   const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingInstallations(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: false }));
 
-    InstallationsApi.getInstallationsByAddress(address).then(response => {
+    InstallationsApi.getInstallationsByAddress(address).then((response) => {
       const installations: any[] = response
         .filter((item: any) => {
           const id: any = EthersApi.formatBigNumber(item.installationId._hex);
@@ -422,13 +421,13 @@ export const ClientContextProvider = (props: any) => {
 
       setInstallations(installations);
       setLoadingInstallations(false);
-      setLoadedStates(statesCache => ({ ...statesCache, isInstallationsLoaded: true }));
+      setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: true }));
     });
   };
 
   const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingTiles(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isTilesLoaded: false }));
 
     TilesApi.getTilesByAddress(address).then((response: any) => {
       const tiles: any[] = response
@@ -452,13 +451,13 @@ export const ClientContextProvider = (props: any) => {
 
       setTiles(tiles);
       setLoadingTiles(false);
-      setLoadedStates(statesCache => ({ ...statesCache, isTilesLoaded: true }));
+      setLoadedStates((statesCache) => ({ ...statesCache, isTilesLoaded: true }));
     });
   };
 
   const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingTickets(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: false }));
 
     TicketsApi.getTicketsByAddress(address)
       .then((response: any) => {
@@ -466,12 +465,12 @@ export const ClientContextProvider = (props: any) => {
 
         setTickets(modified);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setLoadingTickets(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isTicketsLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: true }));
       });
   };
 
@@ -494,10 +493,10 @@ export const ClientContextProvider = (props: any) => {
 
   const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingRealm(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: false }));
 
     TheGraphApi.getRealmByAddress(address)
-      .then(response => {
+      .then((response) => {
         const modifiedParcels = response.map((parcel: any) => {
           const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
           const tiles: any[] = TilesUtils.combineTiles(parcel.tiles);
@@ -516,10 +515,10 @@ export const ClientContextProvider = (props: any) => {
 
         setRealm(modifiedParcels);
       })
-      .catch(e => console.log(e))
+      .catch((e) => console.log(e))
       .finally(() => {
         setLoadingRealm(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isRealmLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: true }));
       });
   };
 
@@ -532,7 +531,7 @@ export const ClientContextProvider = (props: any) => {
       resetItemsForSale();
     }
     setIsItemsForSaleLoading(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isItemsForSaleLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: false }));
 
     Promise.all([
       TheGraphApi.getErc721ListingsBySeller(address),
@@ -551,7 +550,7 @@ export const ClientContextProvider = (props: any) => {
           handleSetErc721Listings(erc721Listings);
           handleSetErc1155Listings(erc1155Listings);
 
-          setItemsForSale(itemsForSaleCache => ({
+          setItemsForSale((itemsForSaleCache) => ({
             ...itemsForSaleCache,
             parcels: getModifiedRealmListings(realmListings)
           }));
@@ -562,7 +561,7 @@ export const ClientContextProvider = (props: any) => {
       })
       .finally(() => {
         setIsItemsForSaleLoading(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isItemsForSaleLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isItemsForSaleLoaded: true }));
       });
   };
 
@@ -601,7 +600,7 @@ export const ClientContextProvider = (props: any) => {
       }));
     const sortedPortals: any[] = CommonUtils.basicSort(listedPortals, 'tokenId', 'asc');
 
-    setItemsForSale(itemsForSaleCache => ({
+    setItemsForSale((itemsForSaleCache) => ({
       ...itemsForSaleCache,
       gotchis: sortedGotchis,
       portals: sortedPortals
@@ -636,7 +635,7 @@ export const ClientContextProvider = (props: any) => {
         category: listing.category
       }));
 
-    setItemsForSale(itemsForSaleCache => ({
+    setItemsForSale((itemsForSaleCache) => ({
       ...itemsForSaleCache,
       wearables: sortedWearables,
       tickets: sortedTickets,
@@ -693,15 +692,15 @@ export const ClientContextProvider = (props: any) => {
 
       gotchis.forEach((item: any, index: number) => {
         const BRS: any = GraphUtils.calculateRewards(
-          brsLeaders.findIndex(x => x.id === item.id),
+          brsLeaders.findIndex((x) => x.id === item.id),
           'BRS'
         );
         const KIN: any = GraphUtils.calculateRewards(
-          kinLeaders.findIndex(x => x.id === item.id),
+          kinLeaders.findIndex((x) => x.id === item.id),
           'KIN'
         );
         const EXP: any = GraphUtils.calculateRewards(
-          expLeaders.findIndex(x => x.id === item.id),
+          expLeaders.findIndex((x) => x.id === item.id),
           'EXP'
         );
 

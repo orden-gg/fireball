@@ -13,13 +13,13 @@ export class GhstApi {
     const maxSpend: string = isApproved ? '100' : '0';
     const transaction: any = await writeContract.approve(AUTOPET_CONTRACT, ethers.utils.parseUnits(maxSpend));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then(response => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response) => Boolean(response.status));
   }
 
   public static isGhstApproved(address: any): any {
     return contract
       .allowance(address, AUTOPET_CONTRACT)
-      .then(allowance => EthersApi.hexToNumber(allowance._hex) >= 100);
+      .then((allowance) => EthersApi.hexToNumber(allowance._hex) >= 100);
   }
 
   public static getBalanceOf(address: any): any {

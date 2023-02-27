@@ -68,7 +68,7 @@ export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
           size='small'
           label='eth address'
           variant='outlined'
-          onChange={event => setFormValue(event.target.value)}
+          onChange={(event) => setFormValue(event.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position='end'>

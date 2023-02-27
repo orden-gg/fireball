@@ -99,7 +99,7 @@ export function BaazaarInstallations() {
     });
 
     const paramKey: Undefinable<string> = installationsListingsSortings.find(
-      sorting => sorting.key === installationsListingsSorting.type
+      (sorting) => sorting.key === installationsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

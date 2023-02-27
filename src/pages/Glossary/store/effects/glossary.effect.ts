@@ -52,5 +52,5 @@ export const loadWearableListings = (wearablesIds: number[]): AppThunk => async 
       dispatch(setMaxWearablePrice(maxListingPrice));
       dispatch(setWearablesPrices(wearablesCopy));
     })
-    .catch(error => console.log(error));
+    .catch((error) => console.log(error));
 };

@@ -65,14 +65,14 @@ export function GotchiPage() {
       .then((response: any) => {
         setGotchi(response);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setGotchiLoaded(true));
 
     TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
       .then((response: SalesHistoryModel[]) => {
         setSalesHistory(response);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setHistoryLoaded(true));
 
     // TODO: Will be used soon

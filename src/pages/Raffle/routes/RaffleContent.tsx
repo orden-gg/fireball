@@ -24,7 +24,7 @@ export function RaffleContent({ user }) {
   } = useContext<any>(RaffleContext);
 
   useEffect(() => {
-    const raffleName: boolean = raffles.some(item => item['name'] === name);
+    const raffleName: boolean = raffles.some((item) => item['name'] === name);
     const lastRaffle: RafflesData = raffles[raffles.length - 1];
 
     if (!raffleName) {
@@ -35,7 +35,7 @@ export function RaffleContent({ user }) {
       navigate(`/raffles/${lastRaffle.name}`);
     } else {
       // set current raffle data
-      const currentRaffle = raffles.find(item => item.name === name);
+      const currentRaffle = raffles.find((item) => item.name === name);
       const ticketsPreset = getTicketsPreset(currentRaffle?.tickets);
 
       setRaffle(currentRaffle);

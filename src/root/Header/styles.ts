@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     leftSide: {
       position: 'fixed',
@@ -22,7 +22,7 @@ export const styles = makeStyles(theme =>
   })
 );
 
-export const dataReloadStyles = makeStyles(theme =>
+export const dataReloadStyles = makeStyles((theme) =>
   createStyles({
     dataReloadWrapper: {
       position: 'relative',
@@ -128,7 +128,7 @@ export const dataReloadStyles = makeStyles(theme =>
   })
 );
 
-export const logoStyles = makeStyles(theme =>
+export const logoStyles = makeStyles((theme) =>
   createStyles({
     logoWrapper: {
       display: 'flex',
@@ -154,7 +154,7 @@ export const logoStyles = makeStyles(theme =>
   })
 );
 
-export const balancesStyles = makeStyles(theme =>
+export const balancesStyles = makeStyles((theme) =>
   createStyles({
     balancesWrapper: {
       display: 'flex',

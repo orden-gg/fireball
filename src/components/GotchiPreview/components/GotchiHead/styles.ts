@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiHeadStyles = makeStyles(theme =>
+export const gotchiHeadStyles = makeStyles((theme) =>
   createStyles({
     title: {
       display: 'flex',

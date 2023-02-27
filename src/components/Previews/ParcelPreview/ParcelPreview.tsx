@@ -40,7 +40,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
           setHistory(res);
         }
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
       .finally(() => {
         if (mounted) {
           setHistoryLoaded(true);

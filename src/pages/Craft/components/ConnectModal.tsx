@@ -27,7 +27,7 @@ export function ConnectModal() {
           showSnackbar('error', 'Wallet connect failed :( please reload page and try again');
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setIsWalletConnecting(false));
   };
 

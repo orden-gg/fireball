@@ -54,6 +54,7 @@ import alphaToken from 'assets/images/tokens/alpha-token.svg';
 import fomoToken from 'assets/images/tokens/fomo-token.svg';
 import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
+import maticToken from 'assets/images/tokens/matic-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 import daiToken from 'assets/images/tokens/dai-token.svg';
@@ -244,6 +245,10 @@ export const FudTokenIcon = ({ className, width, height }: IconProps) => {
 
 export const GhstTokenIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={ghstToken} alt='ghst' />;
+};
+
+export const MaticTokenIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={maticToken} alt='matic' />;
 };
 
 export const GltrTokenIcon = ({ className, width, height }: IconProps) => {

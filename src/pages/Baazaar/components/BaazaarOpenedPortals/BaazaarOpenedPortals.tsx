@@ -92,7 +92,7 @@ export function BaazaarOpenedPortals() {
     let params: CustomParsedQuery<GraphFiltersQueryParamTypes> = { ...queryParams };
 
     const paramKey: Undefinable<string> = openedPortalsListingsSortings.find(
-      sorting => sorting.key === openedPortalsListingsSorting.type
+      (sorting) => sorting.key === openedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

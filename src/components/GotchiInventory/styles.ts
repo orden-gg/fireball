@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiInventoryStyles = makeStyles(theme =>
+export const gotchiInventoryStyles = makeStyles((theme) =>
   createStyles({
     items: {
       display: 'grid',

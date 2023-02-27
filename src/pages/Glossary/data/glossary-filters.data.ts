@@ -86,6 +86,12 @@ export const glossaryWearablesFilters: GlossaryWearablesFilters = {
         queryParamValue: 'face'
       },
       {
+        title: 'head',
+        value: 'head',
+        isSelected: false,
+        queryParamValue: 'head'
+      },
+      {
         title: 'l hand',
         value: 'lHand',
         isSelected: false,

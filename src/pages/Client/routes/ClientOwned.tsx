@@ -89,7 +89,7 @@ export function ClientOwned() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -109,7 +109,7 @@ export function ClientOwned() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find(sorting => sorting.key === gotchisSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === gotchisSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, gotchisSorting.dir);
   }, [gotchisSorting]);
@@ -185,7 +185,7 @@ export function ClientOwned() {
       <ContentInner dataLoading={loadingGotchis}>
         <GotchisLazy
           items={modifiedGotchis}
-          renderItem={id => (
+          renderItem={(id) => (
             <Gotchi
               gotchi={modifiedGotchis[id]}
               render={[

@@ -132,7 +132,7 @@ export class GraphFiltersHelper {
         if (typeof compareValue === 'string') {
           filterItem = compareValue === item[compareKey] ? item : undefined;
         } else {
-          filterItem = compareValue.find(value => value === item[compareKey]);
+          filterItem = compareValue.find((value) => value === item[compareKey]);
         }
 
         return { ...item, isSelected: filterItem ? true : false };
@@ -193,7 +193,7 @@ export class GraphFiltersHelper {
         if (typeof compareValue === 'string') {
           filterItem = compareValue === item[compareKey] ? item : undefined;
         } else {
-          filterItem = compareValue.find(value => value === item[compareKey]);
+          filterItem = compareValue.find((value) => value === item[compareKey]);
         }
 
         return { ...item, isSelected: filterItem ? true : false };

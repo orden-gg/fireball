@@ -65,8 +65,8 @@ export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyPro
       components={{
         List: ListContainer as any
       }}
-      itemContent={index => component(items[index])}
-      endReached={index => onEndReached(index)}
+      itemContent={(index) => component(items[index])}
+      endReached={(index) => onEndReached(index)}
     />
   );
 }
