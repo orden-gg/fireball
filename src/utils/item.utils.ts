@@ -118,57 +118,6 @@ export class ItemUtils {
     return TRAITS_ICONS[key];
   }
 
-  public static getItemType(item: any): any {
-    const itemMap: any = {
-      ERC721Listing: {
-        '0': () => {
-          return 'closed_portal';
-        },
-        '2': () => {
-          return 'open_portal';
-        },
-        '3': () => {
-          return 'aavegotchi';
-        },
-        '4': () => {
-          return 'realm';
-        }
-      },
-      ERC1155Listing: {
-        '0': () => {
-          return 'wearable';
-        },
-        '2': () => {
-          return 'consumable';
-        },
-        '3': () => {
-          return 'ticket';
-        }
-      },
-      ERC1155Purchase: {
-        '0': () => {
-          return 'wearable';
-        },
-        '2': () => {
-          return 'consumable';
-        },
-        '3': () => {
-          return 'ticket';
-        }
-      }
-    };
-
-    return itemMap[item.__typename][item.category]();
-  }
-
-  public static getBaazaarItemRarityName(item: any): any {
-    if (item.__typename === 'ERC1155Listing') {
-      return this.getItemRarityName(item.rarityLevel);
-    } else {
-      return null;
-    }
-  }
-
   public static getItemRarityName(id: any): any {
     switch (id) {
       case '0':
@@ -211,41 +160,6 @@ export class ItemUtils {
 
   public static getTraitIconByName(trait: any): any {
     return require(`../assets/images/traits/${trait}.png`).default;
-  }
-
-  public static getItemImg(item: any): any {
-    const typeMap: any = {
-      wearable: () => returnWearable(),
-      closed_portal: () => {
-        return require('../assets/images/portals/h1-sealed.svg').default;
-      },
-      open_portal: () => {
-        return require('../assets/images/portals/h1-opened.svg').default;
-      },
-      realm: () => {
-        return require('../assets/images/portals/h1-sealed.svg').default;
-      },
-      consumable: () => returnWearable(),
-      ticket: () => returnTicket.call(this)
-    };
-
-    function returnWearable(): any {
-      try {
-        return require(`../assets/images/wearables/${item.erc1155TypeId}.svg`).default;
-      } catch (error) {
-        return require('../assets/images/image-placeholder.svg').default;
-      }
-    }
-
-    function returnTicket(): any {
-      try {
-        return require(`../assets/images/tickets/${ItemUtils.getBaazaarItemRarityName(item)}.svg`).default;
-      } catch (error) {
-        return require('../assets/images/image-placeholder.svg').default;
-      }
-    }
-
-    return typeMap[this.getItemType(item)]();
   }
 
   public static getPortalImg(hauntId: any): any {
