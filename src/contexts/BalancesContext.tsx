@@ -22,7 +22,6 @@ import {
   GLTR_CONTRACT,
   KEK_CONTRACT,
   USDC_CONTRACT,
-  FORGE_CONTRACT,
   ALLOY_TOKENID
 } from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
@@ -190,10 +189,10 @@ export const BalancesContextProvider = (props: any) => {
           key: TokenTypes.Alloy,
           icon: <AlloyTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Alloy],
-          //pricePerToken: tokensPrices[TokenTypes.Alloy].toFixed(2),
-          balance: CommonUtils.convertFloatNumberToSuffixNumber(
-            tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
-          ),
+          pricePerToken: 'n/a',
+          //balance: CommonUtils.convertFloatNumberToSuffixNumber(
+            //tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
+          //),
           //swapUrl: generateSwapUrl(GHST_CONTRACT, FORGE_CONTRACT)
         },
         {
