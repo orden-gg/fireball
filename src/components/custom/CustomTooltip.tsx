@@ -16,18 +16,19 @@ const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
 
   return (
     <div
-      onClick = {() => onTooltipClick()}
+      onClick={() => onTooltipClick()}
       onMouseEnter={() => onToggleTooltip(true)}
-      onMouseLeave={() => onToggleTooltip(false)}>
-      <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }}/>
+      onMouseLeave={() => onToggleTooltip(false)}
+    >
+      <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }} />
     </div>
   );
-    })(({ theme }) => ({
-    [`& .${tooltipClasses.arrow}`]: {
-      color: theme.palette.secondary.dark
-    },
-    [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: theme.palette.secondary.dark,
+})(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.secondary.dark
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.secondary.dark,
     '& p': {
       margin: 0
     },
