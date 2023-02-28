@@ -1,1 +1,1 @@
-export * from './client-gotchi-lendings.model';
+export * from './gotchi-lendings.model';

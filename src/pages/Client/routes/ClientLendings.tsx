@@ -5,7 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { ClientGotchiLending, CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
+import { GotchiLending, CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
@@ -42,7 +42,7 @@ export function ClientLendings() {
 
   const dispatch = useAppDispatch();
 
-  const lentGotchis: ClientGotchiLending[] = useAppSelector(fromClientStore.getLentGotchis);
+  const lentGotchis: GotchiLending[] = useAppSelector(fromClientStore.getLentGotchis);
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
   const lentGotchisSorting: SortingItem = useAppSelector(fromClientStore.getLentGotchisSorting);
 
@@ -142,7 +142,7 @@ export function ClientLendings() {
     setModifiedLentGotchis(modifiedLentGotchis);
   }, [currentFilters, lentGotchis, lentGotchisSorting]);
 
-  const onSortingChange = (type: string, dir: string) => {
+  const onSortingChange = (type: string, dir: string): void => {
     dispatch(fromClientStore.setLentGotchisSorting({ type, dir }));
   };
 

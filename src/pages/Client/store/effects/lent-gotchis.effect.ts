@@ -1,5 +1,5 @@
 import { AppThunk } from 'core/store/store';
-import { ClientGotchiLending, SortingItem } from 'shared/models';
+import { GotchiLending, SortingItem } from 'shared/models';
 import { TheGraphApi } from 'api';
 import { CommonUtils } from 'utils';
 
@@ -10,19 +10,15 @@ export const onLoadLentGotchis =
   (dispatch, getState) => {
     dispatch(loadLentGotchis());
 
-    const lentGotchisSorting: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
+    const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
     TheGraphApi.getLendingsByAddress(address)
-      .then((lendings: ClientGotchiLending[]) => {
-        const { type, dir }: SortingItem = lentGotchisSorting;
-
-        lendings.forEach((lending: ClientGotchiLending) => {
+      .then((lendings: GotchiLending[]) => {
+        lendings.forEach((lending: GotchiLending) => {
           lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
         });
 
         dispatch(loadLentGotchisSucceded(CommonUtils.basicSort(lendings, type, dir)));
       })
-      .catch(() => {
-        dispatch(loadLentGotchisFailed());
-      });
+      .catch(() => dispatch(loadLentGotchisFailed()));
   };

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ClientGotchiLending, SortingItem } from 'shared/models';
+import { GotchiLending, SortingItem } from 'shared/models';
 
 export interface LentGotchisState {
   lentGotchis: {
-    data: ClientGotchiLending[];
+    data: GotchiLending[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
@@ -37,7 +37,7 @@ export const lentGotchisSlice = createSlice({
         isError: false
       };
     },
-    loadLentGotchisSucceded: (state, action: PayloadAction<ClientGotchiLending[]>): void => {
+    loadLentGotchisSucceded: (state, action: PayloadAction<GotchiLending[]>): void => {
       state.lentGotchis = {
         data: action.payload,
         isLoading: false,

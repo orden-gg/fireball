@@ -24,7 +24,6 @@ import * as fromClientStore from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
-  isBorrowedLoaded: false,
   isInventoryLoaded: false,
   isTicketsLoaded: false,
   isRealmLoaded: false,
@@ -40,17 +39,13 @@ export const ClientContextProvider = (props: any) => {
 
   const lentGotchisLength: number = useAppSelector(fromClientStore.getLentGotchisLength);
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
+  const borrowedGotchisLength: number = useAppSelector(fromClientStore.getBorrowedGotchisLength);
+  const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
   const [gotchis, setGotchis] = useState<any[]>([]);
   const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
   const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
-
-  const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
-
-  const [borrowed, setBorrowed] = useState<any[]>([]);
-  const [borrowedSorting, setBorrowedSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
-  const [loadingBorrowed, setLoadingBorrowed] = useState<boolean>(true);
 
   const [warehouse, setWarehouse] = useState<any[]>([]);
   const [warehouseSorting, setWarehouseSorting] = useState<SortingItem>({ type: 'rarityId', dir: 'desc' });
@@ -100,8 +95,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
-      isLoading: loadingGotchis || isLentGotchisLoading || loadingBorrowed,
-      count: gotchis.length + borrowed.length,
+      isLoading: loadingGotchis || isLentGotchisLoading || isBorrowedGotchisLoading,
+      count: gotchis.length + borrowedGotchisLength,
       isShowSubRoutes: true,
       subNavComponent: (
         <SubNav
@@ -121,8 +116,8 @@ export const ClientContextProvider = (props: any) => {
             {
               name: 'borrowed',
               path: 'gotchis/borrowed',
-              isLoading: loadingBorrowed,
-              count: borrowed.length
+              isLoading: isBorrowedGotchisLoading,
+              count: borrowedGotchisLength
             }
           ]}
         />
@@ -199,7 +194,6 @@ export const ClientContextProvider = (props: any) => {
     dispatch(resetFakeGotchis());
 
     getGotchis(address, shouldUpdateIsLoading);
-    getBorrowed(address, shouldUpdateIsLoading);
     getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
@@ -284,19 +278,6 @@ export const ClientContextProvider = (props: any) => {
         setLoadingGotchis(false);
         setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: true }));
       });
-  };
-
-  const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingBorrowed(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: false }));
-
-    TheGraphApi.getBorrowedByAddress(address).then((borrowed: any[]) => {
-      const { type, dir } = borrowedSorting;
-
-      setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
-      setLoadingBorrowed(false);
-      setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: true }));
-    });
   };
 
   const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -674,15 +655,6 @@ export const ClientContextProvider = (props: any) => {
         loadingGotchis,
         setGotchis,
         setGotchisSorting,
-
-        lendingsSorting,
-        setLendingsSorting,
-
-        borrowed,
-        borrowedSorting,
-        loadingBorrowed,
-        setBorrowed,
-        setBorrowedSorting,
 
         warehouse,
         warehouseSorting,

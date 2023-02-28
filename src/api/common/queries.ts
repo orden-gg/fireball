@@ -745,57 +745,56 @@ export const lendingsByAddressQuery = (address: any, skip: any): any => {
 
 export const borrowedByAddressQuery = (address: any, skip: any): any => {
   return `{
-      gotchiLendings(
-        first: 1000,
-        skip: ${skip},
-        where:{
-            borrower: "${address}",
-            cancelled: false,
-            completed: false
-        }
-      ) {
-        id
-        timeCreated
-        timeAgreed
-        rentDuration
-        upfrontCost
-        period
-        lastClaimed
-        completed
-        gotchi {
-            id
-            name
-            collateral
-            kinship
-            hauntId
-            baseRarityScore
-            modifiedRarityScore
-            escrow
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            withSetsRarityScore
-            equippedWearables
-            possibleSets
-            equippedSetID
-            equippedSetName
-            toNextLevel
-            level
-            timesTraded
-            stakedAmount
-            originalOwner {
-                id
-            }
-        }
-        lender
-        borrower
-        whitelistId
-        tokensToShare
-        splitOther
-        splitBorrower
-        splitOwner
+    gotchiLendings(
+      first: 1000,
+      skip: ${skip},
+      where:{
+        borrower: "${address}",
+        cancelled: false,
+        completed: false
       }
-    }`;
+    ) {
+      id
+      timeCreated
+      timeAgreed
+      rentDuration
+      upfrontCost
+      period
+      lastClaimed
+      completed
+      gotchi {
+        id
+        name
+        collateral
+        kinship
+        hauntId
+        baseRarityScore
+        modifiedRarityScore
+        numericTraits
+        modifiedNumericTraits
+        withSetsNumericTraits
+        withSetsRarityScore
+        equippedWearables
+        possibleSets
+        equippedSetID
+        equippedSetName
+        toNextLevel
+        level
+        timesTraded
+        stakedAmount
+        originalOwner {
+          id
+        }
+      }
+      lender
+      borrower
+      whitelistId
+      tokensToShare
+      splitOther
+      splitBorrower
+      splitOwner
+    }
+  }`;
 };
 
 // ! Gotchiverse queries

@@ -1,4 +1,4 @@
-export interface ClientGotchiLending {
+export interface GotchiLending {
   id: string;
   timeCreated: string;
   timeAgreed: string;
@@ -38,5 +38,5 @@ export interface ClientGotchiLending {
   splitOther: string;
   splitBorrower: string;
   splitOwner: string;
-  endTime: number;
+  endTime?: number;
 }
