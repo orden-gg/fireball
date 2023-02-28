@@ -1,5 +1,3 @@
-import { BigNumberish } from "ethers";
-
 export const POLYGON_RPC: string = 'https://polygon-rpc.com/';
 export const RINKEBY_RPC: string = 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
 
@@ -27,6 +25,6 @@ export const ALPHA_CONTRACT: string = '0x6a3E7C3c6EF65Ee26975b12293cA1AAD7e1dAeD
 export const KEK_CONTRACT: string = '0x42E5E06EF5b90Fe15F853F59299Fc96259209c5C';
 export const GLTR_CONTRACT: string = '0x3801C3B3B5c98F88a9c9005966AA96aa440B9Afc';
 export const FORGE_CONTRACT: string = '0x4fDfc1B53Fd1D80d969C984ba7a8CE4c7bAaD442';
-export const ALLOY_TOKENID: BigNumberish = '1000000000';
+export const ALLOY_TOKENID: string = '1000000000';
 
 export const DEFAULT_COLLATERAL_DECIMALS: number = 18;
