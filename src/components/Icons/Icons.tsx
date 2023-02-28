@@ -55,7 +55,7 @@ import fomoToken from 'assets/images/tokens/fomo-token.svg';
 import fudToken from 'assets/images/tokens/fud-token.svg';
 import ghstToken from 'assets/images/tokens/ghst-token.svg';
 import maticToken from 'assets/images/tokens/matic-token.svg';
-import alloyToken from 'assets/images/tokens/matic-token.svg';
+import alloyToken from 'assets/images/tokens/alloy-token.svg';
 import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 import daiToken from 'assets/images/tokens/dai-token.svg';
