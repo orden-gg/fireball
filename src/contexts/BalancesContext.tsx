@@ -100,7 +100,7 @@ export const BalancesContextProvider = (props: any) => {
       getAmounts = async function () {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount , alloyAmount] =
+        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, alloyAmount, gshtAmount, maticAmount] =
           await getTokensAmounts(activeAddress);
 
         if (mounted) {
@@ -110,9 +110,9 @@ export const BalancesContextProvider = (props: any) => {
             [TokenTypes.Alpha]: alphaAmount,
             [TokenTypes.Kek]: kekAmount,
             [TokenTypes.Gltr]: gltrAmount,
+            [TokenTypes.Alloy]: alloyAmount,
             [TokenTypes.Ghst]: gshtAmount,
-            [TokenTypes.Matic]: maticAmount,
-            [TokenTypes.Alloy]: alloyAmount
+            [TokenTypes.Matic]: maticAmount
           });
           setIsAmountsLoaded(true);
         }
