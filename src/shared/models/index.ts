@@ -12,6 +12,7 @@ export * from './erc-1155-item.model';
 export * from './erc-1155-listings-batch.model';
 export * from './filters.model';
 export * from './installation.model';
+export * from './lendings';
 export * from './login-address.model';
 export * from './nav-route.model';
 export * from './page-nav.model';

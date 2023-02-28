@@ -20,10 +20,10 @@ import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } fr
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import * as fromClientStore from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
-  isLendingsLoaded: false,
   isBorrowedLoaded: false,
   isInventoryLoaded: false,
   isTicketsLoaded: false,
@@ -38,13 +38,15 @@ export const ClientContext = createContext({});
 export const ClientContextProvider = (props: any) => {
   const dispatch = useAppDispatch();
 
+  const lentGotchisLength: number = useAppSelector(fromClientStore.getLentGotchisLength);
+  const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
+  const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
+
   const [gotchis, setGotchis] = useState<any[]>([]);
   const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
   const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
 
-  const [lendings, setLendings] = useState<any[]>([]);
   const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
-  const [loadingLendings, setLoadingLendings] = useState<boolean>(true);
 
   const [borrowed, setBorrowed] = useState<any[]>([]);
   const [borrowedSorting, setBorrowedSorting] = useState<SortingItem>({ type: 'kinship', dir: 'desc' });
@@ -72,8 +74,6 @@ export const ClientContextProvider = (props: any) => {
   const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
   const [realmView, setRealmView] = useState<string>('list');
 
-  const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
-
   const [itemsForSale, setItemsForSale] = useState<{
     gotchis: any[];
     wearables: any[];
@@ -100,7 +100,7 @@ export const ClientContextProvider = (props: any) => {
       name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
-      isLoading: loadingGotchis || loadingLendings || loadingBorrowed,
+      isLoading: loadingGotchis || isLentGotchisLoading || loadingBorrowed,
       count: gotchis.length + borrowed.length,
       isShowSubRoutes: true,
       subNavComponent: (
@@ -115,8 +115,8 @@ export const ClientContextProvider = (props: any) => {
             {
               name: 'lendings',
               path: 'gotchis/lended',
-              isLoading: loadingLendings,
-              count: lendings.length
+              isLoading: isLentGotchisLoading,
+              count: lentGotchisLength
             },
             {
               name: 'borrowed',
@@ -192,12 +192,13 @@ export const ClientContextProvider = (props: any) => {
   }, [loadedStates]);
 
   const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+    dispatch(fromClientStore.onLoadClientData(address));
+
     // reset
     setWarehouse([]);
     dispatch(resetFakeGotchis());
 
     getGotchis(address, shouldUpdateIsLoading);
-    getLendings(address, shouldUpdateIsLoading);
     getBorrowed(address, shouldUpdateIsLoading);
     getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
@@ -283,23 +284,6 @@ export const ClientContextProvider = (props: any) => {
         setLoadingGotchis(false);
         setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: true }));
       });
-  };
-
-  const getLendings = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingLendings(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: false }));
-
-    TheGraphApi.getLendingsByAddress(address).then((lendings: any[]) => {
-      const { type, dir } = lendingsSorting;
-
-      lendings.forEach((lending) => {
-        lending.endTime = parseInt(lending.timeAgreed) + parseInt(lending.period);
-      });
-
-      setLendings(CommonUtils.basicSort(lendings, type, dir));
-      setLoadingLendings(false);
-      setLoadedStates((statesCache) => ({ ...statesCache, isLendingsLoaded: true }));
-    });
   };
 
   const getBorrowed = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -691,10 +675,7 @@ export const ClientContextProvider = (props: any) => {
         setGotchis,
         setGotchisSorting,
 
-        lendings,
         lendingsSorting,
-        loadingLendings,
-        setLendings,
         setLendingsSorting,
 
         borrowed,
