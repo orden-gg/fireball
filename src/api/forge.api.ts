@@ -8,6 +8,6 @@ const contract = EthersApi.makeContract(FORGE_CONTRACT, FORGE_ABI, 'polygon');
 
 export class ForgeApi {
   public static getBalanceOf(address: string, tokenId: BigNumberish): string {
-    return contract.balanceOf(address,tokenId).then((balance: BigNumber) => EthersApi.hexToNumber(balance._hex));
+    return contract.balanceOf(address,tokenId).then((balance: BigNumber) => EthersApi.hexToNumber(balance._hex)*1e18);
   }
 }

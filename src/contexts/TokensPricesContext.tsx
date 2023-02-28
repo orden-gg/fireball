@@ -25,6 +25,7 @@ export const TokensPricesContextProvider = (props) => {
   useEffect(() => {
     const getTokensPrices = async function () {
       setIsPricesLoaded(false);
+      const alloyPrice = await getAlloyAndPriceToToken();
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
@@ -47,6 +48,7 @@ export const TokensPricesContextProvider = (props) => {
         [TokenTypes.Alpha]: alphaPrice,
         [TokenTypes.Kek]: kekPrice,
         [TokenTypes.Gltr]: gltrPrice,
+        [TokenTypes.Alloy]: alloyPrice,
         [TokenTypes.Ghst]: ghstPrice,
         [TokenTypes.Matic]: maticPrice
       });
@@ -74,7 +76,13 @@ export const TokensPricesContextProvider = (props) => {
 
     return [ghstPriceToToken, ghst];
   };
-
+  
+  const getAlloyAndPriceToToken = async () => {
+    // todo - get price of alloy from best effective and cheapest smelted wearable alloy forge cost 100%*0.9
+    const alloyPriceToToken = 0.051;
+    
+    return alloyPriceToToken;
+  }; 
   const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {
     const tokensPair = await QuickswapApi.getPairData(compareToken, targetToken);
     const tokensRoute = QuickswapApi.getTokenRouteByPair(targetToken, tokensPair);
