@@ -189,7 +189,7 @@ export const BalancesContextProvider = (props: any) => {
           key: TokenTypes.Alloy,
           icon: <AlloyTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Alloy],
-          pricePerToken: 'n/a',
+          pricePerToken: 'n/a'//,
           //balance: CommonUtils.convertFloatNumberToSuffixNumber(
             //tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
           //),
