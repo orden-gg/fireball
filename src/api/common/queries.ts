@@ -849,11 +849,12 @@ export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
       }`;
 };
 
-export const portalsQueryByAddress = (owner: string): any => {
+export const portalsQueryByAddress = (owner: string): string => {
   return `{
         portals(
             where: { owner: "${owner}" }
         ) {
+          openedAt
           hauntId
           historicalPrices
           id

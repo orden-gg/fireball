@@ -21,6 +21,7 @@ import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } fr
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { ClientApi } from '../pages/Client/api/client.api';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -161,7 +162,7 @@ export const ClientContextProvider = (props: any) => {
       isLoading: loadingPortals,
       count: portals.length
     },
-     // designe
+    // designe
     {
       name: 'realm',
       path: 'realm',
@@ -476,18 +477,34 @@ export const ClientContextProvider = (props: any) => {
 
   const getPortal = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     setLoadingPortals(shouldUpdateIsLoading);
-    setLoadedStates(statesCache => ({ ...statesCache, isPortalsLoaded: false }));
+    setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: false }));
 
     TheGraphApi.getPortalsByAddress(address)
-      .then((response: any) => {
-        setPortals(response);
+      .then((response: string[]) => {
+        const portalsIds = response.map((item: any) => Number(item.id));
+        ClientApi.getErc721ListingsByCategories(portalsIds, [
+          Erc721Categories.OpenedPortal,
+          Erc721Categories.ClosedPortal
+        ]).then((listings: any) => {
+          const modifinedResponce = response.map((portal: any) => {
+            const lastSoldPortalListing = listings[`item${portal.id}`][0];
+
+            return {
+              ...portal,
+              category: portal.openedAt ? Erc721Categories.OpenedPortal : Erc721Categories.ClosedPortal,
+              listingId: lastSoldPortalListing ? lastSoldPortalListing.id : null,
+              listingPrice: lastSoldPortalListing ? Number(EthersApi.fromWei(lastSoldPortalListing.priceInWei)) : 0
+            };
+          });
+          setPortals(modifinedResponce);
+        });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         setLoadingPortals(false);
-        setLoadedStates(statesCache => ({ ...statesCache, isPortalsLoaded: true }));
+        setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: true }));
       });
   };
 

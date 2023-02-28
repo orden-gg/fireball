@@ -592,12 +592,11 @@ export class TheGraphApi {
     });
   }
 
-  public static async getPortalsByAddress(seller: any): Promise<any> {
+  public static async getPortalsByAddress(seller: string): Promise<any> {
     return await TheGraphApi.getData(portalsQueryByAddress(seller))
       .then((response: any) => response.data.portals)
       .catch((error: any) => console.log(error));
   }
-
 
   // ! GOTCHIVERSE
 
