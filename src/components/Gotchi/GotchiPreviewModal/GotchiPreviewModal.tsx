@@ -43,7 +43,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
-  const { borrowed} = useContext<any>(ClientContext);
+  const { borrowed } = useContext<any>(ClientContext);
 
   useEffect(() => {
     if (gotchi) {
