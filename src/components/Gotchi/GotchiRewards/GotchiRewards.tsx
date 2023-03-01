@@ -6,6 +6,7 @@ import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
+// TODO Check if needed
 export function GotchiRewards({ gotchi }: { gotchi }) {
   const classes = styles();
 

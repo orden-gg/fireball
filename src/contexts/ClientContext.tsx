@@ -23,7 +23,6 @@ import * as fromDataReloadStore from 'core/store/data-reload';
 import * as fromClientStore from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
-  isGotchisLoaded: false,
   isInventoryLoaded: false,
   isTicketsLoaded: false,
   isRealmLoaded: false,
@@ -37,15 +36,15 @@ export const ClientContext = createContext({});
 export const ClientContextProvider = (props: any) => {
   const dispatch = useAppDispatch();
 
+  const ownedGotchisLength: number = useAppSelector(fromClientStore.getOwnedGotchisLength);
+  const isOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsOwnedGotchisLoading);
   const lentGotchisLength: number = useAppSelector(fromClientStore.getLentGotchisLength);
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
   const borrowedGotchisLength: number = useAppSelector(fromClientStore.getBorrowedGotchisLength);
   const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
-  const [gotchis, setGotchis] = useState<any[]>([]);
-  const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
-  const [loadingGotchis, setLoadingGotchis] = useState<boolean>(true);
+  const [gotchis] = useState<any[]>([]);
 
   const [warehouse, setWarehouse] = useState<any[]>([]);
   const [warehouseSorting, setWarehouseSorting] = useState<SortingItem>({ type: 'rarityId', dir: 'desc' });
@@ -95,8 +94,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
-      isLoading: loadingGotchis || isLentGotchisLoading || isBorrowedGotchisLoading,
-      count: gotchis.length + borrowedGotchisLength,
+      isLoading: isOwnedGotchisLoading || isLentGotchisLoading || isBorrowedGotchisLoading,
+      count: ownedGotchisLength + borrowedGotchisLength,
       isShowSubRoutes: true,
       subNavComponent: (
         <SubNav
@@ -104,8 +103,8 @@ export const ClientContextProvider = (props: any) => {
             {
               name: 'owned',
               path: 'gotchis/owned',
-              isLoading: loadingGotchis,
-              count: gotchis.length
+              isLoading: isOwnedGotchisLoading,
+              count: ownedGotchisLength
             },
             {
               name: 'lendings',
@@ -193,7 +192,6 @@ export const ClientContextProvider = (props: any) => {
     setWarehouse([]);
     dispatch(resetFakeGotchis());
 
-    getGotchis(address, shouldUpdateIsLoading);
     getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
@@ -201,83 +199,6 @@ export const ClientContextProvider = (props: any) => {
     getTiles(address, shouldUpdateIsLoading);
     getFakeGotchis(address, shouldUpdateIsLoading);
     getItemsForSale(address, shouldUpdateIsLoading);
-  };
-
-  const getGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingGotchis(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: false }));
-
-    Promise.all([TheGraphApi.getGotchisByAddress(address), TheGraphApi.getOwnedGotchis(address)])
-      .then((response: [any[], any[]]) => {
-        const allGotchis = response[0].concat(response[1]);
-        const wearables: any[] = [];
-        const { type: gSortType, dir: gSortDir } = gotchisSorting;
-        const { type: wSortType, dir: wSortDir } = warehouseSorting;
-
-        // collect all equipped wearables
-        allGotchis.forEach((item: any) => {
-          const equippedIds: number[] = item.equippedWearables.filter((item: number) => item > 0);
-
-          for (const wearableId of equippedIds) {
-            const index: number = wearables.findIndex((item: any) => item.id === wearableId);
-
-            if ((wearableId >= 162 && wearableId <= 198) || wearableId === 210) continue; // skip badges or h1 bg
-
-            if (wearables[index] === undefined) {
-              wearables.push({
-                id: wearableId,
-                balance: 1,
-                rarity: ItemUtils.getRarityNameById(wearableId),
-                rarityId: ItemUtils.getItemRarityId(ItemUtils.getRarityNameById(wearableId)),
-                holders: [item.id],
-                category: Erc1155Categories.Wearable
-              });
-            } else {
-              wearables[index].balance += 1;
-              wearables[index].holders.push(item.id);
-            }
-          }
-        });
-
-        setWarehouse((existing: any[]) =>
-          CommonUtils.basicSort(
-            [...existing, ...wearables].reduce((items: any[], current: any) => {
-              const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
-                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
-              );
-              const duplicated: any = items.find((item: any) => item.id === current.id);
-
-              if (duplicated) {
-                duplicated.balance += current.balance;
-                duplicated.holders = current.holders;
-
-                return items;
-              }
-
-              return items.concat({
-                ...current,
-                benefit: {
-                  first: wearableTypeBenefit?.benefit.first,
-                  second: wearableTypeBenefit?.benefit.second
-                },
-                itemType: wearableTypeBenefit?.type
-              });
-            }, []),
-            wSortType,
-            wSortDir
-          )
-        );
-
-        setGotchis(CommonUtils.basicSort(allGotchis, gSortType, gSortDir));
-      })
-      .catch((error: any) => {
-        console.log(error);
-        setGotchis([]);
-      })
-      .finally(() => {
-        setLoadingGotchis(false);
-        setLoadedStates((statesCache) => ({ ...statesCache, isGotchisLoaded: true }));
-      });
   };
 
   const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -650,12 +571,6 @@ export const ClientContextProvider = (props: any) => {
   return (
     <ClientContext.Provider
       value={{
-        gotchis,
-        gotchisSorting,
-        loadingGotchis,
-        setGotchis,
-        setGotchisSorting,
-
         warehouse,
         warehouseSorting,
         loadingWarehouse,
