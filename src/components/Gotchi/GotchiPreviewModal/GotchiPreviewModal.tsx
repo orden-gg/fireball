@@ -31,17 +31,19 @@ import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 import { ClientContext } from 'contexts/ClientContext';
+import { useMetamask } from 'use-metamask';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
   const [spawnId, setSpawnId] = useState<any>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
+  const [availibleParcels, setAvailibleParcels] = useState<any[]>([]);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-
-  const { gotchis, borrowed, realm } = useContext<any>(ClientContext);
+  const { metaState } = useMetamask();
+  const { borrowed} = useContext<any>(ClientContext);
 
   useEffect(() => {
     if (gotchi) {
@@ -78,16 +80,11 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   }, []);
 
   useEffect(() => {
-    let ownAddress;
-    if (!gotchis[0]?.owner) {
-      ownAddress = '0x0';
-    } else {
-      ownAddress = gotchis[0]?.owner;
-    }
+    const ownAddress = metaState.account[0];
     const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
-    const uniqueAddresses = new Set([...borrowedAddresses]);
-    const allAddresses = [ownAddress, ...uniqueAddresses].flat();
-
+    const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
+    const allAddresses = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
+    
     const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
 
     Promise.all(promises)
@@ -106,21 +103,11 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
             installations: installations
           };
         });
-        const ownRealms = realm;
-        const borrowedRealms = modifiedParcels.filter((r) => r.id);
-        let allRealms;
-        if (!borrowedRealms) {
-          allRealms = ownRealms;
-        } else if (!ownRealms) {
-          allRealms = borrowedRealms;
-        } else if (borrowedRealms && ownRealms) {
-          allRealms = [...ownRealms, ...borrowedRealms].flat();
-        }
 
-        const bestRealm = allRealms
+        const bestRealm = modifiedParcels
           .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
           .sort((a, b) => b.altarLevel - a.altarLevel);
-
+        setAvailibleParcels(availibleParcels);
         setSpawnId(bestRealm[0]?.parcelId);
       })
       .catch((e) => console.log(e));
@@ -164,6 +151,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                     <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>
                       MORE INFO
                     </ViewInAppButton>
+                    
                     <ViewInAppButton
                       link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`}
                       className={classes.button}
@@ -171,7 +159,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       View at aavegotchi.com
                     </ViewInAppButton>
 
-                    <ViewInAppButton
+                    <ViewInAppButton 
                       link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
                       className={classes.button}
                     >
