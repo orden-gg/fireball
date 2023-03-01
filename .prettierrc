@@ -1,11 +1,28 @@
 {
-    "printWidth": 120,
-    "semi": true,
-    "tabWidth": 2,
-    "useTabs": false,
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "bracketSpacing": true,
-    "trailingComma": "none",
-    "arrowParens": "always"
+  "printWidth": 120,
+  "semi": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true,
+  "bracketSpacing": true,
+  "trailingComma": "none",
+  "arrowParens": "always",
+  "importOrder": [
+    "react",
+    "@mui",
+    "<THIRD_PARTY_MODULES>",
+    "api",
+    "utils",
+    "^contexts/(.*)$",
+    "^shared/(.*)$",
+    "^core/(.*)$",
+    "^root/(.*)$",
+    "pages",
+    "^components/(.*)$",
+    "^data/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

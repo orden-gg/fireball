@@ -1,12 +1,14 @@
-import { IconButton, Link } from '@mui/material';
-import CallMade from '@mui/icons-material/CallMade';
-
 import Blockies from 'react-blockies';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
+import CallMade from '@mui/icons-material/CallMade';
+import { IconButton, Link } from '@mui/material';
+
 import { EthersApi } from 'api';
+
 import { CommonUtils } from 'utils';
+
+import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

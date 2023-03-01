@@ -1,5 +1,6 @@
-import { RootState } from 'core/store/store';
 import { FakeGotchi } from 'shared/models';
+
+import { RootState } from 'core/store/store';
 
 export const getQueuedGotchis = (state: RootState): FakeGotchi[] => state.fake.queued.queuedGotchis.data;
 

@@ -1,27 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { CustomParsedQuery, GraphFiltersQueryParamTypes, SortingItem, SortingListItem } from 'shared/models';
-import { ContentInner } from 'components/Content/ContentInner';
-import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { Gotchi } from 'components/Gotchi/Gotchi';
-import { GotchiIcon } from 'components/Icons/Icons';
-import { Filters } from 'components/Filters/components/Filters/Filters';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
+import { CustomParsedQuery, GraphFiltersQueryParamTypes, SortingItem, SortingListItem } from 'shared/models';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { OpenedPortalListingFilters, OpenedPortalListingVM } from '../../models';
-import { openedPortalsListingsSortings } from '../../static/sortings';
 import { openedPortalListingsFilters } from '../../static/filters';
-
+import { openedPortalsListingsSortings } from '../../static/sortings';
 import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarOpenedPortals() {

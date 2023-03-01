@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { SetTypes, WearableTypes } from 'shared/constants';
-import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
-import { CardStats } from 'components/ItemCard/components';
-import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
-import wearableSets from 'data/sets.data.json';
 import { ItemUtils } from 'utils';
+
+import { SetTypes, WearableTypes } from 'shared/constants';
+
+import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
+import { CardStats } from 'components/ItemCard/components';
+import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
+
+import wearableSets from 'data/sets.data.json';
 
 import { gotchiFitSetsStyles } from './styles';
 

@@ -1,28 +1,32 @@
-import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
-import {
-  GotchiListingDTO,
-  GotchiListingVM,
-  GotchiListingsFilters,
-  GotchiListingFiltersType
-} from 'pages/Baazaar/models';
-import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { GraphFiltersUtils } from 'utils';
 
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+
+import { AppThunk } from 'core/store/store';
+
+import {
+  GotchiListingDTO,
+  GotchiListingFiltersType,
+  GotchiListingVM,
+  GotchiListingsFilters
+} from 'pages/Baazaar/models';
+import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
+
 import { ASCENDING_DIRECTION, GotchiListingsFilterTypes, PRICE_IN_WEI } from '../../constants';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadGotchisListings,
-  loadGotchisListingsSucceded,
   loadGotchisListingsFailed,
+  loadGotchisListingsSucceded,
+  resetGotchisListings,
   setGotchisListingsFilters,
-  setGotchisListingsSorting,
+  setGotchisListingsIsFiltersUpdated,
+  setGotchisListingsIsSortingUpdated,
   setGotchisListingsPreviousSortingProp,
   setGotchisListingsSkipLimit,
-  setGotchisListingsIsSortingUpdated,
-  setGotchisListingsIsFiltersUpdated,
-  setIsGotchisListingsInitialDataLoading,
-  resetGotchisListings
+  setGotchisListingsSorting,
+  setIsGotchisListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarGotchisListings =

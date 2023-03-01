@@ -1,9 +1,10 @@
-import { AlchemicaList } from 'shared/models';
-import guilds from 'data/guilds.json';
-
 import { CommonUtils } from './common.utils';
 import { InstallationsUtils } from './installations.utils';
+
 import { RarityScoreNumber, RarityTypes } from 'shared/constants';
+import { AlchemicaList } from 'shared/models';
+
+import guilds from 'data/guilds.json';
 
 export class GotchiverseUtils {
   public static getGuildImg(name: any): any {

@@ -1,24 +1,26 @@
 import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Backdrop, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
+
 import UpdateIcon from '@mui/icons-material/Update';
+import { Backdrop, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
   CountdownFormatNonZeroType,
   CountdownFormatZeroType,
-  DataReloadType,
-  DATA_RELOAD_INTERVALS
+  DATA_RELOAD_INTERVALS,
+  DataReloadType
 } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
-import { Countdown } from 'components/Countdown/Countdown';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { ReloadIcon } from 'components/Icons/Icons';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { Countdown } from 'components/Countdown/Countdown';
+import { ReloadIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { dataReloadStyles } from '../styles';
 

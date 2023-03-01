@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { IconButton, TextField } from '@mui/material';
+
 import SearchIcon from '@mui/icons-material/Search';
+import { IconButton, TextField } from '@mui/material';
 
 import { InterfaceStyles } from '../styles';
 

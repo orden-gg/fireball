@@ -1,15 +1,17 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 import { Button, CircularProgress, Typography } from '@mui/material';
 
-import _ from 'lodash';
 import classNames from 'classnames';
+import _ from 'lodash';
 
-import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
 import { AlchemicaApi } from 'api';
+
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
-import { CraftContext } from '../CraftContext';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
 
+import { CraftContext } from '../CraftContext';
 import { modalStyles } from '../styles';
 
 export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boolean) => void }) {

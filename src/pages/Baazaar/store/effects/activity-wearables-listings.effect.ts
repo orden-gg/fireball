@@ -1,25 +1,28 @@
-import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { EthersApi } from 'api';
+
 import { GraphFiltersUtils, ItemUtils } from 'utils';
 
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+
+import { AppThunk } from 'core/store/store';
+
 import { ActivityWearableListingFilterTypes } from '../../constants';
 import {
   ActivityWearableListingDTO,
   ActivityWearableListingFilters,
-  ActivityWearableListingVM,
-  ActivityWearableListingFiltersType
+  ActivityWearableListingFiltersType,
+  ActivityWearableListingVM
 } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
 import {
   loadActivityWearablesListings,
-  loadActivityWearablesListingsSucceded,
   loadActivityWearablesListingsFailed,
+  loadActivityWearablesListingsSucceded,
+  resetActivityWearablesListings,
   setActivityWearablesListingsFilters,
   setActivityWearablesListingsIsFiltersUpdated,
-  setIsActivityWearablesListingsInitialDataLoading,
-  resetActivityWearablesListings
+  setIsActivityWearablesListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarActivityWearablesListings = (): AppThunk => (dispatch, getState) => {

@@ -1,17 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
-import { TokenTypes } from 'shared/constants';
-import {
-  AlphaTokenIcon,
-  FomoTokenIcon,
-  FudTokenIcon,
-  GhstTokenIcon,
-  MaticTokenIcon,
-  GltrTokenIcon,
-  KekTokenIcon
-} from 'components/Icons/Icons';
 import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
   ALPHA_CONTRACT,
@@ -22,7 +10,23 @@ import {
   KEK_CONTRACT,
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
+
 import { CommonUtils } from 'utils';
+
+import { TokenTypes } from 'shared/constants';
+
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
+
+import {
+  AlphaTokenIcon,
+  FomoTokenIcon,
+  FudTokenIcon,
+  GhstTokenIcon,
+  GltrTokenIcon,
+  KekTokenIcon,
+  MaticTokenIcon
+} from 'components/Icons/Icons';
 
 import { TokensPricesContext } from './TokensPricesContext';
 

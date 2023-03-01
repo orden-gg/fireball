@@ -1,29 +1,31 @@
+import { IonPhaser } from '@ion-phaser/react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Backdrop, CircularProgress, Divider } from '@mui/material';
-import GridOnIcon from '@mui/icons-material/GridOn';
 
-import Phaser from 'phaser';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import { Backdrop, CircularProgress, Divider } from '@mui/material';
+
 import classNames from 'classnames';
-import { IonPhaser } from '@ion-phaser/react';
+import Phaser from 'phaser';
 import qs from 'query-string';
+
+import { TheGraphApi } from 'api';
+
+import { CommonUtils, FilterUtils, InstallationsUtils, TilesUtils } from 'utils';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GuildIcon } from 'components/Icons/Icons';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import { TheGraphApi } from 'api';
-import { CommonUtils, FilterUtils, InstallationsUtils, TilesUtils } from 'utils';
 
-import { CitadelScene } from './components/Scene';
-import { CitadelLoader } from './components/CitadelLoader';
-import { CitadelInterface } from './components/CitadelInterface';
-import { FullscreenButton } from './components/FullscreenButton';
 import { BasicButton } from './components/BasicButton';
-import { SearchForm } from './components/SearchForm';
-import { CitadelInfo } from './components/CitadelInfo';
 import { CitadelFilters } from './components/CitadelFilters';
-
-import { styles, InterfaceStyles } from './styles';
+import { CitadelInfo } from './components/CitadelInfo';
+import { CitadelInterface } from './components/CitadelInterface';
+import { CitadelLoader } from './components/CitadelLoader';
+import { FullscreenButton } from './components/FullscreenButton';
+import { CitadelScene } from './components/Scene';
+import { SearchForm } from './components/SearchForm';
+import { InterfaceStyles, styles } from './styles';
 
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 

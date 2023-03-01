@@ -1,13 +1,20 @@
 import { useCallback, useContext, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import GrainIcon from '@mui/icons-material/Grain';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import GrainIcon from '@mui/icons-material/Grain';
 
 import qs from 'query-string';
 
+import { CommonUtils, ItemUtils } from 'utils';
+
+import { ClientContext } from 'contexts/ClientContext';
+
 import { Erc1155Categories } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { ItemCard } from 'components/ItemCard/containers';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { WarehouseIcon } from 'components/Icons/Icons';
 import {
   CardBalance,
   CardGroup,
@@ -18,12 +25,9 @@ import {
   CardStats,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import { WarehouseIcon } from 'components/Icons/Icons';
-import { ContentInner } from 'components/Content/ContentInner';
+import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { ClientContext } from 'contexts/ClientContext';
-import { CommonUtils, ItemUtils } from 'utils';
 
 import { warehouseStyles } from '../styles';
 

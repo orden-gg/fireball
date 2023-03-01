@@ -1,12 +1,15 @@
+import { useCallback } from 'react';
+
 import classNames from 'classnames';
 
-import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
 import { InstallationsUtils, TilesUtils } from 'utils';
 
-import { styles } from './styles';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
+
 import { CardImage } from 'components/ItemCard/components';
-import { useCallback } from 'react';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { styles } from './styles';
 
 interface ParcelInstallationsProps {
   parcel: any;

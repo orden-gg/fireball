@@ -1,13 +1,15 @@
 import { useCallback, useState } from 'react';
-import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-import { ethers } from 'ethers';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material';
+
 import classNames from 'classnames';
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
-import { MetamaskIcon } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
+
+import { MetamaskIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 

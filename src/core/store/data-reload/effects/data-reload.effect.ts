@@ -1,13 +1,14 @@
-import { AppThunk } from 'core/store/store';
 import { DataReloadType } from 'shared/constants';
 
+import { AppThunk } from 'core/store/store';
+
 import {
-  setLastUpdatedTimestamp,
+  setCustomInterval,
   setLastManuallyTriggeredTimestamp,
-  setReloadType,
+  setLastUpdatedTimestamp,
   setReloadInterval,
   setReloadIntervalCountdown,
-  setCustomInterval
+  setReloadType
 } from '../slices/data-reload.slice';
 
 export const onSetLastUpdatedTimestamp =

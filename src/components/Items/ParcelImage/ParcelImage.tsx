@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { GotchiverseGif } from 'components/Icons/Icons';
 import { GotchiverseApi } from 'api';
+
 import { CitadelUtils } from 'utils';
+
+import { GotchiverseGif } from 'components/Icons/Icons';
+
 import { COLORS } from 'data/citadel.data';
 
 import { styles } from './styles';

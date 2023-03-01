@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 
-import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
-import { GotchiName } from './GotchiName/GotchiName';
-import { GotchiLevel } from './GotchiLevel/GotchiLevel';
-import { GotchiTraits } from './GotchiTraits/GotchiTraits';
 import { HorizontalPrice } from '../Items/common/HorizontalPrice/HorizontalPrice';
+import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
 import { GotchiImage } from './GotchiImage/GotchiImage';
-
+import { GotchiLevel } from './GotchiLevel/GotchiLevel';
+import { GotchiName } from './GotchiName/GotchiName';
+import { GotchiTraits } from './GotchiTraits/GotchiTraits';
 import { styles } from './styles';
 
 interface GotchiHorizontalProps {

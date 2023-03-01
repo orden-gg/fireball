@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Erc1155Categories } from 'shared/constants';
 import { GraphQueryParams } from 'shared/models';
 
-import { ActivityWearableListingVM, ActivityWearableListingFilters } from '../../models';
+import { ActivityWearableListingFilters, ActivityWearableListingVM } from '../../models';
 import { activityWearableListingFilters } from '../../static/filters';
 
 export interface ActivityWearablesListingsState {

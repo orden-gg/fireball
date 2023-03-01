@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 
-import { Erc1155Categories } from 'shared/constants';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { ItemCard } from 'components/ItemCard/containers';
-import { CardImage, CardName } from 'components/ItemCard/components';
 import { ItemUtils } from 'utils';
+
+import { Erc1155Categories } from 'shared/constants';
+
+import { CardImage, CardName } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { historyWearablesStyles } from './styles';
 

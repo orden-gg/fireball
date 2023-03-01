@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+
 import { Box } from '@mui/material';
 
 import queryString from 'query-string';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
-import { CustomParsedQuery } from 'shared/models';
-import { ProfilePane } from 'components/ProfilePane/ProfilePane';
 import { EthersApi } from 'api';
-import { RaffleContextProvider } from 'contexts/RaffleContext';
+
 import { CommonUtils } from 'utils';
 
-import { RaffleContent } from './routes/RaffleContent';
+import { RaffleContextProvider } from 'contexts/RaffleContext';
+
+import { CustomParsedQuery } from 'shared/models';
+
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
+
+import { ProfilePane } from 'components/ProfilePane/ProfilePane';
+
 import { RaffleNav } from './components/RaffleNav';
 import { RaffleTickets } from './components/RaffleTickets';
 import { raffles } from './data/raffles.data';
+import { RaffleContent } from './routes/RaffleContent';
 import { styles } from './styles';
 
 export function Raffle() {

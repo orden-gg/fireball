@@ -1,7 +1,9 @@
-import { useAppSelector } from 'core/store/hooks';
 import { PageNavLink } from 'shared/models';
-import { PageNav } from 'components/PageNav/PageNav';
+
+import { useAppSelector } from 'core/store/hooks';
+
 import { AnvilIcon, BadgeIcon, ConsumableIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { PageNav } from 'components/PageNav/PageNav';
 
 import { getGlossaryWearablesCount } from '../../store';
 

@@ -1,25 +1,28 @@
-import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { EthersApi } from 'api';
+
 import { GraphFiltersUtils } from 'utils';
+
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+
+import { AppThunk } from 'core/store/store';
 
 import { ActivityPortalListingFilterTypes } from '../../constants';
 import {
   ActivityPortalListingDTO,
   ActivityPortalListingFilters,
-  ActivityPortalListingVM,
-  ActivityPortalListingFiltersType
+  ActivityPortalListingFiltersType,
+  ActivityPortalListingVM
 } from '../../models';
 import { getBaazaarActivityPortalsListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadActivityPortalsListings,
-  loadActivityPortalsListingsSucceded,
   loadActivityPortalsListingsFailed,
+  loadActivityPortalsListingsSucceded,
+  resetActivityPortalsListings,
   setActivityPortalsListingsFilters,
   setActivityPortalsListingsIsFiltersUpdated,
-  setIsActivityPortalsListingsInitialDataLoading,
-  resetActivityPortalsListings
+  setIsActivityPortalsListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarActivityPortalsListings =

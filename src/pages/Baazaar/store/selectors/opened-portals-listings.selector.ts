@@ -1,5 +1,6 @@
-import { RootState } from 'core/store/store';
 import { SortingItem } from 'shared/models';
+
+import { RootState } from 'core/store/store';
 
 import { OpenedPortalListingVM } from '../../models';
 

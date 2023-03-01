@@ -1,8 +1,9 @@
-import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+
+import bg from 'assets/images/bgs/cover.jpg';
 
 import { MAX_GOTCHIS_IN_ROW } from 'shared/constants';
-import bg from 'assets/images/bgs/cover.jpg';
 
 export const styles = makeStyles(() =>
   createStyles({

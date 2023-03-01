@@ -1,5 +1,7 @@
+import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
+
 import { RootState } from 'core/store/store';
-import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
+
 import { FakeItemsVM } from 'pages/Client/models';
 
 export const selectFakeGotchis = (state: RootState): FakeItemsVM | null => state.client.fakeGotchis.fakeGotchis.data;

@@ -1,27 +1,29 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
-import { CardBalance, CardGroup, CardImage, CardName, CardSalesHistory } from 'components/ItemCard/components';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
+
 import { CardListing } from 'shared/components/CardListing/CardListing';
+import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { ConsumableIcon } from 'components/Icons/Icons';
+import { CardBalance, CardGroup, CardImage, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { ConsumableIcon } from 'components/Icons/Icons';
-import { Filters } from 'components/Filters/components/Filters/Filters';
-import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ActivityConsumableListingFilterTypes } from '../../constants';
 import { ActivityConsumableListingFilters, ActivityConsumableListingVM } from '../../models';
-
 import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarActivityConsumables() {

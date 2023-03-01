@@ -6,6 +6,7 @@ import {
   RarityNumberTypes,
   RarityTypes
 } from 'shared/constants';
+
 import { ActivityConsumableListingFilterTypes } from '../../constants';
 import { ActivityConsumableListingFilters } from '../../models';
 

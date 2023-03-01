@@ -1,41 +1,43 @@
-import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
+import { ApolloClient, DefaultOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import { gql } from '@apollo/client';
 
-import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import { EthersApi } from './ethers.api';
+import { TheGraphCoreApi } from './the-graph-core.api';
+
 import { ItemUtils } from 'utils';
 
-import { EthersApi } from './ethers.api';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+
 import {
-  gotchiByIdQuery,
-  gotchiesQuery,
-  svgQuery,
   activeListingQeury,
-  erc1155Query,
-  erc1155ListingsBatchQuery,
+  auctionQuery,
+  borrowedByAddressQuery,
   erc721ListingsBySeller,
   erc721SalesHistory,
+  erc1155ListingsBatchQuery,
   erc1155ListingsBySeller,
-  userQuery,
-  userOwnedGotchisQuery,
-  realmQuery,
-  auctionQuery,
-  raffleQuery,
-  raffleEntrantsQuery,
-  raffleWinsQuery,
+  erc1155Query,
+  getParcelOrderDirectionQuery,
+  gotchiByIdQuery,
+  gotchiesQuery,
+  gotchisGotchiverseQuery,
+  lendingsByAddressQuery,
+  lendingsQuery,
   listedParcelsQuery,
   parcelQuery,
-  lendingsQuery,
-  lendingsByAddressQuery,
-  borrowedByAddressQuery,
-  getParcelOrderDirectionQuery,
-  gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
+  raffleEntrantsQuery,
+  raffleQuery,
+  raffleWinsQuery,
+  realmListingsBySeller,
+  realmQuery,
   realmQueryByDistrict,
-  realmListingsBySeller
+  svgQuery,
+  userOwnedGotchisQuery,
+  userQuery
 } from './common/queries';
-import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';

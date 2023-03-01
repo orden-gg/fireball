@@ -1,4 +1,8 @@
-import { AppThunk } from 'core/store/store';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi, TheGraphApi } from 'api';
+
+import { GraphFiltersUtils, TilesUtils } from 'utils';
+
 import { Erc1155Categories, RarityTypes } from 'shared/constants';
 import {
   Erc1155ListingsBatch,
@@ -7,25 +11,24 @@ import {
   GraphQueryParams,
   SortingItem
 } from 'shared/models';
-import { EthersApi, TheGraphApi } from 'api';
-import { GraphFiltersUtils, TilesUtils } from 'utils';
+
+import { AppThunk } from 'core/store/store';
 
 import { ASCENDING_DIRECTION, PRICE_IN_WEI, TileListingFilterTypes } from '../../constants';
 import { TileListingDTO, TileListingFilters, TileListingFiltersType, TileListingVM } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadTilesListings,
-  loadTilesListingsSucceded,
   loadTilesListingsFailed,
+  loadTilesListingsSucceded,
+  resetTilesListings,
+  setIsTilesListingsInitialDataLoading,
   setTilesListingsFilters,
   setTilesListingsIsFiltersUpdated,
   setTilesListingsIsSortingUpdated,
-  setTilesListingsSkipLimit,
-  setTilesListingsSorting,
   setTilesListingsPreviousSortingProp,
-  setIsTilesListingsInitialDataLoading,
-  resetTilesListings
+  setTilesListingsSkipLimit,
+  setTilesListingsSorting
 } from '../slices';
 
 export const loadBaazaarTilesListings =

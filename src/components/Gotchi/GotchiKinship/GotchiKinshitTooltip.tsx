@@ -1,11 +1,15 @@
 import { useContext } from 'react';
+
 import { Skeleton } from '@mui/material';
+
+import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
+
+import { TokensPricesContext } from 'contexts/TokensPricesContext';
 
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
+
 import { GotchiHeartGif } from 'components/Icons/Icons';
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
-import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
 
 import { styles } from './styles';
 

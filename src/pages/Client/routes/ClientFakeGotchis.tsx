@@ -1,6 +1,8 @@
 import { useAppSelector } from 'core/store/hooks';
-import { ContentInner } from 'components/Content/ContentInner';
+
 import { GalleryLayout } from 'pages/FakeGotchisGallery/components';
+
+import { ContentInner } from 'components/Content/ContentInner';
 
 import { FakeItemsVM } from '../models';
 import * as fromFakeGotchisStore from '../store';

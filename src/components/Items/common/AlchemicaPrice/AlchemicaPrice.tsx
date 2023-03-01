@@ -3,19 +3,22 @@ import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
+import { CommonUtils } from 'utils';
+
+import { TokensPricesContext } from 'contexts/TokensPricesContext';
+
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
+
 import {
-  FudTokenIcon,
-  FomoTokenIcon,
   AlphaTokenIcon,
-  KekTokenIcon,
-  GhstTokenIcon,
   DaiTokenIcon,
-  GltrTokenIcon
+  FomoTokenIcon,
+  FudTokenIcon,
+  GhstTokenIcon,
+  GltrTokenIcon,
+  KekTokenIcon
 } from 'components/Icons/Icons';
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
-import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 

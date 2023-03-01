@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GraphUtils } from 'utils';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

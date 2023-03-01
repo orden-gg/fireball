@@ -1,11 +1,15 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { GraphFiltersUtils, RouteUtils } from 'utils';
+
+import { CardImage } from 'shared/components/CardImage/CardImage';
+import { CardListing } from 'shared/components/CardListing/CardListing';
 import {
   CustomParsedQuery,
   GraphFiltersQueryParamTypes,
@@ -14,24 +18,22 @@ import {
   SortingItem,
   SortingListItem
 } from 'shared/models';
-import { CardImage } from 'shared/components/CardImage/CardImage';
-import { CardListing } from 'shared/components/CardListing/CardListing';
-import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ItemCard } from 'components/ItemCard/containers';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { PurpleGrassIcon } from 'components/Icons/Icons';
+import { CardBalance, CardCraftLink, CardGroup, CardName } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { TileListingFilterTypes } from '../../constants';
 import { TileListingFilters, TileListingVM } from '../../models';
 import { tilesListingsSortings } from '../../static/sortings';
-
 import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarTiles() {

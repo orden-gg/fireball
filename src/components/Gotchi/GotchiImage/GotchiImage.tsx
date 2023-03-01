@@ -1,7 +1,7 @@
 import { ItemUtils } from 'utils';
 
-import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { GotchiSvg } from './GotchiSvg';
+import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { styles } from './styles';
 
 interface GotchiImageProps {

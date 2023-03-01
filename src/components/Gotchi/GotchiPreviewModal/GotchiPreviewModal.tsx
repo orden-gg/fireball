@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
+
 import { CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { EthersApi, MainApi, TheGraphApi } from 'api';
+
+import { GotchiUtils, ItemUtils } from 'utils';
+
 import { Erc721Categories } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { Gotchi, GotchiInventory as GotchiInventoryModel, SalesHistoryModel } from 'shared/models';
+
+import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -16,8 +24,6 @@ import {
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import {
   HistoryHead,
@@ -26,9 +32,7 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, MainApi, TheGraphApi } from 'api';
-import { GotchiUtils, ItemUtils } from 'utils';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 import { gotchiPreviewModalStyles } from './styles';
 

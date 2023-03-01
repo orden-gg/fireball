@@ -1,14 +1,17 @@
 import React, { useContext } from 'react';
-import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
+
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { GhstTokenGif } from 'components/Icons/Icons';
-import { RaffleContext } from 'contexts/RaffleContext';
 import { GotchiverseUtils, ItemUtils } from 'utils';
 import { CommonUtils } from 'utils';
+
+import { RaffleContext } from 'contexts/RaffleContext';
+
+import { GhstTokenGif } from 'components/Icons/Icons';
 
 import { tableStyles } from '../styles';
 

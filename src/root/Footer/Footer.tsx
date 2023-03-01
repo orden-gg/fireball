@@ -1,15 +1,18 @@
 import { useContext } from 'react';
-import { Box, Toolbar, Button, Link, Snackbar, Alert, IconButton, Divider } from '@mui/material';
-import TwitterIcon from '@mui/icons-material/Twitter';
+
 import GitHubIcon from '@mui/icons-material/GitHub';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import { Alert, Box, Button, Divider, IconButton, Link, Snackbar, Toolbar } from '@mui/material';
 
+import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 import classNames from 'classnames';
 
-import { DONATE_ADDRESS } from 'shared/constants';
-import { MusicButton } from 'components/MusicButton/MusicButton';
 import { SnackbarContext } from 'contexts/SnackbarContext';
-import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
+
+import { DONATE_ADDRESS } from 'shared/constants';
+
+import { MusicButton } from 'components/MusicButton/MusicButton';
 
 import { GotchiverseOnline } from './components/GotchiverseOnline';
 import { styles } from './styles';

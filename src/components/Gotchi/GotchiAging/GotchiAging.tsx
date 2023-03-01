@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
+
 import { Skeleton } from '@mui/material';
 
-import { DateTime } from 'luxon';
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 
-import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
-import { CountdownFormatNonZeroType } from 'shared/constants';
-import { ShineLabel } from 'components/Labels/ShineLabel';
-import { Countdown } from 'components/Countdown/Countdown';
 import { EthersApi } from 'api';
+
 import { CommonUtils, GotchiUtils } from 'utils';
+
+import { CountdownFormatNonZeroType } from 'shared/constants';
+import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
+
+import { Countdown } from 'components/Countdown/Countdown';
+import { ShineLabel } from 'components/Labels/ShineLabel';
 
 import { styles } from './styles';
 

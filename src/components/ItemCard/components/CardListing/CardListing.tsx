@@ -1,18 +1,19 @@
 import { useContext } from 'react';
 import ContentLoader from 'react-content-loader';
-import { alpha, Link, Typography } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link, Typography, alpha } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { GhstTokenGif } from 'components/Icons/Icons';
 import { CommonUtils } from 'utils';
 
-import { CardContext } from '../../context/CardContext';
+import { GhstTokenGif } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
+import { CardContext } from '../../context/CardContext';
 import { styles } from './styles';
 
 // TODO should be replaced with CardListing component from shared directory after price fetching refactor

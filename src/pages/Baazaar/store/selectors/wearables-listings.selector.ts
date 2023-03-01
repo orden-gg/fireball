@@ -1,5 +1,6 @@
-import { RootState } from 'core/store/store';
 import { GraphQueryParams, SortingItem } from 'shared/models';
+
+import { RootState } from 'core/store/store';
 
 import { WearableListingFilters, WearableListingVM } from '../../models';
 

@@ -1,6 +1,8 @@
+import { ItemUtils } from './item.utils';
+
 import {
-  VOID_WEARABLE,
   HAUNT_ONE_BACKGROUND_WEARABLE,
+  VOID_WEARABLE,
   WearableBenefitIndex,
   WerableBenefitTypes
 } from 'shared/constants';
@@ -12,9 +14,8 @@ import {
   WearableTypes
 } from 'shared/constants';
 import { Erc1155ItemTuple, Wearable } from 'shared/models';
-import erc1155Items from 'data/items.data.json';
 
-import { ItemUtils } from './item.utils';
+import erc1155Items from 'data/items.data.json';
 
 export class Erc1155ItemUtils {
   public static getStaticWearables(): Erc1155ItemTuple[] {

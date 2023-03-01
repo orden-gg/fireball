@@ -1,18 +1,23 @@
-import { useContext, useCallback, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import qs from 'query-string';
 
+import { CommonUtils, FilterUtils } from 'utils';
+
+import { ClientContext } from 'contexts/ClientContext';
+
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { GotchiIcon } from 'components/Icons/Icons';
+
 import { ContentInner } from 'components/Content/ContentInner';
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { Gotchi } from 'components/Gotchi/Gotchi';
-import { ClientContext } from 'contexts/ClientContext';
+
 import { filtersData } from 'data/filters.data';
-import { CommonUtils, FilterUtils } from 'utils';
 
 const sortings: SortingListItem[] = [
   {

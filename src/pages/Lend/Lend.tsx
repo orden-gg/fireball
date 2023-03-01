@@ -1,34 +1,39 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Button, ToggleButton } from '@mui/material';
-import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import CopyrightIcon from '@mui/icons-material/Copyright';
+import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import PercentIcon from '@mui/icons-material/Percent';
+import { Button, ToggleButton } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { EthersApi, TheGraphApi } from 'api';
+
+import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
+
 import { DataReloadType } from 'shared/constants';
 import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
-import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ContentInner } from 'components/Content/ContentInner';
-import { GotchiIcon } from 'components/Icons/Icons';
-import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import { Filters } from 'components/Filters/components/Filters/Filters';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { Gotchi } from 'components/Gotchi/Gotchi';
-import { EthersApi, TheGraphApi } from 'api';
-import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
-import { filtersData } from 'data/filters.data';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { GotchisLazy } from 'components/Lazy/GotchisLazy';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { filtersData } from 'data/filters.data';
 
 import { styles } from './styles';
 

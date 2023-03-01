@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 
 import { FakeGotchi } from 'shared/models';
+
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { ContentInner } from 'components/Content/ContentInner';
 
-import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
 import * as fromFakeGotchisGalleryStore from '../../store';
+import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
 
 export function Minted() {
   const dispatch = useAppDispatch();

@@ -1,7 +1,8 @@
 import { Avatar } from '@mui/material';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GotchiverseUtils } from 'utils';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
