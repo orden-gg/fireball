@@ -858,9 +858,6 @@ export const portalsQueryByAddress = (owner: string): string => {
           hauntId
           historicalPrices
           id
-          buyer {
-            id
-          }
         }
       }`;
 };

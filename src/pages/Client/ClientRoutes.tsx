@@ -15,12 +15,12 @@ import { CommonUtils } from 'utils';
 
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientGotchis } from './routes/ClientGotchis';
+import { ClientPortals } from './routes/ClientPortals';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
 import { ClientForSale } from './routes/ClientForSale';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
-import { ClientPortals } from './routes/ClientPortals';
 import { ClientWarehouse } from './routes/ClientWarehouse';
 
 // store
@@ -127,10 +127,10 @@ export function ClientRoutes() {
       <Routes>
         <Route path='' element={<ClientAccount />} />
         <Route path='gotchis/*' element={<ClientGotchis />} />
+        <Route path='portals' element={<ClientPortals />} />
         <Route path='installations' element={<ClientInstallations />} />
         <Route path='warehouse' element={<ClientWarehouse />} />
         <Route path='tickets' element={<ClientTickets />} />
-        <Route path='portals' element={<ClientPortals />} />
         <Route path='realm/*' element={<ClientRealm />} />
         <Route path='fake-gotchis' element={<ClientFakeGotchis />} />
         <Route path='for-sale' element={<ClientForSale />} />

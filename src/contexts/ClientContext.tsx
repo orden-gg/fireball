@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { Erc721ListingsBatch, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -22,6 +22,7 @@ import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } fr
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { ClientApi } from '../pages/Client/api/client.api';
+import { Portal } from 'pages/Client/models';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -135,6 +136,13 @@ export const ClientContextProvider = (props: any) => {
       )
     },
     {
+      name: 'portals',
+      path: 'portals',
+      icon: <H1SealedPortalIcon width={24} height={24} />,
+      isLoading: loadingPortals,
+      count: portals.length
+    },
+    {
       name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
@@ -155,14 +163,6 @@ export const ClientContextProvider = (props: any) => {
       isLoading: loadingTickets,
       count: tickets.length
     },
-    {
-      name: 'portals',
-      path: 'portals',
-      icon: <H1SealedPortalIcon width={24} height={24} />,
-      isLoading: loadingPortals,
-      count: portals.length
-    },
-    // designe
     {
       name: 'realm',
       path: 'realm',
@@ -480,17 +480,18 @@ export const ClientContextProvider = (props: any) => {
     setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: false }));
 
     TheGraphApi.getPortalsByAddress(address)
-      .then((response: string[]) => {
-        const portalsIds = response.map((item: any) => Number(item.id));
+      .then((response: Portal[]) => {
+        const portalsIds = response.map((item: Portal) => Number(item.id));
         ClientApi.getErc721ListingsByCategories(portalsIds, [
           Erc721Categories.OpenedPortal,
           Erc721Categories.ClosedPortal
-        ]).then((listings: any) => {
-          const modifinedResponce = response.map((portal: any) => {
+        ]).then((listings: Erc721ListingsBatch) => {
+          const modifinedResponce = response.map((portal: Portal) => {
             const lastSoldPortalListing = listings[`item${portal.id}`][0];
 
             return {
               ...portal,
+              id: Number(portal.id),
               category: portal.openedAt ? Erc721Categories.OpenedPortal : Erc721Categories.ClosedPortal,
               listingId: lastSoldPortalListing ? lastSoldPortalListing.id : null,
               listingPrice: lastSoldPortalListing ? Number(EthersApi.fromWei(lastSoldPortalListing.priceInWei)) : 0
