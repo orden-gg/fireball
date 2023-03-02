@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories, Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { Erc721ListingsBatch, PageNavLink, SortingItem } from 'shared/models';
+import { PageNavLink, SortingItem } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -21,12 +21,9 @@ import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } fr
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import * as fromClientStore from 'pages/Client/store';
-import { ClientApi } from '../pages/Client/api/client.api';
-import { Portal } from 'pages/Client/models';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isTicketsLoaded: false,
-  isPortalsLoaded: false,
   isRealmLoaded: false,
   isInstallationsLoaded: false,
   isTilesLoaded: false,
@@ -44,6 +41,8 @@ export const ClientContextProvider = (props: any) => {
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
   const borrowedGotchisLength: number = useAppSelector(fromClientStore.getBorrowedGotchisLength);
   const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
+  const portalsLength: number = useAppSelector(fromClientStore.getPortalsLength);
+  const isPortalsLoading: boolean = useAppSelector(fromClientStore.getIsPortalsLoading);
   const warehouseLength: number = useAppSelector(fromClientStore.getWarehouseLength);
   const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
@@ -58,9 +57,6 @@ export const ClientContextProvider = (props: any) => {
 
   const [tickets, setTickets] = useState<any[]>([]);
   const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
-
-  const [portals, setPortals] = useState<any[]>([]);
-  const [loadingPortals, setLoadingPortals] = useState<boolean>(true);
 
   const [realm, setRealm] = useState<any[]>([]);
   const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
@@ -129,8 +125,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'portals',
       path: 'portals',
       icon: <H1SealedPortalIcon width={24} height={24} />,
-      isLoading: loadingPortals,
-      count: portals.length
+      isLoading: isPortalsLoading,
+      count: portalsLength
     },
     {
       name: 'warehouse',
@@ -202,7 +198,6 @@ export const ClientContextProvider = (props: any) => {
     dispatch(resetFakeGotchis());
 
     getTickets(address, shouldUpdateIsLoading);
-    getPortal(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
     getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
@@ -287,40 +282,6 @@ export const ClientContextProvider = (props: any) => {
       .finally(() => {
         setLoadingTickets(false);
         setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: true }));
-      });
-  };
-
-  const getPortal = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingPortals(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: false }));
-
-    TheGraphApi.getPortalsByAddress(address)
-      .then((response: Portal[]) => {
-        const portalsIds = response.map((item: Portal) => Number(item.id));
-        ClientApi.getErc721ListingsByCategories(portalsIds, [
-          Erc721Categories.OpenedPortal,
-          Erc721Categories.ClosedPortal
-        ]).then((listings: Erc721ListingsBatch) => {
-          const modifinedResponce = response.map((portal: Portal) => {
-            const lastSoldPortalListing = listings[`item${portal.id}`][0];
-
-            return {
-              ...portal,
-              id: Number(portal.id),
-              category: portal.openedAt ? Erc721Categories.OpenedPortal : Erc721Categories.ClosedPortal,
-              listingId: lastSoldPortalListing ? lastSoldPortalListing.id : null,
-              listingPrice: lastSoldPortalListing ? Number(EthersApi.fromWei(lastSoldPortalListing.priceInWei)) : 0
-            };
-          });
-          setPortals(modifinedResponce);
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoadingPortals(false);
-        setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: true }));
       });
   };
 
@@ -561,9 +522,6 @@ export const ClientContextProvider = (props: any) => {
 
         tickets,
         loadingTickets,
-
-        portals,
-        loadingPortals,
 
         realm,
         realmView,

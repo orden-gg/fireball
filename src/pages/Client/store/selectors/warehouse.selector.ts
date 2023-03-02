@@ -1,7 +1,9 @@
 import { RootState } from 'core/store/store';
 import { SortingItem } from 'shared/models';
 
-export const getWarehouse = (state: RootState): any[] => state.client.warehouse.warehouse.data;
+import { Warehouse } from '../../models';
+
+export const getWarehouse = (state: RootState): Warehouse[] => state.client.warehouse.warehouse.data;
 
 export const getWarehouseLength = (state: RootState): number => state.client.warehouse.warehouse.data.length;
 

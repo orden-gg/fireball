@@ -1,20 +1,25 @@
-import { useContext, useState, useEffect, useCallback } from 'react';
-
-import { ContentInner } from 'components/Content/ContentInner';
-import { ItemCard } from 'components/ItemCard/containers';
-import { ClientContext } from 'contexts/ClientContext';
-import { routersStyles } from '../styles';
-import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
-import { filtersData } from 'data/filters.data';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import * as qs from 'query-string';
-import { FilterUtils } from '../../../utils/filters.utils';
-import { H1SealedPortalIcon } from '../../../components/Icons/Icons';
-import { SortingItem, SortingListItem } from '../../../shared/models/sorting.model';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { CustomParsedQuery } from 'shared/models';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
+
+import * as qs from 'query-string';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
+import { ContentInner } from 'components/Content/ContentInner';
+import { H1SealedPortalIcon } from 'components/Icons/Icons';
+import { ItemCard } from 'components/ItemCard/containers';
+import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+import { FilterUtils } from 'utils/filters.utils';
+import { filtersData } from 'data/filters.data';
+
 import { ClientPortal } from '../models';
+
+import { routersStyles } from '../styles';
+
+// store
+import * as fromClientStore from '../store';
 
 const sortings: SortingListItem[] = [
   {
@@ -39,10 +44,14 @@ export function ClientPortals() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { portals, loadingPortals } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const portals: ClientPortal[] = useAppSelector(fromClientStore.getPortals);
+  const isPortalsLoading: boolean = useAppSelector(fromClientStore.getIsPortalsLoading);
+  const portalsSorting: SortingItem = useAppSelector(fromClientStore.getPortalsSorting);
+
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [modifiedPortals, setModifiedPortals] = useState<any[]>([]);
-  const [portalsSorting, setPortalsSorting] = useState<SortingItem>({ type: 'haunt', dir: 'asc' });
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
@@ -89,12 +98,9 @@ export function ClientPortals() {
     setModifiedPortals(modifiedPortals);
   }, [currentFilters, portals, portalsSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setPortalsSorting({ type, dir });
-    },
-    [setPortalsSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setPortalsSorting({ type, dir }));
+  };
 
   const sorting: any = {
     sortingList: sortings,
@@ -146,7 +152,7 @@ export function ClientPortals() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingPortals}>
+      <ContentInner dataLoading={isPortalsLoading}>
         <div>
           <div className={classes.list}>
             {modifiedPortals.map((portal: ClientPortal, index: number) => (

@@ -4,6 +4,7 @@ import { borrowedGotchisReducer } from './borrowed-gotchis.slice';
 import { fakeGotchisReducer } from './fake-gotchis.slice';
 import { lentGotchisReducer } from './lent-gotchis.slice';
 import { ownedGotchisReducer } from './owned-gotchis.slice';
+import { portalsReducer } from './portals.slice';
 import { warehouseReducer } from './warehouse.slice';
 
 export const clientReducers = combineReducers({
@@ -11,5 +12,6 @@ export const clientReducers = combineReducers({
   fakeGotchis: fakeGotchisReducer,
   lentGotchis: lentGotchisReducer,
   ownedGotchis: ownedGotchisReducer,
+  portals: portalsReducer,
   warehouse: warehouseReducer
 });

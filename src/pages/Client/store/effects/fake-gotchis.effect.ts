@@ -1,6 +1,5 @@
 import { AppThunk } from 'core/store/store';
 import { Erc1155Listings, Erc721ListingsBatch, Erc721ListingsDictionary, FakeGotchi } from 'shared/models';
-import { ClientApi } from 'pages/Client/api/client.api';
 import {
   FakeGotchiCard,
   FakeGotchiCardLastSoldListingDTO,
@@ -14,6 +13,8 @@ import {
   getFakeGotchisByAddressQuery
 } from 'pages/Client/queries';
 import { EthersApi } from 'api';
+
+import { ClientApi } from '../../api';
 
 import {
   loadFakeGotchis,
