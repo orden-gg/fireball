@@ -45,6 +45,14 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const { metaState } = useMetamask();
   const { borrowed } = useContext<any>(ClientContext);
 
+  const handleOnChangeDropList = (_event, newValue) => {
+    if (!newValue) {
+      setSpawnId(availibleParcels[0].parcelId);
+    } else {
+      setSpawnId(newValue.parcelId);
+    }
+  };
+
   useEffect(() => {
     if (gotchi) {
       setModalGotchi(gotchi);
@@ -177,11 +185,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                         <Autocomplete
                           disablePortal
                           onChange={(event: any, newValue: any | null) => {
-                            if (!newValue) {
-                              setSpawnId(availibleParcels[0].parcelId);
-                            } else {
-                              setSpawnId(newValue.parcelId);
-                            }
+                            handleOnChangeDropList(event, newValue);
                           }}
                           id='combo-box-realms'
                           options={availibleParcels}
