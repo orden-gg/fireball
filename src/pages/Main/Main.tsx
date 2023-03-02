@@ -5,6 +5,8 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import classNames from 'classnames';
 import _ from 'lodash';
 
+import { TheGraphApi } from 'api';
+
 import {
   EASTER_EGG_VIEW_CHANCE,
   GOTCHI_IDS,
@@ -19,8 +21,6 @@ import {
 import { Section } from 'components/Section/Section';
 
 import { CommonUtils } from 'utils';
-
-import { TheGraphApi } from 'api';
 
 import { About } from './components/About';
 import { HomeGotchi } from './components/HomeGotchi.';

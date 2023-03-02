@@ -2,12 +2,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Link } from '@mui/material';
 
+import { EthersApi } from 'api';
+
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
-
-import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

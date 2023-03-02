@@ -3,12 +3,12 @@ import Blockies from 'react-blockies';
 import CallMade from '@mui/icons-material/CallMade';
 import { IconButton, Link } from '@mui/material';
 
+import { EthersApi } from 'api';
+
 import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
-
-import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

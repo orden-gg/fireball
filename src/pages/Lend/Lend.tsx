@@ -14,6 +14,8 @@ import { Button, ToggleButton } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import { EthersApi, TheGraphApi } from 'api';
+
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -32,8 +34,6 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { CommonUtils, FilterUtils, GotchiverseUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
-
-import { EthersApi, TheGraphApi } from 'api';
 
 import { styles } from './styles';
 

@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
+import * as fromFakeGotchisGalleryStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { FakeGotchi } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
-
-import * as fromFakeGotchisGalleryStore from '../../store';
 
 import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
 

@@ -10,6 +10,8 @@ import ScienceIcon from '@mui/icons-material/Science';
 
 import qs from 'query-string';
 
+import { TheGraphApi } from 'api';
+
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -26,8 +28,6 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
-
-import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
 

@@ -1,10 +1,10 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
 
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
 
 import { GraphFiltersUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 
 import { ActivityParcelListingFilterTypes } from '../../constants';
 import {

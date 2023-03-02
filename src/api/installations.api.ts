@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 import _ from 'lodash';
 
+import { EthersApi } from './ethers.api';
+
 import { INSTALLATION_CONTRACT, InstallationTypes } from 'shared/constants';
 
 import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
-
-import { EthersApi } from './ethers.api';
 
 const installationsContract = EthersApi.makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');
 

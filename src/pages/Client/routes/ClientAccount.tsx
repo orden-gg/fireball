@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 
-import { EthAddressPanel } from 'components/EthAddressPanel/EthAddressPanel';
-
 import { EthersApi } from 'api';
+
+import { EthAddressPanel } from 'components/EthAddressPanel/EthAddressPanel';
 
 import { ClientNav } from '../components/ClientNav';
 import { accountStyles, styles } from '../styles';

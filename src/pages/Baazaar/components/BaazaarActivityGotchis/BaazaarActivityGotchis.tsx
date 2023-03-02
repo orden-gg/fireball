@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
@@ -18,8 +19,6 @@ import { GotchiIcon } from 'components/Icons/Icons';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
 import { GraphFiltersUtils, RouteUtils } from 'utils';
-
-import * as fromBaazaarStore from '../../store';
 
 import { ActivityGotchiListingFilterTypes } from '../../constants';
 import { ActivityGotchiListingFilters, ActivityGotchiListingVM } from '../../models';

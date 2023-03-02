@@ -1,3 +1,6 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi, TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories } from 'shared/constants';
@@ -10,9 +13,6 @@ import {
 } from 'shared/models';
 
 import { GraphFiltersUtils, InstallationsUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { EthersApi, TheGraphApi } from 'api';
 
 import { ASCENDING_DIRECTION, InstallationListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import {

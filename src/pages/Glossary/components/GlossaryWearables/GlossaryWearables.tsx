@@ -11,11 +11,6 @@ import classNames from 'classnames';
 import qs from 'query-string';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-
-import { CardListing } from 'shared/components/CardListing/CardListing';
-import { CustomParsedQuery, Sorting, SortingItem, SortingListItem, Wearable } from 'shared/models';
-
-import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import {
   getGlossaryWearables,
   getInitialGlossaryWearables,
@@ -26,6 +21,11 @@ import {
   setWearables,
   setWearablesSorting
 } from 'pages/Glossary/store';
+
+import { CardListing } from 'shared/components/CardListing/CardListing';
+import { CustomParsedQuery, Sorting, SortingItem, SortingListItem, Wearable } from 'shared/models';
+
+import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';

@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { CardListing } from 'shared/components/CardListing/CardListing';
@@ -28,8 +29,6 @@ import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
 import { GraphFiltersUtils, RouteUtils } from 'utils';
-
-import * as fromBaazaarStore from '../../store';
 
 import { WearableListingFilterTypes } from '../../constants';
 import { WearableListingFilters, WearableListingVM } from '../../models';

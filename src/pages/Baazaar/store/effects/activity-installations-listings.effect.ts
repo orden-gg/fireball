@@ -1,11 +1,11 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
 
 import { GraphQueryParams } from 'shared/models';
 
 import { InstallationsUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { EthersApi } from 'api';
 
 import { ActivityInstallationListingDTO, ActivityInstallationListingVM } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';

@@ -1,9 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
-
-import { TokenTypes } from 'shared/constants';
+import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -13,6 +10,11 @@ import {
   KEK_CONTRACT,
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
+
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
+
+import { TokenTypes } from 'shared/constants';
 
 import {
   AlphaTokenIcon,
@@ -25,8 +27,6 @@ import {
 } from 'components/Icons/Icons';
 
 import { CommonUtils } from 'utils';
-
-import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 
 import { TokensPricesContext } from './TokensPricesContext';
 

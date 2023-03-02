@@ -1,11 +1,11 @@
 import _ from 'lodash';
 
+import { EthersApi, TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories } from 'shared/constants';
 import { Erc1155ListingsBatch, Wearable } from 'shared/models';
-
-import { EthersApi, TheGraphApi } from 'api';
 
 import { setMaxWearablePrice, setWearablesPrices } from '../slices';
 

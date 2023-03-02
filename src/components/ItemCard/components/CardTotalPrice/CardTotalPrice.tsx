@@ -6,12 +6,12 @@ import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { EthersApi } from 'api';
+
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
-
-import { EthersApi } from 'api';
 
 import { CardContext } from '../../context/CardContext';
 import { styles } from './styles';

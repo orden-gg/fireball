@@ -1,11 +1,11 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
 
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
 
 import { GraphFiltersUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { EthersApi } from 'api';
 
 import { ASCENDING_DIRECTION, ClosedPortalListingFilterTypes, PRICE_IN_WEI } from '../../constants';
 import {

@@ -4,12 +4,12 @@ import { Link, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { EthersApi } from 'api';
+
 import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
-
-import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

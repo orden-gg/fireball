@@ -1,3 +1,5 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
 
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
@@ -11,8 +13,6 @@ import {
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
 
 import { GraphFiltersUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 
 import { ASCENDING_DIRECTION, GotchiListingsFilterTypes, PRICE_IN_WEI } from '../../constants';
 import {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import { TheGraphApi } from 'api';
+
 import { Erc1155Categories, WearableTypes } from 'shared/constants';
 
 import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
 import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
 
 import { ItemUtils } from 'utils';
-
-import { TheGraphApi } from 'api';
 
 import { GotchiEquipmentPrice } from '../GotchiEquipmentPrice/GotchiEquipmentPrice';
 import { GotchiImage } from '../GotchiImage/GotchiImage';

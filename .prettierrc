@@ -12,7 +12,8 @@
     "react",
     "@mui",
     "<THIRD_PARTY_MODULES>",
-    "^core/(.*)$",
+    "api",
+    "store",
     "^shared/(.*)$",
     "pages",
     "^contexts/(.*)$",
@@ -22,8 +23,6 @@
     "^hooks/(.*)$",
     "^data/(.*)$",
     "^assets/(.*)$",
-    "api",
-    "store",
     "^[./]"
   ],
   "importOrderSeparation": true,

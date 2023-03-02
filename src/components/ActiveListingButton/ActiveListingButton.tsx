@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { Button } from '@mui/material';
 
-import { GhstTokenIcon } from 'components/Icons/Icons';
-
 import { EthersApi, TheGraphApi } from 'api';
+
+import { GhstTokenIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 

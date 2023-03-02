@@ -5,11 +5,11 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { TheGraphApi } from 'api/thegraph.api';
+
 import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
 
 import { CommonUtils } from 'utils';
-
-import { TheGraphApi } from 'api/thegraph.api';
 
 import { portalsQuery } from './queries';
 import { styles } from './styles';

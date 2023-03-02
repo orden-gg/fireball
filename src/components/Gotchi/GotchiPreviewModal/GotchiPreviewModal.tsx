@@ -5,6 +5,8 @@ import { CircularProgress } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { EthersApi, MainApi, TheGraphApi } from 'api';
+
 import { Erc721Categories } from 'shared/constants';
 import { Gotchi, GotchiInventory as GotchiInventoryModel, SalesHistoryModel } from 'shared/models';
 
@@ -31,8 +33,6 @@ import {
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 import { GotchiUtils, ItemUtils } from 'utils';
-
-import { EthersApi, MainApi, TheGraphApi } from 'api';
 
 import { gotchiPreviewModalStyles } from './styles';
 

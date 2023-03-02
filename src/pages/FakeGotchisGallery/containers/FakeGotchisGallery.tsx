@@ -3,13 +3,12 @@ import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Button, useTheme } from '@mui/material';
 
+import * as fromFakeGotchisGalleryStore from '../store';
 import { useAppSelector } from 'core/store/hooks';
 
 import { PageNavItem } from 'shared/models';
 
 import { FakeGotchisIcon } from 'components/Icons/Icons';
-
-import * as fromFakeGotchisGalleryStore from '../store';
 
 import { Minted, Queue } from '../components';
 import { styles } from './styles';

@@ -5,13 +5,12 @@ import { Link } from '@mui/material';
 
 import classNames from 'classnames';
 
+import { AutopetApi, TheGraphApi } from 'api';
 import { AUTOPET_CONTRACT } from 'shared/constants/api.constants';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
 
 import { CommonUtils } from 'utils';
-
-import { AutopetApi, TheGraphApi } from 'api';
 
 import { infoStyles } from '../../styles';
 import { AutopetInfoCard } from './AutopetInfoCard';
