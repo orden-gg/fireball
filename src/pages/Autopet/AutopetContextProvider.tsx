@@ -5,9 +5,9 @@ import { CircularProgress } from '@mui/material';
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
-import { AutopetApi, GhstApi, MainApi } from 'api';
-
 import { SnackbarContext } from 'contexts/SnackbarContext';
+
+import { AutopetApi, GhstApi, MainApi } from 'api';
 
 import { tabStyles } from './styles';
 

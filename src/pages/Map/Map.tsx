@@ -5,16 +5,16 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import _ from 'lodash';
 
-import { TheGraphApi } from 'api/thegraph.api';
-
-import { DataReloadType } from 'shared/constants';
-
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 
+import { DataReloadType } from 'shared/constants';
+
 import { Citadel } from 'components/Citadel/Citadel';
+
+import { TheGraphApi } from 'api/thegraph.api';
 
 import { styles } from './styles';
 

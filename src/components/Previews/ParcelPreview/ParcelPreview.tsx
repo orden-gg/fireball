@@ -5,10 +5,6 @@ import { Paper } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { EthersApi, TheGraphApi } from 'api';
-
-import { CitadelUtils, GotchiverseUtils } from 'utils';
-
 import { Erc1155Categories } from 'shared/constants';
 
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
@@ -16,6 +12,10 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
+
+import { CitadelUtils, GotchiverseUtils } from 'utils';
+
+import { EthersApi, TheGraphApi } from 'api';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow } from '../SalesHistory/components';

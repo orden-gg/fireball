@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ItemUtils } from 'utils';
-
 import { SetTypes, WearableTypes } from 'shared/constants';
 
 import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
 import { CardStats } from 'components/ItemCard/components';
 import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
+
+import { ItemUtils } from 'utils';
 
 import wearableSets from 'data/sets.data.json';
 

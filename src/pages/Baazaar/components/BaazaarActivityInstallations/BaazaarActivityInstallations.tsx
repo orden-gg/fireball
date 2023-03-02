@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { CardListing } from 'shared/components/CardListing/CardListing';
-
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -12,8 +12,9 @@ import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } fro
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
-import { ActivityInstallationListingVM } from '../../models';
 import * as fromBaazaarStore from '../../store';
+
+import { ActivityInstallationListingVM } from '../../models';
 import { styles } from './styles';
 
 export function BaazaarActivityInstallations() {

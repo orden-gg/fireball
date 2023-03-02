@@ -10,12 +10,10 @@ import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { FilterUtils } from 'utils';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CustomParsedQuery, Sorting, SortingItem, SortingListItem, Wearable } from 'shared/models';
-
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
 import {
@@ -37,6 +35,8 @@ import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { FilterUtils } from 'utils';
 
 import { glossaryWearablesFilters } from '../../data/glossary-filters.data';
 import { styles } from './styles';

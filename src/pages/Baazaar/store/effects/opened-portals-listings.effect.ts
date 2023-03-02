@@ -1,11 +1,11 @@
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { AppThunk } from 'core/store/store';
 
 import { TraitNumberType } from 'shared/constants';
 import { SortingItem } from 'shared/models';
 
-import { AppThunk } from 'core/store/store';
-
 import { ASCENDING_DIRECTION, PRICE_IN_WEI } from 'pages/Baazaar/constants';
+
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 
 import { OpenedPortalListingDTO, OpenedPortalListingVM } from '../../models';
 import { getBaazaarOpenedPortalsListingsQuery } from '../../queries';

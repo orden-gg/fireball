@@ -2,10 +2,10 @@ import { useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { GotchiverseUtils } from 'utils';
-
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { CardSalesHistory } from 'components/ItemCard/components';
+
+import { GotchiverseUtils } from 'utils';
 
 import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
 import { FlipButton } from './FlipButton/FlipButton';

@@ -1,6 +1,6 @@
-import { CommonUtils } from './common.utils';
-
 import { SortingItem } from 'shared/models';
+
+import { CommonUtils } from './common.utils';
 
 // TODO replace Object in all
 export class FilterUtils {

@@ -5,10 +5,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Divider } from '@mui/material';
 import { Box } from '@mui/system';
 
-import { CommonUtils } from 'utils';
-
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
 
 import { GuildsContext } from '../GuildsContext';
 import { GuildLogo } from '../components/GuildLogo';

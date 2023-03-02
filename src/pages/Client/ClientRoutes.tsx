@@ -4,21 +4,21 @@ import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 're
 
 import queryString from 'query-string';
 
-import { EthersApi } from 'api';
-
-import { CommonUtils } from 'utils';
-
-import { ClientContext } from 'contexts/ClientContext';
-
-import { DataReloadType } from 'shared/constants';
-
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress, setActiveAddress } from 'core/store/login';
 
+import { DataReloadType } from 'shared/constants';
+
+import { ClientContext } from 'contexts/ClientContext';
+
 import { PageNav } from 'components/PageNav/PageNav';
 import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
+
+import { CommonUtils } from 'utils';
+
+import { EthersApi } from 'api';
 
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientFakeGotchis } from './routes/ClientFakeGotchis';

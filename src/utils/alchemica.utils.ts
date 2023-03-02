@@ -1,5 +1,3 @@
-import { EthersApi } from 'api';
-
 import {
   AVERAGE_HUMBLE_BASE_ALCHEMICA,
   AVERAGE_PAARTNER_BASE_ALCHEMICA,
@@ -9,6 +7,8 @@ import {
   ParcelTypes
 } from 'shared/constants';
 import { ParcelAlchemica, ParcelSurvey } from 'shared/models';
+
+import { EthersApi } from 'api';
 
 export class AlchemicaUtils {
   public static getAverageSurveyBySize(size: number): ParcelAlchemica {

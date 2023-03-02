@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { GraphFiltersUtils, RouteUtils } from 'utils';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import {
   CustomParsedQuery,
@@ -17,8 +17,6 @@ import {
   SortingListItem
 } from 'shared/models';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { Filters } from 'components/Filters/components/Filters/Filters';
@@ -28,10 +26,13 @@ import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
+import { GraphFiltersUtils, RouteUtils } from 'utils';
+
+import * as fromBaazaarStore from '../../store';
+
 import { ClosedPortalListingFilterTypes } from '../../constants';
 import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
 import { closedPortalsListingsSortings } from '../../static/sortings';
-import * as fromBaazaarStore from '../../store';
 import { styles } from './styles';
 
 export function BaazaarClosedPortals() {

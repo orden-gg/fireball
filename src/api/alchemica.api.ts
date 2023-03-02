@@ -1,7 +1,5 @@
 import { ethers } from 'ethers';
 
-import { EthersApi } from './ethers.api';
-
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -13,6 +11,8 @@ import {
 } from 'shared/constants';
 
 import { ALPHA_ABI, FOMO_ABI, FUD_ABI, GLTR_ABI, KEK_ABI } from 'data/abi/alchemica.abi';
+
+import { EthersApi } from './ethers.api';
 
 const akekContract = EthersApi.makeContract(KEK_CONTRACT, KEK_ABI, 'polygon');
 const alphaContract = EthersApi.makeContract(ALPHA_CONTRACT, ALPHA_ABI, 'polygon');

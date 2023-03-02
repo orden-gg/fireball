@@ -1,5 +1,6 @@
-import { ReactComponent as Placeholder } from 'assets/images/icons/ghst.svg';
 import classNames from 'classnames';
+
+import { ReactComponent as Placeholder } from 'assets/images/icons/ghst.svg';
 
 interface GuildLogoProps {
   logo: string;

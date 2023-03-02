@@ -1,6 +1,6 @@
-import { EthersApi } from 'api';
-
 import { GhstTokenGif } from 'components/Icons/Icons';
+
+import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

@@ -1,13 +1,13 @@
 import { ApolloClient, DefaultOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import { gql } from '@apollo/client';
 
-import { EthersApi } from './ethers.api';
-import { TheGraphCoreApi } from './the-graph-core.api';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
 
 import { ItemUtils } from 'utils';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
-import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import { EthersApi } from './ethers.api';
+import { TheGraphCoreApi } from './the-graph-core.api';
 
 import {
   activeListingQeury,

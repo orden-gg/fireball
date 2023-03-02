@@ -1,7 +1,8 @@
 import { Avatar, Link } from '@mui/material';
 
-import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 import classNames from 'classnames';
+
+import hopeUp from 'assets/images/gotchi-placeholder-up.svg';
 
 import { teamStyles } from '../styles';
 

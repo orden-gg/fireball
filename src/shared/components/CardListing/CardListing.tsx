@@ -8,12 +8,12 @@ import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { CommonUtils } from 'utils';
-
 import { Erc1155Listing, Erc1155SoldListing } from 'shared/models';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 

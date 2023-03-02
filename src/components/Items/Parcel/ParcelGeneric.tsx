@@ -2,9 +2,9 @@ import { Tooltip, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { CitadelUtils } from 'utils';
-
 import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
+
+import { CitadelUtils } from 'utils';
 
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 

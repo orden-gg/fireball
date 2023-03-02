@@ -1,15 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-
-import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
-
-import { Erc721Categories, Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { Erc721Categories, Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
+import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
 
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 
@@ -24,7 +20,11 @@ import {
 } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 
+import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
+
+import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,

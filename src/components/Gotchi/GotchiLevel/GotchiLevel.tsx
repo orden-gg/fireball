@@ -2,9 +2,9 @@ import React from 'react';
 
 import { CircularProgress } from '@mui/material';
 
-import { GotchiUtils } from 'utils';
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { GotchiUtils } from 'utils';
 
 import { styles } from './styles';
 

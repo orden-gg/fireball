@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { MainApi } from 'api';
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { MainApi } from 'api';
 
 import { styles } from './styles';
 

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { ClientContext } from 'contexts/ClientContext';
-
 import { Erc1155Categories } from 'shared/constants';
+
+import { ClientContext } from 'contexts/ClientContext';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import {

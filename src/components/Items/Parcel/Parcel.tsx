@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { CitadelUtils, GotchiverseUtils } from 'utils';
-
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomModal } from 'components/CustomModal/CustomModal';
@@ -13,6 +11,8 @@ import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';

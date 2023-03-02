@@ -9,13 +9,13 @@ import classNames from 'classnames';
 import Phaser from 'phaser';
 import qs from 'query-string';
 
-import { TheGraphApi } from 'api';
-
-import { CommonUtils, FilterUtils, InstallationsUtils, TilesUtils } from 'utils';
-
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { GuildIcon } from 'components/Icons/Icons';
 import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+
+import { CommonUtils, FilterUtils, InstallationsUtils, TilesUtils } from 'utils';
+
+import { TheGraphApi } from 'api';
 
 import { BasicButton } from './components/BasicButton';
 import { CitadelFilters } from './components/CitadelFilters';

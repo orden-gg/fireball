@@ -1,8 +1,8 @@
 import * as quickSwap from 'quickswap-sdk';
 
-import { EthersApi } from './ethers.api';
-
 import { POLYGON_CHAIN_ID } from 'shared/constants';
+
+import { EthersApi } from './ethers.api';
 
 export class QuickswapApi {
   public static getTokenData(address: any): any {

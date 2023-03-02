@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
-import { TheGraphApi } from 'api';
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
 
 import { InstallationsUtils, TilesUtils } from 'utils';
 
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
 

@@ -7,9 +7,9 @@ import classNames from 'classnames';
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
-import { EthersApi } from 'api';
-
 import { MetamaskIcon } from 'components/Icons/Icons';
+
+import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

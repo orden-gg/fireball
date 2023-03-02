@@ -1,10 +1,10 @@
 import { ethers } from 'ethers';
 
-import { EthersApi } from './ethers.api';
-
 import { AUTOPET_CONTRACT, GHST_CONTRACT } from 'shared/constants';
 
 import { GHST_ABI } from 'data/abi/ghst.abi';
+
+import { EthersApi } from './ethers.api';
 
 const contract = EthersApi.makeContract(GHST_CONTRACT, GHST_ABI, 'polygon');
 

@@ -2,8 +2,6 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { InstallationsUtils, ItemUtils } from 'utils';
-
 import { Erc721Categories, Erc1155Categories } from 'shared/constants';
 
 import {
@@ -20,6 +18,8 @@ import {
 import { ItemCard } from 'components/ItemCard/containers';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
+
+import { InstallationsUtils, ItemUtils } from 'utils';
 
 import { itemsStyles } from '../styles';
 import { RaffleItemChance } from './RaffleItemChance';

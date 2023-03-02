@@ -1,7 +1,7 @@
-import { CommonUtils } from 'utils';
-
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 

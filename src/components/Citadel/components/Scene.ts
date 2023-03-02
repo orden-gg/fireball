@@ -1,9 +1,4 @@
 // @ts-nocheck
-import alpha from 'assets/images/citadel/alpha.png';
-import fomo from 'assets/images/citadel/fomo.png';
-import fud from 'assets/images/citadel/fud.png';
-import kek from 'assets/images/citadel/kek.png';
-import walls from 'assets/images/citadel/walls.svg';
 import Phaser from 'phaser';
 
 import { CitadelUtils } from 'utils';
@@ -11,6 +6,12 @@ import { CitadelUtils } from 'utils';
 import { CITADEL_HEIGHT, CITADEL_WIDTH, COLORS } from 'data/citadel.data';
 import guilds from 'data/guilds.json';
 import parcelsData from 'data/parcels.json';
+
+import alpha from 'assets/images/citadel/alpha.png';
+import fomo from 'assets/images/citadel/fomo.png';
+import fud from 'assets/images/citadel/fud.png';
+import kek from 'assets/images/citadel/kek.png';
+import walls from 'assets/images/citadel/walls.svg';
 
 import { CreateParcels } from './CreateParcels';
 import { DistrictsGridContainer } from './DistrictsGridContainer';

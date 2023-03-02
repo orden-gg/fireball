@@ -6,18 +6,18 @@ import { Box } from '@mui/material';
 
 import queryString from 'query-string';
 
-import { EthersApi } from 'api';
-
-import { CommonUtils } from 'utils';
-
-import { RaffleContextProvider } from 'contexts/RaffleContext';
-
-import { CustomParsedQuery } from 'shared/models';
-
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 
+import { CustomParsedQuery } from 'shared/models';
+
+import { RaffleContextProvider } from 'contexts/RaffleContext';
+
 import { ProfilePane } from 'components/ProfilePane/ProfilePane';
+
+import { CommonUtils } from 'utils';
+
+import { EthersApi } from 'api';
 
 import { RaffleNav } from './components/RaffleNav';
 import { RaffleTickets } from './components/RaffleTickets';

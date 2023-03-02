@@ -6,13 +6,14 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { IconButton, Link, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
-import { useLocalStorage } from 'hooks/useLocalStorage';
-
-import { CommonUtils } from 'utils';
 
 import { BalancesContext } from 'contexts/BalancesContext';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
+
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { balancesStyles } from '../styles';
 

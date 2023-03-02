@@ -9,10 +9,6 @@ import { Box } from '@mui/system';
 
 import classNames from 'classnames';
 
-import { CommonUtils } from 'utils';
-
-import { LoginAddress as LoginAddressModel } from 'shared/models';
-
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
   getActiveAddress,
@@ -22,7 +18,11 @@ import {
   updateAddressName
 } from 'core/store/login';
 
+import { LoginAddress as LoginAddressModel } from 'shared/models';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 

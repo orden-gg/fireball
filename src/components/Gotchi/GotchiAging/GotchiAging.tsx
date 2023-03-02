@@ -5,15 +5,15 @@ import { Skeleton } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { EthersApi } from 'api';
-
-import { CommonUtils, GotchiUtils } from 'utils';
-
 import { CountdownFormatNonZeroType } from 'shared/constants';
 import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
 
 import { Countdown } from 'components/Countdown/Countdown';
 import { ShineLabel } from 'components/Labels/ShineLabel';
+
+import { CommonUtils, GotchiUtils } from 'utils';
+
+import { EthersApi } from 'api';
 
 import { styles } from './styles';
 

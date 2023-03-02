@@ -6,6 +6,10 @@ import { Backdrop, Button, Divider, MenuItem, Select, SelectChangeEvent, Typogra
 
 import classNames from 'classnames';
 
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import {
   CountdownFormatNonZeroType,
   CountdownFormatZeroType,
@@ -13,10 +17,6 @@ import {
   DataReloadType
 } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
-
-// store
-import * as fromDataReloadStore from 'core/store/data-reload';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { Countdown } from 'components/Countdown/Countdown';
 import { ReloadIcon } from 'components/Icons/Icons';

@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 
-import { ItemUtils } from 'utils';
-
 import { DEFAULT_WEAREBLE_IDS, Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
 
 import { CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { ItemUtils } from 'utils';
 
 import { wearableSlotStyles } from './styles';
 

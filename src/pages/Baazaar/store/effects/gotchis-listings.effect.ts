@@ -1,10 +1,6 @@
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-
-import { GraphFiltersUtils } from 'utils';
+import { AppThunk } from 'core/store/store';
 
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
-
-import { AppThunk } from 'core/store/store';
 
 import {
   GotchiListingDTO,
@@ -13,6 +9,10 @@ import {
   GotchiListingsFilters
 } from 'pages/Baazaar/models';
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
+
+import { GraphFiltersUtils } from 'utils';
+
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 
 import { ASCENDING_DIRECTION, GotchiListingsFilterTypes, PRICE_IN_WEI } from '../../constants';
 import {

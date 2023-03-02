@@ -6,12 +6,12 @@ import { Box, CircularProgress, Grid, TextField, Tooltip, Typography } from '@mu
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { GotchiverseUtils, ItemUtils } from 'utils';
-import { CommonUtils } from 'utils';
-
 import { RaffleContext } from 'contexts/RaffleContext';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
+
+import { GotchiverseUtils, ItemUtils } from 'utils';
+import { CommonUtils } from 'utils';
 
 import { tableStyles } from '../styles';
 

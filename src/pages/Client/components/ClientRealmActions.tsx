@@ -6,9 +6,9 @@ import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import { InstallationsApi } from 'api';
-
 import { SnackbarContext } from 'contexts/SnackbarContext';
+
+import { InstallationsApi } from 'api';
 
 import { actionStyles } from '../styles';
 

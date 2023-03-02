@@ -7,14 +7,14 @@ import Switch from '@mui/material/Switch';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { InstallationsApi, TilesApi } from 'api';
-
-import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
-
 import { Erc1155Categories, InstallationTypes, TileTypes } from 'shared/constants';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+
+import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
+
+import { InstallationsApi, TilesApi } from 'api';
 
 import { CraftContext } from './CraftContext';
 import { CraftItem } from './components/CraftItem';

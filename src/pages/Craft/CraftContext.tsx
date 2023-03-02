@@ -2,11 +2,11 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 import { useMetamask } from 'use-metamask';
 
-import { AlchemicaApi } from 'api';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
 
 import { BalancesContext } from 'contexts/BalancesContext';
 
-import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
+import { AlchemicaApi } from 'api';
 
 export const CraftContext = createContext({});
 

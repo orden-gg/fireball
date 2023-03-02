@@ -8,8 +8,9 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 
 import { MetamaskStateProvider } from 'use-metamask';
 
-import { App } from './App';
 import { store } from './core/store/store';
+
+import { App } from './App';
 import './index.css';
 import { reportWebVitals } from './reportWebVitals';
 import { theme } from './themes/ghst';

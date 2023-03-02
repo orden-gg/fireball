@@ -1,6 +1,4 @@
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-
-import { GraphFiltersUtils, InstallationsUtils, TilesUtils } from 'utils';
+import { AppThunk } from 'core/store/store';
 
 import { InstallationTypeNames } from 'shared/constants';
 import {
@@ -12,7 +10,9 @@ import {
   SortingItem
 } from 'shared/models';
 
-import { AppThunk } from 'core/store/store';
+import { GraphFiltersUtils, InstallationsUtils, TilesUtils } from 'utils';
+
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 
 import { ASCENDING_DIRECTION, PRICE_IN_WEI, ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';

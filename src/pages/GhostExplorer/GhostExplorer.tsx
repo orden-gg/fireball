@@ -10,16 +10,12 @@ import ScienceIcon from '@mui/icons-material/Science';
 
 import qs from 'query-string';
 
-import { TheGraphApi } from 'api';
-
-import { FilterUtils } from 'utils';
-
-import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
-
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { DataReloadType } from 'shared/constants';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -27,7 +23,11 @@ import { GotchiIcon } from 'components/Icons/Icons';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
+import { FilterUtils } from 'utils';
+
 import { filtersData } from 'data/filters.data';
+
+import { TheGraphApi } from 'api';
 
 import { styles } from './styles';
 

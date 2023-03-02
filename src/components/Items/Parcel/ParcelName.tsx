@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import { CitadelUtils } from 'utils';
-
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
+
+import { CitadelUtils } from 'utils';
 
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 

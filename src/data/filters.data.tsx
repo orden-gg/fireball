@@ -5,17 +5,17 @@ import { Avatar, Chip } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import { EthersApi } from 'api';
-
-import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
-
 import { FilterComponentType } from 'shared/constants';
 import { CollateralData } from 'shared/models';
+
+import { CommonUtils, FiltersHelper, GotchiverseUtils } from 'utils';
 
 import { DISTRICTS } from 'data/citadel.data';
 import { collaterals } from 'data/collaterals.data';
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 import guilds from 'data/guilds.json';
+
+import { EthersApi } from 'api';
 
 export const filtersData = {
   hauntId: {

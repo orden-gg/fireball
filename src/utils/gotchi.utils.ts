@@ -1,9 +1,9 @@
-import { EthersApi } from 'api';
-
 import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
 import { CollateralData, Gotchi, GotchiAgingModel, GotchiInventory } from 'shared/models';
 
 import { collaterals } from 'data/collaterals.data';
+
+import { EthersApi } from 'api';
 
 export class GotchiUtils {
   public static getTotalXpByLevel(level: number): number {

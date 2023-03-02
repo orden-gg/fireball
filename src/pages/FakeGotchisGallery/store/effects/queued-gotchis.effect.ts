@@ -1,8 +1,8 @@
-import { FakeGotchisGalleryApi } from 'pages/FakeGotchisGallery/api';
+import { AppThunk } from 'core/store/store';
 
 import { FakeGotchi } from 'shared/models';
 
-import { AppThunk } from 'core/store/store';
+import { FakeGotchisGalleryApi } from 'pages/FakeGotchisGallery/api';
 
 import { getQueuedFakeGotchisQuery } from '../../queries';
 import { loadQueuedGotchis, loadQueuedGotchisFailed, loadQueuedGotchisSucceded } from '../slices';

@@ -2,11 +2,9 @@ import { useContext } from 'react';
 
 import { CircularProgress, Typography } from '@mui/material';
 
-import { ItemUtils } from 'utils';
+import { Erc1155Categories } from 'shared/constants';
 
 import { ClientContext } from 'contexts/ClientContext';
-
-import { Erc1155Categories } from 'shared/constants';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import {
@@ -31,6 +29,8 @@ import {
 } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { Parcel } from 'components/Items/Parcel/Parcel';
+
+import { ItemUtils } from 'utils';
 
 import { ListingTitle } from '../components/ListingTitle/ListingTitle';
 import { forSaleStyles } from '../styles';

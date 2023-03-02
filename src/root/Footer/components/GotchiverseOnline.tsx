@@ -6,9 +6,9 @@ import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 import classNames from 'classnames';
 
-import { GotchiverseApi } from 'api';
-
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { GotchiverseApi } from 'api';
 
 import { styles } from './styles';
 

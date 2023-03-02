@@ -1,6 +1,6 @@
-import { DataReloadType } from 'shared/constants';
-
 import { AppThunk } from 'core/store/store';
+
+import { DataReloadType } from 'shared/constants';
 
 import {
   setCustomInterval,

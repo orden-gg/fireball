@@ -8,17 +8,17 @@ import TimerIcon from '@mui/icons-material/Timer';
 
 import qs from 'query-string';
 
-import { FilterUtils } from 'utils';
+import { CustomParsedQuery, SortingListItem } from 'shared/models';
 
 import { ClientContext } from 'contexts/ClientContext';
-
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 import { Parcel } from 'components/Items/Parcel/Parcel';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
 

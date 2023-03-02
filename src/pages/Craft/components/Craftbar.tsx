@@ -6,15 +6,15 @@ import { Button, CircularProgress, IconButton, InputAdornment, TextField } from 
 
 import classNames from 'classnames';
 
-import { InstallationsApi, TilesApi } from 'api';
+import { Erc1155Categories } from 'shared/constants';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
-
-import { Erc1155Categories } from 'shared/constants';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
+
+import { InstallationsApi, TilesApi } from 'api';
 
 import { CraftContext } from '../CraftContext';
 import { sidebarStyles } from '../styles';

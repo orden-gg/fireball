@@ -5,17 +5,17 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import qs from 'query-string';
 
-import { CommonUtils, FilterUtils } from 'utils';
+import { CustomParsedQuery, SortingListItem } from 'shared/models';
 
 import { ClientContext } from 'contexts/ClientContext';
-
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { CommonUtils, FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
 

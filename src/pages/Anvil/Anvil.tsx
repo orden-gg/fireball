@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-import { InstallationsUtils } from 'utils';
-
 import { CardImage } from 'components/ItemCard/components';
+
+import { InstallationsUtils } from 'utils';
 
 import installations from 'data/installations.data.json';
 

@@ -1,5 +1,3 @@
-import { FiltersHelper } from 'utils';
-
 import {
   FilterComponentType,
   RarityTypes,
@@ -14,6 +12,8 @@ import {
   RangeSliderFilter,
   Wearable
 } from 'shared/models';
+
+import { FiltersHelper } from 'utils';
 
 import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 

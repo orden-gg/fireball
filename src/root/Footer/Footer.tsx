@@ -5,14 +5,15 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Alert, Box, Button, Divider, IconButton, Link, Snackbar, Toolbar } from '@mui/material';
 
-import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 import classNames from 'classnames';
-
-import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { DONATE_ADDRESS } from 'shared/constants';
 
+import { SnackbarContext } from 'contexts/SnackbarContext';
+
 import { MusicButton } from 'components/MusicButton/MusicButton';
+
+import { ReactComponent as DiscordIcon } from 'assets/images/icons/discord.svg';
 
 import { GotchiverseOnline } from './components/GotchiverseOnline';
 import { styles } from './styles';

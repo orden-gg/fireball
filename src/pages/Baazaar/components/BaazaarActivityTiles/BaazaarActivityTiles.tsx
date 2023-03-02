@@ -6,13 +6,11 @@ import { Button } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
-import { GraphFiltersUtils, RouteUtils } from 'utils';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { CardImage } from 'shared/components/CardImage/CardImage';
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
-
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
@@ -22,9 +20,12 @@ import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } fro
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
+import { GraphFiltersUtils, RouteUtils } from 'utils';
+
+import * as fromBaazaarStore from '../../store';
+
 import { ActivityTileListingFilterTypes } from '../../constants';
 import { ActivityTileListingFilters, ActivityTileListingVM } from '../../models';
-import * as fromBaazaarStore from '../../store';
 import { styles } from './styles';
 
 export function BaazaarActivityTiles() {

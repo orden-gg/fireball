@@ -8,10 +8,10 @@ import { useTheme } from '@mui/material';
 
 import { DateTime } from 'luxon';
 
-import { CommonUtils } from 'utils';
-
 import { GhstTokenGif } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { CommonUtils } from 'utils';
 
 import { CardContext } from '../../context/CardContext';
 import { styles } from './styles';

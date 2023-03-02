@@ -4,11 +4,7 @@ import { Backdrop, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 import { ethers } from 'ethers';
-import { useLocalStorage } from 'hooks/useLocalStorage';
 import { useMetamask } from 'use-metamask';
-
-import { DONATE_ADDRESS } from 'shared/constants';
-import { LoginAddress as LoginAddressModel } from 'shared/models';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
@@ -20,8 +16,13 @@ import {
   toggleLoginDropdown
 } from 'core/store/login';
 
+import { DONATE_ADDRESS } from 'shared/constants';
+import { LoginAddress as LoginAddressModel } from 'shared/models';
+
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
+
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { LoginAddress } from './LoginAddress';
 import { LoginNavigation } from './LoginNavigation';

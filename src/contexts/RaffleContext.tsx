@@ -2,11 +2,11 @@ import { createContext, useEffect, useState } from 'react';
 
 import { DateTime } from 'luxon';
 
-import { EthersApi, TheGraphApi } from 'api';
+import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
 
 import { CommonUtils, ItemUtils } from 'utils';
 
-import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
+import { EthersApi, TheGraphApi } from 'api';
 
 export const RaffleContext = createContext({});
 

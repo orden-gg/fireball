@@ -6,12 +6,10 @@ import GrainIcon from '@mui/icons-material/Grain';
 
 import qs from 'query-string';
 
-import { CommonUtils, ItemUtils } from 'utils';
-
-import { ClientContext } from 'contexts/ClientContext';
-
 import { Erc1155Categories } from 'shared/constants';
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
+
+import { ClientContext } from 'contexts/ClientContext';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { WarehouseIcon } from 'components/Icons/Icons';
@@ -28,6 +26,8 @@ import {
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { CommonUtils, ItemUtils } from 'utils';
 
 import { warehouseStyles } from '../styles';
 

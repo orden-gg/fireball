@@ -1,10 +1,10 @@
 import { BigNumber } from 'ethers';
 
-import { EthersApi } from './ethers.api';
-
 import { MATIC_CONTRACT } from 'shared/constants';
 
 import { MATIC_ABI } from 'data/abi/matic.abi';
+
+import { EthersApi } from './ethers.api';
 
 const contract = EthersApi.makeContract(MATIC_CONTRACT, MATIC_ABI, 'polygon');
 

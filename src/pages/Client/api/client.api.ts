@@ -1,7 +1,7 @@
-import { TheGraphCoreApi } from 'api';
-
 import { GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API } from 'shared/constants';
 import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
+
+import { TheGraphCoreApi } from 'api';
 
 import { FakeItemsDTO } from '../models';
 import { getFakeGotchisListingsQuery } from '../queries';

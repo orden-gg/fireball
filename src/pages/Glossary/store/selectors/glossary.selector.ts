@@ -1,6 +1,6 @@
-import { SortingItem, Wearable } from 'shared/models';
-
 import { RootState } from 'core/store/store';
+
+import { SortingItem, Wearable } from 'shared/models';
 
 export const getInitialGlossaryWearables = (state: RootState): Wearable[] => state.glossary.initialWearables;
 export const getWearablesIds = (state: RootState): number[] =>

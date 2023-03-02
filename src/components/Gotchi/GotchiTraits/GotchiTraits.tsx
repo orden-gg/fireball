@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import { GotchiUtils, ItemUtils } from 'utils';
-
 import { TRAITS_KEYS } from 'shared/constants';
+
+import { GotchiUtils, ItemUtils } from 'utils';
 
 import { styles } from './styles';
 

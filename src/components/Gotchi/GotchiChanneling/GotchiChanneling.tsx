@@ -3,14 +3,14 @@ import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
-import { RealmApi } from 'api';
-
 import { CountdownFormatNonZeroType, DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
 
 import { Countdown } from 'components/Countdown/Countdown';
 import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { RealmApi } from 'api';
 
 import { styles } from './styles';
 

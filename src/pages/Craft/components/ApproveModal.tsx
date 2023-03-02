@@ -5,11 +5,11 @@ import { Button, CircularProgress, Typography } from '@mui/material';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import { AlchemicaApi } from 'api';
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
-import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT, TokenTypes } from 'shared/constants';
+import { AlchemicaApi } from 'api';
 
 import { CraftContext } from '../CraftContext';
 import { modalStyles } from '../styles';

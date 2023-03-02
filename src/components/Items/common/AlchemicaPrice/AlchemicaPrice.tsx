@@ -3,12 +3,10 @@ import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
-import { CommonUtils } from 'utils';
-
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
-
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
+
+import { TokensPricesContext } from 'contexts/TokensPricesContext';
 
 import {
   AlphaTokenIcon,
@@ -19,6 +17,8 @@ import {
   GltrTokenIcon,
   KekTokenIcon
 } from 'components/Icons/Icons';
+
+import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 

@@ -1,6 +1,6 @@
-import { FakeGotchi } from 'shared/models';
-
 import { RootState } from 'core/store/store';
+
+import { FakeGotchi } from 'shared/models';
 
 export const getMintedGotchis = (state: RootState): FakeGotchi[] => state.fake.minted.mintedGotchis.data;
 

@@ -1,7 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { QuickswapApi } from 'api';
-
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -13,6 +11,8 @@ import {
   USDC_CONTRACT,
   WMATIC_CONTRACT
 } from 'shared/constants';
+
+import { QuickswapApi } from 'api';
 
 export const TokensPricesContext = createContext({});
 

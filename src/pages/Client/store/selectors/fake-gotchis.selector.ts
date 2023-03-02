@@ -1,6 +1,6 @@
-import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
-
 import { RootState } from 'core/store/store';
+
+import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
 
 import { FakeItemsVM } from 'pages/Client/models';
 
