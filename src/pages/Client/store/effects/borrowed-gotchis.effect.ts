@@ -13,8 +13,10 @@ export const onLoadBorrowedGotchis =
     const { type, dir }: SortingItem = getState().client.borrowedGotchis.borrowedGotchisSorting;
 
     TheGraphApi.getBorrowedByAddress(address)
-      .then((lendings: GotchiLending[]) =>
-        dispatch(loadBorrowedGotchisSucceded(CommonUtils.basicSort(lendings, type, dir)))
-      )
+      .then((borrowedGotchis: GotchiLending[]) => {
+        const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
+
+        dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
+      })
       .catch(() => dispatch(loadBorrowedGotchisFailed()));
   };

@@ -12,6 +12,7 @@ export interface OwnedGotchi {
   hauntId: string;
   createdAt: string;
   possibleSets: string | null;
+  equippedWearables: number[]; // ?? tuple
   equippedSetID: string | null;
   equippedSetName: string | null;
   usedSkillPoints: string;

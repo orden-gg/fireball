@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+import { Erc1155Categories, Erc721Categories, InstallationTypeNames } from 'shared/constants';
+import { PageNavLink, SortingItem } from 'shared/models';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 import {
   GotchiIcon,
@@ -14,8 +14,7 @@ import {
   BaazarIcon
 } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
-import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
+import { EthersApi, InstallationsApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 // store
@@ -23,7 +22,6 @@ import * as fromDataReloadStore from 'core/store/data-reload';
 import * as fromClientStore from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
-  isInventoryLoaded: false,
   isTicketsLoaded: false,
   isRealmLoaded: false,
   isInstallationsLoaded: false,
@@ -42,13 +40,11 @@ export const ClientContextProvider = (props: any) => {
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
   const borrowedGotchisLength: number = useAppSelector(fromClientStore.getBorrowedGotchisLength);
   const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
+  const warehouseLength: number = useAppSelector(fromClientStore.getWarehouseLength);
+  const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
   const [gotchis] = useState<any[]>([]);
-
-  const [warehouse, setWarehouse] = useState<any[]>([]);
-  const [warehouseSorting, setWarehouseSorting] = useState<SortingItem>({ type: 'rarityId', dir: 'desc' });
-  const [loadingWarehouse, setLoadingWarehouse] = useState<boolean>(false);
 
   const [installations, setInstallations] = useState<any[]>([]);
   const [loadingInstallations, setLoadingInstallations] = useState<boolean>(true);
@@ -126,8 +122,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
-      isLoading: loadingWarehouse,
-      count: warehouse.length
+      isLoading: isWarehouseLoading,
+      count: warehouseLength
     },
     {
       name: 'installations',
@@ -189,77 +185,14 @@ export const ClientContextProvider = (props: any) => {
     dispatch(fromClientStore.onLoadClientData(address));
 
     // reset
-    setWarehouse([]);
     dispatch(resetFakeGotchis());
 
-    getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
     getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
     getFakeGotchis(address, shouldUpdateIsLoading);
     getItemsForSale(address, shouldUpdateIsLoading);
-  };
-
-  const getInventory = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingWarehouse(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: false }));
-
-    MainApi.getInventoryByAddress(address)
-      .then((response: any) => {
-        const modified: any[] = [];
-        const { type, dir } = warehouseSorting;
-
-        response.items.forEach((item: any) => {
-          const isConsumable = ItemUtils.getTypeNameById(item.itemId) === ItemTypeNames.Consumable;
-          const rarityName = isConsumable ? 'drop' : ItemUtils.getRarityNameById(item.itemId);
-
-          modified.push({
-            id: Number(item.itemId),
-            rarity: rarityName,
-            rarityId: ItemUtils.getItemRarityId(rarityName),
-            balance: Number(item.balance),
-            category: isConsumable ? Erc1155Categories.Consumable : Erc1155Categories.Wearable
-          });
-        });
-
-        setWarehouse((existing: any[]) =>
-          CommonUtils.basicSort(
-            [...existing, ...modified].reduce((items, current) => {
-              const duplicated = items.find((item: any) => item.id === current.id);
-              const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
-                (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === current.id)
-              );
-
-              if (duplicated) {
-                duplicated.balance += current.balance;
-                duplicated.holders = current.holders;
-
-                return items;
-              }
-
-              return items.concat({
-                ...current,
-                benefit: {
-                  first: wearableTypeBenefit?.benefit.first,
-                  second: wearableTypeBenefit?.benefit.second
-                },
-                itemType: wearableTypeBenefit?.type
-              });
-            }, []),
-            type,
-            dir
-          )
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-        setWarehouse([]);
-      })
-      .finally(() => {
-        setLoadingWarehouse(false);
-        setLoadedStates((statesCache) => ({ ...statesCache, isInventoryLoaded: true }));
-      });
   };
 
   const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -571,12 +504,6 @@ export const ClientContextProvider = (props: any) => {
   return (
     <ClientContext.Provider
       value={{
-        warehouse,
-        warehouseSorting,
-        loadingWarehouse,
-        setWarehouse,
-        setWarehouseSorting,
-
         installations,
         loadingInstallations,
 

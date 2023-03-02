@@ -1,12 +1,13 @@
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import GrainIcon from '@mui/icons-material/Grain';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 import qs from 'query-string';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { Erc1155Categories } from 'shared/constants';
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 import { ItemCard } from 'components/ItemCard/containers';
 import {
   CardBalance,
@@ -22,10 +23,14 @@ import { WarehouseIcon } from 'components/Icons/Icons';
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { ClientContext } from 'contexts/ClientContext';
 import { CommonUtils, ItemUtils } from 'utils';
 
+import { Warehouse } from '../models';
+
 import { warehouseStyles } from '../styles';
+
+// store
+import * as fromClientStore from '../store';
 
 const sortings: SortingListItem[] = [
   {
@@ -52,8 +57,12 @@ export function ClientWarehouse() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { warehouse, setWarehouse, warehouseSorting, setWarehouseSorting, loadingGotchis, loadingWarehouse } =
-    useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const warehouse: Warehouse[] = useAppSelector(fromClientStore.getWarehouse);
+  const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
+  const warehouseSorting: SortingItem = useAppSelector(fromClientStore.getWarehouseSorting);
+  const isOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsOwnedGotchisLoading);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;
@@ -61,15 +70,15 @@ export function ClientWarehouse() {
     if (sort && dir) {
       const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
-      setWarehouseSorting({ type: key, dir });
+      dispatch(fromClientStore.setWarehouseSorting({ type: key, dir }));
     }
   }, []);
 
   useEffect(() => {
-    const sortedItems: any[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
+    const sortedItems: Warehouse[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
-    setWarehouse([...sortedItems]);
-  }, [loadingWarehouse, warehouseSorting]);
+    dispatch(fromClientStore.setWarehouseItems([...sortedItems]));
+  }, [isWarehouseLoading, warehouseSorting]);
 
   const updateSortQueryParams = useCallback(
     (prop: string, dir: string) => {
@@ -89,13 +98,10 @@ export function ClientWarehouse() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSortingChange = useCallback(
-    (prop: string, dir: string) => {
-      setWarehouseSorting({ type: prop, dir });
-      updateSortQueryParams(prop, dir);
-    },
-    [setWarehouseSorting, updateSortQueryParams]
-  );
+  const onSortingChange = (prop: string, dir: string) => {
+    dispatch(fromClientStore.setWarehouseSorting({ type: prop, dir }));
+    updateSortQueryParams(prop, dir);
+  };
 
   const sorting: any = {
     sortingList: sortings,
@@ -118,10 +124,10 @@ export function ClientWarehouse() {
         placeholder={<WarehouseIcon width={20} height={20} />}
       />
 
-      <ContentInner dataLoading={loadingWarehouse || loadingGotchis}>
+      <ContentInner dataLoading={isWarehouseLoading || isOwnedGotchisLoading}>
         <ItemsLazy
           items={warehouse}
-          component={(wearable: any) => (
+          component={(wearable: Warehouse) => (
             <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
               <CardGroup name='header'>
                 <CardSlot id={wearable.id} />

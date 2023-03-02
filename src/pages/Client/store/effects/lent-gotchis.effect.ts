@@ -13,12 +13,14 @@ export const onLoadLentGotchis =
     const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
     TheGraphApi.getLendingsByAddress(address)
-      .then((lendings: GotchiLending[]) => {
-        lendings.forEach((lending: GotchiLending) => {
+      .then((lentGotchis: GotchiLending[]) => {
+        lentGotchis.forEach((lending: GotchiLending) => {
           lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
         });
 
-        dispatch(loadLentGotchisSucceded(CommonUtils.basicSort(lendings, type, dir)));
+        const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
+
+        dispatch(loadLentGotchisSucceded(sortedLentGotchis));
       })
       .catch(() => dispatch(loadLentGotchisFailed()));
   };
