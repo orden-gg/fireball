@@ -16,7 +16,7 @@ import {
 } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
 import { EthersApi, InstallationsApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+import { CommonUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
@@ -47,8 +47,6 @@ export const ClientContextProvider = (props: any) => {
   const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
 
-  const [gotchis] = useState<any[]>([]);
-
   const [installations, setInstallations] = useState<any[]>([]);
   const [loadingInstallations, setLoadingInstallations] = useState<boolean>(true);
 
@@ -62,9 +60,6 @@ export const ClientContextProvider = (props: any) => {
   const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
   const [loadingRealm, setLoadingRealm] = useState<boolean>(true);
 
-  const [reward, setReward] = useState<any>(null);
-  const [rewardCalculating, setRewardCalculating] = useState<boolean>(false);
-  const [rewardCalculated, setRewardCalculated] = useState<boolean>(false);
   const [realmView, setRealmView] = useState<string>('list');
 
   const [itemsForSale, setItemsForSale] = useState<{
@@ -475,42 +470,6 @@ export const ClientContextProvider = (props: any) => {
     };
   };
 
-  // TODO check if needed
-  const calculateReward = () => {
-    setRewardCalculating(true);
-
-    TheGraphApi.getAllGotchies().then((response: any) => {
-      const brsLeaders: any[] = CommonUtils.basicSort(response, 'modifiedRarityScore');
-      const kinLeaders: any[] = CommonUtils.basicSort(response, 'kinship');
-      const expLeaders: any[] = CommonUtils.basicSort(response, 'experience');
-
-      gotchis.forEach((item: any, index: number) => {
-        const BRS: any = GraphUtils.calculateRewards(
-          brsLeaders.findIndex((x) => x.id === item.id),
-          'BRS'
-        );
-        const KIN: any = GraphUtils.calculateRewards(
-          kinLeaders.findIndex((x) => x.id === item.id),
-          'KIN'
-        );
-        const EXP: any = GraphUtils.calculateRewards(
-          expLeaders.findIndex((x) => x.id === item.id),
-          'EXP'
-        );
-
-        gotchis[index] = {
-          ...item,
-          reward: BRS.reward + KIN.reward + EXP.reward,
-          rewardStats: [BRS, KIN, EXP]
-        };
-      });
-
-      setReward(gotchis.reduce((prev: any, next: any) => prev + next.reward, 0));
-      setRewardCalculating(false);
-      setRewardCalculated(true);
-    });
-  };
-
   return (
     <ClientContext.Provider
       value={{
@@ -535,11 +494,6 @@ export const ClientContextProvider = (props: any) => {
         itemsForSale,
         isItemsForSaleLoading,
         isItemsForSaleEmpty,
-
-        reward,
-        rewardCalculated,
-        rewardCalculating,
-        calculateReward,
 
         navData,
         getClientData,

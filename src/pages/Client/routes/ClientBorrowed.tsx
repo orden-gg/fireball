@@ -212,8 +212,7 @@ export function ClientBorrowed() {
                 'lending',
                 'channeling',
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
               isHighlightLending={true}
             />

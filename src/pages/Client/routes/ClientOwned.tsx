@@ -217,8 +217,7 @@ export function ClientOwned() {
                   items: ['channeling', 'badges']
                 },
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
               isHighlightLending={true}
             />

@@ -93,8 +93,7 @@ export function ClientForSale() {
                     'name',
                     'traits',
                     'wearablesLine',
-                    'listing',
-                    'rewards'
+                    'listing'
                   ]}
                 />
               </div>
