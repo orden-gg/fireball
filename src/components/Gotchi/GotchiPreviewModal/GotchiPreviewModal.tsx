@@ -35,7 +35,7 @@ import { useMetamask } from 'use-metamask';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-  const [spawnId, setSpawnId] = useState<any>();
+  const [spawnId, setSpawnId] = useState<string>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
   const [availibleParcels, setAvailibleParcels] = useState<any[]>([]);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
@@ -44,14 +44,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
   const { borrowed } = useContext<any>(ClientContext);
-
-  const handleOnChangeDropList = (_event, newValue) => {
-    if (!newValue) {
-      setSpawnId(availibleParcels[0].parcelId);
-    } else {
-      setSpawnId(newValue.parcelId);
-    }
-  };
 
   useEffect(() => {
     if (gotchi) {
@@ -99,7 +91,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         const flatResponse = response.flat();
         const modifiedParcels = flatResponse.map((parcel) => {
           const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-          const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
+          const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
           const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
           return {
@@ -118,6 +110,14 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       })
       .catch((e) => console.log(e));
   }, [gotchi]);
+
+  const handleOnChangeDropList = (_event, newValue) => {
+    if (!newValue) {
+      setSpawnId(availibleParcels[0].parcelId);
+    } else {
+      setSpawnId(newValue.parcelId);
+    }
+  };
 
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
@@ -184,13 +184,12 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
                         <Autocomplete
                           disablePortal
-                          onChange={(event: any, newValue: any | null) => {
+                          onChange={(event: any, newValue: string | null) => {
                             handleOnChangeDropList(event, newValue);
                           }}
                           id='combo-box-realms'
                           options={availibleParcels}
                           getOptionLabel={(option) => option.altarLevel + 'lvl: ' + option.parcelHash}
-                          isOptionEqualToValue={(option: any, value: any) => option.value === value.value}
                           renderInput={(params) => <TextField {...params} size='small' label='Realms' />}
                           sx={{ width: '40%', margin: 1 }}
                         />
