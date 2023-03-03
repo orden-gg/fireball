@@ -26,10 +26,13 @@ export const TokensPricesContextProvider = (props) => {
   useEffect(() => {
     const getTokensPrices = async function () {
       setIsPricesLoaded(false);
-      const alloyPrice = await getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy);
-      const essencePrice = await getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
+      const alloyPriceGhst = await getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy);
+      const [usdcPrice] = await getGhstAndPriceToToken(USDC_CONTRACT, GHST_CONTRACT);
+      const essencePriceGhst = await getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
+      const alloyPriceUsdc = (alloyPriceGhst / usdcPrice).toFixed(4);
+      const essencePriceUsdc = (essencePriceGhst / usdcPrice).toFixed(4);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
         QuickswapApi.getTokenData(FUD_CONTRACT),
         QuickswapApi.getTokenData(FOMO_CONTRACT),
@@ -50,8 +53,8 @@ export const TokensPricesContextProvider = (props) => {
         [TokenTypes.Alpha]: alphaPrice,
         [TokenTypes.Kek]: kekPrice,
         [TokenTypes.Gltr]: gltrPrice,
-        [TokenTypes.Alloy]: alloyPrice,
-        [TokenTypes.Essence]: essencePrice,
+        [TokenTypes.Alloy]: alloyPriceUsdc,
+        [TokenTypes.Essence]: essencePriceUsdc,
         [TokenTypes.Ghst]: ghstPrice,
         [TokenTypes.Matic]: maticPrice
       });
