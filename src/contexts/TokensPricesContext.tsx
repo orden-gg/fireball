@@ -1,10 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
 import {
-  ALLOY_TOKENID,
   ALPHA_CONTRACT,
-  ESSENCE_TOKENID,
-  Erc1155Categories,
   FOMO_CONTRACT,
   FUD_CONTRACT,
   GHST_CONTRACT,
@@ -12,10 +9,11 @@ import {
   KEK_CONTRACT,
   TokenTypes,
   USDC_CONTRACT,
-  WMATIC_CONTRACT
+  WMATIC_CONTRACT,
+  Erc1155Categories
 } from 'shared/constants';
-import { EthersApi, QuickswapApi, TheGraphApi } from 'api';
-import { Erc1155ListingsBatch } from 'shared/models';
+import { QuickswapApi, TheGraphApi } from 'api';
+import { ALLOY, ESSENCE } from 'shared/constants/forgeItems.constants';
 
 export const TokensPricesContext = createContext({});
 
@@ -23,14 +21,13 @@ export const TokensPricesContext = createContext({});
 export const TokensPricesContextProvider = (props) => {
   const [isPricesLoaded, setIsPricesLoaded] = useState(false);
   const [tokensPrices, setTokensPrices] = useState({});
-  const [ERC1155Ids, setERC1155Ids] = useState<number[]>([0]);
   const fetchInterval = 300; // seconds
 
   useEffect(() => {
     const getTokensPrices = async function () {
       setIsPricesLoaded(false);
-      const alloyPrice = await getAlloyAndPriceToToken();
-      const essencePrice = await getAlloyAndPriceToToken();
+      const alloyPrice = await getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy);
+      const essencePrice = await getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
@@ -83,52 +80,15 @@ export const TokensPricesContextProvider = (props) => {
     return [ghstPriceToToken, ghst];
   };
 
-  const getAlloyAndPriceToToken = async () => {
-    setERC1155Ids([ALLOY_TOKENID, ESSENCE_TOKENID]);
-    const forgeItems = Promise.all([
-      TheGraphApi.getErc1155ListingsBatchQuery(
-        ERC1155Ids,
-        Erc1155Categories.ForgeItems,
-        true,
-        'timeLastPurchased',
-        'desc'
-      ),
-      TheGraphApi.getErc1155ListingsBatchQuery(ERC1155Ids, Erc1155Categories.ForgeItems, false, 'priceInWei', 'asc')
-    ])
-      .then(([lastSoldListings, currentListings]: [Erc1155ListingsBatch, Erc1155ListingsBatch]) => {
-        const listingPrices: number[] = [];
-
-        Object.keys(lastSoldListings).forEach((key: string, index: number) => {
-          const listingPrice: number = currentListings[key][0]
-            ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei))
-            : 0;
-
-          listingPrices.push(listingPrice);
-
-          forgeItems[index] = {
-            ...forgeItems[index],
-            lastSoldListing: {
-              id: lastSoldListings[key][0] ? Number(lastSoldListings[key][0].id) : null,
-              price: lastSoldListings[key][0] ? Number(EthersApi.fromWei(lastSoldListings[key][0].priceInWei)) : 0,
-              soldDate: lastSoldListings[key][0]?.timeLastPurchased
-                ? new Date(Number(lastSoldListings[key][0].timeLastPurchased) * 1000).toJSON()
-                : null
-            },
-            currentListing: {
-              id: currentListings[key][0] ? Number(currentListings[key][0].id) : null,
-              price: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0].priceInWei)) : 0
-            },
-            listingPrice: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0
-          };
-        });
-      })
-      .catch((error) => console.log(error));
-
-    // todo - get price of alloy from best effective and cheapest smelted wearable alloy forge cost 100%*0.9
-    const GhstPriceToToken = 0.051;
-
-    return GhstPriceToToken;
+  const getForgeItemsERC1155AndPriceToToken = async (id: number | string, category: number | string) => {
+    const tokenPrice = await TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then(
+      (response: any) => {
+        return response.price;
+      }
+    );
+    return tokenPrice;
   };
+
   const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {
     const tokensPair = await QuickswapApi.getPairData(compareToken, targetToken);
     const tokensRoute = QuickswapApi.getTokenRouteByPair(targetToken, tokensPair);

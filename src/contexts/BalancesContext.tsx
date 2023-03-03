@@ -22,13 +22,12 @@ import {
   GHST_CONTRACT,
   GLTR_CONTRACT,
   KEK_CONTRACT,
-  USDC_CONTRACT,
-  ALLOY_TOKENID,
-  ESSENCE_TOKENID
+  USDC_CONTRACT
 } from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
 
 import { TokensPricesContext } from './TokensPricesContext';
+import { ALLOY, ESSENCE } from 'shared/constants/forgeItems.constants';
 
 export const BalancesContext = createContext({});
 
@@ -262,8 +261,8 @@ export const BalancesContextProvider = (props: any) => {
       AlchemicaApi.getAlphaBalance(address),
       AlchemicaApi.getKekBalance(address),
       AlchemicaApi.getGltrBalance(address),
-      ForgeApi.getBalanceOf(address, ALLOY_TOKENID),
-      ForgeApi.getBalanceOf(address, ESSENCE_TOKENID),
+      ForgeApi.getBalanceOf(address, ALLOY),
+      ForgeApi.getBalanceOf(address, ESSENCE),
       GhstApi.getBalanceOf(address),
       MaticApi.getBalanceOf(address)
     ]);
