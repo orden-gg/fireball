@@ -1,9 +1,10 @@
 import { AppThunk } from 'core/store/store';
 
 // slices
-import { resetWarehouseItems } from '../slices';
+import { resetFakeGotchis, resetWarehouseItems } from '../slices';
 // effects
 import { onLoadBorrowedGotchis } from './borrowed-gotchis.effect';
+import { onLoadFakeGotchis } from './fake-gotchis.effect';
 import { onLoadInstallations } from './installations.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';
 import { onLoadOwnedGotchis } from './owned-gotchis.effect';
@@ -17,6 +18,7 @@ export const onLoadClientData =
   (address: string): AppThunk =>
   (dispatch) => {
     dispatch(resetWarehouseItems());
+    dispatch(resetFakeGotchis());
 
     dispatch(onLoadOwnedGotchis(address));
     dispatch(onLoadLentGotchis(address));
@@ -27,4 +29,5 @@ export const onLoadClientData =
     dispatch(onLoadInstallations(address));
     dispatch(onLoadTiles(address));
     dispatch(onLoadRealm(address));
+    dispatch(onLoadFakeGotchis(address));
   };

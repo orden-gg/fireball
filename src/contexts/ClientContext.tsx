@@ -6,7 +6,6 @@ import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 // store
 import * as fromClientStore from 'pages/Client/store';
-import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 
 import { Erc721Categories, Erc1155Categories, InstallationTypeNames } from 'shared/constants';
 import { PageNavLink } from 'shared/models';
@@ -52,7 +51,7 @@ export const ClientContextProvider = (props: any) => {
   const isTilesLoading: boolean = useAppSelector(fromClientStore.getIsTilesLoading);
   const realmLength: number = useAppSelector(fromClientStore.getRealmLength);
   const isRealmLoading: boolean = useAppSelector(fromClientStore.getIsRealmLoading);
-  const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
+  const fakeGotchisLength: number = useAppSelector(fromClientStore.getFakeGotchisLength);
 
   const [itemsForSale, setItemsForSale] = useState<{
     gotchis: any[];
@@ -181,15 +180,7 @@ export const ClientContextProvider = (props: any) => {
   const getClientData = (address: string, shouldUpdateIsLoading: boolean = false): void => {
     dispatch(fromClientStore.onLoadClientData(address));
 
-    // reset
-    dispatch(resetFakeGotchis());
-
-    getFakeGotchis(address, shouldUpdateIsLoading);
     getItemsForSale(address, shouldUpdateIsLoading);
-  };
-
-  const getFakeGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    dispatch(onLoadFakeGotchis(address, shouldUpdateIsLoading));
   };
 
   const getItemsForSale = (address: string, shouldUpdateIsLoading: boolean = false): void => {
