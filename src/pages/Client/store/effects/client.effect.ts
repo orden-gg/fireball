@@ -8,6 +8,7 @@ import { onLoadBorrowedGotchis } from './borrowed-gotchis.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';
 import { onLoadOwnedGotchis } from './owned-gotchis.effect';
 import { onLoadPortals } from './portals.effect';
+import { onLoadTickets } from './tickets.effect';
 import { onLoadWarehouse } from './warehouse.effect';
 
 export const onLoadClientData =
@@ -20,4 +21,5 @@ export const onLoadClientData =
     dispatch(onLoadBorrowedGotchis(address));
     dispatch(onLoadPortals(address));
     dispatch(onLoadWarehouse(address));
+    dispatch(onLoadTickets(address));
   };

@@ -15,7 +15,7 @@ import {
   BaazarIcon
 } from 'components/Icons/Icons';
 import { SubNav } from 'components/PageNav/SubNav';
-import { EthersApi, InstallationsApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
+import { EthersApi, InstallationsApi, TheGraphApi, TilesApi } from 'api';
 import { CommonUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 // store
@@ -23,7 +23,6 @@ import * as fromDataReloadStore from 'core/store/data-reload';
 import * as fromClientStore from 'pages/Client/store';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
-  isTicketsLoaded: false,
   isRealmLoaded: false,
   isInstallationsLoaded: false,
   isTilesLoaded: false,
@@ -43,6 +42,8 @@ export const ClientContextProvider = (props: any) => {
   const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
   const portalsLength: number = useAppSelector(fromClientStore.getPortalsLength);
   const isPortalsLoading: boolean = useAppSelector(fromClientStore.getIsPortalsLoading);
+  const ticketsLength: number = useAppSelector(fromClientStore.getTicketsLength);
+  const isTicketsLoading: boolean = useAppSelector(fromClientStore.getIsTicketsLoading);
   const warehouseLength: number = useAppSelector(fromClientStore.getWarehouseLength);
   const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
@@ -52,9 +53,6 @@ export const ClientContextProvider = (props: any) => {
 
   const [tiles, setTiles] = useState<any[]>([]);
   const [loadingTiles, setLoadingTiles] = useState<boolean>(true);
-
-  const [tickets, setTickets] = useState<any[]>([]);
-  const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
 
   const [realm, setRealm] = useState<any[]>([]);
   const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
@@ -141,8 +139,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'tickets',
       path: 'tickets',
       icon: <RareTicketIcon width={24} height={24} />,
-      isLoading: loadingTickets,
-      count: tickets.length
+      isLoading: isTicketsLoading,
+      count: ticketsLength
     },
     {
       name: 'realm',
@@ -192,7 +190,6 @@ export const ClientContextProvider = (props: any) => {
     // reset
     dispatch(resetFakeGotchis());
 
-    getTickets(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
     getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
@@ -259,25 +256,6 @@ export const ClientContextProvider = (props: any) => {
       setLoadingTiles(false);
       setLoadedStates((statesCache) => ({ ...statesCache, isTilesLoaded: true }));
     });
-  };
-
-  const getTickets = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingTickets(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: false }));
-
-    TicketsApi.getTicketsByAddress(address)
-      .then((response: any) => {
-        const modified = response.filter((item: any) => item.balance > 0);
-
-        setTickets(modified);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoadingTickets(false);
-        setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: true }));
-      });
   };
 
   const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -478,9 +456,6 @@ export const ClientContextProvider = (props: any) => {
 
         tiles,
         loadingTiles,
-
-        tickets,
-        loadingTickets,
 
         realm,
         realmView,
