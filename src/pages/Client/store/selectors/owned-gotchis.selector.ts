@@ -6,7 +6,7 @@ import { OwnedGotchi } from '../../models';
 
 export const getOwnedGotchis = (state: RootState): OwnedGotchi[] => state.client.ownedGotchis.ownedGotchis.data;
 
-export const getOwnedGotchisLength = (state: RootState): number => state.client.ownedGotchis.ownedGotchis.data.length;
+export const getOwnedGotchisCount = (state: RootState): number => state.client.ownedGotchis.ownedGotchis.data.length;
 
 export const getIsOwnedGotchisLoading = (state: RootState): boolean => state.client.ownedGotchis.ownedGotchis.isLoading;
 

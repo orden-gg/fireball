@@ -5,7 +5,7 @@ import { GotchiLending, SortingItem } from 'shared/models';
 export const getBorrowedGotchis = (state: RootState): GotchiLending[] =>
   state.client.borrowedGotchis.borrowedGotchis.data;
 
-export const getBorrowedGotchisLength = (state: RootState): number =>
+export const getBorrowedGotchisCount = (state: RootState): number =>
   state.client.borrowedGotchis.borrowedGotchis.data.length;
 
 export const getIsBorrowedGotchisLoading = (state: RootState): boolean =>

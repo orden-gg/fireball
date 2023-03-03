@@ -6,7 +6,7 @@ import { RealmView } from '../../constants';
 
 export const getRealm = (state: RootState): any[] => state.client.realm.realm.data;
 
-export const getRealmLength = (state: RootState): number => state.client.realm.realm.data.length;
+export const getRealmCount = (state: RootState): number => state.client.realm.realm.data.length;
 
 export const getIsRealmLoading = (state: RootState): boolean => state.client.realm.realm.isLoading;
 

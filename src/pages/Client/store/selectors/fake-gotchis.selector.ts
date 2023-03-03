@@ -4,7 +4,7 @@ import { FakeItemsVM } from 'pages/Client/models';
 
 export const getFakeGotchis = (state: RootState): FakeItemsVM | null => state.client.fakeGotchis.fakeGotchis.data;
 
-export const getFakeGotchisLength = (state: RootState): number =>
+export const getFakeGotchisCount = (state: RootState): number =>
   state.client.fakeGotchis.fakeGotchis.data
     ? state.client.fakeGotchis.fakeGotchis.data.fakeGotchiCards.length +
       state.client.fakeGotchis.fakeGotchis.data.fakeGotchis.length

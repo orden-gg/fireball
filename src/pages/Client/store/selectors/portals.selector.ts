@@ -6,7 +6,7 @@ import { ClientPortal } from '../../models';
 
 export const getPortals = (state: RootState): ClientPortal[] => state.client.portals.portals.data;
 
-export const getPortalsLength = (state: RootState): number => state.client.portals.portals.data.length;
+export const getPortalsCount = (state: RootState): number => state.client.portals.portals.data.length;
 
 export const getIsPortalsLoading = (state: RootState): boolean => state.client.portals.portals.isLoading;
 

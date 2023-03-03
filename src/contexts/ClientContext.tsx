@@ -33,25 +33,25 @@ export const ClientContext = createContext({});
 export const ClientContextProvider = (props: any) => {
   const dispatch = useAppDispatch();
 
-  const ownedGotchisLength: number = useAppSelector(fromClientStore.getOwnedGotchisLength);
+  const ownedGotchisCount: number = useAppSelector(fromClientStore.getOwnedGotchisCount);
   const isOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsOwnedGotchisLoading);
-  const lentGotchisLength: number = useAppSelector(fromClientStore.getLentGotchisLength);
+  const lentGotchisCount: number = useAppSelector(fromClientStore.getLentGotchisCount);
   const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
-  const borrowedGotchisLength: number = useAppSelector(fromClientStore.getBorrowedGotchisLength);
+  const borrowedGotchisCount: number = useAppSelector(fromClientStore.getBorrowedGotchisCount);
   const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
-  const portalsLength: number = useAppSelector(fromClientStore.getPortalsLength);
+  const portalsCount: number = useAppSelector(fromClientStore.getPortalsCount);
   const isPortalsLoading: boolean = useAppSelector(fromClientStore.getIsPortalsLoading);
-  const ticketsLength: number = useAppSelector(fromClientStore.getTicketsLength);
+  const ticketsCount: number = useAppSelector(fromClientStore.getTicketsCount);
   const isTicketsLoading: boolean = useAppSelector(fromClientStore.getIsTicketsLoading);
-  const warehouseLength: number = useAppSelector(fromClientStore.getWarehouseLength);
+  const warehouseCount: number = useAppSelector(fromClientStore.getWarehouseCount);
   const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
-  const installationsLength: number = useAppSelector(fromClientStore.getInstallationsLength);
+  const installationsCount: number = useAppSelector(fromClientStore.getInstallationsCount);
   const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
-  const tilesLength: number = useAppSelector(fromClientStore.getTilesLength);
+  const tilesCount: number = useAppSelector(fromClientStore.getTilesCount);
   const isTilesLoading: boolean = useAppSelector(fromClientStore.getIsTilesLoading);
-  const realmLength: number = useAppSelector(fromClientStore.getRealmLength);
+  const realmCount: number = useAppSelector(fromClientStore.getRealmCount);
   const isRealmLoading: boolean = useAppSelector(fromClientStore.getIsRealmLoading);
-  const fakeGotchisLength: number = useAppSelector(fromClientStore.getFakeGotchisLength);
+  const fakeGotchisCount: number = useAppSelector(fromClientStore.getFakeGotchisCount);
 
   const [itemsForSale, setItemsForSale] = useState<{
     gotchis: any[];
@@ -80,7 +80,7 @@ export const ClientContextProvider = (props: any) => {
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
       isLoading: isOwnedGotchisLoading || isLentGotchisLoading || isBorrowedGotchisLoading,
-      count: ownedGotchisLength + borrowedGotchisLength,
+      count: ownedGotchisCount + borrowedGotchisCount,
       isShowSubRoutes: true,
       subNavComponent: (
         <SubNav
@@ -89,19 +89,19 @@ export const ClientContextProvider = (props: any) => {
               name: 'owned',
               path: 'gotchis/owned',
               isLoading: isOwnedGotchisLoading,
-              count: ownedGotchisLength
+              count: ownedGotchisCount
             },
             {
               name: 'lendings',
               path: 'gotchis/lended',
               isLoading: isLentGotchisLoading,
-              count: lentGotchisLength
+              count: lentGotchisCount
             },
             {
               name: 'borrowed',
               path: 'gotchis/borrowed',
               isLoading: isBorrowedGotchisLoading,
-              count: borrowedGotchisLength
+              count: borrowedGotchisCount
             }
           ]}
         />
@@ -112,42 +112,42 @@ export const ClientContextProvider = (props: any) => {
       path: 'portals',
       icon: <H1SealedPortalIcon width={24} height={24} />,
       isLoading: isPortalsLoading,
-      count: portalsLength
+      count: portalsCount
     },
     {
       name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
       isLoading: isWarehouseLoading,
-      count: warehouseLength
+      count: warehouseCount
     },
     {
       name: 'installations',
       path: 'installations',
       icon: <AnvilIcon width={24} height={24} />,
       isLoading: isInstallationsLoading || isTilesLoading,
-      count: installationsLength + tilesLength
+      count: installationsCount + tilesCount
     },
     {
       name: 'tickets',
       path: 'tickets',
       icon: <RareTicketIcon width={24} height={24} />,
       isLoading: isTicketsLoading,
-      count: ticketsLength
+      count: ticketsCount
     },
     {
       name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
       isLoading: isRealmLoading,
-      count: realmLength
+      count: realmCount
     },
     {
       name: 'fake gotchis',
       path: 'fake-gotchis',
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: false,
-      count: fakeGotchisLength
+      count: fakeGotchisCount
     },
     {
       name: 'for sale',

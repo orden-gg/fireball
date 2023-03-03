@@ -4,6 +4,6 @@ import { ClientTicket } from '../../models';
 
 export const getTickets = (state: RootState): ClientTicket[] => state.client.tickets.tickets.data;
 
-export const getTicketsLength = (state: RootState): number => state.client.tickets.tickets.data.length;
+export const getTicketsCount = (state: RootState): number => state.client.tickets.tickets.data.length;
 
 export const getIsTicketsLoading = (state: RootState): boolean => state.client.tickets.tickets.isLoading;
