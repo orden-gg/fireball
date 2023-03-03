@@ -8,6 +8,7 @@ import { onLoadInstallations } from './installations.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';
 import { onLoadOwnedGotchis } from './owned-gotchis.effect';
 import { onLoadPortals } from './portals.effect';
+import { onLoadRealm } from './realm.effect';
 import { onLoadTickets } from './tickets.effect';
 import { onLoadTiles } from './tiles.effect';
 import { onLoadWarehouse } from './warehouse.effect';
@@ -25,4 +26,5 @@ export const onLoadClientData =
     dispatch(onLoadTickets(address));
     dispatch(onLoadInstallations(address));
     dispatch(onLoadTiles(address));
+    dispatch(onLoadRealm(address));
   };

@@ -6,6 +6,7 @@ import queryString from 'query-string';
 
 import { EthersApi } from 'api';
 
+import * as fromClientStore from './store';
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -13,13 +14,15 @@ import { getActiveAddress, setActiveAddress } from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
 
+import { RealmSwitchButton } from 'pages/Client/components/RealmSwitchButton/RealmSwitchButton';
+
 import { ClientContext } from 'contexts/ClientContext';
 
 import { PageNav } from 'components/PageNav/PageNav';
-import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
 
 import { CommonUtils } from 'utils';
 
+import { RealmView } from './constants';
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
 import { ClientForSale } from './routes/ClientForSale';
@@ -47,9 +50,10 @@ export function ClientRoutes() {
   const dispatch = useAppDispatch();
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress: Undefinable<string | null> = useAppSelector(getActiveAddress);
+  const realmView: RealmView = useAppSelector(fromClientStore.getRealmView);
 
-  const { getClientData, navData, realmView, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
+  const { getClientData, navData, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
 
   const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
 

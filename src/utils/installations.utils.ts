@@ -91,7 +91,7 @@ export class InstallationsUtils {
     }
   }
 
-  public static getCooldownByLevel(lvl: any, units?: any): any {
+  public static getCooldownByLevel(lvl: number, units?: any): number {
     const multiplier = units === 'milis' ? 3600000 : units === 'seconds' ? 3600 : 1;
 
     switch (lvl) {

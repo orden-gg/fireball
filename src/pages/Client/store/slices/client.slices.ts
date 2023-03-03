@@ -6,6 +6,7 @@ import { installationsReducer } from './installations.slice';
 import { lentGotchisReducer } from './lent-gotchis.slice';
 import { ownedGotchisReducer } from './owned-gotchis.slice';
 import { portalsReducer } from './portals.slice';
+import { realmReducer } from './realm.slice';
 import { ticketsReducer } from './tickets.slice';
 import { tilesReducer } from './tiles.slice';
 import { warehouseReducer } from './warehouse.slice';
@@ -17,6 +18,7 @@ export const clientReducers = combineReducers({
   lentGotchis: lentGotchisReducer,
   ownedGotchis: ownedGotchisReducer,
   portals: portalsReducer,
+  realm: realmReducer,
   tickets: ticketsReducer,
   tiles: tilesReducer,
   warehouse: warehouseReducer

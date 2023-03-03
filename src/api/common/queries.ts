@@ -386,47 +386,47 @@ export const erc1155ListingsBySeller = (seller: any): any => {
 
 export const realmQuery = (address: any, skip: any): any => {
   return `{
-      parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
-        id
-        parcelId
-        owner {
-          id
-        }
-        coordinateX
-        coordinateY
-        size
-        district
-        parcelHash
-        lastChanneled
-        lastClaimed
-        fudBoost
-        fomoBoost
-        alphaBoost
-        kekBoost
-        alchemica
-        surveys {
-            id
-            surveyed
-            round
-            fud
-            fomo
-            alpha
-            kek
-        }
-        installations(first: 1000) {
-            id
-            installationId
-            x
-            y
-        }
-        tiles(first: 1000) {
-            id
-            tileId
-            x
-            y
-        }
+    parcels(
+      first: 1000,
+      skip: ${skip}
+      where: {
+        owner: "${address}"
       }
-    }`;
+    ) {
+      id
+      parcelId
+      coordinateX
+      coordinateY
+      size
+      district
+      parcelHash
+      lastChanneled
+      lastClaimed
+      fudBoost
+      fomoBoost
+      alphaBoost
+      kekBoost
+      alchemica
+      surveys {
+        id
+        surveyed
+        round
+        fud
+        fomo
+        alpha
+        kek
+      }
+      installations(first: 1000) {
+        installationId
+      }
+      tiles(first: 1000) {
+        tileId
+      }
+      owner {
+        id
+      }
+    }
+  }`;
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {

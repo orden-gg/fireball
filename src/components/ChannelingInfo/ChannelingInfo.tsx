@@ -36,14 +36,14 @@ const countdownFormat: CountdownShortFormat = {
   }
 };
 
-export function ChannelingInfo({ parcel }: { parcel: any }) {
+export function ChannelingInfo({ lastChanneled, nextChannel }: { lastChanneled: number; nextChannel: number }) {
   const classes = styles();
 
-  const fromTimestampToMillis = (timestamp: number) => {
+  const fromTimestampToMillis = (timestamp: number): number => {
     return DateTime.fromSeconds(timestamp).toMillis();
   };
 
-  if (!parcel.lastChanneled) {
+  if (!lastChanneled) {
     return <></>;
   }
 
@@ -53,13 +53,13 @@ export function ChannelingInfo({ parcel }: { parcel: any }) {
 
       <div className={classes.inner}>
         last:
-        <Countdown targetDate={fromTimestampToMillis(parcel.lastChanneled)} shortFormat={countdownFormat} />
+        <Countdown targetDate={fromTimestampToMillis(lastChanneled)} shortFormat={countdownFormat} />
       </div>
       <div className={classes.inner}>
         ready:
         <div className={classes.countdown}>
           <Countdown
-            targetDate={fromTimestampToMillis(parcel.nextChannel)}
+            targetDate={fromTimestampToMillis(nextChannel)}
             shortFormat={countdownFormat}
             replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
           />

@@ -9,7 +9,7 @@ import * as fromClientStore from 'pages/Client/store';
 import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
 
 import { Erc721Categories, Erc1155Categories, InstallationTypeNames } from 'shared/constants';
-import { PageNavLink, SortingItem } from 'shared/models';
+import { PageNavLink } from 'shared/models';
 
 import {
   AnvilIcon,
@@ -26,7 +26,6 @@ import { SubNav } from 'components/PageNav/SubNav';
 import { CommonUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
-  isRealmLoaded: false,
   isItemsForSaleLoaded: false
 };
 
@@ -51,13 +50,9 @@ export const ClientContextProvider = (props: any) => {
   const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
   const tilesLength: number = useAppSelector(fromClientStore.getTilesLength);
   const isTilesLoading: boolean = useAppSelector(fromClientStore.getIsTilesLoading);
+  const realmLength: number = useAppSelector(fromClientStore.getRealmLength);
+  const isRealmLoading: boolean = useAppSelector(fromClientStore.getIsRealmLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
-
-  const [realm, setRealm] = useState<any[]>([]);
-  const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
-  const [loadingRealm, setLoadingRealm] = useState<boolean>(true);
-
-  const [realmView, setRealmView] = useState<string>('list');
 
   const [itemsForSale, setItemsForSale] = useState<{
     gotchis: any[];
@@ -145,8 +140,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
-      isLoading: loadingRealm,
-      count: realm.length
+      isLoading: isRealmLoading,
+      count: realmLength
     },
     {
       name: 'fake gotchis',
@@ -189,40 +184,8 @@ export const ClientContextProvider = (props: any) => {
     // reset
     dispatch(resetFakeGotchis());
 
-    getRealm(address, shouldUpdateIsLoading);
     getFakeGotchis(address, shouldUpdateIsLoading);
     getItemsForSale(address, shouldUpdateIsLoading);
-  };
-
-  const getRealm = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingRealm(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: false }));
-
-    TheGraphApi.getRealmByAddress(address)
-      .then((response) => {
-        const modifiedParcels = response.map((parcel: any) => {
-          const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
-          const tiles: any[] = TilesUtils.combineTiles(parcel.tiles);
-          const altar = installations.find((installation: any) => installation.type === InstallationTypeNames.Altar);
-          const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-
-          return {
-            ...parcel,
-            cooldown: cooldown,
-            nextChannel: parcel.lastChanneled + cooldown,
-            altarLevel: altar ? altar.level : 0,
-            installations: installations,
-            tiles: tiles
-          };
-        });
-
-        setRealm(modifiedParcels);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setLoadingRealm(false);
-        setLoadedStates((statesCache) => ({ ...statesCache, isRealmLoaded: true }));
-      });
   };
 
   const getFakeGotchis = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -387,15 +350,6 @@ export const ClientContextProvider = (props: any) => {
   return (
     <ClientContext.Provider
       value={{
-        realm,
-        realmView,
-        realmSorting,
-        loadingRealm,
-        setRealm,
-        setRealmView,
-        setRealmSorting,
-        setLoadingRealm,
-
         itemsForSale,
         isItemsForSaleLoading,
         isItemsForSaleEmpty,

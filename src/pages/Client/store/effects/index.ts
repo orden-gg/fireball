@@ -5,6 +5,7 @@ export * from './installations.effect';
 export * from './lent-gotchis.effect';
 export * from './owned-gotchis.effect';
 export * from './portals.effect';
+export * from './realm.effect';
 export * from './tickets.effect';
 export * from './tiles.effect';
 export * from './warehouse.effect';

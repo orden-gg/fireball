@@ -18,7 +18,7 @@ export * from './lendings';
 export * from './login-address.model';
 export * from './nav-route.model';
 export * from './page-nav.model';
-export * from './parcel.model';
+export * from './realm.model';
 export * from './sorting.model';
 export * from './the-graph.model';
 export * from './tile.model';
