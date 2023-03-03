@@ -10,6 +10,7 @@ import {
   GhstTokenIcon,
   MaticTokenIcon,
   AlloyTokenIcon,
+  EssenceTokenIcon,
   GltrTokenIcon,
   KekTokenIcon
 } from 'components/Icons/Icons';
@@ -22,7 +23,8 @@ import {
   GLTR_CONTRACT,
   KEK_CONTRACT,
   USDC_CONTRACT,
-  ALLOY_TOKENID
+  ALLOY_TOKENID,
+  ESSENCE_TOKENID
 } from 'shared/constants/api.constants';
 import { CommonUtils } from 'utils';
 
@@ -59,6 +61,11 @@ export const BalancesContextProvider = (props: any) => {
     },
     {
       icon: <AlloyTokenIcon height={14} width={14} />,
+      amount: 0,
+      balance: 0
+    },
+    {
+      icon: <EssenceTokenIcon height={14} width={14} />,
       amount: 0,
       balance: 0
     },
@@ -100,8 +107,17 @@ export const BalancesContextProvider = (props: any) => {
       getAmounts = async function () {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, alloyAmount, gshtAmount, maticAmount] =
-          await getTokensAmounts(activeAddress);
+        const [
+          fudAmount,
+          fomoAmount,
+          alphaAmount,
+          kekAmount,
+          gltrAmount,
+          alloyAmount,
+          essenceAmount,
+          gshtAmount,
+          maticAmount
+        ] = await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({
@@ -111,6 +127,7 @@ export const BalancesContextProvider = (props: any) => {
             [TokenTypes.Kek]: kekAmount,
             [TokenTypes.Gltr]: gltrAmount,
             [TokenTypes.Alloy]: alloyAmount,
+            [TokenTypes.Essence]: essenceAmount,
             [TokenTypes.Ghst]: gshtAmount,
             [TokenTypes.Matic]: maticAmount
           });
@@ -193,7 +210,17 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
           ),
-          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge'
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?alloy'
+        },
+        {
+          key: TokenTypes.Essence,
+          icon: <EssenceTokenIcon height={14} width={14} />,
+          amount: amounts[TokenTypes.Essence],
+          pricePerToken: tokensPrices[TokenTypes.Essence],
+          balance: CommonUtils.convertFloatNumberToSuffixNumber(
+            tokensPrices[TokenTypes.Essence] * amounts[TokenTypes.Essence]
+          ),
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?essence'
         },
         {
           key: TokenTypes.Ghst,
@@ -235,7 +262,8 @@ export const BalancesContextProvider = (props: any) => {
       AlchemicaApi.getAlphaBalance(address),
       AlchemicaApi.getKekBalance(address),
       AlchemicaApi.getGltrBalance(address),
-      ForgeApi.getBalanceOf(address,ALLOY_TOKENID),
+      ForgeApi.getBalanceOf(address, ALLOY_TOKENID),
+      ForgeApi.getBalanceOf(address, ESSENCE_TOKENID),
       GhstApi.getBalanceOf(address),
       MaticApi.getBalanceOf(address)
     ]);
