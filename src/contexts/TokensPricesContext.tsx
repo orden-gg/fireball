@@ -16,7 +16,6 @@ import {
 } from 'shared/constants';
 import { EthersApi, QuickswapApi, TheGraphApi } from 'api';
 import { Erc1155ListingsBatch } from 'shared/models';
-import { ForgeItems } from 'shared/models/forgeItems.model';
 
 export const TokensPricesContext = createContext({});
 
@@ -122,11 +121,6 @@ export const TokensPricesContextProvider = (props) => {
             listingPrice: currentListings[key][0] ? Number(EthersApi.fromWei(currentListings[key][0]?.priceInWei)) : 0
           };
         });
-
-        const maxListingPrice: number = Math.max(...listingPrices);
-
-        dispatch(setMaxForgeItemsPrice(maxListingPrice));
-        dispatch(setForgeItemsPrices(forgeItemsCopy));
       })
       .catch((error) => console.log(error));
 
