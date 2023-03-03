@@ -4,6 +4,7 @@ import { AppThunk } from 'core/store/store';
 import { resetWarehouseItems } from '../slices';
 // effects
 import { onLoadBorrowedGotchis } from './borrowed-gotchis.effect';
+import { onLoadInstallations } from './installations.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';
 import { onLoadOwnedGotchis } from './owned-gotchis.effect';
 import { onLoadPortals } from './portals.effect';
@@ -21,4 +22,5 @@ export const onLoadClientData =
     dispatch(onLoadPortals(address));
     dispatch(onLoadWarehouse(address));
     dispatch(onLoadTickets(address));
+    dispatch(onLoadInstallations(address));
   };

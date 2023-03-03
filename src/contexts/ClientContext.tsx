@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { EthersApi, InstallationsApi, TheGraphApi, TilesApi } from 'api';
+import { EthersApi, TheGraphApi, TilesApi } from 'api';
 
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -27,7 +27,6 @@ import { CommonUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isRealmLoaded: false,
-  isInstallationsLoaded: false,
   isTilesLoaded: false,
   isItemsForSaleLoaded: false
 };
@@ -49,10 +48,9 @@ export const ClientContextProvider = (props: any) => {
   const isTicketsLoading: boolean = useAppSelector(fromClientStore.getIsTicketsLoading);
   const warehouseLength: number = useAppSelector(fromClientStore.getWarehouseLength);
   const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
+  const installationsLength: number = useAppSelector(fromClientStore.getInstallationsLength);
+  const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
   const fakeGotchisLength: number = useAppSelector(selectFakeGotchisLength);
-
-  const [installations, setInstallations] = useState<any[]>([]);
-  const [loadingInstallations, setLoadingInstallations] = useState<boolean>(true);
 
   const [tiles, setTiles] = useState<any[]>([]);
   const [loadingTiles, setLoadingTiles] = useState<boolean>(true);
@@ -135,8 +133,8 @@ export const ClientContextProvider = (props: any) => {
       name: 'installations',
       path: 'installations',
       icon: <AnvilIcon width={24} height={24} />,
-      isLoading: loadingInstallations || loadingTiles,
-      count: installations.length + tiles.length
+      isLoading: isInstallationsLoading || loadingTiles,
+      count: installationsLength + tiles.length
     },
     {
       name: 'tickets',
@@ -194,41 +192,9 @@ export const ClientContextProvider = (props: any) => {
     dispatch(resetFakeGotchis());
 
     getRealm(address, shouldUpdateIsLoading);
-    getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
     getFakeGotchis(address, shouldUpdateIsLoading);
     getItemsForSale(address, shouldUpdateIsLoading);
-  };
-
-  const getInstallations = (address: string, shouldUpdateIsLoading: boolean = false): void => {
-    setLoadingInstallations(shouldUpdateIsLoading);
-    setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: false }));
-
-    InstallationsApi.getInstallationsByAddress(address).then((response) => {
-      const installations: any[] = response
-        .filter((item: any) => {
-          const id: any = EthersApi.formatBigNumber(item.installationId._hex);
-
-          return InstallationsUtils.getIsInstallationExist(id);
-        })
-        .map((item: any) => {
-          const id: any = EthersApi.formatBigNumber(item.installationId._hex);
-
-          return {
-            name: InstallationsUtils.getNameById(id),
-            balance: EthersApi.formatBigNumber(item.balance._hex),
-            id: id,
-            level: InstallationsUtils.getLevelById(id),
-            category: Erc1155Categories.Installation,
-            rarity: InstallationsUtils.getRarityById(id),
-            deprecated: InstallationsUtils.getDeprecatedById(id)
-          };
-        });
-
-      setInstallations(installations);
-      setLoadingInstallations(false);
-      setLoadedStates((statesCache) => ({ ...statesCache, isInstallationsLoaded: true }));
-    });
   };
 
   const getTiles = (address: string, shouldUpdateIsLoading: boolean = false): void => {
@@ -454,9 +420,6 @@ export const ClientContextProvider = (props: any) => {
   return (
     <ClientContext.Provider
       value={{
-        installations,
-        loadingInstallations,
-
         tiles,
         loadingTiles,
 

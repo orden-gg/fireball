@@ -6,8 +6,9 @@ export const getIsClientDataLoaded = (state: RootState): boolean => {
     state.client.lentGotchis.lentGotchis.isLoaded ||
     state.client.borrowedGotchis.borrowedGotchis.isLoaded ||
     state.client.portals.portals.isLoaded ||
-    state.client.tickets.tickets.isLoaded ||
-    state.client.warehouse.warehouse.isLoaded;
+    state.client.warehouse.warehouse.isLoaded ||
+    state.client.installations.installations.isLoaded ||
+    state.client.tickets.tickets.isLoaded;
 
   return isLoaded;
 };

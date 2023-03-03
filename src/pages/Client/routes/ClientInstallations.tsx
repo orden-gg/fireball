@@ -1,5 +1,9 @@
 import { useContext } from 'react';
 
+// store
+import * as fromClientStore from '../store';
+import { useAppSelector } from 'core/store/hooks';
+
 import { ClientContext } from 'contexts/ClientContext';
 
 import { ContentInner } from 'components/Content/ContentInner';
@@ -15,15 +19,20 @@ import {
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
+import { InstallationAndTile } from '../models';
+
 export function ClientInstallations() {
-  const { tiles, loadingTiles, installations, loadingInstallations } = useContext<any>(ClientContext);
+  const installations: InstallationAndTile[] = useAppSelector(fromClientStore.getInstallations);
+  const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
+
+  const { tiles, loadingTiles } = useContext<any>(ClientContext);
 
   return (
     <>
-      <ContentInner dataLoading={loadingTiles || loadingInstallations}>
+      <ContentInner dataLoading={loadingTiles || isInstallationsLoading}>
         <ItemsLazy
           items={[...installations, ...tiles]}
-          component={(item: any) => (
+          component={(item: InstallationAndTile) => (
             <ItemCard id={item.id} category={item.category} type={item.rarity || 'drop'}>
               <CardGroup name='header'>
                 {!item.deprecated ? <CardCraftLink name={item.name} /> : <></>}

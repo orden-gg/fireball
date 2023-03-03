@@ -9,7 +9,7 @@ import { InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 import { styles } from './styles';
 
 interface CardImageProps {
-  id: number;
+  id: number | string;
   category?: string;
   className?: string;
 }
