@@ -1,8 +1,8 @@
-import { AppThunk } from 'core/store/store';
 import { TicketsApi } from 'api';
 
-import { ClientTicket, ContractTicket } from '../../models';
+import { AppThunk } from 'core/store/store';
 
+import { ClientTicket, ContractTicket } from '../../models';
 import { loadTickets, loadTicketsFailed, loadTicketsSucceded } from '../slices';
 
 export const onLoadTickets =

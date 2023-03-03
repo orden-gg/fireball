@@ -1,13 +1,10 @@
+import { Helmet } from 'react-helmet';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
 import { styled } from '@mui/system';
 import { Box } from '@mui/system';
 
-import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
-
-import { Footer } from 'root/Footer/Footer';
-import { Header } from 'root/Header/Header';
-import { NavPanel } from 'root/NavPanel/NavPanel';
 
 import {
   Anvil,
@@ -27,10 +24,15 @@ import {
   ParcelPage,
   Raffle
 } from 'pages';
+
 import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { ClientContextProvider } from 'contexts/ClientContext';
 import { SnackbarContextProvider } from 'contexts/SnackbarContext';
 import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
+
+import { Footer } from 'root/Footer/Footer';
+import { Header } from 'root/Header/Header';
+import { NavPanel } from 'root/NavPanel/NavPanel';
 
 const classes = {
   wrapper: 'page-wrapper',

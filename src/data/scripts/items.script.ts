@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 // @ts-ignore
 import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';
+
 // @ts-ignore
 import { Erc1155NumberCategories, ItemTypes } from '../../shared/constants/enums/enums.ts';
 // @ts-ignore

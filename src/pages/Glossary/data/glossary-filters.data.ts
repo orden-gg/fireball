@@ -6,14 +6,16 @@ import {
   WerableBenefitTypes
 } from 'shared/constants';
 import {
-  Wearable,
   FilterItemOption,
   MultiAutocompleteFilter,
   MultiButtonSelectionFilter,
-  RangeSliderFilter
+  RangeSliderFilter,
+  Wearable
 } from 'shared/models';
-import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
+
 import { FiltersHelper } from 'utils';
+
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { GlossaryWearablesFilters } from '../models';
 

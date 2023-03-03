@@ -1,4 +1,5 @@
 import { IconName } from 'shared/constants';
+
 import {
   AggressionIcon,
   AlphaIcon,

@@ -1,8 +1,20 @@
 import { useContext } from 'react';
+
 import { CircularProgress, Typography } from '@mui/material';
 
 import { Erc1155Categories } from 'shared/constants';
-import { ItemCard } from 'components/ItemCard/containers';
+
+import { ClientContext } from 'contexts/ClientContext';
+
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import {
+  ConsumableIcon,
+  GotchiIcon,
+  H1SealedPortalIcon,
+  KekIcon,
+  RareTicketIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
 import {
   CardBalance,
   CardERC721Listing,
@@ -15,22 +27,13 @@ import {
   CardStats,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import {
-  ConsumableIcon,
-  GotchiIcon,
-  H1SealedPortalIcon,
-  KekIcon,
-  RareTicketIcon,
-  WarehouseIcon
-} from 'components/Icons/Icons';
-import { Gotchi } from 'components/Gotchi/Gotchi';
+import { ItemCard } from 'components/ItemCard/containers';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import { ClientContext } from 'contexts/ClientContext';
+
 import { ItemUtils } from 'utils';
 
-import { forSaleStyles } from '../styles';
-
 import { ListingTitle } from '../components/ListingTitle/ListingTitle';
+import { forSaleStyles } from '../styles';
 
 export function ClientForSale() {
   const classes = forSaleStyles();

@@ -1,5 +1,5 @@
-import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 export const gotchiLevelStyles = makeStyles((theme) =>
   createStyles({

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch } from 'core/store/hooks';
 import { setActiveAddress } from 'core/store/login';
+
 import { LoginNavigation } from 'components/Login/LoginNavigation';
 
 import { accountStyles, styles } from '../styles';

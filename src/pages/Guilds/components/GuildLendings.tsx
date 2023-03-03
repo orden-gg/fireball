@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
+
 import { CircularProgress } from '@mui/material';
+
+import { TheGraphApi } from 'api';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import { TheGraphApi } from 'api';
 
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';

@@ -1,15 +1,18 @@
 import ContentLoader from 'react-content-loader';
-import { alpha, Link, Typography } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link, Typography, alpha } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Erc1155Listing, Erc1155SoldListing } from 'shared/models';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { GhstTokenGif } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';

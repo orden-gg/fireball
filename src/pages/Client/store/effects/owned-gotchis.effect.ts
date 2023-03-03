@@ -1,12 +1,15 @@
+import { TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
 import { SortingItem, WearableTypeBenefit } from 'shared/models';
-import { TheGraphApi } from 'api';
+
 import { CommonUtils, ItemUtils } from 'utils';
+
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 import { OwnedGotchi, Warehouse } from '../../models';
-
 import { loadOwnedGotchis, loadOwnedGotchisFailed, loadOwnedGotchisSucceded, setWarehouseItems } from '../slices';
 
 export const onLoadOwnedGotchis =

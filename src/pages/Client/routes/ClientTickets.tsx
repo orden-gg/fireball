@@ -1,7 +1,10 @@
+// store
+import * as fromClientStore from '../store';
 import { useAppSelector } from 'core/store/hooks';
+
 import { Erc1155Categories } from 'shared/constants';
+
 import { ContentInner } from 'components/Content/ContentInner';
-import { ItemCard } from 'components/ItemCard/containers';
 import {
   CardBalance,
   CardGroup,
@@ -10,13 +13,10 @@ import {
   CardName,
   CardTotalPrice
 } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 
 import { ClientTicket } from '../models';
-
 import { routersStyles } from '../styles';
-
-// store
-import * as fromClientStore from '../store';
 
 export function ClientTickets() {
   const classes = routersStyles();

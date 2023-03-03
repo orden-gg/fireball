@@ -1,4 +1,5 @@
 import { AppThunk } from 'core/store/store';
+
 import { LoginAddress } from 'shared/models';
 
 import { setActiveAddress, setLoggedAddresses } from '../slices/login.slice';

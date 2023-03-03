@@ -1,9 +1,10 @@
-import { GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API, Erc721Categories } from 'shared/constants';
-import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
 import { TheGraphCoreApi } from 'api';
 
+import { Erc721Categories, GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API } from 'shared/constants';
+import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
+
 import { FakeItemsDTO } from '../models';
-import { getFakeGotchisListingsQuery, getErc721ListingsByCategoriesQuery } from '../queries';
+import { getErc721ListingsByCategoriesQuery, getFakeGotchisListingsQuery } from '../queries';
 
 export class ClientApi {
   public static async getFakeGotchis(query: string): Promise<FakeItemsDTO> {
@@ -24,7 +25,10 @@ export class ClientApi {
     );
   }
 
-  public static async getErc721ListingsByCategories(ids: number[], categories: Erc721Categories[]): Promise<Erc721ListingsBatch> {
+  public static async getErc721ListingsByCategories(
+    ids: number[],
+    categories: Erc721Categories[]
+  ): Promise<Erc721ListingsBatch> {
     const getQuery = (ids: number[]): string => {
       const queries: string[] = ids.map((id: number) => getErc721ListingsByCategoriesQuery(id, categories));
 

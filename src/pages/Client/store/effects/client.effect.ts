@@ -2,7 +2,6 @@ import { AppThunk } from 'core/store/store';
 
 // slices
 import { resetWarehouseItems } from '../slices';
-
 // effects
 import { onLoadBorrowedGotchis } from './borrowed-gotchis.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';

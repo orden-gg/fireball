@@ -1,9 +1,9 @@
 import {
-  Wearable,
+  InputFilter,
   MultiAutocompleteFilter,
   MultiButtonSelectionFilter,
   RangeSliderFilter,
-  InputFilter
+  Wearable
 } from 'shared/models';
 
 export interface GlossaryWearablesFilters {

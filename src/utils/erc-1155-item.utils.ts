@@ -1,6 +1,6 @@
 import {
-  VOID_WEARABLE_NAME,
   HAUNT_ONE_BACKGROUND_WEARABLE_NAME,
+  VOID_WEARABLE_NAME,
   WearableBenefitIndex,
   WerableBenefitTypes
 } from 'shared/constants';
@@ -12,6 +12,7 @@ import {
   WearableTypes
 } from 'shared/constants';
 import { Erc1155ItemTuple, Wearable } from 'shared/models';
+
 import erc1155Items from 'data/items.data.json';
 
 import { ItemUtils } from './item.utils';

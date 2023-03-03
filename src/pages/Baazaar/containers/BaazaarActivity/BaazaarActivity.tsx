@@ -3,9 +3,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import {
   BaazaarActivityConsumables,
   BaazaarActivityGotchis,
+  BaazaarActivityInstallations,
   BaazaarActivityParcels,
   BaazaarActivityPortals,
-  BaazaarActivityInstallations,
   BaazaarActivityTiles,
   BaazaarActivityWearables
 } from '../../components';

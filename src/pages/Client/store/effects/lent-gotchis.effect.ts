@@ -1,6 +1,9 @@
-import { AppThunk } from 'core/store/store';
-import { GotchiLending, SortingItem } from 'shared/models';
 import { TheGraphApi } from 'api';
+
+import { AppThunk } from 'core/store/store';
+
+import { GotchiLending, SortingItem } from 'shared/models';
+
 import { CommonUtils } from 'utils';
 
 import { loadLentGotchis, loadLentGotchisFailed, loadLentGotchisSucceded } from '../slices';

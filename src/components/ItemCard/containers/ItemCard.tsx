@@ -3,7 +3,6 @@ import { useContext, useEffect } from 'react';
 import classNames from 'classnames';
 
 import { CardContext, CardContextProvider } from '../context/CardContext';
-
 import { styles } from './styles';
 
 interface CardInnerProps {

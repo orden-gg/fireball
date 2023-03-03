@@ -1,4 +1,5 @@
 import { RootState } from 'core/store/store';
+
 import { GotchiLending, SortingItem } from 'shared/models';
 
 export const getBorrowedGotchis = (state: RootState): GotchiLending[] =>

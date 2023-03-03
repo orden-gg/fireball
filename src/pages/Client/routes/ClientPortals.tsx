@@ -1,25 +1,29 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
+
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 
 import * as qs from 'query-string';
 
+// store
+import * as fromClientStore from '../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
+
+import { CustomParsedQuery } from 'shared/models';
+import { SortingItem, SortingListItem } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { H1SealedPortalIcon } from 'components/Icons/Icons';
-import { ItemCard } from 'components/ItemCard/containers';
 import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { FilterUtils } from 'utils/filters.utils';
+
+import { FilterUtils } from 'utils';
+
 import { filtersData } from 'data/filters.data';
 
 import { ClientPortal } from '../models';
-
 import { routersStyles } from '../styles';
-
-// store
-import * as fromClientStore from '../store';
 
 const sortings: SortingListItem[] = [
   {

@@ -1,4 +1,4 @@
-import { styled, Tooltip, tooltipClasses } from '@mui/material';
+import { Tooltip, styled, tooltipClasses } from '@mui/material';
 
 interface CustomTooltipProps {
   children: JSX.Element;

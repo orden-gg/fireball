@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { FormControl, IconButton, Input, InputAdornment, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import Blockies from 'react-blockies';
+
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { FormControl, IconButton, Input, InputAdornment, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
 import classNames from 'classnames';
-import Blockies from 'react-blockies';
 
-import { LoginAddress as LoginAddressModel } from 'shared/models';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import {
   getActiveAddress,
   removeAddress,
@@ -16,8 +17,11 @@ import {
   toggleLoginDropdown,
   updateAddressName
 } from 'core/store/login';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { LoginAddress as LoginAddressModel } from 'shared/models';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';

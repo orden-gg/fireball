@@ -1,12 +1,14 @@
+import { ClientApi } from '../../api';
+import { EthersApi, TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { Erc721Categories } from 'shared/constants';
 import { Erc721Listing, Erc721ListingsBatch, SortingItem } from 'shared/models';
-import { EthersApi, TheGraphApi } from 'api';
+
 import { CommonUtils } from 'utils';
 
-import { ClientApi } from '../../api';
 import { ClientPortal, Portal } from '../../models';
-
 import { loadPortals, loadPortalsFailed, loadPortalsSucceded } from '../slices';
 
 export const onLoadPortals =

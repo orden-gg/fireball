@@ -1,12 +1,15 @@
+import { MainApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { Erc1155Categories, ItemTypeNames, WerableBenefitTypes } from 'shared/constants';
 import { Inventory, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { MainApi } from 'api';
+
 import { CommonUtils, ItemUtils } from 'utils';
+
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 import { Warehouse } from '../../models';
-
 import { loadWarehouse, loadWarehouseFailed, loadWarehouseSucceded } from '../slices';
 
 export const onLoadWarehouse =

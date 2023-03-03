@@ -1,13 +1,13 @@
 import { FilterComponentType, FilterDomainType, GraphComparatorOptions, GraphFiltersDataType } from 'shared/constants';
 
 import {
+  ActivityTileListingFilterTypes,
   GOTCHIVERSE_GRAPH_VALUES,
   GOTCHI_GRAPH_VALUES,
   GRASS_GRAPH_VALUES,
   MOSAICS_GRAPH_VALUES,
   PORTAL_GRAPH_VALUES,
-  RUGS_GRAPH_VALUES,
-  ActivityTileListingFilterTypes
+  RUGS_GRAPH_VALUES
 } from '../../constants';
 import { ActivityTileListingFilters } from '../../models';
 

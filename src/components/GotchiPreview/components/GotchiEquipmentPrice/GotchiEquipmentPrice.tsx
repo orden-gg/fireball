@@ -1,4 +1,5 @@
 import { GhstTokenIcon } from 'components/Icons/Icons';
+
 import { CommonUtils } from 'utils';
 
 import { gotchiEquipmentPriceStyles } from './styles';

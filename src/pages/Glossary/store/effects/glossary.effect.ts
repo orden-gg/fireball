@@ -1,11 +1,13 @@
 import _ from 'lodash';
 
-import { AppThunk } from 'core/store/store';
-import { Erc1155Categories } from 'shared/constants';
-import { Erc1155ListingsBatch, Wearable } from 'shared/models';
 import { EthersApi, TheGraphApi } from 'api';
 
-import { setWearablesPrices, setMaxWearablePrice } from '../slices';
+import { AppThunk } from 'core/store/store';
+
+import { Erc1155Categories } from 'shared/constants';
+import { Erc1155ListingsBatch, Wearable } from 'shared/models';
+
+import { setMaxWearablePrice, setWearablesPrices } from '../slices';
 
 export const loadWearableListings =
   (wearablesIds: number[]): AppThunk =>
