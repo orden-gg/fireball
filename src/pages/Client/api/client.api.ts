@@ -1,10 +1,10 @@
 import { TheGraphCoreApi } from 'api';
 
-import { GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API } from 'shared/constants';
+import { Erc721Categories, GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API } from 'shared/constants';
 import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
 
 import { FakeItemsDTO } from '../models';
-import { getFakeGotchisListingsQuery } from '../queries';
+import { getErc721ListingsByCategoriesQuery, getFakeGotchisListingsQuery } from '../queries';
 
 export class ClientApi {
   public static async getFakeGotchis(query: string): Promise<FakeItemsDTO> {
@@ -16,6 +16,21 @@ export class ClientApi {
   public static async getFakeGotchisListings(ids: number[]): Promise<Erc721ListingsBatch> {
     const getQuery = (ids: number[]): string => {
       const queries: string[] = ids.map((id: number) => getFakeGotchisListingsQuery(id));
+
+      return `{${queries.join(',')}}`;
+    };
+
+    return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, getQuery(ids)).then(
+      (response: TheGraphResponse<Erc721ListingsBatch>) => response.data
+    );
+  }
+
+  public static async getErc721ListingsByCategories(
+    ids: number[],
+    categories: Erc721Categories[]
+  ): Promise<Erc721ListingsBatch> {
+    const getQuery = (ids: number[]): string => {
+      const queries: string[] = ids.map((id: number) => getErc721ListingsByCategoriesQuery(id, categories));
 
       return `{${queries.join(',')}}`;
     };

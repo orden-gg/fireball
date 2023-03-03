@@ -25,6 +25,7 @@ import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
 import { ClientForSale } from './routes/ClientForSale';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
+import { ClientPortals } from './routes/ClientPortals';
 import { ClientRealm } from './routes/ClientRealm';
 import { ClientTickets } from './routes/ClientTickets';
 import { ClientWarehouse } from './routes/ClientWarehouse';
@@ -126,6 +127,7 @@ export function ClientRoutes() {
       <Routes>
         <Route path='' element={<ClientAccount />} />
         <Route path='gotchis/*' element={<ClientGotchis />} />
+        <Route path='portals' element={<ClientPortals />} />
         <Route path='installations' element={<ClientInstallations />} />
         <Route path='warehouse' element={<ClientWarehouse />} />
         <Route path='tickets' element={<ClientTickets />} />

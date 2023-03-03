@@ -9,11 +9,13 @@ export interface Erc1155ListingsBatch {
   }[];
 }
 
+export interface Erc721Listing {
+  id: string;
+  priceInWei: string;
+  __typename: TypenameType;
+  timePurchased?: string;
+}
+
 export interface Erc721ListingsBatch {
-  [key: string]: {
-    id: string;
-    priceInWei: string;
-    timePurchased: string;
-    __typename: TypenameType;
-  }[];
+  [key: string]: Erc721Listing[];
 }
