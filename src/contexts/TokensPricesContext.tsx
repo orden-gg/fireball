@@ -86,6 +86,7 @@ export const TokensPricesContextProvider = (props) => {
         return response.price;
       }
     );
+
     return tokenPrice;
   };
 
