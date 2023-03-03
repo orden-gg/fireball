@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
 import { Erc1155Categories } from 'shared/constants';
+
 import { InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 import { styles } from './styles';

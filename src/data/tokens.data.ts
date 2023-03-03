@@ -1,9 +1,9 @@
 import {
-  GHST_CONTRACT,
-  FUD_CONTRACT,
-  KEK_CONTRACT,
   ALPHA_CONTRACT,
-  FOMO_CONTRACT
+  FOMO_CONTRACT,
+  FUD_CONTRACT,
+  GHST_CONTRACT,
+  KEK_CONTRACT
 } from 'shared/constants/api.constants';
 
 export const tokens = [

@@ -1,4 +1,7 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
+
 import { InstallationTypeNames } from 'shared/constants';
 import {
   GraphFiltersTypes,
@@ -8,24 +11,24 @@ import {
   ParcelTileVM,
   SortingItem
 } from 'shared/models';
+
 import { GraphFiltersUtils, InstallationsUtils, TilesUtils } from 'utils';
 
-import { ASCENDING_DIRECTION, ParcelListingFilterTypes, PRICE_IN_WEI } from '../../constants';
+import { ASCENDING_DIRECTION, PRICE_IN_WEI, ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
 import { getBaazaarParcelsListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadParcelsListings,
-  loadParcelsListingsSucceded,
   loadParcelsListingsFailed,
+  loadParcelsListingsSucceded,
+  resetParcelsListings,
+  setIsParcelsListingsInitialDataLoading,
   setParcelsListingsFilters,
   setParcelsListingsIsFiltersUpdated,
   setParcelsListingsIsSortingUpdated,
-  setParcelsListingsSkipLimit,
-  setParcelsListingsSorting,
   setParcelsListingsPreviousSortingProp,
-  setIsParcelsListingsInitialDataLoading,
-  resetParcelsListings
+  setParcelsListingsSkipLimit,
+  setParcelsListingsSorting
 } from '../slices';
 
 export const loadBaazaarParcelsListings =

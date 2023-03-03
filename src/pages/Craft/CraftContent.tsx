@@ -1,22 +1,24 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Backdrop, CircularProgress } from '@mui/material';
 import Switch from '@mui/material/Switch';
 
+import classNames from 'classnames';
 import qs from 'query-string';
 
-import classNames from 'classnames';
+import { InstallationsApi, TilesApi } from 'api';
 
 import { Erc1155Categories, InstallationTypes, TileTypes } from 'shared/constants';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { InstallationsApi, TilesApi } from 'api';
+
 import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
 
+import { CraftContext } from './CraftContext';
 import { CraftItem } from './components/CraftItem';
 import { Craftbar } from './components/Craftbar';
-import { CraftContext } from './CraftContext';
-
 import { styles } from './styles';
 
 export function CraftContent() {

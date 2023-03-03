@@ -1,5 +1,6 @@
-import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 import { AlchemicaList, InstallationItem } from 'shared/models';
+
+import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
 import { AnvilCalculatorOptions } from '../../models';
 import { styles } from './styles';

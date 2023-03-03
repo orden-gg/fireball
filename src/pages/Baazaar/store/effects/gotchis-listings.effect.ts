@@ -1,28 +1,32 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
+
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+
 import {
   GotchiListingDTO,
+  GotchiListingFiltersType,
   GotchiListingVM,
-  GotchiListingsFilters,
-  GotchiListingFiltersType
+  GotchiListingsFilters
 } from 'pages/Baazaar/models';
 import { getBaazaarGotchiListingsQuery } from 'pages/Baazaar/queries';
+
 import { GraphFiltersUtils } from 'utils';
 
 import { ASCENDING_DIRECTION, GotchiListingsFilterTypes, PRICE_IN_WEI } from '../../constants';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadGotchisListings,
-  loadGotchisListingsSucceded,
   loadGotchisListingsFailed,
+  loadGotchisListingsSucceded,
+  resetGotchisListings,
   setGotchisListingsFilters,
-  setGotchisListingsSorting,
+  setGotchisListingsIsFiltersUpdated,
+  setGotchisListingsIsSortingUpdated,
   setGotchisListingsPreviousSortingProp,
   setGotchisListingsSkipLimit,
-  setGotchisListingsIsSortingUpdated,
-  setGotchisListingsIsFiltersUpdated,
-  setIsGotchisListingsInitialDataLoading,
-  resetGotchisListings
+  setGotchisListingsSorting,
+  setIsGotchisListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarGotchisListings =

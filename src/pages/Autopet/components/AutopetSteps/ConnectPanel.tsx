@@ -1,9 +1,9 @@
 import { useContext } from 'react';
+
 import { Button, Typography } from '@mui/material';
 
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
-
 import { AutopetPanelProps } from './models/autopet-panel-props.model';
 
 export function ConnectPanel({ index, dir }: AutopetPanelProps) {

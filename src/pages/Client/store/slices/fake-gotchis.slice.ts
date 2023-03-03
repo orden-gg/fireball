@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Erc1155Listings, Erc721ListingsDictionary } from 'shared/models';
+import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
+
 import { FakeItemsVM } from 'pages/Client/models';
 
 export interface ClientFakeGotchisState {

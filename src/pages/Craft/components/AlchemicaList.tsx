@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import classNames from 'classnames';
 
 import { CraftContext } from '../CraftContext';
-
 import { sidebarStyles } from '../styles';
 
 interface AlchemicaCostProps {

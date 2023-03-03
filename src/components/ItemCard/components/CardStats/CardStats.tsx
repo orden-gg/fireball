@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { TRAITS_KEYS } from 'shared/constants';
+
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';

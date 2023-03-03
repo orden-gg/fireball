@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
+
 import CheckIcon from '@mui/icons-material/Check';
+import { Alert, AlertTitle, Button, CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import { SnackbarContext } from 'contexts/SnackbarContext';
 import { InstallationsApi } from 'api';
+
+import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { actionStyles } from '../styles';
 

@@ -6,6 +6,7 @@ import {
   IconName
 } from 'shared/constants';
 import { CollateralData } from 'shared/models';
+
 import { collaterals } from 'data/collaterals.data';
 
 import { ActivityGotchiListingFilterTypes } from '../../constants';

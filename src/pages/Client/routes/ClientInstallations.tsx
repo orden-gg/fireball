@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
+import { ClientContext } from 'contexts/ClientContext';
+
 import { ContentInner } from 'components/Content/ContentInner';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { ItemCard } from 'components/ItemCard/containers';
 import {
   CardBalance,
   CardCraftLink,
@@ -12,7 +12,8 @@ import {
   CardName,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import { ClientContext } from 'contexts/ClientContext';
+import { ItemCard } from 'components/ItemCard/containers';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
 export function ClientInstallations() {
   const { tiles, loadingTiles, installations, loadingInstallations } = useContext<any>(ClientContext);

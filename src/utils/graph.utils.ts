@@ -1,4 +1,5 @@
 import { CollateralData } from 'shared/models';
+
 import { collaterals } from 'data/collaterals.data';
 import { tokens } from 'data/tokens.data';
 

@@ -1,28 +1,33 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { Erc721ListingsBatch, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
-import {
-  GotchiIcon,
-  KekIcon,
-  RareTicketIcon,
-  H1SealedPortalIcon,
-  WarehouseIcon,
-  AnvilIcon,
-  FakeGotchisIcon,
-  BaazarIcon
-} from 'components/Icons/Icons';
-import { SubNav } from 'components/PageNav/SubNav';
+import { ClientApi } from '../pages/Client/api/client.api';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
-import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
-import { ClientApi } from '../pages/Client/api/client.api';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
+
+import { Erc721Categories, Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
+import { Erc721ListingsBatch, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+
 import { Portal } from 'pages/Client/models';
+
+import {
+  AnvilIcon,
+  BaazarIcon,
+  FakeGotchisIcon,
+  GotchiIcon,
+  H1SealedPortalIcon,
+  KekIcon,
+  RareTicketIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
+import { SubNav } from 'components/PageNav/SubNav';
+
+import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+
+import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,

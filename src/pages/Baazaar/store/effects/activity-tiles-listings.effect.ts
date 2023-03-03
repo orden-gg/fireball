@@ -1,26 +1,29 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { RarityTypes } from 'shared/constants';
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
-import { EthersApi } from 'api';
+
 import { GraphFiltersUtils, TilesUtils } from 'utils';
 
 import { ActivityTileListingFilterTypes } from '../../constants';
 import {
   ActivityTileListingDTO,
   ActivityTileListingFilters,
-  ActivityTileListingVM,
-  ActivityTileListingFiltersType
+  ActivityTileListingFiltersType,
+  ActivityTileListingVM
 } from '../../models';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
 import {
   loadActivityTilesListings,
-  loadActivityTilesListingsSucceded,
   loadActivityTilesListingsFailed,
+  loadActivityTilesListingsSucceded,
+  resetActivityTilesListings,
   setActivityTilesListingsFilters,
   setActivityTilesListingsIsFiltersUpdated,
-  setIsActivityTilesListingsInitialDataLoading,
-  resetActivityTilesListings
+  setIsActivityTilesListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarActivityTilesListings = (): AppThunk => (dispatch, getState) => {

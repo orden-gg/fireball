@@ -1,6 +1,8 @@
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
+
 import { Balances } from 'root/Header/components/Balances';
+
 import { LoginButton } from 'components/Login/LoginButton';
 
 import { styles } from '../styles';

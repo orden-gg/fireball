@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ParcelAlchemica, ParcelSurvey as ParcelSurveyModel } from 'shared/models';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { EthersApi } from 'api';
+
+import { ParcelAlchemica, ParcelSurvey as ParcelSurveyModel } from 'shared/models';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { AlchemicaUtils } from 'utils';
 
 import { ParcelSurveyBar } from './components/ParcelSurveyBar';

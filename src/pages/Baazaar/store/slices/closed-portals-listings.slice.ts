@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
-import { ClosedPortalListingVM, ClosedPortalListingFilters } from '../../models';
+import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
 import { closedPortalListingsFilters } from '../../static/filters';
 
 export interface ClosedPortalsListingsState {

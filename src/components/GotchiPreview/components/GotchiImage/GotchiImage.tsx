@@ -3,6 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 
 import { GOTCHI_SIDES } from 'shared/constants';
+
 import { GotchiSvg } from 'components/Gotchi/GotchiImage/GotchiSvg';
 
 import { gotchiImageStyles } from './styles';
