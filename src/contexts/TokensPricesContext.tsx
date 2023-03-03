@@ -27,10 +27,12 @@ export const TokensPricesContextProvider = (props) => {
     const getTokensPrices = async function () {
       setIsPricesLoaded(false);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-      const alloyPriceGhst = await getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy);
       const [usdcPrice] = await getGhstAndPriceToToken(USDC_CONTRACT, GHST_CONTRACT);
-      const essencePriceGhst = await getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
+      const [essencePriceGhst, alloyPriceGhst] = await Promise.all([
+        getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence),
+        getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy)
+      ]);
       const alloyPriceUsdc = (alloyPriceGhst / usdcPrice).toFixed(4);
       const essencePriceUsdc = (essencePriceGhst / usdcPrice).toFixed(4);
       const [fudToken, fomoToken, alphaToken, kekToken, gltrToken] = await Promise.all([
