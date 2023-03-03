@@ -6,4 +6,5 @@ export * from './lent-gotchis.slice';
 export * from './owned-gotchis.slice';
 export * from './portals.slice';
 export * from './tickets.slice';
+export * from './tiles.slice';
 export * from './warehouse.slice';

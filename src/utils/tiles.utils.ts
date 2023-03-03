@@ -16,7 +16,7 @@ export class TilesUtils {
     };
   }
 
-  public static getIsTileExists(id: number): boolean {
+  public static getIsTileExists(id: number | string): boolean {
     return Boolean(tiles[id]);
   }
 

@@ -1,10 +1,6 @@
-import { useContext } from 'react';
-
 // store
 import * as fromClientStore from '../store';
 import { useAppSelector } from 'core/store/hooks';
-
-import { ClientContext } from 'contexts/ClientContext';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import {
@@ -24,12 +20,12 @@ import { InstallationAndTile } from '../models';
 export function ClientInstallations() {
   const installations: InstallationAndTile[] = useAppSelector(fromClientStore.getInstallations);
   const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
-
-  const { tiles, loadingTiles } = useContext<any>(ClientContext);
+  const tiles: InstallationAndTile[] = useAppSelector(fromClientStore.getTiles);
+  const isTilesLoading: boolean = useAppSelector(fromClientStore.getIsTilesLoading);
 
   return (
     <>
-      <ContentInner dataLoading={loadingTiles || isInstallationsLoading}>
+      <ContentInner dataLoading={isTilesLoading || isInstallationsLoading}>
         <ItemsLazy
           items={[...installations, ...tiles]}
           component={(item: InstallationAndTile) => (

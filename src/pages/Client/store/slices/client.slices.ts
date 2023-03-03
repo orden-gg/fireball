@@ -7,6 +7,7 @@ import { lentGotchisReducer } from './lent-gotchis.slice';
 import { ownedGotchisReducer } from './owned-gotchis.slice';
 import { portalsReducer } from './portals.slice';
 import { ticketsReducer } from './tickets.slice';
+import { tilesReducer } from './tiles.slice';
 import { warehouseReducer } from './warehouse.slice';
 
 export const clientReducers = combineReducers({
@@ -17,5 +18,6 @@ export const clientReducers = combineReducers({
   ownedGotchis: ownedGotchisReducer,
   portals: portalsReducer,
   tickets: ticketsReducer,
+  tiles: tilesReducer,
   warehouse: warehouseReducer
 });

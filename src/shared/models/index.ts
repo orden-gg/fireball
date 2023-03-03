@@ -22,6 +22,7 @@ export * from './parcel.model';
 export * from './sorting.model';
 export * from './the-graph.model';
 export * from './tile.model';
+export * from './tiles-contract.model';
 export * from './token.model';
 export * from './traits.model';
 export * from './wearable.model';

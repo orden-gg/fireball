@@ -8,6 +8,7 @@ export const getIsClientDataLoaded = (state: RootState): boolean => {
     state.client.portals.portals.isLoaded ||
     state.client.warehouse.warehouse.isLoaded ||
     state.client.installations.installations.isLoaded ||
+    state.client.tiles.tiles.isLoaded ||
     state.client.tickets.tickets.isLoaded;
 
   return isLoaded;
