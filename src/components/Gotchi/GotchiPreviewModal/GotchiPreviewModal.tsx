@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
-
-import { CircularProgress } from '@mui/material';
-
+import { useEffect, useState, useContext } from 'react';
+import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { EthersApi, MainApi, TheGraphApi } from 'api';
 
-import { Erc721Categories } from 'shared/constants';
+import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
 import { Gotchi, GotchiInventory as GotchiInventoryModel, SalesHistoryModel } from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
@@ -32,18 +30,23 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-import { GotchiUtils, ItemUtils } from 'utils';
+import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
+import { ClientContext } from 'contexts/ClientContext';
+import { useMetamask } from 'use-metamask';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
-
+  const [spawnId, setSpawnId] = useState<string>();
   const [modalGotchi, setModalGotchi] = useState<any>(null);
+  const [availibleParcels, setAvailibleParcels] = useState<any[]>([]);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
+  const { metaState } = useMetamask();
+  const { borrowed } = useContext<any>(ClientContext);
 
   useEffect(() => {
     if (gotchi) {
@@ -78,6 +81,46 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         .finally(() => setHistoryLoaded(true));
     }
   }, []);
+
+  useEffect(() => {
+    const ownAddress = metaState.account[0];
+    const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+    const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
+    const allAddresses = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
+    const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
+
+    Promise.all(promises)
+      .then((response) => {
+        const flatResponse = response.flat();
+        const modifiedParcels = flatResponse.map((parcel) => {
+          const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+          const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
+          const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
+          return {
+            ...parcel,
+            cooldown: cooldown,
+            nextChannel: parcel.lastChanneled + cooldown,
+            altarLevel: altar ? altar.level : 0,
+            installations: installations
+          };
+        });
+        const bestRealm = modifiedParcels
+          .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
+          .sort((a, b) => b.altarLevel - a.altarLevel);
+        setAvailibleParcels(bestRealm);
+        setSpawnId(bestRealm[0]?.parcelId);
+      })
+      .catch((e) => console.log(e));
+  }, [gotchi]);
+
+  const handleOnChangeDropList = (_event, newValue) => {
+    if (!newValue) {
+      setSpawnId(availibleParcels[0].parcelId);
+    } else {
+      setSpawnId(newValue.parcelId);
+    }
+  };
 
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
@@ -114,15 +157,47 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
                 {(modalGotchi.originalOwner?.id || modalGotchi.owner?.id) && (
                   <GotchiFooter>
-                    <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>
-                      MORE INFO
-                    </ViewInAppButton>
-                    <ViewInAppButton
-                      link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`}
-                      className={classes.button}
-                    >
-                      View at aavegotchi.com
-                    </ViewInAppButton>
+                    <>
+                      <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>
+                        MORE INFO
+                      </ViewInAppButton>
+
+                      <ViewInAppButton
+                        link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`}
+                        className={classes.button}
+                      >
+                        View at aavegotchi.com
+                      </ViewInAppButton>
+                    </>
+                    {availibleParcels && (
+                      <>
+                        <ViewInAppButton
+                          link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
+                          className={classes.button}
+                        >
+                          Fireball Farmeer
+                        </ViewInAppButton>
+
+                        <ViewInAppButton
+                          link={`https://verse.aavegotchi.com/?spawnId=aarena&gotchi=${modalGotchi.id}`}
+                          className={classes.button}
+                        >
+                          Jump into the Aarena
+                        </ViewInAppButton>
+
+                        <Autocomplete
+                          disablePortal
+                          onChange={(event: any, newValue: string | null) => {
+                            handleOnChangeDropList(event, newValue);
+                          }}
+                          id='combo-box-realms'
+                          options={availibleParcels}
+                          getOptionLabel={(option) => option.altarLevel + 'lvl: ' + option.parcelHash}
+                          renderInput={(params) => <TextField {...params} size='small' label='Realms' />}
+                          sx={{ width: '40%', margin: 1 }}
+                        />
+                      </>
+                    )}
                   </GotchiFooter>
                 )}
               </GotchiContent>

@@ -434,7 +434,7 @@ export class TheGraphApi {
       const queries: any[] = [];
 
       for (let i = 0; i < 5; i++) {
-        queries.push(realmQuery(address.toLowerCase(), i * 1000));
+        queries.push(realmQuery(address.toString().toLowerCase(), i * 1000));
       }
 
       return queries;
@@ -633,7 +633,7 @@ export class TheGraphApi {
 
   public static getParcelsGotchiverseInfoByOwner(owner: string): Promise<any> {
     return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
-      (res: any) => res.data.parcels
+      (res: any) => res.data.data
     );
   }
 }
