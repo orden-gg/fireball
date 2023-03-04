@@ -1,6 +1,7 @@
-import tiles from 'data/tiles.data.json';
 import { TileTypes } from 'shared/constants';
 import { ParcelTileDTO, ParcelTileVM, TileItem } from 'shared/models';
+
+import tiles from 'data/tiles.data.json';
 
 export class TilesUtils {
   public static getMetadataById(id: any): TileItem {

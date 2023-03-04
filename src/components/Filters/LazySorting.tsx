@@ -3,6 +3,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { Divider } from '@mui/material';
 
 import { SortingItem, SortingListItem } from 'shared/models';
+
 import { CustomToggleButtonGroup } from 'components/custom/CustomToggleButtonGroup';
 
 import { styles } from './styles';

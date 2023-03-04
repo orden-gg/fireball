@@ -6,6 +6,7 @@ import {
   GraphFiltersHelperType,
   IconName
 } from 'shared/constants';
+
 import { DISTRICTS } from 'data/citadel.data';
 
 import { ParcelListingFilterTypes } from '../../constants';

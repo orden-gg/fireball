@@ -1,4 +1,5 @@
 import { RootState } from 'core/store/store';
+
 import { GraphQueryParams, SortingItem } from 'shared/models';
 
 import { ConsumableListingFilters, ConsumableListingVM } from '../../models';

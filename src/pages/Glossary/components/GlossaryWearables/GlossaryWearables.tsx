@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, IconButton } from '@mui/material';
+
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import GrainIcon from '@mui/icons-material/Grain';
+import { Button, IconButton } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
@@ -20,22 +21,25 @@ import {
   setWearables,
   setWearablesSorting
 } from 'pages/Glossary/store';
+
 import { CardListing } from 'shared/components/CardListing/CardListing';
-import { CustomParsedQuery, Wearable, Sorting, SortingItem, SortingListItem } from 'shared/models';
+import { CustomParsedQuery, Sorting, SortingItem, SortingListItem, Wearable } from 'shared/models';
+
 import { GlossaryWearablesFilters } from 'pages/Glossary/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { WarehouseIcon } from 'components/Icons/Icons';
 import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { WarehouseIcon } from 'components/Icons/Icons';
+
 import { FilterUtils } from 'utils';
 
-import { styles } from './styles';
-
 import { glossaryWearablesFilters } from '../../data/glossary-filters.data';
+import { styles } from './styles';
 
 const sortings: SortingListItem[] = [
   {

@@ -1,5 +1,5 @@
-import TimerIcon from '@mui/icons-material/Timer';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import TimerIcon from '@mui/icons-material/Timer';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';

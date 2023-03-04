@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+
 import { CircularProgress } from '@mui/material';
 
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
 import { AutopetApi, GhstApi, MainApi } from 'api';
+
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { tabStyles } from './styles';

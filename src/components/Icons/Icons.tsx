@@ -5,40 +5,38 @@ import gotchiLoadingGif from 'assets/images/animated/gotchi-loading.gif';
 import gotchiverseGif from 'assets/images/animated/gotchiverse.gif';
 import h1OpenedPortalGif from 'assets/images/animated/h1-opened.gif';
 import realmGif from 'assets/images/animated/realm.gif';
-
+import gotchi from 'assets/images/gotchi-placeholder.svg';
 // icons
 import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import badge from 'assets/images/icons/badge.svg';
-import glossary from 'assets/images/icons/glossary.svg';
-import fakeGotchis from 'assets/images/icons/fake-gotchis.svg';
-import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
-import channel from 'assets/images/icons/channel.svg';
 import channelActive from 'assets/images/icons/channel-active.svg';
+import channel from 'assets/images/icons/channel.svg';
 import consumable from 'assets/images/icons/consumable.svg';
-import controller from 'assets/images/wearables/204.svg';
 import craft from 'assets/images/icons/craft.svg';
 import discord from 'assets/images/icons/discord.svg';
+import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
+import fakeGotchis from 'assets/images/icons/fake-gotchis.svg';
+import firegem from 'assets/images/icons/firegem.svg';
 import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
-import gotchi from 'assets/images/gotchi-placeholder.svg';
-import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
-import gotchiland from 'assets/images/icons/gotchiland.png';
 import ghst from 'assets/images/icons/ghst.svg';
+import glossary from 'assets/images/icons/glossary.svg';
+import gotchiland from 'assets/images/icons/gotchiland.png';
+import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import kek from 'assets/images/icons/kek.svg';
-import listing from 'assets/images/icons/listing.svg';
-import logo from 'assets/images/icons/logo-white.svg';
-import logoMobile from 'assets/images/icons/logo-mobile.svg';
 import land from 'assets/images/icons/land.svg';
 import { ReactComponent as Lending } from 'assets/images/icons/lending.svg';
+import listing from 'assets/images/icons/listing.svg';
+import logoMobile from 'assets/images/icons/logo-mobile.svg';
+import logo from 'assets/images/icons/logo-white.svg';
 import metamask from 'assets/images/icons/metamask.svg';
 import purchase from 'assets/images/icons/purchase.svg';
 import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
-import firegem from 'assets/images/icons/firegem.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
 import warehouse from 'assets/images/wearables/15.svg';
@@ -61,14 +59,6 @@ import gltrToken from 'assets/images/tokens/gltr-token.svg';
 import kekToken from 'assets/images/tokens/kek-token.svg';
 import daiToken from 'assets/images/tokens/dai-token.svg';
 
-// traits
-import aggression from 'assets/images/traits/agg.png';
-import brain from 'assets/images/traits/brn.png';
-import eyeColor from 'assets/images/traits/eyc.png';
-import eyeShape from 'assets/images/traits/eys.png';
-import energy from 'assets/images/traits/nrg.png';
-import spookiness from 'assets/images/traits/spk.png';
-
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -81,6 +71,21 @@ import lendCard from 'assets/images/navigation/lend.jpg';
 import mapCard from 'assets/images/navigation/map.jpg';
 import marketCard from 'assets/images/navigation/market.jpg';
 import rafflesCard from 'assets/images/navigation/raffles.jpg';
+import h1OpenedPortal from 'assets/images/portals/h1-opened.svg';
+// portals
+import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
+import h2OpenedPortal from 'assets/images/portals/h2-opened.svg';
+import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
+import rareTicket from 'assets/images/tickets/rare.svg';
+// traits
+import aggression from 'assets/images/traits/agg.png';
+import brain from 'assets/images/traits/brn.png';
+import eyeColor from 'assets/images/traits/eyc.png';
+import eyeShape from 'assets/images/traits/eys.png';
+import energy from 'assets/images/traits/nrg.png';
+import spookiness from 'assets/images/traits/spk.png';
+import warehouse from 'assets/images/wearables/15.svg';
+import controller from 'assets/images/wearables/204.svg';
 
 interface IconProps {
   className?: string;

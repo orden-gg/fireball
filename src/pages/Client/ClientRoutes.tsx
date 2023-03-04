@@ -1,30 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate, Route, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
-
 import Helmet from 'react-helmet';
+import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+
 import queryString from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress, setActiveAddress } from 'core/store/login';
-import { DataReloadType } from 'shared/constants';
-import { PageNav } from 'components/PageNav/PageNav';
-import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
-import { ClientContext } from 'contexts/ClientContext';
 import { EthersApi } from 'api';
-import { CommonUtils } from 'utils';
-
-import { ClientAccount } from './routes/ClientAccount';
-import { ClientGotchis } from './routes/ClientGotchis';
-import { ClientInstallations } from './routes/ClientInstallations';
-import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
-import { ClientForSale } from './routes/ClientForSale';
-import { ClientRealm } from './routes/ClientRealm';
-import { ClientTickets } from './routes/ClientTickets';
-import { ClientWarehouse } from './routes/ClientWarehouse';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { getActiveAddress, setActiveAddress } from 'core/store/login';
 
+import { DataReloadType } from 'shared/constants';
+
+import { ClientContext } from 'contexts/ClientContext';
+
+import { PageNav } from 'components/PageNav/PageNav';
+import { RealmSwitchButton } from 'components/RealmSwitchButton/RealmSwitchButton';
+
+import { CommonUtils } from 'utils';
+
+import { ClientAccount } from './routes/ClientAccount';
+import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
+import { ClientForSale } from './routes/ClientForSale';
+import { ClientGotchis } from './routes/ClientGotchis';
+import { ClientInstallations } from './routes/ClientInstallations';
+import { ClientPortals } from './routes/ClientPortals';
+import { ClientRealm } from './routes/ClientRealm';
+import { ClientTickets } from './routes/ClientTickets';
+import { ClientWarehouse } from './routes/ClientWarehouse';
 import { styles } from './styles';
 
 const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
@@ -123,6 +127,7 @@ export function ClientRoutes() {
       <Routes>
         <Route path='' element={<ClientAccount />} />
         <Route path='gotchis/*' element={<ClientGotchis />} />
+        <Route path='portals' element={<ClientPortals />} />
         <Route path='installations' element={<ClientInstallations />} />
         <Route path='warehouse' element={<ClientWarehouse />} />
         <Route path='tickets' element={<ClientTickets />} />

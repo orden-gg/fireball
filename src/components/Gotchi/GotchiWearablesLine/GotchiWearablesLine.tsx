@@ -3,9 +3,11 @@ import { useTheme } from '@mui/material';
 import classNames from 'classnames';
 
 import { Erc1155Categories, WEARABLE_SLOTS } from 'shared/constants';
-import { ItemCard } from 'components/ItemCard/containers';
+
 import { CardGroup, CardImage, CardListing, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { ItemUtils } from 'utils';
 
 import { styles } from './styles';

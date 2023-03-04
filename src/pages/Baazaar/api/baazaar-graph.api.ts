@@ -1,6 +1,7 @@
+import { TheGraphCoreApi } from 'api';
+
 import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 import { TheGraphResponse } from 'shared/models';
-import { TheGraphCoreApi } from 'api';
 
 export class BaazaarGraphApi {
   public static async getErc721Listings<T>(query: string): Promise<T[]> {

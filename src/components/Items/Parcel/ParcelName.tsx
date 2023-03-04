@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
+
 import { CitadelUtils } from 'utils';
 
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 
 export function ParcelName({ parcel }: { parcel: any }) {
   const classes = {

@@ -1,5 +1,6 @@
 import { InstallationTypeNames, InstallationTypes, RarityTypes } from 'shared/constants';
 import { InstallationItem, ParcelInstallationDTO, ParcelInstallationVM } from 'shared/models';
+
 import installations from 'data/installations.data.json';
 
 export class InstallationsUtils {

@@ -1,10 +1,11 @@
 import { ethers } from 'ethers';
 import _ from 'lodash';
 
-import { TILES_CONTRACT, TileTypes } from 'shared/constants';
-import TILES_ABI from 'data/abi/tiles.abi.json';
-
 import { EthersApi } from './ethers.api';
+
+import { TILES_CONTRACT, TileTypes } from 'shared/constants';
+
+import TILES_ABI from 'data/abi/tiles.abi.json';
 
 const tilesContract = EthersApi.makeContract(TILES_CONTRACT, TILES_ABI, 'polygon');
 

@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 
 import { baazarReducers } from 'pages/Baazaar/store';
 import { clientReducers } from 'pages/Client/store';

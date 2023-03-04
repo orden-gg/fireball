@@ -24,6 +24,7 @@ import {
   KEK_CONTRACT,
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
+
 import { CommonUtils } from 'utils';
 
 import { TokensPricesContext } from './TokensPricesContext';

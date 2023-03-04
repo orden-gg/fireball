@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 
 import { CountdownFormatNonZeroType } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
+
 import { Countdown } from 'components/Countdown/Countdown';
 
 import { styles } from './styles';

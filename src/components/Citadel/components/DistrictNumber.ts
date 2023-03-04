@@ -1,8 +1,9 @@
 // @ts-nocheck
 import Phaser from 'phaser';
 
-import { COLORS } from 'data/citadel.data';
 import { CitadelUtils } from 'utils';
+
+import { COLORS } from 'data/citadel.data';
 
 export class DistrictNumber extends Phaser.GameObjects.Text {
   constructor(scene, id) {

@@ -1,11 +1,13 @@
 import { useCallback, useState } from 'react';
+
 import { Backdrop, Button, Divider } from '@mui/material';
 
 import classNames from 'classnames';
 
 import { Sorting } from 'shared/models';
-import { Filters } from 'components/Filters/components/Filters/Filters';
+
 import { LazySorting } from 'components/Filters/LazySorting';
+import { Filters } from 'components/Filters/components/Filters/Filters';
 
 import { styles } from './styles';
 

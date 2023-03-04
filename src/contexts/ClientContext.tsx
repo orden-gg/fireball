@@ -1,25 +1,33 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { Erc1155Categories, Erc721Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
-import { PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
-import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
-import {
-  GotchiIcon,
-  KekIcon,
-  RareTicketIcon,
-  WarehouseIcon,
-  AnvilIcon,
-  FakeGotchisIcon,
-  BaazarIcon
-} from 'components/Icons/Icons';
-import { SubNav } from 'components/PageNav/SubNav';
+import { ClientApi } from '../pages/Client/api/client.api';
 import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
-import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
-import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { onLoadFakeGotchis, resetFakeGotchis, selectFakeGotchisLength } from 'pages/Client/store';
+
+import { Erc721Categories, Erc1155Categories, InstallationTypeNames, ItemTypeNames } from 'shared/constants';
+import { Erc721ListingsBatch, PageNavLink, SortingItem, WearableTypeBenefit } from 'shared/models';
+
+import { Portal } from 'pages/Client/models';
+
+import {
+  AnvilIcon,
+  BaazarIcon,
+  FakeGotchisIcon,
+  GotchiIcon,
+  H1SealedPortalIcon,
+  KekIcon,
+  RareTicketIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
+import { SubNav } from 'components/PageNav/SubNav';
+
+import { CommonUtils, GraphUtils, InstallationsUtils, ItemUtils, TilesUtils } from 'utils';
+
+import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 const loadedDefaultStates: { [key: string]: boolean } = {
   isGotchisLoaded: false,
@@ -27,6 +35,7 @@ const loadedDefaultStates: { [key: string]: boolean } = {
   isBorrowedLoaded: false,
   isInventoryLoaded: false,
   isTicketsLoaded: false,
+  isPortalsLoaded: false,
   isRealmLoaded: false,
   isInstallationsLoaded: false,
   isTilesLoaded: false,
@@ -62,6 +71,9 @@ export const ClientContextProvider = (props: any) => {
 
   const [tickets, setTickets] = useState<any[]>([]);
   const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
+
+  const [portals, setPortals] = useState<any[]>([]);
+  const [loadingPortals, setLoadingPortals] = useState<boolean>(true);
 
   const [realm, setRealm] = useState<any[]>([]);
   const [realmSorting, setRealmSorting] = useState<SortingItem>({ type: 'size', dir: 'desc' });
@@ -127,6 +139,13 @@ export const ClientContextProvider = (props: any) => {
           ]}
         />
       )
+    },
+    {
+      name: 'portals',
+      path: 'portals',
+      icon: <H1SealedPortalIcon width={24} height={24} />,
+      isLoading: loadingPortals,
+      count: portals.length
     },
     {
       name: 'warehouse',
@@ -201,6 +220,7 @@ export const ClientContextProvider = (props: any) => {
     getBorrowed(address, shouldUpdateIsLoading);
     getInventory(address, shouldUpdateIsLoading);
     getTickets(address, shouldUpdateIsLoading);
+    getPortal(address, shouldUpdateIsLoading);
     getRealm(address, shouldUpdateIsLoading);
     getInstallations(address, shouldUpdateIsLoading);
     getTiles(address, shouldUpdateIsLoading);
@@ -453,6 +473,40 @@ export const ClientContextProvider = (props: any) => {
       .finally(() => {
         setLoadingTickets(false);
         setLoadedStates((statesCache) => ({ ...statesCache, isTicketsLoaded: true }));
+      });
+  };
+
+  const getPortal = (address: string, shouldUpdateIsLoading: boolean = false): void => {
+    setLoadingPortals(shouldUpdateIsLoading);
+    setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: false }));
+
+    TheGraphApi.getPortalsByAddress(address)
+      .then((response: Portal[]) => {
+        const portalsIds = response.map((item: Portal) => Number(item.id));
+        ClientApi.getErc721ListingsByCategories(portalsIds, [
+          Erc721Categories.OpenedPortal,
+          Erc721Categories.ClosedPortal
+        ]).then((listings: Erc721ListingsBatch) => {
+          const modifinedResponce = response.map((portal: Portal) => {
+            const lastSoldPortalListing = listings[`item${portal.id}`][0];
+
+            return {
+              ...portal,
+              id: Number(portal.id),
+              category: portal.openedAt ? Erc721Categories.OpenedPortal : Erc721Categories.ClosedPortal,
+              listingId: lastSoldPortalListing ? lastSoldPortalListing.id : null,
+              listingPrice: lastSoldPortalListing ? Number(EthersApi.fromWei(lastSoldPortalListing.priceInWei)) : 0
+            };
+          });
+          setPortals(modifinedResponce);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoadingPortals(false);
+        setLoadedStates((statesCache) => ({ ...statesCache, isPortalsLoaded: true }));
       });
   };
 
@@ -717,6 +771,9 @@ export const ClientContextProvider = (props: any) => {
 
         tickets,
         loadingTickets,
+
+        portals,
+        loadingPortals,
 
         realm,
         realmView,
