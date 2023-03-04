@@ -69,6 +69,7 @@ export function Balances() {
   if (!tokens.length) {
     return <></>;
   }
+
   return (
     <div className={classes.balancesWrapper}>
       {menuOpen && (
