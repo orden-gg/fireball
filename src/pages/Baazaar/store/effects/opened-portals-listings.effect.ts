@@ -1,19 +1,22 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
+
 import { TraitNumberType } from 'shared/constants';
 import { SortingItem } from 'shared/models';
 
+import { ASCENDING_DIRECTION, PRICE_IN_WEI } from 'pages/Baazaar/constants';
+
 import { OpenedPortalListingDTO, OpenedPortalListingVM } from '../../models';
 import { getBaazaarOpenedPortalsListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadOpenedPortalsListings,
-  loadOpenedPortalsListingsSucceded,
   loadOpenedPortalsListingsFailed,
+  loadOpenedPortalsListingsSucceded,
   resetOpenedPortalsListings,
   setOpenedPortalsListingsSorting,
   setOpenedPortalsPreviousSortingProp
 } from '../slices';
-import { ASCENDING_DIRECTION, PRICE_IN_WEI } from 'pages/Baazaar/constants';
 
 export const loadBaazaarOpenedPortalsListings = (): AppThunk => (dispatch) => {
   dispatch(loadOpenedPortalsListings());

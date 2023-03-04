@@ -1,8 +1,10 @@
 import { useContext, useEffect, useMemo } from 'react';
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import { Citadel } from 'components/Citadel/Citadel';
 import { ClientContext } from 'contexts/ClientContext';
+
+import { Citadel } from 'components/Citadel/Citadel';
 
 import { styles } from '../styles';
 

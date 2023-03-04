@@ -1,10 +1,10 @@
 import { useContext } from 'react';
+
 import { Button, Typography } from '@mui/material';
 
-import { PanelErrorText } from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
-
+import { PanelErrorText } from './PanelErrorText';
 import { AutopetPanelProps } from './models/autopet-panel-props.model';
 
 export function GhstPanel({ index, dir }: AutopetPanelProps) {

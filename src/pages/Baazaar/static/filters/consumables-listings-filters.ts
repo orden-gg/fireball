@@ -7,6 +7,7 @@ import {
   RarityNumberTypes,
   RarityTypes
 } from 'shared/constants';
+
 import { ConsumableListingFilterTypes } from '../../constants';
 import { ConsumableListingFilters } from '../../models';
 

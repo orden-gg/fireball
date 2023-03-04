@@ -1,28 +1,33 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import ScienceIcon from '@mui/icons-material/Science';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { DataReloadType } from 'shared/constants';
-import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
-import { ContentInner } from 'components/Content/ContentInner';
-import { Gotchi } from 'components/Gotchi/Gotchi';
-import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import { GotchiIcon } from 'components/Icons/Icons';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { TheGraphApi } from 'api';
-import { filtersData } from 'data/filters.data';
-import { FilterUtils } from 'utils';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { DataReloadType } from 'shared/constants';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import { GotchiIcon } from 'components/Icons/Icons';
+import { GotchisLazy } from 'components/Lazy/GotchisLazy';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
+import { FilterUtils } from 'utils';
+
+import { filtersData } from 'data/filters.data';
 
 import { styles } from './styles';
 

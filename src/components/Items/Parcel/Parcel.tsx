@@ -2,21 +2,22 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
-import { CardSalesHistory } from 'components/ItemCard/components';
-import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomModal } from 'components/CustomModal/CustomModal';
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { CardSalesHistory } from 'components/ItemCard/components';
+import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
-import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
+import { ParcelName } from './ParcelName';
 
 export function Parcel({ parcel }: { parcel: any }) {
   const classes = {

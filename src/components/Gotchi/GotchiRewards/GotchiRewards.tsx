@@ -2,6 +2,7 @@ import { Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { GhstTokenGif } from 'components/Icons/Icons';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';

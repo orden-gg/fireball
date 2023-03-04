@@ -1,4 +1,8 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi, TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { Erc1155Categories } from 'shared/constants';
 import {
   Erc1155ListingsBatch,
@@ -7,7 +11,7 @@ import {
   GraphQueryParams,
   SortingItem
 } from 'shared/models';
-import { EthersApi, TheGraphApi } from 'api';
+
 import { GraphFiltersUtils, ItemUtils } from 'utils';
 
 import { ASCENDING_DIRECTION, PRICE_IN_WEI, WearableListingFilterTypes } from '../../constants';
@@ -18,19 +22,18 @@ import {
   WearableListingVM
 } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadWearablesListings,
-  loadWearablesListingsSucceded,
   loadWearablesListingsFailed,
+  loadWearablesListingsSucceded,
+  resetWearablesListings,
+  setIsWearablesListingsInitialDataLoading,
   setWearablesListingsFilters,
   setWearablesListingsIsFiltersUpdated,
   setWearablesListingsIsSortingUpdated,
-  setWearablesListingsSkipLimit,
-  setWearablesListingsSorting,
   setWearablesListingsPreviousSortingProp,
-  setIsWearablesListingsInitialDataLoading,
-  resetWearablesListings
+  setWearablesListingsSkipLimit,
+  setWearablesListingsSorting
 } from '../slices';
 
 export const loadBaazaarWearablesListings =

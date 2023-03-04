@@ -1,20 +1,25 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 import TimerIcon from '@mui/icons-material/Timer';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import qs from 'query-string';
 
 import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
-import { ContentInner } from 'components/Content/ContentInner';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { Parcel } from 'components/Items/Parcel/Parcel';
-import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { ClientContext } from 'contexts/ClientContext';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
+import { Parcel } from 'components/Items/Parcel/Parcel';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { FilterUtils } from 'utils';
+
 import { filtersData } from 'data/filters.data';
 
 const sortings: SortingListItem[] = [

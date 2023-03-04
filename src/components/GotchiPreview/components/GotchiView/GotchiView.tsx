@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 
+import { TheGraphApi } from 'api';
+
 import { Erc1155Categories, WearableTypes } from 'shared/constants';
+
 import { GotchiCollateral } from 'components/Gotchi/GotchiCollateral/GotchiCollateral';
 import { WearableSlot } from 'components/Items/WearableSlot/WearableSlot';
-import { TheGraphApi } from 'api';
+
 import { ItemUtils } from 'utils';
 
-import { GotchiLevel } from '../GotchiLevel/GotchiLevel';
+import { GotchiEquipmentPrice } from '../GotchiEquipmentPrice/GotchiEquipmentPrice';
 import { GotchiImage } from '../GotchiImage/GotchiImage';
 import { GotchiInfoItem } from '../GotchiInfoList/components/GotchiInfoItem/GotchiInfoItem';
-import { GotchiEquipmentPrice } from '../GotchiEquipmentPrice/GotchiEquipmentPrice';
-
+import { GotchiLevel } from '../GotchiLevel/GotchiLevel';
 import { gotchiViewStyles } from './styles';
+
 interface GotchiViewProps {
   gotchi: any;
 }

@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { CardImage } from 'components/ItemCard/components';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { ItemUtils } from 'utils';
 
 import { guildWearables } from '../styles';

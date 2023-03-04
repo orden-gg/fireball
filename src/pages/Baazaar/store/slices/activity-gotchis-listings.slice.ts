@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams } from 'shared/models';
 
-import { ActivityGotchiListingVM, ActivityGotchiListingFilters } from '../../models';
+import { ActivityGotchiListingFilters, ActivityGotchiListingVM } from '../../models';
 import { activityGotchiListingsFilters } from '../../static/filters';
 
 export interface ActivityGotchisListingsState {

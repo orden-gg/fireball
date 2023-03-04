@@ -1,4 +1,8 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { EthersApi, TheGraphApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
+
 import { Erc1155Categories } from 'shared/constants';
 import {
   Erc1155ListingsBatch,
@@ -7,7 +11,7 @@ import {
   GraphQueryParams,
   SortingItem
 } from 'shared/models';
-import { EthersApi, TheGraphApi } from 'api';
+
 import { GraphFiltersUtils, InstallationsUtils } from 'utils';
 
 import { ASCENDING_DIRECTION, InstallationListingFilterTypes, PRICE_IN_WEI } from '../../constants';
@@ -18,19 +22,18 @@ import {
   InstallationListingVM
 } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadInstallationsListings,
-  loadInstallationsListingsSucceded,
   loadInstallationsListingsFailed,
+  loadInstallationsListingsSucceded,
+  resetInstallationsListings,
   setInstallationsListingsFilters,
   setInstallationsListingsIsFiltersUpdated,
   setInstallationsListingsIsSortingUpdated,
+  setInstallationsListingsPreviousSortingProp,
   setInstallationsListingsSkipLimit,
   setInstallationsListingsSorting,
-  setInstallationsListingsPreviousSortingProp,
-  setIsInstallationsListingsInitialDataLoading,
-  resetInstallationsListings
+  setIsInstallationsListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarInstallationsListings =

@@ -1,12 +1,14 @@
-import { Link, Typography } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
+
+import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';

@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { NavigateFunction } from 'react-router-dom';
+
 import { Switch } from '@mui/material';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ClientContext } from 'contexts/ClientContext';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
