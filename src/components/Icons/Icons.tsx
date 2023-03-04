@@ -39,7 +39,6 @@ import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
 import rareTicket from 'assets/images/tickets/rare.svg';
-import warehouse from 'assets/images/wearables/15.svg';
 
 // portals
 import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
@@ -71,12 +70,6 @@ import lendCard from 'assets/images/navigation/lend.jpg';
 import mapCard from 'assets/images/navigation/map.jpg';
 import marketCard from 'assets/images/navigation/market.jpg';
 import rafflesCard from 'assets/images/navigation/raffles.jpg';
-import h1OpenedPortal from 'assets/images/portals/h1-opened.svg';
-// portals
-import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
-import h2OpenedPortal from 'assets/images/portals/h2-opened.svg';
-import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
-import rareTicket from 'assets/images/tickets/rare.svg';
 // traits
 import aggression from 'assets/images/traits/agg.png';
 import brain from 'assets/images/traits/brn.png';
