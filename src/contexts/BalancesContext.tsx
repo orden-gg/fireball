@@ -83,7 +83,6 @@ export const BalancesContextProvider = (props: any) => {
   const activeAddress = useAppSelector(getActiveAddress);
 
   const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
-
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
   const [amounts, setAmounts] = useState<any>({});
@@ -161,7 +160,8 @@ export const BalancesContextProvider = (props: any) => {
           amount: amounts[TokenTypes.Fud],
           pricePerToken: tokensPrices[TokenTypes.Fud].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Fud] * amounts[TokenTypes.Fud]),
-          swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
+          swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Fud)
         },
         {
           key: TokenTypes.Fomo,
@@ -171,7 +171,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Fomo] * amounts[TokenTypes.Fomo]
           ),
-          swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
+          swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Fomo)
         },
         {
           key: TokenTypes.Alpha,
@@ -181,7 +182,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alpha] * amounts[TokenTypes.Alpha]
           ),
-          swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
+          swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Alpha)
         },
         {
           key: TokenTypes.Kek,
@@ -189,7 +191,8 @@ export const BalancesContextProvider = (props: any) => {
           amount: amounts[TokenTypes.Kek],
           pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Kek] * amounts[TokenTypes.Kek]),
-          swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
+          swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Kek)
         },
         {
           key: TokenTypes.Gltr,
@@ -199,7 +202,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Gltr] * amounts[TokenTypes.Gltr]
           ),
-          swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
+          swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Gltr)
         },
         {
           key: TokenTypes.Alloy,
@@ -209,7 +213,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
           ),
-          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?alloy'
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?alloy',
+          hidden: generateHiden(TokenTypes.Alloy)
         },
         {
           key: TokenTypes.Essence,
@@ -219,7 +224,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Essence] * amounts[TokenTypes.Essence]
           ),
-          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?essence'
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?essence',
+          hidden: generateHiden(TokenTypes.Essence)
         },
         {
           key: TokenTypes.Ghst,
@@ -229,7 +235,8 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]
           ),
-          swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT)
+          swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT),
+          hidden: generateHiden(TokenTypes.Ghst)
         },
         {
           key: TokenTypes.Matic,
@@ -239,12 +246,13 @@ export const BalancesContextProvider = (props: any) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Matic] * amounts[TokenTypes.Matic]
           ),
-          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT)
+          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT),
+          hidden: generateHiden(TokenTypes.Matic)
         }
       ];
 
       if (mounted) {
-        setTokens(tokens);
+        setTokens(tokens.filter((hidden) => !hidden.hidden));
         setIsBalancesLoading(false);
       }
     }
@@ -253,6 +261,16 @@ export const BalancesContextProvider = (props: any) => {
       mounted = false;
     };
   }, [isAmountsLoaded, isPricesLoaded]);
+
+  const generateHiden = (inputToken: string): boolean => {
+    const ishiden = localStorage.getItem('visible_checkList')?.toString();
+    const hide = ishiden?.includes(inputToken);
+    if (hide) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const getTokensAmounts = (address) => {
     return Promise.all([
