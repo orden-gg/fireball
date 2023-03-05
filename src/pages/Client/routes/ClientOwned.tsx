@@ -72,9 +72,10 @@ const sortings: SortingListItem[] = [
 const initialFilters: any = {
   hauntId: { ...filtersData.hauntId, divider: true },
   collateral: { ...filtersData.collateral, divider: true },
+  gotchiChanelling: { ...filtersData.gotchiChanelling, divider: true },
   search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'collateral', 'gotchiChanelling', 'search', 'sort', 'dir'];
 
 export function ClientOwned() {
   const navigate = useNavigate();

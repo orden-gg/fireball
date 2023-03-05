@@ -156,6 +156,31 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
+  gotchiChanelling: {
+    key: 'gotchiChanelling',
+    queryParamKey: 'gotchiChanelling',
+    title: 'Is channeling ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: any, compareItem: any, key: any): any => {
+      let predicate: any;
+
+      if (!filter.value || !compareItem[key]) {
+        predicate = true;
+      } else {
+        predicate = DateTime.local().toSeconds() >= compareItem[key];
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
   size: {
     key: 'size',
     queryParamKey: 'size',
