@@ -1,6 +1,7 @@
 export * from './borrowed-gotchis.slice';
 export * from './client.slices';
 export * from './fake-gotchis.slice';
+export * from './items-for-sale.slice';
 export * from './installations.slice';
 export * from './lent-gotchis.slice';
 export * from './owned-gotchis.slice';

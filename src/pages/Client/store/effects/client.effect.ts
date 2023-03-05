@@ -6,6 +6,7 @@ import { resetFakeGotchis, resetWarehouseItems } from '../slices';
 import { onLoadBorrowedGotchis } from './borrowed-gotchis.effect';
 import { onLoadFakeGotchis } from './fake-gotchis.effect';
 import { onLoadInstallations } from './installations.effect';
+import { onLoadItemsForSale } from './items-for-sale.effect';
 import { onLoadLentGotchis } from './lent-gotchis.effect';
 import { onLoadOwnedGotchis } from './owned-gotchis.effect';
 import { onLoadPortals } from './portals.effect';
@@ -30,4 +31,5 @@ export const onLoadClientData =
     dispatch(onLoadTiles(address));
     dispatch(onLoadRealm(address));
     dispatch(onLoadFakeGotchis(address));
+    dispatch(onLoadItemsForSale(address));
   };
