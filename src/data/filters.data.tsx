@@ -156,6 +156,34 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
+  lastChanneling: {
+    key: 'lastChanneling',
+    queryParamKey: 'lastChanneling',
+    title: 'Is channeling ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: any, compareItem: any, key: number): any => {
+      let predicate: boolean;
+      if (!filter.value || !compareItem[key]) {
+        predicate = true;
+      } else {
+        const today = new Date();
+        today.setUTCHours(0);
+        today.setUTCMinutes(0);
+        today.setUTCSeconds(0);
+        predicate = today.getTime() >= compareItem[key] * 1000;
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
   size: {
     key: 'size',
     queryParamKey: 'size',
