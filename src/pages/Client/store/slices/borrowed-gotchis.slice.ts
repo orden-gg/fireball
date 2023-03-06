@@ -9,6 +9,7 @@ export interface BorrowedGotchisState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialBorrowedGotchisLoading: boolean;
   borrowedGotchisSorting: SortingItem;
 }
 
@@ -19,6 +20,7 @@ const initialState: BorrowedGotchisState = {
     isLoaded: false,
     isError: false
   },
+  isInitialBorrowedGotchisLoading: true,
   borrowedGotchisSorting: {
     type: 'kinship',
     dir: 'desc'
@@ -53,6 +55,9 @@ export const borrowedGotchisSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialBorrowedGotchisLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialBorrowedGotchisLoading = action.payload;
+    },
     setBorrowedGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.borrowedGotchisSorting = action.payload;
     }
@@ -63,6 +68,7 @@ export const {
   loadBorrowedGotchis,
   loadBorrowedGotchisSucceded,
   loadBorrowedGotchisFailed,
+  setIsInitialBorrowedGotchisLoading,
   setBorrowedGotchisSorting
 } = borrowedGotchisSlice.actions;
 

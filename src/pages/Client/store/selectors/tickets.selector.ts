@@ -6,4 +6,4 @@ export const getTickets = (state: RootState): ClientTicket[] => state.client.tic
 
 export const getTicketsCount = (state: RootState): number => state.client.tickets.tickets.data.length;
 
-export const getIsTicketsLoading = (state: RootState): boolean => state.client.tickets.tickets.isLoading;
+export const getIsInitialTicketsLoading = (state: RootState): boolean => state.client.tickets.isInitialTicketsLoading;

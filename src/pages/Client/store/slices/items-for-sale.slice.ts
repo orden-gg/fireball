@@ -18,6 +18,7 @@ export interface ItemsForSaleState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialItemsForSaleLoading: boolean;
 }
 
 const initialState: ItemsForSaleState = {
@@ -26,7 +27,8 @@ const initialState: ItemsForSaleState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isInitialItemsForSaleLoading: true
 };
 
 export const itemsForSaleSlice = createSlice({
@@ -57,13 +59,21 @@ export const itemsForSaleSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialItemsForSaleLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialItemsForSaleLoading = action.payload;
+    },
     resetItemsForSale: (state): void => {
       state.itemsForSale.data = { ...initialItemsForSale };
     }
   }
 });
 
-export const { loadItemsForSale, loadItemsForSaleSucceded, loadItemsForSaleFailed, resetItemsForSale } =
-  itemsForSaleSlice.actions;
+export const {
+  loadItemsForSale,
+  loadItemsForSaleSucceded,
+  loadItemsForSaleFailed,
+  setIsInitialItemsForSaleLoading,
+  resetItemsForSale
+} = itemsForSaleSlice.actions;
 
 export const itemsForSaleReducer = itemsForSaleSlice.reducer;

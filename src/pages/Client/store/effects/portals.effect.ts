@@ -9,7 +9,7 @@ import { Erc721Listing, Erc721ListingsBatch, SortingItem } from 'shared/models';
 import { CommonUtils } from 'utils';
 
 import { ClientPortal, Portal } from '../../models';
-import { loadPortals, loadPortalsFailed, loadPortalsSucceded } from '../slices';
+import { loadPortals, loadPortalsFailed, loadPortalsSucceded, setIsInitialPortalsLoading } from '../slices';
 
 export const onLoadPortals =
   (address: string): AppThunk =>
@@ -44,7 +44,8 @@ export const onLoadPortals =
           dispatch(loadPortalsSucceded(sortedPortals));
         }
       })
-      .catch(() => dispatch(loadPortalsFailed()));
+      .catch(() => dispatch(loadPortalsFailed()))
+      .finally(() => dispatch(setIsInitialPortalsLoading(false)));
   };
 
 const getMappedPortalsWithListings = (portals: ClientPortal[], listings: Erc721ListingsBatch): ClientPortal[] => {

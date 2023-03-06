@@ -22,10 +22,10 @@ export function ClientTickets() {
   const classes = routersStyles();
 
   const tickets: ClientTicket[] = useAppSelector(fromClientStore.getTickets);
-  const isTicketsLoading: boolean = useAppSelector(fromClientStore.getIsTicketsLoading);
+  const isInitialTicketsLoading: boolean = useAppSelector(fromClientStore.getIsInitialTicketsLoading);
 
   return (
-    <ContentInner dataLoading={isTicketsLoading}>
+    <ContentInner dataLoading={isInitialTicketsLoading}>
       <div>
         <div className={classes.list}>
           {tickets.map((ticket: ClientTicket, index: number) => (

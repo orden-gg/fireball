@@ -108,7 +108,7 @@ export function ClientRealmList() {
   const dispatch = useAppDispatch();
 
   const realm: RealmVM[] = useAppSelector(fromClientStore.getRealm);
-  const isRealmLoading: boolean = useAppSelector(fromClientStore.getIsRealmLoading);
+  const isInitialRealmLoading: boolean = useAppSelector(fromClientStore.getIsInitialRealmLoading);
   const realmSorting: SortingItem = useAppSelector(fromClientStore.getRealmSorting);
 
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -217,7 +217,7 @@ export function ClientRealmList() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={isRealmLoading}>
+      <ContentInner dataLoading={isInitialRealmLoading}>
         <ItemsLazy items={modifiedRealm} component={(props) => <Parcel parcel={props} />} />
       </ContentInner>
     </>

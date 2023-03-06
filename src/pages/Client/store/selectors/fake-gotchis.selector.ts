@@ -10,4 +10,5 @@ export const getFakeGotchisCount = (state: RootState): number =>
       state.client.fakeGotchis.fakeGotchis.data.fakeGotchis.length
     : 0;
 
-export const getIsFakeGotchisLoading = (state: RootState): boolean => state.client.fakeGotchis.fakeGotchis.isLoading;
+export const getIsInitialFakeGotchisLoading = (state: RootState): boolean =>
+  state.client.fakeGotchis.isInitialFakeGotchisLoading;

@@ -19,13 +19,13 @@ import { InstallationAndTile } from '../models';
 
 export function ClientInstallations() {
   const installations: InstallationAndTile[] = useAppSelector(fromClientStore.getInstallations);
-  const isInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInstallationsLoading);
+  const isInitialInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInitialInstallationsLoading);
   const tiles: InstallationAndTile[] = useAppSelector(fromClientStore.getTiles);
-  const isTilesLoading: boolean = useAppSelector(fromClientStore.getIsTilesLoading);
+  const isInitialTilesLoading: boolean = useAppSelector(fromClientStore.getIsInitialTilesLoading);
 
   return (
     <>
-      <ContentInner dataLoading={isTilesLoading || isInstallationsLoading}>
+      <ContentInner dataLoading={isInitialInstallationsLoading || isInitialTilesLoading}>
         <ItemsLazy
           items={[...installations, ...tiles]}
           component={(item: InstallationAndTile) => (

@@ -47,7 +47,7 @@ export function ClientLendings() {
   const dispatch = useAppDispatch();
 
   const lentGotchis: GotchiLending[] = useAppSelector(fromClientStore.getLentGotchis);
-  const isLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsLentGotchisLoading);
+  const isInitialLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialLentGotchisLoading);
   const lentGotchisSorting: SortingItem = useAppSelector(fromClientStore.getLentGotchisSorting);
 
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -200,7 +200,7 @@ export function ClientLendings() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={isLentGotchisLoading}>
+      <ContentInner dataLoading={isInitialLentGotchisLoading}>
         <GotchisLazy
           items={modifiedLentGotchis}
           renderItem={(id) => (

@@ -9,6 +9,7 @@ export interface ClientFakeGotchisState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialFakeGotchisLoading: boolean;
 }
 
 const initialState: ClientFakeGotchisState = {
@@ -17,7 +18,8 @@ const initialState: ClientFakeGotchisState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isInitialFakeGotchisLoading: true
 };
 
 export const fakeGotchisSlice = createSlice({
@@ -48,6 +50,9 @@ export const fakeGotchisSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialFakeGotchisLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialFakeGotchisLoading = action.payload;
+    },
     resetFakeGotchis: (state): void => {
       state.fakeGotchis = {
         data: null,
@@ -59,7 +64,12 @@ export const fakeGotchisSlice = createSlice({
   }
 });
 
-export const { loadFakeGotchis, loadFakeGotchisSucceded, loadFakeGotchisFailed, resetFakeGotchis } =
-  fakeGotchisSlice.actions;
+export const {
+  loadFakeGotchis,
+  loadFakeGotchisSucceded,
+  loadFakeGotchisFailed,
+  setIsInitialFakeGotchisLoading,
+  resetFakeGotchis
+} = fakeGotchisSlice.actions;
 
 export const fakeGotchisReducer = fakeGotchisSlice.reducer;

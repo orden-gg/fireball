@@ -9,6 +9,7 @@ export interface TilesState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialTilesLoading: boolean;
 }
 
 const initialState: TilesState = {
@@ -17,7 +18,8 @@ const initialState: TilesState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isInitialTilesLoading: true
 };
 
 export const tilesSlice = createSlice({
@@ -47,10 +49,13 @@ export const tilesSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    setIsInitialTilesLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialTilesLoading = action.payload;
     }
   }
 });
 
-export const { loadTiles, loadTilesSucceded, loadTilesFailed } = tilesSlice.actions;
+export const { loadTiles, loadTilesSucceded, loadTilesFailed, setIsInitialTilesLoading } = tilesSlice.actions;
 
 export const tilesReducer = tilesSlice.reducer;

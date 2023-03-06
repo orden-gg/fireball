@@ -6,4 +6,4 @@ export const getTiles = (state: RootState): InstallationAndTile[] => state.clien
 
 export const getTilesCount = (state: RootState): number => state.client.tiles.tiles.data.length;
 
-export const getIsTilesLoading = (state: RootState): boolean => state.client.tiles.tiles.isLoading;
+export const getIsInitialTilesLoading = (state: RootState): boolean => state.client.tiles.isInitialTilesLoading;

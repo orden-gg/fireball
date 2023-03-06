@@ -6,7 +6,12 @@ import { GotchiLending, SortingItem } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
-import { loadLentGotchis, loadLentGotchisFailed, loadLentGotchisSucceded } from '../slices';
+import {
+  loadLentGotchis,
+  loadLentGotchisFailed,
+  loadLentGotchisSucceded,
+  setIsInitialLentGotchisLoading
+} from '../slices';
 
 export const onLoadLentGotchis =
   (address: string): AppThunk =>
@@ -25,5 +30,6 @@ export const onLoadLentGotchis =
 
         dispatch(loadLentGotchisSucceded(sortedLentGotchis));
       })
-      .catch(() => dispatch(loadLentGotchisFailed()));
+      .catch(() => dispatch(loadLentGotchisFailed()))
+      .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
   };

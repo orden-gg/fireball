@@ -17,4 +17,5 @@ export const getItemsForSaleCount = (state: RootState): number => {
   return itemsForSaleCount;
 };
 
-export const getIsItemsForSaleLoading = (state: RootState): boolean => state.client.itemsForSale.itemsForSale.isLoading;
+export const getIsInitialItemsForSaleLoading = (state: RootState): boolean =>
+  state.client.itemsForSale.isInitialItemsForSaleLoading;

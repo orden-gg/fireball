@@ -51,7 +51,7 @@ export function ClientPortals() {
   const dispatch = useAppDispatch();
 
   const portals: ClientPortal[] = useAppSelector(fromClientStore.getPortals);
-  const isPortalsLoading: boolean = useAppSelector(fromClientStore.getIsPortalsLoading);
+  const isInitialPortalsLoading: boolean = useAppSelector(fromClientStore.getIsInitialPortalsLoading);
   const portalsSorting: SortingItem = useAppSelector(fromClientStore.getPortalsSorting);
 
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -156,7 +156,7 @@ export function ClientPortals() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={isPortalsLoading}>
+      <ContentInner dataLoading={isInitialPortalsLoading}>
         <div>
           <div className={classes.list}>
             {modifiedPortals.map((portal: ClientPortal, index: number) => (

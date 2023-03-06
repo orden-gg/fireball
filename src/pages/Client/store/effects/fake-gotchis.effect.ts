@@ -7,7 +7,12 @@ import { FakeGotchi } from 'shared/models';
 import { FakeGotchiCard, FakeItemsDTO, FakeItemsVM } from 'pages/Client/models';
 import { getFakeGotchisByAddressQuery } from 'pages/Client/queries';
 
-import { loadFakeGotchis, loadFakeGotchisFailed, loadFakeGotchisSucceded } from '../slices';
+import {
+  loadFakeGotchis,
+  loadFakeGotchisFailed,
+  loadFakeGotchisSucceded,
+  setIsInitialFakeGotchisLoading
+} from '../slices';
 
 export const onLoadFakeGotchis =
   (address: string): AppThunk =>
@@ -20,7 +25,8 @@ export const onLoadFakeGotchis =
 
         dispatch(loadFakeGotchisSucceded(mappedItems));
       })
-      .catch(() => dispatch(loadFakeGotchisFailed()));
+      .catch(() => dispatch(loadFakeGotchisFailed()))
+      .finally(() => dispatch(setIsInitialFakeGotchisLoading(false)));
   };
 
 const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {

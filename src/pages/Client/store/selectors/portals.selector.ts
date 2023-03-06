@@ -8,6 +8,6 @@ export const getPortals = (state: RootState): ClientPortal[] => state.client.por
 
 export const getPortalsCount = (state: RootState): number => state.client.portals.portals.data.length;
 
-export const getIsPortalsLoading = (state: RootState): boolean => state.client.portals.portals.isLoading;
+export const getIsInitialPortalsLoading = (state: RootState): boolean => state.client.portals.isInitialPortalsLoading;
 
 export const getPortalsSorting = (state: RootState): SortingItem => state.client.portals.portalsSorting;

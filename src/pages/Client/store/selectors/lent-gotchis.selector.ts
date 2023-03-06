@@ -6,6 +6,7 @@ export const getLentGotchis = (state: RootState): GotchiLending[] => state.clien
 
 export const getLentGotchisCount = (state: RootState): number => state.client.lentGotchis.lentGotchis.data.length;
 
-export const getIsLentGotchisLoading = (state: RootState): boolean => state.client.lentGotchis.lentGotchis.isLoading;
+export const getIsInitialLentGotchisLoading = (state: RootState): boolean =>
+  state.client.lentGotchis.isInitialLentGotchisLoading;
 
 export const getLentGotchisSorting = (state: RootState): SortingItem => state.client.lentGotchis.lentGotchisSorting;

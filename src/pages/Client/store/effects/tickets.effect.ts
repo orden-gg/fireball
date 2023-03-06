@@ -3,7 +3,7 @@ import { TicketsApi } from 'api';
 import { AppThunk } from 'core/store/store';
 
 import { ClientTicket, ContractTicket } from '../../models';
-import { loadTickets, loadTicketsFailed, loadTicketsSucceded } from '../slices';
+import { loadTickets, loadTicketsFailed, loadTicketsSucceded, setIsInitialTicketsLoading } from '../slices';
 
 export const onLoadTickets =
   (address: string): AppThunk =>
@@ -16,5 +16,6 @@ export const onLoadTickets =
 
         dispatch(loadTicketsSucceded(modifiedTickets));
       })
-      .catch(() => dispatch(loadTicketsFailed()));
+      .catch(() => dispatch(loadTicketsFailed()))
+      .finally(() => dispatch(setIsInitialTicketsLoading(false)));
   };

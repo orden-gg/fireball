@@ -9,6 +9,7 @@ export interface LentGotchisState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialLentGotchisLoading: boolean;
   lentGotchisSorting: SortingItem;
 }
 
@@ -19,6 +20,7 @@ const initialState: LentGotchisState = {
     isLoaded: false,
     isError: false
   },
+  isInitialLentGotchisLoading: true,
   lentGotchisSorting: {
     type: 'kinship',
     dir: 'desc'
@@ -53,13 +55,21 @@ export const lentGotchisSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialLentGotchisLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialLentGotchisLoading = action.payload;
+    },
     setLentGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.lentGotchisSorting = action.payload;
     }
   }
 });
 
-export const { loadLentGotchis, loadLentGotchisSucceded, loadLentGotchisFailed, setLentGotchisSorting } =
-  lentGotchisSlice.actions;
+export const {
+  loadLentGotchis,
+  loadLentGotchisSucceded,
+  loadLentGotchisFailed,
+  setIsInitialLentGotchisLoading,
+  setLentGotchisSorting
+} = lentGotchisSlice.actions;
 
 export const lentGotchisReducer = lentGotchisSlice.reducer;

@@ -8,6 +8,7 @@ export const getOwnedGotchis = (state: RootState): OwnedGotchi[] => state.client
 
 export const getOwnedGotchisCount = (state: RootState): number => state.client.ownedGotchis.ownedGotchis.data.length;
 
-export const getIsOwnedGotchisLoading = (state: RootState): boolean => state.client.ownedGotchis.ownedGotchis.isLoading;
+export const getIsInitialOwnedGotchisLoading = (state: RootState): boolean =>
+  state.client.ownedGotchis.isInitialOwnedGotchisLoading;
 
 export const getOwnedGotchisSorting = (state: RootState): SortingItem => state.client.ownedGotchis.ownedGotchisSorting;

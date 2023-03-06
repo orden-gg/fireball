@@ -48,11 +48,11 @@ export function ClientForSale() {
   const classes = forSaleStyles();
 
   const itemsForSale: ItemsForSaleDictionary = useAppSelector(fromClientStore.getItemsForSale);
-  const isItemsForSaleLoading: boolean = useAppSelector(fromClientStore.getIsItemsForSaleLoading);
+  const isInitialItemsForSaleLoading: boolean = useAppSelector(fromClientStore.getIsInitialItemsForSaleLoading);
   const itemsForSaleCount: number = useAppSelector(fromClientStore.getItemsForSaleCount);
 
   const loaderRender = (): JSX.Element => {
-    if (isItemsForSaleLoading) {
+    if (isInitialItemsForSaleLoading) {
       return (
         <div className={classes.loaderBox}>
           <CircularProgress color='primary' />

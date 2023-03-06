@@ -25,7 +25,8 @@ import {
   loadItemsForSale,
   loadItemsForSaleFailed,
   loadItemsForSaleSucceded,
-  resetItemsForSale
+  resetItemsForSale,
+  setIsInitialItemsForSaleLoading
 } from '../slices';
 
 export const onLoadItemsForSale =
@@ -44,7 +45,6 @@ export const onLoadItemsForSale =
           ParcelForSaleDTO[],
           Erc1155ForSaleDTO[]
         ]) => {
-          console.log('erc1155Listings', erc1155Listings);
           const isListingsEmpty: boolean =
             erc721Listings.length === 0 && erc1155Listings.length === 0 && realmListings.length === 0;
 
@@ -74,7 +74,8 @@ export const onLoadItemsForSale =
       .catch(() => {
         dispatch(resetItemsForSale());
         dispatch(loadItemsForSaleFailed());
-      });
+      })
+      .finally(() => dispatch(setIsInitialItemsForSaleLoading(false)));
   };
 
 const getMappedListedGotchis = (listings: Erc721ForSaleDTO[]): GotchiForSale[] => {

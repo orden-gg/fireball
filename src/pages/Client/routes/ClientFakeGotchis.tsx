@@ -9,10 +9,10 @@ import { FakeItemsVM } from '../models';
 
 export function ClientFakeGotchis() {
   const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.getFakeGotchis);
-  const isFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.getIsFakeGotchisLoading);
+  const isInitialFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.getIsInitialFakeGotchisLoading);
 
   return (
-    <ContentInner dataLoading={isFakeGotchisLoading}>
+    <ContentInner dataLoading={isInitialFakeGotchisLoading}>
       <GalleryLayout items={fakeItems ? fakeItems.fakeGotchis : []} />
     </ContentInner>
   );

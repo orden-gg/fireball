@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
@@ -10,7 +12,13 @@ import { CommonUtils, ItemUtils } from 'utils';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 import { OwnedGotchi, Warehouse } from '../../models';
-import { loadOwnedGotchis, loadOwnedGotchisFailed, loadOwnedGotchisSucceded, setWarehouseItems } from '../slices';
+import {
+  loadOwnedGotchis,
+  loadOwnedGotchisFailed,
+  loadOwnedGotchisSucceded,
+  setIsInitialOwnedGotchisLoading,
+  setWarehouseItems
+} from '../slices';
 
 export const onLoadOwnedGotchis =
   (address: string): AppThunk =>
@@ -24,7 +32,7 @@ export const onLoadOwnedGotchis =
 
     TheGraphApi.getGotchisByAddress(address)
       .then((ownedGotchis: OwnedGotchi[]) => {
-        const warehouseItemsCopy: Warehouse[] = getState().client.warehouse.warehouse.data;
+        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
 
         const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
         const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
@@ -37,7 +45,8 @@ export const onLoadOwnedGotchis =
         dispatch(setWarehouseItems(sortedWarehouseItems));
         dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
       })
-      .catch(() => dispatch(loadOwnedGotchisFailed()));
+      .catch(() => dispatch(loadOwnedGotchisFailed()))
+      .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
   };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {

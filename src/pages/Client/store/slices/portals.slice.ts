@@ -11,6 +11,7 @@ export interface PortalsState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialPortalsLoading: boolean;
   portalsSorting: SortingItem;
 }
 
@@ -21,6 +22,7 @@ const initialState: PortalsState = {
     isLoaded: false,
     isError: false
   },
+  isInitialPortalsLoading: true,
   portalsSorting: {
     type: 'haunt',
     dir: 'asc'
@@ -55,12 +57,16 @@ export const portalsSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialPortalsLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialPortalsLoading = action.payload;
+    },
     setPortalsSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.portalsSorting = action.payload;
     }
   }
 });
 
-export const { loadPortals, loadPortalsSucceded, loadPortalsFailed, setPortalsSorting } = portalsSlice.actions;
+export const { loadPortals, loadPortalsSucceded, loadPortalsFailed, setIsInitialPortalsLoading, setPortalsSorting } =
+  portalsSlice.actions;
 
 export const portalsReducer = portalsSlice.reducer;

@@ -9,7 +9,12 @@ import { InstallationsUtils } from 'utils';
 
 import { InstallationAndTile } from '../../models';
 // slices
-import { loadInstallations, loadInstallationsFailed, loadInstallationsSucceded } from '../slices';
+import {
+  loadInstallations,
+  loadInstallationsFailed,
+  loadInstallationsSucceded,
+  setIsInitialInstallationsLoading
+} from '../slices';
 
 export const onLoadInstallations =
   (address: string): AppThunk =>
@@ -22,7 +27,8 @@ export const onLoadInstallations =
 
         dispatch(loadInstallationsSucceded(installations));
       })
-      .catch(() => dispatch(loadInstallationsFailed()));
+      .catch(() => dispatch(loadInstallationsFailed()))
+      .finally(() => dispatch(setIsInitialInstallationsLoading(false)));
   };
 
 const getMappedInstallations = (installationsBalances: InstallationsBalances[]): InstallationAndTile[] => {

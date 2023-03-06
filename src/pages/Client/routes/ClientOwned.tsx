@@ -87,7 +87,7 @@ export function ClientOwned() {
   const dispatch = useAppDispatch();
 
   const ownedGotchis: OwnedGotchi[] = useAppSelector(fromClientStore.getOwnedGotchis);
-  const isOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsOwnedGotchisLoading);
+  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialOwnedGotchisLoading);
   const ownedGotchisSorting: SortingItem = useAppSelector(fromClientStore.getOwnedGotchisSorting);
 
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -192,7 +192,7 @@ export function ClientOwned() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={isOwnedGotchisLoading}>
+      <ContentInner dataLoading={isInitialOwnedGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (

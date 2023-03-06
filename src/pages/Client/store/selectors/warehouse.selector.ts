@@ -8,6 +8,7 @@ export const getWarehouse = (state: RootState): Warehouse[] => state.client.ware
 
 export const getWarehouseCount = (state: RootState): number => state.client.warehouse.warehouse.data.length;
 
-export const getIsWarehouseLoading = (state: RootState): boolean => state.client.warehouse.warehouse.isLoading;
+export const getIsInitialWarehouseLoading = (state: RootState): boolean =>
+  state.client.warehouse.isInitialWarehouseLoading;
 
 export const getWarehouseSorting = (state: RootState): SortingItem => state.client.warehouse.warehouseSorting;

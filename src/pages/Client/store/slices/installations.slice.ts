@@ -9,6 +9,7 @@ export interface InstallationsState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialInstallationsLoading: boolean;
 }
 
 const initialState: InstallationsState = {
@@ -17,7 +18,8 @@ const initialState: InstallationsState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isInitialInstallationsLoading: true
 };
 
 export const installationsSlice = createSlice({
@@ -47,10 +49,18 @@ export const installationsSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    setIsInitialInstallationsLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialInstallationsLoading = action.payload;
     }
   }
 });
 
-export const { loadInstallations, loadInstallationsSucceded, loadInstallationsFailed } = installationsSlice.actions;
+export const {
+  loadInstallations,
+  loadInstallationsSucceded,
+  loadInstallationsFailed,
+  setIsInitialInstallationsLoading
+} = installationsSlice.actions;
 
 export const installationsReducer = installationsSlice.reducer;

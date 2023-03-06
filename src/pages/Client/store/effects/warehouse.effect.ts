@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import { MainApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
@@ -10,7 +12,7 @@ import { CommonUtils, ItemUtils } from 'utils';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 import { Warehouse } from '../../models';
-import { loadWarehouse, loadWarehouseFailed, loadWarehouseSucceded } from '../slices';
+import { loadWarehouse, loadWarehouseFailed, loadWarehouseSucceded, setIsInitialWarehouseLoading } from '../slices';
 
 export const onLoadWarehouse =
   (address: string): AppThunk =>
@@ -21,14 +23,15 @@ export const onLoadWarehouse =
 
     MainApi.getInventoryByAddress(address)
       .then((response: Inventory[]) => {
-        const warehouseItemsCopy: Warehouse[] = getState().client.warehouse.warehouse.data;
+        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
 
         const modifiedWarehouseItems: Warehouse[] = getModifiedWarehouse(response, warehouseItemsCopy);
         const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(modifiedWarehouseItems, type, dir);
 
         dispatch(loadWarehouseSucceded(sortedWarehouseItems));
       })
-      .catch(() => dispatch(loadWarehouseFailed()));
+      .catch(() => dispatch(loadWarehouseFailed()))
+      .finally(() => dispatch(setIsInitialWarehouseLoading(false)));
   };
 
 const getModifiedWarehouse = (inventory: Inventory[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {

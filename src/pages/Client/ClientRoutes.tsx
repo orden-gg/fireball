@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Helmet from 'react-helmet';
 import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -13,12 +13,22 @@ import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress, setActiveAddress } from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
+import { PageNavLink } from 'shared/models';
 
 import { RealmSwitchButton } from 'pages/Client/components/RealmSwitchButton/RealmSwitchButton';
 
-import { ClientContext } from 'contexts/ClientContext';
-
+import {
+  AnvilIcon,
+  BaazarIcon,
+  FakeGotchisIcon,
+  GotchiIcon,
+  H1SealedPortalIcon,
+  KekIcon,
+  RareTicketIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
+import { SubNav } from 'components/PageNav/SubNav';
 
 import { CommonUtils } from 'utils';
 
@@ -50,12 +60,121 @@ export function ClientRoutes() {
   const dispatch = useAppDispatch();
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
+  const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
   const activeAddress: Undefinable<string | null> = useAppSelector(getActiveAddress);
-  const realmView: RealmView = useAppSelector(fromClientStore.getRealmView);
 
-  const { getClientData, navData, canBeUpdated, setCanBeUpdated } = useContext<any>(ClientContext);
+  // client store selectors
+  const ownedGotchisCount: number = useAppSelector(fromClientStore.getOwnedGotchisCount);
+  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialOwnedGotchisLoading);
+  const lentGotchisCount: number = useAppSelector(fromClientStore.getLentGotchisCount);
+  const isInitialLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialLentGotchisLoading);
+  const borrowedGotchisCount: number = useAppSelector(fromClientStore.getBorrowedGotchisCount);
+  const isInitialBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialBorrowedGotchisLoading);
+  const portalsCount: number = useAppSelector(fromClientStore.getPortalsCount);
+  const isInitialPortalsLoading: boolean = useAppSelector(fromClientStore.getIsInitialPortalsLoading);
+  const ticketsCount: number = useAppSelector(fromClientStore.getTicketsCount);
+  const isInitialTicketsLoading: boolean = useAppSelector(fromClientStore.getIsInitialTicketsLoading);
+  const warehouseCount: number = useAppSelector(fromClientStore.getWarehouseCount);
+  const isInitialWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsInitialWarehouseLoading);
+  const installationsCount: number = useAppSelector(fromClientStore.getInstallationsCount);
+  const isInitialInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInitialInstallationsLoading);
+  const tilesCount: number = useAppSelector(fromClientStore.getTilesCount);
+  const isInitialTilesLoading: boolean = useAppSelector(fromClientStore.getIsInitialTilesLoading);
+  const realmCount: number = useAppSelector(fromClientStore.getRealmCount);
+  const isInitialRealmLoading: boolean = useAppSelector(fromClientStore.getIsInitialRealmLoading);
+  const realmView: RealmView = useAppSelector(fromClientStore.getRealmView);
+  const fakeGotchisCount: number = useAppSelector(fromClientStore.getFakeGotchisCount);
+  const isInitialFakeGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialFakeGotchisLoading);
+  const itemsForSaleCount: number = useAppSelector(fromClientStore.getItemsForSaleCount);
+  const isInitialItemsForSaleLoading: boolean = useAppSelector(fromClientStore.getIsInitialItemsForSaleLoading);
+
+  const isClientDataLoading: boolean = useAppSelector(fromClientStore.getIsClientDataLoading);
 
   const [isActiveAddressSet, setIsActiveAddressSet] = useState<boolean>(false);
+
+  const navData: PageNavLink[] = [
+    {
+      name: 'gotchis',
+      path: 'gotchis',
+      icon: <GotchiIcon width={24} height={24} />,
+      isLoading: isInitialOwnedGotchisLoading || isInitialLentGotchisLoading || isInitialBorrowedGotchisLoading,
+      count: ownedGotchisCount + borrowedGotchisCount,
+      isShowSubRoutes: true,
+      subNavComponent: (
+        <SubNav
+          links={[
+            {
+              name: 'owned',
+              path: 'gotchis/owned',
+              isLoading: isInitialOwnedGotchisLoading,
+              count: ownedGotchisCount
+            },
+            {
+              name: 'lendings',
+              path: 'gotchis/lended',
+              isLoading: isInitialLentGotchisLoading,
+              count: lentGotchisCount
+            },
+            {
+              name: 'borrowed',
+              path: 'gotchis/borrowed',
+              isLoading: isInitialBorrowedGotchisLoading,
+              count: borrowedGotchisCount
+            }
+          ]}
+        />
+      )
+    },
+    {
+      name: 'portals',
+      path: 'portals',
+      icon: <H1SealedPortalIcon width={24} height={24} />,
+      isLoading: isInitialPortalsLoading,
+      count: portalsCount
+    },
+    {
+      name: 'warehouse',
+      path: 'warehouse',
+      icon: <WarehouseIcon width={24} height={24} />,
+      isLoading: isInitialWarehouseLoading,
+      count: warehouseCount
+    },
+    {
+      name: 'installations',
+      path: 'installations',
+      icon: <AnvilIcon width={24} height={24} />,
+      isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
+      count: installationsCount + tilesCount
+    },
+    {
+      name: 'tickets',
+      path: 'tickets',
+      icon: <RareTicketIcon width={24} height={24} />,
+      isLoading: isInitialTicketsLoading,
+      count: ticketsCount
+    },
+    {
+      name: 'realm',
+      path: 'realm',
+      icon: <KekIcon width={24} height={24} alt='realm' />,
+      isLoading: isInitialRealmLoading,
+      count: realmCount
+    },
+    {
+      name: 'fake gotchis',
+      path: 'fake-gotchis',
+      icon: <FakeGotchisIcon width={24} height={24} />,
+      isLoading: isInitialFakeGotchisLoading,
+      count: fakeGotchisCount
+    },
+    {
+      name: 'for sale',
+      path: 'for-sale',
+      icon: <BaazarIcon width={24} height={24} />,
+      isLoading: isInitialItemsForSaleLoading,
+      count: itemsForSaleCount
+    }
+  ];
 
   useEffect(() => {
     if (EthersApi.isEthAddress(account)) {
@@ -66,7 +185,6 @@ export function ClientRoutes() {
 
     return () => {
       dispatch(fromDataReloadStore.onSetReloadType(null));
-      setCanBeUpdated(false);
     };
   }, []);
 
@@ -84,7 +202,8 @@ export function ClientRoutes() {
           })
         });
 
-        getClientData(activeAddress, true);
+        dispatch(fromClientStore.onUpdateClientLoadingStates());
+        dispatch(fromClientStore.onLoadClientData(activeAddress));
       }
 
       setIsActiveAddressSet(true);
@@ -92,8 +211,19 @@ export function ClientRoutes() {
   }, [activeAddress]);
 
   useEffect(() => {
-    if (activeAddress && lastManuallyTriggeredTimestamp !== 0 && canBeUpdated) {
-      getClientData(activeAddress);
+    if (isClientDataLoading) {
+      if (!isReloadDisabled) {
+        dispatch(fromDataReloadStore.setIsReloadDisabled(true));
+      }
+    } else {
+      dispatch(fromDataReloadStore.setLastUpdatedTimestamp(Date.now()));
+      dispatch(fromDataReloadStore.setIsReloadDisabled(false));
+    }
+  }, [isClientDataLoading]);
+
+  useEffect(() => {
+    if (activeAddress && lastManuallyTriggeredTimestamp !== 0 && !isClientDataLoading) {
+      dispatch(fromClientStore.onLoadClientData(activeAddress));
     }
   }, [lastManuallyTriggeredTimestamp]);
 

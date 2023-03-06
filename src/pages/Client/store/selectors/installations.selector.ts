@@ -7,5 +7,5 @@ export const getInstallations = (state: RootState): InstallationAndTile[] =>
 
 export const getInstallationsCount = (state: RootState): number => state.client.installations.installations.data.length;
 
-export const getIsInstallationsLoading = (state: RootState): boolean =>
-  state.client.installations.installations.isLoading;
+export const getIsInitialInstallationsLoading = (state: RootState): boolean =>
+  state.client.installations.isInitialInstallationsLoading;

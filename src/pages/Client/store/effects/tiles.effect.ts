@@ -9,7 +9,7 @@ import { TilesUtils } from 'utils';
 
 import { InstallationAndTile } from '../../models';
 // slices
-import { loadTiles, loadTilesFailed, loadTilesSucceded } from '../slices';
+import { loadTiles, loadTilesFailed, loadTilesSucceded, setIsInitialTilesLoading } from '../slices';
 
 export const onLoadTiles =
   (address: string): AppThunk =>
@@ -22,7 +22,8 @@ export const onLoadTiles =
 
         dispatch(loadTilesSucceded(tiles));
       })
-      .catch(() => dispatch(loadTilesFailed()));
+      .catch(() => dispatch(loadTilesFailed()))
+      .finally(() => dispatch(setIsInitialTilesLoading(false)));
   };
 
 const getMappedTiles = (tilesBalances: TilesBalances[]): InstallationAndTile[] => {

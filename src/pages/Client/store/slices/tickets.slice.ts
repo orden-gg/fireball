@@ -9,6 +9,7 @@ export interface TicketsState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialTicketsLoading: boolean;
 }
 
 const initialState: TicketsState = {
@@ -17,7 +18,8 @@ const initialState: TicketsState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isInitialTicketsLoading: true
 };
 
 export const ticketsSlice = createSlice({
@@ -47,10 +49,13 @@ export const ticketsSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    setIsInitialTicketsLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialTicketsLoading = action.payload;
     }
   }
 });
 
-export const { loadTickets, loadTicketsSucceded, loadTicketsFailed } = ticketsSlice.actions;
+export const { loadTickets, loadTicketsSucceded, loadTicketsFailed, setIsInitialTicketsLoading } = ticketsSlice.actions;
 
 export const ticketsReducer = ticketsSlice.reducer;

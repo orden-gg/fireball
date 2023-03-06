@@ -62,9 +62,9 @@ export function ClientWarehouse() {
   const dispatch = useAppDispatch();
 
   const warehouse: Warehouse[] = useAppSelector(fromClientStore.getWarehouse);
-  const isWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsWarehouseLoading);
+  const isInitialWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsInitialWarehouseLoading);
   const warehouseSorting: SortingItem = useAppSelector(fromClientStore.getWarehouseSorting);
-  const isOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsOwnedGotchisLoading);
+  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialOwnedGotchisLoading);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;
@@ -80,7 +80,7 @@ export function ClientWarehouse() {
     const sortedItems: Warehouse[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
     dispatch(fromClientStore.setWarehouseItems([...sortedItems]));
-  }, [isWarehouseLoading, warehouseSorting]);
+  }, [isInitialWarehouseLoading, warehouseSorting]);
 
   const updateSortQueryParams = useCallback(
     (prop: string, dir: string) => {
@@ -126,7 +126,7 @@ export function ClientWarehouse() {
         placeholder={<WarehouseIcon width={20} height={20} />}
       />
 
-      <ContentInner dataLoading={isWarehouseLoading || isOwnedGotchisLoading}>
+      <ContentInner dataLoading={isInitialWarehouseLoading || isInitialOwnedGotchisLoading}>
         <ItemsLazy
           items={warehouse}
           component={(wearable: Warehouse) => (

@@ -11,6 +11,7 @@ export interface WarehouseState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialWarehouseLoading: boolean;
   warehouseSorting: SortingItem;
 }
 
@@ -21,6 +22,7 @@ const initialState: WarehouseState = {
     isLoaded: false,
     isError: false
   },
+  isInitialWarehouseLoading: true,
   warehouseSorting: {
     type: 'rarityId',
     dir: 'desc'
@@ -55,6 +57,9 @@ export const warehouseSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialWarehouseLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialWarehouseLoading = action.payload;
+    },
     setWarehouseSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.warehouseSorting = action.payload;
     },
@@ -71,6 +76,7 @@ export const {
   loadWarehouse,
   loadWarehouseSucceded,
   loadWarehouseFailed,
+  setIsInitialWarehouseLoading,
   setWarehouseSorting,
   setWarehouseItems,
   resetWarehouseItems

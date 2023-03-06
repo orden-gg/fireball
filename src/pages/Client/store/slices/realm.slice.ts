@@ -11,6 +11,7 @@ export interface RealmState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialRealmLoading: boolean;
   realmSorting: SortingItem;
   realmView: RealmView;
 }
@@ -22,6 +23,7 @@ const initialState: RealmState = {
     isLoaded: false,
     isError: false
   },
+  isInitialRealmLoading: true,
   realmSorting: {
     type: 'size',
     dir: 'desc'
@@ -57,6 +59,9 @@ export const realmSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialRealmLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialRealmLoading = action.payload;
+    },
     setRealmSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.realmSorting = action.payload;
     },
@@ -66,6 +71,13 @@ export const realmSlice = createSlice({
   }
 });
 
-export const { loadRealm, loadRealmSucceded, loadRealmFailed, setRealmSorting, setRealmView } = realmSlice.actions;
+export const {
+  loadRealm,
+  loadRealmSucceded,
+  loadRealmFailed,
+  setIsInitialRealmLoading,
+  setRealmSorting,
+  setRealmView
+} = realmSlice.actions;
 
 export const realmReducer = realmSlice.reducer;

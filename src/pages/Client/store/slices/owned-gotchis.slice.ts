@@ -11,6 +11,7 @@ export interface OwnedGotchisState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isInitialOwnedGotchisLoading: boolean;
   ownedGotchisSorting: SortingItem;
 }
 
@@ -21,6 +22,7 @@ const initialState: OwnedGotchisState = {
     isLoaded: false,
     isError: false
   },
+  isInitialOwnedGotchisLoading: true,
   ownedGotchisSorting: {
     type: 'modifiedRarityScore',
     dir: 'desc'
@@ -55,13 +57,21 @@ export const ownedGotchisSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialOwnedGotchisLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialOwnedGotchisLoading = action.payload;
+    },
     setOwnedGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.ownedGotchisSorting = action.payload;
     }
   }
 });
 
-export const { loadOwnedGotchis, loadOwnedGotchisSucceded, loadOwnedGotchisFailed, setOwnedGotchisSorting } =
-  ownedGotchisSlice.actions;
+export const {
+  loadOwnedGotchis,
+  loadOwnedGotchisSucceded,
+  loadOwnedGotchisFailed,
+  setIsInitialOwnedGotchisLoading,
+  setOwnedGotchisSorting
+} = ownedGotchisSlice.actions;
 
 export const ownedGotchisReducer = ownedGotchisSlice.reducer;

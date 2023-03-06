@@ -86,7 +86,7 @@ export function ClientBorrowed() {
   const dispatch = useAppDispatch();
 
   const borrowedGotchis: GotchiLending[] = useAppSelector(fromClientStore.getBorrowedGotchis);
-  const isBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsBorrowedGotchisLoading);
+  const isInitialBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialBorrowedGotchisLoading);
   const borrowedGotchisSorting: SortingItem = useAppSelector(fromClientStore.getBorrowedGotchisSorting);
 
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
@@ -191,7 +191,7 @@ export function ClientBorrowed() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={isBorrowedGotchisLoading}>
+      <ContentInner dataLoading={isInitialBorrowedGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (
