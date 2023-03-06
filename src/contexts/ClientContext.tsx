@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { ClientApi } from '../pages/Client/api/client.api';
-import { EthersApi, InstallationsApi, MainApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
+import { EthersApi, InstallationsApi, MainApi, RealmApi, TheGraphApi, TicketsApi, TilesApi } from 'api';
 
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
@@ -292,8 +292,18 @@ export const ClientContextProvider = (props: any) => {
             wSortDir
           )
         );
+        const promises: Promise<any>[] = allGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        Promise.all(promises).then((response) => {
+          const modifiedallGotchis = new Array();
+          let i = 0;
+          for (const gotchi of allGotchis) {
+            const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
+            modifiedallGotchis.push(modifiedGotchi);
+            i += 1;
+          }
 
-        setGotchis(CommonUtils.basicSort(allGotchis, gSortType, gSortDir));
+          setGotchis(CommonUtils.basicSort(modifiedallGotchis, gSortType, gSortDir));
+        });
       })
       .catch((error: any) => {
         console.log(error);
@@ -328,10 +338,19 @@ export const ClientContextProvider = (props: any) => {
 
     TheGraphApi.getBorrowedByAddress(address).then((borrowed: any[]) => {
       const { type, dir } = borrowedSorting;
-
-      setBorrowed(CommonUtils.basicSort(borrowed, type, dir));
-      setLoadingBorrowed(false);
-      setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: true }));
+      const promises: Promise<any>[] = borrowed.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+      Promise.all(promises).then((response) => {
+        const modifiedBorrowed = new Array();
+        let i = 0;
+        for (const gotchi of borrowed) {
+          const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
+          modifiedBorrowed.push(modifiedGotchi);
+          i += 1;
+        }
+        setBorrowed(CommonUtils.basicSort(modifiedBorrowed, type, dir));
+        setLoadingBorrowed(false);
+        setLoadedStates((statesCache) => ({ ...statesCache, isBorrowedLoaded: true }));
+      });
     });
   };
 
