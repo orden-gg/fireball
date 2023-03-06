@@ -227,6 +227,7 @@ export function GlossaryWearables() {
               <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
                 <CardGroup name='header' className={classes.wearableHeader}>
                   <CardSlot id={wearable.id} className={classes.overridedSlot} />
+                  <span>{wearable.id}</span>
                   <CardBalance balance={`${wearable.totalQuantity}`} holders={[]} />
                 </CardGroup>
                 <CardGroup name='body'>
