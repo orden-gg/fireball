@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { SortingItem } from 'shared/models';
+import { RealmVM, SortingItem } from 'shared/models';
 
 import { RealmView } from '../../constants';
 
 export interface RealmState {
   realm: {
-    data: any[];
+    data: RealmVM[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
@@ -41,7 +41,7 @@ export const realmSlice = createSlice({
         isError: false
       };
     },
-    loadRealmSucceded: (state, action: PayloadAction<any[]>): void => {
+    loadRealmSucceded: (state, action: PayloadAction<RealmVM[]>): void => {
       state.realm = {
         data: action.payload,
         isLoading: false,
