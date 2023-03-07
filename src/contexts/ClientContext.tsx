@@ -102,36 +102,51 @@ export const ClientContextProvider = (props: any) => {
       isLoading: loadingGotchis || loadingLendings || loadingBorrowed,
       count: gotchis.length + borrowed.length,
       isShowSubRoutes: true,
-      tooltip: {
-        title: (
-          <>
-            <SubNav
-              links={[
-                {
-                  name: 'owned',
-                  path: 'gotchis/owned',
-                  isLoading: loadingGotchis,
-                  count: gotchis.length
-                },
-                {
-                  name: 'lendings',
-                  path: 'gotchis/lended',
-                  isLoading: loadingLendings,
-                  count: lendings.length
-                },
-                {
-                  name: 'borrowed',
-                  path: 'gotchis/borrowed',
-                  isLoading: loadingBorrowed,
-                  count: borrowed.length
-                }
-              ]}
-            />
-          </>
-        ),
-        children: <></>,
-        placement: 'bottom'
-      }
+      dropdown: true,
+      subNavComponent: (
+        <SubNav
+          links={[
+            {
+              name: 'owned',
+              path: 'gotchis/owned',
+              isLoading: loadingGotchis,
+              count: gotchis.length
+            },
+            {
+              name: 'lendings',
+              path: 'gotchis/lended',
+              isLoading: loadingLendings,
+              count: lendings.length
+            },
+            {
+              name: 'borrowed',
+              path: 'gotchis/borrowed',
+              isLoading: loadingBorrowed,
+              count: borrowed.length
+            }
+          ]}
+        />
+      ),
+      links: [
+        {
+          name: 'owned',
+          path: 'gotchis/owned',
+          isLoading: loadingGotchis,
+          count: gotchis.length
+        },
+        {
+          name: 'lendings',
+          path: 'gotchis/lended',
+          isLoading: loadingLendings,
+          count: lendings.length
+        },
+        {
+          name: 'borrowed',
+          path: 'gotchis/borrowed',
+          isLoading: loadingBorrowed,
+          count: borrowed.length
+        }
+      ]
     },
     {
       path: 'warehouse',

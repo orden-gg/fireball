@@ -69,46 +69,41 @@ export function Baazaar() {
       path: 'activity',
       icon: <ActivityIcon width={24} height={24} />,
       isShowSubRoutes: true,
-      tooltip: {
-        title: (
-          <>
-            <SubNav
-              links={[
-                {
-                  path: 'activity/gotchis',
-                  icon: <GotchiIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/portals',
-                  icon: <H1SealedPortalIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/parcels',
-                  icon: <KekIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/wearables',
-                  icon: <WarehouseIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/installations',
-                  icon: <AnvilIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/tiles',
-                  icon: <PurpleGrassIcon width={24} height={24} />
-                },
-                {
-                  path: 'activity/consumables',
-                  icon: <ConsumableIcon width={24} height={24} />
-                }
-              ]}
-            />
-          </>
-        ),
-        children: <></>,
-        placement: 'bottom'
-      }
+      dropdown: true,
+      subNavComponent: (
+        <SubNav
+          links={[
+            {
+              path: 'activity/gotchis',
+              icon: <GotchiIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/portals',
+              icon: <H1SealedPortalIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/parcels',
+              icon: <KekIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/wearables',
+              icon: <WarehouseIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/installations',
+              icon: <AnvilIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/tiles',
+              icon: <PurpleGrassIcon width={24} height={24} />
+            },
+            {
+              path: 'activity/consumables',
+              icon: <ConsumableIcon width={24} height={24} />
+            }
+          ]}
+        />
+      )
     }
   ];
 

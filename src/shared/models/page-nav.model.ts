@@ -1,5 +1,3 @@
-import { CustomTooltipProps } from 'shared/models';
-
 export interface PageNavLink {
   path: string;
   icon?: JSX.Element;
@@ -8,7 +6,8 @@ export interface PageNavLink {
   count?: number | string;
   isShowSubRoutes?: boolean;
   subNavComponent?: JSX.Element;
-  tooltip?: CustomTooltipProps;
+  dropdown?: boolean;
+  links?: any[];
 }
 
 export interface PageNavItem {

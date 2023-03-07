@@ -1,13 +1,12 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import ContentLoader from 'react-content-loader';
-import { Button } from '@mui/material';
+import { Button, MenuItem, Menu } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 
 import { PageNavLink } from 'shared/models';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
@@ -21,9 +20,32 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
   const classes = styles();
   const theme = useTheme();
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  // const [selectedIndex, setSelectedIndex] = useState(1);
+
+  const open = Boolean(anchorEl);
+
+  console.log('anchorEl', anchorEl);
+  console.log('open', open);
+
+  const handleHover = (event) => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  // const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
+  //   setSelectedIndex(index);
+  //   setAnchorEl(null);
+  // };
+
   const { pathname } = useLocation();
 
   const data = useMemo(() => links, [links]);
+  console.log('data', data);
 
   const isPathMatch = (currentPath: string): boolean => {
     const indexOfPath: number = pathname.indexOf(currentPath);
@@ -40,43 +62,77 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     <div className={classes.container}>
       {beforeContent}
       {data.map((link: PageNavLink, index: number) => {
-        return link.tooltip ? (
-          <CustomTooltip title={link.tooltip.title} placement={link.tooltip.placement} key={index}>
-            <div className={classes.navItem} key={index}>
-              {link.isShowSubRoutes && isPathMatch(link.path) && (
-                <div className={classes.subNav}>{link.subNavComponent}</div>
+        return link.dropdown ? (
+          <div
+            className={classes.navItem}
+            key={index}
+            // onClick={handleClose}
+            // onMouseEnter={handleHover}
+            // onMouseLeave={handleClose}
+          >
+            <Button
+              disabled={link.count === 0}
+              startIcon={link.icon}
+              component={NavLink}
+              className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
+              to={link.path}
+              key={index}
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup='true'
+              aria-expanded={open ? 'true' : undefined}
+              onMouseEnter={handleHover}
+              // onMouseLeave={handleClose}
+            >
+              {link.name && <span className={classes.navName}>{link.name}</span>}
+              {link.count !== undefined ? (
+                <>
+                  {link.isLoading ? (
+                    <ContentLoader
+                      speed={2}
+                      viewBox='0 0 28 14'
+                      backgroundColor={theme.palette.secondary.main}
+                      foregroundColor={theme.palette.primary.dark}
+                      className={classes.buttonLoader}
+                    >
+                      <rect x='0' y='0' width='28' height='14' />
+                    </ContentLoader>
+                  ) : (
+                    <span className={classes.label}>[{link.count}]</span>
+                  )}
+                </>
+              ) : (
+                <></>
               )}
-              <Button
-                disabled={link.count === 0}
-                startIcon={link.icon}
-                component={NavLink}
-                className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
-                to={link.path}
-                key={index}
+            </Button>
+            {link.isShowSubRoutes && isPathMatch(link.path) && (
+              <Menu
+                id='basic-menu'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                // onMouseLeave={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button'
+                }}
               >
-                {link.name && <span className={classes.navName}>{link.name}</span>}
-                {link.count !== undefined ? (
-                  <>
-                    {link.isLoading ? (
-                      <ContentLoader
-                        speed={2}
-                        viewBox='0 0 28 14'
-                        backgroundColor={theme.palette.secondary.main}
-                        foregroundColor={theme.palette.primary.dark}
-                        className={classes.buttonLoader}
-                      >
-                        <rect x='0' y='0' width='28' height='14' />
-                      </ContentLoader>
-                    ) : (
-                      <span className={classes.label}>[{link.count}]</span>
-                    )}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </Button>
-            </div>
-          </CustomTooltip>
+                {/* <MenuItem
+                  key={index}
+                  onClick={handleClose}
+                  // onClick={handleMenuItemClick}
+                  // selected={index === selectedIndex}
+                  // onMouseLeave={handleClose}
+                  // disabled={index === 0}
+                >
+                  {link.subNavComponent}
+                </MenuItem> */}
+                {link.links?.map((option, index) => (
+                  <MenuItem onClick={handleClose} key={index}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
+          </div>
         ) : (
           <div className={classes.navItem} key={index}>
             {link.isShowSubRoutes && isPathMatch(link.path) && (
