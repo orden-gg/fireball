@@ -1,13 +1,15 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+// store
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery, GotchiLending, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -42,9 +44,14 @@ export function ClientLendings() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { lendings, lendingsSorting, setLendingsSorting, loadingLendings } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const lentGotchis: GotchiLending[] = useAppSelector(fromClientStore.getLentGotchis);
+  const isInitialLentGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialLentGotchisLoading);
+  const lentGotchisSorting: SortingItem = useAppSelector(fromClientStore.getLentGotchisSorting);
+
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-  const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
+  const [modifiedLentGotchis, setModifiedLentGotchis] = useState<any[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
@@ -66,13 +73,13 @@ export function ClientLendings() {
   }, []);
 
   useEffect(() => {
-    if (lendings.length > 0) {
+    if (lentGotchis.length > 0) {
       const whitelistData: string[] = [];
       const borrowersAddresses: string[] = [];
 
-      for (let i = 0; i < lendings.length; i++) {
-        whitelistData.push(lendings[i].whitelistId);
-        borrowersAddresses.push(lendings[i].borrower);
+      for (let i = 0; i < lentGotchis.length; i++) {
+        whitelistData.push(lentGotchis[i].whitelistId);
+        borrowersAddresses.push(lentGotchis[i].borrower);
       }
 
       const sortedWhitelist: string[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
@@ -111,7 +118,7 @@ export function ClientLendings() {
         return filtersToReturn;
       });
     }
-  }, [lendings]);
+  }, [lentGotchis]);
 
   useEffect(() => {
     FilterUtils.onFiltersUpdate(
@@ -123,32 +130,29 @@ export function ClientLendings() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === lentGotchisSorting.type)?.paramKey;
 
-    updateSortQueryParams(paramKey, lendingsSorting.dir);
-  }, [lendingsSorting]);
+    updateSortQueryParams(paramKey, lentGotchisSorting.dir);
+  }, [lentGotchisSorting]);
 
   useEffect(() => {
-    const modifiedLendings = FilterUtils.getFilteredSortedItems({
-      items: lendings,
+    const modifiedLentGotchis = FilterUtils.getFilteredSortedItems({
+      items: lentGotchis,
       filters: currentFilters,
-      sorting: lendingsSorting,
+      sorting: lentGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
 
-    setModifiedLendings(modifiedLendings);
-  }, [currentFilters, lendings, lendingsSorting]);
+    setModifiedLentGotchis(modifiedLentGotchis);
+  }, [currentFilters, lentGotchis, lentGotchisSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setLendingsSorting({ type, dir });
-    },
-    [setLendingsSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setLentGotchisSorting({ type, dir }));
+  };
 
   const sorting: any = {
     sortingList: sortings,
-    sortingDefaults: lendingsSorting,
+    sortingDefaults: lentGotchisSorting,
     onSortingChange: onSortingChange
   };
 
@@ -179,14 +183,14 @@ export function ClientLendings() {
   }, [currentFilters]);
 
   const onExportData = useCallback(() => {
-    FilterUtils.exportData(modifiedLendings, 'client_lendings');
-  }, [modifiedLendings]);
+    FilterUtils.exportData(modifiedLentGotchis, 'client_lendings');
+  }, [modifiedLentGotchis]);
 
   return (
     <>
       <SortFilterPanel
         sorting={sorting}
-        itemsLength={modifiedLendings.length}
+        itemsLength={modifiedLentGotchis.length}
         placeholder={<GotchiIcon width={20} height={20} />}
         isShowFilters={true}
         filters={currentFilters}
@@ -196,12 +200,12 @@ export function ClientLendings() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingLendings}>
+      <ContentInner dataLoading={isInitialLentGotchisLoading}>
         <GotchisLazy
-          items={modifiedLendings}
+          items={modifiedLentGotchis}
           renderItem={(id) => (
             <Gotchi
-              gotchi={modifiedLendings[id]}
+              gotchi={modifiedLentGotchis[id]}
               render={[
                 {
                   className: 'gotchiHeader',

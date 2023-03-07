@@ -26,7 +26,6 @@ import {
 } from 'pages';
 
 import { BalancesContextProvider } from 'contexts/BalancesContext';
-import { ClientContextProvider } from 'contexts/ClientContext';
 import { SnackbarContextProvider } from 'contexts/SnackbarContext';
 import { TokensPricesContextProvider } from 'contexts/TokensPricesContext';
 
@@ -66,46 +65,44 @@ export function App() {
   return (
     <SnackbarContextProvider>
       <TokensPricesContextProvider>
-        <ClientContextProvider>
-          <Helmet>
-            <title>aavegotchi portal #1</title>
-          </Helmet>
+        <Helmet>
+          <title>aavegotchi portal #1</title>
+        </Helmet>
 
-          <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
-            {!isHeaderHidden && (
-              <>
-                <BalancesContextProvider>
-                  <Header />
-                </BalancesContextProvider>
-                {!isNavHidden && <NavPanel />}
-              </>
-            )}
+        <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
+          {!isHeaderHidden && (
+            <>
+              <BalancesContextProvider>
+                <Header />
+              </BalancesContextProvider>
+              {!isNavHidden && <NavPanel />}
+            </>
+          )}
 
-            <Box className={classes.content}>
-              <Routes>
-                <Route path='' element={<Main />} />
-                <Route path='anvil' element={<Anvil />} />
-                <Route path='market/*' element={<Baazaar />} />
-                <Route path='lendings' element={<Lend />} />
-                <Route path='explorer' element={<GhostExplorer />} />
-                <Route path='autopet' element={<Autopet />} />
-                <Route path='guilds/*' element={<Guilds />} />
-                <Route path='client/*' element={<Client />} />
-                <Route path='craft' element={<Craft />} />
-                <Route path='parcel/:parcelId' element={<ParcelPage />} />
-                <Route path='raffles/*' element={<Raffle />} />
-                <Route path='map' element={<Map />} />
-                <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
-                <Route path='glossary/*' element={<Glossary />} />
-                <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
-                <Route path='404' element={<NotFound />} />
-                <Route path='*' element={<Navigate to='404' replace />}></Route>
-              </Routes>
-            </Box>
+          <Box className={classes.content}>
+            <Routes>
+              <Route path='' element={<Main />} />
+              <Route path='anvil' element={<Anvil />} />
+              <Route path='market/*' element={<Baazaar />} />
+              <Route path='lendings' element={<Lend />} />
+              <Route path='explorer' element={<GhostExplorer />} />
+              <Route path='autopet' element={<Autopet />} />
+              <Route path='guilds/*' element={<Guilds />} />
+              <Route path='client/*' element={<Client />} />
+              <Route path='craft' element={<Craft />} />
+              <Route path='parcel/:parcelId' element={<ParcelPage />} />
+              <Route path='raffles/*' element={<Raffle />} />
+              <Route path='map' element={<Map />} />
+              <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
+              <Route path='glossary/*' element={<Glossary />} />
+              <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
+              <Route path='404' element={<NotFound />} />
+              <Route path='*' element={<Navigate to='404' replace />}></Route>
+            </Routes>
+          </Box>
 
-            {!isFooterHidden && <Footer />}
-          </Wrapper>
-        </ClientContextProvider>
+          {!isFooterHidden && <Footer />}
+        </Wrapper>
       </TokensPricesContextProvider>
     </SnackbarContextProvider>
   );

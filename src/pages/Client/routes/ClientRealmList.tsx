@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
@@ -8,9 +8,10 @@ import TimerIcon from '@mui/icons-material/Timer';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery, RealmVM, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
@@ -21,6 +22,8 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
+
+import { RealmView } from '../constants';
 
 const sortings: SortingListItem[] = [
   {
@@ -102,13 +105,18 @@ export function ClientRealmList() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { realm, realmSorting, setRealmSorting, loadingRealm, setRealmView } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const realm: RealmVM[] = useAppSelector(fromClientStore.getRealm);
+  const isInitialRealmLoading: boolean = useAppSelector(fromClientStore.getIsInitialRealmLoading);
+  const realmSorting: SortingItem = useAppSelector(fromClientStore.getRealmSorting);
+
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-  const [modifiedRealm, setModifiedRealm] = useState<any[]>([]);
+  const [modifiedRealm, setModifiedRealm] = useState<RealmVM[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    setRealmView('list');
+    dispatch(fromClientStore.setRealmView(RealmView.List));
   }, []);
 
   useEffect(() => {
@@ -155,12 +163,9 @@ export function ClientRealmList() {
     setModifiedRealm(modifiedRealm);
   }, [currentFilters, realm, realmSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setRealmSorting({ type, dir });
-    },
-    [setRealmSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setRealmSorting({ type, dir }));
+  };
 
   const sorting: any = {
     sortingList: sortings,
@@ -212,7 +217,7 @@ export function ClientRealmList() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingRealm}>
+      <ContentInner dataLoading={isInitialRealmLoading}>
         <ItemsLazy items={modifiedRealm} component={(props) => <Parcel parcel={props} />} />
       </ContentInner>
     </>

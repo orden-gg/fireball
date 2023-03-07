@@ -1,8 +1,7 @@
-import { useCallback } from 'react';
-
 import classNames from 'classnames';
 
 import { Erc1155Categories, InstallationTypeNames } from 'shared/constants';
+import { ParcelInstallationVM, ParcelTileVM } from 'shared/models';
 
 import { CardImage } from 'components/ItemCard/components';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -12,18 +11,19 @@ import { InstallationsUtils, TilesUtils } from 'utils';
 import { styles } from './styles';
 
 interface ParcelInstallationsProps {
-  parcel: any;
-  size?: any;
+  installations: ParcelInstallationVM[];
+  tiles: ParcelTileVM[];
+  size?: number;
   className?: string;
 }
 
-export function ParcelInstallations({ parcel, size, className }: ParcelInstallationsProps) {
+export function ParcelInstallations({ installations, tiles, size, className }: ParcelInstallationsProps) {
   const classes = styles();
 
-  const getInstallations = useCallback(() => {
-    return parcel.installations
-      .filter((installation: any) => InstallationsUtils.getIsInstallationExist(installation.id))
-      .map((installation: any) => {
+  const renderInstallations = (installations: ParcelInstallationVM[]): JSX.Element[] => {
+    return installations
+      .filter((installation: ParcelInstallationVM) => InstallationsUtils.getIsInstallationExist(installation.id))
+      .map((installation: ParcelInstallationVM) => {
         const metadata = InstallationsUtils.getMetadataById(installation.id);
         const isDecoration = metadata.type === InstallationTypeNames.Decoration;
 
@@ -69,12 +69,12 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
           </CustomTooltip>
         );
       });
-  }, [parcel.installations]);
+  };
 
-  const getTiles = useCallback(() => {
-    return parcel.tiles
-      .filter((tile: any) => TilesUtils.getIsTileExists(tile.id))
-      .map((tile: any) => {
+  const renderTiles = (tiles: ParcelTileVM[]): JSX.Element[] => {
+    return tiles
+      .filter((tile: ParcelTileVM) => TilesUtils.getIsTileExists(tile.id))
+      .map((tile: ParcelTileVM) => {
         const metadata = TilesUtils.getMetadataById(tile.id);
 
         return (
@@ -99,11 +99,15 @@ export function ParcelInstallations({ parcel, size, className }: ParcelInstallat
           </CustomTooltip>
         );
       });
-  }, [parcel.tiles]);
+  };
 
-  if (!parcel.installations?.length && !parcel.tiles?.length) {
+  if (!installations?.length && !tiles?.length) {
     return <></>;
   }
 
-  return <div className={classNames(classes.container, className)}>{[...getInstallations(), ...getTiles()]}</div>;
+  return (
+    <div className={classNames(classes.container, className)}>
+      {[...renderInstallations(installations), ...renderTiles(tiles)]}
+    </div>
+  );
 }

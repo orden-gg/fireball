@@ -273,8 +273,7 @@ export function GhostExplorer() {
                 'name',
                 'traits',
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
             />
           )}

@@ -1,5 +1,3 @@
-import { Erc721Categories } from 'shared/constants';
-
 export const getFakeGotchisByAddressQuery = (address: string) => {
   return `{
         account(id: "${address}") {
@@ -23,79 +21,6 @@ export const getFakeGotchisByAddressQuery = (address: string) => {
                 id
                 valueExact
             }
-        }
-    }`;
-};
-
-export const getFakeGotchisListingsQuery = (id: number): string => {
-  return `
-        item${id}: erc721Listings(
-            where: {
-                category: ${Erc721Categories.FakeAavegotchi}
-                tokenId_in: [${id}]
-                cancelled: false
-            }
-        ) {
-            id
-            priceInWei
-            timePurchased
-        }
-    `;
-};
-
-export const getErc721ListingsByCategoriesQuery = (id: number, categories: Erc721Categories[]): string => {
-  return `
-    item${id}: erc721Listings(
-      where: {
-        category_in: [${categories}]
-        tokenId_in: [${id}]
-        cancelled: false
-        timePurchased: 0
-      }
-      orderBy: timePurchased
-      orderDirection: desc
-    ) {
-      id
-      priceInWei
-      timePurchased
-    }
-  `;
-};
-
-export const getFakeGotchiCardCurrentListingQuery = (): string => {
-  return `{
-        erc1155Listings(
-            first: 1
-            where: {
-                category: 6
-                cancelled: false
-                timeLastPurchased: 0
-            }
-            orderBy: priceInWei
-            orderDirection: asc
-        )
-        {
-            id
-            priceInWei
-        }
-    }`;
-};
-
-export const getFakeGotchiCardLastSoldListingQuery = (): string => {
-  return `{
-        erc1155Listings (
-            first: 1
-            where: {
-                cancelled: false
-                sold: false
-                category: 6
-            }
-            orderBy: timeLastPurchased
-            orderDirection: desc
-        ){
-            id
-            priceInWei
-            timeLastPurchased
         }
     }`;
 };

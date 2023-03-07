@@ -1,21 +1,14 @@
 import { RootState } from 'core/store/store';
 
-import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
-
 import { FakeItemsVM } from 'pages/Client/models';
 
-export const selectFakeGotchis = (state: RootState): FakeItemsVM | null => state.client.fakeGotchis.fakeGotchis.data;
+export const getFakeGotchis = (state: RootState): FakeItemsVM | null => state.client.fakeGotchis.fakeGotchis.data;
 
-export const selectFakeGotchisLength = (state: RootState): number =>
+export const getFakeGotchisCount = (state: RootState): number =>
   state.client.fakeGotchis.fakeGotchis.data
     ? state.client.fakeGotchis.fakeGotchis.data.fakeGotchiCards.length +
       state.client.fakeGotchis.fakeGotchis.data.fakeGotchis.length
     : 0;
 
-export const selectIsFakeGotchisLoading = (state: RootState): boolean => state.client.fakeGotchis.fakeGotchis.isLoading;
-
-export const selectFakeGotchisListings = (state: RootState): Erc721ListingsDictionary =>
-  state.client.fakeGotchis.fakeGotchisListings;
-
-export const selectFakeGotchiCardListings = (state: RootState): Erc1155Listings =>
-  state.client.fakeGotchis.fakeGotchiCardListings;
+export const getIsInitialFakeGotchisLoading = (state: RootState): boolean =>
+  state.client.fakeGotchis.isInitialFakeGotchisLoading;

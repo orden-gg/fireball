@@ -13,10 +13,8 @@ import {
   activeListingQeury,
   auctionQuery,
   borrowedByAddressQuery,
-  erc721ListingsBySeller,
   erc721SalesHistory,
   erc1155ListingsBatchQuery,
-  erc1155ListingsBySeller,
   erc1155Query,
   getParcelOrderDirectionQuery,
   gotchiByIdQuery,
@@ -32,7 +30,6 @@ import {
   raffleEntrantsQuery,
   raffleQuery,
   raffleWinsQuery,
-  realmListingsBySeller,
   realmQuery,
   realmQueryByDistrict,
   svgQuery,
@@ -326,26 +323,6 @@ export class TheGraphApi {
     return TheGraphApi.getData(getQuery(ids, category)).then(
       (response: TheGraphResponse<Erc1155ListingsBatch>) => response.data
     );
-  }
-
-  public static async getErc721ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc721ListingsBySeller(seller))
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  // TODO as we integrate fireball graph for realm it's used here for now.
-  // TODO in the future, after full fireball graph integration should be used as general erc721 listings.
-  public static async getRealmListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(realmListingsBySeller(seller), GRAPH_FIREBALL_API)
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  public static async getErc1155ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc1155ListingsBySeller(seller))
-      .then((response: any) => response.data.erc1155Listings)
-      .catch((error: any) => console.log(error));
   }
 
   private static async getRaffleData(query: string): Promise<any> {

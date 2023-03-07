@@ -15,12 +15,3 @@ export interface FakeGotchiCard {
   id: string;
   valueExact: number;
 }
-
-export interface FakeGotchiCardListingDTO {
-  id: string;
-  priceInWei: string;
-}
-
-export interface FakeGotchiCardLastSoldListingDTO extends FakeGotchiCardListingDTO {
-  timeLastPurchased: string;
-}
