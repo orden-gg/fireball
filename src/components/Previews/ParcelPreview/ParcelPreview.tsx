@@ -122,7 +122,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
             </div>
 
             <div className={classes.installations}>
-              <ParcelInstallations parcel={parcel} size={80} />
+              <ParcelInstallations installations={parcel.installations} tiles={parcel.tiles} size={80} />
             </div>
           </div>
 

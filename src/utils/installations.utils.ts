@@ -28,7 +28,7 @@ export class InstallationsUtils {
     return installations[id][InstallationTypes.Height];
   }
 
-  public static getIsInstallationExist(id: number): boolean {
+  public static getIsInstallationExist(id: number | string): boolean {
     return Boolean(installations[id]);
   }
 
@@ -36,8 +36,8 @@ export class InstallationsUtils {
     return installations[id][InstallationTypes.Name];
   }
 
-  public static getLevelById(id: number): any {
-    return installations[id][InstallationTypes.Level];
+  public static getLevelById(id: number | string): number {
+    return installations[id][InstallationTypes.Level] as number;
   }
 
   public static getImageById(id: any): any {
@@ -91,7 +91,7 @@ export class InstallationsUtils {
     }
   }
 
-  public static getCooldownByLevel(lvl: any, units?: any): any {
+  public static getCooldownByLevel(lvl: number, units?: any): number {
     const multiplier = units === 'milis' ? 3600000 : units === 'seconds' ? 3600 : 1;
 
     switch (lvl) {
@@ -118,8 +118,8 @@ export class InstallationsUtils {
     }
   }
 
-  public static getDeprecatedById(id: any): any {
-    return installations[id][InstallationTypes.Deprecated];
+  public static getDeprecatedById(id: string): boolean {
+    return installations[id][InstallationTypes.Deprecated] as boolean;
   }
 
   public static getRarityById(id: number | string): string {

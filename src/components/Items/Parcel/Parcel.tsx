@@ -29,7 +29,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const parcelSize: string = CitadelUtils.getParcelSizeName(Number(parcel.size));
+  const parcelSizeName: string = CitadelUtils.getParcelSizeName(Number(parcel.size));
 
   const boosts = {
     fud: parcel.fudBoost,
@@ -41,7 +41,7 @@ export function Parcel({ parcel }: { parcel: any }) {
   return (
     <>
       <div
-        className={classNames(classes.item, parcelSize, classes.parcelCard, 'parcel')}
+        className={classNames(classes.item, parcelSizeName, classes.parcelCard, 'parcel')}
         onClick={() => setModalOpen(true)}
       >
         <div className={classes.labels}>
@@ -79,7 +79,7 @@ export function Parcel({ parcel }: { parcel: any }) {
           </div>
         </div>
 
-        <ParcelName parcel={parcel} />
+        <ParcelName parcelHash={parcel.parcelHash} />
 
         {parcel.timePurchased && (
           <CardSalesHistory
@@ -92,10 +92,14 @@ export function Parcel({ parcel }: { parcel: any }) {
           />
         )}
 
-        <ChannelingInfo parcel={parcel} />
+        <ChannelingInfo lastChanneled={parcel.lastChanneled} nextChannel={parcel.nextChannel} />
 
         <div className={classes.parcelInstallations}>
-          <ParcelInstallations parcel={parcel} className={classNames('custom-scroll', classes.installations)} />
+          <ParcelInstallations
+            installations={parcel.installations}
+            tiles={parcel.tiles}
+            className={classNames('custom-scroll', classes.installations)}
+          />
         </div>
 
         {parcel.listings && <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />}

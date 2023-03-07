@@ -8,11 +8,11 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { FakeItemsVM } from '../models';
 
 export function ClientFakeGotchis() {
-  const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.selectFakeGotchis);
-  const isFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.selectIsFakeGotchisLoading);
+  const fakeItems: FakeItemsVM | null = useAppSelector(fromFakeGotchisStore.getFakeGotchis);
+  const isInitialFakeGotchisLoading: boolean = useAppSelector(fromFakeGotchisStore.getIsInitialFakeGotchisLoading);
 
   return (
-    <ContentInner dataLoading={isFakeGotchisLoading}>
+    <ContentInner dataLoading={isInitialFakeGotchisLoading}>
       <GalleryLayout items={fakeItems ? fakeItems.fakeGotchis : []} />
     </ContentInner>
   );

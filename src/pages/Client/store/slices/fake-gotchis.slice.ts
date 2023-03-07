@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Erc721ListingsDictionary, Erc1155Listings } from 'shared/models';
-
 import { FakeItemsVM } from 'pages/Client/models';
 
 export interface ClientFakeGotchisState {
@@ -11,8 +9,7 @@ export interface ClientFakeGotchisState {
     isLoaded: boolean;
     isError: boolean;
   };
-  fakeGotchisListings: Erc721ListingsDictionary;
-  fakeGotchiCardListings: Erc1155Listings;
+  isInitialFakeGotchisLoading: boolean;
 }
 
 const initialState: ClientFakeGotchisState = {
@@ -22,18 +19,7 @@ const initialState: ClientFakeGotchisState = {
     isLoaded: false,
     isError: false
   },
-  fakeGotchisListings: {},
-  fakeGotchiCardListings: {
-    currentListing: {
-      id: null,
-      price: 0
-    },
-    lastSoldListing: {
-      id: null,
-      price: 0,
-      soldDate: ''
-    }
-  }
+  isInitialFakeGotchisLoading: true
 };
 
 export const fakeGotchisSlice = createSlice({
@@ -64,6 +50,9 @@ export const fakeGotchisSlice = createSlice({
         isError: true
       };
     },
+    setIsInitialFakeGotchisLoading: (state, action: PayloadAction<boolean>): void => {
+      state.isInitialFakeGotchisLoading = action.payload;
+    },
     resetFakeGotchis: (state): void => {
       state.fakeGotchis = {
         data: null,
@@ -71,12 +60,6 @@ export const fakeGotchisSlice = createSlice({
         isLoaded: false,
         isError: false
       };
-    },
-    setFakeGotchisListings: (state, action: PayloadAction<Erc721ListingsDictionary>): void => {
-      state.fakeGotchisListings = action.payload;
-    },
-    setFakeGotchiCardListings: (state, action: PayloadAction<Erc1155Listings>): void => {
-      state.fakeGotchiCardListings = action.payload;
     }
   }
 });
@@ -85,9 +68,8 @@ export const {
   loadFakeGotchis,
   loadFakeGotchisSucceded,
   loadFakeGotchisFailed,
-  resetFakeGotchis,
-  setFakeGotchisListings,
-  setFakeGotchiCardListings
+  setIsInitialFakeGotchisLoading,
+  resetFakeGotchis
 } = fakeGotchisSlice.actions;
 
 export const fakeGotchisReducer = fakeGotchisSlice.reducer;
