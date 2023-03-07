@@ -145,7 +145,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       GotchiUtils.getStakedAmount(
                         modalGotchi.collateral,
                         modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
-                      ).toPrecision(5)
+                      ).toFixed(3)
                     )}
                   />
                 </GotchiInfoList>
