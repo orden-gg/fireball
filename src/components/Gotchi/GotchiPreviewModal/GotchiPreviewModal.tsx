@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { EthersApi, MainApi, TheGraphApi } from 'api';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel, GotchiLending } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
