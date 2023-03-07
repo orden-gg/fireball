@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
+
 import { Backdrop, Typography } from '@mui/material';
 
-import { ethers } from 'ethers';
 import classNames from 'classnames';
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -14,15 +15,17 @@ import {
   selectActiveAddress,
   toggleLoginDropdown
 } from 'core/store/login';
+
 import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
+
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { MetamaskIcon } from 'components/Icons/Icons';
+
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
-import { LoginNavigation } from './LoginNavigation';
 import { LoginAddress } from './LoginAddress';
-
+import { LoginNavigation } from './LoginNavigation';
 import { styles } from './styles';
 
 const donateAddress: LoginAddressModel = {

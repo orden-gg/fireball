@@ -1,9 +1,9 @@
 import 'dotenv/config';
+import { Wallet, ethers } from 'ethers';
 import fs from 'fs';
-import { ethers, Wallet } from 'ethers';
 
 // @ts-ignore
-import { POLYGON_RPC, MAIN_CONTRACT } from '../../../shared/constants/api.constants.ts';
+import { MAIN_CONTRACT, POLYGON_RPC } from '../../../shared/constants/api.constants.ts';
 
 const main_abi_file = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(main_abi_file.toString());

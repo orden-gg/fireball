@@ -5,6 +5,7 @@ import {
   GraphFiltersDataType,
   IconName
 } from 'shared/constants';
+
 import { DISTRICTS } from 'data/citadel.data';
 
 import { ActivityParcelListingFilterTypes } from '../../constants';

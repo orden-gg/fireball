@@ -1,4 +1,5 @@
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { GotchiUtils } from 'utils';
 
 import { gotchiLevelStyles } from './styles';

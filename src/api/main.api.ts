@@ -1,6 +1,8 @@
 import { EthersApi } from './ethers.api';
 
-import { MAIN_CONTRACT, AUTOPET_OPERATOR } from 'shared/constants';
+import { AUTOPET_OPERATOR, MAIN_CONTRACT } from 'shared/constants';
+import { Inventory } from 'shared/models';
+
 import MAIN_ABI from 'data/abi/main.abi.json';
 
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
@@ -35,21 +37,15 @@ export class MainApi {
     }
   }
 
-  public static async getInventoryByAddress(address: any): Promise<any> {
+  public static async getInventoryByAddress(address: string): Promise<Inventory[]> {
     try {
-      let contractResponse: any;
-
-      await contract.itemBalances(address.toLowerCase()).then((response: any) => {
-        const collection = response.map((item: any) => {
+      return await contract.itemBalances(address.toLowerCase()).then((response: any) => {
+        return response.map((item: any) => {
           const inner: any = item.map((i: any) => EthersApi.formatBigNumber(i));
 
           return { itemId: inner[0], balance: inner[1] };
         });
-
-        contractResponse = { items: collection, owner: address };
       });
-
-      return contractResponse;
     } catch (error) {
       console.log(error);
 

@@ -1,11 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import {
   CustomParsedQuery,
   GraphFiltersQueryParamTypes,
@@ -14,21 +17,20 @@ import {
   SortingItem,
   SortingListItem
 } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { GotchiListingsFilterTypes } from '../../constants';
 import { GotchiListingVM, GotchiListingsFilters } from '../../models';
 import { gotchisListingsSortings } from '../../static/sortings';
-
-import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarGotchis() {
@@ -36,9 +38,9 @@ export function BaazaarGotchis() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const gotchiListings: GotchiListingVM[] = useAppSelector(fromBaazaarStore.getGotchisListings);

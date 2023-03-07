@@ -1,15 +1,18 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { IconButton, Tooltip, Typography } from '@mui/material';
 
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
+
 import { CommonUtils } from 'utils';
+
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
+import { guildBanner } from '../styles';
 import { GuildLogo } from './GuildLogo';
 import { GuildSocials } from './GuildSocials';
-import { guildBanner } from '../styles';
 
 export function GuildBanner() {
   const classes = guildBanner();

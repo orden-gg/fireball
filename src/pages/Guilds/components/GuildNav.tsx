@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 
 import { PageNavLink } from 'shared/models';
-import { PageNav } from 'components/PageNav/PageNav';
-import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
+
 import { GuildsContext } from 'pages/Guilds/GuildsContext';
+
+import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
+import { PageNav } from 'components/PageNav/PageNav';
 
 import { guildNavStyles } from '../styles';
 

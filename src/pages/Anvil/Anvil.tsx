@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { CardImage } from 'components/ItemCard/components';
+
 import { InstallationsUtils } from 'utils';
+
 import installations from 'data/installations.data.json';
 
 import { AnvilCalculator } from './components/AnvilCalculator/AnvilCalculator';
 import { AnvilItem, AnvilOptions } from './models';
-
 import { styles } from './styles';
 
 const options: AnvilOptions[] = [
@@ -23,25 +25,23 @@ const options: AnvilOptions[] = [
   { index: 128, levels: 9 } // maaker
 ];
 
-const items = options.map(
-  (item: AnvilOptions): AnvilItem => {
-    const metadata = InstallationsUtils.getMetadataById(item.index);
-    const levels = [...installations].splice(item.index, item.levels);
+const items = options.map((item: AnvilOptions): AnvilItem => {
+  const metadata = InstallationsUtils.getMetadataById(item.index);
+  const levels = [...installations].splice(item.index, item.levels);
 
-    return {
-      id: item.index,
-      name: metadata.name.toLowerCase(),
-      type: metadata.type,
-      width: metadata.width,
-      height: metadata.height,
-      levels: levels.map((_, i) => {
-        const instIndex = item.index + i;
+  return {
+    id: item.index,
+    name: metadata.name.toLowerCase(),
+    type: metadata.type,
+    width: metadata.width,
+    height: metadata.height,
+    levels: levels.map((_, i) => {
+      const instIndex = item.index + i;
 
-        return { id: instIndex, ...InstallationsUtils.getMetadataById(instIndex) };
-      })
-    };
-  }
-);
+      return { id: instIndex, ...InstallationsUtils.getMetadataById(instIndex) };
+    })
+  };
+});
 
 export function Anvil() {
   const classes = styles();

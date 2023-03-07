@@ -1,23 +1,26 @@
-import { useState, useMemo, useEffect, useContext } from 'react';
-import { Button, CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { useContext, useEffect, useMemo, useState } from 'react';
+
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { Button, CircularProgress, IconButton, InputAdornment, TextField } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { Erc1155Categories } from 'shared/constants';
-import { ItemCard } from 'components/ItemCard/containers';
-import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
-import { CustomModal } from 'components/CustomModal/CustomModal';
 import { InstallationsApi, TilesApi } from 'api';
+
+import { Erc1155Categories } from 'shared/constants';
+
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
-import { ApproveModal } from './ApproveModal';
-import { AlchemicaList } from './AlchemicaList';
-import { ConnectModal } from './ConnectModal';
-import { CraftContext } from '../CraftContext';
+import { CustomModal } from 'components/CustomModal/CustomModal';
+import { CardGroup, CardImage, CardName, CardSlot } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 
+import { CraftContext } from '../CraftContext';
 import { sidebarStyles } from '../styles';
+import { AlchemicaList } from './AlchemicaList';
+import { ApproveModal } from './ApproveModal';
+import { ConnectModal } from './ConnectModal';
 
 export function Craftbar() {
   const classes = sidebarStyles();
@@ -26,15 +29,13 @@ export function Craftbar() {
   const [isCrafting, setIsCrafting] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { showSnackbar } = useContext<any>(SnackbarContext);
-  const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } = useContext<
-    any
-  >(CraftContext);
+  const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } =
+    useContext<any>(CraftContext);
 
-  const isCraftDisabled: boolean = useMemo(() => !maxCraftAmount || !craftAmount || !isItemSelected, [
-    maxCraftAmount,
-    craftAmount,
-    isItemSelected
-  ]);
+  const isCraftDisabled: boolean = useMemo(
+    () => !maxCraftAmount || !craftAmount || !isItemSelected,
+    [maxCraftAmount, craftAmount, isItemSelected]
+  );
 
   const inputChange = (event: any): void => {
     const value: number = parseInt(event.target.value) || 0;

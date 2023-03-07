@@ -1,28 +1,30 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
+
 import { CardImage } from 'shared/components/CardImage/CardImage';
-import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
+import { CustomParsedQuery, GraphFiltersQueryParamTypes, GraphFiltersValueTypes } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { PurpleGrassIcon } from 'components/Icons/Icons';
+import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { PurpleGrassIcon } from 'components/Icons/Icons';
-import { Filters } from 'components/Filters/components/Filters/Filters';
+
 import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ActivityTileListingFilterTypes } from '../../constants';
 import { ActivityTileListingFilters, ActivityTileListingVM } from '../../models';
-
-import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarActivityTiles() {
@@ -30,9 +32,9 @@ export function BaazaarActivityTiles() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const activityTilesListings: ActivityTileListingVM[] = useAppSelector(fromBaazaarStore.getActivityTilesListings);

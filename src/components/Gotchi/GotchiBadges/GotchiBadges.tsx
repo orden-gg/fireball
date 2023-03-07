@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import { MainApi } from 'api';
+
 import { Erc1155Categories } from 'shared/constants';
-import { GotchiInventory, Gotchi } from 'shared/models';
+import { Gotchi, GotchiInventory } from 'shared/models';
+
 import { CardImage, CardName } from 'components/ItemCard/components';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { MainApi } from 'api';
+
 import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiBadgesStyles } from './styles';

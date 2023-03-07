@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-import HideSourceIcon from '@mui/icons-material/HideSource';
-
-import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+import HideSourceIcon from '@mui/icons-material/HideSource';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
+
+import classNames from 'classnames';
+
 import { GotchiverseApi } from 'api';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

@@ -1,20 +1,20 @@
-import 'dotenv/config';
-
 import axios from 'axios';
+import 'dotenv/config';
+import { ContractTransaction, ethers } from 'ethers';
 import { exit } from 'process';
 
-// @ts-ignore
-import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
-// @ts-ignore
-import { HALF_DAY_MILLIS } from '../../shared/constants/date.constants.ts';
 import {
-  SCRIPT_WALLET_ADDRESS,
   CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_SIGNER,
+  SCRIPT_WALLET_ADDRESS,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
-import { ContractTransaction, ethers } from 'ethers';
+
+// @ts-ignore
+import { HALF_DAY_MILLIS } from '../../shared/constants/date.constants.ts';
+// @ts-ignore
+import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
 interface Gotchi {
   gotchiId: string;

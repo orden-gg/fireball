@@ -1,18 +1,18 @@
 import React from 'react';
+
 import { Divider } from '@mui/material';
 
-import _ from 'lodash';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import { FilterComponentType } from 'shared/constants';
 
-import { InputFilter } from '../InputFilter/InputFilter';
 import { CheckboxFilter } from '../CheckboxFilter/CheckboxFilter';
+import { InputFilter } from '../InputFilter/InputFilter';
 import { MultiAutocompleteFilter } from '../MultiAutocompleteFilter/MultiAutocompleteFilter';
 import { MultiButtonSelectionFilter } from '../MultiButtonSelectionFilter/MultiButtonSelectionFilter';
-import { SingleAutocompleteFilter } from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
 import { RangeSliderFilter } from '../RangeSliderFilter/RangeSliderFilter';
-
+import { SingleAutocompleteFilter } from '../SingleAutocompleteFilter/SingleAutocompleteFilter';
 import { styles } from './styles';
 
 interface FiltersProps {

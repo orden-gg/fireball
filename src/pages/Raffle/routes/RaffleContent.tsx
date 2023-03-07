@@ -3,25 +3,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { RaffleContext } from 'contexts/RaffleContext';
 
-import { RaffleTable } from '../components/RaffleTable';
 import { RaffleItems } from '../components/RaffleItems';
-import { RafflesData } from '../models/raffles-data.model';
+import { RaffleTable } from '../components/RaffleTable';
 import { raffles } from '../data/raffles.data';
+import { RafflesData } from '../models/raffles-data.model';
 
 export function RaffleContent({ user }) {
   const navigate = useNavigate();
   const { name } = useParams<{ name: string }>();
 
-  const {
-    raffle,
-    setRaffle,
-    tickets,
-    setTickets,
-    getRaffleData,
-    getTicketsPreset,
-    raffleSpinner,
-    onAddressChange
-  } = useContext<any>(RaffleContext);
+  const { raffle, setRaffle, tickets, setTickets, getRaffleData, getTicketsPreset, raffleSpinner, onAddressChange } =
+    useContext<any>(RaffleContext);
 
   useEffect(() => {
     const raffleName: boolean = raffles.some((item) => item['name'] === name);

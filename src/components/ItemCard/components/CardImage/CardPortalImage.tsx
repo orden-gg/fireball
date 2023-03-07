@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
 import { Erc721Categories, HauntIds } from 'shared/constants';
+
 import { H1OpenedPortalIcon, H1SealedPortalIcon, H2OpenedPortalIcon, H2SealedPortalIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';

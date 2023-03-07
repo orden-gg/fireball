@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
+import { QuickswapApi } from 'api';
+
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -11,7 +13,6 @@ import {
   USDC_CONTRACT,
   WMATIC_CONTRACT
 } from 'shared/constants';
-import { QuickswapApi } from 'api';
 
 export const TokensPricesContext = createContext({});
 
@@ -23,7 +24,7 @@ export const TokensPricesContextProvider = (props) => {
   const fetchInterval = 300; // seconds
 
   useEffect(() => {
-    const getTokensPrices = async function() {
+    const getTokensPrices = async function () {
       setIsPricesLoaded(false);
       const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
       const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);

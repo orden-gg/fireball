@@ -1,23 +1,26 @@
-import { AppThunk } from 'core/store/store';
-import { GraphQueryParams } from 'shared/models';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { EthersApi } from 'api';
+
+import { AppThunk } from 'core/store/store';
+
+import { GraphQueryParams } from 'shared/models';
+
 import { InstallationsUtils } from 'utils';
 
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { ActivityInstallationListingDTO, ActivityInstallationListingVM } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
 import {
   loadActivityInstallationsListings,
-  loadActivityInstallationsListingsSucceded,
   loadActivityInstallationsListingsFailed,
+  loadActivityInstallationsListingsSucceded,
   resetActivityInstallationsListings
 } from '../slices';
 
 export const loadBaazaarActivityInstallationsListings = (): AppThunk => (dispatch, getState) => {
   dispatch(loadActivityInstallationsListings());
 
-  const activityInstallationsListingsGraphQueryParams: GraphQueryParams = getState().baazaar.activity.installations
-    .activityInstallationsListingsGraphQueryParams;
+  const activityInstallationsListingsGraphQueryParams: GraphQueryParams =
+    getState().baazaar.activity.installations.activityInstallationsListingsGraphQueryParams;
 
   const query = getBaazaarErc1155PurchasesQuery(activityInstallationsListingsGraphQueryParams);
 

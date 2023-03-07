@@ -1,4 +1,4 @@
-import { CITADEL_WIDTH, CITADEL_HEIGHT, PARCEL_SIZE, PARCEL_NAME, COLORS, DISTRICTS } from 'data/citadel.data';
+import { CITADEL_HEIGHT, CITADEL_WIDTH, COLORS, DISTRICTS, PARCEL_NAME, PARCEL_SIZE } from 'data/citadel.data';
 import parcelsData from 'data/parcels.json';
 
 export class CitadelUtils {

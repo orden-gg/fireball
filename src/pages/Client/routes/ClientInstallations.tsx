@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+// store
+import * as fromClientStore from '../store';
+import { useAppSelector } from 'core/store/hooks';
 
 import { ContentInner } from 'components/Content/ContentInner';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { ItemCard } from 'components/ItemCard/containers';
 import {
   CardBalance,
   CardCraftLink,
@@ -12,17 +12,23 @@ import {
   CardName,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import { ClientContext } from 'contexts/ClientContext';
+import { ItemCard } from 'components/ItemCard/containers';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+
+import { InstallationAndTile } from '../models';
 
 export function ClientInstallations() {
-  const { tiles, loadingTiles, installations, loadingInstallations } = useContext<any>(ClientContext);
+  const installations: InstallationAndTile[] = useAppSelector(fromClientStore.getInstallations);
+  const isInitialInstallationsLoading: boolean = useAppSelector(fromClientStore.getIsInitialInstallationsLoading);
+  const tiles: InstallationAndTile[] = useAppSelector(fromClientStore.getTiles);
+  const isInitialTilesLoading: boolean = useAppSelector(fromClientStore.getIsInitialTilesLoading);
 
   return (
     <>
-      <ContentInner dataLoading={loadingTiles || loadingInstallations}>
+      <ContentInner dataLoading={isInitialInstallationsLoading || isInitialTilesLoading}>
         <ItemsLazy
           items={[...installations, ...tiles]}
-          component={(item: any) => (
+          component={(item: InstallationAndTile) => (
             <ItemCard id={item.id} category={item.category} type={item.rarity || 'drop'}>
               <CardGroup name='header'>
                 {!item.deprecated ? <CardCraftLink name={item.name} /> : <></>}
