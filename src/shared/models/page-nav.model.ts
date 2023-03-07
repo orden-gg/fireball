@@ -7,7 +7,6 @@ export interface PageNavLink {
   isShowSubRoutes?: boolean;
   subNavComponent?: JSX.Element;
   dropdown?: boolean;
-  links?: any[];
 }
 
 export interface PageNavItem {

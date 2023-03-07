@@ -19,6 +19,7 @@ const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
       onClick={() => onTooltipClick()}
       onMouseEnter={() => onToggleTooltip(true)}
       onMouseLeave={() => onToggleTooltip(false)}
+      style={{ display: 'contents' }}
     >
       <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }} />
     </div>

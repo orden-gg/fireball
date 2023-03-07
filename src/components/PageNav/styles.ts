@@ -44,6 +44,11 @@ export const styles = makeStyles((theme) =>
         }
       }
     },
+    menuItem: {
+      '&:hover': {
+        backgroundColor: 'inherit'
+      }
+    },
     onlyIconBtn: {
       minWidth: 24,
       padding: 6,

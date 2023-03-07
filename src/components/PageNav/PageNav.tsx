@@ -29,19 +29,13 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
   console.log('anchorEl', anchorEl);
   console.log('open', open);
 
-  const handleHover = (event) => {
+  const handleClick = (event) => {
     event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // const handleMenuItemClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
-  //   setSelectedIndex(index);
-  //   setAnchorEl(null);
-  // };
 
   const { pathname } = useLocation();
 
@@ -78,10 +72,11 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
               className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
               to={link.path}
               key={index}
+              id='basic-button'
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup='true'
               aria-expanded={open ? 'true' : undefined}
-              onMouseEnter={handleHover}
+              onClick={handleClick}
               // onMouseLeave={handleClose}
             >
               {link.name && <span className={classes.navName}>{link.name}</span>}
@@ -111,34 +106,32 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                // onMouseLeave={handleClose}
                 MenuListProps={{
                   'aria-labelledby': 'basic-button'
                 }}
               >
-                {/* <MenuItem
+                <MenuItem
                   key={index}
                   onClick={handleClose}
+                  className={classes.menuItem}
                   // onClick={handleMenuItemClick}
                   // selected={index === selectedIndex}
                   // onMouseLeave={handleClose}
                   // disabled={index === 0}
                 >
-                  {link.subNavComponent}
-                </MenuItem> */}
-                {link.links?.map((option, index) => (
-                  <MenuItem onClick={handleClose} key={index}>
-                    {option.name}
-                  </MenuItem>
-                ))}
+                  <div
+                  // onClick={() => onTooltipClick()}
+                  // onMouseEnter={() => onToggleTooltip(true)}
+                  // onMouseLeave={() => onToggleTooltip(false)}
+                  >
+                    {link.subNavComponent}
+                  </div>
+                </MenuItem>
               </Menu>
             )}
           </div>
         ) : (
           <div className={classes.navItem} key={index}>
-            {link.isShowSubRoutes && isPathMatch(link.path) && (
-              <div className={classes.subNav}>{link.subNavComponent}</div>
-            )}
             <Button
               disabled={link.count === 0}
               startIcon={link.icon}
