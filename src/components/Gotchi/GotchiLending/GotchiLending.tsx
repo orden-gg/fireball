@@ -3,9 +3,11 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import classNames from 'classnames';
 import { Duration } from 'luxon';
 
+import { EthersApi } from 'api';
+
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { EthersApi } from 'api';
+
 import { CommonUtils, GraphUtils } from 'utils';
 
 import { styles } from './styles';

@@ -1,10 +1,11 @@
-import { Button } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 
-import { RaffleDate } from './RaffleDate';
-import { RafflesData } from '../models/raffles-data.model';
+import { Button } from '@mui/material';
+
 import { raffles } from '../data/raffles.data';
+import { RafflesData } from '../models/raffles-data.model';
 import { raffleNavStyles } from '../styles';
+import { RaffleDate } from './RaffleDate';
 
 export function RaffleNav({ user }: { user: any }) {
   const classes = raffleNavStyles();

@@ -1,12 +1,13 @@
 // @ts-nocheck
 import Phaser from 'phaser';
 
-import { COLORS, DISTRICTS } from 'data/citadel.data';
 import { CitadelUtils } from 'utils';
 
-import { Highlight } from './Highlight';
-import { DistrictsGrid } from './DistrictsGrid';
+import { COLORS, DISTRICTS } from 'data/citadel.data';
+
 import { DistrictNumber } from './DistrictNumber';
+import { DistrictsGrid } from './DistrictsGrid';
+import { Highlight } from './Highlight';
 
 export class DistrictsGridContainer extends Phaser.GameObjects.Container {
   constructor(scene, settings) {

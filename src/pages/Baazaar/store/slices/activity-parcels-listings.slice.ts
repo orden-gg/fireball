@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams } from 'shared/models';
 
-import { ActivityParcelListingVM, ActivityParcelListingFilters } from '../../models';
+import { ActivityParcelListingFilters, ActivityParcelListingVM } from '../../models';
 import { activityParcelListingFilters } from '../../static/filters';
 
 export interface ActivityParcelsListingsState {

@@ -1,10 +1,14 @@
-import { useEffect, useState, useContext } from 'react';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+import { CircularProgress, Autocomplete, TextField } from '@mui/material';
+
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { EthersApi, MainApi, TheGraphApi } from 'api';
+
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel, GotchiLending } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -15,8 +19,6 @@ import {
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import {
   HistoryHead,
@@ -30,8 +32,14 @@ import { EthersApi, MainApi, TheGraphApi } from 'api';
 import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
-import { ClientContext } from 'contexts/ClientContext';
+// store
+import * as fromClientStore from '../store';
+import { useAppSelector } from 'core/store/hooks';
+
 import { useMetamask } from 'use-metamask';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+import { useAppSelector } from 'core/store/hooks';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
@@ -43,7 +51,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
-  const { borrowed } = useContext<any>(ClientContext);
+  const borrowedGotchis: GotchiLending[] = useAppSelector(fromClientStore.getBorrowedGotchis);
 
   useEffect(() => {
     if (gotchi) {
@@ -81,7 +89,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
 
   useEffect(() => {
     const ownAddress = metaState.account[0];
-    const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+    const borrowedAddresses = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
     const allAddresses = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
     const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));

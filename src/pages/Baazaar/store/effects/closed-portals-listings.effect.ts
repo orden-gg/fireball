@@ -1,6 +1,10 @@
-import { AppThunk } from 'core/store/store';
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import { EthersApi } from 'api';
+
+import { AppThunk } from 'core/store/store';
+
+import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+
 import { GraphFiltersUtils } from 'utils';
 
 import { ASCENDING_DIRECTION, ClosedPortalListingFilterTypes, PRICE_IN_WEI } from '../../constants';
@@ -11,19 +15,18 @@ import {
   ClosedPortalListingVM
 } from '../../models';
 import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
 import {
   loadClosedPortalsListings,
-  loadClosedPortalsListingsSucceded,
   loadClosedPortalsListingsFailed,
-  setClosedPortalsListingsSorting,
+  loadClosedPortalsListingsSucceded,
+  resetClosedPortalsListings,
+  setClosedPortalsListingsFilters,
+  setClosedPortalsListingsIsFiltersUpdated,
+  setClosedPortalsListingsIsSortingUpdated,
   setClosedPortalsListingsPreviousSortingProp,
   setClosedPortalsListingsSkipLimit,
-  setClosedPortalsListingsFilters,
-  setClosedPortalsListingsIsSortingUpdated,
-  setClosedPortalsListingsIsFiltersUpdated,
-  setIsClosedPortalsListingsInitialDataLoading,
-  resetClosedPortalsListings
+  setClosedPortalsListingsSorting,
+  setIsClosedPortalsListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarClosedPortalsListings =

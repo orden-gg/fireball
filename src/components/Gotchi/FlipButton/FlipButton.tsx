@@ -1,5 +1,5 @@
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 

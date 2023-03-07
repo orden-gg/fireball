@@ -1,9 +1,10 @@
-import { FakeGotchi } from 'shared/models';
-import { AppThunk } from 'core/store/store';
 import { FakeGotchisGalleryApi } from 'pages/FakeGotchisGallery/api';
 
-import { getMintedFakeGotchisQuery } from '../../queries';
+import { AppThunk } from 'core/store/store';
 
+import { FakeGotchi } from 'shared/models';
+
+import { getMintedFakeGotchisQuery } from '../../queries';
 import { loadMintedGotchis, loadMintedGotchisFailed, loadMintedGotchisSucceded } from '../slices';
 
 export const loadMintedFakeGotchis = (): AppThunk => async (dispatch) => {

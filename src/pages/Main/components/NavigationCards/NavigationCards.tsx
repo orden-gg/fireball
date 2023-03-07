@@ -4,6 +4,7 @@ import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 
 import { NavRoute } from 'shared/models';
+
 import { navRoutes } from 'data/nav-routes.data';
 
 import { styles } from './styles';

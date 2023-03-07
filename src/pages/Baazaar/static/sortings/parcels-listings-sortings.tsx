@@ -5,6 +5,7 @@ import HeightIcon from '@mui/icons-material/Height';
 import HouseIcon from '@mui/icons-material/House';
 
 import { SortingListItem } from 'shared/models';
+
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
 
 export const parcelsListingsSortings: SortingListItem[] = [

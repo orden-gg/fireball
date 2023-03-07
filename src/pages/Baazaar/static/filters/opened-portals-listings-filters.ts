@@ -1,9 +1,12 @@
 import { EthersApi } from 'api';
-import { collaterals } from 'data/collaterals.data';
-import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
+
 import { FilterComponentType, IconName } from 'shared/constants';
 import { CollateralData, InputFilter } from 'shared/models';
+
 import { FiltersHelper } from 'utils';
+
+import { collaterals } from 'data/collaterals.data';
+import { defaultMultiSelectionFilter, defaultRangeSliderFilter } from 'data/default-filters.data';
 
 import { OpenedPortalListingFilterTypes } from '../../constants';
 import { OpenedPortalListingFilters, OpenedPortalListingVM } from '../../models';

@@ -1,8 +1,20 @@
-import { useContext } from 'react';
 import { CircularProgress, Typography } from '@mui/material';
 
+// store
+import * as fromClientStore from '../store';
+import { useAppSelector } from 'core/store/hooks';
+
 import { Erc1155Categories } from 'shared/constants';
-import { ItemCard } from 'components/ItemCard/containers';
+
+import { Gotchi } from 'components/Gotchi/Gotchi';
+import {
+  ConsumableIcon,
+  GotchiIcon,
+  H1SealedPortalIcon,
+  KekIcon,
+  RareTicketIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
 import {
   CardBalance,
   CardERC721Listing,
@@ -15,36 +27,38 @@ import {
   CardStats,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import {
-  ConsumableIcon,
-  GotchiIcon,
-  H1SealedPortalIcon,
-  KekIcon,
-  RareTicketIcon,
-  WarehouseIcon
-} from 'components/Icons/Icons';
-import { Gotchi } from 'components/Gotchi/Gotchi';
+import { ItemCard } from 'components/ItemCard/containers';
 import { Parcel } from 'components/Items/Parcel/Parcel';
-import { ClientContext } from 'contexts/ClientContext';
+
 import { ItemUtils } from 'utils';
 
-import { forSaleStyles } from '../styles';
-
 import { ListingTitle } from '../components/ListingTitle/ListingTitle';
+import {
+  ConsumableForSale,
+  GotchiForSale,
+  ItemsForSaleDictionary,
+  ParcelForSaleVM,
+  PortalForSaleVM,
+  TicketForSale,
+  WearableForSale
+} from '../models';
+import { forSaleStyles } from '../styles';
 
 export function ClientForSale() {
   const classes = forSaleStyles();
 
-  const { itemsForSale, isItemsForSaleLoading, isItemsForSaleEmpty } = useContext<any>(ClientContext);
+  const itemsForSale: ItemsForSaleDictionary = useAppSelector(fromClientStore.getItemsForSale);
+  const isInitialItemsForSaleLoading: boolean = useAppSelector(fromClientStore.getIsInitialItemsForSaleLoading);
+  const itemsForSaleCount: number = useAppSelector(fromClientStore.getItemsForSaleCount);
 
   const loaderRender = (): JSX.Element => {
-    if (isItemsForSaleLoading) {
+    if (isInitialItemsForSaleLoading) {
       return (
         <div className={classes.loaderBox}>
           <CircularProgress color='primary' />
         </div>
       );
-    } else if (isItemsForSaleEmpty) {
+    } else if (itemsForSaleCount === 0) {
       return (
         <Typography className={classes.noListings} variant='caption'>
           No items for sale here :(
@@ -71,7 +85,7 @@ export function ClientForSale() {
           <ListingTitle icon={<GotchiIcon width={32} height={32} />} title='Gotchis' />
 
           <div className={classes.list}>
-            {itemsForSale.gotchis.map((gotchi) => (
+            {itemsForSale.gotchis.map((gotchi: GotchiForSale) => (
               <div className={classes.listItem} key={gotchi.id}>
                 <Gotchi
                   gotchi={gotchi}
@@ -93,8 +107,7 @@ export function ClientForSale() {
                     'name',
                     'traits',
                     'wearablesLine',
-                    'listing',
-                    'rewards'
+                    'listing'
                   ]}
                 />
               </div>
@@ -108,13 +121,13 @@ export function ClientForSale() {
           <ListingTitle icon={<WarehouseIcon width={32} height={32} />} title='Wearables' />
 
           <div className={classes.list}>
-            {itemsForSale.wearables.map((wearable: any) => (
-              <div className={classes.listItem} key={wearable.listing}>
+            {itemsForSale.wearables.map((wearable: WearableForSale) => (
+              <div className={classes.listItem} key={wearable.listingId}>
                 <ItemCard type={wearable.rarity} id={wearable.id} category={wearable.category}>
                   <CardGroup name='header'>
                     <CardSlot id={wearable.id} />
                     <CardTotalPrice balance={wearable.balance} priceInWei={wearable.priceInWei} />
-                    <CardBalance balance={wearable.balance} holders={wearable.holders} />
+                    <CardBalance balance={wearable.balance} />
                   </CardGroup>
                   <CardGroup name='body'>
                     <CardImage id={wearable.id} />
@@ -136,7 +149,7 @@ export function ClientForSale() {
           <ListingTitle icon={<KekIcon width={32} height={32} alt='parcel' />} title='Parcels' />
 
           <div className={classes.list}>
-            {itemsForSale.parcels.map((parcel: any) => (
+            {itemsForSale.parcels.map((parcel: ParcelForSaleVM) => (
               <div className={classes.listItem} key={parcel.parcelId}>
                 <Parcel parcel={parcel} />
               </div>
@@ -150,9 +163,9 @@ export function ClientForSale() {
           <ListingTitle icon={<H1SealedPortalIcon width={32} height={32} />} title='Portals' />
 
           <div className={classes.list}>
-            {itemsForSale.portals.map((portal: any) => (
+            {itemsForSale.portals.map((portal: PortalForSaleVM) => (
               <div className={classes.listItem} key={portal.tokenId}>
-                <ItemCard type={`haunt${portal.portal.hauntId}`} id={portal.id} category={portal.category}>
+                <ItemCard type={`haunt${portal.portal.hauntId}`} id={''} category={portal.category}>
                   <CardGroup name='body'>
                     <CardSlot>{`Haunt ${portal.portal.hauntId}`}</CardSlot>
                     <CardPortalImage category={portal.category} hauntId={portal.portal.hauntId} />
@@ -177,12 +190,12 @@ export function ClientForSale() {
           <ListingTitle icon={<RareTicketIcon width={32} height={32} />} title='Tickets' />
 
           <div className={classes.list}>
-            {itemsForSale.tickets.map((ticket: any) => (
-              <div className={classes.listItem} key={ticket.listing}>
+            {itemsForSale.tickets.map((ticket: TicketForSale) => (
+              <div className={classes.listItem} key={ticket.listingId}>
                 <ItemCard type={ticket.rarity} id={ticket.id} category={ticket.category}>
                   <CardGroup name='header'>
                     <CardTotalPrice balance={ticket.balance} priceInWei={ticket.priceInWei} />
-                    <CardBalance balance={ticket.balance} holders={ticket.holders} />
+                    <CardBalance balance={ticket.balance} />
                   </CardGroup>
                   <CardGroup name='body'>
                     <CardImage id={ticket.id} />
@@ -203,12 +216,12 @@ export function ClientForSale() {
           <ListingTitle icon={<ConsumableIcon width={32} height={32} />} title='Consumables' />
 
           <div className={classes.list}>
-            {itemsForSale.consumables.map((consumable: any) => (
-              <div className={classes.listItem} key={consumable.listing}>
+            {itemsForSale.consumables.map((consumable: ConsumableForSale) => (
+              <div className={classes.listItem} key={consumable.listingId}>
                 <ItemCard type={consumable.rarity} id={consumable.id} category={consumable.category}>
                   <CardGroup name='header'>
-                    <CardTotalPrice balance={consumable.balance} priceInWei={consumable.priceInWei} />
-                    <CardBalance balance={consumable.balance} holders={consumable.holders} />
+                    <CardTotalPrice balance={consumable.balance} />
+                    <CardBalance balance={consumable.balance} />
                   </CardGroup>
                   <CardGroup name='body'>
                     <CardImage id={consumable.id} />

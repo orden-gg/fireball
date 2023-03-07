@@ -2,21 +2,22 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
-import { CardSalesHistory } from 'components/ItemCard/components';
-import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
+import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomModal } from 'components/CustomModal/CustomModal';
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { CardSalesHistory } from 'components/ItemCard/components';
+import { ERC721Listing } from 'components/Items/ERC721Listing/ERC721Listing';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ShineLabel } from 'components/Labels/ShineLabel';
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
-import { ParcelName } from './ParcelName';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
+import { ParcelName } from './ParcelName';
 
 export function Parcel({ parcel }: { parcel: any }) {
   const classes = {
@@ -28,7 +29,7 @@ export function Parcel({ parcel }: { parcel: any }) {
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const parcelSize: string = CitadelUtils.getParcelSizeName(Number(parcel.size));
+  const parcelSizeName: string = CitadelUtils.getParcelSizeName(Number(parcel.size));
 
   const boosts = {
     fud: parcel.fudBoost,
@@ -40,7 +41,7 @@ export function Parcel({ parcel }: { parcel: any }) {
   return (
     <>
       <div
-        className={classNames(classes.item, parcelSize, classes.parcelCard, 'parcel')}
+        className={classNames(classes.item, parcelSizeName, classes.parcelCard, 'parcel')}
         onClick={() => setModalOpen(true)}
       >
         <div className={classes.labels}>
@@ -78,7 +79,7 @@ export function Parcel({ parcel }: { parcel: any }) {
           </div>
         </div>
 
-        <ParcelName parcel={parcel} />
+        <ParcelName parcelHash={parcel.parcelHash} />
 
         {parcel.timePurchased && (
           <CardSalesHistory
@@ -91,10 +92,14 @@ export function Parcel({ parcel }: { parcel: any }) {
           />
         )}
 
-        <ChannelingInfo parcel={parcel} />
+        <ChannelingInfo lastChanneled={parcel.lastChanneled} nextChannel={parcel.nextChannel} />
 
         <div className={classes.parcelInstallations}>
-          <ParcelInstallations parcel={parcel} className={classNames('custom-scroll', classes.installations)} />
+          <ParcelInstallations
+            installations={parcel.installations}
+            tiles={parcel.tiles}
+            className={classNames('custom-scroll', classes.installations)}
+          />
         </div>
 
         {parcel.listings && <ERC721Listing listings={parcel.listings} historicalPrices={parcel.historicalPrices} />}
