@@ -18,7 +18,7 @@ import { styles } from './styles';
 
 interface CardTotalPriceProps {
   balance: number;
-  priceInWei: string;
+  priceInWei?: string;
   className?: string;
 }
 

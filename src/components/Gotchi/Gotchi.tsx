@@ -20,7 +20,6 @@ import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import { GotchiName } from './GotchiName/GotchiName';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
 import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
-import { GotchiRewards } from './GotchiRewards/GotchiRewards';
 import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
 import { GotchiTraits } from './GotchiTraits/GotchiTraits';
@@ -179,10 +178,6 @@ export function Gotchi({
           }}
         />
       );
-    },
-
-    get rewards() {
-      return <GotchiRewards gotchi={gotchi} key={`${gotchi.id}-rewards`} />;
     },
 
     get flipButton() {

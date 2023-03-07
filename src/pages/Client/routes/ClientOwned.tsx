@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -10,9 +10,10 @@ import ScienceIcon from '@mui/icons-material/Science';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -23,6 +24,8 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
+
+import { OwnedGotchi } from '../models';
 
 const sortings: SortingListItem[] = [
   {
@@ -82,7 +85,12 @@ export function ClientOwned() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { gotchis, gotchisSorting, setGotchisSorting, loadingGotchis } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const ownedGotchis: OwnedGotchi[] = useAppSelector(fromClientStore.getOwnedGotchis);
+  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialOwnedGotchisLoading);
+  const ownedGotchisSorting: SortingItem = useAppSelector(fromClientStore.getOwnedGotchisSorting);
+
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
@@ -115,32 +123,29 @@ export function ClientOwned() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === gotchisSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === ownedGotchisSorting.type)?.paramKey;
 
-    updateSortQueryParams(paramKey, gotchisSorting.dir);
-  }, [gotchisSorting]);
+    updateSortQueryParams(paramKey, ownedGotchisSorting.dir);
+  }, [ownedGotchisSorting]);
 
   useEffect(() => {
     const modifiedGotchis = FilterUtils.getFilteredSortedItems({
-      items: gotchis,
+      items: ownedGotchis,
       filters: currentFilters,
-      sorting: gotchisSorting,
+      sorting: ownedGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
 
     setModifiedGotchis(modifiedGotchis);
-  }, [currentFilters, gotchis, gotchisSorting]);
+  }, [currentFilters, ownedGotchis, ownedGotchisSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setGotchisSorting({ type, dir });
-    },
-    [setGotchisSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setOwnedGotchisSorting({ type, dir }));
+  };
 
   const sorting: any = {
     sortingList: sortings,
-    sortingDefaults: gotchisSorting,
+    sortingDefaults: ownedGotchisSorting,
     onSortingChange: onSortingChange
   };
 
@@ -188,7 +193,7 @@ export function ClientOwned() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingGotchis}>
+      <ContentInner dataLoading={isInitialOwnedGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (
@@ -216,8 +221,7 @@ export function ClientOwned() {
                   items: ['channeling', 'badges']
                 },
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
               isHighlightLending={true}
             />

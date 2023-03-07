@@ -1,8 +1,8 @@
-import { useContext } from 'react';
+// store
+import * as fromClientStore from '../store';
+import { useAppSelector } from 'core/store/hooks';
 
 import { Erc1155Categories } from 'shared/constants';
-
-import { ClientContext } from 'contexts/ClientContext';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import {
@@ -15,17 +15,20 @@ import {
 } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 
+import { ClientTicket } from '../models';
 import { routersStyles } from '../styles';
 
 export function ClientTickets() {
   const classes = routersStyles();
-  const { tickets, loadingTickets } = useContext<any>(ClientContext);
+
+  const tickets: ClientTicket[] = useAppSelector(fromClientStore.getTickets);
+  const isInitialTicketsLoading: boolean = useAppSelector(fromClientStore.getIsInitialTicketsLoading);
 
   return (
-    <ContentInner dataLoading={loadingTickets}>
+    <ContentInner dataLoading={isInitialTicketsLoading}>
       <div>
         <div className={classes.list}>
-          {tickets.map((ticket: any, index: number) => (
+          {tickets.map((ticket: ClientTicket, index: number) => (
             <div className={classes.listItem} key={index}>
               <ItemCard type={ticket.name} category={Erc1155Categories.Ticket} id={ticket.id}>
                 <CardGroup name='header'>

@@ -1,18 +1,17 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-import ScienceIcon from '@mui/icons-material/Science';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+// store
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery, GotchiLending, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -25,13 +24,6 @@ import { FilterUtils } from 'utils';
 import { filtersData } from 'data/filters.data';
 
 const sortings: SortingListItem[] = [
-  {
-    name: 'id',
-    key: 'id',
-    paramKey: 'id',
-    tooltip: 'gotchi id',
-    icon: <Grid3x3Icon fontSize='small' />
-  },
   {
     name: 'mrs',
     key: 'modifiedRarityScore',
@@ -52,20 +44,6 @@ const sortings: SortingListItem[] = [
     paramKey: 'kin',
     tooltip: 'kinship',
     icon: <FavoriteBorderIcon fontSize='small' />
-  },
-  {
-    name: 'experience',
-    key: 'experience',
-    paramKey: 'exp',
-    tooltip: 'experience',
-    icon: <ScienceIcon fontSize='small' />
-  },
-  {
-    name: 'age',
-    key: 'createdAt',
-    paramKey: 'age',
-    tooltip: 'age',
-    icon: <CalendarMonthIcon fontSize='small' />
   }
 ];
 
@@ -82,7 +60,12 @@ export function ClientBorrowed() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { borrowed, borrowedSorting, setBorrowedSorting, loadingBorrowed } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const borrowedGotchis: GotchiLending[] = useAppSelector(fromClientStore.getBorrowedGotchis);
+  const isInitialBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialBorrowedGotchisLoading);
+  const borrowedGotchisSorting: SortingItem = useAppSelector(fromClientStore.getBorrowedGotchisSorting);
+
   const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
   const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
@@ -115,32 +98,29 @@ export function ClientBorrowed() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === borrowedSorting.type)?.paramKey;
+    const paramKey: any = sortings.find((sorting) => sorting.key === borrowedGotchisSorting.type)?.paramKey;
 
-    updateSortQueryParams(paramKey, borrowedSorting.dir);
-  }, [borrowedSorting]);
+    updateSortQueryParams(paramKey, borrowedGotchisSorting.dir);
+  }, [borrowedGotchisSorting]);
 
   useEffect(() => {
     const modifiedGotchis = FilterUtils.getFilteredSortedItems({
-      items: borrowed,
+      items: borrowedGotchis,
       filters: currentFilters,
-      sorting: borrowedSorting,
+      sorting: borrowedGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
 
     setModifiedGotchis(modifiedGotchis);
-  }, [currentFilters, borrowed, borrowedSorting]);
+  }, [currentFilters, borrowedGotchis, borrowedGotchisSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setBorrowedSorting({ type, dir });
-    },
-    [setBorrowedSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setBorrowedGotchisSorting({ type, dir }));
+  };
 
   const sorting: any = {
     sortingList: sortings,
-    sortingDefaults: borrowedSorting,
+    sortingDefaults: borrowedGotchisSorting,
     onSortingChange: onSortingChange
   };
 
@@ -188,7 +168,7 @@ export function ClientBorrowed() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingBorrowed}>
+      <ContentInner dataLoading={isInitialBorrowedGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (
@@ -213,8 +193,7 @@ export function ClientBorrowed() {
                 'lending',
                 'channeling',
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
               isHighlightLending={true}
             />
