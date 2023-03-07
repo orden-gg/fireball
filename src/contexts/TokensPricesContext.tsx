@@ -1,5 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
+import { QuickswapApi } from 'api';
+
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,

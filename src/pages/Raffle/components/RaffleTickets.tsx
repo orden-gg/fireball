@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+
 import { CircularProgress, Grid, Typography } from '@mui/material';
 
 import { TicketsApi } from 'api';
 
-import { RaffleTicket } from './RaffleTicket';
 import { tableStyles } from '../styles';
+import { RaffleTicket } from './RaffleTicket';
 
 export function RaffleTickets({ address }: { address: string }) {
   const classes = tableStyles();

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { IconButton } from '@mui/material';
+
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
+import { IconButton } from '@mui/material';
 
 import song from 'assets/music/halloween.mp3';
 

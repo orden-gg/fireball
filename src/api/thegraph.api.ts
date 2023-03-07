@@ -1,41 +1,41 @@
-import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
+import { ApolloClient, DefaultOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import { gql } from '@apollo/client';
 
+import { EthersApi } from './ethers.api';
+import { TheGraphCoreApi } from './the-graph-core.api';
+
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+
 import { ItemUtils } from 'utils';
 
-import { EthersApi } from './ethers.api';
 import {
+  activeListingQeury,
+  auctionQuery,
+  borrowedByAddressQuery,
+  erc721SalesHistory,
+  erc1155ListingsBatchQuery,
+  erc1155Query,
+  getParcelOrderDirectionQuery,
   gotchiByIdQuery,
   gotchiesQuery,
-  svgQuery,
-  activeListingQeury,
-  erc1155Query,
-  erc1155ListingsBatchQuery,
-  erc721ListingsBySeller,
-  erc721SalesHistory,
-  erc1155ListingsBySeller,
-  userQuery,
-  userOwnedGotchisQuery,
-  realmQuery,
-  auctionQuery,
-  raffleQuery,
-  raffleEntrantsQuery,
-  raffleWinsQuery,
+  gotchisGotchiverseQuery,
+  lendingsByAddressQuery,
+  lendingsQuery,
   listedParcelsQuery,
   parcelQuery,
-  lendingsQuery,
-  lendingsByAddressQuery,
-  borrowedByAddressQuery,
-  getParcelOrderDirectionQuery,
-  gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
+  portalsQueryByAddress,
+  raffleEntrantsQuery,
+  raffleQuery,
+  raffleWinsQuery,
+  realmQuery,
   realmQueryByDistrict,
-  realmListingsBySeller
+  svgQuery,
+  userOwnedGotchisQuery,
+  userQuery
 } from './common/queries';
-import { TheGraphCoreApi } from './the-graph-core.api';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
@@ -325,26 +325,6 @@ export class TheGraphApi {
     );
   }
 
-  public static async getErc721ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc721ListingsBySeller(seller))
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  // TODO as we integrate fireball graph for realm it's used here for now.
-  // TODO in the future, after full fireball graph integration should be used as general erc721 listings.
-  public static async getRealmListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(realmListingsBySeller(seller), GRAPH_FIREBALL_API)
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  public static async getErc1155ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc1155ListingsBySeller(seller))
-      .then((response: any) => response.data.erc1155Listings)
-      .catch((error: any) => console.log(error));
-  }
-
   private static async getRaffleData(query: string): Promise<any> {
     return await getGraphData(clientFactory.raffleClient, query);
   }
@@ -589,6 +569,12 @@ export class TheGraphApi {
 
       return filteredArray;
     });
+  }
+
+  public static async getPortalsByAddress(seller: string): Promise<any> {
+    return await TheGraphApi.getData(portalsQueryByAddress(seller))
+      .then((response: any) => response.data.portals)
+      .catch((error: any) => console.log(error));
   }
 
   // ! GOTCHIVERSE

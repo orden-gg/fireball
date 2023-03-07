@@ -1,9 +1,10 @@
 import { Tooltip, Typography } from '@mui/material';
+
 import classNames from 'classnames';
 
 import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 
-import { ERC1155InnerStyles, tooltipStyles, itemStyles, parselStyles } from '../styles';
+import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 
 interface RealmGenericProps {
   realm: any;

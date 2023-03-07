@@ -1,5 +1,6 @@
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GotchiHeartGif } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { GotchiverseUtils } from 'utils';
 
 import { GotchiKinshipTooltip } from './GotchiKinshitTooltip';

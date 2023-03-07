@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Checkbox, FormControlLabel } from '@mui/material';
+
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
+import { AnvilCalculatorOptions, AnvilItem } from '../../models';
 import { AnvilButton } from '../AnvilButton/AnvilButton';
 import { AnvilSection } from '../AnvilSection/AnvilSection';
 import { AnvilSummary } from '../AnvilSummary/AnvilSummary';
-import { AnvilCalculatorOptions, AnvilItem } from '../../models';
-
 import { styles } from './styles';
 
 const defaultOptions: AnvilCalculatorOptions = {

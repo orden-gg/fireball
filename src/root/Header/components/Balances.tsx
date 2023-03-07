@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { IconButton, Link, useTheme } from '@mui/material';
+import ContentLoader from 'react-content-loader';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { IconButton, Link, useTheme } from '@mui/material';
 import classNames from 'classnames';
-import ContentLoader from 'react-content-loader';
+
+import { BalancesContext } from 'contexts/BalancesContext';
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { BalancesContext } from 'contexts/BalancesContext';
-import { useLocalStorage } from 'hooks/useLocalStorage';
+
 import { CommonUtils } from 'utils';
+
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { balancesStyles } from '../styles';
 

@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 
-import { FakeGotchi } from 'shared/models';
+import * as fromFakeGotchisGalleryStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
+import { FakeGotchi } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 
 import { GalleryLayout } from '../GalleryLayout/GalleryLayout';
-
-import * as fromFakeGotchisGalleryStore from '../../store';
 
 export function Queue() {
   const dispatch = useAppDispatch();

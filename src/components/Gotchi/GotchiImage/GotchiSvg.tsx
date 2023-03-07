@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { GOTCHI_SIDES } from 'shared/constants';
-import { GotchiLoadingGif } from 'components/Icons/Icons';
 import { TheGraphApi } from 'api';
+
+import { GOTCHI_SIDES } from 'shared/constants';
+
+import { GotchiLoadingGif } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 

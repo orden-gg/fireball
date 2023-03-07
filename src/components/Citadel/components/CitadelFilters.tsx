@@ -1,12 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import { ParsedQuery } from 'query-string';
 
 import { Filters } from 'components/Filters/components/Filters/Filters';
-import { filtersData } from 'data/filters.data';
+
 import { FilterUtils } from 'utils';
+
+import { filtersData } from 'data/filters.data';
 
 import { FilterStyles } from '../styles';
 

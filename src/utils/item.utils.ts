@@ -5,11 +5,12 @@ import {
   ItemTypes,
   RarityTypes,
   SetTypes,
+  WEARABLE_SLOTS,
   WearableBenefitIndex,
   WearableTypes,
-  WEARABLE_SLOTS,
   WerableBenefitTypes
 } from 'shared/constants';
+
 import {
   AggressionIcon,
   BrainIcon,

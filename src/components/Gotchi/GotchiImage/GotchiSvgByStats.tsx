@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import classNames from 'classnames';
 
 import { GotchiLoadingGif } from 'components/Icons/Icons';

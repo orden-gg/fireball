@@ -62,7 +62,6 @@ export class FilterUtils {
   }): T[] {
     const activeFilters = Object.entries(filters).filter(([_, fitler]) => fitler.isFilterActive);
     let modifiedItems: any;
-
     if (activeFilters.length > 0) {
       modifiedItems = getFilteredItems(filters, items);
       modifiedItems = CommonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
