@@ -28,18 +28,17 @@ import {
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, MainApi, TheGraphApi } from 'api';
+
 import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 // store
-import * as fromClientStore from '../store';
+import * as fromClientStore from 'pages/Client/store';
 import { useAppSelector } from 'core/store/hooks';
 
 import { useMetamask } from 'use-metamask';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { useAppSelector } from 'core/store/hooks';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
   const classes = gotchiPreviewModalStyles();
@@ -51,7 +50,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
-  const borrowedGotchis: GotchiLending[] = useAppSelector(fromClientStore.getBorrowedGotchis);
+  const borrowedGotchis: any[] = useAppSelector(fromClientStore.getBorrowedGotchis);
 
   useEffect(() => {
     if (gotchi) {
@@ -150,7 +149,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       GotchiUtils.getStakedAmount(
                         modalGotchi.collateral,
                         modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
-                      ).toPrecision(5)
+                      ).toFixed(3)
                     )}
                   />
                 </GotchiInfoList>
