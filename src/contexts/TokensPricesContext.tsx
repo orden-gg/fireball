@@ -1,7 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { QuickswapApi } from 'api';
-
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -15,6 +13,7 @@ import {
   Erc1155Categories
 } from 'shared/constants';
 import { QuickswapApi, TheGraphApi } from 'api';
+
 import { ALLOY, ESSENCE } from 'shared/constants/forgeItems.constants';
 
 export const TokensPricesContext = createContext({});
