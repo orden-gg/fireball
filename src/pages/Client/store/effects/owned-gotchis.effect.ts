@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { TheGraphApi } from 'api';
+import { RealmApi, TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -40,10 +40,24 @@ export const onLoadOwnedGotchis =
           warehouseSortType,
           warehouseSortDir
         );
-        const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
+        const promises: Promise<any>[] = ownedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        Promise.all(promises).then((response) => {
+          const modifiedOwned = new Array();
+          let i = 0;
+          for (const gotchi of ownedGotchis) {
+            const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
+            modifiedOwned.push(modifiedGotchi);
+            i += 1;
+          }
+          const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
+            modifiedOwned,
+            gotchisSortType,
+            gotchisSortDir
+          );
 
-        dispatch(setWarehouseItems(sortedWarehouseItems));
-        dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+          dispatch(setWarehouseItems(sortedWarehouseItems));
+          dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+        });
       })
       .catch(() => dispatch(loadOwnedGotchisFailed()))
       .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));

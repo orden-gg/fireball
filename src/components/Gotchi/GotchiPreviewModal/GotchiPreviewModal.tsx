@@ -118,7 +118,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
                       MORE INFO
                     </ViewInAppButton>
                     <ViewInAppButton
-                      link={`https://app.aavegotchi.com/gotchi-/${modalGotchi.id}`}
+                      link={`https://app.aavegotchi.com/gotchi/${modalGotchi.id}`}
                       className={classes.button}
                     >
                       View at aavegotchi.com

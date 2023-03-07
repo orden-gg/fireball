@@ -1,4 +1,4 @@
-import { TheGraphApi } from 'api';
+import { RealmApi, TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -22,9 +22,20 @@ export const onLoadBorrowedGotchis =
 
     TheGraphApi.getBorrowedByAddress(address)
       .then((borrowedGotchis: GotchiLending[]) => {
-        const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
+        const promises: Promise<any>[] = borrowedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        Promise.all(promises).then((response) => {
+          const modifiedBorrowed = new Array();
+          let i = 0;
+          for (const gotchi of borrowedGotchis) {
+            const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
+            modifiedBorrowed.push(modifiedGotchi);
+            i += 1;
+          }
 
-        dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
+          const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedBorrowed, type, dir);
+
+          dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
+        });
       })
       .catch(() => dispatch(loadBorrowedGotchisFailed()))
       .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
