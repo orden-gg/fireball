@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import Grid3x3Icon from '@mui/icons-material/Grid3x3';
-import ScienceIcon from '@mui/icons-material/Science';
 
 import qs from 'query-string';
 
@@ -28,13 +25,6 @@ import { filtersData } from 'data/filters.data';
 
 const sortings: SortingListItem[] = [
   {
-    name: 'id',
-    key: 'id',
-    paramKey: 'id',
-    tooltip: 'gotchi id',
-    icon: <Grid3x3Icon fontSize='small' />
-  },
-  {
     name: 'mrs',
     key: 'modifiedRarityScore',
     paramKey: 'mrs',
@@ -54,20 +44,6 @@ const sortings: SortingListItem[] = [
     paramKey: 'kin',
     tooltip: 'kinship',
     icon: <FavoriteBorderIcon fontSize='small' />
-  },
-  {
-    name: 'experience',
-    key: 'experience',
-    paramKey: 'exp',
-    tooltip: 'experience',
-    icon: <ScienceIcon fontSize='small' />
-  },
-  {
-    name: 'age',
-    key: 'createdAt',
-    paramKey: 'age',
-    tooltip: 'age',
-    icon: <CalendarMonthIcon fontSize='small' />
   }
 ];
 
