@@ -1,4 +1,4 @@
-import { styled, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, styled } from '@mui/material';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 

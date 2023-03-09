@@ -1,7 +1,9 @@
 import { Erc1155Categories } from 'shared/constants';
 import { GotchiInventory as GotchiInventoryModel } from 'shared/models';
+
 import { CardBalance, CardGroup, CardImage, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
+
 import { ItemUtils } from 'utils';
 
 import { gotchiInventoryStyles } from './styles';

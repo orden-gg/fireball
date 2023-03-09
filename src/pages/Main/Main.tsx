@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react';
+
 import { useMediaQuery, useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 import _ from 'lodash';
 
+import { TheGraphApi } from 'api';
+
 import {
+  EASTER_EGG_VIEW_CHANCE,
   GOTCHI_IDS,
-  LAST_GOTCHI_SCALE,
-  START_ANGLE,
   H_D,
-  V_D,
+  LAST_GOTCHI_SCALE,
   MAX_GOTCHIS_IN_ROW,
   MAX_ROWS,
-  EASTER_EGG_VIEW_CHANCE
+  START_ANGLE,
+  V_D
 } from 'shared/constants';
+
 import { Section } from 'components/Section/Section';
-import { TheGraphApi } from 'api';
+
 import { CommonUtils } from 'utils';
 
 import { About } from './components/About';
-import { Team } from './components/Team';
-import { User } from './components/User';
 import { HomeGotchi } from './components/HomeGotchi.';
 import { NavigationCards } from './components/NavigationCards/NavigationCards';
-
-import { styles, bgStyles, teamStyles } from './styles';
+import { Team } from './components/Team';
+import { User } from './components/User';
+import { bgStyles, styles, teamStyles } from './styles';
 
 export function Main() {
   const classes = {

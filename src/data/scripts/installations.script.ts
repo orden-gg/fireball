@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 // @ts-ignore
 import { INSTALLATION_CONTRACT } from '../../shared/constants/api.constants.ts';
+
 // @ts-ignore
 import { InstallationTypes } from '../../shared/constants/enums/enums.ts';
 

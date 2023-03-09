@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { Erc721Categories } from 'shared/constants';
 import { GraphQueryParams, SortingItem } from 'shared/models';

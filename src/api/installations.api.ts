@@ -1,15 +1,17 @@
-import _ from 'lodash';
 import { ethers } from 'ethers';
-
-import { InstallationTypes, INSTALLATION_CONTRACT } from 'shared/constants';
-import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
+import _ from 'lodash';
 
 import { EthersApi } from './ethers.api';
+
+import { INSTALLATION_CONTRACT, InstallationTypes } from 'shared/constants';
+import { InstallationsBalances } from 'shared/models';
+
+import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 
 const installationsContract = EthersApi.makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');
 
 export class InstallationsApi {
-  public static getInstallationsByAddress(address: any): any {
+  public static getInstallationsByAddress(address: string): Promise<InstallationsBalances[]> {
     return installationsContract.installationsBalances(address);
   }
 

@@ -1,6 +1,6 @@
 import {
-  VOID_WEARABLE,
-  HAUNT_ONE_BACKGROUND_WEARABLE,
+  HAUNT_ONE_BACKGROUND_WEARABLE_NAME,
+  VOID_WEARABLE_NAME,
   WearableBenefitIndex,
   WerableBenefitTypes
 } from 'shared/constants';
@@ -12,6 +12,7 @@ import {
   WearableTypes
 } from 'shared/constants';
 import { Erc1155ItemTuple, Wearable } from 'shared/models';
+
 import erc1155Items from 'data/items.data.json';
 
 import { ItemUtils } from './item.utils';
@@ -22,7 +23,8 @@ export class Erc1155ItemUtils {
       .filter((erc1155Item) => erc1155Item[ItemTypes.Category] === Number(Erc1155Categories.Wearable))
       .filter(
         (erc1155Item) =>
-          erc1155Item[ItemTypes.Name] !== VOID_WEARABLE && erc1155Item[ItemTypes.Name] !== HAUNT_ONE_BACKGROUND_WEARABLE
+          erc1155Item[ItemTypes.Name] !== VOID_WEARABLE_NAME &&
+          erc1155Item[ItemTypes.Name] !== HAUNT_ONE_BACKGROUND_WEARABLE_NAME
       ) as Erc1155ItemTuple[];
   }
 

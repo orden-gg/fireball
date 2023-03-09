@@ -2,7 +2,9 @@
 import Phaser from 'phaser';
 
 import { EthersApi } from 'api';
+
 import { CitadelUtils } from 'utils';
+
 import { COLORS } from 'data/citadel.data';
 
 export class CreateParcels extends Phaser.GameObjects.Graphics {

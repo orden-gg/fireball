@@ -1,22 +1,24 @@
 import { useContext } from 'react';
 import ContentLoader from 'react-content-loader';
+
 import { alpha } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { GhstTokenGif } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
+
+import { GhstTokenGif } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
 import { CardContext } from '../../context/CardContext';
-
 import { styles } from './styles';
 
 interface CardTotalPriceProps {
   balance: number;
-  priceInWei: string;
+  priceInWei?: string;
   className?: string;
 }
 

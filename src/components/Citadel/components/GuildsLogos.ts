@@ -2,8 +2,9 @@
 import Phaser from 'phaser';
 
 import { CitadelUtils } from 'utils';
-import guilds from 'data/guilds.json';
+
 import { COLORS } from 'data/citadel.data';
+import guilds from 'data/guilds.json';
 
 export class GuildsLogos extends Phaser.GameObjects.Container {
   constructor(scene, settings) {

@@ -1,6 +1,7 @@
+import { TheGraphCoreApi } from 'api';
+
 import { GRAPH_FAKE_GOTCHIS_API } from 'shared/constants';
 import { FakeGotchi, TheGraphResponse } from 'shared/models';
-import { TheGraphCoreApi } from 'api';
 
 export class FakeGotchisGalleryApi {
   public static async getGalleryFakeGotchis(query: string): Promise<FakeGotchi[]> {

@@ -2,12 +2,11 @@ import { useCallback, useContext } from 'react';
 
 import classNames from 'classnames';
 
-import { ItemCard } from 'components/ItemCard/containers';
 import { CardGroup, CardImage, CardName, CardSize, CardSlot } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
 import { CraftContext } from '../CraftContext';
-
 import { itemStyles } from '../styles';
 
 export function CraftItem({ item }: { item: any }) {

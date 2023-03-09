@@ -1,10 +1,12 @@
-import { Link } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link } from '@mui/material';
+
+import { EthersApi } from 'api';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { EthersApi } from 'api';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';

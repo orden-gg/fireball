@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import { InstallationsUtils, TilesUtils } from 'utils';
 import { TheGraphApi } from 'api';
+
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+
+import { InstallationsUtils, TilesUtils } from 'utils';
 
 import { styles } from './styles';
 

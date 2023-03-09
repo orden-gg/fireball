@@ -1,18 +1,19 @@
 import { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { CommonUtils } from 'utils';
 
+import { GuildsContext } from '../GuildsContext';
 import { GuildBanner } from '../components/GuildBanner';
 import { GuildsDetails } from '../components/GuildDetails';
 import { GuildGotchis } from '../components/GuildGotchis';
 import { GuildLendings } from '../components/GuildLendings';
 import { GuildNav } from '../components/GuildNav';
 import { GuildsRealm } from '../components/GuildsRealm';
-import { GuildsContext } from '../GuildsContext';
 import { guildStyles } from '../styles';
 
 export function Guild() {

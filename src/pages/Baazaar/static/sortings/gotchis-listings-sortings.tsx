@@ -1,8 +1,8 @@
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import ScienceIcon from '@mui/icons-material/Science';
 

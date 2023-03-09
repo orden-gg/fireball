@@ -1,21 +1,25 @@
-import { useContext } from 'react';
 import { NavigateFunction } from 'react-router-dom';
+
 import { Switch } from '@mui/material';
 
+import * as fromClientStore from '../../store';
+import { useAppDispatch } from 'core/store/hooks';
+
+import { RealmView } from 'pages/Client/constants';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { ClientContext } from 'contexts/ClientContext';
 
 import { styles } from './styles';
 
 export function RealmSwitchButton({ view, navigate }: { view: string; navigate: NavigateFunction }) {
   const classes = styles();
 
-  const { setRealmView } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
 
-  const updateView = () => {
-    const path = view === 'list' ? 'map' : 'list';
+  const updateView = (): void => {
+    const path: RealmView = view === RealmView.List ? RealmView.Map : RealmView.List;
 
-    setRealmView(path);
+    dispatch(fromClientStore.setRealmView(path));
 
     navigate(`realm/${path}`);
   };

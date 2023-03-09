@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
+
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 import { CardImage } from 'components/ItemCard/components';
+
 import { InstallationsUtils } from 'utils';
+
 import installations from 'data/installations.data.json';
 
 import { AnvilCalculator } from './components/AnvilCalculator/AnvilCalculator';
 import { AnvilItem, AnvilOptions } from './models';
-
 import { styles } from './styles';
 
 const options: AnvilOptions[] = [

@@ -1,5 +1,5 @@
-import { Link } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Link } from '@mui/material';
 
 import classNames from 'classnames';
 

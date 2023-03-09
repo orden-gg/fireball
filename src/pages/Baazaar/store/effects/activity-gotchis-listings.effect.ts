@@ -1,24 +1,27 @@
+import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+
 import { AppThunk } from 'core/store/store';
+
 import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+
+import { GraphFiltersUtils } from 'utils';
+
+import { ActivityGotchiListingFilterTypes } from '../../constants';
 import {
   ActivityGotchiListingDTO,
   ActivityGotchiListingFilters,
-  ActivityGotchiListingVM,
-  ActivityGotchiListingFiltersType
+  ActivityGotchiListingFiltersType,
+  ActivityGotchiListingVM
 } from '../../models';
 import { getBaazaarActivityGotchisListingsQuery } from '../../queries';
-import { GraphFiltersUtils } from 'utils';
-
-import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
-import { ActivityGotchiListingFilterTypes } from '../../constants';
 import {
   loadActivityGotchisListings,
-  loadActivityGotchisListingsSucceded,
   loadActivityGotchisListingsFailed,
+  loadActivityGotchisListingsSucceded,
+  resetActivityGotchisListings,
   setActivityGotchisListingsFilters,
   setActivityGotchisListingsIsFiltersUpdated,
-  setIsActivityGotchisListingsInitialDataLoading,
-  resetActivityGotchisListings
+  setIsActivityGotchisListingsInitialDataLoading
 } from '../slices';
 
 export const loadBaazaarActivityGotchisListings =

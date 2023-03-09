@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Wearable, SortingItem } from 'shared/models';
+import { SortingItem, Wearable } from 'shared/models';
+
 import { Erc1155ItemUtils } from 'utils';
 
 export interface GlossaryState {
