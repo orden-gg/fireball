@@ -1,4 +1,8 @@
-import { useMemo, useState } from 'react';
+import {
+  useMemo,
+  useState
+  // , useEffect
+} from 'react';
 import ContentLoader from 'react-content-loader';
 import { Button, MenuItem, Menu } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -22,25 +26,34 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // const [selectedIndex, setSelectedIndex] = useState(1);
+  // const [open, setOpen] = useState<boolean>(Boolean(anchorEl));
+
+  // useEffect(() => {
+  //   console.log('anchorEl useEffect', anchorEl);
+  //   // setOpen(Boolean(anchorEl));
+  // }, [anchorEl]);
 
   const open = Boolean(anchorEl);
 
   console.log('anchorEl', anchorEl);
-  console.log('open', open);
+  // console.log('open', open);
 
   const handleClick = (event) => {
     event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  // const onToggleTooltip = (value: boolean): void => {
+  //   setOpen(value);
+  // };
+
   const { pathname } = useLocation();
 
   const data = useMemo(() => links, [links]);
-  console.log('data', data);
 
   const isPathMatch = (currentPath: string): boolean => {
     const indexOfPath: number = pathname.indexOf(currentPath);
@@ -76,7 +89,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
               aria-controls={open ? 'basic-menu' : undefined}
               aria-haspopup='true'
               aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
+              onMouseEnter={handleClick}
               // onMouseLeave={handleClose}
             >
               {link.name && <span className={classes.navName}>{link.name}</span>}
@@ -110,19 +123,11 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                   'aria-labelledby': 'basic-button'
                 }}
               >
-                <MenuItem
-                  key={index}
-                  onClick={handleClose}
-                  className={classes.menuItem}
-                  // onClick={handleMenuItemClick}
-                  // selected={index === selectedIndex}
-                  // onMouseLeave={handleClose}
-                  // disabled={index === 0}
-                >
+                <MenuItem key={index} className={classes.menuItem} onClick={handleClose} onMouseLeave={handleClose}>
                   <div
-                  // onClick={() => onTooltipClick()}
-                  // onMouseEnter={() => onToggleTooltip(true)}
-                  // onMouseLeave={() => onToggleTooltip(false)}
+                    onClick={() => handleClose()}
+                    // onMouseEnter={() => onToggleTooltip(true)}
+                    onMouseLeave={handleClose}
                   >
                     {link.subNavComponent}
                   </div>
