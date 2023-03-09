@@ -2,7 +2,7 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import { Citadel } from 'components/Citadel/Citadel';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
+import { GuildsContext } from 'pages/OldGuilds/GuildsContext';
 import { TheGraphApi } from 'api';
 
 import { guildContentStyles } from '../styles';

@@ -6,7 +6,7 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import WebIcon from '@mui/icons-material/Web';
 
 import { DiscordIcon, TwitchIcon } from 'components/Icons/Icons';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
+import { GuildsContext } from 'pages/OldGuilds/GuildsContext';
 
 import { guildSocialsStyles } from '../styles';
 

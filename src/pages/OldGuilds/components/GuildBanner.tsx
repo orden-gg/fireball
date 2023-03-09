@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
+import { GuildsContext } from 'pages/OldGuilds/GuildsContext';
 import { CommonUtils } from 'utils';
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 

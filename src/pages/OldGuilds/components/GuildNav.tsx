@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { PageNavLink } from 'shared/models';
 import { PageNav } from 'components/PageNav/PageNav';
 import { GotchiIcon, KekIcon, LendingIcon } from 'components/Icons/Icons';
-import { GuildsContext } from 'pages/Guilds/GuildsContext';
+import { GuildsContext } from 'pages/OldGuilds/GuildsContext';
 
 import { guildNavStyles } from '../styles';
 
