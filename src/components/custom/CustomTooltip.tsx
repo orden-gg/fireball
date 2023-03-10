@@ -1,27 +1,15 @@
-import { useState } from 'react';
-import { styled, Tooltip, tooltipClasses } from '@mui/material';
+import { Tooltip, styled, tooltipClasses } from '@mui/material';
 
 import { CustomTooltipProps } from 'shared/models';
 
 const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
-  const [isTolltipOpened, setIsTolltipOpened] = useState<boolean>(false);
-
-  const onTooltipClick = (): void => {
-    setIsTolltipOpened(false);
-  };
-
-  const onToggleTooltip = (value: boolean): void => {
-    setIsTolltipOpened(value);
+  const onTooltipClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
+    event.stopPropagation();
   };
 
   return (
-    <div
-      onClick={() => onTooltipClick()}
-      onMouseEnter={() => onToggleTooltip(true)}
-      onMouseLeave={() => onToggleTooltip(false)}
-      style={{ display: 'contents' }}
-    >
-      <Tooltip {...props} open={isTolltipOpened} classes={{ popper: className }} />
+    <div onClick={(event) => onTooltipClick(event)} style={{ display: 'contents' }}>
+      <Tooltip {...props} classes={{ popper: className }} />
     </div>
   );
 })(({ theme }) => ({
