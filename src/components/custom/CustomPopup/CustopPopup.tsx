@@ -5,20 +5,24 @@ import { customPopupStyles } from './custom-popup.styles';
 export function CustomPopup({ title, children }: { title: JSX.Element; children: JSX.Element | JSX.Element[] }) {
   const classes = customPopupStyles();
 
-  const [popupContent, setPopupContent] = useState<JSX.Element | JSX.Element[]>(<></>);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
   const onHandleHover = (): void => {
-    setPopupContent(children);
+    setIsPopupOpen(true);
   };
 
   const onHandleLeave = (): void => {
-    setPopupContent(<></>);
+    setIsPopupOpen(false);
   };
 
   return (
     <div className={classes.popupWrapper} onMouseOver={onHandleHover} onMouseLeave={onHandleLeave}>
       {title}
-      <div className={classes.popupBody}>{popupContent}</div>
+      {isPopupOpen && (
+        <div onClick={onHandleLeave} className={classes.popupBody}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }

@@ -7,11 +7,13 @@ export const customPopupStyles = makeStyles(() =>
       zIndex: 1203
     },
     popupBody: {
+      maxHeight: '300px',
       position: 'absolute',
-      overflowY: 'scroll',
-      maxHeight: '150px',
-      left: '0%',
+      top: '100%',
+      left: '50%',
       zIndex: 1203,
+      transform: 'translateX(-50%)',
+      overflowY: 'scroll',
       background: '#2b2a2a'
     }
   })

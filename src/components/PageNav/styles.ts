@@ -6,20 +6,11 @@ export const styles = makeStyles((theme) =>
     container: {
       display: 'flex',
       alignItems: 'center',
-      position: 'relative',
-      zIndex: 1,
       margin: 'auto'
     },
     navItem: {
       margin: 4,
       position: 'relative'
-    },
-    subNav: {
-      position: 'absolute',
-      bottom: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      display: 'flex'
     },
     button: {
       paddingRight: 12,
