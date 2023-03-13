@@ -20,7 +20,7 @@ export function GotchiBadges({ id }: { id: number }) {
   useEffect(() => {
     let mounted: boolean = true;
 
-    MainApi.getAavegotchiById(id).then((response: any[]) => {
+    MainApi.getAavegotchiById(id).then((response: CustomAny[]) => {
       if (mounted) {
         const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
         const badges: GotchiInventory[] = gotchi.inventory.filter((item: GotchiInventory) => {

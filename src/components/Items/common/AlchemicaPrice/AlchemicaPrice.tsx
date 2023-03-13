@@ -34,7 +34,7 @@ export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPricePro
   const classes = styles();
 
   const [itemPrice, setItemPrice] = useState<number>(0);
-  const { tokensPrices, isPricesLoaded } = useContext<any>(TokensPricesContext);
+  const { tokensPrices, isPricesLoaded } = useContext<CustomAny>(TokensPricesContext);
 
   const tokensList = gltr ? [...alchemica, gltr] : alchemica;
 

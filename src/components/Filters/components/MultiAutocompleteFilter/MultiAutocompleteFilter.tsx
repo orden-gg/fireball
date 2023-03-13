@@ -4,14 +4,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 interface MultiAutocompleteFilterProps {
-  filter: any;
-  onSetSelectedFilters: (key: string, value: any[]) => void;
+  filter: CustomAny;
+  onSetSelectedFilters: (key: string, value: CustomAny[]) => void;
   isDisabled: boolean;
 }
 
 export function MultiAutocompleteFilter({ filter, onSetSelectedFilters, isDisabled }: MultiAutocompleteFilterProps) {
   const onHandleAutocompleteChange = useCallback(
-    (event: any, values: any[]) => {
+    (event: CustomAny, values: CustomAny[]) => {
       onSetSelectedFilters(filter.key, values);
     },
     [filter, onSetSelectedFilters]
@@ -21,11 +21,11 @@ export function MultiAutocompleteFilter({ filter, onSetSelectedFilters, isDisabl
     <Autocomplete
       id={`${filter.key}-autocomplete`}
       multiple
-      value={filter.items.filter((item: any) => item.isSelected)}
+      value={filter.items.filter((item: CustomAny) => item.isSelected)}
       onChange={onHandleAutocompleteChange}
       options={filter.items}
-      getOptionLabel={(option: any) => option.title}
-      isOptionEqualToValue={(option: any, value: any) => option.value === value.value}
+      getOptionLabel={(option: CustomAny) => option.title}
+      isOptionEqualToValue={(option: CustomAny, value: CustomAny) => option.value === value.value}
       renderInput={(params) => <TextField {...params} size='small' label={filter.title} />}
       renderTags={filter.renderTagsFn}
       disabled={isDisabled}

@@ -43,16 +43,16 @@ export function GotchiPage() {
   const routeParams = useParams();
 
   const [gotchiLoaded, setGotchiLoaded] = useState<boolean>(false);
-  const [gotchi, setGotchi] = useState<any>({});
+  const [gotchi, setGotchi] = useState<CustomAny>({});
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-  // const [exclusivity, setExclusivity] = useState<any>({});
+  // const [exclusivity, setExclusivity] = useState<CustomAny>({});
 
   useEffect(() => {
     const id: number = Number(routeParams.gotchiId);
 
-    MainApi.getAavegotchiById(id).then((response: any[]) => {
+    MainApi.getAavegotchiById(id).then((response: CustomAny[]) => {
       const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
       const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
         const slot: string[] = ItemUtils.getSlotsById(item.id);
@@ -64,7 +64,7 @@ export function GotchiPage() {
     });
 
     TheGraphApi.getGotchiById(id)
-      .then((response: any) => {
+      .then((response: CustomAny) => {
         setGotchi(response);
       })
       .catch((error) => console.log(error))
@@ -79,7 +79,7 @@ export function GotchiPage() {
 
     // TODO: Will be used soon
     // FireballApi.getFireGotchiById(id)
-    //     .then((response: any) => {
+    //     .then((response: CustomAny) => {
     //         setExclusivity(response);
     //     }).catch((error) => {
     //         console.log(error);

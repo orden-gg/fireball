@@ -37,13 +37,13 @@ const initialFilters = {
 };
 
 interface CitadelFiltersProps {
-  onFiltersChange: (filters: any) => void;
+  onFiltersChange: (filters: CustomAny) => void;
   queryParams: ParsedQuery<string>;
   onExportData: () => void;
 }
 
 export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: CitadelFiltersProps) {
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
@@ -53,7 +53,7 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
     setIsDropdownOpen(!isOpen);
   };
 
-  const onSetSelectedFilters = (key: string, selectedValue: any | any[]) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny | CustomAny[]) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
@@ -82,7 +82,7 @@ export function CitadelFilters({ onFiltersChange, queryParams, onExportData }: C
   }, [currentFilters]);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 

@@ -4,7 +4,7 @@ import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
-export function GotchiOwner({ gotchi }: { gotchi: any }) {
+export function GotchiOwner({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   return (

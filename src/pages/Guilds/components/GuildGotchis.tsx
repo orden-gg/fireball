@@ -13,7 +13,7 @@ import { guildContentStyles } from '../styles';
 export function GuildGotchis() {
   const classes = guildContentStyles();
 
-  const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext<any>(GuildsContext);
+  const { guildId, guilds, guildGotchis, setGuildGotchis } = useContext<CustomAny>(GuildsContext);
 
   const [isGotchisLoading, setIsGotchisLoading] = useState(false);
 

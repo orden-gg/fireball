@@ -9,10 +9,10 @@ import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/Alchemica
 import { CraftContext } from '../CraftContext';
 import { itemStyles } from '../styles';
 
-export function CraftItem({ item }: { item: any }) {
+export function CraftItem({ item }: { item: CustomAny }) {
   const classes = itemStyles();
 
-  const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<any>(CraftContext);
+  const { selectedItem, setSelectedItem, setCategory, setIsItemSelected } = useContext<CustomAny>(CraftContext);
 
   const handleItemClick = useCallback((): void => {
     if (!item.deprecated) {

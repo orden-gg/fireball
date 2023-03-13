@@ -20,7 +20,7 @@ interface ItemCardProps {
 }
 
 const CardInner = ({ children, id, category }: CardInnerProps): JSX.Element => {
-  const { loadCardPrice } = useContext<any>(CardContext);
+  const { loadCardPrice } = useContext<CustomAny>(CardContext);
 
   useEffect(() => {
     if (id && category) {

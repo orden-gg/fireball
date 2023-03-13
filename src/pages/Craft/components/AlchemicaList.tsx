@@ -6,18 +6,18 @@ import { CraftContext } from '../CraftContext';
 import { sidebarStyles } from '../styles';
 
 interface AlchemicaCostProps {
-  cost: any[];
-  amount: any;
+  cost: CustomAny[];
+  amount: CustomAny;
 }
 
 export function AlchemicaList({ cost = [], amount }: AlchemicaCostProps) {
   const classes = sidebarStyles();
 
-  const { tokens, isWalletConnected } = useContext<any>(CraftContext);
+  const { tokens, isWalletConnected } = useContext<CustomAny>(CraftContext);
 
   return (
     <ul className={classes.alchemicaList}>
-      {[...tokens].splice(0, 4).map((token: any, index) => {
+      {[...tokens].splice(0, 4).map((token: CustomAny, index) => {
         const tokenSum = cost[index] * amount || 0;
 
         return (

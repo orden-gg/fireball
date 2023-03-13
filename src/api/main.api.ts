@@ -8,26 +8,28 @@ import MAIN_ABI from 'data/abi/main.abi.json';
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 
 export class MainApi {
-  public static isPetApproved(address: any): any {
+  public static isPetApproved(address: CustomAny): CustomAny {
     return contract.isPetOperatorForAll(address, AUTOPET_OPERATOR);
   }
 
-  public static async approvePet(isApproved: boolean): Promise<any> {
+  public static async approvePet(isApproved: boolean): Promise<CustomAny> {
     const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
     const transaction = await writeContract.setPetOperatorForAll(AUTOPET_OPERATOR, isApproved);
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
+      Boolean(response.status)
+    );
   }
 
-  public static getAavegotchiById(id: number): Promise<any[]> {
-    return contract.getAavegotchi(id).then((response: any[]) => {
+  public static getAavegotchiById(id: number): Promise<CustomAny[]> {
+    return contract.getAavegotchi(id).then((response: CustomAny[]) => {
       return response;
     });
   }
 
-  public static async getAvailableSkillPoints(tokenId: any): Promise<any> {
+  public static async getAvailableSkillPoints(tokenId: CustomAny): Promise<CustomAny> {
     try {
-      return await contract.availableSkillPoints(tokenId).then((response: any) => {
+      return await contract.availableSkillPoints(tokenId).then((response: CustomAny) => {
         return EthersApi.formatBigNumber(response);
       });
     } catch (error) {
@@ -39,9 +41,9 @@ export class MainApi {
 
   public static async getInventoryByAddress(address: string): Promise<Inventory[]> {
     try {
-      return await contract.itemBalances(address.toLowerCase()).then((response: any) => {
-        return response.map((item: any) => {
-          const inner: any = item.map((i: any) => EthersApi.formatBigNumber(i));
+      return await contract.itemBalances(address.toLowerCase()).then((response: CustomAny) => {
+        return response.map((item: CustomAny) => {
+          const inner: CustomAny = item.map((i: CustomAny) => EthersApi.formatBigNumber(i));
 
           return { itemId: inner[0], balance: inner[1] };
         });
@@ -53,7 +55,12 @@ export class MainApi {
     }
   }
 
-  public static async previewAavegotchi(haunt: any, collateral: any, traits: any, wearables: any): Promise<any> {
+  public static async previewAavegotchi(
+    haunt: CustomAny,
+    collateral: CustomAny,
+    traits: CustomAny,
+    wearables: CustomAny
+  ): Promise<CustomAny> {
     try {
       return contract.previewAavegotchi(haunt, collateral, traits, wearables);
     } catch (error) {

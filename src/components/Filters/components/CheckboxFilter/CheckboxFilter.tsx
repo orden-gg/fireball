@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 
 interface CheckboxFilterProps {
-  filter: any;
+  filter: CustomAny;
   onSetSelectedFilters: (key: string, value: boolean) => void;
   isDisabled: boolean;
 }

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { styles } from './styles';
 
 interface CardSizeProps {
-  children?: any;
+  children?: CustomAny;
   className?: string;
 }
 

@@ -70,7 +70,7 @@ export function ClientWarehouse() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       dispatch(fromClientStore.setWarehouseSorting({ type: key, dir }));
     }
@@ -105,7 +105,7 @@ export function ClientWarehouse() {
     updateSortQueryParams(prop, dir);
   };
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: warehouseSorting,
     onSortingChange: onSortingChange
@@ -113,7 +113,7 @@ export function ClientWarehouse() {
 
   const renderCardStats = (id: number, category: string): JSX.Element => {
     const isWearable: boolean = category === Erc1155Categories.Wearable;
-    const stats: any = isWearable ? ItemUtils.getTraitModifiersById(id) : ItemUtils.getDescriptionById(id);
+    const stats: CustomAny = isWearable ? ItemUtils.getTraitModifiersById(id) : ItemUtils.getDescriptionById(id);
 
     return <CardStats stats={stats} />;
   };

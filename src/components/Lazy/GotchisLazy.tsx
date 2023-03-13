@@ -15,12 +15,12 @@ const NoContent = styled.div`
 `;
 
 interface GotchisLazyProps {
-  items: any[];
+  items: CustomAny[];
   renderItem: (id: number | string) => JSX.Element;
 }
 
 export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
-  const gridRef = useRef<any>(null);
+  const gridRef = useRef<CustomAny>(null);
 
   useEffect(() => {
     if (items.length) {
@@ -54,7 +54,7 @@ export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
       style={{ height: '100%' }}
       totalCount={items.length}
       components={{
-        List: ListContainer as any
+        List: ListContainer as CustomAny
       }}
       itemContent={(index) => renderItem(index)}
     />

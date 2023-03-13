@@ -4,7 +4,7 @@ import { CommonUtils } from './common.utils';
 
 // TODO replace Object in all
 export class FilterUtils {
-  public static getUpdateFiltersFromQueryParams(queryParams: any, filters: Object): any {
+  public static getUpdateFiltersFromQueryParams(queryParams: CustomAny, filters: Object): CustomAny {
     Object.entries(filters).forEach(([_, filter]) => {
       if (queryParams[filter.queryParamKey]) {
         filter.updateFromQueryFn(filter, queryParams[filter.queryParamKey], 'queryParamValue');
@@ -14,7 +14,7 @@ export class FilterUtils {
     return filters;
   }
 
-  public static getUpdatedQueryParams(queryParams: any, filters: Object): any {
+  public static getUpdatedQueryParams(queryParams: CustomAny, filters: Object): CustomAny {
     const params = { ...queryParams };
 
     Object.entries(filters).forEach(([_, filter]) => {
@@ -28,7 +28,7 @@ export class FilterUtils {
     return params;
   }
 
-  public static getActiveFiltersCount(filters: Object): any {
+  public static getActiveFiltersCount(filters: Object): CustomAny {
     let count = 0;
     const activeFilters = Object.entries(filters).filter(([_, filter]) => filter.isFilterActive);
 
@@ -58,10 +58,10 @@ export class FilterUtils {
     items: T[];
     filters: Object;
     sorting: SortingItem;
-    getFilteredItems: any;
+    getFilteredItems: CustomAny;
   }): T[] {
     const activeFilters = Object.entries(filters).filter(([_, fitler]) => fitler.isFilterActive);
-    let modifiedItems: any;
+    let modifiedItems: CustomAny;
     if (activeFilters.length > 0) {
       modifiedItems = getFilteredItems(filters, items);
       modifiedItems = CommonUtils.basicSort(modifiedItems, sorting.type, sorting.dir);
@@ -74,11 +74,11 @@ export class FilterUtils {
 
   public static onFiltersUpdate(
     currentFilters: Object,
-    getActiveFiltersCount: any,
-    activeFiltersCountSetter: any,
-    callBack: any
-  ): any {
-    const activeFilters: any = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
+    getActiveFiltersCount: CustomAny,
+    activeFiltersCountSetter: CustomAny,
+    callBack: CustomAny
+  ): CustomAny {
+    const activeFilters: CustomAny = Object.entries(currentFilters).filter(([_, filter]) => filter.isFilterActive);
 
     if (activeFilters.length > 0) {
       const filtersCount = getActiveFiltersCount(currentFilters);
@@ -91,18 +91,24 @@ export class FilterUtils {
     callBack(currentFilters);
   }
 
-  public static updateQueryParams(navigate: any, pathname: any, qs: any, queryParams: any, queryParamsOrder: any): any {
+  public static updateQueryParams(
+    navigate: CustomAny,
+    pathname: CustomAny,
+    qs: CustomAny,
+    queryParams: CustomAny,
+    queryParamsOrder: CustomAny
+  ): CustomAny {
     navigate({
       pathname,
       search: qs.stringify(queryParams, {
-        sort: (a: any, b: any) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
+        sort: (a: CustomAny, b: CustomAny) => queryParamsOrder.indexOf(a) - queryParamsOrder.indexOf(b),
         arrayFormat: 'comma'
       })
     });
   }
 
-  public static setSelectedFilters(filtersSetter: any, key: any, selectedValue: any): any {
-    filtersSetter((filtersCache: any) => {
+  public static setSelectedFilters(filtersSetter: CustomAny, key: CustomAny, selectedValue: CustomAny): CustomAny {
+    filtersSetter((filtersCache: CustomAny) => {
       const cacheCopy = { ...filtersCache };
 
       if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
@@ -115,17 +121,17 @@ export class FilterUtils {
     });
   }
 
-  public static resetFilters(filters: any, filtersSetter: any) {
+  public static resetFilters(filters: CustomAny, filtersSetter: CustomAny) {
     const filtersCopy = { ...filters };
 
-    Object.entries(filtersCopy).forEach(([_, filter]: [any, any]) => {
+    Object.entries(filtersCopy).forEach(([_, filter]: [CustomAny, CustomAny]) => {
       filter.resetFilterFn(filter);
     });
 
     filtersSetter({ ...filtersCopy });
   }
 
-  public static exportData(items: any, fileName: any): any {
+  public static exportData(items: CustomAny, fileName: CustomAny): CustomAny {
     const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(JSON.stringify([...items]))}`;
     const link = document.createElement('a');
 

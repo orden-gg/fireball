@@ -6,7 +6,7 @@ export class RouteUtils {
   public static updateQueryParams(
     navigate: NavigateFunction,
     pathname: string,
-    qs: any,
+    qs: CustomAny,
     queryParams: CustomParsedQuery<GraphFiltersQueryParamTypes>,
     queryParamsOrder: string[]
   ): void {

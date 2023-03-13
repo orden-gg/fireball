@@ -30,7 +30,7 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 }));
 
 interface CustomToggleButtonGroupProps {
-  list: any[];
+  list: CustomAny[];
   value: string;
   onChange: (event: React.MouseEvent<HTMLElement>, value: string) => void;
   ariaLabel: string;
@@ -54,7 +54,7 @@ export function CustomToggleButtonGroup({
       aria-label={ariaLabel}
       disabled={isDisabled}
     >
-      {list.map((item: any, index: number) => {
+      {list.map((item: CustomAny, index: number) => {
         return (
           <ToggleButton value={item.key} key={index} color='primary'>
             <CustomTooltip title={<span>{item.tooltip}</span>} placement='top' followCursor>

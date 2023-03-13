@@ -26,7 +26,7 @@ export class GotchiUtils {
     return percentageFormula;
   }
 
-  public static getRarityByTrait(trait: any): any {
+  public static getRarityByTrait(trait: CustomAny): CustomAny {
     switch (true) {
       case trait >= 100 || trait <= -1:
         return RarityTypes.Godlike;
@@ -66,7 +66,7 @@ export class GotchiUtils {
     }
   }
 
-  public static getAgingImg(id: number): any {
+  public static getAgingImg(id: number): CustomAny {
     try {
       return require(`../assets/images/aging/${id}.png`).default;
     } catch (error) {
@@ -82,8 +82,8 @@ export class GotchiUtils {
     return EthersApi.fromWei(stakedAmount, collateral?.decimals);
   }
 
-  public static convertDataFromContract(gotchi: any[]): Gotchi {
-    const inventory: GotchiInventory[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
+  public static convertDataFromContract(gotchi: CustomAny[]): Gotchi {
+    const inventory: GotchiInventory[] = gotchi[GotchiTypes.Inventory].map((item: CustomAny) => {
       return {
         id: EthersApi.formatBigNumber(item.itemId),
         balance: EthersApi.formatBigNumber(item.balance)

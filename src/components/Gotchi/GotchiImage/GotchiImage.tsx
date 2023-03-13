@@ -5,9 +5,9 @@ import { GotchiSvgByStats } from './GotchiSvgByStats';
 import { styles } from './styles';
 
 interface GotchiImageProps {
-  gotchi: any;
-  renderSvgByStats?: any;
-  portal?: any;
+  gotchi: CustomAny;
+  renderSvgByStats?: CustomAny;
+  portal?: CustomAny;
 }
 
 export function GotchiImage({ gotchi, renderSvgByStats, portal }: GotchiImageProps) {

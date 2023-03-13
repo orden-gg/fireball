@@ -15,9 +15,9 @@ import { guildSocialsStyles } from '../styles';
 export function GuildSocials() {
   const classes = guildSocialsStyles();
 
-  const { guildId, guilds } = useContext<any>(GuildsContext);
+  const { guildId, guilds } = useContext<CustomAny>(GuildsContext);
 
-  const socials: any = {
+  const socials: CustomAny = {
     facebook: <FacebookIcon className={classes.guildSocialIcon} />,
     twitter: <TwitterIcon className={classes.guildSocialIcon} />,
     discord: <DiscordIcon className={classes.guildSocialIcon} />,
@@ -27,7 +27,7 @@ export function GuildSocials() {
   };
 
   const renderSocials = (): JSX.Element | JSX.Element[] => {
-    const guild: any = guilds[guildId];
+    const guild: CustomAny = guilds[guildId];
 
     if (guild === undefined || !guild.hasOwnProperty('socials')) {
       return <></>;

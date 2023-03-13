@@ -16,80 +16,80 @@ export class InstallationsApi {
   }
 
   // TODO check if needed
-  public static getAllUpgradeQueue(): any {
+  public static getAllUpgradeQueue(): CustomAny {
     return installationsContract
       .getAllUpgradeQueue()
-      .then((res: any) =>
-        res.map((item: any) => ({
+      .then((res: CustomAny) =>
+        res.map((item: CustomAny) => ({
           readyBlock: item.readyBlock,
           claimed: item.claimed,
           parcelId: EthersApi.formatBigNumber(item.parcelId),
           installationId: EthersApi.formatBigNumber(item.installationId)
         }))
       )
-      .catch((e: any) => {
+      .catch((e: CustomAny) => {
         console.log(e);
 
         return [];
       });
   }
 
-  public static getUpgradeQueueByAddress(address: any): any {
+  public static getUpgradeQueueByAddress(address: CustomAny): CustomAny {
     return installationsContract
       .getUserUpgradeQueue(address)
-      .then((res: any) =>
-        res[0].map((item: any) => ({
+      .then((res: CustomAny) =>
+        res[0].map((item: CustomAny) => ({
           readyBlock: item.readyBlock,
           claimed: item.claimed,
           parcelId: EthersApi.formatBigNumber(item.parcelId),
           installationId: EthersApi.formatBigNumber(item.installationId)
         }))
       )
-      .catch((e: any) => {
+      .catch((e: CustomAny) => {
         console.log(e);
 
         return [];
       });
   }
 
-  public static async finalizeUpgrades(ids: any): Promise<any> {
+  public static async finalizeUpgrades(ids: CustomAny): Promise<CustomAny> {
     const contractWithSigner = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
     const transaction = await contractWithSigner.finalizeUpgrades(ids);
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => {
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) => {
       return Boolean(response.status);
     });
   }
 
-  public static async craftInstallations(ids: number[], gltrs: number[]): Promise<any> {
-    const contractWithSigner: any = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
-    const transaction: any = await contractWithSigner.craftInstallations(ids, gltrs);
+  public static async craftInstallations(ids: number[], gltrs: number[]): Promise<CustomAny> {
+    const contractWithSigner: CustomAny = EthersApi.makeContractWithSigner(INSTALLATION_CONTRACT, INSTALLATIONS_ABI);
+    const transaction: CustomAny = await contractWithSigner.craftInstallations(ids, gltrs);
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => {
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) => {
       return Boolean(response.status);
     });
   }
 
-  public static getAllInstallations(): Promise<any> {
+  public static getAllInstallations(): Promise<CustomAny> {
     return installationsContract
       .getInstallationTypes([])
-      .then((response: any) => {
+      .then((response: CustomAny) => {
         const modified = _.cloneDeep(response);
 
-        response.forEach((installation, index) => {
+        response.forEach((installation: CustomAny, index: number) => {
           // ! Modify BigNumber`s => number`s
-          modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map((alchemica) => {
+          modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map((alchemica: CustomAny) => {
             return parseInt(ethers.utils.formatUnits(alchemica));
           });
           modified[index][InstallationTypes.HarvestRate] = parseInt(ethers.utils.formatUnits(installation.harvestRate));
           modified[index][InstallationTypes.Capacity] = parseInt(ethers.utils.formatUnits(installation.capacity));
-          modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map((alchemica) => {
+          modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map((alchemica: CustomAny) => {
             return parseInt(ethers.utils.formatUnits(alchemica));
           });
         });
 
         return modified;
       })
-      .catch((error) => console.log(error));
+      .catch((error: CustomAny) => console.log(error));
   }
 }

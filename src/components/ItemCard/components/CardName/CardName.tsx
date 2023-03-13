@@ -8,7 +8,7 @@ import { styles } from './styles';
 
 interface CardNameProps {
   id?: number;
-  children?: any;
+  children?: CustomAny;
   className?: string;
 }
 
