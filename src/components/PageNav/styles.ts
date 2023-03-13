@@ -35,17 +35,15 @@ export const styles = makeStyles((theme) =>
         }
       }
     },
-    menuItem: {
-      '&:hover': {
-        backgroundColor: 'inherit'
-      }
-    },
     onlyIconBtn: {
       minWidth: 24,
       padding: 6,
       '& > .MuiButton-startIcon': {
         margin: 0
       }
+    },
+    subNavWrapper: {
+      padding: '8px 12px'
     },
     subButton: {
       width: '100%',

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import ContentLoader from 'react-content-loader';
 import { NavLink } from 'react-router-dom';
 
-import { Button, MenuItem } from '@mui/material';
+import { Button } from '@mui/material';
 import { useTheme } from '@mui/material';
 
 import classNames from 'classnames';
@@ -65,13 +65,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
                 </Button>
               }
             >
-              <>
-                {link.isShowSubRoutes && (
-                  <MenuItem key={index} className={classes.menuItem}>
-                    <div>{link.subNavComponent}</div>
-                  </MenuItem>
-                )}
-              </>
+              <>{link.isShowSubRoutes && <div className={classes.subNavWrapper}>{link.subNavComponent}</div>}</>
             </CustomPopup>
           </div>
         ) : (
