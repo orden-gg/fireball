@@ -37,7 +37,7 @@ export function RaffleDate({ start, end }: RaffleDateProps) {
 
     if (local > start.toSeconds() && local < end.toSeconds()) {
       setType('live');
-      setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
+      setTitle(`live for ${Duration.fromObject({ seconds: diff }).toFormat('hh:mm:ss')}`);
     } else if (local < start.toSeconds()) {
       setType('upcoming');
       setTitle(start.toRelative());

@@ -344,7 +344,7 @@ export class TheGraphApi {
           id: pool.id,
           items: pool.prizes.reduce((a: CustomAny, b: CustomAny) => a + +b.quantity, 0),
           prizes: pool.prizes.map((item: CustomAny) => ({
-            id: item.id.substring(2),
+            id: item.id.split('-')[1],
             quantity: item.quantity
           }))
         });
