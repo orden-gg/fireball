@@ -102,7 +102,6 @@ export function ClientRoutes() {
       isLoading: isInitialOwnedGotchisLoading || isInitialLentGotchisLoading || isInitialBorrowedGotchisLoading,
       count: ownedGotchisCount + borrowedGotchisCount,
       isShowSubRoutes: true,
-      dropdown: true,
       subNavComponent: (
         <SubNav
           links={[

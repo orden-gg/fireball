@@ -30,7 +30,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
     <div className={classes.container}>
       {beforeContent}
       {data.map((link: PageNavLink, index: number) => {
-        return link.dropdown ? (
+        return (
           <div className={classes.navItem} key={index}>
             <CustomPopup
               title={
@@ -67,38 +67,6 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
             >
               <>{link.isShowSubRoutes && <div className={classes.subNavWrapper}>{link.subNavComponent}</div>}</>
             </CustomPopup>
-          </div>
-        ) : (
-          <div className={classes.navItem} key={index}>
-            <Button
-              disabled={link.count === 0}
-              startIcon={link.icon}
-              component={NavLink}
-              className={classNames(classes.button, link.count === undefined && classes.onlyIconBtn)}
-              to={link.path}
-              key={index}
-            >
-              {link.name && <span className={classes.navName}>{link.name}</span>}
-              {link.count !== undefined ? (
-                <>
-                  {link.isLoading ? (
-                    <ContentLoader
-                      speed={2}
-                      viewBox='0 0 28 14'
-                      backgroundColor={theme.palette.secondary.main}
-                      foregroundColor={theme.palette.primary.dark}
-                      className={classes.buttonLoader}
-                    >
-                      <rect x='0' y='0' width='28' height='14' />
-                    </ContentLoader>
-                  ) : (
-                    <span className={classes.label}>[{link.count}]</span>
-                  )}
-                </>
-              ) : (
-                <></>
-              )}
-            </Button>
           </div>
         );
       })}
