@@ -21,19 +21,10 @@ import {
 } from './api/scripts.api.ts';
 
 // @ts-ignore
-import { HALF_DAY_MILLIS } from '../../shared/constants/date.constants.ts';
-// @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
-interface Gotchi {
-  gotchiId: string;
-  name: string;
-  lastInteracted: string;
-}
-// Interval repeater and tx cost limit
-const repeatTimer = 5 * 60 * 1000;
+// tx cost limit
 const txCostLimit = 220 * 1e9;
-let interval;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 const OWNER = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667';
@@ -159,10 +150,12 @@ const lend = async () => {
             .wait()
             .then(() => {
               console.log(paint('Tx successeful!', CONSOLE_COLORS.Green));
+
               return true;
             })
             .catch((error: any) => {
               console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+
               return false;
             });
         }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
-import { BigNumber, ContractTransaction, ethers } from 'ethers';
+import { ContractTransaction, ethers } from 'ethers';
 import { exit } from 'process';
 
 import {
@@ -30,15 +30,9 @@ const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
 // ! retrieve gotchis balance (took pretty much time)
 const GET_BALANCE = false;
 
-const TOKENS = [
-  // FUD_CONTRACT,
-  // FOMO_CONTRACT,
-  // ALPHA_CONTRACT,
-  // KEK_CONTRACT,
-  GHST_CONTRACT
-];
+const TOKENS = [FUD_CONTRACT, FOMO_CONTRACT, ALPHA_CONTRACT, KEK_CONTRACT, GHST_CONTRACT];
 // TODO: method for token name
-const TOKENS_NAME = ['ghst'];
+const TOKENS_NAME = ['fud', 'fomo', 'alpha', 'kek', 'ghst'];
 
 // TODO: batch claim
 // ! borrower_not: "0x0000000000000000000000000000000000000000",
@@ -109,15 +103,13 @@ const claim = async () => {
       });
     }
 
-    // console.log(toClaim.length, toClaim);
-
     const gasPriceGwei = await getGasPrice();
     const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
     // const gotchiIds = toClaim.map((gotchi) => gotchi.id);
     const gotchiIds = lendings.map((gotchi) => gotchi.gotchiTokenId);
 
-    const gasBoost = ethers.utils.parseUnits('25', 'gwei');
-    const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
+    // const gasBoost = ethers.utils.parseUnits('25', 'gwei');
+    // const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
 
     if (gasPriceGwei >= txCostLimit) {
       console.log(
@@ -146,10 +138,12 @@ const claim = async () => {
           .then(() => {
             console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), lendings.length);
             console.log(lendings.map((lending) => `lendingId: ${lending.id}, gotchi: ${lending.gotchiTokenId}`));
+
             return true;
           })
           .catch((error: any) => {
             console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+
             return false;
           });
       }
