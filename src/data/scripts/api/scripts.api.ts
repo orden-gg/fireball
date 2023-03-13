@@ -8,6 +8,9 @@ import { MAIN_CONTRACT, POLYGON_RPC } from '../../../shared/constants/api.consta
 const main_abi_file = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(main_abi_file.toString());
 
+const tokenAbiFile = fs.readFileSync('src/data/abi/token.abi.json');
+const TOKEN_ABI = JSON.parse(tokenAbiFile.toString());
+
 const provider: any = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
 
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
@@ -17,7 +20,15 @@ export const getGasPrice = async () => {
   return await provider.getGasPrice();
 };
 
+export const SCRIPT_WALLET_NONCE = async () => {
+  return await provider.getTransactionCount(SCRIPT_WALLET_ADDRESS);
+};
+
 export const MAIN_CONTRACT_WITH_SIGNER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_WALLET);
+
+export const TOKEN_CONTRACT_WITH_SIGNER = (contract: string) => {
+  return new ethers.Contract(contract, TOKEN_ABI, SCRIPT_WALLET);
+};
 
 export enum CONSOLE_COLORS {
   Black = '\x1B[30m',
