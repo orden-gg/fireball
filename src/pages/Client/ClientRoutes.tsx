@@ -52,7 +52,10 @@ export function ClientRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const subroute = location.pathname.split('/').slice(3).join('/');
+  const subroute = location.pathname
+    .split('/')
+    .slice(3)
+    .join('/');
 
   const { account } = useParams<{ account: string }>();
   const queryParams = queryString.parse(location.search);
@@ -94,7 +97,6 @@ export function ClientRoutes() {
 
   const navData: PageNavLink[] = [
     {
-      name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
       isLoading: isInitialOwnedGotchisLoading || isInitialLentGotchisLoading || isInitialBorrowedGotchisLoading,
@@ -126,49 +128,42 @@ export function ClientRoutes() {
       )
     },
     {
-      name: 'portals',
       path: 'portals',
       icon: <H1SealedPortalIcon width={24} height={24} />,
       isLoading: isInitialPortalsLoading,
       count: portalsCount
     },
     {
-      name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
       isLoading: isInitialWarehouseLoading,
       count: warehouseCount
     },
     {
-      name: 'installations',
       path: 'installations',
       icon: <AnvilIcon width={24} height={24} />,
       isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
       count: installationsCount + tilesCount
     },
     {
-      name: 'tickets',
       path: 'tickets',
       icon: <RareTicketIcon width={24} height={24} />,
       isLoading: isInitialTicketsLoading,
       count: ticketsCount
     },
     {
-      name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
       isLoading: isInitialRealmLoading,
       count: realmCount
     },
     {
-      name: 'fake gotchis',
       path: 'fake-gotchis',
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: isInitialFakeGotchisLoading,
       count: fakeGotchisCount
     },
     {
-      name: 'for sale',
       path: 'for-sale',
       icon: <BaazarIcon width={24} height={24} />,
       isLoading: isInitialItemsForSaleLoading,
