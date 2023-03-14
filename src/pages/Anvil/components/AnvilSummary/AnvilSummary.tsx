@@ -9,7 +9,7 @@ export function AnvilSummary({ summary, options }: { summary: InstallationItem[]
   const classes = styles();
 
   const calculateSummary = (array: InstallationItem[]): AlchemicaList => {
-    return [...array].reduce((prev: any, current: InstallationItem) => {
+    return [...array].reduce((prev: CustomAny, current: InstallationItem) => {
       if (!prev.length) return current.alchemicaCost;
 
       return prev.map((pr, i) => pr + current.alchemicaCost[i]);

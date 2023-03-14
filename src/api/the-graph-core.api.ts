@@ -12,7 +12,7 @@ const defaultOptions: DefaultOptions = {
 };
 
 export class TheGraphCoreApi {
-  public static async getGraphData(url: string, query: string): Promise<any> {
+  public static async getGraphData(url: string, query: string): Promise<CustomAny> {
     const client: ApolloClient<NormalizedCacheObject> = TheGraphCoreApi.getClient(url);
 
     try {

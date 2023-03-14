@@ -13,7 +13,7 @@ import { guildContentStyles } from '../styles';
 export function GuildLendings() {
   const classes = guildContentStyles();
 
-  const { guildId, guilds, guildLendings, setGuildLendings } = useContext<any>(GuildsContext);
+  const { guildId, guilds, guildLendings, setGuildLendings } = useContext<CustomAny>(GuildsContext);
 
   const [isLendingsLoading, setIsLendingsLoading] = useState(false);
 
@@ -26,12 +26,12 @@ export function GuildLendings() {
 
     setIsLendingsLoading(true);
 
-    const promises: any[] = guilds[guildId].members.map((address) => TheGraphApi.getLendingsByAddress(address));
+    const promises: CustomAny[] = guilds[guildId].members.map((address) => TheGraphApi.getLendingsByAddress(address));
 
     Promise.all(promises)
-      .then((responses: any[]) => {
+      .then((responses: CustomAny[]) => {
         if (mounted) {
-          const lendings: any = responses.reduce((result, current) => result.concat(current), []);
+          const lendings: CustomAny = responses.reduce((result, current) => result.concat(current), []);
 
           setGuildLendings(lendings);
         }

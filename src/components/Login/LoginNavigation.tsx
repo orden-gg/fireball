@@ -45,7 +45,7 @@ export function LoginNavigation({ onSubmit, address }: LoginNavigationProps) {
   };
 
   const onFormSubmit = useCallback(
-    (event: any) => {
+    (event: CustomAny) => {
       event.preventDefault();
 
       const formatted = formValue.toLowerCase();

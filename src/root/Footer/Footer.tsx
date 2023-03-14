@@ -20,7 +20,7 @@ import { styles } from './styles';
 
 export function Footer() {
   const classes = styles();
-  const { isOpen, type, message, onSnackbarClose } = useContext<any>(SnackbarContext);
+  const { isOpen, type, message, onSnackbarClose } = useContext<CustomAny>(SnackbarContext);
 
   return (
     <Box className={classes.footerWrapper}>

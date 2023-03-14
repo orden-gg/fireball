@@ -7,7 +7,7 @@ import { CommonUtils } from './common.utils';
 import { InstallationsUtils } from './installations.utils';
 
 export class GotchiverseUtils {
-  public static getGuildImg(name: any): any {
+  public static getGuildImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/guilds/${name}.png`).default;
     } catch (error) {
@@ -15,7 +15,7 @@ export class GotchiverseUtils {
     }
   }
 
-  public static gedAddressGuild(address: any): any {
+  public static gedAddressGuild(address: CustomAny): CustomAny {
     const guild = guilds.filter((guild) =>
       guild.members.some((member) => member.toLowerCase() === address.toLowerCase())
     )[0];
@@ -23,13 +23,13 @@ export class GotchiverseUtils {
     return guild ? CommonUtils.stringToKey(guild.name) : undefined;
   }
 
-  public static getGuildName(key: any): any {
+  public static getGuildName(key: CustomAny): CustomAny {
     const index = guilds.findIndex((guild) => CommonUtils.stringToKey(guild.name) === key);
 
     return guilds[index]?.name;
   }
 
-  public static getRarityNameByRS(rs: any): string {
+  public static getRarityNameByRS(rs: CustomAny): string {
     switch (true) {
       case rs >= RarityScoreNumber.Godlike:
         return RarityTypes.Godlike;
@@ -58,7 +58,7 @@ export class GotchiverseUtils {
     return modified as AlchemicaList;
   }
 
-  public static getAlchemicaImg(name: any): any {
+  public static getAlchemicaImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/icons/${name}.svg`).default;
     } catch (error) {
@@ -66,7 +66,7 @@ export class GotchiverseUtils {
     }
   }
 
-  public static getAlchemicaTokenImg(name: any): any {
+  public static getAlchemicaTokenImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/tokens/${name}-token.svg`).default;
     } catch (error) {
@@ -74,7 +74,7 @@ export class GotchiverseUtils {
     }
   }
 
-  public static getAlchemicaMultiplier(name: any): any {
+  public static getAlchemicaMultiplier(name: CustomAny): CustomAny {
     switch (name) {
       case 'fud':
         return 1000;
@@ -89,7 +89,7 @@ export class GotchiverseUtils {
     }
   }
 
-  public static getTicketFrensPrice(rarity: any): any {
+  public static getTicketFrensPrice(rarity: CustomAny): CustomAny {
     switch (rarity) {
       case RarityTypes.Common:
         return 50;

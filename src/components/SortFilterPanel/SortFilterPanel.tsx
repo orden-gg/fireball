@@ -15,8 +15,8 @@ interface SortFilterPanelProps {
   sorting: Sorting;
   itemsLength: number;
   placeholder: JSX.Element;
-  filters?: any;
-  setSelectedFilters?: (key: string, values: any) => void;
+  filters?: CustomAny;
+  setSelectedFilters?: (key: string, values: CustomAny) => void;
   resetFilters?: () => void;
   exportData?: () => void;
   isShowFilters?: boolean;
@@ -48,7 +48,7 @@ export function SortFilterPanel({
     setIsDropdownOpen(false);
   };
 
-  const onSetSelectedFilters = (key: string, filtersObj: any): void => {
+  const onSetSelectedFilters = (key: string, filtersObj: CustomAny): void => {
     if (setSelectedFilters) {
       setSelectedFilters(key, filtersObj);
     }

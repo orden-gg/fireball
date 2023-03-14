@@ -21,7 +21,7 @@ console.log('⏳ retrieving data from blockhain ⌛');
 
 installationsContract
   .getInstallationTypes([])
-  .then((res: any) => {
+  .then((res: CustomAny) => {
     const modified = _.cloneDeep(res);
 
     res.forEach((installation, index) => {

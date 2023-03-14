@@ -28,16 +28,16 @@ export function Craftbar() {
   const [craftAmount, setCraftAmount] = useState<number>(0);
   const [isCrafting, setIsCrafting] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { showSnackbar } = useContext<any>(SnackbarContext);
+  const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
   const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } =
-    useContext<any>(CraftContext);
+    useContext<CustomAny>(CraftContext);
 
   const isCraftDisabled: boolean = useMemo(
     () => !maxCraftAmount || !craftAmount || !isItemSelected,
     [maxCraftAmount, craftAmount, isItemSelected]
   );
 
-  const inputChange = (event: any): void => {
+  const inputChange = (event: CustomAny): void => {
     const value: number = parseInt(event.target.value) || 0;
 
     if (maxCraftAmount < value) {
@@ -60,7 +60,7 @@ export function Craftbar() {
       const amount: number = craftAmount;
       const items: number[] = Array(amount).fill(selectedItem.id);
       const gltrs: number[] = Array(amount).fill(0);
-      const promise: Promise<any> =
+      const promise: Promise<CustomAny> =
         category === Erc1155Categories.Tile
           ? TilesApi.craftTiles(items)
           : InstallationsApi.craftInstallations(items, gltrs);

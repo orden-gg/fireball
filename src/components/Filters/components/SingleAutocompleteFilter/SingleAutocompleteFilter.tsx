@@ -13,23 +13,23 @@ const defaultValue: FilterItemOption = {
 };
 
 interface SingleAutocompleteFilterProps {
-  filter: any;
-  onSetSelectedFilters: (key: string, value: any) => void;
+  filter: CustomAny;
+  onSetSelectedFilters: (key: string, value: CustomAny) => void;
   isDisabled: boolean;
 }
 
 export function SingleAutocompleteFilter({ filter, onSetSelectedFilters, isDisabled }: SingleAutocompleteFilterProps) {
-  const [currentValue, setCurrentValue] = useState<any>(defaultValue);
+  const [currentValue, setCurrentValue] = useState<CustomAny>(defaultValue);
 
   useEffect(() => {
-    const selectedItem: any = filter.items.find((item: any) => item.isSelected);
-    const selectedValue: any = selectedItem ? selectedItem : defaultValue;
+    const selectedItem: CustomAny = filter.items.find((item: CustomAny) => item.isSelected);
+    const selectedValue: CustomAny = selectedItem ? selectedItem : defaultValue;
 
     setCurrentValue(selectedValue);
   }, [filter.items]);
 
   const onHandleChange = useCallback(
-    (event: React.SyntheticEvent<Element, Event>, value: any) => {
+    (event: React.SyntheticEvent<Element, Event>, value: CustomAny) => {
       const selectedValue: string = value ? value.value : '';
 
       setCurrentValue(value);

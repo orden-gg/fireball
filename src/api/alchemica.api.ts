@@ -22,74 +22,82 @@ const gltrContract = EthersApi.makeContract(GLTR_CONTRACT, GLTR_ABI, 'polygon');
 
 export class AlchemicaApi {
   public static getFudBalance(address: string): Promise<number> {
-    return fudContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
+    return fudContract.balanceOf(address).then((response: CustomAny) => EthersApi.hexToNumber(response._hex));
   }
 
   public static isFudApproved(address: string, contractAddress: string): Promise<boolean> {
     return fudContract
       .allowance(address, contractAddress)
-      .then((allowance: any) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
+      .then((allowance: CustomAny) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
   }
 
-  public static async approveFud(operator: string): Promise<any> {
-    const contract: any = EthersApi.makeContractWithSigner(FUD_CONTRACT, FUD_ABI);
-    const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
+  public static async approveFud(operator: string): Promise<CustomAny> {
+    const contract: CustomAny = EthersApi.makeContractWithSigner(FUD_CONTRACT, FUD_ABI);
+    const transaction: CustomAny = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
+      Boolean(response.status)
+    );
   }
 
   public static getFomoBalance(address: string): Promise<number> {
-    return fomoContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
+    return fomoContract.balanceOf(address).then((response: CustomAny) => EthersApi.hexToNumber(response._hex));
   }
 
   public static isFomoApproved(address: string, contractAddress: string): Promise<boolean> {
     return fomoContract
       .allowance(address, contractAddress)
-      .then((allowance: any) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
+      .then((allowance: CustomAny) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
   }
 
   public static async approveFomo(operator: string): Promise<boolean> {
-    const contract: any = EthersApi.makeContractWithSigner(FOMO_CONTRACT, FOMO_ABI);
-    const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
+    const contract: CustomAny = EthersApi.makeContractWithSigner(FOMO_CONTRACT, FOMO_ABI);
+    const transaction: CustomAny = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
+      Boolean(response.status)
+    );
   }
 
   public static getAlphaBalance(address: string): Promise<number> {
-    return alphaContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
+    return alphaContract.balanceOf(address).then((response: CustomAny) => EthersApi.hexToNumber(response._hex));
   }
 
   public static isAlphaApproved(address: string, contractAddress: string): Promise<boolean> {
     return alphaContract
       .allowance(address, contractAddress)
-      .then((allowance: any) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
+      .then((allowance: CustomAny) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
   }
 
-  public static async approveAlpha(operator: string): Promise<any> {
-    const contract: any = EthersApi.makeContractWithSigner(ALPHA_CONTRACT, ALPHA_ABI);
-    const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
+  public static async approveAlpha(operator: string): Promise<CustomAny> {
+    const contract: CustomAny = EthersApi.makeContractWithSigner(ALPHA_CONTRACT, ALPHA_ABI);
+    const transaction: CustomAny = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
+      Boolean(response.status)
+    );
   }
 
-  public static getKekBalance(address: string): Promise<any> {
-    return akekContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
+  public static getKekBalance(address: string): Promise<CustomAny> {
+    return akekContract.balanceOf(address).then((response: CustomAny) => EthersApi.hexToNumber(response._hex));
   }
 
-  public static isKekApproved(address: string, contractAddress: string): Promise<any> {
+  public static isKekApproved(address: string, contractAddress: string): Promise<CustomAny> {
     return akekContract
       .allowance(address, contractAddress)
-      .then((allowance: any) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
+      .then((allowance: CustomAny) => EthersApi.hexToNumber(allowance._hex) > MIN_SPEND);
   }
 
-  public static async approveKek(operator: any): Promise<any> {
-    const contract: any = EthersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
-    const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
+  public static async approveKek(operator: CustomAny): Promise<CustomAny> {
+    const contract: CustomAny = EthersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
+    const transaction: CustomAny = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response) => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
+      Boolean(response.status)
+    );
   }
 
-  public static getGltrBalance(address: any): Promise<any> {
-    return gltrContract.balanceOf(address).then((response: any) => EthersApi.hexToNumber(response._hex));
+  public static getGltrBalance(address: CustomAny): Promise<CustomAny> {
+    return gltrContract.balanceOf(address).then((response: CustomAny) => EthersApi.hexToNumber(response._hex));
   }
 }

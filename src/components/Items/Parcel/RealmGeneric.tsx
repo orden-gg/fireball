@@ -7,8 +7,8 @@ import { RaffleItemChance } from 'pages/Raffle/components/RaffleItemChance';
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 
 interface RealmGenericProps {
-  realm: any;
-  raffleChances: any;
+  realm: CustomAny;
+  raffleChances: CustomAny;
 }
 
 export function RealmGeneric({ realm, raffleChances }: RealmGenericProps) {

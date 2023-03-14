@@ -7,9 +7,9 @@ import { ItemUtils } from 'utils';
 import { styles } from './styles';
 
 interface CardNameProps {
-  item: any;
+  item: CustomAny;
   itemName?: string;
-  itemRarity?: any;
+  itemRarity?: CustomAny;
 }
 
 export function CardName({ itemName, itemRarity, item }: CardNameProps) {

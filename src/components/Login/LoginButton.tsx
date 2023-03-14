@@ -85,7 +85,7 @@ export function LoginButton() {
     }
   }, [isDonateAddressShown]);
 
-  const connectMetamask = async (): Promise<any> => {
+  const connectMetamask = async (): Promise<CustomAny> => {
     if (metaState.isAvailable && !metaState.isConnected) {
       try {
         if (connect) {
@@ -108,7 +108,9 @@ export function LoginButton() {
   };
 
   const onAddressSubmit = (address: string): void => {
-    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddress.find((item: any) => item.address === address);
+    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddress.find(
+      (item: LoginAddressModel) => item.address === address
+    );
 
     onCloseDropdown();
 
@@ -163,7 +165,7 @@ export function LoginButton() {
               ) : null}
 
               {storeLoggedAddress.length
-                ? storeLoggedAddress.map((item: any, index: number) => {
+                ? storeLoggedAddress.map((item: CustomAny, index: number) => {
                     return <LoginAddress address={item} key={index} onLogout={onAccountLogout} />;
                   })
                 : null}

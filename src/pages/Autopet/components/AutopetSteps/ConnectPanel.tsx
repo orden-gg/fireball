@@ -9,7 +9,7 @@ import { AutopetPanelProps } from './models/autopet-panel-props.model';
 export function ConnectPanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
-  const { connectState, approveConnect, renderButtonNode, isUserConnected } = useContext<any>(AutopetContext);
+  const { connectState, approveConnect, renderButtonNode, isUserConnected } = useContext<CustomAny>(AutopetContext);
 
   return (
     <div

@@ -30,7 +30,7 @@ import { InterfaceStyles, styles } from './styles';
 const queryParamsOrder = ['district', 'size', 'sort', 'dir', 'active', 'multiselect'];
 
 interface CitadelProps {
-  realmGroups: any[];
+  realmGroups: CustomAny[];
   className?: string;
   isLoaded: boolean;
 }
@@ -42,14 +42,14 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
   const navigate = useNavigate();
   const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search, { arrayFormat: 'comma' }));
 
-  const [game, setGame] = useState<any>(null);
+  const [game, setGame] = useState<CustomAny>(null);
   const [mapCreated, setMapCreated] = useState<boolean>(false);
-  const [selectedParcel, setSelectedParcel] = useState<any>(null);
+  const [selectedParcel, setSelectedParcel] = useState<CustomAny>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [parcelLoading, setParcelLoading] = useState<boolean>(false);
 
-  const gameRef = useRef<any>(null);
-  const wrapperRef = useRef<any>(null);
+  const gameRef = useRef<CustomAny>(null);
+  const wrapperRef = useRef<CustomAny>(null);
 
   const findOnMap = (type: string, value: string) => game.scene.find(type, value);
 
@@ -63,7 +63,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     game.scene.updateGroup(type, isActive);
   };
 
-  const onFiltersChange = (filters: any) => {
+  const onFiltersChange = (filters: CustomAny) => {
     updateQueryParams(filters);
     game.scene.filtersManager.updateFilters(filters);
   };
@@ -96,7 +96,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
   }, [realmGroups, mapCreated]);
 
   const updateQueryParams = useCallback(
-    (filters: any) => {
+    (filters: CustomAny) => {
       const newParams: { [key: string]: string | string[] } = FilterUtils.getUpdatedQueryParams(params, filters);
 
       setParams(newParams);
@@ -125,7 +125,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
     if (game?.scene) {
       game.scene.on('created', () => setMapCreated(true));
 
-      game.scene.on('parcelSelect', (parcel) => {
+      game.scene.on('parcelSelect', (parcel: CustomAny) => {
         setParcelLoading(true);
 
         TheGraphApi.getRealmById(parcel.tokenId).then((realmParcel) => {
@@ -146,7 +146,7 @@ export function Citadel({ realmGroups, className, isLoaded }: CitadelProps) {
         });
       });
 
-      game.scene.on('query', ({ name, params }) => {
+      game.scene.on('query', ({ name, params }: { name: CustomAny; params: CustomAny }) => {
         setParams((paramsState) => {
           paramsState[name] = params;
 

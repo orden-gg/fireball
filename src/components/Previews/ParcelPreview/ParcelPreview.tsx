@@ -21,13 +21,13 @@ import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel }: { parcel: any }) {
+export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
 
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<CustomAny[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
 
-  const boosts: Array<{ name: string; value: any }> = [
+  const boosts: Array<{ name: string; value: CustomAny }> = [
     { name: 'fud', value: parcel.fudBoost },
     { name: 'fomo', value: parcel.fomoBoost },
     { name: 'alpha', value: parcel.alphaBoost },
@@ -38,7 +38,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     let mounted = true;
 
     TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
-      .then((res: any) => {
+      .then((res: CustomAny) => {
         if (mounted) {
           setHistory(res);
         }

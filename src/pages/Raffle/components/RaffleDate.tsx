@@ -20,8 +20,8 @@ interface RaffleDateProps {
 export function RaffleDate({ start, end }: RaffleDateProps) {
   const classes = raffleDataStyles();
 
-  const [type, setType] = useState<any>(null);
-  const [title, setTitle] = useState<any>(null);
+  const [type, setType] = useState<CustomAny>(null);
+  const [title, setTitle] = useState<CustomAny>(null);
 
   useEffect(() => {
     renderTitle();
