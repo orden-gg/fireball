@@ -24,7 +24,7 @@ const initialState: PortalsState = {
   },
   isInitialPortalsLoading: true,
   portalsSorting: {
-    type: 'haunt',
+    type: 'id',
     dir: 'asc'
   }
 };

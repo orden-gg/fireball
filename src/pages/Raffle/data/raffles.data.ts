@@ -65,5 +65,14 @@ export const raffles: RafflesData[] = [
     startDate: DateTime.local(2022, 6, 9, 14, { zone: 'utc' }),
     endDate: DateTime.local(2022, 6, 12, 14, { zone: 'utc' }),
     icon: require('../../../assets/images/installations/21.png').default
+  },
+  {
+    id: 11,
+    name: 'schematics',
+    type: 'wearables',
+    tickets: [0, 1, 2, 4, 5],
+    startDate: DateTime.local(2023, 3, 10, 14, { zone: 'utc' }),
+    endDate: DateTime.local(2023, 3, 13, 14, { zone: 'utc' }),
+    icon: require('../../../assets/images/wearables/352.svg').default
   }
 ];

@@ -340,7 +340,7 @@ export class TheGraphApi {
           id: pool.id,
           items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),
           prizes: pool.prizes.map((item) => ({
-            id: item.id.substring(2),
+            id: item.id.split('-')[1],
             quantity: item.quantity
           }))
         });
