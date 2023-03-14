@@ -26,7 +26,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
 
   const data = useMemo(() => links, [links]);
 
-  function renderNavButton(link, index) {
+  const renderNavButton = (link: PageNavLink, index: number): JSX.Element => {
     return (
       <Button
         disabled={link.count === 0}
@@ -58,7 +58,7 @@ export function PageNav({ links, beforeContent, afterContent }: PageNavProps) {
         )}
       </Button>
     );
-  }
+  };
 
   return (
     <div className={classes.container}>
