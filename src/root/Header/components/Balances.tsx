@@ -24,12 +24,12 @@ export function Balances() {
 
   const [menuOpen, setMenuOpen] = useLocalStorage(
     'visible_balances',
-    JSON.parse(localStorage.getItem('visible_balances') as any) || true
+    JSON.parse(localStorage.getItem('visible_balances') as CustomAny) || true
   );
 
-  const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
+  const { tokens, isBalancesLoading } = useContext<CustomAny>(BalancesContext);
 
-  const handleButtonClick = (isMenuOpen) => setMenuOpen(isMenuOpen);
+  const handleButtonClick = (isMenuOpen: CustomAny): CustomAny => setMenuOpen(isMenuOpen);
 
   if (!tokens.length) {
     return <></>;

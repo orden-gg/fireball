@@ -21,7 +21,7 @@ export function ClientRealmMap() {
   const isRealmLoaded: boolean = useAppSelector(fromClientStore.getIsRealmLoaded);
 
   const realmGroups = useMemo(() => {
-    const group: any[] = [];
+    const group: CustomAny[] = [];
 
     group.push({
       parcels: realm,

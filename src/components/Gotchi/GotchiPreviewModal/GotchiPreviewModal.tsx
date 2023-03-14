@@ -38,10 +38,10 @@ import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
   const classes = gotchiPreviewModalStyles();
 
-  const [modalGotchi, setModalGotchi] = useState<any>(null);
+  const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
@@ -54,8 +54,9 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       setSalesHistory([]);
       setIsGotchiLoading(false);
     } else {
+      // const responses = [TheGraphApi.getFBGotchiById(id), TheGraphApi.getGotchiById(id)];
       TheGraphApi.getFBGotchiById(id)
-        .then((gotchi: any) => {
+        .then((gotchi: CustomAny) => {
           const sortedInventory: number[] = gotchi.equippedWearables
             .concat(gotchi.badges)
             .filter((id: number) => id !== 0);
@@ -63,8 +64,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
           setGotchiInventory(sortedInventory);
           setModalGotchi(gotchi);
         })
-        .catch((error) => console.log(error))
-        .finally(() => setIsGotchiLoading(false));
+        .catch((error) => console.log(error));
 
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {

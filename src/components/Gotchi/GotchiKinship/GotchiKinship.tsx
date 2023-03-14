@@ -6,7 +6,7 @@ import { GotchiverseUtils } from 'utils';
 import { GotchiKinshipTooltip } from './GotchiKinshitTooltip';
 import { styles } from './styles';
 
-export function GotchiKinship({ gotchi }: { gotchi: any }) {
+export function GotchiKinship({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   return (

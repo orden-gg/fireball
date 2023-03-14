@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
+
 import { Skeleton } from '@mui/material';
 
-import { DateTime } from 'luxon';
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 
-import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
-import { CountdownFormatNonZeroType } from 'shared/constants';
-import { ShineLabel } from 'components/Labels/ShineLabel';
-import { Countdown } from 'components/Countdown/Countdown';
 import { EthersApi } from 'api';
+
+import { CountdownFormatNonZeroType } from 'shared/constants';
+import { CountdownShortFormat, GotchiAgingModel } from 'shared/models';
+
+import { Countdown } from 'components/Countdown/Countdown';
+import { ShineLabel } from 'components/Labels/ShineLabel';
+
 import { CommonUtils, GotchiUtils } from 'utils';
 
 import { styles } from './styles';
@@ -32,7 +36,7 @@ export function GotchiAging({ block }: { block: number }) {
   const classes = styles();
 
   const [dataLoading, setDataLoading] = useState(true);
-  const [aging, setAging]: any = useState(null);
+  const [aging, setAging]: CustomAny = useState(null);
 
   useEffect(() => {
     let mounted = true;

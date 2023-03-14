@@ -6,7 +6,7 @@ import { GotchiSvg } from 'components/Gotchi/GotchiImage/GotchiSvg';
 
 import { teamStyles } from '../styles';
 
-export function HomeGotchi({ gotchi }: { gotchi: any }) {
+export function HomeGotchi({ gotchi }: { gotchi: CustomAny }) {
   const classes = teamStyles();
 
   return (

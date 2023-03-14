@@ -25,35 +25,35 @@ import sets from 'data/sets.data.json';
 
 export class ItemUtils {
   public static getNameById(id: number | string): string {
-    return items[id][ItemTypes.Name];
+    return items[Number(id)][ItemTypes.Name] as string;
   }
 
   public static getDescriptionById(id: number | string): string {
-    return items[id][ItemTypes.Description];
+    return items[Number(id)][ItemTypes.Description] as string;
   }
 
   public static getAuthorById(id: number | string): string {
-    return items[id][ItemTypes.Author];
+    return items[Number(id)][ItemTypes.Author] as string;
   }
 
   public static getTraitModifiersById(id: number | string): number[] {
-    return items[id][ItemTypes.TraitModifiers];
+    return items[Number(id)][ItemTypes.TraitModifiers] as number[];
   }
 
   public static getSlotPositionsById(id: number | string): boolean[] {
-    return items[id][ItemTypes.SlotPositions];
+    return items[Number(id)][ItemTypes.SlotPositions] as boolean[];
   }
 
   public static getTotalQuantityById(id: number | string): number {
-    return items[id][ItemTypes.TotalQuantity];
+    return items[Number(id)][ItemTypes.TotalQuantity] as number;
   }
 
   public static getRarityScoreModifierById(id: number | string): number {
-    return items[id][ItemTypes.RarityScoreModifier];
+    return items[Number(id)][ItemTypes.RarityScoreModifier] as number;
   }
 
-  public static getRarityNameById(id: number | string): RarityTypes {
-    switch (items[id][ItemTypes.RarityScoreModifier]) {
+  public static getRarityNameById(id: number | string): string {
+    switch (items[Number(id)][ItemTypes.RarityScoreModifier]) {
       case 1:
         return RarityTypes.Common;
       case 2:
@@ -72,11 +72,11 @@ export class ItemUtils {
   }
 
   public static getWearableTypeById(id: number | string): string {
-    return items[id][ItemTypes.WearableType];
+    return items[Number(id)][ItemTypes.WearableType] as string;
   }
 
   public static getWearableBenefitsById(id: number | string): { first: string; second: string } {
-    const benefit: { first: string; second: string } | undefined = items[id][ItemTypes.WearableBenefitType];
+    const benefit: CustomAny = items[Number(id)][ItemTypes.WearableBenefitType];
 
     return {
       first: benefit ? benefit[WearableBenefitIndex.First] : WerableBenefitTypes.Unknown,
@@ -85,7 +85,7 @@ export class ItemUtils {
   }
 
   public static getTypeNameById(id: number | string): string {
-    switch (items[id][ItemTypes.Category]) {
+    switch (items[Number(id)][ItemTypes.Category]) {
       case 0:
         return ItemTypeNames.Wearable;
       case 1:
@@ -99,15 +99,15 @@ export class ItemUtils {
 
   public static getSlotsById(id: number | string): string[] {
     const slotsNames: string[] = [];
-    const slots = items[id][ItemTypes.SlotPositions];
+    const slots: CustomAny = items[Number(id)][ItemTypes.SlotPositions];
 
-    slots.forEach((slot: boolean, index) => slot && slotsNames.push(WEARABLE_SLOTS[index]));
+    slots.forEach((slot: boolean, index: number) => slot && slotsNames.push(WEARABLE_SLOTS[index]));
 
     return slotsNames;
   }
 
-  public static getTraitIconByKey(key: string): any {
-    const TRAITS_ICONS: any = {
+  public static getTraitIconByKey(key: string): CustomAny {
+    const TRAITS_ICONS: CustomAny = {
       agg: AggressionIcon,
       brn: BrainIcon,
       eyc: EyeColorIcon,
@@ -119,7 +119,7 @@ export class ItemUtils {
     return TRAITS_ICONS[key];
   }
 
-  public static getItemRarityName(id: any): any {
+  public static getItemRarityName(id: CustomAny): CustomAny {
     switch (id) {
       case '0':
         return RarityTypes.Common;
@@ -140,7 +140,7 @@ export class ItemUtils {
     }
   }
 
-  public static getItemRarityId(rarity: any): any {
+  public static getItemRarityId(rarity: CustomAny): CustomAny {
     switch (rarity) {
       case RarityTypes.Common:
         return '0';
@@ -159,11 +159,11 @@ export class ItemUtils {
     }
   }
 
-  public static getTraitIconByName(trait: any): any {
+  public static getTraitIconByName(trait: CustomAny): CustomAny {
     return require(`../assets/images/traits/${trait}.png`).default;
   }
 
-  public static getPortalImg(hauntId: any): any {
+  public static getPortalImg(hauntId: CustomAny): CustomAny {
     try {
       return require(`../assets/images/portals/h${hauntId}-opened.svg`).default;
     } catch (error) {
@@ -171,7 +171,7 @@ export class ItemUtils {
     }
   }
 
-  public static getWearableImg(id: any): any {
+  public static getWearableImg(id: CustomAny): CustomAny {
     try {
       return require(`../assets/images/wearables/${id}.svg`).default;
     } catch (error) {
@@ -179,7 +179,7 @@ export class ItemUtils {
     }
   }
 
-  public static getTicketImg(name: any): any {
+  public static getTicketImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/tickets/${name}.svg`).default;
     } catch (error) {
@@ -187,7 +187,7 @@ export class ItemUtils {
     }
   }
 
-  public static getItemUrl(item: any): any {
+  public static getItemUrl(item: CustomAny): CustomAny {
     try {
       return `https://app.aavegotchi.com/baazaar/${item.__typename === 'ERC1155Listing' ? 'erc1155' : 'erc721'}/${
         item.id
@@ -200,15 +200,15 @@ export class ItemUtils {
   }
 
   public static getSetName(id: number | string): string {
-    return sets[id][SetTypes.Name];
+    return sets[Number(id)][SetTypes.Name] as string;
   }
 
   public static getSetWearables(id: number | string): number[] {
-    return sets[id][SetTypes.WearableIds];
+    return sets[Number(id)][SetTypes.WearableIds] as number[];
   }
 
   public static getSetModifiers(id: number | string): number[] {
-    return sets[id][SetTypes.TraitsBonuses];
+    return sets[Number(id)][SetTypes.TraitsBonuses] as number[];
   }
 
   public static isExistingSetId(id: number | string): boolean {

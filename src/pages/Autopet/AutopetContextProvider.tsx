@@ -13,7 +13,7 @@ import { tabStyles } from './styles';
 
 export const AutopetContext = createContext({});
 
-export const AutopetContextProvider = (props: any) => {
+export const AutopetContextProvider = (props: CustomAny) => {
   const classes = tabStyles();
 
   const { metaState, connect } = useMetamask();
@@ -29,7 +29,7 @@ export const AutopetContextProvider = (props: any) => {
   const [isUserConnected, setIsUserConnected] = useState<boolean>(false);
   const [connectedWallet, setConnectedWallet] = useState<string>('');
 
-  const [tabs, setTabs] = useState<any>({
+  const [tabs, setTabs] = useState<CustomAny>({
     connect: {
       text: 'Connect wallet',
       done: false
@@ -48,7 +48,7 @@ export const AutopetContextProvider = (props: any) => {
     }
   });
 
-  const { showSnackbar } = useContext<any>(SnackbarContext);
+  const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
 
   const approveConnect = async (): Promise<void> => {
     setConnectState('approving');
@@ -65,11 +65,11 @@ export const AutopetContextProvider = (props: any) => {
     setIsUserConnected(isConnected);
   };
 
-  const connectMetamask = async (): Promise<any> => {
+  const connectMetamask = async (): Promise<CustomAny> => {
     if (metaState.isAvailable && !metaState.isConnected) {
       try {
         if (connect) {
-          await connect(ethers.providers.Web3Provider, 'any');
+          await connect(ethers.providers.Web3Provider, 'CustomAny');
 
           return true;
         }
@@ -162,14 +162,14 @@ export const AutopetContextProvider = (props: any) => {
   };
 
   const updateProgress = (name: string, isApproved: boolean) => {
-    setTabs((data: any) => {
+    setTabs((data: CustomAny) => {
       data[name].done = isApproved;
 
       return { ...data };
     });
   };
 
-  const renderButtonNode = (state: string, defaultNode: any, approvedNode: any): any => {
+  const renderButtonNode = (state: string, defaultNode: CustomAny, approvedNode: CustomAny): CustomAny => {
     switch (state) {
       case 'approved':
         return approvedNode;
@@ -185,7 +185,7 @@ export const AutopetContextProvider = (props: any) => {
   };
 
   useEffect(() => {
-    const accounts: any[] = metaState.account;
+    const accounts: CustomAny[] = metaState.account;
     const walletConnected: boolean = accounts.length > 0;
 
     setIsUserConnected(walletConnected);
@@ -197,7 +197,7 @@ export const AutopetContextProvider = (props: any) => {
     setConnectedWallet(accounts[0]);
 
     (async function loadData() {
-      const [petApproved, ghstApproved, users]: [boolean, boolean, any[]] = await Promise.all([
+      const [petApproved, ghstApproved, users]: [boolean, boolean, CustomAny[]] = await Promise.all([
         MainApi.isPetApproved(accounts[0]),
         GhstApi.isGhstApproved(accounts[0]),
         AutopetApi.getUsers()
@@ -207,7 +207,7 @@ export const AutopetContextProvider = (props: any) => {
       setIsPetApproved(petApproved);
       setIsGhstApproved(ghstStaked || ghstApproved);
       setIsStaked(ghstStaked);
-      setTabs((data: any) => {
+      setTabs((data: CustomAny) => {
         data.connect.done = walletConnected;
         data.pet.done = petApproved;
         data.ghst.done = ghstStaked || ghstApproved;

@@ -8,7 +8,7 @@ import { ItemUtils } from 'utils';
 import { guildWearables } from '../styles';
 
 interface GuildWearablesProps {
-  wearables: any;
+  wearables: CustomAny;
   className: string;
   tooltip?: string;
 }
@@ -20,7 +20,7 @@ export function GuildWearables({ wearables, className, tooltip }: GuildWearables
     <CardImage className={classNames(classes.guildWearable, className || null)} id={Number(id)} key={id} />
   );
 
-  return wearables.map((id: any) =>
+  return wearables.map((id: CustomAny) =>
     tooltip !== undefined ? (
       <CustomTooltip title={ItemUtils.getNameById(id)} followCursor placement='top' key={id}>
         <span>{renderWearableImage(id)}</span>

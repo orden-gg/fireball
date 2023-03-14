@@ -1,11 +1,14 @@
-import { FBErc1155Item, TraitModifiersTuple, Wearable } from 'shared/models';
-import { Erc1155ItemUtils, ItemUtils } from 'utils';
-import { ItemCard } from 'components/ItemCard/containers';
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardStats } from 'components/ItemCard/components';
+import { useEffect, useState } from 'react';
+
 import { Erc1155Categories } from 'shared/constants';
+import { FBErc1155Item, TraitModifiersTuple, Wearable } from 'shared/models';
+
+import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardStats } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
+
+import { Erc1155ItemUtils, ItemUtils } from 'utils';
 
 import { gotchiFitWearablesStyles } from './styles';
-import { useEffect, useState } from 'react';
 
 interface GotchiFitWearablesProps {
   traits: TraitModifiersTuple;
@@ -37,7 +40,7 @@ export function GotchiFitWearables({ traits }: GotchiFitWearablesProps) {
 
   return (
     <div className={classes.items}>
-      {availableWearables.map((wearable: any) => (
+      {availableWearables.map((wearable: CustomAny) => (
         <ItemCard
           id={wearable.id}
           category={wearable.category}

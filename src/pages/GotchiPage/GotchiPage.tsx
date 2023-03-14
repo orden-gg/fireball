@@ -50,7 +50,7 @@ export function GotchiPage() {
   const activeAddress = useAppSelector(getActiveAddress);
 
   const [gotchiLoaded, setGotchiLoaded] = useState<boolean>(false);
-  const [gotchi, setGotchi] = useState<any>({});
+  const [gotchi, setGotchi] = useState<CustomAny>({});
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
@@ -60,7 +60,7 @@ export function GotchiPage() {
     const id: number = Number(routeParams.gotchiId);
 
     TheGraphApi.getFBGotchiById(id)
-      .then((gotchi: any) => {
+      .then((gotchi: CustomAny) => {
         const sortedInventory: number[] = gotchi.equippedWearables
           .concat(gotchi.badges)
           .filter((id: number) => id !== 0);

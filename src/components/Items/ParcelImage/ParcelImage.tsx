@@ -11,21 +11,21 @@ import { COLORS } from 'data/citadel.data';
 import { styles } from './styles';
 
 interface ParcelImageProps {
-  parcel: any;
+  parcel: CustomAny;
   imageSize: number;
 }
 
 export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
   const classes = styles();
 
-  const canvasRef = useRef<any>(null);
+  const canvasRef = useRef<CustomAny>(null);
   const [imageLoading, setImageLoading] = useState(true);
   const [imageMap, setImageMap] = useState([]);
 
   const processColorsMap = () => {
     const colorsSize: number = imageMap.length / 4;
-    const canvas: any = canvasRef.current;
-    const context: any = canvas.getContext('2d');
+    const canvas: CustomAny = canvasRef.current;
+    const context: CustomAny = canvas.getContext('2d');
 
     context.globalAlpha = 1;
 
@@ -47,13 +47,13 @@ export function ParcelImage({ parcel, imageSize }: ParcelImageProps) {
     drawParcelBorder(parcel, context);
   };
 
-  const drawParcelBorder = (parcel: any, context: any): any => {
+  const drawParcelBorder = (parcel: CustomAny, context: CustomAny): CustomAny => {
     const { w, h } = CitadelUtils.getParcelSize(parcel.size);
 
     return drawRect(parcel, context, w / 2 + 2, h / 2 + 2, 2);
   };
 
-  const drawRect = (parcel: any, context: any, width: any, height: any, line: any) => {
+  const drawRect = (parcel: CustomAny, context: CustomAny, width: CustomAny, height: CustomAny, line: CustomAny) => {
     const parcelX: number = (imageSize - width < parcel.coordinateX ? imageSize - width : parcel.coordinateX) / 2;
     const parcelY: number = (imageSize - height < parcel.coordinateY ? imageSize - height : parcel.coordinateY) / 2;
 

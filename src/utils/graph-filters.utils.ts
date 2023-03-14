@@ -127,7 +127,7 @@ export class GraphFiltersUtils {
     );
   }
 
-  public static getUpdatedFilterFromQueryParamsByType(filter: GraphFiltersTypes, queryParams: any): any {
+  public static getUpdatedFilterFromQueryParamsByType(filter: GraphFiltersTypes, queryParams: CustomAny): CustomAny {
     switch (filter.dataType) {
       case GraphFiltersDataType.Input:
         return GraphFiltersHelper.getUpdatedInputFromQuery(filter, queryParams[filter.queryParamKey]);
@@ -148,14 +148,14 @@ export class GraphFiltersUtils {
     }
   }
 
-  public static onHandleFilterHelper(helperType: GraphFiltersHelperType, value: any): string {
+  public static onHandleFilterHelper(helperType: GraphFiltersHelperType, value: CustomAny): string {
     switch (helperType) {
       case GraphFiltersHelperType.Price:
         return GraphFiltersUtils.priceToWeiHelper(value);
     }
   }
 
-  public static priceToWeiHelper(value: any): string {
+  public static priceToWeiHelper(value: CustomAny): string {
     return value ? `"${value}000000000000000000"` : '0';
   }
 

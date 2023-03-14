@@ -15,13 +15,13 @@ const NoContent = styled.div`
 `;
 
 interface ItemsLazyProps {
-  items: any[];
-  component: (props: any) => JSX.Element;
+  items: CustomAny[];
+  component: (props: CustomAny) => JSX.Element;
   onHandleReachedEnd?: () => void;
 }
 
 export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyProps) {
-  const gridRef = useRef<any>(null);
+  const gridRef = useRef<CustomAny>(null);
 
   // useEffect(() => {
   //     if (items.length) {
@@ -63,7 +63,7 @@ export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyPro
       style={{ height: '100%' }}
       totalCount={items.length}
       components={{
-        List: ListContainer as any
+        List: ListContainer as CustomAny
       }}
       itemContent={(index) => component(items[index])}
       endReached={(index) => onEndReached(index)}

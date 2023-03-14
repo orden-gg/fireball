@@ -200,7 +200,7 @@ export function GlossaryWearables() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 

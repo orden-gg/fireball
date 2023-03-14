@@ -43,7 +43,7 @@
   },
   "scripts": {
     "build": "yarn lint && GENERATE_SOURCEMAP=false react-scripts build",
-    "start": "DISABLE_ESLINT_PLUGIN=true PORT=3005 react-scripts start && yarn lint",
+    "start": "ESLINT_NO_DEV_ERRORS=true PORT=3005 react-scripts start",
     "start:prod": "react-scripts build && serve -s build",
     "test": "jest --config ./jest.config.js",
     "eject": "react-scripts eject",
@@ -85,7 +85,9 @@
     "@types/luxon": "^2.3.2",
     "@types/node": "^17.0.41",
     "@types/react": "17.0.2",
+    "@types/react-blockies": "^1.4.1",
     "@types/react-dom": "17.0.2",
+    "@types/react-helmet": "^6.1.6",
     "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",

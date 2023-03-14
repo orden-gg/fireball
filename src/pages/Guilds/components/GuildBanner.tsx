@@ -19,13 +19,13 @@ export function GuildBanner() {
 
   const navigate = useNavigate();
 
-  const { guildId, setGuildId, guilds } = useContext<any>(GuildsContext);
+  const { guildId, setGuildId, guilds } = useContext<CustomAny>(GuildsContext);
 
-  const [guild, setGuild] = useState<any>({});
+  const [guild, setGuild] = useState<CustomAny>({});
 
   const onGuildChange = useCallback(
-    (currentGuildId: any) => {
-      const nextGuild: any = guilds[currentGuildId];
+    (currentGuildId: CustomAny) => {
+      const nextGuild: CustomAny = guilds[currentGuildId];
 
       if (nextGuild === undefined || nextGuild.members?.length === 0) {
         return;

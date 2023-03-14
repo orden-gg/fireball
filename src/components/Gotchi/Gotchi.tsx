@@ -30,10 +30,10 @@ import { WhitelistId } from './WhitelistId/WhitelistId';
 import { styles } from './styles';
 
 interface GotchiProps {
-  gotchi: any;
-  render: any;
-  renderSvgByStats?: any;
-  portal?: any;
+  gotchi: CustomAny;
+  render: CustomAny;
+  renderSvgByStats?: CustomAny;
+  portal?: CustomAny;
   isHighlightLending?: boolean;
   className?: string;
   shouldLoadGotchiInModal?: boolean;
@@ -63,7 +63,7 @@ export function Gotchi({
   );
 
   const gotchiSections = {
-    wrapper: (children: any, className?: any) => {
+    wrapper: (children: CustomAny, className?: CustomAny) => {
       return (
         <div className={className && classes[className]} key={`${gotchi.id}-${className}`}>
           {children}
@@ -190,12 +190,12 @@ export function Gotchi({
     }
   };
 
-  function renderSection(value: any) {
+  function renderSection(value: CustomAny) {
     if (typeof value === 'string') {
       return gotchiSections[value];
     } else {
       return gotchiSections.wrapper(
-        value.items.map((item: any) => renderSection(item)),
+        value.items.map((item: CustomAny) => renderSection(item)),
         value.className
       );
     }
@@ -216,7 +216,7 @@ export function Gotchi({
         onClick={() => setIsPreviewOpen(true)}
       >
         {gotchi.lending && isHighlightLending && <div className={classes.statusBadge}>Lended</div>}
-        {render.map((name: any) => {
+        {render.map((name: CustomAny) => {
           return renderSection(name);
         })}
       </div>

@@ -41,7 +41,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
   const [editMode, setEditMode] = useState<boolean>(false);
   const [name, setName] = useState<string>(address.name);
   const [copyTooltipText, setCopyTooltipText] = useState<string>('Copy address');
-  const nameRef = useRef<any>();
+  const nameRef = useRef<CustomAny>();
 
   useEffect(() => {
     // focus input on edit button click
@@ -69,7 +69,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
     setName(value);
   };
 
-  const confirmNewAddress = (event: any): void => {
+  const confirmNewAddress = (event: CustomAny): void => {
     event.stopPropagation();
 
     if (name.length > 0) {
@@ -81,14 +81,14 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
     }
   };
 
-  const editAddress = (event: any): void => {
+  const editAddress = (event: CustomAny): void => {
     event.stopPropagation();
 
     setEditMode(true);
     nameRef.current.focus();
   };
 
-  const copyAddress = (event: any): void => {
+  const copyAddress = (event: CustomAny): void => {
     event.stopPropagation();
     copyToClipboard();
   };
@@ -102,7 +102,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
     }
   };
 
-  const onAddressLogout = (event: any, loginAddress: LoginAddressModel): void => {
+  const onAddressLogout = (event: CustomAny, loginAddress: LoginAddressModel): void => {
     event.stopPropagation();
 
     if (onLogout) {
@@ -138,7 +138,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
                       onClick={(event) => confirmNewAddress(event)}
                       disabled={name.length === 0}
                     >
-                      <CheckIcon fontSize={'8px' as any} />
+                      <CheckIcon fontSize={'8px' as CustomAny} />
                     </IconButton>
                   ) : null}
                 </InputAdornment>
