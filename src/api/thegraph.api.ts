@@ -1,43 +1,43 @@
-import { ApolloClient, InMemoryCache, NormalizedCacheObject, DefaultOptions } from '@apollo/client';
+import { ApolloClient, DefaultOptions, InMemoryCache, NormalizedCacheObject } from '@apollo/client';
 import { gql } from '@apollo/client';
 
-import { Erc1155ListingsBatch, FBErc1155Item, SalesHistoryModel, TheGraphResponse } from 'shared/models';
-import { ItemUtils } from 'utils';
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
-
 import { EthersApi } from './ethers.api';
+import { TheGraphCoreApi } from './the-graph-core.api';
+
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
+import { Erc1155ListingsBatch, FBErc1155Item, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+
+import { ItemUtils } from 'utils';
+
+import { gotchiIdentityQuery, gotchiQuery, playerInventoryQuery } from './common/fb.main.queries';
 import {
+  activeListingQeury,
+  auctionQuery,
+  borrowedByAddressQuery,
+  erc721SalesHistory,
+  erc1155ListingsBatchQuery,
+  erc1155Query,
+  getParcelOrderDirectionQuery,
+  gotchiByIdBatchQuery,
   gotchiByIdQuery,
   gotchiesQuery,
-  svgQuery,
-  activeListingQeury,
-  erc1155Query,
-  erc1155ListingsBatchQuery,
-  erc721ListingsBySeller,
-  erc721SalesHistory,
-  erc1155ListingsBySeller,
-  userQuery,
-  userOwnedGotchisQuery,
-  realmQuery,
-  auctionQuery,
-  raffleQuery,
-  raffleEntrantsQuery,
-  raffleWinsQuery,
+  gotchisGotchiverseQuery,
+  lendingsByAddressQuery,
+  lendingsQuery,
   listedParcelsQuery,
   parcelQuery,
-  lendingsQuery,
-  lendingsByAddressQuery,
-  borrowedByAddressQuery,
-  getParcelOrderDirectionQuery,
-  gotchisGotchiverseQuery,
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
+  portalsQueryByAddress,
+  raffleEntrantsQuery,
+  raffleQuery,
+  raffleWinsQuery,
+  realmQuery,
   realmQueryByDistrict,
-  realmListingsBySeller,
-  gotchiByIdBatchQuery
+  svgQuery,
+  userOwnedGotchisQuery,
+  userQuery
 } from './common/queries';
-import { TheGraphCoreApi } from './the-graph-core.api';
-import { gotchiIdentityQuery, gotchiQuery, playerInventoryQuery } from './common/fb.main.queries';
 
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
@@ -93,7 +93,7 @@ const getGraphData = async (client: any, query: string): Promise<any> => {
 // multi query requests
 const graphJoin = async (client: any, queries: any[]): Promise<any> => {
   try {
-    return await new Promise(resolve => {
+    return await new Promise((resolve) => {
       const queriesCounter = queries.length;
       let requestCounter: number = 0;
       const responseArray: any[] = [];
@@ -107,7 +107,7 @@ const graphJoin = async (client: any, queries: any[]): Promise<any> => {
                 ${queries[i]}
               `
             })
-            .then(response => {
+            .then((response) => {
               responseArray[i] = response;
               lowerCounter();
               checkRequestsResult();
@@ -177,7 +177,7 @@ const filterCombinedGraphData = (response: any, datasetRoute: any, uniqueIdentif
 const modifyTraits = (gotchis: any): any => {
   const gotchisCache: any[] = [...gotchis];
 
-  return gotchisCache.map(gotchi => {
+  return gotchisCache.map((gotchi) => {
     const gotchiCache = { ...gotchi };
 
     if (gotchiCache.equippedSetID && ItemUtils.isExistingSetId(gotchiCache.equippedSetID)) {
@@ -204,7 +204,7 @@ export class TheGraphApi {
   }
 
   public static async getAllGotchies(): Promise<any> {
-    return await graphJoin(clientFactory.client, TheGraphApi.getGotchiQueries()).then(response => {
+    return await graphJoin(clientFactory.client, TheGraphApi.getGotchiQueries()).then((response) => {
       const filteredArray = filterCombinedGraphData(response, ['aavegotchis'], 'id');
 
       return modifyTraits(filteredArray);
@@ -252,7 +252,7 @@ export class TheGraphApi {
       return queries;
     };
 
-    return graphJoin(clientFactory.client, getQueries()).then(response => {
+    return graphJoin(clientFactory.client, getQueries()).then((response) => {
       if (!response[0].data.user) {
         return []; // terminate if thegraph has no data about address
       }
@@ -274,7 +274,7 @@ export class TheGraphApi {
       return queries;
     };
 
-    return await graphJoin(clientFactory.client, getQueries()).then(response => {
+    return await graphJoin(clientFactory.client, getQueries()).then((response) => {
       if (!response[0].data.user) {
         return []; // terminate if thegraph has no data about address
       }
@@ -286,8 +286,8 @@ export class TheGraphApi {
   }
 
   public static getGotchisByAddresses(addresses: string[]): Promise<any[]> {
-    const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getGotchisByAddress(address));
-    const ownedPromises: Promise<any>[] = addresses.map(address => TheGraphApi.getOwnedGotchis(address));
+    const promises: Promise<any>[] = addresses.map((address) => TheGraphApi.getGotchisByAddress(address));
+    const ownedPromises: Promise<any>[] = addresses.map((address) => TheGraphApi.getOwnedGotchis(address));
 
     return Promise.all(promises.concat(ownedPromises)).then((response: any[]) =>
       response.reduce((result, current) => result.concat(current), [])
@@ -311,7 +311,7 @@ export class TheGraphApi {
           lastSale: erc1155[0]?.timeLastPurchased || null
         };
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 
   public static async getErc1155ListingsBatchQuery(
@@ -334,32 +334,12 @@ export class TheGraphApi {
     );
   }
 
-  public static async getErc721ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc721ListingsBySeller(seller))
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  // TODO as we integrate fireball graph for realm it's used here for now.
-  // TODO in the future, after full fireball graph integration should be used as general erc721 listings.
-  public static async getRealmListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(realmListingsBySeller(seller), GRAPH_FIREBALL_API)
-      .then((response: any) => response.data.erc721Listings)
-      .catch((error: any) => console.log(error));
-  }
-
-  public static async getErc1155ListingsBySeller(seller: any): Promise<any> {
-    return await TheGraphApi.getData(erc1155ListingsBySeller(seller))
-      .then((response: any) => response.data.erc1155Listings)
-      .catch((error: any) => console.log(error));
-  }
-
   private static async getRaffleData(query: string): Promise<any> {
     return await getGraphData(clientFactory.raffleClient, query);
   }
 
   public static async getRaffle(id: string): Promise<any> {
-    return await TheGraphApi.getRaffleData(raffleQuery(id)).then(response => {
+    return await TheGraphApi.getRaffleData(raffleQuery(id)).then((response) => {
       const data: any[] = [];
       const total: any = response.data.raffles[0].stats;
       const prizes: any = response.data.raffles[0].ticketPools;
@@ -368,8 +348,8 @@ export class TheGraphApi {
         data.push({
           id: pool.id,
           items: pool.prizes.reduce((a, b) => a + +b.quantity, 0),
-          prizes: pool.prizes.map(item => ({
-            id: item.id.substring(2),
+          prizes: pool.prizes.map((item) => ({
+            id: item.id.split('-')[1],
             quantity: item.quantity
           }))
         });
@@ -446,13 +426,13 @@ export class TheGraphApi {
       return queries;
     }
 
-    return await graphJoin(clientFactory.fireballClient, getQueries()).then(response => {
+    return await graphJoin(clientFactory.fireballClient, getQueries()).then((response) => {
       return filterCombinedGraphData(response, ['parcels'], 'id');
     });
   }
 
   public static getRealmByAddresses(addresses: string[]): Promise<any[]> {
-    const promises: Promise<any>[] = addresses.map(address => TheGraphApi.getRealmByAddress(address));
+    const promises: Promise<any>[] = addresses.map((address) => TheGraphApi.getRealmByAddress(address));
 
     return Promise.all(promises).then((response: any) =>
       response.reduce((result: any, current: any) => result.concat(current), [])
@@ -521,7 +501,7 @@ export class TheGraphApi {
     const sizes: number[] = [0, 1, 2, 3];
     const queries: any[] = [];
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       for (let i = 0; i < 5; i++) {
         queries.push(listedParcelsQuery(i * 1000, 'asc', size));
         queries.push(listedParcelsQuery(i * 1000, 'desc', size));
@@ -553,7 +533,7 @@ export class TheGraphApi {
 
         return filteredArray;
       })
-      .catch(e => console.log(e));
+      .catch((e) => console.log(e));
   }
 
   public static async getLendingsByAddress(address: string): Promise<any> {
@@ -598,6 +578,12 @@ export class TheGraphApi {
 
       return filteredArray;
     });
+  }
+
+  public static async getPortalsByAddress(seller: string): Promise<any> {
+    return await TheGraphApi.getData(portalsQueryByAddress(seller))
+      .then((response: any) => response.data.portals)
+      .catch((error: any) => console.log(error));
   }
 
   // ! GOTCHIVERSE

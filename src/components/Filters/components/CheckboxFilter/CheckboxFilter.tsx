@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { Checkbox } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -32,7 +33,7 @@ export function CheckboxFilter({ filter, onSetSelectedFilters, isDisabled }: Che
         control={
           <Checkbox
             checked={isChecked}
-            onChange={event => onCheckboxChange(event.target.checked)}
+            onChange={(event) => onCheckboxChange(event.target.checked)}
             disabled={isDisabled}
           />
         }

@@ -1,4 +1,5 @@
 import { CircularProgress } from '@mui/material';
+
 import classNames from 'classnames';
 
 import { infoStyles } from '../../styles';

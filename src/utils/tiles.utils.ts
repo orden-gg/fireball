@@ -1,6 +1,7 @@
-import tiles from 'data/tiles.data.json';
 import { TileTypes } from 'shared/constants';
 import { ParcelTileDTO, ParcelTileVM, TileItem } from 'shared/models';
+
+import tiles from 'data/tiles.data.json';
 
 export class TilesUtils {
   public static getMetadataById(id: any): TileItem {
@@ -15,7 +16,7 @@ export class TilesUtils {
     };
   }
 
-  public static getIsTileExists(id: number): boolean {
+  public static getIsTileExists(id: number | string): boolean {
     return Boolean(tiles[id]);
   }
 
@@ -59,7 +60,7 @@ export class TilesUtils {
         name: TilesUtils.getNameById(tile.tileId)
       }))
       .reduce((prev: ParcelTileVM[], current: Omit<ParcelTileVM, 'quantity'>) => {
-        const duplicated: Undefinable<ParcelTileVM> = prev.find(tile => tile.id === current.id);
+        const duplicated: Undefinable<ParcelTileVM> = prev.find((tile) => tile.id === current.id);
 
         if (duplicated) {
           duplicated.quantity++;

@@ -2,7 +2,9 @@
 import Phaser from 'phaser';
 
 import { EthersApi } from 'api';
+
 import { CitadelUtils } from 'utils';
+
 import { COLORS } from 'data/citadel.data';
 
 export class CreateParcels extends Phaser.GameObjects.Graphics {
@@ -39,7 +41,7 @@ export class CreateParcels extends Phaser.GameObjects.Graphics {
         repeat: -1,
         yoyo: true,
         duration: this.duration,
-        onUpdate: tween => {
+        onUpdate: (tween) => {
           const value = tween.getValue();
           this.animateColor = this.getRangeColor(from, to, value);
 
@@ -94,7 +96,7 @@ export class CreateParcels extends Phaser.GameObjects.Graphics {
   }
 
   toggleParcel(parcel) {
-    const parcelIndex = this.settings.parcels.findIndex(item => item.tokenId === parcel.tokenId);
+    const parcelIndex = this.settings.parcels.findIndex((item) => item.tokenId === parcel.tokenId);
 
     if (parcelIndex === -1) {
       this.settings.parcels.push(parcel);

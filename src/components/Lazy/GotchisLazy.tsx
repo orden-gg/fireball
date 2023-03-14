@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import styled from '@emotion/styled';
-
 import { VirtuosoGrid } from 'react-virtuoso';
+
+import styled from '@emotion/styled';
 
 const ListContainer = styled.div`
   display: grid;
@@ -56,7 +56,7 @@ export function GotchisLazy({ items, renderItem }: GotchisLazyProps) {
       components={{
         List: ListContainer as any
       }}
-      itemContent={index => renderItem(index)}
+      itemContent={(index) => renderItem(index)}
     />
   );
 }

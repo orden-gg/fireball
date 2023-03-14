@@ -1,9 +1,11 @@
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { IconButton } from '@mui/material';
+
 import classNames from 'classnames';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { useFullscreenStatus } from 'hooks/useFullscreenStatus';
 
 import { InterfaceStyles } from '../styles';

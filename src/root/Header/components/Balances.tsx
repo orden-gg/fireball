@@ -1,15 +1,19 @@
 import React, { useContext } from 'react';
-import { IconButton, Link, useTheme } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-
-import classNames from 'classnames';
 import ContentLoader from 'react-content-loader';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import { IconButton, Link, useTheme } from '@mui/material';
+
+import classNames from 'classnames';
+
 import { BalancesContext } from 'contexts/BalancesContext';
-import { useLocalStorage } from 'hooks/useLocalStorage';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
+
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { balancesStyles } from '../styles';
 
@@ -25,7 +29,7 @@ export function Balances() {
 
   const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
 
-  const handleButtonClick = isMenuOpen => setMenuOpen(isMenuOpen);
+  const handleButtonClick = (isMenuOpen) => setMenuOpen(isMenuOpen);
 
   if (!tokens.length) {
     return <></>;

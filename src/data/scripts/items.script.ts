@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 // @ts-ignore
 import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';
+
 // @ts-ignore
 import { Erc1155NumberCategories, ItemTypes } from '../../shared/constants/enums/enums.ts';
 // @ts-ignore
@@ -33,7 +34,9 @@ mainContract
       modified[index][ItemTypes.TotalQuantity] = parseInt(ethers.utils.formatUnits(item.totalQuantity, 0));
 
       if (modified[index][ItemTypes.Category] === Erc1155NumberCategories.Wearable) {
-        const wearableType = WEARABLES_TYPES_BENEFITS.find(wearableType => wearableType.ids.find(id => id === index));
+        const wearableType = WEARABLES_TYPES_BENEFITS.find((wearableType) =>
+          wearableType.ids.find((id) => id === index)
+        );
 
         if (wearableType) {
           modified[index][ItemTypes.WearableType] = wearableType.type;
@@ -46,4 +49,4 @@ mainContract
 
     console.log(`✅ successfully recorded ${modified.length} items ✅`);
   })
-  .catch(error => console.log('❌', error, '❌'));
+  .catch((error) => console.log('❌', error, '❌'));

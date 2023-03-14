@@ -3,10 +3,17 @@ import { useParams } from 'react-router-dom';
 
 import { DateTime } from 'luxon';
 
-import { getActiveAddress } from 'core/store/login';
+import { EthersApi, TheGraphApi } from 'api';
+
 import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
+
 import { Erc721Categories } from 'shared/constants';
-import { SalesHistoryModel, FBErc1155Item } from 'shared/models';
+import { FBErc1155Item, SalesHistoryModel } from 'shared/models';
+
+import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -18,8 +25,7 @@ import {
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
-import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+import { GhstTokenIcon } from 'components/Icons/Icons';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import {
   HistoryHead,
@@ -28,15 +34,12 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-import { EthAddress } from 'components/EthAddress/EthAddress';
-import { GhstTokenIcon } from 'components/Icons/Icons';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
-import { EthersApi, TheGraphApi } from 'api';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+
 import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
-
 import { styles } from './styles';
 
 export function GotchiPage() {
@@ -65,14 +68,14 @@ export function GotchiPage() {
         setGotchiInventory(sortedInventory);
         setGotchi(gotchi);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setGotchiLoaded(true));
 
     TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
       .then((response: SalesHistoryModel[]) => {
         setSalesHistory(response);
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setHistoryLoaded(true));
   }, [routeParams]);
 
@@ -82,7 +85,7 @@ export function GotchiPage() {
         .then((inventory: FBErc1155Item[]) => {
           setPlayerInventory(inventory);
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     }
   }, [activeAddress]);
 

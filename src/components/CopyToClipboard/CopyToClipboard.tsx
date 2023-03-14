@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { IconButton } from '@mui/material';
+
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { IconButton } from '@mui/material';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
@@ -33,7 +34,7 @@ export function CopyToClipboard({ copy }: { copy: string }) {
     <CustomTooltip title={tooltipText} placement='top' followCursor>
       <IconButton
         className={classes.button}
-        onClick={event => copyText(event, copy)}
+        onClick={(event) => copyText(event, copy)}
         onMouseEnter={() => setTooltipText(defaultTooltipText)}
       >
         <ContentCopyIcon className={classes.icon} />

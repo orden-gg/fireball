@@ -1,5 +1,5 @@
-import { Link } from '@mui/material';
 import CallMade from '@mui/icons-material/CallMade';
+import { Link } from '@mui/material';
 
 import { styles } from './styles';
 

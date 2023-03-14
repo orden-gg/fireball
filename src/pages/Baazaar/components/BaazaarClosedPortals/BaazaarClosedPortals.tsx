@@ -1,11 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import {
   CustomParsedQuery,
   GraphFiltersQueryParamTypes,
@@ -14,22 +17,21 @@ import {
   SortingItem,
   SortingListItem
 } from 'shared/models';
-import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { Filters } from 'components/Filters/components/Filters/Filters';
+import { H1SealedPortalIcon } from 'components/Icons/Icons';
+import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
-import { H1SealedPortalIcon } from 'components/Icons/Icons';
-import { Filters } from 'components/Filters/components/Filters/Filters';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ClosedPortalListingFilterTypes } from '../../constants';
 import { ClosedPortalListingFilters, ClosedPortalListingVM } from '../../models';
 import { closedPortalsListingsSortings } from '../../static/sortings';
-
-import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarClosedPortals() {
@@ -37,9 +39,9 @@ export function BaazaarClosedPortals() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const closedPortalsListings: ClosedPortalListingVM[] = useAppSelector(fromBaazaarStore.getClosedPortalsListings);
@@ -97,7 +99,7 @@ export function BaazaarClosedPortals() {
     });
 
     const paramKey: Undefinable<string> = closedPortalsListingsSortings.find(
-      sorting => sorting.key === closedPortalsListingsSorting.type
+      (sorting) => sorting.key === closedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

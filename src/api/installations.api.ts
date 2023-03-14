@@ -1,15 +1,17 @@
-import _ from 'lodash';
 import { ethers } from 'ethers';
-
-import { InstallationTypes, INSTALLATION_CONTRACT } from 'shared/constants';
-import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
+import _ from 'lodash';
 
 import { EthersApi } from './ethers.api';
+
+import { INSTALLATION_CONTRACT, InstallationTypes } from 'shared/constants';
+import { InstallationsBalances } from 'shared/models';
+
+import INSTALLATIONS_ABI from 'data/abi/installations.abi.json';
 
 const installationsContract = EthersApi.makeContract(INSTALLATION_CONTRACT, INSTALLATIONS_ABI, 'polygon');
 
 export class InstallationsApi {
-  public static getInstallationsByAddress(address: any): any {
+  public static getInstallationsByAddress(address: string): Promise<InstallationsBalances[]> {
     return installationsContract.installationsBalances(address);
   }
 
@@ -76,18 +78,18 @@ export class InstallationsApi {
 
         response.forEach((installation, index) => {
           // ! Modify BigNumber`s => number`s
-          modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map(alchemica => {
+          modified[index][InstallationTypes.AlchemicaCost] = installation.alchemicaCost.map((alchemica) => {
             return parseInt(ethers.utils.formatUnits(alchemica));
           });
           modified[index][InstallationTypes.HarvestRate] = parseInt(ethers.utils.formatUnits(installation.harvestRate));
           modified[index][InstallationTypes.Capacity] = parseInt(ethers.utils.formatUnits(installation.capacity));
-          modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map(alchemica => {
+          modified[index][InstallationTypes.Prerequisites] = installation.prerequisites.map((alchemica) => {
             return parseInt(ethers.utils.formatUnits(alchemica));
           });
         });
 
         return modified;
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 }

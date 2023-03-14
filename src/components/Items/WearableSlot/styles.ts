@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const wearableSlotStyles = makeStyles(theme =>
+export const wearableSlotStyles = makeStyles((theme) =>
   createStyles({
     wearableCell: {
       position: 'relative',

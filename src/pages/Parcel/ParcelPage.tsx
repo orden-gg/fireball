@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { Alert, Backdrop, CircularProgress } from '@mui/material';
 
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
-import { InstallationsUtils, TilesUtils } from 'utils';
 import { TheGraphApi } from 'api';
+
+import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+
+import { InstallationsUtils, TilesUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -22,7 +25,7 @@ export function ParcelPage() {
     setParcelLoading(true);
 
     TheGraphApi.getRealmById(parcelId as string)
-      .then(parcel => {
+      .then((parcel) => {
         if (mounted && parcel) {
           if (parcel.installations.length > 0) {
             parcel.installations = InstallationsUtils.combineInstallations(parcel.installations);
@@ -35,7 +38,7 @@ export function ParcelPage() {
           setParcel(parcel);
         }
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err))
       .finally(() => {
         if (mounted) {
           setParcelLoading(false);

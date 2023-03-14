@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { IconButton, TextField } from '@mui/material';
+
 import SearchIcon from '@mui/icons-material/Search';
+import { IconButton, TextField } from '@mui/material';
 
 import { InterfaceStyles } from '../styles';
 
@@ -27,8 +28,8 @@ export function SearchForm({ onSearch, type, placeholder }: SearchFormProps) {
         className={classes.citadelSearchField}
         placeholder={placeholder}
         variant='standard'
-        onChange={event => setSearchId(event.target.value)}
-        onKeyPress={event => onKeyPress(event.key)}
+        onChange={(event) => setSearchId(event.target.value)}
+        onKeyPress={(event) => onKeyPress(event.key)}
       />
       <IconButton onClick={() => onSearch(type, searchId)} className={classes.citadelInterfaceButton}>
         <SearchIcon />

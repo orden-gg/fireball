@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { CardImage } from 'shared/components/CardImage/CardImage';
-import { AnvilIcon } from 'components/Icons/Icons';
-import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { CardListing } from 'shared/components/CardListing/CardListing';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
+import { AnvilIcon } from 'components/Icons/Icons';
+import { CardBalance, CardCraftLink, CardGroup, CardName, CardSalesHistory } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 
 import { ActivityInstallationListingVM } from '../../models';
-
-import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarActivityInstallations() {

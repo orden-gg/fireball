@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
+
 import { CircularProgress } from '@mui/material';
+
+import { TheGraphApi } from 'api';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
-import { TheGraphApi } from 'api';
 
 import { GuildsContext } from '../GuildsContext';
 import { guildContentStyles } from '../styles';
@@ -25,7 +27,7 @@ export function GuildGotchis() {
     setIsGotchisLoading(true);
 
     TheGraphApi.getGotchisByAddresses(guilds[guildId].members)
-      .then(gotchis => {
+      .then((gotchis) => {
         if (mounted) {
           setGuildGotchis(gotchis);
         }
@@ -44,7 +46,7 @@ export function GuildGotchis() {
       ) : guildGotchis.length > 0 ? (
         <GotchisLazy
           items={guildGotchis}
-          renderItem={id => <Gotchi gotchi={guildGotchis[id]} className='narrowed' render={['svg', 'name']} />}
+          renderItem={(id) => <Gotchi gotchi={guildGotchis[id]} className='narrowed' render={['svg', 'name']} />}
         />
       ) : (
         <div className={classes.noData}>No Gotchis :(</div>

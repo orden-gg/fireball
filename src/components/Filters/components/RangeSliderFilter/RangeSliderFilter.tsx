@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { Slider, TextField } from '@mui/material';
 
 import _ from 'lodash';
@@ -124,7 +125,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters, isDisabled }: 
           label='min'
           inputProps={{ type: 'number' }}
           value={minValue}
-          onChange={event => onMinInputChange(event.target.value)}
+          onChange={(event) => onMinInputChange(event.target.value)}
           disabled={isDisabled}
         ></TextField>
         <TextField
@@ -134,7 +135,7 @@ export function RangeSliderFilter({ filter, onSetSelectedFilters, isDisabled }: 
           label='max'
           inputProps={{ type: 'number' }}
           value={maxValue}
-          onChange={event => onMaxInputChange(event.target.value)}
+          onChange={(event) => onMaxInputChange(event.target.value)}
           disabled={isDisabled}
         ></TextField>
       </div>

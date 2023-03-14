@@ -43,12 +43,12 @@ export class FiltersManager {
   }
 
   updateGroups(type, isActive) {
-    const group = this.groups.items.find(group => group.type === type);
+    const group = this.groups.items.find((group) => group.type === type);
 
     if (group.isActive !== isActive) {
       group.isActive = isActive;
 
-      this.groups.isGroupsActive = this.groups.items.some(item => item.isActive);
+      this.groups.isGroupsActive = this.groups.items.some((item) => item.isActive);
 
       if (this.groups.isGroupsActive) {
         this.fadeDistricts(0.5);
@@ -123,7 +123,7 @@ export class FiltersManager {
   }
 
   getGroup(type) {
-    return this.groups.items.find(group => group.type === type);
+    return this.groups.items.find((group) => group.type === type);
   }
 
   get filteredParcels() {
@@ -132,7 +132,7 @@ export class FiltersManager {
     return district.items.reduce((prev, current) => {
       if (!district.isFilterActive || current.isSelected) {
         const parcels = this.scene.districts[current.value].parcels.filter(
-          parcel => !size.isFilterActive || size.items[parcel.size].isSelected
+          (parcel) => !size.isFilterActive || size.items[parcel.size].isSelected
         );
 
         return prev.concat(parcels);

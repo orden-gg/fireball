@@ -1,7 +1,7 @@
-import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     button: {
       background: alpha(theme.palette.rarity.mythical, 0.2),

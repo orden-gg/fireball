@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Masonry } from '@mui/lab';
 
 import { FakeGotchi } from 'shared/models';
+
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { FakeGotchisIcon } from 'components/Icons/Icons';
 

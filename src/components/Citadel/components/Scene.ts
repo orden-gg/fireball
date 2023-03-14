@@ -1,21 +1,23 @@
 // @ts-nocheck
 import Phaser from 'phaser';
 
-import parcelsData from 'data/parcels.json';
-import { CITADEL_WIDTH, CITADEL_HEIGHT, COLORS } from 'data/citadel.data';
-import guilds from 'data/guilds.json';
-import walls from 'assets/images/citadel/walls.svg';
-import fud from 'assets/images/citadel/fud.png';
-import fomo from 'assets/images/citadel/fomo.png';
-import alpha from 'assets/images/citadel/alpha.png';
-import kek from 'assets/images/citadel/kek.png';
+import { CitadelUtils } from 'utils';
 
-import { Highlight } from './Highlight';
+import { CITADEL_HEIGHT, CITADEL_WIDTH, COLORS } from 'data/citadel.data';
+import guilds from 'data/guilds.json';
+import parcelsData from 'data/parcels.json';
+
+import alpha from 'assets/images/citadel/alpha.png';
+import fomo from 'assets/images/citadel/fomo.png';
+import fud from 'assets/images/citadel/fud.png';
+import kek from 'assets/images/citadel/kek.png';
+import walls from 'assets/images/citadel/walls.svg';
+
 import { CreateParcels } from './CreateParcels';
 import { DistrictsGridContainer } from './DistrictsGridContainer';
-import { GuildsLogos } from './GuildsLogos';
 import { FiltersManager } from './FiltersManager';
-import { CitadelUtils } from 'utils';
+import { GuildsLogos } from './GuildsLogos';
+import { Highlight } from './Highlight';
 
 export class CitadelScene extends Phaser.Scene {
   constructor({ wrapperRef }) {
@@ -152,7 +154,7 @@ export class CitadelScene extends Phaser.Scene {
       this.zoomToPointer(pointer);
     });
 
-    this.input.on('pointerup', pointer => {
+    this.input.on('pointerup', (pointer) => {
       if (this.settings.isDragging) {
         return;
       }
@@ -175,7 +177,7 @@ export class CitadelScene extends Phaser.Scene {
       }
     });
 
-    this.input.on('pointermove', pointer => {
+    this.input.on('pointermove', (pointer) => {
       const { cx, cy } = this.getCursorFromCenter(pointer);
       const id = CitadelUtils.getDistrictIdByCoords(cx, cy);
 
@@ -289,7 +291,7 @@ export class CitadelScene extends Phaser.Scene {
 
     this.trigger('query', {
       name: 'multiselect',
-      params: this.multiselect.parcels.map(parcel => parcel.tokenId)
+      params: this.multiselect.parcels.map((parcel) => parcel.tokenId)
     });
   }
 
@@ -411,8 +413,8 @@ export class CitadelScene extends Phaser.Scene {
 
   setMultiselect(ids) {
     const parcels = ids
-      .map(id => CitadelUtils.getParcelByTypeAndValue('tokenId', id))
-      .filter(parcel => parcel !== undefined);
+      .map((id) => CitadelUtils.getParcelByTypeAndValue('tokenId', id))
+      .filter((parcel) => parcel !== undefined);
 
     if (parcels.length === 0) {
       return;

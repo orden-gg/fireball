@@ -2,16 +2,17 @@ import { ethers } from 'ethers';
 
 import { EthersApi } from './ethers.api';
 
-import { KEK_ABI, ALPHA_ABI, FOMO_ABI, FUD_ABI, GLTR_ABI } from 'data/abi/alchemica.abi';
 import {
-  KEK_CONTRACT,
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
   FUD_CONTRACT,
   GLTR_CONTRACT,
+  KEK_CONTRACT,
   MIN_SPEND,
   TO_SPEND
 } from 'shared/constants';
+
+import { ALPHA_ABI, FOMO_ABI, FUD_ABI, GLTR_ABI, KEK_ABI } from 'data/abi/alchemica.abi';
 
 const akekContract = EthersApi.makeContract(KEK_CONTRACT, KEK_ABI, 'polygon');
 const alphaContract = EthersApi.makeContract(ALPHA_CONTRACT, ALPHA_ABI, 'polygon');
@@ -85,7 +86,7 @@ export class AlchemicaApi {
     const contract: any = EthersApi.makeContractWithSigner(KEK_CONTRACT, KEK_ABI);
     const transaction: any = await contract.approve(operator, ethers.utils.parseUnits(TO_SPEND));
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then(response => Boolean(response.status));
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response) => Boolean(response.status));
   }
 
   public static getGltrBalance(address: any): Promise<any> {

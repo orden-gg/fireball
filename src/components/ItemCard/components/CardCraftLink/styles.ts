@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const cardCraftLinkStyles = makeStyles(theme =>
+export const cardCraftLinkStyles = makeStyles((theme) =>
   createStyles({
     link: {
       display: 'flex',

@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiImageStyles = makeStyles(theme =>
+export const gotchiImageStyles = makeStyles((theme) =>
   createStyles({
     gotchiSvg: {
       position: 'relative',

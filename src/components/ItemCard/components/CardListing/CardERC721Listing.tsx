@@ -1,19 +1,21 @@
-import { Link, Typography } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link, Typography } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
 import { EthersApi } from 'api';
+
+import { GhstTokenGif, GhstTokenIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
 interface CardERC721ListingProps {
-  currentPrice: number;
-  currentListingId: string;
+  currentPrice: number | undefined;
+  currentListingId: string | null | undefined;
   historicalPrices: string[];
 }
 
@@ -45,7 +47,7 @@ export function CardERC721Listing({ currentPrice, currentListingId, historicalPr
           }
           placement='top'
         >
-          {currentPrice > 0 ? (
+          {currentPrice! > 0 ? (
             <Link
               href={`https://app.aavegotchi.com/baazaar/erc721/${currentListingId}`}
               target='_blank'
@@ -55,18 +57,18 @@ export function CardERC721Listing({ currentPrice, currentListingId, historicalPr
                 <Typography className={classes.lastPrice} variant='subtitle2'>
                   {CommonUtils.formatPrice(currentPrice)}
                 </Typography>
-              ) : currentPrice > lastPrice ? (
+              ) : currentPrice! > lastPrice ? (
                 <>
                   <KeyboardArrowUpIcon color='success' fontSize='inherit' />
                   <Typography className={classes.lastPriceUp} variant='subtitle2'>
-                    {CommonUtils.formatPrice(currentPrice)}
+                    {CommonUtils.formatPrice(currentPrice!)}
                   </Typography>
                 </>
               ) : (
                 <>
                   <KeyboardArrowDownIcon color='warning' fontSize='inherit' />
                   <Typography className={classes.lastPriceDown} variant='subtitle2'>
-                    {CommonUtils.formatPrice(currentPrice)}
+                    {CommonUtils.formatPrice(currentPrice!)}
                   </Typography>
                 </>
               )}

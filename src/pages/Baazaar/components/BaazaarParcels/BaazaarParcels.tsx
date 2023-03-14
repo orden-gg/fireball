@@ -1,11 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import {
   CustomParsedQuery,
   GraphFiltersQueryParamTypes,
@@ -14,21 +17,20 @@ import {
   SortingItem,
   SortingListItem
 } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { Filters } from 'components/Filters/components/Filters/Filters';
 import { KekIcon } from 'components/Icons/Icons';
 import { Parcel } from 'components/Items/Parcel/Parcel';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { GraphFiltersUtils, RouteUtils } from 'utils';
 
 import { ParcelListingFilterTypes } from '../../constants';
-import { ParcelListingVM, ParcelListingFilters } from '../../models';
+import { ParcelListingFilters, ParcelListingVM } from '../../models';
 import { parcelsListingsSortings } from '../../static/sortings';
-
-import * as fromBaazaarStore from '../../store';
-
 import { styles } from './styles';
 
 export function BaazaarParcels() {
@@ -36,9 +38,9 @@ export function BaazaarParcels() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const parcelsListings: ParcelListingVM[] = useAppSelector(fromBaazaarStore.getParcelsListings);
@@ -88,7 +90,7 @@ export function BaazaarParcels() {
     });
 
     const paramKey: Undefinable<string> = parcelsListingsSortings.find(
-      sorting => sorting.key === parcelsListingsSorting.type
+      (sorting) => sorting.key === parcelsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

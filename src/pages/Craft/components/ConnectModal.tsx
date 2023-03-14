@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+
 import { Button, CircularProgress, Typography } from '@mui/material';
 
 import { ethers } from 'ethers';
@@ -27,7 +28,7 @@ export function ConnectModal() {
           showSnackbar('error', 'Wallet connect failed :( please reload page and try again');
         }
       })
-      .catch(error => console.log(error))
+      .catch((error) => console.log(error))
       .finally(() => setIsWalletConnecting(false));
   };
 

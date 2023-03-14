@@ -1,10 +1,12 @@
-import { createContext, useEffect, useState, useContext, useCallback } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import { useMetamask } from 'use-metamask';
 
-import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
-import { BalancesContext } from 'contexts/BalancesContext';
 import { AlchemicaApi } from 'api';
+
+import { Erc1155Categories, INSTALLATION_CONTRACT, TILES_CONTRACT } from 'shared/constants';
+
+import { BalancesContext } from 'contexts/BalancesContext';
 
 export const CraftContext = createContext({});
 
@@ -34,7 +36,7 @@ export const CraftContextProvider = (props: any) => {
     const isFreeItem: boolean = selectedItem.alchemicaCost.every((cost: number) => cost === 0);
     const amounts: number[] = selectedItem.alchemicaCost
       .map((price, index) => (tokens[index].amount === 0 ? -1 : Math.floor(tokens[index].amount / price)))
-      .filter(amount => amount !== -1);
+      .filter((amount) => amount !== -1);
     const minAmount = Math.min(...amounts) || 0;
 
     return minAmount > 200 || isFreeItem ? 200 : minAmount;

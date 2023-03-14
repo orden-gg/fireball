@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
+import { PageNavLink } from 'shared/models';
+
 import {
   ActivityIcon,
   AnvilIcon,
@@ -13,9 +15,7 @@ import {
 } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 import { SubNav } from 'components/PageNav/SubNav';
-import { PageNavLink } from 'shared/models';
 
-import { BaazaarActivity } from '../BaazaarActivity/BaazaarActivity';
 import {
   BaazaarClosedPortals,
   BaazaarConsumables,
@@ -26,7 +26,7 @@ import {
   BaazaarTiles,
   BaazaarWearables
 } from '../../components';
-
+import { BaazaarActivity } from '../BaazaarActivity/BaazaarActivity';
 import { styles } from './styles';
 
 export function Baazaar() {

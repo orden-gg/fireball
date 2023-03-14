@@ -1,8 +1,11 @@
 import { createContext, useEffect, useState } from 'react';
+
 import { DateTime } from 'luxon';
 
-import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
 import { EthersApi, TheGraphApi } from 'api';
+
+import { raffleTicketPriceQuery } from 'pages/Raffle/data/queries.data';
+
 import { CommonUtils, ItemUtils } from 'utils';
 
 export const RaffleContext = createContext({});
@@ -38,7 +41,7 @@ export const RaffleContextProvider = (props: any) => {
     setRaffleSpinner(true);
 
     TheGraphApi.getRaffle(raffle)
-      .then(response => {
+      .then((response) => {
         const [prizes, total] = response;
 
         setTickets((ticketsCache: any[]) => {
@@ -53,7 +56,7 @@ export const RaffleContextProvider = (props: any) => {
         });
         setRaffleSpinner(false);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   const getPrices = (raffleTickets: any[]): void => {
@@ -63,7 +66,7 @@ export const RaffleContextProvider = (props: any) => {
 
     TheGraphApi.getJoinedData(queries).then((response: any) => {
       const averagePrices: any[] = response.map((item: any) => {
-        const prices: any = item.data.erc1155Listings.map(wei => parseInt(wei.priceInWei));
+        const prices: any = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
         const average: any = prices.reduce((a: any, b: any) => a + b, 0) / prices.length;
         const price: number = average / 10 ** 18;
 
@@ -93,7 +96,7 @@ export const RaffleContextProvider = (props: any) => {
             const elem: any = modified.length > 1 ? item.ticketId : 0;
 
             modified[elem].value = item.quantity;
-            modified[elem].prizes = modified[elem].prizes.map(item => {
+            modified[elem].prizes = modified[elem].prizes.map((item) => {
               const index: number = won.findIndex((prize: any) => prize.itemId === item.id);
 
               return {
@@ -107,7 +110,7 @@ export const RaffleContextProvider = (props: any) => {
         });
         setLoadingEntered(false);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   const onAddressChange = (address: string, raffle: any): void => {

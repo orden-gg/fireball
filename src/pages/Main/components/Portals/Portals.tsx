@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import { Box, CircularProgress, Grid } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
 import { TheGraphApi } from 'api/thegraph.api';
+
+import { H1OpenedPortalGif, H1SealedPortalIcon } from 'components/Icons/Icons';
+
 import { CommonUtils } from 'utils';
 
 import { portalsQuery } from './queries';

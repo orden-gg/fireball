@@ -1,7 +1,7 @@
-import { alpha } from '@mui/system';
 import { createStyles, makeStyles } from '@mui/styles';
+import { alpha } from '@mui/system';
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     container: {
       maxWidth: 1280,
@@ -11,7 +11,7 @@ export const styles = makeStyles(theme =>
   })
 );
 
-export const titleStyles = makeStyles(theme =>
+export const titleStyles = makeStyles((theme) =>
   createStyles({
     titleWrapper: {
       display: 'flex',
@@ -40,7 +40,7 @@ export const titleStyles = makeStyles(theme =>
   })
 );
 
-export const tableStyles = makeStyles(theme =>
+export const tableStyles = makeStyles((theme) =>
   createStyles({
     row: {
       marginBottom: 32,
@@ -420,7 +420,7 @@ export const raffleCountdownStyles = makeStyles(() =>
   })
 );
 
-export const raffleNavStyles = makeStyles(theme =>
+export const raffleNavStyles = makeStyles((theme) =>
   createStyles({
     container: {
       padding: '12px 0',
@@ -495,7 +495,7 @@ export const raffleDataStyles = makeStyles(() =>
   })
 );
 
-export const raffleChanceStyles = makeStyles(theme =>
+export const raffleChanceStyles = makeStyles((theme) =>
   createStyles({
     container: {
       color: theme.palette.common.white,
@@ -517,7 +517,7 @@ export const raffleChanceStyles = makeStyles(theme =>
   })
 );
 
-export const ticketStyles = makeStyles(theme =>
+export const ticketStyles = makeStyles((theme) =>
   createStyles({
     ticket: {
       textAlign: 'center',

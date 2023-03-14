@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { Button } from '@mui/material';
 
 import { EthersApi, TheGraphApi } from 'api';
@@ -25,7 +26,7 @@ export function ActiveListingButton({ item }: { item: any }) {
           setListingLoading(false);
         }
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     return () => {
       mounted = false;

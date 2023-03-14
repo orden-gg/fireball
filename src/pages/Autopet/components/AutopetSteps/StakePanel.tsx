@@ -1,19 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
+
 import { Button, Typography } from '@mui/material';
 
-import { PanelErrorText } from './PanelErrorText';
 import { AutopetContext } from '../../AutopetContextProvider';
 import { tabStyles } from '../../styles';
-
+import { PanelErrorText } from './PanelErrorText';
 import { AutopetPanelProps } from './models/autopet-panel-props.model';
 
 export function StakePanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
   const [availableStake, setAvailableStake] = useState<boolean>(false);
-  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } = useContext<any>(
-    AutopetContext
-  );
+  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } =
+    useContext<any>(AutopetContext);
 
   useEffect(() => {
     setAvailableStake(isGhstApproved && isPetApproved);

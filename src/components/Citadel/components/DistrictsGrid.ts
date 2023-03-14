@@ -1,8 +1,8 @@
 // @ts-nocheck
 import Phaser from 'phaser';
 
-import { DISTRICTS, COLORS } from 'data/citadel.data';
-import { CITADEL_WIDTH, CITADEL_HEIGHT } from 'data/citadel.data';
+import { COLORS, DISTRICTS } from 'data/citadel.data';
+import { CITADEL_HEIGHT, CITADEL_WIDTH } from 'data/citadel.data';
 
 export class DistrictsGrid extends Phaser.GameObjects.Graphics {
   constructor(scene) {

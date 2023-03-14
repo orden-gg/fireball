@@ -3,31 +3,30 @@ import { useCallback, useState } from 'react';
 import classNames from 'classnames';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
+import { CardSalesHistory } from 'components/ItemCard/components';
+
 import { GotchiverseUtils } from 'utils';
 
-import { CardSalesHistory } from 'components/ItemCard/components';
+import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
+import { FlipButton } from './FlipButton/FlipButton';
+import { GotchiBadges } from './GotchiBadges/GotchiBadges';
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
-import { GotchiOwner } from './GotchiOwner/GotchiOwner';
-import { GotchiName } from './GotchiName/GotchiName';
+import { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
 import { GotchiImage } from './GotchiImage/GotchiImage';
-import { GotchiRewards } from './GotchiRewards/GotchiRewards';
-import { GotchiLevel } from './GotchiLevel/GotchiLevel';
-import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
-import { GotchiTraits } from './GotchiTraits/GotchiTraits';
-import { GotchiWearablesLine } from './GotchiWearablesLine/GotchiWearablesLine';
-import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
 import { GotchiLendingStats } from './GotchiLendingStats/GotchiLendingStats';
+import { GotchiLevel } from './GotchiLevel/GotchiLevel';
+import { GotchiName } from './GotchiName/GotchiName';
+import { GotchiOwner } from './GotchiOwner/GotchiOwner';
 import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
-import { GotchiBadges } from './GotchiBadges/GotchiBadges';
+import { GotchiRs } from './GotchiRs/GotchiRs';
+import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
+import { GotchiTraits } from './GotchiTraits/GotchiTraits';
+import { GotchiWearablesLine } from './GotchiWearablesLine/GotchiWearablesLine';
 import { GuildIcon } from './GuildIcon/GuildIcon';
-import { ERC721Listing } from '../Items/ERC721Listing/ERC721Listing';
-import { FlipButton } from './FlipButton/FlipButton';
 import { WhitelistId } from './WhitelistId/WhitelistId';
-import { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
-
 import { styles } from './styles';
 
 interface GotchiProps {
@@ -184,10 +183,6 @@ export function Gotchi({
           }}
         />
       );
-    },
-
-    get rewards() {
-      return <GotchiRewards gotchi={gotchi} key={`${gotchi.id}-rewards`} />;
     },
 
     get flipButton() {

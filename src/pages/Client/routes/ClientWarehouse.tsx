@@ -1,13 +1,20 @@
-import { useCallback, useContext, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import GrainIcon from '@mui/icons-material/Grain';
+import { useCallback, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import GrainIcon from '@mui/icons-material/Grain';
 
 import qs from 'query-string';
 
+// store
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { Erc1155Categories } from 'shared/constants';
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
-import { ItemCard } from 'components/ItemCard/containers';
+import { CustomParsedQuery, SortingItem, SortingListItem } from 'shared/models';
+
+import { ContentInner } from 'components/Content/ContentInner';
+import { WarehouseIcon } from 'components/Icons/Icons';
 import {
   CardBalance,
   CardGroup,
@@ -18,13 +25,13 @@ import {
   CardStats,
   CardTotalPrice
 } from 'components/ItemCard/components';
-import { WarehouseIcon } from 'components/Icons/Icons';
-import { ContentInner } from 'components/Content/ContentInner';
+import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
-import { ClientContext } from 'contexts/ClientContext';
+
 import { CommonUtils, ItemUtils } from 'utils';
 
+import { Warehouse } from '../models';
 import { warehouseStyles } from '../styles';
 
 const sortings: SortingListItem[] = [
@@ -52,34 +59,32 @@ export function ClientWarehouse() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const {
-    warehouse,
-    setWarehouse,
-    warehouseSorting,
-    setWarehouseSorting,
-    loadingGotchis,
-    loadingWarehouse
-  } = useContext<any>(ClientContext);
+  const dispatch = useAppDispatch();
+
+  const warehouse: Warehouse[] = useAppSelector(fromClientStore.getWarehouse);
+  const isInitialWarehouseLoading: boolean = useAppSelector(fromClientStore.getIsInitialWarehouseLoading);
+  const warehouseSorting: SortingItem = useAppSelector(fromClientStore.getWarehouseSorting);
+  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialOwnedGotchisLoading);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find(sorting => sorting.paramKey === sort)?.key;
+      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
-      setWarehouseSorting({ type: key, dir });
+      dispatch(fromClientStore.setWarehouseSorting({ type: key, dir }));
     }
   }, []);
 
   useEffect(() => {
-    const sortedItems: any[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
+    const sortedItems: Warehouse[] = CommonUtils.basicSort(warehouse, warehouseSorting.type, warehouseSorting.dir);
 
-    setWarehouse([...sortedItems]);
-  }, [loadingWarehouse, warehouseSorting]);
+    dispatch(fromClientStore.setWarehouseItems([...sortedItems]));
+  }, [isInitialWarehouseLoading, warehouseSorting]);
 
   const updateSortQueryParams = useCallback(
     (prop: string, dir: string) => {
-      const paramKey = sortings.find(sorting => sorting.key === prop)?.paramKey;
+      const paramKey = sortings.find((sorting) => sorting.key === prop)?.paramKey;
 
       navigate({
         pathname: location.pathname,
@@ -95,13 +100,10 @@ export function ClientWarehouse() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSortingChange = useCallback(
-    (prop: string, dir: string) => {
-      setWarehouseSorting({ type: prop, dir });
-      updateSortQueryParams(prop, dir);
-    },
-    [setWarehouseSorting, updateSortQueryParams]
-  );
+  const onSortingChange = (prop: string, dir: string) => {
+    dispatch(fromClientStore.setWarehouseSorting({ type: prop, dir }));
+    updateSortQueryParams(prop, dir);
+  };
 
   const sorting: any = {
     sortingList: sortings,
@@ -124,10 +126,10 @@ export function ClientWarehouse() {
         placeholder={<WarehouseIcon width={20} height={20} />}
       />
 
-      <ContentInner dataLoading={loadingWarehouse || loadingGotchis}>
+      <ContentInner dataLoading={isInitialWarehouseLoading || isInitialOwnedGotchisLoading}>
         <ItemsLazy
           items={warehouse}
-          component={(wearable: any) => (
+          component={(wearable: Warehouse) => (
             <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
               <CardGroup name='header'>
                 <CardSlot id={wearable.id} />

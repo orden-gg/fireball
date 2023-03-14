@@ -1,10 +1,12 @@
-import { Link } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Link } from '@mui/material';
+
+import { EthersApi } from 'api';
 
 import { GhstTokenIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { EthersApi } from 'api';
+
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
@@ -61,7 +63,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                 target='_blank'
                 underline='none'
                 className={classes.listingLink}
-                onClick={event => event.stopPropagation()}
+                onClick={(event) => event.stopPropagation()}
               >
                 {!lastPrice ? (
                   <p>{CommonUtils.formatPrice(currentPrice)}</p>

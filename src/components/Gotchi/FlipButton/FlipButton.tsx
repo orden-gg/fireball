@@ -1,5 +1,5 @@
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { FiregemIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
@@ -13,7 +13,7 @@ export function FlipButton({
   return (
     <CustomTooltip title='show stats' enterTouchDelay={0} placement='top' followCursor>
       <div className={classes.flipButtonWrapper}>
-        <button onClick={event => onFlipCard(event)} className={classes.flipButton}>
+        <button onClick={(event) => onFlipCard(event)} className={classes.flipButton}>
           <FiregemIcon className={classes.flipButtonIcon} width={15} height={15} />
         </button>
       </div>

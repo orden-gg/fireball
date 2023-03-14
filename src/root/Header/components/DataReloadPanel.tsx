@@ -1,21 +1,26 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Backdrop, Button, Divider, MenuItem, Select, Typography } from '@mui/material';
+
 import UpdateIcon from '@mui/icons-material/Update';
+import { Backdrop, Button, Divider, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 
 import classNames from 'classnames';
+
+// store
+import * as fromDataReloadStore from 'core/store/data-reload';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 import {
   CountdownFormatNonZeroType,
   CountdownFormatZeroType,
-  DataReloadType,
-  DATA_RELOAD_INTERVALS
+  DATA_RELOAD_INTERVALS,
+  DataReloadType
 } from 'shared/constants';
-import { DataReloadContextState, CountdownShortFormat } from 'shared/models';
+import { CountdownShortFormat } from 'shared/models';
+
 import { Countdown } from 'components/Countdown/Countdown';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { DataReloadContext } from 'contexts/DataReloadContext';
 import { ReloadIcon } from 'components/Icons/Icons';
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { dataReloadStyles } from '../styles';
 
@@ -36,21 +41,21 @@ export function DataReloadPanel() {
   const { pathname } = useLocation();
   const currentRoute: string = pathname.split('/')[1];
 
-  const {
-    lastUpdated,
-    setLastManuallyUpdated,
-    reloadInterval,
-    setReloadInterval,
-    reloadIntervalCountdown,
-    isReloadDisabled
-  } = useContext<DataReloadContextState>(DataReloadContext);
+  const dispatch = useAppDispatch();
+
+  const lastUpdatedTimestamp: number = useAppSelector(fromDataReloadStore.getLastUpdatedTimestamp);
+  const reloadInterval: number = useAppSelector(fromDataReloadStore.getReloadInterval);
+  const reloadIntervalCountdown: number = useAppSelector(fromDataReloadStore.getReloadIntervalCountdown);
+  const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const [interval, setInterval] = useState<number | string>(reloadInterval || DATA_RELOAD_INTERVALS.FiveMins);
+  const [dateReloadInterval, setDataReloadInterval] = useState<number>(
+    reloadInterval || DATA_RELOAD_INTERVALS.FiveMins
+  );
 
   const onHandleDataReload = (path: string): void => {
     if (Object.values(DataReloadType).includes(path as DataReloadType)) {
-      setLastManuallyUpdated(Date.now());
+      dispatch(fromDataReloadStore.setLastManuallyTriggeredTimestamp(Date.now()));
     }
   };
 
@@ -58,28 +63,28 @@ export function DataReloadPanel() {
     setIsDropdownOpen(!isOpen);
   };
 
-  const onHandleIntervalChange = (event: any): void => {
-    setInterval(event.target.value);
+  const onHandleIntervalChange = (event: SelectChangeEvent<string | number>): void => {
+    setDataReloadInterval(Number(event.target.value));
   };
 
   const onActivateLiveReload = (interval: number | string): void => {
-    setReloadInterval(Number(interval));
+    dispatch(fromDataReloadStore.onSetReloadInterval(Number(interval)));
     setIsDropdownOpen(false);
   };
 
   const onDeactivateLiveReload = (): void => {
-    setReloadInterval(0);
+    dispatch(fromDataReloadStore.onSetReloadInterval(0));
     setIsDropdownOpen(false);
   };
 
   const getReloadTooltip = useCallback(
-    (lastUpdated: number): JSX.Element => {
+    (lastUpdatedTimestamp: number): JSX.Element => {
       let countdownText: JSX.Element;
 
-      if (lastUpdated === 0) {
+      if (lastUpdatedTimestamp === 0) {
         countdownText = <span>fetching...</span>;
       } else {
-        countdownText = <Countdown shortFormat={countdownFormat} targetDate={lastUpdated} />;
+        countdownText = <Countdown shortFormat={countdownFormat} targetDate={lastUpdatedTimestamp} />;
       }
 
       return (
@@ -91,7 +96,7 @@ export function DataReloadPanel() {
         </div>
       );
     },
-    [lastUpdated]
+    [lastUpdatedTimestamp]
   );
 
   const getLiveReloadCountdown = (intervalCountdown: number): JSX.Element => {
@@ -129,7 +134,12 @@ export function DataReloadPanel() {
   return (
     <div className={classes.dataReloadWrapper}>
       <div className={classNames(classes.topButtonsGroup, isDropdownOpen && 'opened')}>
-        <CustomTooltip title={getReloadTooltip(lastUpdated)} enterTouchDelay={0} placement='bottom' arrow={true}>
+        <CustomTooltip
+          title={getReloadTooltip(lastUpdatedTimestamp)}
+          enterTouchDelay={0}
+          placement='bottom'
+          arrow={true}
+        >
           <span>
             <Button
               disabled={isReloadDisabled}
@@ -163,7 +173,7 @@ export function DataReloadPanel() {
             <Select
               labelId='demo-simple-select-label'
               id='demo-simple-select'
-              value={interval}
+              value={dateReloadInterval}
               displayEmpty
               onChange={onHandleIntervalChange}
               size='small'
@@ -190,8 +200,8 @@ export function DataReloadPanel() {
               variant='contained'
               color='secondary'
               size='small'
-              disabled={!interval || isReloadDisabled}
-              onClick={() => onActivateLiveReload(interval)}
+              disabled={!dateReloadInterval || isReloadDisabled}
+              onClick={() => onActivateLiveReload(dateReloadInterval)}
               className={classes.dropdownButton}
             >
               Activate

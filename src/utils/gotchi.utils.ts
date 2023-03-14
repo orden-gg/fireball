@@ -1,6 +1,8 @@
-import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
-import { GotchiAgingModel, CollateralData, Gotchi, GotchiInventory } from 'shared/models';
 import { EthersApi } from 'api';
+
+import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
+import { CollateralData, Gotchi, GotchiAgingModel, GotchiInventory } from 'shared/models';
+
 import { collaterals } from 'data/collaterals.data';
 
 export class GotchiUtils {

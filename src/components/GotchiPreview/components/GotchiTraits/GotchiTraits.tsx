@@ -2,10 +2,13 @@ import InfoIcon from '@mui/icons-material/Info';
 
 import classNames from 'classnames';
 
-import { TraitsEffectsTypes, TRAITS_KEYS } from 'shared/constants';
+import { TRAITS_KEYS, TraitsEffectsTypes } from 'shared/constants';
 import { TraitsDefinition, TraitsEffect } from 'shared/models';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils, GotchiUtils, ItemUtils } from 'utils';
+
 import { traitsDefinitions, traitsEffects } from 'data/traits.data';
 
 import { styles } from './styles';

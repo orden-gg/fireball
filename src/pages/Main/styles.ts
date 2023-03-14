@@ -1,7 +1,8 @@
-import { createStyles, makeStyles } from '@mui/styles';
 import { alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import { MAX_GOTCHIS_IN_ROW } from 'shared/constants';
+
 import bg from 'assets/images/bgs/cover.jpg';
 
 export const styles = makeStyles(() =>
@@ -12,7 +13,7 @@ export const styles = makeStyles(() =>
   })
 );
 
-export const aboutStyles = makeStyles(theme =>
+export const aboutStyles = makeStyles((theme) =>
   createStyles({
     aboutButton: {
       position: 'absolute',
@@ -92,7 +93,7 @@ export const aboutStyles = makeStyles(theme =>
   })
 );
 
-export const bgStyles = makeStyles(theme =>
+export const bgStyles = makeStyles((theme) =>
   createStyles({
     homeBg: {
       position: 'relative',
@@ -107,7 +108,7 @@ export const bgStyles = makeStyles(theme =>
   })
 );
 
-export const teamStyles = makeStyles(theme =>
+export const teamStyles = makeStyles((theme) =>
   createStyles({
     gotchisWrapper: {
       display: 'grid',

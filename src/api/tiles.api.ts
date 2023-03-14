@@ -1,15 +1,17 @@
 import { ethers } from 'ethers';
 import _ from 'lodash';
 
-import { TILES_CONTRACT, TileTypes } from 'shared/constants';
-import TILES_ABI from 'data/abi/tiles.abi.json';
-
 import { EthersApi } from './ethers.api';
+
+import { TILES_CONTRACT, TileTypes } from 'shared/constants';
+import { TilesBalances } from 'shared/models';
+
+import TILES_ABI from 'data/abi/tiles.abi.json';
 
 const tilesContract = EthersApi.makeContract(TILES_CONTRACT, TILES_ABI, 'polygon');
 
 export class TilesApi {
-  public static getTilesByAddress(address: any): any {
+  public static getTilesByAddress(address: string): Promise<TilesBalances[]> {
     return tilesContract.tilesBalances(address);
   }
 
@@ -31,13 +33,13 @@ export class TilesApi {
         response.forEach(
           (tile, index) =>
             // ! Modify BigNumber`s => number`s
-            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map(alchemica => {
+            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map((alchemica) => {
               return parseInt(ethers.utils.formatUnits(alchemica));
             }))
         );
 
         return modified;
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 }

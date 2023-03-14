@@ -98,84 +98,107 @@ export const gotchiByIdBatchQuery = (id: number): string => {
 
 export const userQuery = (id: any, skip: any): any => {
   return `{
-        user(id: "${id}") {
-          id
-          gotchisOriginalOwned(first: 1000, skip: ${skip}, where: {status: 3}) {
-            id
-            name
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            baseRarityScore
-            modifiedRarityScore
-            withSetsRarityScore
-            kinship
-            equippedWearables
-            experience
-            level
-            toNextLevel
-            collateral
-            hauntId
-            createdAt
-            possibleSets
-            equippedSetID
-            equippedSetName
-            usedSkillPoints
-            timesTraded
-            stakedAmount
-            listings(where:{cancelled: false, timePurchased: 0}) {
-              id
-              priceInWei
-            }
-            historicalPrices
-            owner {
-              id
-            }
-            lending
-          }
+    user(id: "${id}") {
+      id
+      gotchisOriginalOwned(
+        first: 1000
+        skip: ${skip}
+        where: {
+          status: 3
         }
-    }`;
+      ) {
+        id
+        name
+        numericTraits
+        modifiedNumericTraits
+        withSetsNumericTraits
+        baseRarityScore
+        modifiedRarityScore
+        withSetsRarityScore
+        kinship
+        equippedWearables
+        experience
+        level
+        toNextLevel
+        collateral
+        hauntId
+        createdAt
+        possibleSets
+        equippedSetID
+        equippedSetName
+        usedSkillPoints
+        timesTraded
+        stakedAmount
+        listings(
+          where: {
+            cancelled: false
+            timePurchased: 0
+          }
+        ) {
+          id
+          priceInWei
+        }
+        historicalPrices
+        owner {
+          id
+        }
+        lending
+      }
+    }
+  }`;
 };
 
 export const userOwnedGotchisQuery = (address: string, skip: number): string => {
   return `{
-        user(id: "${address}") {
-          id
-          gotchisOwned(first: 1000, skip: ${skip}, where: {status: 3, originalOwner: null}) {
-            id
-            name
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            baseRarityScore
-            modifiedRarityScore
-            withSetsRarityScore
-            kinship
-            equippedWearables
-            experience
-            level
-            toNextLevel
-            collateral
-            hauntId
-            createdAt
-            possibleSets
-            equippedSetID
-            equippedSetName
-            usedSkillPoints
-            timesTraded
-            stakedAmount
-            listings(where:{cancelled: false, timePurchased: 0}) {
-              id
-              priceInWei
-            }
-            historicalPrices
-            owner {
-              id
-            }
-            lending
-          }
+    user(id: "${address}") {
+      id
+      gotchisOwned(
+        first: 1000
+        skip: ${skip}
+        where: {
+          status: 3
+          originalOwner: null
         }
-    }`;
+      ) {
+        id
+        name
+        numericTraits
+        modifiedNumericTraits
+        withSetsNumericTraits
+        baseRarityScore
+        modifiedRarityScore
+        withSetsRarityScore
+        kinship
+        equippedWearables
+        experience
+        level
+        toNextLevel
+        collateral
+        hauntId
+        createdAt
+        possibleSets
+        equippedSetID
+        equippedSetName
+        usedSkillPoints
+        timesTraded
+        stakedAmount
+        listings(
+          where: {
+            cancelled: false
+            timePurchased: 0
+          }
+        ) {
+          id
+          priceInWei
+        }
+        historicalPrices
+        owner {
+          id
+        }
+        lending
+      }
+    }
+  }`;
 };
 
 export const svgQuery = (id: any): any => {
@@ -235,183 +258,49 @@ export const erc1155ListingsBatchQuery = (
     `;
 };
 
-export const erc721ListingsBySeller = (seller: any): any => {
-  return `{
-        erc721Listings(
-            where: {
-                seller: "${seller}",
-                cancelled: false,
-                timePurchased: 0
-            }
-        )
-        {
-            id
-            tokenId
-            category
-            priceInWei
-            gotchi {
-                id
-                name
-                numericTraits
-                modifiedNumericTraits
-                withSetsNumericTraits
-                baseRarityScore
-                modifiedRarityScore
-                withSetsRarityScore
-                kinship
-                toNextLevel
-                level
-                experience
-                equippedWearables
-                collateral
-                hauntId
-                createdAt
-                possibleSets
-                equippedSetID
-                equippedSetName
-                usedSkillPoints
-                listings(where: { cancelled: false, timePurchased: 0 }) {
-                    id
-                    priceInWei
-                }
-                historicalPrices
-                owner {
-                    id
-                }
-            }
-            portal {
-                hauntId
-                historicalPrices
-                activeListing
-            }
-        }
-    }`;
-};
-
-// TODO should be removed after full integration of fireball gotchiverse graph.
-export const realmListingsBySeller = (seller: string): string => {
-  return `{
-        erc721Listings(
-            where: {
-                seller: "${seller}",
-                cancelled: false,
-                timePurchased: 0,
-                category: 4
-            }
-        )
-        {
-            id
-            tokenId
-            category
-            priceInWei
-            parcel {
-                id
-                parcelId
-                parcelHash
-                coordinateX
-                coordinateY
-                district
-                fudBoost
-                fomoBoost
-                alphaBoost
-                kekBoost
-                size
-                auctionId
-                historicalPrices
-                owner {
-                    id
-                }
-                alchemica
-                surveys {
-                    id
-                    surveyed
-                    parcel
-                    round
-                    fud
-                    fomo
-                    alpha
-                    kek
-                }
-                installations {
-                    id
-                    installationId
-                    x
-                    y
-                }
-                tiles {
-                    id
-                    tileId
-                    x
-                    y
-                }
-            }
-        }
-    }`;
-};
-
-export const erc1155ListingsBySeller = (seller: any): any => {
-  return `{
-        erc1155Listings(
-            where: {
-                seller: "${seller}",
-                cancelled: false,
-                timeLastPurchased: 0
-            }
-        )
-        {
-            id
-            erc1155TypeId
-            category
-            quantity
-            priceInWei
-            rarityLevel
-        }
-    }`;
-};
-
 export const realmQuery = (address: any, skip: any): any => {
   return `{
-      parcels(first: 1000, skip: ${skip}, where: { owner: "${address}" }) {
-        id
-        parcelId
-        owner {
-          id
-        }
-        coordinateX
-        coordinateY
-        size
-        district
-        parcelHash
-        lastChanneled
-        lastClaimed
-        fudBoost
-        fomoBoost
-        alphaBoost
-        kekBoost
-        alchemica
-        surveys {
-            id
-            surveyed
-            round
-            fud
-            fomo
-            alpha
-            kek
-        }
-        installations(first: 1000) {
-            id
-            installationId
-            x
-            y
-        }
-        tiles(first: 1000) {
-            id
-            tileId
-            x
-            y
-        }
+    parcels(
+      first: 1000,
+      skip: ${skip}
+      where: {
+        owner: "${address}"
       }
-    }`;
+    ) {
+      id
+      parcelId
+      coordinateX
+      coordinateY
+      size
+      district
+      parcelHash
+      lastChanneled
+      lastClaimed
+      fudBoost
+      fomoBoost
+      alphaBoost
+      kekBoost
+      alchemica
+      surveys {
+        id
+        surveyed
+        round
+        fud
+        fomo
+        alpha
+        kek
+      }
+      installations(first: 1000) {
+        installationId
+      }
+      tiles(first: 1000) {
+        tileId
+      }
+      owner {
+        id
+      }
+    }
+  }`;
 };
 
 export const realmQueryByDistrict = (skip: any, district: any): any => {
@@ -698,113 +587,111 @@ export const lendingsQuery = (skip: any, orderDir: any): any => {
 
 export const lendingsByAddressQuery = (address: any, skip: any): any => {
   return `{
-      gotchiLendings(
-        first: 1000,
-        skip: ${skip},
-        where:{
-            lender: "${address}",
-            borrower_not: "0x0000000000000000000000000000000000000000",
-            cancelled: false,
-            completed: false
-        }
-      ) {
-        id
-        timeCreated
-        timeAgreed
-        rentDuration
-        upfrontCost
-        period
-        lastClaimed
-        completed
-        gotchi {
-            id
-            name
-            collateral
-            kinship
-            hauntId
-            baseRarityScore
-            modifiedRarityScore
-            escrow
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            withSetsRarityScore
-            equippedWearables
-            possibleSets
-            equippedSetID
-            equippedSetName
-            toNextLevel
-            level
-            timesTraded
-            stakedAmount
-            originalOwner {
-                id
-            }
-        }
-        lender
-        borrower
-        whitelistId
-        tokensToShare
-        splitOther
-        splitBorrower
-        splitOwner
+    gotchiLendings(
+      first: 1000,
+      skip: ${skip},
+      where:{
+        lender: "${address}",
+        borrower_not: "0x0000000000000000000000000000000000000000",
+        cancelled: false,
+        completed: false
       }
-    }`;
+    ) {
+      id
+      timeCreated
+      timeAgreed
+      rentDuration
+      upfrontCost
+      period
+      lastClaimed
+      completed
+      gotchi {
+        id
+        name
+        collateral
+        kinship
+        hauntId
+        baseRarityScore
+        modifiedRarityScore
+        numericTraits
+        modifiedNumericTraits
+        withSetsNumericTraits
+        withSetsRarityScore
+        equippedWearables
+        possibleSets
+        equippedSetID
+        equippedSetName
+        toNextLevel
+        level
+        timesTraded
+        stakedAmount
+        originalOwner {
+          id
+        }
+      }
+      lender
+      borrower
+      whitelistId
+      tokensToShare
+      splitOther
+      splitBorrower
+      splitOwner
+    }
+  }`;
 };
 
 export const borrowedByAddressQuery = (address: any, skip: any): any => {
   return `{
-      gotchiLendings(
-        first: 1000,
-        skip: ${skip},
-        where:{
-            borrower: "${address}",
-            cancelled: false,
-            completed: false
-        }
-      ) {
-        id
-        timeCreated
-        timeAgreed
-        rentDuration
-        upfrontCost
-        period
-        lastClaimed
-        completed
-        gotchi {
-            id
-            name
-            collateral
-            kinship
-            hauntId
-            baseRarityScore
-            modifiedRarityScore
-            escrow
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            withSetsRarityScore
-            equippedWearables
-            possibleSets
-            equippedSetID
-            equippedSetName
-            toNextLevel
-            level
-            timesTraded
-            stakedAmount
-            originalOwner {
-                id
-            }
-        }
-        lender
-        borrower
-        whitelistId
-        tokensToShare
-        splitOther
-        splitBorrower
-        splitOwner
+    gotchiLendings(
+      first: 1000,
+      skip: ${skip},
+      where:{
+        borrower: "${address}",
+        cancelled: false,
+        completed: false
       }
-    }`;
+    ) {
+      id
+      timeCreated
+      timeAgreed
+      rentDuration
+      upfrontCost
+      period
+      lastClaimed
+      completed
+      gotchi {
+        id
+        name
+        collateral
+        kinship
+        hauntId
+        baseRarityScore
+        modifiedRarityScore
+        numericTraits
+        modifiedNumericTraits
+        withSetsNumericTraits
+        withSetsRarityScore
+        equippedWearables
+        possibleSets
+        equippedSetID
+        equippedSetName
+        toNextLevel
+        level
+        timesTraded
+        stakedAmount
+        originalOwner {
+          id
+        }
+      }
+      lender
+      borrower
+      whitelistId
+      tokensToShare
+      splitOther
+      splitBorrower
+      splitOwner
+    }
+  }`;
 };
 
 // ! Gotchiverse queries
@@ -853,6 +740,19 @@ export const parcelsOwnerGotchiverseQuery = (owner: any): any => {
             upgradeQueueBoost
             deprecated
           }
+        }
+      }`;
+};
+
+export const portalsQueryByAddress = (owner: string): string => {
+  return `{
+        portals(
+            where: { owner: "${owner}" }
+        ) {
+          openedAt
+          hauntId
+          historicalPrices
+          id
         }
       }`;
 };

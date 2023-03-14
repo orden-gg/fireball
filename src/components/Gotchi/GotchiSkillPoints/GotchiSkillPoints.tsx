@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { MainApi } from 'api';
+
+import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { styles } from './styles';
 
@@ -23,7 +24,7 @@ export function GotchiSkillPoints({ id, usedPoints }: { id: string; usedPoints: 
           setLoadingPoints(false);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 

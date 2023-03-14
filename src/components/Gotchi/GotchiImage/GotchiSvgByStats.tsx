@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+
 import classNames from 'classnames';
 
 import { GotchiLoadingGif } from 'components/Icons/Icons';
@@ -53,7 +54,7 @@ export function GotchiSvgByStats({ gotchi, size }: GotchiSvgByStatsProps) {
           svgRef.current.appendChild(svgInner);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);

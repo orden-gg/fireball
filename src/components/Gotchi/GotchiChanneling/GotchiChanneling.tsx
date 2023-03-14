@@ -3,12 +3,14 @@ import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
+import { RealmApi } from 'api';
+
 import { CountdownFormatNonZeroType, DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'shared/constants';
 import { CountdownShortFormat } from 'shared/models';
-import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
+
 import { Countdown } from 'components/Countdown/Countdown';
+import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { RealmApi } from 'api';
 
 import { styles } from './styles';
 
@@ -56,7 +58,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     return dateDiff > DAY_MILLIS;
   };
 
-  const getUTCDayMilis = timestamp => {
+  const getUTCDayMilis = (timestamp) => {
     const utc = DateTime.fromMillis(timestamp).setZone('UTC');
     const hours = utc.hour * HOUR_MILLIS;
     const minutes = utc.minute * MINUTE_MILLIS;
@@ -65,7 +67,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     return hours + minutes + seconds;
   };
 
-  const chanelledBeforeCd = date => {
+  const chanelledBeforeCd = (date) => {
     if (moreThan24hours(date)) {
       return true;
     }

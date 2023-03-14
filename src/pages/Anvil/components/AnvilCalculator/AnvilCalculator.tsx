@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Checkbox, FormControlLabel } from '@mui/material';
+
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
+import { AnvilCalculatorOptions, AnvilItem } from '../../models';
 import { AnvilButton } from '../AnvilButton/AnvilButton';
 import { AnvilSection } from '../AnvilSection/AnvilSection';
 import { AnvilSummary } from '../AnvilSummary/AnvilSummary';
-import { AnvilCalculatorOptions, AnvilItem } from '../../models';
-
 import { styles } from './styles';
 
 const defaultOptions: AnvilCalculatorOptions = {
@@ -22,16 +22,14 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
   const [from, setFrom] = useState<number>(0);
   const [to, setTo] = useState<number>(anvil.levels.length - 1);
 
-  const [options, setOptions]: [
-    AnvilCalculatorOptions,
-    Dispatch<SetStateAction<AnvilCalculatorOptions>>
-  ] = useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
+  const [options, setOptions]: [AnvilCalculatorOptions, Dispatch<SetStateAction<AnvilCalculatorOptions>>] =
+    useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
 
   if (!anvil) {
     return null;
   }
 
-  const handleFrom = event => {
+  const handleFrom = (event) => {
     const state = event.currentTarget.innerText;
 
     if (!state) {
@@ -41,7 +39,7 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
     setFrom(state === '+' ? from + 1 : from - 1);
   };
 
-  const handleTo = event => {
+  const handleTo = (event) => {
     const state = event.currentTarget.innerText;
 
     if (!state) {

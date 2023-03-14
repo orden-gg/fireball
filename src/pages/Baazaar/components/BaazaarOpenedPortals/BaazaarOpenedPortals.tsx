@@ -1,27 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromBaazaarStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+
 import { CustomParsedQuery, GraphFiltersQueryParamTypes, SortingItem, SortingListItem } from 'shared/models';
+
 import { ContentInner } from 'components/Content/ContentInner';
 import { ContentWrapper } from 'components/Content/ContentWrapper';
-import { ItemsLazy } from 'components/Lazy/ItemsLazy';
+import { Filters } from 'components/Filters/components/Filters/Filters';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
-import { Filters } from 'components/Filters/components/Filters/Filters';
+import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
+
 import { FilterUtils } from 'utils';
 
 import { OpenedPortalListingFilters, OpenedPortalListingVM } from '../../models';
-import { openedPortalsListingsSortings } from '../../static/sortings';
 import { openedPortalListingsFilters } from '../../static/filters';
-
-import * as fromBaazaarStore from '../../store';
-
+import { openedPortalsListingsSortings } from '../../static/sortings';
 import { styles } from './styles';
 
 export function BaazaarOpenedPortals() {
@@ -29,9 +31,9 @@ export function BaazaarOpenedPortals() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = qs.parse(location.search, { arrayFormat: 'comma' }) as CustomParsedQuery<
-    GraphFiltersQueryParamTypes
-  >;
+  const queryParams = qs.parse(location.search, {
+    arrayFormat: 'comma'
+  }) as CustomParsedQuery<GraphFiltersQueryParamTypes>;
 
   const dispatch = useAppDispatch();
   const initialOpenedPortalsListings: OpenedPortalListingVM[] = useAppSelector(
@@ -92,7 +94,7 @@ export function BaazaarOpenedPortals() {
     let params: CustomParsedQuery<GraphFiltersQueryParamTypes> = { ...queryParams };
 
     const paramKey: Undefinable<string> = openedPortalsListingsSortings.find(
-      sorting => sorting.key === openedPortalsListingsSorting.type
+      (sorting) => sorting.key === openedPortalsListingsSorting.type
     )?.paramKey;
 
     if (paramKey) {

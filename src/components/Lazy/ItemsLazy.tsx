@@ -1,7 +1,7 @@
 import { useRef } from 'react';
-import styled from '@emotion/styled';
-
 import { VirtuosoGrid } from 'react-virtuoso';
+
+import styled from '@emotion/styled';
 
 const ListContainer = styled.div`
   display: grid;
@@ -65,8 +65,8 @@ export function ItemsLazy({ items, component, onHandleReachedEnd }: ItemsLazyPro
       components={{
         List: ListContainer as any
       }}
-      itemContent={index => component(items[index])}
-      endReached={index => onEndReached(index)}
+      itemContent={(index) => component(items[index])}
+      endReached={(index) => onEndReached(index)}
     />
   );
 }

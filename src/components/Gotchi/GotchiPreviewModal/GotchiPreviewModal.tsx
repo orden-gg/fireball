@@ -1,11 +1,17 @@
 import { useEffect, useState } from 'react';
+
 import { CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+import { EthersApi, TheGraphApi } from 'api';
+
 import { Erc721Categories } from 'shared/constants';
 import { SalesHistoryModel } from 'shared/models';
+
+import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -18,8 +24,6 @@ import {
   IdentityList,
   IdentityTooltip
 } from 'components/GotchiPreview/components';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import {
   HistoryHead,
@@ -28,8 +32,8 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-import { EthAddress } from 'components/EthAddress/EthAddress';
-import { EthersApi, TheGraphApi } from 'api';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+
 import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
@@ -59,14 +63,14 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
           setGotchiInventory(sortedInventory);
           setModalGotchi(gotchi);
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setIsGotchiLoading(false));
 
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {
           setSalesHistory(response);
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.log(error))
         .finally(() => setHistoryLoaded(true));
     }
   }, []);

@@ -19,7 +19,7 @@ const keyframes = {
   }
 };
 
-export const styles = makeStyles(theme =>
+export const styles = makeStyles((theme) =>
   createStyles({
     guildsWrapper: {
       position: 'relative',
@@ -200,7 +200,7 @@ export const guildWearables = makeStyles(() =>
   })
 );
 
-export const guildStyles = makeStyles(theme =>
+export const guildStyles = makeStyles((theme) =>
   createStyles({
     guildWrapper: {
       position: 'relative',
@@ -267,7 +267,7 @@ export const guildStyles = makeStyles(theme =>
   })
 );
 
-export const guildBanner = makeStyles(theme =>
+export const guildBanner = makeStyles((theme) =>
   createStyles({
     guildBanner: {
       minHeight: '30%',
@@ -374,7 +374,7 @@ export const guildBanner = makeStyles(theme =>
   })
 );
 
-export const guildSocialsStyles = makeStyles(theme =>
+export const guildSocialsStyles = makeStyles((theme) =>
   createStyles({
     guildSocials: {
       position: 'absolute',
@@ -406,7 +406,7 @@ export const guildSocialsStyles = makeStyles(theme =>
   })
 );
 
-export const guildDetailsStyles = makeStyles(theme =>
+export const guildDetailsStyles = makeStyles((theme) =>
   createStyles({
     detailsButton: {
       [theme.breakpoints.down('sm')]: {
@@ -517,7 +517,7 @@ export const guildDetailsStyles = makeStyles(theme =>
   })
 );
 
-export const guildContentStyles = makeStyles(theme =>
+export const guildContentStyles = makeStyles((theme) =>
   createStyles({
     guildGotchis: {
       height: '100%',
@@ -588,7 +588,7 @@ export const guildContentStyles = makeStyles(theme =>
   })
 );
 
-export const guildNavStyles = makeStyles(theme =>
+export const guildNavStyles = makeStyles((theme) =>
   createStyles({
     guildNav: {
       display: 'flex',

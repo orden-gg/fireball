@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link } from '@mui/material';
+
 import CallMadeIcon from '@mui/icons-material/CallMade';
+import { Link } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { AUTOPET_CONTRACT } from 'shared/constants/api.constants';
-import { GhstTokenGif } from 'components/Icons/Icons';
 import { AutopetApi, TheGraphApi } from 'api';
+import { AUTOPET_CONTRACT } from 'shared/constants/api.constants';
+
+import { GhstTokenGif } from 'components/Icons/Icons';
+
 import { CommonUtils } from 'utils';
 
-import { AutopetInfoCard } from './AutopetInfoCard';
 import { infoStyles } from '../../styles';
+import { AutopetInfoCard } from './AutopetInfoCard';
 
 export function AutopetInfo() {
   const classes = infoStyles();

@@ -160,10 +160,7 @@ export class CommonUtils {
   }
 
   public static stringToKey(string: any, divider: string = ''): any {
-    return string
-      .replace(/’| /g, divider)
-      .replace(/ /g, divider)
-      .toLowerCase();
+    return string.replace(/’| /g, divider).replace(/ /g, divider).toLowerCase();
   }
 
   public static isEmptyObject(obj: any): any {

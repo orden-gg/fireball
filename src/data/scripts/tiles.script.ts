@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 // @ts-ignore
 import { TILES_CONTRACT } from '../../shared/constants/api.constants.ts';
+
 // @ts-ignore
 import { TileTypes } from '../../shared/constants/enums/enums.ts';
 
@@ -25,7 +26,7 @@ tilesContract
 
     res.forEach((tile, index) => {
       // ! Modify BigNumber`s => number`s
-      modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map(alchemica => {
+      modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map((alchemica) => {
         return parseInt(ethers.utils.formatUnits(alchemica));
       });
     });
@@ -34,4 +35,4 @@ tilesContract
 
     console.log(`✅ successfully recorded ${modified.length} tiles ✅`);
   })
-  .catch(error => console.log('❌', error, '❌'));
+  .catch((error) => console.log('❌', error, '❌'));

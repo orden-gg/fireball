@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { Button } from '@mui/material';
 
-import _ from 'lodash';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import { styles } from './styles';
 
@@ -32,7 +33,7 @@ export function MultiButtonSelectionFilter({
 
       setItems(itemsCopy);
 
-      const selectedItems: any[] = itemsCopy.filter(item => item.isSelected);
+      const selectedItems: any[] = itemsCopy.filter((item) => item.isSelected);
 
       onSetSelectedFilters(filter.key, selectedItems);
     },

@@ -2,8 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
-import { Erc1155Categories, Erc721Categories } from 'shared/constants';
-import { ItemCard } from 'components/ItemCard/containers';
+import { Erc721Categories, Erc1155Categories } from 'shared/constants';
+
 import {
   CardBalance,
   CardGroup,
@@ -15,13 +15,14 @@ import {
   CardStats,
   CardTotalPrice
 } from 'components/ItemCard/components';
+import { ItemCard } from 'components/ItemCard/containers';
 import { ParcelGeneric } from 'components/Items/Parcel/ParcelGeneric';
 import { RealmGeneric } from 'components/Items/Parcel/RealmGeneric';
+
 import { InstallationsUtils, ItemUtils } from 'utils';
 
-import { RaffleItemChance } from './RaffleItemChance';
-
 import { itemsStyles } from '../styles';
+import { RaffleItemChance } from './RaffleItemChance';
 
 interface RaffleItemsProps {
   tickets: any;
@@ -83,7 +84,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
       case 'wearables':
         return (
           <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getRarityNameById(item.id)}>
-            <CardGroup name='headerBetween'>
+            <CardGroup name='header'>
               <CardSlot id={item.id} />
               <CardTotalPrice balance={item.quantity} priceInWei={item.priceInWei} />
               <CardBalance balance={item.quantity} />

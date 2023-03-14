@@ -1,4 +1,5 @@
 import { CollateralData } from 'shared/models';
+
 import { collaterals } from 'data/collaterals.data';
 import { tokens } from 'data/tokens.data';
 
@@ -51,7 +52,7 @@ export class GraphUtils {
   }
 
   public static getTokenName(address: any): any {
-    const index = tokens.findIndex(coll => coll.address.toLowerCase() === address.toLowerCase());
+    const index = tokens.findIndex((coll) => coll.address.toLowerCase() === address.toLowerCase());
 
     return tokens[index]?.name;
   }
