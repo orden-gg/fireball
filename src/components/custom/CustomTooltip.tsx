@@ -1,4 +1,5 @@
 import { Tooltip, styled, tooltipClasses } from '@mui/material';
+
 export interface CustomTooltipProps {
   children: JSX.Element;
   title: string | JSX.Element;
@@ -23,17 +24,9 @@ export interface CustomTooltipProps {
   open?: boolean;
 }
 
-const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => {
-  const onTooltipClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>): void => {
-    event.stopPropagation();
-  };
-
-  return (
-    <div onClick={(event) => onTooltipClick(event)} style={{ display: 'contents' }}>
-      <Tooltip {...props} classes={{ popper: className }} />
-    </div>
-  );
-})(({ theme }) => ({
+const StyledTooltip = styled(({ className, ...props }: CustomTooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
     color: theme.palette.secondary.dark
   },
