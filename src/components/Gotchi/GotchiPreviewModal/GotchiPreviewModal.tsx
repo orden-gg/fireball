@@ -38,7 +38,7 @@ import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: GotchiExtended }) {
   const classes = gotchiPreviewModalStyles();
 
   const [modalGotchi, setModalGotchi] = useState<GotchiExtended | null>(null);
@@ -102,7 +102,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                     value={parseFloat(
                       GotchiUtils.getStakedAmount(
                         modalGotchi.collateral,
-                        modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
+                        modalGotchi.stakedAmount ? Number(modalGotchi.stakedAmount) : 0
                       ).toPrecision(5)
                     )}
                   />

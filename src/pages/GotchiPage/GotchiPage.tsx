@@ -111,7 +111,7 @@ export function GotchiPage() {
                   <GotchiInfoItem
                     label='staked'
                     value={parseFloat(
-                      GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5)
+                      GotchiUtils.getStakedAmount(gotchi.collateral, Number(gotchi.stakedAmount)).toPrecision(5)
                     )}
                   />
                 </GotchiInfoList>

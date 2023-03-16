@@ -18,32 +18,32 @@ export interface FBGotchi {
 }
 
 export interface Gotchi {
-  id: number;
+  id: string;
   name: string;
+  owner: { id: string };
+  originalOwner: { id: string };
+  baseRarityScore: string;
   numericTraits: TraitModifiersTuple;
-  modifiedNumericTraits: number[];
-  equippedWearables: number[];
+  modifiedNumericTraits: TraitModifiersTuple;
+  modifiedRarityScore: string;
+  withSetsRarityScore: string;
+  kinship: string;
+  experience: string;
+  level: string;
+  toNextLevel: string;
   collateral: string;
-  owner: {
-    id: string;
-  };
-  originalOwner: {
-    id: string;
-  };
-  stakedAmount: number;
-  minimumStake: number;
-  kinship: number;
-  experience: number;
-  toNextLevel: number;
-  usedSkillPoints: number;
-  level: number;
-  hauntId: number;
-  baseRarityScore: number;
-  modifiedRarityScore: number;
-  inventory: GotchiInventory[];
-  timesTraded: string;
+  hauntId: string;
   createdAt: string;
+  possibleSets: string | null;
+  equippedWearables: number[]; // ?? tuple
+  equippedSetID: string | null;
+  equippedSetName: string | null;
+  usedSkillPoints: string;
+  timesTraded: string;
+  stakedAmount: string;
   listings: Erc721Listing[];
+  historicalPrices: string[];
+  lending: string | null;
 }
 
 export interface GotchiExtended extends FBGotchi, Gotchi {}

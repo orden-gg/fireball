@@ -1,7 +1,7 @@
 import { EthersApi } from 'api';
 
-import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
-import { CollateralData, Gotchi, GotchiAgingModel, GotchiInventory } from 'shared/models';
+import { ONE_MILLION, RarityTypes } from 'shared/constants';
+import { CollateralData, GotchiAgingModel } from 'shared/models';
 
 import { collaterals } from 'data/collaterals.data';
 
