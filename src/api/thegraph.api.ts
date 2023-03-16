@@ -5,11 +5,19 @@ import { EthersApi } from './ethers.api';
 import { TheGraphCoreApi } from './the-graph-core.api';
 
 import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
-import { Erc1155ListingsBatch, FBErc1155Item, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import {
+  Erc1155ListingsBatch,
+  FBErc1155Item,
+  FBGotchi,
+  Gotchi,
+  SalesHistoryModel,
+  TheGraphBatchData,
+  TheGraphResponse
+} from 'shared/models';
 
 import { ItemUtils } from 'utils';
 
-import { gotchiIdentityQuery, gotchiQuery, playerInventoryQuery } from './common/fb.main.queries';
+import { gotchiBatchQuery, gotchiQuery, playerInventoryQuery } from './common/fb.main.queries';
 import {
   activeListingQeury,
   auctionQuery,
@@ -221,7 +229,7 @@ export class TheGraphApi {
     });
   }
 
-  public static getGotchiesByIds(ids: number[]): Promise<CustomAny> {
+  public static getGotchiesByIds(ids: number[]): Promise<Gotchi[]> {
     const getQuery = (ids: number[]): string => {
       const queries: string[] = ids.map((id: number) => gotchiByIdBatchQuery(id));
 
@@ -638,21 +646,29 @@ export class TheGraphApi {
     );
   }
 
-  public static getFBIventoryByAddress(address: string): Promise<FBErc1155Item[]> {
+  public static getIventoryByAddress(address: string): Promise<FBErc1155Item[]> {
     return getGraphData(clientFactory.fireballMainClient, playerInventoryQuery(address)).then(
       (res: TheGraphResponse<{ player: { items: FBErc1155Item[] } }>) => res.data.player.items
     );
   }
 
-  public static getFBGotchiById(id: number): Promise<CustomAny> {
+  public static getFBGotchiById(id: number): Promise<FBGotchi> {
     return getGraphData(clientFactory.fireballMainClient, gotchiQuery(id)).then(
-      (res: TheGraphResponse<CustomAny>) => modifyTraits([res.data.gotchi])[0]
+      (res: TheGraphResponse<{ gotchi: FBGotchi }>) => modifyTraits([res.data.gotchi])[0]
     );
   }
 
-  public static getFBGotchiIdentityById(id: number): Promise<CustomAny> {
-    return getGraphData(clientFactory.fireballMainClient, gotchiIdentityQuery(id)).then(
-      (res: TheGraphResponse<CustomAny>) => modifyTraits([res.data.gotchi])[0]
+  public static getFBGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FBGotchi>[]> {
+    const getQuery = (ids: number[]): string => {
+      const queries: string[] = ids.map((id: number) => gotchiBatchQuery(id));
+
+      return `{${queries.join(',')}}`;
+    };
+
+    return TheGraphApi.getData(getQuery(ids), GRAPH_FIREBALL_MAIN_API).then(
+      (response: TheGraphResponse<TheGraphBatchData<FBGotchi>[]>) => {
+        return response.data;
+      }
     );
   }
 }

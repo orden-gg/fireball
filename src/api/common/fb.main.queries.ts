@@ -1,78 +1,52 @@
-const items: string = `
-  items {
-    equipped
-    amount
-    tokenId
-  }
-`;
+const items: string = `{
+  equipped
+  amount
+  tokenId
+}`;
 
-const identity: string = `
-  identity {
-    claimed {
-      gotchiId
-    }
-    unclaimed {
-      gotchiId
-    }
+const identity: string = `{
+  claimed {
+    gotchiId
   }
-`;
+  unclaimed {
+    gotchiId
+  }
+}`;
 
-export const gotchiIdentityQuery = (id: number): string => {
+const gotchi: string = `{
+  availableSkillPoints
+  badges
+  identity ${identity}
+}`;
+
+export const playerGotchisQuery = (address: string, skip: number): string => {
   return `{
-    gotchi(id: ${id}) {
-      ${identity}
+    player(id: "${address}") {
+      id
+      gotchisOriginalOwned(
+        first: 1000
+        skip: ${skip}
+      ) ${gotchi}
+    }
   }`;
 };
 
 export const gotchiQuery = (id: number): string => {
   return `{
-    gotchi(id: ${id}) {
-      id
-      badges
-      ${identity}
-      name
-      numericTraits
-      modifiedNumericTraits
-      withSetsNumericTraits
-      baseRarityScore
-      modifiedRarityScore
-      withSetsRarityScore
-      kinship
-      toNextLevel
-      level
-      experience
-      equippedWearables
-      collateral
-      hauntId
-      createdAt
-      possibleSets
-      equippedSetID
-      equippedSetName
-      usedSkillPoints
-      minimumStake
-      stakedAmount
-      timesTraded
-      originalOwner
-      listings(where:{cancelled: false, timePurchased: 0}) {
-          id
-          priceInWei
-      }
-      historicalPrices
-      owner {
-          id
-      }
-      originalOwner {
-          id
-      }
-      lending
-    }
+    gotchi(id: ${id}) ${gotchi}
   }`;
 };
 
 export const playerInventoryQuery = (address: string): string => {
   return `{
     player(id: "${address}") {
-      ${items}
+      items ${items}
     }
   }`;
+};
+
+export const gotchiBatchQuery = (id: number): string => {
+  return `
+    gotchi${id}: gotchi(id: ${id}) ${gotchi}
+  `;
 };

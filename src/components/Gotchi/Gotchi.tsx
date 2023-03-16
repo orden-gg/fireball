@@ -98,7 +98,7 @@ export function Gotchi({
     },
 
     get identity() {
-      return <GotchiIdentity id={gotchi.gotchiId} key={`${gotchi.id}-identity`} />;
+      return <GotchiIdentity identity={gotchi.identity} key={`${gotchi.id}-identity`} />;
     },
 
     get collateral() {

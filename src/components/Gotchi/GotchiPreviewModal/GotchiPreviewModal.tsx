@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { EthersApi, TheGraphApi } from 'api';
 
 import { Erc721Categories } from 'shared/constants';
-import { SalesHistoryModel } from 'shared/models';
+import { FBGotchi, Gotchi, GotchiExtended, SalesHistoryModel } from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
@@ -41,7 +41,7 @@ import { gotchiPreviewModalStyles } from './styles';
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
   const classes = gotchiPreviewModalStyles();
 
-  const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
+  const [modalGotchi, setModalGotchi] = useState<GotchiExtended | null>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
@@ -54,15 +54,20 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
       setSalesHistory([]);
       setIsGotchiLoading(false);
     } else {
-      // const responses = [TheGraphApi.getFBGotchiById(id), TheGraphApi.getGotchiById(id)];
-      TheGraphApi.getFBGotchiById(id)
-        .then((gotchi: CustomAny) => {
+      const responses: [Promise<Gotchi>, Promise<FBGotchi>] = [
+        TheGraphApi.getGotchiById(id),
+        TheGraphApi.getFBGotchiById(id)
+      ];
+
+      Promise.all(responses)
+        .then(([gotchi, FBGotchi]: [Gotchi, FBGotchi]) => {
+          const extendedGotchi: GotchiExtended = { ...gotchi, ...FBGotchi };
           const sortedInventory: number[] = gotchi.equippedWearables
-            .concat(gotchi.badges)
+            .concat(FBGotchi.badges)
             .filter((id: number) => id !== 0);
 
           setGotchiInventory(sortedInventory);
-          setModalGotchi(gotchi);
+          setModalGotchi(extendedGotchi);
         })
         .catch((error) => console.log(error));
 
@@ -122,7 +127,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                   modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
                 />
 
-                {(modalGotchi.originalOwner?.id || modalGotchi.owner?.id) && (
+                {modalGotchi.originalOwner?.id || modalGotchi.owner?.id ? (
                   <GotchiFooter>
                     <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>
                       MORE INFO
@@ -134,6 +139,8 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                       View at aavegotchi.com
                     </ViewInAppButton>
                   </GotchiFooter>
+                ) : (
+                  <></>
                 )}
               </GotchiContent>
             </GotchiPreview>
@@ -145,7 +152,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
             ) : (
               <></>
             )}
-            {modalGotchi?.timesTraded > 0 && (
+            {Number(modalGotchi?.timesTraded) > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
                 <HistoryHead className={classes.salesHeader}>

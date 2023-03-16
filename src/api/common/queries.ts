@@ -86,13 +86,13 @@ const aavegotchiProps: string = `{
 
 export const gotchiByIdQuery = (id: CustomAny): CustomAny => {
   return `{
-        aavegotchi(id: ${id}) ${aavegotchiProps}
-    }`;
+    aavegotchi(id: ${id}) ${aavegotchiProps}
+  }`;
 };
 
 export const gotchiByIdBatchQuery = (id: number): string => {
   return `
-    item${id}: aavegotchi(${id}) ${aavegotchiProps}
+    gotchi${id}: aavegotchi(id: ${id}) ${aavegotchiProps}
   `;
 };
 

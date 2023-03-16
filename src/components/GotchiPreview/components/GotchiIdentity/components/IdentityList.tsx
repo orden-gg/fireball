@@ -4,7 +4,7 @@ import { CircularProgress, Divider, Link } from '@mui/material';
 
 import { TheGraphApi } from 'api';
 
-import { IdentityOption } from 'shared/models';
+import { Gotchi as GotchiModel, IdentityOption } from 'shared/models';
 
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -19,17 +19,17 @@ interface IdentityListProps {
 
 export function IdentityList({ identity, title, divider }: IdentityListProps) {
   const classes = gotchiIdentityTooltipStyles();
-  const [claimedGotchis, setClaimedGotchis] = useState<CustomAny>([]);
+  const [claimedGotchis, setClaimedGotchis] = useState<GotchiModel[]>([]);
   const [gotchisLoaded, setGotchisLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    const gotchisId: number[] = identity.map((gotchi: IdentityOption) => Number(gotchi.gotchiId));
+    const gotchiIds: number[] = identity.map((gotchi: IdentityOption) => Number(gotchi.gotchiId));
     let isMounted: boolean = true;
 
-    TheGraphApi.getGotchiesByIds(gotchisId)
-      .then((response: CustomAny) => {
+    TheGraphApi.getGotchiesByIds(gotchiIds)
+      .then((gotchis: GotchiModel[]) => {
         if (isMounted) {
-          setClaimedGotchis(response.map((gotchi: CustomAny) => gotchi.data.aavegotchi));
+          setClaimedGotchis(Object.values(gotchis));
         }
       })
       .catch((error) => {

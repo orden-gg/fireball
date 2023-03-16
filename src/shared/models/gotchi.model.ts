@@ -1,4 +1,5 @@
-import { TraitModifiersTuple } from './erc-1155-item.model';
+import { Identity, TraitModifiersTuple } from './erc-1155-item.model';
+import { Erc721Listing } from './erc-1155-listings-batch.model';
 
 export interface GotchiAgingModel {
   name: string;
@@ -10,8 +11,10 @@ export interface GotchiInventory {
   balance: number;
 }
 
-export interface gotchiIdentity {
-  id: number;
+export interface FBGotchi {
+  availableSkillPoints: number;
+  badges: number[];
+  identity: Identity;
 }
 
 export interface Gotchi {
@@ -22,7 +25,10 @@ export interface Gotchi {
   equippedWearables: number[];
   collateral: string;
   owner: {
-    id: number;
+    id: string;
+  };
+  originalOwner: {
+    id: string;
   };
   stakedAmount: number;
   minimumStake: number;
@@ -35,4 +41,9 @@ export interface Gotchi {
   baseRarityScore: number;
   modifiedRarityScore: number;
   inventory: GotchiInventory[];
+  timesTraded: string;
+  createdAt: string;
+  listings: Erc721Listing[];
 }
+
+export interface GotchiExtended extends FBGotchi, Gotchi {}

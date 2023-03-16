@@ -9,7 +9,7 @@ import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 
 import { Erc721Categories } from 'shared/constants';
-import { FBErc1155Item, SalesHistoryModel } from 'shared/models';
+import { FBErc1155Item, FBGotchi, Gotchi, GotchiExtended, SalesHistoryModel } from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -50,7 +50,7 @@ export function GotchiPage() {
   const activeAddress = useAppSelector(getActiveAddress);
 
   const [gotchiLoaded, setGotchiLoaded] = useState<boolean>(false);
-  const [gotchi, setGotchi] = useState<CustomAny>({});
+  const [gotchi, setGotchi] = useState<GotchiExtended | null>(null);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
@@ -58,15 +58,20 @@ export function GotchiPage() {
 
   useEffect(() => {
     const id: number = Number(routeParams.gotchiId);
+    const promises: [Promise<Gotchi>, Promise<FBGotchi>] = [
+      TheGraphApi.getGotchiById(id),
+      TheGraphApi.getFBGotchiById(id)
+    ];
 
-    TheGraphApi.getFBGotchiById(id)
-      .then((gotchi: CustomAny) => {
+    Promise.all(promises)
+      .then(([gotchi, FBGotchi]: CustomAny[]) => {
+        const extendedGotchi: CustomAny = { ...gotchi, ...FBGotchi };
         const sortedInventory: number[] = gotchi.equippedWearables
-          .concat(gotchi.badges)
+          .concat(FBGotchi.badges)
           .filter((id: number) => id !== 0);
 
         setGotchiInventory(sortedInventory);
-        setGotchi(gotchi);
+        setGotchi(extendedGotchi);
       })
       .catch((error) => console.log(error))
       .finally(() => setGotchiLoaded(true));
@@ -81,7 +86,7 @@ export function GotchiPage() {
 
   useEffect(() => {
     if (activeAddress) {
-      TheGraphApi.getFBIventoryByAddress(activeAddress)
+      TheGraphApi.getIventoryByAddress(activeAddress)
         .then((inventory: FBErc1155Item[]) => {
           setPlayerInventory(inventory);
         })
@@ -149,7 +154,7 @@ export function GotchiPage() {
             ) : (
               <></>
             )}
-            {gotchi.timesTraded > 0 && (
+            {Number(gotchi.timesTraded) > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
                 <HistoryHead className={classes.salesHeader}>
