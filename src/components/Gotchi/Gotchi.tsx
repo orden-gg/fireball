@@ -117,7 +117,7 @@ export function Gotchi({
     },
 
     get badges() {
-      return <GotchiBadges id={gotchi.id} key={`${gotchi.id}-badges`} />;
+      return <GotchiBadges badges={gotchi.badges} key={`${gotchi.id}-badges`} />;
     },
 
     get skillpoints() {
