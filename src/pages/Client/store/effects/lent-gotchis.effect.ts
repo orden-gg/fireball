@@ -2,7 +2,7 @@ import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { FBGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
@@ -27,9 +27,19 @@ export const onLoadLentGotchis =
         });
 
         const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
+        const ids: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
-        dispatch(loadLentGotchisSucceded(sortedLentGotchis));
+        // Should be reworked when gotchi originalOwner will be fixed at FB graph
+        TheGraphApi.getFBGotchisByIds(ids)
+          .then((FBGotchis: TheGraphBatchData<FBGotchi>[]) => {
+            const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map((lending: GotchiLending) => {
+              return { ...lending, ...FBGotchis[`gotchi${lending.id}`] };
+            });
+
+            dispatch(loadLentGotchisSucceded(extendedLendingGotchis));
+          })
+          .catch(() => dispatch(loadLentGotchisFailed()))
+          .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
       })
-      .catch(() => dispatch(loadLentGotchisFailed()))
-      .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
+      .catch(() => dispatch(loadLentGotchisFailed()));
   };

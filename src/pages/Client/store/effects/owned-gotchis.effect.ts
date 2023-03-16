@@ -34,6 +34,7 @@ export const onLoadOwnedGotchis =
       .then((ownedGotchis: Gotchi[]) => {
         const ids: number[] = ownedGotchis.map((gotchi: Gotchi) => Number(gotchi.id));
 
+        // Should be reworked when gotchi originalOwner will be fixed at FB graph
         TheGraphApi.getFBGotchisByIds(ids)
           .then((FBGotchis: TheGraphBatchData<FBGotchi>[]) => {
             const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
