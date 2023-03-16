@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiIdentityTooltipStyles = makeStyles(theme =>
+export const gotchiIdentityTooltipStyles = makeStyles((theme) =>
   createStyles({
     identityWrapper: {
       padding: theme.spacing(1, 0)
@@ -33,6 +33,7 @@ export const gotchiIdentityTooltipStyles = makeStyles(theme =>
       margin: theme.spacing(1.5, 0.5, 1)
     },
     gotchiIdTooltip: {
+      width: 230,
       '& .MuiTooltip-tooltip': {
         background: 'none',
         padding: 0

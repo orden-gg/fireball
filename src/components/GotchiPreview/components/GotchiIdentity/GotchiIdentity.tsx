@@ -1,9 +1,10 @@
 import { Identity } from 'shared/models';
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-import { IdentityTooltip } from './components/IdentityTooltip';
-import { IdentityList } from './components/IdentityList';
-import { GotchiInfoItem } from '../GotchiInfoList/components/GotchiInfoItem/GotchiInfoItem';
 
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { GotchiInfoItem } from '../GotchiInfoList/components/GotchiInfoItem/GotchiInfoItem';
+import { IdentityList } from './components/IdentityList';
+import { IdentityTooltip } from './components/IdentityTooltip';
 import { gotchiIdentityStyles } from './styles';
 
 interface GotchiIdentityProps {
@@ -22,7 +23,7 @@ export function GotchiIdentity({ identity }: GotchiIdentityProps) {
           className={classes.tooltip}
           title={
             <IdentityTooltip>
-              <IdentityList identity={identity.claimed} />
+              <IdentityList identity={identity.claimed} tooltip />
             </IdentityTooltip>
           }
           placement='bottom'

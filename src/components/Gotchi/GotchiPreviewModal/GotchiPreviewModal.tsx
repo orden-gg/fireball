@@ -112,7 +112,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
                     value={`1/${modalGotchi.identity.claimed.length}`}
                     title={
                       <IdentityTooltip>
-                        <IdentityList identity={modalGotchi.identity.claimed} title='summoned' />
+                        <IdentityList identity={modalGotchi.identity.claimed} title='summoned' tooltip />
                         {modalGotchi.identity.unclaimed.length > 0 ? (
                           <IdentityList identity={modalGotchi.identity.unclaimed} title='in portal' divider />
                         ) : (

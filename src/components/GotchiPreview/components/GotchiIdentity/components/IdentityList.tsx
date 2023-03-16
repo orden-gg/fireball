@@ -15,9 +15,10 @@ interface IdentityListProps {
   identity: IdentityOption[];
   title?: string;
   divider?: boolean;
+  tooltip?: boolean;
 }
 
-export function IdentityList({ identity, title, divider }: IdentityListProps) {
+export function IdentityList({ identity, title, divider, tooltip }: IdentityListProps) {
   const classes = gotchiIdentityTooltipStyles();
   const [claimedGotchis, setClaimedGotchis] = useState<GotchiModel[]>([]);
   const [gotchisLoaded, setGotchisLoaded] = useState<boolean>(false);
@@ -56,47 +57,60 @@ export function IdentityList({ identity, title, divider }: IdentityListProps) {
         </h3>
       )}
       <div className={classes.identityList}>
-        {identity.map((item: IdentityOption, index: number) => (
-          <Link key={index} className={classes.identityItem} href={`/gotchi/${item.gotchiId}`} target='_blank'>
-            <CustomTooltip
-              className={classes.gotchiIdTooltip}
-              title={
-                gotchisLoaded ? (
-                  <Gotchi
-                    gotchi={claimedGotchis[index]}
-                    render={[
-                      {
-                        className: 'gotchiHeader',
-                        items: ['collateral', 'kinship', 'level']
-                      },
-                      {
-                        className: 'imageContainer',
-                        items: [
-                          'svg',
-                          {
-                            className: 'rsContainer',
-                            items: ['rs', 'skillpoints']
-                          }
-                        ]
-                      },
-                      'name',
-                      'traits'
-                    ]}
-                    isHighlightLending={true}
-                  />
-                ) : (
-                  <CircularProgress color='primary'></CircularProgress>
-                )
-              }
-              placement='left-end'
-              followCursor
+        {identity.map((item: IdentityOption, index: number) =>
+          tooltip ? (
+            <Link key={index} className={classes.identityItem} href={`/gotchi/${item.gotchiId}`} target='_blank'>
+              <CustomTooltip
+                className={classes.gotchiIdTooltip}
+                title={
+                  gotchisLoaded ? (
+                    <Gotchi
+                      gotchi={claimedGotchis[index]}
+                      render={[
+                        {
+                          className: 'gotchiHeader',
+                          items: ['collateral', 'kinship', 'level']
+                        },
+                        {
+                          className: 'imageContainer',
+                          items: [
+                            'svg',
+                            {
+                              className: 'rsContainer',
+                              items: ['rs', 'skillpoints']
+                            }
+                          ]
+                        },
+                        'name',
+                        'traits'
+                      ]}
+                      isHighlightLending={true}
+                    />
+                  ) : (
+                    <CircularProgress color='primary'></CircularProgress>
+                  )
+                }
+                placement='left-end'
+                followCursor
+              >
+                <span className={classes.identityItem} key={index}>
+                  {item.gotchiId}
+                </span>
+              </CustomTooltip>
+            </Link>
+          ) : (
+            <Link
+              key={index}
+              className={classes.identityItem}
+              href={`https://app.aavegotchi.com/portal/${item.gotchiId}`}
+              target='_blank'
             >
               <span className={classes.identityItem} key={index}>
                 {item.gotchiId}
               </span>
-            </CustomTooltip>
-          </Link>
-        ))}
+            </Link>
+          )
+        )}
       </div>
     </>
   );
