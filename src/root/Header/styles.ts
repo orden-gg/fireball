@@ -7,7 +7,7 @@ export const styles = makeStyles((theme) =>
       position: 'fixed',
       top: theme.spacing(1.5),
       left: theme.spacing(2),
-      zIndex: theme.zIndex.appBar,
+      zIndex: theme.zIndex.drawer,
       display: 'flex',
       alignItems: 'center'
     },
@@ -15,7 +15,7 @@ export const styles = makeStyles((theme) =>
       position: 'fixed',
       right: theme.spacing(2),
       top: theme.spacing(1.5),
-      zIndex: theme.zIndex.appBar + 10,
+      zIndex: theme.zIndex.drawer + 10,
       display: 'flex',
       alignItems: 'center'
     }
