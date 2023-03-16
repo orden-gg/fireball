@@ -69,7 +69,8 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
           setGotchiInventory(sortedInventory);
           setModalGotchi(extendedGotchi);
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => setIsGotchiLoading(false));
 
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {
