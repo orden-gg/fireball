@@ -29,52 +29,54 @@ import {
   setIsInitialItemsForSaleLoading
 } from '../slices';
 
-export const onLoadItemsForSale = (address: string): AppThunk => (dispatch) => {
-  dispatch(loadItemsForSale());
+export const onLoadItemsForSale =
+  (address: string): AppThunk =>
+  (dispatch) => {
+    dispatch(loadItemsForSale());
 
-  Promise.all([
-    ClientApi.getErc721ListingsBySeller(address),
-    ClientApi.getRealmListingsBySeller(address), // TODO should be removed after full integration of fireball gotchiverse graph.
-    ClientApi.getErc1155ListingsBySeller(address)
-  ])
-    .then(
-      ([erc721Listings, realmListings, erc1155Listings]: [
-        Erc721ForSaleDTO[],
-        ParcelForSaleDTO[],
-        Erc1155ForSaleDTO[]
-      ]) => {
-        const isListingsEmpty: boolean =
-          erc721Listings.length === 0 && erc1155Listings.length === 0 && realmListings.length === 0;
+    Promise.all([
+      ClientApi.getErc721ListingsBySeller(address),
+      ClientApi.getRealmListingsBySeller(address), // TODO should be removed after full integration of fireball gotchiverse graph.
+      ClientApi.getErc1155ListingsBySeller(address)
+    ])
+      .then(
+        ([erc721Listings, realmListings, erc1155Listings]: [
+          Erc721ForSaleDTO[],
+          ParcelForSaleDTO[],
+          Erc1155ForSaleDTO[]
+        ]) => {
+          const isListingsEmpty: boolean =
+            erc721Listings.length === 0 && erc1155Listings.length === 0 && realmListings.length === 0;
 
-        if (isListingsEmpty) {
-          dispatch(loadItemsForSaleSucceded({ ...initialItemsForSale }));
-        } else {
-          const listedGotchis: GotchiForSale[] = getMappedListedGotchis(erc721Listings);
-          const listedPortlas: PortalForSaleVM[] = getMappedListedPortals(erc721Listings);
-          const listedParcels: ParcelForSaleVM[] = getMappedListedParcels(realmListings);
-          const listedWearables: WearableForSale[] = getMappedListedWearables(erc1155Listings);
-          const listedTickets: TicketForSale[] = getMappedListedTickets(erc1155Listings);
-          const listedConsumables: ConsumableForSale[] = getMappedListedConsumables(erc1155Listings);
+          if (isListingsEmpty) {
+            dispatch(loadItemsForSaleSucceded({ ...initialItemsForSale }));
+          } else {
+            const listedGotchis: GotchiForSale[] = getMappedListedGotchis(erc721Listings);
+            const listedPortlas: PortalForSaleVM[] = getMappedListedPortals(erc721Listings);
+            const listedParcels: ParcelForSaleVM[] = getMappedListedParcels(realmListings);
+            const listedWearables: WearableForSale[] = getMappedListedWearables(erc1155Listings);
+            const listedTickets: TicketForSale[] = getMappedListedTickets(erc1155Listings);
+            const listedConsumables: ConsumableForSale[] = getMappedListedConsumables(erc1155Listings);
 
-          dispatch(
-            loadItemsForSaleSucceded({
-              gotchis: listedGotchis,
-              portals: listedPortlas,
-              parcels: listedParcels,
-              wearables: listedWearables,
-              tickets: listedTickets,
-              consumables: listedConsumables
-            })
-          );
+            dispatch(
+              loadItemsForSaleSucceded({
+                gotchis: listedGotchis,
+                portals: listedPortlas,
+                parcels: listedParcels,
+                wearables: listedWearables,
+                tickets: listedTickets,
+                consumables: listedConsumables
+              })
+            );
+          }
         }
-      }
-    )
-    .catch(() => {
-      dispatch(resetItemsForSale());
-      dispatch(loadItemsForSaleFailed());
-    })
-    .finally(() => dispatch(setIsInitialItemsForSaleLoading(false)));
-};
+      )
+      .catch(() => {
+        dispatch(resetItemsForSale());
+        dispatch(loadItemsForSaleFailed());
+      })
+      .finally(() => dispatch(setIsInitialItemsForSaleLoading(false)));
+  };
 
 const getMappedListedGotchis = (listings: Erc721ForSaleDTO[]): GotchiForSale[] => {
   const listedGotchis: GotchiForSale[] = listings

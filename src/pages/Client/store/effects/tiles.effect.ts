@@ -11,18 +11,20 @@ import { InstallationAndTile } from '../../models';
 // slices
 import { loadTiles, loadTilesFailed, loadTilesSucceded, setIsInitialTilesLoading } from '../slices';
 
-export const onLoadTiles = (address: string): AppThunk => (dispatch) => {
-  dispatch(loadTiles());
+export const onLoadTiles =
+  (address: string): AppThunk =>
+  (dispatch) => {
+    dispatch(loadTiles());
 
-  TilesApi.getTilesByAddress(address)
-    .then((response: TilesBalances[]) => {
-      const tiles: InstallationAndTile[] = getMappedTiles(response);
+    TilesApi.getTilesByAddress(address)
+      .then((response: TilesBalances[]) => {
+        const tiles: InstallationAndTile[] = getMappedTiles(response);
 
-      dispatch(loadTilesSucceded(tiles));
-    })
-    .catch(() => dispatch(loadTilesFailed()))
-    .finally(() => dispatch(setIsInitialTilesLoading(false)));
-};
+        dispatch(loadTilesSucceded(tiles));
+      })
+      .catch(() => dispatch(loadTilesFailed()))
+      .finally(() => dispatch(setIsInitialTilesLoading(false)));
+  };
 
 const getMappedTiles = (tilesBalances: TilesBalances[]): InstallationAndTile[] => {
   return tilesBalances

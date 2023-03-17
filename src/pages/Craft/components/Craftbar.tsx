@@ -30,15 +30,13 @@ export function Craftbar() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
-  const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } = useContext<
-    CustomAny
-  >(CraftContext);
+  const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } =
+    useContext<CustomAny>(CraftContext);
 
-  const isCraftDisabled: boolean = useMemo(() => !maxCraftAmount || !craftAmount || !isItemSelected, [
-    maxCraftAmount,
-    craftAmount,
-    isItemSelected
-  ]);
+  const isCraftDisabled: boolean = useMemo(
+    () => !maxCraftAmount || !craftAmount || !isItemSelected,
+    [maxCraftAmount, craftAmount, isItemSelected]
+  );
 
   const inputChange = (event: CustomAny): void => {
     const value: number = parseInt(event.target.value) || 0;

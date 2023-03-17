@@ -2,16 +2,16 @@ import { useEffect } from 'react';
 
 import { Skeleton } from '@mui/material';
 
-import { TokenTypes } from '../../../shared/constants/enums/enums';
-import { AlchemicaList } from 'shared/models';
-
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
+
+import { AlchemicaList } from 'shared/models';
 
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
 import { CommonUtils, GotchiverseUtils, GraphUtils } from 'utils';
 
+import { TokenTypes } from '../../../shared/constants/enums/enums';
 import { styles } from './styles';
 
 const altarsLevels = [1, 2, 3, 4, 5, 6, 7, 8, 9];

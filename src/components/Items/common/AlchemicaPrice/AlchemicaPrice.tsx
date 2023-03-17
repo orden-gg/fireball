@@ -3,10 +3,11 @@ import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as fromTokensPricesStore from 'core/store/tokens-prices';
+
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
-
-import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import {
   AlphaTokenIcon,
@@ -21,7 +22,6 @@ import {
 import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
 const icons = [FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon, GltrTokenIcon];
 

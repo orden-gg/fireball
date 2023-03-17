@@ -16,18 +16,20 @@ import {
   setIsInitialInstallationsLoading
 } from '../slices';
 
-export const onLoadInstallations = (address: string): AppThunk => (dispatch) => {
-  dispatch(loadInstallations());
+export const onLoadInstallations =
+  (address: string): AppThunk =>
+  (dispatch) => {
+    dispatch(loadInstallations());
 
-  InstallationsApi.getInstallationsByAddress(address)
-    .then((response: InstallationsBalances[]) => {
-      const installations: InstallationAndTile[] = getMappedInstallations(response);
+    InstallationsApi.getInstallationsByAddress(address)
+      .then((response: InstallationsBalances[]) => {
+        const installations: InstallationAndTile[] = getMappedInstallations(response);
 
-      dispatch(loadInstallationsSucceded(installations));
-    })
-    .catch(() => dispatch(loadInstallationsFailed()))
-    .finally(() => dispatch(setIsInitialInstallationsLoading(false)));
-};
+        dispatch(loadInstallationsSucceded(installations));
+      })
+      .catch(() => dispatch(loadInstallationsFailed()))
+      .finally(() => dispatch(setIsInitialInstallationsLoading(false)));
+  };
 
 const getMappedInstallations = (installationsBalances: InstallationsBalances[]): InstallationAndTile[] => {
   return installationsBalances

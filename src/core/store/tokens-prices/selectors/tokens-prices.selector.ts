@@ -1,4 +1,5 @@
 import { RootState } from 'core/store/store';
+
 import { TokenTypes } from 'shared/constants';
 
 export const getIsPricesLoaded = (state: RootState): boolean => state.tokensPrices.isPricesLoaded;

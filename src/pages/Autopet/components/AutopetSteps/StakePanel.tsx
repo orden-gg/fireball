@@ -12,9 +12,8 @@ export function StakePanel({ index, dir }: AutopetPanelProps) {
 
   const [availableStake, setAvailableStake] = useState<boolean>(false);
 
-  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } = useContext<CustomAny>(
-    AutopetContext
-  );
+  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } =
+    useContext<CustomAny>(AutopetContext);
 
   useEffect(() => {
     setAvailableStake(isGhstApproved && isPetApproved);

@@ -11,6 +11,7 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
+import { useAppDispatch } from '../core/store/hooks';
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
@@ -28,8 +29,6 @@ import {
 } from 'components/Icons/Icons';
 
 import { CommonUtils } from 'utils';
-
-import { useAppDispatch } from '../core/store/hooks';
 
 export const BalancesContext = createContext({});
 
@@ -99,18 +98,11 @@ export const BalancesContextProvider = (props: CustomAny) => {
     let interval: NodeJS.Timer;
 
     if (activeAddress) {
-      getAmounts = async function() {
+      getAmounts = async function () {
         setIsAmountsLoaded(false);
 
-        const [
-          fudAmount,
-          fomoAmount,
-          alphaAmount,
-          kekAmount,
-          gltrAmount,
-          gshtAmount,
-          maticAmount
-        ] = await getTokensAmounts(activeAddress);
+        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount] =
+          await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({

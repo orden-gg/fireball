@@ -19,8 +19,8 @@ import {
 export const loadBaazaarActivityInstallationsListings = (): AppThunk => (dispatch, getState) => {
   dispatch(loadActivityInstallationsListings());
 
-  const activityInstallationsListingsGraphQueryParams: GraphQueryParams = getState().baazaar.activity.installations
-    .activityInstallationsListingsGraphQueryParams;
+  const activityInstallationsListingsGraphQueryParams: GraphQueryParams =
+    getState().baazaar.activity.installations.activityInstallationsListingsGraphQueryParams;
 
   const query = getBaazaarErc1155PurchasesQuery(activityInstallationsListingsGraphQueryParams);
 

@@ -2,8 +2,6 @@ import { QuickswapApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { setIsPricesLoaded, setTokensPrices } from '../slices/tokens-prices.slice';
-
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
@@ -16,14 +14,18 @@ import {
   WMATIC_CONTRACT
 } from 'shared/constants';
 
+import { setIsPricesLoaded, setTokensPrices } from '../slices/tokens-prices.slice';
+
 const fetchInterval = 300; // seconds
 
-export const onSetIsPricesLoaded = (isPrice: boolean): AppThunk => (dispatch) => {
-  dispatch(setIsPricesLoaded(isPrice));
-};
+export const onSetIsPricesLoaded =
+  (isPrice: boolean): AppThunk =>
+  (dispatch) => {
+    dispatch(setIsPricesLoaded(isPrice));
+  };
 
 export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
-  const getTokensPrices = async function() {
+  const getTokensPrices = async function () {
     setIsPricesLoaded(false);
     const [ghstPrice, ghst] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
     const [maticPrice] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);

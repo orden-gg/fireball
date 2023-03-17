@@ -34,9 +34,8 @@ export function CraftContent() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAvailableParamsChange, setIsAvailableParamsChange] = useState<boolean>(false);
 
-  const { selectedItem, setSelectedItem, isItemSelected, setCategory, setIsItemSelected } = useContext<CustomAny>(
-    CraftContext
-  );
+  const { selectedItem, setSelectedItem, isItemSelected, setCategory, setIsItemSelected } =
+    useContext<CustomAny>(CraftContext);
 
   useEffect(() => {
     const promises: CustomAny[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];

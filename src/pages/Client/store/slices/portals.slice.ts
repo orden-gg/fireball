@@ -66,12 +66,7 @@ export const portalsSlice = createSlice({
   }
 });
 
-export const {
-  loadPortals,
-  loadPortalsSucceded,
-  loadPortalsFailed,
-  setIsInitialPortalsLoading,
-  setPortalsSorting
-} = portalsSlice.actions;
+export const { loadPortals, loadPortalsSucceded, loadPortalsFailed, setIsInitialPortalsLoading, setPortalsSorting } =
+  portalsSlice.actions;
 
 export const portalsReducer = portalsSlice.reducer;

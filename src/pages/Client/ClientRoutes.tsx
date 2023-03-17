@@ -52,10 +52,7 @@ export function ClientRoutes() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const subroute = location.pathname
-    .split('/')
-    .slice(3)
-    .join('/');
+  const subroute = location.pathname.split('/').slice(3).join('/');
 
   const { account } = useParams<{ account: string }>();
   const queryParams = queryString.parse(location.search);

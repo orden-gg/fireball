@@ -20,33 +20,34 @@ import {
   setWarehouseItems
 } from '../slices';
 
-export const onLoadOwnedGotchis = (address: string): AppThunk => (dispatch, getState) => {
-  dispatch(loadOwnedGotchis());
+export const onLoadOwnedGotchis =
+  (address: string): AppThunk =>
+  (dispatch, getState) => {
+    dispatch(loadOwnedGotchis());
 
-  const {
-    type: gotchisSortType,
-    dir: gotchisSortDir
-  }: SortingItem = getState().client.ownedGotchis.ownedGotchisSorting;
-  const { type: warehouseSortType, dir: warehouseSortDir }: SortingItem = getState().client.warehouse.warehouseSorting;
+    const { type: gotchisSortType, dir: gotchisSortDir }: SortingItem =
+      getState().client.ownedGotchis.ownedGotchisSorting;
+    const { type: warehouseSortType, dir: warehouseSortDir }: SortingItem =
+      getState().client.warehouse.warehouseSorting;
 
-  TheGraphApi.getGotchisByAddress(address)
-    .then((ownedGotchis: OwnedGotchi[]) => {
-      const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+    TheGraphApi.getGotchisByAddress(address)
+      .then((ownedGotchis: OwnedGotchi[]) => {
+        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
 
-      const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
-      const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
-        warehouseItems,
-        warehouseSortType,
-        warehouseSortDir
-      );
-      const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
+        const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
+        const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
+          warehouseItems,
+          warehouseSortType,
+          warehouseSortDir
+        );
+        const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
 
-      dispatch(setWarehouseItems(sortedWarehouseItems));
-      dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
-    })
-    .catch(() => dispatch(loadOwnedGotchisFailed()))
-    .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
-};
+        dispatch(setWarehouseItems(sortedWarehouseItems));
+        dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+      })
+      .catch(() => dispatch(loadOwnedGotchisFailed()))
+      .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+  };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
   const warehouseItems: Warehouse[] = [];
@@ -59,10 +60,8 @@ const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Wa
 
     for (const warehouseItemId of equippedIds) {
       const warehouseItemIndex: number = warehouseItems.findIndex((item: Warehouse) => item.id === warehouseItemId);
-      const wearableTypeBenefit:
-        | WearableTypeBenefit
-        | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
-        benefit.ids.some((id: number) => id === warehouseItemId)
+      const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
+        (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === warehouseItemId)
       );
 
       if (warehouseItems[warehouseItemIndex] === undefined) {
