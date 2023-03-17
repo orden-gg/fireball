@@ -10,8 +10,9 @@ import { AutopetPanelProps } from './models/autopet-panel-props.model';
 export function PetPanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
-  const { petState, isPetApproved, approvePet, isStaked, isUserConnected, renderButtonNode } =
-    useContext<any>(AutopetContext);
+  const { petState, isPetApproved, approvePet, isStaked, isUserConnected, renderButtonNode } = useContext<any>(
+    AutopetContext
+  );
 
   return (
     <div

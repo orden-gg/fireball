@@ -14,20 +14,18 @@ import {
   setIsInitialFakeGotchisLoading
 } from '../slices';
 
-export const onLoadFakeGotchis =
-  (address: string): AppThunk =>
-  (dispatch) => {
-    dispatch(loadFakeGotchis());
+export const onLoadFakeGotchis = (address: string): AppThunk => (dispatch) => {
+  dispatch(loadFakeGotchis());
 
-    ClientApi.getFakeGotchis(getFakeGotchisByAddressQuery(address))
-      .then((res: FakeItemsDTO) => {
-        const mappedItems: FakeItemsVM = mapFakeItemsDTOToVM(res);
+  ClientApi.getFakeGotchis(getFakeGotchisByAddressQuery(address))
+    .then((res: FakeItemsDTO) => {
+      const mappedItems: FakeItemsVM = mapFakeItemsDTOToVM(res);
 
-        dispatch(loadFakeGotchisSucceded(mappedItems));
-      })
-      .catch(() => dispatch(loadFakeGotchisFailed()))
-      .finally(() => dispatch(setIsInitialFakeGotchisLoading(false)));
-  };
+      dispatch(loadFakeGotchisSucceded(mappedItems));
+    })
+    .catch(() => dispatch(loadFakeGotchisFailed()))
+    .finally(() => dispatch(setIsInitialFakeGotchisLoading(false)));
+};
 
 const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {
   return {

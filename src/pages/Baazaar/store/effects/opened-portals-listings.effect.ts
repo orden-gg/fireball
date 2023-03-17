@@ -34,19 +34,17 @@ export const loadBaazaarOpenedPortalsListings = (): AppThunk => (dispatch) => {
     });
 };
 
-export const onSetOpenedPortalsListingsSorting =
-  (sort: SortingItem): AppThunk =>
-  (dispatch, getState) => {
-    let direction: string = sort.dir;
-    const previousSortingProp: string = getState().baazaar.openedPortals.openedPortalsPreviousSortingProp;
+export const onSetOpenedPortalsListingsSorting = (sort: SortingItem): AppThunk => (dispatch, getState) => {
+  let direction: string = sort.dir;
+  const previousSortingProp: string = getState().baazaar.openedPortals.openedPortalsPreviousSortingProp;
 
-    if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
-      direction = ASCENDING_DIRECTION;
-    }
+  if (sort.type === PRICE_IN_WEI && previousSortingProp && previousSortingProp !== PRICE_IN_WEI) {
+    direction = ASCENDING_DIRECTION;
+  }
 
-    dispatch(setOpenedPortalsListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setOpenedPortalsPreviousSortingProp(sort.type));
-  };
+  dispatch(setOpenedPortalsListingsSorting({ type: sort.type, dir: direction }));
+  dispatch(setOpenedPortalsPreviousSortingProp(sort.type));
+};
 
 export const resetOpenedPortalsData = (): AppThunk => (dispatch, getState) => {
   const defaultSorting: SortingItem = getState().baazaar.installations.installationsListingsDefaultSorting;

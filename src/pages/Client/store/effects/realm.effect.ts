@@ -10,23 +10,21 @@ import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
 // slices
 import { loadRealm, loadRealmFailed, loadRealmSucceded, setIsInitialRealmLoading } from '../slices';
 
-export const onLoadRealm =
-  (address: string): AppThunk =>
-  (dispatch, getState) => {
-    dispatch(loadRealm());
+export const onLoadRealm = (address: string): AppThunk => (dispatch, getState) => {
+  dispatch(loadRealm());
 
-    const { type, dir }: SortingItem = getState().client.realm.realmSorting;
+  const { type, dir }: SortingItem = getState().client.realm.realmSorting;
 
-    TheGraphApi.getRealmByAddress(address)
-      .then((response: RealmDTO[]) => {
-        const modifiedParcels: RealmVM[] = getMappedRealm(response);
-        const sortedParcels: RealmVM[] = CommonUtils.basicSort(modifiedParcels, type, dir);
+  TheGraphApi.getRealmByAddress(address)
+    .then((response: RealmDTO[]) => {
+      const modifiedParcels: RealmVM[] = getMappedRealm(response);
+      const sortedParcels: RealmVM[] = CommonUtils.basicSort(modifiedParcels, type, dir);
 
-        dispatch(loadRealmSucceded(sortedParcels));
-      })
-      .catch(() => dispatch(loadRealmFailed()))
-      .finally(() => dispatch(setIsInitialRealmLoading(false)));
-  };
+      dispatch(loadRealmSucceded(sortedParcels));
+    })
+    .catch(() => dispatch(loadRealmFailed()))
+    .finally(() => dispatch(setIsInitialRealmLoading(false)));
+};
 
 const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {
   return realm.map((parcel: RealmDTO) => {

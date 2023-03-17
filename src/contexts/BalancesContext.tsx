@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
@@ -13,6 +13,7 @@ import {
 
 import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
+import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
 
@@ -28,7 +29,7 @@ import {
 
 import { CommonUtils } from 'utils';
 
-import { TokensPricesContext } from './TokensPricesContext';
+import { useAppDispatch } from '../core/store/hooks';
 
 export const BalancesContext = createContext({});
 
@@ -71,9 +72,13 @@ export const BalancesContextProvider = (props: any) => {
     }
   ];
 
+  const dispatch = useAppDispatch();
   const activeAddress = useAppSelector(getActiveAddress);
 
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
+  const tokensPrices: {
+    [key in TokenTypes]: number;
+  } = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
@@ -94,11 +99,18 @@ export const BalancesContextProvider = (props: any) => {
     let interval: NodeJS.Timer;
 
     if (activeAddress) {
-      getAmounts = async function () {
+      getAmounts = async function() {
         setIsAmountsLoaded(false);
 
-        const [fudAmount, fomoAmount, alphaAmount, kekAmount, gltrAmount, gshtAmount, maticAmount] =
-          await getTokensAmounts(activeAddress);
+        const [
+          fudAmount,
+          fomoAmount,
+          alphaAmount,
+          kekAmount,
+          gltrAmount,
+          gshtAmount,
+          maticAmount
+        ] = await getTokensAmounts(activeAddress);
 
         if (mounted) {
           setAmounts({
@@ -127,6 +139,10 @@ export const BalancesContextProvider = (props: any) => {
       clearInterval(interval);
     };
   }, [activeAddress]);
+
+  useEffect(() => {
+    dispatch(fromTokensPricesStore.onLoadTokensPrices());
+  }, []);
 
   useEffect(() => {
     let mounted = true;

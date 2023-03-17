@@ -13,23 +13,21 @@ import {
   setIsInitialLentGotchisLoading
 } from '../slices';
 
-export const onLoadLentGotchis =
-  (address: string): AppThunk =>
-  (dispatch, getState) => {
-    dispatch(loadLentGotchis());
+export const onLoadLentGotchis = (address: string): AppThunk => (dispatch, getState) => {
+  dispatch(loadLentGotchis());
 
-    const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
+  const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
-    TheGraphApi.getLendingsByAddress(address)
-      .then((lentGotchis: GotchiLending[]) => {
-        lentGotchis.forEach((lending: GotchiLending) => {
-          lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
-        });
+  TheGraphApi.getLendingsByAddress(address)
+    .then((lentGotchis: GotchiLending[]) => {
+      lentGotchis.forEach((lending: GotchiLending) => {
+        lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
+      });
 
-        const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
+      const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
 
-        dispatch(loadLentGotchisSucceded(sortedLentGotchis));
-      })
-      .catch(() => dispatch(loadLentGotchisFailed()))
-      .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
-  };
+      dispatch(loadLentGotchisSucceded(sortedLentGotchis));
+    })
+    .catch(() => dispatch(loadLentGotchisFailed()))
+    .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
+};

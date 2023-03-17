@@ -13,19 +13,17 @@ import {
   setIsInitialBorrowedGotchisLoading
 } from '../slices';
 
-export const onLoadBorrowedGotchis =
-  (address: string): AppThunk =>
-  (dispatch, getState) => {
-    dispatch(loadBorrowedGotchis());
+export const onLoadBorrowedGotchis = (address: string): AppThunk => (dispatch, getState) => {
+  dispatch(loadBorrowedGotchis());
 
-    const { type, dir }: SortingItem = getState().client.borrowedGotchis.borrowedGotchisSorting;
+  const { type, dir }: SortingItem = getState().client.borrowedGotchis.borrowedGotchisSorting;
 
-    TheGraphApi.getBorrowedByAddress(address)
-      .then((borrowedGotchis: GotchiLending[]) => {
-        const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
+  TheGraphApi.getBorrowedByAddress(address)
+    .then((borrowedGotchis: GotchiLending[]) => {
+      const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
 
-        dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
-      })
-      .catch(() => dispatch(loadBorrowedGotchisFailed()))
-      .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
-  };
+      dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
+    })
+    .catch(() => dispatch(loadBorrowedGotchisFailed()))
+    .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
+};

@@ -22,8 +22,10 @@ export function AnvilCalculator({ anvil }: { anvil: AnvilItem }) {
   const [from, setFrom] = useState<number>(0);
   const [to, setTo] = useState<number>(anvil.levels.length - 1);
 
-  const [options, setOptions]: [AnvilCalculatorOptions, Dispatch<SetStateAction<AnvilCalculatorOptions>>] =
-    useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
+  const [options, setOptions]: [
+    AnvilCalculatorOptions,
+    Dispatch<SetStateAction<AnvilCalculatorOptions>>
+  ] = useLocalStorage('ANVIL_OPTIONS', JSON.parse(localStorage.getItem('ANVIL_OPTIONS')!) || defaultOptions);
 
   if (!anvil) {
     return null;

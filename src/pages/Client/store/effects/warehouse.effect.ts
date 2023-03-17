@@ -14,25 +14,23 @@ import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 import { Warehouse } from '../../models';
 import { loadWarehouse, loadWarehouseFailed, loadWarehouseSucceded, setIsInitialWarehouseLoading } from '../slices';
 
-export const onLoadWarehouse =
-  (address: string): AppThunk =>
-  (dispatch, getState) => {
-    dispatch(loadWarehouse());
+export const onLoadWarehouse = (address: string): AppThunk => (dispatch, getState) => {
+  dispatch(loadWarehouse());
 
-    const { type, dir }: SortingItem = getState().client.warehouse.warehouseSorting;
+  const { type, dir }: SortingItem = getState().client.warehouse.warehouseSorting;
 
-    MainApi.getInventoryByAddress(address)
-      .then((response: Inventory[]) => {
-        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+  MainApi.getInventoryByAddress(address)
+    .then((response: Inventory[]) => {
+      const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
 
-        const modifiedWarehouseItems: Warehouse[] = getModifiedWarehouse(response, warehouseItemsCopy);
-        const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(modifiedWarehouseItems, type, dir);
+      const modifiedWarehouseItems: Warehouse[] = getModifiedWarehouse(response, warehouseItemsCopy);
+      const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(modifiedWarehouseItems, type, dir);
 
-        dispatch(loadWarehouseSucceded(sortedWarehouseItems));
-      })
-      .catch(() => dispatch(loadWarehouseFailed()))
-      .finally(() => dispatch(setIsInitialWarehouseLoading(false)));
-  };
+      dispatch(loadWarehouseSucceded(sortedWarehouseItems));
+    })
+    .catch(() => dispatch(loadWarehouseFailed()))
+    .finally(() => dispatch(setIsInitialWarehouseLoading(false)));
+};
 
 const getModifiedWarehouse = (inventory: Inventory[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
   const modifiedWarehouseItems: Warehouse[] = [];
@@ -40,8 +38,10 @@ const getModifiedWarehouse = (inventory: Inventory[], warehouseItemsCopy: Wareho
   inventory.forEach((item: Inventory) => {
     const isConsumable: boolean = ItemUtils.getTypeNameById(item.itemId) === ItemTypeNames.Consumable;
     const rarityName: string = isConsumable ? 'drop' : ItemUtils.getRarityNameById(item.itemId);
-    const wearableTypeBenefit: WearableTypeBenefit | undefined = WEARABLES_TYPES_BENEFITS.find(
-      (benefit: WearableTypeBenefit) => benefit.ids.some((id: number) => id === Number(item.itemId))
+    const wearableTypeBenefit:
+      | WearableTypeBenefit
+      | undefined = WEARABLES_TYPES_BENEFITS.find((benefit: WearableTypeBenefit) =>
+      benefit.ids.some((id: number) => id === Number(item.itemId))
     );
 
     modifiedWarehouseItems.push({

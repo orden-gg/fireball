@@ -18,8 +18,9 @@ import { tableStyles } from '../styles';
 export function RaffleTable() {
   const classes = tableStyles();
 
-  const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } =
-    useContext<any>(RaffleContext);
+  const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext<
+    any
+  >(RaffleContext);
 
   const handleInputChange = (event: any, i: number) => {
     const newValue = event.target.value > 0 ? +event.target.value : '';

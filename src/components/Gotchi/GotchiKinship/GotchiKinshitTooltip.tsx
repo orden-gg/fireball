@@ -1,11 +1,12 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 
 import { Skeleton } from '@mui/material';
 
 import { TokenTypes } from 'shared/constants';
 import { AlchemicaList } from 'shared/models';
 
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
@@ -19,9 +20,14 @@ const tokens: string[] = [TokenTypes.Fud, TokenTypes.Fomo, TokenTypes.Alpha, Tok
 export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
   const classes = styles();
 
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
+  const tokensPrices: {
+    [key in TokenTypes]: number;
+  } = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
+
+  const dispatch = useAppDispatch();
 
   const renderTotalChannelingPrice = (alchemica: AlchemicaList): JSX.Element => {
     const total = alchemica.map((item, index) => item * tokensPrices[tokens[index]]);
@@ -32,6 +38,10 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
       </span>
     );
   };
+
+  useEffect(() => {
+    dispatch(fromTokensPricesStore.onLoadTokensPrices());
+  }, []);
 
   return (
     <div className={classes.container}>
