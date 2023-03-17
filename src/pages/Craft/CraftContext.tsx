@@ -10,20 +10,20 @@ import { BalancesContext } from 'contexts/BalancesContext';
 
 export const CraftContext = createContext({});
 
-export const CraftContextProvider = (props: any) => {
+export const CraftContextProvider = (props: CustomAny) => {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
   const [accountAddress, setAccountAddress] = useState<string>('');
-  const [tokensApprovals, setTokenApprovals] = useState<any>({
+  const [tokensApprovals, setTokenApprovals] = useState<CustomAny>({
     [Erc1155Categories.Installation]: [],
     [Erc1155Categories.Tile]: []
   });
   const [isAlchemicaApproved, setIsAlchemicaApproved] = useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = useState<any>({});
+  const [selectedItem, setSelectedItem] = useState<CustomAny>({});
   const [isItemSelected, setIsItemSelected] = useState<boolean>(false);
   const [category, setCategory] = useState<string>(Erc1155Categories.Installation);
   const [maxCraftAmount, setMaxCraftAmount] = useState<number>(1);
 
-  const { tokens } = useContext<any>(BalancesContext);
+  const { tokens } = useContext<CustomAny>(BalancesContext);
   const { getAccounts, metaState } = useMetamask();
 
   const setWalletAddress = async (): Promise<void> => {

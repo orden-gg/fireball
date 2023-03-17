@@ -36,7 +36,7 @@ export function GotchiAging({ block }: { block: number }) {
   const classes = styles();
 
   const [dataLoading, setDataLoading] = useState(true);
-  const [aging, setAging]: any = useState(null);
+  const [aging, setAging]: CustomAny = useState(null);
 
   useEffect(() => {
     let mounted = true;

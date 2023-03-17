@@ -21,7 +21,7 @@ export function RaffleContent({ user }) {
     getTicketsPreset,
     raffleSpinner,
     onAddressChange
-  } = useContext<any>(RaffleContext);
+  } = useContext<CustomAny>(RaffleContext);
 
   useEffect(() => {
     const raffleName: boolean = raffles.some((item) => item['name'] === name);

@@ -11,7 +11,8 @@ export function StakePanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
   const [availableStake, setAvailableStake] = useState<boolean>(false);
-  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } = useContext<any>(
+
+  const { stakeState, approveStake, isStaked, renderButtonNode, isGhstApproved, isPetApproved } = useContext<CustomAny>(
     AutopetContext
   );
 

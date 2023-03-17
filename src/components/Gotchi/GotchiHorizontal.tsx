@@ -9,16 +9,16 @@ import { GotchiTraits } from './GotchiTraits/GotchiTraits';
 import { styles } from './styles';
 
 interface GotchiHorizontalProps {
-  gotchi: any;
-  render: any;
-  item?: any;
+  gotchi: CustomAny;
+  render: CustomAny;
+  item?: CustomAny;
 }
 
 export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps) {
   const classes = styles();
 
   const gotchiSections = {
-    wrapper: (children: any, className?: any) => {
+    wrapper: (children: CustomAny, className?: CustomAny) => {
       return (
         <div className={className && classes[className]} key={`${gotchi.id}-${className}`}>
           {children}
@@ -65,12 +65,12 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
     }
   };
 
-  function renderSection(value: any) {
+  function renderSection(value: CustomAny) {
     if (typeof value === 'string') {
       return gotchiSections[value];
     } else {
       return gotchiSections.wrapper(
-        value.items.map((item: any) => renderSection(item)),
+        value.items.map((item: CustomAny) => renderSection(item)),
         value.className
       );
     }
@@ -78,7 +78,7 @@ export function GotchiHorizontal({ gotchi, item, render }: GotchiHorizontalProps
 
   return (
     <div className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`, 'horizontal')}>
-      {render.map((name: any) => {
+      {render.map((name: CustomAny) => {
         return renderSection(name);
       })}
     </div>

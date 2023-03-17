@@ -13,11 +13,11 @@ export class CommonUtils {
       : this.formatNumberWithCommas(Number(number).toFixed(0));
   }
 
-  public static capitalize(string: any): any {
+  public static capitalize(string: CustomAny): CustomAny {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
-  public static trimPriceToThreeDecimal(price: any): any {
+  public static trimPriceToThreeDecimal(price: CustomAny): CustomAny {
     if (price % 1 === 0) {
       return price;
     } else {
@@ -31,7 +31,7 @@ export class CommonUtils {
     }
   }
 
-  public static formatNumberWithCommas(number: any): any {
+  public static formatNumberWithCommas(number: CustomAny): CustomAny {
     const options = {
       minimumFractionDigits: 0,
       maximumFractionDigits: 3
@@ -40,7 +40,7 @@ export class CommonUtils {
     return Number(number).toLocaleString('en', options);
   }
 
-  public static formatChance(chance: any, items: any): any {
+  public static formatChance(chance: CustomAny, items: CustomAny): CustomAny {
     const percentage = (chance * 100).toFixed(1);
 
     return chance > items
@@ -52,13 +52,13 @@ export class CommonUtils {
       : 0;
   }
 
-  public static cutAddress(address: any, symbol?: any): any {
+  public static cutAddress(address: CustomAny, symbol?: CustomAny): CustomAny {
     const splitter = symbol ? symbol : '~~';
 
     return address.slice(0, 4) + splitter + address.slice(38);
   }
 
-  public static getSellerShortAddress(item: any): any {
+  public static getSellerShortAddress(item: CustomAny): CustomAny {
     const sellerAddress = item.seller;
 
     return `${sellerAddress.substring(0, 4)}...${sellerAddress.substring(
@@ -67,19 +67,19 @@ export class CommonUtils {
     )}`;
   }
 
-  public static sortByDirection(array: any, sortDir: any): any {
+  public static sortByDirection(array: CustomAny, sortDir: CustomAny): CustomAny {
     return [...array].sort((a, b) => (sortDir === 'asc' ? a - b : b - a));
   }
 
-  public static basicSort<T = unknown>(array: T[], sortType: any, sortDir?: any): T[] {
+  public static basicSort<T = unknown>(array: T[], sortType: CustomAny, sortDir?: CustomAny): T[] {
     return [...array].sort((a, b) => (sortDir === 'asc' ? a[sortType] - b[sortType] : b[sortType] - a[sortType]));
   }
 
-  public static checkArrayForDuplicates(array: any): any {
+  public static checkArrayForDuplicates(array: CustomAny): CustomAny {
     return new Set(array).size !== array.length;
   }
 
-  public static convertFloatNumberToSuffixNumber(number: any): number | string {
+  public static convertFloatNumberToSuffixNumber(number: CustomAny): number | string {
     if (number < 100) {
       return Number(number.toFixed(2));
     }
@@ -159,14 +159,11 @@ export class CommonUtils {
     return targetStringCopy.join('');
   }
 
-  public static stringToKey(string: any, divider: string = ''): any {
-    return string
-      .replace(/’| /g, divider)
-      .replace(/ /g, divider)
-      .toLowerCase();
+  public static stringToKey(string: CustomAny, divider: string = ''): CustomAny {
+    return string.replace(/’| /g, divider).replace(/ /g, divider).toLowerCase();
   }
 
-  public static isEmptyObject(obj: any): any {
+  public static isEmptyObject(obj: CustomAny): CustomAny {
     return Object.keys(obj).length === 0;
   }
 

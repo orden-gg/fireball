@@ -14,14 +14,14 @@ const noCacheOptions = {
 };
 
 export class GotchiverseApi {
-  public static getOnlineCount(disableCache: any): Promise<any> {
+  public static getOnlineCount(disableCache: CustomAny): Promise<CustomAny> {
     return api
       .get('/users/online', disableCache && noCacheOptions)
       .then((res) => res.data.count)
       .catch((e) => console.log(e));
   }
 
-  public static getParcelImage(id: any, imageSize: any, disableCache: any): Promise<any> {
+  public static getParcelImage(id: CustomAny, imageSize: CustomAny, disableCache: CustomAny): Promise<CustomAny> {
     return api
       .get(
         `/realm/map/load?map=citaadel&format=rgba-buffer-integers&parcel=${id},${imageSize}`,

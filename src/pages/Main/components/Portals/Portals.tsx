@@ -31,7 +31,7 @@ export function Portals() {
   const getGraphData = (): void => {
     setIsLoading(true);
 
-    TheGraphApi.getData(portalsQuery).then((response: any) => {
+    TheGraphApi.getData(portalsQuery).then((response: CustomAny) => {
       setOpenedPortals(response.data.statistic.portalsOpened);
       setGotchiClaimed(response.data.statistic.aavegotchisClaimed);
       setIsLoading(false);

@@ -4,7 +4,7 @@ import { alpha } from '@mui/system';
 export const styles = makeStyles((theme) =>
   createStyles({
     container: {
-      padding: '51px 24px 0',
+      padding: '10px 24px 0',
       display: 'flex',
       flexDirection: 'column',
       flexGrow: 1

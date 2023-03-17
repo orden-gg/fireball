@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { Skeleton } from '@mui/material';
 
-import { TokenTypes } from 'shared/constants';
+import { TokenTypes } from '../../../shared/constants/enums/enums';
 import { AlchemicaList } from 'shared/models';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';

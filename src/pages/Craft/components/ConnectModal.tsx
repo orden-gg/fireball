@@ -15,7 +15,7 @@ export function ConnectModal() {
   const { metaState, connect } = useMetamask();
 
   const [isWalletConnecting, setIsWalletConnecting] = useState<boolean>(false);
-  const { showSnackbar } = useContext<any>(SnackbarContext);
+  const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
 
   const connectWallet = (): void => {
     setIsWalletConnecting(true);
@@ -32,11 +32,11 @@ export function ConnectModal() {
       .finally(() => setIsWalletConnecting(false));
   };
 
-  const connectMetamask = async (): Promise<any> => {
+  const connectMetamask = async (): Promise<CustomAny> => {
     if (metaState.isAvailable && !metaState.isConnected) {
       try {
         if (connect) {
-          await connect(ethers.providers.Web3Provider, 'any');
+          await connect(ethers.providers.Web3Provider, 'CustomAny');
 
           return true;
         }

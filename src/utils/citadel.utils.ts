@@ -2,7 +2,7 @@ import { CITADEL_HEIGHT, CITADEL_WIDTH, COLORS, DISTRICTS, PARCEL_NAME, PARCEL_S
 import parcelsData from 'data/parcels.json';
 
 export class CitadelUtils {
-  public static getParcelSize(size: any): any {
+  public static getParcelSize(size: CustomAny): CustomAny {
     return {
       w: PARCEL_SIZE[size].width,
       h: PARCEL_SIZE[size].height
@@ -47,23 +47,23 @@ export class CitadelUtils {
     }
   }
 
-  public static getParcelColorBySize(size: any): any {
+  public static getParcelColorBySize(size: CustomAny): CustomAny {
     return COLORS.parcels[PARCEL_NAME[size]];
   }
 
-  public static getParcelColorByName(size: any): any {
+  public static getParcelColorByName(size: CustomAny): CustomAny {
     return PARCEL_NAME[size];
   }
 
-  public static getParcelCoords(cx: any, cy: any): any {
+  public static getParcelCoords(cx: CustomAny, cy: CustomAny): CustomAny {
     return {
       x: cx - CITADEL_WIDTH / 2,
       y: cy - CITADEL_HEIGHT / 2
     };
   }
 
-  public static getDistrictParams(id: any): any {
-    const district: any = DISTRICTS.positions[id];
+  public static getDistrictParams(id: CustomAny): CustomAny {
+    const district: CustomAny = DISTRICTS.positions[id];
 
     if (district === undefined) {
       return {};
@@ -77,11 +77,11 @@ export class CitadelUtils {
     }
   }
 
-  public static getParcelByTypeAndValue(type: any, value: any): any {
-    let result: any;
+  public static getParcelByTypeAndValue(type: CustomAny, value: CustomAny): CustomAny {
+    let result: CustomAny;
 
     for (const [, district] of Object.entries(parcelsData)) {
-      const parcel: any = district.find((parcel: any) => parcel[type] === value);
+      const parcel: CustomAny = district.find((parcel: CustomAny) => parcel[type] === value);
 
       if (parcel !== undefined) {
         result = parcel;
@@ -93,11 +93,11 @@ export class CitadelUtils {
     return result;
   }
 
-  public static getDistrictIdByCoords(cx: any, cy: any): any {
-    let result: any;
+  public static getDistrictIdByCoords(cx: CustomAny, cy: CustomAny): CustomAny {
+    let result: CustomAny;
 
     for (const id in DISTRICTS.positions) {
-      const { x, y, w, h } = CitadelUtils.getDistrictParams(id) as any;
+      const { x, y, w, h } = CitadelUtils.getDistrictParams(id) as CustomAny;
 
       if (cx >= x && cx <= x + w && cy >= y && cy <= y + h) {
         result = id;
@@ -108,8 +108,8 @@ export class CitadelUtils {
     return result;
   }
 
-  public static getParcedName(value: any): any {
-    const splited: any = value.split(' ');
+  public static getParcedName(value: CustomAny): CustomAny {
+    const splited: CustomAny = value.split(' ');
 
     if (splited.length > 1) {
       return splited.join('-').toLowerCase();
@@ -118,10 +118,13 @@ export class CitadelUtils {
     }
   }
 
-  public static getParcelByTypeAndValueCoords(districtId: any, { cx, cy }: { cx: any; cy: any }): any {
-    const district: any = parcelsData[districtId] || [];
+  public static getParcelByTypeAndValueCoords(
+    districtId: CustomAny,
+    { cx, cy }: { cx: CustomAny; cy: CustomAny }
+  ): CustomAny {
+    const district: CustomAny = parcelsData[districtId] || [];
 
-    let result: any;
+    let result: CustomAny;
 
     for (const parcel of district) {
       const { x, y } = CitadelUtils.getParcelCoords(parcel.coordinateX, parcel.coordinateY);

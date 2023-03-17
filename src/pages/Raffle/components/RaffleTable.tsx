@@ -19,14 +19,14 @@ export function RaffleTable() {
   const classes = tableStyles();
 
   const { raffle, tickets, setTickets, raffleSpinner, pricesSpinner, countChances, countWearablesChances } = useContext<
-    any
+    CustomAny
   >(RaffleContext);
 
-  const handleInputChange = (event: any, i: number) => {
+  const handleInputChange = (event: CustomAny, i: number) => {
     const newValue = event.target.value > 0 ? +event.target.value : '';
 
-    setTickets((ticketsCache: any[]) => {
-      const modified: any[] = [...ticketsCache];
+    setTickets((ticketsCache: CustomAny[]) => {
+      const modified: CustomAny[] = [...ticketsCache];
       modified[i].value = newValue;
       modified[i].chance = countChances(newValue, modified[i].entered, modified[i].items);
       modified[i].prizes = countWearablesChances(modified[i]);
@@ -119,7 +119,7 @@ export function RaffleTable() {
         </Grid>
 
         <Grid container item spacing={1} xs={12} md={8} lg={9}>
-          {tickets.map((ticket: any, i: number) => {
+          {tickets.map((ticket: CustomAny, i: number) => {
             // TODO check in the next Raffle is toSeconds ok
             const totalEntered =
               raffle.endDate - DateTime.local().toSeconds() < 0 ? ticket.entered : +ticket.entered + +ticket.value;
@@ -169,7 +169,7 @@ export function RaffleTable() {
         </Grid>
 
         <Grid container item spacing={1} xs={12} md={8} lg={9}>
-          {tickets.map((ticket: any, i: number) => {
+          {tickets.map((ticket: CustomAny, i: number) => {
             return (
               <Grid item xs={4} sm={true} key={i} className={classNames(classes.chance, ticket.rarity)}>
                 <Box
@@ -214,7 +214,7 @@ export function RaffleTable() {
         </Grid>
 
         <Grid container item spacing={1} xs={12} md={8} lg={9}>
-          {tickets.map((ticket: any, i: number) => {
+          {tickets.map((ticket: CustomAny, i: number) => {
             return (
               <Grid item xs={4} sm={true} key={i}>
                 <Box textAlign='center' className={classNames(classes.textHighlight, ticket.rarity)}>
@@ -257,7 +257,7 @@ export function RaffleTable() {
         </Grid>
 
         <Grid container item spacing={1} xs={12} md={8} lg={9}>
-          {tickets.map((ticket: any, i: number) => {
+          {tickets.map((ticket: CustomAny, i: number) => {
             return (
               <Grid item xs={4} sm={true} key={i} style={{ paddingLeft: 0 }}>
                 <Box

@@ -130,7 +130,7 @@ export function BaazaarOpenedPortals() {
     dispatch(fromBaazaarStore.onSetOpenedPortalsListingsSorting({ type: sortBy, dir: sortDir }));
   };
 
-  const onSetSelectedFilters = (key: string, value: any) => {
+  const onSetSelectedFilters = (key: string, value: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, value);
   };
 

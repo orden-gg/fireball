@@ -116,7 +116,7 @@ function pet() {
                   `⌛ Next timer in minutes: ${paint(HALF_DAY_MILLIS / 60 / 1000 + 1, CONSOLE_COLORS.Green)}`
                 );
               })
-              .catch((error: any) =>
+              .catch((error: CustomAny) =>
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
               );
           });

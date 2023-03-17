@@ -9,9 +9,9 @@ import { TICKETS_ABI } from 'data/abi/tickets.abi';
 const contract = EthersApi.makeContract(TICKETS_CONTRACT, TICKETS_ABI, 'polygon');
 
 export class TicketsApi {
-  public static async getTicketsByAddress(address: any): Promise<any> {
+  public static async getTicketsByAddress(address: CustomAny): Promise<CustomAny> {
     try {
-      const responseArray: any[] = [];
+      const responseArray: CustomAny[] = [];
 
       await Promise.all([
         contract.balanceOf(address.toLowerCase(), 0),
@@ -21,7 +21,7 @@ export class TicketsApi {
         contract.balanceOf(address.toLowerCase(), 4),
         contract.balanceOf(address.toLowerCase(), 5),
         contract.balanceOf(address.toLowerCase(), 6)
-      ]).then((response: [any, any, any, any, any, any, any]) => {
+      ]).then((response: [CustomAny, CustomAny, CustomAny, CustomAny, CustomAny, CustomAny, CustomAny]) => {
         return response.forEach((item, index) => {
           responseArray.push({
             balance: parseInt(EthersApi.formatBigNumber(item)),

@@ -71,7 +71,7 @@ export function ClientForSale() {
 
   const renderCardStats = (id: number, category: string): JSX.Element => {
     const isWearable: boolean = category === Erc1155Categories.Wearable;
-    const stats: any = isWearable ? ItemUtils.getTraitModifiersById(id) : ItemUtils.getDescriptionById(id);
+    const stats: CustomAny = isWearable ? ItemUtils.getTraitModifiersById(id) : ItemUtils.getDescriptionById(id);
 
     return <CardStats stats={stats} />;
   };

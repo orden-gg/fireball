@@ -96,7 +96,7 @@ const sortings: SortingListItem[] = [
   }
 ];
 
-const initialFilters: any = {
+const initialFilters: CustomAny = {
   guild: { ...filtersData.guild },
   whitelistId: { ...filtersData.whitelistId, divider: true },
   period: { ...filtersData.period },
@@ -116,23 +116,23 @@ export function Lend() {
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
 
-  const [modifiedLendings, setModifiedLendings] = useState<any[]>([]);
-  const [lendings, setLendings] = useState<any[]>([]);
+  const [modifiedLendings, setModifiedLendings] = useState<CustomAny[]>([]);
+  const [lendings, setLendings] = useState<CustomAny[]>([]);
   const [isDataLoading, setIsDataLoading] = useState<boolean>(true);
   const [linksListView, setLinksListView] = useState<boolean>(false);
   const [lendingsSorting, setLendingsSorting] = useState<SortingItem>({ type: 'timeCreated', dir: 'desc' });
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache: any) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -172,7 +172,7 @@ export function Lend() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
+    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === lendingsSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, lendingsSorting.dir);
   }, [lendingsSorting]);
@@ -192,12 +192,12 @@ export function Lend() {
     dispatch(fromDataReloadStore.setIsReloadDisabled(true));
     setIsDataLoading(shouldUpdateIsLoading);
 
-    TheGraphApi.getLendings().then((response: any) => {
+    TheGraphApi.getLendings().then((response: CustomAny) => {
       if (isMounted) {
-        const whitelistData: any[] = [];
-        const mappedData: any[] = [];
+        const whitelistData: CustomAny[] = [];
+        const mappedData: CustomAny[] = [];
 
-        response.forEach((listing: any) => {
+        response.forEach((listing: CustomAny) => {
           if (listing.whitelistId) {
             whitelistData.push(listing.whitelistId);
           }
@@ -208,11 +208,11 @@ export function Lend() {
           });
         });
 
-        const sortedWhitelist: any[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
-        const upfronCostValues: number[] = mappedData.map((item: any) => EthersApi.fromWei(item.upfrontCost));
+        const sortedWhitelist: CustomAny[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+        const upfronCostValues: number[] = mappedData.map((item: CustomAny) => EthersApi.fromWei(item.upfrontCost));
         const maxUpfrontCost: number = Math.max(...upfronCostValues);
 
-        setCurrentFilters((currentFiltersCache: any) => {
+        setCurrentFilters((currentFiltersCache: CustomAny) => {
           const currentFiltersCacheCopy = { ...currentFiltersCache };
 
           currentFiltersCacheCopy.whitelistId = {
@@ -231,7 +231,7 @@ export function Lend() {
             value: [currentFiltersCacheCopy.upfrontCost.min, maxUpfrontCost]
           };
 
-          let filtersToReturn: any;
+          let filtersToReturn: CustomAny;
 
           if (Object.keys(queryParams).length > 0) {
             filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
@@ -257,7 +257,7 @@ export function Lend() {
     [setLendingsSorting]
   );
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: lendingsSorting,
     onSortingChange: onSortingChange
@@ -273,7 +273,7 @@ export function Lend() {
   );
 
   const updateFilterQueryParams = useCallback(
-    (filters: any) => {
+    (filters: CustomAny) => {
       const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
       FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
@@ -281,7 +281,7 @@ export function Lend() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 

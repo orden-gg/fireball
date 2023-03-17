@@ -1,6 +1,6 @@
 export const CITADEL_WIDTH: number = 9504;
 export const CITADEL_HEIGHT: number = 6336;
-export const PARCEL_SIZE: any = Object.freeze({
+export const PARCEL_SIZE: CustomAny = Object.freeze({
   0: {
     width: 8,
     height: 8
@@ -26,7 +26,7 @@ export const PARCEL_SIZE: any = Object.freeze({
     height: 64
   }
 });
-export const PARCEL_NAME: any = Object.freeze({
+export const PARCEL_NAME: CustomAny = Object.freeze({
   0: 'humble',
   1: 'reasonable',
   2: 'spacious',
@@ -34,7 +34,7 @@ export const PARCEL_NAME: any = Object.freeze({
   4: 'paartners',
   5: 'guardian'
 });
-export const DISTRICTS: any = Object.freeze({
+export const DISTRICTS: CustomAny = Object.freeze({
   length: 49,
   w: CITADEL_WIDTH / 9,
   h: CITADEL_HEIGHT / 6,
@@ -164,7 +164,7 @@ export const DISTRICTS: any = Object.freeze({
     49
   ]
 });
-export const COLORS: any = Object.freeze({
+export const COLORS: CustomAny = Object.freeze({
   parcels: {
     selected: 0xffffff,
     // TODO remove commented code if not needed

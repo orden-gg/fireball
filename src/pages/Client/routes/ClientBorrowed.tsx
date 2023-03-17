@@ -47,7 +47,7 @@ const sortings: SortingListItem[] = [
   }
 ];
 
-const initialFilters: any = {
+const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
   collateral: { ...filtersData.collateral, divider: true },
   search: { ...filtersData.search }
@@ -65,19 +65,19 @@ export function ClientBorrowed() {
   const isInitialBorrowedGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialBorrowedGotchisLoading);
   const borrowedGotchisSorting: SortingItem = useAppSelector(fromClientStore.getBorrowedGotchisSorting);
 
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-  const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
+  const [modifiedGotchis, setModifiedGotchis] = useState<CustomAny[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache: any) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -97,7 +97,7 @@ export function ClientBorrowed() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === borrowedGotchisSorting.type)?.paramKey;
+    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === borrowedGotchisSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, borrowedGotchisSorting.dir);
   }, [borrowedGotchisSorting]);
@@ -117,7 +117,7 @@ export function ClientBorrowed() {
     dispatch(fromClientStore.setBorrowedGotchisSorting({ type, dir }));
   };
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: borrowedGotchisSorting,
     onSortingChange: onSortingChange
@@ -133,7 +133,7 @@ export function ClientBorrowed() {
   );
 
   const updateFilterQueryParams = useCallback(
-    (filters: any) => {
+    (filters: CustomAny) => {
       const params: string[] = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
       FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
@@ -141,7 +141,7 @@ export function ClientBorrowed() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 

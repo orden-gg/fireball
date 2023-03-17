@@ -10,9 +10,9 @@ import { AutopetPanelProps } from './models/autopet-panel-props.model';
 export function GhstPanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
-  const { ghstState, onApproveGhst, renderButtonNode, isGhstApproved, isStaked, isUserConnected } = useContext<any>(
-    AutopetContext
-  );
+  const { ghstState, onApproveGhst, renderButtonNode, isGhstApproved, isStaked, isUserConnected } = useContext<
+    CustomAny
+  >(AutopetContext);
 
   return (
     <div

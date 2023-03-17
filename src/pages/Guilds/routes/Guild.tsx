@@ -22,10 +22,12 @@ export function Guild() {
   const params = useParams<{ name: string }>();
   const navigate = useNavigate();
 
-  const { guilds, guildId, setGuildId } = useContext<any>(GuildsContext);
+  const { guilds, guildId, setGuildId } = useContext<CustomAny>(GuildsContext);
 
   useEffect(() => {
-    const guildId: any = guilds.findIndex((guild: any) => CommonUtils.stringToKey(guild.name) === params.name);
+    const guildId: CustomAny = guilds.findIndex(
+      (guild: CustomAny) => CommonUtils.stringToKey(guild.name) === params.name
+    );
 
     if (guildId === undefined || guilds[guildId].members?.length === 0) {
       navigate('/guilds');

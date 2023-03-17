@@ -1,9 +1,9 @@
 import Phaser from 'phaser';
 
 export class Highlight extends Phaser.GameObjects.Rectangle {
-  settings: any;
+  settings: CustomAny;
 
-  constructor(scene: any, settings: any) {
+  constructor(scene: CustomAny, settings: CustomAny) {
     // @ts-ignore
     super(scene);
 
@@ -18,7 +18,7 @@ export class Highlight extends Phaser.GameObjects.Rectangle {
     scene.on('zoom', () => this.updateStroke());
   }
 
-  update(x: any, y: any, w: any, h: any): void {
+  update(x: CustomAny, y: CustomAny, w: CustomAny, h: CustomAny): void {
     this.setSize(w, h);
     this.setPosition(x, y);
     this.setAlpha(1);

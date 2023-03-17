@@ -14,8 +14,8 @@ import { traitsDefinitions, traitsEffects } from 'data/traits.data';
 import { styles } from './styles';
 
 interface GotchiTraitsProps {
-  numericTraits: any;
-  modifiedNumericTraits: any;
+  numericTraits: CustomAny;
+  modifiedNumericTraits: CustomAny;
   className?: string;
 }
 
