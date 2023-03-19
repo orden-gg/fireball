@@ -22,24 +22,13 @@ import {
   WearableListingVM
 } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import {
-  loadWearablesListings,
-  loadWearablesListingsFailed,
-  loadWearablesListingsSucceded,
-  resetWearablesListings,
-  setIsWearablesListingsInitialDataLoading,
-  setWearablesListingsFilters,
-  setWearablesListingsIsFiltersUpdated,
-  setWearablesListingsIsSortingUpdated,
-  setWearablesListingsPreviousSortingProp,
-  setWearablesListingsSkipLimit,
-  setWearablesListingsSorting
-} from '../slices';
+// slices
+import * as wearablesListingsSlices from '../slices/wearables-listings.slice';
 
 export const loadBaazaarWearablesListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadWearablesListings());
+    dispatch(wearablesListingsSlices.loadWearablesListings());
 
     const wearablesListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.wearables.wearablesListingsGraphQueryParams;
@@ -76,24 +65,28 @@ export const loadBaazaarWearablesListings =
               );
 
               if (shouldResetListings) {
-                dispatch(loadWearablesListingsSucceded(modifiedListings));
+                dispatch(wearablesListingsSlices.loadWearablesListingsSucceded(modifiedListings));
               } else {
-                dispatch(loadWearablesListingsSucceded(currentWearablesListings.concat(modifiedListings)));
+                dispatch(
+                  wearablesListingsSlices.loadWearablesListingsSucceded(
+                    currentWearablesListings.concat(modifiedListings)
+                  )
+                );
               }
             })
             .finally(() => {
-              dispatch(setIsWearablesListingsInitialDataLoading(false));
+              dispatch(wearablesListingsSlices.setIsWearablesListingsInitialDataLoading(false));
             });
         } else {
           if (shouldResetListings) {
-            dispatch(loadWearablesListingsSucceded([]));
+            dispatch(wearablesListingsSlices.loadWearablesListingsSucceded([]));
           }
 
-          dispatch(setIsWearablesListingsInitialDataLoading(false));
+          dispatch(wearablesListingsSlices.setIsWearablesListingsInitialDataLoading(false));
         }
       })
       .catch(() => {
-        dispatch(loadWearablesListingsFailed());
+        dispatch(wearablesListingsSlices.loadWearablesListingsFailed());
       });
   };
 
@@ -102,7 +95,7 @@ export const onLoadBaazaarWearablesListings = (): AppThunk => (dispatch, getStat
   const isSortingUpdated: boolean = getState().baazaar.wearables.wearablesListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setWearablesListingsSkipLimit(0));
+    dispatch(wearablesListingsSlices.setWearablesListingsSkipLimit(0));
     dispatch(loadBaazaarWearablesListings(true));
   }
 };
@@ -117,8 +110,8 @@ export const onSetWearablesListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setWearablesListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setWearablesListingsPreviousSortingProp(sort.type));
+    dispatch(wearablesListingsSlices.setWearablesListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(wearablesListingsSlices.setWearablesListingsPreviousSortingProp(sort.type));
   };
 
 export const updateWearablesListingsFilterByKey =
@@ -128,7 +121,7 @@ export const updateWearablesListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setWearablesListingsFilters({ ...filters, [key]: updatedFilter }));
+    dispatch(wearablesListingsSlices.setWearablesListingsFilters({ ...filters, [key]: updatedFilter }));
   };
 
 export const resetWearablesListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -141,7 +134,7 @@ export const resetWearablesListingsFilters = (): AppThunk => (dispatch, getState
     ])
   );
 
-  dispatch(setWearablesListingsFilters(updatedFilters));
+  dispatch(wearablesListingsSlices.setWearablesListingsFilters(updatedFilters));
 };
 
 export const resetWearablesListingsData = (): AppThunk => (dispatch, getState) => {
@@ -155,13 +148,13 @@ export const resetWearablesListingsData = (): AppThunk => (dispatch, getState) =
     ])
   );
 
-  dispatch(setWearablesListingsFilters(updatedFilters));
-  dispatch(setWearablesListingsSorting(defaultSorting));
-  dispatch(setWearablesListingsSkipLimit(0));
-  dispatch(resetWearablesListings());
-  dispatch(setWearablesListingsIsSortingUpdated(false));
-  dispatch(setWearablesListingsIsFiltersUpdated(false));
-  dispatch(setIsWearablesListingsInitialDataLoading(true));
+  dispatch(wearablesListingsSlices.setWearablesListingsFilters(updatedFilters));
+  dispatch(wearablesListingsSlices.setWearablesListingsSorting(defaultSorting));
+  dispatch(wearablesListingsSlices.setWearablesListingsSkipLimit(0));
+  dispatch(wearablesListingsSlices.resetWearablesListings());
+  dispatch(wearablesListingsSlices.setWearablesListingsIsSortingUpdated(false));
+  dispatch(wearablesListingsSlices.setWearablesListingsIsFiltersUpdated(false));
+  dispatch(wearablesListingsSlices.setIsWearablesListingsInitialDataLoading(true));
 };
 
 const mapWearablesListingsDTOToVM = (

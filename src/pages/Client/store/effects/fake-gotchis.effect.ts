@@ -7,26 +7,22 @@ import { FakeGotchi } from 'shared/models';
 import { FakeGotchiCard, FakeItemsDTO, FakeItemsVM } from 'pages/Client/models';
 import { getFakeGotchisByAddressQuery } from 'pages/Client/queries';
 
-import {
-  loadFakeGotchis,
-  loadFakeGotchisFailed,
-  loadFakeGotchisSucceded,
-  setIsInitialFakeGotchisLoading
-} from '../slices';
+// slices
+import * as fakeGotchisSlices from '../slices/fake-gotchis.slice';
 
 export const onLoadFakeGotchis =
   (address: string): AppThunk =>
   (dispatch) => {
-    dispatch(loadFakeGotchis());
+    dispatch(fakeGotchisSlices.loadFakeGotchis());
 
     ClientApi.getFakeGotchis(getFakeGotchisByAddressQuery(address))
       .then((res: FakeItemsDTO) => {
         const mappedItems: FakeItemsVM = mapFakeItemsDTOToVM(res);
 
-        dispatch(loadFakeGotchisSucceded(mappedItems));
+        dispatch(fakeGotchisSlices.loadFakeGotchisSucceded(mappedItems));
       })
-      .catch(() => dispatch(loadFakeGotchisFailed()))
-      .finally(() => dispatch(setIsInitialFakeGotchisLoading(false)));
+      .catch(() => dispatch(fakeGotchisSlices.loadFakeGotchisFailed()))
+      .finally(() => dispatch(fakeGotchisSlices.setIsInitialFakeGotchisLoading(false)));
   };
 
 const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {

@@ -12,7 +12,7 @@ import {
 } from 'shared/constants/api.constants';
 
 import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { TokenTypes } from 'shared/constants';
 
@@ -71,7 +71,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
     }
   ];
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const { isPricesLoaded, tokensPrices } = useContext<CustomAny>(TokensPricesContext);
 

@@ -9,21 +9,21 @@ import { TilesUtils } from 'utils';
 
 import { InstallationAndTile } from '../../models';
 // slices
-import { loadTiles, loadTilesFailed, loadTilesSucceded, setIsInitialTilesLoading } from '../slices';
+import * as tilesSlices from '../slices/tiles.slice';
 
 export const onLoadTiles =
   (address: string): AppThunk =>
   (dispatch) => {
-    dispatch(loadTiles());
+    dispatch(tilesSlices.loadTiles());
 
     TilesApi.getTilesByAddress(address)
       .then((response: TilesBalances[]) => {
         const tiles: InstallationAndTile[] = getMappedTiles(response);
 
-        dispatch(loadTilesSucceded(tiles));
+        dispatch(tilesSlices.loadTilesSucceded(tiles));
       })
-      .catch(() => dispatch(loadTilesFailed()))
-      .finally(() => dispatch(setIsInitialTilesLoading(false)));
+      .catch(() => dispatch(tilesSlices.loadTilesFailed()))
+      .finally(() => dispatch(tilesSlices.setIsInitialTilesLoading(false)));
   };
 
 const getMappedTiles = (tilesBalances: TilesBalances[]): InstallationAndTile[] => {

@@ -7,7 +7,8 @@ import { AppThunk } from 'core/store/store';
 import { Erc1155Categories } from 'shared/constants';
 import { Erc1155ListingsBatch, Wearable } from 'shared/models';
 
-import { setMaxWearablePrice, setWearablesPrices } from '../slices';
+// slices
+import * as glossarySlices from '../slices/glossary.slice';
 
 export const loadWearableListings =
   (wearablesIds: number[]): AppThunk =>
@@ -53,8 +54,8 @@ export const loadWearableListings =
 
         const maxListingPrice: number = Math.max(...listingPrices);
 
-        dispatch(setMaxWearablePrice(maxListingPrice));
-        dispatch(setWearablesPrices(wearablesCopy));
+        dispatch(glossarySlices.setMaxWearablePrice(maxListingPrice));
+        dispatch(glossarySlices.setWearablesPrices(wearablesCopy));
       })
       .catch((error) => console.log(error));
   };

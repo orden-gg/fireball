@@ -15,18 +15,11 @@ import {
   ActivityWearableListingVM
 } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
-import {
-  loadActivityWearablesListings,
-  loadActivityWearablesListingsFailed,
-  loadActivityWearablesListingsSucceded,
-  resetActivityWearablesListings,
-  setActivityWearablesListingsFilters,
-  setActivityWearablesListingsIsFiltersUpdated,
-  setIsActivityWearablesListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityWearablesListingsSlices from '../slices/activity-wearables-listings.slice';
 
 export const loadBaazaarActivityWearablesListings = (): AppThunk => (dispatch, getState) => {
-  dispatch(loadActivityWearablesListings());
+  dispatch(activityWearablesListingsSlices.loadActivityWearablesListings());
 
   const activityWearablesListingsGraphQueryParams: GraphQueryParams =
     getState().baazaar.activity.wearables.activityWearablesListingsGraphQueryParams;
@@ -46,13 +39,13 @@ export const loadBaazaarActivityWearablesListings = (): AppThunk => (dispatch, g
     .then((wearablesListings: ActivityWearableListingDTO[]) => {
       const modifiedListings: ActivityWearableListingVM[] = mapActivityWearablesDTOToVM(wearablesListings);
 
-      dispatch(loadActivityWearablesListingsSucceded(modifiedListings));
+      dispatch(activityWearablesListingsSlices.loadActivityWearablesListingsSucceded(modifiedListings));
     })
     .catch(() => {
-      dispatch(loadActivityWearablesListingsFailed());
+      dispatch(activityWearablesListingsSlices.loadActivityWearablesListingsFailed());
     })
     .finally(() => {
-      dispatch(setIsActivityWearablesListingsInitialDataLoading(false));
+      dispatch(activityWearablesListingsSlices.setIsActivityWearablesListingsInitialDataLoading(false));
     });
 };
 
@@ -73,7 +66,10 @@ export const updateActivityWearablesListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityWearablesListingsFilters({ ...filters, [key]: updatedFilter as ActivityWearableListingFiltersType })
+      activityWearablesListingsSlices.setActivityWearablesListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityWearableListingFiltersType
+      })
     );
   };
 
@@ -88,7 +84,7 @@ export const resetActivityWearablesListingsFilters = (): AppThunk => (dispatch, 
     ])
   );
 
-  dispatch(setActivityWearablesListingsFilters(updatedFilters));
+  dispatch(activityWearablesListingsSlices.setActivityWearablesListingsFilters(updatedFilters));
 };
 
 export const resetActivityWearablesData = (): AppThunk => (dispatch, getState) => {
@@ -102,10 +98,10 @@ export const resetActivityWearablesData = (): AppThunk => (dispatch, getState) =
     ])
   );
 
-  dispatch(setActivityWearablesListingsFilters(updatedFilters));
-  dispatch(resetActivityWearablesListings());
-  dispatch(setActivityWearablesListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityWearablesListingsInitialDataLoading(true));
+  dispatch(activityWearablesListingsSlices.setActivityWearablesListingsFilters(updatedFilters));
+  dispatch(activityWearablesListingsSlices.resetActivityWearablesListings());
+  dispatch(activityWearablesListingsSlices.setActivityWearablesListingsIsFiltersUpdated(false));
+  dispatch(activityWearablesListingsSlices.setIsActivityWearablesListingsInitialDataLoading(true));
 };
 
 const mapActivityWearablesDTOToVM = (listings: ActivityWearableListingDTO[]): ActivityWearableListingVM[] => {

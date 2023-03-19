@@ -8,12 +8,12 @@ import { ParcelInstallationVM, ParcelTileVM, RealmDTO, RealmVM, SortingItem } fr
 import { CommonUtils, InstallationsUtils, TilesUtils } from 'utils';
 
 // slices
-import { loadRealm, loadRealmFailed, loadRealmSucceded, setIsInitialRealmLoading } from '../slices';
+import * as realmSlices from '../slices/realm.slice';
 
 export const onLoadRealm =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadRealm());
+    dispatch(realmSlices.loadRealm());
 
     const { type, dir }: SortingItem = getState().client.realm.realmSorting;
 
@@ -22,10 +22,10 @@ export const onLoadRealm =
         const modifiedParcels: RealmVM[] = getMappedRealm(response);
         const sortedParcels: RealmVM[] = CommonUtils.basicSort(modifiedParcels, type, dir);
 
-        dispatch(loadRealmSucceded(sortedParcels));
+        dispatch(realmSlices.loadRealmSucceded(sortedParcels));
       })
-      .catch(() => dispatch(loadRealmFailed()))
-      .finally(() => dispatch(setIsInitialRealmLoading(false)));
+      .catch(() => dispatch(realmSlices.loadRealmFailed()))
+      .finally(() => dispatch(realmSlices.setIsInitialRealmLoading(false)));
   };
 
 const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {

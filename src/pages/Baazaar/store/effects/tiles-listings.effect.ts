@@ -17,24 +17,13 @@ import { GraphFiltersUtils, TilesUtils } from 'utils';
 import { ASCENDING_DIRECTION, PRICE_IN_WEI, TileListingFilterTypes } from '../../constants';
 import { TileListingDTO, TileListingFilters, TileListingFiltersType, TileListingVM } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import {
-  loadTilesListings,
-  loadTilesListingsFailed,
-  loadTilesListingsSucceded,
-  resetTilesListings,
-  setIsTilesListingsInitialDataLoading,
-  setTilesListingsFilters,
-  setTilesListingsIsFiltersUpdated,
-  setTilesListingsIsSortingUpdated,
-  setTilesListingsPreviousSortingProp,
-  setTilesListingsSkipLimit,
-  setTilesListingsSorting
-} from '../slices';
+// slices
+import * as tilesListingsSlices from '../slices/tiles-listings.slice';
 
 export const loadBaazaarTilesListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadTilesListings());
+    dispatch(tilesListingsSlices.loadTilesListings());
 
     const tilesListingsGraphQueryParams: GraphQueryParams = getState().baazaar.tiles.tilesListingsGraphQueryParams;
     const currentTilesListings: TileListingVM[] = getState().baazaar.tiles.tilesListings.data;
@@ -58,24 +47,24 @@ export const loadBaazaarTilesListings =
             .then((lastSoldListings: Erc1155ListingsBatch) => {
               const modifiedListings: TileListingVM[] = mapTilesListingsDTOToVM(tilesListings, lastSoldListings);
               if (shouldResetListings) {
-                dispatch(loadTilesListingsSucceded(modifiedListings));
+                dispatch(tilesListingsSlices.loadTilesListingsSucceded(modifiedListings));
               } else {
-                dispatch(loadTilesListingsSucceded(currentTilesListings.concat(modifiedListings)));
+                dispatch(tilesListingsSlices.loadTilesListingsSucceded(currentTilesListings.concat(modifiedListings)));
               }
             })
             .finally(() => {
-              dispatch(setIsTilesListingsInitialDataLoading(false));
+              dispatch(tilesListingsSlices.setIsTilesListingsInitialDataLoading(false));
             });
         } else {
           if (shouldResetListings) {
-            dispatch(loadTilesListingsSucceded([]));
+            dispatch(tilesListingsSlices.loadTilesListingsSucceded([]));
           }
 
-          dispatch(setIsTilesListingsInitialDataLoading(false));
+          dispatch(tilesListingsSlices.setIsTilesListingsInitialDataLoading(false));
         }
       })
       .catch(() => {
-        dispatch(loadTilesListingsFailed());
+        dispatch(tilesListingsSlices.loadTilesListingsFailed());
       });
   };
 
@@ -84,7 +73,7 @@ export const onLoadBaazaarTilesListings = (): AppThunk => (dispatch, getState) =
   const isSortingUpdated: boolean = getState().baazaar.tiles.tilesListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setTilesListingsSkipLimit(0));
+    dispatch(tilesListingsSlices.setTilesListingsSkipLimit(0));
     dispatch(loadBaazaarTilesListings(true));
   }
 };
@@ -99,8 +88,8 @@ export const onSetTilesListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setTilesListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setTilesListingsPreviousSortingProp(sort.type));
+    dispatch(tilesListingsSlices.setTilesListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(tilesListingsSlices.setTilesListingsPreviousSortingProp(sort.type));
   };
 
 export const updateTilesListingsFilterByKey =
@@ -110,7 +99,9 @@ export const updateTilesListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setTilesListingsFilters({ ...filters, [key]: updatedFilter as TileListingFiltersType }));
+    dispatch(
+      tilesListingsSlices.setTilesListingsFilters({ ...filters, [key]: updatedFilter as TileListingFiltersType })
+    );
   };
 
 export const resetTilesListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -123,7 +114,7 @@ export const resetTilesListingsFilters = (): AppThunk => (dispatch, getState) =>
     ])
   );
 
-  dispatch(setTilesListingsFilters(updatedFilters));
+  dispatch(tilesListingsSlices.setTilesListingsFilters(updatedFilters));
 };
 
 export const resetTilesListingsData = (): AppThunk => (dispatch, getState) => {
@@ -137,13 +128,13 @@ export const resetTilesListingsData = (): AppThunk => (dispatch, getState) => {
     ])
   );
 
-  dispatch(setTilesListingsFilters(updatedFilters));
-  dispatch(setTilesListingsSorting(defaultSorting));
-  dispatch(setTilesListingsSkipLimit(0));
-  dispatch(resetTilesListings());
-  dispatch(setTilesListingsIsSortingUpdated(false));
-  dispatch(setTilesListingsIsFiltersUpdated(false));
-  dispatch(setIsTilesListingsInitialDataLoading(true));
+  dispatch(tilesListingsSlices.setTilesListingsFilters(updatedFilters));
+  dispatch(tilesListingsSlices.setTilesListingsSorting(defaultSorting));
+  dispatch(tilesListingsSlices.setTilesListingsSkipLimit(0));
+  dispatch(tilesListingsSlices.resetTilesListings());
+  dispatch(tilesListingsSlices.setTilesListingsIsSortingUpdated(false));
+  dispatch(tilesListingsSlices.setTilesListingsIsFiltersUpdated(false));
+  dispatch(tilesListingsSlices.setIsTilesListingsInitialDataLoading(true));
 };
 
 const mapTilesListingsDTOToVM = (
