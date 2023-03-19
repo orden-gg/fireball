@@ -1,16 +1,14 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { TokenTypes } from 'shared/constants';
+import { TokenPricesType } from 'shared/models';
 
 export interface DateTokensPrices {
   isPricesLoaded: boolean;
-  tokensPrices: {
-    [key in TokenTypes]: number;
-  };
+  tokensPrices: TokenPricesType;
 }
 const initialState: DateTokensPrices = {
   isPricesLoaded: false,
-  tokensPrices: {} as any
+  tokensPrices: {} as TokenPricesType
 };
 
 export const tokenPricesSlice = createSlice({
@@ -22,9 +20,7 @@ export const tokenPricesSlice = createSlice({
     },
     setTokensPrices: (
       state,
-      action: PayloadAction<{
-        [key in TokenTypes]: number;
-      }>
+      action: PayloadAction<TokenPricesType>
     ) => {
       state.tokensPrices = action.payload;
     }
