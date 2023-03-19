@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
-import { AlchemicaList } from 'shared/models';
+import { AlchemicaList, TokenPricesType } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -39,9 +39,7 @@ export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPricePro
   const dispatch = useAppDispatch();
 
   const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
-  const tokensPrices: {
-    [key in TokenTypes]: number;
-  } = useAppSelector(fromTokensPricesStore.getTokensPrices);
+  const tokensPrices: TokenPricesType = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
   const tokensList = gltr ? [...alchemica, gltr] : alchemica;
 
