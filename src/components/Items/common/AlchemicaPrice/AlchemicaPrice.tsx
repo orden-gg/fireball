@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { useAppSelector } from 'core/store/hooks';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
@@ -36,8 +36,6 @@ export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPricePro
 
   const [itemPrice, setItemPrice] = useState<number>(0);
 
-  const dispatch = useAppDispatch();
-
   const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
   const tokensPrices: TokenPricesType = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
@@ -58,10 +56,6 @@ export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPricePro
       setItemPrice(price !== 0 ? Number(price.toFixed(2)) : 0);
     }
   }, [isPricesLoaded, alchemica]);
-
-  useEffect(() => {
-    dispatch(fromTokensPricesStore.onLoadTokensPrices());
-  }, []);
 
   return (
     <div className={classNames(classes.alchemicaWrapper, className)}>

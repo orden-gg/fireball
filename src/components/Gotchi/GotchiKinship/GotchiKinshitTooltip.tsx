@@ -1,8 +1,6 @@
-import { useEffect } from 'react';
-
 import { Skeleton } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { useAppSelector } from 'core/store/hooks';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { AlchemicaList, TokenPricesType } from 'shared/models';
@@ -25,8 +23,6 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 
-  const dispatch = useAppDispatch();
-
   const renderTotalChannelingPrice = (alchemica: AlchemicaList): JSX.Element => {
     const total = alchemica.map((item, index) => item * tokensPrices[tokens[index]]);
 
@@ -36,10 +32,6 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
       </span>
     );
   };
-
-  useEffect(() => {
-    dispatch(fromTokensPricesStore.onLoadTokensPrices());
-  }, []);
 
   return (
     <div className={classes.container}>
