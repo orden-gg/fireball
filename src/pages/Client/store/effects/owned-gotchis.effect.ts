@@ -40,7 +40,7 @@ export const onLoadOwnedGotchis =
           warehouseSortType,
           warehouseSortDir
         );
-        const promises: Promise<any>[] = ownedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        const promises: Promise<CustomAny>[] = ownedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
         Promise.all(promises).then((response) => {
           const modifiedOwned = new Array();
           let i = 0;

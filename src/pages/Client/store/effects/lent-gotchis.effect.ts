@@ -26,7 +26,7 @@ export const onLoadLentGotchis =
           lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
         });
 
-        const promises: Promise<any>[] = lentGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
         Promise.all(promises).then((response) => {
           const modifiedlent = new Array();
           let i = 0;
