@@ -1,14 +1,30 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { SortingItem } from 'shared/models';
+import { OwnedGotchisState } from '../slices';
 
-import { OwnedGotchi } from '../../models';
+const ownedGotchisStateSelector = createSelector(
+  (state: RootState) => state.client.ownedGotchis,
+  (ownedGotchisState: OwnedGotchisState) => ownedGotchisState
+);
 
-export const getOwnedGotchis = (state: RootState): OwnedGotchi[] => state.client.ownedGotchis.ownedGotchis.data;
+export const getOwnedGotchis = createSelector(
+  ownedGotchisStateSelector,
+  (state: OwnedGotchisState) => state.ownedGotchis.data
+);
 
-export const getOwnedGotchisCount = (state: RootState): number => state.client.ownedGotchis.ownedGotchis.data.length;
+export const getOwnedGotchisCount = createSelector(
+  ownedGotchisStateSelector,
+  (state: OwnedGotchisState) => state.ownedGotchis.data.length
+);
 
-export const getIsInitialOwnedGotchisLoading = (state: RootState): boolean =>
-  state.client.ownedGotchis.isInitialOwnedGotchisLoading;
+export const getIsInitialOwnedGotchisLoading = createSelector(
+  ownedGotchisStateSelector,
+  (state: OwnedGotchisState) => state.isInitialOwnedGotchisLoading
+);
 
-export const getOwnedGotchisSorting = (state: RootState): SortingItem => state.client.ownedGotchis.ownedGotchisSorting;
+export const getOwnedGotchisSorting = createSelector(
+  ownedGotchisStateSelector,
+  (state: OwnedGotchisState) => state.ownedGotchisSorting
+);

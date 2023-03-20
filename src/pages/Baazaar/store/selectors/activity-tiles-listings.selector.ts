@@ -1,18 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ActivityTileListingFilters, ActivityTileListingVM } from '../../models';
+import { ActivityTilesListingsState } from '../slices';
 
-export const getActivityTilesListings = (state: RootState): ActivityTileListingVM[] =>
-  state.baazaar.activity.tiles.activityTilesListings.data;
+const activityTilesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.activity.tiles,
+  (activityTilesListingsState: ActivityTilesListingsState) => activityTilesListingsState
+);
 
-export const getIsActivityTilesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.activity.tiles.isActivityTilesListingsInitialDataLoading;
+export const getActivityTilesListings = createSelector(
+  activityTilesListingsStateSelector,
+  (state: ActivityTilesListingsState) => state.activityTilesListings.data
+);
 
-export const getIsActivityTilesListingsLoading = (state: RootState): boolean =>
-  state.baazaar.activity.tiles.activityTilesListings.isLoading;
+export const getIsActivityTilesListingsInitialDataLoading = createSelector(
+  activityTilesListingsStateSelector,
+  (state: ActivityTilesListingsState) => state.isActivityTilesListingsInitialDataLoading
+);
 
-export const getActivityTilesListingsFilters = (state: RootState): ActivityTileListingFilters =>
-  state.baazaar.activity.tiles.activityTilesListingsFilters;
+export const getIsActivityTilesListingsLoading = createSelector(
+  activityTilesListingsStateSelector,
+  (state: ActivityTilesListingsState) => state.activityTilesListings.isLoading
+);
 
-export const getActivityTilesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.activity.tiles.activityTilesListingsQueryParamsOrder;
+export const getActivityTilesListingsFilters = createSelector(
+  activityTilesListingsStateSelector,
+  (state: ActivityTilesListingsState) => state.activityTilesListingsFilters
+);
+
+export const getActivityTilesListingsQueryParamsOrder = createSelector(
+  activityTilesListingsStateSelector,
+  (state: ActivityTilesListingsState) => state.activityTilesListingsQueryParamsOrder
+);

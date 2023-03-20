@@ -35,10 +35,12 @@ export function LoginButton() {
     'DONATE_ADDRESS_SHOWN',
     JSON.parse(localStorage.getItem('DONATE_ADDRESS_SHOWN') as string)
   );
+
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
-  const storeLoggedAddress = useAppSelector(fromLoginStore.getLoggedAddress);
-  const isDropdownOpen = useAppSelector(fromLoginStore.getIsDropdownOpen);
+
+  const activeAddress: Undefinable<string | null> = useAppSelector(fromLoginStore.getActiveAddress);
+  const storeLoggedAddresses: LoginAddressModel[] = useAppSelector(fromLoginStore.getLoggedAddresses);
+  const isDropdownOpen: boolean = useAppSelector(fromLoginStore.getIsDropdownOpen);
 
   useEffect(() => {
     // connect metamask on load
@@ -60,6 +62,7 @@ export function LoginButton() {
   }, []);
 
   useEffect(() => {
+    // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
     if (metaState.account[0]) {
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
@@ -67,7 +70,7 @@ export function LoginButton() {
       }
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
-      dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddress.length ? storeLoggedAddress[0].address : ''));
+      dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
     }
   }, [metaState]);
 
@@ -101,7 +104,7 @@ export function LoginButton() {
   };
 
   const onAddressSubmit = (address: string): void => {
-    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddress.find(
+    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddresses.find(
       (item: LoginAddressModel) => item.address === address
     );
 
@@ -157,8 +160,8 @@ export function LoginButton() {
                 </div>
               ) : null}
 
-              {storeLoggedAddress.length
-                ? storeLoggedAddress.map((item: CustomAny, index: number) => {
+              {storeLoggedAddresses.length
+                ? storeLoggedAddresses.map((item: CustomAny, index: number) => {
                     return <LoginAddress address={item} key={index} onLogout={onAccountLogout} />;
                   })
                 : null}

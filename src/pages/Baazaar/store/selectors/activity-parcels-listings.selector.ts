@@ -1,18 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ActivityParcelListingFilters, ActivityParcelListingVM } from '../../models';
+import { ActivityParcelsListingsState } from '../slices';
 
-export const getActivityParcelsListings = (state: RootState): ActivityParcelListingVM[] =>
-  state.baazaar.activity.parcels.activityParcelsListings.data;
+const activityParcelsListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.activity.parcels,
+  (activityParcelsListingsState: ActivityParcelsListingsState) => activityParcelsListingsState
+);
 
-export const getIsActivityParcelsListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.activity.parcels.isActivityParcelsListingsInitialDataLoading;
+export const getActivityParcelsListings = createSelector(
+  activityParcelsListingsStateSelector,
+  (state: ActivityParcelsListingsState) => state.activityParcelsListings.data
+);
 
-export const getIsActivityParcelsListingsLoading = (state: RootState): boolean =>
-  state.baazaar.activity.parcels.activityParcelsListings.isLoading;
+export const getIsActivityParcelsListingsInitialDataLoading = createSelector(
+  activityParcelsListingsStateSelector,
+  (state: ActivityParcelsListingsState) => state.isActivityParcelsListingsInitialDataLoading
+);
 
-export const getActivityParcelsListingsFilters = (state: RootState): ActivityParcelListingFilters =>
-  state.baazaar.activity.parcels.activityParcelsListingsFilters;
+export const getIsActivityParcelsListingsLoading = createSelector(
+  activityParcelsListingsStateSelector,
+  (state: ActivityParcelsListingsState) => state.activityParcelsListings.isLoading
+);
 
-export const getActivityParcelsListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.activity.parcels.activityParcelsListingsQueryParamsOrder;
+export const getActivityParcelsListingsFilters = createSelector(
+  activityParcelsListingsStateSelector,
+  (state: ActivityParcelsListingsState) => state.activityParcelsListingsFilters
+);
+
+export const getActivityParcelsListingsQueryParamsOrder = createSelector(
+  activityParcelsListingsStateSelector,
+  (state: ActivityParcelsListingsState) => state.activityParcelsListingsQueryParamsOrder
+);

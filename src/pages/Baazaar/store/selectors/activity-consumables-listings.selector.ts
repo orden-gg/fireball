@@ -1,18 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ActivityConsumableListingFilters, ActivityConsumableListingVM } from '../../models';
+import { ActivityConsumablesListingsState } from '../slices';
 
-export const getActivityConsumablesListings = (state: RootState): ActivityConsumableListingVM[] =>
-  state.baazaar.activity.consumables.activityConsumablesListings.data;
+const activityConsumablesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.activity.consumables,
+  (activityConsumablesListingsState: ActivityConsumablesListingsState) => activityConsumablesListingsState
+);
 
-export const getIsActivityConsumablesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.activity.consumables.isActivityConsumablesListingsInitialDataLoading;
+export const getActivityConsumablesListings = createSelector(
+  activityConsumablesListingsStateSelector,
+  (state: ActivityConsumablesListingsState) => state.activityConsumablesListings.data
+);
 
-export const getIsActivityConsumablesListingsLoading = (state: RootState): boolean =>
-  state.baazaar.activity.consumables.activityConsumablesListings.isLoading;
+export const getIsActivityConsumablesListingsInitialDataLoading = createSelector(
+  activityConsumablesListingsStateSelector,
+  (state: ActivityConsumablesListingsState) => state.isActivityConsumablesListingsInitialDataLoading
+);
 
-export const getActivityConsumablesListingsFilters = (state: RootState): ActivityConsumableListingFilters =>
-  state.baazaar.activity.consumables.activityConsumablesListingsFilters;
+export const getIsActivityConsumablesListingsLoading = createSelector(
+  activityConsumablesListingsStateSelector,
+  (state: ActivityConsumablesListingsState) => state.activityConsumablesListings.isLoading
+);
 
-export const getActivityConsumablesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.activity.consumables.activityConsumablesListingsQueryParamsOrder;
+export const getActivityConsumablesListingsFilters = createSelector(
+  activityConsumablesListingsStateSelector,
+  (state: ActivityConsumablesListingsState) => state.activityConsumablesListingsFilters
+);
+
+export const getActivityConsumablesListingsQueryParamsOrder = createSelector(
+  activityConsumablesListingsStateSelector,
+  (state: ActivityConsumablesListingsState) => state.activityConsumablesListingsQueryParamsOrder
+);

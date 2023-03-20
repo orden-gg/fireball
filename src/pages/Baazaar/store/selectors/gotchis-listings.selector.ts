@@ -1,31 +1,55 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GraphQueryParams, SortingItem } from 'shared/models';
+import { GotchisListingsState } from '../slices';
 
-import { GotchiListingVM, GotchiListingsFilters } from '../../models';
+const gotchisListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.gotchis,
+  (gotchisListingsState: GotchisListingsState) => gotchisListingsState
+);
 
-export const getGotchisListings = (state: RootState): GotchiListingVM[] => state.baazaar.gotchis.gotchisListings.data;
+export const getGotchisListings = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListings.data
+);
 
-export const getIsGotchisListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.gotchis.isGotchisListingsInitialDataLoading;
+export const getIsGotchisListingsInitialDataLoading = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.isGotchisListingsInitialDataLoading
+);
 
-export const getIsGotchisListingsLoading = (state: RootState): boolean =>
-  state.baazaar.gotchis.gotchisListings.isLoading;
+export const getIsGotchisListingsLoading = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListings.isLoading
+);
 
-export const getGotchisListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
-  state.baazaar.gotchis.gotchisListingsGraphQueryParams;
+export const getGotchisListingsGraphQueryParams = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsGraphQueryParams
+);
 
-export const getGotchisListingsLimitPerLoad = (state: RootState): number =>
-  state.baazaar.gotchis.gotchisListingsLimitPerLoad;
+export const getGotchisListingsLimitPerLoad = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsLimitPerLoad
+);
 
-export const getGotchisDefaultListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.gotchis.gotchisListingsDefaultSorting;
+export const getGotchisDefaultListingsSorting = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsDefaultSorting
+);
 
-export const getGotchisListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.gotchis.gotchisListingsSorting;
+export const getGotchisListingsSorting = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsSorting
+);
 
-export const getGotchisListingsFilters = (state: RootState): GotchiListingsFilters =>
-  state.baazaar.gotchis.gotchisListingsFilters;
+export const getGotchisListingsFilters = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsFilters
+);
 
-export const getGotchisListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.gotchis.gotchisListingsQueryParamsOrder;
+export const getGotchisListingsQueryParamsOrder = createSelector(
+  gotchisListingsStateSelector,
+  (state: GotchisListingsState) => state.gotchisListingsQueryParamsOrder
+);
