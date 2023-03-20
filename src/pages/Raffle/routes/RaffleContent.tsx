@@ -13,7 +13,7 @@ export function RaffleContent({ user }) {
   const { name } = useParams<{ name: string }>();
 
   const { raffle, setRaffle, tickets, setTickets, getRaffleData, getTicketsPreset, raffleSpinner, onAddressChange } =
-    useContext<any>(RaffleContext);
+    useContext<CustomAny>(RaffleContext);
 
   useEffect(() => {
     const raffleName: boolean = raffles.some((item) => item['name'] === name);

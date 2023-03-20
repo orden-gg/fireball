@@ -16,8 +16,8 @@ import { SingleAutocompleteFilter } from '../SingleAutocompleteFilter/SingleAuto
 import { styles } from './styles';
 
 interface FiltersProps {
-  filters: any;
-  onSetSelectedFilters: (key: string, selectedValue: any) => void;
+  filters: CustomAny;
+  onSetSelectedFilters: (key: string, selectedValue: CustomAny) => void;
   className?: string;
   isFiltersDisabled?: boolean;
 }
@@ -54,7 +54,7 @@ export function Filters({ filters, onSetSelectedFilters, className, isFiltersDis
             <MultiButtonSelectionFilter
               {...{
                 filter: renderFilter,
-                onSetSelectedFilters: _.debounce((key: string, selectedValue: any) => {
+                onSetSelectedFilters: _.debounce((key: string, selectedValue: CustomAny) => {
                   onSetSelectedFilters(key, selectedValue);
                 }, 1000),
                 isDisabled: isFiltersDisabled

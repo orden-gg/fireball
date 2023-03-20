@@ -10,7 +10,7 @@ import { useFullscreenStatus } from 'hooks/useFullscreenStatus';
 
 import { InterfaceStyles } from '../styles';
 
-export function FullscreenButton({ wrapperRef }: { wrapperRef: any }) {
+export function FullscreenButton({ wrapperRef }: { wrapperRef: CustomAny }) {
   const classes = InterfaceStyles();
 
   const [isFullscreen, setIsFullscreen] = useFullscreenStatus(wrapperRef);

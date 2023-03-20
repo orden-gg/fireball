@@ -19,7 +19,7 @@ const tokens: string[] = [TokenTypes.Fud, TokenTypes.Fomo, TokenTypes.Alpha, Tok
 export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
   const classes = styles();
 
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const { isPricesLoaded, tokensPrices } = useContext<CustomAny>(TokensPricesContext);
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 

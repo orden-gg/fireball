@@ -45,7 +45,7 @@ export function GotchiverseOnline() {
     };
   }, []);
 
-  const renderOnlineTemplate = (TemplateIcon: any, text: string | number): JSX.Element => {
+  const renderOnlineTemplate = (TemplateIcon: CustomAny, text: string | number): JSX.Element => {
     return (
       <>
         <TemplateIcon className={classes.icon} />

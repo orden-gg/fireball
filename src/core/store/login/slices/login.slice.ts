@@ -9,8 +9,8 @@ export interface LoginState {
 }
 
 const initialState: LoginState = {
-  loggedAddresses: JSON.parse(localStorage.getItem('LOGGED_ADDRESSES') as any) || [],
-  activeAddress: JSON.parse(localStorage.getItem('ACTIVE_ADDRESS') as any),
+  loggedAddresses: JSON.parse(localStorage.getItem('LOGGED_ADDRESSES') as CustomAny) || [],
+  activeAddress: JSON.parse(localStorage.getItem('ACTIVE_ADDRESS') as CustomAny),
   isDropdownOpen: false
 };
 

@@ -74,15 +74,15 @@ export const filtersData = {
     componentType: FilterComponentType.MultipleAutocomplete,
     title: 'Guilds',
     items: guilds
-      .filter((guild: any) => guild.members.length > 0)
-      .map((guild: any) => ({
+      .filter((guild: CustomAny) => guild.members.length > 0)
+      .map((guild: CustomAny) => ({
         title: CommonUtils.stringToKey(guild.name),
         value: CommonUtils.stringToKey(guild.name),
         isSelected: false,
         queryParamValue: CommonUtils.stringToKey(guild.name)
       })),
-    renderTagsFn(tagValue: any, getTagProps: any) {
-      return tagValue.map((option: any, index: number) => (
+    renderTagsFn(tagValue: CustomAny, getTagProps: CustomAny) {
+      return tagValue.map((option: CustomAny, index: number) => (
         <Chip
           size='small'
           label={option.title}
@@ -126,8 +126,8 @@ export const filtersData = {
     min: 0,
     max: 720,
     value: [0, 720],
-    valueMapperFn: (value: any): any => {
-      return value.map((val: any) => val * 60 * 60);
+    valueMapperFn: (value: CustomAny): CustomAny => {
+      return value.map((val: CustomAny) => val * 60 * 60);
     },
     ...defaultRangeSliderFilter
   },
@@ -151,8 +151,8 @@ export const filtersData = {
     min: 0,
     max: 100,
     value: [0, 100],
-    valueMapperFn: (value: any): any => {
-      return value.map((val: any) => EthersApi.toWei(val));
+    valueMapperFn: (value: CustomAny): CustomAny => {
+      return value.map((val: CustomAny) => EthersApi.toWei(val));
     },
     ...defaultRangeSliderFilter
   },
@@ -220,15 +220,15 @@ export const filtersData = {
     key: 'district',
     queryParamKey: 'district',
     title: 'District',
-    items: DISTRICTS.numbers.map((district: any) => ({
+    items: DISTRICTS.numbers.map((district: CustomAny) => ({
       title: `${district}`,
       value: `${district}`,
       isSelected: false,
       queryParamValue: `${district}`
     })),
     componentType: FilterComponentType.MultipleAutocomplete,
-    renderTagsFn: (tagValue: any, getTagProps: any): any => {
-      return tagValue.map((option: any, index: number) => (
+    renderTagsFn: (tagValue: CustomAny, getTagProps: CustomAny): CustomAny => {
+      return tagValue.map((option: CustomAny, index: number) => (
         <Chip size='small' label={option.title} key={option.title} {...getTagProps({ index })} />
       ));
     },
@@ -243,8 +243,8 @@ export const filtersData = {
     isFilterActive: false,
     getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
-    predicateFn: (filter: any, compareItem: any, key: any): any => {
-      let predicate: any;
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
+      let predicate: CustomAny;
 
       if (!filter.value || !compareItem[key]) {
         predicate = true;
@@ -268,7 +268,7 @@ export const filtersData = {
     isFilterActive: false,
     getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
-    predicateFn: (filter: any, compareItem: any, key: any) => {
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny) => {
       return !filter.value ? !filter.value : filter.value && compareItem[key];
     },
     updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,

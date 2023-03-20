@@ -20,8 +20,8 @@ interface RaffleDateProps {
 export function RaffleDate({ start, end }: RaffleDateProps) {
   const classes = raffleDataStyles();
 
-  const [type, setType] = useState<any>(null);
-  const [title, setTitle] = useState<any>(null);
+  const [type, setType] = useState<CustomAny>(null);
+  const [title, setTitle] = useState<CustomAny>(null);
 
   useEffect(() => {
     renderTitle();
@@ -37,7 +37,7 @@ export function RaffleDate({ start, end }: RaffleDateProps) {
 
     if (local > start.toSeconds() && local < end.toSeconds()) {
       setType('live');
-      setTitle(`live for ${Duration.fromObject({ milliseconds: diff }).toFormat('hh:mm:ss')}`);
+      setTitle(`live for ${Duration.fromObject({ seconds: diff }).toFormat('hh:mm:ss')}`);
     } else if (local < start.toSeconds()) {
       setType('upcoming');
       setTitle(start.toRelative());

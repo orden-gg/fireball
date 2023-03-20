@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-export function useFullscreenStatus(elRef: any) {
-  const [isFullscreen, setIsFullscreen] = useState<any>(false);
+export function useFullscreenStatus(elRef: CustomAny) {
+  const [isFullscreen, setIsFullscreen] = useState<CustomAny>(false);
 
   const setFullscreen = (): void => {
     if (elRef.current === null) {
@@ -31,7 +31,7 @@ export function useFullscreenStatus(elRef: any) {
   useEffect(() => {
     document.onfullscreenchange = () => setIsFullscreen(document[`${getBrowserFullscreenElementProp()}`] !== null);
 
-    return () => (document.onfullscreenchange = undefined as any);
+    return () => (document.onfullscreenchange = undefined as CustomAny);
   });
 
   return [isFullscreen, setFullscreen];

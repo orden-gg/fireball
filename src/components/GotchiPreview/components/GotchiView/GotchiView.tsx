@@ -16,7 +16,7 @@ import { GotchiLevel } from '../GotchiLevel/GotchiLevel';
 import { gotchiViewStyles } from './styles';
 
 interface GotchiViewProps {
-  gotchi: any;
+  gotchi: CustomAny;
 }
 
 export function GotchiView({ gotchi }: GotchiViewProps) {
@@ -30,13 +30,13 @@ export function GotchiView({ gotchi }: GotchiViewProps) {
     );
 
     if (wearables.length !== 0) {
-      const promises: Promise<any>[] = wearables.map((id: number) =>
+      const promises: Promise<CustomAny>[] = wearables.map((id: number) =>
         TheGraphApi.getErc1155Price(id, true, Erc1155Categories.Wearable, 'timeLastPurchased', 'desc')
       );
 
-      Promise.all(promises).then((response: any) => {
+      Promise.all(promises).then((response: CustomAny) => {
         setTotalItemsValue((stateValue: number) =>
-          response.reduce((result: number, current: any) => {
+          response.reduce((result: number, current: CustomAny) => {
             return result + current.price || 0;
           }, stateValue)
         );

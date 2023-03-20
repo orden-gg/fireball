@@ -20,7 +20,9 @@ export const styles = makeStyles((theme) =>
       display: 'flex',
       alignItems: 'center',
       position: 'relative',
-      zIndex: theme.zIndex.drawer + 2
+      '.opened &': {
+        zIndex: theme.zIndex.drawer + 5
+      }
     },
     filterButton: {
       marginLeft: 4,
@@ -68,7 +70,7 @@ export const styles = makeStyles((theme) =>
       }
     },
     filterBackdrop: {
-      zIndex: theme.zIndex.drawer + 1
+      zIndex: theme.zIndex.drawer + 4
     },
     buttonsWrapper: {
       padding: 12,

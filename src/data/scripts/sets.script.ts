@@ -17,7 +17,7 @@ console.log('⏳ retrieving data from blockhain ⌛');
 
 mainContract
   .getWearableSets()
-  .then((res: any) => {
+  .then((res: CustomAny) => {
     fs.writeFileSync('src/data/sets.data.json', JSON.stringify(res), 'utf-8');
 
     console.log(`✅ successfully recorded ${res.length} sets ✅`);
