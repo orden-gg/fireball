@@ -1,4 +1,4 @@
-import { RealmApi, TheGraphApi } from 'api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -22,7 +22,7 @@ export const onLoadBorrowedGotchis =
 
     TheGraphApi.getBorrowedByAddress(address)
       .then((borrowedGotchis: GotchiLending[]) => {
-        const promises: Promise<CustomAny>[] = borrowedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        const promises: Promise<CustomAny>[] = borrowedGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
         Promise.all(promises).then((response) => {
           const modifiedBorrowed = new Array();
           let i = 0;

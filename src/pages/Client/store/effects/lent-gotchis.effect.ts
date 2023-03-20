@@ -1,4 +1,4 @@
-import { RealmApi, TheGraphApi } from 'api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -26,7 +26,7 @@ export const onLoadLentGotchis =
           lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
         });
 
-        const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+        const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
         Promise.all(promises).then((response) => {
           const modifiedlent = new Array();
           let i = 0;
