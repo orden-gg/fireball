@@ -10,13 +10,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import {
-  getActiveAddress,
-  removeAddress,
-  setActiveAddress,
-  toggleLoginDropdown,
-  updateAddressName
-} from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 
@@ -36,7 +30,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
   const classes = styles();
 
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [name, setName] = useState<string>(address.name);
@@ -57,8 +51,8 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
   }, [address]);
 
   const onAddressClick = (): void => {
-    dispatch(toggleLoginDropdown(false));
-    dispatch(setActiveAddress(address.address));
+    dispatch(fromLoginStore.toggleLoginDropdown(false));
+    dispatch(fromLoginStore.setActiveAddress(address.address));
   };
 
   const isActive = (current: LoginAddressModel): boolean => {
@@ -76,7 +70,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
       setEditMode(false);
 
       if (name !== address.name) {
-        dispatch(updateAddressName(address.address, name));
+        dispatch(fromLoginStore.updateAddressName(address.address, name));
       }
     }
   };
@@ -109,7 +103,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
       onLogout(address);
     }
 
-    dispatch(removeAddress(loginAddress.address));
+    dispatch(fromLoginStore.removeAddress(loginAddress.address));
   };
 
   return (

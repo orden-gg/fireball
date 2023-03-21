@@ -6,17 +6,13 @@ import { GotchiLending, SortingItem } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
-import {
-  loadLentGotchis,
-  loadLentGotchisFailed,
-  loadLentGotchisSucceded,
-  setIsInitialLentGotchisLoading
-} from '../slices';
+// slices
+import * as lentGotchisSlices from '../slices/lent-gotchis.slice';
 
 export const onLoadLentGotchis =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadLentGotchis());
+    dispatch(lentGotchisSlices.loadLentGotchis());
 
     const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
@@ -37,9 +33,8 @@ export const onLoadLentGotchis =
 
           const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedlent, type, dir);
 
-          dispatch(loadLentGotchisSucceded(sortedLentGotchis));
-        });
+        dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
       })
-      .catch(() => dispatch(loadLentGotchisFailed()))
-      .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
+      .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()))
+      .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
   };

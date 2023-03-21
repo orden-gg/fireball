@@ -1,5 +1,5 @@
 import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { Balances } from 'root/Header/components/Balances';
 
@@ -10,7 +10,7 @@ import { styles } from '../styles';
 export function UserPanel() {
   const classes = styles();
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   return (
     <div className={classes.userPanel}>

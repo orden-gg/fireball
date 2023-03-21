@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { NavRoute } from 'shared/models';
 
@@ -12,7 +12,7 @@ import { styles } from './styles';
 export function NavigationCards() {
   const classes = styles();
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
   const clientLink = activeAddress ? `/client/${activeAddress}/gotchis` : 'client';
 
   return (

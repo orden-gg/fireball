@@ -15,18 +15,11 @@ import {
   ActivityConsumableListingVM
 } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
-import {
-  loadActivityConsumablesListings,
-  loadActivityConsumablesListingsFailed,
-  loadActivityConsumablesListingsSucceded,
-  resetActivityConsumablesListings,
-  setActivityConsumablesListingsFilters,
-  setActivityConsumablesListingsIsFiltersUpdated,
-  setIsActivityConsumablesListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityConsumablesListingsSlices from '../slices/activity-consumables-listings.slice';
 
 export const loadBaazaarActivityConsumablesListings = (): AppThunk => (dispatch, getState) => {
-  dispatch(loadActivityConsumablesListings());
+  dispatch(activityConsumablesListingsSlices.loadActivityConsumablesListings());
 
   const activityConsumablesListingsGraphQueryParams: GraphQueryParams =
     getState().baazaar.activity.consumables.activityConsumablesListingsGraphQueryParams;
@@ -46,13 +39,13 @@ export const loadBaazaarActivityConsumablesListings = (): AppThunk => (dispatch,
     .then((consumablesListings: ActivityConsumableListingDTO[]) => {
       const modifiedListings: ActivityConsumableListingVM[] = mapActivityConsumablesDTOToVM(consumablesListings);
 
-      dispatch(loadActivityConsumablesListingsSucceded(modifiedListings));
+      dispatch(activityConsumablesListingsSlices.loadActivityConsumablesListingsSucceded(modifiedListings));
     })
     .catch(() => {
-      dispatch(loadActivityConsumablesListingsFailed());
+      dispatch(activityConsumablesListingsSlices.loadActivityConsumablesListingsFailed());
     })
     .finally(() => {
-      dispatch(setIsActivityConsumablesListingsInitialDataLoading(false));
+      dispatch(activityConsumablesListingsSlices.setIsActivityConsumablesListingsInitialDataLoading(false));
     });
 };
 
@@ -73,7 +66,7 @@ export const updateActivityConsumablesListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityConsumablesListingsFilters({
+      activityConsumablesListingsSlices.setActivityConsumablesListingsFilters({
         ...filters,
         [key]: updatedFilter as ActivityConsumableListingFiltersType
       })
@@ -91,7 +84,7 @@ export const resetActivityConsumablesListingsFilters = (): AppThunk => (dispatch
     ])
   );
 
-  dispatch(setActivityConsumablesListingsFilters(updatedFilters));
+  dispatch(activityConsumablesListingsSlices.setActivityConsumablesListingsFilters(updatedFilters));
 };
 
 export const resetActivityConsumablesData = (): AppThunk => (dispatch, getState) => {
@@ -105,10 +98,10 @@ export const resetActivityConsumablesData = (): AppThunk => (dispatch, getState)
     ])
   );
 
-  dispatch(setActivityConsumablesListingsFilters(updatedFilters));
-  dispatch(resetActivityConsumablesListings());
-  dispatch(setActivityConsumablesListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityConsumablesListingsInitialDataLoading(true));
+  dispatch(activityConsumablesListingsSlices.setActivityConsumablesListingsFilters(updatedFilters));
+  dispatch(activityConsumablesListingsSlices.resetActivityConsumablesListings());
+  dispatch(activityConsumablesListingsSlices.setActivityConsumablesListingsIsFiltersUpdated(false));
+  dispatch(activityConsumablesListingsSlices.setIsActivityConsumablesListingsInitialDataLoading(true));
 };
 
 const mapActivityConsumablesDTOToVM = (listings: ActivityConsumableListingDTO[]): ActivityConsumableListingVM[] => {

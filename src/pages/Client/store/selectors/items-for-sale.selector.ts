@@ -1,21 +1,32 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ItemsForSaleDictionary } from '../../models';
+import { ItemsForSaleState } from '../slices';
 
-export const getItemsForSale = (state: RootState): ItemsForSaleDictionary =>
-  state.client.itemsForSale.itemsForSale.data;
+const itemsForSaleStateSelector = createSelector(
+  (state: RootState) => state.client.itemsForSale,
+  (itemsForSaleState: ItemsForSaleState) => itemsForSaleState
+);
 
-export const getItemsForSaleCount = (state: RootState): number => {
+export const getItemsForSale = createSelector(
+  itemsForSaleStateSelector,
+  (state: ItemsForSaleState) => state.itemsForSale.data
+);
+
+export const getItemsForSaleCount = createSelector(itemsForSaleStateSelector, (state: ItemsForSaleState) => {
   const itemsForSaleCount: number =
-    state.client.itemsForSale.itemsForSale.data.consumables.length +
-    state.client.itemsForSale.itemsForSale.data.gotchis.length +
-    state.client.itemsForSale.itemsForSale.data.parcels.length +
-    state.client.itemsForSale.itemsForSale.data.portals.length +
-    state.client.itemsForSale.itemsForSale.data.tickets.length +
-    state.client.itemsForSale.itemsForSale.data.wearables.length;
+    state.itemsForSale.data.consumables.length +
+    state.itemsForSale.data.gotchis.length +
+    state.itemsForSale.data.parcels.length +
+    state.itemsForSale.data.portals.length +
+    state.itemsForSale.data.tickets.length +
+    state.itemsForSale.data.wearables.length;
 
   return itemsForSaleCount;
-};
+});
 
-export const getIsInitialItemsForSaleLoading = (state: RootState): boolean =>
-  state.client.itemsForSale.isInitialItemsForSaleLoading;
+export const getIsInitialItemsForSaleLoading = createSelector(
+  itemsForSaleStateSelector,
+  (state: ItemsForSaleState) => state.isInitialItemsForSaleLoading
+);

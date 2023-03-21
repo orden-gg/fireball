@@ -1,15 +1,30 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { BorrowedGotchisState } from '../slices';
 
-export const getBorrowedGotchis = (state: RootState): GotchiLending[] =>
-  state.client.borrowedGotchis.borrowedGotchis.data;
+const borrowedGotchisStateSelector = createSelector(
+  (state: RootState) => state.client.borrowedGotchis,
+  (borrowedGotchisState: BorrowedGotchisState) => borrowedGotchisState
+);
 
-export const getBorrowedGotchisCount = (state: RootState): number =>
-  state.client.borrowedGotchis.borrowedGotchis.data.length;
+export const getBorrowedGotchis = createSelector(
+  borrowedGotchisStateSelector,
+  (state: BorrowedGotchisState) => state.borrowedGotchis.data
+);
 
-export const getIsInitialBorrowedGotchisLoading = (state: RootState): boolean =>
-  state.client.borrowedGotchis.isInitialBorrowedGotchisLoading;
+export const getBorrowedGotchisCount = createSelector(
+  borrowedGotchisStateSelector,
+  (state: BorrowedGotchisState) => state.borrowedGotchis.data.length
+);
 
-export const getBorrowedGotchisSorting = (state: RootState): SortingItem =>
-  state.client.borrowedGotchis.borrowedGotchisSorting;
+export const getIsInitialBorrowedGotchisLoading = createSelector(
+  borrowedGotchisStateSelector,
+  (state: BorrowedGotchisState) => state.isInitialBorrowedGotchisLoading
+);
+
+export const getBorrowedGotchisSorting = createSelector(
+  borrowedGotchisStateSelector,
+  (state: BorrowedGotchisState) => state.borrowedGotchisSorting
+);

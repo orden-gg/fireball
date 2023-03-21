@@ -6,17 +6,13 @@ import { GotchiLending, SortingItem } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
-import {
-  loadBorrowedGotchis,
-  loadBorrowedGotchisFailed,
-  loadBorrowedGotchisSucceded,
-  setIsInitialBorrowedGotchisLoading
-} from '../slices';
+// slices
+import * as borrowedGotchisSlices from '../slices/borrowed-gotchis.slice';
 
 export const onLoadBorrowedGotchis =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadBorrowedGotchis());
+    dispatch(borrowedGotchisSlices.loadBorrowedGotchis());
 
     const { type, dir }: SortingItem = getState().client.borrowedGotchis.borrowedGotchisSorting;
 
@@ -33,9 +29,8 @@ export const onLoadBorrowedGotchis =
           
           const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedBorrowed, type, dir);
 
-          dispatch(loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
-        });
+        dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
       })
-      .catch(() => dispatch(loadBorrowedGotchisFailed()))
-      .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
+      .catch(() => dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed()))
+      .finally(() => dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false)));
   };
