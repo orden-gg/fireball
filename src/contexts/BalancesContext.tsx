@@ -11,8 +11,7 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
-import { useAppDispatch } from '../core/store/hooks';
-import { useAppSelector } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 

@@ -2,11 +2,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { TokenPricesType } from 'shared/models';
 
-export interface DateTokensPrices {
+export interface TokensPricesState {
   isPricesLoaded: boolean;
   tokensPrices: TokenPricesType;
 }
-const initialState: DateTokensPrices = {
+export const initialState: TokensPricesState = {
   isPricesLoaded: false,
   tokensPrices: {} as TokenPricesType
 };

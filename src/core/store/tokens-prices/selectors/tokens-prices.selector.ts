@@ -1,6 +1,10 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { RootState } from 'core/store/store';
 
-import { TokenPricesType } from 'shared/models';
+import { TokensPricesState } from '../slices/tokens-prices.slice';
 
-export const getIsPricesLoaded = (state: RootState): boolean => state.tokensPrices.isPricesLoaded;
-export const getTokensPrices = (state: RootState): TokenPricesType => state.tokensPrices.tokensPrices;
+export const tokensPricesStateSelector = createSelector((state: RootState) => state.tokensPrices, (tokensPricesState: TokensPricesState) => tokensPricesState);
+
+export const getIsPricesLoaded = createSelector(tokensPricesStateSelector, (state: TokensPricesState) => state.isPricesLoaded);
+
+export const getTokensPrices = createSelector(tokensPricesStateSelector, (state: TokensPricesState) => state.tokensPrices);

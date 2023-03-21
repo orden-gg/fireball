@@ -58,8 +58,6 @@ export function App() {
   const location = useLocation();
   // TODO find a better way how to handle hide/show header/footer
   const isNavHidden = location.pathname === '/';
-  const isHeaderHidden = location.pathname === '/shop';
-  const isFooterHidden = location.pathname === '/shop' || location.pathname === '/';
 
   return (
     <SnackbarContextProvider>
@@ -67,16 +65,11 @@ export function App() {
         <title>aavegotchi portal #1</title>
       </Helmet>
 
-      <Wrapper className={classNames(classes.wrapper, !isHeaderHidden && classes.noHeaderWrapper)}>
-        {!isHeaderHidden && (
-          <>
-            <BalancesContextProvider>
-              <Header />
-            </BalancesContextProvider>
-            {!isNavHidden && <NavPanel />}
-          </>
-        )}
-
+      <Wrapper className={classNames(classes.wrapper, classes.noHeaderWrapper)}>
+        <BalancesContextProvider>
+          <Header />
+        </BalancesContextProvider>
+        {!isNavHidden && <NavPanel />}
         <Box className={classes.content}>
           <Routes>
             <Route path='' element={<Main />} />
@@ -98,8 +91,7 @@ export function App() {
             <Route path='*' element={<Navigate to='404' replace />}></Route>
           </Routes>
         </Box>
-
-        {!isFooterHidden && <Footer />}
+        <Footer />
       </Wrapper>
     </SnackbarContextProvider>
   );

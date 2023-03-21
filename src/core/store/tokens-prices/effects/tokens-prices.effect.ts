@@ -13,23 +13,20 @@ import {
   USDC_CONTRACT,
   WMATIC_CONTRACT
 } from 'shared/constants';
+import { QuickswapToken, GhstPriceType } from 'shared/models';
 
-import { setIsPricesLoaded, setTokensPrices } from '../slices/tokens-prices.slice';
+import * as fromTokensPricesStore from '../slices/tokens-prices.slice';
 
 const fetchInterval: number = 300; // seconds
 
-export const onSetIsPricesLoaded =
-  (isPrice: boolean): AppThunk =>
-  (dispatch) => {
-    dispatch(setIsPricesLoaded(isPrice));
-  };
-
 export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
   const getTokensPrices = async function (): Promise<void> {
-    setIsPricesLoaded(false);
-    const [ghstPrice, ghst]: number[] = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
-    const [maticPrice]: number[] = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
-    const [fudToken, fomoToken, alphaToken, kekToken, gltrToken]: number[] = await Promise.all([
+    
+    dispatch(fromTokensPricesStore.setIsPricesLoaded(false));
+
+    const { price: ghstPrice, token: ghst }: GhstPriceType = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
+    const { price: maticPrice }: GhstPriceType = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
+    const [fudToken, fomoToken, alphaToken, kekToken, gltrToken]: QuickswapToken[] = await Promise.all([
       QuickswapApi.getTokenData(FUD_CONTRACT),
       QuickswapApi.getTokenData(FOMO_CONTRACT),
       QuickswapApi.getTokenData(ALPHA_CONTRACT),
@@ -43,8 +40,9 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
       getTokenPrice(ghst, ghstPrice, kekToken),
       getTokenPrice(ghst, ghstPrice, gltrToken)
     ]);
+
     dispatch(
-      setTokensPrices({
+      fromTokensPricesStore.setTokensPrices({
         [TokenTypes.Fud]: fudPrice,
         [TokenTypes.Fomo]: fomoPrice,
         [TokenTypes.Alpha]: alphaPrice,
@@ -54,7 +52,8 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
         [TokenTypes.Matic]: maticPrice
       })
     );
-    dispatch(setIsPricesLoaded(true));
+
+    dispatch(fromTokensPricesStore.setIsPricesLoaded(true));
   };
 
   getTokensPrices();
@@ -64,21 +63,21 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
   }, fetchInterval * 1000);
 };
 
-const getGhstAndPriceToToken = async (ghstContract, tokenContract): Promise<CustomAny> => {
-  const [ghst, token]: number[] = await Promise.all([
+const getGhstAndPriceToToken = async (ghstContract: string, tokenContract: string): Promise<CustomAny> => {
+  const [ghst, token]: QuickswapToken[] = await Promise.all([
     QuickswapApi.getTokenData(ghstContract),
     QuickswapApi.getTokenData(tokenContract)
   ]);
 
-  const ghstTokenPair: number = await QuickswapApi.getPairData(ghst, token);
+  const ghstTokenPair: CustomAny = await QuickswapApi.getPairData(ghst, token);
   const ghstTokenRoute: CustomAny = QuickswapApi.getTokenRouteByPair(ghst, ghstTokenPair);
   const ghstPriceToToken: number = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
-  return [ghstPriceToToken, ghst];
+  return { price: ghstPriceToToken, token: ghst };
 };
 
-const getTokenPrice = async (compareToken, compareTokenPrice, targetToken) => {
-  const tokensPair: number = await QuickswapApi.getPairData(compareToken, targetToken);
+const getTokenPrice = async (compareToken: QuickswapToken, compareTokenPrice: number, targetToken: QuickswapToken): Promise<CustomAny> => {
+  const tokensPair: CustomAny = await QuickswapApi.getPairData(compareToken, targetToken);
   const tokensRoute: CustomAny = QuickswapApi.getTokenRouteByPair(targetToken, tokensPair);
   const targetTokenToCompareTokenPrice: number = Number(tokensRoute.midPrice.toSignificant(6));
   const tokenPrice: number = compareTokenPrice * targetTokenToCompareTokenPrice;
