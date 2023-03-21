@@ -4,7 +4,7 @@ import { useAppSelector } from 'core/store/hooks';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
-import { AlchemicaList, TokenPricesType } from 'shared/models';
+import { AlchemicaList, TokenPrices } from 'shared/models';
 
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
@@ -19,7 +19,7 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
   const classes = styles();
 
   const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
-  const tokensPrices: TokenPricesType = useAppSelector(fromTokensPricesStore.getTokensPrices);
+  const tokensPrices: TokenPrices = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 

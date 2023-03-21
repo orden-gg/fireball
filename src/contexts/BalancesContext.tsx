@@ -16,7 +16,7 @@ import { getActiveAddress } from 'core/store/login';
 import * as fromTokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
-import { TokenPricesType } from 'shared/models';
+import { TokenPrices } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -75,7 +75,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
   const activeAddress = useAppSelector(getActiveAddress);
 
   const isPricesLoaded: boolean = useAppSelector(fromTokensPricesStore.getIsPricesLoaded);
-  const tokensPrices: TokenPricesType = useAppSelector(fromTokensPricesStore.getTokensPrices);
+  const tokensPrices: TokenPrices = useAppSelector(fromTokensPricesStore.getTokensPrices);
 
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
