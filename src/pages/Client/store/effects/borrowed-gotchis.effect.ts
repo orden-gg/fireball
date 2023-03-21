@@ -33,4 +33,5 @@ export const onLoadBorrowedGotchis =
       })
       .catch(() => dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed()))
       .finally(() => dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false)));
+      });
   };

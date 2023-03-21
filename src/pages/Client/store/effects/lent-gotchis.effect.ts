@@ -37,4 +37,5 @@ export const onLoadLentGotchis =
       })
       .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()))
       .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
+      }); 
   };

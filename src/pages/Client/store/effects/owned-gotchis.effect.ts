@@ -56,6 +56,7 @@ export const onLoadOwnedGotchis =
       })
       .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
       .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
+      }); 
   };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
