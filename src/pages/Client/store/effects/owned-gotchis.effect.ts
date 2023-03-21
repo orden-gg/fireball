@@ -42,13 +42,13 @@ export const onLoadOwnedGotchis =
         );
         const promises: Promise<CustomAny>[] = ownedGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
         Promise.all(promises).then((response) => {
-          const modifiedOwned = new Array();
-          let i = 0;
-          for (const gotchi of ownedGotchis) {
-            const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
-            modifiedOwned.push(modifiedGotchi);
-            i += 1;
-          }
+          const modifiedOwned = ownedGotchis.map(item => {
+          
+            const obj = response.find(o => o[0].id === item.id);
+          
+            return { ...item, ...obj[0] };
+          });
+
           const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
             modifiedOwned,
             gotchisSortType,

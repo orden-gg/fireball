@@ -156,9 +156,9 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
-  lastChanneling: {
-    key: 'lastChanneling',
-    queryParamKey: 'lastChanneling',
+  lastChanneled: {
+    key: 'lastChanneled',
+    queryParamKey: 'lastChanneled',
     title: 'Is channeling ready',
     value: false,
     componentType: FilterComponentType.Checkbox,
@@ -167,6 +167,7 @@ export const filtersData = {
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
     predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
       let predicate: CustomAny;
+      console.log('key',key);
       if (!filter.value || !compareItem[key]) {
         predicate = true;
       } else {

@@ -28,13 +28,12 @@ export const onLoadLentGotchis =
 
         const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
         Promise.all(promises).then((response) => {
-          const modifiedlent = new Array();
-          let i = 0;
-          for (const gotchi of lentGotchis) {
-            const modifiedGotchi = { ...gotchi, lastChanneling: response[i].toString() };
-            modifiedlent.push(modifiedGotchi);
-            i += 1;
-          }
+          const modifiedlent = lentGotchis.map(item => {
+          
+            const obj = response.find(o => o[0].id === item.id);
+          
+            return { ...item, ...obj[0] };
+          });
 
           const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedlent, type, dir);
 

@@ -33,12 +33,12 @@ const sortings: SortingListItem[] = [
 
 const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
-  lastChanneling: { ...filtersData.lastChanneling, divider: true },
+  lastChanneled: { ...filtersData.lastChanneled, divider: true },
   whitelistId: { ...filtersData.whitelistId, divider: true },
   borrower: { ...filtersData.borrower, divider: true },
   search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'lastChanneling', 'whitelistId', 'borrower', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = ['haunt', 'lastChanneled', 'whitelistId', 'borrower', 'search', 'sort', 'dir'];
 
 export function ClientLendings() {
   const navigate = useNavigate();

@@ -602,7 +602,7 @@ export class TheGraphApi {
       // * gotchiverse return empty data if gotchi never channeled alchemica!
       return gotchiIds.map((id, i) => ({
         id: id,
-        lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica) || 0
+        lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica).toString() || 0
       }));
     });
   }
