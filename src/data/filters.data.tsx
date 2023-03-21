@@ -167,7 +167,6 @@ export const filtersData = {
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
     predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
       let predicate: CustomAny;
-      console.log('key',key);
       if (!filter.value || !compareItem[key]) {
         predicate = true;
       } else {
