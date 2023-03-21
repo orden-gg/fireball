@@ -15,24 +15,13 @@ import {
   ClosedPortalListingVM
 } from '../../models';
 import { getBaazaarClosedPortalsListingsQuery } from '../../queries';
-import {
-  loadClosedPortalsListings,
-  loadClosedPortalsListingsFailed,
-  loadClosedPortalsListingsSucceded,
-  resetClosedPortalsListings,
-  setClosedPortalsListingsFilters,
-  setClosedPortalsListingsIsFiltersUpdated,
-  setClosedPortalsListingsIsSortingUpdated,
-  setClosedPortalsListingsPreviousSortingProp,
-  setClosedPortalsListingsSkipLimit,
-  setClosedPortalsListingsSorting,
-  setIsClosedPortalsListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as closedPortalsListingsSlices from '../slices/closed-portals-listings.slice';
 
 export const loadBaazaarClosedPortalsListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadClosedPortalsListings());
+    dispatch(closedPortalsListingsSlices.loadClosedPortalsListings());
 
     const closedPortalsListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.closedPortals.closedPortalsListingsGraphQueryParams;
@@ -53,16 +42,20 @@ export const loadBaazaarClosedPortalsListings =
         const modifiedListings: ClosedPortalListingVM[] = mapClosedPortalsDTOToVM(res);
 
         if (shouldResetListings) {
-          dispatch(loadClosedPortalsListingsSucceded(modifiedListings));
+          dispatch(closedPortalsListingsSlices.loadClosedPortalsListingsSucceded(modifiedListings));
         } else {
-          dispatch(loadClosedPortalsListingsSucceded(closedPortalsListings.concat(modifiedListings)));
+          dispatch(
+            closedPortalsListingsSlices.loadClosedPortalsListingsSucceded(
+              closedPortalsListings.concat(modifiedListings)
+            )
+          );
         }
       })
       .catch(() => {
-        dispatch(loadClosedPortalsListingsFailed());
+        dispatch(closedPortalsListingsSlices.loadClosedPortalsListingsFailed());
       })
       .finally(() => {
-        dispatch(setIsClosedPortalsListingsInitialDataLoading(false));
+        dispatch(closedPortalsListingsSlices.setIsClosedPortalsListingsInitialDataLoading(false));
       });
   };
 
@@ -71,7 +64,7 @@ export const onLoadBaazaarClosedPortalsListings = (): AppThunk => (dispatch, get
   const isSortingUpdated: boolean = getState().baazaar.closedPortals.closedPortalsListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setClosedPortalsListingsSkipLimit(0));
+    dispatch(closedPortalsListingsSlices.setClosedPortalsListingsSkipLimit(0));
     dispatch(loadBaazaarClosedPortalsListings(true));
   }
 };
@@ -86,8 +79,8 @@ export const onSetClosedPortalsListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setClosedPortalsListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setClosedPortalsListingsPreviousSortingProp(sort.type));
+    dispatch(closedPortalsListingsSlices.setClosedPortalsListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(closedPortalsListingsSlices.setClosedPortalsListingsPreviousSortingProp(sort.type));
   };
 
 export const updateClosedPortalsListingsFilterByKey =
@@ -97,7 +90,7 @@ export const updateClosedPortalsListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setClosedPortalsListingsFilters({ ...filters, [key]: updatedFilter }));
+    dispatch(closedPortalsListingsSlices.setClosedPortalsListingsFilters({ ...filters, [key]: updatedFilter }));
   };
 
 export const resetClosedPortalsListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -110,7 +103,7 @@ export const resetClosedPortalsListingsFilters = (): AppThunk => (dispatch, getS
     ])
   );
 
-  dispatch(setClosedPortalsListingsFilters(updatedFilters));
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsFilters(updatedFilters));
 };
 
 export const resetClosedPortalsData = (): AppThunk => (dispatch, getState) => {
@@ -124,13 +117,13 @@ export const resetClosedPortalsData = (): AppThunk => (dispatch, getState) => {
     ])
   );
 
-  dispatch(setClosedPortalsListingsFilters(updatedFilters));
-  dispatch(setClosedPortalsListingsSorting(defaultSorting));
-  dispatch(setClosedPortalsListingsSkipLimit(0));
-  dispatch(resetClosedPortalsListings());
-  dispatch(setClosedPortalsListingsIsSortingUpdated(false));
-  dispatch(setClosedPortalsListingsIsFiltersUpdated(false));
-  dispatch(setIsClosedPortalsListingsInitialDataLoading(true));
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsFilters(updatedFilters));
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsSorting(defaultSorting));
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsSkipLimit(0));
+  dispatch(closedPortalsListingsSlices.resetClosedPortalsListings());
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsIsSortingUpdated(false));
+  dispatch(closedPortalsListingsSlices.setClosedPortalsListingsIsFiltersUpdated(false));
+  dispatch(closedPortalsListingsSlices.setIsClosedPortalsListingsInitialDataLoading(true));
 };
 
 const mapClosedPortalsDTOToVM = (listings: ClosedPortalListingDTO[]): ClosedPortalListingVM[] => {

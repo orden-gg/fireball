@@ -1,4 +1,4 @@
-import { getGlossaryWearablesCount } from '../../store';
+import * as fromGlossaryStore from '../../store';
 import { useAppSelector } from 'core/store/hooks';
 
 import { PageNavLink } from 'shared/models';
@@ -7,7 +7,7 @@ import { AnvilIcon, BadgeIcon, ConsumableIcon, WarehouseIcon } from 'components/
 import { PageNav } from 'components/PageNav/PageNav';
 
 export function GlossaryRoot() {
-  const wearablesCount = useAppSelector(getGlossaryWearablesCount);
+  const wearablesCount = useAppSelector(fromGlossaryStore.getGlossaryWearablesCount);
 
   const navData: PageNavLink[] = [
     {

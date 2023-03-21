@@ -9,7 +9,7 @@ import queryString from 'query-string';
 import { EthersApi } from 'api';
 
 import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { CustomParsedQuery } from 'shared/models';
 
@@ -33,7 +33,7 @@ export function Raffle() {
   const queryParams = queryString.parse(location.search) as CustomParsedQuery;
   const lastRaffle = raffles[raffles.length - 1];
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const [raffleActive, setRaffleActive] = useState<string>('');
 
