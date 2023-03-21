@@ -1,18 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ActivityPortalListingFilters, ActivityPortalListingVM } from '../../models';
+import { ActivityPortalsListingsState } from '../slices';
 
-export const getActivityPortalsListings = (state: RootState): ActivityPortalListingVM[] =>
-  state.baazaar.activity.portals.activityPortalsListings.data;
+const activityPortalsListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.activity.portals,
+  (activityPortalsListingsState: ActivityPortalsListingsState) => activityPortalsListingsState
+);
 
-export const getIsActivityPortalsListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.activity.portals.isActivityPortalsListingsInitialDataLoading;
+export const getActivityPortalsListings = createSelector(
+  activityPortalsListingsStateSelector,
+  (state: ActivityPortalsListingsState) => state.activityPortalsListings.data
+);
 
-export const getIsActivityPortalsListingsLoading = (state: RootState): boolean =>
-  state.baazaar.activity.portals.activityPortalsListings.isLoading;
+export const getIsActivityPortalsListingsInitialDataLoading = createSelector(
+  activityPortalsListingsStateSelector,
+  (state: ActivityPortalsListingsState) => state.isActivityPortalsListingsInitialDataLoading
+);
 
-export const getActivityPortalsListingsFilters = (state: RootState): ActivityPortalListingFilters =>
-  state.baazaar.activity.portals.activityPortalsListingsFilters;
+export const getIsActivityPortalsListingsLoading = createSelector(
+  activityPortalsListingsStateSelector,
+  (state: ActivityPortalsListingsState) => state.activityPortalsListings.isLoading
+);
 
-export const getActivityPortalsListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.activity.portals.activityPortalsListingsQueryParamsOrder;
+export const getActivityPortalsListingsFilters = createSelector(
+  activityPortalsListingsStateSelector,
+  (state: ActivityPortalsListingsState) => state.activityPortalsListingsFilters
+);
+
+export const getActivityPortalsListingsQueryParamsOrder = createSelector(
+  activityPortalsListingsStateSelector,
+  (state: ActivityPortalsListingsState) => state.activityPortalsListingsQueryParamsOrder
+);

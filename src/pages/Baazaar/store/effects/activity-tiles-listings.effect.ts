@@ -16,18 +16,11 @@ import {
   ActivityTileListingVM
 } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
-import {
-  loadActivityTilesListings,
-  loadActivityTilesListingsFailed,
-  loadActivityTilesListingsSucceded,
-  resetActivityTilesListings,
-  setActivityTilesListingsFilters,
-  setActivityTilesListingsIsFiltersUpdated,
-  setIsActivityTilesListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityTilesListingsSlices from '../slices/activity-tiles-listings.slice';
 
 export const loadBaazaarActivityTilesListings = (): AppThunk => (dispatch, getState) => {
-  dispatch(loadActivityTilesListings());
+  dispatch(activityTilesListingsSlices.loadActivityTilesListings());
 
   const activityTilesListingsGraphQueryParams: GraphQueryParams =
     getState().baazaar.activity.tiles.activityTilesListingsGraphQueryParams;
@@ -46,13 +39,13 @@ export const loadBaazaarActivityTilesListings = (): AppThunk => (dispatch, getSt
     .then((tilesListings: ActivityTileListingDTO[]) => {
       const modifiedListings: ActivityTileListingVM[] = mapActivityTilesDTOToVM(tilesListings);
 
-      dispatch(loadActivityTilesListingsSucceded(modifiedListings));
+      dispatch(activityTilesListingsSlices.loadActivityTilesListingsSucceded(modifiedListings));
     })
     .catch(() => {
-      dispatch(loadActivityTilesListingsFailed());
+      dispatch(activityTilesListingsSlices.loadActivityTilesListingsFailed());
     })
     .finally(() => {
-      dispatch(setIsActivityTilesListingsInitialDataLoading(false));
+      dispatch(activityTilesListingsSlices.setIsActivityTilesListingsInitialDataLoading(false));
     });
 };
 
@@ -71,7 +64,12 @@ export const updateActivityTilesListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setActivityTilesListingsFilters({ ...filters, [key]: updatedFilter as ActivityTileListingFiltersType }));
+    dispatch(
+      activityTilesListingsSlices.setActivityTilesListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityTileListingFiltersType
+      })
+    );
   };
 
 export const resetActivityTilesListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -84,7 +82,7 @@ export const resetActivityTilesListingsFilters = (): AppThunk => (dispatch, getS
     ])
   );
 
-  dispatch(setActivityTilesListingsFilters(updatedFilters));
+  dispatch(activityTilesListingsSlices.setActivityTilesListingsFilters(updatedFilters));
 };
 
 export const resetActivityTilesData = (): AppThunk => (dispatch, getState) => {
@@ -97,10 +95,10 @@ export const resetActivityTilesData = (): AppThunk => (dispatch, getState) => {
     ])
   );
 
-  dispatch(setActivityTilesListingsFilters(updatedFilters));
-  dispatch(resetActivityTilesListings());
-  dispatch(setActivityTilesListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityTilesListingsInitialDataLoading(true));
+  dispatch(activityTilesListingsSlices.setActivityTilesListingsFilters(updatedFilters));
+  dispatch(activityTilesListingsSlices.resetActivityTilesListings());
+  dispatch(activityTilesListingsSlices.setActivityTilesListingsIsFiltersUpdated(false));
+  dispatch(activityTilesListingsSlices.setIsActivityTilesListingsInitialDataLoading(true));
 };
 
 const mapActivityTilesDTOToVM = (listings: ActivityTileListingDTO[]): ActivityTileListingVM[] => {

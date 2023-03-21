@@ -14,20 +14,13 @@ import {
   ActivityGotchiListingVM
 } from '../../models';
 import { getBaazaarActivityGotchisListingsQuery } from '../../queries';
-import {
-  loadActivityGotchisListings,
-  loadActivityGotchisListingsFailed,
-  loadActivityGotchisListingsSucceded,
-  resetActivityGotchisListings,
-  setActivityGotchisListingsFilters,
-  setActivityGotchisListingsIsFiltersUpdated,
-  setIsActivityGotchisListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityGotchisListingsSlices from '../slices/activity-gotchis-listings.slice';
 
 export const loadBaazaarActivityGotchisListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadActivityGotchisListings());
+    dispatch(activityGotchisListingsSlices.loadActivityGotchisListings());
 
     const activityGotchisListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.activity.gotchis.activityGotchisListingsGraphQueryParams;
@@ -49,16 +42,20 @@ export const loadBaazaarActivityGotchisListings =
         const modifiedListings: ActivityGotchiListingVM[] = mapActivityGotchisDTOToVM(res);
 
         if (shouldResetListings) {
-          dispatch(loadActivityGotchisListingsSucceded(modifiedListings));
+          dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
         } else {
-          dispatch(loadActivityGotchisListingsSucceded(activityGotchisListings.concat(modifiedListings)));
+          dispatch(
+            activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+              activityGotchisListings.concat(modifiedListings)
+            )
+          );
         }
       })
       .catch(() => {
-        dispatch(loadActivityGotchisListingsFailed());
+        dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsFailed());
       })
       .finally(() => {
-        dispatch(setIsActivityGotchisListingsInitialDataLoading(false));
+        dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(false));
       });
   };
 
@@ -78,7 +75,10 @@ export const updateActivityGotchisListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityGotchisListingsFilters({ ...filters, [key]: updatedFilter as ActivityGotchiListingFiltersType })
+      activityGotchisListingsSlices.setActivityGotchisListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityGotchiListingFiltersType
+      })
     );
   };
 
@@ -92,7 +92,7 @@ export const resetActivityGotchisListingsFilters = (): AppThunk => (dispatch, ge
     ])
   );
 
-  dispatch(setActivityGotchisListingsFilters(updatedFilters));
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsFilters(updatedFilters));
 };
 
 export const resetActivityGotchisData = (): AppThunk => (dispatch, getState) => {
@@ -105,10 +105,10 @@ export const resetActivityGotchisData = (): AppThunk => (dispatch, getState) => 
     ])
   );
 
-  dispatch(setActivityGotchisListingsFilters(updatedFilters));
-  dispatch(resetActivityGotchisListings());
-  dispatch(setActivityGotchisListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityGotchisListingsInitialDataLoading(true));
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsFilters(updatedFilters));
+  dispatch(activityGotchisListingsSlices.resetActivityGotchisListings());
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsIsFiltersUpdated(false));
+  dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(true));
 };
 
 const mapActivityGotchisDTOToVM = (listings: ActivityGotchiListingDTO[]): ActivityGotchiListingVM[] => {

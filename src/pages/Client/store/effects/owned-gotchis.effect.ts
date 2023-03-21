@@ -12,18 +12,14 @@ import { CommonUtils, ItemUtils } from 'utils';
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
 import { OwnedGotchi, Warehouse } from '../../models';
-import {
-  loadOwnedGotchis,
-  loadOwnedGotchisFailed,
-  loadOwnedGotchisSucceded,
-  setIsInitialOwnedGotchisLoading,
-  setWarehouseItems
-} from '../slices';
+// slices
+import * as ownedGotchisSlices from '../slices/owned-gotchis.slice';
+import * as warehouseSlices from '../slices/warehouse.slice';
 
 export const onLoadOwnedGotchis =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadOwnedGotchis());
+    dispatch(ownedGotchisSlices.loadOwnedGotchis());
 
     const { type: gotchisSortType, dir: gotchisSortDir }: SortingItem =
       getState().client.ownedGotchis.ownedGotchisSorting;
@@ -42,11 +38,11 @@ export const onLoadOwnedGotchis =
         );
         const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
 
-        dispatch(setWarehouseItems(sortedWarehouseItems));
-        dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+        dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
+        dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
       })
-      .catch(() => dispatch(loadOwnedGotchisFailed()))
-      .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+      .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
+      .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
   };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {

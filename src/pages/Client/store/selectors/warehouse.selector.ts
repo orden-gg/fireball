@@ -1,14 +1,27 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { SortingItem } from 'shared/models';
+import { WarehouseState } from '../slices';
 
-import { Warehouse } from '../../models';
+const warehouseStateSelector = createSelector(
+  (state: RootState) => state.client.warehouse,
+  (warehouseState: WarehouseState) => warehouseState
+);
 
-export const getWarehouse = (state: RootState): Warehouse[] => state.client.warehouse.warehouse.data;
+export const getWarehouse = createSelector(warehouseStateSelector, (state: WarehouseState) => state.warehouse.data);
 
-export const getWarehouseCount = (state: RootState): number => state.client.warehouse.warehouse.data.length;
+export const getWarehouseCount = createSelector(
+  warehouseStateSelector,
+  (state: WarehouseState) => state.warehouse.data.length
+);
 
-export const getIsInitialWarehouseLoading = (state: RootState): boolean =>
-  state.client.warehouse.isInitialWarehouseLoading;
+export const getIsInitialWarehouseLoading = createSelector(
+  warehouseStateSelector,
+  (state: WarehouseState) => state.isInitialWarehouseLoading
+);
 
-export const getWarehouseSorting = (state: RootState): SortingItem => state.client.warehouse.warehouseSorting;
+export const getWarehouseSorting = createSelector(
+  warehouseStateSelector,
+  (state: WarehouseState) => state.warehouseSorting
+);

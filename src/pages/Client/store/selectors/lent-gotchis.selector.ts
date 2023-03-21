@@ -1,12 +1,30 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { LentGotchisState } from '../slices';
 
-export const getLentGotchis = (state: RootState): GotchiLending[] => state.client.lentGotchis.lentGotchis.data;
+const lentGotchisStateSelector = createSelector(
+  (state: RootState) => state.client.lentGotchis,
+  (lentGotchisState: LentGotchisState) => lentGotchisState
+);
 
-export const getLentGotchisCount = (state: RootState): number => state.client.lentGotchis.lentGotchis.data.length;
+export const getLentGotchis = createSelector(
+  lentGotchisStateSelector,
+  (state: LentGotchisState) => state.lentGotchis.data
+);
 
-export const getIsInitialLentGotchisLoading = (state: RootState): boolean =>
-  state.client.lentGotchis.isInitialLentGotchisLoading;
+export const getLentGotchisCount = createSelector(
+  lentGotchisStateSelector,
+  (state: LentGotchisState) => state.lentGotchis.data.length
+);
 
-export const getLentGotchisSorting = (state: RootState): SortingItem => state.client.lentGotchis.lentGotchisSorting;
+export const getIsInitialLentGotchisLoading = createSelector(
+  lentGotchisStateSelector,
+  (state: LentGotchisState) => state.isInitialLentGotchisLoading
+);
+
+export const getLentGotchisSorting = createSelector(
+  lentGotchisStateSelector,
+  (state: LentGotchisState) => state.lentGotchisSorting
+);
