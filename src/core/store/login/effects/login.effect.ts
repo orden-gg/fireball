@@ -2,7 +2,8 @@ import { AppThunk } from 'core/store/store';
 
 import { LoginAddress } from 'shared/models';
 
-import { setActiveAddress, setLoggedAddresses } from '../slices/login.slice';
+// slices
+import * as loginSlices from '../slices/login.slice';
 
 export const addAddress =
   ({ address, name }: LoginAddress): AppThunk =>
@@ -10,7 +11,7 @@ export const addAddress =
     const state = getState();
     const updatedAddresses = [{ name, address }, ...state.login.loggedAddresses];
 
-    dispatch(setLoggedAddresses(updatedAddresses));
+    dispatch(loginSlices.setLoggedAddresses(updatedAddresses));
 
     localStorage.setItem('LOGGED_ADDRESSES', JSON.stringify(updatedAddresses));
   };
@@ -26,7 +27,7 @@ export const updateAddressName =
 
     loggedAddressesCopy[targetAddressIndex] = { address, name };
 
-    dispatch(setLoggedAddresses(loggedAddressesCopy));
+    dispatch(loginSlices.setLoggedAddresses(loggedAddressesCopy));
 
     localStorage.setItem('LOGGED_ADDRESSES', JSON.stringify(loggedAddressesCopy));
   };
@@ -39,7 +40,7 @@ export const removeAddress =
       (item: LoginAddress) => item.address !== address
     );
 
-    dispatch(setLoggedAddresses(filteredAddresses));
+    dispatch(loginSlices.setLoggedAddresses(filteredAddresses));
     dispatch(selectActiveAddress(filteredAddresses.length ? filteredAddresses[0].address : ''));
 
     localStorage.setItem('LOGGED_ADDRESSES', JSON.stringify(filteredAddresses));
@@ -48,7 +49,7 @@ export const removeAddress =
 export const selectActiveAddress =
   (address: string): AppThunk =>
   (dispatch) => {
-    dispatch(setActiveAddress(address));
+    dispatch(loginSlices.setActiveAddress(address));
 
     localStorage.setItem('ACTIVE_ADDRESS', JSON.stringify(address));
   };

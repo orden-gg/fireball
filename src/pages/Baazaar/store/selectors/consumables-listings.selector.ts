@@ -1,32 +1,55 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GraphQueryParams, SortingItem } from 'shared/models';
+import { ConsumablesListingsState } from '../slices';
 
-import { ConsumableListingFilters, ConsumableListingVM } from '../../models';
+const consumablesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.consumables,
+  (consumablesListingsState: ConsumablesListingsState) => consumablesListingsState
+);
 
-export const getConsumablesListings = (state: RootState): ConsumableListingVM[] =>
-  state.baazaar.consumables.consumablesListings.data;
+export const getConsumablesListings = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListings.data
+);
 
-export const getIsConsumablesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.consumables.isConsumablesListingsInitialDataLoading;
+export const getIsConsumablesListingsInitialDataLoading = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.isConsumablesListingsInitialDataLoading
+);
 
-export const getIsConsumablesListingsLoading = (state: RootState): boolean =>
-  state.baazaar.consumables.consumablesListings.isLoading;
+export const getIsConsumablesListingsLoading = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListings.isLoading
+);
 
-export const getConsumablesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
-  state.baazaar.consumables.consumablesListingsGraphQueryParams;
+export const getConsumablesListingsGraphQueryParams = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsGraphQueryParams
+);
 
-export const getConsumablesListingsLimitPerLoad = (state: RootState): number =>
-  state.baazaar.consumables.consumablesListingsLimitPerLoad;
+export const getConsumablesListingsLimitPerLoad = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsLimitPerLoad
+);
 
-export const getConsumablesListingsDefaultSorting = (state: RootState): SortingItem =>
-  state.baazaar.consumables.consumablesListingsDefaultSorting;
+export const getConsumablesListingsDefaultSorting = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsDefaultSorting
+);
 
-export const getConsumablesListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.consumables.consumablesListingsSorting;
+export const getConsumablesListingsSorting = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsSorting
+);
 
-export const getConsumablesListingsFilters = (state: RootState): ConsumableListingFilters =>
-  state.baazaar.consumables.consumablesListingsFilters;
+export const getConsumablesListingsFilters = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsFilters
+);
 
-export const getConsumablesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.consumables.consumablesListingsQueryParamsOrder;
+export const getConsumablesListingsQueryParamsOrder = createSelector(
+  consumablesListingsStateSelector,
+  (state: ConsumablesListingsState) => state.consumablesListingsQueryParamsOrder
+);

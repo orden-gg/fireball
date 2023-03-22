@@ -1,9 +1,19 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ClientTicket } from '../../models';
+import { TicketsState } from '../slices';
 
-export const getTickets = (state: RootState): ClientTicket[] => state.client.tickets.tickets.data;
+const ticketsStateSelector = createSelector(
+  (state: RootState) => state.client.tickets,
+  (ticketsState: TicketsState) => ticketsState
+);
 
-export const getTicketsCount = (state: RootState): number => state.client.tickets.tickets.data.length;
+export const getTickets = createSelector(ticketsStateSelector, (state: TicketsState) => state.tickets.data);
 
-export const getIsInitialTicketsLoading = (state: RootState): boolean => state.client.tickets.isInitialTicketsLoading;
+export const getTicketsCount = createSelector(ticketsStateSelector, (state: TicketsState) => state.tickets.data.length);
+
+export const getIsInitialTicketsLoading = createSelector(
+  ticketsStateSelector,
+  (state: TicketsState) => state.isInitialTicketsLoading
+);

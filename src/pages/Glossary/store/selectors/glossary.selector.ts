@@ -1,11 +1,38 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { SortingItem, Wearable } from 'shared/models';
+import { Wearable } from 'shared/models';
 
-export const getInitialGlossaryWearables = (state: RootState): Wearable[] => state.glossary.initialWearables;
-export const getWearablesIds = (state: RootState): number[] =>
-  state.glossary.initialWearables.map((wearable) => wearable.id);
-export const getGlossaryWearables = (state: RootState): Wearable[] => state.glossary.wearables;
-export const getGlossaryWearablesCount = (state: RootState): number => state.glossary.initialWearables.length;
-export const getWearablesSorting = (state: RootState): SortingItem => state.glossary.wearablesSorting;
-export const getMaxWearablePrice = (state: RootState): number => state.glossary.maxWearablePrice;
+import { GlossaryState } from '../slices';
+
+const glossaryStateSelector = createSelector(
+  (state: RootState) => state.glossary,
+  (glossaryState: GlossaryState) => glossaryState
+);
+
+export const getInitialGlossaryWearables = createSelector(
+  glossaryStateSelector,
+  (state: GlossaryState) => state.initialWearables
+);
+
+export const getWearablesIds = createSelector(glossaryStateSelector, (state: GlossaryState) =>
+  state.initialWearables.map((wearable: Wearable) => wearable.id)
+);
+
+export const getGlossaryWearables = createSelector(glossaryStateSelector, (state: GlossaryState) => state.wearables);
+
+export const getGlossaryWearablesCount = createSelector(
+  glossaryStateSelector,
+  (state: GlossaryState) => state.initialWearables.length
+);
+
+export const getWearablesSorting = createSelector(
+  glossaryStateSelector,
+  (state: GlossaryState) => state.wearablesSorting
+);
+
+export const getMaxWearablePrice = createSelector(
+  glossaryStateSelector,
+  (state: GlossaryState) => state.maxWearablePrice
+);

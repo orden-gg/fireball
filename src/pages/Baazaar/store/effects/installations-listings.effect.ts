@@ -22,24 +22,13 @@ import {
   InstallationListingVM
 } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import {
-  loadInstallationsListings,
-  loadInstallationsListingsFailed,
-  loadInstallationsListingsSucceded,
-  resetInstallationsListings,
-  setInstallationsListingsFilters,
-  setInstallationsListingsIsFiltersUpdated,
-  setInstallationsListingsIsSortingUpdated,
-  setInstallationsListingsPreviousSortingProp,
-  setInstallationsListingsSkipLimit,
-  setInstallationsListingsSorting,
-  setIsInstallationsListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as installationsListingsSlices from '../slices/installations-listings.slice';
 
 export const loadBaazaarInstallationsListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadInstallationsListings());
+    dispatch(installationsListingsSlices.loadInstallationsListings());
 
     const installationsListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.installations.installationsListingsGraphQueryParams;
@@ -77,24 +66,28 @@ export const loadBaazaarInstallationsListings =
               );
 
               if (shouldResetListings) {
-                dispatch(loadInstallationsListingsSucceded(modifiedListings));
+                dispatch(installationsListingsSlices.loadInstallationsListingsSucceded(modifiedListings));
               } else {
-                dispatch(loadInstallationsListingsSucceded(currentInstallationsListings.concat(modifiedListings)));
+                dispatch(
+                  installationsListingsSlices.loadInstallationsListingsSucceded(
+                    currentInstallationsListings.concat(modifiedListings)
+                  )
+                );
               }
             })
             .finally(() => {
-              dispatch(setIsInstallationsListingsInitialDataLoading(false));
+              dispatch(installationsListingsSlices.setIsInstallationsListingsInitialDataLoading(false));
             });
         } else {
           if (shouldResetListings) {
-            dispatch(loadInstallationsListingsSucceded([]));
+            dispatch(installationsListingsSlices.loadInstallationsListingsSucceded([]));
           }
 
-          dispatch(setIsInstallationsListingsInitialDataLoading(false));
+          dispatch(installationsListingsSlices.setIsInstallationsListingsInitialDataLoading(false));
         }
       })
       .catch(() => {
-        dispatch(loadInstallationsListingsFailed());
+        dispatch(installationsListingsSlices.loadInstallationsListingsFailed());
       });
   };
 
@@ -103,7 +96,7 @@ export const onLoadBaazaarInstallationsListings = (): AppThunk => (dispatch, get
   const isSortingUpdated: boolean = getState().baazaar.installations.installationsListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setInstallationsListingsSkipLimit(0));
+    dispatch(installationsListingsSlices.setInstallationsListingsSkipLimit(0));
     dispatch(loadBaazaarInstallationsListings(true));
   }
 };
@@ -118,8 +111,8 @@ export const onSetInstallationsListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setInstallationsListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setInstallationsListingsPreviousSortingProp(sort.type));
+    dispatch(installationsListingsSlices.setInstallationsListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(installationsListingsSlices.setInstallationsListingsPreviousSortingProp(sort.type));
   };
 
 export const updateInstallationsListingsFilterByKey =
@@ -129,7 +122,12 @@ export const updateInstallationsListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setInstallationsListingsFilters({ ...filters, [key]: updatedFilter as InstallationListingFiltersType }));
+    dispatch(
+      installationsListingsSlices.setInstallationsListingsFilters({
+        ...filters,
+        [key]: updatedFilter as InstallationListingFiltersType
+      })
+    );
   };
 
 export const resetInstallationsListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -142,7 +140,7 @@ export const resetInstallationsListingsFilters = (): AppThunk => (dispatch, getS
     ])
   );
 
-  dispatch(setInstallationsListingsFilters(updatedFilters));
+  dispatch(installationsListingsSlices.setInstallationsListingsFilters(updatedFilters));
 };
 
 export const resetInstallationsListingsData = (): AppThunk => (dispatch, getState) => {
@@ -156,13 +154,13 @@ export const resetInstallationsListingsData = (): AppThunk => (dispatch, getStat
     ])
   );
 
-  dispatch(setInstallationsListingsFilters(updatedFilters));
-  dispatch(setInstallationsListingsSorting(defaultSorting));
-  dispatch(setInstallationsListingsSkipLimit(0));
-  dispatch(resetInstallationsListings());
-  dispatch(setInstallationsListingsIsSortingUpdated(false));
-  dispatch(setInstallationsListingsIsFiltersUpdated(false));
-  dispatch(setIsInstallationsListingsInitialDataLoading(true));
+  dispatch(installationsListingsSlices.setInstallationsListingsFilters(updatedFilters));
+  dispatch(installationsListingsSlices.setInstallationsListingsSorting(defaultSorting));
+  dispatch(installationsListingsSlices.setInstallationsListingsSkipLimit(0));
+  dispatch(installationsListingsSlices.resetInstallationsListings());
+  dispatch(installationsListingsSlices.setInstallationsListingsIsSortingUpdated(false));
+  dispatch(installationsListingsSlices.setInstallationsListingsIsFiltersUpdated(false));
+  dispatch(installationsListingsSlices.setIsInstallationsListingsInitialDataLoading(true));
 };
 
 const mapInstallationsListingsDTOToVM = (

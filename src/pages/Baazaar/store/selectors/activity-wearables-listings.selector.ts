@@ -1,18 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { ActivityWearableListingFilters, ActivityWearableListingVM } from '../../models';
+import { ActivityWearablesListingsState } from '../slices';
 
-export const getActivityWearablesListings = (state: RootState): ActivityWearableListingVM[] =>
-  state.baazaar.activity.wearables.activityWearablesListings.data;
+const activityWearablesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.activity.wearables,
+  (activityWearablesListingsState: ActivityWearablesListingsState) => activityWearablesListingsState
+);
 
-export const getIsActivityWearablesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.activity.wearables.isActivityWearablesListingsInitialDataLoading;
+export const getActivityWearablesListings = createSelector(
+  activityWearablesListingsStateSelector,
+  (state: ActivityWearablesListingsState) => state.activityWearablesListings.data
+);
 
-export const getIsActivityWearablesListingsLoading = (state: RootState): boolean =>
-  state.baazaar.activity.wearables.activityWearablesListings.isLoading;
+export const getIsActivityWearablesListingsInitialDataLoading = createSelector(
+  activityWearablesListingsStateSelector,
+  (state: ActivityWearablesListingsState) => state.isActivityWearablesListingsInitialDataLoading
+);
 
-export const getActivityWearablesListingsFilters = (state: RootState): ActivityWearableListingFilters =>
-  state.baazaar.activity.wearables.activityWearablesListingsFilters;
+export const getIsActivityWearablesListingsLoading = createSelector(
+  activityWearablesListingsStateSelector,
+  (state: ActivityWearablesListingsState) => state.activityWearablesListings.isLoading
+);
 
-export const getActivityWearablesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.activity.wearables.activityWearablesListingsQueryParamsOrder;
+export const getActivityWearablesListingsFilters = createSelector(
+  activityWearablesListingsStateSelector,
+  (state: ActivityWearablesListingsState) => state.activityWearablesListingsFilters
+);
+
+export const getActivityWearablesListingsQueryParamsOrder = createSelector(
+  activityWearablesListingsStateSelector,
+  (state: ActivityWearablesListingsState) => state.activityWearablesListingsQueryParamsOrder
+);

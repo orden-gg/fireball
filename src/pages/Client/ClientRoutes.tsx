@@ -6,11 +6,11 @@ import queryString from 'query-string';
 
 import { EthersApi } from 'api';
 
-import * as fromClientStore from './store';
 // store
+import * as fromClientStore from './store';
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress, setActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
 import { PageNavLink } from 'shared/models';
@@ -61,7 +61,7 @@ export function ClientRoutes() {
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
-  const activeAddress: Undefinable<string | null> = useAppSelector(getActiveAddress);
+  const activeAddress: Undefinable<string | null> = useAppSelector(fromLoginStore.getActiveAddress);
 
   // client store selectors
   const ownedGotchisCount: number = useAppSelector(fromClientStore.getOwnedGotchisCount);
@@ -170,7 +170,7 @@ export function ClientRoutes() {
 
   useEffect(() => {
     if (EthersApi.isEthAddress(account)) {
-      dispatch(setActiveAddress(account));
+      dispatch(fromLoginStore.setActiveAddress(account));
     }
 
     dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Client));
@@ -183,7 +183,7 @@ export function ClientRoutes() {
   useEffect(() => {
     if (activeAddress) {
       if (activeAddress !== account && !isActiveAddressSet) {
-        dispatch(setActiveAddress(account));
+        dispatch(fromLoginStore.setActiveAddress(account));
       } else {
         navigate({
           pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,

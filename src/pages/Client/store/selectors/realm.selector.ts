@@ -1,17 +1,25 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { RealmVM, SortingItem } from 'shared/models';
+import { RealmState } from '../slices';
 
-import { RealmView } from '../../constants';
+const realmStateSelector = createSelector(
+  (state: RootState) => state.client.realm,
+  (realmState: RealmState) => realmState
+);
 
-export const getRealm = (state: RootState): RealmVM[] => state.client.realm.realm.data;
+export const getRealm = createSelector(realmStateSelector, (state: RealmState) => state.realm.data);
 
-export const getRealmCount = (state: RootState): number => state.client.realm.realm.data.length;
+export const getRealmCount = createSelector(realmStateSelector, (state: RealmState) => state.realm.data.length);
 
-export const getIsInitialRealmLoading = (state: RootState): boolean => state.client.realm.isInitialRealmLoading;
+export const getIsInitialRealmLoading = createSelector(
+  realmStateSelector,
+  (state: RealmState) => state.isInitialRealmLoading
+);
 
-export const getIsRealmLoaded = (state: RootState): boolean => state.client.realm.realm.isLoaded;
+export const getIsRealmLoaded = createSelector(realmStateSelector, (state: RealmState) => state.realm.isLoaded);
 
-export const getRealmSorting = (state: RootState): SortingItem => state.client.realm.realmSorting;
+export const getRealmSorting = createSelector(realmStateSelector, (state: RealmState) => state.realmSorting);
 
-export const getRealmView = (state: RootState): RealmView => state.client.realm.realmView;
+export const getRealmView = createSelector(realmStateSelector, (state: RealmState) => state.realmView);

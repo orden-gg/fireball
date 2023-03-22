@@ -7,14 +7,7 @@ import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import {
-  addAddress,
-  getActiveAddress,
-  getIsDropdownOpen,
-  getLoggedAddress,
-  selectActiveAddress,
-  toggleLoginDropdown
-} from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
@@ -42,10 +35,12 @@ export function LoginButton() {
     'DONATE_ADDRESS_SHOWN',
     JSON.parse(localStorage.getItem('DONATE_ADDRESS_SHOWN') as string)
   );
+
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(getActiveAddress);
-  const storeLoggedAddress = useAppSelector(getLoggedAddress);
-  const isDropdownOpen = useAppSelector(getIsDropdownOpen);
+
+  const activeAddress: Undefinable<string | null> = useAppSelector(fromLoginStore.getActiveAddress);
+  const storeLoggedAddresses: LoginAddressModel[] = useAppSelector(fromLoginStore.getLoggedAddresses);
+  const isDropdownOpen: boolean = useAppSelector(fromLoginStore.getIsDropdownOpen);
 
   useEffect(() => {
     // connect metamask on load
@@ -67,20 +62,21 @@ export function LoginButton() {
   }, []);
 
   useEffect(() => {
+    // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
     if (metaState.account[0]) {
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
-        dispatch(selectActiveAddress(metaState.account[0]));
+        dispatch(fromLoginStore.selectActiveAddress(metaState.account[0]));
       }
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
-      dispatch(selectActiveAddress(storeLoggedAddress.length ? storeLoggedAddress[0].address : ''));
+      dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
     }
   }, [metaState]);
 
   useEffect(() => {
     if (isDonateAddressShown === null) {
-      dispatch(addAddress(donateAddress));
+      dispatch(fromLoginStore.addAddress(donateAddress));
       setIsDonateAddressShown(true);
     }
   }, [isDonateAddressShown]);
@@ -100,25 +96,25 @@ export function LoginButton() {
   };
 
   const onCloseDropdown = (): void => {
-    dispatch(toggleLoginDropdown(false));
+    dispatch(fromLoginStore.toggleLoginDropdown(false));
   };
 
   const onToggleDropdown = (): void => {
-    dispatch(toggleLoginDropdown(!isDropdownOpen));
+    dispatch(fromLoginStore.toggleLoginDropdown(!isDropdownOpen));
   };
 
   const onAddressSubmit = (address: string): void => {
-    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddress.find(
+    const duplicated: Undefinable<LoginAddressModel> = storeLoggedAddresses.find(
       (item: LoginAddressModel) => item.address === address
     );
 
     onCloseDropdown();
 
-    dispatch(selectActiveAddress(address));
+    dispatch(fromLoginStore.selectActiveAddress(address));
 
     if (!duplicated) {
       dispatch(
-        addAddress({
+        fromLoginStore.addAddress({
           address,
           name: address.slice(0, 6)
         })
@@ -164,8 +160,8 @@ export function LoginButton() {
                 </div>
               ) : null}
 
-              {storeLoggedAddress.length
-                ? storeLoggedAddress.map((item: CustomAny, index: number) => {
+              {storeLoggedAddresses.length
+                ? storeLoggedAddresses.map((item: CustomAny, index: number) => {
                     return <LoginAddress address={item} key={index} onLogout={onAccountLogout} />;
                   })
                 : null}

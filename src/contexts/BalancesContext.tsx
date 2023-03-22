@@ -12,8 +12,8 @@ import {
 } from 'shared/constants/api.constants';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
 import * as TokensPricesSlices from 'core/store/tokens-prices';
+import * as fromLoginStore from 'core/store/login';
 
 import { TokenTypes } from 'shared/constants';
 import { TokenPrices } from 'shared/models';
@@ -72,7 +72,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
   ];
 
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
   const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
