@@ -28,6 +28,7 @@ export function Craftbar() {
   const [craftAmount, setCraftAmount] = useState<number>(0);
   const [isCrafting, setIsCrafting] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
   const { isWalletConnected, isAlchemicaApproved, selectedItem, isItemSelected, category, maxCraftAmount } =
     useContext<CustomAny>(CraftContext);
