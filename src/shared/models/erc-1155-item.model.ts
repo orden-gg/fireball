@@ -97,12 +97,12 @@ export interface Erc1155Listings {
 }
 
 export interface IdentityOption {
-  gotchiId: string
+  gotchiId: string;
 }
 
 export interface Identity {
-  claimed: IdentityOption[]
-  unclaimed: IdentityOption[]
+  claimed: IdentityOption[];
+  unclaimed: IdentityOption[];
 }
 
 export interface Erc1155Item {
@@ -130,10 +130,10 @@ export interface Erc1155Item {
   listingPrice?: number;
   lastSoldListing?: Erc1155SoldListing;
   currentListing?: Erc1155Listing;
+  balance?: number;
 }
 
-// TODO: probably, should be changed for a better name after Dima's review :)
-export interface FBErc1155Item {
+export interface FireballErc1155Item {
   amount: number;
   equipped: number;
   tokenId: number;

@@ -1,24 +1,26 @@
-const items: string = `{
+const items: string = `
   equipped
   amount
   tokenId
-}`;
+`;
 
-const identity: string = `{
+const identity: string = `
   claimed {
     gotchiId
   }
   unclaimed {
     gotchiId
   }
-}`;
+`;
 
-const gotchi: string = `{
+const gotchi: string = `
   availableSkillPoints
   badges
-  identity ${identity}
-}`;
-
+  identity {
+    ${identity}
+  }
+`;
+// Will be used shortly
 export const playerGotchisQuery = (address: string, skip: number): string => {
   return `{
     player(id: "${address}") {
@@ -26,27 +28,27 @@ export const playerGotchisQuery = (address: string, skip: number): string => {
       gotchisOriginalOwned(
         first: 1000
         skip: ${skip}
-      ) ${gotchi}
+      ) {
+        ${gotchi}
+      }
     }
   }`;
 };
 
 export const gotchiQuery = (id: number): string => {
   return `{
-    gotchi(id: ${id}) ${gotchi}
+    gotchi(id: ${id}) {
+      ${gotchi}
+    }
   }`;
 };
 
 export const playerInventoryQuery = (address: string): string => {
   return `{
     player(id: "${address}") {
-      items ${items}
+      items {
+        ${items}
+      }
     }
   }`;
-};
-
-export const gotchiBatchQuery = (id: number): string => {
-  return `
-    gotchi${id}: gotchi(id: ${id}) ${gotchi}
-  `;
 };

@@ -1,7 +1,7 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiIdentityStyles = makeStyles(theme =>
+export const gotchiIdentityStyles = makeStyles((theme) =>
   createStyles({
     identityWrapper: {
       padding: theme.spacing(1, 0.5),
@@ -26,9 +26,6 @@ export const gotchiIdentityStyles = makeStyles(theme =>
     },
     identityGroupBadge: {
       padding: theme.spacing(1, 0.5)
-    },
-    identityTooltip: {
-      paddingBottom: theme.spacing(1)
     },
     identityTooltipTitle: {
       textAlign: 'right',
@@ -65,7 +62,8 @@ export const gotchiIdentityStyles = makeStyles(theme =>
     },
     tooltip: {
       '& .MuiTooltip-tooltip': {
-        maxWidth: 340
+        maxWidth: 340,
+        minWidth: 144
       }
     }
   })

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -97,7 +97,7 @@ export function Gotchi({
       return <GotchiOwner gotchi={gotchi} key={`${gotchi.id}-owner`} />;
     },
 
-    get identity() {
+    get identity(): ReactElement {
       return <GotchiIdentity identity={gotchi.identity} key={`${gotchi.id}-identity`} />;
     },
 

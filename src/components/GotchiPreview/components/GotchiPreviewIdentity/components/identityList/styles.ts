@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const gotchiIdentityTooltipStyles = makeStyles((theme) =>
+export const gotchiIdentityListStyles = makeStyles((theme) =>
   createStyles({
     identityWrapper: {
       padding: theme.spacing(1, 0)

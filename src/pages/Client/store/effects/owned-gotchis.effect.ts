@@ -1,11 +1,19 @@
 import _ from 'lodash';
 
 import { TheGraphApi } from 'api';
+import { ClientApi } from 'pages/Client/api';
 
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
-import { FBGotchi, Gotchi, GotchiExtended, SortingItem, TheGraphBatchData, WearableTypeBenefit } from 'shared/models';
+import {
+  FireballGotchi,
+  Gotchi,
+  GotchiExtended,
+  SortingItem,
+  TheGraphBatchData,
+  WearableTypeBenefit
+} from 'shared/models';
 
 import { CommonUtils, ItemUtils } from 'utils';
 
@@ -34,34 +42,38 @@ export const onLoadOwnedGotchis =
       .then((ownedGotchis: Gotchi[]) => {
         const ids: number[] = ownedGotchis.map((gotchi: Gotchi) => Number(gotchi.id));
 
-        // Should be reworked when gotchi originalOwner will be fixed at FB graph
-        TheGraphApi.getFBGotchisByIds(ids)
-          .then((FBGotchis: TheGraphBatchData<FBGotchi>[]) => {
-            const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
-            const extendedGotchis: GotchiExtended[] = ownedGotchis.map((gotchi: Gotchi) => {
-              return {
-                ...gotchi,
-                ...FBGotchis[`gotchi${gotchi.id}`]
-              };
-            });
+        if (ids.length > 0) {
+          // Should be reworked when gotchi originalOwner will be fixed at FB graph
+          ClientApi.getFireballGotchisByIds(ids)
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
+              const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+              const extendedGotchis: GotchiExtended[] = ownedGotchis.map((gotchi: Gotchi) => {
+                return {
+                  ...gotchi,
+                  ...fireballGotchis[`gotchi${gotchi.id}`]
+                };
+              });
 
-            const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
-            const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
-              warehouseItems,
-              warehouseSortType,
-              warehouseSortDir
-            );
-            const sortedOwnedGotchis: Gotchi[] = CommonUtils.basicSort(
-              extendedGotchis,
-              gotchisSortType,
-              gotchisSortDir
-            );
+              const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
+              const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
+                warehouseItems,
+                warehouseSortType,
+                warehouseSortDir
+              );
+              const sortedOwnedGotchis: Gotchi[] = CommonUtils.basicSort(
+                extendedGotchis,
+                gotchisSortType,
+                gotchisSortDir
+              );
 
-            dispatch(setWarehouseItems(sortedWarehouseItems));
-            dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
-          })
-          .catch(() => dispatch(loadOwnedGotchisFailed()))
-          .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+              dispatch(setWarehouseItems(sortedWarehouseItems));
+              dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+            })
+            .catch(() => dispatch(loadOwnedGotchisFailed()))
+            .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+        } else {
+          dispatch(setIsInitialOwnedGotchisLoading(false));
+        }
       })
       .catch(() => dispatch(loadOwnedGotchisFailed()));
   };

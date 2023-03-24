@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { CircularProgress } from '@mui/material';
+
 import { DateTime } from 'luxon';
 
 import { EthersApi, TheGraphApi } from 'api';
@@ -9,7 +11,14 @@ import { useAppSelector } from 'core/store/hooks';
 import { getActiveAddress } from 'core/store/login';
 
 import { Erc721Categories } from 'shared/constants';
-import { FBErc1155Item, FBGotchi, Gotchi, GotchiExtended, SalesHistoryModel } from 'shared/models';
+import {
+  FireballErc1155Item,
+  FireballGotchi,
+  Gotchi,
+  GotchiExtended,
+  IdentityOption,
+  SalesHistoryModel
+} from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -19,9 +28,9 @@ import {
   GotchiContent,
   GotchiFooter,
   GotchiHead,
-  GotchiIdentity,
   GotchiInfoItem,
   GotchiInfoList,
+  GotchiPreviewIdentity,
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
@@ -54,20 +63,24 @@ export function GotchiPage() {
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
-  const [playerInventory, setPlayerInventory] = useState<FBErc1155Item[]>([]);
+  const [playerInventory, setPlayerInventory] = useState<FireballErc1155Item[]>([]);
+
+  const [claimedGotchis, setClaimedGotchis] = useState<Gotchi[]>([]);
+  const [unclaimedGotchiIds, setUnclaimedGotchiIds] = useState<number[]>([]);
+  const [gotchisLoaded, setGotchisLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const id: number = Number(routeParams.gotchiId);
-    const promises: [Promise<Gotchi>, Promise<FBGotchi>] = [
+    const promises: [Promise<Gotchi>, Promise<FireballGotchi>] = [
       TheGraphApi.getGotchiById(id),
-      TheGraphApi.getFBGotchiById(id)
+      TheGraphApi.getFireballGotchiById(id)
     ];
 
     Promise.all(promises)
-      .then(([gotchi, FBGotchi]: CustomAny[]) => {
-        const extendedGotchi: CustomAny = { ...gotchi, ...FBGotchi };
+      .then(([gotchi, fireballGotchi]: [Gotchi, FireballGotchi]) => {
+        const extendedGotchi: GotchiExtended = { ...gotchi, ...fireballGotchi };
         const sortedInventory: number[] = gotchi.equippedWearables
-          .concat(FBGotchi.badges)
+          .concat(fireballGotchi.badges)
           .filter((id: number) => id !== 0);
 
         setGotchiInventory(sortedInventory);
@@ -87,17 +100,54 @@ export function GotchiPage() {
   useEffect(() => {
     if (activeAddress) {
       TheGraphApi.getIventoryByAddress(activeAddress)
-        .then((inventory: FBErc1155Item[]) => {
+        .then((inventory: FireballErc1155Item[]) => {
           setPlayerInventory(inventory);
         })
         .catch((error) => console.log(error));
     }
   }, [activeAddress]);
 
+  useEffect(() => {
+    if (gotchi) {
+      const claimedGotchiIds: number[] = gotchi.identity.claimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      const unclaimedGotchiIds: number[] = gotchi.identity.unclaimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      let isMounted: boolean = true;
+
+      if (claimedGotchiIds.length > 0) {
+        TheGraphApi.getGotchiesByIds(claimedGotchiIds)
+          .then((claimedGotchis: Gotchi[]) => {
+            if (isMounted) {
+              setClaimedGotchis(Object.values(claimedGotchis));
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            if (isMounted) {
+              setGotchisLoaded(true);
+            }
+          });
+      } else {
+        setGotchisLoaded(true);
+      }
+
+      setUnclaimedGotchiIds(unclaimedGotchiIds);
+
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [gotchi]);
+
   return (
     <div className={classes.content}>
-      {gotchi ? (
-        gotchiLoaded && (
+      {gotchiLoaded ? (
+        gotchi ? (
           <>
             <GotchiPreview>
               <GotchiView gotchi={gotchi} />
@@ -111,7 +161,7 @@ export function GotchiPage() {
                   <GotchiInfoItem
                     label='staked'
                     value={parseFloat(
-                      GotchiUtils.getStakedAmount(gotchi.collateral, Number(gotchi.stakedAmount)).toPrecision(5)
+                      GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5)
                     )}
                   />
                 </GotchiInfoList>
@@ -123,7 +173,11 @@ export function GotchiPage() {
 
                 <div className={classes.gotchiGroup}>
                   {gotchi.createdAt && <GotchiAging block={Number(gotchi.createdAt)} />}
-                  <GotchiIdentity identity={gotchi.identity} />
+                  <GotchiPreviewIdentity
+                    gotchisLoaded={gotchisLoaded}
+                    claimedGotchis={claimedGotchis}
+                    unclaimedGotchiIds={unclaimedGotchiIds}
+                  />
                 </div>
 
                 <GotchiFooter>
@@ -185,16 +239,25 @@ export function GotchiPage() {
             )}
             <div className={classes.sets}>
               <div className={classes.title}>Recommended sets</div>
-              <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
+              <GotchiFitSets
+                hauntId={gotchi.hauntId}
+                collateral={gotchi.collateral}
+                numericTraits={gotchi.numericTraits}
+                className={classes.setsList}
+              />
             </div>
             <div className={classes.sets}>
               <div className={classes.title}>Recommended wearables</div>
-              <GotchiFitWearables traits={gotchi.numericTraits} wearables={playerInventory} />
+              <GotchiFitWearables traits={gotchi.numericTraits} inventory={playerInventory} />
             </div>
           </>
+        ) : (
+          <div className={classes.title}>There is no Gotchi with such ID :(</div>
         )
       ) : (
-        <div className={classes.title}>There is no Gotchi with such ID :(</div>
+        <div className={classes.title}>
+          <CircularProgress size={40} className={classes.progress} />
+        </div>
       )}
     </div>
   );

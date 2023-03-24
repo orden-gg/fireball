@@ -71,15 +71,15 @@ const aavegotchiProps: string = `{
   timesTraded
   originalOwner
   listings(where:{cancelled: false, timePurchased: 0}) {
-      id
-      priceInWei
+    id
+    priceInWei
   }
   historicalPrices
   owner {
-      id
+    id
   }
   originalOwner {
-      id
+    id
   }
   lending
 }`;
@@ -96,7 +96,7 @@ export const gotchiByIdBatchQuery = (id: number): string => {
   `;
 };
 
-export const userQuery = (id: CustomAny, skip: CustomAny): CustomAny => {
+export const userQuery = (id: CustomAny, skip: CustomAny): string => {
   return `{
     user(id: "${id}") {
       id

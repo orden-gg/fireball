@@ -11,7 +11,7 @@ export interface GotchiInventory {
   balance: number;
 }
 
-export interface FBGotchi {
+export interface FireballGotchi {
   availableSkillPoints: number;
   badges: number[];
   identity: Identity;
@@ -46,4 +46,4 @@ export interface Gotchi {
   lending: string | null;
 }
 
-export interface GotchiExtended extends FBGotchi, Gotchi {}
+export interface GotchiExtended extends FireballGotchi, Gotchi {}

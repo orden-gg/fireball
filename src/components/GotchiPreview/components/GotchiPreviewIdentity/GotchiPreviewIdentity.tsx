@@ -1,17 +1,22 @@
-import { Identity } from 'shared/models';
+import { Gotchi } from 'shared/models';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { GotchiInfoItem } from '../GotchiInfoList/components/GotchiInfoItem/GotchiInfoItem';
-import { IdentityList } from './components/IdentityList';
-import { IdentityTooltip } from './components/IdentityTooltip';
+import { IdentityList } from './components/identityList/IdentityList';
 import { gotchiIdentityStyles } from './styles';
 
-interface GotchiIdentityProps {
-  identity: Identity;
+interface GotchiPreviewIdentityProps {
+  gotchisLoaded: boolean;
+  claimedGotchis: Gotchi[];
+  unclaimedGotchiIds: number[];
 }
 
-export function GotchiIdentity({ identity }: GotchiIdentityProps) {
+export function GotchiPreviewIdentity({
+  gotchisLoaded,
+  claimedGotchis,
+  unclaimedGotchiIds
+}: GotchiPreviewIdentityProps) {
   const classes = gotchiIdentityStyles();
 
   return (
@@ -21,26 +26,23 @@ export function GotchiIdentity({ identity }: GotchiIdentityProps) {
       <div className={classes.identityGroup}>
         <CustomTooltip
           className={classes.tooltip}
-          title={
-            <IdentityTooltip>
-              <IdentityList identity={identity.claimed} tooltip />
-            </IdentityTooltip>
-          }
+          title={<IdentityList gotchis={claimedGotchis} />}
           placement='bottom'
           arrow
         >
           <div className={classes.identityGroupItem}>
-            <GotchiInfoItem className={classes.identityGroupBadge} label='summoned' value={identity.claimed.length} />
+            <GotchiInfoItem
+              className={classes.identityGroupBadge}
+              label='summoned'
+              value={claimedGotchis.length}
+              isLoaded={gotchisLoaded}
+            />
           </div>
         </CustomTooltip>
-        {identity.unclaimed.length > 0 ? (
+        {unclaimedGotchiIds.length > 0 ? (
           <CustomTooltip
             className={classes.tooltip}
-            title={
-              <IdentityTooltip>
-                <IdentityList identity={identity.unclaimed} />
-              </IdentityTooltip>
-            }
+            title={<IdentityList gotchis={unclaimedGotchiIds} />}
             placement='bottom'
             arrow
           >
@@ -48,7 +50,8 @@ export function GotchiIdentity({ identity }: GotchiIdentityProps) {
               <GotchiInfoItem
                 className={classes.identityGroupBadge}
                 label='in portal'
-                value={identity.unclaimed.length}
+                value={unclaimedGotchiIds.length}
+                isLoaded={gotchisLoaded}
               />
             </div>
           </CustomTooltip>
@@ -57,7 +60,7 @@ export function GotchiIdentity({ identity }: GotchiIdentityProps) {
             <GotchiInfoItem
               className={classes.identityGroupBadge}
               label='in portal'
-              value={identity.unclaimed.length}
+              value={unclaimedGotchiIds.length}
             />
           </div>
         )}

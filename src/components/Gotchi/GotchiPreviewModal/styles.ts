@@ -28,6 +28,9 @@ export const gotchiPreviewModalStyles = makeStyles((theme) =>
         color: theme.palette.primary.main
       }
     },
+    identityTooltip: {
+      padding: theme.spacing(1, 0)
+    },
     inventory: {
       marginTop: theme.spacing(5)
     },

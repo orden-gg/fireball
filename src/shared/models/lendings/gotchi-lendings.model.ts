@@ -1,4 +1,4 @@
-import { FBGotchi } from '../gotchi.model';
+import { FireballGotchi } from '../gotchi.model';
 
 export interface GotchiLending {
   id: string;
@@ -43,4 +43,4 @@ export interface GotchiLending {
   endTime?: number;
 }
 
-export interface GotchiLendingExtended extends GotchiLending, FBGotchi {}
+export interface GotchiLendingExtended extends GotchiLending, FireballGotchi {}

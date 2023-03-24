@@ -64,6 +64,9 @@ export const styles = makeStyles((theme) =>
     },
     setsList: {
       marginTop: theme.spacing(4)
+    },
+    progress: {
+      margin: theme.spacing(-1.5, 0)
     }
   })
 );

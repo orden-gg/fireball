@@ -77,11 +77,11 @@ export class GotchiUtils {
     }
   }
 
-  public static getStakedAmount(collateralAddress: string, stakedAmount: number): number {
+  public static getStakedAmount(collateralAddress: string, stakedAmount: string): number {
     const collateral: Undefinable<CollateralData> = collaterals.find(
       (collateral: CollateralData) => collateral.address === collateralAddress
     );
 
-    return EthersApi.fromWei(stakedAmount, collateral?.decimals);
+    return EthersApi.fromWei(stakedAmount, collateral?.decimals) || 0;
   }
 }
