@@ -5,7 +5,7 @@ import { TheGraphApi } from 'api';
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
-import { SortingItem, WearableTypeBenefit } from 'shared/models';
+import { GotchiLastChanneled, SortingItem, WearableTypeBenefit } from 'shared/models';
 
 import { CommonUtils, ItemUtils } from 'utils';
 
@@ -26,23 +26,24 @@ export const onLoadOwnedGotchis =
     const { type: warehouseSortType, dir: warehouseSortDir }: SortingItem =
       getState().client.warehouse.warehouseSorting;
 
-    TheGraphApi.getGotchisByAddress(address)
-      .then((ownedGotchis: OwnedGotchi[]) => {
-        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+    TheGraphApi.getGotchisByAddress(address).then((ownedGotchis: OwnedGotchi[]) => {
+      const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
 
-        const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
-        const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
-          warehouseItems,
-          warehouseSortType,
-          warehouseSortDir
-        );
-        const promises: Promise<CustomAny>[] = ownedGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
-        Promise.all(promises).then((response) => {
-          const modifiedOwned = ownedGotchis.map(item => {
-          
-            const obj = response.find(o => o[0].id === item.id);
-          
-            return { ...item, ...obj[0] };
+      const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
+      const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
+        warehouseItems,
+        warehouseSortType,
+        warehouseSortDir
+      );
+
+      const gotchiIds: string[] = ownedGotchis.map((gotchi) => gotchi.id);
+
+      TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
+        .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
+          const modifiedOwned = ownedGotchis.map((item) => {
+            const lastChanneled = gotchiIdsChanneled.find((o) => o.id === item.id);
+
+            return { ...item, ...lastChanneled };
           });
 
           const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
@@ -51,12 +52,12 @@ export const onLoadOwnedGotchis =
             gotchisSortDir
           );
 
-        dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
-        dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
-      })
-      .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
-      .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
-      }); 
+          dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
+          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
+        })
+        .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
+        .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
+    });
   };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {

@@ -8,6 +8,11 @@ export interface GotchiInventory {
   balance: number;
 }
 
+export interface GotchiLastChanneled {
+  id: string;
+  lastChanneled: string;
+}
+
 export interface Gotchi {
   id: number;
   name: string;

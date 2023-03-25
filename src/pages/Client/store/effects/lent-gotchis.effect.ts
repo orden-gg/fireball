@@ -2,7 +2,7 @@ import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { GotchiLastChanneled, GotchiLending, SortingItem } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
@@ -16,26 +16,24 @@ export const onLoadLentGotchis =
 
     const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
-    TheGraphApi.getLendingsByAddress(address)
-      .then((lentGotchis: GotchiLending[]) => {
-        lentGotchis.forEach((lending: GotchiLending) => {
-          lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
-        });
+    TheGraphApi.getLendingsByAddress(address).then((lentGotchis: GotchiLending[]) => {
+      lentGotchis.forEach((lending: GotchiLending) => {
+        lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
+      });
+      const gotchiIds: string[] = lentGotchis.map((gotchi) => gotchi.id);
 
-        const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => TheGraphApi.getGotchisGotchiverseInfoByIds([gotchi.id]));
-        Promise.all(promises).then((response) => {
-          const modifiedlent = lentGotchis.map(item => {
-          
-            const obj = response.find(o => o[0].id === item.id);
-          
-            return { ...item, ...obj[0] };
+      TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
+        .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
+          const modifiedLent = lentGotchis.map((item) => {
+            const lastChanneled = gotchiIdsChanneled.find((o) => o.id === item.id);
+
+            return { ...item, ...lastChanneled };
           });
 
-          const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedlent, type, dir);
-
-        dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
-      })
-      .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()))
-      .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
-      }); 
+          const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedLent, type, dir);
+          dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+        })
+        .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()))
+        .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
+    });
   };
