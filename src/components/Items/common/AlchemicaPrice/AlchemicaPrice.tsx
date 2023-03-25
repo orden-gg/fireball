@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 
 import classNames from 'classnames';
 
-import { TokenTypes } from 'shared/constants';
-import { AlchemicaList } from 'shared/models';
+import { useAppSelector } from 'core/store/hooks';
+import * as TokensPricesSlices from 'core/store/tokens-prices';
 
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
+import { TokenTypes } from 'shared/constants';
+import { AlchemicaList, TokenPrices } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -34,7 +35,9 @@ export function AlchemicaPrice({ alchemica, gltr, className }: AlchemicaPricePro
   const classes = styles();
 
   const [itemPrice, setItemPrice] = useState<number>(0);
-  const { tokensPrices, isPricesLoaded } = useContext<CustomAny>(TokensPricesContext);
+
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
 
   const tokensList = gltr ? [...alchemica, gltr] : alchemica;
 

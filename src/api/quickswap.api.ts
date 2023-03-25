@@ -3,9 +3,10 @@ import * as quickSwap from 'quickswap-sdk';
 import { EthersApi } from './ethers.api';
 
 import { POLYGON_CHAIN_ID } from 'shared/constants';
+import { QuickswapToken } from 'shared/models';
 
 export class QuickswapApi {
-  public static getTokenData(address: CustomAny): CustomAny {
+  public static getTokenData(address: string): Promise<QuickswapToken> {
     return quickSwap.Fetcher.fetchTokenData(POLYGON_CHAIN_ID, address, EthersApi.getProvider());
   }
 
@@ -13,7 +14,7 @@ export class QuickswapApi {
     return quickSwap.Fetcher.fetchPairData(token0, token1, EthersApi.getProvider());
   }
 
-  public static getTokenRouteByPair(token: CustomAny, pair: CustomAny): CustomAny {
+  public static getTokenRouteByPair(token: QuickswapToken, pair: CustomAny): CustomAny {
     return new quickSwap.Route([pair], token);
   }
 }
