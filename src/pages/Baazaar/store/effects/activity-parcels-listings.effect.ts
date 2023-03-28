@@ -14,20 +14,13 @@ import {
   ActivityParcelListingVM
 } from '../../models';
 import { getBaazaarActivityParcelsListingsQuery } from '../../queries';
-import {
-  loadActivityParcelsListings,
-  loadActivityParcelsListingsFailed,
-  loadActivityParcelsListingsSucceded,
-  resetActivityParcelsListings,
-  setActivityParcelsListingsFilters,
-  setActivityParcelsListingsIsFiltersUpdated,
-  setIsActivityParcelsListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityParcelsListingsSlices from '../slices/activity-parcels-listings.slice';
 
 export const loadBaazaarActivityParcelsListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadActivityParcelsListings());
+    dispatch(activityParcelsListingsSlices.loadActivityParcelsListings());
 
     const activityParcelsListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.activity.parcels.activityParcelsListingsGraphQueryParams;
@@ -49,16 +42,20 @@ export const loadBaazaarActivityParcelsListings =
         const modifiedListings: ActivityParcelListingVM[] = mapActivityParcelsDTOToVM(res);
 
         if (shouldResetListings) {
-          dispatch(loadActivityParcelsListingsSucceded(modifiedListings));
+          dispatch(activityParcelsListingsSlices.loadActivityParcelsListingsSucceded(modifiedListings));
         } else {
-          dispatch(loadActivityParcelsListingsSucceded(activityParcelsListings.concat(modifiedListings)));
+          dispatch(
+            activityParcelsListingsSlices.loadActivityParcelsListingsSucceded(
+              activityParcelsListings.concat(modifiedListings)
+            )
+          );
         }
       })
       .catch(() => {
-        dispatch(loadActivityParcelsListingsFailed());
+        dispatch(activityParcelsListingsSlices.loadActivityParcelsListingsFailed());
       })
       .finally(() => {
-        dispatch(setIsActivityParcelsListingsInitialDataLoading(false));
+        dispatch(activityParcelsListingsSlices.setIsActivityParcelsListingsInitialDataLoading(false));
       });
   };
 
@@ -78,7 +75,10 @@ export const updateActivityParcelsListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityParcelsListingsFilters({ ...filters, [key]: updatedFilter as ActivityParcelListingFiltersType })
+      activityParcelsListingsSlices.setActivityParcelsListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityParcelListingFiltersType
+      })
     );
   };
 
@@ -92,7 +92,7 @@ export const resetActivityParcelsListingsFilters = (): AppThunk => (dispatch, ge
     ])
   );
 
-  dispatch(setActivityParcelsListingsFilters(updatedFilters));
+  dispatch(activityParcelsListingsSlices.setActivityParcelsListingsFilters(updatedFilters));
 };
 
 export const resetActivityParcelsData = (): AppThunk => (dispatch, getState) => {
@@ -105,10 +105,10 @@ export const resetActivityParcelsData = (): AppThunk => (dispatch, getState) => 
     ])
   );
 
-  dispatch(setActivityParcelsListingsFilters(updatedFilters));
-  dispatch(resetActivityParcelsListings());
-  dispatch(setActivityParcelsListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityParcelsListingsInitialDataLoading(true));
+  dispatch(activityParcelsListingsSlices.setActivityParcelsListingsFilters(updatedFilters));
+  dispatch(activityParcelsListingsSlices.resetActivityParcelsListings());
+  dispatch(activityParcelsListingsSlices.setActivityParcelsListingsIsFiltersUpdated(false));
+  dispatch(activityParcelsListingsSlices.setIsActivityParcelsListingsInitialDataLoading(true));
 };
 
 const mapActivityParcelsDTOToVM = (listings: ActivityParcelListingDTO[]): ActivityParcelListingVM[] => {

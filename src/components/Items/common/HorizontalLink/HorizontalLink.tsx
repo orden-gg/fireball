@@ -3,7 +3,7 @@ import { Link } from '@mui/material';
 
 import { styles } from './styles';
 
-export function HorizontalLink({ item, url }: { item: any; url: string }) {
+export function HorizontalLink({ item, url }: { item: CustomAny; url: string }) {
   const classes = styles();
 
   return (

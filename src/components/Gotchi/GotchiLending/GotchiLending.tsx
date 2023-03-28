@@ -12,7 +12,7 @@ import { CommonUtils, GraphUtils } from 'utils';
 
 import { styles } from './styles';
 
-export function GotchiLending({ gotchi }: { gotchi: any }) {
+export function GotchiLending({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   const periodToMillis: number = gotchi.period * 1000;
@@ -25,7 +25,7 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
     return (
       <>
         {Object.entries(periodObject).map((period, index) => {
-          const value: any = period[1];
+          const value: CustomAny = period[1];
           const key: string = value > 1 ? period[0] : period[0].slice(0, -1);
 
           if (value === 0) {
@@ -77,7 +77,7 @@ export function GotchiLending({ gotchi }: { gotchi: any }) {
       </div>
 
       <div className={classNames(classes.section, classes.tokens)}>
-        {gotchi.tokensToShare.map((token: any, index: number) => {
+        {gotchi.tokensToShare.map((token: CustomAny, index: number) => {
           const tokenName = GraphUtils.getTokenName(token);
 
           return (

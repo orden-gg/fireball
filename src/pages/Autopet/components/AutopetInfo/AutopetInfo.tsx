@@ -25,8 +25,8 @@ export function AutopetInfo() {
   const [totalUsers, setTotalUsers] = useState<string>('');
 
   useEffect(() => {
-    AutopetApi.getUsers().then((users: any) => {
-      TheGraphApi.getGotchisByAddresses(users).then((gotchis: any) => {
+    AutopetApi.getUsers().then((users: CustomAny) => {
+      TheGraphApi.getGotchisByAddresses(users).then((gotchis: CustomAny) => {
         setTotalGotchis(CommonUtils.formatPrice(gotchis.length));
       });
 

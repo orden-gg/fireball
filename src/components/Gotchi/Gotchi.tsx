@@ -20,7 +20,6 @@ import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import { GotchiName } from './GotchiName/GotchiName';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
 import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
-import { GotchiRewards } from './GotchiRewards/GotchiRewards';
 import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
 import { GotchiTraits } from './GotchiTraits/GotchiTraits';
@@ -30,10 +29,10 @@ import { WhitelistId } from './WhitelistId/WhitelistId';
 import { styles } from './styles';
 
 interface GotchiProps {
-  gotchi: any;
-  render: any;
-  renderSvgByStats?: any;
-  portal?: any;
+  gotchi: CustomAny;
+  render: CustomAny;
+  renderSvgByStats?: CustomAny;
+  portal?: CustomAny;
   isHighlightLending?: boolean;
   className?: string;
   shouldLoadGotchiInModal?: boolean;
@@ -63,7 +62,7 @@ export function Gotchi({
   );
 
   const gotchiSections = {
-    wrapper: (children: any, className?: any) => {
+    wrapper: (children: CustomAny, className?: CustomAny) => {
       return (
         <div className={className && classes[className]} key={`${gotchi.id}-${className}`}>
           {children}
@@ -72,7 +71,9 @@ export function Gotchi({
     },
 
     get channeling() {
-      return <GotchiChanelling gotchiId={gotchi.id} key={`${gotchi.id}-channeling`} />;
+      return (
+        <GotchiChanelling gotchiId={gotchi.id} lastchanneled={gotchi.lastChanneled} key={`${gotchi.id}-channeling`} />
+      );
     },
 
     get guild() {
@@ -181,21 +182,17 @@ export function Gotchi({
       );
     },
 
-    get rewards() {
-      return <GotchiRewards gotchi={gotchi} key={`${gotchi.id}-rewards`} />;
-    },
-
     get flipButton() {
       return <FlipButton key={`${gotchi.id}-flipButton`} onFlipCard={flipCard} />;
     }
   };
 
-  function renderSection(value: any) {
+  function renderSection(value: CustomAny) {
     if (typeof value === 'string') {
       return gotchiSections[value];
     } else {
       return gotchiSections.wrapper(
-        value.items.map((item: any) => renderSection(item)),
+        value.items.map((item: CustomAny) => renderSection(item)),
         value.className
       );
     }
@@ -216,7 +213,7 @@ export function Gotchi({
         onClick={() => setIsPreviewOpen(true)}
       >
         {gotchi.lending && isHighlightLending && <div className={classes.statusBadge}>Lended</div>}
-        {render.map((name: any) => {
+        {render.map((name: CustomAny) => {
           return renderSection(name);
         })}
       </div>

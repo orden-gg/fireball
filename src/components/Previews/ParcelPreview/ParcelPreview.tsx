@@ -23,7 +23,7 @@ import { styles } from './styles';
 
 import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
 
-export function ParcelPreview({ parcel }: { parcel: any }) {
+export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
   const classesB = gotchiPreviewModalStyles();
   const [history, setHistory] = useState<any[]>([]);
@@ -40,7 +40,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     let mounted = true;
 
     TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
-      .then((res: any) => {
+      .then((res: CustomAny) => {
         if (mounted) {
           setHistory(res);
         }
@@ -135,7 +135,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
             </div>
 
             <div className={classes.installations}>
-              <ParcelInstallations parcel={parcel} size={80} />
+              <ParcelInstallations installations={parcel.installations} tiles={parcel.tiles} size={80} />
             </div>
           </div>
 

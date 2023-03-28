@@ -3,12 +3,10 @@ import { AlchemicaTypes, InstallationTypeNames, TypenameType } from 'shared/cons
 export declare type AlchemicaBag = [string, string, string, string];
 
 export interface ParcelInstallationDTO {
-  id: string;
   installationId: number;
 }
 
 export interface ParcelTileDTO {
-  id: string;
   tileId: number;
 }
 
@@ -73,3 +71,22 @@ export interface ParcelVM extends Parcel {
 export type ParcelAlchemica = {
   [key in AlchemicaTypes]: number;
 };
+
+export interface RealmBase extends Parcel {
+  owner: {
+    id: string;
+  };
+}
+
+export interface RealmDTO extends RealmBase {
+  installations: ParcelInstallationDTO[];
+  tiles: ParcelTileDTO[];
+}
+
+export interface RealmVM extends RealmBase {
+  installations: ParcelInstallationVM[];
+  tiles: ParcelTileVM[];
+  altarLevel: number;
+  cooldown: number;
+  nextChannel: number;
+}

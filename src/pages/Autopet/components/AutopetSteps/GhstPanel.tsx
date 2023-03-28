@@ -11,7 +11,7 @@ export function GhstPanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
   const { ghstState, onApproveGhst, renderButtonNode, isGhstApproved, isStaked, isUserConnected } =
-    useContext<any>(AutopetContext);
+    useContext<CustomAny>(AutopetContext);
 
   return (
     <div

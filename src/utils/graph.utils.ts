@@ -4,7 +4,7 @@ import { collaterals } from 'data/collaterals.data';
 import { tokens } from 'data/tokens.data';
 
 export class GraphUtils {
-  public static calculateRewards(position: any, type: any): any {
+  public static calculateRewards(position: CustomAny, type: CustomAny): CustomAny {
     const BRSformula = { y: 0.94, k: 84857.04 };
     const KINformula = { y: 0.76, k: 9416.93 };
     const EXPformula = { y: 0.65, k: 2396.69 };
@@ -37,13 +37,13 @@ export class GraphUtils {
     }
   }
 
-  public static getCollateralName(address: any): any {
+  public static getCollateralName(address: CustomAny): CustomAny {
     const index = collaterals.findIndex((collateral: CollateralData) => collateral.address === address);
 
     return collaterals[index]?.name;
   }
 
-  public static getCollateralImg(name: any): any {
+  public static getCollateralImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/collaterals/${name.replace(/^.{2}/g, 'a')}.svg`).default;
     } catch (error) {
@@ -51,13 +51,13 @@ export class GraphUtils {
     }
   }
 
-  public static getTokenName(address: any): any {
+  public static getTokenName(address: CustomAny): CustomAny {
     const index = tokens.findIndex((coll) => coll.address.toLowerCase() === address.toLowerCase());
 
     return tokens[index]?.name;
   }
 
-  public static getTokenImg(name: any): any {
+  public static getTokenImg(name: CustomAny): CustomAny {
     try {
       return require(`../assets/images/tokens/${name}-token.svg`).default;
     } catch (error) {

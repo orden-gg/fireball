@@ -10,13 +10,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import {
-  getActiveAddress,
-  removeAddress,
-  setActiveAddress,
-  toggleLoginDropdown,
-  updateAddressName
-} from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 
@@ -36,12 +30,12 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
   const classes = styles();
 
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const [editMode, setEditMode] = useState<boolean>(false);
   const [name, setName] = useState<string>(address.name);
   const [copyTooltipText, setCopyTooltipText] = useState<string>('Copy address');
-  const nameRef = useRef<any>();
+  const nameRef = useRef<CustomAny>();
 
   useEffect(() => {
     // focus input on edit button click
@@ -57,8 +51,8 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
   }, [address]);
 
   const onAddressClick = (): void => {
-    dispatch(toggleLoginDropdown(false));
-    dispatch(setActiveAddress(address.address));
+    dispatch(fromLoginStore.toggleLoginDropdown(false));
+    dispatch(fromLoginStore.setActiveAddress(address.address));
   };
 
   const isActive = (current: LoginAddressModel): boolean => {
@@ -69,26 +63,26 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
     setName(value);
   };
 
-  const confirmNewAddress = (event: any): void => {
+  const confirmNewAddress = (event: CustomAny): void => {
     event.stopPropagation();
 
     if (name.length > 0) {
       setEditMode(false);
 
       if (name !== address.name) {
-        dispatch(updateAddressName(address.address, name));
+        dispatch(fromLoginStore.updateAddressName(address.address, name));
       }
     }
   };
 
-  const editAddress = (event: any): void => {
+  const editAddress = (event: CustomAny): void => {
     event.stopPropagation();
 
     setEditMode(true);
     nameRef.current.focus();
   };
 
-  const copyAddress = (event: any): void => {
+  const copyAddress = (event: CustomAny): void => {
     event.stopPropagation();
     copyToClipboard();
   };
@@ -102,14 +96,14 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
     }
   };
 
-  const onAddressLogout = (event: any, loginAddress: LoginAddressModel): void => {
+  const onAddressLogout = (event: CustomAny, loginAddress: LoginAddressModel): void => {
     event.stopPropagation();
 
     if (onLogout) {
       onLogout(address);
     }
 
-    dispatch(removeAddress(loginAddress.address));
+    dispatch(fromLoginStore.removeAddress(loginAddress.address));
   };
 
   return (
@@ -138,7 +132,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
                       onClick={(event) => confirmNewAddress(event)}
                       disabled={name.length === 0}
                     >
-                      <CheckIcon fontSize={'8px' as any} />
+                      <CheckIcon fontSize={'8px' as CustomAny} />
                     </IconButton>
                   ) : null}
                 </InputAdornment>

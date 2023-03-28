@@ -12,7 +12,7 @@ import { guildNavStyles } from '../styles';
 export function GuildNav() {
   const classes = guildNavStyles();
 
-  const { guildGotchis, guildLendings, guildRealm } = useContext<any>(GuildsContext);
+  const { guildGotchis, guildLendings, guildRealm } = useContext<CustomAny>(GuildsContext);
 
   const navData: PageNavLink[] = [
     {

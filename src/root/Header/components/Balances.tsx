@@ -24,7 +24,7 @@ export function Balances() {
   const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
   const [menuOpen, setMenuOpen] = useLocalStorage(
     'visible_balances',
-    JSON.parse(localStorage.getItem('visible_balances') as any) || true
+    JSON.parse(localStorage.getItem('visible_balances') as CustomAny) || true
   );
 
   const checkList = ['fud', 'fomo', 'alpha', 'kek', 'gltr', 'alloy', 'essence', 'ghst', 'matic'];

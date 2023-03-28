@@ -4,7 +4,7 @@ import { InstallationItem, ParcelInstallationDTO, ParcelInstallationVM } from 's
 import installations from 'data/installations.data.json';
 
 export class InstallationsUtils {
-  public static getMetadataById(id: any): InstallationItem {
+  public static getMetadataById(id: CustomAny): InstallationItem {
     return {
       name: InstallationsUtils.getNameById(id),
       type: InstallationsUtils.getTypeById(id),
@@ -20,27 +20,27 @@ export class InstallationsUtils {
     };
   }
 
-  public static getWidthById(id: number): any {
+  public static getWidthById(id: number): CustomAny {
     return installations[id][InstallationTypes.Width];
   }
 
-  public static getHeightById(id: number): any {
+  public static getHeightById(id: number): CustomAny {
     return installations[id][InstallationTypes.Height];
   }
 
-  public static getIsInstallationExist(id: number): boolean {
-    return Boolean(installations[id]);
+  public static getIsInstallationExist(id: number | string): boolean {
+    return Boolean(installations[Number(id)]);
   }
 
   public static getNameById(id: number | string): string {
-    return installations[id][InstallationTypes.Name];
+    return installations[Number(id)][InstallationTypes.Name] as string;
   }
 
-  public static getLevelById(id: number): any {
-    return installations[id][InstallationTypes.Level];
+  public static getLevelById(id: number | string): number {
+    return installations[Number(id)][InstallationTypes.Level] as number;
   }
 
-  public static getImageById(id: any): any {
+  public static getImageById(id: CustomAny): CustomAny {
     try {
       return require(`../assets/images/installations/${id}.png`).default;
     } catch (error) {
@@ -52,19 +52,19 @@ export class InstallationsUtils {
     }
   }
 
-  public static getSpillRadiusById(id: any): any {
+  public static getSpillRadiusById(id: CustomAny): CustomAny {
     return installations[id][InstallationTypes.SpillRadius];
   }
 
-  public static getSpillRateById(id: any): any {
+  public static getSpillRateById(id: CustomAny): CustomAny {
     return installations[id][InstallationTypes.SpillRate];
   }
 
-  public static getCraftTimeById(id: any): any {
+  public static getCraftTimeById(id: CustomAny): CustomAny {
     return installations[id][InstallationTypes.CraftTime];
   }
 
-  public static getAlchemicaCostById(id: any): any {
+  public static getAlchemicaCostById(id: CustomAny): CustomAny {
     return installations[id][InstallationTypes.AlchemicaCost];
   }
 
@@ -91,7 +91,7 @@ export class InstallationsUtils {
     }
   }
 
-  public static getCooldownByLevel(lvl: any, units?: any): any {
+  public static getCooldownByLevel(lvl: number, units?: CustomAny): number {
     const multiplier = units === 'milis' ? 3600000 : units === 'seconds' ? 3600 : 1;
 
     switch (lvl) {
@@ -118,8 +118,8 @@ export class InstallationsUtils {
     }
   }
 
-  public static getDeprecatedById(id: any): any {
-    return installations[id][InstallationTypes.Deprecated];
+  public static getDeprecatedById(id: string): boolean {
+    return installations[Number(id)][InstallationTypes.Deprecated] as boolean;
   }
 
   public static getRarityById(id: number | string): string {

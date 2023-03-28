@@ -23,11 +23,11 @@ import { StakePanel } from './StakePanel';
 export function AutopetSteps() {
   const classes = tabStyles();
 
-  const { tabs } = useContext<any>(AutopetContext);
+  const { tabs } = useContext<CustomAny>(AutopetContext);
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [progress, setProgress] = useState<number>(0);
 
-  const a11yProps = (index: number): any => {
+  const a11yProps = (index: number): CustomAny => {
     return {
       id: `full-width-tab-${index}`,
       'aria-controls': `full-width-tabpanel-${index}`

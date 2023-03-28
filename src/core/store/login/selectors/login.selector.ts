@@ -1,5 +1,16 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-export const getIsDropdownOpen = (state: RootState) => state.login.isDropdownOpen;
-export const getActiveAddress = (state: RootState) => state.login.activeAddress;
-export const getLoggedAddress = (state: RootState) => state.login.loggedAddresses;
+import { LoginState } from '../slices';
+
+const loginStateSelector = createSelector(
+  (state: RootState) => state.login,
+  (loginState: LoginState) => loginState
+);
+
+export const getIsDropdownOpen = createSelector(loginStateSelector, (state: LoginState) => state.isDropdownOpen);
+
+export const getActiveAddress = createSelector(loginStateSelector, (state: LoginState) => state.activeAddress);
+
+export const getLoggedAddresses = createSelector(loginStateSelector, (state: LoginState) => state.loggedAddresses);

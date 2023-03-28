@@ -5,12 +5,13 @@ import { AppThunk } from 'core/store/store';
 import { FakeGotchi } from 'shared/models';
 
 import { getQueuedFakeGotchisQuery } from '../../queries';
-import { loadQueuedGotchis, loadQueuedGotchisFailed, loadQueuedGotchisSucceded } from '../slices';
+// slices
+import * as queuedGotchisSlices from '../slices/queued-gotchis.slice';
 
 export const loadQueuedFakeGotchis = (): AppThunk => async (dispatch) => {
-  dispatch(loadQueuedGotchis());
+  dispatch(queuedGotchisSlices.loadQueuedGotchis());
 
   FakeGotchisGalleryApi.getGalleryFakeGotchis(getQueuedFakeGotchisQuery())
-    .then((res: FakeGotchi[]) => dispatch(loadQueuedGotchisSucceded(res)))
-    .catch(() => dispatch(loadQueuedGotchisFailed()));
+    .then((res: FakeGotchi[]) => dispatch(queuedGotchisSlices.loadQueuedGotchisSucceded(res)))
+    .catch(() => dispatch(queuedGotchisSlices.loadQueuedGotchisFailed()));
 };

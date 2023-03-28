@@ -1,8 +1,35 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-export const getLastUpdatedTimestamp = (state: RootState): number => state.dataReload.lastUpdatedTimestamp;
-export const getLastManuallyTriggeredTimestamp = (state: RootState): number =>
-  state.dataReload.lastManuallyTriggeredTimestamp;
-export const getReloadInterval = (state: RootState): number => state.dataReload.reloadInterval;
-export const getReloadIntervalCountdown = (state: RootState): number => state.dataReload.reloadIntervalCountdown;
-export const getIsReloadDisabled = (state: RootState): boolean => state.dataReload.isReloadDisabled;
+import { DataReloadState } from '../slices';
+
+const dataReloadStateSelector = createSelector(
+  (state: RootState) => state.dataReload,
+  (dataReloadState: DataReloadState) => dataReloadState
+);
+
+export const getLastUpdatedTimestamp = createSelector(
+  dataReloadStateSelector,
+  (state: DataReloadState) => state.lastUpdatedTimestamp
+);
+
+export const getLastManuallyTriggeredTimestamp = createSelector(
+  dataReloadStateSelector,
+  (state: DataReloadState) => state.lastManuallyTriggeredTimestamp
+);
+
+export const getReloadInterval = createSelector(
+  dataReloadStateSelector,
+  (state: DataReloadState) => state.reloadInterval
+);
+
+export const getReloadIntervalCountdown = createSelector(
+  dataReloadStateSelector,
+  (state: DataReloadState) => state.reloadIntervalCountdown
+);
+
+export const getIsReloadDisabled = createSelector(
+  dataReloadStateSelector,
+  (state: DataReloadState) => state.isReloadDisabled
+);

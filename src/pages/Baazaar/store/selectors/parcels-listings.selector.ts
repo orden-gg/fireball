@@ -1,31 +1,55 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GraphQueryParams, SortingItem } from 'shared/models';
+import { ParcelsListingsState } from '../slices';
 
-import { ParcelListingFilters, ParcelListingVM } from '../../models';
+const parcelsListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.parcels,
+  (parcelsListingsState: ParcelsListingsState) => parcelsListingsState
+);
 
-export const getParcelsListings = (state: RootState): ParcelListingVM[] => state.baazaar.parcels.parcelsListings.data;
+export const getParcelsListings = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListings.data
+);
 
-export const getIsParcelsListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.parcels.isParcelsListingsInitialDataLoading;
+export const getIsParcelsListingsInitialDataLoading = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.isParcelsListingsInitialDataLoading
+);
 
-export const getIsParcelsListingsLoading = (state: RootState): boolean =>
-  state.baazaar.parcels.parcelsListings.isLoading;
+export const getIsParcelsListingsLoading = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListings.isLoading
+);
 
-export const getParcelsListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
-  state.baazaar.parcels.parcelsListingsGraphQueryParams;
+export const getParcelsListingsGraphQueryParams = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsGraphQueryParams
+);
 
-export const getParcelsListingsLimitPerLoad = (state: RootState): number =>
-  state.baazaar.parcels.parcelsListingsLimitPerLoad;
+export const getParcelsListingsLimitPerLoad = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsLimitPerLoad
+);
 
-export const getParcelsListingsDefaultSorting = (state: RootState): SortingItem =>
-  state.baazaar.parcels.parcelsListingsDefaultSorting;
+export const getParcelsListingsDefaultSorting = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsDefaultSorting
+);
 
-export const getParcelsListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.parcels.parcelsListingsSorting;
+export const getParcelsListingsSorting = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsSorting
+);
 
-export const getParcelsListingsFilters = (state: RootState): ParcelListingFilters =>
-  state.baazaar.parcels.parcelsListingsFilters;
+export const getParcelsListingsFilters = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsFilters
+);
 
-export const getParcelsListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.parcels.parcelsListingsQueryParamsOrder;
+export const getParcelsListingsQueryParamsOrder = createSelector(
+  parcelsListingsStateSelector,
+  (state: ParcelsListingsState) => state.parcelsListingsQueryParamsOrder
+);

@@ -10,17 +10,8 @@ import { Button, IconButton } from '@mui/material';
 import classNames from 'classnames';
 import qs from 'query-string';
 
+import * as fromGlossaryStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import {
-  getGlossaryWearables,
-  getInitialGlossaryWearables,
-  getMaxWearablePrice,
-  getWearablesIds,
-  getWearablesSorting,
-  loadWearableListings,
-  setWearables,
-  setWearablesSorting
-} from 'pages/Glossary/store';
 
 import { CardListing } from 'shared/components/CardListing/CardListing';
 import { CustomParsedQuery, Sorting, SortingItem, SortingListItem, Wearable } from 'shared/models';
@@ -93,17 +84,17 @@ export function GlossaryWearables() {
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
   const dispatch = useAppDispatch();
-  const initialWearables: Wearable[] = useAppSelector(getInitialGlossaryWearables);
-  const wearableIds: number[] = useAppSelector(getWearablesIds);
-  const wearables: Wearable[] = useAppSelector(getGlossaryWearables);
-  const wearablesSorting: SortingItem = useAppSelector(getWearablesSorting);
-  const maxWearablePrice: number = useAppSelector(getMaxWearablePrice);
+  const initialWearables: Wearable[] = useAppSelector(fromGlossaryStore.getInitialGlossaryWearables);
+  const wearableIds: number[] = useAppSelector(fromGlossaryStore.getWearablesIds);
+  const wearables: Wearable[] = useAppSelector(fromGlossaryStore.getGlossaryWearables);
+  const wearablesSorting: SortingItem = useAppSelector(fromGlossaryStore.getWearablesSorting);
+  const maxWearablePrice: number = useAppSelector(fromGlossaryStore.getMaxWearablePrice);
 
   const [currentFilters, setCurrentFilters] = useState<GlossaryWearablesFilters>({ ...initialFilters });
 
   useEffect(() => {
-    dispatch(setWearables(initialWearables));
-    dispatch(loadWearableListings(wearableIds));
+    dispatch(fromGlossaryStore.setWearables(initialWearables));
+    dispatch(fromGlossaryStore.loadWearableListings(wearableIds));
 
     setCurrentFilters((currentFiltersCache: GlossaryWearablesFilters) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
@@ -122,8 +113,8 @@ export function GlossaryWearables() {
     return () => {
       onResetFilters();
 
-      dispatch(setWearables([]));
-      dispatch(setWearablesSorting({ type: 'rarityId', dir: 'asc' }));
+      dispatch(fromGlossaryStore.setWearables([]));
+      dispatch(fromGlossaryStore.setWearablesSorting({ type: 'rarityId', dir: 'asc' }));
     };
   }, []);
 
@@ -169,11 +160,11 @@ export function GlossaryWearables() {
       getFilteredItems: FilterUtils.getFilteredItems
     });
 
-    dispatch(setWearables(modifiedWearables));
+    dispatch(fromGlossaryStore.setWearables(modifiedWearables));
   }, [currentFilters, initialWearables, wearablesSorting]);
 
   const onSortingChange = (sortBy: string, sortDir: string): void => {
-    dispatch(setWearablesSorting({ dir: sortDir, type: sortBy }));
+    dispatch(fromGlossaryStore.setWearablesSorting({ dir: sortDir, type: sortBy }));
   };
 
   const sorting: Sorting = {
@@ -200,7 +191,7 @@ export function GlossaryWearables() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 

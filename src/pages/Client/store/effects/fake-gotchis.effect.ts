@@ -1,96 +1,28 @@
-import { EthersApi } from 'api';
-import { ClientApi } from 'pages/Client/api/client.api';
+import { ClientApi } from '../../api';
 
 import { AppThunk } from 'core/store/store';
 
-import { Erc721ListingsBatch, Erc721ListingsDictionary, Erc1155Listings, FakeGotchi } from 'shared/models';
+import { FakeGotchi } from 'shared/models';
 
-import {
-  FakeGotchiCard,
-  FakeGotchiCardLastSoldListingDTO,
-  FakeGotchiCardListingDTO,
-  FakeItemsDTO,
-  FakeItemsVM
-} from 'pages/Client/models';
-import {
-  getFakeGotchiCardCurrentListingQuery,
-  getFakeGotchiCardLastSoldListingQuery,
-  getFakeGotchisByAddressQuery
-} from 'pages/Client/queries';
+import { FakeGotchiCard, FakeItemsDTO, FakeItemsVM } from 'pages/Client/models';
+import { getFakeGotchisByAddressQuery } from 'pages/Client/queries';
 
-import {
-  loadFakeGotchis,
-  loadFakeGotchisFailed,
-  loadFakeGotchisSucceded,
-  setFakeGotchiCardListings,
-  setFakeGotchisListings
-} from '../slices';
+// slices
+import * as fakeGotchisSlices from '../slices/fake-gotchis.slice';
 
 export const onLoadFakeGotchis =
-  (address: string, shouldUpdateIsLoading: boolean): AppThunk =>
+  (address: string): AppThunk =>
   (dispatch) => {
-    if (shouldUpdateIsLoading) {
-      dispatch(loadFakeGotchis());
-    }
+    dispatch(fakeGotchisSlices.loadFakeGotchis());
 
     ClientApi.getFakeGotchis(getFakeGotchisByAddressQuery(address))
       .then((res: FakeItemsDTO) => {
-        const erc721Ids: number[] = res.ERC721tokens.map((token: FakeGotchi) => Number(token.identifier));
-
-        if (erc721Ids.length > 0) {
-          Promise.all([ClientApi.getFakeGotchisListings(erc721Ids)]).then(
-            ([currentListings]: [Erc721ListingsBatch]) => {
-              const listings: Erc721ListingsDictionary = {};
-
-              Object.keys(currentListings).forEach((key: string) => {
-                const dictionaryKey: string = key.split('item')[1];
-                const currentListing = currentListings[key].find((listing) => Number(listing.timePurchased) === 0);
-
-                listings[dictionaryKey] = {
-                  listingId: currentListing ? currentListing.id : '',
-                  listingPrice: currentListing ? EthersApi.fromWei(currentListing.priceInWei) : 0,
-                  historicalPrices: currentListings[key]
-                    .filter((listing) => Number(listing.timePurchased) !== 0)
-                    .sort((a, b) => Number(a.timePurchased) - Number(b.timePurchased))
-                    .map((listing) => listing.priceInWei)
-                };
-              });
-
-              dispatch(setFakeGotchisListings(listings));
-            }
-          );
-        }
-
         const mappedItems: FakeItemsVM = mapFakeItemsDTOToVM(res);
 
-        if (mappedItems.fakeGotchiCards.length > 0) {
-          Promise.all([
-            ClientApi.getFakeGotchiCardListing<FakeGotchiCardListingDTO>(getFakeGotchiCardCurrentListingQuery()),
-            ClientApi.getFakeGotchiCardListing<FakeGotchiCardLastSoldListingDTO>(
-              getFakeGotchiCardLastSoldListingQuery()
-            )
-          ]).then(
-            ([currentListing, lastSoldlisting]: [FakeGotchiCardListingDTO[], FakeGotchiCardLastSoldListingDTO[]]) => {
-              const listings: Erc1155Listings = {
-                currentListing: {
-                  id: currentListing[0] ? Number(currentListing[0].id) : null,
-                  price: currentListing[0] ? EthersApi.fromWei(currentListing[0].priceInWei) : 0
-                },
-                lastSoldListing: {
-                  id: Number(lastSoldlisting[0].id),
-                  price: EthersApi.fromWei(lastSoldlisting[0].priceInWei),
-                  soldDate: new Date(Number(lastSoldlisting[0].timeLastPurchased) * 1000).toJSON()
-                }
-              };
-
-              dispatch(setFakeGotchiCardListings(listings));
-            }
-          );
-        }
-
-        dispatch(loadFakeGotchisSucceded(mappedItems));
+        dispatch(fakeGotchisSlices.loadFakeGotchisSucceded(mappedItems));
       })
-      .catch(() => dispatch(loadFakeGotchisFailed()));
+      .catch(() => dispatch(fakeGotchisSlices.loadFakeGotchisFailed()))
+      .finally(() => dispatch(fakeGotchisSlices.setIsInitialFakeGotchisLoading(false)));
   };
 
 const mapFakeItemsDTOToVM = (fakeItems: FakeItemsDTO): FakeItemsVM => {

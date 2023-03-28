@@ -6,7 +6,7 @@ import { styles } from './styles';
 
 interface CardSlotProps {
   id?: number;
-  children?: any;
+  children?: CustomAny;
   className?: string;
 }
 

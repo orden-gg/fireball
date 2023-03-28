@@ -7,7 +7,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { guildDetailsStyles } from '../styles';
 import { GuildWearables } from './GuildWearables';
 
-export function GuildsDetails({ guild }: { guild: any }) {
+export function GuildsDetails({ guild }: { guild: CustomAny }) {
   const classes = guildDetailsStyles();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -26,7 +26,7 @@ export function GuildsDetails({ guild }: { guild: any }) {
 
       <CustomModal modalOpen={modalOpen} setModalOpen={setModalOpen} className={classes.modal}>
         <ul className={classes.detailsList}>
-          {guild.description?.map((item: any, index: number) => (
+          {guild.description?.map((item: CustomAny, index: number) => (
             <li className={classes.detailsItem} key={index}>
               <p className={classes.detailTitle}>{item.title}</p>
               <div className={classes.detailBody}>

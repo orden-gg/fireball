@@ -1,24 +1,27 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 
 import * as qs from 'query-string';
 
-import { CustomParsedQuery } from 'shared/models';
+// store
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery } from 'shared/models';
+import { SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
+import { H1SealedPortalIcon } from 'components/Icons/Icons';
 import { CardERC721Listing, CardGroup, CardName, CardPortalImage, CardSlot } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
+import { FilterUtils } from 'utils';
+
 import { filtersData } from 'data/filters.data';
 
-import { H1SealedPortalIcon } from '../../../components/Icons/Icons';
-import { SortingItem, SortingListItem } from '../../../shared/models/sorting.model';
-import { FilterUtils } from '../../../utils/filters.utils';
 import { ClientPortal } from '../models';
 import { routersStyles } from '../styles';
 
@@ -32,7 +35,7 @@ const sortings: SortingListItem[] = [
   }
 ];
 
-const initialFilters: any = {
+const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true }
 };
 
@@ -45,21 +48,25 @@ export function ClientPortals() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { portals, loadingPortals } = useContext<any>(ClientContext);
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-  const [modifiedPortals, setModifiedPortals] = useState<any[]>([]);
-  const [portalsSorting, setPortalsSorting] = useState<SortingItem>({ type: 'haunt', dir: 'asc' });
+  const dispatch = useAppDispatch();
+
+  const portals: ClientPortal[] = useAppSelector(fromClientStore.getPortals);
+  const isInitialPortalsLoading: boolean = useAppSelector(fromClientStore.getIsInitialPortalsLoading);
+  const portalsSorting: SortingItem = useAppSelector(fromClientStore.getPortalsSorting);
+
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
+  const [modifiedPortals, setModifiedPortals] = useState<CustomAny[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache: any) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -79,7 +86,7 @@ export function ClientPortals() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === portalsSorting.type)?.paramKey;
+    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === portalsSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, portalsSorting.dir);
   }, [portalsSorting]);
@@ -95,14 +102,11 @@ export function ClientPortals() {
     setModifiedPortals(modifiedPortals);
   }, [currentFilters, portals, portalsSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setPortalsSorting({ type, dir });
-    },
-    [setPortalsSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setPortalsSorting({ type, dir }));
+  };
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: portalsSorting,
     onSortingChange: onSortingChange
@@ -118,7 +122,7 @@ export function ClientPortals() {
   );
 
   const updateFilterQueryParams = useCallback(
-    (filters: any) => {
+    (filters: CustomAny) => {
       const params: string[] = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
       FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
@@ -126,7 +130,7 @@ export function ClientPortals() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
@@ -152,7 +156,7 @@ export function ClientPortals() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingPortals}>
+      <ContentInner dataLoading={isInitialPortalsLoading}>
         <div>
           <div className={classes.list}>
             {modifiedPortals.map((portal: ClientPortal, index: number) => (

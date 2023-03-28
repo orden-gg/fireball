@@ -7,7 +7,7 @@ import _ from 'lodash';
 import { styles } from './styles';
 
 interface InputFilterProps {
-  filter: any;
+  filter: CustomAny;
   onSetSelectedFilters: (key: string, value: string) => void;
   isDisabled: boolean;
 }

@@ -5,7 +5,7 @@ import { GhstTokenGif } from 'components/Icons/Icons';
 import { styles } from './styles';
 
 interface HorizontalPriceProps {
-  item: any;
+  item: CustomAny;
   label: string;
 }
 

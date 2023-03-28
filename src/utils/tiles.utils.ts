@@ -4,7 +4,7 @@ import { ParcelTileDTO, ParcelTileVM, TileItem } from 'shared/models';
 import tiles from 'data/tiles.data.json';
 
 export class TilesUtils {
-  public static getMetadataById(id: any): TileItem {
+  public static getMetadataById(id: CustomAny): TileItem {
     return {
       name: this.getNameById(id),
       alchemicaCost: TilesUtils.getAlchemicaCostById(id),
@@ -16,35 +16,35 @@ export class TilesUtils {
     };
   }
 
-  public static getIsTileExists(id: number): boolean {
+  public static getIsTileExists(id: CustomAny): boolean {
     return Boolean(tiles[id]);
   }
 
-  public static getWidthById(id: number): any {
+  public static getWidthById(id: number): CustomAny {
     return tiles[id][TileTypes.Width];
   }
 
-  public static getHeightById(id: number): any {
+  public static getHeightById(id: number): CustomAny {
     return tiles[id][TileTypes.Height];
   }
 
-  public static getNameById(id: any): any {
+  public static getNameById(id: CustomAny): CustomAny {
     return tiles[id] && tiles[id][TileTypes.Name];
   }
 
-  public static getAlchemicaCostById(id: any): any {
+  public static getAlchemicaCostById(id: CustomAny): CustomAny {
     return tiles[id][TileTypes.AlchemicaCost];
   }
 
-  public static getCraftTimeById(id: any): any {
+  public static getCraftTimeById(id: CustomAny): CustomAny {
     return tiles[id][TileTypes.CraftTime];
   }
 
-  public static getDeprecatedById(id: any): any {
+  public static getDeprecatedById(id: CustomAny): CustomAny {
     return tiles[id][TileTypes.Deprecated];
   }
 
-  public static getImageById(id: any): any {
+  public static getImageById(id: CustomAny): CustomAny {
     try {
       return require(`../assets/images/tiles/${id}.png`).default;
     } catch (error) {

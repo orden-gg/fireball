@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
@@ -8,9 +8,10 @@ import TimerIcon from '@mui/icons-material/Timer';
 
 import qs from 'query-string';
 
-import { CustomParsedQuery, SortingListItem } from 'shared/models';
+import * as fromClientStore from '../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 
-import { ClientContext } from 'contexts/ClientContext';
+import { CustomParsedQuery, RealmVM, SortingItem, SortingListItem } from 'shared/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { AlphaIcon, FomoIcon, FudIcon, KekIcon } from 'components/Icons/Icons';
@@ -21,6 +22,8 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
+
+import { RealmView } from '../constants';
 
 const sortings: SortingListItem[] = [
   {
@@ -80,7 +83,7 @@ const sortings: SortingListItem[] = [
     icon: <KekIcon height={18} width={18} />
   }
 ];
-const initialFilters: any = {
+const initialFilters: CustomAny = {
   size: { ...filtersData.size, divider: true },
   altarLevel: { ...filtersData.altarLevel, divider: true },
   nextChannel: { ...filtersData.nextChannel },
@@ -102,24 +105,29 @@ export function ClientRealmList() {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { realm, realmSorting, setRealmSorting, loadingRealm, setRealmView } = useContext<any>(ClientContext);
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
-  const [modifiedRealm, setModifiedRealm] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
+
+  const realm: RealmVM[] = useAppSelector(fromClientStore.getRealm);
+  const isInitialRealmLoading: boolean = useAppSelector(fromClientStore.getIsInitialRealmLoading);
+  const realmSorting: SortingItem = useAppSelector(fromClientStore.getRealmSorting);
+
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
+  const [modifiedRealm, setModifiedRealm] = useState<RealmVM[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    setRealmView('list');
+    dispatch(fromClientStore.setRealmView(RealmView.List));
   }, []);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache: any) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -139,7 +147,7 @@ export function ClientRealmList() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === realmSorting.type)?.paramKey;
+    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === realmSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, realmSorting.dir);
   }, [realmSorting]);
@@ -155,14 +163,11 @@ export function ClientRealmList() {
     setModifiedRealm(modifiedRealm);
   }, [currentFilters, realm, realmSorting]);
 
-  const onSortingChange = useCallback(
-    (type: string, dir: string) => {
-      setRealmSorting({ type, dir });
-    },
-    [setRealmSorting]
-  );
+  const onSortingChange = (type: string, dir: string): void => {
+    dispatch(fromClientStore.setRealmSorting({ type, dir }));
+  };
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: realmSorting,
     onSortingChange: onSortingChange
@@ -178,15 +183,15 @@ export function ClientRealmList() {
   );
 
   const updateFilterQueryParams = useCallback(
-    (filters: any) => {
-      const params: any = FilterUtils.getUpdatedQueryParams(queryParams, filters);
+    (filters: CustomAny) => {
+      const params: CustomAny = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
       FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
     },
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
@@ -212,7 +217,7 @@ export function ClientRealmList() {
         filtersCount={activeFiltersCount}
       />
 
-      <ContentInner dataLoading={loadingRealm}>
+      <ContentInner dataLoading={isInitialRealmLoading}>
         <ItemsLazy items={modifiedRealm} component={(props) => <Parcel parcel={props} />} />
       </ContentInner>
     </>

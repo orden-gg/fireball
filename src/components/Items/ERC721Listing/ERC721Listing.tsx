@@ -12,15 +12,16 @@ import { CommonUtils } from 'utils';
 import { styles } from './styles';
 
 interface ERC721ListingProps {
-  listings: any[];
+  listings: CustomAny[];
   historicalPrices: string[];
 }
 
 export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps) {
   const classes = styles();
 
-  const currentPrice: any = listings?.length && EthersApi.fromWei(listings[0].priceInWei);
-  const lastPrice: any = historicalPrices?.length && EthersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
+  const currentPrice: CustomAny = listings?.length && EthersApi.fromWei(listings[0].priceInWei);
+  const lastPrice: CustomAny =
+    historicalPrices?.length && EthersApi.fromWei(historicalPrices[historicalPrices.length - 1]);
 
   return (
     <>
@@ -33,7 +34,7 @@ export function ERC721Listing({ listings, historicalPrices }: ERC721ListingProps
                   <span>Sales history:</span>
                 </p>
                 <div className={classes.tooltipInner}>
-                  {historicalPrices.map((price: any, index: number) => {
+                  {historicalPrices.map((price: CustomAny, index: number) => {
                     return (
                       <p className={classes.tooltipItem} key={index}>
                         {CommonUtils.formatPrice(EthersApi.fromWei(price))}

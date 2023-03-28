@@ -12,26 +12,26 @@ import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { actionStyles } from '../styles';
 
-export function ClientRealmActions({ claimableList }: { claimableList: any[] }) {
+export function ClientRealmActions({ claimableList }: { claimableList: CustomAny[] }) {
   const classes = actionStyles();
 
   const [isUserConnected, setIsUserConnected] = useState<boolean>(false);
   const [transactionStatus, setTransactionStatus] = useState<string>('default');
 
   const { metaState } = useMetamask();
-  const { showSnackbar } = useContext<any>(SnackbarContext);
+  const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
 
   const isTransactionProcessing: boolean = transactionStatus === 'processing';
   const isTransactionCompleted: boolean = transactionStatus === 'completed';
 
   useEffect(() => {
-    const accounts: any[] = metaState.account;
+    const accounts: CustomAny[] = metaState.account;
     const walletConnected: boolean = accounts.length > 0;
 
     setIsUserConnected(walletConnected);
   }, [metaState]);
 
-  const onUpgradesFinish = (ids: any[]): void => {
+  const onUpgradesFinish = (ids: CustomAny[]): void => {
     const succesMessage: string = `successfully finished ${ids.length} upgrades`;
     const errorMessage: string = 'finishing upgrades went wrong :(';
 
@@ -47,7 +47,7 @@ export function ClientRealmActions({ claimableList }: { claimableList: any[] }) 
           setTransactionStatus('failed');
         }
       })
-      .catch((e: any) => {
+      .catch((e: CustomAny) => {
         console.log(e);
         setTransactionStatus('failed');
       });

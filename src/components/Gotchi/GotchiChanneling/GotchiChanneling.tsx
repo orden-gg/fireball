@@ -20,32 +20,37 @@ const countdownFormat: CountdownShortFormat = {
   minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
 };
 
-export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
+export function GotchiChanelling({ gotchiId, lastchanneled }: { gotchiId: string; lastchanneled?: string }) {
   const classes = styles();
 
   const [lastChanneling, setLastChanneling] = useState<number>(0);
   const [lastChannelingLoading, setLastChanellingLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let mounted = true;
+    if (lastchanneled) {
+      setLastChanneling(Number(lastchanneled) * 1000);
+      setLastChanellingLoading(false);
+    } else {
+      let mounted = true;
 
-    setLastChanellingLoading(true);
+      setLastChanellingLoading(true);
 
-    RealmApi.getGotchiLastChanneled(gotchiId)
-      .then((res: any) => {
-        if (mounted) {
-          setLastChanneling(res * 1000);
-        }
-      })
-      .finally(() => {
-        if (mounted) {
-          setLastChanellingLoading(false);
-        }
-      });
+      RealmApi.getGotchiLastChanneled(gotchiId)
+        .then((res: CustomAny) => {
+          if (mounted) {
+            setLastChanneling(res * 1000);
+          }
+        })
+        .finally(() => {
+          if (mounted) {
+            setLastChanellingLoading(false);
+          }
+        });
 
-    return () => {
-      mounted = false;
-    };
+      return () => {
+        mounted = false;
+      };
+    }
   }, [gotchiId]);
 
   const atLeastOneTimeChanneled = (date: number) => {

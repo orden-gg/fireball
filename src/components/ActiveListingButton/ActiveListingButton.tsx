@@ -8,10 +8,10 @@ import { GhstTokenIcon } from 'components/Icons/Icons';
 
 import { styles } from './styles';
 
-export function ActiveListingButton({ item }: { item: any }) {
+export function ActiveListingButton({ item }: { item: CustomAny }) {
   const classes = styles();
 
-  const [listing, setListing] = useState<any>(null);
+  const [listing, setListing] = useState<CustomAny>(null);
   const [listingLoading, setListingLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export function ActiveListingButton({ item }: { item: any }) {
     setListingLoading(true);
 
     TheGraphApi.getActiveListing(item.erc, item.id, item.type, item.category)
-      .then((res: any) => {
+      .then((res: CustomAny) => {
         if (mounted) {
           setListing(res);
           setListingLoading(false);

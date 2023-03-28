@@ -4,13 +4,13 @@ import { TheGraphApi } from 'api';
 
 export const CardContext = createContext({});
 
-export const CardContextProvider = (props: any) => {
-  const [lastSold, setLastSold] = useState<any>({});
-  const [current, setCurrent] = useState<any>({});
-  const [lastDate, setLastDate] = useState<any>({});
+export const CardContextProvider = (props: CustomAny) => {
+  const [lastSold, setLastSold] = useState<CustomAny>({});
+  const [current, setCurrent] = useState<CustomAny>({});
+  const [lastDate, setLastDate] = useState<CustomAny>({});
 
   const loadCardPrice = (id: number | string, category: number | string): void => {
-    TheGraphApi.getErc1155Price(id, true, category, 'timeLastPurchased', 'desc').then((response: any) => {
+    TheGraphApi.getErc1155Price(id, true, category, 'timeLastPurchased', 'desc').then((response: CustomAny) => {
       setLastSold(response);
 
       if (response?.lastSale) {
@@ -20,7 +20,7 @@ export const CardContextProvider = (props: any) => {
       }
     });
 
-    TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then((response: any) => {
+    TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then((response: CustomAny) => {
       setCurrent(response);
     });
   };

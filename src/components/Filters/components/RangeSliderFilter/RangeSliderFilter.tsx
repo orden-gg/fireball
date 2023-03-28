@@ -9,7 +9,7 @@ import { IconUtils } from 'utils';
 import { styles } from './styles';
 
 interface RangeSliderFilterProps {
-  filter: any;
+  filter: CustomAny;
   onSetSelectedFilters: (key: string, value: number[]) => void;
   isDisabled: boolean;
 }

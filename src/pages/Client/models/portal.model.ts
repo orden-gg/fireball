@@ -1,15 +1,15 @@
 import { Erc721Categories } from 'shared/constants';
 
 export interface Portal {
-  openedAt: string;
+  id: number;
   hauntId: string;
+  category: Erc721Categories;
+  openedAt: string;
   historicalPrices: string[];
-  id: string | number;
 }
 
 export interface ClientPortal extends Portal {
-  listingId: string;
-  listingPrice: number;
+  listingId?: string | null;
+  listingPrice?: number;
   priceInWei?: string;
-  category: Erc721Categories;
 }

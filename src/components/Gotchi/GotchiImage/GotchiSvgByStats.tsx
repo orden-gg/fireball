@@ -11,7 +11,7 @@ const regex = /<style>(.*?)<\/style>/g;
 const regexClass = /\.(.*?)\}/g;
 
 interface GotchiSvgByStatsProps {
-  gotchi: any;
+  gotchi: CustomAny;
   size: string;
 }
 
@@ -26,21 +26,21 @@ export function GotchiSvgByStats({ gotchi, size }: GotchiSvgByStatsProps) {
     setLoadingSvg(true);
 
     renderSvg([gotchi])
-      .then((response: any) => {
-        const svg: any = response[0];
-        const tmp: any = document.createElement('div');
+      .then((response: CustomAny) => {
+        const svg: CustomAny = response[0];
+        const tmp: CustomAny = document.createElement('div');
 
         tmp.appendChild(svg);
 
-        const svgString: any = tmp.innerHTML;
+        const svgString: CustomAny = tmp.innerHTML;
 
-        let svgUniqueStyles: any = svgString.match(regex).map((val: any) => {
+        let svgUniqueStyles: CustomAny = svgString.match(regex).map((val: CustomAny) => {
           return val.replace(/<\/?style>/g, '');
         });
 
         svgUniqueStyles = svgUniqueStyles[0]
           .match(regexClass)
-          .map((styleBlock: any) => {
+          .map((styleBlock: CustomAny) => {
             return `.gotchi-${gotchi.tempId}${styleBlock}`;
           })
           .join('');
