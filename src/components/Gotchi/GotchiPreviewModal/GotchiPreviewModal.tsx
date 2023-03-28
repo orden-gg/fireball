@@ -112,6 +112,8 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
         const bestRealm = modifiedParcels
           .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
           .sort((a, b) => b.altarLevel - a.altarLevel);
+
+        bestRealm.push(18356, 10346, 2819);
         setAvailibleParcels(bestRealm);
         setSpawnId(bestRealm[0]?.parcelId);
       })

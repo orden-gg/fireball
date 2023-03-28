@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { TheGraphApi } from 'api';
+import { RealmApi, TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -36,18 +36,27 @@ export const onLoadOwnedGotchis =
         warehouseSortDir
       );
 
-      const gotchiIds: string[] = ownedGotchis.map((gotchi) => gotchi.id);
+      // const gotchiIds: string[] = ownedGotchis.map((gotchi) => gotchi.id);
+      // TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
+      //   .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
+      //     const modifiedOwned: OwnedGotchi[] = ownedGotchis.map((item: OwnedGotchi) => {
+      //       const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
-      TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
-        .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
-          const modifiedOwned: OwnedGotchi[] = ownedGotchis.map((item: OwnedGotchi) => {
-            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
-
-            return {
-              ...item,
-              lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0'
-            };
-          });
+      //       return {
+      //         ...item,
+      //         lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0'
+      //       };
+      //     });
+      const promises: Promise<CustomAny>[] = ownedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
+      Promise.all(promises)
+        .then((response: GotchiLastChanneled[]) => {
+          const modifiedOwned: OwnedGotchi[] = [];
+          let i = 0;
+          for (const gotchi of ownedGotchis) {
+            const modifiedGotchi = { ...gotchi, lastChanneled: response[i].toString() ? response[i].toString() : '0' };
+            modifiedOwned.push(modifiedGotchi);
+            i += 1;
+          }
 
           const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
             modifiedOwned,
