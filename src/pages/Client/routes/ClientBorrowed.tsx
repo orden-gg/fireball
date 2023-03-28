@@ -110,7 +110,6 @@ export function ClientBorrowed() {
       sorting: borrowedGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
-
     setModifiedGotchis(modifiedGotchis);
   }, [currentFilters, borrowedGotchis, borrowedGotchisSorting]);
 

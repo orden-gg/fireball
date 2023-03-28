@@ -71,7 +71,9 @@ export function Gotchi({
     },
 
     get channeling() {
-      return <GotchiChanelling gotchiId={gotchi.id} key={`${gotchi.id}-channeling`} />;
+      return (
+        <GotchiChanelling gotchiId={gotchi.id} lastchanneled={gotchi.lastChanneled} key={`${gotchi.id}-channeling`} />
+      );
     },
 
     get guild() {

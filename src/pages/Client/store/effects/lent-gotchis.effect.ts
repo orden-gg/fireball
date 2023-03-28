@@ -24,10 +24,10 @@ export const onLoadLentGotchis =
 
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
-          const modifiedLent = lentGotchis.map((item) => {
-            const lastChanneled = gotchiIdsChanneled.find((o) => o.id === item.id);
+          const modifiedLent: GotchiLending[] = lentGotchis.map((item: GotchiLending) => {
+            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
-            return { ...item, ...lastChanneled };
+            return { ...item, lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0' };
           });
 
           const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedLent, type, dir);

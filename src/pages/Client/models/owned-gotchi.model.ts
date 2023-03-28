@@ -24,4 +24,5 @@ export interface OwnedGotchi {
   }[];
   historicalPrices: string[];
   lending: string | null;
+  lastChanneled: string | null;
 }

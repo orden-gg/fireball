@@ -21,10 +21,10 @@ export const onLoadBorrowedGotchis =
 
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
-          const modifiedBorrowed = borrowedGotchis.map((item) => {
-            const lastChanneled = gotchiIdsChanneled.find((o) => o.id === item.id);
+          const modifiedBorrowed: GotchiLending[] = borrowedGotchis.map((item: GotchiLending) => {
+            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
-            return { ...item, ...lastChanneled };
+            return { ...item, lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0' };
           });
 
           const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedBorrowed, type, dir);

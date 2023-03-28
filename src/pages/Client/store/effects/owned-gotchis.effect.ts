@@ -40,10 +40,13 @@ export const onLoadOwnedGotchis =
 
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
-          const modifiedOwned = ownedGotchis.map((item) => {
-            const lastChanneled = gotchiIdsChanneled.find((o) => o.id === item.id);
+          const modifiedOwned: OwnedGotchi[] = ownedGotchis.map((item: OwnedGotchi) => {
+            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
-            return { ...item, ...lastChanneled };
+            return {
+              ...item,
+              lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0'
+            };
           });
 
           const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
