@@ -1,10 +1,8 @@
-import { Button } from '@mui/material';
 import { useCallback, useState } from 'react';
-import { FormFieldRow } from './components/FormFieldRow';
-import { FormRadioRow } from './components/FormRadioRow';
-import { FormTextereaRow } from './components/FormTextereaRow';
-import { FormUploadRow } from './components/FormUploadRow';
 
+import { Button } from '@mui/material';
+
+import { FormFieldRow, FormRadioRow, FormTextereaRow, FormUploadRow } from './components/FormRows';
 import { guildFormStyles } from './styles';
 
 export type FormDataItem = {

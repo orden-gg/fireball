@@ -1,11 +1,13 @@
 import { TextField } from '@mui/material';
+
 import classNames from 'classnames';
-import { FormDataItem } from '../GuildForm';
-import { guildFormStyles } from '../styles';
-import { FieldText } from './FieldText';
+
+import { FormDataItem } from '../../GuildForm';
+import { FieldText } from '../FieldText/FieldText';
+import { guildFormRowStyles } from './styles';
 
 export function FormFieldRow({ item }: { item: FormDataItem }) {
-  const classes = guildFormStyles();
+  const classes = guildFormRowStyles();
 
   const renderGroup = (values: string[]) => {
     return values.map((value: string, index: number) => (

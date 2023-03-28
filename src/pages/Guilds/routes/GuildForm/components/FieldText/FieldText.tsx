@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { guildFormStyles } from '../styles';
+
+import { fieldTextStyles } from './styles';
 
 interface FieldTextProps {
   type?: 'default' | 'warning' | 'error' | 'success';
@@ -7,7 +8,7 @@ interface FieldTextProps {
 }
 
 export function FieldText({ children, type }: FieldTextProps) {
-  const classes = guildFormStyles();
+  const classes = fieldTextStyles();
 
   if (type === undefined) {
     return <></>;

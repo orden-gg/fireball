@@ -1,12 +1,14 @@
-import { Button } from '@mui/material';
-import classNames from 'classnames';
-import { FormDataItem } from '../GuildForm';
-import { guildFormStyles } from '../styles';
-import { FieldText } from './FieldText';
-
 import UploadIcon from '@mui/icons-material/Upload';
+import { Button } from '@mui/material';
+
+import classNames from 'classnames';
+
+import { FormDataItem } from '../../GuildForm';
+import { FieldText } from '../FieldText/FieldText';
+import { guildFormRowStyles } from './styles';
+
 export function FormUploadRow({ item }: { item: FormDataItem }) {
-  const classes = guildFormStyles();
+  const classes = guildFormRowStyles();
 
   return (
     <div className={classes.formRow}>

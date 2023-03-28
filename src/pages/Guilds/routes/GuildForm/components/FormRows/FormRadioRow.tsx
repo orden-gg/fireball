@@ -1,10 +1,12 @@
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+
 import classNames from 'classnames';
-import { FormDataItem } from '../GuildForm';
-import { guildFormStyles } from '../styles';
+
+import { FormDataItem } from '../../GuildForm';
+import { guildFormRowStyles } from './styles';
 
 export function FormRadioRow({ item }: { item: FormDataItem }) {
-  const classes = guildFormStyles();
+  const classes = guildFormRowStyles();
 
   const renderRadio = (value: string[]) => {
     return (
