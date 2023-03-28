@@ -22,7 +22,7 @@ export function CardListing() {
 
   const theme = useTheme();
 
-  const { lastSold, current, lastDate } = useContext<any>(CardContext);
+  const { lastSold, current, lastDate } = useContext<CustomAny>(CardContext);
 
   return (
     <>

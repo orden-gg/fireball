@@ -22,24 +22,13 @@ import {
   ConsumableListingVM
 } from '../../models';
 import { getBaazaarErc1155ListingsQuery } from '../../queries';
-import {
-  loadConsumablesListings,
-  loadConsumablesListingsFailed,
-  loadConsumablesListingsSucceded,
-  resetConsumablesListings,
-  setConsumablesListingsFilters,
-  setConsumablesListingsIsFiltersUpdated,
-  setConsumablesListingsIsSortingUpdated,
-  setConsumablesListingsPreviousSortingProp,
-  setConsumablesListingsSkipLimit,
-  setConsumablesListingsSorting,
-  setIsConsumablesListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as consumablesListingsSlices from '../slices/consumables-listings.slice';
 
 export const loadBaazaarConsumablesListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadConsumablesListings());
+    dispatch(consumablesListingsSlices.loadConsumablesListings());
 
     const consumablesListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.consumables.consumablesListingsGraphQueryParams;
@@ -76,24 +65,28 @@ export const loadBaazaarConsumablesListings =
               );
 
               if (shouldResetListings) {
-                dispatch(loadConsumablesListingsSucceded(modifiedListings));
+                dispatch(consumablesListingsSlices.loadConsumablesListingsSucceded(modifiedListings));
               } else {
-                dispatch(loadConsumablesListingsSucceded(currentConsumablesListings.concat(modifiedListings)));
+                dispatch(
+                  consumablesListingsSlices.loadConsumablesListingsSucceded(
+                    currentConsumablesListings.concat(modifiedListings)
+                  )
+                );
               }
             })
             .finally(() => {
-              dispatch(setIsConsumablesListingsInitialDataLoading(false));
+              dispatch(consumablesListingsSlices.setIsConsumablesListingsInitialDataLoading(false));
             });
         } else {
           if (shouldResetListings) {
-            dispatch(loadConsumablesListingsSucceded([]));
+            dispatch(consumablesListingsSlices.loadConsumablesListingsSucceded([]));
           }
 
-          dispatch(setIsConsumablesListingsInitialDataLoading(false));
+          dispatch(consumablesListingsSlices.setIsConsumablesListingsInitialDataLoading(false));
         }
       })
       .catch(() => {
-        dispatch(loadConsumablesListingsFailed());
+        dispatch(consumablesListingsSlices.loadConsumablesListingsFailed());
       });
   };
 
@@ -102,7 +95,7 @@ export const onLoadBaazaarConsumablesListings = (): AppThunk => (dispatch, getSt
   const isSortingUpdated: boolean = getState().baazaar.consumables.consumablesListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setConsumablesListingsSkipLimit(0));
+    dispatch(consumablesListingsSlices.setConsumablesListingsSkipLimit(0));
     dispatch(loadBaazaarConsumablesListings(true));
   }
 };
@@ -117,8 +110,8 @@ export const onSetConsumablesListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setConsumablesListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setConsumablesListingsPreviousSortingProp(sort.type));
+    dispatch(consumablesListingsSlices.setConsumablesListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(consumablesListingsSlices.setConsumablesListingsPreviousSortingProp(sort.type));
   };
 
 export const updateConsumablesListingsFilterByKey =
@@ -128,7 +121,7 @@ export const updateConsumablesListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setConsumablesListingsFilters({ ...filters, [key]: updatedFilter }));
+    dispatch(consumablesListingsSlices.setConsumablesListingsFilters({ ...filters, [key]: updatedFilter }));
   };
 
 export const resetConsumablesListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -141,7 +134,7 @@ export const resetConsumablesListingsFilters = (): AppThunk => (dispatch, getSta
     ])
   );
 
-  dispatch(setConsumablesListingsFilters(updatedFilters));
+  dispatch(consumablesListingsSlices.setConsumablesListingsFilters(updatedFilters));
 };
 
 export const resetConsumablesListingsData = (): AppThunk => (dispatch, getState) => {
@@ -155,13 +148,13 @@ export const resetConsumablesListingsData = (): AppThunk => (dispatch, getState)
     ])
   );
 
-  dispatch(setConsumablesListingsFilters(updatedFilters));
-  dispatch(setConsumablesListingsSorting(defaultSorting));
-  dispatch(setConsumablesListingsSkipLimit(0));
-  dispatch(resetConsumablesListings());
-  dispatch(setConsumablesListingsIsSortingUpdated(false));
-  dispatch(setConsumablesListingsIsFiltersUpdated(false));
-  dispatch(setIsConsumablesListingsInitialDataLoading(true));
+  dispatch(consumablesListingsSlices.setConsumablesListingsFilters(updatedFilters));
+  dispatch(consumablesListingsSlices.setConsumablesListingsSorting(defaultSorting));
+  dispatch(consumablesListingsSlices.setConsumablesListingsSkipLimit(0));
+  dispatch(consumablesListingsSlices.resetConsumablesListings());
+  dispatch(consumablesListingsSlices.setConsumablesListingsIsSortingUpdated(false));
+  dispatch(consumablesListingsSlices.setConsumablesListingsIsFiltersUpdated(false));
+  dispatch(consumablesListingsSlices.setIsConsumablesListingsInitialDataLoading(true));
 };
 
 const mapConsumablesListingsDTOToVM = (

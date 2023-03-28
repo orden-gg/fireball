@@ -21,7 +21,7 @@ console.log('⏳ retrieving data from blockhain ⌛');
 
 tilesContract
   .getTileTypes([])
-  .then((res: any) => {
+  .then((res: CustomAny) => {
     const modified = _.cloneDeep(res);
 
     res.forEach((tile, index) => {

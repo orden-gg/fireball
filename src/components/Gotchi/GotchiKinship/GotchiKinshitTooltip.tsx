@@ -1,11 +1,10 @@
-import { useContext } from 'react';
-
 import { Skeleton } from '@mui/material';
 
-import { TokenTypes } from 'shared/constants';
-import { AlchemicaList } from 'shared/models';
+import { useAppSelector } from 'core/store/hooks';
+import * as TokensPricesSlices from 'core/store/tokens-prices';
 
-import { TokensPricesContext } from 'contexts/TokensPricesContext';
+import { TokenTypes } from 'shared/constants';
+import { AlchemicaList, TokenPrices } from 'shared/models';
 
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
@@ -19,7 +18,8 @@ const tokens: string[] = [TokenTypes.Fud, TokenTypes.Fomo, TokenTypes.Alpha, Tok
 export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
   const classes = styles();
 
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 

@@ -8,7 +8,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 
 import { styles } from './styles';
 
-export function GotchiLendingStats({ gotchi }: { gotchi: any }) {
+export function GotchiLendingStats({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   /**

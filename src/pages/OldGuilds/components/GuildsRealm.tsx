@@ -11,12 +11,12 @@ import { guildContentStyles } from '../styles';
 export function GuildsRealm() {
   const classes = guildContentStyles();
 
-  const { guilds, guildId, guildRealm, setGuildRealm } = useContext<any>(GuildsContext);
+  const { guilds, guildId, guildRealm, setGuildRealm } = useContext<CustomAny>(GuildsContext);
 
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const realmGroups = useMemo(() => {
-    const groups: any[] = [];
+    const groups: CustomAny[] = [];
 
     groups.push({
       parcels: guildRealm,

@@ -15,13 +15,13 @@ import wearableSets from 'data/sets.data.json';
 import { gotchiFitSetsStyles } from './styles';
 
 interface GotchiFitSetsProps {
-  gotchi: any;
+  gotchi: CustomAny;
   className?: string;
 }
 
 interface CombinedSetData {
   bonus: number;
-  data: any[];
+  data: CustomAny[];
   equippedWearables: number[];
 }
 
@@ -34,7 +34,7 @@ export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
     const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
     const sets: Array<CombinedSetData> = [];
 
-    wearableSets.forEach((set: any[]) => {
+    wearableSets.forEach((set: CustomAny[]) => {
       const setModifiers: number[] = [...set[SetTypes.TraitsBonuses]].splice(1, 4);
       const wareablesModifiers: number[][] = set[SetTypes.WearableIds].map((wearable: number) =>
         ItemUtils.getTraitModifiersById(wearable)

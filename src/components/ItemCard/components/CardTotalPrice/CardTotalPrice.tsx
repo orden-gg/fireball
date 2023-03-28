@@ -26,7 +26,7 @@ export function CardTotalPrice({ balance, priceInWei, className }: CardTotalPric
   const classes = styles();
   const theme = useTheme();
 
-  const { lastSold } = useContext<any>(CardContext);
+  const { lastSold } = useContext<CustomAny>(CardContext);
 
   const renderNode = (): string => {
     if (lastSold.price !== 0 || priceInWei) {

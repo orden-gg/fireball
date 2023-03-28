@@ -9,26 +9,21 @@ import { InstallationsUtils } from 'utils';
 
 import { InstallationAndTile } from '../../models';
 // slices
-import {
-  loadInstallations,
-  loadInstallationsFailed,
-  loadInstallationsSucceded,
-  setIsInitialInstallationsLoading
-} from '../slices';
+import * as installationsSlices from '../slices/installations.slice';
 
 export const onLoadInstallations =
   (address: string): AppThunk =>
   (dispatch) => {
-    dispatch(loadInstallations());
+    dispatch(installationsSlices.loadInstallations());
 
     InstallationsApi.getInstallationsByAddress(address)
       .then((response: InstallationsBalances[]) => {
         const installations: InstallationAndTile[] = getMappedInstallations(response);
 
-        dispatch(loadInstallationsSucceded(installations));
+        dispatch(installationsSlices.loadInstallationsSucceded(installations));
       })
-      .catch(() => dispatch(loadInstallationsFailed()))
-      .finally(() => dispatch(setIsInitialInstallationsLoading(false)));
+      .catch(() => dispatch(installationsSlices.loadInstallationsFailed()))
+      .finally(() => dispatch(installationsSlices.setIsInitialInstallationsLoading(false)));
   };
 
 const getMappedInstallations = (installationsBalances: InstallationsBalances[]): InstallationAndTile[] => {

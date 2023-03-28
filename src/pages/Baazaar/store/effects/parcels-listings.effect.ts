@@ -17,24 +17,13 @@ import { GraphFiltersUtils, InstallationsUtils, TilesUtils } from 'utils';
 import { ASCENDING_DIRECTION, PRICE_IN_WEI, ParcelListingFilterTypes } from '../../constants';
 import { ParcelListingDTO, ParcelListingFilters, ParcelListingFiltersType, ParcelListingVM } from '../../models';
 import { getBaazaarParcelsListingsQuery } from '../../queries';
-import {
-  loadParcelsListings,
-  loadParcelsListingsFailed,
-  loadParcelsListingsSucceded,
-  resetParcelsListings,
-  setIsParcelsListingsInitialDataLoading,
-  setParcelsListingsFilters,
-  setParcelsListingsIsFiltersUpdated,
-  setParcelsListingsIsSortingUpdated,
-  setParcelsListingsPreviousSortingProp,
-  setParcelsListingsSkipLimit,
-  setParcelsListingsSorting
-} from '../slices';
+// slices
+import * as parcelsListingsSlices from '../slices/parcels-listings.slice';
 
 export const loadBaazaarParcelsListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadParcelsListings());
+    dispatch(parcelsListingsSlices.loadParcelsListings());
 
     const parcelsListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.parcels.parcelsListingsGraphQueryParams;
@@ -55,16 +44,16 @@ export const loadBaazaarParcelsListings =
         const modifiedListings: ParcelListingVM[] = mapParcelsListingsDTOToVM(parcelsListings);
 
         if (shouldResetListings) {
-          dispatch(loadParcelsListingsSucceded(modifiedListings));
+          dispatch(parcelsListingsSlices.loadParcelsListingsSucceded(modifiedListings));
         } else {
-          dispatch(loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
+          dispatch(parcelsListingsSlices.loadParcelsListingsSucceded(currentParcelsListings.concat(modifiedListings)));
         }
       })
       .catch(() => {
-        dispatch(loadParcelsListingsFailed());
+        dispatch(parcelsListingsSlices.loadParcelsListingsFailed());
       })
       .finally(() => {
-        dispatch(setIsParcelsListingsInitialDataLoading(false));
+        dispatch(parcelsListingsSlices.setIsParcelsListingsInitialDataLoading(false));
       });
   };
 
@@ -73,7 +62,7 @@ export const onLoadBaazaarParcelsListings = (): AppThunk => (dispatch, getState)
   const isSortingUpdated: boolean = getState().baazaar.parcels.parcelsListingsIsSortingUpdated;
 
   if (isFiltersUpdated && isSortingUpdated) {
-    dispatch(setParcelsListingsSkipLimit(0));
+    dispatch(parcelsListingsSlices.setParcelsListingsSkipLimit(0));
     dispatch(loadBaazaarParcelsListings(true));
   }
 };
@@ -88,8 +77,8 @@ export const onSetParcelsListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setParcelsListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setParcelsListingsPreviousSortingProp(sort.type));
+    dispatch(parcelsListingsSlices.setParcelsListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(parcelsListingsSlices.setParcelsListingsPreviousSortingProp(sort.type));
   };
 
 export const updateParcelsListingsFilterByKey =
@@ -99,7 +88,7 @@ export const updateParcelsListingsFilterByKey =
 
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
-    dispatch(setParcelsListingsFilters({ ...filters, [key]: updatedFilter }));
+    dispatch(parcelsListingsSlices.setParcelsListingsFilters({ ...filters, [key]: updatedFilter }));
   };
 
 export const resetParcelsListingsFilters = (): AppThunk => (dispatch, getState) => {
@@ -112,7 +101,7 @@ export const resetParcelsListingsFilters = (): AppThunk => (dispatch, getState) 
     ])
   );
 
-  dispatch(setParcelsListingsFilters(updatedFilters));
+  dispatch(parcelsListingsSlices.setParcelsListingsFilters(updatedFilters));
 };
 
 export const resetParcelsListingsData = (): AppThunk => (dispatch, getState) => {
@@ -126,13 +115,13 @@ export const resetParcelsListingsData = (): AppThunk => (dispatch, getState) => 
     ])
   );
 
-  dispatch(setParcelsListingsFilters(updatedFilters));
-  dispatch(setParcelsListingsSorting(defaultSorting));
-  dispatch(setParcelsListingsSkipLimit(0));
-  dispatch(resetParcelsListings());
-  dispatch(setParcelsListingsIsSortingUpdated(false));
-  dispatch(setParcelsListingsIsFiltersUpdated(false));
-  dispatch(setIsParcelsListingsInitialDataLoading(true));
+  dispatch(parcelsListingsSlices.setParcelsListingsFilters(updatedFilters));
+  dispatch(parcelsListingsSlices.setParcelsListingsSorting(defaultSorting));
+  dispatch(parcelsListingsSlices.setParcelsListingsSkipLimit(0));
+  dispatch(parcelsListingsSlices.resetParcelsListings());
+  dispatch(parcelsListingsSlices.setParcelsListingsIsSortingUpdated(false));
+  dispatch(parcelsListingsSlices.setParcelsListingsIsFiltersUpdated(false));
+  dispatch(parcelsListingsSlices.setIsParcelsListingsInitialDataLoading(true));
 };
 
 const mapParcelsListingsDTOToVM = (listings: ParcelListingDTO[]): ParcelListingVM[] => {

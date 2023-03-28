@@ -7,6 +7,7 @@ import { glossaryReducer } from 'pages/Glossary/store';
 
 import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
+import { tokensPricesReducers } from './tokens-prices';
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
     glossary: glossaryReducer,
     baazaar: baazarReducers,
     client: clientReducers,
-    fake: fakeGotchiReducers
+    fake: fakeGotchiReducers,
+    tokensPrices: tokensPricesReducers
   }
 });
 

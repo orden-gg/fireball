@@ -10,7 +10,7 @@ import { RaffleTicket } from './RaffleTicket';
 export function RaffleTickets({ address }: { address: string }) {
   const classes = tableStyles();
 
-  const [tickets, setTickets] = useState<any[]>([]);
+  const [tickets, setTickets] = useState<CustomAny[]>([]);
   const [loadingTickets, setLoadingTickets] = useState<boolean>(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function RaffleTickets({ address }: { address: string }) {
     setLoadingTickets(true);
 
     TicketsApi.getTicketsByAddress(address)
-      .then((response: any) => {
+      .then((response: CustomAny) => {
         if (!controller.signal.aborted) {
           setTickets(response);
           setLoadingTickets(false);
@@ -50,7 +50,7 @@ export function RaffleTickets({ address }: { address: string }) {
             <CircularProgress color='inherit' size={20} />
           </Grid>
         ) : (
-          tickets.map((ticket: any, i: number) => {
+          tickets.map((ticket: CustomAny, i: number) => {
             return (
               <Grid item xs={4} sm={true} key={i} style={{ filter: `grayscale(${ticket.balance > 0 ? 0 : 1})` }}>
                 <RaffleTicket ticket={ticket} />

@@ -24,5 +24,6 @@ export * from './the-graph.model';
 export * from './tile.model';
 export * from './tiles-contract.model';
 export * from './token.model';
+export * from './token-prices.model';
 export * from './traits.model';
 export * from './wearable.model';

@@ -9,15 +9,11 @@ import { InstallationsUtils } from 'utils';
 
 import { ActivityInstallationListingDTO, ActivityInstallationListingVM } from '../../models';
 import { getBaazaarErc1155PurchasesQuery } from '../../queries';
-import {
-  loadActivityInstallationsListings,
-  loadActivityInstallationsListingsFailed,
-  loadActivityInstallationsListingsSucceded,
-  resetActivityInstallationsListings
-} from '../slices';
+// slices
+import * as activityInstallationsListingsSlices from '../slices/activity-installations-listings.slice';
 
 export const loadBaazaarActivityInstallationsListings = (): AppThunk => (dispatch, getState) => {
-  dispatch(loadActivityInstallationsListings());
+  dispatch(activityInstallationsListingsSlices.loadActivityInstallationsListings());
 
   const activityInstallationsListingsGraphQueryParams: GraphQueryParams =
     getState().baazaar.activity.installations.activityInstallationsListingsGraphQueryParams;
@@ -28,15 +24,15 @@ export const loadBaazaarActivityInstallationsListings = (): AppThunk => (dispatc
     .then((wearablesListings: ActivityInstallationListingDTO[]) => {
       const modifiedListings: ActivityInstallationListingVM[] = mapActivityInstallationsDTOToVM(wearablesListings);
 
-      dispatch(loadActivityInstallationsListingsSucceded(modifiedListings));
+      dispatch(activityInstallationsListingsSlices.loadActivityInstallationsListingsSucceded(modifiedListings));
     })
     .catch(() => {
-      dispatch(loadActivityInstallationsListingsFailed());
+      dispatch(activityInstallationsListingsSlices.loadActivityInstallationsListingsFailed());
     });
 };
 
 export const resetActivityInstallationsData = (): AppThunk => (dispatch) => {
-  dispatch(resetActivityInstallationsListings());
+  dispatch(activityInstallationsListingsSlices.resetActivityInstallationsListings());
 };
 
 const mapActivityInstallationsDTOToVM = (

@@ -15,20 +15,13 @@ import {
   ActivityPortalListingVM
 } from '../../models';
 import { getBaazaarActivityPortalsListingsQuery } from '../../queries';
-import {
-  loadActivityPortalsListings,
-  loadActivityPortalsListingsFailed,
-  loadActivityPortalsListingsSucceded,
-  resetActivityPortalsListings,
-  setActivityPortalsListingsFilters,
-  setActivityPortalsListingsIsFiltersUpdated,
-  setIsActivityPortalsListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityPortalsListingsSlices from '../slices/activity-portals-listings.slice';
 
 export const loadBaazaarActivityPortalsListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadActivityPortalsListings());
+    dispatch(activityPortalsListingsSlices.loadActivityPortalsListings());
 
     const activityPortalsListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.activity.portals.activityPortalsListingsGraphQueryParams;
@@ -50,16 +43,20 @@ export const loadBaazaarActivityPortalsListings =
         const modifiedListings: ActivityPortalListingVM[] = mapActivityPortalsDTOToVM(res);
 
         if (shouldResetListings) {
-          dispatch(loadActivityPortalsListingsSucceded(modifiedListings));
+          dispatch(activityPortalsListingsSlices.loadActivityPortalsListingsSucceded(modifiedListings));
         } else {
-          dispatch(loadActivityPortalsListingsSucceded(activityPortalsListings.concat(modifiedListings)));
+          dispatch(
+            activityPortalsListingsSlices.loadActivityPortalsListingsSucceded(
+              activityPortalsListings.concat(modifiedListings)
+            )
+          );
         }
       })
       .catch(() => {
-        dispatch(loadActivityPortalsListingsFailed());
+        dispatch(activityPortalsListingsSlices.loadActivityPortalsListingsFailed());
       })
       .finally(() => {
-        dispatch(setIsActivityPortalsListingsInitialDataLoading(false));
+        dispatch(activityPortalsListingsSlices.setIsActivityPortalsListingsInitialDataLoading(false));
       });
   };
 
@@ -79,7 +76,10 @@ export const updateActivityPortalsListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityPortalsListingsFilters({ ...filters, [key]: updatedFilter as ActivityPortalListingFiltersType })
+      activityPortalsListingsSlices.setActivityPortalsListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityPortalListingFiltersType
+      })
     );
   };
 
@@ -93,7 +93,7 @@ export const resetActivityPortalsListingsFilters = (): AppThunk => (dispatch, ge
     ])
   );
 
-  dispatch(setActivityPortalsListingsFilters(updatedFilters));
+  dispatch(activityPortalsListingsSlices.setActivityPortalsListingsFilters(updatedFilters));
 };
 
 export const resetActivityPortalsData = (): AppThunk => (dispatch, getState) => {
@@ -106,10 +106,10 @@ export const resetActivityPortalsData = (): AppThunk => (dispatch, getState) => 
     ])
   );
 
-  dispatch(setActivityPortalsListingsFilters(updatedFilters));
-  dispatch(resetActivityPortalsListings());
-  dispatch(setActivityPortalsListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityPortalsListingsInitialDataLoading(true));
+  dispatch(activityPortalsListingsSlices.setActivityPortalsListingsFilters(updatedFilters));
+  dispatch(activityPortalsListingsSlices.resetActivityPortalsListings());
+  dispatch(activityPortalsListingsSlices.setActivityPortalsListingsIsFiltersUpdated(false));
+  dispatch(activityPortalsListingsSlices.setIsActivityPortalsListingsInitialDataLoading(true));
 };
 
 const mapActivityPortalsDTOToVM = (listings: ActivityPortalListingDTO[]): ActivityPortalListingVM[] => {

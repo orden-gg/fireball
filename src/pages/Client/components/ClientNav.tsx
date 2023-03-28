@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useAppDispatch } from 'core/store/hooks';
-import { setActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { LoginNavigation } from 'components/Login/LoginNavigation';
 
@@ -19,7 +19,7 @@ export function ClientNav() {
   const onAddressSubmit = useCallback(
     (address: string) => {
       navigate({ pathname: `/client/${address}/gotchis` });
-      dispatch(setActiveAddress(address));
+      dispatch(fromLoginStore.setActiveAddress(address));
     },
     [navigate]
   );

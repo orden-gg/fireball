@@ -16,7 +16,7 @@ export function CardPortalImage({ category, hauntId, className }: CardPortalImag
   const classes = styles();
 
   const renderPortalImage = (): JSX.Element => {
-    let PortalIcon: any;
+    let PortalIcon: CustomAny;
 
     if (hauntId === HauntIds.Haunt1) {
       PortalIcon = category === Erc721Categories.ClosedPortal ? H1SealedPortalIcon : H1OpenedPortalIcon;

@@ -36,10 +36,10 @@ import { GotchiUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
-export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any }) {
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
   const classes = gotchiPreviewModalStyles();
 
-  const [modalGotchi, setModalGotchi] = useState<any>(null);
+  const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
@@ -53,7 +53,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       setIsGotchiLoading(false);
     } else {
       MainApi.getAavegotchiById(id)
-        .then((response: any[]) => {
+        .then((response: CustomAny[]) => {
           const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
           const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
             const slot: string[] = ItemUtils.getSlotsById(item.id);
@@ -66,7 +66,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
         .catch((error) => console.log(error));
 
       TheGraphApi.getGotchiById(id)
-        .then((response: any) => setModalGotchi(response))
+        .then((response: CustomAny) => setModalGotchi(response))
         .catch((error) => console.log(error))
         .finally(() => setIsGotchiLoading(false));
 

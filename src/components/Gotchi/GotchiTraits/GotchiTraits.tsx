@@ -7,15 +7,15 @@ import { GotchiUtils, ItemUtils } from 'utils';
 import { styles } from './styles';
 
 interface GotchiTraitsProps {
-  traits: any;
-  currentTraits: any;
+  traits: CustomAny;
+  currentTraits: CustomAny;
   className?: string;
 }
 
 export function GotchiTraits({ traits, currentTraits, className }: GotchiTraitsProps) {
   const classes = styles();
 
-  const renderDefaultTrait = (trait: any, index: number) => {
+  const renderDefaultTrait = (trait: CustomAny, index: number) => {
     if (index < traits.length - 2) {
       return <span className={classes.defaultVal}>({trait})</span>;
     }
@@ -23,8 +23,8 @@ export function GotchiTraits({ traits, currentTraits, className }: GotchiTraitsP
 
   return (
     <div className={classNames(classes.gotchiTraits, className)}>
-      {traits.map((traitVal: any, index: number) => {
-        const traitKey: any = ItemUtils.getTraitIconByName(TRAITS_KEYS[index]);
+      {traits.map((traitVal: CustomAny, index: number) => {
+        const traitKey: CustomAny = ItemUtils.getTraitIconByName(TRAITS_KEYS[index]);
 
         return (
           <div

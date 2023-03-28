@@ -1,11 +1,30 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { FakeGotchi } from 'shared/models';
+import { QueuedGotchisState } from '../slices';
 
-export const getQueuedGotchis = (state: RootState): FakeGotchi[] => state.fake.queued.queuedGotchis.data;
+const queuedGotchisStateSelector = createSelector(
+  (state: RootState) => state.fake.queued,
+  (queuedGotchisState: QueuedGotchisState) => queuedGotchisState
+);
 
-export const getIsQueuedGotchisLoading = (state: RootState): boolean => state.fake.queued.queuedGotchis.isLoading;
+export const getQueuedGotchis = createSelector(
+  queuedGotchisStateSelector,
+  (state: QueuedGotchisState) => state.queuedGotchis.data
+);
 
-export const getIsQueuedGotchisLoaded = (state: RootState): boolean => state.fake.queued.queuedGotchis.isLoaded;
+export const getIsQueuedGotchisLoading = createSelector(
+  queuedGotchisStateSelector,
+  (state: QueuedGotchisState) => state.queuedGotchis.isLoading
+);
 
-export const getQueuedGotchisCount = (state: RootState): number => state.fake.queued.queuedGotchis.data.length;
+export const getIsQueuedGotchisLoaded = createSelector(
+  queuedGotchisStateSelector,
+  (state: QueuedGotchisState) => state.queuedGotchis.isLoaded
+);
+
+export const getQueuedGotchisCount = createSelector(
+  queuedGotchisStateSelector,
+  (state: QueuedGotchisState) => state.queuedGotchis.data.length
+);

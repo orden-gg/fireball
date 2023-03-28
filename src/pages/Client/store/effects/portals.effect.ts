@@ -9,12 +9,13 @@ import { Erc721Listing, Erc721ListingsBatch, SortingItem } from 'shared/models';
 import { CommonUtils } from 'utils';
 
 import { ClientPortal, Portal } from '../../models';
-import { loadPortals, loadPortalsFailed, loadPortalsSucceded, setIsInitialPortalsLoading } from '../slices';
+// slices
+import * as portalsSlices from '../slices/portals.slice';
 
 export const onLoadPortals =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadPortals());
+    dispatch(portalsSlices.loadPortals());
 
     const { type, dir }: SortingItem = getState().client.portals.portalsSorting;
 
@@ -36,16 +37,16 @@ export const onLoadPortals =
             const portalsWithListings: ClientPortal[] = getMappedPortalsWithListings(modifiedPortals, listings);
             const sortedPortals: ClientPortal[] = CommonUtils.basicSort(portalsWithListings, type, dir);
 
-            dispatch(loadPortalsSucceded(sortedPortals));
+            dispatch(portalsSlices.loadPortalsSucceded(sortedPortals));
           });
         } else {
           const sortedPortals: ClientPortal[] = CommonUtils.basicSort(modifiedPortals, type, dir);
 
-          dispatch(loadPortalsSucceded(sortedPortals));
+          dispatch(portalsSlices.loadPortalsSucceded(sortedPortals));
         }
       })
-      .catch(() => dispatch(loadPortalsFailed()))
-      .finally(() => dispatch(setIsInitialPortalsLoading(false)));
+      .catch(() => dispatch(portalsSlices.loadPortalsFailed()))
+      .finally(() => dispatch(portalsSlices.setIsInitialPortalsLoading(false)));
   };
 
 const getMappedPortalsWithListings = (portals: ClientPortal[], listings: Erc721ListingsBatch): ClientPortal[] => {

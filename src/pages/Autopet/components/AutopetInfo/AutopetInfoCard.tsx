@@ -6,7 +6,7 @@ import { infoStyles } from '../../styles';
 
 interface AutopetInfoCardProps {
   name: string;
-  count: any;
+  count: CustomAny;
 }
 
 export function AutopetInfoCard({ name, count }: AutopetInfoCardProps) {

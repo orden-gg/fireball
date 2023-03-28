@@ -18,18 +18,18 @@ export interface FilterItemOption {
 
 export interface MultiAutocompleteFilter<T> extends BaseFilter {
   items: FilterItemOption[];
-  getIsFilterValidFn: (values: any[]) => boolean;
+  getIsFilterValidFn: (values: CustomAny[]) => boolean;
   resetFilterFn: (filter: MultiAutocompleteFilter<T>) => void;
   predicateFn: (filter: MultiAutocompleteFilter<T>, compareItem: T) => boolean;
-  updateFromQueryFn: (filter: MultiAutocompleteFilter<T>, compareValue: any, compareKey: string) => void;
-  updateFromFilterFn: (filter: MultiAutocompleteFilter<T>, values: any[]) => void;
+  updateFromQueryFn: (filter: MultiAutocompleteFilter<T>, compareValue: CustomAny, compareKey: string) => void;
+  updateFromFilterFn: (filter: MultiAutocompleteFilter<T>, values: CustomAny[]) => void;
   getQueryParamsFn: (filter: MultiAutocompleteFilter<T>) => string[];
   getActiveFiltersCountFn: (filter: MultiAutocompleteFilter<T>) => number;
 }
 
 export interface MultiButtonSelectionFilter<T> extends BaseFilter {
   items: FilterItemOption[];
-  getIsFilterValidFn: (values: any[]) => boolean;
+  getIsFilterValidFn: (values: CustomAny[]) => boolean;
   resetFilterFn: (filter: MultiButtonSelectionFilter<T>) => void;
   predicateFn: (filter: MultiButtonSelectionFilter<T>, compareItem: T) => boolean;
   updateFromQueryFn: (
@@ -37,7 +37,7 @@ export interface MultiButtonSelectionFilter<T> extends BaseFilter {
     compareValue: string | string[],
     compareKey: string
   ) => void;
-  updateFromFilterFn: (filter: MultiButtonSelectionFilter<T>, values: any[]) => void;
+  updateFromFilterFn: (filter: MultiButtonSelectionFilter<T>, values: CustomAny[]) => void;
   getQueryParamsFn: (filter: MultiButtonSelectionFilter<T>) => string[];
   getActiveFiltersCountFn: (filter: MultiButtonSelectionFilter<T>) => number;
 }
@@ -55,11 +55,11 @@ export interface RangeSliderFilter<T> extends BaseFilter {
   getIsFilterValidFn: (values: number[], filter: RangeSliderFilter<T>) => boolean;
   resetFilterFn: (filter: RangeSliderFilter<T>) => void;
   predicateFn: (filter: RangeSliderFilter<T>, compareItem: T) => boolean;
-  updateFromQueryFn: (filter: RangeSliderFilter<T>, compareValue: any) => void;
+  updateFromQueryFn: (filter: RangeSliderFilter<T>, compareValue: CustomAny) => void;
   updateFromFilterFn: (filter: RangeSliderFilter<T>, values: number[]) => void;
   getQueryParamsFn: (filter: RangeSliderFilter<T>) => number[];
   getActiveFiltersCountFn: (filter: RangeSliderFilter<T>) => number;
-  valueMapperFn?: (value: any[]) => any[];
+  valueMapperFn?: (value: CustomAny[]) => CustomAny[];
 }
 
 export interface InputFilter<T> extends BaseFilter {

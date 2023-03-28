@@ -1,16 +1,18 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/system';
+
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Button, Divider } from '@mui/material';
+import { Box } from '@mui/system';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, LendingIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { CommonUtils } from 'utils';
 
+import { GuildsContext } from '../GuildsContext';
 import { GuildLogo } from '../components/GuildLogo';
 import { GuildWearables } from '../components/GuildWearables';
-import { GuildsContext } from '../GuildsContext';
 import { styles } from '../styles';
 
 export function GuildsPreview() {
@@ -18,9 +20,9 @@ export function GuildsPreview() {
 
   const navigate = useNavigate();
 
-  const { guilds, setGuildId } = useContext<any>(GuildsContext);
+  const { guilds, setGuildId } = useContext<CustomAny>(GuildsContext);
 
-  const handleClick = (guild: any): void => {
+  const handleClick = (guild: CustomAny): void => {
     navigate(`${CommonUtils.stringToKey(guild.name)}`);
   };
 
@@ -33,7 +35,7 @@ export function GuildsPreview() {
   //     }
   // }
 
-  const renderWaerables = (guild: any): JSX.Element => {
+  const renderWaerables = (guild: CustomAny): JSX.Element => {
     if (guild.hasOwnProperty('wearables')) {
       return (
         <>
@@ -62,7 +64,7 @@ export function GuildsPreview() {
         <ArrowForwardIcon fontSize='small' />
       </a>
       <ul className={classes.guildsList}>
-        {guilds.map((guild: any, index: number) => (
+        {guilds.map((guild: CustomAny, index: number) => (
           <Button
             className={classes.guildButton}
             disabled={!guild.members?.length}

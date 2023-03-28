@@ -10,9 +10,9 @@ import { CommonUtils, ItemUtils } from 'utils';
 
 export const RaffleContext = createContext({});
 
-export const RaffleContextProvider = (props: any) => {
-  const [raffle, setRaffle] = useState<any>(null);
-  const [tickets, setTickets] = useState<any[]>([]);
+export const RaffleContextProvider = (props: CustomAny) => {
+  const [raffle, setRaffle] = useState<CustomAny>(null);
+  const [tickets, setTickets] = useState<CustomAny[]>([]);
 
   const [loadingEntered, setLoadingEntered] = useState<boolean>(true);
 
@@ -21,8 +21,8 @@ export const RaffleContextProvider = (props: any) => {
 
   useEffect(() => {
     if (!raffleSpinner && !loadingEntered) {
-      setTickets((ticketsCache: any[]) => {
-        return ticketsCache.map((ticket: any) => {
+      setTickets((ticketsCache: CustomAny[]) => {
+        return ticketsCache.map((ticket: CustomAny) => {
           ticket.chance = countChances(ticket.value, ticket.entered, ticket.items); // TODO: check how this 2 count chances works at the same time
           ticket.prizes = countWearablesChances(ticket);
 
@@ -32,20 +32,20 @@ export const RaffleContextProvider = (props: any) => {
     }
   }, [raffleSpinner, loadingEntered]);
 
-  const getRaffleData = (raffle: any, raffleTickets: any[]): void => {
+  const getRaffleData = (raffle: CustomAny, raffleTickets: CustomAny[]): void => {
     getRaffle(raffle);
     getPrices(raffleTickets);
   };
 
-  const getRaffle = (raffle: any): void => {
+  const getRaffle = (raffle: CustomAny): void => {
     setRaffleSpinner(true);
 
     TheGraphApi.getRaffle(raffle)
       .then((response) => {
         const [prizes, total] = response;
 
-        setTickets((ticketsCache: any[]) => {
-          return ticketsCache.map((ticket: any, i: number) => {
+        setTickets((ticketsCache: CustomAny[]) => {
+          return ticketsCache.map((ticket: CustomAny, i: number) => {
             ticket.items = prizes[i].items;
             ticket.prizes = prizes[i].prizes;
             ticket.entered =
@@ -59,22 +59,22 @@ export const RaffleContextProvider = (props: any) => {
       .catch((error) => console.log(error));
   };
 
-  const getPrices = (raffleTickets: any[]): void => {
-    const queries: string[] = raffleTickets.map((ticket: any) => raffleTicketPriceQuery(ticket.id));
+  const getPrices = (raffleTickets: CustomAny[]): void => {
+    const queries: string[] = raffleTickets.map((ticket: CustomAny) => raffleTicketPriceQuery(ticket.id));
 
     setPricesSpinner(true);
 
-    TheGraphApi.getJoinedData(queries).then((response: any) => {
-      const averagePrices: any[] = response.map((item: any) => {
-        const prices: any = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
-        const average: any = prices.reduce((a: any, b: any) => a + b, 0) / prices.length;
+    TheGraphApi.getJoinedData(queries).then((response: CustomAny) => {
+      const averagePrices: CustomAny[] = response.map((item: CustomAny) => {
+        const prices: CustomAny = item.data.erc1155Listings.map((wei) => parseInt(wei.priceInWei));
+        const average: CustomAny = prices.reduce((a: CustomAny, b: CustomAny) => a + b, 0) / prices.length;
         const price: number = average / 10 ** 18;
 
         return price.toFixed(2);
       });
 
-      setTickets((ticketsCache: any[]) => {
-        return ticketsCache.map((ticket: any, i: number) => {
+      setTickets((ticketsCache: CustomAny[]) => {
+        return ticketsCache.map((ticket: CustomAny, i: number) => {
           ticket.price = averagePrices[i];
 
           return ticket;
@@ -84,20 +84,20 @@ export const RaffleContextProvider = (props: any) => {
     });
   };
 
-  const getAddressData = (address: string, raffle: any): void => {
+  const getAddressData = (address: string, raffle: CustomAny): void => {
     setLoadingEntered(true);
 
     Promise.all([TheGraphApi.getRaffleEntered(address, raffle), TheGraphApi.getRaffleWins(address, raffle)])
-      .then(([entered, won]: [any, any]) => {
-        setTickets((ticketsCache: any[]) => {
-          const modified: any[] = [...ticketsCache];
+      .then(([entered, won]: [CustomAny, CustomAny]) => {
+        setTickets((ticketsCache: CustomAny[]) => {
+          const modified: CustomAny[] = [...ticketsCache];
 
-          entered.forEach((item: any) => {
-            const elem: any = modified.length > 1 ? item.ticketId : 0;
+          entered.forEach((item: CustomAny) => {
+            const elem: CustomAny = modified.length > 1 ? item.ticketId : 0;
 
             modified[elem].value = item.quantity;
             modified[elem].prizes = modified[elem].prizes.map((item) => {
-              const index: number = won.findIndex((prize: any) => prize.itemId === item.id);
+              const index: number = won.findIndex((prize: CustomAny) => prize.itemId === item.id);
 
               return {
                 ...item,
@@ -113,25 +113,25 @@ export const RaffleContextProvider = (props: any) => {
       .catch((error) => console.log(error));
   };
 
-  const onAddressChange = (address: string, raffle: any): void => {
-    tickets.forEach((item: any, i: number) => (tickets[i].value = ''));
+  const onAddressChange = (address: string, raffle: CustomAny): void => {
+    tickets.forEach((item: CustomAny, i: number) => (tickets[i].value = ''));
 
     if (EthersApi.isEthAddress(address)) {
       getAddressData(address, raffle);
     }
   };
 
-  const countChances = (value: any, entered: any, items: any): any => {
+  const countChances = (value: CustomAny, entered: CustomAny, items: CustomAny): CustomAny => {
     const supply: number = raffle.endDate.toSeconds() - DateTime.local().toSeconds() < 0 ? entered : +entered + +value;
 
     return (value / supply) * items;
   };
 
-  const countWearablesChances = (ticket: any): any[] => {
-    const wearables: any = ticket.prizes;
+  const countWearablesChances = (ticket: CustomAny): CustomAny[] => {
+    const wearables: CustomAny = ticket.prizes;
 
     if (wearables) {
-      wearables.forEach((wearable: any) => {
+      wearables.forEach((wearable: CustomAny) => {
         const perc = (wearable.quantity * 100) / ticket.items;
         const chance = (perc * ticket.chance) / 100;
 
@@ -142,8 +142,8 @@ export const RaffleContextProvider = (props: any) => {
     return wearables;
   };
 
-  const getTicketsPreset = (tickets: any[]): any[] => {
-    return tickets.map((ticket: any) => ({
+  const getTicketsPreset = (tickets: CustomAny[]): CustomAny[] => {
+    return tickets.map((ticket: CustomAny) => ({
       id: ticket,
       rarity: ItemUtils.getItemRarityName(ticket.toString()),
       value: ''

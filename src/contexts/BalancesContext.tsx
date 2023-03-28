@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
@@ -11,10 +11,12 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as TokensPricesSlices from 'core/store/tokens-prices';
+import * as fromLoginStore from 'core/store/login';
 
 import { TokenTypes } from 'shared/constants';
+import { TokenPrices } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -28,11 +30,9 @@ import {
 
 import { CommonUtils } from 'utils';
 
-import { TokensPricesContext } from './TokensPricesContext';
-
 export const BalancesContext = createContext({});
 
-export const BalancesContextProvider = (props: any) => {
+export const BalancesContextProvider = (props: CustomAny) => {
   const initialTokensValues = [
     {
       icon: <FudTokenIcon height={14} width={14} />,
@@ -71,14 +71,16 @@ export const BalancesContextProvider = (props: any) => {
     }
   ];
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const dispatch = useAppDispatch();
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
 
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
-  const [amounts, setAmounts] = useState<any>({});
-  const [tokens, setTokens] = useState<any[]>([
+  const [amounts, setAmounts] = useState<CustomAny>({});
+  const [tokens, setTokens] = useState<CustomAny[]>([
     ...initialTokensValues.map((token) => ({
       amount: token.amount,
       balance: token.balance,
@@ -90,7 +92,7 @@ export const BalancesContextProvider = (props: any) => {
 
   useEffect(() => {
     let mounted = true;
-    let getAmounts: any;
+    let getAmounts: CustomAny;
     let interval: NodeJS.Timer;
 
     if (activeAddress) {
@@ -127,6 +129,10 @@ export const BalancesContextProvider = (props: any) => {
       clearInterval(interval);
     };
   }, [activeAddress]);
+
+  useEffect(() => {
+    dispatch(TokensPricesSlices.onLoadTokensPrices());
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -226,7 +232,7 @@ export const BalancesContextProvider = (props: any) => {
     ]);
   };
 
-  const generateSwapUrl = (inputToken: any, outputToken: any): string => {
+  const generateSwapUrl = (inputToken: CustomAny, outputToken: CustomAny): string => {
     return `https://quickswap.exchange/#/swap?currency0=${inputToken}&currency1=${outputToken}`;
   };
 

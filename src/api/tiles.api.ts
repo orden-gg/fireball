@@ -15,31 +15,31 @@ export class TilesApi {
     return tilesContract.tilesBalances(address);
   }
 
-  public static async craftTiles(ids: number[]): Promise<any> {
-    const contractWithSigner: any = EthersApi.makeContractWithSigner(TILES_CONTRACT, TILES_ABI);
-    const transaction: any = await contractWithSigner.craftTiles(ids);
+  public static async craftTiles(ids: number[]): Promise<CustomAny> {
+    const contractWithSigner: CustomAny = EthersApi.makeContractWithSigner(TILES_CONTRACT, TILES_ABI);
+    const transaction: CustomAny = await contractWithSigner.craftTiles(ids);
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: any) => {
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) => {
       return Boolean(response.status);
     });
   }
 
-  public static getAllTiles(): Promise<any> {
+  public static getAllTiles(): Promise<CustomAny> {
     return tilesContract
       .getTileTypes([])
-      .then((response: any) => {
+      .then((response: CustomAny) => {
         const modified = _.cloneDeep(response);
 
         response.forEach(
-          (tile, index) =>
+          (tile: CustomAny, index: number) =>
             // ! Modify BigNumber`s => number`s
-            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map((alchemica) => {
+            (modified[index][TileTypes.AlchemicaCost] = tile.alchemicaCost.map((alchemica: CustomAny) => {
               return parseInt(ethers.utils.formatUnits(alchemica));
             }))
         );
 
         return modified;
       })
-      .catch((error) => console.log(error));
+      .catch((error: CustomAny) => console.log(error));
   }
 }

@@ -11,7 +11,7 @@ export function PetPanel({ index, dir }: AutopetPanelProps) {
   const classes = tabStyles();
 
   const { petState, isPetApproved, approvePet, isStaked, isUserConnected, renderButtonNode } =
-    useContext<any>(AutopetContext);
+    useContext<CustomAny>(AutopetContext);
 
   return (
     <div

@@ -8,8 +8,8 @@ import _ from 'lodash';
 import { styles } from './styles';
 
 interface MultiButtonSelectionFilterProps {
-  filter: any;
-  onSetSelectedFilters: (key: string, value: any[]) => void;
+  filter: CustomAny;
+  onSetSelectedFilters: (key: string, value: CustomAny[]) => void;
   isDisabled: boolean;
 }
 
@@ -20,7 +20,7 @@ export function MultiButtonSelectionFilter({
 }: MultiButtonSelectionFilterProps) {
   const classes = styles();
 
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<CustomAny[]>([]);
 
   useEffect(() => {
     setItems(filter.items);
@@ -33,7 +33,7 @@ export function MultiButtonSelectionFilter({
 
       setItems(itemsCopy);
 
-      const selectedItems: any[] = itemsCopy.filter((item) => item.isSelected);
+      const selectedItems: CustomAny[] = itemsCopy.filter((item) => item.isSelected);
 
       onSetSelectedFilters(filter.key, selectedItems);
     },
@@ -44,7 +44,7 @@ export function MultiButtonSelectionFilter({
     <div className={classes.wrapper}>
       {filter.title && <span className={classes.title}>{filter.title}</span>}
       <div className={classes.items}>
-        {items.map((item: any, index: number) => (
+        {items.map((item: CustomAny, index: number) => (
           <Button
             className={classNames(classes.item, item.isSelected && 'selected')}
             key={item.value}

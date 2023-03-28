@@ -6,11 +6,11 @@ import queryString from 'query-string';
 
 import { EthersApi } from 'api';
 
-import * as fromClientStore from './store';
 // store
+import * as fromClientStore from './store';
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress, setActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
 import { PageNavLink } from 'shared/models';
@@ -61,7 +61,7 @@ export function ClientRoutes() {
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
   const isReloadDisabled: boolean = useAppSelector(fromDataReloadStore.getIsReloadDisabled);
-  const activeAddress: Undefinable<string | null> = useAppSelector(getActiveAddress);
+  const activeAddress: Undefinable<string | null> = useAppSelector(fromLoginStore.getActiveAddress);
 
   // client store selectors
   const ownedGotchisCount: number = useAppSelector(fromClientStore.getOwnedGotchisCount);
@@ -94,7 +94,6 @@ export function ClientRoutes() {
 
   const navData: PageNavLink[] = [
     {
-      name: 'gotchis',
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
       isLoading: isInitialOwnedGotchisLoading || isInitialLentGotchisLoading || isInitialBorrowedGotchisLoading,
@@ -126,49 +125,42 @@ export function ClientRoutes() {
       )
     },
     {
-      name: 'portals',
       path: 'portals',
       icon: <H1SealedPortalIcon width={24} height={24} />,
       isLoading: isInitialPortalsLoading,
       count: portalsCount
     },
     {
-      name: 'warehouse',
       path: 'warehouse',
       icon: <WarehouseIcon width={24} height={24} />,
       isLoading: isInitialWarehouseLoading,
       count: warehouseCount
     },
     {
-      name: 'installations',
       path: 'installations',
       icon: <AnvilIcon width={24} height={24} />,
       isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
       count: installationsCount + tilesCount
     },
     {
-      name: 'tickets',
       path: 'tickets',
       icon: <RareTicketIcon width={24} height={24} />,
       isLoading: isInitialTicketsLoading,
       count: ticketsCount
     },
     {
-      name: 'realm',
       path: 'realm',
       icon: <KekIcon width={24} height={24} alt='realm' />,
       isLoading: isInitialRealmLoading,
       count: realmCount
     },
     {
-      name: 'fake gotchis',
       path: 'fake-gotchis',
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: isInitialFakeGotchisLoading,
       count: fakeGotchisCount
     },
     {
-      name: 'for sale',
       path: 'for-sale',
       icon: <BaazarIcon width={24} height={24} />,
       isLoading: isInitialItemsForSaleLoading,
@@ -178,7 +170,7 @@ export function ClientRoutes() {
 
   useEffect(() => {
     if (EthersApi.isEthAddress(account)) {
-      dispatch(setActiveAddress(account));
+      dispatch(fromLoginStore.setActiveAddress(account));
     }
 
     dispatch(fromDataReloadStore.onSetReloadType(DataReloadType.Client));
@@ -191,7 +183,7 @@ export function ClientRoutes() {
   useEffect(() => {
     if (activeAddress) {
       if (activeAddress !== account && !isActiveAddressSet) {
-        dispatch(setActiveAddress(account));
+        dispatch(fromLoginStore.setActiveAddress(account));
       } else {
         navigate({
           pathname: `/client/${activeAddress}${subroute ? `/${subroute}` : ''}`,

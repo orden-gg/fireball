@@ -23,7 +23,7 @@ console.log('⏳ retrieving data from blockhain ⌛');
 
 mainContract
   .getItemTypes([])
-  .then((res: any) => {
+  .then((res: CustomAny) => {
     const modified = _.cloneDeep(res);
 
     res.forEach((item, index) => {

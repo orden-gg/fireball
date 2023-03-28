@@ -19,7 +19,7 @@ import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 import { ParcelName } from './ParcelName';
 
-export function Parcel({ parcel }: { parcel: any }) {
+export function Parcel({ parcel }: { parcel: CustomAny }) {
   const classes = {
     ...itemStyles(),
     ...ERC1155InnerStyles(),
