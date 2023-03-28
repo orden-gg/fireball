@@ -45,6 +45,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
   const [spawnId, setSpawnId] = useState<string>();
   const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
   const [availibleParcels, setAvailibleParcels] = useState<CustomAny[]>([]);
+  const [availibleGates, setAvailibleGates] = useState<CustomAny[]>([]);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
@@ -88,9 +89,10 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
 
   useEffect(() => {
     const ownAddress = metaState.account[0];
-    const borrowedAddresses = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+    const borrowedAddresses: string[] = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
-    const allAddresses = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
+    const allAddresses: string[] = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
+    //console.log('allAddresses', allAddresses);
     const promises: Promise<CustomAny>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
 
     Promise.all(promises)
@@ -112,19 +114,30 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
         const bestRealm = modifiedParcels
           .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
           .sort((a, b) => b.altarLevel - a.altarLevel);
-
-        bestRealm.push(18356, 10346, 2819);
+        // todo guild gate constant
+        const fireballGates = modifiedParcels.filter(
+          (parcel) => parcel.id === '2819' || parcel.id === '10346' || parcel.id === '18356'
+        );
         setAvailibleParcels(bestRealm);
+        setAvailibleGates(fireballGates);
         setSpawnId(bestRealm[0]?.parcelId);
       })
       .catch((e) => console.log(e));
   }, [gotchi]);
 
-  const handleOnChangeDropList = (_event, newValue) => {
+  const handleOnChangeDropListRealm = (_event, newValue) => {
     if (!newValue) {
       setSpawnId(availibleParcels[0].parcelId);
     } else {
       setSpawnId(newValue.parcelId);
+    }
+  };
+
+  const handleOnChangeDropListGate = (_event, newValue) => {
+    if (!newValue) {
+      setSpawnId(availibleGates[0].id);
+    } else {
+      setSpawnId(newValue.id);
     }
   };
 
@@ -175,7 +188,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                         View at aavegotchi.com
                       </ViewInAppButton>
                     </>
-                    {availibleParcels && (
+                    {availibleParcels && availibleGates && (
                       <>
                         <ViewInAppButton
                           link={`https://verse.aavegotchi.com/?spawnId=${spawnId}&gotchi=${modalGotchi.id}`}
@@ -194,12 +207,23 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                         <Autocomplete
                           disablePortal
                           onChange={(event: CustomAny, newValue: string | null) => {
-                            handleOnChangeDropList(event, newValue);
+                            handleOnChangeDropListRealm(event, newValue);
                           }}
                           id='combo-box-realms'
                           options={availibleParcels}
                           getOptionLabel={(option) => option.altarLevel + 'lvl: ' + option.parcelHash}
                           renderInput={(params) => <TextField {...params} size='small' label='Realms' />}
+                          sx={{ width: '40%', margin: 1 }}
+                        />
+                        <Autocomplete
+                          disablePortal
+                          onChange={(event: CustomAny, newValue: string | null) => {
+                            handleOnChangeDropListGate(event, newValue);
+                          }}
+                          id='combo-box-realms'
+                          options={availibleGates}
+                          getOptionLabel={(option) => option.altarLevel + 'lvl: ' + option.parcelHash}
+                          renderInput={(params) => <TextField {...params} size='small' label='Gates O_GG' />}
                           sx={{ width: '40%', margin: 1 }}
                         />
                       </>
