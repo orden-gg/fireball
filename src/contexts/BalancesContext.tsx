@@ -1,19 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
-import { TokenTypes } from 'shared/constants';
-import {
-  AlphaTokenIcon,
-  FomoTokenIcon,
-  FudTokenIcon,
-  GhstTokenIcon,
-  MaticTokenIcon,
-  AlloyTokenIcon,
-  EssenceTokenIcon,
-  GltrTokenIcon,
-  KekTokenIcon
-} from 'components/Icons/Icons';
 import { AlchemicaApi, GhstApi, MaticApi, ForgeApi } from 'api';
 import {
   ALPHA_CONTRACT,
@@ -25,9 +11,27 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as TokensPricesSlices from 'core/store/tokens-prices';
+import * as fromLoginStore from 'core/store/login';
+
+import { TokenTypes } from 'shared/constants';
+import { TokenPrices } from 'shared/models';
+
+import {
+  AlphaTokenIcon,
+  FomoTokenIcon,
+  FudTokenIcon,
+  GhstTokenIcon,
+  MaticTokenIcon,
+  AlloyTokenIcon,
+  EssenceTokenIcon,
+  GltrTokenIcon,
+  KekTokenIcon
+} from 'components/Icons/Icons';
+
 import { CommonUtils } from 'utils';
 
-import { TokensPricesContext } from './TokensPricesContext';
 import { ALLOY, ESSENCE } from 'shared/constants/forgeItems.constants';
 
 export const BalancesContext = createContext({});
@@ -83,8 +87,8 @@ export const BalancesContextProvider = (props: CustomAny) => {
 
   const dispatch = useAppDispatch();
   const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
-
-  const { isPricesLoaded, tokensPrices } = useContext<any>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
   const [amounts, setAmounts] = useState<CustomAny>({});
@@ -166,8 +170,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           amount: amounts[TokenTypes.Fud],
           pricePerToken: tokensPrices[TokenTypes.Fud].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Fud] * amounts[TokenTypes.Fud]),
-          swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Fud)
+          swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT)
         },
         {
           key: TokenTypes.Fomo,
@@ -177,8 +180,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Fomo] * amounts[TokenTypes.Fomo]
           ),
-          swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Fomo)
+          swapUrl: generateSwapUrl(FOMO_CONTRACT, GHST_CONTRACT)
         },
         {
           key: TokenTypes.Alpha,
@@ -188,8 +190,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alpha] * amounts[TokenTypes.Alpha]
           ),
-          swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Alpha)
+          swapUrl: generateSwapUrl(ALPHA_CONTRACT, GHST_CONTRACT)
         },
         {
           key: TokenTypes.Kek,
@@ -197,8 +198,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           amount: amounts[TokenTypes.Kek],
           pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Kek] * amounts[TokenTypes.Kek]),
-          swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Kek)
+          swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT)
         },
         {
           key: TokenTypes.Gltr,
@@ -208,8 +208,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Gltr] * amounts[TokenTypes.Gltr]
           ),
-          swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Gltr)
+          swapUrl: generateSwapUrl(GLTR_CONTRACT, GHST_CONTRACT)
         },
         {
           key: TokenTypes.Alloy,
@@ -219,8 +218,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alloy] * amounts[TokenTypes.Alloy]
           ),
-          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?alloy',
-          hidden: generateHiden(TokenTypes.Alloy)
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?alloy'
         },
         {
           key: TokenTypes.Essence,
@@ -230,8 +228,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Essence] * amounts[TokenTypes.Essence]
           ),
-          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?essence',
-          hidden: generateHiden(TokenTypes.Essence)
+          swapUrl: 'https://dapp.aavegotchi.com/baazaar/forge/?essence'
         },
         {
           key: TokenTypes.Ghst,
@@ -241,8 +238,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]
           ),
-          swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT),
-          hidden: generateHiden(TokenTypes.Ghst)
+          swapUrl: generateSwapUrl(GHST_CONTRACT, USDC_CONTRACT)
         },
         {
           key: TokenTypes.Matic,
@@ -252,13 +248,12 @@ export const BalancesContextProvider = (props: CustomAny) => {
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Matic] * amounts[TokenTypes.Matic]
           ),
-          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT),
-          hidden: generateHiden(TokenTypes.Matic)
+          swapUrl: generateSwapUrl('ETH', GHST_CONTRACT)
         }
       ];
 
       if (mounted) {
-        setTokens(tokens.filter((hidden) => !hidden.hidden));
+        setTokens(tokens);
         setIsBalancesLoading(false);
       }
     }
@@ -267,16 +262,6 @@ export const BalancesContextProvider = (props: CustomAny) => {
       mounted = false;
     };
   }, [isAmountsLoaded, isPricesLoaded]);
-
-  const generateHiden = (inputToken: string): boolean => {
-    const ishiden = localStorage.getItem('visible_checkList')?.toString();
-    const hide = ishiden?.includes(inputToken);
-    if (hide) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 
   const getTokensAmounts = (address) => {
     return Promise.all([

@@ -21,7 +21,7 @@ import { balancesStyles } from '../styles';
 export function Balances() {
   const classes = balancesStyles();
   const theme = useTheme();
-  const { tokens, isBalancesLoading } = useContext<any>(BalancesContext);
+  const { tokens, isBalancesLoading } = useContext<CustomAny>(BalancesContext);
   const [menuOpen, setMenuOpen] = useLocalStorage(
     'visible_balances',
     JSON.parse(localStorage.getItem('visible_balances') as CustomAny) || true
@@ -31,11 +31,11 @@ export function Balances() {
   const [checked, setChecked] = useState<boolean[]>([false]);
   const [checkBoxesOpen, setcheckBoxesOpen] = useLocalStorage(
     'visible_checkboxes_balances',
-    JSON.parse(localStorage.getItem('visible_checkboxes_balances') as any) || true
+    JSON.parse(localStorage.getItem('visible_checkboxes_balances') as CustomAny) || true
   );
 
   const initialState = localStorage.getItem('visible_checkList')
-    ? JSON.parse(localStorage.getItem('visible_checkList') as any) || true
+    ? JSON.parse(localStorage.getItem('visible_checkList') as CustomAny) || true
     : {};
 
   const [state, setState] = useState(initialState);

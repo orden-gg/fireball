@@ -33,7 +33,7 @@ interface Gotchi {
 }
 
 interface BorrowList {
-  [key: string]: any;
+  [key: string]: CustomAny;
 }
 
 interface BorrowedList {
@@ -222,7 +222,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
 
           txsRes[borrowList.length - 1]
             .wait()
-            .then((_res: any) => {
+            .then((_res: CustomAny) => {
               console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
               console.log(
                 `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
@@ -231,7 +231,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                 )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
               );
             })
-            .catch((error: any) =>
+            .catch((error: CustomAny) =>
               console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
             );
         });

@@ -1,9 +1,12 @@
-import { QuickswapApi } from 'api';
+import { QuickswapApi, TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
 import {
+  ALLOY,
   ALPHA_CONTRACT,
+  ESSENCE,
+  Erc1155Categories,
   FOMO_CONTRACT,
   FUD_CONTRACT,
   GHST_CONTRACT,
@@ -25,6 +28,10 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
 
     const { price: ghstPrice, token: ghst }: TokenPrice = await getGhstAndPriceToToken(GHST_CONTRACT, USDC_CONTRACT);
     const { price: maticPrice }: TokenPrice = await getGhstAndPriceToToken(WMATIC_CONTRACT, USDC_CONTRACT);
+    const [essencePrice, alloyPrice] = await Promise.all([
+      getForgeItemsERC1155AndPriceToToken(ESSENCE, Erc1155Categories.Essence),
+      getForgeItemsERC1155AndPriceToToken(ALLOY, Erc1155Categories.Alloy)
+    ]);
     const [fudToken, fomoToken, alphaToken, kekToken, gltrToken]: QuickswapToken[] = await Promise.all([
       QuickswapApi.getTokenData(FUD_CONTRACT),
       QuickswapApi.getTokenData(FOMO_CONTRACT),
@@ -39,7 +46,6 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
       getTokenPrice(ghst, ghstPrice, kekToken),
       getTokenPrice(ghst, ghstPrice, gltrToken)
     ]);
-
     dispatch(
       tokensPricesSlices.setTokensPrices({
         [TokenTypes.Fud]: fudPrice,
@@ -47,6 +53,8 @@ export const onLoadTokensPrices = (): AppThunk => (dispatch) => {
         [TokenTypes.Alpha]: alphaPrice,
         [TokenTypes.Kek]: kekPrice,
         [TokenTypes.Gltr]: gltrPrice,
+        [TokenTypes.Alloy]: alloyPrice.price,
+        [TokenTypes.Essence]: essencePrice.price,
         [TokenTypes.Ghst]: ghstPrice,
         [TokenTypes.Matic]: maticPrice
       })
@@ -73,6 +81,16 @@ const getGhstAndPriceToToken = async (ghstContract: string, tokenContract: strin
   const ghstPriceToToken: number = Number(ghstTokenRoute.midPrice.toSignificant(6));
 
   return { price: ghstPriceToToken, token: ghst };
+};
+
+const getForgeItemsERC1155AndPriceToToken = async (id: number | string, category: number | string) => {
+  const tokenPrice = await TheGraphApi.getErc1155Price(id, false, category, 'priceInWei', 'asc').then(
+    (response: CustomAny) => {
+      return { price: response.price, token: id };
+    }
+  );
+
+  return tokenPrice;
 };
 
 const getTokenPrice = async (

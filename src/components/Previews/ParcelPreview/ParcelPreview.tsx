@@ -26,10 +26,10 @@ import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/s
 export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
   const classesB = gotchiPreviewModalStyles();
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<CustomAny[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const { metaState } = useMetamask();
-  const boosts: Array<{ name: string; value: any }> = [
+  const boosts: Array<{ name: string; value: CustomAny }> = [
     { name: 'fud', value: parcel.fudBoost },
     { name: 'fomo', value: parcel.fomoBoost },
     { name: 'alpha', value: parcel.alphaBoost },

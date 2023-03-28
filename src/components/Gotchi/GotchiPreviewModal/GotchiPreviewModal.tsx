@@ -1,15 +1,14 @@
-import { useEffect, useState, useContext } from 'react';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+
+import { CircularProgress, Autocomplete, TextField } from '@mui/material';
+
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { EthersApi, MainApi, TheGraphApi } from 'api';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { Gotchi, GotchiInventory as GotchiInventoryModel, SalesHistoryModel } from 'shared/models';
-
-import { EthAddress } from 'components/EthAddress/EthAddress';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -28,25 +27,30 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+import { EthAddress } from 'components/EthAddress/EthAddress';
 
 import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
-import { ClientContext } from 'contexts/ClientContext';
+// store
+import * as fromClientStore from 'pages/Client/store';
+import { useAppSelector } from 'core/store/hooks';
+
 import { useMetamask } from 'use-metamask';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
   const classes = gotchiPreviewModalStyles();
   const [spawnId, setSpawnId] = useState<string>();
-  const [modalGotchi, setModalGotchi] = useState<any>(null);
-  const [availibleParcels, setAvailibleParcels] = useState<any[]>([]);
+  const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
+  const [availibleParcels, setAvailibleParcels] = useState<CustomAny[]>([]);
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
-  const { borrowed } = useContext<any>(ClientContext);
+  const borrowedGotchis: CustomAny[] = useAppSelector(fromClientStore.getBorrowedGotchis);
 
   useEffect(() => {
     if (gotchi) {
@@ -84,16 +88,16 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
 
   useEffect(() => {
     const ownAddress = metaState.account[0];
-    const borrowedAddresses = borrowed.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+    const borrowedAddresses = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
     const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
     const allAddresses = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
-    const promises: Promise<any>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
+    const promises: Promise<CustomAny>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
 
     Promise.all(promises)
       .then((response) => {
         const flatResponse = response.flat();
         const modifiedParcels = flatResponse.map((parcel) => {
-          const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
+          const installations: CustomAny[] = InstallationsUtils.combineInstallations(parcel.installations);
           const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
           const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
@@ -187,7 +191,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
 
                         <Autocomplete
                           disablePortal
-                          onChange={(event: any, newValue: string | null) => {
+                          onChange={(event: CustomAny, newValue: string | null) => {
                             handleOnChangeDropList(event, newValue);
                           }}
                           id='combo-box-realms'

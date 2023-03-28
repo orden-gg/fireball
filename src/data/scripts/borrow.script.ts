@@ -198,7 +198,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                 });
                 console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
               })
-              .catch((error: any) =>
+              .catch((error: CustomAny) =>
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
               );
           }
