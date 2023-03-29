@@ -597,13 +597,8 @@ export class TheGraphApi {
   // TODO check if needed
   public static getGotchisGotchiverseInfoByIds(gotchiIds: string[]): Promise<CustomAny> {
     return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds)).then((res: CustomAny) => {
-      const dataArr = res.data.gotchis;
-
       // * gotchiverse return empty data if gotchi never channeled alchemica!
-      return gotchiIds.map((id, i) => ({
-        id: id,
-        lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica).toString() || 0
-      }));
+      return res.data.gotchis;
     });
   }
 
