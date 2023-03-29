@@ -3,10 +3,10 @@ import ContentLoader from 'react-content-loader';
 
 import { DateTime } from 'luxon';
 
-import { RealmApi } from 'api';
+import { TheGraphApi } from 'api';
 
 import { CountdownFormatNonZeroType, DAY_MILLIS, HOUR_MILLIS, MINUTE_MILLIS, SECOND_MILLIS } from 'shared/constants';
-import { CountdownShortFormat } from 'shared/models';
+import { CountdownShortFormat, GotchiLastChanneled } from 'shared/models';
 
 import { Countdown } from 'components/Countdown/Countdown';
 import { ChannelActiveIcon, ChannelIcon } from 'components/Icons/Icons';
@@ -35,10 +35,10 @@ export function GotchiChanelling({ gotchiId, lastchanneled }: { gotchiId: string
 
       setLastChanellingLoading(true);
 
-      RealmApi.getGotchiLastChanneled(gotchiId)
-        .then((res: CustomAny) => {
+      TheGraphApi.getGotchisGotchiverseInfoByIds([gotchiId])
+        .then((gotchiIdChanneled: GotchiLastChanneled) => {
           if (mounted) {
-            setLastChanneling(res * 1000);
+            setLastChanneling(Number(gotchiIdChanneled[0].lastChanneledAlchemica) * 1000);
           }
         })
         .finally(() => {
