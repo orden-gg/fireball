@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { RealmApi, TheGraphApi } from 'api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 

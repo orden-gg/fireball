@@ -1,4 +1,4 @@
-import { RealmApi, TheGraphApi } from 'api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
