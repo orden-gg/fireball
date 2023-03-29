@@ -22,6 +22,7 @@ export const onLoadBorrowedGotchis =
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
           const modifiedBorrowed: GotchiLending[] = borrowedGotchis.map((item: GotchiLending) => {
             const lastChanneledAlchemica = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
+
             return {
               ...item,
               lastChanneledAlchemica: lastChanneledAlchemica?.lastChanneledAlchemica
