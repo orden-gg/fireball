@@ -24,21 +24,16 @@ export const onLoadLentGotchis =
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
           const modifiedLent: GotchiLending[] = lentGotchis.map((item: GotchiLending) => {
-            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
+            const lastChanneledAlchemica = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
-            return { ...item, lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0' };
+            return {
+              ...item,
+              lastChanneledAlchemica: lastChanneledAlchemica?.lastChanneledAlchemica
+                ? lastChanneledAlchemica?.lastChanneledAlchemica
+                : '0'
+            };
           });
 
-          // const promises: Promise<CustomAny>[] = lentGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
-          // Promise.all(promises)
-          //   .then((response: GotchiLastChanneled[]) => {
-          //     const modifiedLent: GotchiLending[] = [];
-          //     let i = 0;
-          //     for (const gotchi of lentGotchis) {
-          //       const modifiedGotchi = { ...gotchi, lastChanneled: response[i].toString() ? response[i].toString() : '0' };
-          //       modifiedLent.push(modifiedGotchi);
-          //       i += 1;
-          //     }
           const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedLent, type, dir);
           dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
         })

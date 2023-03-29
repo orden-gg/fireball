@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import { EthersApi } from './ethers.api';
 import { TheGraphCoreApi } from './the-graph-core.api';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_GOTCHIVERSE_API } from 'shared/constants';
 import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
 
 import { ItemUtils } from 'utils';
@@ -40,7 +40,7 @@ import {
 const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
 const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
 const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
-const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
+const gotchiverseAPI = GRAPH_GOTCHIVERSE_API;
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -597,13 +597,8 @@ export class TheGraphApi {
   // TODO check if needed
   public static getGotchisGotchiverseInfoByIds(gotchiIds: string[]): Promise<CustomAny> {
     return getGraphData(clientFactory.gotchiverseClient, gotchisGotchiverseQuery(gotchiIds)).then((res: CustomAny) => {
-      const dataArr = res.data.gotchis;
-
       // * gotchiverse return empty data if gotchi never channeled alchemica!
-      return gotchiIds.map((id, i) => ({
-        id: id,
-        lastChanneled: Number(dataArr[i]?.lastChanneledAlchemica).toString() || 0
-      }));
+      return res.data.gotchis;
     });
   }
 

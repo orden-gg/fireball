@@ -40,24 +40,15 @@ export const onLoadOwnedGotchis =
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
           const modifiedOwned: OwnedGotchi[] = ownedGotchis.map((item: OwnedGotchi) => {
-            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
+            const lastChanneledAlchemica = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
 
             return {
               ...item,
-              lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0'
+              lastChanneledAlchemica: lastChanneledAlchemica?.lastChanneledAlchemica
+                ? lastChanneledAlchemica?.lastChanneledAlchemica
+                : '0'
             };
           });
-          console.log('modifiedOwned', modifiedOwned);
-          // const promises: Promise<CustomAny>[] = ownedGotchis.map((gotchi) => RealmApi.getGotchiLastChanneled(gotchi.id));
-          // Promise.all(promises)
-          //   .then((response: GotchiLastChanneled[]) => {
-          //     const modifiedOwned: OwnedGotchi[] = [];
-          //     let i = 0;
-          //     for (const gotchi of ownedGotchis) {
-          //       const modifiedGotchi = { ...gotchi, lastChanneled: response[i].toString() ? response[i].toString() : '0' };
-          //       modifiedOwned.push(modifiedGotchi);
-          //       i += 1;
-          //     }
 
           const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(
             modifiedOwned,

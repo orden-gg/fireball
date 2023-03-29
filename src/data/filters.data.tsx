@@ -156,9 +156,9 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
-  lastChanneled: {
-    key: 'lastChanneled',
-    queryParamKey: 'lastChanneled',
+  lastChanneledAlchemica: {
+    key: 'lastChanneledAlchemica',
+    queryParamKey: 'lastChanneledAlchemica',
     title: 'Is channeling ready',
     value: false,
     componentType: FilterComponentType.Checkbox,

@@ -21,24 +21,14 @@ export const onLoadBorrowedGotchis =
       TheGraphApi.getGotchisGotchiverseInfoByIds(gotchiIds)
         .then((gotchiIdsChanneled: GotchiLastChanneled[]) => {
           const modifiedBorrowed: GotchiLending[] = borrowedGotchis.map((item: GotchiLending) => {
-            const lastChanneled = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
-            console.log('lastChanneled', lastChanneled);
-
-            return { ...item, lastChanneled: lastChanneled?.lastChanneled ? lastChanneled?.lastChanneled : '0' };
+            const lastChanneledAlchemica = gotchiIdsChanneled.find((o: GotchiLastChanneled) => o.id === item.id);
+            return {
+              ...item,
+              lastChanneledAlchemica: lastChanneledAlchemica?.lastChanneledAlchemica
+                ? lastChanneledAlchemica?.lastChanneledAlchemica
+                : '0'
+            };
           });
-
-          // const promises: Promise<CustomAny>[] = borrowedGotchis.map((gotchi) =>
-          //   RealmApi.getGotchiLastChanneled(gotchi.id)
-          // );
-          // Promise.all(promises)
-          //   .then((response: GotchiLastChanneled[]) => {
-          //     const modifiedBorrowed: GotchiLending[] = [];
-          //     let i = 0;
-          //     for (const gotchi of borrowedGotchis) {
-          //       const modifiedGotchi = { ...gotchi, lastChanneled: response[i].toString() ? response[i].toString() : '0' };
-          //       modifiedBorrowed.push(modifiedGotchi);
-          //       i += 1;
-          //     }
 
           const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedBorrowed, type, dir);
           dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(sortedBorrowedGotchis));

@@ -5,7 +5,7 @@ export interface GotchiLending {
   rentDuration: string;
   upfrontCost: string;
   period: string;
-  lastChanneled: string;
+  lastChanneledAlchemica: string;
   lastClaimed: string;
   completed: boolean;
   gotchi: {
