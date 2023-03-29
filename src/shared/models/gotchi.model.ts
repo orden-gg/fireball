@@ -10,7 +10,7 @@ export interface GotchiInventory {
 
 export interface GotchiLastChanneled {
   id: string;
-  lastChanneled: string;
+  lastChanneledAlchemica: string;
 }
 
 export interface Gotchi {
