@@ -23,7 +23,7 @@ export const onLoadBorrowedGotchis =
         const ids: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // Should be reworked when gotchi originalOwner will be fixed at FB graph
+          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedBorrowedGotchis.map(
@@ -32,7 +32,7 @@ export const onLoadBorrowedGotchis =
                 }
               );
 
-              // Will be deleted as soon as thegraph updated
+              // TODO: Will be deleted as soon as thegraph updated
               IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
                 .then((gotchis: CustomAny[]) => {
                   dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(gotchis));
@@ -41,6 +41,7 @@ export const onLoadBorrowedGotchis =
             })
             .catch(() => dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed()));
         } else {
+          dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded([]));
           dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false));
         }
       })

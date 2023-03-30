@@ -32,7 +32,7 @@ export const onLoadOwnedGotchis =
         const ids: number[] = ownedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // Should be reworked when gotchi originalOwner will be fixed at FB graph
+          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
@@ -50,7 +50,7 @@ export const onLoadOwnedGotchis =
                 warehouseSortDir
               );
 
-              // Will be deleted as soon as thegraph updated
+              // TODO: Will be deleted as soon as thegraph updated
               IdentityUtils.getUpdatedIdentities(extendedGotchis)
                 .then((gotchis: GotchiExtended[]) => {
                   const sortedOwnedGotchis: GotchiExtended[] = CommonUtils.basicSort(
@@ -66,6 +66,7 @@ export const onLoadOwnedGotchis =
             })
             .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()));
         } else {
+          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded([]));
           dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false));
         }
       })

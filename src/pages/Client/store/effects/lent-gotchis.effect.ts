@@ -27,7 +27,7 @@ export const onLoadLentGotchis =
         const ids: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // Should be reworked when gotchi originalOwner will be fixed at FB graph
+          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map(
@@ -36,7 +36,7 @@ export const onLoadLentGotchis =
                 }
               );
 
-              // Will be deleted as soon as thegraph updated
+              // TODO: Will be deleted as soon as thegraph updated
               IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
                 .then((gotchis: CustomAny[]) => {
                   dispatch(lentGotchisSlices.loadLentGotchisSucceded(gotchis));
@@ -45,6 +45,7 @@ export const onLoadLentGotchis =
             })
             .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()));
         } else {
+          dispatch(lentGotchisSlices.loadLentGotchisSucceded([]));
           dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
         }
       })
