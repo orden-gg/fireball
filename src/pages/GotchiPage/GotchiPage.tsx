@@ -45,7 +45,7 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-import { GotchiUtils } from 'utils';
+import { GotchiUtils, IdentityUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
@@ -77,17 +77,20 @@ export function GotchiPage() {
     ];
 
     Promise.all(promises)
-      .then(([gotchi, fireballGotchi]: [Gotchi, FireballGotchi]) => {
+      .then(async ([gotchi, fireballGotchi]: [Gotchi, FireballGotchi]) => {
         const extendedGotchi: GotchiExtended = { ...gotchi, ...fireballGotchi };
         const sortedInventory: number[] = gotchi.equippedWearables
           .concat(fireballGotchi.badges)
           .filter((id: number) => id !== 0);
 
+        // Will be deleted as soon as thegraph updated
+        const updatedGotchi: GotchiExtended = await IdentityUtils.getUpdatedIdentity(extendedGotchi);
+
         setGotchiInventory(sortedInventory);
-        setGotchi(extendedGotchi);
+        setGotchi(updatedGotchi);
+        setGotchiLoaded(true);
       })
-      .catch((error) => console.log(error))
-      .finally(() => setGotchiLoaded(true));
+      .catch((error) => console.log(error));
 
     TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
       .then((response: SalesHistoryModel[]) => {

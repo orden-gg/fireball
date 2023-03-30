@@ -5,7 +5,7 @@ import { AppThunk } from 'core/store/store';
 
 import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
 
-import { CommonUtils } from 'utils';
+import { CommonUtils, IdentityUtils } from 'utils';
 
 import {
   loadBorrowedGotchis,
@@ -36,10 +36,14 @@ export const onLoadBorrowedGotchis =
                 }
               );
 
-              dispatch(loadBorrowedGotchisSucceded(extendedLendingGotchis));
+              // Will be deleted as soon as thegraph updated
+              IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
+                .then((gotchis: CustomAny[]) => {
+                  dispatch(loadBorrowedGotchisSucceded(gotchis));
+                })
+                .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
             })
-            .catch(() => dispatch(loadBorrowedGotchisFailed()))
-            .finally(() => dispatch(setIsInitialBorrowedGotchisLoading(false)));
+            .catch(() => dispatch(loadBorrowedGotchisFailed()));
         } else {
           dispatch(setIsInitialBorrowedGotchisLoading(false));
         }

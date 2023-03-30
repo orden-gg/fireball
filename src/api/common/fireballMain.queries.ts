@@ -5,6 +5,9 @@ const items: string = `
 `;
 
 const identity: string = `
+  shape
+  color
+  collateral
   claimed {
     gotchiId
   }
@@ -49,6 +52,14 @@ export const playerInventoryQuery = (address: string): string => {
       items {
         ${items}
       }
+    }
+  }`;
+};
+
+export const indentityQuery = (id: string): string => {
+  return `{
+    identity(id: "${id}") {
+      ${identity}
     }
   }`;
 };

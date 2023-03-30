@@ -20,8 +20,12 @@ export interface FireballGotchi {
 export interface Gotchi {
   id: string;
   name: string;
-  owner: { id: string };
-  originalOwner: { id: string };
+  owner: {
+    id: string;
+  };
+  originalOwner: {
+    id: string;
+  };
   baseRarityScore: string;
   numericTraits: TraitModifiersTuple;
   modifiedNumericTraits: TraitModifiersTuple;

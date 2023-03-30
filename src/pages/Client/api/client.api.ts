@@ -7,10 +7,10 @@ import {
   GRAPH_FIREBALL_API,
   GRAPH_FIREBALL_MAIN_API
 } from 'shared/constants';
-import { Erc721ListingsBatch, FireballGotchi, TheGraphBatchData, TheGraphResponse } from 'shared/models';
+import { Erc721ListingsBatch, FireballGotchi, Identity, TheGraphBatchData, TheGraphResponse } from 'shared/models';
 
 import { Erc721ForSaleDTO, Erc1155ForSaleDTO, FakeItemsDTO, ParcelForSaleDTO } from '../models';
-import { getErc721ListingsByCategoriesQuery, gotchiBatchQuery } from '../queries';
+import { getErc721ListingsByCategoriesQuery, gotchiBatchQuery, identitiesQuery } from '../queries';
 import {
   erc721ListingsBySellerQuery,
   erc1155ListingsBySellerQuery,
@@ -70,6 +70,21 @@ export class ClientApi {
     return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_MAIN_API, getQuery(ids)).then(
       (response: TheGraphResponse<TheGraphBatchData<FireballGotchi>[]>) => {
         return response.data;
+      }
+    );
+  }
+
+  // TODO: Will be deleted as soon as thegraph updated
+  public static getFireballIdentityByIds(identityIds: CustomAny[]): Promise<Identity[]> {
+    const getQuery = (identityIds: string[]): string => {
+      const queries: string[] = identityIds.map((identity: CustomAny) => identitiesQuery(identity));
+
+      return `{${queries.join(',')}}`;
+    };
+
+    return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_MAIN_API, getQuery(identityIds)).then(
+      (res: TheGraphResponse<Identity[]>) => {
+        return res.data;
       }
     );
   }

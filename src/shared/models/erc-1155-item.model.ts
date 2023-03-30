@@ -101,6 +101,9 @@ export interface IdentityOption {
 }
 
 export interface Identity {
+  shape: string;
+  color: string;
+  collateral: string;
   claimed: IdentityOption[];
   unclaimed: IdentityOption[];
 }

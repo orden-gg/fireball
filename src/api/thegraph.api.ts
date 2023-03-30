@@ -10,13 +10,14 @@ import {
   FireballErc1155Item,
   FireballGotchi,
   Gotchi,
+  Identity,
   SalesHistoryModel,
   TheGraphResponse
 } from 'shared/models';
 
 import { ItemUtils } from 'utils';
 
-import { gotchiQuery, playerInventoryQuery } from './common/fireballMain.queries';
+import { gotchiQuery, indentityQuery, playerInventoryQuery } from './common/fireballMain.queries';
 import {
   activeListingQeury,
   auctionQuery,
@@ -655,6 +656,13 @@ export class TheGraphApi {
   public static getFireballGotchiById(id: number): Promise<FireballGotchi> {
     return getGraphData(clientFactory.fireballMainClient, gotchiQuery(id)).then(
       (res: TheGraphResponse<{ gotchi: FireballGotchi }>) => modifyTraits([res.data.gotchi])[0]
+    );
+  }
+
+  // Will be deleted as soon as thegraph updated
+  public static getFireballIdentityById(id: string): Promise<Identity> {
+    return getGraphData(clientFactory.fireballMainClient, indentityQuery(id)).then(
+      (res: TheGraphResponse<{ identity: Identity }>) => res.data.identity
     );
   }
 }

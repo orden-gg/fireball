@@ -15,7 +15,7 @@ import {
   WearableTypeBenefit
 } from 'shared/models';
 
-import { CommonUtils, ItemUtils } from 'utils';
+import { CommonUtils, IdentityUtils, ItemUtils } from 'utils';
 
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
@@ -60,17 +60,22 @@ export const onLoadOwnedGotchis =
                 warehouseSortType,
                 warehouseSortDir
               );
-              const sortedOwnedGotchis: Gotchi[] = CommonUtils.basicSort(
-                extendedGotchis,
-                gotchisSortType,
-                gotchisSortDir
-              );
 
-              dispatch(setWarehouseItems(sortedWarehouseItems));
-              dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+              // Will be deleted as soon as thegraph updated
+              IdentityUtils.getUpdatedIdentities(extendedGotchis)
+                .then((gotchis: GotchiExtended[]) => {
+                  const sortedOwnedGotchis: GotchiExtended[] = CommonUtils.basicSort(
+                    gotchis,
+                    gotchisSortType,
+                    gotchisSortDir
+                  );
+
+                  dispatch(setWarehouseItems(sortedWarehouseItems));
+                  dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+                })
+                .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
             })
-            .catch(() => dispatch(loadOwnedGotchisFailed()))
-            .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+            .catch(() => dispatch(loadOwnedGotchisFailed()));
         } else {
           dispatch(setIsInitialOwnedGotchisLoading(false));
         }
