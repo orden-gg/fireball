@@ -3,6 +3,7 @@ export const gotchiBatchQuery = (id: number): string => {
     gotchi${id}: gotchi(id: ${id}) {
       availableSkillPoints
       badges
+      lending
       identity {
         shape
         color
@@ -18,7 +19,7 @@ export const gotchiBatchQuery = (id: number): string => {
   `;
 };
 
-// TODO: Will be deleted as soon as thegraph updated
+// Will be deleted as soon as thegraph updated
 export const identitiesQuery = (identity: CustomAny): string => {
   return `
     gotchi${identity.gotchiId}: identity(id: "${identity.id}") {
