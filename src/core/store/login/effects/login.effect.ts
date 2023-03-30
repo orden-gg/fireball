@@ -53,3 +53,9 @@ export const selectActiveAddress =
 
     localStorage.setItem('ACTIVE_ADDRESS', JSON.stringify(address));
   };
+
+export const updateMetamaskLoggedAddress =
+  (address: string): AppThunk =>
+  (dispatch) => {
+    dispatch(loginSlices.setMetamaskLoggedAddress(address));
+  };

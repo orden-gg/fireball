@@ -68,6 +68,7 @@ export function LoginButton() {
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
         dispatch(fromLoginStore.selectActiveAddress(metaState.account[0]));
       }
+      dispatch(fromLoginStore.updateMetamaskLoggedAddress(metaState.account[0]));
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
       dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
