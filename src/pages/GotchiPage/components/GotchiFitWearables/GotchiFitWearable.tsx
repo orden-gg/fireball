@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Erc1155Categories } from 'shared/constants';
 import { FireballErc1155Item, TraitModifiersTuple, Wearable } from 'shared/models';
 
-import { CardBalance, CardGroup, CardImage, CardListing, CardName, CardStats } from 'components/ItemCard/components';
+import { CardGroup, CardImage, CardListing, CardName, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 
 import { Erc1155ItemUtils, ItemUtils } from 'utils';
@@ -55,9 +55,6 @@ export function GotchiFitWearables({ traits, inventory }: GotchiFitWearablesProp
           key={wearable.id}
           className={classes.item}
         >
-          <CardGroup name='header'>
-            <CardBalance balance={wearable.balance || 0} />
-          </CardGroup>
           <CardGroup name='body'>
             <CardImage id={wearable.id} category={Erc1155Categories.Wearable} />
             <CardName id={wearable.id} className={classes.name} />
