@@ -1,11 +1,30 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { FakeGotchi } from 'shared/models';
+import { MintedGotchisState } from '../slices';
 
-export const getMintedGotchis = (state: RootState): FakeGotchi[] => state.fake.minted.mintedGotchis.data;
+const mintedGotchisStateSelector = createSelector(
+  (state: RootState) => state.fake.minted,
+  (mintedGotchisState: MintedGotchisState) => mintedGotchisState
+);
 
-export const getIsMintedGotchisLoading = (state: RootState): boolean => state.fake.minted.mintedGotchis.isLoading;
+export const getMintedGotchis = createSelector(
+  mintedGotchisStateSelector,
+  (state: MintedGotchisState) => state.mintedGotchis.data
+);
 
-export const getIsMintedGotchisLoaded = (state: RootState): boolean => state.fake.minted.mintedGotchis.isLoaded;
+export const getIsMintedGotchisLoading = createSelector(
+  mintedGotchisStateSelector,
+  (state: MintedGotchisState) => state.mintedGotchis.isLoading
+);
 
-export const getMintedGotchisCount = (state: RootState): number => state.fake.minted.mintedGotchis.data.length;
+export const getIsMintedGotchisLoaded = createSelector(
+  mintedGotchisStateSelector,
+  (state: MintedGotchisState) => state.mintedGotchis.isLoaded
+);
+
+export const getMintedGotchisCount = createSelector(
+  mintedGotchisStateSelector,
+  (state: MintedGotchisState) => state.mintedGotchis.data.length
+);

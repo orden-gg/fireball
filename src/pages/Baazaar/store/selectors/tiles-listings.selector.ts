@@ -1,28 +1,55 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GraphQueryParams, SortingItem } from 'shared/models';
+import { TilesListingsState } from '../slices';
 
-import { TileListingFilters, TileListingVM } from '../../models';
+const tilesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.tiles,
+  (tilesListingsState: TilesListingsState) => tilesListingsState
+);
 
-export const getTilesListings = (state: RootState): TileListingVM[] => state.baazaar.tiles.tilesListings.data;
+export const getTilesListings = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListings.data
+);
 
-export const getIsTilesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.tiles.isTilesListingsInitialDataLoading;
+export const getIsTilesListingsInitialDataLoading = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.isTilesListingsInitialDataLoading
+);
 
-export const getIsTilesListingsLoading = (state: RootState): boolean => state.baazaar.tiles.tilesListings.isLoading;
+export const getIsTilesListingsLoading = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListings.isLoading
+);
 
-export const getTilesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
-  state.baazaar.tiles.tilesListingsGraphQueryParams;
+export const getTilesListingsGraphQueryParams = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsGraphQueryParams
+);
 
-export const getTilesListingsLimitPerLoad = (state: RootState): number => state.baazaar.tiles.tilesListingsLimitPerLoad;
+export const getTilesListingsLimitPerLoad = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsLimitPerLoad
+);
 
-export const getTilesListingsDefaultSorting = (state: RootState): SortingItem =>
-  state.baazaar.tiles.tilesListingsDefaultSorting;
+export const getTilesListingsDefaultSorting = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsDefaultSorting
+);
 
-export const getTilesListingsSorting = (state: RootState): SortingItem => state.baazaar.tiles.tilesListingsSorting;
+export const getTilesListingsSorting = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsSorting
+);
 
-export const getTilesListingsFilters = (state: RootState): TileListingFilters =>
-  state.baazaar.tiles.tilesListingsFilters;
+export const getTilesListingsFilters = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsFilters
+);
 
-export const getTilesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.tiles.tilesListingsQueryParamsOrder;
+export const getTilesListingsQueryParamsOrder = createSelector(
+  tilesListingsStateSelector,
+  (state: TilesListingsState) => state.tilesListingsQueryParamsOrder
+);

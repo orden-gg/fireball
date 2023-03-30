@@ -6,32 +6,21 @@ import { ClientApi } from 'pages/Client/api';
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
-import {
-  FireballGotchi,
-  Gotchi,
-  GotchiExtended,
-  SortingItem,
-  TheGraphBatchData,
-  WearableTypeBenefit
-} from 'shared/models';
+import { FireballGotchi, GotchiExtended, SortingItem, TheGraphBatchData, WearableTypeBenefit } from 'shared/models';
 
 import { CommonUtils, IdentityUtils, ItemUtils } from 'utils';
 
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
-import { Warehouse } from '../../models';
-import {
-  loadOwnedGotchis,
-  loadOwnedGotchisFailed,
-  loadOwnedGotchisSucceded,
-  setIsInitialOwnedGotchisLoading,
-  setWarehouseItems
-} from '../slices';
+import { OwnedGotchi, Warehouse } from '../../models';
+// slices
+import * as ownedGotchisSlices from '../slices/owned-gotchis.slice';
+import * as warehouseSlices from '../slices/warehouse.slice';
 
 export const onLoadOwnedGotchis =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadOwnedGotchis());
+    dispatch(ownedGotchisSlices.loadOwnedGotchis());
 
     const { type: gotchisSortType, dir: gotchisSortDir }: SortingItem =
       getState().client.ownedGotchis.ownedGotchisSorting;
@@ -39,15 +28,15 @@ export const onLoadOwnedGotchis =
       getState().client.warehouse.warehouseSorting;
 
     TheGraphApi.getGotchisByAddress(address)
-      .then((ownedGotchis: Gotchi[]) => {
-        const ids: number[] = ownedGotchis.map((gotchi: Gotchi) => Number(gotchi.id));
+      .then((ownedGotchis: OwnedGotchi[]) => {
+        const ids: number[] = ownedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
 
         if (ids.length > 0) {
           // Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
-              const extendedGotchis: GotchiExtended[] = ownedGotchis.map((gotchi: Gotchi) => {
+              const extendedGotchis: GotchiExtended[] = ownedGotchis.map((gotchi: OwnedGotchi) => {
                 return {
                   ...gotchi,
                   ...fireballGotchis[`gotchi${gotchi.id}`]
@@ -70,24 +59,24 @@ export const onLoadOwnedGotchis =
                     gotchisSortDir
                   );
 
-                  dispatch(setWarehouseItems(sortedWarehouseItems));
-                  dispatch(loadOwnedGotchisSucceded(sortedOwnedGotchis));
+                  dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
+                  dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
                 })
-                .finally(() => dispatch(setIsInitialOwnedGotchisLoading(false)));
+                .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
             })
-            .catch(() => dispatch(loadOwnedGotchisFailed()));
+            .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()));
         } else {
-          dispatch(setIsInitialOwnedGotchisLoading(false));
+          dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false));
         }
       })
-      .catch(() => dispatch(loadOwnedGotchisFailed()));
+      .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()));
   };
 
-const geModifiedWarehouse = (ownedGotchis: Gotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
+const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
   const warehouseItems: Warehouse[] = [];
 
   // collect all equipped wearables
-  ownedGotchis.forEach((ownedGotchi: Gotchi) => {
+  ownedGotchis.forEach((ownedGotchi: OwnedGotchi) => {
     const equippedIds: number[] = ownedGotchi.equippedWearables.filter(
       (wearableId: number) => wearableId > 0 && wearableId !== HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER
     );

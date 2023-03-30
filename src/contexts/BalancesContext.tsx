@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { AlchemicaApi, GhstApi, MaticApi } from 'api';
 import {
@@ -11,10 +11,12 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
-import { useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as TokensPricesSlices from 'core/store/tokens-prices';
+import * as fromLoginStore from 'core/store/login';
 
 import { TokenTypes } from 'shared/constants';
+import { TokenPrices } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -27,8 +29,6 @@ import {
 } from 'components/Icons/Icons';
 
 import { CommonUtils } from 'utils';
-
-import { TokensPricesContext } from './TokensPricesContext';
 
 export const BalancesContext = createContext({});
 
@@ -71,9 +71,11 @@ export const BalancesContextProvider = (props: CustomAny) => {
     }
   ];
 
-  const activeAddress = useAppSelector(getActiveAddress);
+  const dispatch = useAppDispatch();
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
-  const { isPricesLoaded, tokensPrices } = useContext<CustomAny>(TokensPricesContext);
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
 
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
@@ -127,6 +129,10 @@ export const BalancesContextProvider = (props: CustomAny) => {
       clearInterval(interval);
     };
   }, [activeAddress]);
+
+  useEffect(() => {
+    dispatch(TokensPricesSlices.onLoadTokensPrices());
+  }, []);
 
   useEffect(() => {
     let mounted = true;

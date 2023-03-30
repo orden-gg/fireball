@@ -9,17 +9,11 @@ import { ASCENDING_DIRECTION, PRICE_IN_WEI } from 'pages/Baazaar/constants';
 
 import { OpenedPortalListingDTO, OpenedPortalListingVM } from '../../models';
 import { getBaazaarOpenedPortalsListingsQuery } from '../../queries';
-import {
-  loadOpenedPortalsListings,
-  loadOpenedPortalsListingsFailed,
-  loadOpenedPortalsListingsSucceded,
-  resetOpenedPortalsListings,
-  setOpenedPortalsListingsSorting,
-  setOpenedPortalsPreviousSortingProp
-} from '../slices';
+// slices
+import * as openedPortalsListingsSlices from '../slices/opened-portals-listings.slice';
 
 export const loadBaazaarOpenedPortalsListings = (): AppThunk => (dispatch) => {
-  dispatch(loadOpenedPortalsListings());
+  dispatch(openedPortalsListingsSlices.loadOpenedPortalsListings());
 
   const query = getBaazaarOpenedPortalsListingsQuery();
 
@@ -27,10 +21,10 @@ export const loadBaazaarOpenedPortalsListings = (): AppThunk => (dispatch) => {
     .then((res: OpenedPortalListingDTO[]) => {
       const modifiedListings: OpenedPortalListingVM[] = mapOpenedPortalsDTOToVM(res);
 
-      dispatch(loadOpenedPortalsListingsSucceded(modifiedListings));
+      dispatch(openedPortalsListingsSlices.loadOpenedPortalsListingsSucceded(modifiedListings));
     })
     .catch(() => {
-      dispatch(loadOpenedPortalsListingsFailed());
+      dispatch(openedPortalsListingsSlices.loadOpenedPortalsListingsFailed());
     });
 };
 
@@ -44,15 +38,15 @@ export const onSetOpenedPortalsListingsSorting =
       direction = ASCENDING_DIRECTION;
     }
 
-    dispatch(setOpenedPortalsListingsSorting({ type: sort.type, dir: direction }));
-    dispatch(setOpenedPortalsPreviousSortingProp(sort.type));
+    dispatch(openedPortalsListingsSlices.setOpenedPortalsListingsSorting({ type: sort.type, dir: direction }));
+    dispatch(openedPortalsListingsSlices.setOpenedPortalsPreviousSortingProp(sort.type));
   };
 
 export const resetOpenedPortalsData = (): AppThunk => (dispatch, getState) => {
   const defaultSorting: SortingItem = getState().baazaar.installations.installationsListingsDefaultSorting;
 
-  dispatch(resetOpenedPortalsListings());
-  dispatch(setOpenedPortalsListingsSorting(defaultSorting));
+  dispatch(openedPortalsListingsSlices.resetOpenedPortalsListings());
+  dispatch(openedPortalsListingsSlices.setOpenedPortalsListingsSorting(defaultSorting));
 };
 
 const mapOpenedPortalsDTOToVM = (listings: OpenedPortalListingDTO[]): OpenedPortalListingVM[] => {

@@ -10,7 +10,7 @@ import { TheGraphApi } from 'api/thegraph.api';
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
 
@@ -24,7 +24,7 @@ export function Map() {
   const dispatch = useAppDispatch();
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);

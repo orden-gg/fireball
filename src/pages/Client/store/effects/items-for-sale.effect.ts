@@ -20,19 +20,13 @@ import {
   TicketForSale,
   WearableForSale
 } from '../../models';
-import {
-  initialItemsForSale,
-  loadItemsForSale,
-  loadItemsForSaleFailed,
-  loadItemsForSaleSucceded,
-  resetItemsForSale,
-  setIsInitialItemsForSaleLoading
-} from '../slices';
+// slices
+import * as itemsForSaleSlices from '../slices/items-for-sale.slice';
 
 export const onLoadItemsForSale =
   (address: string): AppThunk =>
   (dispatch) => {
-    dispatch(loadItemsForSale());
+    dispatch(itemsForSaleSlices.loadItemsForSale());
 
     Promise.all([
       ClientApi.getErc721ListingsBySeller(address),
@@ -49,7 +43,7 @@ export const onLoadItemsForSale =
             erc721Listings.length === 0 && erc1155Listings.length === 0 && realmListings.length === 0;
 
           if (isListingsEmpty) {
-            dispatch(loadItemsForSaleSucceded({ ...initialItemsForSale }));
+            dispatch(itemsForSaleSlices.loadItemsForSaleSucceded({ ...itemsForSaleSlices.initialItemsForSale }));
           } else {
             const listedGotchis: GotchiForSale[] = getMappedListedGotchis(erc721Listings);
             const listedPortlas: PortalForSaleVM[] = getMappedListedPortals(erc721Listings);
@@ -59,7 +53,7 @@ export const onLoadItemsForSale =
             const listedConsumables: ConsumableForSale[] = getMappedListedConsumables(erc1155Listings);
 
             dispatch(
-              loadItemsForSaleSucceded({
+              itemsForSaleSlices.loadItemsForSaleSucceded({
                 gotchis: listedGotchis,
                 portals: listedPortlas,
                 parcels: listedParcels,
@@ -72,10 +66,10 @@ export const onLoadItemsForSale =
         }
       )
       .catch(() => {
-        dispatch(resetItemsForSale());
-        dispatch(loadItemsForSaleFailed());
+        dispatch(itemsForSaleSlices.resetItemsForSale());
+        dispatch(itemsForSaleSlices.loadItemsForSaleFailed());
       })
-      .finally(() => dispatch(setIsInitialItemsForSaleLoading(false)));
+      .finally(() => dispatch(itemsForSaleSlices.setIsInitialItemsForSaleLoading(false)));
   };
 
 const getMappedListedGotchis = (listings: Erc721ForSaleDTO[]): GotchiForSale[] => {

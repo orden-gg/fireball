@@ -7,17 +7,13 @@ import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheG
 
 import { CommonUtils, IdentityUtils } from 'utils';
 
-import {
-  loadLentGotchis,
-  loadLentGotchisFailed,
-  loadLentGotchisSucceded,
-  setIsInitialLentGotchisLoading
-} from '../slices';
+// slices
+import * as lentGotchisSlices from '../slices/lent-gotchis.slice';
 
 export const onLoadLentGotchis =
   (address: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadLentGotchis());
+    dispatch(lentGotchisSlices.loadLentGotchis());
 
     const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
@@ -43,14 +39,14 @@ export const onLoadLentGotchis =
               // Will be deleted as soon as thegraph updated
               IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
                 .then((gotchis: CustomAny[]) => {
-                  dispatch(loadLentGotchisSucceded(gotchis));
+                  dispatch(lentGotchisSlices.loadLentGotchisSucceded(gotchis));
                 })
-                .finally(() => dispatch(setIsInitialLentGotchisLoading(false)));
+                .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
             })
-            .catch(() => dispatch(loadLentGotchisFailed()));
+            .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()));
         } else {
-          dispatch(setIsInitialLentGotchisLoading(false));
+          dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
         }
       })
-      .catch(() => dispatch(loadLentGotchisFailed()));
+      .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()));
   };

@@ -1,9 +1,19 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { InstallationAndTile } from '../../models';
+import { TilesState } from '../slices';
 
-export const getTiles = (state: RootState): InstallationAndTile[] => state.client.tiles.tiles.data;
+const tilesStateSelector = createSelector(
+  (state: RootState) => state.client.tiles,
+  (tilesState: TilesState) => tilesState
+);
 
-export const getTilesCount = (state: RootState): number => state.client.tiles.tiles.data.length;
+export const getTiles = createSelector(tilesStateSelector, (state: TilesState) => state.tiles.data);
 
-export const getIsInitialTilesLoading = (state: RootState): boolean => state.client.tiles.isInitialTilesLoading;
+export const getTilesCount = createSelector(tilesStateSelector, (state: TilesState) => state.tiles.data.length);
+
+export const getIsInitialTilesLoading = createSelector(
+  tilesStateSelector,
+  (state: TilesState) => state.isInitialTilesLoading
+);
