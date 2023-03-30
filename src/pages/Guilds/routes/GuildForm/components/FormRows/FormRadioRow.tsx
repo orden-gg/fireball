@@ -2,11 +2,16 @@ import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { FormDataItem } from '../../GuildForm';
+import { FormRowProps } from 'pages/Guilds/models';
+
 import { guildFormRowStyles } from './styles';
 
-export function FormRadioRow({ item }: { item: FormDataItem }) {
+export function FormRadioRow({ item, onFieldUpdate }: FormRowProps) {
   const classes = guildFormRowStyles();
+
+  const handleRadioChange = (event) => {
+    onFieldUpdate(item.key, event.target.value);
+  };
 
   const renderRadio = (value: string[]) => {
     return (
@@ -15,6 +20,7 @@ export function FormRadioRow({ item }: { item: FormDataItem }) {
         aria-labelledby='demo-radio-buttons-group-label'
         defaultValue={value[0]}
         name='radio-buttons-group'
+        onChange={handleRadioChange}
       >
         {value.map((value: string, index: number) => (
           <FormControlLabel key={index} className={classes.formRadio} value={value} control={<Radio />} label={value} />

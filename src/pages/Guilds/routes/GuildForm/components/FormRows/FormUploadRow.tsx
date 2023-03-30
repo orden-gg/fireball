@@ -3,12 +3,17 @@ import { Button } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { FormDataItem } from '../../GuildForm';
+import { FormRowProps } from 'pages/Guilds/models';
+
 import { FieldText } from '../FieldText/FieldText';
 import { guildFormRowStyles } from './styles';
 
-export function FormUploadRow({ item }: { item: FormDataItem }) {
+export function FormUploadRow({ item, onFieldUpdate }: FormRowProps) {
   const classes = guildFormRowStyles();
+
+  const handleInputChange = (event) => {
+    onFieldUpdate(item.key, event.target.value);
+  };
 
   return (
     <div className={classes.formRow}>
@@ -20,7 +25,14 @@ export function FormUploadRow({ item }: { item: FormDataItem }) {
       </label>
       <div className={classes.formRowBody}>
         <label htmlFor='contained-button-file'>
-          <input accept='image/*' id='contained-button-file' multiple type='file' className={classes.formUploadInput} />
+          <input
+            accept='image/*'
+            id='contained-button-file'
+            multiple
+            type='file'
+            className={classes.formUploadInput}
+            onChange={handleInputChange}
+          />
           <Button
             variant='contained'
             size='medium'

@@ -2,12 +2,17 @@ import { TextField } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { FormDataItem } from '../../GuildForm';
+import { FormRowProps } from 'pages/Guilds/models';
+
 import { FieldText } from '../FieldText/FieldText';
 import { guildFormRowStyles } from './styles';
 
-export function FormTextereaRow({ item }: { item: FormDataItem }) {
+export function FormTextereaRow({ item, onFieldUpdate }: FormRowProps) {
   const classes = guildFormRowStyles();
+
+  const handleInputChange = (event) => {
+    onFieldUpdate(item.key, event.target.value);
+  };
 
   return (
     <div className={classes.formRow}>
@@ -23,6 +28,7 @@ export function FormTextereaRow({ item }: { item: FormDataItem }) {
           maxRows={8}
           fullWidth
           multiline
+          onChange={handleInputChange}
         />
         {item.error ? <FieldText type='success'>{item.error}</FieldText> : <></>}
       </div>
