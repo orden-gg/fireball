@@ -1,36 +1,34 @@
 import { TextField } from '@mui/material';
 
 import classNames from 'classnames';
+import { useField } from 'formik';
 
 import { FormRowProps } from 'pages/Guilds/models';
 
-import { FieldText } from '../FieldText/FieldText';
 import { guildFormRowStyles } from './styles';
 
-export function FormTextereaRow({ item, onFieldUpdate }: FormRowProps) {
+export function FormTextereaRow({ fieldData }: FormRowProps) {
   const classes = guildFormRowStyles();
-
-  const handleInputChange = (event) => {
-    onFieldUpdate(item.key, event.target.value);
-  };
+  const [field, meta] = useField(fieldData.key);
 
   return (
     <div className={classes.formRow}>
-      <label htmlFor='id1' className={classNames(classes.formLabel, item.required && classes.required)}>
-        {item.label}
+      <label htmlFor={fieldData.key} className={classNames(classes.formLabel, fieldData.required && classes.required)}>
+        {fieldData.label}
       </label>
       <div className={classes.formRowBody}>
         <TextField
-          id='id2'
-          placeholder={item.value as string}
+          {...field}
+          id={fieldData.key}
+          error={meta.touched && Boolean(meta.error)}
+          helperText={meta.touched && meta.error}
+          placeholder={fieldData.placeholder}
           className={classes.formInput}
-          minRows={3}
-          maxRows={8}
           fullWidth
           multiline
-          onChange={handleInputChange}
+          minRows={3}
+          maxRows={8}
         />
-        {item.error ? <FieldText type='success'>{item.error}</FieldText> : <></>}
       </div>
     </div>
   );

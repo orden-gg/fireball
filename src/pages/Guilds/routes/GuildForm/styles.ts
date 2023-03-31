@@ -19,14 +19,14 @@ export const guildFormStyles = makeStyles((theme) =>
     formTitle: {
       textAlign: 'center'
     },
-    formSubmitButton: {
-      width: 240,
-      margin: 'auto'
-    },
     formFooter: {
       marginTop: theme.spacing(3),
       display: 'flex',
       justifyContent: 'center'
+    },
+    formSubmitButton: {
+      width: 240,
+      margin: 'auto'
     }
   })
 );

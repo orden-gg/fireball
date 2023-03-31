@@ -1,10 +1,11 @@
 export interface FormDataItem {
-  key: string;
   required: boolean;
+  key: string;
   label: string;
-  value: string | string[];
-  error?: string;
-  result?: string;
+  placeholder: string;
+  // errors?: {
+  //   [key: string]: string;
+  // };
 }
 
 export interface FormDataType {
@@ -12,6 +13,7 @@ export interface FormDataType {
 }
 
 export interface FormRowProps {
-  item: FormDataItem;
-  onFieldUpdate: (name: string, result: string) => void;
+  fieldData: FormDataItem;
+  // error?: boolean;
+  // helperText?: string | false;
 }

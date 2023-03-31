@@ -1,96 +1,88 @@
-import { useCallback, useEffect, useState } from 'react';
-
 import { Button } from '@mui/material';
 
-// import { useAppSelector } from 'core/store/hooks';
-// import * as fromLoginStore from 'core/store/login';
+import { Form, Formik } from 'formik';
+import * as yup from 'yup';
+
+import { useAppSelector } from 'core/store/hooks';
+import * as fromLoginStore from 'core/store/login';
+
 import { FormDataType } from 'pages/Guilds/models';
 
-import { FormFieldRow, FormTextereaRow, FormUploadRow } from './components/FormRows';
+import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
+
+import { FormFieldRow, FormTextereaRow } from './components/FormRows';
 import { guildFormStyles } from './styles';
+
+const validationSchema = yup.object({
+  name: yup.string().min(2, 'Name must be at least 2 characters').max(22, 'Name must not exceed 22 characters'),
+  logo: yup.string().url('Invalid url format').required('Url is required'),
+  description: yup
+    .string()
+    .min(20, 'Name must be at least 20 characters')
+    .max(100, 'Name must not exceed 100 characters')
+});
+
+const formData: FormDataType = {
+  name: {
+    required: true,
+    key: 'name',
+    label: 'Set name',
+    placeholder: 'name'
+  },
+  logo: {
+    required: true,
+    key: 'logo',
+    label: 'Set logo url',
+    placeholder: 'Upload'
+  },
+  description: {
+    required: true,
+    key: 'description',
+    label: 'Set description',
+    placeholder: 'description'
+  }
+};
 
 export function GuildForm() {
   const classes = guildFormStyles();
-  const [formData, setFormData] = useState<FormDataType>({
-    name: {
-      key: 'name',
-      required: true,
-      label: 'Set name',
-      value: 'name',
-      error:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet maiores repellendus quo debitis eveniet aut cumque ipsum ex aperiam tempora.'
-    },
-    logo: {
-      key: 'logo',
-      required: true,
-      label: 'Upload Logo',
-      value: 'Upload',
-      error: 'Lorem ipsum dolor sit amet.'
-    },
-    description: {
-      key: 'description',
-      required: true,
-      label: 'Description',
-      value: 'description',
-      error: 'Lorem ipsum dolor sit amet. onsectetur adipisicing elit. Amet maiores '
-    }
-    // warehouse: {
-    //   required: false,
-    //   label: 'Warehouse type',
-    //   value: ['2/3', '3/4', '4/5']
-    // },
-    // socials: {
-    //   required: false,
-    //   label: 'Socials',
-    //   value: ['twitter', 'discord']
-    // }
-  });
-  // const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
 
-  useEffect(() => {}, []);
+  const handleSubmit = (values) => {
+    console.log(`Submitted name: ${values.name}, url: ${values.url}`);
+  };
 
-  const onFieldUpdate = useCallback(
-    (name: string, result: string) => {
-      setFormData((formData: FormDataType) => {
-        formData[name].result = result;
-
-        return { ...formData };
-      });
-    },
-    [formData]
-  );
-
-  const submitForm = useCallback(() => {
-    // setFormData();
-  }, [formData]);
-
-  return (
+  return connectedWallet ? (
     <div className={classes.formWrappper}>
       <h1 className={classes.formTitle}>Registrate Guild</h1>
+      <Formik
+        initialValues={{ name: '', logo: '', description: '1' }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ dirty, isValid }) => (
+          <Form className={classes.formContent}>
+            <FormFieldRow fieldData={formData.name} />
 
-      <form className={classes.formContent}>
-        <FormFieldRow item={formData.name} onFieldUpdate={onFieldUpdate} />
+            <FormFieldRow fieldData={formData.logo} />
 
-        <FormUploadRow item={formData.logo} onFieldUpdate={onFieldUpdate} />
+            <FormTextereaRow fieldData={formData.description} />
 
-        <FormTextereaRow item={formData.description} onFieldUpdate={onFieldUpdate} />
-
-        {/* <FormRadioRow item={formData.warehouse} />
-
-        <FormFieldRow item={formData.socials} /> */}
-
-        <div className={classes.formFooter}>
-          <Button
-            size='large'
-            variant='contained'
-            type='submit'
-            className={classes.formSubmitButton}
-            onClick={submitForm}
-          >
-            Create guild
-          </Button>
-        </div>
-      </form>
+            <div className={classes.formFooter}>
+              <Button
+                type='submit'
+                size='large'
+                variant='contained'
+                className={classes.formSubmitButton}
+                disabled={!dirty || !isValid}
+              >
+                Create guild
+              </Button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
+  ) : (
+    <ConnectWallet />
   );
 }

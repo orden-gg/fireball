@@ -12,8 +12,10 @@ export const guildFormRowStyles = makeStyles((theme) =>
       width: 540
     },
     formInput: {
-      backgroundColor: theme.palette.background.secondary,
-      width: '100%'
+      width: '100%',
+      '& $MuiInputBase-root': {
+        backgroundColor: theme.palette.background.secondary
+      }
     },
     formLabel: {
       width: 180,
