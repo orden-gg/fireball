@@ -5,7 +5,7 @@ export const guildFormRowStyles = makeStyles((theme) =>
     formRow: {
       display: 'flex',
       justifyContent: 'center',
-      margin: theme.spacing(1, 0),
+      margin: theme.spacing(3, 0),
       alignItems: 'flex-start'
     },
     formRowBody: {

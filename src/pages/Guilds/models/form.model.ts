@@ -1,11 +1,7 @@
 export interface FormDataItem {
-  required: boolean;
   key: string;
   label: string;
   placeholder: string;
-  // errors?: {
-  //   [key: string]: string;
-  // };
 }
 
 export interface FormDataType {
@@ -14,6 +10,4 @@ export interface FormDataType {
 
 export interface FormRowProps {
   fieldData: FormDataItem;
-  // error?: boolean;
-  // helperText?: string | false;
 }
