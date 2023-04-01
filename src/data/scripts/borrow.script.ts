@@ -37,7 +37,8 @@ const MAX_KINSHIP = 621;
 const MIN_KINSHIP = 502;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
-const txCostLimit = 155 * 1e9;
+const txCostLimit = new ethers.BigNumber(1, '1000000000');
+
 let interval;
 let totalBorrowedTemp = 0;
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
@@ -198,7 +199,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                 });
                 console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
               })
-              .catch((error: CustomAny) =>
+              .catch((error) =>
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
               );
           }
