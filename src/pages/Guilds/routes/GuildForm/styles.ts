@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const guildFormStyles = makeStyles((theme) =>
   createStyles({
-    formWrappper: {
+    formWrapper: {
       maxWidth: 1000,
       width: '100%',
       margin: 'auto',

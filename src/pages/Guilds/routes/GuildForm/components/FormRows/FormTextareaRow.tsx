@@ -8,7 +8,7 @@ import { FormRowProps } from 'pages/Guilds/models';
 
 import { guildFormRowStyles } from './styles';
 
-export function FormTextereaRow({ fieldData }: FormRowProps) {
+export function FormTextareaRow({ fieldData }: FormRowProps) {
   const classes = guildFormRowStyles();
   const [field, meta] = useField(fieldData.key);
   const defaultValue: string = validationSchema.fields[fieldData.key].default();

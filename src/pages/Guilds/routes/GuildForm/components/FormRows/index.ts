@@ -1,2 +1,2 @@
 export { FormFieldRow } from './FormFieldRow';
-export { FormTextereaRow } from './FormTextereaRow';
+export { FormTextareaRow } from './FormTextareaRow';

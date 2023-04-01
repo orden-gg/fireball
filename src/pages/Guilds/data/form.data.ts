@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { FormDataType } from '../models';
+import { FormDataItem, FormValuesResult } from '../models';
 
 export const validationSchema = yup.object().shape({
   name: yup
@@ -24,7 +24,7 @@ export const validationSchema = yup.object().shape({
     .default('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
 });
 
-export const formData: FormDataType = {
+export const formData: { [key: string]: FormDataItem } = {
   name: {
     key: 'name',
     label: 'Guild name',
@@ -41,3 +41,5 @@ export const formData: FormDataType = {
     placeholder: 'description'
   }
 };
+
+export const initialValues: FormValuesResult = { name: '', logo: '', description: '' };
