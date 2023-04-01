@@ -1,2 +1,2 @@
-export { FormFieldRow } from './FormFieldRow';
-export { FormTextareaRow } from './FormTextareaRow';
+export { GuildFormFieldRow } from './GuildFormFieldRow';
+export { GuildFormTextareaRow } from './GuildFormTextareaRow';

@@ -8,11 +8,11 @@ import { GuildRegistrationApi } from 'pages/Guilds/api/guild.api';
 import { useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
 
-import { formData, initialValues, validationSchema } from 'pages/Guilds/data';
+import { guildFormData, initialValues, validationSchema } from 'pages/Guilds/data';
 
 import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
 
-import { FormFieldRow, FormTextareaRow } from './components/FormRows';
+import { GuildFormFieldRow, GuildFormTextareaRow } from './components/FormRows';
 import { guildFormStyles } from './styles';
 
 export function GuildForm() {
@@ -35,33 +35,35 @@ export function GuildForm() {
 
   return connectedWallet && metaState.isAvailable ? (
     <div className={classes.formWrapper}>
-      <h1 className={classes.formTitle}>Registrate Guild</h1>
+      <h1 className={classes.formTitle}>Guild Register</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        validateOnChange={true}
         onSubmit={handleSubmit}
+        validateOnChange
       >
         {({ isValid, isSubmitting }) => (
-          <Form className={classes.formContent}>
-            <Field component={FormFieldRow} fieldData={formData.name} />
+          <div className={classes.formContent}>
+            <Form className={classes.form}>
+              <Field component={GuildFormFieldRow} fieldData={guildFormData.name} />
 
-            <Field component={FormFieldRow} fieldData={formData.logo} />
+              <Field component={GuildFormFieldRow} fieldData={guildFormData.logo} />
 
-            <Field component={FormTextareaRow} fieldData={formData.description} />
+              <Field component={GuildFormTextareaRow} fieldData={guildFormData.description} />
 
-            <div className={classes.formFooter}>
-              <Button
-                type='submit'
-                size='large'
-                variant='contained'
-                className={classes.formSubmitButton}
-                disabled={!isValid || isSubmitting}
-              >
-                Create guild
-              </Button>
-            </div>
-          </Form>
+              <div className={classes.formFooter}>
+                <Button
+                  type='submit'
+                  size='large'
+                  variant='contained'
+                  className={classes.formSubmitButton}
+                  disabled={!isValid || isSubmitting}
+                >
+                  Create guild
+                </Button>
+              </div>
+            </Form>
+          </div>
         )}
       </Formik>
     </div>

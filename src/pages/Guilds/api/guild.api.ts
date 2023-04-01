@@ -2,10 +2,10 @@ import { EthersApi } from 'api';
 
 import GUILD_REGISTRATION_ABI from '../abis/guild-registration.abi.json';
 import { GUILD_REGISTRATION_CONTRACT } from '../constants';
-import { FormValuesResult } from '../models';
+import { GuildFormValuesResult } from '../models';
 
 export class GuildRegistrationApi {
-  public static async createGuildSafe(uri: FormValuesResult) {
+  public static async createGuildSafe(uri: GuildFormValuesResult) {
     const contractWithSigner = EthersApi.makeContractWithSigner(GUILD_REGISTRATION_CONTRACT, GUILD_REGISTRATION_ABI);
 
     try {

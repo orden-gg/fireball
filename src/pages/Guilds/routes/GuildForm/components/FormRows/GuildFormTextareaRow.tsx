@@ -4,11 +4,11 @@ import classNames from 'classnames';
 import { useField } from 'formik';
 
 import { validationSchema } from 'pages/Guilds/data';
-import { FormRowProps } from 'pages/Guilds/models';
+import { GuildFormRowProps } from 'pages/Guilds/models';
 
 import { guildFormRowStyles } from './styles';
 
-export function FormFieldRow({ fieldData }: FormRowProps) {
+export function GuildFormTextareaRow({ fieldData }: GuildFormRowProps) {
   const classes = guildFormRowStyles();
   const [field, meta] = useField(fieldData.key);
   const defaultValue: string = validationSchema.fields[fieldData.key].default();
@@ -22,12 +22,15 @@ export function FormFieldRow({ fieldData }: FormRowProps) {
       <div className={classes.formRowBody}>
         <TextField
           {...field}
-          className={classes.formInput}
-          error={meta.touched && Boolean(meta.error)}
-          fullWidth
-          helperText={meta.touched ? meta.error || defaultValue : defaultValue}
           id={fieldData.key}
+          error={meta.touched && Boolean(meta.error)}
+          helperText={meta.touched ? meta.error || defaultValue : defaultValue}
           placeholder={fieldData.placeholder}
+          className={classes.formInput}
+          fullWidth
+          multiline
+          minRows={3}
+          maxRows={8}
           required={isRequired}
         />
       </div>

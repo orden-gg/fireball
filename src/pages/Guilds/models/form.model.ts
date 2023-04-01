@@ -1,16 +1,16 @@
 import { FromFieldsNames } from '../enums';
 
-export interface FormDataItem {
+export interface GuildFormDataItem {
   key: string;
   label: string;
   placeholder: string;
 }
 
-export interface FormRowProps {
-  fieldData: FormDataItem;
+export interface GuildFormRowProps {
+  fieldData: GuildFormDataItem;
 }
 
-export interface FormValuesResult {
+export interface GuildFormValuesResult {
   [FromFieldsNames.Name]: string;
   [FromFieldsNames.Logo]: string;
   [FromFieldsNames.Description]: string;

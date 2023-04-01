@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { FormDataItem, FormValuesResult } from '../models';
+import { GuildFormDataItem, GuildFormValuesResult } from '../models';
 
 export const validationSchema = yup.object().shape({
   name: yup
@@ -24,7 +24,7 @@ export const validationSchema = yup.object().shape({
     .default('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
 });
 
-export const formData: { [key: string]: FormDataItem } = {
+export const guildFormData: { [key: string]: GuildFormDataItem } = {
   name: {
     key: 'name',
     label: 'Guild name',
@@ -42,4 +42,4 @@ export const formData: { [key: string]: FormDataItem } = {
   }
 };
 
-export const initialValues: FormValuesResult = { name: '', logo: '', description: '' };
+export const initialValues: GuildFormValuesResult = { name: '', logo: '', description: '' };
