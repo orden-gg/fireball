@@ -1,16 +1,17 @@
-import { Contract } from 'ethers';
-
-import { GUILD_REGISTRATION_CONTRACT } from '../constants/api.constants';
 import { EthersApi } from 'api';
 
 import GUILD_REGISTRATION_ABI from '../abis/guild-registration.abi.json';
-
-const guildContract = EthersApi.makeContract(GUILD_REGISTRATION_CONTRACT, GUILD_REGISTRATION_ABI, 'georli');
+import { GUILD_REGISTRATION_CONTRACT } from '../constants';
+import { FormValuesResult } from '../models';
 
 export class GuildRegistrationApi {
-  public static getContract(): Contract {
-    return guildContract;
-  }
+  public static async createGuildSafe(uri: FormValuesResult) {
+    const contractWithSigner = EthersApi.makeContractWithSigner(GUILD_REGISTRATION_CONTRACT, GUILD_REGISTRATION_ABI);
 
-  public static createGuildSafe() {}
+    try {
+      return await contractWithSigner.createGuild(JSON.stringify(uri));
+    } catch (error) {
+      return false;
+    }
+  }
 }
