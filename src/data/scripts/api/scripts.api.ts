@@ -8,7 +8,7 @@ import { MAIN_CONTRACT, POLYGON_RPC } from '../../../shared/constants/api.consta
 const main_abi_file = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(main_abi_file.toString());
 
-const provider: CustomAny = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
+const provider = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
 
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
 export const SCRIPT_WALLET_ADDRESS = SCRIPT_WALLET.address.toLowerCase();
