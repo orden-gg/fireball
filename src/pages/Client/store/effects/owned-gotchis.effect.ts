@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import { TheGraphApi } from 'api';
-import { ClientApi } from 'pages/Client/api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -41,10 +40,10 @@ export const onLoadOwnedGotchis =
         dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
 
         const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
-        const ids: number[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
+        const gotchiIds: number[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
 
-        if (ids.length > 0) {
-          ClientApi.getFireballGotchisByIds(ids)
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedGotchis: GotchiExtended[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => {
                 return {

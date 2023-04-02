@@ -1,5 +1,4 @@
 import { TheGraphApi } from 'api';
-import { ClientApi } from 'pages/Client/api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -24,10 +23,10 @@ export const onLoadLentGotchis =
         });
 
         const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
-        const ids: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
+        const gotchiIds: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
-        if (ids.length > 0) {
-          ClientApi.getFireballGotchisByIds(ids)
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map(
                 (lending: GotchiLending) => {

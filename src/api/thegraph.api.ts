@@ -11,12 +11,13 @@ import {
   FireballGotchi,
   Gotchi,
   SalesHistoryModel,
+  TheGraphBatchData,
   TheGraphResponse
 } from 'shared/models';
 
-import { ItemUtils } from 'utils';
+import { GraphUtils, ItemUtils } from 'utils';
 
-import { gotchiQuery, playerInventoryQuery } from './common/fireballMain.queries';
+import { gotchiBatchQuery, gotchiQuery, playerInventoryQuery } from './common/fireballMain.queries';
 import {
   activeListingQeury,
   auctionQuery,
@@ -656,5 +657,14 @@ export class TheGraphApi {
     return getGraphData(clientFactory.fireballMainClient, gotchiQuery(id)).then(
       (res: TheGraphResponse<{ gotchi: FireballGotchi }>) => modifyTraits([res.data.gotchi])[0]
     );
+  }
+
+  public static getFireballGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FireballGotchi>[]> {
+    return TheGraphCoreApi.getGraphData(
+      GRAPH_FIREBALL_MAIN_API,
+      GraphUtils.getCombinedQueriesByIds(ids, gotchiBatchQuery)
+    ).then((response: TheGraphResponse<TheGraphBatchData<FireballGotchi>[]>) => {
+      return response.data;
+    });
   }
 }

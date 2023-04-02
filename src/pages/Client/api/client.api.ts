@@ -1,18 +1,10 @@
 import { TheGraphCoreApi } from 'api';
 
-import {
-  Erc721Categories,
-  GRAPH_CORE_API,
-  GRAPH_FAKE_GOTCHIS_API,
-  GRAPH_FIREBALL_API,
-  GRAPH_FIREBALL_MAIN_API
-} from 'shared/constants';
-import { Erc721ListingsBatch, FireballGotchi, TheGraphBatchData, TheGraphResponse } from 'shared/models';
-
-import { GraphUtils } from 'utils';
+import { Erc721Categories, GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
 
 import { Erc721ForSaleDTO, Erc1155ForSaleDTO, FakeItemsDTO, ParcelForSaleDTO } from '../models';
-import { getErc721ListingsByCategoriesQuery, gotchiBatchQuery } from '../queries';
+import { getErc721ListingsByCategoriesQuery } from '../queries';
 import {
   erc721ListingsBySellerQuery,
   erc1155ListingsBySellerQuery,
@@ -60,14 +52,5 @@ export class ClientApi {
     return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, erc1155ListingsBySellerQuery(seller)).then(
       (response: TheGraphResponse<{ erc1155Listings: Erc1155ForSaleDTO[] }>) => response.data.erc1155Listings
     );
-  }
-
-  public static getFireballGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FireballGotchi>[]> {
-    return TheGraphCoreApi.getGraphData(
-      GRAPH_FIREBALL_MAIN_API,
-      GraphUtils.getCombinedQueriesByIds(ids, gotchiBatchQuery)
-    ).then((response: TheGraphResponse<TheGraphBatchData<FireballGotchi>[]>) => {
-      return response.data;
-    });
   }
 }

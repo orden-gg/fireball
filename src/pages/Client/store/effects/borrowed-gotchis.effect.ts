@@ -1,5 +1,4 @@
 import { TheGraphApi } from 'api';
-import { ClientApi } from 'pages/Client/api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -20,10 +19,10 @@ export const onLoadBorrowedGotchis =
     TheGraphApi.getBorrowedByAddress(address)
       .then((borrowedGotchis: GotchiLending[]) => {
         const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
-        const ids: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
+        const gotchiIds: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
-        if (ids.length > 0) {
-          ClientApi.getFireballGotchisByIds(ids)
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedBorrowedGotchis.map(
                 (lending: GotchiLending) => {

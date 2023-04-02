@@ -5,9 +5,6 @@ const items: string = `
 `;
 
 const identity: string = `
-  shape
-  color
-  collateral
   claimed {
     gotchiId
   }
@@ -19,6 +16,7 @@ const identity: string = `
 const gotchi: string = `
   availableSkillPoints
   badges
+  lending
   identity {
     ${identity}
   }
@@ -40,4 +38,12 @@ export const playerInventoryQuery = (address: string): string => {
       }
     }
   }`;
+};
+
+export const gotchiBatchQuery = (id: number): string => {
+  return `
+    gotchi${id}: gotchi(id: ${id}) {
+      ${gotchi}
+    }
+  `;
 };
