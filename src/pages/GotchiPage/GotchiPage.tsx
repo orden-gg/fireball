@@ -45,7 +45,7 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-import { GotchiUtils, IdentityUtils } from 'utils';
+import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
 import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
@@ -83,11 +83,8 @@ export function GotchiPage() {
           .concat(fireballGotchi.badges)
           .filter((id: number) => id !== 0);
 
-        // Will be deleted as soon as thegraph updated
-        const updatedGotchi: GotchiExtended = await IdentityUtils.getUpdatedIdentity(extendedGotchi);
-
+        setGotchi(extendedGotchi);
         setGotchiInventory(sortedInventory);
-        setGotchi(updatedGotchi);
         setGotchiLoaded(true);
       })
       .catch((error) => console.log(error));

@@ -5,7 +5,7 @@ import { AppThunk } from 'core/store/store';
 
 import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
 
-import { CommonUtils, IdentityUtils } from 'utils';
+import { CommonUtils } from 'utils';
 
 // slices
 import * as borrowedGotchisSlices from '../slices/borrowed-gotchis.slice';
@@ -23,7 +23,6 @@ export const onLoadBorrowedGotchis =
         const ids: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedBorrowedGotchis.map(
@@ -31,19 +30,20 @@ export const onLoadBorrowedGotchis =
                   return { ...lending, ...fireballGotchis[`gotchi${lending.id}`] };
                 }
               );
-
-              // TODO: Will be deleted as soon as thegraph updated
-              IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
-                .then((gotchis: CustomAny[]) => {
-                  dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(gotchis));
-                })
-                .finally(() => dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false)));
+              dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(extendedLendingGotchis));
             })
-            .catch(() => dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed()));
+            .catch(() => {
+              dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed());
+              dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
+            })
+            .finally(() => dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false)));
         } else {
           dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded([]));
           dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false));
         }
       })
-      .catch(() => dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed()));
+      .catch(() => {
+        dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed());
+        dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false));
+      });
   };

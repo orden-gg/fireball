@@ -23,20 +23,6 @@ const gotchi: string = `
     ${identity}
   }
 `;
-// Will be used shortly
-export const playerGotchisQuery = (address: string, skip: number): string => {
-  return `{
-    player(id: "${address}") {
-      id
-      gotchisOriginalOwned(
-        first: 1000
-        skip: ${skip}
-      ) {
-        ${gotchi}
-      }
-    }
-  }`;
-};
 
 export const gotchiQuery = (id: number): string => {
   return `{
@@ -52,14 +38,6 @@ export const playerInventoryQuery = (address: string): string => {
       items {
         ${items}
       }
-    }
-  }`;
-};
-
-export const indentityQuery = (id: string): string => {
-  return `{
-    identity(id: "${id}") {
-      ${identity}
     }
   }`;
 };

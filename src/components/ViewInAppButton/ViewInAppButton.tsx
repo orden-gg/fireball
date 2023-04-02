@@ -11,7 +11,7 @@ interface ViewInAppButtonProps {
   target?: string;
 }
 
-export function ViewInAppButton({ target = '_blank', link, children, className }: ViewInAppButtonProps) {
+export function ViewInAppButton({ link, children, target = '_blank', className }: ViewInAppButtonProps) {
   const classes = styles();
 
   return (

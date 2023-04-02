@@ -6,5 +6,8 @@ export const GRAPH_REALM_API: string = 'https://api.thegraph.com/subgraphs/name/
 export const GRAPH_GOTCHIVERSE_API: string = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
 export const GRAPH_INCOME_API: string = 'https://api.thegraph.com/subgraphs/name/nicolasnin/gotchiincome';
 export const GRAPH_FAKE_GOTCHIS_API: string = 'https://api.thegraph.com/subgraphs/name/aavegotchi/fake-gotchis-matic';
-export const GRAPH_FIREBALL_MAIN_API: string = 'https://api.thegraph.com/subgraphs/name/dudendy/kratoman';
+
+// export const GRAPH_FIREBALL_MAIN_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/main';
+export const GRAPH_FIREBALL_MAIN_API: string =
+  'https://api.thegraph.com/subgraphs/id/QmfKuarJdk52CwG7GfpqpLFSWMNkeE66mgM7jnUCW9Nnm7';
 export const GRAPH_FIREBALL_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/gotchiverse';

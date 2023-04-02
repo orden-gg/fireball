@@ -8,7 +8,7 @@ import { AppThunk } from 'core/store/store';
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
 import { FireballGotchi, GotchiExtended, SortingItem, TheGraphBatchData, WearableTypeBenefit } from 'shared/models';
 
-import { CommonUtils, IdentityUtils, ItemUtils } from 'utils';
+import { CommonUtils, ItemUtils } from 'utils';
 
 import { WEARABLES_TYPES_BENEFITS } from 'data/wearable-types-benefits.data';
 
@@ -29,48 +29,43 @@ export const onLoadOwnedGotchis =
 
     TheGraphApi.getGotchisByAddress(address)
       .then((ownedGotchis: OwnedGotchi[]) => {
-        const ids: number[] = ownedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
+        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+
+        const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
+        const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
+          warehouseItems,
+          warehouseSortType,
+          warehouseSortDir
+        );
+
+        dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
+
+        const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
+        const ids: number[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
-              const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
-              const extendedGotchis: GotchiExtended[] = ownedGotchis.map((gotchi: OwnedGotchi) => {
+              const extendedGotchis: GotchiExtended[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => {
                 return {
                   ...gotchi,
                   ...fireballGotchis[`gotchi${gotchi.id}`]
                 };
               });
 
-              const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
-              const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
-                warehouseItems,
-                warehouseSortType,
-                warehouseSortDir
-              );
-
-              // TODO: Will be deleted as soon as thegraph updated
-              IdentityUtils.getUpdatedIdentities(extendedGotchis)
-                .then((gotchis: GotchiExtended[]) => {
-                  const sortedOwnedGotchis: GotchiExtended[] = CommonUtils.basicSort(
-                    gotchis,
-                    gotchisSortType,
-                    gotchisSortDir
-                  );
-
-                  dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
-                  dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
-                })
-                .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
+              dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(extendedGotchis));
             })
-            .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()));
+            .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
+            .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
         } else {
-          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded([]));
+          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(ownedGotchis));
           dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false));
         }
       })
-      .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()));
+      .catch(() => {
+        dispatch(ownedGotchisSlices.loadOwnedGotchisFailed());
+        dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false));
+      });
   };
 
 const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {

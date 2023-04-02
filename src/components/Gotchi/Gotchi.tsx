@@ -98,7 +98,7 @@ export function Gotchi({
     },
 
     get identity(): ReactElement {
-      return <GotchiIdentity identity={gotchi.identity} key={`${gotchi.id}-identity`} />;
+      return <GotchiIdentity identityQuantity={gotchi.identity.claimed.length} key={`${gotchi.id}-identity`} />;
     },
 
     get collateral() {

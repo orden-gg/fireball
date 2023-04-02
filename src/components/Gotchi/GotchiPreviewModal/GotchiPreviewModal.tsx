@@ -33,7 +33,7 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-import { GotchiUtils, IdentityUtils } from 'utils';
+import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
 
@@ -71,11 +71,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
             const sortedInventory: number[] = gotchi.equippedWearables
               .concat(fireballGotchis.badges)
               .filter((id: number) => id !== 0);
-
-            // Will be deleted as soon as thegraph updated
-            const updatedGotchi: GotchiExtended = await IdentityUtils.getUpdatedIdentity(extendedGotchi);
-
-            setModalGotchi(updatedGotchi);
 
             setGotchiInventory(sortedInventory);
             setModalGotchi(extendedGotchi);

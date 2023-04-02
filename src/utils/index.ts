@@ -14,4 +14,3 @@ export * from './route.utils';
 export * from './tiles.utils';
 export * from './gotchi.utils';
 export * from './alchemica.utils';
-export * from './identity.utils';

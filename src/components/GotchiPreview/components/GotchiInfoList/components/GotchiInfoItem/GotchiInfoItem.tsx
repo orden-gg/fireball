@@ -14,7 +14,7 @@ interface GotchiInfoItemProps {
   className?: string;
 }
 
-export function GotchiInfoItem({ isLoaded = true, label, value, title, className }: GotchiInfoItemProps) {
+export function GotchiInfoItem({ label, value, isLoaded = true, title, className }: GotchiInfoItemProps) {
   const classes = gotchiInfoItemStyles();
 
   const renderItem = () => {

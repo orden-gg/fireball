@@ -5,7 +5,7 @@ import { AppThunk } from 'core/store/store';
 
 import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
 
-import { CommonUtils, IdentityUtils } from 'utils';
+import { CommonUtils } from 'utils';
 
 // slices
 import * as lentGotchisSlices from '../slices/lent-gotchis.slice';
@@ -27,7 +27,6 @@ export const onLoadLentGotchis =
         const ids: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
         if (ids.length > 0) {
-          // TODO: Should be reworked when gotchi originalOwner will be fixed at FB graph
           ClientApi.getFireballGotchisByIds(ids)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map(
@@ -36,18 +35,20 @@ export const onLoadLentGotchis =
                 }
               );
 
-              // TODO: Will be deleted as soon as thegraph updated
-              IdentityUtils.getUpdatedIdentities(extendedLendingGotchis)
-                .then((gotchis: CustomAny[]) => {
-                  dispatch(lentGotchisSlices.loadLentGotchisSucceded(gotchis));
-                })
-                .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
+              dispatch(lentGotchisSlices.loadLentGotchisSucceded(extendedLendingGotchis));
             })
-            .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()));
+            .catch(() => {
+              dispatch(lentGotchisSlices.loadLentGotchisFailed());
+              dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+            })
+            .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
         } else {
-          dispatch(lentGotchisSlices.loadLentGotchisSucceded([]));
+          dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
           dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
         }
       })
-      .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()));
+      .catch(() => {
+        dispatch(lentGotchisSlices.loadLentGotchisFailed());
+        dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
+      });
   };
