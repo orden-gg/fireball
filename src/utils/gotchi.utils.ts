@@ -1,6 +1,6 @@
 import { EthersApi } from 'api';
 
-import { ONE_MILLION, RarityTypes } from 'shared/constants';
+import { IDENTITY_RARITY_LOW_NUMBERS, ONE_MILLION, RarityTypes } from 'shared/constants';
 import { CollateralData, GotchiAgingModel } from 'shared/models';
 
 import { collaterals } from 'data/collaterals.data';
@@ -83,5 +83,23 @@ export class GotchiUtils {
     );
 
     return EthersApi.fromWei(stakedAmount, collateral?.decimals) || 0;
+  }
+
+  public static getIdentityRarity(identityQuantity: number) {
+    console.log(identityQuantity, IDENTITY_RARITY_LOW_NUMBERS);
+
+    if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.common) {
+      return RarityTypes.Common;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.uncommon) {
+      return RarityTypes.Uncommon;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.rare) {
+      return RarityTypes.Rare;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.mythical) {
+      return RarityTypes.Mythical;
+    } else if (identityQuantity === IDENTITY_RARITY_LOW_NUMBERS.godlike) {
+      return RarityTypes.Godlike;
+    } else {
+      return RarityTypes.Unknown;
+    }
   }
 }

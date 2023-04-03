@@ -1,4 +1,8 @@
+import classNames from 'classnames';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
+
+import { GotchiUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -11,7 +15,9 @@ export function GotchiIdentity({ identityQuantity }: GotchiLevelProps) {
 
   return (
     <CustomTooltip title={<p>identity</p>} enterTouchDelay={0} placement='top' followCursor>
-      <div className={classes.gotchiIdentity}>1/{identityQuantity}</div>
+      <div className={classNames(classes.gotchiIdentity, GotchiUtils.getIdentityRarity(identityQuantity))}>
+        1/{identityQuantity}
+      </div>
     </CustomTooltip>
   );
 }
