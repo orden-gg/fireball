@@ -12,6 +12,10 @@ export const gotchiPreviewModalStyles = makeStyles((theme) =>
         height: 'calc(100vh - 32px)'
       }
     },
+    identityBlock: {
+      maxWidth: 300,
+      margin: theme.spacing(1, 'auto', 0)
+    },
     listings: {
       textAlign: 'center',
       margin: theme.spacing(4, 'auto', 0)
@@ -27,6 +31,9 @@ export const gotchiPreviewModalStyles = makeStyles((theme) =>
       '& span': {
         color: theme.palette.primary.main
       }
+    },
+    identityTooltip: {
+      padding: theme.spacing(1, 0)
     },
     inventory: {
       marginTop: theme.spacing(5)

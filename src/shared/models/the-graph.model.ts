@@ -1,3 +1,7 @@
+export interface TheGraphBatchData<T> {
+  [key: string]: T;
+}
+
 export interface TheGraphResponse<T> {
   data: T;
   loading: boolean;

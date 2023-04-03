@@ -2,7 +2,7 @@ import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
 
 import { CommonUtils } from 'utils';
 
@@ -23,9 +23,31 @@ export const onLoadLentGotchis =
         });
 
         const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
+        const gotchiIds: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
-        dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
+              const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map(
+                (lending: GotchiLending) => {
+                  return { ...lending, ...fireballGotchis[`gotchi${lending.id}`] };
+                }
+              );
+
+              dispatch(lentGotchisSlices.loadLentGotchisSucceded(extendedLendingGotchis));
+            })
+            .catch(() => {
+              dispatch(lentGotchisSlices.loadLentGotchisFailed());
+              dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+            })
+            .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
+        } else {
+          dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+          dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
+        }
       })
-      .catch(() => dispatch(lentGotchisSlices.loadLentGotchisFailed()))
-      .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
+      .catch(() => {
+        dispatch(lentGotchisSlices.loadLentGotchisFailed());
+        dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
+      });
   };

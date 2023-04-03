@@ -1,12 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { CircularProgress } from '@mui/material';
+
 import { DateTime } from 'luxon';
 
-import { EthersApi, MainApi, TheGraphApi } from 'api';
+import { EthersApi, TheGraphApi } from 'api';
+
+import { useAppSelector } from 'core/store/hooks';
+import { getActiveAddress } from 'core/store/login';
 
 import { Erc721Categories } from 'shared/constants';
-import { Gotchi, GotchiInventory as GotchiInventoryModel, SalesHistoryModel } from 'shared/models';
+import {
+  FireballErc1155Item,
+  FireballGotchi,
+  Gotchi,
+  GotchiExtended,
+  IdentityOption,
+  SalesHistoryModel
+} from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiAging } from 'components/Gotchi/GotchiAging/GotchiAging';
@@ -18,6 +30,7 @@ import {
   GotchiHead,
   GotchiInfoItem,
   GotchiInfoList,
+  GotchiPreviewIdentity,
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
@@ -32,9 +45,10 @@ import {
 } from 'components/Previews/SalesHistory/components';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-import { GotchiUtils, ItemUtils } from 'utils';
+import { GotchiUtils } from 'utils';
 
 import { GotchiFitSets } from './components/GotchiFitSets/GotchiFitSets';
+import { GotchiFitWearables } from './components/GotchiFitWearables/GotchiFitWearable';
 import { styles } from './styles';
 
 export function GotchiPage() {
@@ -42,33 +56,38 @@ export function GotchiPage() {
 
   const routeParams = useParams();
 
+  const activeAddress = useAppSelector(getActiveAddress);
+
   const [gotchiLoaded, setGotchiLoaded] = useState<boolean>(false);
-  const [gotchi, setGotchi] = useState<CustomAny>({});
+  const [gotchi, setGotchi] = useState<GotchiExtended | null>(null);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-  const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
-  // const [exclusivity, setExclusivity] = useState<CustomAny>({});
+  const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
+  const [playerInventory, setPlayerInventory] = useState<FireballErc1155Item[]>([]);
+
+  const [claimedGotchis, setClaimedGotchis] = useState<Gotchi[]>([]);
+  const [unclaimedGotchiIds, setUnclaimedGotchiIds] = useState<number[]>([]);
+  const [gotchisLoaded, setGotchisLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     const id: number = Number(routeParams.gotchiId);
+    const promises: [Promise<Gotchi>, Promise<FireballGotchi>] = [
+      TheGraphApi.getGotchiById(id),
+      TheGraphApi.getFireballGotchiById(id)
+    ];
 
-    MainApi.getAavegotchiById(id).then((response: CustomAny[]) => {
-      const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-      const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-        const slot: string[] = ItemUtils.getSlotsById(item.id);
+    Promise.all(promises)
+      .then(async ([gotchi, fireballGotchi]: [Gotchi, FireballGotchi]) => {
+        const extendedGotchi: GotchiExtended = { ...gotchi, ...fireballGotchi };
+        const sortedInventory: number[] = gotchi.equippedWearables
+          .concat(fireballGotchi.badges)
+          .filter((id: number) => id !== 0);
 
-        return slot.length > 0 ? -1 : 1;
-      });
-
-      setInventory(sortedInventory);
-    });
-
-    TheGraphApi.getGotchiById(id)
-      .then((response: CustomAny) => {
-        setGotchi(response);
+        setGotchi(extendedGotchi);
+        setGotchiInventory(sortedInventory);
+        setGotchiLoaded(true);
       })
-      .catch((error) => console.log(error))
-      .finally(() => setGotchiLoaded(true));
+      .catch((error) => console.log(error));
 
     TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
       .then((response: SalesHistoryModel[]) => {
@@ -76,20 +95,59 @@ export function GotchiPage() {
       })
       .catch((error) => console.log(error))
       .finally(() => setHistoryLoaded(true));
-
-    // TODO: Will be used soon
-    // FireballApi.getFireGotchiById(id)
-    //     .then((response: CustomAny) => {
-    //         setExclusivity(response);
-    //     }).catch((error) => {
-    //         console.log(error);
-    //     });
   }, [routeParams]);
+
+  useEffect(() => {
+    if (activeAddress) {
+      TheGraphApi.getIventoryByAddress(activeAddress)
+        .then((inventory: FireballErc1155Item[]) => {
+          setPlayerInventory(inventory);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [activeAddress]);
+
+  useEffect(() => {
+    if (gotchi) {
+      const claimedGotchiIds: number[] = gotchi.identity.claimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      const unclaimedGotchiIds: number[] = gotchi.identity.unclaimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      let isMounted: boolean = true;
+
+      if (claimedGotchiIds.length > 0) {
+        TheGraphApi.getGotchiesByIds(claimedGotchiIds)
+          .then((claimedGotchis: Gotchi[]) => {
+            if (isMounted) {
+              setClaimedGotchis(Object.values(claimedGotchis));
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            if (isMounted) {
+              setGotchisLoaded(true);
+            }
+          });
+      } else {
+        setGotchisLoaded(true);
+      }
+
+      setUnclaimedGotchiIds(unclaimedGotchiIds);
+
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [gotchi]);
 
   return (
     <div className={classes.content}>
-      {gotchi ? (
-        gotchiLoaded && (
+      {gotchiLoaded ? (
+        gotchi ? (
           <>
             <GotchiPreview>
               <GotchiView gotchi={gotchi} />
@@ -106,7 +164,6 @@ export function GotchiPage() {
                       GotchiUtils.getStakedAmount(gotchi.collateral, gotchi.stakedAmount).toPrecision(5)
                     )}
                   />
-                  {/* <GotchiInfoItem label='exclusivity' value={`1/${exclusivity.related_num}`} /> */}
                 </GotchiInfoList>
 
                 <GotchiTraits
@@ -114,7 +171,14 @@ export function GotchiPage() {
                   modifiedNumericTraits={gotchi.modifiedNumericTraits}
                 />
 
-                {gotchi.createdAt && <GotchiAging block={Number(gotchi.createdAt)} />}
+                <div className={classes.gotchiGroup}>
+                  {gotchi.createdAt && <GotchiAging block={Number(gotchi.createdAt)} />}
+                  <GotchiPreviewIdentity
+                    gotchisLoaded={gotchisLoaded}
+                    claimedGotchis={claimedGotchis}
+                    unclaimedGotchiIds={unclaimedGotchiIds}
+                  />
+                </div>
 
                 <GotchiFooter>
                   <ViewInAppButton link={`https://app.aavegotchi.com/gotchi/${gotchi.id}`} className={classes.button}>
@@ -136,19 +200,15 @@ export function GotchiPage() {
                 </GotchiFooter>
               </GotchiContent>
             </GotchiPreview>
-            {inventory.length > 0 ? (
+            {gotchiInventory.length > 0 ? (
               <div className={classes.inventory}>
                 <div className={classes.title}>Inventory</div>
-                <GotchiInventory items={inventory} />
+                <GotchiInventory items={gotchiInventory} />
               </div>
             ) : (
               <></>
             )}
-            <div className={classes.sets}>
-              <div className={classes.title}>Recommended sets</div>
-              <GotchiFitSets gotchi={gotchi} className={classes.setsList} />
-            </div>
-            {gotchi.timesTraded > 0 && (
+            {Number(gotchi.timesTraded) > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
                 <HistoryHead className={classes.salesHeader}>
@@ -177,10 +237,27 @@ export function GotchiPage() {
                 </>
               </SalesHistory>
             )}
+            <div className={classes.sets}>
+              <div className={classes.title}>Recommended sets</div>
+              <GotchiFitSets
+                hauntId={gotchi.hauntId}
+                collateral={gotchi.collateral}
+                numericTraits={gotchi.numericTraits}
+                className={classes.setsList}
+              />
+            </div>
+            <div className={classes.sets}>
+              <div className={classes.title}>Recommended wearables</div>
+              <GotchiFitWearables traits={gotchi.numericTraits} inventory={playerInventory} />
+            </div>
           </>
+        ) : (
+          <div className={classes.title}>There is no Gotchi with such ID :(</div>
         )
       ) : (
-        <div className={classes.title}>There is no Gotchi with such ID :(</div>
+        <div className={classes.title}>
+          <CircularProgress size={40} className={classes.progress} />
+        </div>
       )}
     </div>
   );
