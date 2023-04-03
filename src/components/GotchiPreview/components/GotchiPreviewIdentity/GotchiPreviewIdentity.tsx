@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { Gotchi } from 'shared/models';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
@@ -10,17 +12,19 @@ interface GotchiPreviewIdentityProps {
   gotchisLoaded: boolean;
   claimedGotchis: Gotchi[];
   unclaimedGotchiIds: number[];
+  className?: string;
 }
 
 export function GotchiPreviewIdentity({
   gotchisLoaded,
   claimedGotchis,
-  unclaimedGotchiIds
+  unclaimedGotchiIds,
+  className
 }: GotchiPreviewIdentityProps) {
   const classes = gotchiIdentityStyles();
 
   return (
-    <div className={classes.identityWrapper}>
+    <div className={classNames(classes.identityWrapper, className)}>
       <h3 className={classes.identityTitle}>Identity</h3>
 
       <div className={classes.identityGroup}>

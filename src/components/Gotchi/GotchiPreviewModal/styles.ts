@@ -12,6 +12,10 @@ export const gotchiPreviewModalStyles = makeStyles((theme) =>
         height: 'calc(100vh - 32px)'
       }
     },
+    identityBlock: {
+      maxWidth: 300,
+      margin: theme.spacing(1, 'auto', 0)
+    },
     listings: {
       textAlign: 'center',
       margin: theme.spacing(4, 'auto', 0)

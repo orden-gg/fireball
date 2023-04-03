@@ -19,9 +19,9 @@ import {
   GotchiHead,
   GotchiInfoItem,
   GotchiInfoList,
+  GotchiPreviewIdentity,
   GotchiTraits,
-  GotchiView,
-  IdentityList
+  GotchiView
 } from 'components/GotchiPreview/components';
 import { SalesHistory } from 'components/Previews/SalesHistory/SalesHistory';
 import {
@@ -154,29 +154,18 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
                       GotchiUtils.getStakedAmount(modalGotchi.collateral, modalGotchi.stakedAmount).toPrecision(5)
                     )}
                   />
-                  <GotchiInfoItem
-                    label='identity'
-                    value={`1/${modalGotchi.identity.claimed.length}`}
-                    title={
-                      gotchisLoaded ? (
-                        <div>
-                          <IdentityList gotchis={claimedGotchis} title='summoned' />
-                          {unclaimedGotchiIds.length > 0 ? (
-                            <IdentityList gotchis={unclaimedGotchiIds} title='in portal' />
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      ) : (
-                        <CircularProgress size={20} />
-                      )
-                    }
-                  />
                 </GotchiInfoList>
 
                 <GotchiTraits
                   numericTraits={modalGotchi.numericTraits}
                   modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
+                />
+
+                <GotchiPreviewIdentity
+                  gotchisLoaded={gotchisLoaded}
+                  claimedGotchis={claimedGotchis}
+                  unclaimedGotchiIds={unclaimedGotchiIds}
+                  className={classes.identityBlock}
                 />
 
                 {modalGotchi.originalOwner?.id || modalGotchi.owner?.id ? (

@@ -2,8 +2,6 @@ import { CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
 
-import { CustomTooltip } from 'components/custom/CustomTooltip';
-
 import { gotchiInfoItemStyles } from './styles';
 
 interface GotchiInfoItemProps {
@@ -14,23 +12,13 @@ interface GotchiInfoItemProps {
   className?: string;
 }
 
-export function GotchiInfoItem({ label, value, isLoaded = true, title, className }: GotchiInfoItemProps) {
+export function GotchiInfoItem({ label, value, isLoaded = true, className }: GotchiInfoItemProps) {
   const classes = gotchiInfoItemStyles();
 
-  const renderItem = () => {
-    return (
-      <div className={classNames(classes.infoItem, className)}>
-        <span className={classes.infoLabel}>{label}:</span>
-        {isLoaded ? value : <CircularProgress size={16} color='inherit' />}
-      </div>
-    );
-  };
-
-  return title ? (
-    <CustomTooltip className={classes.tooltip} title={title} placement='bottom' arrow>
-      {renderItem()}
-    </CustomTooltip>
-  ) : (
-    renderItem()
+  return (
+    <div className={classNames(classes.infoItem, className)}>
+      <span className={classes.infoLabel}>{label}:</span>
+      {isLoaded ? value : <CircularProgress size={16} color='inherit' />}
+    </div>
   );
 }
