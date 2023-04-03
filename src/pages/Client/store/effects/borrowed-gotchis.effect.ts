@@ -23,7 +23,7 @@ export const onLoadBorrowedGotchis =
 
         if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
-            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
               const extendedLendingGotchis: GotchiLendingExtended[] = sortedBorrowedGotchis.map(
                 (lending: GotchiLending) => {
                   return { ...lending, ...fireballGotchis[`gotchi${lending.id}`] };

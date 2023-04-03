@@ -8,3 +8,5 @@ export const GRAPH_INCOME_API: string = 'https://api.thegraph.com/subgraphs/name
 export const GRAPH_FAKE_GOTCHIS_API: string = 'https://api.thegraph.com/subgraphs/name/aavegotchi/fake-gotchis-matic';
 export const GRAPH_FIREBALL_MAIN_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/main';
 export const GRAPH_FIREBALL_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/gotchiverse';
+
+export const MAX_BATCH_QUERIES = 365;

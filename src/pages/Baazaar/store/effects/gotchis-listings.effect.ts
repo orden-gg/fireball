@@ -53,7 +53,7 @@ export const loadBaazaarGotchisListings =
 
         if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
-            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>[]) => {
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
               const extendedLendingGotchis: GotchiListingVM[] = modifiedListings.map((listing: GotchiListingVM) => {
                 listing.gotchi = { ...listing.gotchi, ...fireballGotchis[`gotchi${listing.gotchi.id}`] };
 

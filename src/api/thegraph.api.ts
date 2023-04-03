@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import { EthersApi } from './ethers.api';
 import { TheGraphCoreApi } from './the-graph-core.api';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API, MAX_BATCH_QUERIES } from 'shared/constants';
 import {
   Erc1155ListingsBatch,
   FireballErc1155Item,
@@ -659,12 +659,39 @@ export class TheGraphApi {
     );
   }
 
-  public static getFireballGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FireballGotchi>[]> {
-    return TheGraphCoreApi.getGraphData(
-      GRAPH_FIREBALL_MAIN_API,
-      GraphUtils.getCombinedQueriesByIds(ids, gotchiBatchQuery)
-    ).then((response: TheGraphResponse<TheGraphBatchData<FireballGotchi>[]>) => {
-      return response.data;
+  public static async getFireballGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FireballGotchi>> {
+    let idsMoreThanMaxQueries: boolean = true;
+    const promises: Promise<TheGraphResponse<TheGraphBatchData<FireballGotchi>>>[] = [];
+
+    while (idsMoreThanMaxQueries) {
+      if (ids.length >= MAX_BATCH_QUERIES) {
+        promises.push(
+          TheGraphCoreApi.getGraphData(
+            GRAPH_FIREBALL_MAIN_API,
+            GraphUtils.getCombinedQueriesByIds(ids.splice(0, MAX_BATCH_QUERIES), gotchiBatchQuery)
+          )
+        );
+      } else {
+        idsMoreThanMaxQueries = false;
+        promises.push(
+          TheGraphCoreApi.getGraphData(
+            GRAPH_FIREBALL_MAIN_API,
+            GraphUtils.getCombinedQueriesByIds(ids, gotchiBatchQuery)
+          )
+        );
+      }
+    }
+
+    return Promise.all(promises).then((responses: TheGraphResponse<TheGraphBatchData<FireballGotchi>>[]) => {
+      const gotchies: TheGraphBatchData<FireballGotchi> = {};
+
+      for (const { data } of responses) {
+        for (const [key, value] of Object.entries(data)) {
+          gotchies[key] = value;
+        }
+      }
+
+      return gotchies;
     });
   }
 }
