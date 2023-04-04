@@ -1,9 +1,16 @@
 import 'dotenv/config';
-import { Wallet, ethers } from 'ethers';
+import { Contract, Wallet, ethers } from 'ethers';
 import fs from 'fs';
 
-// @ts-ignore
-import { MAIN_CONTRACT, POLYGON_RPC } from '../../../shared/constants/api.constants.ts';
+import {
+  ALPHA_CONTRACT,
+  FOMO_CONTRACT,
+  FUD_CONTRACT,
+  GHST_CONTRACT,
+  KEK_CONTRACT,
+  MAIN_CONTRACT,
+  POLYGON_RPC // @ts-ignore
+} from '../../../shared/constants/api.constants.ts';
 
 const main_abi_file = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(main_abi_file.toString());
@@ -41,6 +48,64 @@ export enum CONSOLE_COLORS {
   Light = '\x1B[37m',
   White = '\x1B[39m'
 }
-export const paint = (text: 'string', color: 'string') => {
+
+export const paint = (text: string, color: string) => {
   return `${color}${text}${CONSOLE_COLORS.White}`;
+};
+
+export const getTokenName = (token: string) => {
+  switch (token) {
+    case FUD_CONTRACT:
+      return 'fud';
+    case FOMO_CONTRACT:
+      return 'fomo';
+    case ALPHA_CONTRACT:
+      return 'alpha';
+    case KEK_CONTRACT:
+      return 'kek';
+    case GHST_CONTRACT:
+      return 'ghst';
+    default:
+      return 'unknown';
+  }
+};
+
+export const chunkArray = (array: any[], chunkSize: number) => {
+  const result: any[] = [];
+
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize));
+  }
+
+  return result;
+};
+
+export const callWithRetries = async (
+  contract: Contract,
+  method: string,
+  retries: number,
+  delay: number, // seconds
+  args: any[] = [] // Set the default value for args to an empty array
+): Promise<ethers.ContractTransaction> => {
+  while (retries > 0) {
+    try {
+      // Call the contract method
+      const result = await contract[method](...args);
+
+      // If the call is successful, return the result
+      return result;
+    } catch (error) {
+      console.error(`Error calling contract method '${method}':`, error);
+      retries--;
+
+      // If there are remaining retries, wait for the specified delay before trying again
+      if (retries > 0) {
+        console.log(`Retrying in ${delay} s...`);
+        await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+      }
+    }
+  }
+
+  // If all retries are exhausted, throw an error
+  throw new Error(`Failed to call contract method '${method}' after ${retries} retries.`);
 };

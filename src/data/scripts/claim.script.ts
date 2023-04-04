@@ -1,6 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
-import { ContractTransaction, ethers } from 'ethers';
+import { BigNumber, ContractTransaction, ethers } from 'ethers';
 import { exit } from 'process';
 
 import {
@@ -16,7 +16,10 @@ import {
   MAIN_CONTRACT_WITH_SIGNER,
   SCRIPT_WALLET_ADDRESS,
   TOKEN_CONTRACT_WITH_SIGNER,
+  callWithRetries,
+  chunkArray,
   getGasPrice,
+  getTokenName,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
 
@@ -26,21 +29,24 @@ import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 const txCostLimit = 220 * 1e9;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
-const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
-// ! retrieve gotchis balance (took pretty much time)
-const GET_BALANCE = false;
 
 const TOKENS = [FUD_CONTRACT, FOMO_CONTRACT, ALPHA_CONTRACT, KEK_CONTRACT, GHST_CONTRACT];
-// TODO: method for token name
-const TOKENS_NAME = ['fud', 'fomo', 'alpha', 'kek', 'ghst'];
 
-// TODO: batch claim
-// ! borrower_not: "0x0000000000000000000000000000000000000000",
+// const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
+const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
+
+const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
+// ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
+const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
+const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
+// ! BE CERAFUL with this one, it will finish rent for all gotchis
+const CLAIM_AND_FINISH_RENT = false; // finish rent after claiming or not
+
+// borrower_not: "0x0000000000000000000000000000000000000000",
 // borrower: "0x8ba922eb891a734f17b14e7ff8800e6626912e5d",
 const lendingsQuery = `{
   gotchiLendings(
-    first: 50,
-    skip: 50,
+    first: 1000,
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
@@ -76,40 +82,72 @@ const claim = async () => {
 
     const lendings = response.data.data.gotchiLendings;
     const toClaim: any = [];
-    console.log('retrieve', lendings.length, 'lendings');
+
+    console.log('sumonning', lendings.length, 'lendings');
 
     if (GET_BALANCE) {
       console.log('retriewing', lendings.length, 'gotchis balances');
-      const promises = lendings.map((lending: any) => tokensPromises(lending.gotchi.escrow));
+      console.log('balance chank size', BALANCE_CHUNK_SIZE);
 
-      await Promise.all(promises).then((tokensResponse) => {
-        tokensResponse.forEach((tokens, gotchiIndex) => {
-          const modified = tokens.map(
-            (amount, index) => ` ${TOKENS_NAME[index]}: ${paint(amount, CONSOLE_COLORS.Cyan)} `
-          );
-          console.log(
-            'gotchi',
-            paint(lendings[gotchiIndex].gotchiTokenId, CONSOLE_COLORS.Pink),
-            `(kin: ${lendings[gotchiIndex].gotchiKinship})`,
-            '=>',
-            modified.toString()
-          );
+      const chunk = chunkArray(lendings, BALANCE_CHUNK_SIZE);
+      let processed = 0;
 
-          // TODO: hardcoded for only 1st token!
-          if (tokens[0] > 0) {
-            toClaim.push({ id: lendings[gotchiIndex].gotchiTokenId, ghst: tokens[0] });
-          }
+      for (let i = 0; i < chunk.length; i++) {
+        const promises = chunk[i].map((lending: any) => tokensPromises(lending.gotchi.escrow));
+
+        await Promise.all(promises)
+          .then((tokensResponse) => {
+            tokensResponse.forEach((tokens, gotchiIndex) => {
+              const index = processed + gotchiIndex;
+              const obj = { lendingId: lendings[index].id, gotchiId: lendings[index].gotchiTokenId };
+
+              for (let tkn of tokens) {
+                obj[tkn.name] = tkn.amount;
+              }
+
+              toClaim.push(obj);
+            });
+
+            processed += chunk[i].length;
+            console.log('done', processed, 'of', lendings.length);
+          })
+          .catch((e) => console.log('something went wrong!'));
+      }
+    } else {
+      lendings.forEach((lending: any) => {
+        toClaim.push({
+          lendingId: lending.id,
+          gotchiId: lending.gotchiTokenId
         });
       });
     }
 
+    if (toClaim[0].fud) {
+      console.log('fud', calculateToken(toClaim, 'fud'));
+    }
+    if (toClaim[0].fomo) {
+      console.log('fomo', calculateToken(toClaim, 'fomo'));
+    }
+    if (toClaim[0].alpha) {
+      console.log('alpha', calculateToken(toClaim, 'alpha'));
+    }
+    if (toClaim[0].kek) {
+      console.log('kek', calculateToken(toClaim, 'kek'));
+    }
+    if (toClaim[0].ghst) {
+      console.log('ghst', calculateToken(toClaim, 'ghst'));
+    }
+
+    // TODO: filter function as param
+    // const gotchiIds = toClaim.filter((g) => Number(g.ghst) > 0).map((gotchi) => gotchi.gotchiId);
+    const gotchiIds = toClaim.map((gotchi) => gotchi.gotchiId);
+
+    console.log('to claim', gotchiIds.length);
+
     const gasPriceGwei = await getGasPrice();
     const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
-    // const gotchiIds = toClaim.map((gotchi) => gotchi.id);
-    const gotchiIds = lendings.map((gotchi) => gotchi.gotchiTokenId);
-
-    // const gasBoost = ethers.utils.parseUnits('25', 'gwei');
-    // const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
+    const gasBoost = ethers.utils.parseUnits('30', 'gwei');
+    const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
 
     if (gasPriceGwei >= txCostLimit) {
       console.log(
@@ -126,50 +164,41 @@ const claim = async () => {
     console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
     console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
 
-    // ! batchClaimGotchiLending
-    MAIN_CONTRACT_WITH_SIGNER.batchClaimGotchiLending(gotchiIds, { gasPrice: gasPriceGwei }).then(
-      async (tx: ContractTransaction) => {
-        console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
-        console.log('waiting Tx approval...');
+    // check if gotchis are available
+    if (gotchiIds.length > 0) {
+      console.log('tx chank size', TRANSACTION_CHUNK_SIZE);
+      const chunk = chunkArray(gotchiIds, TRANSACTION_CHUNK_SIZE);
+      let processed = 0;
 
-        // ! wait for pet transaction to display result
-        await tx
-          .wait()
-          .then(() => {
-            console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), lendings.length);
-            console.log(lendings.map((lending) => `lendingId: ${lending.id}, gotchi: ${lending.gotchiTokenId}`));
+      // loop through chunks
+      for (let i = 0; i < chunk.length; i++) {
+        await MAIN_CONTRACT_WITH_SIGNER[
+          CLAIM_AND_FINISH_RENT ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'
+        ](chunk[i], { gasPrice: gasBoosted, gasLimit: 9000000 }).then(async (tx: ContractTransaction) => {
+          console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+          console.log('waiting Tx approval...');
 
-            return true;
-          })
-          .catch((error: any) => {
-            console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+          // wait for transaction to display result
+          await tx
+            .wait()
+            .then(() => {
+              console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), lendings.length);
+              console.log(gotchiIds);
 
-            return false;
-          });
+              processed += chunk[i].length;
+              console.log('done', processed, 'of', gotchiIds.length);
+
+              return true;
+            })
+            .catch((error: any) => {
+              console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+              return false;
+            });
+        });
       }
-    );
-
-    // !batchClaimAndEndGotchiLending
-    // MAIN_CONTRACT_WITH_SIGNER.batchClaimAndEndGotchiLending(gotchiIds, {
-    //   gasPrice: gasBoosted
-    //   // gasLimit: 4000000
-    // }).then(async (tx: ContractTransaction) => {
-    //   console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
-    //   console.log('waiting Tx approval...');
-
-    //   // ! wait for pet transaction to display result
-    //   await tx
-    //     .wait()
-    //     .then(() => {
-    //       console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), toClaim.length);
-    //       console.log(toClaim.map((claim) => `id: ${claim.id}, ghst: ${claim.ghst}`));
-    //       return true;
-    //     })
-    //     .catch((error: any) => {
-    //       console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
-    //       return false;
-    //     });
-    // });
+    } else {
+      console.log(paint('no gotchis to claim :(', CONSOLE_COLORS.Red));
+    }
   });
 };
 
@@ -177,10 +206,15 @@ claim();
 
 const tokensPromises = async (address: string) => {
   const promises = TOKENS.map(async (token: string) =>
-    TOKEN_CONTRACT_WITH_SIGNER(token)
-      .balanceOf(address)
-      .then((amount: any) => Number(ethers.utils.formatUnits(amount)).toFixed(1))
+    callWithRetries(TOKEN_CONTRACT_WITH_SIGNER(token), 'balanceOf', 3, 5, [address]).then((amount: any) => ({
+      name: getTokenName(token),
+      amount: Number(ethers.utils.formatUnits(amount)).toFixed(amount > 0 ? 1 : 0)
+    }))
   );
 
   return await Promise.all(promises);
+};
+
+const calculateToken = (array: any[], token: string) => {
+  return Number(array.reduce((acc, gotchi) => acc + Number(gotchi[token]), 0).toFixed(0));
 };
