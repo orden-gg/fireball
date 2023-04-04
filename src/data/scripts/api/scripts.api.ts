@@ -96,6 +96,8 @@ export const callWithRetries = async (
       return result;
     } catch (error) {
       console.error(`Error calling contract method '${method}':`, error);
+
+      /* eslint-disable no-param-reassign */
       retries--;
 
       // If there are remaining retries, wait for the specified delay before trying again

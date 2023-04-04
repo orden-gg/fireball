@@ -101,7 +101,7 @@ const claim = async () => {
               const index = processed + gotchiIndex;
               const obj = { lendingId: lendings[index].id, gotchiId: lendings[index].gotchiTokenId };
 
-              for (let tkn of tokens) {
+              for (const tkn of tokens) {
                 obj[tkn.name] = tkn.amount;
               }
 
@@ -111,7 +111,7 @@ const claim = async () => {
             processed += chunk[i].length;
             console.log('done', processed, 'of', lendings.length);
           })
-          .catch((e) => console.log('something went wrong!'));
+          .catch(() => console.log('something went wrong!'));
       }
     } else {
       lendings.forEach((lending: any) => {
@@ -192,6 +192,7 @@ const claim = async () => {
             })
             .catch((error: any) => {
               console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+
               return false;
             });
         });
