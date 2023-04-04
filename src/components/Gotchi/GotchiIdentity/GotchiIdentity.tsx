@@ -14,9 +14,22 @@ export function GotchiIdentity({ identityQuantity }: GotchiLevelProps) {
   const classes = styles();
 
   return (
-    <CustomTooltip title={<p>identity</p>} enterTouchDelay={0} placement='top' followCursor>
+    <CustomTooltip
+      arrow
+      title={
+        <div>
+          <span className={classes.tooltipText}>
+            Look corresponds to the number of gotchis that have the same combination of eye color, eye shape, and race
+            (collateral).
+          </span>
+          <span className={classes.tooltipText}>The higher the look, the less rare the gotchi is.</span>
+        </div>
+      }
+      enterTouchDelay={0}
+      placement='top'
+    >
       <div className={classNames(classes.gotchiIdentity, GotchiUtils.getIdentityRarity(identityQuantity))}>
-        1/{identityQuantity}
+        look <span>{identityQuantity}</span>
       </div>
     </CustomTooltip>
   );

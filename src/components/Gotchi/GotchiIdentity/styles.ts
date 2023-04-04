@@ -14,20 +14,28 @@ export const styles = makeStyles((theme) =>
       lineHeight: 1.45,
       fontSize: 13,
       '&.common': {
-        backgroundColor: alpha(theme.palette.rarity.common, 0.9)
+        backgroundColor: alpha(theme.palette.rarity.common, 0.8)
       },
       '&.uncommon': {
-        backgroundColor: alpha(theme.palette.rarity.uncommon, 0.9)
+        backgroundColor: alpha(theme.palette.rarity.uncommon, 0.8)
       },
       '&.rare': {
-        backgroundColor: alpha(theme.palette.rarity.rare, 0.9)
+        backgroundColor: alpha(theme.palette.rarity.rare, 0.8)
       },
       '&.mythical': {
-        backgroundColor: alpha(theme.palette.rarity.mythical, 0.9)
+        backgroundColor: alpha(theme.palette.rarity.mythical, 0.8)
       },
       '&.godlike': {
-        backgroundColor: alpha(theme.palette.rarity.godlike, 0.9)
+        backgroundColor: alpha(theme.palette.rarity.godlike, 0.8)
+      },
+      '& span': {
+        fontWeight: 500
       }
+    },
+    tooltipText: {
+      fontWeight: 300,
+      margin: theme.spacing(1, 0),
+      display: 'block'
     }
   })
 );

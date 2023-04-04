@@ -12,10 +12,13 @@ export const gotchiIdentityStyles = makeStyles((theme) =>
       lineHeight: 1
     },
     identityTitle: {
-      textAlign: 'center',
       fontWeight: 400,
       fontSize: 16,
-      margin: 0
+      margin: 0,
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     identityGroup: {
       display: 'flex'
@@ -65,6 +68,15 @@ export const gotchiIdentityStyles = makeStyles((theme) =>
         maxWidth: 340,
         minWidth: 144
       }
+    },
+    identityInfoIcon: {
+      color: alpha(theme.palette.common.white, 0.1),
+      margin: theme.spacing(-0.5, 0, -0.5, 1)
+    },
+    identityTooltipText: {
+      fontWeight: 300,
+      margin: theme.spacing(1, 0),
+      display: 'block'
     }
   })
 );
