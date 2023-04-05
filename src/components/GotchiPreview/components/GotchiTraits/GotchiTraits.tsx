@@ -7,7 +7,7 @@ import { TraitsDefinition, TraitsEffect } from 'shared/models';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-import { CommonUtils, ItemUtils } from 'utils';
+import { CommonUtils, GotchiUtils, ItemUtils } from 'utils';
 
 import { traitsDefinitions, traitsEffects } from 'data/traits.data';
 
@@ -81,9 +81,10 @@ export function GotchiTraits({ numericTraits, modifiedNumericTraits, className }
 
           return CommonUtils.isNumberInRange(Number(traitValue), range[0], range[1]);
         });
+        const rarity: string = GotchiUtils.getRarityByTrait(traitValue);
 
         return (
-          <div className={classNames(classes.gotchiTrait, traitName)} key={index}>
+          <div className={classNames(classes.gotchiTrait, traitName, rarity)} key={index}>
             <img alt='trait icon' src={imageUrl} width={24} height={24} />
             <p className={classes.traitValue}>
               <span>{traitValue}</span>

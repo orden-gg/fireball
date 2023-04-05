@@ -120,7 +120,8 @@ export function BaazaarActivityGotchis() {
                       {
                         className: 'rsContainer',
                         items: ['rs', 'skillpoints']
-                      }
+                      },
+                      'identity'
                     ]
                   },
                   'name',

@@ -67,7 +67,7 @@ export class ItemUtils {
       case 50:
         return RarityTypes.Godlike;
       default:
-        return 'unknown';
+        return RarityTypes.Unknown;
     }
   }
 
@@ -231,7 +231,7 @@ export class ItemUtils {
     return result;
   };
 
-  public static getIsSetAvailable = (traits: number[], wearablesModifiers: number[]): boolean => {
+  public static getIsTraitsModifiersFit = (traits: number[], wearablesModifiers: number[]): boolean => {
     const isSetAvailable: boolean = traits.every((trait: number, index: number) =>
       trait >= 50 ? wearablesModifiers[index] >= 0 : wearablesModifiers[index] <= 0
     );

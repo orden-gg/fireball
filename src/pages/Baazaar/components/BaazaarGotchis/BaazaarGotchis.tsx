@@ -178,7 +178,8 @@ export function BaazaarGotchis() {
                       {
                         className: 'rsContainer',
                         items: ['rs', 'skillpoints']
-                      }
+                      },
+                      'identity'
                     ]
                   },
                   'name',

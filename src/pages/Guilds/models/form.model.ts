@@ -1,4 +1,4 @@
-import { FromFieldsNames } from '../enums';
+import { GuildFromFieldsNames } from '../enums';
 
 export interface GuildFormDataItem {
   key: string;
@@ -11,7 +11,7 @@ export interface GuildFormRowProps {
 }
 
 export interface GuildFormValuesResult {
-  [FromFieldsNames.Name]: string;
-  [FromFieldsNames.Logo]: string;
-  [FromFieldsNames.Description]: string;
+  [GuildFromFieldsNames.Name]: string;
+  [GuildFromFieldsNames.Logo]: string;
+  [GuildFromFieldsNames.Description]: string;
 }

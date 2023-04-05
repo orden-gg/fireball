@@ -1,3 +1,5 @@
+import { FireballGotchi } from '../gotchi.model';
+
 export interface GotchiLending {
   id: string;
   timeCreated: string;
@@ -40,3 +42,5 @@ export interface GotchiLending {
   splitOwner: string;
   endTime?: number;
 }
+
+export interface GotchiLendingExtended extends GotchiLending, FireballGotchi {}

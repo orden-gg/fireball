@@ -4,11 +4,20 @@ import { gql } from '@apollo/client';
 import { EthersApi } from './ethers.api';
 import { TheGraphCoreApi } from './the-graph-core.api';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API } from 'shared/constants';
-import { Erc1155ListingsBatch, SalesHistoryModel, TheGraphResponse } from 'shared/models';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API, MAX_BATCH_QUERIES } from 'shared/constants';
+import {
+  Erc1155ListingsBatch,
+  FireballErc1155Item,
+  FireballGotchi,
+  Gotchi,
+  SalesHistoryModel,
+  TheGraphBatchData,
+  TheGraphResponse
+} from 'shared/models';
 
-import { ItemUtils } from 'utils';
+import { GraphUtils, ItemUtils } from 'utils';
 
+import { gotchiBatchQuery, gotchiQuery, playerInventoryQuery } from './common/fireballMain.queries';
 import {
   activeListingQeury,
   auctionQuery,
@@ -17,6 +26,7 @@ import {
   erc1155ListingsBatchQuery,
   erc1155Query,
   getParcelOrderDirectionQuery,
+  gotchiByIdBatchQuery,
   gotchiByIdQuery,
   gotchiesQuery,
   gotchisGotchiverseQuery,
@@ -68,7 +78,8 @@ const clientFactory = (() => {
     svgsClient: createClient(gotchiSvgAPI),
     realmClient: createClient(realmAPI),
     gotchiverseClient: createClient(gotchiverseAPI),
-    fireballClient: createClient(GRAPH_FIREBALL_API)
+    fireballClient: createClient(GRAPH_FIREBALL_API),
+    fireballMainClient: createClient(GRAPH_FIREBALL_MAIN_API)
   };
 })();
 
@@ -218,8 +229,14 @@ export class TheGraphApi {
     });
   }
 
-  public static getGotchiesByIds(ids: number[]): Promise<CustomAny> {
-    return TheGraphApi.getJoinedData([...ids.map((id) => gotchiByIdQuery(id))]);
+  public static getGotchiesByIds(ids: number[]): Promise<Gotchi[]> {
+    const getQuery = (ids: number[]): string => {
+      const queries: string[] = ids.map((id: number) => gotchiByIdBatchQuery(id));
+
+      return `{${queries.join(',')}}`;
+    };
+
+    return TheGraphApi.getData(getQuery(ids)).then((response: TheGraphResponse<Gotchi[]>) => response.data);
   }
 
   private static getGotchiQueries(): CustomAny[] {
@@ -627,5 +644,54 @@ export class TheGraphApi {
     return getGraphData(clientFactory.gotchiverseClient, parcelsOwnerGotchiverseQuery(owner)).then(
       (res: CustomAny) => res.data.parcels
     );
+  }
+
+  // Will be used more than once
+  public static getIventoryByAddress(address: string): Promise<FireballErc1155Item[]> {
+    return getGraphData(clientFactory.fireballMainClient, playerInventoryQuery(address)).then(
+      (res: TheGraphResponse<{ player: { items: FireballErc1155Item[] } }>) => res.data.player.items
+    );
+  }
+
+  public static getFireballGotchiById(id: number): Promise<FireballGotchi> {
+    return getGraphData(clientFactory.fireballMainClient, gotchiQuery(id)).then(
+      (res: TheGraphResponse<{ gotchi: FireballGotchi }>) => modifyTraits([res.data.gotchi])[0]
+    );
+  }
+
+  public static async getFireballGotchisByIds(ids: number[]): Promise<TheGraphBatchData<FireballGotchi>> {
+    let idsMoreThanMaxQueries: boolean = true;
+    const promises: Promise<TheGraphResponse<TheGraphBatchData<FireballGotchi>>>[] = [];
+
+    while (idsMoreThanMaxQueries) {
+      if (ids.length >= MAX_BATCH_QUERIES) {
+        promises.push(
+          TheGraphCoreApi.getGraphData(
+            GRAPH_FIREBALL_MAIN_API,
+            GraphUtils.getCombinedQueriesByIds(ids.splice(0, MAX_BATCH_QUERIES), gotchiBatchQuery)
+          )
+        );
+      } else {
+        idsMoreThanMaxQueries = false;
+        promises.push(
+          TheGraphCoreApi.getGraphData(
+            GRAPH_FIREBALL_MAIN_API,
+            GraphUtils.getCombinedQueriesByIds(ids, gotchiBatchQuery)
+          )
+        );
+      }
+    }
+
+    return Promise.all(promises).then((responses: TheGraphResponse<TheGraphBatchData<FireballGotchi>>[]) => {
+      const gotchies: TheGraphBatchData<FireballGotchi> = {};
+
+      for (const { data } of responses) {
+        for (const [key, value] of Object.entries(data)) {
+          gotchies[key] = value;
+        }
+      }
+
+      return gotchies;
+    });
   }
 }

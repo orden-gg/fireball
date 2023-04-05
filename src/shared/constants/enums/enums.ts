@@ -181,7 +181,8 @@ export enum RarityTypes {
   Uncommon = 'uncommon',
   Common = 'common',
   Drop = 'drop',
-  Golden = 'golden'
+  Golden = 'golden',
+  Unknown = 'unknown'
 }
 
 export enum RarityNumberTypes {
