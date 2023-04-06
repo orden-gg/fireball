@@ -141,6 +141,7 @@ export function ClientPortals() {
   const onExportData = useCallback(() => {
     FilterUtils.exportData(modifiedPortals, 'client_portals');
   }, [modifiedPortals]);
+  console.log('modifiedPortals Client Portal', modifiedPortals);
 
   return (
     <>

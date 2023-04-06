@@ -24,6 +24,7 @@ import {
   ParcelPage,
   Raffle
 } from 'pages';
+import { PortalPage } from 'pages/Portal/components/PortalPage';
 
 import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { SnackbarContextProvider } from 'contexts/SnackbarContext';
@@ -82,6 +83,7 @@ export function App() {
             <Route path='client/*' element={<Client />} />
             <Route path='craft' element={<Craft />} />
             <Route path='parcel/:parcelId' element={<ParcelPage />} />
+            <Route path='portal/:portalId' element={<PortalPage />} />
             <Route path='raffles/*' element={<Raffle />} />
             <Route path='map' element={<Map />} />
             <Route path='gotchi/:gotchiId' element={<GotchiPage />} />

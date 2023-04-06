@@ -4,6 +4,7 @@ import { baazarReducers } from 'pages/Baazaar/store';
 import { clientReducers } from 'pages/Client/store';
 import { fakeGotchiReducers } from 'pages/FakeGotchisGallery/store';
 import { glossaryReducer } from 'pages/Glossary/store';
+import { portalReducer } from 'pages/Portal/store/slices/portal.slice';
 
 import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
@@ -17,7 +18,8 @@ export const store = configureStore({
     baazaar: baazarReducers,
     client: clientReducers,
     fake: fakeGotchiReducers,
-    tokensPrices: tokensPricesReducers
+    tokensPrices: tokensPricesReducers,
+    portal: portalReducer
   }
 });
 

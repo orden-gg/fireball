@@ -15,6 +15,7 @@ export function ParcelPage() {
   const classes = styles();
 
   const [parcel, setParcel] = useState<CustomAny>(null);
+
   const [parcelLoading, setParcelLoading] = useState<boolean>(true);
 
   const { parcelId } = useParams<{ parcelId: string }>();

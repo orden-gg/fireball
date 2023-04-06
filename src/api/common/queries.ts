@@ -747,10 +747,32 @@ export const portalsQueryByAddress = (owner: string): string => {
         portals(
             where: { owner: "${owner}" }
         ) {
+          hauntId
           openedAt
+          historicalPrices
+          id
+        }
+      }`;
+};
+
+
+export const portalQueryById = (id: number): string => {
+  return `{
+        portal(id: ${id}) {
           hauntId
           historicalPrices
           id
+          boughtAt
+          timesTraded
+          activeListing
+          openedAt
+          gotchi {
+            id
+            name
+          }
+          owner {
+            id
+          }
         }
       }`;
 };

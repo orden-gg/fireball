@@ -27,6 +27,7 @@ import {
   parcelsGotchiverseQuery,
   parcelsOwnerGotchiverseQuery,
   portalsQueryByAddress,
+  portalQueryById,
   raffleEntrantsQuery,
   raffleQuery,
   raffleWinsQuery,
@@ -589,6 +590,12 @@ export class TheGraphApi {
   public static async getPortalsByAddress(seller: string): Promise<CustomAny> {
     return await TheGraphApi.getData(portalsQueryByAddress(seller))
       .then((response: CustomAny) => response.data.portals)
+      .catch((error: CustomAny) => console.log(error));
+  }
+
+  public static async getPortalById(id: number): Promise<CustomAny> {
+    return await TheGraphApi.getData(portalQueryById(id))
+      .then((response: CustomAny) => response.data.portal)
       .catch((error: CustomAny) => console.log(error));
   }
 

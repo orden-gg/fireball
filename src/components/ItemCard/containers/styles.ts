@@ -75,6 +75,7 @@ export const styles = makeStyles((theme) =>
       justifyContent: 'center',
       flexDirection: 'column',
       height: '100%',
+      width: '100%',
       padding: theme.spacing(1),
       overflow: 'hidden'
     },
