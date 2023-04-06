@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { useMetamask } from 'use-metamask';
 
-import { GuildRegistrationApi } from 'pages/Guilds/api/guild.api';
+import { GuildRegistrationApi } from 'pages/Guilds/api/guild-contract.api';
 
 import { useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
