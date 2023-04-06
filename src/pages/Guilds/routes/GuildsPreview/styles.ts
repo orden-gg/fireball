@@ -1,8 +1,6 @@
 import { alpha, darken } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-import guildsCard from 'assets/images/navigation/guilds.jpg';
-
 export const guildsPreviewStyles = makeStyles((theme) =>
   createStyles({
     guildsWrapper: {
