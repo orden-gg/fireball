@@ -2,7 +2,6 @@ export * from './alchemica.api';
 export * from './the-graph-core.api';
 export * from './autopet.api';
 export * from './ethers.api';
-export * from './fireball.api';
 export * from './ghst.api';
 export * from './matic.api';
 export * from './gotchiverse.api';
