@@ -6,10 +6,9 @@ export const guildAssetStyles = makeStyles((theme) =>
     guildAssetItem: {
       display: 'flex',
       alignItems: 'center',
-      marginRight: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+      margin: theme.spacing(1, 0.5, 0, 0),
       backgroundColor: alpha(theme.palette.common.black, 0.2),
-      padding: theme.spacing(1),
+      padding: theme.spacing(0.5, 1, 0.5, 0.5),
       border: `1px solid ${alpha(theme.palette.common.white, 0.05)}`,
       [theme.breakpoints.down('md')]: {
         marginRight: theme.spacing(1)

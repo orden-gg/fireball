@@ -23,7 +23,7 @@ export function GuildAsset({ Icon, title }: GuildAssetProps) {
     <CustomTooltip title={title} followCursor placement='top'>
       <li className={classes.guildAssetItem}>
         <Icon className={classes.guildAssetItemIcon} />
-        <span className={classes.guildAssetAmount}>-</span>
+        <span className={classes.guildAssetAmount}>999</span>
       </li>
     </CustomTooltip>
   );

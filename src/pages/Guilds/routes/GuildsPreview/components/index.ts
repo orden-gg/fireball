@@ -1,2 +1,2 @@
 export { GuildCard } from './GuildCard/GuildCard';
-export { GuildAsset } from './GuildAsset/GuildAsset';
+export { GuildAsset } from './GuildCard/components/GuildAsset/GuildAsset';
