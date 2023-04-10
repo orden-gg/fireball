@@ -1,18 +1,16 @@
 import { AlchemicaTypes } from 'shared/constants';
 
-export type AlchemicaList = {
-  [alchemica in AlchemicaTypes]: number;
-};
+import { ParcelAlchemica } from './realm.model';
 
 export type AlchemicaListTuple = {
-  [alchemica in AlchemicaTypes]: AlchemicaTuple;
+  [alchemica in AlchemicaTypes]: number[];
 };
 
 export type AlchemicaTuple = [fud: number, fomo: number, alpha: number, kek: number];
 
 export interface SurveyRound {
-  humble: AlchemicaList;
-  reasonable: AlchemicaList;
-  spacious: AlchemicaList;
-  paartner: AlchemicaList;
+  humble: ParcelAlchemica;
+  reasonable: ParcelAlchemica;
+  spacious: ParcelAlchemica;
+  paartner: ParcelAlchemica;
 }
