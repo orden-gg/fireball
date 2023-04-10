@@ -69,7 +69,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
             className={classNames(classes.survey, 'active')}
             surveys={parcel.surveys}
             alchemica={parcel.alchemica}
-            size={parcel.size}
+            size={Number(parcel.size)}
           />
         </div>
 
