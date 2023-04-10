@@ -1,4 +1,3 @@
-export * from './alchemica.constants';
 export * from './api.constants';
 export * from './common.constants';
 export * from './date.constants';
