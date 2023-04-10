@@ -1,0 +1,54 @@
+{
+  "round1": {
+    "humble": {
+      "fud": 7077,
+      "fomo": 3539,
+      "alpha": 1769,
+      "kek": 708
+    },
+    "reasonable": {
+      "fud": 28308,
+      "fomo": 14154,
+      "alpha": 7077,
+      "kek": 2831
+    },
+    "spacious": {
+      "fud": 226465,
+      "fomo": 113233,
+      "alpha": 56616,
+      "kek": 22647
+    },
+    "partner": {
+      "fud": 452930,
+      "fomo": 226466,
+      "alpha": 113232,
+      "kek": 45294
+    }
+  },
+  "round2_10": {
+    "humble": {
+      "fud": 2357,
+      "fomo": 1179,
+      "alpha": 589,
+      "kek": 236
+    },
+    "reasonable": {
+      "fud": 9436,
+      "fomo": 4718,
+      "alpha": 2359,
+      "kek": 943
+    },
+    "spacious": {
+      "fud": 75488,
+      "fomo": 37744,
+      "alpha": 18872,
+      "kek": 7548
+    },
+    "partner": {
+      "fud": 150976,
+      "fomo": 75488,
+      "alpha": 37744,
+      "kek": 15098
+    }
+  }
+}
