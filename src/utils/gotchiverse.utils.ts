@@ -1,5 +1,5 @@
 import { RarityScoreNumber, RarityTypes } from 'shared/constants';
-import { AlchemicaList } from 'shared/models';
+import { AlchemicaTuple } from 'shared/models';
 
 import guilds from 'data/guilds.json';
 
@@ -50,12 +50,12 @@ export class GotchiverseUtils {
     return currentKinship < defaultKinship ? 0 : parseFloat(boost.toFixed(2));
   }
 
-  public static countGotchiChannelingRate(altarLevel: number, boost: number): AlchemicaList {
-    const defaultAlchemica: AlchemicaList = [20, 10, 5, 2];
+  public static countGotchiChannelingRate(altarLevel: number, boost: number): AlchemicaTuple {
+    const defaultAlchemica: AlchemicaTuple = [20, 10, 5, 2];
     const altarMultiplier = (100 - InstallationsUtils.getSpillRateById(altarLevel) / 100) / 100;
     const modified = defaultAlchemica.map((alchemica: number) => alchemica * boost * altarMultiplier);
 
-    return modified as AlchemicaList;
+    return modified as AlchemicaTuple;
   }
 
   public static getAlchemicaImg(name: CustomAny): CustomAny {
