@@ -24,7 +24,7 @@ export class AlchemicaUtils {
     };
 
     for (const type in averageSurvey) {
-      surveyRate[type] = EthersApi.fromWei(survey[type]) / averageSurvey[type];
+      surveyRate[type] = Number((EthersApi.fromWei(survey[type]) / averageSurvey[type]).toFixed(2));
     }
 
     return surveyRate as ParcelAlchemica;

@@ -150,6 +150,12 @@ export const styles = makeStyles((theme) =>
     },
     installations: {
       width: '100%'
+    },
+    parcelSurveyTable: {
+      fontSize: 13,
+      '& th, & td': {
+        padding: theme.spacing(1)
+      }
     }
   })
 );

@@ -1,2 +1,2 @@
 export { ParcelSurveyBar } from './ParcelSurveyBar/ParcelSurveyBar';
-export { ParcelSurveyDetails } from './ParcelSurveyDetails/ParcelSurveyDetails';
+export { ParcelSurveysTable } from './ParcelSurveysTable/ParcelSurveysTable';

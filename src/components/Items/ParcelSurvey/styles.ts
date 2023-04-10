@@ -34,6 +34,12 @@ export const parcelSurveyStyles = makeStyles((theme) =>
     rateAverage: {
       padding: theme.spacing(0, 1),
       backgroundImage: 'linear-gradient(to bottom, transparent 0%, #110414 50%)'
+    },
+    parcelSurveysTable: {
+      fontSize: 12,
+      '& th, & td': {
+        padding: theme.spacing(0.5, 1)
+      }
     }
   })
 );
