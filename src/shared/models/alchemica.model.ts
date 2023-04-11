@@ -2,7 +2,7 @@ import { AlchemicaTypes } from 'shared/constants';
 
 import { ParcelAlchemica } from './realm.model';
 
-export type AlchemicaListTuple = {
+export type AlchemicaRoundsList = {
   [alchemica in AlchemicaTypes]: number[];
 };
 

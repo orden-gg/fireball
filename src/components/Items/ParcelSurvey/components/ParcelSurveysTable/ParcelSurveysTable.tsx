@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { EthersApi } from 'api';
 
 import { SURVEY_ROUNDS } from 'shared/constants';
-import { AlchemicaListTuple, ParcelAlchemica, ParcelSurvey } from 'shared/models';
+import { AlchemicaRoundsList, ParcelAlchemica, ParcelSurvey } from 'shared/models';
 
 import { AlchemicaUtils, CommonUtils } from 'utils';
 
@@ -25,7 +25,7 @@ export function ParcelSurveysTable({ surveys, size, className }: ParcelSurveysTa
   const classes = parcelSurveysTableStyles();
 
   const [ratesByRounds, setRatesByRounds] = useState<ParcelAlchemica[]>();
-  const [ratesByToken, setRatesByToken] = useState<AlchemicaListTuple>();
+  const [ratesByToken, setRatesByToken] = useState<AlchemicaRoundsList>();
 
   useEffect(() => {
     if (surveys) {
@@ -37,7 +37,7 @@ export function ParcelSurveysTable({ surveys, size, className }: ParcelSurveysTa
 
       setRatesByRounds(surveysRatesByRounds);
 
-      const surveysRatesByToken: AlchemicaListTuple = AlchemicaUtils.sortByTypes(surveysRatesByRounds);
+      const surveysRatesByToken: AlchemicaRoundsList = AlchemicaUtils.sortByTypes(surveysRatesByRounds);
 
       setRatesByToken(surveysRatesByToken);
     }

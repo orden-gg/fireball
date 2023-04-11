@@ -1,11 +1,11 @@
 import { EthersApi } from 'api';
 
-import { AlchemicaTypes } from 'shared/constants';
-import { AlchemicaListTuple, AlchemicaTuple, ParcelAlchemica, ParcelSurvey, SurveyRound } from 'shared/models';
+import { AlchemicaTypes, FIRST_ROUND_AVERAGE, OTHER_ROUNDS_AVERAGE, ZERO_ALCHEMICA_LIST } from 'shared/constants';
+import { AlchemicaRoundsList, AlchemicaTuple, ParcelAlchemica, ParcelSurvey } from 'shared/models';
 
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
 
-import averageSurveysData from 'data/surveys.data.json';
+import surveyTotal from 'data/surveys.data.json';
 
 import { CitadelUtils } from './citadel.utils';
 import { CommonUtils } from './common.utils';
@@ -13,25 +13,29 @@ import { CommonUtils } from './common.utils';
 export class AlchemicaUtils {
   public static getSurveyRate(survey: ParcelSurvey, size: number): ParcelAlchemica {
     const parcelName: string = CitadelUtils.getParcelSizeName(size);
-    const averageSurvey: SurveyRound = survey.round
-      ? averageSurveysData.round2_10[parcelName]
-      : averageSurveysData.round1[parcelName];
-    const surveyRate: ParcelAlchemica = {
-      [AlchemicaTypes.Fud]: 0,
-      [AlchemicaTypes.Fomo]: 0,
-      [AlchemicaTypes.Alpha]: 0,
-      [AlchemicaTypes.Kek]: 0
-    };
+    const averageSurvey: ParcelAlchemica = AlchemicaUtils.getTokenAverageByRound(parcelName, survey.round);
 
     for (const type in averageSurvey) {
-      surveyRate[type] = Number((EthersApi.fromWei(survey[type]) / averageSurvey[type]).toFixed(2));
+      averageSurvey[type] = Number((EthersApi.fromWei(survey[type]) / averageSurvey[type]).toFixed(2));
     }
 
-    return surveyRate as ParcelAlchemica;
+    return averageSurvey;
   }
 
-  public static sortByTypes(surveysRate: ParcelAlchemica[]): AlchemicaListTuple {
-    const summarySurveysRate: AlchemicaListTuple = {
+  public static getTokenAverageByRound(parcelName: string, round: number): ParcelAlchemica {
+    const averagePercentage: number = round ? OTHER_ROUNDS_AVERAGE : FIRST_ROUND_AVERAGE;
+    const surveyTotalByName: ParcelAlchemica = surveyTotal[parcelName];
+    const averageSurvey: ParcelAlchemica = { ...ZERO_ALCHEMICA_LIST };
+
+    for (const key in surveyTotalByName) {
+      averageSurvey[key] = (surveyTotalByName[key] / 100) * averagePercentage;
+    }
+
+    return averageSurvey;
+  }
+
+  public static sortByTypes(surveysRate: ParcelAlchemica[]): AlchemicaRoundsList {
+    const summarySurveysRate: AlchemicaRoundsList = {
       [AlchemicaTypes.Fud]: [],
       [AlchemicaTypes.Fomo]: [],
       [AlchemicaTypes.Alpha]: [],
@@ -47,17 +51,27 @@ export class AlchemicaUtils {
     return summarySurveysRate;
   }
 
-  public static getSurveysRateByTypes(surveysRate: AlchemicaListTuple): number[] {
-    const summarySurveysRate: AlchemicaTuple = [0, 0, 0, 0];
+  public static getTokensRate(totalSurveysSupply: ParcelAlchemica, rounds: number, size: number): AlchemicaTuple {
+    const parcelName: string = CitadelUtils.getParcelSizeName(size);
+    const averageSurveys: ParcelAlchemica[] = [];
 
-    Object.keys(surveysRate).map((name: string, index: number) => {
-      summarySurveysRate[index] = AlchemicaUtils.getEverageFromArray(surveysRate[name], surveysRate[name].length);
-    });
+    const roundsIdArray: number[] = [...Array(rounds).keys()];
 
-    return summarySurveysRate;
+    for (const round of roundsIdArray) {
+      averageSurveys.push(AlchemicaUtils.getTokenAverageByRound(parcelName, round));
+    }
+
+    return Object.entries(totalSurveysSupply).map(([name, value]: [string, number]) => {
+      const averageSum: number = roundsIdArray.reduce(
+        (previous: number, current: number) => previous + averageSurveys[current][name],
+        0
+      );
+
+      return Number((value / averageSum).toFixed(2));
+    }) as AlchemicaTuple;
   }
 
-  public static getCombinedSurveys(surveys: ParcelSurvey[]): ParcelAlchemica {
+  public static getTotalSurveys(surveys: ParcelSurvey[]): ParcelAlchemica {
     return surveys.reduce(
       (previous: ParcelAlchemica, current: ParcelSurvey) => {
         for (const name in previous) {
@@ -66,12 +80,7 @@ export class AlchemicaUtils {
 
         return previous;
       },
-      {
-        [AlchemicaTypes.Fud]: 0,
-        [AlchemicaTypes.Fomo]: 0,
-        [AlchemicaTypes.Alpha]: 0,
-        [AlchemicaTypes.Kek]: 0
-      }
+      { ...ZERO_ALCHEMICA_LIST }
     );
   }
 

@@ -2,33 +2,21 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 
-import { AlchemicaUtils, CommonUtils } from 'utils';
+import { CommonUtils } from 'utils';
 
 import { parcelSurveyBarStyles } from './styles';
 
 interface ParcelSurveyProps {
   currentAmount: number;
   surveySupply: number;
-  surveysRatesByToken: number[];
   tokenName: string;
+  supplyRate: number;
 }
 
-export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, surveysRatesByToken }: ParcelSurveyProps) {
+export function ParcelSurveyBar({ tokenName, currentAmount, surveySupply, supplyRate }: ParcelSurveyProps) {
   const classes = parcelSurveyBarStyles();
 
-  const [supplyRate, setSupplyRate] = useState<number>(0);
   const [amountRate, setAmountRate] = useState<number>(0);
-
-  useEffect(() => {
-    if (surveysRatesByToken.length > 0) {
-      const averageSummaryRate: number = AlchemicaUtils.getEverageFromArray(
-        surveysRatesByToken,
-        surveysRatesByToken.length
-      );
-
-      setSupplyRate(averageSummaryRate);
-    }
-  }, [surveysRatesByToken]);
 
   useEffect(() => {
     const amountRate: number = Number((currentAmount / surveySupply).toFixed(2));

@@ -1,54 +1,26 @@
 {
-  "round1": {
-    "humble": {
-      "fud": 7077,
-      "fomo": 3539,
-      "alpha": 1769,
-      "kek": 708
-    },
-    "reasonable": {
-      "fud": 28308,
-      "fomo": 14154,
-      "alpha": 7077,
-      "kek": 2831
-    },
-    "spacious": {
-      "fud": 226465,
-      "fomo": 113233,
-      "alpha": 56616,
-      "kek": 22647
-    },
-    "partner": {
-      "fud": 452930,
-      "fomo": 226466,
-      "alpha": 113232,
-      "kek": 45294
-    }
+  "humble": {
+    "fud": 28308,
+    "fomo": 14156,
+    "alpha": 7076,
+    "kek": 2832
   },
-  "round2_10": {
-    "humble": {
-      "fud": 2357,
-      "fomo": 1179,
-      "alpha": 589,
-      "kek": 236
-    },
-    "reasonable": {
-      "fud": 9436,
-      "fomo": 4718,
-      "alpha": 2359,
-      "kek": 943
-    },
-    "spacious": {
-      "fud": 75488,
-      "fomo": 37744,
-      "alpha": 18872,
-      "kek": 7548
-    },
-    "partner": {
-      "fud": 150976,
-      "fomo": 75488,
-      "alpha": 37744,
-      "kek": 15098
-    }
+  "reasonable": {
+    "fud": 113232,
+    "fomo": 56616,
+    "alpha": 28308,
+    "kek": 11324
+  },
+  "spacious": {
+    "fud": 905860,
+    "fomo": 452932,
+    "alpha": 226464,
+    "kek": 90588
+  },
+  "partner": {
+    "fud": 1811720,
+    "fomo": 905864,
+    "alpha": 452928,
+    "kek": 181176
   }
 }
