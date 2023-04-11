@@ -3,8 +3,6 @@ import { EthersApi } from 'api';
 import { AlchemicaTypes, FIRST_ROUND_AVERAGE, OTHER_ROUNDS_AVERAGE, ZERO_ALCHEMICA_LIST } from 'shared/constants';
 import { AlchemicaRoundsList, AlchemicaTuple, ParcelAlchemica, ParcelSurvey } from 'shared/models';
 
-import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, KekTokenIcon } from 'components/Icons/Icons';
-
 import surveyTotal from 'data/surveys.data.json';
 
 import { CitadelUtils } from './citadel.utils';
@@ -82,21 +80,6 @@ export class AlchemicaUtils {
       },
       { ...ZERO_ALCHEMICA_LIST }
     );
-  }
-
-  public static getIconByName(name: string): ({ width, height }) => JSX.Element {
-    switch (name) {
-      case AlchemicaTypes.Fud:
-        return FudTokenIcon;
-      case AlchemicaTypes.Fomo:
-        return FomoTokenIcon;
-      case AlchemicaTypes.Alpha:
-        return AlphaTokenIcon;
-      case AlchemicaTypes.Kek:
-        return KekTokenIcon;
-      default:
-        return FudTokenIcon;
-    }
   }
 
   public static getEverageFromArray(rates: number[], divider: number): number {

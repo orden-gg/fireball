@@ -9,7 +9,7 @@ import { EthersApi } from 'api';
 import { SURVEY_ROUNDS } from 'shared/constants';
 import { AlchemicaRoundsList, ParcelAlchemica, ParcelSurvey } from 'shared/models';
 
-import { AlchemicaUtils, CommonUtils } from 'utils';
+import { AlchemicaUtils, CommonUtils, IconUtils } from 'utils';
 
 import { parcelSurveysTableStyles } from './styles';
 
@@ -43,12 +43,6 @@ export function ParcelSurveysTable({ surveys, size, className }: ParcelSurveysTa
     }
   }, [surveys]);
 
-  const renderIcon = (name: string) => {
-    const Icon: ({ className, width, height }) => JSX.Element = AlchemicaUtils.getIconByName(name);
-
-    return <Icon className={classes.surveyDetailsIcon} width={16} height={16} />;
-  };
-
   const renderRate = (value: number) => {
     return <span className={classes.surveyTableRate}>{Number((value * 100).toFixed(1))}%</span>;
   };
@@ -72,7 +66,10 @@ export function ParcelSurveysTable({ surveys, size, className }: ParcelSurveysTa
           {Object.entries(ratesByToken).map(([name, values]: [string, number[]]) => (
             <TableRow key={name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell className={classes.surveysTableCell} component='td' scope='row'>
-                {renderIcon(name)}
+                {IconUtils.getIconByName(CommonUtils.capitalize(name), {
+                  width: 16,
+                  height: 16
+                })}
               </TableCell>
               {roundsIdArray.map((id: number) => (
                 <TableCell key={id} className={classes.surveysTableCell} align='center'>
