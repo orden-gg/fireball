@@ -94,7 +94,7 @@ export const styles = makeStyles((theme) =>
     salesTitle: {
       fontWeight: 500,
       fontSize: 20,
-      margin: theme.spacing(1.5, 0, 1),
+      margin: theme.spacing(3, 0, 0.5),
       textAlign: 'center'
     },
     boosts: {
@@ -154,7 +154,10 @@ export const styles = makeStyles((theme) =>
     parcelSurveyTable: {
       fontSize: 13,
       '& th, & td': {
-        padding: theme.spacing(1)
+        padding: theme.spacing(1),
+        '& span': {
+          fontSize: 11
+        }
       }
     }
   })

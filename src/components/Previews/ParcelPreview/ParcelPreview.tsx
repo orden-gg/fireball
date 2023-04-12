@@ -140,9 +140,6 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
         </div>
       </div>
 
-      <h5 className={classes.salesTitle}>Survey History</h5>
-      <ParcelSurveysTable surveys={parcel.surveys} size={Number(parcel.size)} className={classes.parcelSurveyTable} />
-
       {history.length > 0 && (
         <>
           <h5 className={classes.salesTitle}>Sales History</h5>
@@ -185,6 +182,9 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
           </SalesHistory>
         </>
       )}
+
+      <h5 className={classes.salesTitle}>Survey History</h5>
+      <ParcelSurveysTable surveys={parcel.surveys} size={Number(parcel.size)} className={classes.parcelSurveyTable} />
     </div>
   );
 }
