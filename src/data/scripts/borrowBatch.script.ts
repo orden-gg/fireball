@@ -14,7 +14,7 @@ import {
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.js';
-import { ethers } from 'ethers';
+//import { ethers } from 'ethers';
 
 interface Gotchi {
   listingId: string;
@@ -187,6 +187,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                   console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
                 );
             });
+
             return;
           }
           const gasPriceGwei = await getGasPrice();
