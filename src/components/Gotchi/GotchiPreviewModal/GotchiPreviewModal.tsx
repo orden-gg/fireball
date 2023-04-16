@@ -58,6 +58,10 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
       setModalGotchi(gotchi);
       setInventory([]);
       setSalesHistory([]);
+
+      //console.log('gotchi', gotchi);
+      //console.log('modalGotchi', modalGotchi);
+
       setIsGotchiLoading(false);
     } else {
       MainApi.getAavegotchiById(id)
@@ -90,10 +94,15 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
   useEffect(() => {
     const ownAddress = metaState.account[0];
     const borrowedAddresses: string[] = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+
+    //const borrowedAddresses: string = modalGotchi?.originalOwner.id;
     const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
+
     const allAddresses: string[] = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
-    //console.log('allAddresses', allAddresses);
-    const promises: Promise<CustomAny>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
+
+    const selectedAddresse = [allAddresses[1], allAddresses[2]];
+    //console.log(selectedAddresse);
+    const promises: Promise<CustomAny>[] = selectedAddresse.map((address) => TheGraphApi.getRealmByAddress(address));
 
     Promise.all(promises)
       .then((response) => {
@@ -116,7 +125,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
           .sort((a, b) => b.altarLevel - a.altarLevel);
         // todo guild gate constant
         const fireballGates = modifiedParcels.filter(
-          (parcel) => parcel.id === '2819' || parcel.id === '10346' || parcel.id === '18356'
+          (parcel) => parcel.id === '5209' || parcel.id === '10346' || parcel.id === '18356'
         );
         setAvailibleParcels(bestRealm);
         setAvailibleGates(fireballGates);

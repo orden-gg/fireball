@@ -12,9 +12,12 @@ import {
   MAIN_CONTRACT_WITH_BORROWER,
   getNonceBorrower,
   getGasPrice,
-  paint // @ts-ignore
+  paint, // @ts-ignore
+  provider
 } from './api/scripts.api.js';
 import { ethers } from 'ethers';
+
+//import { ethers } from 'ethers';
 
 interface Gotchi {
   listingId: string;
@@ -43,15 +46,14 @@ interface BorrowedList {
 //list: string[];
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
-const MAX_BORROWED = 7;
-const MAX_KINSHIP = 1110;
-const MIN_KINSHIP = 1;
+const MAX_BORROWED = 15;
+const MAX_KINSHIP = 1500;
+const MIN_KINSHIP = 2;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
-//new ethers.BigNumber(1, '1000000000');
-let interval;
 const txCostLimit = 155 * 1e9;
-const MAX_NONCE = 62;
+let interval;
+//const MAX_NONCE = 62;
 
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
   // Check if QUEST_ADDRESS is part of .env
@@ -84,7 +86,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
 function borrowGotchis(axios, CONSOLE_COLORS, paint) {
   // graph querry to read gotchis from lending whitelist
   const borrowQuery = `{ 
-  gotchiLendings (first: 300 where: {whitelist: "${whitelistID}"} orderDirection: desc, orderBy: id) {
+  gotchiLendings (first: 1000 where: {whitelist: "${whitelistID}"} orderDirection: desc, orderBy: id) {
     id
     whitelist {
       ownerAddress
@@ -114,7 +116,6 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
   axios.post(GRAPH_CORE_API, { query: borrowQuery }).then(async (res) => {
     // fetch all gotchis from graph result
     const gotchiLendings = res.data.data.gotchiLendings;
-    debugger;
     const gotchis: Gotchi[] = [];
     if (gotchiLendings.length !== 0) {
       for (let i = 0; i < gotchiLendings.length; i++) {
@@ -143,6 +144,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           g.kinship < MAX_KINSHIP
       );
       // distinct and sort result of search
+      debugger;
       const distinctGotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
         (a, b) => Number(b.listingId) - Number(a.listingId)
       ); // desc for now , for asc a.kinship - b.kinship
@@ -154,44 +156,18 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         let i = 0;
         const borrowList: BorrowList[] = [];
         const borrowedList: BorrowedList[] = [];
+        distinctGotchis.length = MAX_BORROWED;
+
+        // const getGasLimit = await provider.estimateGas(borrowList).then((gasLimit) => {
+        //   return Number(gasLimit) * 25;
+        // });
+
+        //console.log(Number(getGasLimit));
         // LOOP FOR SELECTED GOTCHIS
         for (const borrowId of distinctGotchis) {
           // Max borrowed check
-          if (i >= MAX_BORROWED) {
-            console.log(`🚀 Max borrowed achieved: ${paint(i, CONSOLE_COLORS.Pink)}`);
-            console.log(
-              `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
-                borrowedList.flatMap((g) => g.name),
-                CONSOLE_COLORS.Green
-              )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
-            );
-            await Promise.all(borrowList).then((txsRes) => {
-              for (const tx of txsRes) {
-                console.log(
-                  `transaction sent! ${paint(`https://polygonscan.com/tx/${tx.hash}`, CONSOLE_COLORS.Light)}`
-                );
-                console.log(`🚀 gas price: ${paint(tx.gasPrice, CONSOLE_COLORS.Pink)}`);
-              }
-              txsRes[borrowList.length - 1]
-                .wait()
-                .then((_res: any) => {
-                  console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
-                  console.log(
-                    `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
-                      borrowedList.flatMap((g) => g.name),
-                      CONSOLE_COLORS.Green
-                    )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
-                  );
-                })
-                .catch((error) =>
-                  console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
-                );
-            });
-            return;
-          }
+          const nonce = await getNonceBorrower();
           const gasPriceGwei = await getGasPrice();
-          const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
-
           // gas priceGwei check if over limit delay applied
           if (Number(gasPriceGwei) >= txCostLimit) {
             console.log(
@@ -207,11 +183,12 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             return;
           }
           clearInterval(interval);
-          console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
+          //console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
           // gasPrice conversion
-
+          //const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
+          //console.log(gasPrice);
           // nonce check
-          const nonce = await getNonceBorrower();
+
           // max nonce check
           // if (nonce >= MAX_NONCE) {
           //   console.log(
@@ -227,6 +204,8 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           //   return;
           // }
           // preparing tx agreeGotchiLending for nonce
+          //debugger;
+
           const tempTx = MAIN_CONTRACT_WITH_BORROWER.agreeGotchiLending(
             borrowId.listingId,
             borrowId.gotchiId,
@@ -235,17 +214,48 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             [borrowId.splitOwner, borrowId.splitBorrower, borrowId.splitOther],
             {
               gasPrice: gasPriceGwei,
-              gasLimit: 7e6,
+              gasLimit: 6 * 1e5,
               nonce: nonce + i
             }
           );
+
           borrowList.push(tempTx);
+
           const borrowedListPush = {} as BorrowedList;
           borrowedListPush.name = borrowId.name;
           borrowedListPush.id = borrowId.gotchiId;
           borrowedList.push(borrowedListPush);
           i += 1;
         }
+
+        console.log(`MinKin: ${MIN_KINSHIP} MaxKin:  ${MAX_KINSHIP}`);
+        console.log(borrowedList);
+        await Promise.all(borrowList).then((txsRes) => {
+          for (const tx of txsRes) {
+            console.log(`transaction sent! ${paint(`https://polygonscan.com/tx/${tx.hash}`, CONSOLE_COLORS.Light)}`);
+            console.log(
+              `🚀 gas price: LIMIT ${paint(Number(tx.gasLimit), CONSOLE_COLORS.Pink)} maxfee ${paint(
+                Number(tx.maxFeePerGas),
+                CONSOLE_COLORS.Pink
+              )}`
+            );
+          }
+
+          txsRes[borrowList.length - 1]
+            .wait()
+            .then((_res: any) => {
+              console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
+              console.log(
+                `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
+                  borrowedList.length,
+                  CONSOLE_COLORS.Green
+                )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
+              );
+            })
+            .catch((error: any) =>
+              console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
+            );
+        });
       }
     }
   });

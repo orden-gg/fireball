@@ -33,11 +33,11 @@ interface Gotchi {
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
 const MAX_BORROWED = 6;
-const MAX_KINSHIP = 621;
-const MIN_KINSHIP = 502;
+const MAX_KINSHIP = 1500;
+const MIN_KINSHIP = 1000;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
-const txCostLimit = new ethers.BigNumber(1, '1000000000');
+const txCostLimit = 155 * 1e9;
 
 let interval;
 let totalBorrowedTemp = 0;
@@ -154,7 +154,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
 
             const gasPriceGwei = await getGasPrice();
 
-            if (gasPriceGwei >= txCostLimit) {
+            if (Number(gasPriceGwei) >= txCostLimit) {
               console.log(
                 `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
                   txCostLimit,

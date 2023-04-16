@@ -119,18 +119,16 @@ function pet() {
               .catch((e) => {
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${e.reason}, ${e.code}`);
                 clearInterval(interval);
-                interval = setInterval(pet, HALF_DAY_MILLIS + 6000);
-                console.log(
-                  `⌛ Next timer in minutes: ${paint(HALF_DAY_MILLIS / 60 / 1000 + 1, CONSOLE_COLORS.Green)}`
-                );
+                interval = setInterval(pet, repeatTimer);
+                console.log(`⌛ Next timer in minutes: ${paint(repeatTimer / 60 / 1000, CONSOLE_COLORS.Green)}`);
               });
           });
         })
         .catch((e) => {
           console.log(e);
           clearInterval(interval);
-          interval = setInterval(pet, HALF_DAY_MILLIS + 6000);
-          console.log(`⌛ Next timer in minutes: ${paint(HALF_DAY_MILLIS / 60 / 1000 + 1, CONSOLE_COLORS.Green)}`);
+          interval = setInterval(pet, repeatTimer);
+          console.log(`⌛ Next timer in minutes: ${paint(repeatTimer / 60 / 1000, CONSOLE_COLORS.Green)}`);
         });
 
       console.log(`🧑 owner: ${paint(OWNER_ADDRESS, CONSOLE_COLORS.Cyan)}`);

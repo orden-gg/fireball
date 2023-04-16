@@ -152,7 +152,9 @@ export function ClientBorrowed() {
   const onExportData = useCallback(() => {
     FilterUtils.exportData(modifiedGotchis, 'client_gotchis');
   }, [modifiedGotchis]);
-
+  //console.log(modifiedGotchis.map((g) => g.id));
+  //console.log(modifiedGotchis.slice(0, 30).map((g) => g.id));
+  //console.log(modifiedGotchis.slice(31, 60).map((g) => g.id));
   return (
     <>
       <SortFilterPanel
