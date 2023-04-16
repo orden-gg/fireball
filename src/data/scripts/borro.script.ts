@@ -12,10 +12,10 @@ import {
   MAIN_CONTRACT_WITH_BORROWER,
   getNonceBorrower,
   getGasPrice,
-  paint, // @ts-ignore
-  provider
+  paint //, // @ts-ignore
+  //provider
 } from './api/scripts.api.js';
-import { ethers } from 'ethers';
+//import { ethers } from 'ethers';
 
 //import { ethers } from 'ethers';
 
@@ -36,7 +36,7 @@ interface Gotchi {
 }
 
 interface BorrowList {
-  [key: string]: any;
+  [key: string]: CustomAny;
 }
 
 interface BorrowedList {
@@ -144,7 +144,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
           g.kinship < MAX_KINSHIP
       );
       // distinct and sort result of search
-      debugger;
+      //debugger;
       const distinctGotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
         (a, b) => Number(b.listingId) - Number(a.listingId)
       ); // desc for now , for asc a.kinship - b.kinship
@@ -243,7 +243,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
 
           txsRes[borrowList.length - 1]
             .wait()
-            .then((_res: any) => {
+            .then((_res: CustomAny) => {
               console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
               console.log(
                 `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
@@ -252,7 +252,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                 )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
               );
             })
-            .catch((error: any) =>
+            .catch((error: CustomAny) =>
               console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`)
             );
         });

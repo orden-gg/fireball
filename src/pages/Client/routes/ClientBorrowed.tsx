@@ -155,6 +155,7 @@ export function ClientBorrowed() {
   //console.log(modifiedGotchis.map((g) => g.id));
   //console.log(modifiedGotchis.slice(0, 30).map((g) => g.id));
   //console.log(modifiedGotchis.slice(31, 60).map((g) => g.id));
+
   return (
     <>
       <SortFilterPanel

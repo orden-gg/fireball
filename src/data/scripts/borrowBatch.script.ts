@@ -33,7 +33,7 @@ interface Gotchi {
 }
 
 interface BorrowList {
-  [key: string]: any;
+  [key: string]: CustomAny;
 }
 
 interface BorrowedList {
@@ -51,7 +51,7 @@ const repeatTimer = 1 * 15 * 1000;
 //new ethers.BigNumber(1, '1000000000');
 let interval;
 const txCostLimit = 155 * 1e9;
-const MAX_NONCE = 62;
+//const MAX_NONCE = 62;
 
 function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
   // Check if QUEST_ADDRESS is part of .env
@@ -114,7 +114,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
   axios.post(GRAPH_CORE_API, { query: borrowQuery }).then(async (res) => {
     // fetch all gotchis from graph result
     const gotchiLendings = res.data.data.gotchiLendings;
-    debugger;
+    //debugger;
     const gotchis: Gotchi[] = [];
     if (gotchiLendings.length !== 0) {
       for (let i = 0; i < gotchiLendings.length; i++) {
@@ -174,7 +174,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
               }
               txsRes[borrowList.length - 1]
                 .wait()
-                .then((_res: any) => {
+                .then((_res: CustomAny) => {
                   console.log(paint('=>', CONSOLE_COLORS.Green), paint('transaction confirmed!', CONSOLE_COLORS.Green));
                   console.log(
                     `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
@@ -190,7 +190,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
             return;
           }
           const gasPriceGwei = await getGasPrice();
-          const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
+          //const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
 
           // gas priceGwei check if over limit delay applied
           if (Number(gasPriceGwei) >= txCostLimit) {
