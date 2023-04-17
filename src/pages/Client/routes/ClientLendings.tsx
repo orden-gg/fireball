@@ -231,7 +231,8 @@ export function ClientLendings() {
                     {
                       className: 'imageFooter',
                       items: ['whitelistId']
-                    }
+                    },
+                    'identity'
                   ]
                 },
                 'name',

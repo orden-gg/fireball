@@ -5,10 +5,13 @@ import { CircularProgress, Autocomplete, TextField } from '@mui/material';
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
-import { EthersApi, MainApi, TheGraphApi } from 'api';
+import { EthersApi, TheGraphApi } from 'api';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
-import { GotchiInventory as GotchiInventoryModel, Gotchi, SalesHistoryModel } from 'shared/models';
+import { FireballGotchi, Gotchi, GotchiExtended, IdentityOption, SalesHistoryModel } from 'shared/models';
+
+import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
 import {
   GotchiContent,
@@ -16,6 +19,7 @@ import {
   GotchiHead,
   GotchiInfoItem,
   GotchiInfoList,
+  GotchiPreviewIdentity,
   GotchiTraits,
   GotchiView
 } from 'components/GotchiPreview/components';
@@ -36,7 +40,11 @@ import { useMetamask } from 'use-metamask';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
-export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: CustomAny }) {
+import { GotchiUtils } from 'utils';
+
+import { gotchiPreviewModalStyles } from './styles';
+
+export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: GotchiExtended }) {
   const classes = gotchiPreviewModalStyles();
   const [spawnId, setSpawnId] = useState<string>();
   const [modalGotchi, setModalGotchi] = useState<CustomAny>(null);
@@ -45,42 +53,93 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
   const [isGotchiLoading, setIsGotchiLoading] = useState<boolean>(true);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
-  const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
+  const [gotchiInventory, setGotchiInventory] = useState<number[]>([]);
+
+  const [claimedGotchis, setClaimedGotchis] = useState<Gotchi[]>([]);
+  const [unclaimedGotchiIds, setUnclaimedGotchiIds] = useState<number[]>([]);
+  const [gotchisLoaded, setGotchisLoaded] = useState<boolean>(false);
   const { metaState } = useMetamask();
 
   useEffect(() => {
+    let isMounted: boolean = true;
+
     if (gotchi) {
       setModalGotchi(gotchi);
-      setInventory([]);
+      setGotchiInventory([]);
       setSalesHistory([]);
       setIsGotchiLoading(false);
     } else {
-      MainApi.getAavegotchiById(id)
-        .then((response: CustomAny[]) => {
-          const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
-          const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
-            const slot: string[] = ItemUtils.getSlotsById(item.id);
+      const responses: [Promise<Gotchi>, Promise<FireballGotchi>] = [
+        TheGraphApi.getGotchiById(id),
+        TheGraphApi.getFireballGotchiById(id)
+      ];
 
-            return slot.length > 0 ? -1 : 1;
-          });
+      Promise.all(responses)
+        .then(async ([gotchi, fireballGotchis]: [Gotchi, FireballGotchi]) => {
+          if (isMounted) {
+            const extendedGotchi: GotchiExtended = { ...gotchi, ...fireballGotchis };
+            const sortedInventory: number[] = gotchi.equippedWearables
+              .concat(fireballGotchis.badges)
+              .filter((id: number) => id !== 0);
 
-          setInventory(sortedInventory);
+            setGotchiInventory(sortedInventory);
+            setModalGotchi(extendedGotchi);
+            setIsGotchiLoading(false);
+          }
         })
         .catch((error) => console.log(error));
 
-      TheGraphApi.getGotchiById(id)
-        .then((response: CustomAny) => setModalGotchi(response))
-        .catch((error) => console.log(error))
-        .finally(() => setIsGotchiLoading(false));
-
       TheGraphApi.getErc721SalesHistory(id, Erc721Categories.Aavegotchi)
         .then((response: SalesHistoryModel[]) => {
-          setSalesHistory(response);
+          if (isMounted) {
+            setSalesHistory(response);
+          }
         })
         .catch((error) => console.log(error))
-        .finally(() => setHistoryLoaded(true));
+        .finally(() => isMounted && setHistoryLoaded(true));
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  useEffect(() => {
+    if (modalGotchi) {
+      const claimedGotchiIds: number[] = modalGotchi.identity.claimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      const unclaimedGotchiIds: number[] = modalGotchi.identity.unclaimed.map((identityGotchi: IdentityOption) =>
+        Number(identityGotchi.gotchiId)
+      );
+      let isMounted: boolean = true;
+
+      if (claimedGotchiIds.length > 0) {
+        TheGraphApi.getGotchiesByIds(claimedGotchiIds)
+          .then((claimedGotchis: Gotchi[]) => {
+            if (isMounted) {
+              setClaimedGotchis(Object.values(claimedGotchis));
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          .finally(() => {
+            if (isMounted) {
+              setGotchisLoaded(true);
+            }
+          });
+      } else {
+        setGotchisLoaded(true);
+      }
+
+      setUnclaimedGotchiIds(unclaimedGotchiIds);
+
+      return () => {
+        isMounted = false;
+      };
+    }
+  }, [modalGotchi]);
 
   useEffect(() => {
     if (modalGotchi) {
@@ -159,10 +218,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                   <GotchiInfoItem
                     label='staked'
                     value={parseFloat(
-                      GotchiUtils.getStakedAmount(
-                        modalGotchi.collateral,
-                        modalGotchi.stakedAmount ? modalGotchi.stakedAmount : 0
-                      ).toFixed(3)
+                      GotchiUtils.getStakedAmount(modalGotchi.collateral, modalGotchi.stakedAmount).toPrecision(5)
                     )}
                   />
                 </GotchiInfoList>
@@ -172,11 +228,18 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                   modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
                 />
 
-                {(modalGotchi.originalOwner?.id || modalGotchi.owner?.id) && (
+                <GotchiPreviewIdentity
+                  gotchisLoaded={gotchisLoaded}
+                  claimedGotchis={claimedGotchis}
+                  unclaimedGotchiIds={unclaimedGotchiIds}
+                  className={classes.identityBlock}
+                />
+
+                {modalGotchi.originalOwner?.id || modalGotchi.owner?.id ? (
                   <GotchiFooter>
                     <>
-                      <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button}>
-                        MORE INFO
+                      <ViewInAppButton link={`/gotchi/${modalGotchi.id}`} className={classes.button} target='_self'>
+                        FULL INFORMATION
                       </ViewInAppButton>
 
                       <ViewInAppButton
@@ -227,18 +290,20 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                       </>
                     )}
                   </GotchiFooter>
+                ) : (
+                  <></>
                 )}
               </GotchiContent>
             </GotchiPreview>
-            {inventory.length > 0 ? (
+            {gotchiInventory.length > 0 ? (
               <div className={classes.inventory}>
                 <div className={classes.title}>Inventory</div>
-                <GotchiInventory items={inventory} />
+                <GotchiInventory items={gotchiInventory} />
               </div>
             ) : (
               <></>
             )}
-            {modalGotchi?.timesTraded > 0 && (
+            {Number(modalGotchi?.timesTraded) > 0 && (
               <SalesHistory historyLoaded={historyLoaded} className={classes.listings}>
                 <div className={classes.title}>Sales History</div>
                 <HistoryHead className={classes.salesHeader}>

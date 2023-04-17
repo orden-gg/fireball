@@ -45,47 +45,55 @@ export const gotchiesQuery = (skip: CustomAny, orderDir: CustomAny, hauntId: Cus
     }`;
 };
 
-export const gotchiByIdQuery = (id: CustomAny): string => {
+const aavegotchiProps: string = `{
+  id
+  name
+  numericTraits
+  modifiedNumericTraits
+  withSetsNumericTraits
+  baseRarityScore
+  modifiedRarityScore
+  withSetsRarityScore
+  kinship
+  toNextLevel
+  level
+  experience
+  equippedWearables
+  collateral
+  hauntId
+  createdAt
+  possibleSets
+  equippedSetID
+  equippedSetName
+  usedSkillPoints
+  minimumStake
+  stakedAmount
+  timesTraded
+  originalOwner
+  listings(where:{cancelled: false, timePurchased: 0}) {
+    id
+    priceInWei
+  }
+  historicalPrices
+  owner {
+    id
+  }
+  originalOwner {
+    id
+  }
+  lending
+}`;
+
+export const gotchiByIdQuery = (id: CustomAny): CustomAny => {
   return `{
-        aavegotchi(id: ${id}) {
-            id
-            name
-            numericTraits
-            modifiedNumericTraits
-            withSetsNumericTraits
-            baseRarityScore
-            modifiedRarityScore
-            withSetsRarityScore
-            kinship
-            toNextLevel
-            level
-            experience
-            equippedWearables
-            collateral
-            hauntId
-            createdAt
-            possibleSets
-            equippedSetID
-            equippedSetName
-            usedSkillPoints
-            minimumStake
-            stakedAmount
-            timesTraded
-            originalOwner
-            listings(where:{cancelled: false, timePurchased: 0}) {
-                id
-                priceInWei
-            }
-            historicalPrices
-            owner {
-                id
-            }
-            originalOwner {
-                id
-            }
-            lending
-        }
-    }`;
+    aavegotchi(id: ${id}) ${aavegotchiProps}
+  }`;
+};
+
+export const gotchiByIdBatchQuery = (id: number): string => {
+  return `
+    gotchi${id}: aavegotchi(id: ${id}) ${aavegotchiProps}
+  `;
 };
 
 export const userQuery = (id: CustomAny, skip: CustomAny): string => {

@@ -1,8 +1,16 @@
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams, SortingItem } from 'shared/models';
+import {
+  FireballGotchi,
+  GraphFiltersTypes,
+  GraphFiltersValueTypes,
+  GraphQueryParams,
+  SortingItem,
+  TheGraphBatchData
+} from 'shared/models';
 
 import {
   GotchiListingDTO,
@@ -41,16 +49,47 @@ export const loadBaazaarGotchisListings =
       .then((res: GotchiListingDTO[]) => {
         const modifiedListings: GotchiListingVM[] = mapGotchisDTOToVM(res);
 
-        if (shouldResetListings) {
-          dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(modifiedListings));
+        const gotchiIds: number[] = modifiedListings.map((listing: GotchiListingVM) => Number(listing.gotchi.id));
+
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
+              const extendedLendingGotchis: GotchiListingVM[] = modifiedListings.map((listing: GotchiListingVM) => {
+                listing.gotchi = { ...listing.gotchi, ...fireballGotchis[`gotchi${listing.gotchi.id}`] };
+
+                return listing;
+              });
+
+              if (shouldResetListings) {
+                dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(extendedLendingGotchis));
+              } else {
+                dispatch(
+                  gotchisListingsSlices.loadGotchisListingsSucceded(
+                    currentGotchiListings.concat(extendedLendingGotchis)
+                  )
+                );
+              }
+            })
+            .catch(() => {
+              if (shouldResetListings) {
+                dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(modifiedListings));
+              } else {
+                dispatch(
+                  gotchisListingsSlices.loadGotchisListingsSucceded(currentGotchiListings.concat(modifiedListings))
+                );
+              }
+            })
+            .finally(() => dispatch(gotchisListingsSlices.setIsGotchisListingsInitialDataLoading(false)));
         } else {
-          dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(currentGotchiListings.concat(modifiedListings)));
+          if (shouldResetListings) {
+            dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(modifiedListings));
+          } else {
+            dispatch(gotchisListingsSlices.loadGotchisListingsSucceded(currentGotchiListings.concat(modifiedListings)));
+          }
         }
       })
       .catch(() => {
         dispatch(gotchisListingsSlices.loadGotchisListingsFailed());
-      })
-      .finally(() => {
         dispatch(gotchisListingsSlices.setIsGotchisListingsInitialDataLoading(false));
       });
   };

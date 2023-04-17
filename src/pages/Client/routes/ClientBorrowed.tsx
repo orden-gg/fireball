@@ -188,7 +188,8 @@ export function ClientBorrowed() {
                     {
                       className: 'rsContainer',
                       items: ['rs']
-                    }
+                    },
+                    'identity'
                   ]
                 },
                 'name',

@@ -4,7 +4,7 @@ import { useAppSelector } from 'core/store/hooks';
 import * as TokensPricesSlices from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
-import { AlchemicaList, TokenPrices } from 'shared/models';
+import { AlchemicaTuple, TokenPrices } from 'shared/models';
 
 import { GotchiHeartGif } from 'components/Icons/Icons';
 
@@ -23,7 +23,7 @@ export function GotchiKinshipTooltip({ kinship }: { kinship: string }) {
 
   const channelingBoots = GotchiverseUtils.countKinshipChannelingBoost(kinship);
 
-  const renderTotalChannelingPrice = (alchemica: AlchemicaList): JSX.Element => {
+  const renderTotalChannelingPrice = (alchemica: AlchemicaTuple): JSX.Element => {
     const total = alchemica.map((item, index) => item * tokensPrices[tokens[index]]);
 
     return (

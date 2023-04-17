@@ -1,3 +1,5 @@
+import { FireballGotchi } from 'shared/models';
+
 export interface OwnedGotchi {
   id: string;
   name: string;
@@ -26,3 +28,5 @@ export interface OwnedGotchi {
   lending: string | null;
   lastChanneled: string | null;
 }
+
+export interface OwnedGotchiExtended extends OwnedGotchi, FireballGotchi {}

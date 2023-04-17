@@ -7,7 +7,7 @@ import { useAppSelector } from 'core/store/hooks';
 import * as TokensPricesSlices from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
-import { AlchemicaList, TokenPrices } from 'shared/models';
+import { AlchemicaTuple, TokenPrices } from 'shared/models';
 
 import {
   AlphaTokenIcon,
@@ -26,7 +26,7 @@ import { styles } from './styles';
 const icons = [FudTokenIcon, FomoTokenIcon, AlphaTokenIcon, KekTokenIcon, GltrTokenIcon];
 
 interface AlchemicaPriceProps {
-  alchemica: AlchemicaList;
+  alchemica: AlchemicaTuple;
   gltr?: number;
   className?: string;
 }

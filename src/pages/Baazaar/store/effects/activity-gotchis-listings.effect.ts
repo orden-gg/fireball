@@ -1,8 +1,15 @@
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+import {
+  FireballGotchi,
+  GraphFiltersTypes,
+  GraphFiltersValueTypes,
+  GraphQueryParams,
+  TheGraphBatchData
+} from 'shared/models';
 
 import { GraphFiltersUtils } from 'utils';
 
@@ -41,20 +48,59 @@ export const loadBaazaarActivityGotchisListings =
       .then((res: ActivityGotchiListingDTO[]) => {
         const modifiedListings: ActivityGotchiListingVM[] = mapActivityGotchisDTOToVM(res);
 
-        if (shouldResetListings) {
-          dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
+        const gotchiIds: number[] = modifiedListings.map((listing: ActivityGotchiListingVM) =>
+          Number(listing.gotchi.id)
+        );
+
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
+              const extendedLendingGotchis: ActivityGotchiListingVM[] = modifiedListings.map(
+                (listing: ActivityGotchiListingVM) => {
+                  listing.gotchi = { ...listing.gotchi, ...fireballGotchis[`gotchi${listing.gotchi.id}`] };
+
+                  return listing;
+                }
+              );
+
+              if (shouldResetListings) {
+                dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(extendedLendingGotchis));
+              } else {
+                dispatch(
+                  activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                    activityGotchisListings.concat(extendedLendingGotchis)
+                  )
+                );
+              }
+            })
+            .catch(() => {
+              if (shouldResetListings) {
+                dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
+              } else {
+                dispatch(
+                  activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                    activityGotchisListings.concat(modifiedListings)
+                  )
+                );
+              }
+            })
+            .finally(() =>
+              dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(false))
+            );
         } else {
-          dispatch(
-            activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
-              activityGotchisListings.concat(modifiedListings)
-            )
-          );
+          if (shouldResetListings) {
+            dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
+          } else {
+            dispatch(
+              activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                activityGotchisListings.concat(modifiedListings)
+              )
+            );
+          }
         }
       })
       .catch(() => {
         dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsFailed());
-      })
-      .finally(() => {
         dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(false));
       });
   };

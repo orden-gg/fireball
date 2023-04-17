@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -12,6 +12,7 @@ import { FlipButton } from './FlipButton/FlipButton';
 import { GotchiBadges } from './GotchiBadges/GotchiBadges';
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
+import { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
 import { GotchiImage } from './GotchiImage/GotchiImage';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
@@ -98,6 +99,10 @@ export function Gotchi({
       return <GotchiOwner gotchi={gotchi} key={`${gotchi.id}-owner`} />;
     },
 
+    get identity(): ReactElement {
+      return <GotchiIdentity identityQuantity={gotchi.identity.claimed.length} key={`${gotchi.id}-identity`} />;
+    },
+
     get collateral() {
       return <GotchiCollateral collateral={gotchi.collateral} key={`${gotchi.id}-collateral`} />;
     },
@@ -114,7 +119,7 @@ export function Gotchi({
     },
 
     get badges() {
-      return <GotchiBadges id={gotchi.id} key={`${gotchi.id}-badges`} />;
+      return <GotchiBadges badges={gotchi.badges} key={`${gotchi.id}-badges`} />;
     },
 
     get skillpoints() {
