@@ -209,7 +209,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
 
                 <GotchiInfoList>
                   <GotchiInfoItem label='id' value={modalGotchi.id} />
-                  <GotchiInfoItem label='kinship' value={modalGotchi.kinship} />
+                  <GotchiInfoItem label='kin' value={modalGotchi.kinship} />
                   <GotchiInfoItem label='haunt' value={modalGotchi.hauntId} />
                   <GotchiInfoItem
                     label='staked'
@@ -222,13 +222,6 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
                 <GotchiTraits
                   numericTraits={modalGotchi.numericTraits}
                   modifiedNumericTraits={modalGotchi.modifiedNumericTraits}
-                />
-
-                <GotchiPreviewIdentity
-                  gotchisLoaded={gotchisLoaded}
-                  claimedGotchis={claimedGotchis}
-                  unclaimedGotchiIds={unclaimedGotchiIds}
-                  className={classes.identityBlock}
                 />
 
                 {modalGotchi.originalOwner?.id || modalGotchi.owner?.id ? (
@@ -290,9 +283,17 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
                   <></>
                 )}
               </GotchiContent>
+
+              <div className={classes.inventory}></div>
             </GotchiPreview>
             {gotchiInventory.length > 0 ? (
               <div className={classes.inventory}>
+                <GotchiPreviewIdentity
+                  gotchisLoaded={gotchisLoaded}
+                  claimedGotchis={claimedGotchis}
+                  unclaimedGotchiIds={unclaimedGotchiIds}
+                  className={classes.identityBlock}
+                />
                 <div className={classes.title}>Inventory</div>
                 <GotchiInventory items={gotchiInventory} />
               </div>
