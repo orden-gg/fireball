@@ -32,10 +32,6 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
-// store
-import * as fromClientStore from 'pages/Client/store';
-import { useAppSelector } from 'core/store/hooks';
-
 import { useMetamask } from 'use-metamask';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
@@ -51,17 +47,12 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
   const [salesHistory, setSalesHistory] = useState<SalesHistoryModel[]>([]);
   const [inventory, setInventory] = useState<GotchiInventoryModel[]>([]);
   const { metaState } = useMetamask();
-  const borrowedGotchis: CustomAny[] = useAppSelector(fromClientStore.getBorrowedGotchis);
 
   useEffect(() => {
     if (gotchi) {
       setModalGotchi(gotchi);
       setInventory([]);
       setSalesHistory([]);
-
-      //console.log('gotchi', gotchi);
-      //console.log('modalGotchi', modalGotchi);
-
       setIsGotchiLoading(false);
     } else {
       MainApi.getAavegotchiById(id)
@@ -92,47 +83,45 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
   }, []);
 
   useEffect(() => {
-    const ownAddress = metaState.account[0];
-    const borrowedAddresses: string[] = borrowedGotchis.map((borrowedGotchi) => borrowedGotchi.originalOwner.id);
+    if (modalGotchi) {
+      const ownAddress = metaState.account[0];
+      const allAddresses = Array.from(new Set([modalGotchi.originalOwner.id, ownAddress]));
 
-    //const borrowedAddresses: string = modalGotchi?.originalOwner.id;
-    const uniqueAddresses = Array.from(new Set([...borrowedAddresses]));
+      const promises: Promise<CustomAny>[] = allAddresses.map((address) => TheGraphApi.getRealmByAddress(address));
 
-    const allAddresses: string[] = ownAddress ? uniqueAddresses.concat([ownAddress]) : uniqueAddresses;
+      Promise.all(promises)
+        .then((response) => {
+          const flatResponse = response.flat();
+          const modifiedParcels = flatResponse.map((parcel) => {
+            const installations: CustomAny[] = InstallationsUtils.combineInstallations(parcel.installations);
+            const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
+            const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
-    const selectedAddresse = [allAddresses[1], allAddresses[2]];
-    //console.log(selectedAddresse);
-    const promises: Promise<CustomAny>[] = selectedAddresse.map((address) => TheGraphApi.getRealmByAddress(address));
+            return {
+              ...parcel,
+              cooldown: cooldown,
+              nextChannel: parcel.lastChanneled + cooldown,
+              altarLevel: altar ? altar.level : 0,
+              installations: installations
+            };
+          });
+          const bestRealm = modifiedParcels
+            .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
+            .sort((a, b) => b.altarLevel - a.altarLevel);
+          setAvailibleParcels(bestRealm);
 
-    Promise.all(promises)
-      .then((response) => {
-        const flatResponse = response.flat();
-        const modifiedParcels = flatResponse.map((parcel) => {
-          const installations: CustomAny[] = InstallationsUtils.combineInstallations(parcel.installations);
-          const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
-          const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+          const fireballGates = [
+            { id: '5209', parcelHash: 'aadventures-personality-turned', altarLevel: 9 },
+            { id: '10346', parcelHash: 'continues-producing-bidder', altarLevel: 8 },
+            { id: '18356', parcelHash: 'outlet-frens-homeland', altarLevel: 9 }
+          ];
+          setAvailibleGates(fireballGates);
 
-          return {
-            ...parcel,
-            cooldown: cooldown,
-            nextChannel: parcel.lastChanneled + cooldown,
-            altarLevel: altar ? altar.level : 0,
-            installations: installations
-          };
-        });
-        const bestRealm = modifiedParcels
-          .filter((r) => DateTime.fromSeconds(r.nextChannel) < DateTime.now())
-          .sort((a, b) => b.altarLevel - a.altarLevel);
-        // todo guild gate constant
-        const fireballGates = modifiedParcels.filter(
-          (parcel) => parcel.id === '5209' || parcel.id === '10346' || parcel.id === '18356'
-        );
-        setAvailibleParcels(bestRealm);
-        setAvailibleGates(fireballGates);
-        setSpawnId(bestRealm[0]?.parcelId);
-      })
-      .catch((e) => console.log(e));
-  }, [gotchi]);
+          setSpawnId(bestRealm[0]?.parcelId);
+        })
+        .catch((e) => console.log(e));
+    }
+  }, [modalGotchi]);
 
   const handleOnChangeDropListRealm = (_event, newValue) => {
     if (!newValue) {
@@ -229,7 +218,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Custom
                           onChange={(event: CustomAny, newValue: string | null) => {
                             handleOnChangeDropListGate(event, newValue);
                           }}
-                          id='combo-box-realms'
+                          id='combo-box-gates'
                           options={availibleGates}
                           getOptionLabel={(option) => option.altarLevel + 'lvl: ' + option.parcelHash}
                           renderInput={(params) => <TextField {...params} size='small' label='Gates O_GG' />}

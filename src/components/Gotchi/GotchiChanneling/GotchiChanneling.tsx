@@ -37,7 +37,7 @@ export function GotchiChanelling({ gotchiId, lastchanneled }: { gotchiId: string
       TheGraphApi.getGotchisGotchiverseInfoByIds([gotchiId])
         .then((gotchiIdChanneled: GotchiLastChanneled) => {
           if (mounted) {
-            setLastChanneling(Number(gotchiIdChanneled[0].lastChanneledAlchemica) * 1000);
+            setLastChanneling(Number(gotchiIdChanneled[0]?.lastChanneledAlchemica) * 1000);
           }
         })
         .finally(() => {
