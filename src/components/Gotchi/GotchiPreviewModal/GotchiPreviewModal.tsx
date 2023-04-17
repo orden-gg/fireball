@@ -52,6 +52,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
           const gotchi: Gotchi = GotchiUtils.convertDataFromContract(response);
           const sortedInventory: GotchiInventoryModel[] = [...gotchi.inventory].sort((item: GotchiInventoryModel) => {
             const slot: string[] = ItemUtils.getSlotsById(item.id);
+
             return slot.length > 0 ? -1 : 1;
           });
           setInventory(sortedInventory);
@@ -81,6 +82,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
             const installations: any[] = InstallationsUtils.combineInstallations(parcel.installations);
             const altar = installations.find((installation) => installation.type === InstallationTypeNames.Altar);
             const cooldown = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
             return {
               ...parcel,
               cooldown: cooldown,
@@ -118,6 +120,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: any })
       setSpawnId(newValue.id);
     }
   };
+
   return (
     <div className={classNames(classes.previewModal, (isGotchiLoading || !modalGotchi) && 'emptyState')}>
       {!isGotchiLoading ? (
