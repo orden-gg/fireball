@@ -9,7 +9,7 @@ import { EthersApi, TheGraphApi } from 'api';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
 import { FireballGotchi, Gotchi, GotchiExtended, IdentityOption, SalesHistoryModel } from 'shared/models';
-
+import { InstallationsUtils } from 'utils';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
@@ -31,13 +31,9 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-import { EthAddress } from 'components/EthAddress/EthAddress';
 
-import { GotchiUtils, InstallationsUtils, ItemUtils } from 'utils';
-
-import { gotchiPreviewModalStyles } from './styles';
 import { useMetamask } from 'use-metamask';
-import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
+
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 import { GotchiUtils } from 'utils';

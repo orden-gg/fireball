@@ -30,9 +30,11 @@ export const onLoadBorrowedGotchis =
                 : '0'
             };
           });
-        const gotchiIds: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
 
           const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(modifiedBorrowed, type, dir);
+        const gotchiIds: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
+
+          
           if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {

@@ -86,7 +86,7 @@ export class GotchiUtils {
   }
 
   public static getIdentityRarity(identityQuantity: number) {
-    console.log(identityQuantity, IDENTITY_RARITY_LOW_NUMBERS);
+    // console.log(identityQuantity, IDENTITY_RARITY_LOW_NUMBERS);
 
     if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.common) {
       return RarityTypes.Common;
