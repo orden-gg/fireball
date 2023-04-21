@@ -14,6 +14,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
+import { ParcelSurveysTable } from 'components/Items/ParcelSurvey/components';
 
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
@@ -69,7 +70,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
             className={classNames(classes.survey, 'active')}
             surveys={parcel.surveys}
             alchemica={parcel.alchemica}
-            size={parcel.size}
+            size={Number(parcel.size)}
           />
         </div>
 
@@ -138,6 +139,10 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
           </div>
         </div>
       </div>
+
+      <h5 className={classes.salesTitle}>Survey History</h5>
+      <ParcelSurveysTable surveys={parcel.surveys} size={Number(parcel.size)} className={classes.parcelSurveyTable} />
+
       {history.length > 0 && (
         <>
           <h5 className={classes.salesTitle}>Sales History</h5>

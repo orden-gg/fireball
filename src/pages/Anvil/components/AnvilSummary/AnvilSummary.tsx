@@ -1,4 +1,4 @@
-import { AlchemicaList, InstallationItem } from 'shared/models';
+import { AlchemicaTuple, InstallationItem } from 'shared/models';
 
 import { AlchemicaPrice } from 'components/Items/common/AlchemicaPrice/AlchemicaPrice';
 
@@ -8,7 +8,7 @@ import { styles } from './styles';
 export function AnvilSummary({ summary, options }: { summary: InstallationItem[]; options: AnvilCalculatorOptions }) {
   const classes = styles();
 
-  const calculateSummary = (array: InstallationItem[]): AlchemicaList => {
+  const calculateSummary = (array: InstallationItem[]): AlchemicaTuple => {
     return [...array].reduce((prev: CustomAny, current: InstallationItem) => {
       if (!prev.length) return current.alchemicaCost;
 

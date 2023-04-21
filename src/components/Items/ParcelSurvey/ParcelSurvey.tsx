@@ -4,13 +4,13 @@ import classNames from 'classnames';
 
 import { EthersApi } from 'api';
 
-import { ParcelAlchemica, ParcelSurvey as ParcelSurveyModel } from 'shared/models';
+import { AlchemicaRoundsList, AlchemicaTuple, ParcelAlchemica, ParcelSurvey as ParcelSurveyModel } from 'shared/models';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { AlchemicaUtils } from 'utils';
 
-import { ParcelSurveyBar } from './components/ParcelSurveyBar';
+import { ParcelSurveyBar } from './components';
 import { parcelSurveyStyles } from './styles';
 
 interface ParcelSurveyProps {
@@ -24,36 +24,38 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
   const classes = parcelSurveyStyles();
 
   const [isSurveyed, setIsSurveyed] = useState<boolean>(false);
-  const [averageRate, setAverageRate] = useState<number>(1);
-  const [averageSurvey, setAverageSurvey] = useState<ParcelAlchemica | null>(null);
-  const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica | null>(null);
+  const [totalSurveysSupply, setTotalSurveysSupply] = useState<ParcelAlchemica>();
+
+  const [supplyRatesByToken, setSupplyRatesByToken] = useState<AlchemicaTuple>([0, 0, 0, 0]);
+  const [surveysRatesByToken, setSurveysRatesByToken] = useState<AlchemicaRoundsList>();
 
   useEffect(() => {
-    const isSurveyed = surveys?.length > 0;
+    const isSurveyed: boolean = surveys?.length > 0;
 
     if (isSurveyed) {
-      const averageSurvey: ParcelAlchemica = AlchemicaUtils.getAverageSurveyBySize(Number(size));
-      const totalSurveysSupply: ParcelAlchemica = AlchemicaUtils.getCombinedSurveys(surveys);
-      let rateSum: number = 0;
+      const surveysRatesByRounds: ParcelAlchemica[] = [];
 
-      for (const tokenName in totalSurveysSupply) {
-        const currentTokentRate = totalSurveysSupply[tokenName] / averageSurvey[tokenName];
-
-        rateSum += currentTokentRate;
+      for (const survey of surveys) {
+        surveysRatesByRounds.push(AlchemicaUtils.getSurveyRate(survey, size));
       }
 
+      const surveysRatesByToken: AlchemicaRoundsList = AlchemicaUtils.sortByTypes(surveysRatesByRounds);
+
+      setSurveysRatesByToken(surveysRatesByToken);
+
+      const totalSurveysSupply: ParcelAlchemica = AlchemicaUtils.getTotalSurveys(surveys);
+
       setTotalSurveysSupply(totalSurveysSupply);
-      setAverageRate(Number((rateSum / 4).toFixed(2)));
-      setAverageSurvey(AlchemicaUtils.getAverageSurveyBySize(Number(size)));
+
+      const supplyRatesByToken: AlchemicaTuple = AlchemicaUtils.getTokensRate(totalSurveysSupply, surveys.length, size);
+
+      setSupplyRatesByToken(supplyRatesByToken);
     }
+
     setIsSurveyed(isSurveyed);
   }, [surveys, size]);
 
-  if (surveys === undefined) {
-    return <></>;
-  }
-
-  return (
+  return surveys !== undefined ? (
     <div className={classNames(classes.surveyList, className)}>
       {isSurveyed ? (
         <>
@@ -62,19 +64,24 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
               <span className={classes.surveyedTime}>{surveys.length}</span>
             </CustomTooltip>
             <CustomTooltip placement='top' title={<>total average</>} disableInteractive arrow>
-              <span className={classes.rateAverage}>x{averageRate}</span>
+              <span className={classes.rateAverage}>
+                x{AlchemicaUtils.getEverageFromArray(supplyRatesByToken, supplyRatesByToken.length)}
+              </span>
             </CustomTooltip>
           </span>
-          {totalSurveysSupply !== null &&
-            Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) => (
-              <ParcelSurveyBar
-                key={tokenName}
-                averageSurvey={averageSurvey && averageSurvey[tokenName]}
-                tokenName={tokenName}
-                currentAmount={EthersApi.fromWei(alchemica[index])}
-                surveySupply={amount}
-              />
-            ))}
+          {totalSurveysSupply && surveysRatesByToken && (
+            <>
+              {Object.entries(totalSurveysSupply).map(([tokenName, amount], index: number) => (
+                <ParcelSurveyBar
+                  key={tokenName}
+                  supplyRate={supplyRatesByToken[index]}
+                  tokenName={tokenName}
+                  currentAmount={EthersApi.fromWei(alchemica[index])}
+                  surveySupply={amount}
+                />
+              ))}
+            </>
+          )}
         </>
       ) : (
         <span className={classes.surveyListHead}>
@@ -82,5 +89,7 @@ export function ParcelSurvey({ surveys, alchemica, size, className }: ParcelSurv
         </span>
       )}
     </div>
+  ) : (
+    <></>
   );
 }

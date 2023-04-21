@@ -75,7 +75,7 @@ export function Parcel({ parcel }: { parcel: CustomAny }) {
                 ) : null;
               })}
             </div>
-            <ParcelSurvey surveys={parcel.surveys} alchemica={parcel.alchemica} size={parcel.size} />
+            <ParcelSurvey surveys={parcel.surveys} alchemica={parcel.alchemica} size={Number(parcel.size)} />
           </div>
         </div>
 
