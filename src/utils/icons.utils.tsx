@@ -1,3 +1,6 @@
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WebIcon from '@mui/icons-material/Web';
+
 import { IconName } from 'shared/constants';
 
 import {
@@ -12,9 +15,13 @@ import {
   KekIcon,
   SpookinessIcon
 } from 'components/Icons/Icons';
+import { DiscordIcon } from 'components/Icons/Icons';
 
 export class IconUtils {
-  public static getIconByName(name: IconName, props: { width: number; height: number }): JSX.Element {
+  public static getIconByName(
+    name: IconName,
+    props: { width: number; height: number; className?: string }
+  ): JSX.Element {
     switch (name) {
       case IconName.Energy:
         return <EnergyIcon {...props} />;
@@ -36,6 +43,12 @@ export class IconUtils {
         return <AlphaIcon {...props} />;
       case IconName.Kek:
         return <KekIcon {...props} />;
+      case IconName.Twitter:
+        return <TwitterIcon {...props} />;
+      case IconName.Discord:
+        return <DiscordIcon {...props} />;
+      case IconName.WebIcon:
+        return <WebIcon {...props} />;
     }
   }
 }

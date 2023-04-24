@@ -4,11 +4,11 @@ import { Button, Typography } from '@mui/material';
 
 import { CustomModal } from 'components/CustomModal/CustomModal';
 
-import { guildDetailsStyles } from '../styles';
+import { guildDetailsStyles } from './styles';
 
 // import { GuildWearables } from './GuildWearables';
 
-export function GuildsDetails({ guild }: { guild: CustomAny }) {
+export function GuildDetails({ guild }: { guild: CustomAny }) {
   const classes = guildDetailsStyles();
 
   const [modalOpen, setModalOpen] = useState<boolean>(false);
