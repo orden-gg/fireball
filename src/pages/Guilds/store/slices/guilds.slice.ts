@@ -9,6 +9,7 @@ export interface GuildsState {
     isLoaded: boolean;
     isError: boolean;
   };
+  currentGuild?: Guild;
   isInitialGuildsLoaded: boolean;
 }
 
@@ -52,10 +53,14 @@ export const guildsSlice = createSlice({
     },
     setIsInitialGuildsLoaded: (state, action: PayloadAction<boolean>): void => {
       state.isInitialGuildsLoaded = action.payload;
+    },
+    setGuild: (state, action: PayloadAction<Guild>): void => {
+      state.currentGuild = action.payload;
     }
   }
 });
 
-export const { loadGuilds, loadGuildsSucceded, loadGuildsFailed, setIsInitialGuildsLoaded } = guildsSlice.actions;
+export const { loadGuilds, loadGuildsSucceded, loadGuildsFailed, setIsInitialGuildsLoaded, setGuild } =
+  guildsSlice.actions;
 
 export const guildsReducer = guildsSlice.reducer;

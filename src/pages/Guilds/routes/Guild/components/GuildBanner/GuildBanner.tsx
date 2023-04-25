@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { IconButton, Tooltip, Typography } from '@mui/material';
 
-import { GuildLogo } from 'pages/Guilds/components';
-import { GuildSocials } from 'pages/OldGuilds/components/GuildSocials';
+import { GuildLogo, GuildSocials } from 'pages/Guilds/components';
 
 import { CommonUtils } from 'utils';
 
@@ -15,12 +14,10 @@ import defaultBanner from 'assets/images/guilds/default-banner.png';
 
 import { guildBannerStyles } from './styles';
 
-export function GuildBanner() {
+export function GuildBanner({ guild }) {
   const classes = guildBannerStyles();
 
   const navigate = useNavigate();
-
-  const [guild, setGuild] = useState<CustomAny>({});
 
   const onGuildChange = useCallback(
     (currentGuildId: CustomAny) => {
@@ -32,20 +29,16 @@ export function GuildBanner() {
 
       navigate(`/guilds/${CommonUtils.stringToKey(nextGuild.name)}`);
     },
-    [guilds, navigate]
+    [guild]
   );
 
   const getBannerUrl = (): string => {
     try {
-      return require(`assets/images/guilds/${guild.banner}`).default;
+      return require(`assets/images/guilds/${guild?.banner}`).default;
     } catch (error) {
       return defaultBanner;
     }
   };
-
-  useEffect(() => {
-    setGuild(guilds[0]);
-  }, [guilds]);
 
   return (
     <div className={classes.guildBanner}>
@@ -68,7 +61,7 @@ export function GuildBanner() {
           </IconButton>
         </Tooltip>
       </div>
-      <GuildSocials />
+      <GuildSocials socials={guild.socials} />
     </div>
   );
 }

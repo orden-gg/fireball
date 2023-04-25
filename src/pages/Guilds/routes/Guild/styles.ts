@@ -31,7 +31,7 @@ export const guildStyles = makeStyles((theme) =>
       flexGrow: 1,
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: theme.spacing(5),
+      paddingTop: theme.spacing(1),
       [theme.breakpoints.down('sm')]: {
         paddingTop: theme.spacing(1)
       }

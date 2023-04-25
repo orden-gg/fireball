@@ -20,3 +20,9 @@ export const onLoadGuilds = (): AppThunk => (dispatch) => {
     })
     .finally(() => dispatch(guildsSlices.setIsInitialGuildsLoaded(true)));
 };
+
+export const onSetGuild =
+  (guild: Guild): AppThunk =>
+  (dispatch) => {
+    dispatch(guildsSlices.setGuild(guild));
+  };

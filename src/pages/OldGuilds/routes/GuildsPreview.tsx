@@ -12,7 +12,7 @@ import { CommonUtils } from 'utils';
 
 import { GuildsContext } from '../GuildsContext';
 import { GuildLogo } from '../components/GuildLogo';
-import { GuildWearables } from '../components/GuildWearables';
+// import { GuildWearables } from '../components/GuildWearables';
 import { styles } from '../styles';
 
 export function GuildsPreview() {
@@ -23,7 +23,7 @@ export function GuildsPreview() {
   const { guilds, setGuildId } = useContext<CustomAny>(GuildsContext);
 
   const handleClick = (guild: CustomAny): void => {
-    navigate(`${CommonUtils.stringToKey(guild.name)}`);
+    navigate(`${CommonUtils.stringToKey(guild.name)}/gotchis/owned`);
   };
 
   // TODO Use in the future or remove
@@ -40,7 +40,7 @@ export function GuildsPreview() {
       return (
         <>
           <Divider className={classes.divider} />
-          <GuildWearables wearables={guild.wearables} className={classes.guildWearable} tooltip='Guild wearable' />
+          {/* <GuildWearables wearables={guild.wearables} className={classes.guildWearable} tooltip='Guild wearable' /> */}
         </>
       );
     } else {

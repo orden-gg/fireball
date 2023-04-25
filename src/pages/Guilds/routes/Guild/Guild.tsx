@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,14 +8,16 @@ import { Box } from '@mui/system';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
+import { GotchiTypeNames } from 'pages/Guilds/constants';
+
 import { CommonUtils } from 'utils';
 
 import guilds from 'data/guilds.json';
 
-import { GuildBanner, GuildDetails } from './components';
+import { GuildBanner, GuildDetails, GuildNav } from './components';
+import { GuildGotchis } from './routes';
 import { guildStyles } from './styles';
 
-// import { GuildGotchis } from './components/GuildGotchis';
 // import { GuildLendings } from './components/GuildLendings';
 // import { GuildNav } from './components/GuildNav';
 // import { GuildsRealm } from './components/GuildsRealm';
@@ -23,12 +25,12 @@ import { guildStyles } from './styles';
 export function Guild() {
   const classes = guildStyles();
 
-  const dispatch = useAppDispatch();
-
   const params = useParams<{ name: string }>();
   const navigate = useNavigate();
 
-  const currentGuild = useAppSelector(fromGuildsStore.getCurrentGuild);
+  const dispatch = useAppDispatch();
+  const currentGuild: CustomAny = useAppSelector(fromGuildsStore.getCurrentGuild);
+  // const ownedGotchis: OwnedGotchi[] = useAppSelector(fromGuildsStore.getOwnedGotchis);
 
   useEffect(() => {
     const guild: CustomAny = guilds.find((guild: CustomAny) => CommonUtils.stringToKey(guild.name) === params.name);
@@ -36,17 +38,24 @@ export function Guild() {
     if (guild === undefined) {
       navigate('/guilds');
     } else {
-      dispatch(fromGuildsStore.onSetGuild({ name: 'ss', description: 'sss', logo: 'sss', id: 'ss' }));
+      dispatch(
+        fromGuildsStore.onSetGuild({
+          name: 'ss',
+          description: 'sss',
+          logo: 'sss',
+          id: 'ss',
+          members: guilds[0].members
+        })
+      );
+      navigate('gotchis');
     }
   }, []);
 
-  console.log(currentGuild);
-
-  return (
+  return currentGuild ? (
     <>
       <Box className={classes.guildWrapper}>
         <div className={classes.guildSidebar}>
-          <GuildBanner />
+          <GuildBanner guild={guilds[0]} />
 
           <GuildDetails guild={guilds[0]} />
 
@@ -63,15 +72,22 @@ export function Guild() {
         </div>
 
         <Box className={classes.guildContent}>
-          {/* <GuildNav /> */}
+          <GuildNav />
+
           <Routes>
-            {/* <Route path='gotchis' element={<GuildGotchis />} />
-            <Route path='lendings' element={<GuildLendings />} />
+            <Route path='gotchis/*'>
+              <Route path={GotchiTypeNames.Owned} element={<GuildGotchis type={GotchiTypeNames.Owned} />} />
+              <Route path={GotchiTypeNames.Borrowed} element={<GuildGotchis type={GotchiTypeNames.Borrowed} />} />
+              <Route path='*' element={<Navigate to={GotchiTypeNames.Owned} replace />} />
+            </Route>
+            {/* <Route path='lendings' element={<GuildLendings />} />
             <Route path='realm' element={<GuildsRealm />} /> */}
-            <Route path='*' element={<Navigate to='gotchis' replace />} />
+            {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
         </Box>
       </Box>
     </>
+  ) : (
+    <></>
   );
 }

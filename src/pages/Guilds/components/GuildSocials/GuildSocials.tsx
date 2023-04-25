@@ -14,7 +14,7 @@ export function GuildSocials({ socials }: CustomAny) {
       {Object.keys(socials).map((key: string) => (
         <Tooltip title={key} key={key} placement='top' followCursor>
           <IconButton component={Link} href={socials[key]} target='_blank' className={classes.guildSocialButton}>
-            {IconUtils.getIconByName('Kek' as IconName, {
+            {IconUtils.getIconByName(key as IconName, {
               width: 20,
               height: 20,
               className: classes.guildSocialIcon

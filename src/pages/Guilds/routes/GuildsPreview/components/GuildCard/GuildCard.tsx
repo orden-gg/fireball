@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { Divider } from '@mui/material';
 
+import { useAppDispatch } from 'core/store/hooks';
+import * as fromGuildsStore from 'pages/Guilds/store';
+
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, WarehouseIcon } from 'components/Icons/Icons';
@@ -18,10 +21,14 @@ export function GuildCard({ guild }: { guild: CustomAny }) {
   const childRef = useRef<HTMLDivElement>(null);
   const classes = guildCardStyles();
 
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
 
   const handleClick = (guild: CustomAny): void => {
     navigate(`${CommonUtils.stringToKey(guild.name)}`);
+
+    dispatch(fromGuildsStore.onSetGuild(guild));
   };
 
   useHoverRotation({ targetRef, childRef });
