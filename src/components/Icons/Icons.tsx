@@ -16,7 +16,7 @@ import channelActive from 'assets/images/icons/channel-active.svg';
 import channel from 'assets/images/icons/channel.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import craft from 'assets/images/icons/craft.svg';
-import discord from 'assets/images/icons/discord.svg';
+import { ReactComponent as Discord } from 'assets/images/icons/discord.svg';
 import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 import fakeGotchis from 'assets/images/icons/fake-gotchis.svg';
 import firegem from 'assets/images/icons/firegem.svg';
@@ -161,7 +161,7 @@ export const CraftIcon = ({ width, height }: IconProps) => {
 };
 
 export const DiscordIcon = ({ className, width, height }: IconProps) => {
-  return <img className={className} width={width} height={height} src={discord} alt='discord' />;
+  return <Discord className={className} width={width} height={height} />;
 };
 
 export const GotchiIcon = ({ className, width, height }: IconProps) => {
