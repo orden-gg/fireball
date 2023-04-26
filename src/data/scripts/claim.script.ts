@@ -6,8 +6,7 @@ import { exit } from 'process';
 import {
   ALPHA_CONTRACT,
   FOMO_CONTRACT,
-  FUD_CONTRACT,
-  GHST_CONTRACT,
+  FUD_CONTRACT, // GHST_CONTRACT,
   KEK_CONTRACT // @ts-ignore
 } from '../../shared/constants/api.constants.ts';
 // @ts-ignore
