@@ -1,7 +1,7 @@
 {
   "name": "fireball",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "url": "https://github.com/orden-gg/fireball",
   "type": "module",
@@ -43,6 +43,8 @@
   },
   "scripts": {
     "commit": "cz",
+    "vv_minor": "yarn version --new-version 1.1.0",
+    "v_minor": "yarn version --minor",
     "changelog": "conventional-changelog -p react -i CHANGELOG.md -s",
     "build": "yarn lint && GENERATE_SOURCEMAP=false react-scripts build",
     "start": "ESLINT_NO_DEV_ERRORS=true PORT=3005 react-scripts start",
