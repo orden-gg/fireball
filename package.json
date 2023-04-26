@@ -1,7 +1,7 @@
 {
   "name": "fireball",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "url": "https://github.com/orden-gg/fireball",
   "type": "module",
@@ -43,6 +43,7 @@
   },
   "scripts": {
     "commit": "cz",
+    "changelog": "conventional-changelog -p react -i CHANGELOG.md -s",
     "build": "yarn lint && GENERATE_SOURCEMAP=false react-scripts build",
     "start": "ESLINT_NO_DEV_ERRORS=true PORT=3005 react-scripts start",
     "start:prod": "react-scripts build && serve -s build",
@@ -95,6 +96,7 @@
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
     "commitizen": "^4.3.0",
+    "conventional-changelog-cli": "^2.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "dotenv": "^16.0.1",
     "dotenv-cli": "^6.0.0",
