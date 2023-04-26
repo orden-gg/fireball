@@ -31,11 +31,11 @@ const txCostLimit = 220 * 1e9;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 // const OWNER = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667';
-// const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
-const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
+const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
+// const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
 const LEND_OWNER = SCRIPT_WALLET_ADDRESS;
 
-const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
+const GET_BALANCE = false; // retrieve gotchis balance (took pretty much time)
 // ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
 const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
 const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
@@ -43,23 +43,29 @@ const EXECUTE = true; // execute transactions or not (true or false)
 
 // ! [owner, borrower, third_party]
 // const SPLIT = [0, 95, 5];
-const SPLIT = [0, 100, 0];
-// const SPLIT = [85, 10, 5]; // YANIK default
+// const SPLIT = [0, 100, 0];
+const SPLIT = [85, 10, 5]; // YANIK default
 // const WHITELIST = 435;
-const WHITELIST = 6329;
-// const WHITELIST = 717;
+// const WHITELIST = 6329;
+const WHITELIST = 717;
 const COST = 0;
 const PERIOD = 1;
 // const THIRD_PARTY = '0x5d2a46e38c08769d2f4dcc9dd5d9cbd958c177e9'; // !default
-// const THIRD_PARTY = '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a'; // !YANIK default
-const THIRD_PARTY = '0x0000000000000000000000000000000000000000'; // !default
+const THIRD_PARTY = '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a'; // !YANIK default
+// const THIRD_PARTY = '0x0000000000000000000000000000000000000000'; // !default
 
-const TOKENS = [FUD_CONTRACT, FOMO_CONTRACT, ALPHA_CONTRACT, KEK_CONTRACT, GHST_CONTRACT];
+const TOKENS = [
+  FUD_CONTRACT,
+  FOMO_CONTRACT,
+  ALPHA_CONTRACT,
+  KEK_CONTRACT
+  // GHST_CONTRACT
+];
 
 const aavegotchiQuery = `{
   aavegotchis(
     first: 1000,
-    skip: 0,
+    skip: 80,
     where:{
       lending: null,
       activeListing: null,
@@ -128,14 +134,14 @@ const lend = async () => {
     }
 
     // TODO: filter function as param
-    const tuples = toLend
-      .filter((g) => Number(g.ghst) > 0)
-      .map((gotchi) => {
-        return [gotchi.id, COST, PERIOD * 60 * 60, SPLIT, LEND_OWNER, THIRD_PARTY, WHITELIST, TOKENS];
-      });
-    // const tuples = toLend.map((gotchi) => {
-    //   return [gotchi.id, COST, PERIOD * 60 * 60, SPLIT, LEND_OWNER, THIRD_PARTY, WHITELIST, TOKENS];
-    // });
+    // const tuples = toLend
+    //   .filter((g) => Number(g.ghst) > 0)
+    //   .map((gotchi) => {
+    //     return [gotchi.id, COST, PERIOD * 60 * 60, SPLIT, LEND_OWNER, THIRD_PARTY, WHITELIST, TOKENS];
+    //   });
+    const tuples = toLend.map((gotchi) => {
+      return [gotchi.id, COST, PERIOD * 60 * 60, SPLIT, LEND_OWNER, THIRD_PARTY, WHITELIST, TOKENS];
+    });
 
     console.log('to lend', tuples.length);
 
@@ -168,7 +174,7 @@ const lend = async () => {
       for (let i = 0; i < chunk.length; i++) {
         await MAIN_CONTRACT_WITH_SIGNER.batchAddGotchiListing(chunk[i], {
           gasPrice: gasBoosted,
-          gasLimit: 20000000
+          gasLimit: 10000000
         }).then(async (tx: ContractTransaction) => {
           console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
           console.log('waiting Tx approval...');

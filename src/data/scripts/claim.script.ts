@@ -30,17 +30,25 @@ const txCostLimit = 220 * 1e9;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 
-const TOKENS = [FUD_CONTRACT, FOMO_CONTRACT, ALPHA_CONTRACT, KEK_CONTRACT, GHST_CONTRACT];
+const TOKENS = [
+  FUD_CONTRACT,
+  FOMO_CONTRACT,
+  ALPHA_CONTRACT,
+  KEK_CONTRACT
+  // GHST_CONTRACT
+];
 
-// const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
-const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
+// const OWNER = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667';
+const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
+// const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
 
 const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
 // ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
 const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
 const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
 // ! BE CERAFUL with this one, it will finish rent for all gotchis
-const CLAIM_AND_FINISH_RENT = false; // finish rent after claiming or not
+const FINISH_LENDING = false; // finish rent after claiming or not (true or false)
+const EXECUTE = true; // execute transactions or not (true or false)
 
 // borrower_not: "0x0000000000000000000000000000000000000000",
 // borrower: "0x8ba922eb891a734f17b14e7ff8800e6626912e5d",
@@ -122,20 +130,22 @@ const claim = async () => {
       });
     }
 
-    if (toClaim[0].fud) {
-      console.log('fud', calculateToken(toClaim, 'fud'));
-    }
-    if (toClaim[0].fomo) {
-      console.log('fomo', calculateToken(toClaim, 'fomo'));
-    }
-    if (toClaim[0].alpha) {
-      console.log('alpha', calculateToken(toClaim, 'alpha'));
-    }
-    if (toClaim[0].kek) {
-      console.log('kek', calculateToken(toClaim, 'kek'));
-    }
-    if (toClaim[0].ghst) {
-      console.log('ghst', calculateToken(toClaim, 'ghst'));
+    if (toClaim.length) {
+      if (toClaim[0].fud) {
+        console.log('fud', calculateToken(toClaim, 'fud'));
+      }
+      if (toClaim[0].fomo) {
+        console.log('fomo', calculateToken(toClaim, 'fomo'));
+      }
+      if (toClaim[0].alpha) {
+        console.log('alpha', calculateToken(toClaim, 'alpha'));
+      }
+      if (toClaim[0].kek) {
+        console.log('kek', calculateToken(toClaim, 'kek'));
+      }
+      if (toClaim[0].ghst) {
+        console.log('ghst', calculateToken(toClaim, 'ghst'));
+      }
     }
 
     // TODO: filter function as param
@@ -152,7 +162,7 @@ const claim = async () => {
     if (gasPriceGwei >= txCostLimit) {
       console.log(
         `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
-          txCostLimit,
+          txCostLimit.toString(),
           CONSOLE_COLORS.Red
         )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
       );
@@ -165,16 +175,18 @@ const claim = async () => {
     console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
 
     // check if gotchis are available
-    if (gotchiIds.length > 0) {
+    if (gotchiIds.length > 0 && EXECUTE) {
       console.log('tx chank size', TRANSACTION_CHUNK_SIZE);
       const chunk = chunkArray(gotchiIds, TRANSACTION_CHUNK_SIZE);
       let processed = 0;
 
       // loop through chunks
       for (let i = 0; i < chunk.length; i++) {
-        await MAIN_CONTRACT_WITH_SIGNER[
-          CLAIM_AND_FINISH_RENT ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'
-        ](chunk[i], { gasPrice: gasBoosted, gasLimit: 9000000 }).then(async (tx: ContractTransaction) => {
+        await MAIN_CONTRACT_WITH_SIGNER[FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
+          chunk[i],
+          // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
+          { gasPrice: gasBoosted }
+        ).then(async (tx: ContractTransaction) => {
           console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
           console.log('waiting Tx approval...');
 
@@ -182,8 +194,8 @@ const claim = async () => {
           await tx
             .wait()
             .then(() => {
-              console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), lendings.length);
-              console.log(gotchiIds);
+              console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), chunk[i].length);
+              console.log(chunk[i]);
 
               processed += chunk[i].length;
               console.log('done', processed, 'of', gotchiIds.length);

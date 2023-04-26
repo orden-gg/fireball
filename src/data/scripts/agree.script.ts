@@ -26,7 +26,7 @@ const WHITELIST = 6329;
 // TODO: batch claim
 const lendingsQuery = `{
   gotchiLendings(
-    first: 25,
+    first: 10,
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
@@ -75,7 +75,7 @@ const agree = async () => {
     if (gasPriceGwei >= txCostLimit) {
       console.log(
         `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
-          txCostLimit,
+          txCostLimit.toString(),
           CONSOLE_COLORS.Red
         )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
       );
@@ -95,7 +95,7 @@ const agree = async () => {
         lending.upfrontCost,
         lending.period,
         [lending.splitOwner, lending.splitBorrower, lending.splitOther],
-        { gasPrice: gasBoosted, gasLimit: 600000, nonce: nonce + index }
+        { gasPrice: gasBoosted, gasLimit: 2000000, nonce: nonce + index }
       )
     );
 
