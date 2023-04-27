@@ -1,7 +1,7 @@
 {
   "name": "fireball",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "private": true,
   "url": "https://github.com/orden-gg/fireball",
   "type": "module",
