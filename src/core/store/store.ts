@@ -5,6 +5,7 @@ import { clientReducers } from 'pages/Client/store';
 import { fakeGotchiReducers } from 'pages/FakeGotchisGallery/store';
 import { glossaryReducer } from 'pages/Glossary/store';
 
+import { currentBlockReducers } from './current-block/slices';
 import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
 import { tokensPricesReducers } from './tokens-prices';
@@ -17,7 +18,8 @@ export const store = configureStore({
     baazaar: baazarReducers,
     client: clientReducers,
     fake: fakeGotchiReducers,
-    tokensPrices: tokensPricesReducers
+    tokensPrices: tokensPricesReducers,
+    currentBlock: currentBlockReducers
   }
 });
 

@@ -137,25 +137,54 @@ export class InstallationsUtils {
     return installations
       .filter((item: ParcelInstallationDTO) => InstallationsUtils.getIsInstallationExist(item.installationId))
       .map((inst: ParcelInstallationDTO) => ({
+        ...inst,
         id: inst.installationId,
         name: InstallationsUtils.getNameById(inst.installationId),
         level: InstallationsUtils.getLevelById(inst.installationId),
         type: InstallationsUtils.getTypeById(inst.installationId) as InstallationTypeNames
       }))
-      .reduce((prev: ParcelInstallationVM[], current: Omit<ParcelInstallationVM, 'quantity'>) => {
-        const duplicated: Undefinable<ParcelInstallationVM> = prev.find((inst) => inst.id === current.id);
+      .reduce(
+        (
+          prev: ParcelInstallationVM[],
+          current: Omit<ParcelInstallationDTO, 'id'> & Omit<ParcelInstallationVM, 'quantity'>
+        ) => {
+          const duplicated: Undefinable<ParcelInstallationVM> = prev.find((inst) => inst.id === current.id);
 
-        if (duplicated) {
-          duplicated.quantity++;
+          if (duplicated) {
+            duplicated.quantity++;
 
-          return prev;
-        }
+            if (duplicated.list) {
+              duplicated.list.push({
+                x: current.x,
+                y: current.y,
+                upgrading: current.upgrading,
+                lastUpgradeInitiated: current.lastUpgradeInitiated,
+                lastUpgradeReady: current.lastUpgradeReady
+              });
+            }
 
-        return prev.concat({
-          ...current,
-          quantity: 1
-        });
-      }, [])
+            return prev;
+          }
+
+          return prev.concat({
+            id: current.id,
+            name: current.name,
+            level: current.level,
+            type: current.type,
+            quantity: 1,
+            list: [
+              {
+                x: current.x,
+                y: current.y,
+                upgrading: current.upgrading,
+                lastUpgradeInitiated: current.lastUpgradeInitiated,
+                lastUpgradeReady: current.lastUpgradeReady
+              }
+            ]
+          });
+        },
+        []
+      )
       .sort((a, b) => a.id - b.id)
       .sort((a, b) => b.level - a.level);
   }

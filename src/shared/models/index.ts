@@ -1,5 +1,6 @@
 export * from './alchemica.model';
 export * from './big-number.model';
+export * from './block.model';
 export * from './contdown-format.model';
 export * from './custom-parsed-query.model';
 export * from './fake-gotchi.model';

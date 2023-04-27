@@ -2,7 +2,15 @@ import { AlchemicaTypes, InstallationTypeNames, TypenameType } from 'shared/cons
 
 export declare type AlchemicaBag = [string, string, string, string];
 
-export interface ParcelInstallationDTO {
+export interface ParcelCore {
+  x: number;
+  y: number;
+  upgrading: boolean;
+  lastUpgradeInitiated?: string;
+  lastUpgradeReady?: string;
+}
+export interface ParcelInstallationDTO extends ParcelCore {
+  id: string;
   installationId: number;
 }
 
@@ -16,6 +24,7 @@ export interface ParcelInstallationVM {
   name: string;
   quantity: number;
   type: InstallationTypeNames;
+  list?: ParcelCore[];
 }
 
 export interface ParcelTileVM {

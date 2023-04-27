@@ -369,6 +369,9 @@ export const parcelQuery = (id: CustomAny): string => {
             installationId
             x
             y
+            upgrading
+            lastUpgradeInitiated
+            lastUpgradeReady
         }
         tiles {
             id

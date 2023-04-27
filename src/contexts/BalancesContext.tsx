@@ -11,9 +11,10 @@ import {
   USDC_CONTRACT
 } from 'shared/constants/api.constants';
 
+import * as CurrentBlockStore from 'core/store/current-block';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import * as TokensPricesSlices from 'core/store/tokens-prices';
-import * as fromLoginStore from 'core/store/login';
+import * as LoginStore from 'core/store/login';
+import * as TokensPricesStore from 'core/store/tokens-prices';
 
 import { TokenTypes } from 'shared/constants';
 import { TokenPrices } from 'shared/models';
@@ -72,10 +73,10 @@ export const BalancesContextProvider = (props: CustomAny) => {
   ];
 
   const dispatch = useAppDispatch();
-  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
+  const activeAddress = useAppSelector(LoginStore.getActiveAddress);
 
-  const isPricesLoaded: boolean = useAppSelector(TokensPricesSlices.getIsPricesLoaded);
-  const tokensPrices: TokenPrices = useAppSelector(TokensPricesSlices.getTokensPrices);
+  const isPricesLoaded: boolean = useAppSelector(TokensPricesStore.getIsPricesLoaded);
+  const tokensPrices: TokenPrices = useAppSelector(TokensPricesStore.getTokensPrices);
 
   const [isAmountsLoaded, setIsAmountsLoaded] = useState<boolean>(false);
   const [isBalancesLoading, setIsBalancesLoading] = useState<boolean>(false);
@@ -131,7 +132,8 @@ export const BalancesContextProvider = (props: CustomAny) => {
   }, [activeAddress]);
 
   useEffect(() => {
-    dispatch(TokensPricesSlices.onLoadTokensPrices());
+    dispatch(TokensPricesStore.onLoadTokensPrices());
+    dispatch(CurrentBlockStore.onLoadCurrentBlock());
   }, []);
 
   useEffect(() => {

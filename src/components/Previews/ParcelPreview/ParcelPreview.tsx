@@ -123,7 +123,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
             </div>
 
             <div className={classes.installations}>
-              <ParcelInstallations installations={parcel.installations} tiles={parcel.tiles} size={80} />
+              <ParcelInstallations installations={parcel.installations} tiles={parcel.tiles} size={60} />
             </div>
           </div>
 
