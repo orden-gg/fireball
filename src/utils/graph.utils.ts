@@ -70,4 +70,22 @@ export class GraphUtils {
 
     return `{${queries.join(',')}}`;
   }
+
+  public static getQueriesByAddress(query, address) {
+    const queries: CustomAny[] = [];
+
+    for (let i = 0; i < 6; i++) {
+      queries.push(query(address.toLowerCase(), i * 1000));
+    }
+
+    return queries;
+  }
+
+  public static flatGraphItems(responses: CustomAny[][], datasetRoute: CustomAny[]): CustomAny[] {
+    const filteredArray: CustomAny[] = responses.flatMap((item: CustomAny) =>
+      datasetRoute.reduce((acc, prop) => acc[prop], item.data)
+    );
+
+    return filteredArray;
+  }
 }

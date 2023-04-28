@@ -1,17 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { CircularProgress } from '@mui/material';
-
 import qs from 'query-string';
 
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { useAppDispatch } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { CustomParsedQuery } from 'shared/models';
 
 import { GotchiTypeNames } from 'pages/Guilds/constants';
 
+import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
 import { GotchiIcon } from 'components/Icons/Icons';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
@@ -19,8 +18,8 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
 import { FilterUtils } from 'utils';
 
-import { initialFilters, queryParamsOrder, sortings } from '../../constants';
-import { useGotchis } from './hooks/useGotchis';
+import { useGotchis } from '../../../../hooks/useGuildGotchis';
+import { gotchiSorting, initialFilters, queryParamsOrder } from '../../constants';
 import { guildContentStyles } from './styles';
 
 export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
@@ -30,20 +29,13 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { gotchis, gotchisCount, isGotchisLoaded, defaultSorting }: CustomAny = useGotchis(type);
+  const { gotchis, isGotchisLoaded, defaultSorting }: CustomAny = useGotchis(type);
 
   const dispatch = useAppDispatch();
-  const currentGuild: CustomAny = useAppSelector(fromGuildsStore.getCurrentGuild);
 
   const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
   const [modifiedGotchis, setModifiedGotchis] = useState<CustomAny[]>([]);
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
-
-  useEffect(() => {
-    if (currentGuild.members?.length > 0) {
-      dispatch(fromGuildsStore.onLoadOwnedGotchis(currentGuild.members));
-    }
-  }, [currentGuild]);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: CustomAny) =>
@@ -53,7 +45,7 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = gotchiSorting.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -73,7 +65,7 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === defaultSorting.type)?.paramKey;
+    const paramKey: CustomAny = gotchiSorting.find((sorting) => sorting.key === defaultSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, defaultSorting.dir);
   }, [defaultSorting]);
@@ -94,7 +86,7 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
   };
 
   const sorting: CustomAny = {
-    sortingList: sortings,
+    sortingList: gotchiSorting,
     sortingDefaults: defaultSorting,
     onSortingChange: onSortingChange
   };
@@ -131,31 +123,42 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
 
   return (
     <div className={classes.guildGotchis}>
-      <div className={classes.sortingPanelWrap}>
-        <SortFilterPanel
-          sorting={sorting}
-          itemsLength={modifiedGotchis.length}
-          placeholder={<GotchiIcon width={20} height={20} />}
-          isShowFilters={true}
-          filters={currentFilters}
-          setSelectedFilters={onSetSelectedFilters}
-          resetFilters={onResetFilters}
-          exportData={onExportData}
-          filtersCount={activeFiltersCount}
+      <SortFilterPanel
+        sorting={sorting}
+        itemsLength={modifiedGotchis.length}
+        placeholder={<GotchiIcon width={20} height={20} />}
+        isShowFilters={true}
+        filters={currentFilters}
+        setSelectedFilters={onSetSelectedFilters}
+        resetFilters={onResetFilters}
+        exportData={onExportData}
+        filtersCount={activeFiltersCount}
+      />
+      <ContentInner dataLoading={!isGotchisLoaded}>
+        <GotchisLazy
+          items={modifiedGotchis}
+          renderItem={(id) => (
+            <Gotchi
+              gotchi={modifiedGotchis[id]}
+              className='narrowed'
+              render={[
+                {
+                  className: 'imageContainer',
+                  items: [
+                    'svg',
+                    {
+                      className: 'rsContainer',
+                      items: ['rs', 'skillpoints']
+                    },
+                    'identity'
+                  ]
+                },
+                'name'
+              ]}
+            />
+          )}
         />
-      </div>
-      {isGotchisLoaded ? (
-        gotchisCount > 0 ? (
-          <GotchisLazy
-            items={modifiedGotchis}
-            renderItem={(id) => <Gotchi gotchi={modifiedGotchis[id]} className='narrowed' render={['svg', 'name']} />}
-          />
-        ) : (
-          <div className={classes.noData}>No Gotchis :(</div>
-        )
-      ) : (
-        <CircularProgress className={classes.loading} />
-      )}
+      </ContentInner>
     </div>
   );
 }

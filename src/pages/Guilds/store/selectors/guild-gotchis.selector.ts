@@ -5,7 +5,7 @@ import { RootState } from 'core/store/store';
 import { OwnedGotchisState } from '../slices/guild-gotchis.slice';
 
 const ownedGotchisStateSelector = createSelector(
-  (state: RootState) => state.client.ownedGotchis,
+  (state: RootState) => state.guilds.ownedGotchis,
   (ownedGotchisState: OwnedGotchisState) => ownedGotchisState
 );
 
@@ -29,7 +29,7 @@ export const getOwnedGotchisSorting = createSelector(
   (state: OwnedGotchisState) => state.ownedGotchisSorting
 );
 
-export const getIsGotchisDataLoaded = createSelector(ownedGotchisStateSelector, (state: OwnedGotchisState) => {
+export const getIsOwnedGotchisLoaded = createSelector(ownedGotchisStateSelector, (state: OwnedGotchisState) => {
   const isLoaded: boolean = state.ownedGotchis.isLoaded;
 
   return isLoaded;

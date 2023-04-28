@@ -1,8 +1,11 @@
 import { TheGraphApi } from 'api';
+import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
-import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
+import { FireballGotchi, SortingItem, TheGraphBatchData } from 'shared/models';
+
+import { GuildGotchiBorrowed, GuildGotchiBorrowedExtended } from 'pages/Guilds/models';
 
 import { CommonUtils } from 'utils';
 
@@ -16,16 +19,25 @@ export const onLoadBorrowedGotchis =
 
     const { type, dir }: SortingItem = getState().client.borrowedGotchis.borrowedGotchisSorting;
 
-    TheGraphApi.getBorrowedByAddress(addresses[0])
-      .then((borrowedGotchis: GotchiLending[]) => {
-        const sortedBorrowedGotchis: GotchiLending[] = CommonUtils.basicSort(borrowedGotchis, type, dir);
-        const gotchiIds: number[] = sortedBorrowedGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
+    const promises: Promise<GuildGotchiBorrowed[]>[] = addresses.map((address: string) =>
+      GuildGraphApi.getMemberBorrowedGotchis(address)
+    );
+
+    Promise.all(promises)
+      .then((borrowedGotchis: GuildGotchiBorrowed[][]) => {
+        const unitedGotchis: GuildGotchiBorrowed[] = borrowedGotchis.reduce(
+          (result: GuildGotchiBorrowed[], current: GuildGotchiBorrowed[]) => result.concat(current),
+          []
+        );
+
+        const sortedBorrowedGotchis: GuildGotchiBorrowed[] = CommonUtils.basicSort(unitedGotchis, type, dir);
+        const gotchiIds: number[] = sortedBorrowedGotchis.map((gotchi: GuildGotchiBorrowed) => Number(gotchi.id));
 
         if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
-              const extendedLendingGotchis: GotchiLendingExtended[] = sortedBorrowedGotchis.map(
-                (lending: GotchiLending) => {
+              const extendedLendingGotchis: GuildGotchiBorrowedExtended[] = sortedBorrowedGotchis.map(
+                (lending: GuildGotchiBorrowed) => {
                   return { ...lending, ...fireballGotchis[`gotchi${lending.id}`] };
                 }
               );
@@ -33,7 +45,6 @@ export const onLoadBorrowedGotchis =
             })
             .catch(() => {
               dispatch(borrowedGotchisSlices.loadBorrowedGotchisFailed());
-              dispatch(borrowedGotchisSlices.loadBorrowedGotchisSucceded(sortedBorrowedGotchis));
             })
             .finally(() => dispatch(borrowedGotchisSlices.setIsInitialBorrowedGotchisLoading(false)));
         } else {

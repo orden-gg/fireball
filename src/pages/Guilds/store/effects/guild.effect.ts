@@ -1,46 +1,46 @@
 import { AppThunk } from 'core/store/store';
 
-import * as clientEffects from '.';
-import * as clientSelectors from '../selectors';
-import * as clientSlices from '../slices';
+import * as guildEffects from '.';
+import * as guildSelectors from '../selectors';
+import * as guildSlices from '../slices';
 
 export const onLoadGuildData =
   (addresses: string[]): AppThunk =>
   (dispatch, getState) => {
-    const isLoaded: boolean = clientSelectors.getIsGuildDataLoaded(getState());
+    const isLoaded: boolean = guildSelectors.getIsGuildDataLoaded(getState());
 
     if (isLoaded) {
-      // dispatch(clientSlices.resetWarehouseItems());
-      // dispatch(clientSlices.resetFakeGotchis());
+      // dispatch(guildSlices.resetWarehouseItems());
+      // dispatch(guildSlices.resetFakeGotchis());
     }
 
-    dispatch(clientEffects.onLoadOwnedGotchis(addresses));
-    // dispatch(clientEffects.onLoadLentGotchis(address));
-    // dispatch(clientEffects.onLoadBorrowedGotchis(address));
-    // dispatch(clientEffects.onLoadPortals(address));
-    // dispatch(clientEffects.onLoadWarehouse(address));
-    // dispatch(clientEffects.onLoadTickets(address));
-    // dispatch(clientEffects.onLoadInstallations(address));
-    // dispatch(clientEffects.onLoadTiles(address));
-    // dispatch(clientEffects.onLoadRealm(address));
-    // dispatch(clientEffects.onLoadFakeGotchis(address));
-    // dispatch(clientEffects.onLoadItemsForSale(address));
+    dispatch(guildEffects.onLoadOwnedGotchis(addresses));
+    // dispatch(guildEffects.onLoadLentGotchis(address));
+    // dispatch(guildEffects.onLoadBorrowedGotchis(address));
+    // dispatch(guildEffects.onLoadPortals(address));
+    // dispatch(guildEffects.onLoadWarehouse(address));
+    // dispatch(guildEffects.onLoadTickets(address));
+    // dispatch(guildEffects.onLoadInstallations(address));
+    // dispatch(guildEffects.onLoadTiles(address));
+    // dispatch(guildEffects.onLoadRealm(address));
+    // dispatch(guildEffects.onLoadFakeGotchis(address));
+    // dispatch(guildEffects.onLoadItemsForSale(address));
   };
 
 export const onUpdateGuildLoadingStates = (): AppThunk => (dispatch, getState) => {
-  const isLoaded: boolean = clientSelectors.getIsGuildDataLoaded(getState());
+  const isLoaded: boolean = guildSelectors.getIsGuildDataLoaded(getState());
 
   if (isLoaded) {
-    dispatch(clientSlices.setIsInitialOwnedGotchisLoading(true));
-    // dispatch(clientSlices.setIsInitialBorrowedGotchisLoading(true));
-    // dispatch(clientSlices.setIsInitialFakeGotchisLoading(true));
-    // dispatch(clientSlices.setIsInitialInstallationsLoading(true));
-    // dispatch(clientSlices.setIsInitialItemsForSaleLoading(true));
-    // dispatch(clientSlices.setIsInitialLentGotchisLoading(true));
-    // dispatch(clientSlices.setIsInitialPortalsLoading(true));
-    // dispatch(clientSlices.setIsInitialRealmLoading(true));
-    // dispatch(clientSlices.setIsInitialTicketsLoading(true));
-    // dispatch(clientSlices.setIsInitialTilesLoading(true));
-    // dispatch(clientSlices.setIsInitialWarehouseLoading(true));
+    dispatch(guildSlices.setIsInitialOwnedGotchisLoading(true));
+    // dispatch(guildSlices.setIsInitialBorrowedGotchisLoading(true));
+    // dispatch(guildSlices.setIsInitialFakeGotchisLoading(true));
+    // dispatch(guildSlices.setIsInitialInstallationsLoading(true));
+    // dispatch(guildSlices.setIsInitialItemsForSaleLoading(true));
+    // dispatch(guildSlices.setIsInitialLentGotchisLoading(true));
+    // dispatch(guildSlices.setIsInitialPortalsLoading(true));
+    // dispatch(guildSlices.setIsInitialRealmLoading(true));
+    // dispatch(guildSlices.setIsInitialTicketsLoading(true));
+    // dispatch(guildSlices.setIsInitialTilesLoading(true));
+    // dispatch(guildSlices.setIsInitialWarehouseLoading(true));
   }
 };

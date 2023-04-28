@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { SortingItem } from 'shared/models';
+
+import { GuildGotchiBorrowedExtended } from 'pages/Guilds/models';
 
 export interface BorrowedGotchisState {
   borrowedGotchis: {
-    data: GotchiLending[];
+    data: GuildGotchiBorrowedExtended[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
@@ -39,7 +41,7 @@ export const borrowedGotchisSlice = createSlice({
         isError: false
       };
     },
-    loadBorrowedGotchisSucceded: (state, action: PayloadAction<GotchiLending[]>): void => {
+    loadBorrowedGotchisSucceded: (state, action: PayloadAction<GuildGotchiBorrowedExtended[]>): void => {
       state.borrowedGotchis = {
         data: action.payload,
         isLoading: false,

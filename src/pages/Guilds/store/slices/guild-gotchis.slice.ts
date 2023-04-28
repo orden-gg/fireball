@@ -2,11 +2,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { SortingItem } from 'shared/models';
 
-import { OwnedGotchi } from 'pages/Client/models';
+import { GuildGotchiExtended } from 'pages/Guilds/models';
 
 export interface OwnedGotchisState {
   ownedGotchis: {
-    data: OwnedGotchi[];
+    data: GuildGotchiExtended[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
@@ -41,7 +41,7 @@ export const ownedGotchisSlice = createSlice({
         isError: false
       };
     },
-    loadOwnedGotchisSucceded: (state, action: PayloadAction<OwnedGotchi[]>): void => {
+    loadOwnedGotchisSucceded: (state, action: PayloadAction<GuildGotchiExtended[]>): void => {
       state.ownedGotchis = {
         data: action.payload,
         isLoading: false,

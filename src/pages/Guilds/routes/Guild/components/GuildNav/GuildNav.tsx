@@ -37,16 +37,16 @@ export function GuildNav() {
               count: ownedGotchisCount
             },
             {
-              name: GotchiTypeNames.Lentout,
+              name: GotchiTypeNames.Lended,
               path: 'gotchis/lended',
               isLoading: false,
-              count: lentGotchisCount
+              count: lentGotchisCount || 1
             },
             {
               name: GotchiTypeNames.Borrowed,
               path: 'gotchis/borrowed',
               isLoading: false,
-              count: borrowedGotchisCount
+              count: borrowedGotchisCount || 1
             }
           ]}
         />

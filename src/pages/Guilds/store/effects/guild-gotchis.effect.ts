@@ -1,13 +1,15 @@
 import _ from 'lodash';
 
 import { TheGraphApi } from 'api';
+import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
 import { Erc1155Categories, HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER, WerableBenefitTypes } from 'shared/constants';
 import { FireballGotchi, SortingItem, TheGraphBatchData, WearableTypeBenefit } from 'shared/models';
 
-import { OwnedGotchi, OwnedGotchiExtended, Warehouse } from 'pages/Client/models';
+import { Warehouse } from 'pages/Client/models';
+import { GuildGotchi, GuildGotchiExtended } from 'pages/Guilds/models';
 
 import { CommonUtils, ItemUtils } from 'utils';
 
@@ -19,7 +21,7 @@ import * as warehouseSlices from '../slices/warehouse.slice';
 
 export const onLoadOwnedGotchis =
   (addresses: string[]): AppThunk =>
-  (dispatch, getState) => {
+  async (dispatch, getState) => {
     dispatch(ownedGotchisSlices.loadOwnedGotchis());
 
     const { type: gotchisSortType, dir: gotchisSortDir }: SortingItem =
@@ -27,26 +29,34 @@ export const onLoadOwnedGotchis =
     const { type: warehouseSortType, dir: warehouseSortDir }: SortingItem =
       getState().client.warehouse.warehouseSorting;
 
-    TheGraphApi.getGotchisByAddresses(addresses)
-      .then((ownedGotchis: OwnedGotchi[]) => {
-        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().client.warehouse.warehouse.data);
+    const promises: Promise<GuildGotchi[]>[] = addresses.map((address: string) =>
+      GuildGraphApi.getMemberOwnedGotchis(address)
+    );
 
-        const warehouseItems: Warehouse[] = geModifiedWarehouse(ownedGotchis, warehouseItemsCopy);
+    Promise.all(promises)
+      .then((ownedGotchis: GuildGotchi[][]) => {
+        const warehouseItemsCopy: Warehouse[] = _.cloneDeep(getState().guilds.warehouse.warehouse.data);
+
+        const unitedGotchis: GuildGotchi[] = ownedGotchis.reduce(
+          (result: GuildGotchi[], current: GuildGotchi[]) => result.concat(current),
+          []
+        );
+
+        const warehouseItems: Warehouse[] = geModifiedWarehouse(unitedGotchis, warehouseItemsCopy);
         const sortedWarehouseItems: Warehouse[] = CommonUtils.basicSort(
           warehouseItems,
           warehouseSortType,
           warehouseSortDir
         );
-
         dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
 
-        const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
-        const gotchiIds: number[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
+        const sortedGuildGotchis: GuildGotchi[] = CommonUtils.basicSort(unitedGotchis, gotchisSortType, gotchisSortDir);
+        const gotchiIds: number[] = sortedGuildGotchis.map((gotchi: GuildGotchi) => Number(gotchi.id));
 
         if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
-              const extendedGotchis: OwnedGotchiExtended[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => {
+              const extendedGotchis: GuildGotchiExtended[] = sortedGuildGotchis.map((gotchi: GuildGotchi) => {
                 return {
                   ...gotchi,
                   ...fireballGotchis[`gotchi${gotchi.id}`]
@@ -55,10 +65,12 @@ export const onLoadOwnedGotchis =
 
               dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(extendedGotchis));
             })
-            .catch(() => dispatch(ownedGotchisSlices.loadOwnedGotchisFailed()))
+            .catch(() => {
+              dispatch(ownedGotchisSlices.loadOwnedGotchisFailed());
+            })
             .finally(() => dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false)));
         } else {
-          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded(sortedOwnedGotchis));
+          dispatch(ownedGotchisSlices.loadOwnedGotchisSucceded([]));
           dispatch(ownedGotchisSlices.setIsInitialOwnedGotchisLoading(false));
         }
       })
@@ -68,11 +80,11 @@ export const onLoadOwnedGotchis =
       });
   };
 
-const geModifiedWarehouse = (ownedGotchis: OwnedGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
+const geModifiedWarehouse = (ownedGotchis: GuildGotchi[], warehouseItemsCopy: Warehouse[]): Warehouse[] => {
   const warehouseItems: Warehouse[] = [];
 
   // collect all equipped wearables
-  ownedGotchis.forEach((ownedGotchi: OwnedGotchi) => {
+  ownedGotchis.forEach((ownedGotchi: GuildGotchi) => {
     const equippedIds: number[] = ownedGotchi.equippedWearables.filter(
       (wearableId: number) => wearableId > 0 && wearableId !== HAUNT_ONE_BACKGROUND_WEARABLE_NUMBER
     );

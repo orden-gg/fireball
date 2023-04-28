@@ -30,7 +30,6 @@ export function Guild() {
 
   const dispatch = useAppDispatch();
   const currentGuild: CustomAny = useAppSelector(fromGuildsStore.getCurrentGuild);
-  // const ownedGotchis: OwnedGotchi[] = useAppSelector(fromGuildsStore.getOwnedGotchis);
 
   useEffect(() => {
     const guild: CustomAny = guilds.find((guild: CustomAny) => CommonUtils.stringToKey(guild.name) === params.name);
@@ -78,6 +77,7 @@ export function Guild() {
             <Route path='gotchis/*'>
               <Route path={GotchiTypeNames.Owned} element={<GuildGotchis type={GotchiTypeNames.Owned} />} />
               <Route path={GotchiTypeNames.Borrowed} element={<GuildGotchis type={GotchiTypeNames.Borrowed} />} />
+              <Route path={GotchiTypeNames.Lended} element={<GuildGotchis type={GotchiTypeNames.Lended} />} />
               <Route path='*' element={<Navigate to={GotchiTypeNames.Owned} replace />} />
             </Route>
             {/* <Route path='lendings' element={<GuildLendings />} />

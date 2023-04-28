@@ -1,8 +1,11 @@
 import { TheGraphApi } from 'api';
+import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
-import { FireballGotchi, GotchiLending, GotchiLendingExtended, SortingItem, TheGraphBatchData } from 'shared/models';
+import { FireballGotchi, SortingItem, TheGraphBatchData } from 'shared/models';
+
+import { GuildGotchiLent, GuildGotchiLentExtended } from 'pages/Guilds/models';
 
 import { CommonUtils } from 'utils';
 
@@ -10,26 +13,35 @@ import { CommonUtils } from 'utils';
 import * as lentGotchisSlices from '../slices/guild-lent.slice';
 
 export const onLoadLentGotchis =
-  (address: string): AppThunk =>
+  (addresses: string[]): AppThunk =>
   (dispatch, getState) => {
     dispatch(lentGotchisSlices.loadLentGotchis());
 
     const { type, dir }: SortingItem = getState().client.lentGotchis.lentGotchisSorting;
 
-    TheGraphApi.getLendingsByAddress(address)
-      .then((lentGotchis: GotchiLending[]) => {
-        lentGotchis.forEach((lending: GotchiLending) => {
+    const promises: Promise<GuildGotchiLent[]>[] = addresses.map((address: string) =>
+      GuildGraphApi.getMemberLentGotchis(address)
+    );
+
+    Promise.all(promises)
+      .then((lentGotchis: GuildGotchiLent[][]) => {
+        const unitedGotchis: GuildGotchiLent[] = lentGotchis.reduce(
+          (result: GuildGotchiLent[], current: GuildGotchiLent[]) => result.concat(current),
+          []
+        );
+
+        unitedGotchis.forEach((lending: GuildGotchiLent) => {
           lending.endTime = Number(lending.timeAgreed) + Number(lending.period);
         });
 
-        const sortedLentGotchis: GotchiLending[] = CommonUtils.basicSort(lentGotchis, type, dir);
-        const gotchiIds: number[] = sortedLentGotchis.map((gotchi: GotchiLending) => Number(gotchi.id));
+        const sortedLentGotchis: GuildGotchiLent[] = CommonUtils.basicSort(unitedGotchis, type, dir);
+        const gotchiIds: number[] = sortedLentGotchis.map((gotchi: GuildGotchiLent) => Number(gotchi.id));
 
         if (gotchiIds.length > 0) {
           TheGraphApi.getFireballGotchisByIds(gotchiIds)
             .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
-              const extendedLendingGotchis: GotchiLendingExtended[] = sortedLentGotchis.map(
-                (lending: GotchiLending) => {
+              const extendedLendingGotchis: GuildGotchiLentExtended[] = sortedLentGotchis.map(
+                (lending: GuildGotchiLent) => {
                   return { ...lending, ...fireballGotchis[`gotchi${lending.id}`] };
                 }
               );
@@ -38,16 +50,16 @@ export const onLoadLentGotchis =
             })
             .catch(() => {
               dispatch(lentGotchisSlices.loadLentGotchisFailed());
-              dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
             })
             .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
         } else {
-          dispatch(lentGotchisSlices.loadLentGotchisSucceded(sortedLentGotchis));
+          dispatch(lentGotchisSlices.loadLentGotchisSucceded([]));
           dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
         }
       })
       .catch(() => {
         dispatch(lentGotchisSlices.loadLentGotchisFailed());
         dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false));
-      });
+      })
+      .finally(() => dispatch(lentGotchisSlices.setIsInitialLentGotchisLoading(false)));
   };

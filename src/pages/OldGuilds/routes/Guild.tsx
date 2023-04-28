@@ -8,7 +8,6 @@ import { Box } from '@mui/system';
 import { CommonUtils } from 'utils';
 
 import { GuildsContext } from '../GuildsContext';
-import { GuildBanner } from '../components/GuildBanner';
 import { GuildsDetails } from '../components/GuildDetails';
 import { GuildGotchis } from '../components/GuildGotchis';
 import { GuildLendings } from '../components/GuildLendings';
@@ -40,7 +39,6 @@ export function Guild() {
     <>
       <Box className={classes.guildWrapper}>
         <div className={classes.guildSidebar}>
-          <GuildBanner />
           {<GuildsDetails guild={guilds[guildId]} />}
 
           <Tooltip title='Back to guilds'>

@@ -1,15 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { GotchiLending, SortingItem } from 'shared/models';
+import { SortingItem } from 'shared/models';
+
+import { GuildGotchiLentExtended } from 'pages/Guilds/models';
 
 export interface lentGotchisState {
   lentGotchis: {
-    data: GotchiLending[];
+    data: GuildGotchiLentExtended[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
   };
-  isInitiallentGotchisLoading: boolean;
+  isInitialLentGotchisLoading: boolean;
   lentGotchisSorting: SortingItem;
 }
 
@@ -20,7 +22,7 @@ const initialState: lentGotchisState = {
     isLoaded: false,
     isError: false
   },
-  isInitiallentGotchisLoading: true,
+  isInitialLentGotchisLoading: true,
   lentGotchisSorting: {
     type: 'kinship',
     dir: 'desc'
@@ -39,7 +41,7 @@ export const lentGotchisSlice = createSlice({
         isError: false
       };
     },
-    loadLentGotchisSucceded: (state, action: PayloadAction<GotchiLending[]>): void => {
+    loadLentGotchisSucceded: (state, action: PayloadAction<GuildGotchiLentExtended[]>): void => {
       state.lentGotchis = {
         data: action.payload,
         isLoading: false,
@@ -56,7 +58,7 @@ export const lentGotchisSlice = createSlice({
       };
     },
     setIsInitialLentGotchisLoading: (state, action: PayloadAction<boolean>): void => {
-      state.isInitiallentGotchisLoading = action.payload;
+      state.isInitialLentGotchisLoading = action.payload;
     },
     setLentGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
       state.lentGotchisSorting = action.payload;

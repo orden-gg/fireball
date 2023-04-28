@@ -29,7 +29,7 @@ export const getBorrowedGotchisSorting = createSelector(
   (state: BorrowedGotchisState) => state.borrowedGotchisSorting
 );
 
-export const getIsBorrowedGotchisDataLoaded = createSelector(
+export const getIsBorrowedGotchisLoaded = createSelector(
   borrowedGotchisStateSelector,
   (state: BorrowedGotchisState) => {
     const isLoaded: boolean = state.borrowedGotchis.isLoaded;

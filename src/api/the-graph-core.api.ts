@@ -35,4 +35,14 @@ export class TheGraphCoreApi {
       defaultOptions: defaultOptions
     });
   }
+
+  public static async getJoinedGraphData(graphUrl: string, queries: string[]): Promise<CustomAny[]> {
+    try {
+      return await Promise.all(queries.map((query) => TheGraphCoreApi.getGraphData(graphUrl, query)));
+    } catch (error) {
+      console.error(error);
+
+      return [];
+    }
+  }
 }

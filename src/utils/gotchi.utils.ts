@@ -5,6 +5,8 @@ import { CollateralData, GotchiAgingModel } from 'shared/models';
 
 import { collaterals } from 'data/collaterals.data';
 
+import { ItemUtils } from './item.utils';
+
 export class GotchiUtils {
   public static getTotalXpByLevel(level: number): number {
     return (level * level) / 0.02; // Based on https://wiki.aavegotchi.com/en/xp
@@ -99,5 +101,24 @@ export class GotchiUtils {
     } else {
       return RarityTypes.Unknown;
     }
+  }
+  public static modifyTraits(gotchis: CustomAny): CustomAny {
+    const gotchisCache: CustomAny[] = [...gotchis];
+
+    return gotchisCache.map((gotchi) => {
+      const gotchiCache = { ...gotchi };
+
+      if (gotchiCache.equippedSetID && ItemUtils.isExistingSetId(gotchiCache.equippedSetID)) {
+        const modifiers = ItemUtils.getSetModifiers(gotchiCache.equippedSetID);
+        const brsBoots = modifiers.reduce((a, b) => Math.abs(a) + Math.abs(b), 0);
+
+        gotchiCache.modifiedRarityScore = +gotchiCache.modifiedRarityScore + brsBoots;
+        gotchiCache.modifiedNumericTraits = gotchiCache.modifiedNumericTraits.map((item: CustomAny, index: number) => {
+          return index > 3 ? item : item + modifiers[index + 1];
+        });
+      }
+
+      return gotchiCache;
+    });
   }
 }

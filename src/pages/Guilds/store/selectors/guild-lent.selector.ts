@@ -21,7 +21,7 @@ export const getLentGotchisCount = createSelector(
 
 export const getIsInitiallentGotchisLoading = createSelector(
   lentGotchisStateSelector,
-  (state: lentGotchisState) => state.isInitiallentGotchisLoading
+  (state: lentGotchisState) => state.isInitialLentGotchisLoading
 );
 
 export const getLentGotchisSorting = createSelector(
@@ -29,7 +29,7 @@ export const getLentGotchisSorting = createSelector(
   (state: lentGotchisState) => state.lentGotchisSorting
 );
 
-export const getIsLentGotchisDataLoaded = createSelector(lentGotchisStateSelector, (state: lentGotchisState) => {
+export const getIsLentGotchisLoaded = createSelector(lentGotchisStateSelector, (state: lentGotchisState) => {
   const isLoaded: boolean = state.lentGotchis.isLoaded;
 
   return isLoaded;

@@ -2,8 +2,9 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import * as fromBorrowedGotchis from './guild-borrowed.slice';
 import * as fromOwnedGotchis from './guild-gotchis.slice';
-import * as fromlentGotchis from './guild-lent.slice';
+import * as fromLentGotchis from './guild-lent.slice';
 import * as fromGuilds from './guilds.slice';
+import * as fromWarehous from './warehouse.slice';
 
 export interface GuildsModuleState {
   guilds: fromGuilds.GuildsState;
@@ -14,7 +15,8 @@ export const guildsReducers = combineReducers({
   guilds: fromGuilds.guildsReducer,
   ownedGotchis: fromOwnedGotchis.ownedGotchisReducer,
   borrowedGotchis: fromBorrowedGotchis.borrowedGotchisReducer,
-  lentGotchis: fromlentGotchis.lentGotchisReducer
+  lentGotchis: fromLentGotchis.lentGotchisReducer,
+  warehouse: fromWarehous.warehouseReducer
 });
 
 export * from './guilds.slice';

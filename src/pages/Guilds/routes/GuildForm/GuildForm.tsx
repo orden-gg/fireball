@@ -27,10 +27,7 @@ export function GuildForm() {
       .then((response) => {
         console.log(response);
       })
-      .catch((error) => console.log(error))
-      .finally(() => {
-        console.log('some code');
-      });
+      .catch((error) => console.log(error));
   };
 
   return connectedWallet && metaState.isAvailable ? (
