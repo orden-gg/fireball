@@ -25,7 +25,7 @@ import {
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
-const txCostLimit = 220 * 1e9;
+const txCostLimit = 450 * 1e9;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 
@@ -41,7 +41,9 @@ const TOKENS = [
 const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
 // const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
 
-const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
+const OWNER_IN = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de', '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0'];
+
+const GET_BALANCE = false; // retrieve gotchis balance (took pretty much time)
 // ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
 const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
 const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
@@ -54,10 +56,11 @@ const EXECUTE = true; // execute transactions or not (true or false)
 const lendingsQuery = `{
   gotchiLendings(
     first: 1000,
+    skip: 720,
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
-      lender: "${OWNER}",
+      lender_in: ${JSON.stringify(OWNER_IN)},
       borrower_not: "0x0000000000000000000000000000000000000000",
       cancelled: false,
       completed: false
@@ -184,7 +187,7 @@ const claim = async () => {
         await MAIN_CONTRACT_WITH_SIGNER[FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
           chunk[i],
           // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
-          { gasPrice: gasBoosted }
+          { gasPrice: gasBoosted, gasLimit: 10000000 }
         ).then(async (tx: ContractTransaction) => {
           console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
           console.log('waiting Tx approval...');
