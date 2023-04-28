@@ -1,8 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { Block } from 'shared/models';
+
 export interface currentBlockState {
   isCurrentBlockLoaded: boolean;
-  currentBlock: Undefinable<number | null>;
+  currentBlock: Undefinable<Block | null>;
 }
 export const initialState: currentBlockState = {
   isCurrentBlockLoaded: false,
@@ -16,7 +18,7 @@ export const currentBlockSlice = createSlice({
     setIsCurrentBlockLoaded: (state, action: PayloadAction<boolean>) => {
       state.isCurrentBlockLoaded = action.payload;
     },
-    setCurrentBlock: (state, action: PayloadAction<number>) => {
+    setCurrentBlock: (state, action: PayloadAction<Block>) => {
       state.currentBlock = action.payload;
     }
   }

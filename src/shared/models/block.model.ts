@@ -1,5 +1,3 @@
-import { ethers } from 'ethers';
-
 export interface Block {
   hash: string;
   parentHash: string;
@@ -7,8 +5,9 @@ export interface Block {
   timestamp: number;
   nonce: string;
   difficulty: number;
-  gasLimit: ethers.BigNumber;
-  gasUsed: ethers.BigNumber;
+  baseFeePerGas: number;
+  gasLimit: number;
+  gasUsed: number;
   miner: string;
   extraData: string;
   transactions: string[];

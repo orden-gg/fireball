@@ -6,15 +6,22 @@ import { Block } from 'shared/models';
 
 import * as currentBlockSlices from '../slices/current-block.slice';
 
-const fetchInterval: number = 60; // seconds
+const fetchInterval: number = 30; // seconds
 
 export const onLoadCurrentBlock = (): AppThunk => (dispatch) => {
   const getCurrentBlock = async function (): Promise<void> {
     dispatch(currentBlockSlices.setIsCurrentBlockLoaded(false));
 
-    const currentBlock: Block = await EthersApi.getLastBlock();
+    const currentBlock: Block = await EthersApi.getLastBlock().then((block) => {
+      block.baseFeePerGas = Number(EthersApi.formatBigNumber(block.baseFeePerGas, 'gwei'));
+      block.gasLimit = Number(EthersApi.formatBigNumber(block.gasLimit));
+      block.gasUsed = Number(EthersApi.formatBigNumber(block.gasUsed));
+      block._difficulty = Number(EthersApi.formatBigNumber(block._difficulty));
 
-    dispatch(currentBlockSlices.setCurrentBlock(currentBlock.number));
+      return block;
+    });
+
+    dispatch(currentBlockSlices.setCurrentBlock(currentBlock));
     dispatch(currentBlockSlices.setIsCurrentBlockLoaded(true));
   };
 

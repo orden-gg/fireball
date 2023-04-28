@@ -16,8 +16,8 @@ export class EthersApi {
     return value * 10 ** 18;
   }
 
-  public static formatBigNumber(value: CustomAny): CustomAny {
-    return ethers.utils.formatUnits(value, 0);
+  public static formatBigNumber(value: CustomAny, decimals: string | number = 0): CustomAny {
+    return ethers.utils.formatUnits(value, decimals);
   }
 
   public static hexToNumber(hex: string): number {
