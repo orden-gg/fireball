@@ -157,14 +157,14 @@ export const filtersData = {
     ...defaultRangeSliderFilter
   },
   nrgTrait: {
-    key: '${gotchi?.modifiedNumericTraits.[0]}',
-    queryParamKey: 'modifiedNumericTraits',
+    key: 'modifiedNumericTraits[0]',
+    queryParamKey: 'modifiedNumericTraitsNrg',
     title: 'NrgTrait -20 / +120',
     icon: <PercentIcon fontSize='small' />,
     componentType: FilterComponentType.RangeSlider,
-    min: 0,
+    min: -20,
     max: 120,
-    value: [0, 120],
+    value: [-20, 120],
     ...defaultRangeSliderFilter
   },
   lastChanneledAlchemica: {

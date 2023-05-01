@@ -51,14 +51,14 @@ const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
   collateral: { ...filtersData.collateral, divider: true },
   lastChanneledAlchemica: { ...filtersData.lastChanneledAlchemica, divider: true },
-  nrgTrait: { ...filtersData.nrgTrait },
+  nrgTrait: { ...filtersData.nrgTrait, divider: true },
   search: { ...filtersData.search }
 };
 const queryParamsOrder: string[] = [
   'haunt',
   'collateral',
   'lastChanneledAlchemica',
-  'modifiedNumericTraits',
+  'modifiedNumericTraitsNrg',
   'search',
   'sort',
   'dir'
@@ -173,7 +173,7 @@ export function ClientBorrowed() {
   //console.log(modifiedGotchis.map((g) => g.id));
   //console.log(modifiedGotchis.slice(0, 30).map((g) => g.id));
   //console.log(modifiedGotchis.slice(31, 60).map((g) => g.id));
-  console.log(modifiedGotchis[1]);
+  console.log(borrowedGotchis);
 
   return (
     <>
