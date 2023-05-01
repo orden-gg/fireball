@@ -28,6 +28,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
   const classesB = gotchiPreviewModalStyles();
   const [history, setHistory] = useState<CustomAny[]>([]);
+  const [coordsDisplay, setCoordsDisplay] = useState<CustomAny>();
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
   const { metaState } = useMetamask();
   const boosts: Array<{ name: string; value: CustomAny }> = [
@@ -52,6 +53,8 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
           setHistoryLoaded(true);
         }
       });
+
+    setCoordsDisplay(gotchiverseCoordsForParcel(parcel));
 
     return () => {
       mounted = false;
@@ -100,7 +103,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
               </Paper>
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>Coords:</span>
-                {gotchiverseCoordsForParcel(parcel)?.x}, {gotchiverseCoordsForParcel(parcel)?.y}
+                {coordsDisplay?.x}, {coordsDisplay?.y}
               </Paper>
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>size:</span>
