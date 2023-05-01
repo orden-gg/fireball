@@ -15,7 +15,7 @@ import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ParcelSurveysTable } from 'components/Items/ParcelSurvey/components';
-
+import { gotchiverseCoordsForParcel } from 'data/disctricts.data';
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
@@ -26,6 +26,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
 
   const [history, setHistory] = useState<CustomAny[]>([]);
+  const [coordsDisplay, setCoordsDisplay] = useState<CustomAny>();
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
 
   const boosts: Array<{ name: string; value: CustomAny }> = [
@@ -42,6 +43,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
       .then((res: CustomAny) => {
         if (mounted) {
           setHistory(res);
+          setCoordsDisplay(gotchiverseCoordsForParcel(parcel));
         }
       })
       .catch((err) => console.log(err))
@@ -54,7 +56,7 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
     return () => {
       mounted = false;
     };
-  }, [parcel.id]);
+  }, [parcel]);
 
   const modifyName = (hash: string) => {
     return hash.replace(/-/g, ' ');
@@ -95,6 +97,10 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>district:</span>
                 {parcel.district}
+              </Paper>
+              <Paper className={classes.badge} elevation={0}>
+                <span className={classes.highlighted}>Coords:</span>
+                {coordsDisplay?.x}, {coordsDisplay?.y}
               </Paper>
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>size:</span>
