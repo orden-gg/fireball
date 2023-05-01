@@ -18,6 +18,7 @@ const findDistrict = function ({ coordinateX, coordinateY, district: districtId 
         coordinateY < district.maxY
     );
   }
+
   return DISTRICTS.find((district) => district.id === districtId);
 };
 
@@ -30,6 +31,7 @@ const gotchiverseCoordsForParcel = function (parcel) {
       y: parcel.coordinateY - district.y
     };
   }
+
   return null;
 };
 
