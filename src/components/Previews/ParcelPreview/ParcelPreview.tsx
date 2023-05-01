@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { EthersApi, TheGraphApi } from 'api';
-
+import { gotchiverseCoordsForParcel } from 'data/disctricts.data';
 import { Erc1155Categories } from 'shared/constants';
 
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
@@ -97,6 +97,10 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>district:</span>
                 {parcel.district}
+              </Paper>
+              <Paper className={classes.badge} elevation={0}>
+                <span className={classes.highlighted}>Coords:</span>
+                {gotchiverseCoordsForParcel(parcel)?.x}, {gotchiverseCoordsForParcel(parcel)?.y}
               </Paper>
               <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>size:</span>

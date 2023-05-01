@@ -111,8 +111,8 @@ export class FilterUtils {
     filtersSetter((filtersCache: CustomAny) => {
       const cacheCopy = { ...filtersCache };
 
-      if (!cacheCopy[key].getIsFilterValidFn(selectedValue, cacheCopy[key])) {
-        cacheCopy[key].resetFilterFn(cacheCopy[key]);
+      if (!cacheCopy[key]?.getIsFilterValidFn(selectedValue, cacheCopy[key])) {
+        cacheCopy[key]?.resetFilterFn(cacheCopy[key]);
       } else {
         cacheCopy[key].updateFromFilterFn(cacheCopy[key], selectedValue);
       }

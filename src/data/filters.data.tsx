@@ -156,6 +156,17 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
+  nrgTrait: {
+    key: '${gotchi?.modifiedNumericTraits.[0]}',
+    queryParamKey: 'modifiedNumericTraits',
+    title: 'NrgTrait -20 / +120',
+    icon: <PercentIcon fontSize='small' />,
+    componentType: FilterComponentType.RangeSlider,
+    min: 0,
+    max: 120,
+    value: [0, 120],
+    ...defaultRangeSliderFilter
+  },
   lastChanneledAlchemica: {
     key: 'lastChanneledAlchemica',
     queryParamKey: 'lastChanneledAlchemica',
@@ -337,16 +348,5 @@ export const filtersData = {
     ],
     componentType: FilterComponentType.MultiButtonSelection,
     ...defaultMultiSelectionFilter
-  },
-  nrgTrait: {
-    key: 'modifiedNumericTraits.value[0]',
-    queryParamKey: 'modifiedNumericTraits',
-    title: 'NrgTrait -20 / +120',
-    icon: <PercentIcon fontSize='small' />,
-    componentType: FilterComponentType.RangeSlider,
-    min: -20,
-    max: 120,
-    value: [-20, 120],
-    ...defaultRangeSliderFilter
   }
 };

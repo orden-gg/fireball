@@ -154,6 +154,15 @@ export function ClientBorrowed() {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
+  // const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
+  //   dispatch(
+  //     fromClientStore.updateGotchiListingsFilterByKey({ key, value } as {
+  //       key: GotchiListingsFilterTypes;
+  //       value: GraphFiltersValueTypes;
+  //     })
+  //   );
+  // };
+
   const onResetFilters = useCallback(() => {
     FilterUtils.resetFilters(currentFilters, setCurrentFilters);
   }, [currentFilters]);
