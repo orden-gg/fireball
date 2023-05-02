@@ -8,7 +8,8 @@ import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { CustomParsedQuery } from 'shared/models';
 
-import { GotchiTypeNames } from 'pages/Guilds/constants';
+import { GuildRouteNames, gotchisQueryParams } from 'pages/Guilds/constants';
+import { gotchiSorting, initialFilters } from 'pages/Guilds/data';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -19,10 +20,9 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 import { FilterUtils } from 'utils';
 
 import { useGotchis } from '../../../../hooks/useGuildGotchis';
-import { gotchiSorting, initialFilters, queryParamsOrder } from '../../constants';
 import { guildContentStyles } from './styles';
 
-export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
+export function GuildGotchis({ type }: { type: GuildRouteNames }) {
   const classes = guildContentStyles();
 
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
     (prop: string, dir: string) => {
       const params = { ...queryParams, sort: prop, dir };
 
-      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisQueryParams);
     },
     [queryParams, navigate, location.pathname]
   );
@@ -104,7 +104,7 @@ export function GuildGotchis({ type }: { type: GotchiTypeNames }) {
     (filters: CustomAny) => {
       const params: string[] = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
-      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
+      FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, gotchisQueryParams);
     },
     [queryParams, navigate, location.pathname]
   );

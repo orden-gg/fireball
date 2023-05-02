@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
-import { GotchiTypeNames } from 'pages/Guilds/constants';
+import { GuildRouteNames } from 'pages/Guilds/constants';
 
 const selectors = {
   owned: {
@@ -26,7 +26,7 @@ const selectors = {
   }
 };
 
-export function useGotchis(type: GotchiTypeNames): CustomAny {
+export function useGotchis(type: GuildRouteNames): CustomAny {
   const dispatch = useAppDispatch();
 
   const currentGuild: CustomAny = useAppSelector(fromGuildsStore.getCurrentGuild);
@@ -34,13 +34,13 @@ export function useGotchis(type: GotchiTypeNames): CustomAny {
   useEffect(() => {
     if (currentGuild && currentGuild.members?.length > 0) {
       switch (type) {
-        case GotchiTypeNames.Owned:
+        case GuildRouteNames.Owned:
           dispatch(fromGuildsStore.onLoadOwnedGotchis(currentGuild.members));
           break;
-        case GotchiTypeNames.Borrowed:
+        case GuildRouteNames.Borrowed:
           dispatch(fromGuildsStore.onLoadBorrowedGotchis(currentGuild.members));
           break;
-        case GotchiTypeNames.Lended:
+        case GuildRouteNames.Lended:
           dispatch(fromGuildsStore.onLoadLentGotchis(currentGuild.members));
           break;
       }

@@ -5,9 +5,9 @@ import * as fromGuildsStore from 'pages/Guilds/store';
 import { PageNavLink } from 'shared/models';
 
 // import { RealmSwitchButton } from 'pages/Client/components/RealmSwitchButton/RealmSwitchButton';
-import { GotchiTypeNames } from 'pages/Guilds/constants';
+import { GuildRouteNames } from 'pages/Guilds/constants';
 
-import { GotchiIcon } from 'components/Icons/Icons';
+import { GotchiIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 import { SubNav } from 'components/PageNav/SubNav';
 
@@ -19,6 +19,7 @@ export function GuildNav() {
   const ownedGotchisCount: number = useAppSelector(fromGuildsStore.getOwnedGotchisCount);
   const borrowedGotchisCount: number = useAppSelector(fromGuildsStore.getBorrowedGotchisCount);
   const lentGotchisCount: number = useAppSelector(fromGuildsStore.getLentGotchisCount);
+  const warehouseCount: number = useAppSelector(fromGuildsStore.getWarehouseCount);
 
   const navData: PageNavLink[] = [
     {
@@ -31,19 +32,19 @@ export function GuildNav() {
         <SubNav
           links={[
             {
-              name: GotchiTypeNames.Owned,
+              name: GuildRouteNames.Owned,
               path: 'gotchis/owned',
               isLoading: false,
               count: ownedGotchisCount
             },
             {
-              name: GotchiTypeNames.Lended,
+              name: GuildRouteNames.Lended,
               path: 'gotchis/lended',
               isLoading: false,
               count: lentGotchisCount || 1
             },
             {
-              name: GotchiTypeNames.Borrowed,
+              name: GuildRouteNames.Borrowed,
               path: 'gotchis/borrowed',
               isLoading: false,
               count: borrowedGotchisCount || 1
@@ -51,19 +52,19 @@ export function GuildNav() {
           ]}
         />
       )
-    }
+    },
     // {
     //   path: 'portals',
     //   icon: <H1SealedPortalIcon width={24} height={24} />,
     //   isLoading: isInitialPortalsLoading,
     //   count: portalsCount
     // },
-    // {
-    //   path: 'warehouse',
-    //   icon: <WarehouseIcon width={24} height={24} />,
-    //   isLoading: isInitialWarehouseLoading,
-    //   count: warehouseCount
-    // },
+    {
+      path: GuildRouteNames.Warehouse,
+      icon: <WarehouseIcon width={24} height={24} />,
+      isLoading: false,
+      count: warehouseCount
+    }
     // {
     //   path: 'installations',
     //   icon: <AnvilIcon width={24} height={24} />,

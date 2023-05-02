@@ -1,5 +1,6 @@
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import GrainIcon from '@mui/icons-material/Grain';
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 
 import { SortingListItem } from 'shared/models';
@@ -36,4 +37,19 @@ export const initialFilters: CustomAny = {
   search: { ...filtersData.search }
 };
 
-export const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+export const warehouseSorting: SortingListItem[] = [
+  {
+    name: 'rarity',
+    key: 'rarityId',
+    paramKey: 'rarity',
+    tooltip: 'rarity',
+    icon: <GrainIcon fontSize='small' />
+  },
+  {
+    name: 'quantity',
+    key: 'balance',
+    paramKey: 'quantity',
+    tooltip: 'quantity',
+    icon: <FormatListNumberedIcon fontSize='small' />
+  }
+];

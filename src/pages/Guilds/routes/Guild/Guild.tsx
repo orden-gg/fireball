@@ -8,14 +8,14 @@ import { Box } from '@mui/system';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
-import { GotchiTypeNames } from 'pages/Guilds/constants';
+import { GuildRouteNames } from 'pages/Guilds/constants';
 
 import { CommonUtils } from 'utils';
 
 import guilds from 'data/guilds.json';
 
 import { GuildBanner, GuildDetails, GuildNav } from './components';
-import { GuildGotchis } from './routes';
+import { GuildGotchis, GuildWarehouse } from './routes';
 import { guildStyles } from './styles';
 
 // import { GuildLendings } from './components/GuildLendings';
@@ -75,11 +75,12 @@ export function Guild() {
 
           <Routes>
             <Route path='gotchis/*'>
-              <Route path={GotchiTypeNames.Owned} element={<GuildGotchis type={GotchiTypeNames.Owned} />} />
-              <Route path={GotchiTypeNames.Borrowed} element={<GuildGotchis type={GotchiTypeNames.Borrowed} />} />
-              <Route path={GotchiTypeNames.Lended} element={<GuildGotchis type={GotchiTypeNames.Lended} />} />
-              <Route path='*' element={<Navigate to={GotchiTypeNames.Owned} replace />} />
+              <Route path={GuildRouteNames.Owned} element={<GuildGotchis type={GuildRouteNames.Owned} />} />
+              <Route path={GuildRouteNames.Borrowed} element={<GuildGotchis type={GuildRouteNames.Borrowed} />} />
+              <Route path={GuildRouteNames.Lended} element={<GuildGotchis type={GuildRouteNames.Lended} />} />
+              <Route path='*' element={<Navigate to={GuildRouteNames.Owned} replace />} />
             </Route>
+            <Route path={GuildRouteNames.Warehouse} element={<GuildWarehouse />} />
             {/* <Route path='lendings' element={<GuildLendings />} />
             <Route path='realm' element={<GuildsRealm />} /> */}
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
