@@ -29,7 +29,7 @@ export function GotchiIdentity({ identityQuantity }: GotchiLevelProps) {
       placement='top'
     >
       <div className={classNames(classes.gotchiIdentity, GotchiUtils.getIdentityRarity(identityQuantity))}>
-        look <span>{identityQuantity}</span>
+        look <span>{identityQuantity ? identityQuantity : '*'}</span>
       </div>
     </CustomTooltip>
   );
