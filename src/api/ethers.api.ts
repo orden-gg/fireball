@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-import { DEFAULT_COLLATERAL_DECIMALS, GEORLI_RPC, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
+import { DEFAULT_COLLATERAL_DECIMALS, GEORLI_RPC, LOCALHOST_RPC, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
   public static isEthAddress(address: CustomAny): CustomAny {
@@ -63,6 +63,8 @@ export class EthersApi {
 
   public static getProvider(network?: CustomAny): CustomAny {
     switch (network) {
+      case 'localhost':
+        return new ethers.providers.JsonRpcProvider(LOCALHOST_RPC);
       case 'georli':
         return new ethers.providers.JsonRpcProvider(GEORLI_RPC);
       case 'test':

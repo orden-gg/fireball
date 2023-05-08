@@ -7,7 +7,7 @@ const guildProps = `
 
 export const guildsQuery = (): string => {
   return `
-    guilds(first: 1000) {
+    guilds {
       ${guildProps}
     }
   `;

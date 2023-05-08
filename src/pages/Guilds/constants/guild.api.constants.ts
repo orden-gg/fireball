@@ -1,2 +1,2 @@
-export const GUIlD_GRAPH_API = 'https://api.thegraph.com/subgraphs/name/skv2rock/guilds';
-export const GUILD_CONTRACT = '0xDEB8Bf93ff4eD8F92Fc8747186E0146e2EB0cd31';
+export const GUIlD_GRAPH_API = 'http://localhost:8000/subgraphs/name/guilds';
+export const GUILD_CONTRACT = '0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690';
