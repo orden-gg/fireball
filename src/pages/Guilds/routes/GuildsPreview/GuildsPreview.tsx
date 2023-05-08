@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useAppDispatch } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import guilds from 'data/guilds.json';
@@ -12,6 +12,10 @@ export function GuildsPreview() {
   const classes = guildsPreviewStyles();
 
   const dispatch = useAppDispatch();
+
+  const guildsGraph = useAppSelector(fromGuildsStore.getGuilds);
+
+  console.log(guildsGraph);
 
   useEffect(() => {
     dispatch(fromGuildsStore.onLoadGuilds());

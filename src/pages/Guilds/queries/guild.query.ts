@@ -6,9 +6,9 @@ const guildProps = `
 `;
 
 export const guildsQuery = (): string => {
-  return `
+  return `{
     guilds {
       ${guildProps}
     }
-  `;
+  }`;
 };
