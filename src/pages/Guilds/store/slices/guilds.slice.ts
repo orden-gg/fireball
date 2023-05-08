@@ -10,7 +10,6 @@ export interface GuildsState {
     isError: boolean;
   };
   currentGuild?: Guild;
-  isInitialGuildsLoaded: boolean;
 }
 
 const initialState: GuildsState = {
@@ -19,12 +18,11 @@ const initialState: GuildsState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  },
-  isInitialGuildsLoaded: true
+  }
 };
 
 export const guildsSlice = createSlice({
-  name: 'borrowedGotchis',
+  name: 'guilds',
   initialState,
   reducers: {
     loadGuilds: (state): void => {
@@ -51,16 +49,12 @@ export const guildsSlice = createSlice({
         isError: true
       };
     },
-    setIsInitialGuildsLoaded: (state, action: PayloadAction<boolean>): void => {
-      state.isInitialGuildsLoaded = action.payload;
-    },
     setGuild: (state, action: PayloadAction<Guild>): void => {
       state.currentGuild = action.payload;
     }
   }
 });
 
-export const { loadGuilds, loadGuildsSucceded, loadGuildsFailed, setIsInitialGuildsLoaded, setGuild } =
-  guildsSlice.actions;
+export const { loadGuilds, loadGuildsSucceded, loadGuildsFailed, setGuild } = guildsSlice.actions;
 
 export const guildsReducer = guildsSlice.reducer;

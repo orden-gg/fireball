@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
+// store
+import * as fromGuildsStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import * as fromGuildsStore from 'pages/Guilds/store';
 
-import guilds from 'data/guilds.json';
-
+import { Guild } from '../../models';
 import { GuildCard } from './components/GuildCard/GuildCard';
 import { guildsPreviewStyles } from './styles';
 
@@ -13,13 +13,16 @@ export function GuildsPreview() {
 
   const dispatch = useAppDispatch();
 
-  const guildsGraph = useAppSelector(fromGuildsStore.getGuilds);
-
-  console.log(guildsGraph);
+  const guilds: Guild[] = useAppSelector(fromGuildsStore.getGuilds);
+  const getIsGuildsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildsLoading);
 
   useEffect(() => {
     dispatch(fromGuildsStore.onLoadGuilds());
   }, []);
+
+  if (getIsGuildsLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={classes.guildsWrapper}>

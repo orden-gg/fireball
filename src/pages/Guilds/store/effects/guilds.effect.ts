@@ -16,9 +16,7 @@ export const onLoadGuilds = (): AppThunk => (dispatch) => {
     })
     .catch(() => {
       dispatch(guildsSlices.loadGuildsFailed());
-      dispatch(guildsSlices.setIsInitialGuildsLoaded(true));
-    })
-    .finally(() => dispatch(guildsSlices.setIsInitialGuildsLoaded(true)));
+    });
 };
 
 export const onSetGuild =
