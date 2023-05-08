@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -50,6 +50,8 @@ export function Guild() {
     }
   }, []);
 
+  const handleJoinGuild = () => {};
+
   return currentGuild ? (
     <>
       <Box className={classes.guildWrapper}>
@@ -85,6 +87,10 @@ export function Guild() {
             <Route path='realm' element={<GuildsRealm />} /> */}
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
+
+          <Button className={classes.guildJoin} variant='contained' size='large' onClick={handleJoinGuild}>
+            Join Guild
+          </Button>
         </Box>
       </Box>
     </>

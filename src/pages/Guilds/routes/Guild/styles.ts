@@ -63,6 +63,12 @@ export const guildStyles = makeStyles((theme) =>
       '&:hover': {
         color: theme.palette.primary.main
       }
+    },
+    guildJoin: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      bottom: theme.spacing(1),
+      zIndex: 1
     }
   })
 );
