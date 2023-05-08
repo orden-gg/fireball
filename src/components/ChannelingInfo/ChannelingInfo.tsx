@@ -49,17 +49,46 @@ export function ChannelingInfo({ lastChanneled, nextChannel }: { lastChanneled: 
 
   return (
     <div className={classes.container}>
-      <div className={classes.title}>channeling</div>
+      <div className={classes.title}>Channeling</div>
 
       <div className={classes.inner}>
-        last:
         <Countdown targetDate={fromTimestampToMillis(lastChanneled)} shortFormat={countdownFormat} />
       </div>
       <div className={classes.inner}>
-        ready:
         <div className={classes.countdown}>
           <Countdown
             targetDate={fromTimestampToMillis(nextChannel)}
+            shortFormat={countdownFormat}
+            replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ClaimingInfo({ lastClaimed, nextClaim }: { lastClaimed: number; nextClaim: number }) {
+  const classes = styles();
+
+  const fromTimestampToMillis = (timestamp: number): number => {
+    return DateTime.fromSeconds(timestamp).toMillis();
+  };
+
+  if (!lastClaimed) {
+    return <></>;
+  }
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.title}>Claim</div>
+
+      <div className={classes.inner}>
+        <Countdown targetDate={fromTimestampToMillis(lastClaimed)} shortFormat={countdownFormat} />
+      </div>
+      <div className={classes.inner}>
+        <div className={classes.countdown}>
+          <Countdown
+            targetDate={fromTimestampToMillis(nextClaim)}
             shortFormat={countdownFormat}
             replacementComponent={<span style={{ color: 'lime' }}>Now!</span>}
           />

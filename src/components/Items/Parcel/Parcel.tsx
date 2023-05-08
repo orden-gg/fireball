@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import { ChannelingInfo } from 'components/ChannelingInfo/ChannelingInfo';
+import { ChannelingInfo, ClaimingInfo } from 'components/ChannelingInfo/ChannelingInfo';
 import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboardBlock';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import { CardSalesHistory } from 'components/ItemCard/components';
@@ -92,7 +92,14 @@ export function Parcel({ parcel }: { parcel: CustomAny }) {
           />
         )}
 
-        <ChannelingInfo lastChanneled={parcel.lastChanneled} nextChannel={parcel.nextChannel} />
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1 }}>
+            <ChannelingInfo lastChanneled={parcel.lastChanneled} nextChannel={parcel.nextChannel} />
+          </div>
+          <div style={{ flex: 1 }}>
+            <ClaimingInfo lastClaimed={parcel.lastClaimed} nextClaim={parcel.nextClaim} />
+          </div>
+        </div>
 
         <div className={classes.parcelInstallations}>
           <ParcelInstallations
