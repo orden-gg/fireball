@@ -195,6 +195,30 @@ export const filtersData = {
     getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
     getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
   },
+  lastClaimedAlchemica: {
+    key: 'lastClaimedAlchemica',
+    queryParamKey: 'lastChanneledAlchemica',
+    title: 'Is channeling ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+      if (!filter.value || !compareItem[key]) {
+        predicate = true;
+      } else {
+        predicate = DateTime.local().toSeconds() >= compareItem[key];
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
   size: {
     key: 'size',
     queryParamKey: 'size',
@@ -249,6 +273,31 @@ export const filtersData = {
     key: 'nextChannel',
     queryParamKey: 'channeling',
     title: 'Is channeling ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+
+      if (!filter.value || !compareItem[key]) {
+        predicate = true;
+      } else {
+        predicate = DateTime.local().toSeconds() >= compareItem[key];
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+  nextClaim: {
+    key: 'nextClaim',
+    queryParamKey: 'claiming',
+    title: 'Is claiming ready',
     value: false,
     componentType: FilterComponentType.Checkbox,
     isFilterActive: false,

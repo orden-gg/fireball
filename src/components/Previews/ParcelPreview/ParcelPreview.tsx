@@ -110,10 +110,6 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
                 {CitadelUtils.getParcelSizeName(Number(parcel.size))}(
                 {CitadelUtils.getParcelDimmentions(Number(parcel.size))})
               </Paper>
-              <Paper className={classes.badge} elevation={0}>
-                <span className={classes.highlighted}>spawnId:</span>
-                {parcel.parcelId}
-              </Paper>
 
               <ViewInAppButton
                 link={`https://verse.aavegotchi.com/?spawnId=${parcel.parcelId}&gotchi=${metaState.account[0]}`}

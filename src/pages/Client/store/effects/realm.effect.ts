@@ -37,13 +37,16 @@ const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {
     );
     const cooldown: number = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
 
+    const cooldownClaim: number = parcel.lastClaimed ? 28800000 : 0;
+
     return {
       ...parcel,
       installations,
       tiles,
       altarLevel: altar ? altar.level : 0,
       cooldown,
-      nextChannel: parcel.lastChanneled + cooldown
+      nextChannel: parcel.lastChanneled + cooldown,
+      nextClaim: parcel.lastClaimed + cooldownClaim
     };
   });
 };

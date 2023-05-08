@@ -48,6 +48,13 @@ const sortings: SortingListItem[] = [
     icon: <TimerIcon fontSize='small' />
   },
   {
+    name: 'nextClaim',
+    key: 'nextClaim',
+    paramKey: 'nextClaim',
+    tooltip: 'next claim',
+    icon: <TimerIcon fontSize='small' />
+  },
+  {
     name: 'altarLevel',
     key: 'altarLevel',
     paramKey: 'altar',
@@ -87,6 +94,7 @@ const initialFilters: CustomAny = {
   size: { ...filtersData.size, divider: true },
   altarLevel: { ...filtersData.altarLevel, divider: true },
   nextChannel: { ...filtersData.nextChannel },
+  nextClaim: { ...filtersData.nextClaim },
   isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
   district: { ...filtersData.district }
 };
@@ -94,6 +102,7 @@ const queryParamsOrder: string[] = [
   initialFilters.size.queryParamKey,
   initialFilters.altarLevel.queryParamKey,
   initialFilters.nextChannel.queryParamKey,
+  initialFilters.nextClaim.queryParamKey,
   initialFilters.isUpgradeReady.queryParamKey,
   initialFilters.district.queryParamKey,
   'sort',

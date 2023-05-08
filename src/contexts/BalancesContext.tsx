@@ -168,7 +168,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Fud,
           icon: <FudTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Fud],
-          pricePerToken: tokensPrices[TokenTypes.Fud].toFixed(3),
+          pricePerToken: tokensPrices[TokenTypes.Fud].toFixed(5),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Fud] * amounts[TokenTypes.Fud]),
           swapUrl: generateSwapUrl(FUD_CONTRACT, GHST_CONTRACT),
           hidden: generateHiden(TokenTypes.Fud)
@@ -177,7 +177,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Fomo,
           icon: <FomoTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Fomo],
-          pricePerToken: tokensPrices[TokenTypes.Fomo].toFixed(3),
+          pricePerToken: tokensPrices[TokenTypes.Fomo].toFixed(5),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Fomo] * amounts[TokenTypes.Fomo]
           ),
@@ -188,7 +188,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Alpha,
           icon: <AlphaTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Alpha],
-          pricePerToken: tokensPrices[TokenTypes.Alpha].toFixed(3),
+          pricePerToken: tokensPrices[TokenTypes.Alpha].toFixed(5),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Alpha] * amounts[TokenTypes.Alpha]
           ),
@@ -199,7 +199,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Kek,
           icon: <KekTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Kek],
-          pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(3),
+          pricePerToken: tokensPrices[TokenTypes.Kek].toFixed(5),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(tokensPrices[TokenTypes.Kek] * amounts[TokenTypes.Kek]),
           swapUrl: generateSwapUrl(KEK_CONTRACT, GHST_CONTRACT),
           hidden: generateHiden(TokenTypes.Kek)
@@ -208,7 +208,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Gltr,
           icon: <GltrTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Gltr],
-          pricePerToken: tokensPrices[TokenTypes.Gltr].toFixed(5),
+          pricePerToken: tokensPrices[TokenTypes.Gltr].toFixed(8),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Gltr] * amounts[TokenTypes.Gltr]
           ),
@@ -241,7 +241,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Ghst,
           icon: <GhstTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Ghst],
-          pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(2),
+          pricePerToken: tokensPrices[TokenTypes.Ghst].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Ghst] * amounts[TokenTypes.Ghst]
           ),
@@ -252,7 +252,7 @@ export const BalancesContextProvider = (props: CustomAny) => {
           key: TokenTypes.Matic,
           icon: <MaticTokenIcon height={14} width={14} />,
           amount: amounts[TokenTypes.Matic],
-          pricePerToken: tokensPrices[TokenTypes.Matic].toFixed(2),
+          pricePerToken: tokensPrices[TokenTypes.Matic].toFixed(3),
           balance: CommonUtils.convertFloatNumberToSuffixNumber(
             tokensPrices[TokenTypes.Matic] * amounts[TokenTypes.Matic]
           ),
