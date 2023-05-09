@@ -7,31 +7,31 @@ import { useAppDispatch } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
+import { Guild } from 'pages/Guilds/models';
 
 import { FudIcon, GhstTokenIcon, GotchiIcon, WarehouseIcon } from 'components/Icons/Icons';
-
-import { CommonUtils } from 'utils';
 
 import { useHoverRotation } from '../../hooks';
 import { GuildAsset, GuildDescription } from './components';
 import { GuildCardButton, guildCardStyles } from './styles';
 
-export function GuildCard({ guild }: { guild: CustomAny }) {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const childRef = useRef<HTMLDivElement>(null);
+export function GuildCard({ guild }: { guild: Guild }) {
   const classes = guildCardStyles();
-
-  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const handleClick = (guild: CustomAny): void => {
-    navigate(`${CommonUtils.stringToKey(guild.name)}`);
+  const dispatch = useAppDispatch();
 
-    dispatch(fromGuildsStore.onSetGuild(guild));
-  };
+  const targetRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
 
   useHoverRotation({ targetRef, childRef });
+
+  const handleClick = (guild: Guild): void => {
+    navigate(guild.id);
+
+    dispatch(fromGuildsStore.setCurrentGuild(guild));
+  };
 
   return (
     <div className={classes.guildCard} ref={targetRef}>
@@ -49,16 +49,13 @@ export function GuildCard({ guild }: { guild: CustomAny }) {
               <GuildAsset title='Realm' Icon={FudIcon} />
               <GuildAsset title='Voting power' Icon={GhstTokenIcon} />
             </ul>
-            <GuildWearables wearables={guild.wearables} tooltip='Guild wearable' />
+            <GuildWearables wearables={[]} tooltip='Guild wearable' />
           </div>
         </div>
         <div className={classes.guildContent}>
           <Divider className={classes.divider} />
 
-          <GuildDescription truncate={145}>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis ducimus in quos magnam voluptate
-            explicabo dicta cupiditate, hic accusantium eos.
-          </GuildDescription>
+          <GuildDescription truncate={145}>{guild.description}</GuildDescription>
 
           <div className={classes.guildFooter}>
             <GuildCardButton

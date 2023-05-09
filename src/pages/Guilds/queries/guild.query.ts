@@ -12,3 +12,15 @@ export const guildsQuery = (): string => {
     }
   }`;
 };
+
+export const guildByIdQuery = (id: string): string => {
+  return `{
+    guilds(
+      where: {
+        id: "${id}"
+      }
+    ) {
+      ${guildProps}
+    }
+  }`;
+};

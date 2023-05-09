@@ -19,8 +19,16 @@ export const onLoadGuilds = (): AppThunk => (dispatch) => {
     });
 };
 
-export const onSetGuild =
-  (guild: Guild): AppThunk =>
+export const onLoadCurrentGuildById =
+  (id: string): AppThunk =>
   (dispatch) => {
-    dispatch(guildsSlices.setGuild(guild));
+    dispatch(guildsSlices.loadCurrentGuildById());
+
+    GuildGraphApi.getGuildById(id)
+      .then((guild: Guild) => {
+        dispatch(guildsSlices.loadCurrentGuildByIdSucceded(guild));
+      })
+      .catch(() => {
+        dispatch(guildsSlices.loadCurrentGuildByIdFailed());
+      });
   };

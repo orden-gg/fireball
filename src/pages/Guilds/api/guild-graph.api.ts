@@ -8,12 +8,18 @@ import { GotchiUtils, GraphUtils } from 'utils';
 import { GUIlD_GRAPH_API } from '../constants';
 import { Guild } from '../models/guild.model';
 import { borrowedByAddressQuery, guildGotchisQuery, lentByAddressQuery } from '../queries';
-import { guildsQuery } from '../queries/guild.query';
+import { guildByIdQuery, guildsQuery } from '../queries/guild.query';
 
 export class GuildGraphApi {
   public static getGuilds(): Promise<Guild[]> {
     return TheGraphCoreApi.getGraphData(GUIlD_GRAPH_API, guildsQuery()).then(
       (res: TheGraphResponse<{ guilds: Guild[] }>) => res.data.guilds
+    );
+  }
+
+  public static getGuildById(id: string): Promise<Guild> {
+    return TheGraphCoreApi.getGraphData(GUIlD_GRAPH_API, guildByIdQuery(id)).then(
+      (res: TheGraphResponse<{ guilds: Guild[] }>) => res.data.guilds[0]
     );
   }
 

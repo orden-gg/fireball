@@ -9,10 +9,7 @@ import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildRouteNames } from 'pages/Guilds/constants';
-
-import { CommonUtils } from 'utils';
-
-import guilds from 'data/guilds.json';
+import { Guild as GuildModel } from 'pages/Guilds/models';
 
 import { GuildBanner, GuildDetails, GuildNav } from './components';
 import { GuildGotchis, GuildWarehouse } from './routes';
@@ -25,40 +22,29 @@ import { guildStyles } from './styles';
 export function Guild() {
   const classes = guildStyles();
 
-  const params = useParams<{ name: string }>();
+  const params = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const currentGuild: CustomAny = useAppSelector(fromGuildsStore.getCurrentGuild);
+
+  const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
+  const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
 
   useEffect(() => {
-    const guild: CustomAny = guilds.find((guild: CustomAny) => CommonUtils.stringToKey(guild.name) === params.name);
-
-    if (guild === undefined) {
-      navigate('/guilds');
-    } else {
-      dispatch(
-        fromGuildsStore.onSetGuild({
-          name: 'ss',
-          description: 'sss',
-          logo: 'sss',
-          id: 'ss',
-          members: guilds[0].members
-        })
-      );
-      navigate('gotchis');
+    if (!isCurrentGuildLoaded) {
+      dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
     }
   }, []);
 
   const handleJoinGuild = () => {};
 
-  return currentGuild ? (
+  return isCurrentGuildLoaded ? (
     <>
       <Box className={classes.guildWrapper}>
         <div className={classes.guildSidebar}>
-          <GuildBanner guild={guilds[0]} />
+          <GuildBanner guild={currentGuild!} />
 
-          <GuildDetails guild={guilds[0]} />
+          <GuildDetails guild={currentGuild!} />
 
           <Tooltip title='Back to guilds'>
             <IconButton
@@ -95,6 +81,6 @@ export function Guild() {
       </Box>
     </>
   ) : (
-    <></>
+    <div>Loading...</div>
   );
 }

@@ -1,40 +1,18 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { IconButton, Tooltip, Typography } from '@mui/material';
-
-import { GuildLogo, GuildSocials } from 'pages/Guilds/components';
-
-import { CommonUtils } from 'utils';
-
-import guilds from 'data/guilds.json';
+import { GuildLogo } from 'pages/Guilds/components';
+import { Guild } from 'pages/Guilds/models';
 
 import defaultBanner from 'assets/images/guilds/default-banner.png';
 
 import { guildBannerStyles } from './styles';
 
-export function GuildBanner({ guild }) {
+export function GuildBanner({ guild }: { guild: Guild }) {
   const classes = guildBannerStyles();
-
-  const navigate = useNavigate();
-
-  const onGuildChange = useCallback(
-    (currentGuildId: CustomAny) => {
-      const nextGuild: CustomAny = guilds[currentGuildId];
-
-      if (nextGuild === undefined || nextGuild.members?.length === 0) {
-        return;
-      }
-
-      navigate(`/guilds/${CommonUtils.stringToKey(nextGuild.name)}`);
-    },
-    [guild]
-  );
 
   const getBannerUrl = (): string => {
     try {
-      return require(`assets/images/guilds/${guild?.banner}`).default;
+      return require(`assets/images/guilds/${guild.logo}`).default;
     } catch (error) {
       return defaultBanner;
     }
@@ -50,18 +28,7 @@ export function GuildBanner({ guild }) {
         <Typography component='h1' className={classes.guildName}>
           {guild.name}
         </Typography>
-        <Tooltip title='Previous guild' placement='top' followCursor>
-          <IconButton onClick={() => onGuildChange(0)} className={classes.buttonPrev}>
-            <ArrowForwardIosIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title='Next guild' placement='top' followCursor>
-          <IconButton onClick={() => onGuildChange(1)} className={classes.buttonNext}>
-            <ArrowForwardIosIcon />
-          </IconButton>
-        </Tooltip>
       </div>
-      <GuildSocials socials={guild.socials} />
     </div>
   );
 }
