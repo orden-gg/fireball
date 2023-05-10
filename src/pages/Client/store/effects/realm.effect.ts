@@ -1,4 +1,5 @@
 import { TheGraphApi } from 'api';
+import { RealmApi } from 'api/realm.api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -39,6 +40,14 @@ const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {
 
     const cooldownClaim: number = parcel.lastClaimed ? 28800 : 0;
 
+    const realmCapacities = RealmApi.getRealmCapacities(parcel.id);
+    const realmHarvestRates = RealmApi.getRealmHarvestRates(parcel.id);
+    const realmAvailableAlchemica = RealmApi.getRealmAvailableAlchemica(parcel.id);
+    console.log('realmCapacities', realmCapacities);
+    // const realmCapacities = RealmApi.getRealmCapacities(parcel.id);
+    // const realmHarvestRates = RealmApi.getRealmHarvestRates(parcel.id);
+    // const realmAvailableAlchemica = RealmApi.getRealmAvailableAlchemica(parcel.id);
+
     return {
       ...parcel,
       installations,
@@ -46,7 +55,10 @@ const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {
       altarLevel: altar ? altar.level : 0,
       cooldown,
       nextChannel: parcel.lastChanneled + cooldown,
-      nextClaim: parcel.lastClaimed + cooldownClaim
+      nextClaim: parcel.lastClaimed + cooldownClaim,
+      capacities: realmCapacities,
+      harvestRates: realmHarvestRates,
+      claimAvailableAlchemica: realmAvailableAlchemica
     };
   });
 };

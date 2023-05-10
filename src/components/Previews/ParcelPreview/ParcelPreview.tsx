@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react';
 
 import { Paper } from '@mui/material';
-import { useMetamask } from 'use-metamask';
+
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
+import { useMetamask } from 'use-metamask';
 
 import { EthersApi, TheGraphApi } from 'api';
-import { gotchiverseCoordsForParcel } from 'data/disctricts.data';
+
 import { Erc1155Categories } from 'shared/constants';
 
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ParcelSurveysTable } from 'components/Items/ParcelSurvey/components';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 import { CitadelUtils, GotchiverseUtils } from 'utils';
-import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
+
+import { gotchiverseCoordsForParcel } from 'data/disctricts.data';
+
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 import { styles } from './styles';
-
-import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
 
 export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
@@ -64,6 +67,8 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const modifyName = (hash: string) => {
     return hash.replace(/-/g, ' ');
   };
+
+  console.log(parcel);
 
   return (
     <div className={classes.container}>
