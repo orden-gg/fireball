@@ -67,7 +67,6 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const modifyName = (hash: string) => {
     return hash.replace(/-/g, ' ');
   };
-
   console.log(parcel);
 
   return (

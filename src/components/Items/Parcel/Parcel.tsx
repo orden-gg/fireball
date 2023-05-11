@@ -14,6 +14,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
+import { ParcelClaim } from '../ParcelClaim/ParcelClaim';
 import { ParcelInstallations } from '../ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from '../ParcelSurvey/ParcelSurvey';
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
@@ -75,7 +76,13 @@ export function Parcel({ parcel }: { parcel: CustomAny }) {
                 ) : null;
               })}
             </div>
+
             <ParcelSurvey surveys={parcel.surveys} alchemica={parcel.alchemica} size={Number(parcel.size)} />
+            <ParcelClaim
+              currentAmount={parcel.claimAvailableAlchemica}
+              supplyRate={parcel.harvestRates}
+              capacities={parcel.capacities}
+            />
           </div>
         </div>
 
