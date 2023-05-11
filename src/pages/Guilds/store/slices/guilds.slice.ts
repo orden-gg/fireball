@@ -15,6 +15,7 @@ export interface GuildsState {
     isLoaded: boolean;
     isError: boolean;
   };
+  isJoinGuildRequestInProgress: boolean;
 }
 
 const initialState: GuildsState = {
@@ -29,7 +30,8 @@ const initialState: GuildsState = {
     isLoading: false,
     isLoaded: false,
     isError: false
-  }
+  },
+  isJoinGuildRequestInProgress: false
 };
 
 export const guildsSlice = createSlice({
@@ -90,6 +92,9 @@ export const guildsSlice = createSlice({
         data: action.payload,
         isLoaded: true
       };
+    },
+    setIsJoinGuildRequestInProgress: (state, action: PayloadAction<boolean>): void => {
+      state.isJoinGuildRequestInProgress = action.payload;
     }
   }
 });
@@ -101,7 +106,8 @@ export const {
   loadCurrentGuildById,
   loadCurrentGuildByIdSucceded,
   loadCurrentGuildByIdFailed,
-  setCurrentGuild
+  setCurrentGuild,
+  setIsJoinGuildRequestInProgress
 } = guildsSlice.actions;
 
 export const guildsReducer = guildsSlice.reducer;

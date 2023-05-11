@@ -1,3 +1,4 @@
+export * from './guilds/guilds-graph-core.api';
 export * from './alchemica.api';
 export * from './the-graph-core.api';
 export * from './autopet.api';

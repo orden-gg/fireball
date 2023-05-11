@@ -19,3 +19,5 @@ export const getMetamaskLoggedAddresses = createSelector(
   loginStateSelector,
   (state: LoginState) => state.metamaskLoggedAddress
 );
+
+export const getMemberGuildId = createSelector(loginStateSelector, (state: LoginState) => state.memberGuildId);

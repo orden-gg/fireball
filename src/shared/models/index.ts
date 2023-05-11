@@ -16,6 +16,7 @@ export * from './installations-contract.model';
 export * from './inventory.model';
 export * from './lendings';
 export * from './login-address.model';
+export * from './member-guild.model';
 export * from './nav-route.model';
 export * from './page-nav.model';
 export * from './realm.model';

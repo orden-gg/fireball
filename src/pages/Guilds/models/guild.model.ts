@@ -4,5 +4,7 @@ export interface Guild {
   name: string;
   description: string;
   logo: string;
-  members: string[];
+  members: {
+    id: string;
+  }[];
 }

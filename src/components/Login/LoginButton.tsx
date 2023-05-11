@@ -76,6 +76,12 @@ export function LoginButton() {
   }, [metaState]);
 
   useEffect(() => {
+    if (metaState.account[0]) {
+      dispatch(fromLoginStore.onLoadMemberGuildInfo(metaState.account[0]));
+    }
+  }, [metaState.account[0]]);
+
+  useEffect(() => {
     if (isDonateAddressShown === null) {
       dispatch(fromLoginStore.addAddress(donateAddress));
       setIsDonateAddressShown(true);

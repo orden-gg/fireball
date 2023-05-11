@@ -4,16 +4,15 @@ const guildProps = `
   name
   description
   logo
+  members {
+    id
+  }
 `;
 
 export const guildsQuery = (): string => {
   return `{
     guilds {
       ${guildProps}
-      members {
-        id
-      }
-      membersCount
     }
   }`;
 };

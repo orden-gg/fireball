@@ -1,5 +1,6 @@
 import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
+import * as loginSlices from 'core/store/login/slices';
 import { AppThunk } from 'core/store/store';
 
 import { Guild } from 'pages/Guilds/models';
@@ -35,12 +36,16 @@ export const onLoadCurrentGuildById =
 
 export const onJoinGuild =
   (guildTokenId: string): AppThunk =>
-  () => {
-    GuildContractApi.joinGuild(guildTokenId).then((res: boolean) => {
-      if (res) {
-        console.log('success', 'Succeeded');
-      } else {
-        console.log('error', 'Failed');
-      }
-    });
+  (dispatch) => {
+    dispatch(guildsSlices.setIsJoinGuildRequestInProgress(true));
+
+    GuildContractApi.joinGuild(guildTokenId)
+      .then((res: boolean) => {
+        if (res) {
+          dispatch(loginSlices.setMemberGuildId(guildTokenId));
+        }
+      })
+      .finally(() => {
+        dispatch(guildsSlices.setIsJoinGuildRequestInProgress(false));
+      });
   };

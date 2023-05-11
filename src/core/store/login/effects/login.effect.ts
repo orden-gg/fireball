@@ -1,6 +1,8 @@
+import { GuildsGraphCoreApi } from 'api';
+
 import { AppThunk } from 'core/store/store';
 
-import { LoginAddress } from 'shared/models';
+import { LoginAddress, MembberGuild } from 'shared/models';
 
 // slices
 import * as loginSlices from '../slices/login.slice';
@@ -58,4 +60,16 @@ export const updateMetamaskLoggedAddress =
   (address: string): AppThunk =>
   (dispatch) => {
     dispatch(loginSlices.setMetamaskLoggedAddress(address));
+  };
+
+export const onLoadMemberGuildInfo =
+  (address: string): AppThunk =>
+  (dispatch) => {
+    GuildsGraphCoreApi.getMemberById(address)
+      .then((res: MembberGuild[]) => {
+        const guildId: string | null = res[0] ? res[0].guild.id : null;
+
+        dispatch(loginSlices.setMemberGuildId(guildId));
+      })
+      .catch((err) => console.log(err));
   };

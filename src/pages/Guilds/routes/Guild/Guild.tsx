@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -6,6 +6,7 @@ import { Button, IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as fromLoginStore from 'core/store/login';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildRouteNames } from 'pages/Guilds/constants';
@@ -29,6 +30,8 @@ export function Guild() {
 
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
+  const isJoinGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsJoinGuildRequestInProgress);
+  const memberGuildId: string | null = useAppSelector(fromLoginStore.getMemberGuildId);
 
   useEffect(() => {
     if (!isCurrentGuildLoaded) {
@@ -40,13 +43,13 @@ export function Guild() {
     dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress));
   };
 
-  return isCurrentGuildLoaded ? (
+  return isCurrentGuildLoaded && currentGuild ? (
     <>
       <Box className={classes.guildWrapper}>
         <div className={classes.guildSidebar}>
-          <GuildBanner guild={currentGuild!} />
+          <GuildBanner guild={currentGuild} />
 
-          <GuildDetails guild={currentGuild!} />
+          <GuildDetails guild={currentGuild} />
 
           <Tooltip title='Back to guilds'>
             <IconButton
@@ -76,14 +79,17 @@ export function Guild() {
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
 
-          <Button
-            className={classes.guildJoin}
-            variant='contained'
-            size='large'
-            onClick={() => handleJoinGuild(currentGuild?.id!)}
-          >
-            Join Guild
-          </Button>
+          {memberGuildId && memberGuildId !== currentGuild.id && (
+            <Button
+              className={classes.guildJoin}
+              variant='contained'
+              size='large'
+              disabled={isJoinGuildRequestInProgress}
+              onClick={() => handleJoinGuild(currentGuild.id)}
+            >
+              Join Guild
+            </Button>
+          )}
         </Box>
       </Box>
     </>
