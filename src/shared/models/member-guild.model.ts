@@ -1,4 +1,4 @@
-export interface MembberGuild {
+export interface MemberGuild {
   guild: {
     id: string;
   };
