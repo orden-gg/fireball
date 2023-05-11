@@ -29,8 +29,10 @@ export function ParcelClaimBar({ tokenName, currentAmount, capacities, supplyRat
       <div className={classes.claimAlchemicaBar} style={{ width: `${amountRate * 100}%` }}>
         <span className={classes.amount}>{CommonUtils.convertFloatNumberToSuffixNumber(currentAmount)}</span>
       </div>
-      <span className={classes.supplyRate}>{supplyRate}</span>
-      <span className={classes.capacities}>{capacities}</span>
+
+      <span className={classes.capacities}>
+        {supplyRate}/24h|{capacities}
+      </span>
     </div>
   );
 }
