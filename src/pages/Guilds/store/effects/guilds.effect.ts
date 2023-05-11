@@ -1,4 +1,4 @@
-import { GuildGraphApi } from 'pages/Guilds/api';
+import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -31,4 +31,16 @@ export const onLoadCurrentGuildById =
       .catch(() => {
         dispatch(guildsSlices.loadCurrentGuildByIdFailed());
       });
+  };
+
+export const onJoinGuild =
+  (guildTokenId: string): AppThunk =>
+  () => {
+    GuildContractApi.joinGuild(guildTokenId).then((res: boolean) => {
+      if (res) {
+        console.log('success', 'Succeeded');
+      } else {
+        console.log('error', 'Failed');
+      }
+    });
   };

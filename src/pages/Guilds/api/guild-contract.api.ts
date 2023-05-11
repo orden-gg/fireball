@@ -4,12 +4,10 @@ import GUILD_ABI from '../abis/guild.abi.json';
 import { GUILD_CONTRACT } from '../constants';
 import { GuildFormValuesResult } from '../models';
 
-const contract = EthersApi.makeContract(GUILD_CONTRACT, GUILD_ABI, 'localhost');
+const contractWithSigner = EthersApi.makeContractWithSigner(GUILD_CONTRACT, GUILD_ABI);
 
-export class GuildRegistrationApi {
+export class GuildContractApi {
   public static async createGuildSafe(uri: GuildFormValuesResult) {
-    const contractWithSigner = EthersApi.makeContractWithSigner(GUILD_CONTRACT, GUILD_ABI);
-
     try {
       return await contractWithSigner.createGuild(JSON.stringify(uri));
     } catch (error) {
@@ -17,7 +15,13 @@ export class GuildRegistrationApi {
     }
   }
 
-  public static getContract() {
-    return contract;
+  public static async joinGuild(guildTokenId: string): Promise<boolean> {
+    try {
+      const transaction = await contractWithSigner.joinGuild(guildTokenId);
+
+      return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
+    } catch (error) {
+      return false;
+    }
   }
 }

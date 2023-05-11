@@ -36,7 +36,9 @@ export function Guild() {
     }
   }, []);
 
-  const handleJoinGuild = () => {};
+  const handleJoinGuild = (guildSafeAddress: string): void => {
+    dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress));
+  };
 
   return isCurrentGuildLoaded ? (
     <>
@@ -74,7 +76,12 @@ export function Guild() {
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
 
-          <Button className={classes.guildJoin} variant='contained' size='large' onClick={handleJoinGuild}>
+          <Button
+            className={classes.guildJoin}
+            variant='contained'
+            size='large'
+            onClick={() => handleJoinGuild(currentGuild?.id!)}
+          >
             Join Guild
           </Button>
         </Box>

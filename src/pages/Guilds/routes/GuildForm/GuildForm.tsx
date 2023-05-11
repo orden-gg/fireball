@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { useMetamask } from 'use-metamask';
 
-import { GuildRegistrationApi } from 'pages/Guilds/api/guild-contract.api';
+import { GuildContractApi } from 'pages/Guilds/api/guild-contract.api';
 
 import { useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
@@ -23,7 +23,7 @@ export function GuildForm() {
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(false);
 
-    GuildRegistrationApi.createGuildSafe(values)
+    GuildContractApi.createGuildSafe(values)
       .then((response) => {
         console.log(response);
       })

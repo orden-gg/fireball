@@ -28,7 +28,7 @@ export function GuildCard({ guild }: { guild: Guild }) {
   useHoverRotation({ targetRef, childRef });
 
   const handleClick = (guild: Guild): void => {
-    navigate(guild.id);
+    navigate(guild.safeAddress);
 
     dispatch(fromGuildsStore.setCurrentGuild(guild));
   };
