@@ -11,7 +11,7 @@ export class GuildContractApi {
     try {
       const transaction = await contractWithSigner.createGuild(data.name, data.description, data.logo);
 
-      return EthersApi.waitForTransaction(transaction.hash, 'localhost').then((res: CustomAny) => Boolean(res.status));
+      return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
     } catch (error) {
       return false;
     }
@@ -21,7 +21,7 @@ export class GuildContractApi {
     try {
       const transaction = await contractWithSigner.joinGuild(guildTokenId);
 
-      return EthersApi.waitForTransaction(transaction.hash, 'localhost').then((res: CustomAny) => Boolean(res.status));
+      return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
     } catch (error) {
       return false;
     }
