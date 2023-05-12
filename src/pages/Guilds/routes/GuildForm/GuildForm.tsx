@@ -3,12 +3,12 @@ import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { useMetamask } from 'use-metamask';
 
-import { GuildContractApi } from 'pages/Guilds/api/guild-contract.api';
-
-import { useAppSelector } from 'core/store/hooks';
+import * as fromGuildsStore from '../../store';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
 
 import { guildFormData, initialValues, validationSchema } from 'pages/Guilds/data';
+import { GuildFormValuesResult } from 'pages/Guilds/models';
 
 import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
 
@@ -17,17 +17,16 @@ import { guildFormStyles } from './styles';
 
 export function GuildForm() {
   const classes = guildFormStyles();
-  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+
   const { metaState } = useMetamask();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    setSubmitting(false);
+  const dispatch = useAppDispatch();
 
-    GuildContractApi.createGuildSafe(values)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
+  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+  const isCreateGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsCreateGuildRequestInProgress);
+
+  const handleSubmit = (values: GuildFormValuesResult): void => {
+    dispatch(fromGuildsStore.onCreateGuild(values));
   };
 
   return connectedWallet && metaState.isAvailable ? (
@@ -39,7 +38,7 @@ export function GuildForm() {
         onSubmit={handleSubmit}
         validateOnChange
       >
-        {({ isValid, isSubmitting }) => (
+        {({ isValid }) => (
           <div className={classes.formContent}>
             <Form className={classes.form}>
               <Field component={GuildFormFieldRow} fieldData={guildFormData.name} />
@@ -54,7 +53,7 @@ export function GuildForm() {
                   size='large'
                   variant='contained'
                   className={classes.formSubmitButton}
-                  disabled={!isValid || isSubmitting}
+                  disabled={!isValid || isCreateGuildRequestInProgress}
                 >
                   Create guild
                 </Button>

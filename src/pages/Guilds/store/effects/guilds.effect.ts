@@ -3,7 +3,7 @@ import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 import * as loginSlices from 'core/store/login/slices';
 import { AppThunk } from 'core/store/store';
 
-import { Guild } from 'pages/Guilds/models';
+import { Guild, GuildFormValuesResult } from 'pages/Guilds/models';
 
 // slices
 import * as guildsSlices from '../slices/guilds.slice';
@@ -31,6 +31,18 @@ export const onLoadCurrentGuildById =
       })
       .catch(() => {
         dispatch(guildsSlices.loadCurrentGuildByIdFailed());
+      });
+  };
+
+export const onCreateGuild =
+  (guildData: GuildFormValuesResult): AppThunk =>
+  (dispatch) => {
+    dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
+
+    GuildContractApi.createGuildSafe(guildData)
+      .catch((err) => console.log(err))
+      .finally(() => {
+        dispatch(guildsSlices.setIsCreateGuildRequestInProgress(false));
       });
   };
 

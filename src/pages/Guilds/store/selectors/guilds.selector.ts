@@ -22,6 +22,11 @@ export const getIsCurrentGuildLoaded = createSelector(
   (state: GuildsState) => state.currentGuild.isLoaded
 );
 
+export const getIsCreateGuildRequestInProgress = createSelector(
+  guildsStateSelector,
+  (state: GuildsState) => state.isCreateGuildRequestInProgress
+);
+
 export const getIsJoinGuildRequestInProgress = createSelector(
   guildsStateSelector,
   (state: GuildsState) => state.isJoinGuildRequestInProgress

@@ -134,6 +134,12 @@ export const guildsPreviewStyles = makeStyles((theme) =>
       width: '100%',
       marginTop: theme.spacing(1),
       opacity: 0.5
+    },
+    guildCreate: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      bottom: theme.spacing(1),
+      zIndex: 1
     }
   })
 );

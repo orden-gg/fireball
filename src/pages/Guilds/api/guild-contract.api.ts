@@ -7,9 +7,11 @@ import { GuildFormValuesResult } from '../models';
 const contractWithSigner = EthersApi.makeContractWithSigner(GUILD_CONTRACT, GUILD_ABI);
 
 export class GuildContractApi {
-  public static async createGuildSafe(uri: GuildFormValuesResult) {
+  public static async createGuildSafe(data: GuildFormValuesResult): Promise<boolean> {
     try {
-      return await contractWithSigner.createGuild(JSON.stringify(uri));
+      const transaction = await contractWithSigner.createGuild(data.name, data.description, data.logo);
+
+      return EthersApi.waitForTransaction(transaction.hash, 'localhost').then((res: CustomAny) => Boolean(res.status));
     } catch (error) {
       return false;
     }
@@ -19,7 +21,7 @@ export class GuildContractApi {
     try {
       const transaction = await contractWithSigner.joinGuild(guildTokenId);
 
-      return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
+      return EthersApi.waitForTransaction(transaction.hash, 'localhost').then((res: CustomAny) => Boolean(res.status));
     } catch (error) {
       return false;
     }
