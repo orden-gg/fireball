@@ -285,7 +285,13 @@ export const filtersData = {
       if (!filter.value || !compareItem[key]) {
         predicate = true;
       } else {
-        predicate = DateTime.local().toSeconds() >= compareItem[key];
+        predicate =
+          DateTime.local().toSeconds() >= compareItem[key] &&
+          Number(compareItem.claimAvailableAlchemica.fud) +
+            Number(compareItem.claimAvailableAlchemica.fomo) +
+            Number(compareItem.claimAvailableAlchemica.alpha) +
+            Number(compareItem.claimAvailableAlchemica.kek) >
+            10;
       }
 
       return predicate;

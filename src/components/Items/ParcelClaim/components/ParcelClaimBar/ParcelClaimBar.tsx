@@ -31,7 +31,8 @@ export function ParcelClaimBar({ tokenName, currentAmount, capacities, supplyRat
       </div>
 
       <span className={classes.capacities}>
-        {supplyRate}/24h|{capacities}
+        {CommonUtils.convertFloatNumberToSuffixNumber(supplyRate)}/24h|
+        {CommonUtils.convertFloatNumberToSuffixNumber(capacities)}
       </span>
     </div>
   );
