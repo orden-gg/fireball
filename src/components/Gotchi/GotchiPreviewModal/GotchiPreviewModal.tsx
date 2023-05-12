@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { CircularProgress, Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
+import { useMetamask } from 'use-metamask';
 
 import { EthersApi, TheGraphApi } from 'api';
 
 import { Erc721Categories, InstallationTypeNames } from 'shared/constants';
 import { FireballGotchi, Gotchi, GotchiExtended, IdentityOption, SalesHistoryModel } from 'shared/models';
-import { InstallationsUtils } from 'utils';
+
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiInventory } from 'components/GotchiInventory/GotchiInventory';
 import { GotchiPreview } from 'components/GotchiPreview/GotchiPreview';
@@ -31,11 +32,9 @@ import {
   HistoryRow,
   HistoryWearables
 } from 'components/Previews/SalesHistory/components';
-
-import { useMetamask } from 'use-metamask';
-
 import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
+import { InstallationsUtils } from 'utils';
 import { GotchiUtils } from 'utils';
 
 import { gotchiPreviewModalStyles } from './styles';
@@ -166,9 +165,9 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
           setAvailibleParcels(bestRealm);
 
           const fireballGates = [
-            { id: '5209', parcelHash: 'aadventures-personality-turned', altarLevel: 9 },
-            { id: '10346', parcelHash: 'continues-producing-bidder', altarLevel: 8 },
-            { id: '18356', parcelHash: 'outlet-frens-homeland', altarLevel: 9 }
+            { id: '5209', parcelHash: 'aadventures-personality-turned', altarLevel: 9 }
+            // { id: '10346', parcelHash: 'continues-producing-bidder', altarLevel: 8 },
+            // { id: '18356', parcelHash: 'outlet-frens-homeland', altarLevel: 9 }
           ];
           setAvailibleGates(fireballGates);
 
