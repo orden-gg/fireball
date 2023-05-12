@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { AlchemicaTypes } from 'shared/constants';
 import { ParcelAlchemica } from 'shared/models';
 
+import { CustomTooltip } from 'components/custom/CustomTooltip';
+
 import { ParcelClaimBar } from './components';
 import { parcelClaimStyles } from './styles';
 
@@ -53,6 +55,16 @@ export function ParcelClaim({ currentAmount, supplyRate, capacities }: ParcelCla
     <div className={classNames(classes.claimList)}>
       {isLoaded ? (
         <>
+          <span className={classes.claimListHead}>
+            <CustomTooltip
+              placement='top'
+              title={<>current status for alchemica harvesting</>}
+              disableInteractive
+              arrow
+            >
+              <span className={classes.claimName}> claiming</span>
+            </CustomTooltip>
+          </span>
           {currentAmount && (
             <>
               {Object.entries(parcelCapacities).map(([tokenName]) => (
