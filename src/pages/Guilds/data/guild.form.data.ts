@@ -5,8 +5,8 @@ import { GuildFormDataItem, GuildFormValuesResult } from '../models';
 export const validationSchema = yup.object().shape({
   name: yup
     .string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(22, 'Name must not exceed 22 characters')
+    .min(1, 'Name must be at least 1 characters')
+    .max(25, 'Name must not exceed 25 characters')
     .matches(/^[a-zA-Z\s]*$/, 'Name should contain only letters')
     .required('Name is required')
     .default('John Doe'),

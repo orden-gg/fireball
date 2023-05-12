@@ -26,7 +26,13 @@ export function GuildForm() {
   const isCreateGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsCreateGuildRequestInProgress);
 
   const handleSubmit = (values: GuildFormValuesResult): void => {
-    dispatch(fromGuildsStore.onCreateGuild(values));
+    const trimmedValues: GuildFormValuesResult = {
+      name: values.name.trim(),
+      description: values.description.trim(),
+      logo: values.logo.trim()
+    };
+
+    dispatch(fromGuildsStore.onCreateGuild(trimmedValues));
   };
 
   return connectedWallet && metaState.isAvailable ? (
