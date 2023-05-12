@@ -285,13 +285,21 @@ export const filtersData = {
       if (!filter.value || !compareItem[key]) {
         predicate = true;
       } else {
-        predicate =
-          DateTime.local().toSeconds() >= compareItem[key] &&
+        const isHarvested =
           Number(compareItem.claimAvailableAlchemica.fud) +
-            Number(compareItem.claimAvailableAlchemica.fomo) +
-            Number(compareItem.claimAvailableAlchemica.alpha) +
-            Number(compareItem.claimAvailableAlchemica.kek) >
-            10;
+          Number(compareItem.claimAvailableAlchemica.fomo) +
+          Number(compareItem.claimAvailableAlchemica.alpha) +
+          Number(compareItem.claimAvailableAlchemica.kek) +
+          Number(compareItem.capacities.fud) +
+          Number(compareItem.capacities.fomo) +
+          Number(compareItem.capacities.alpha) +
+          Number(compareItem.capacities.kek) +
+          Number(compareItem.harvestRates.fud) +
+          Number(compareItem.harvestRates.fomo) +
+          Number(compareItem.harvestRates.alpha) +
+          Number(compareItem.harvestRates.kek);
+
+        predicate = DateTime.local().toSeconds() >= compareItem[key] && isHarvested != 0;
       }
 
       return predicate;

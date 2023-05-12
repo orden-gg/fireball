@@ -62,7 +62,7 @@ export function ParcelClaim({ currentAmount, supplyRate, capacities }: ParcelCla
               disableInteractive
               arrow
             >
-              <span className={classes.claimName}> claiming</span>
+              <span className={classes.claimName}>to claim</span>
             </CustomTooltip>
           </span>
           {currentAmount && (

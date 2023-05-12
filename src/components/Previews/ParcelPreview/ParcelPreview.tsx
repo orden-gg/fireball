@@ -13,6 +13,7 @@ import { Erc1155Categories } from 'shared/constants';
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
+
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
@@ -74,7 +75,6 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
       <div className={classes.inner}>
         <div className={classes.image}>
           <ParcelImage parcel={parcel} imageSize={300} />
-
           <ParcelSurvey
             className={classNames(classes.survey, 'active')}
             surveys={parcel.surveys}
