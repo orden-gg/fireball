@@ -6,6 +6,8 @@ import { Box } from '@mui/system';
 
 import classNames from 'classnames';
 
+import { CustomSnackbar } from 'shared/components/CustomSnackbar/CustomSnackbar';
+
 import {
   Anvil,
   Autopet,
@@ -93,6 +95,7 @@ export function App() {
         </Box>
         <Footer />
       </Wrapper>
+      <CustomSnackbar />
     </SnackbarContextProvider>
   );
 }

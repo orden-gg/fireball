@@ -8,6 +8,7 @@ import { guildsReducers } from 'pages/Guilds/store/slices';
 
 import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
+import { snackbarReducer } from './snackbar';
 import { tokensPricesReducers } from './tokens-prices';
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     dataReload: dataReloadReducer,
     login: loginReducer,
     glossary: glossaryReducer,
+    snackbar: snackbarReducer,
     baazaar: baazarReducers,
     client: clientReducers,
     fake: fakeGotchiReducers,

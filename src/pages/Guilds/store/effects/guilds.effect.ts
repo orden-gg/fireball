@@ -1,7 +1,10 @@
 import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
 import * as loginSlices from 'core/store/login/slices';
+import * as fromSnackbarStore from 'core/store/snackbar';
 import { AppThunk } from 'core/store/store';
+
+import { SnackbarData } from 'shared/models';
 
 import { Guild, GuildFormValuesResult } from 'pages/Guilds/models';
 
@@ -40,7 +43,37 @@ export const onCreateGuild =
     dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
 
     GuildContractApi.createGuildSafe(guildData)
-      .catch((err) => console.log(err))
+      .then((res: boolean) => {
+        let snackbarData: SnackbarData;
+
+        if (res) {
+          snackbarData = {
+            message: 'Guild was successfully created!',
+            severity: 'success',
+            horizontal: 'center',
+            vertical: 'top'
+          };
+
+          dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+        } else {
+          snackbarData = {
+            message: 'Error occured!',
+            severity: 'error',
+            horizontal: 'center',
+            vertical: 'top'
+          };
+        }
+      })
+      .catch(() => {
+        const snackbarData: SnackbarData = {
+          message: 'Error occured!',
+          severity: 'error',
+          horizontal: 'center',
+          vertical: 'top'
+        };
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+      })
       .finally(() => {
         dispatch(guildsSlices.setIsCreateGuildRequestInProgress(false));
       });
@@ -53,9 +86,36 @@ export const onJoinGuild =
 
     GuildContractApi.joinGuild(guildTokenId)
       .then((res: boolean) => {
+        let snackbarData: SnackbarData;
+
         if (res) {
+          snackbarData = {
+            message: `You've successfully joined the guild!`,
+            severity: 'success',
+            horizontal: 'center',
+            vertical: 'top'
+          };
           dispatch(loginSlices.setMemberGuildId(guildTokenId));
+        } else {
+          snackbarData = {
+            message: 'Error occured!',
+            severity: 'error',
+            horizontal: 'center',
+            vertical: 'top'
+          };
         }
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+      })
+      .catch(() => {
+        const snackbarData: SnackbarData = {
+          message: 'Error occured!',
+          severity: 'error',
+          horizontal: 'center',
+          vertical: 'top'
+        };
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
       })
       .finally(() => {
         dispatch(guildsSlices.setIsJoinGuildRequestInProgress(false));
