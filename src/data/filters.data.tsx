@@ -282,8 +282,14 @@ export const filtersData = {
     predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
       let predicate: CustomAny;
 
-      if (!filter.value || !compareItem[key]) {
-        predicate = true;
+      if (
+        !filter.value ||
+        !compareItem[key] ||
+        !compareItem.claimAvailableAlchemica ||
+        !compareItem.capacities ||
+        !compareItem.harvestRates
+      ) {
+        predicate = false;
       } else {
         const isHarvested =
           Number(compareItem.claimAvailableAlchemica.fud) +
@@ -298,8 +304,8 @@ export const filtersData = {
           Number(compareItem.harvestRates.fomo) +
           Number(compareItem.harvestRates.alpha) +
           Number(compareItem.harvestRates.kek);
-
-        predicate = DateTime.local().toSeconds() >= compareItem[key] && isHarvested != 0;
+        const isPredicate = DateTime.local().toSeconds() >= compareItem[key] && isHarvested > 1;
+        predicate = isPredicate;
       }
 
       return predicate;
