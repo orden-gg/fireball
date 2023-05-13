@@ -8,6 +8,8 @@ import { TILES_CONTRACT } from '../../shared/constants/api.constants.ts';
 
 // @ts-ignore
 import { TileTypes } from '../../shared/constants/enums/enums.ts';
+// @ts-ignore
+import { CustomAny } from 'types/global.js';
 
 const abiFile = fs.readFileSync('src/data/abi/tiles.abi.json');
 const TILES_ABI = JSON.parse(abiFile.toString());
