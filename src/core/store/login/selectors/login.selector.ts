@@ -15,7 +15,7 @@ export const getActiveAddress = createSelector(loginStateSelector, (state: Login
 
 export const getLoggedAddresses = createSelector(loginStateSelector, (state: LoginState) => state.loggedAddresses);
 
-export const getMetamaskLoggedAddresses = createSelector(
+export const getMetamaskLoggedAddress = createSelector(
   loginStateSelector,
   (state: LoginState) => state.metamaskLoggedAddress
 );

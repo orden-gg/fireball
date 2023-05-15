@@ -19,7 +19,7 @@ export function GuildsPreview() {
 
   const dispatch = useAppDispatch();
 
-  const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+  const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const guilds: Guild[] = useAppSelector(fromGuildsStore.getGuilds);
   const getIsGuildsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildsLoading);
 

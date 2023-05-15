@@ -24,6 +24,19 @@ export const getIsCurrentGuildLoaded = createSelector(
   (state: GuildsState) => state.currentGuild.isLoaded
 );
 
+export const getIsGuildOwner = (address: string | null | undefined) =>
+  createSelector(guildsStateSelector, (state: GuildsState) => {
+    let isGuildOwner: boolean = false;
+
+    if (!address || !state.currentGuild.data) {
+      isGuildOwner = false;
+    } else {
+      isGuildOwner = state.currentGuild.data.owner === address;
+    }
+
+    return isGuildOwner;
+  });
+
 export const getEditGuildData = createSelector(guildsStateSelector, (state: GuildsState): GuildFormValuesResult => {
   let guildData: GuildFormValuesResult;
   const currentGuild = state.currentGuild.data;

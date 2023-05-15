@@ -32,6 +32,8 @@ export function Guild() {
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
   const isJoinGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsJoinGuildRequestInProgress);
   const memberGuildId: string | null = useAppSelector(fromLoginStore.getMemberGuildId);
+  const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
+  const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
 
   useEffect(() => {
     if (!isCurrentGuildLoaded) {
@@ -83,7 +85,7 @@ export function Guild() {
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
 
-          {
+          {isGuildOwner && (
             <Button
               className={classes.guildEdit}
               variant='contained'
@@ -93,7 +95,7 @@ export function Guild() {
             >
               Edit Guild
             </Button>
-          }
+          )}
           {memberGuildId && memberGuildId !== currentGuild.id && (
             <Button
               className={classes.guildJoin}

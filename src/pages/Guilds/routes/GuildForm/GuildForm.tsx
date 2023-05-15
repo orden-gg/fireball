@@ -28,7 +28,7 @@ export function GuildForm() {
 
   const isEdit: boolean = location.pathname.indexOf('edit') > 0;
 
-  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const editGuildData: GuildFormValuesResult = useAppSelector(fromGuildsStore.getEditGuildData);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
   const isCreateGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsCreateGuildRequestInProgress);
