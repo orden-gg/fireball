@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+
 import { Button } from '@mui/material';
 
 import { Field, Form, Formik } from 'formik';
@@ -19,11 +22,22 @@ export function GuildForm() {
   const classes = guildFormStyles();
 
   const { metaState } = useMetamask();
-
+  const params = useParams<{ id: string }>();
+  const location = useLocation();
   const dispatch = useAppDispatch();
 
+  const isEdit: boolean = location.pathname.indexOf('edit') > 0;
+
   const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddresses);
+  const editGuildData: GuildFormValuesResult = useAppSelector(fromGuildsStore.getEditGuildData);
+  const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
   const isCreateGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsCreateGuildRequestInProgress);
+
+  useEffect(() => {
+    if (isEdit && !isCurrentGuildLoaded) {
+      dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
+    }
+  }, []);
 
   const handleSubmit = (values: GuildFormValuesResult): void => {
     const trimmedValues: GuildFormValuesResult = {
@@ -32,14 +46,18 @@ export function GuildForm() {
       logo: values.logo.trim()
     };
 
-    dispatch(fromGuildsStore.onCreateGuild(trimmedValues));
+    if (isEdit) {
+      dispatch(fromGuildsStore.onUpdateGuild(trimmedValues));
+    } else {
+      dispatch(fromGuildsStore.onCreateGuild(trimmedValues));
+    }
   };
 
   return connectedWallet && metaState.isAvailable ? (
     <div className={classes.formWrapper}>
-      <h1 className={classes.formTitle}>Guild Register</h1>
+      <h1 className={classes.formTitle}>{isEdit ? 'Edit Guild' : 'Guild Register'} </h1>
       <Formik
-        initialValues={initialValues}
+        initialValues={isEdit ? editGuildData : initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
         validateOnChange
@@ -61,7 +79,7 @@ export function GuildForm() {
                   className={classes.formSubmitButton}
                   disabled={!isValid || isCreateGuildRequestInProgress}
                 >
-                  Create guild
+                  {isEdit ? 'Edit' : 'Create'} guild
                 </Button>
               </div>
             </Form>

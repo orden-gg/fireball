@@ -1,6 +1,7 @@
 const guildProps = `
   id
   safeAddress
+  owner
   name
   description
   logo

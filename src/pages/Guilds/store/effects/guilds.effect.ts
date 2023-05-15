@@ -79,6 +79,50 @@ export const onCreateGuild =
       });
   };
 
+export const onUpdateGuild =
+  (guildData: GuildFormValuesResult): AppThunk =>
+  (dispatch, getState) => {
+    const guildTokenId: string = getState().guilds.guilds.currentGuild.data?.id!;
+
+    dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
+
+    GuildContractApi.updateGuild(guildTokenId, guildData)
+      .then((res: boolean) => {
+        let snackbarData: SnackbarData;
+
+        if (res) {
+          snackbarData = {
+            message: 'Guild was successfully updated!',
+            severity: 'success',
+            horizontal: 'center',
+            vertical: 'top'
+          };
+
+          dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+        } else {
+          snackbarData = {
+            message: 'Error occured!',
+            severity: 'error',
+            horizontal: 'center',
+            vertical: 'top'
+          };
+        }
+      })
+      .catch(() => {
+        const snackbarData: SnackbarData = {
+          message: 'Error occured!',
+          severity: 'error',
+          horizontal: 'center',
+          vertical: 'top'
+        };
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+      })
+      .finally(() => {
+        dispatch(guildsSlices.setIsCreateGuildRequestInProgress(false));
+      });
+  };
+
 export const onJoinGuild =
   (guildTokenId: string): AppThunk =>
   (dispatch) => {

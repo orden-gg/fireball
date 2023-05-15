@@ -39,6 +39,10 @@ export function Guild() {
     }
   }, []);
 
+  const onRedirectToEditGuild = (): void => {
+    navigate('edit');
+  };
+
   const handleJoinGuild = (guildSafeAddress: string): void => {
     dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress));
   };
@@ -79,6 +83,17 @@ export function Guild() {
             {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
           </Routes>
 
+          {
+            <Button
+              className={classes.guildEdit}
+              variant='contained'
+              size='large'
+              disabled={isJoinGuildRequestInProgress}
+              onClick={() => onRedirectToEditGuild()}
+            >
+              Edit Guild
+            </Button>
+          }
           {memberGuildId && memberGuildId !== currentGuild.id && (
             <Button
               className={classes.guildJoin}

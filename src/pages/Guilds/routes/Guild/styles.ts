@@ -64,6 +64,12 @@ export const guildStyles = makeStyles((theme) =>
         color: theme.palette.primary.main
       }
     },
+    guildEdit: {
+      position: 'absolute',
+      right: theme.spacing(18.5),
+      bottom: theme.spacing(1),
+      zIndex: 1
+    },
     guildJoin: {
       position: 'absolute',
       right: theme.spacing(1),
