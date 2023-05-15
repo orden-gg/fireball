@@ -17,9 +17,9 @@ export class GuildContractApi {
     }
   }
 
-  public static async updateGuild(tokenId: string, data: GuildFormValuesResult): Promise<boolean> {
+  public static async updateGuild(data: GuildFormValuesResult): Promise<boolean> {
     try {
-      const transaction = await contractWithSigner.updateGuild(tokenId, data.name, data.description, data.logo);
+      const transaction = await contractWithSigner.updateGuild(data.name, data.description, data.logo);
 
       return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
     } catch (error) {

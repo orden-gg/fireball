@@ -81,12 +81,10 @@ export const onCreateGuild =
 
 export const onUpdateGuild =
   (guildData: GuildFormValuesResult): AppThunk =>
-  (dispatch, getState) => {
-    const guildTokenId: string = getState().guilds.guilds.currentGuild.data?.id!;
-
+  (dispatch) => {
     dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
 
-    GuildContractApi.updateGuild(guildTokenId, guildData)
+    GuildContractApi.updateGuild(guildData)
       .then((res: boolean) => {
         let snackbarData: SnackbarData;
 
