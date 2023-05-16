@@ -12,7 +12,7 @@ export function GuildFormTextareaRow({ fieldData }: GuildFormRowProps) {
   const classes = guildFormRowStyles();
   const [field, meta] = useField(fieldData.key);
   const defaultValue: string = validationSchema.fields[fieldData.key].default();
-  const isRequired: boolean = Boolean(validationSchema.fields[fieldData.key].required());
+  const isRequired: boolean = Boolean(validationSchema.fields[fieldData.key]._exclusive?.required);
 
   return (
     <div className={classes.formRow}>
