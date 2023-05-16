@@ -18,9 +18,7 @@ export const validationSchema = yup.object().shape({
     .default('https://example.com/logo.png'),
   description: yup
     .string()
-    .min(20, 'Description must be at least 20 characters')
     .max(100, 'Description must not exceed 100 characters')
-    .required('Description is required')
     .default('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
 });
 
