@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 
@@ -24,6 +24,7 @@ export function GuildForm() {
   const { metaState } = useMetamask();
   const params = useParams<{ id: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const isEdit: boolean = location.pathname.indexOf('edit') > 0;
@@ -38,6 +39,10 @@ export function GuildForm() {
       dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
     }
   }, []);
+
+  const onHandleBackTo = (): void => {
+    navigate(-1);
+  };
 
   const handleSubmit = (values: GuildFormValuesResult): void => {
     const trimmedValues: GuildFormValuesResult = {
@@ -72,6 +77,15 @@ export function GuildForm() {
               <Field component={GuildFormTextareaRow} fieldData={guildFormData.description} />
 
               <div className={classes.formFooter}>
+                <Button
+                  type='button'
+                  size='large'
+                  variant='contained'
+                  className={classes.formSubmitButton}
+                  onClick={() => onHandleBackTo()}
+                >
+                  Back to {isEdit ? 'guild' : 'guilds'}
+                </Button>
                 <Button
                   type='submit'
                   size='large'
