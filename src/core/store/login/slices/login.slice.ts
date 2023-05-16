@@ -7,15 +7,13 @@ export interface LoginState {
   activeAddress: Undefinable<string | null>;
   metamaskLoggedAddress: Undefinable<string | null>;
   isDropdownOpen: boolean;
-  memberGuildId: string | null;
 }
 
 const initialState: LoginState = {
   loggedAddresses: JSON.parse(localStorage.getItem('LOGGED_ADDRESSES') as CustomAny) || [],
   activeAddress: JSON.parse(localStorage.getItem('ACTIVE_ADDRESS') as CustomAny),
   metamaskLoggedAddress: null,
-  isDropdownOpen: false,
-  memberGuildId: null
+  isDropdownOpen: false
 };
 
 export const loginSlice = createSlice({
@@ -33,14 +31,11 @@ export const loginSlice = createSlice({
     },
     setMetamaskLoggedAddress: (state, action: PayloadAction<Undefinable<string>>) => {
       state.metamaskLoggedAddress = action.payload;
-    },
-    setMemberGuildId: (state, action: PayloadAction<string | null>) => {
-      state.memberGuildId = action.payload;
     }
   }
 });
 
-export const { toggleLoginDropdown, setActiveAddress, setLoggedAddresses, setMetamaskLoggedAddress, setMemberGuildId } =
+export const { toggleLoginDropdown, setActiveAddress, setLoggedAddresses, setMetamaskLoggedAddress } =
   loginSlice.actions;
 
 export const loginReducer = loginSlice.reducer;

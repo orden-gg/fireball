@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -21,6 +21,7 @@ import { guildStyles } from './styles';
 // import { GuildsRealm } from './components/GuildsRealm';
 
 export function Guild() {
+  const theme = useTheme();
   const classes = guildStyles();
 
   const params = useParams<{ id: string }>();
@@ -31,9 +32,9 @@ export function Guild() {
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
   const isJoinGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsJoinGuildRequestInProgress);
-  const memberGuildId: string | null = useAppSelector(fromLoginStore.getMemberGuildId);
   const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
+  const canJoinGuild: boolean = useAppSelector(fromGuildsStore.getCanJoinGuild);
 
   useEffect(() => {
     if (!isCurrentGuildLoaded) {
@@ -46,7 +47,7 @@ export function Guild() {
   };
 
   const handleJoinGuild = (guildSafeAddress: string): void => {
-    dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress));
+    dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress, connectedWallet!));
   };
 
   return isCurrentGuildLoaded && currentGuild ? (
@@ -90,13 +91,15 @@ export function Guild() {
               className={classes.guildEdit}
               variant='contained'
               size='large'
-              disabled={isJoinGuildRequestInProgress}
+              style={{
+                right: canJoinGuild ? theme.spacing(18.5) : theme.spacing(1)
+              }}
               onClick={() => onRedirectToEditGuild()}
             >
               Edit Guild
             </Button>
           )}
-          {memberGuildId && memberGuildId !== currentGuild.id && (
+          {canJoinGuild && (
             <Button
               className={classes.guildJoin}
               variant='contained'

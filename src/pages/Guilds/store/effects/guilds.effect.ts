@@ -1,6 +1,5 @@
 import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
-import * as loginSlices from 'core/store/login/slices';
 import * as fromSnackbarStore from 'core/store/snackbar';
 import { AppThunk } from 'core/store/store';
 
@@ -122,7 +121,7 @@ export const onUpdateGuild =
   };
 
 export const onJoinGuild =
-  (guildTokenId: string): AppThunk =>
+  (guildTokenId: string, memberAddress: string): AppThunk =>
   (dispatch) => {
     dispatch(guildsSlices.setIsJoinGuildRequestInProgress(true));
 
@@ -137,7 +136,7 @@ export const onJoinGuild =
             horizontal: 'center',
             vertical: 'top'
           };
-          dispatch(loginSlices.setMemberGuildId(guildTokenId));
+          dispatch(guildsSlices.addGuildMember({ id: memberAddress }));
         } else {
           snackbarData = {
             message: 'Error occured!',

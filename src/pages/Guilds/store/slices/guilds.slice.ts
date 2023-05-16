@@ -95,6 +95,9 @@ export const guildsSlice = createSlice({
         isLoaded: true
       };
     },
+    addGuildMember: (state, action: PayloadAction<{ id: string }>): void => {
+      state.currentGuild.data!.members.push({ id: action.payload.id });
+    },
     setIsCreateGuildRequestInProgress: (state, action: PayloadAction<boolean>): void => {
       state.isCreateGuildRequestInProgress = action.payload;
     },
@@ -112,6 +115,7 @@ export const {
   loadCurrentGuildByIdSucceded,
   loadCurrentGuildByIdFailed,
   setCurrentGuild,
+  addGuildMember,
   setIsCreateGuildRequestInProgress,
   setIsJoinGuildRequestInProgress
 } = guildsSlice.actions;
