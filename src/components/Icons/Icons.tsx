@@ -38,6 +38,7 @@ import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
+import vote from 'assets/images/icons/vote.svg';
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -194,6 +195,10 @@ export const GhstIcon = ({ className, width, height }: IconProps) => {
 
 export const TwitchIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={twitch} alt='twitch' />;
+};
+
+export const VoteIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={vote} alt='vote' />;
 };
 
 export const RareTicketIcon = ({ width, height }: IconProps) => {

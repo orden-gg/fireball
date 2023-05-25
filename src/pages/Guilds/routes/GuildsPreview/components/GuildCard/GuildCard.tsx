@@ -9,7 +9,7 @@ import * as fromGuildsStore from 'pages/Guilds/store';
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
 import { Guild } from 'pages/Guilds/models';
 
-import { FudIcon, GhstTokenIcon, GotchiIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { GotchiIcon, VoteIcon, WarehouseIcon } from 'components/Icons/Icons';
 
 import { useHoverRotation } from '../../hooks';
 import { GuildAsset, GuildDescription } from './components';
@@ -46,8 +46,7 @@ export function GuildCard({ guild }: { guild: Guild }) {
             <ul className={classes.guildAssetsList}>
               <GuildAsset title='Gotchis' Icon={GotchiIcon} />
               <GuildAsset title='Wearables' Icon={WarehouseIcon} />
-              <GuildAsset title='Realm' Icon={FudIcon} />
-              <GuildAsset title='Voting power' Icon={GhstTokenIcon} />
+              <GuildAsset title='Voting power' Icon={VoteIcon} />
             </ul>
             <GuildWearables wearables={[]} tooltip='Guild wearable' />
           </div>
