@@ -74,6 +74,11 @@ export const guildStyles = makeStyles((theme) =>
       right: theme.spacing(1),
       bottom: theme.spacing(1),
       zIndex: 1
+    },
+    guildError: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
     }
   })
 );
