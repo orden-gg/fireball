@@ -29,6 +29,11 @@ export const getIsCurrentGuildLoaded = createSelector(
   (state: GuildsState) => state.currentGuild.isLoaded
 );
 
+export const getIsCurrentGuildError = createSelector(
+  guildsStateSelector,
+  (state: GuildsState) => state.currentGuild.isError
+);
+
 export const getIsGuildOwner = (address: string | null | undefined) =>
   createSelector(guildsStateSelector, (state: GuildsState) => {
     let isGuildOwner: boolean = false;
