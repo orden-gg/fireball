@@ -19,6 +19,11 @@ export const getGuildsCount = createSelector(guildsStateSelector, (state: Guilds
 
 export const getCurrentGuild = createSelector(guildsStateSelector, (state: GuildsState) => state.currentGuild.data);
 
+export const getIsCurrentGuildLoading = createSelector(
+  guildsStateSelector,
+  (state: GuildsState) => state.currentGuild.isLoading
+);
+
 export const getIsCurrentGuildLoaded = createSelector(
   guildsStateSelector,
   (state: GuildsState) => state.currentGuild.isLoaded
