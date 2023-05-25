@@ -31,7 +31,7 @@ export function Guild() {
 
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
-  const isJoinGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsJoinGuildRequestInProgress);
+  const isContractRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsContractRequestInProgress);
   const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
   const canJoinGuild: boolean = useAppSelector(fromGuildsStore.getCanJoinGuild);
@@ -104,7 +104,7 @@ export function Guild() {
               className={classes.guildJoin}
               variant='contained'
               size='large'
-              disabled={isJoinGuildRequestInProgress}
+              disabled={isContractRequestInProgress}
               onClick={() => handleJoinGuild(currentGuild.id)}
             >
               Join Guild

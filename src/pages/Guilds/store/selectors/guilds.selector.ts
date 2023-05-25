@@ -75,12 +75,7 @@ export const getEditGuildData = createSelector(guildsStateSelector, (state: Guil
   return guildData;
 });
 
-export const getIsCreateGuildRequestInProgress = createSelector(
+export const getIsContractRequestInProgress = createSelector(
   guildsStateSelector,
-  (state: GuildsState) => state.isCreateGuildRequestInProgress
-);
-
-export const getIsJoinGuildRequestInProgress = createSelector(
-  guildsStateSelector,
-  (state: GuildsState) => state.isJoinGuildRequestInProgress
+  (state: GuildsState) => state.isContractRequestInProgress
 );

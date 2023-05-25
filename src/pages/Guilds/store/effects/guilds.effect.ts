@@ -39,7 +39,7 @@ export const onLoadCurrentGuildById =
 export const onCreateGuild =
   (guildData: GuildFormValuesResult): AppThunk =>
   (dispatch) => {
-    dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
+    dispatch(guildsSlices.setIsContractRequestInProgress(true));
 
     GuildContractApi.createGuildSafe(guildData)
       .then((res: boolean) => {
@@ -74,14 +74,14 @@ export const onCreateGuild =
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
       })
       .finally(() => {
-        dispatch(guildsSlices.setIsCreateGuildRequestInProgress(false));
+        dispatch(guildsSlices.setIsContractRequestInProgress(false));
       });
   };
 
 export const onUpdateGuild =
   (guildData: GuildFormValuesResult): AppThunk =>
   (dispatch) => {
-    dispatch(guildsSlices.setIsCreateGuildRequestInProgress(true));
+    dispatch(guildsSlices.setIsContractRequestInProgress(true));
 
     GuildContractApi.updateGuild(guildData)
       .then((res: boolean) => {
@@ -116,14 +116,14 @@ export const onUpdateGuild =
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
       })
       .finally(() => {
-        dispatch(guildsSlices.setIsCreateGuildRequestInProgress(false));
+        dispatch(guildsSlices.setIsContractRequestInProgress(false));
       });
   };
 
 export const onJoinGuild =
   (guildTokenId: string, memberAddress: string): AppThunk =>
   (dispatch) => {
-    dispatch(guildsSlices.setIsJoinGuildRequestInProgress(true));
+    dispatch(guildsSlices.setIsContractRequestInProgress(true));
 
     GuildContractApi.joinGuild(guildTokenId)
       .then((res: boolean) => {
@@ -159,6 +159,6 @@ export const onJoinGuild =
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
       })
       .finally(() => {
-        dispatch(guildsSlices.setIsJoinGuildRequestInProgress(false));
+        dispatch(guildsSlices.setIsContractRequestInProgress(false));
       });
   };

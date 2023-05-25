@@ -1,48 +1,33 @@
-import { useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-
 import { Button } from '@mui/material';
 
 import { Field, Form, Formik } from 'formik';
-import { useMetamask } from 'use-metamask';
 
-import * as fromGuildsStore from '../../store';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import * as fromLoginStore from 'core/store/login';
-
-import { guildFormData, initialValues, validationSchema } from 'pages/Guilds/data';
+import { guildFormData, validationSchema } from 'pages/Guilds/data';
 import { GuildFormValuesResult } from 'pages/Guilds/models';
-
-import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
 
 import { GuildFormFieldRow, GuildFormTextareaRow } from './components/FormRows';
 import { guildFormStyles } from './styles';
 
-export function GuildForm() {
+interface GuildFormProps {
+  title: string;
+  formValues: GuildFormValuesResult;
+  primaryButtonText: string;
+  secondaryButtonText: string;
+  isRequestInProgress: boolean;
+  onHandleBackTo: () => void;
+  onHandleSubmit: (values: GuildFormValuesResult) => void;
+}
+
+export function GuildForm({
+  title,
+  formValues,
+  primaryButtonText,
+  secondaryButtonText,
+  isRequestInProgress,
+  onHandleBackTo,
+  onHandleSubmit
+}: GuildFormProps) {
   const classes = guildFormStyles();
-
-  const { metaState } = useMetamask();
-  const params = useParams<{ id: string }>();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const isEdit: boolean = location.pathname.indexOf('edit') > 0;
-
-  const connectedWallet = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
-  const editGuildData: GuildFormValuesResult = useAppSelector(fromGuildsStore.getEditGuildData);
-  const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
-  const isCreateGuildRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsCreateGuildRequestInProgress);
-
-  useEffect(() => {
-    if (isEdit && !isCurrentGuildLoaded) {
-      dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
-    }
-  }, []);
-
-  const onHandleBackTo = (): void => {
-    navigate(-1);
-  };
 
   const handleSubmit = (values: GuildFormValuesResult): void => {
     const trimmedValues: GuildFormValuesResult = {
@@ -51,22 +36,13 @@ export function GuildForm() {
       logo: values.logo.trim()
     };
 
-    if (isEdit) {
-      dispatch(fromGuildsStore.onUpdateGuild(trimmedValues));
-    } else {
-      dispatch(fromGuildsStore.onCreateGuild(trimmedValues));
-    }
+    onHandleSubmit(trimmedValues);
   };
 
-  return connectedWallet && metaState.isAvailable ? (
+  return (
     <div className={classes.formWrapper}>
-      <h1 className={classes.formTitle}>{isEdit ? 'Edit Guild' : 'Guild Register'} </h1>
-      <Formik
-        initialValues={isEdit ? editGuildData : initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-        validateOnChange
-      >
+      <h1 className={classes.formTitle}>{title} </h1>
+      <Formik initialValues={formValues} validationSchema={validationSchema} onSubmit={handleSubmit} validateOnChange>
         {({ isValid }) => (
           <div className={classes.formContent}>
             <Form className={classes.form}>
@@ -84,16 +60,16 @@ export function GuildForm() {
                   className={classes.formSubmitButton}
                   onClick={() => onHandleBackTo()}
                 >
-                  Back to {isEdit ? 'guild' : 'guilds'}
+                  {secondaryButtonText}
                 </Button>
                 <Button
                   type='submit'
                   size='large'
                   variant='contained'
                   className={classes.formSubmitButton}
-                  disabled={!isValid || isCreateGuildRequestInProgress}
+                  disabled={!isValid || isRequestInProgress}
                 >
-                  {isEdit ? 'Edit' : 'Create'} guild
+                  {primaryButtonText}
                 </Button>
               </div>
             </Form>
@@ -101,7 +77,5 @@ export function GuildForm() {
         )}
       </Formik>
     </div>
-  ) : (
-    <ConnectWallet />
   );
 }
