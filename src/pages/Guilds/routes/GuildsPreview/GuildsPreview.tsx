@@ -8,6 +8,8 @@ import * as fromGuildsStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
 
+import { ContentInner } from 'components/Content/ContentInner';
+
 import { Guild } from '../../models';
 import { GuildCard } from './components/GuildCard/GuildCard';
 import { guildsPreviewStyles } from './styles';
@@ -31,27 +33,25 @@ export function GuildsPreview() {
     navigate('create');
   };
 
-  if (getIsGuildsLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className={classes.guildsWrapper}>
-      <ul className={classes.guildsList}>
-        {guilds.map((guild: CustomAny, index: number) => (
-          <GuildCard guild={guild} key={index} />
-        ))}
-      </ul>
-      {connectedWallet && (
-        <Button
-          className={classes.guildCreate}
-          variant='contained'
-          size='large'
-          onClick={() => onRedirectToCreateGuild()}
-        >
-          Create Guild
-        </Button>
-      )}
-    </div>
+    <ContentInner dataLoading={getIsGuildsLoading}>
+      <div className={classes.guildsWrapper}>
+        <ul className={classes.guildsList}>
+          {guilds.map((guild: CustomAny, index: number) => (
+            <GuildCard guild={guild} key={index} />
+          ))}
+        </ul>
+        {connectedWallet && (
+          <Button
+            className={classes.guildCreate}
+            variant='contained'
+            size='large'
+            onClick={() => onRedirectToCreateGuild()}
+          >
+            Create Guild
+          </Button>
+        )}
+      </div>
+    </ContentInner>
   );
 }
