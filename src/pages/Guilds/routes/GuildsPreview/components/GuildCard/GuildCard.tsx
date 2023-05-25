@@ -7,15 +7,15 @@ import { useAppDispatch } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
-import { Guild } from 'pages/Guilds/models';
+import { Guild, GuildStats } from 'pages/Guilds/models';
 
-import { GotchiIcon, VoteIcon, WarehouseIcon } from 'components/Icons/Icons';
+import { GotchiIcon, H1SealedPortalIcon, VoteIcon, WarehouseIcon } from 'components/Icons/Icons';
 
 import { useHoverRotation } from '../../hooks';
 import { GuildAsset, GuildDescription } from './components';
 import { GuildCardButton, guildCardStyles } from './styles';
 
-export function GuildCard({ guild }: { guild: Guild }) {
+export function GuildCard({ guild, stats }: { guild: Guild; stats: GuildStats }) {
   const classes = guildCardStyles();
 
   const navigate = useNavigate();
@@ -44,9 +44,14 @@ export function GuildCard({ guild }: { guild: Guild }) {
             <p className={classes.guildName}>{guild.name}</p>
 
             <ul className={classes.guildAssetsList}>
-              <GuildAsset title='Gotchis' Icon={GotchiIcon} />
-              <GuildAsset title='Wearables' Icon={WarehouseIcon} />
-              <GuildAsset title='Voting power' Icon={VoteIcon} />
+              {stats && (
+                <>
+                  <GuildAsset title='Gotchis' Icon={GotchiIcon} value={stats.gotchisAmount} />
+                  <GuildAsset title='Wearables' Icon={WarehouseIcon} value={stats.itemsAmount} />
+                  <GuildAsset title='Portals' Icon={H1SealedPortalIcon} value={stats.portalsAmount} />
+                  <GuildAsset title='Voting power' Icon={VoteIcon} value={stats.votingPower} />
+                </>
+              )}
             </ul>
             <GuildWearables wearables={[]} tooltip='Guild wearable' />
           </div>

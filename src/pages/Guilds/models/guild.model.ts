@@ -9,3 +9,19 @@ export interface Guild {
     id: string;
   }[];
 }
+
+export interface GuildPlayerStats {
+  gotchisVP: string;
+  itemsVP: string;
+  portalsVP: string;
+  portalsAmount: number;
+  gotchisOriginalOwnedAmount: number;
+  itemsAmount: number;
+}
+
+export interface GuildStats {
+  gotchisAmount: number;
+  itemsAmount: number;
+  portalsAmount: number;
+  votingPower: number;
+}

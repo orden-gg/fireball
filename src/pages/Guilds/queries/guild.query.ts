@@ -29,3 +29,18 @@ export const guildByIdQuery = (id: string): string => {
     }
   }`;
 };
+
+export const guildPlayersStatsQuery = (playersAddresses: string[]): string => {
+  return `{
+    players (where: {
+      id_in: [${playersAddresses.map((address) => `"${address}"`)}]
+    }) {
+      gotchisVP
+      itemsVP
+      portalsVP
+      portalsAmount
+      gotchisOriginalOwnedAmount
+      itemsAmount
+    }
+  }`;
+};

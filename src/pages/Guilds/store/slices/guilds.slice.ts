@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { Guild } from 'pages/Guilds/models';
+import { Guild, GuildStats } from 'pages/Guilds/models';
 
 export interface GuildsState {
   guilds: {
@@ -16,6 +16,7 @@ export interface GuildsState {
     isError: boolean;
   };
   isContractRequestInProgress: boolean;
+  guildsStats: Record<string, GuildStats>;
 }
 
 const initialState: GuildsState = {
@@ -31,7 +32,8 @@ const initialState: GuildsState = {
     isLoaded: false,
     isError: false
   },
-  isContractRequestInProgress: false
+  isContractRequestInProgress: false,
+  guildsStats: {}
 };
 
 export const guildsSlice = createSlice({
@@ -61,6 +63,9 @@ export const guildsSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    setGuildStats: (state, action: PayloadAction<{ key: string; stats: GuildStats }>): void => {
+      state.guildsStats[action.payload.key] = action.payload.stats;
     },
     loadCurrentGuildById: (state): void => {
       state.currentGuild = {
@@ -106,6 +111,7 @@ export const {
   loadGuilds,
   loadGuildsSucceded,
   loadGuildsFailed,
+  setGuildStats,
   loadCurrentGuildById,
   loadCurrentGuildByIdSucceded,
   loadCurrentGuildByIdFailed,

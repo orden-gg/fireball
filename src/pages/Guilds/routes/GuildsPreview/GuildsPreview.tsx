@@ -10,7 +10,7 @@ import * as fromLoginStore from 'core/store/login';
 
 import { ContentInner } from 'components/Content/ContentInner';
 
-import { Guild } from '../../models';
+import { Guild, GuildStats } from '../../models';
 import { GuildCard } from './components/GuildCard/GuildCard';
 import { guildsPreviewStyles } from './styles';
 
@@ -24,6 +24,7 @@ export function GuildsPreview() {
   const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const guilds: Guild[] = useAppSelector(fromGuildsStore.getGuilds);
   const getIsGuildsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildsLoading);
+  const guildsStats: Record<string, GuildStats> = useAppSelector(fromGuildsStore.getGuildsStats);
 
   useEffect(() => {
     dispatch(fromGuildsStore.onLoadGuilds());
@@ -37,8 +38,8 @@ export function GuildsPreview() {
     <ContentInner dataLoading={getIsGuildsLoading}>
       <div className={classes.guildsWrapper}>
         <ul className={classes.guildsList}>
-          {guilds.map((guild: CustomAny, index: number) => (
-            <GuildCard guild={guild} key={index} />
+          {guilds.map((guild: Guild, index: number) => (
+            <GuildCard guild={guild} stats={guildsStats[guild.safeAddress]} key={index} />
           ))}
         </ul>
         {connectedWallet && (

@@ -1,3 +1,4 @@
+import { EthersApi } from 'api';
 import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
 import * as fromSnackbarStore from 'core/store/snackbar';
@@ -5,7 +6,7 @@ import { AppThunk } from 'core/store/store';
 
 import { SnackbarData } from 'shared/models';
 
-import { Guild, GuildFormValuesResult } from 'pages/Guilds/models';
+import { Guild, GuildFormValuesResult, GuildPlayerStats, GuildStats } from 'pages/Guilds/models';
 
 // slices
 import * as guildsSlices from '../slices/guilds.slice';
@@ -16,11 +17,33 @@ export const onLoadGuilds = (): AppThunk => (dispatch) => {
   GuildGraphApi.getGuilds()
     .then((guilds: Guild[]) => {
       dispatch(guildsSlices.loadGuildsSucceded(guilds));
+
+      if (guilds.length > 0) {
+        dispatch(onLoadGuildsPlayersStats(guilds));
+      }
     })
     .catch(() => {
       dispatch(guildsSlices.loadGuildsFailed());
     });
 };
+
+export const onLoadGuildsPlayersStats =
+  (guilds: Guild[]): AppThunk =>
+  (dispatch) => {
+    const guildsPlayersDictionary: Map<string, string[]> = new Map();
+
+    guilds.forEach((guild: Guild) => {
+      const players: string[] = guild.members.map((member) => member.id);
+
+      guildsPlayersDictionary.set(guild.safeAddress, players);
+    });
+
+    for (const [key, value] of guildsPlayersDictionary) {
+      GuildGraphApi.getGuildPlayerStats(value).then((res: GuildPlayerStats[]) => {
+        dispatch(guildsSlices.setGuildStats({ key, stats: mapPlayersStatsToGuildStats(res) }));
+      });
+    }
+  };
 
 export const onLoadCurrentGuildById =
   (id: string): AppThunk =>
@@ -162,3 +185,26 @@ export const onJoinGuild =
         dispatch(guildsSlices.setIsContractRequestInProgress(false));
       });
   };
+
+const mapPlayersStatsToGuildStats = (playersStats: GuildPlayerStats[]): GuildStats => {
+  return playersStats.reduce(
+    (current: GuildStats, previous: GuildPlayerStats) => {
+      return {
+        gotchisAmount: current.gotchisAmount + previous.gotchisOriginalOwnedAmount,
+        itemsAmount: current.itemsAmount + previous.itemsAmount,
+        portalsAmount: current.portalsAmount + previous.portalsAmount,
+        votingPower:
+          current.votingPower +
+          EthersApi.fromWei(previous.gotchisVP) +
+          EthersApi.fromWei(previous.itemsVP) +
+          EthersApi.fromWei(previous.portalsVP)
+      };
+    },
+    {
+      gotchisAmount: 0,
+      itemsAmount: 0,
+      portalsAmount: 0,
+      votingPower: 0
+    }
+  );
+};

@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from 'core/store/store';
 
-import { GuildFormValuesResult } from 'pages/Guilds/models';
+import { GuildFormValuesResult, GuildStats } from 'pages/Guilds/models';
 
 import { GuildsState } from '../slices/guilds.slice';
 
@@ -16,6 +16,11 @@ export const getGuilds = createSelector(guildsStateSelector, (state: GuildsState
 export const getIsGuildsLoading = createSelector(guildsStateSelector, (state: GuildsState) => state.guilds.isLoading);
 
 export const getGuildsCount = createSelector(guildsStateSelector, (state: GuildsState) => state.guilds.data.length);
+
+export const getGuildsStats = createSelector(
+  guildsStateSelector,
+  (state: GuildsState): Record<string, GuildStats> => state.guildsStats
+);
 
 export const getCurrentGuild = createSelector(guildsStateSelector, (state: GuildsState) => state.currentGuild.data);
 

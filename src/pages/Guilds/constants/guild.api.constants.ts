@@ -1,2 +1,4 @@
 export const GUIlD_GRAPH_API = 'http://localhost:8000/subgraphs/name/guilds';
-export const GUILD_CONTRACT = '0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82';
+export const GUILD_CONTRACT = '0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690';
+
+export const GUIlD_GRAPH_STATS_API = 'https://api.thegraph.com/subgraphs/name/dudendy/kratoman';

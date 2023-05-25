@@ -5,9 +5,10 @@ import { guildAssetStyles } from './styles';
 interface GuildAssetProps {
   Icon: (className, width, height) => JSX.Element;
   title: string;
+  value: number;
 }
 
-export function GuildAsset({ Icon, title }: GuildAssetProps) {
+export function GuildAsset({ Icon, title, value }: GuildAssetProps) {
   const classes = guildAssetStyles();
 
   // TODO Use in the future or remove
@@ -23,7 +24,7 @@ export function GuildAsset({ Icon, title }: GuildAssetProps) {
     <CustomTooltip title={title} followCursor placement='top'>
       <li className={classes.guildAssetItem}>
         <Icon className={classes.guildAssetItemIcon} />
-        <span className={classes.guildAssetAmount}>999</span>
+        <span className={classes.guildAssetAmount}>{value}</span>
       </li>
     </CustomTooltip>
   );
