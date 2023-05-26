@@ -1,5 +1,7 @@
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
+import { CommonUtils } from 'utils';
+
 import { guildAssetStyles } from './styles';
 
 interface GuildAssetProps {
@@ -24,7 +26,7 @@ export function GuildAsset({ Icon, title, value }: GuildAssetProps) {
     <CustomTooltip title={title} followCursor placement='top'>
       <li className={classes.guildAssetItem}>
         <Icon className={classes.guildAssetItemIcon} />
-        <span className={classes.guildAssetAmount}>{value}</span>
+        <span className={classes.guildAssetAmount}>{CommonUtils.convertFloatNumberToSuffixNumber(value)}</span>
       </li>
     </CustomTooltip>
   );

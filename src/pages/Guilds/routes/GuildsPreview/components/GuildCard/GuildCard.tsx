@@ -7,7 +7,7 @@ import { useAppDispatch } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
-import { Guild, GuildStats } from 'pages/Guilds/models';
+import { GeneralGuildStats, Guild } from 'pages/Guilds/models';
 
 import {
   AltarIcon,
@@ -23,7 +23,7 @@ import { useHoverRotation } from '../../hooks';
 import { GuildAsset, GuildDescription } from './components';
 import { GuildCardButton, guildCardStyles } from './styles';
 
-export function GuildCard({ guild, stats }: { guild: Guild; stats: GuildStats }) {
+export function GuildCard({ guild, stats }: { guild: Guild; stats: GeneralGuildStats }) {
   const classes = guildCardStyles();
 
   const navigate = useNavigate();

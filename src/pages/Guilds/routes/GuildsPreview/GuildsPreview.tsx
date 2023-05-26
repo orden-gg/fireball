@@ -10,7 +10,7 @@ import * as fromLoginStore from 'core/store/login';
 
 import { ContentInner } from 'components/Content/ContentInner';
 
-import { Guild, GuildStats } from '../../models';
+import { GeneralGuildStats, Guild } from '../../models';
 import { GuildCard } from './components/GuildCard/GuildCard';
 import { guildsPreviewStyles } from './styles';
 
@@ -24,7 +24,7 @@ export function GuildsPreview() {
   const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const guilds: Guild[] = useAppSelector(fromGuildsStore.getGuilds);
   const getIsGuildsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildsLoading);
-  const guildsStats: Record<string, GuildStats> = useAppSelector(fromGuildsStore.getGuildsStats);
+  const guildsStats: Record<string, GeneralGuildStats> = useAppSelector(fromGuildsStore.getGuildsStats);
 
   useEffect(() => {
     dispatch(fromGuildsStore.onLoadGuilds());
