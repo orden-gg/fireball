@@ -15,7 +15,7 @@ import { Guild as GuildModel } from 'pages/Guilds/models';
 import { ContentInner } from 'components/Content/ContentInner';
 
 import { GuildBanner, GuildDetails, GuildNav } from './components';
-import { GuildGotchis, GuildWarehouse } from './routes';
+import { GuildGotchis, GuildHome, GuildWarehouse } from './routes';
 import { guildStyles } from './styles';
 
 // import { GuildLendings } from './components/GuildLendings';
@@ -78,6 +78,7 @@ export function Guild() {
             <GuildNav />
 
             <Routes>
+              <Route path={GuildRouteNames.Home} element={<GuildHome />} />
               <Route path='gotchis/*'>
                 <Route path={GuildRouteNames.Owned} element={<GuildGotchis type={GuildRouteNames.Owned} />} />
                 <Route path={GuildRouteNames.Borrowed} element={<GuildGotchis type={GuildRouteNames.Borrowed} />} />
@@ -87,7 +88,7 @@ export function Guild() {
               <Route path={GuildRouteNames.Warehouse} element={<GuildWarehouse />} />
               {/* <Route path='lendings' element={<GuildLendings />} />
           <Route path='realm' element={<GuildsRealm />} /> */}
-              {/* <Route path='*' element={<Navigate to='gotchis' replace />} /> */}
+              <Route path='*' element={<Navigate to='home' replace />} />
             </Routes>
 
             {isGuildOwner && (

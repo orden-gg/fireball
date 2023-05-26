@@ -1,4 +1,6 @@
 // import { useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+
 import { useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
@@ -22,6 +24,11 @@ export function GuildNav() {
   const warehouseCount: number = useAppSelector(fromGuildsStore.getWarehouseCount);
 
   const navData: PageNavLink[] = [
+    {
+      path: GuildRouteNames.Home,
+      icon: <HomeIcon width={24} height={24} />,
+      isLoading: false
+    },
     {
       path: 'gotchis',
       icon: <GotchiIcon width={24} height={24} />,
