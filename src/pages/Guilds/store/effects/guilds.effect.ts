@@ -6,7 +6,7 @@ import { AppThunk } from 'core/store/store';
 
 import { SnackbarData } from 'shared/models';
 
-import { Guild, GuildFormValuesResult, GuildPlayerStats, GuildStats } from 'pages/Guilds/models';
+import { Guild, GuildFormValuesResult, GuildPlayerRealmStats, GuildPlayerStats, GuildStats } from 'pages/Guilds/models';
 
 // slices
 import * as guildsSlices from '../slices/guilds.slice';
@@ -39,9 +39,13 @@ export const onLoadGuildsPlayersStats =
     });
 
     for (const [key, value] of guildsPlayersDictionary) {
-      GuildGraphApi.getGuildPlayerStats(value).then((res: GuildPlayerStats[]) => {
-        dispatch(guildsSlices.setGuildStats({ key, stats: mapPlayersStatsToGuildStats(res) }));
-      });
+      Promise.all([GuildGraphApi.getGuildPlayerStats(value), GuildGraphApi.getGuildPlayerRealmStats(value)]).then(
+        ([playersStats, playersRealmStats]: [GuildPlayerStats[], GuildPlayerRealmStats[]]) => {
+          dispatch(
+            guildsSlices.setGuildStats({ key, stats: mapPlayersStatsToGuildStats(playersStats, playersRealmStats) })
+          );
+        }
+      );
     }
   };
 
@@ -186,24 +190,34 @@ export const onJoinGuild =
       });
   };
 
-const mapPlayersStatsToGuildStats = (playersStats: GuildPlayerStats[]): GuildStats => {
+const mapPlayersStatsToGuildStats = (
+  playersStats: GuildPlayerStats[],
+  playersRealmStats: GuildPlayerRealmStats[]
+): GuildStats => {
   return playersStats.reduce(
-    (current: GuildStats, previous: GuildPlayerStats) => {
+    (current: GuildStats, previous: GuildPlayerStats, index: number) => {
       return {
-        gotchisAmount: current.gotchisAmount + previous.gotchisOriginalOwnedAmount,
-        itemsAmount: current.itemsAmount + previous.itemsAmount,
-        portalsAmount: current.portalsAmount + previous.portalsAmount,
+        gotchisCount: current.gotchisCount + previous.gotchisOriginalOwnedAmount,
+        itemsCount: current.itemsCount + previous.itemsAmount,
+        portalsCount: current.portalsCount + previous.portalsAmount,
+        realmCount: current.realmCount + playersRealmStats[index].parcelsCount,
+        installationsCount: current.installationsCount + playersRealmStats[index].installationsCount,
+        tilesCount: current.tilesCount + playersRealmStats[index].tilesCount,
         votingPower:
           current.votingPower +
           EthersApi.fromWei(previous.gotchisVP) +
           EthersApi.fromWei(previous.itemsVP) +
-          EthersApi.fromWei(previous.portalsVP)
+          EthersApi.fromWei(previous.portalsVP) +
+          EthersApi.fromWei(playersRealmStats[index].parcelsVP)
       };
     },
     {
-      gotchisAmount: 0,
-      itemsAmount: 0,
-      portalsAmount: 0,
+      gotchisCount: 0,
+      itemsCount: 0,
+      portalsCount: 0,
+      realmCount: 0,
+      installationsCount: 0,
+      tilesCount: 0,
       votingPower: 0
     }
   );

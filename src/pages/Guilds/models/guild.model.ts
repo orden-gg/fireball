@@ -19,9 +19,19 @@ export interface GuildPlayerStats {
   itemsAmount: number;
 }
 
+export interface GuildPlayerRealmStats {
+  parcelsCount: number;
+  installationsCount: number;
+  tilesCount: number;
+  parcelsVP: string;
+}
+
 export interface GuildStats {
-  gotchisAmount: number;
-  itemsAmount: number;
-  portalsAmount: number;
+  gotchisCount: number;
+  itemsCount: number;
+  portalsCount: number;
+  realmCount: number;
+  installationsCount: number;
+  tilesCount: number;
   votingPower: number;
 }

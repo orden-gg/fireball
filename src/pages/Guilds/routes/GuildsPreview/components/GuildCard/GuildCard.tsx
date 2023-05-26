@@ -9,7 +9,15 @@ import * as fromGuildsStore from 'pages/Guilds/store';
 import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
 import { Guild, GuildStats } from 'pages/Guilds/models';
 
-import { GotchiIcon, H1SealedPortalIcon, VoteIcon, WarehouseIcon } from 'components/Icons/Icons';
+import {
+  AltarIcon,
+  GotchiIcon,
+  GotchiverseIcon,
+  H1SealedPortalIcon,
+  TileIcon,
+  VoteIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
 
 import { useHoverRotation } from '../../hooks';
 import { GuildAsset, GuildDescription } from './components';
@@ -46,9 +54,12 @@ export function GuildCard({ guild, stats }: { guild: Guild; stats: GuildStats })
             <ul className={classes.guildAssetsList}>
               {stats && (
                 <>
-                  <GuildAsset title='Gotchis' Icon={GotchiIcon} value={stats.gotchisAmount} />
-                  <GuildAsset title='Wearables' Icon={WarehouseIcon} value={stats.itemsAmount} />
-                  <GuildAsset title='Portals' Icon={H1SealedPortalIcon} value={stats.portalsAmount} />
+                  <GuildAsset title='Gotchis' Icon={GotchiIcon} value={stats.gotchisCount} />
+                  <GuildAsset title='Wearables' Icon={WarehouseIcon} value={stats.itemsCount} />
+                  <GuildAsset title='Portals' Icon={H1SealedPortalIcon} value={stats.portalsCount} />
+                  <GuildAsset title='Realm' Icon={GotchiverseIcon} value={stats.realmCount} />
+                  <GuildAsset title='Installations' Icon={AltarIcon} value={stats.installationsCount} />
+                  <GuildAsset title='Tiles' Icon={TileIcon} value={stats.tilesCount} />
                   <GuildAsset title='Voting power' Icon={VoteIcon} value={stats.votingPower} />
                 </>
               )}

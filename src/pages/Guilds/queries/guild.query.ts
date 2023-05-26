@@ -44,3 +44,16 @@ export const guildPlayersStatsQuery = (playersAddresses: string[]): string => {
     }
   }`;
 };
+
+export const guildPlayersStatsRealmQuery = (playersAddresses: string[]): string => {
+  return `{
+    players (where: {
+      id_in: [${playersAddresses.map((address) => `"${address}"`)}]
+    }) {
+      parcelsCount
+      installationsCount
+      tilesCount
+      parcelsVP
+    }
+  }`;
+};
