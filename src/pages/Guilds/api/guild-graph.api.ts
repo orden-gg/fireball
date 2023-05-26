@@ -5,16 +5,34 @@ import { TheGraphResponse } from 'shared/models';
 
 import { GotchiUtils, GraphUtils } from 'utils';
 
-import { GUIlD_GRAPH_API } from '../constants';
-import { Guild } from '../models/guild.model';
+import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
+import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
 import { borrowedByAddressQuery, guildGotchisQuery, lentByAddressQuery } from '../queries';
-import { guildByIdQuery, guildsQuery } from '../queries/guild.query';
+import {
+  guildByIdQuery,
+  guildPlayersStatsQuery,
+  guildPlayersStatsRealmQuery,
+  guildsQuery
+} from '../queries/guild.query';
 
 export class GuildGraphApi {
   public static getGuilds(): Promise<Guild[]> {
     return TheGraphCoreApi.getGraphData(GUIlD_GRAPH_API, guildsQuery()).then(
       (res: TheGraphResponse<{ guilds: Guild[] }>) => res.data.guilds
     );
+  }
+
+  public static getGuildPlayerStats(playersAddresses: string[]): Promise<GuildPlayerStats[]> {
+    return TheGraphCoreApi.getGraphData(GUIlD_GRAPH_STATS_API, guildPlayersStatsQuery(playersAddresses)).then(
+      (res: TheGraphResponse<{ players: GuildPlayerStats[] }>) => res.data.players
+    );
+  }
+
+  public static getGuildPlayerRealmStats(playersAddresses: string[]): Promise<GuildPlayerRealmStats[]> {
+    return TheGraphCoreApi.getGraphData(
+      GUIlD_GRAPH_REALM_STATS_API,
+      guildPlayersStatsRealmQuery(playersAddresses)
+    ).then((res: TheGraphResponse<{ players: GuildPlayerRealmStats[] }>) => res.data.players);
   }
 
   public static getGuildById(id: string): Promise<Guild> {
