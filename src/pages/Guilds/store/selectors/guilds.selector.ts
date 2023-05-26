@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from 'core/store/store';
 
-import { GeneralGuildStats, GuildFormValuesResult } from 'pages/Guilds/models';
+import { GeneralGuildStats, Guild, GuildFormValuesResult } from 'pages/Guilds/models';
 
 import { GuildsState } from '../slices/guilds.slice';
 
@@ -38,6 +38,18 @@ export const getIsCurrentGuildError = createSelector(
   guildsStateSelector,
   (state: GuildsState) => state.currentGuild.isError
 );
+
+export const getCurrentGuildMembers = createSelector(getCurrentGuild, (guild: Guild | null): string[] => {
+  let members: string[];
+
+  if (guild) {
+    members = guild.members.map((member) => member.id);
+  } else {
+    members = [];
+  }
+
+  return members;
+});
 
 export const getIsGuildOwner = (address: string | null | undefined) =>
   createSelector(guildsStateSelector, (state: GuildsState) => {

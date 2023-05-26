@@ -11,6 +11,7 @@ export interface Guild {
 }
 
 export interface GuildPlayerStats {
+  id: string;
   gotchisVP: string;
   itemsVP: string;
   portalsVP: string;
@@ -20,6 +21,7 @@ export interface GuildPlayerStats {
 }
 
 export interface GuildPlayerRealmStats {
+  id: string;
   parcelsCount: number;
   installationsCount: number;
   tilesCount: number;
@@ -40,4 +42,6 @@ export interface GuildRealmStats {
   votingPower: number;
 }
 
-export interface GeneralGuildStats extends GuildStats, GuildRealmStats {}
+export interface GeneralGuildStats extends GuildStats, GuildRealmStats {
+  id?: string;
+}

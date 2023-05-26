@@ -35,6 +35,7 @@ export const guildPlayersStatsQuery = (playersAddresses: string[]): string => {
     players (where: {
       id_in: [${playersAddresses.map((address) => `"${address}"`)}]
     }) {
+      id
       gotchisVP
       itemsVP
       portalsVP
@@ -50,6 +51,7 @@ export const guildPlayersStatsRealmQuery = (playersAddresses: string[]): string 
     players (where: {
       id_in: [${playersAddresses.map((address) => `"${address}"`)}]
     }) {
+      id
       parcelsCount
       installationsCount
       tilesCount
