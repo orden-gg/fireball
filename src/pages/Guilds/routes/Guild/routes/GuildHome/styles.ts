@@ -15,6 +15,10 @@ export const guildHomeStyles = makeStyles((theme) =>
     guildInfoListItem: {
       display: 'flex'
     },
+    guildInfoAddress: {
+      display: 'flex',
+      margin: '8px 4px 0px 0px'
+    },
     guildInfoEmptyState: {
       display: 'flex',
       alignItems: 'center',

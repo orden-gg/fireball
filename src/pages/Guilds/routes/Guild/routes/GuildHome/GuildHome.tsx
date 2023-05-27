@@ -47,13 +47,15 @@ export function GuildHome(): JSX.Element {
         <div className={classes.guildInfoList}>
           {guildHomeInfo.map((info: GeneralGuildStats, index: number) => (
             <div className={classes.guildInfoListItem} key={index}>
-              <EthAddress
-                address={info.id!}
-                isShowIcon={true}
-                isClientLink={true}
-                isCopyButton={true}
-                isPolygonButton={true}
-              />
+              <div className={classes.guildInfoAddress}>
+                <EthAddress
+                  address={info.id!}
+                  isShowIcon={true}
+                  isClientLink={true}
+                  isCopyButton={true}
+                  isPolygonButton={true}
+                />
+              </div>
               <GuildAsset title='Gotchis' Icon={GotchiIcon} value={info.gotchisCount} />
               <GuildAsset title='Wearables' Icon={WarehouseIcon} value={info.itemsCount} />
               <GuildAsset title='Portals' Icon={H1SealedPortalIcon} value={info.portalsCount} />
