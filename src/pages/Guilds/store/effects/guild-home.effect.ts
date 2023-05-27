@@ -40,7 +40,7 @@ export const onLoadGuildHomeInfo =
         } else {
           generalStats = playersRealmStats.map((playerRealmStat) => {
             const playerStat: GuildPlayerStats | undefined = playersStats.find(
-              (playerStat) => playerStat.id === playerStat.id
+              (playerStat) => playerRealmStat.id === playerStat.id
             );
 
             return {
