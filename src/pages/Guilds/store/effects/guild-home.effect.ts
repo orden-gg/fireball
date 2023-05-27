@@ -10,7 +10,7 @@ import * as guildHomeSlices from '../slices/guild-home.slice';
 export const onLoadGuildHomeInfo =
   (members: string[]): AppThunk =>
   (dispatch) => {
-    guildHomeSlices.loadHomeInfo();
+    dispatch(guildHomeSlices.loadHomeInfo());
 
     Promise.all([GuildGraphApi.getGuildPlayerStats(members), GuildGraphApi.getGuildPlayerRealmStats(members)])
       .then(([playersStats, playersRealmStats]: [GuildPlayerStats[], GuildPlayerRealmStats[]]) => {
