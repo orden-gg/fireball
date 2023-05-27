@@ -33,6 +33,7 @@ export function Guild() {
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
   const isCurrentGuildLoading: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoading);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
+  const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
   const isContractRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsContractRequestInProgress);
   const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
@@ -42,6 +43,18 @@ export function Guild() {
     if (!isCurrentGuildLoaded) {
       dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
     }
+  }, []);
+
+  useEffect(() => {
+    if (guildMembers.length > 0) {
+      dispatch(fromGuildsStore.onLoadGuildInfo(guildMembers));
+    }
+  }, [guildMembers]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(fromGuildsStore.resetGuildInfo());
+    };
   }, []);
 
   const handleJoinGuild = (guildSafeAddress: string): void => {

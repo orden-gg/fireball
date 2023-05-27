@@ -1,4 +1,3 @@
-import { EthersApi } from 'api';
 import { GuildContractApi, GuildGraphApi } from 'pages/Guilds/api';
 
 import * as fromSnackbarStore from 'core/store/snackbar';
@@ -14,6 +13,7 @@ import {
   GuildRealmStats,
   GuildStats
 } from 'pages/Guilds/models';
+import { GuildUtils } from 'pages/Guilds/utils';
 
 // slices
 import * as guildsSlices from '../slices/guilds.slice';
@@ -48,8 +48,8 @@ export const onLoadGuildsPlayersStats =
     for (const [key, value] of guildsPlayersDictionary) {
       Promise.all([GuildGraphApi.getGuildPlayerStats(value), GuildGraphApi.getGuildPlayerRealmStats(value)]).then(
         ([playersStats, playersRealmStats]: [GuildPlayerStats[], GuildPlayerRealmStats[]]) => {
-          const guildStats: GuildStats = mapPlayersStats(playersStats);
-          const guildRealmStats: GuildRealmStats = mapPlayersRealmStats(playersRealmStats);
+          const guildStats: GuildStats = GuildUtils.mapPlayersStats(playersStats);
+          const guildRealmStats: GuildRealmStats = GuildUtils.mapPlayersRealmStats(playersRealmStats);
 
           dispatch(
             guildsSlices.setGuildStats({
@@ -208,45 +208,3 @@ export const onJoinGuild =
         dispatch(guildsSlices.setIsContractRequestInProgress(false));
       });
   };
-
-const mapPlayersStats = (playersStats: GuildPlayerStats[]): GuildStats => {
-  return playersStats.reduce(
-    (current: GuildStats, previous: GuildPlayerStats) => {
-      return {
-        gotchisCount: current.gotchisCount + previous.gotchisOriginalOwnedAmount,
-        itemsCount: current.itemsCount + previous.itemsAmount,
-        portalsCount: current.portalsCount + previous.portalsAmount,
-        votingPower:
-          current.votingPower +
-          EthersApi.fromWei(previous.gotchisVP) +
-          EthersApi.fromWei(previous.itemsVP) +
-          EthersApi.fromWei(previous.portalsVP)
-      };
-    },
-    {
-      gotchisCount: 0,
-      itemsCount: 0,
-      portalsCount: 0,
-      votingPower: 0
-    }
-  );
-};
-
-const mapPlayersRealmStats = (playersRealmStats: GuildPlayerRealmStats[]): GuildRealmStats => {
-  return playersRealmStats.reduce(
-    (current: GuildRealmStats, previous: GuildPlayerRealmStats) => {
-      return {
-        realmCount: current.realmCount + previous.parcelsCount,
-        installationsCount: current.installationsCount + previous.installationsCount,
-        tilesCount: current.tilesCount + previous.tilesCount,
-        votingPower: current.votingPower + EthersApi.fromWei(previous.parcelsVP)
-      };
-    },
-    {
-      realmCount: 0,
-      installationsCount: 0,
-      tilesCount: 0,
-      votingPower: 0
-    }
-  );
-};

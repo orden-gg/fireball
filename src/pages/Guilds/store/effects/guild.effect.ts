@@ -3,14 +3,21 @@ import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GeneralGuildStats, GuildPlayerRealmStats, GuildPlayerStats } from 'pages/Guilds/models';
+import {
+  GeneralGuildStats,
+  GuildPlayerRealmStats,
+  GuildPlayerStats,
+  GuildRealmStats,
+  GuildStats
+} from 'pages/Guilds/models';
+import { GuildUtils } from 'pages/Guilds/utils';
 
-import * as guildHomeSlices from '../slices/guild-home.slice';
+import * as guildSlices from '../slices/guild.slice';
 
-export const onLoadGuildHomeInfo =
+export const onLoadGuildInfo =
   (members: string[]): AppThunk =>
   (dispatch) => {
-    dispatch(guildHomeSlices.loadHomeInfo());
+    dispatch(guildSlices.loadGuildInfo());
 
     Promise.all([GuildGraphApi.getGuildPlayerStats(members), GuildGraphApi.getGuildPlayerRealmStats(members)])
       .then(([playersStats, playersRealmStats]: [GuildPlayerStats[], GuildPlayerRealmStats[]]) => {
@@ -60,7 +67,18 @@ export const onLoadGuildHomeInfo =
           });
         }
 
-        dispatch(guildHomeSlices.loadHomeInfoSucceded(generalStats));
+        dispatch(guildSlices.setGuildPlayersStats(generalStats));
+
+        const guildStats: GuildStats = GuildUtils.mapPlayersStats(playersStats);
+        const guildRealmStats: GuildRealmStats = GuildUtils.mapPlayersRealmStats(playersRealmStats);
+
+        dispatch(
+          guildSlices.loadGuildInfoSucceded({
+            ...guildStats,
+            ...guildRealmStats,
+            votingPower: guildStats.votingPower + guildRealmStats.votingPower
+          })
+        );
       })
-      .catch(() => dispatch(guildHomeSlices.loadHomeInfoFailed()));
+      .catch(() => dispatch(guildSlices.loadGuildInfoFailed()));
   };

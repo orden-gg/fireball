@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
-
 import * as fromGuildsStore from '../../../../store';
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import { useAppSelector } from 'core/store/hooks';
 
 import { GeneralGuildStats } from 'pages/Guilds/models';
 import { GuildAsset } from 'pages/Guilds/routes/GuildsPreview/components';
@@ -23,29 +21,14 @@ import { guildHomeStyles } from './styles';
 export function GuildHome(): JSX.Element {
   const classes = guildHomeStyles();
 
-  const dispatch = useAppDispatch();
-
-  const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
-  const guildHomeInfo: GeneralGuildStats[] = useAppSelector(fromGuildsStore.getGuildHomeInfo);
-  const isGuildHomeInfoLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildHomeInfoLoading);
-
-  useEffect(() => {
-    return () => {
-      dispatch(fromGuildsStore.resetHomeInfo());
-    };
-  }, []);
-
-  useEffect(() => {
-    if (guildMembers.length > 0) {
-      dispatch(fromGuildsStore.onLoadGuildHomeInfo(guildMembers));
-    }
-  }, [guildMembers]);
+  const guildPlayersStats: GeneralGuildStats[] = useAppSelector(fromGuildsStore.getGuildPlayersStats);
+  const isGuildStatsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildStatsLoading);
 
   return (
-    <ContentInner dataLoading={isGuildHomeInfoLoading} className={classes.guildInfoWrapper}>
-      {guildHomeInfo.length > 0 ? (
+    <ContentInner dataLoading={isGuildStatsLoading} className={classes.guildInfoWrapper}>
+      {guildPlayersStats.length > 0 ? (
         <div className={classes.guildInfoList}>
-          {guildHomeInfo.map((info: GeneralGuildStats, index: number) => (
+          {guildPlayersStats.map((info: GeneralGuildStats, index: number) => (
             <div className={classes.guildInfoListItem} key={index}>
               <div className={classes.guildInfoAddress}>
                 <EthAddress
