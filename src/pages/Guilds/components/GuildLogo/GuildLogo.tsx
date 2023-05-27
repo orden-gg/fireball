@@ -9,9 +9,7 @@ interface GuildLogoProps {
 
 export function GuildLogo({ logo, className }: GuildLogoProps) {
   try {
-    const logoUrl = require(`assets/images/guilds/${logo}`).default;
-
-    return <img src={logoUrl} className={className} alt='guild logo' />;
+    return <img src={logo} className={className} alt='guild logo' />;
   } catch (error) {
     return <Placeholder className={classNames(className, 'placeholder')} />;
   }

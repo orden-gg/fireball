@@ -13,7 +13,7 @@ export const validationSchema = yup.object().shape({
   logo: yup
     .string()
     .url('Invalid url format')
-    .matches(/^(https?:\/\/.*\.(?:png|jpg|jpeg))$/, 'Logo must be in PNG, JPG or JPEG format')
+    .matches(/^(https?:\/\/.*)$/, 'Invalid URL')
     .required('Url is required')
     .default('https://example.com/logo.png'),
   description: yup
