@@ -49,7 +49,9 @@ export function GuildCard({ guild, stats }: { guild: Guild; stats: GeneralGuildS
             <GuildLogo logo={guild.logo} className={classes.guildLogoImage} />
           </div>
           <div className={classes.guildBody}>
-            <p className={classes.guildName}>{guild.name}</p>
+            <p className={classes.guildName}>
+              {guild.name} ({guild.members.length})
+            </p>
 
             <ul className={classes.guildAssetsList}>
               {stats && (
