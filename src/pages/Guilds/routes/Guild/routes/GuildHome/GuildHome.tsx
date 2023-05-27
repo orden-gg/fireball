@@ -30,6 +30,12 @@ export function GuildHome(): JSX.Element {
   const isGuildHomeInfoLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildHomeInfoLoading);
 
   useEffect(() => {
+    return () => {
+      dispatch(fromGuildsStore.resetHomeInfo());
+    };
+  }, []);
+
+  useEffect(() => {
     if (guildMembers.length > 0) {
       dispatch(fromGuildsStore.onLoadGuildHomeInfo(guildMembers));
     }

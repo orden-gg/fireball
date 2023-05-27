@@ -47,10 +47,18 @@ export const guildHomeSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    resetHomeInfo: (state): void => {
+      state.guildHome = {
+        data: [],
+        isLoading: false,
+        isLoaded: false,
+        isError: false
+      };
     }
   }
 });
 
-export const { loadHomeInfo, loadHomeInfoSucceded, loadHomeInfoFailed } = guildHomeSlice.actions;
+export const { loadHomeInfo, loadHomeInfoSucceded, loadHomeInfoFailed, resetHomeInfo } = guildHomeSlice.actions;
 
 export const guildHomeReducer = guildHomeSlice.reducer;
