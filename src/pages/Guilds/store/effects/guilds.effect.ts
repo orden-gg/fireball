@@ -97,6 +97,7 @@ export const onCreateGuild =
             vertical: 'top'
           };
 
+          dispatch(guildsSlices.setIsGuildCreationSucceeded(true));
           dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
         } else {
           snackbarData = {
@@ -115,6 +116,7 @@ export const onCreateGuild =
           vertical: 'top'
         };
 
+        dispatch(guildsSlices.setIsGuildCreationSucceeded(false));
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
       })
       .finally(() => {

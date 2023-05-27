@@ -16,6 +16,7 @@ export interface GuildsState {
     isError: boolean;
   };
   isContractRequestInProgress: boolean;
+  isGuildCreationSucceeded: boolean;
   guildsStats: Record<string, GeneralGuildStats>;
 }
 
@@ -33,6 +34,7 @@ const initialState: GuildsState = {
     isError: false
   },
   isContractRequestInProgress: false,
+  isGuildCreationSucceeded: false,
   guildsStats: {}
 };
 
@@ -103,6 +105,9 @@ export const guildsSlice = createSlice({
     },
     setIsContractRequestInProgress: (state, action: PayloadAction<boolean>): void => {
       state.isContractRequestInProgress = action.payload;
+    },
+    setIsGuildCreationSucceeded: (state, action: PayloadAction<boolean>): void => {
+      state.isGuildCreationSucceeded = action.payload;
     }
   }
 });
@@ -117,7 +122,8 @@ export const {
   loadCurrentGuildByIdFailed,
   setCurrentGuild,
   addGuildMember,
-  setIsContractRequestInProgress
+  setIsContractRequestInProgress,
+  setIsGuildCreationSucceeded
 } = guildsSlice.actions;
 
 export const guildsReducer = guildsSlice.reducer;

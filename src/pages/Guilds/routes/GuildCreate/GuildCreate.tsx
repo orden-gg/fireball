@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useMetamask } from 'use-metamask';
@@ -20,6 +21,13 @@ export function GuildCreate() {
 
   const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const isContractRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsContractRequestInProgress);
+  const isGuildCreationSucceeded: boolean = useAppSelector(fromGuildsStore.getIsGuildCreationSucceeded);
+
+  useEffect(() => {
+    if (isGuildCreationSucceeded) {
+      navigate(-1);
+    }
+  }, [isGuildCreationSucceeded]);
 
   const onHandleBackTo = (): void => {
     navigate(-1);

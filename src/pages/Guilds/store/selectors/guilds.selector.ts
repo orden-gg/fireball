@@ -106,3 +106,8 @@ export const getIsContractRequestInProgress = createSelector(
   guildsStateSelector,
   (state: GuildsState) => state.isContractRequestInProgress
 );
+
+export const getIsGuildCreationSucceeded = createSelector(
+  guildsStateSelector,
+  (state: GuildsState) => state.isGuildCreationSucceeded
+);
