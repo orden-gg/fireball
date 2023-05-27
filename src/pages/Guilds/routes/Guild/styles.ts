@@ -66,6 +66,7 @@ export const guildStyles = makeStyles((theme) =>
     },
     guildEdit: {
       position: 'absolute',
+      right: theme.spacing(1),
       bottom: theme.spacing(1),
       zIndex: 1
     },

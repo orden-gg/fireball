@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Button, IconButton, Tooltip, useTheme } from '@mui/material';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
@@ -23,7 +23,6 @@ import { guildStyles } from './styles';
 // import { GuildsRealm } from './components/GuildsRealm';
 
 export function Guild() {
-  const theme = useTheme();
   const classes = guildStyles();
 
   const params = useParams<{ id: string }>();
@@ -44,10 +43,6 @@ export function Guild() {
       dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
     }
   }, []);
-
-  const onRedirectToEditGuild = (): void => {
-    navigate('edit');
-  };
 
   const handleJoinGuild = (guildSafeAddress: string): void => {
     dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress, connectedWallet!));
@@ -72,6 +67,12 @@ export function Guild() {
                 <ArrowBackIcon />
               </IconButton>
             </Tooltip>
+
+            {isGuildOwner && (
+              <Button className={classes.guildEdit} variant='contained' size='large' disabled={true}>
+                Edit Guild
+              </Button>
+            )}
           </div>
 
           <Box className={classes.guildContent}>
@@ -91,19 +92,6 @@ export function Guild() {
               <Route path='*' element={<Navigate to='home' replace />} />
             </Routes>
 
-            {isGuildOwner && (
-              <Button
-                className={classes.guildEdit}
-                variant='contained'
-                size='large'
-                style={{
-                  right: canJoinGuild ? theme.spacing(18.5) : theme.spacing(1)
-                }}
-                onClick={() => onRedirectToEditGuild()}
-              >
-                Edit Guild
-              </Button>
-            )}
             {canJoinGuild && (
               <Button
                 className={classes.guildJoin}
