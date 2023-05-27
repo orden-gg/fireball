@@ -3,7 +3,8 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const guildHomeStyles = makeStyles((theme) =>
   createStyles({
     guildInfoWrapper: {
-      height: '100%'
+      height: '100%',
+      padding: '8px 16px'
     },
     guildInfoList: {
       listStyle: 'none',
