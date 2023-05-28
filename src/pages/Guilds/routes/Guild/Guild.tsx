@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { LoadingButton } from '@mui/lab';
 import { Button, IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 
@@ -81,6 +82,20 @@ export function Guild() {
               </IconButton>
             </Tooltip>
 
+            {canJoinGuild && (
+              <LoadingButton
+                className={classes.guildJoin}
+                variant='contained'
+                size='large'
+                loading={isContractRequestInProgress}
+                loadingPosition='center'
+                disabled={isContractRequestInProgress}
+                onClick={() => handleJoinGuild(currentGuild.id)}
+              >
+                Join Guild
+              </LoadingButton>
+            )}
+
             {isGuildOwner && (
               <Button className={classes.guildEdit} variant='contained' size='large' disabled={true}>
                 Edit Guild
@@ -99,18 +114,6 @@ export function Guild() {
           <Route path='realm' element={<GuildsRealm />} /> */}
               <Route path='*' element={<Navigate to='home' replace />} />
             </Routes>
-
-            {canJoinGuild && (
-              <Button
-                className={classes.guildJoin}
-                variant='contained'
-                size='large'
-                disabled={isContractRequestInProgress}
-                onClick={() => handleJoinGuild(currentGuild.id)}
-              >
-                Join Guild
-              </Button>
-            )}
           </Box>
         </Box>
       ) : (

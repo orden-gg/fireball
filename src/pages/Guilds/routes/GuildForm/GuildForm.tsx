@@ -1,3 +1,4 @@
+import { LoadingButton } from '@mui/lab';
 import { Button } from '@mui/material';
 
 import { Field, Form, Formik } from 'formik';
@@ -62,15 +63,17 @@ export function GuildForm({
                 >
                   {secondaryButtonText}
                 </Button>
-                <Button
+                <LoadingButton
                   type='submit'
                   size='large'
                   variant='contained'
+                  loading={isRequestInProgress}
+                  loadingPosition='center'
                   className={classes.formSubmitButton}
                   disabled={!isValid || isRequestInProgress}
                 >
                   {primaryButtonText}
-                </Button>
+                </LoadingButton>
               </div>
             </Form>
           </div>
