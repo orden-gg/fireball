@@ -39,8 +39,6 @@ export const onLoadOwnedGotchis =
 
         dispatch(warehouseSlices.setWarehouseItems(sortedWarehouseItems));
 
-        // console.log(ownedGotchis);
-
         const sortedOwnedGotchis: OwnedGotchi[] = CommonUtils.basicSort(ownedGotchis, gotchisSortType, gotchisSortDir);
         const gotchiIds: number[] = sortedOwnedGotchis.map((gotchi: OwnedGotchi) => Number(gotchi.id));
 

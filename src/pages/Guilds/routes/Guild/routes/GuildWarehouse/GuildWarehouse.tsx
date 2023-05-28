@@ -46,7 +46,6 @@ export function GuildWarehouse() {
   const warehouse: Warehouse[] = useAppSelector(fromGuildsStore.getWarehouse);
   const isInitialWarehouseLoading: boolean = useAppSelector(fromGuildsStore.getIsInitialWarehouseLoading);
   const defaultSorting: SortingItem = useAppSelector(fromGuildsStore.getWarehouseSorting);
-  const isInitialOwnedGotchisLoading: boolean = useAppSelector(fromGuildsStore.getIsInitialOwnedGotchisLoading);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;
@@ -99,7 +98,7 @@ export function GuildWarehouse() {
         placeholder={<WarehouseIcon width={20} height={20} />}
       />
 
-      <ContentInner dataLoading={isInitialWarehouseLoading || isInitialOwnedGotchisLoading}>
+      <ContentInner dataLoading={isInitialWarehouseLoading}>
         <ItemsLazy
           items={warehouse}
           component={(wearable: Warehouse) => (

@@ -93,12 +93,7 @@ export function Guild() {
 
             <Routes>
               <Route path={GuildRouteNames.Home} element={<GuildHome />} />
-              <Route path='gotchis/*'>
-                <Route path={GuildRouteNames.Owned} element={<GuildGotchis type={GuildRouteNames.Owned} />} />
-                <Route path={GuildRouteNames.Borrowed} element={<GuildGotchis type={GuildRouteNames.Borrowed} />} />
-                <Route path={GuildRouteNames.Lended} element={<GuildGotchis type={GuildRouteNames.Lended} />} />
-                <Route path='*' element={<Navigate to={GuildRouteNames.Owned} replace />} />
-              </Route>
+              <Route path={GuildRouteNames.Gotchis} element={<GuildGotchis />} />
               <Route path={GuildRouteNames.Warehouse} element={<GuildWarehouse />} />
               {/* <Route path='lendings' element={<GuildLendings />} />
           <Route path='realm' element={<GuildsRealm />} /> */}

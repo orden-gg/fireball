@@ -2,76 +2,66 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { SortingItem } from 'shared/models';
 
-import { GuildGotchiExtended } from 'pages/Guilds/models';
+import { GuildGotchi } from 'pages/Guilds/models';
 
-export interface OwnedGotchisState {
-  ownedGotchis: {
-    data: GuildGotchiExtended[];
+export interface GuildGotchisState {
+  guildGotchis: {
+    data: GuildGotchi[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
   };
-  isInitialOwnedGotchisLoading: boolean;
-  ownedGotchisSorting: SortingItem;
+  guildGotchisSorting: SortingItem;
 }
 
-const initialState: OwnedGotchisState = {
-  ownedGotchis: {
+const initialState: GuildGotchisState = {
+  guildGotchis: {
     data: [],
     isLoading: false,
     isLoaded: false,
     isError: false
   },
-  isInitialOwnedGotchisLoading: true,
-  ownedGotchisSorting: {
+  guildGotchisSorting: {
     type: 'modifiedRarityScore',
     dir: 'desc'
   }
 };
 
-export const ownedGotchisSlice = createSlice({
-  name: 'ownedGotchis',
+export const guildGotchisSlice = createSlice({
+  name: 'guildGotchis',
   initialState,
   reducers: {
-    loadOwnedGotchis: (state): void => {
-      state.ownedGotchis = {
-        ...state.ownedGotchis,
+    loadGuildGotchis: (state): void => {
+      state.guildGotchis = {
+        ...state.guildGotchis,
         isLoading: true,
         isLoaded: false,
         isError: false
       };
     },
-    loadOwnedGotchisSucceded: (state, action: PayloadAction<GuildGotchiExtended[]>): void => {
-      state.ownedGotchis = {
+    loadGuildGotchisSucceded: (state, action: PayloadAction<GuildGotchi[]>): void => {
+      state.guildGotchis = {
         data: action.payload,
         isLoading: false,
         isLoaded: true,
         isError: false
       };
     },
-    loadOwnedGotchisFailed: (state): void => {
-      state.ownedGotchis = {
-        ...state.ownedGotchis,
+    loadGuildGotchisFailed: (state): void => {
+      state.guildGotchis = {
+        ...state.guildGotchis,
         isLoading: false,
         isLoaded: true,
         isError: true
       };
     },
-    setIsInitialOwnedGotchisLoading: (state, action: PayloadAction<boolean>): void => {
-      state.isInitialOwnedGotchisLoading = action.payload;
-    },
-    setOwnedGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
-      state.ownedGotchisSorting = action.payload;
+    setGuildGotchisSorting: (state, action: PayloadAction<SortingItem>): void => {
+      state.guildGotchisSorting = action.payload;
     }
   }
 });
 
-export const {
-  loadOwnedGotchis,
-  loadOwnedGotchisSucceded,
-  loadOwnedGotchisFailed,
-  setIsInitialOwnedGotchisLoading,
-  setOwnedGotchisSorting
-} = ownedGotchisSlice.actions;
+export const { loadGuildGotchis, loadGuildGotchisSucceded, loadGuildGotchisFailed, setGuildGotchisSorting } =
+  guildGotchisSlice.actions;
 
-export const ownedGotchisReducer = ownedGotchisSlice.reducer;
+export const guildGotchisReducer = guildGotchisSlice.reducer;

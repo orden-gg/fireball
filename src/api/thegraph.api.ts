@@ -242,7 +242,7 @@ export class TheGraphApi {
 
   public static async getGotchisByAddress(address: string): Promise<CustomAny> {
     const getQueries = () => {
-      const queries: CustomAny = [];
+      const queries: string[] = [];
 
       for (let i = 0; i < 5; i++) {
         queries.push(userQuery(address.toLowerCase(), i * 1000));

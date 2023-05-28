@@ -2,35 +2,33 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from 'core/store/store';
 
-import { OwnedGotchisState } from '../slices/guild-gotchis.slice';
+import { SortingItem } from 'shared/models';
 
-const ownedGotchisStateSelector = createSelector(
-  (state: RootState) => state.guilds.ownedGotchis,
-  (ownedGotchisState: OwnedGotchisState) => ownedGotchisState
+import { GuildGotchi } from 'pages/Guilds/models';
+
+import { GuildGotchisState } from '../slices/guild-gotchis.slice';
+
+const guildGotchisStateSelector = createSelector(
+  (state: RootState) => state.guilds.guildGotchis,
+  (ownedGotchisState: GuildGotchisState) => ownedGotchisState
 );
 
-export const getOwnedGotchis = createSelector(
-  ownedGotchisStateSelector,
-  (state: OwnedGotchisState) => state.ownedGotchis.data
+export const getGuildGotchis = createSelector(
+  guildGotchisStateSelector,
+  (state: GuildGotchisState): GuildGotchi[] => state.guildGotchis.data
 );
 
-export const getOwnedGotchisCount = createSelector(
-  ownedGotchisStateSelector,
-  (state: OwnedGotchisState) => state.ownedGotchis.data.length
+export const getGuildGotchisCount = createSelector(
+  guildGotchisStateSelector,
+  (state: GuildGotchisState): number => state.guildGotchis.data.length
 );
 
-export const getIsInitialOwnedGotchisLoading = createSelector(
-  ownedGotchisStateSelector,
-  (state: OwnedGotchisState) => state.isInitialOwnedGotchisLoading
+export const getGuildGotchisSorting = createSelector(
+  guildGotchisStateSelector,
+  (state: GuildGotchisState): SortingItem => state.guildGotchisSorting
 );
 
-export const getOwnedGotchisSorting = createSelector(
-  ownedGotchisStateSelector,
-  (state: OwnedGotchisState) => state.ownedGotchisSorting
+export const getIsGuildGotchisLoaded = createSelector(
+  guildGotchisStateSelector,
+  (state: GuildGotchisState): boolean => state.guildGotchis.isLoaded
 );
-
-export const getIsOwnedGotchisLoaded = createSelector(ownedGotchisStateSelector, (state: OwnedGotchisState) => {
-  const isLoaded: boolean = state.ownedGotchis.isLoaded;
-
-  return isLoaded;
-});

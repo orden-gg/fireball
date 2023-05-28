@@ -3,13 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import qs from 'query-string';
 
-import { useAppDispatch } from 'core/store/hooks';
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
-import { CustomParsedQuery } from 'shared/models';
+import { CustomParsedQuery, SortingItem } from 'shared/models';
 
-import { GuildRouteNames, gotchisQueryParams } from 'pages/Guilds/constants';
+import { gotchisQueryParams } from 'pages/Guilds/constants';
 import { gotchiSorting, initialFilters } from 'pages/Guilds/data';
+import { GuildGotchi } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { Gotchi } from 'components/Gotchi/Gotchi';
@@ -19,19 +20,21 @@ import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
 import { FilterUtils } from 'utils';
 
-import { useGotchis } from '../../../../hooks/useGuildGotchis';
 import { guildContentStyles } from './styles';
 
-export function GuildGotchis({ type }: { type: GuildRouteNames }) {
+export function GuildGotchis() {
   const classes = guildContentStyles();
 
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = qs.parse(location.search, { arrayFormat: 'comma' });
 
-  const { gotchis, isGotchisLoaded, defaultSorting }: CustomAny = useGotchis(type);
-
   const dispatch = useAppDispatch();
+
+  const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
+  const guildGotchis: GuildGotchi[] = useAppSelector(fromGuildsStore.getGuildGotchis);
+  const isGuildGotchisLoaded: boolean = useAppSelector(fromGuildsStore.getIsGuildGotchisLoaded);
+  const guildGotchisDefaultSorting: SortingItem = useAppSelector(fromGuildsStore.getGuildGotchisSorting);
 
   const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
   const [modifiedGotchis, setModifiedGotchis] = useState<CustomAny[]>([]);
@@ -56,6 +59,12 @@ export function GuildGotchis({ type }: { type: GuildRouteNames }) {
   }, []);
 
   useEffect(() => {
+    if (guildMembers.length > 0) {
+      dispatch(fromGuildsStore.onLoadGuildGotchis(guildMembers));
+    }
+  }, [guildMembers]);
+
+  useEffect(() => {
     FilterUtils.onFiltersUpdate(
       currentFilters,
       FilterUtils.getActiveFiltersCount,
@@ -65,29 +74,31 @@ export function GuildGotchis({ type }: { type: GuildRouteNames }) {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: CustomAny = gotchiSorting.find((sorting) => sorting.key === defaultSorting.type)?.paramKey;
+    const paramKey: CustomAny = gotchiSorting.find(
+      (sorting) => sorting.key === guildGotchisDefaultSorting.type
+    )?.paramKey;
 
-    updateSortQueryParams(paramKey, defaultSorting.dir);
-  }, [defaultSorting]);
+    updateSortQueryParams(paramKey, guildGotchisDefaultSorting.dir);
+  }, [guildGotchisDefaultSorting]);
 
   useEffect(() => {
     const modifiedGotchis = FilterUtils.getFilteredSortedItems({
-      items: gotchis,
+      items: guildGotchis,
       filters: currentFilters,
-      sorting: defaultSorting,
+      sorting: guildGotchisDefaultSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
 
     setModifiedGotchis(modifiedGotchis);
-  }, [currentFilters, gotchis, defaultSorting]);
+  }, [currentFilters, guildGotchis, guildGotchisDefaultSorting]);
 
   const onSortingChange = (type: string, dir: string): void => {
-    dispatch(fromGuildsStore.setOwnedGotchisSorting({ type, dir }));
+    dispatch(fromGuildsStore.setGuildGotchisSorting({ type, dir }));
   };
 
   const sorting: CustomAny = {
     sortingList: gotchiSorting,
-    sortingDefaults: defaultSorting,
+    sortingDefaults: guildGotchisDefaultSorting,
     onSortingChange: onSortingChange
   };
 
@@ -118,7 +129,7 @@ export function GuildGotchis({ type }: { type: GuildRouteNames }) {
   }, [currentFilters]);
 
   const onExportData = useCallback(() => {
-    FilterUtils.exportData(modifiedGotchis, 'client_gotchis');
+    FilterUtils.exportData(modifiedGotchis, 'guild_gotchis');
   }, [modifiedGotchis]);
 
   return (
@@ -134,7 +145,7 @@ export function GuildGotchis({ type }: { type: GuildRouteNames }) {
         exportData={onExportData}
         filtersCount={activeFiltersCount}
       />
-      <ContentInner dataLoading={!isGotchisLoaded}>
+      <ContentInner dataLoading={!isGuildGotchisLoaded}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (
@@ -149,8 +160,7 @@ export function GuildGotchis({ type }: { type: GuildRouteNames }) {
                     {
                       className: 'rsContainer',
                       items: ['rs', 'skillpoints']
-                    },
-                    'identity'
+                    }
                   ]
                 },
                 'name'

@@ -96,9 +96,9 @@ export const gotchiByIdBatchQuery = (id: number): string => {
   `;
 };
 
-export const userQuery = (id: CustomAny, skip: CustomAny): string => {
+export const userQuery = (address: string, skip: number): string => {
   return `{
-    user(id: "${id}") {
+    user(id: "${address}") {
       id
       gotchisOriginalOwned(
         first: 1000
