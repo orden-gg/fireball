@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -14,8 +14,9 @@ import { GuildRouteNames } from 'pages/Guilds/constants';
 import { Guild as GuildModel } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
+import { CustomModal } from 'components/CustomModal/CustomModal';
 
-import { GuildBanner, GuildDetails, GuildNav } from './components';
+import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal } from './components';
 import { GuildGotchis, GuildHome, GuildWarehouse } from './routes';
 import { guildStyles } from './styles';
 
@@ -40,6 +41,8 @@ export function Guild() {
   const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
   const canJoinGuild: boolean = useAppSelector(fromGuildsStore.getCanJoinGuild);
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   useEffect(() => {
     if (!isCurrentGuildLoaded) {
       dispatch(fromGuildsStore.onLoadCurrentGuildById(params.id!));
@@ -58,8 +61,13 @@ export function Guild() {
     };
   }, []);
 
-  const handleJoinGuild = (guildSafeAddress: string): void => {
-    dispatch(fromGuildsStore.onJoinGuild(guildSafeAddress, connectedWallet!));
+  const onHandleJoinGuild = (): void => {
+    onHandleCloseModal();
+    dispatch(fromGuildsStore.onJoinGuild(currentGuild?.id!, connectedWallet!));
+  };
+
+  const onHandleCloseModal = (): void => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -83,17 +91,23 @@ export function Guild() {
             </Tooltip>
 
             {canJoinGuild && (
-              <LoadingButton
-                className={classes.guildJoin}
-                variant='contained'
-                size='large'
-                loading={isContractRequestInProgress}
-                loadingPosition='center'
-                disabled={isContractRequestInProgress}
-                onClick={() => handleJoinGuild(currentGuild.id)}
-              >
-                Join Guild
-              </LoadingButton>
+              <>
+                <LoadingButton
+                  className={classes.guildJoin}
+                  variant='contained'
+                  size='large'
+                  loading={isContractRequestInProgress}
+                  loadingPosition='center'
+                  disabled={isContractRequestInProgress}
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Join Guild
+                </LoadingButton>
+
+                <CustomModal modalOpen={isModalOpen} setModalOpen={setIsModalOpen}>
+                  <JoinGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleJoinGuild} />
+                </CustomModal>
+              </>
             )}
 
             {isGuildOwner && (
