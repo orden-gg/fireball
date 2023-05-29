@@ -6,8 +6,9 @@ import { TheGraphResponse } from 'shared/models';
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
+import { GuildPortal } from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
-import { borrowedByAddressQuery, guildGotchisQuery, lentByAddressQuery } from '../queries';
+import { guildGotchisQuery, portalsByAddressesQuery } from '../queries';
 import {
   guildByIdQuery,
   guildPlayersStatsQuery,
@@ -54,37 +55,9 @@ export class GuildGraphApi {
     });
   }
 
-  public static getMemberLentGotchis(address: string): Promise<CustomAny> {
-    return TheGraphCoreApi.getJoinedGraphData(
-      GRAPH_CORE_API,
-      GraphUtils.getQueriesByAddress(lentByAddressQuery, address.toLocaleLowerCase())
-    ).then((responses: CustomAny) => {
-      if (!responses[0].data.aavegotchis) {
-        return [];
-      }
-
-      return GraphUtils.flatGraphItems(responses, ['gotchiLendings']).map((item: CustomAny) => ({
-        ...item,
-        ...item.gotchi,
-        lendingId: item.id
-      }));
-    });
-  }
-
-  public static async getMemberBorrowedGotchis(address: string): Promise<CustomAny> {
-    return TheGraphCoreApi.getJoinedGraphData(
-      GRAPH_CORE_API,
-      GraphUtils.getQueriesByAddress(borrowedByAddressQuery, address.toLocaleLowerCase())
-    ).then((responses: CustomAny) => {
-      if (!responses[0].data.aavegotchis) {
-        return [];
-      }
-
-      return GraphUtils.flatGraphItems(responses, ['gotchiLendings']).map((item: CustomAny) => ({
-        ...item,
-        ...item.gotchi,
-        lendingId: item.id
-      }));
-    });
+  public static getPlayersPortals(first: number, skip: number, playersAddresses: string[]): Promise<GuildPortal[]> {
+    return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, portalsByAddressesQuery(first, skip, playersAddresses)).then(
+      (res: TheGraphResponse<{ portals: GuildPortal[] }>) => res.data.portals
+    );
   }
 }

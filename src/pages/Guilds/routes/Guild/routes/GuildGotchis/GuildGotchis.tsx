@@ -33,7 +33,7 @@ export function GuildGotchis() {
 
   const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
   const guildGotchis: GuildGotchi[] = useAppSelector(fromGuildsStore.getGuildGotchis);
-  const isGuildGotchisLoaded: boolean = useAppSelector(fromGuildsStore.getIsGuildGotchisLoaded);
+  const isGuildGotchisLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildGotchisLoading);
   const guildGotchisDefaultSorting: SortingItem = useAppSelector(fromGuildsStore.getGuildGotchisSorting);
 
   const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
@@ -145,7 +145,7 @@ export function GuildGotchis() {
         exportData={onExportData}
         filtersCount={activeFiltersCount}
       />
-      <ContentInner dataLoading={!isGuildGotchisLoaded}>
+      <ContentInner dataLoading={isGuildGotchisLoading}>
         <GotchisLazy
           items={modifiedGotchis}
           renderItem={(id) => (

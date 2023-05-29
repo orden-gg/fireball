@@ -71,8 +71,8 @@ export class GraphUtils {
     return `{${queries.join(',')}}`;
   }
 
-  public static getQueriesByAddress(query, address) {
-    const queries: CustomAny[] = [];
+  public static getQueriesByAddress(query: (address: string, skip: number) => string, address: string): string[] {
+    const queries: string[] = [];
 
     for (let i = 0; i < 6; i++) {
       queries.push(query(address.toLowerCase(), i * 1000));

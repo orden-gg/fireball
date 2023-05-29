@@ -10,7 +10,7 @@ import { GuildGotchisState } from '../slices/guild-gotchis.slice';
 
 const guildGotchisStateSelector = createSelector(
   (state: RootState) => state.guilds.guildGotchis,
-  (ownedGotchisState: GuildGotchisState) => ownedGotchisState
+  (guildGotchisState: GuildGotchisState) => guildGotchisState
 );
 
 export const getGuildGotchis = createSelector(
@@ -28,7 +28,7 @@ export const getGuildGotchisSorting = createSelector(
   (state: GuildGotchisState): SortingItem => state.guildGotchisSorting
 );
 
-export const getIsGuildGotchisLoaded = createSelector(
+export const getIsGuildGotchisLoading = createSelector(
   guildGotchisStateSelector,
-  (state: GuildGotchisState): boolean => state.guildGotchis.isLoaded
+  (state: GuildGotchisState): boolean => state.guildGotchis.isLoading
 );

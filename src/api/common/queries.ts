@@ -752,13 +752,13 @@ export const parcelsOwnerGotchiverseQuery = (owner: CustomAny): string => {
 
 export const portalsQueryByAddress = (owner: string): string => {
   return `{
-        portals(
-            where: { owner: "${owner}" }
-        ) {
-          openedAt
-          hauntId
-          historicalPrices
-          id
-        }
-      }`;
+    portals(
+        where: { owner: "${owner}" }
+    ) {
+      openedAt
+      hauntId
+      historicalPrices
+      id
+    }
+  }`;
 };

@@ -10,3 +10,4 @@ export const GRAPH_FIREBALL_MAIN_API: string = 'https://api.thegraph.com/subgrap
 export const GRAPH_FIREBALL_API: string = 'https://api.thegraph.com/subgraphs/name/orden-gg/gotchiverse';
 
 export const MAX_BATCH_QUERIES = 350;
+export const MAX_ITEMS_PER_QUERY = 350;

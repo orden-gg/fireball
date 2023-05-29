@@ -9,12 +9,12 @@ import { GuildGotchi } from 'pages/Guilds/models';
 import { CommonUtils } from 'utils';
 
 // slices
-import * as ownedGotchisSlices from '../slices/guild-gotchis.slice';
+import * as guildGotchisSlices from '../slices/guild-gotchis.slice';
 
 export const onLoadGuildGotchis =
   (addresses: string[]): AppThunk =>
   async (dispatch, getState) => {
-    dispatch(ownedGotchisSlices.loadGuildGotchis());
+    dispatch(guildGotchisSlices.loadGuildGotchis());
 
     const { type: gotchisSortType, dir: gotchisSortDir }: SortingItem =
       getState().client.ownedGotchis.ownedGotchisSorting;
@@ -31,9 +31,9 @@ export const onLoadGuildGotchis =
         );
         const sortedGuildGotchis: GuildGotchi[] = CommonUtils.basicSort(unitedGotchis, gotchisSortType, gotchisSortDir);
 
-        dispatch(ownedGotchisSlices.loadGuildGotchisSucceded(sortedGuildGotchis));
+        dispatch(guildGotchisSlices.loadGuildGotchisSucceded(sortedGuildGotchis));
       })
       .catch(() => {
-        dispatch(ownedGotchisSlices.loadGuildGotchisFailed());
+        dispatch(guildGotchisSlices.loadGuildGotchisFailed());
       });
   };
